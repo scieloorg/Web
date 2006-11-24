@@ -1,0 +1,411 @@
+<script language="javascript">
+
+function PutFileLocation()
+{
+	
+	var target = document.mainform.file_location;
+	var logic  = document.mainform.file_args[0].value;
+	var path   = document.mainform.file_args[1].value;
+	var name   = document.mainform.file_args[2].value;
+	
+	target.value += "FILE " + logic + "=" + path + name + "\n";
+	LimpaCampos(document.mainform.file_args);
+}
+
+function LimpaCampos(target){
+	for(i = 0 ; i < target.length ; i++){
+		target[i].value = "";
+		target[i].checked = false;
+	}		
+}
+
+
+function PutGizmo()
+{
+	var target = document.mainform.apply_gizmo;
+	var nome   = document.mainform.gizmo_args[0].value;
+	var campo  = document.mainform.gizmo_args[1].value;
+
+	target.value += "GIZMO=" + nome;
+	if (campo.length != 0){
+		target.value += "," + campo;
+	}
+	target.value += "\n";
+	LimpaCampos(document.mainform.gizmo_args)
+
+}
+
+
+function PutHelp()
+{
+	var target = document.mainform.help_form;
+	var tipo   = document.mainform.help_tipo[document.mainform.help_tipo.selectedIndex].value;
+ 	var resource= document.mainform.help_resource[document.mainform.help_resource.selectedIndex].value;
+	var id 	   = document.mainform.help_id.value;
+	var html   = document.mainform.help_html.value;
+
+	target.value += tipo + " " + resource;
+	if (id.length > 0){
+		target.value += " " + id;
+	}
+	target.value += "=" + html + "\n";
+}
+
+function PutFormat()
+{
+	var target = document.mainform.format_name;
+	var nome   = document.mainform.format_args[0].value;
+ 	var cpo_p  = document.mainform.format_args[1].value;
+	var cpo_e  = document.mainform.format_args[2].value;
+	var cpo_i  = document.mainform.format_args[3].value;
+
+	target.value += "FORMAT " + nome + "=" + "^p" + cpo_p + "^e" + cpo_e + "^i" + cpo_i + "\n";
+	LimpaCampos(document.mainform.format_args);
+	
+}
+
+function PutIndexDefinition()
+{
+	var target = document.mainform.index_definition;
+	var cpo_x  = document.mainform.index_args[0].value;
+	var cpo_p  = document.mainform.index_args[1].value;
+	var cpo_e  = document.mainform.index_args[2].value;
+	var cpo_i  = document.mainform.index_args[3].value;
+	var cpo_s  = document.mainform.index_args[4].value;
+	var other  = document.mainform.index_args[5].value;
+	var cpo_d  = document.mainform.index_args[6];
+	var cpo_t  = document.mainform.index_args[7];	
+	var cpo_f  = document.mainform.index_args[8];
+		
+	target.value += "INDEX " + cpo_x + "=" + "^p" + cpo_p + "^e" + cpo_e + "^i" + cpo_i; 
+	if (cpo_s.length > 0){
+		target.value += "^s" + cpo_s;
+	}
+	if (other.length > 0){
+		target.value += other;
+	}	
+	if (cpo_d.checked){
+		target.value += "^d*";
+	}
+	if (cpo_t.checked){
+		target.value += "^tshort";
+	}
+	if (cpo_f.checked){
+		target.value += "^fA";
+	}	
+	target.value += "\n";
+	LimpaCampos(document.mainform.index_args);
+
+}
+
+function PutVar(arg){	
+	if (arg == "cgi-bin"){	
+		document.mainform.file_args[1].value += "[pft]v7002[/pft]";
+	}		
+	
+	if (arg == "database"){	
+		document.mainform.file_args[1].value += "[pft]v7003[/pft]";
+	}	
+	
+	if (arg == "lang"){
+		document.mainform.file_args[1].value += "%lang%";
+	}		
+}
+function SendMail(){	
+
+	if (document.mainform.send_email[1].checked){
+		return false;
+	}	
+	var str_aux = "[pft],getenv('SCRIPT_NAME'),v7001,'?IsisScript=',v7099,'&lang=',v5021,'&systemOption=^wfile+edit&file=sendmail.conf',[/pft]";
+	janela = window.open(str_aux,"","width=540,height=285,resizable=yes,toolbar=no,location=no,menubar=no,scrollbars=no,status=no");
+	janela.focus();	
+	return true;
+}
+
+
+</script>
+
+<input type="hidden" name="nome_def" value="[pft]v9001[/pft]">
+<center>
+<table border="0" cellpadding="1" cellspacing="1" width="80%">
+<TR>
+<TD>
+
+<table border="0" width="100%" cellpadding="10">
+	<tr>
+		<TD>
+			<img src="[pft]v7001,v5021,'/image/'[/pft]seta.gif" align="texttop"> Database Configuration
+			<img src="[pft]v7001,v5021,'/image/'[/pft]seta.gif" align="texttop"> Edition of the file [pft]v7011,v9001,'.def'[/pft]
+		</TD>	
+	</tr>
+</table>	
+
+
+<table border="0" cellspacing="0" cellpadding="5" width="100%">		
+	<TR>
+		<TD align="left" bgcolor="#6291b0"><font color="white">[ FILE LOCATION ]</font></TD>
+		<TD align="right" bgcolor="#6291b0"><a href="javascript:OpenManual('fileloc')"><img src="[pft]v7001,v5021[/pft]/image/help.gif" border="0"></a></td>
+	</TR>
+</table>
+<table border="0" cellspacing="1" cellpadding="5" width="100%">
+	<TR bgcolor="#6291b0" >
+		<TD>logical name</TD>		
+		<TD>
+			full path &nbsp;&nbsp;			
+			<input type="button" value="B" title="path base de dados" onClick="javascript:PutVar('database')">
+			<input type="button" value="C" title="path cgi-bin" onClick="javascript:PutVar('cgi-bin')">
+			<input type="button" value="lang" title="idioma" onClick="javascript:PutVar('lang')">
+		</TD>
+		<TD>physical name</TD>			
+		<TD>&nbsp;</TD>
+	</TR>
+	<TR bgcolor="silver"> 
+		<TD class="campo">
+			<input type="text" name="file_args" size="13" value="[pft]if a(v8001) then 'DATABASE.*' fi[/pft]">
+		</TD>						
+		<TD class="campo">
+			<input type="text" name="file_args" size="40" value="[pft]if a(v8001) then v7003 fi[/pft]">
+		</TD>
+		<TD class="campo">
+			<input type="text" name="file_args" size="13">
+		</TD>
+		<TD>
+			<input type="button" value="add" onClick="javascript:PutFileLocation()">
+		</TD>						
+	</TR>	
+	<TR bgcolor="silver">
+		<TD colspan="4" class="campo">
+			<TEXTAREA cols="70" name="file_location" rows="7" wrap="off">[pft](v8001/)[/pft]</TEXTAREA>			
+		</TD>		
+	</TR>
+</table>
+<br>
+<table border="0" cellspacing="0" cellpadding="5" width="100%" >		
+	<TR>
+		<TD align="left" bgcolor="#6291b0"><font color="white">[ INDEX DEFINITION ] </font></TD>
+		<TD align="right" bgcolor="#6291b0"><a href="javascript:OpenManual('indexdef')"><img src="[pft]v7001,v5021[/pft]/image/help.gif" border="0"></a></td>
+	</TR>
+</table>
+
+<table border="0" cellspacing="1" cellpadding="5" width="100%">
+	<TR bgcolor="#6291b0">
+		<TD>identification</TD>
+		<TD>name(portuguese)</TD>		
+		<TD>name<br>(spanish)</TD>
+		<TD>name<br>(english)</TD>		
+		<TD>list of tags for search</TD>		
+		<TD>other parameters</TD>
+	</TR>
+	<TR bgcolor="silver">
+		<TD class="campo">			
+			<input name="index_args" size="4" maxlength="4">			
+		</TD>
+		<TD class="campo">			
+			<b>^p</b><input name="index_args" size="11">					
+		</TD>					
+		<TD class="campo">
+			<b>^e</b><input name="index_args" size="11">
+		</TD>						
+		<TD class="campo">
+			<b>^i</b><input name="index_args" size="11">
+		</TD>	
+		<TD class="campo">
+			<b>^s</b><input name="index_args" size="11">
+		</TD>	
+		<TD class="campo">
+			<input name="index_args" size="15">
+		</TD>
+	</TR>	
+	<TR bgcolor="silver">
+		<TD colspan="5">
+			<input type="checkbox" name="index_args"> default index &nbsp;&nbsp;
+			<input type="checkbox" name="index_args"> short index &nbsp;&nbsp;
+			<input type="checkbox" name="index_args"> advanced form
+		</TD>	
+		<TD>
+			<input type="button" value="add" onClick="javascript:PutIndexDefinition()">
+		</TD>	
+	</TR>						
+	<TR bgcolor="silver">
+		<TD colspan="6" class="campo">
+			<TEXTAREA cols="70" name="index_definition" rows="7" wrap="off">[pft](v8002/)[/pft]</TEXTAREA>
+		</TD>		
+	</TR>
+</table>
+<br>
+<table border="0" cellspacing="0" cellpadding="5" width="100%">
+	<TR>
+		<TD align="left" bgcolor="#6291b0"><font color="white">[ APPLY_GIZMO ] </font></TD>
+		<TD align="right" bgcolor="#6291b0"><a href="javascript:OpenManual('applygiz')"><img src="[pft]v7001,v5021[/pft]/image/help.gif" border="0"></a></td>
+	</TR>
+</table>
+	
+<table border="0" cellspacing="1" cellpadding="5" width="100%">
+	<TR bgcolor="#6291b0">
+		<TD width="25%">logical name of database</TD>
+		<TD width="35%">list of fields</TD>
+		<TD>&nbsp;</TD>
+	</TR>
+	<TR bgcolor="silver"> 
+		<TD class="campo">
+			<input type="text" name="gizmo_args" size="10">
+		</TD>
+		<TD class="campo">
+			<input type="text" name="gizmo_args" size="15">
+		</TD>					
+		<TD align="left">
+			<input type="button" value="add" onClick="javascript:PutGizmo()">
+		</TD>						
+	</TR>	
+	<TR bgcolor="silver">
+		<TD colspan="3" class="campo">
+			<TEXTAREA cols="33" name="apply_gizmo" rows="4">[pft](v8003/)[/pft]</TEXTAREA>
+		</TD>		
+	</TR>
+</table>
+<br>
+<table border="0" cellspacing="0" cellpadding="5" width="100%">
+	<TR>
+		<TD align="left" bgcolor="#6291b0"><font color="white">[ FORMAT_NAME ] </font></TD>
+		<TD align="right" bgcolor="#6291b0"><a href="javascript:OpenManual('formatnam')"><img src="[pft]v7001,v5021[/pft]/image/help.gif" border="0"></a></td>
+	</TR>
+</table>
+
+<table border="0" cellspacing="1" cellpadding="5" width="100%">
+	<TR bgcolor="#6291b0">
+		<TD>logical name of format</TD>
+		<TD>name(portuguese)</TD>		
+		<TD>name<br>(spanish)</TD>
+		<TD>name<br>(english)</TD>
+		<TD>&nbsp;</TD>
+	</TR>
+	<TR bgcolor="silver"> 
+		<TD class="campo">
+			<input type="text" name="format_args" size="13">
+		</TD>
+		<TD class="campo">
+			<b>^p</b><input type="text" name="format_args" size="13">
+		</TD>					
+		<TD class="campo">
+			<b>^e</b><input type="text" name="format_args" size="13">
+		</TD>					
+		<TD class="campo">
+			<b>^i</b><input type="text" name="format_args" size="13">
+		</TD>					
+		<TD align="right">
+			<input type="button" value="add" onClick="javascript:PutFormat()">
+		</TD>						
+	</TR>	
+	<TR bgcolor="silver">
+		<TD colspan="5" class="campo">
+			<TEXTAREA cols="60" name="format_name" rows="4" wrap="off">[pft](if left(v8004,instr(v8004,'=')-1) <> 'FORMAT DEFAULT' then v8004/ fi)[/pft]</TEXTAREA>
+		</TD>		
+	</TR>
+	<TR bgcolor="silver">
+		<TD>
+			FORMAT DEFAULT
+		</TD>		
+		<TD class="campo" colspan="4">
+			<input type="text" name="format_default" size="14" value="[pft](if left(v8004,instr(v8004,'=')-1) = 'FORMAT DEFAULT' then mid(v8004,instr(v8004,'=')+1,size(v8004)) fi)[/pft]">
+		</td>
+	</TR>
+
+</table>
+
+<br>
+<table border="0" cellspacing="0" cellpadding="5" width="100%">
+	<TR>
+		<TD align="left" bgcolor="#6291b0"><font color="white">[ HELP_FORM ] </font></TD>
+		<TD align="right" bgcolor="#6291b0"><a href="javascript:OpenManual('helpfor')"><img src="[pft]v7001,v5021[/pft]/image/help.gif" border="0"></a></td>
+	</TR>
+</table>
+
+<table border="0" cellspacing="2" cellpadding="5" width="100%">
+	<TR bgcolor="#6291b0">
+		<TD>type of help</TD>
+		<TD>resource</TD>
+		<TD>identification of <br>form/index</TD>		
+		<TD>html name</TD>		
+		<TD>&nbsp;</TD>
+	</TR>
+	<TR bgcolor="silver"> 
+		<TD>
+			<select name="help_tipo">
+				<option value="HELP">Page</option>
+				<option value="NOTE">Note</option>
+			</select>			
+		</TD>
+		<TD>
+			<select name="help_resource">
+				<option value="FORM">Form</option>
+				<option value="INDEX">Index</option>
+			</select>			
+		</TD>		
+		<TD>			
+			<input type="text" name="help_id" size="5">
+		</TD>					
+		<TD>
+			<input type="text" name="help_html" size="12">
+		</TD>					
+		<TD align="right">
+			<input type="button" value="add" onClick="javascript:PutHelp()">
+		</TD>						
+	</TR>	
+	<TR bgcolor="silver">
+		<TD colspan="5" class="campo">
+			<TEXTAREA cols="50" name="help_form" rows="4">[pft](v8005/)[/pft]</TEXTAREA>
+		</TD>		
+	</TR>
+</table>
+<br>
+<table border="0" cellspacing="0" cellpadding="5" width="100%">
+	<TR>
+		<TD align="left" bgcolor="#6291b0"><font color="white">[ PREFERENCES ] </font></TD>
+		<TD align="right" bgcolor="#6291b0"><a href="javascript:OpenManual('prefdef')"><img src="[pft]v7001,v5021[/pft]/image/help.gif" border="0"></a></td>
+	</TR>
+</table>
+<table border="0" cellspacing="1" cellpadding="5" width="100%">
+	<TR bgcolor="silver">
+		<TD width="30%">AVAILABLE FORMS</TD>
+		<TD width="70%" class="campo">
+			<input type="text" name="avaible_forms" size="10" value="[pft]if p(v8006) then v8006 else 'F,B,A' fi[/pft]">
+		</TD>		
+	</TR>
+	<TR bgcolor="silver">
+		<TD>SEND RESULT BY EMAIL</TD>		
+		<TD>
+			<input type="radio" name="send_email" value="ON"  [pft]if v8007 = 'ON'  then 'checked' fi[/pft]>On &nbsp;&nbsp;
+			<input type="radio" name="send_email" value="OFF" [pft]if v8007 = 'OFF' or a(v8007) then 'checked' fi[/pft]>Off&nbsp;&nbsp;			
+			<input type="button" value="Config" onClick="javascript:SendMail()">
+		</TD>					
+	</TR>
+	<TR bgcolor="silver">
+		<TD>NAVIGATION BAR</TD>
+		<TD>
+			<input type="radio" name="navigation_bar" value="ON"  [pft]if v8008 = 'ON' or a(v8008) then 'checked' fi[/pft]>On &nbsp;&nbsp;
+			<input type="radio" name="navigation_bar" value="OFF" [pft]if v8008 = 'OFF' then 'checked' fi[/pft]>Off
+		</TD>					
+	</TR>
+
+	<TR bgcolor="silver">
+		<TD>DOCUMENTS PER PAGE</TD>
+		<TD>
+			<input type="text" name="hits_page" value="[pft]if p(v8009) then v8009 else '10' fi[/pft]" size="3">
+		</TD>					
+	</TR>
+</table>
+<p>
+<table border="0" cellspacing="1" cellpadding="5" width="100%">
+	<TR>
+		<TD align="right" bgcolor="#6291B0">
+			<input type="button" onClick="javascript:void(submitForm('save database def'))" value="Save">
+			<input type="button" onClick="javascript:document.mainform.reset()" value="Restore Values">
+			<input type="button" onClick="javascript:void(submitForm('cancel'))" value="Cancel">
+		</TD>
+	</TR>
+</table>
+
+</TD>
+</TR>
+</table>
+</center>

@@ -1,0 +1,79 @@
+<IsisScript name="sci_alphabetic">
+
+	<!-- Inclui definicao de funcao que le parametros de configuracao contidos em arquivo -->
+	<!-- No caso do scielo, apenas os paths da base, do cgi e data importam -->
+	<!--include>ScieloXML/getdefine.xis</include>
+	<include>ScieloXML/GetPIDs.xis</include-->
+	<include>ScieloXML/sci_common.xis</include>
+
+	<section>
+
+	<field action="cgi" tag="3000">lng</field>
+	<field action="cgi" tag="3001">nrm</field>
+	<field action="cgi" tag="3002">pid</field>
+	<field action="cgi" tag="3003">sln</field>
+	<field action="cgi" tag="3010">debug</field>
+	<field action="cgi" tag="3011">def</field>
+	
+	<field action="replace" tag="3011"><pft>if a(v3011) then 'scielo.def' fi</pft></field>
+
+	<call name="DebugMode"><pft>if a(v3010) then 'OFF' else mpu,v3010,mpl fi</pft></call>
+
+	<include>ScieloXML/sci_cipar.xis</include>	
+	
+	<do task="keyrange">	
+		<parm name="db">TITLE</parm>
+		<parm name="from"><pft>'A=A'</pft></parm>
+		<parm name="to"><pft>'A=zzz'</pft></parm>
+        <parm name=posting>All</parm>
+
+        <field action="define" tag="1000">Isis_Posting</field>
+		
+		<display>
+			<pft>'<SERIALLIST>',/#</pft>
+		</display>	
+
+		<call name="CreateControlInfoXML"><pft>'^l',v3000,'^s',v3001,'^fsci_alphabetic'</pft></call>
+		
+		<call name="CreateScieloCopyInfoXML">Now</call>	
+		
+		<display><pft>' <LIST>',/#</pft></display>
+
+        <loop>
+			
+			<!-- ******************************************************************************
+			**     Quando estou no keyrange, nao tenho informacao de base e nem de campos.   ** 			
+			**     Assim, para obter o valor do ISSN da base title, devo fazer um ref-lookup ** 
+			**     A partir do ISSN de title, faco outro ref-lookup para obter o numero de   ** 
+			**  issues na base FACCOUNT. Armazeno o numero de issues em memoria (tag v4000)  **  
+			**     Finalmente, efetuo novo ref-lookup em TITLE para obter o titulo e subti-  **
+			**  tulo, desde que haja algum issue para este titulo.                           **
+			******************************************************************************* -->
+
+			<display><pft>
+				/* Obtem o issn da revista */
+				proc('d6000a6000~', ref(['TITLE']val(v1000^m),v400), '~'),
+				
+				/* Obtem o numero de issues da revista a partir do issn obtido */
+				proc('d6010a6010~', ref(['FACCOUNT']l(['FACCOUNT'], v6000), v999), '~'),
+				
+				if p(v6010) then
+					'  <SERIAL QTYISS="',	v6010, '">',/
+					'   <TITLE ISSN="', v6000, '">',/
+						ref(['TITLE']val(v1000^m),"    <![CDATA["v100," - "v110,"]]>"d100)/
+					'   </TITLE>',/
+					'  </SERIAL>',/#
+				fi
+			</pft></display>
+			
+		</loop>		
+		
+		<display><pft>
+			' </LIST>',/#
+			'</SERIALLIST>',/
+		</pft></display>
+	</do>
+
+	</section>
+	
+</IsisScript>

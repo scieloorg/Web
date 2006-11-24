@@ -1,0 +1,68 @@
+<!-- 
+PATH_DATABASE: tag 7011
+PATH_CGI-BIN:  tag 7013
+PATH_DATA:     tag 7014
+-->
+<field action="replace" tag="8034"><pft>getenv('PATH_TRANSLATED')</pft></field>
+<field action="replace" tag="8034">
+    <pft>
+        if right(v8034,1) <> '/' and right(v8034,1) <> '\' then,
+            if v8034 : '/' then,
+                v8034,'/',
+            else,
+                v8034,'\',
+            fi,
+        fi
+    </pft>
+</field>
+
+<call name="getDefine"><pft>v8034,v3011</pft></call>	
+<!--call name="getDefine"><pft>'C:\httpd\htdocs\ScieloXML\scielo.def'</pft></call-->
+
+<parm name="cipar">
+	<pft>
+		'TITLE.*=',     v7011, 'title/title.*',/
+		'SERAREA.*=',   v7011, 'title/serarea.*',/
+		'NEWISSUE.*=',  v7011, 'newissue/newissue.*',/
+		'ARTIGO.*=',    v7011, 'artigo/artigo.*',/
+		'FACCOUNT.*=',  v7011, 'issue/faccount.*',/
+		'NLINKS.*=',    v7011, 'medline/nlinks.*',/
+		'LATTES.*=',    v7011, 'lattes/lattes.*',/
+        'XPLODED.*=',   v7011, 'bib/xploded.*',/
+        'ANSIUC.TAB=', v7012, v7015, 'ansiuc.tab',/
+        'ANSIUC2.TAB=', v7012, v7015, 'ansiuc2.tab',/
+            'search.*=',v7011,'iah/library/search.*',/
+            'search.mst=',v7011,'artigo/artigo.mst',/
+            'search.xrf=',v7011,'artigo/artigo.xrf',/
+        'artigob1.*=', v7011, 'artigo/artigob1.*',/
+        'artigob2.*=', v7011, 'artigo/artigob2.*',/
+        'artigo_a.*=', v7011, 'artigo/artigo_a.*',/
+        'artigo_b.*=', v7011, 'artigo/artigo_b.*',/
+        'artigo_c.*=', v7011, 'artigo/artigo_c.*',/
+        'artigo_d.*=', v7011, 'artigo/artigo_d.*',/
+        'artigo_e.*=', v7011, 'artigo/artigo_e.*',/
+        'artigo_f.*=', v7011, 'artigo/artigo_f.*',/
+        'artigo_g.*=', v7011, 'artigo/artigo_g.*',/
+        'artigo_h.*=', v7011, 'artigo/artigo_h.*',/
+        'artigo_i.*=', v7011, 'artigo/artigo_i.*',/
+        'artigo_j.*=', v7011, 'artigo/artigo_j.*',/
+        'artigo_k.*=', v7011, 'artigo/artigo_k.*',/
+        'artigo_l.*=', v7011, 'artigo/artigo_l.*',/
+        'artigo_m.*=', v7011, 'artigo/artigo_m.*',/
+        'artigo_n.*=', v7011, 'artigo/artigo_n.*',/
+        'artigo_o.*=', v7011, 'artigo/artigo_o.*',/
+        'artigo_p.*=', v7011, 'artigo/artigo_p.*',/
+        'artigo_q.*=', v7011, 'artigo/artigo_q.*',/
+        'artigo_r.*=', v7011, 'artigo/artigo_r.*',/
+        'artigo_s.*=', v7011, 'artigo/artigo_s.*',/
+        'artigo_t.*=', v7011, 'artigo/artigo_t.*',/
+        'artigo_u.*=', v7011, 'artigo/artigo_u.*',/
+        'artigo_v.*=', v7011, 'artigo/artigo_v.*',/
+        'artigo_w.*=', v7011, 'artigo/artigo_w.*',/
+        'artigo_x.*=', v7011, 'artigo/artigo_x.*',/
+        'artigo_y.*=', v7011, 'artigo/artigo_y.*',/
+        'artigo_z.*=', v7011, 'artigo/artigo_z.*',/
+        'PROC_SPLIT_MST.PFT=', v8034, 'pfts/proc_split_mst.pft',/
+	</pft>
+</parm>
+

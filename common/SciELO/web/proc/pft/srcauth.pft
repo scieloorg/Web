@@ -1,0 +1,10 @@
+,if p(v1^s) then
+    ,v1^s,'|',v1^n,'|',v2^a,'|',replace(v2^a,' ','+'),'|',
+/*    ,'http://www.scielo.br/cgi-bin/',
+    ,'wxisn.exe/iah2.2/scielo/?IsisScript=iah2.2/iah.xis&nextAction=lnk',
+    ,'&base=scielo-art^dlibrary&lang=p&indexSearch=AU&exprSearch=',
+    ,'|', */
+    ,if p(v2^t) then ,v2^t, else ,if p(v2^q) then ,v2^q, else '*****', fi,fi,'|',v2^j,'|',|vol. |v2^v,
+    ,'|',|suppl. |v2^s,if p(v2^s) and p(v2^n) then ' ' fi,|n. |v2^n,
+    ,'|',v2^y,'|',v2^i,'|',v3,'|',v2^k/,
+,fi,
