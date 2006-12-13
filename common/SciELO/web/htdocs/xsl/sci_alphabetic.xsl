@@ -1,24 +1,22 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" >
 
-<xsl:include href="file:///scielo/web/htdocs/xsl/sci_navegation.xsl"/>
-<xsl:include href="file:///scielo/web/htdocs/xsl/sci_error.xsl" />
-<!--xsl:output method="html" encoding="iso-8859-1" /-->
-
-<xsl:variable name="forceType" select="//CONTROLINFO/ENABLE_FORCETYPE"/>
+<xsl:include href="file:///d:/sites/scielo/web/htdocs/xsl/sci_navegation.xsl"/>
+<xsl:include href="file:///d:/sites/scielo/web/htdocs/xsl/sci_error.xsl" />
+<xsl:output  method="html" omit-xml-declaration="yes" indent="no" doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
 <xsl:template match="/">
 	<html>
 	<head>
 		<title>
 			<xsl:choose>
-				<xsl:when test="/SERIALLIST/CONTROLINFO[normalize-space(LANGUAGE)='en']">
+				<xsl:when test="//SERIALLIST/CONTROLINFO[normalize-space(LANGUAGE)='en']">
 					Alphabetic list
 				</xsl:when>
-				<xsl:when test="/SERIALLIST/CONTROLINFO[normalize-space(LANGUAGE)='pt']">
+				<xsl:when test="//SERIALLIST/CONTROLINFO[normalize-space(LANGUAGE)='pt']">
 					Lista alfabética
 				</xsl:when>
-				<xsl:when test="/SERIALLIST/CONTROLINFO[normalize-space(LANGUAGE)='es']">
+				<xsl:when test="//SERIALLIST/CONTROLINFO[normalize-space(LANGUAGE)='es']">
 					Lista alfabética
 				</xsl:when>
 			</xsl:choose>	
@@ -40,13 +38,13 @@
 		<td width="74%">
 		<font class="nomodel" size="+1" color="#000080">
 		<xsl:choose>
-			<xsl:when test="/SERIALLIST/CONTROLINFO[normalize-space(LANGUAGE)='en']">
+			<xsl:when test="//SERIALLIST/CONTROLINFO[normalize-space(LANGUAGE)='en']">
 				Library Collection
 			</xsl:when>
-			<xsl:when test="/SERIALLIST/CONTROLINFO[normalize-space(LANGUAGE)='pt']">
+			<xsl:when test="//SERIALLIST/CONTROLINFO[normalize-space(LANGUAGE)='pt']">
 				Coleção da biblioteca
 			</xsl:when>
-			<xsl:when test="/SERIALLIST/CONTROLINFO[normalize-space(LANGUAGE)='es']">
+			<xsl:when test="//SERIALLIST/CONTROLINFO[normalize-space(LANGUAGE)='es']">
 				Colección de la biblioteca
 			</xsl:when>
 		</xsl:choose>
@@ -68,18 +66,20 @@
 		<p align="LEFT">
 		<font class="nomodel" color="#800000">
 		<xsl:choose>
-			<xsl:when test="/SERIALLIST/CONTROLINFO[normalize-space(LANGUAGE)='en']">
+			<xsl:when test="//SERIALLIST/CONTROLINFO[normalize-space(LANGUAGE)='en']">
 				Alphabetic list - <xsl:value-of select="count(SERIAL)" /> serials listed
 			</xsl:when>
-			<xsl:when test="/SERIALLIST/CONTROLINFO[normalize-space(LANGUAGE)='pt']">
+			<xsl:when test="//SERIALLIST/CONTROLINFO[normalize-space(LANGUAGE)='pt']">
 				Lista alfabética - <xsl:value-of select="count(SERIAL)" /> periódicos listados				</xsl:when>
-			<xsl:when test="/SERIALLIST/CONTROLINFO[normalize-space(LANGUAGE)='es']">
+			<xsl:when test="//SERIALLIST/CONTROLINFO[normalize-space(LANGUAGE)='es']">
 				Lista alfabética - <xsl:value-of select="count(SERIAL)" /> seriadas listadas
 			</xsl:when>
 		</xsl:choose>
 		</font>
 		</p>
-		<xsl:apply-templates select="SERIAL" />
+		<ul>
+			<xsl:apply-templates select="SERIAL" />
+		</ul>
 		<font class="divisoria">&#160;<br/></font><br/><br/>
 	</td>
 	<td width="10%">&#160;</td>
@@ -88,36 +88,30 @@
 </xsl:template>
 
 <xsl:template match="SERIAL">
-	<font face="symbol">·</font>&#160;
-	<font class="linkado">
-		<xsl:choose>
-			<xsl:when test="$forceType=0">
-				<a>
-					<xsl:attribute name="href">http://<xsl:value-of select="//SERVER"/><xsl:value-of select="//PATH_DATA"/>scielo.php?script=sci_serial&amp;pid=<xsl:value-of select ="TITLE/@ISSN"/>&amp;lng=<xsl:value-of select="normalize-space(//CONTROLINFO/LANGUAGE)"/>&amp;nrm=<xsl:value-of select="normalize-space(//CONTROLINFO/STANDARD)"/></xsl:attribute>
-					<xsl:value-of select="TITLE" disable-output-escaping="yes" />
-				</a> 				
-			</xsl:when>
-			<xsl:otherwise>
-				<a>
-					<xsl:attribute name="href">http://<xsl:value-of select="//SERVER"/><xsl:value-of select="//PATH_DATA"/>scielo.php/script_sci_serial/pid_<xsl:value-of select ="TITLE/@ISSN"/>/lng_<xsl:value-of select="normalize-space(//CONTROLINFO/LANGUAGE)"/>/nrm_<xsl:value-of select="normalize-space(//CONTROLINFO/STANDARD)"/></xsl:attribute>
-					<xsl:value-of select="TITLE" disable-output-escaping="yes" />
-				</a> 								
-			</xsl:otherwise>
-		</xsl:choose>
-		- <xsl:value-of select="@QTYISS" />
-		<xsl:choose>
-			<xsl:when test="/SERIALLIST/CONTROLINFO[normalize-space(LANGUAGE)='en']">
-				 issue<xsl:if test="@QTYISS > 1">s</xsl:if>
-			</xsl:when>
-			<xsl:when test="/SERIALLIST/CONTROLINFO[normalize-space(LANGUAGE)='pt']"> 
-				número<xsl:if test="@QTYISS > 1">s</xsl:if>
-			</xsl:when>
-			<xsl:when test="/SERIALLIST/CONTROLINFO[normalize-space(LANGUAGE)='es']"> 
-				número<xsl:if test="@QTYISS > 1">s</xsl:if>
-			</xsl:when>
-		</xsl:choose>
-		<xsl:if test="not(starts-with(normalize-space(following-sibling::node()/TITLE), substring(normalize-space(TITLE), 1, 1)))"><br/></xsl:if>
-	</font><br/>
+	<li>
+		<font class="linkado">
+			<a>
+				<xsl:attribute name="href">http://<xsl:value-of select="//SERVER"/><xsl:value-of
+					 select="//PATH_DATA"/>scielo.php/script_sci_serial/pid_<xsl:value-of 
+					 select ="TITLE/@ISSN"/>/lng_<xsl:value-of 
+					 select="normalize-space(//CONTROLINFO/LANGUAGE)"/>/nrm_<xsl:value-of     					 select="normalize-space(//CONTROLINFO/STANDARD)"/></xsl:attribute>
+				<xsl:value-of select="TITLE" disable-output-escaping="yes" />
+			</a> - <xsl:value-of select="@QTYISS" />				
+			<xsl:choose>
+				<xsl:when test="//SERIALLIST/CONTROLINFO[normalize-space(LANGUAGE)='en']">
+					 issue<xsl:if test="@QTYISS > 1">s</xsl:if>
+				</xsl:when>
+				<xsl:when test="//SERIALLIST/CONTROLINFO[normalize-space(LANGUAGE)='pt']"> 
+					número<xsl:if test="@QTYISS > 1">s</xsl:if>
+				</xsl:when>
+				<xsl:when test="//SERIALLIST/CONTROLINFO[normalize-space(LANGUAGE)='es']"> 
+					número<xsl:if test="@QTYISS > 1">s</xsl:if>
+				</xsl:when>
+			</xsl:choose>
+			<xsl:if test="not(starts-with(normalize-space(following-sibling::node()/TITLE), substring(normalize-space(TITLE), 1, 1)))"><br/></xsl:if>
+		</font>
+		<br />
+	</li>
 </xsl:template>
 
 <xsl:template match="COPYRIGHT">

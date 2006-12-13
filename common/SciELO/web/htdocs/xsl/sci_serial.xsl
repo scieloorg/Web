@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
-<xsl:include href="file:///scielo/web/htdocs/xsl/sci_navegation.xsl"/>
-<xsl:include href="file:///scielo/web/htdocs/xsl/sci_error.xsl"/>
-<!-- xsl:output method="html" encoding="iso-8859-1" / -->
+<xsl:include href="file:///d:/sites/scielo/web/htdocs/xsl/sci_navegation.xsl"/>
+<xsl:include href="file:///d:/sites/scielo/web/htdocs/xsl/sci_error.xsl" />
+
 <xsl:variable name="forceType" select="//CONTROLINFO/ENABLE_FORCETYPE"/>
+
+<xsl:output method="html" indent="no" />
+
 <xsl:template match="SERIAL">
 	<html>
 		<head>
@@ -13,6 +16,15 @@
 			<meta http-equiv="Pragma" content="no-cache" />
 			<meta http-equiv="Expires" content="Mon, 06 Jan 1990 00:00:01 GMT" />
 			<link rel="STYLESHEET" TYPE="text/css" href="/css/scielo.css" />
+
+			<!-- link pro RSS aparecer automaticamente no Browser -->
+
+			<xsl:call-template name="AddRssHeaderLink">
+				<xsl:with-param name="pid">//CURRENT/@PID</xsl:with-param>
+				<xsl:with-param name="lang">//LANGUAGE</xsl:with-param>
+				<xsl:with-param name="server">CONTROLINFO/SCIELO_INFO/SERVER</xsl:with-param>
+				<xsl:with-param name="script">rss.php</xsl:with-param>
+			</xsl:call-template>
 		</head>
 		<body bgcolor="#FFFFFF" link="#000080" vlink="#800080">
 
@@ -49,28 +61,23 @@
 	<tr>
 		<td width="30%" align="LEFT" valign="TOP">
 			<p class="nomodel" align="center">&#160;
-				<xsl:choose>
-					<xsl:when test="$forceType=0">
 					<a>
-						<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_serial&amp;lng=pt&amp;pid=<xsl:value-of select="/SERIAL/ISSN"/>&amp;nrm=<xsl:value-of select="normalize-space(STANDARD)"/></xsl:attribute>
-						<font class="linkado" size="-2">português</font>
-						</a><br/>&#160;
-						<a>
-						<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_serial&amp;lng=es&amp;pid=<xsl:value-of select="/SERIAL/ISSN"/>&amp;nrm=<xsl:value-of select="normalize-space(STANDARD)"/></xsl:attribute>
-						<font class="linkado" size="-2">español</font>
-						</a><br/>					
-					</xsl:when>
-					<xsl:otherwise>
-					<a>
-						<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_DATA"/>scielo.php/script_sci_serial/lng_pt/pid_<xsl:value-of select="/SERIAL/ISSN"/>/nrm_<xsl:value-of select="normalize-space(STANDARD)"/></xsl:attribute>
-						<font class="linkado" size="-2">português</font>
-						</a><br/>&#160;
-						<a>
-						<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_DATA"/>scielo.php/script_sci_serial/lng_es/pid_<xsl:value-of select="/SERIAL/ISSN"/>/nrm_<xsl:value-of select="normalize-space(STANDARD)"/></xsl:attribute>
-						<font class="linkado" size="-2">español</font>
-						</a><br/>					
-					</xsl:otherwise>
-				</xsl:choose>
+				<xsl:attribute name="href">http://<xsl:value-of 
+					select="SCIELO_INFO/SERVER"/><xsl:value-of
+					select="SCIELO_INFO/PATH_DATA"/>scielo.php/script_sci_serial/lng_pt/pid_<xsl:value-of
+					select="/SERIAL/ISSN"/>/nrm_<xsl:value-of
+					select="normalize-space(STANDARD)"/></xsl:attribute>
+				<font class="linkado" size="-2">português</font>
+				</a><br/>&#160;
+				<a>
+				<xsl:attribute name="href">http://<xsl:value-of
+					select="SCIELO_INFO/SERVER"/><xsl:value-of
+					select="SCIELO_INFO/PATH_DATA"/>scielo.php/script_sci_serial/lng_es/pid_<xsl:value-of
+					select="/SERIAL/ISSN"/>/nrm_<xsl:value-of
+					select="normalize-space(STANDARD)"/></xsl:attribute>
+				<font class="linkado" size="-2">español</font>
+				</a><br/>					
+
 			</p>
 			<p class="nomodel" align="center">
 				<font class="nomodel" color="#000080">
@@ -305,18 +312,6 @@
 	<tr>
 		<td width="30%" align="LEFT" valign="TOP">
 			<p class="nomodel" align="center">&#160;
-				<xsl:choose>
-					<xsl:when test="$forceType=0">
-						<a>
-						<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_serial&amp;lng=en&amp;pid=<xsl:value-of select="/SERIAL/ISSN"/>&amp;nrm=<xsl:value-of select="normalize-space(STANDARD)"/></xsl:attribute>
-						<font class="linkado" size="-2">english</font>
-						</a><br/>&#160;
-						<a>
-						<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_serial&amp;lng=pt&amp;pid=<xsl:value-of select="/SERIAL/ISSN"/>&amp;nrm=<xsl:value-of select="normalize-space(STANDARD)"/></xsl:attribute>
-						<font class="linkado" size="-2">português</font>
-						</a><br/>					
-					</xsl:when>
-					<xsl:otherwise>
 						<a>
 						<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_DATA"/>scielo.php/script_sci_serial/lng_en/pid_<xsl:value-of select="/SERIAL/ISSN"/>/nrm_<xsl:value-of select="normalize-space(STANDARD)"/></xsl:attribute>
 						<font class="linkado" size="-2">english</font>
@@ -325,9 +320,7 @@
 						<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_DATA"/>scielo.php/script_sci_serial/lng_pt/pid_<xsl:value-of select="/SERIAL/ISSN"/>/nrm_<xsl:value-of select="normalize-space(STANDARD)"/></xsl:attribute>
 						<font class="linkado" size="-2">português</font>
 						</a><br/>					
-					</xsl:otherwise>
-				</xsl:choose>			
-			</p>
+					</p>
 			<p class="nomodel" align="center">
 				<font class="nomodel" color="#000080">
 					Actualizado en<br/>
@@ -431,6 +424,8 @@
 
 <xsl:template match="MISSION">
 	<font color="#000080"><xsl:value-of select="." disable-output-escaping="yes" /><br/></font><br/>
+
+
 </xsl:template>
 
 </xsl:stylesheet>

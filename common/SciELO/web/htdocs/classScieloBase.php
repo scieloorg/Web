@@ -216,13 +216,19 @@ class ScieloBase
 	*************************************************************************/
 	function _BypassTransformer()
 	{
-		if ( !(@$fd = fopen($this->_xml,"r")) )
-		{
-			echo "<br><b>Could not open url:</b> $url\n<br>";
-			return;
-		}
+	
+		$fd = fopen ($this->_xml,"r"); 
 
-		$buf = fread($fd,2000000);
+		if (!$fd) { 
+			echo "<br><b>Could not open url:</b> [".$this->_xml."]\n<br>";
+			return;
+		} 
+	
+		//$buf = fread($fd,2000000);
+		while (!feof($fd)){
+				$buf .= fgets ($fd, 4096);
+			}
+
 		fclose($fd);
 
 		if ($this->_debug == 'XML')
@@ -230,7 +236,7 @@ class ScieloBase
 			echo "<form>\n";
 			echo "<b>Generated XML</b><br>\n";
 			echo "<TEXTAREA cols=80 rows=20>\n";
-			echo $buf;
+	        echo $buf;
 			echo "\n</TEXTAREA>\n</form>";
 
 			echo "<b>\$xml</b>=$this->_xml<br>\n";
@@ -322,19 +328,25 @@ class ScieloBase
 
 		// Apply transformer in xml
 		$transform = new ScieloXMLTransformer();
-
+		$transform->setXslBaseUri("file://" . $this->_def->getKeyValue("PATH_XSL"));
         $transform->SetPreferedMethod ($this->_method);
 
 		if($transform->setXsl($this->_xsl))
 		{
    			if($transform->setXml($this->_xml))
 			{
+
     	 		$transform->transform();
 
 				if ($transform->getError() == 0)
 				{
-					$result = utf8_decode($transform->getOutput());
-	      		}
+					if (getenv("ENV_SOCKET")=="true"){  //socket
+						$result = $transform->getOutput();
+					}
+					else{
+						$result = utf8_decode($transform->getOutput());
+					}
+	      			}
 				else
 				{
 	   				$result = "<p>Error transforming ".$this->_xml.".</p>\n";
@@ -368,9 +380,15 @@ class ScieloBase
 	*************************************************************************/
     function _CheckAlternateDisplay()
     {
-		if ( !$this->_xml || !$this->_xsl )
+		if ( !$this->_xml)
 		{
-			echo "XML or XSL url is not setted.<br>\n";
+			echo "XML is not setted.<br>\n";
+			exit;
+		}
+
+		if ( !$this->_xsl )
+		{
+			echo "XSL is not setted.<br>\n";
 			exit;
 		}
 
@@ -423,6 +441,13 @@ class ScieloBase
 	{
     	$this->_CheckAlternateDisplay ();
 		echo $this->_Transform ();
+	}
+	//fixed 20041004
+	function getPage ()
+	{
+    	$this->_CheckAlternateDisplay ();
+		$page = $this->_Transform ();
+		return $page;
 	}
 
 	// ------------------------------------------------------------------------------------------

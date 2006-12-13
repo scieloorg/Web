@@ -35,24 +35,24 @@ KEYRANGE SUFFIX=_KEY
 FILE FULINV_KEY.*=%path_database%iah/#/search.*
 FILE PREINV_KEY.*=%path_database%iah/#/searchp.*
 
-FILE HEADER.IAH=/scielo/web/cgi-bin/iah-styles/header.pft
-FILE QUERY.IAH=/scielo/web/cgi-bin/iah-styles/query.pft
-FILE LIST6003.PFT=/scielo/web/cgi-bin/iah-styles/list6003.pft
-FILE PROC.PFT=/scielo/web/htdocs/pfts/proc_split_mst.pft
+FILE HEADER.IAH=d:/sites/scielo/web/cgi-bin/iah-styles/header.pft
+FILE QUERY.IAH=d:/sites/scielo/web/cgi-bin/iah-styles/query.pft
+FILE LIST6003.PFT=d:/sites/scielo/web/cgi-bin/iah-styles/list6003.pft
+FILE PROC.PFT=d:/sites/scielo/web/htdocs/pfts/proc_split_mst.pft
 
-FILE iso.pft=/scielo/web/cgi-bin/iah-styles/fbiso.pft
-FILE abn.pft=/scielo/web/cgi-bin/iah-styles/fbabn.pft
-FILE van.pft=/scielo/web/cgi-bin/iah-styles/fbvan.pft
-FILE places.pft=/scielo/web/cgi-bin/iah-styles/place-sc.pft
-FILE month1.pft=/scielo/web/cgi-bin/iah-styles/month1.pft
-FILE month2.pft=/scielo/web/cgi-bin/iah-styles/month2.pft
-FILE scistyle.pft=/scielo/web/cgi-bin/iah-styles/scistyle.pft
+FILE iso.pft=d:/sites/scielo/web/cgi-bin/iah-styles/fbiso.pft
+FILE abn.pft=d:/sites/scielo/web/cgi-bin/iah-styles/fbabn.pft
+FILE van.pft=d:/sites/scielo/web/cgi-bin/iah-styles/fbvan.pft
+FILE places.pft=d:/sites/scielo/web/cgi-bin/iah-styles/place-sc.pft
+FILE month1.pft=d:/sites/scielo/web/cgi-bin/iah-styles/month1.pft
+FILE month2.pft=d:/sites/scielo/web/cgi-bin/iah-styles/month2.pft
+FILE scistyle.pft=d:/sites/scielo/web/cgi-bin/iah-styles/scistyle.pft
 
-FILE AHBTOP.HTM=/scielo/web/cgi-bin/iah-styles/%lang%/ahbtop.htm
-FILE AHLIST.PFT=/scielo/web/cgi-bin/iah-styles/%lang%/ahlist.pft
-FILE ahlist.pft=/scielo/web/cgi-bin/iah-styles/%lang%/ahlist.pft
+FILE AHBTOP.HTM=d:/sites/scielo/web/cgi-bin/iah-styles/%lang%/ahbtop.htm
+FILE AHLIST.PFT=d:/sites/scielo/web/cgi-bin/iah-styles/%lang%/ahlist.pft
+FILE ahlist.pft=d:/sites/scielo/web/cgi-bin/iah-styles/%lang%/ahlist.pft
 FILE LATTES.*=%path_database%lattes/lattes.*
-FILE citation.xml=/scielo/web/cgi-bin/iah-styles/fbisoXML.pft
+FILE citation.xml=d:/sites/scielo/web/cgi-bin/iah-styles/fbisoXML.pft
 
 FILE issue.*=%path_database%issue/issue.*
 FILE facic.*=%path_database%issue/facic.*

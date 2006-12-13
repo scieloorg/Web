@@ -1,0 +1,89 @@
+<?
+//consulta a instancia para pegar o COOKIE se jah logado
+error_reporting(E_ALL);
+
+$destinoLogin = "http://scielo-org.dev/users/sso.php";
+
+$go_to = ($_GET['origem']?$_GET['origem']:"http://".$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"]);
+$inicio = strpos($go_to,"userID");
+
+if($inicio == 0){
+	$origem = $self_url;
+}else{
+	$origem = substr($self_url, 0, $inicio);
+}
+
+
+if((isset($_GET['userID'])) && ($_GET['userID'] >= 0)){
+	$userID_GET = $_GET['userID'];
+}else{
+	$userID_GET = -1;
+}
+
+if(intval($_COOKIE['userID']) >= 0){
+	$userID_COOKIE = $_COOKIE['userID'];
+}else{
+	$userID_COOKIE = -1;
+}
+
+
+if((intval($userID_GET) < 0) && (intval($userID_COOKIE) < 0)){
+	
+	header("Location: $destinoLogin?origem=$origem");
+}
+
+// Ira efetuar o loout na instancia
+if (isset($_GET['origem'])) {
+	header('P3P: CP="NOI ADM DEV PSAi COM NAV OUR OTRo STP IND DEM"');
+	setcookie("userID","0",0,"/");
+	setcookie("firstName","",0,"/");
+	setcookie("lastName","",0,"/");
+	$_COOKIE["userID"] = "0";
+	$_COOKIE["firstName"] = "";
+	$_COOKIE["lastName"] = "";
+	session_write_close();
+//pra dar tempo do cookie "zerar"
+	sleep(1);
+	header("Location: ".$go_to);
+	exit;
+}
+
+// Ira efetuar o loout na instancia
+if (isset($_GET['logout'])) {
+	$self_url = "http://".$_SERVER["SERVER_NAME"].$_SERVER["SCRIPT_NAME"];
+	header('P3P: CP="NOI ADM DEV PSAi COM NAV OUR OTRo STP IND DEM"');
+	setcookie("userID","0",0,"/");
+	setcookie("firstName","",0,"/");
+	setcookie("lastName","",0,"/");
+	$_COOKIE["userID"] = "0";
+	$_COOKIE["firstName"] = "";
+	$_COOKIE["lastName"] = "";
+	session_write_close();
+//pra dar tempo do cookie "zerar"
+	usleep(100);
+	header("Location: ".$self_url);
+	exit;
+}
+
+
+
+if(isset($_GET['userID']))
+{
+//		$self_url = "http://".$_SERVER["SERVER_NAME"].$_SERVER["SCRIPT_NAME"];
+		$self_url = "http://".$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+
+		$inicio = strpos($self_url,"userID") -1 ;
+		$self_url = substr($self_url, 0, $inicio);
+		
+		header('P3P: CP="NOI ADM DEV PSAi COM NAV OUR OTRo STP IND DEM"');
+        setcookie("userID",$_GET['userID'],time()+3600,"/");
+        setcookie("firstName",$_GET['firstName'],time()+3600,"/");
+        setcookie("lastName",$_GET['lastName'],time()+3600,"/");
+		session_write_close();
+//pra dar tempo do cookie "zerar"
+		usleep(100);
+		header("Location: ".$self_url);
+		exit;
+}
+
+?>

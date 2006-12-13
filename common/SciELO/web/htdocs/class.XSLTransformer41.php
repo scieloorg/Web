@@ -4,15 +4,32 @@ XSLTranformer -- Class to transform XML files using XSL with the Sablotron libra
 Justin Grant (2000-07-30)
 Thanks to Bill Humphries for the original examples on using the Sablotron module.
 */
-
+/*
+ini_set("display_errors","1");
+error_reporting(E_ALL);
+*/
+include_once (dirname(__FILE__)."/class.XSLTransformSocket.php"); //socket
 class XSLTransformer {
-	var $xsl, $xml, $output, $error, $processor;
+        var $xsl, $xml, $output, $error, $errorcode, $processor, $uri, $host, $port;   //socket
 
 	/* Constructor  */	 
-	function XSLTransformer() { 
+	function XSLTransformer() {
+		$defFile = parse_ini_file(dirname(__FILE__)."\scielo.def",true);
 		$this->processor = xslt_create(); 
-	} 
+	    $this->host = $_SERVER["SERVER_ADDR"];
+		$this->port = $defFile["SOCKET"]["SOCK_PORT"];
 
+        $this->socket = new XSLTransformerSocket($this->host,$this->port);
+	    if (!$this->socket){
+        	die("socket creation error!");
+		}
+	} 
+	function setXslBaseUri($uri){	
+		if ($uri != ""){
+			xslt_set_base($this->processor, $uri);
+		}	
+		return true;
+	}
  	/* Destructor */ 
 	function destroy() { 
 		xslt_free ($this->processor); 
@@ -24,45 +41,85 @@ class XSLTransformer {
 	}
 
 	function getOutput() {
+//		return utf8_decode($this->output);
 		return $this->output;
 	}
 
 	/* set methods */
-	function setXml ($uri) { 
-		if ( $doc = new docReader ($uri) ) { 
-			$this->xml	= $doc->getString(); 
-			return true; 
-		} 
-        else { 
-			$this->setError ("Could not open $xml"); 
-			return false; 
-		} 
-	} 	
+	function setXml($xml) {
+		if ($this->isXmlContent($xml))
+		{
+ 			$this->xml = $xml;
+			return true;
+		}
+		elseif ($doc = new docReader($xml)) 
+		{
+ 			$this->xml = $doc->getString();
+ 			return true;
+ 		} 
+		else 
+		{
+ 			$this->setError("Could not open $xml");
+ 			return false;
+ 		}
+ 	}
 
 	function setXsl($uri) {
-		if ( $doc = new docReader ($uri) ) {
+		$this->xsl	= $uri;
+
+		/*if ( $doc = new docReader ($uri) ) {
 			$this->xsl	= $doc->getString();
 			return true;
-
-		} 
-        else {
+		} else {
 			$this->setError ("Could not open $uri");
+			return false;
+		}*/
+	}
+
+	function isXmlContent($xml)
+	{
+		if (strcmp(substr($xml,0,5), "<?xml") == 0)
+		{
+			return true;
+		}
+		else
+		{
 			return false;
 		}
 	}
-
+	
 	/* transform method */
     function transform()
     {
-		$args = array ( '/_xml' => $this->xml, '/_xsl' => $this->xsl );		
+        if (getenv("ENV_SOCKET")=="true"){
+			$result = $this->socket->transform($this->xsl, $this->xml);
+			if (strlen($result)<3){
+                $args = array ( '/_xml' => $this->xml, '/_xsl' => $this->xsl );
+                $result = xslt_process ($this->processor, 'arg:/_xml', 'arg:/_xsl', NULL, $args);
+                if ($result) {
+                    $this->setOutput ($result."<!--transformed by socket JAVA-->");
+                } else {
+                    $err = "Error: " . xslt_error ($this->processor) . " Errorcode: " . xslt_errno ($this->processor);
+                    $this->setError ($err);
+                }
+			} else {
+                    $this->setOutput ($result."<!--transformed by PHP-->");
 
-        $result = xslt_process ($this->processor, 'arg:/_xml', 'arg:/_xsl', NULL, $args); 
-        if ($result) {
-		    $this->setOutput ($result);
-		}
-		else {
-            $err = "Error: " . xslt_error ($this->processor) . " Errorcode: " . xslt_errno ($this->processor);
-		    $this->setError ($err);
+			}
+        } else {
+        	$args = array ( '/_xml' => $this->xml, '/_xsl' => $this->xsl );
+			$result = xslt_process ($this->processor, 'arg:/_xml', 'arg:/_xsl', NULL, $args);
+			if ($result) {
+            	$this->setOutput ($result);
+            } else {
+            	$err = "Error: " . xslt_error ($this->processor) . " Errorcode: " . xslt_errno ($this->processor);
+                $this->setError ($err);
+            }
+        }
+		if ($err){
+			var_dump($err);
+			var_dump($this->xsl);
+			var_dump($this->xml);
 		}
     }
     
@@ -101,6 +158,8 @@ class docReader {
 				$acumulado .= fread ($fp, $length);
 			}
 			$this->setString ($acumulado);
+
+			/* $this->setString (fread ($fp, $length)); */
 			fclose($fp);
 
 			return 1; 

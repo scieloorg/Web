@@ -4,12 +4,12 @@ FILE DATABASE.*=%path_database%title/title.*
 FILE FULINV.*=%path_database%title/titsrc.*
 FILE PREINV.*=%path_database%title/titsrcp.*
 
-FILE HEADER.IAH=/scielo/web/cgi-bin/iah-styles/header.pft
-FILE scistyle.pft=/scielo/web/cgi-bin/iah-styles/scistyle.pft
-FILE places.pft=/scielo/web/cgi-bin/iah-styles/place-sc.pft
-FILE iso.pft=/scielo/web/cgi-bin/iah-styles/fbsrc1.pft
-FILE van.pft=/scielo/web/cgi-bin/iah-styles/fbsrc1.pft
-FILE abn.pft=/scielo/web/cgi-bin/iah-styles/fbsrc1.pft
+FILE HEADER.IAH=d:/sites/scielo/web/cgi-bin/iah-styles/header.pft
+FILE scistyle.pft=d:/sites/scielo/web/cgi-bin/iah-styles/scistyle.pft
+FILE places.pft=d:/sites/scielo/web/cgi-bin/iah-styles/place-sc.pft
+FILE iso.pft=d:/sites/scielo/web/cgi-bin/iah-styles/fbsrc1.pft
+FILE van.pft=d:/sites/scielo/web/cgi-bin/iah-styles/fbsrc1.pft
+FILE abn.pft=d:/sites/scielo/web/cgi-bin/iah-styles/fbsrc1.pft
 
 FILE issue.*=%path_database%issue/issue.*
 FILE facic.*=%path_database%issue/facic.*

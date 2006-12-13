@@ -17,7 +17,10 @@ class ScieloXMLTransformer extends XSLTransformer
     
     function SetXml($uri)    
     {
-		if($doc = new ScieloDocReader($uri, $this->_method)) {
+		if ($this->isXmlContent($uri)) {
+			$this->xml = $uri;
+			return true;
+		} elseif($doc = new ScieloDocReader($uri, $this->_method)) {
 			$this->xml	= $doc->getString();
 			return true; 
 		} else { 
@@ -28,8 +31,28 @@ class ScieloXMLTransformer extends XSLTransformer
     
     function SetXsl($uri)
     {
-		if($doc = new ScieloDocReader($uri, $this->_method)) {
-			$this->xsl	= $doc->getString();
+		if ($this->isXmlContent($uri)) {
+			if (getenv("ENV_SOCKET")=="true"){  //socket
+				$pos_ini = strrpos($uri,"/")+1;
+				$pos_len = strrpos($uri,".")-$pos_ini;
+				$this->xsl = strtoupper(substr($uri,$pos_ini,$pos_len));
+			}
+			else
+			{
+				$this->xsl = $uri;
+			}
+			return true;
+		} elseif($doc = new ScieloDocReader($uri, $this->_method)) {
+			if (getenv("ENV_SOCKET")=="true"){
+				$pos_ini = strrpos($uri,"/")+1;
+				$pos_ini = strrpos($uri,"/")+1;
+				$pos_len = strrpos($uri,".")-$pos_ini;
+				$this->xsl = strtoupper(substr($uri,$pos_ini,$pos_len));
+			}
+			else
+			{
+				$this->xsl = $doc->getString();
+			}
 			return true; 
 		} else { 
 			$this->setError("Erro ao tentar abrir $xsl"); 
@@ -41,6 +64,19 @@ class ScieloXMLTransformer extends XSLTransformer
     {
         XSLTransformer::destroy();
     }
+
+    function isXmlContent(&$xml)
+    {
+//WXIS_LINE_COMMAND
+$xml = trim(str_replace('Content-type:text/html', '', str_replace('Content-type:text/xml', '',$xml)));
+        if (strcmp(substr(trim($xml),0,5), "<?xml") != 0)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
 }
 
 class ScieloDocReader extends docReader

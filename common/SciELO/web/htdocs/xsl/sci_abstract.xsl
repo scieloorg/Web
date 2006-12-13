@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
-<xsl:include href="file:///scielo/web/htdocs/xsl/sci_navegation.xsl"/>
-<xsl:include href="file:///scielo/web/htdocs/xsl/sci_error.xsl" />
+<xsl:include href="file:///d:/sites/scielo/web/htdocs/xsl/sci_navegation.xsl"/>
+<xsl:include href="file:///d:/sites/scielo/web/htdocs/xsl/sci_error.xsl" />
+<xsl:include href="file:///d:/sites/scielo/web/htdocs/xsl/sci_toolbox.xsl" />
+	<xsl:variable name="LANGUAGE" select="//LANGUAGE"/>
+	<xsl:variable name="SCIELO_REGIONAL_DOMAIN" select="//SCIELO_REGIONAL_DOMAIN" />
+	
+	<xsl:variable name="show_toolbox" select="//toolbox"/>
 
+	<xsl:template match="/">
+		<xsl:apply-templates select="//SERIAL"/>
+	</xsl:template>
 
-<!--xsl:include href="file:///httpd/htdocs/teste/sci_navegation.xsl" />
-<xsl:include href="file:///httpd/htdocs/teste/sci_error.xsl" /-->
-
-<!--xsl:output method="html" encoding="iso-8859-1" /-->
+<xsl:output method="html" indent="no" doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN" 	doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" />
 
 <xsl:template match="SERIAL">
 	<html>
@@ -29,45 +34,58 @@
 				
 				<xsl:value-of select="CONTROLINFO/PAGE_PID" />
 			</title>
-			<meta http-equiv="Pragma" content="no-cache" />
-			<meta http-equiv="Expires" content="Mon, 06 Jan 1990 00:00:01 GMT" />
-			<link rel="STYLESHEET" type="text/css" href="/css/scielo.css" />			
-			<script language="javascript" src="article.js"></script>			
+			<meta http-equiv="Pragma" content="no-cache"/>
+			<meta http-equiv="Expires" content="Mon, 06 Jan 1990 00:00:01 GMT"/>
+				<link rel="stylesheet" type="text/css" href="/css/screen.css"/>
+				<script language="javascript" src="article.js"/>
 		</head>
-		<body link="#0000ff" vlink="#800080" bgcolor="#ffffff"  onunload="CloseLattesWindow();">
-
-			<xsl:call-template name="NAVBAR">
-				<xsl:with-param name="bar1">articles</xsl:with-param>
-				<xsl:with-param name="bar2">articlesiah</xsl:with-param>
-				<xsl:with-param name="home" select="1" />
-				<xsl:with-param name="alpha">
-					<xsl:choose>
-						<xsl:when test=" normalize-space(//CONTROLINFO/APP_NAME) = 'scielosp' ">0</xsl:when>
-						<xsl:otherwise>1</xsl:otherwise>
-					</xsl:choose>
-				</xsl:with-param>
-				<xsl:with-param name="scope" select="TITLEGROUP/SIGLUM"/>
-			</xsl:call-template>
-		
-			<p class="nomodel" align="CENTER">
-				<font class="nomodel" size="+1" color="#000080"><xsl:value-of select="TITLEGROUP/TITLE" disable-output-escaping="yes" /></font>
-				<br/>
-				<font class="nomodel" color="#000080" size="-1">
-					<xsl:apply-templates select="ISSN">
-						<xsl:with-param name="LANG" select="normalize-space(CONTROLINFO/LANGUAGE)" />						</xsl:apply-templates>
-				</font>
-			</p>
+	<body>
+				<div class="container">
+					<div class="top">
+						<div id="issues">
+						</div>
+						<xsl:call-template name="NAVBAR">
+							<xsl:with-param name="bar1">articles</xsl:with-param>
+							<xsl:with-param name="bar2">articlesiah</xsl:with-param>
+							<xsl:with-param name="home">1</xsl:with-param>
+							<xsl:with-param name="alpha">
+								<xsl:choose>
+									<xsl:when test=" normalize-space(//CONTROLINFO/APP_NAME) = 'scielosp' ">0</xsl:when>
+									<xsl:otherwise>1</xsl:otherwise>
+								</xsl:choose>
+							</xsl:with-param>
+							<xsl:with-param name="scope" select="TITLEGROUP/SIGLUM"/>
+						</xsl:call-template>						
+					</div>
+					<div class="content">
+							<xsl:if test= "$show_toolbox = 1">
+								<xsl:call-template name="tool_box"/>
+							</xsl:if>
+						<h2>
+							<xsl:value-of select="TITLEGROUP/TITLE" disable-output-escaping="yes"/>
+						</h2>
+						<h2 id="printISSN">
+							<xsl:apply-templates select="ISSN">
+								<xsl:with-param name="LANG" select="normalize-space(CONTROLINFO/LANGUAGE)"/>
+							</xsl:apply-templates>
+						</h2>
 
 			<xsl:apply-templates select="ARTICLE">
 				<xsl:with-param name="NORM" select="normalize-space(CONTROLINFO/STANDARD)" />
 				<xsl:with-param name="LANG" select="normalize-space(CONTROLINFO/LANGUAGE)" />
 			</xsl:apply-templates>
-		<hr/>
-		<p align="center">	
-			<xsl:apply-templates select="/SERIAL/COPYRIGHT" />
-			<xsl:apply-templates select="/SERIAL/CONTACT" />
-		</p>
-		</body>
+						<div align="left"></div>
+						<!--/div>
+						<div class="contentRight"-->
+						<!--/div-->
+						<div class="spacer">&#160;</div>
+					</div>
+					<div class="footer">
+						<xsl:apply-templates select="COPYRIGHT"/>
+						<xsl:apply-templates select="CONTACT"/>
+					</div>
+				</div>
+			</body>
 	</html>
 </xsl:template>
 
@@ -75,25 +93,11 @@
 	<xsl:param name="NORM" />
 	<xsl:param name="LANG" />
 	
-	<table border="0" width="100%">
-	<tr>
-	<td width="8%">&#160;</td>
-	<td width="82%">
-		<xsl:call-template name="PrintArticleInformationArea">
-			<xsl:with-param name="LATTES" select="LATTES" />
-		</xsl:call-template>
-	</td>
-	<td width="10%">&#160;</td>
-	</tr>
-	<tr>
-	<td width="8%">&#160;</td><td width="82%">
-		<p align="LEFT">
-		<font class="nomodel" color="#800000">
+	<h4>
 			<xsl:call-template name="ABSTR-TR">
 				<xsl:with-param name="LANG" select="$LANG" />
 			</xsl:call-template>			
-		</font><br/>
-		</p>			
+	</h4>
 	<p>	
 	<xsl:call-template name="PrintAbstractHeaderInformation">
 		<xsl:with-param name="NORM" select="$NORM" />
@@ -108,7 +112,7 @@
 		<xsl:with-param name="LANG" select="$LANG" />
 	</xsl:apply-templates>			
 
-	<p align="CENTER">
+	<p>
 		<!--xsl:call-template name="CREATE_ARTICLE_LINK">
 			<xsl:with-param name="TYPE">full</xsl:with-param>
 			<xsl:with-param name="INTLANG" select="$LANG"/>
@@ -128,11 +132,7 @@
 			<xsl:with-param name="PID" select="//CONTROLINFO/PAGE_PID" />
 		</xsl:apply-templates>		
 	</p>
-	<p align="CENTER"><br/></p>
-	</td>
-	<td width="10%">&#160;</td>
-	</tr>
-	</table>
+
 </xsl:template>
 
 <xsl:template name="ABSTR-TR">
@@ -146,14 +146,15 @@
 
 <xsl:template match="KEYWORDS">
 <xsl:param name="LANG" />
-	<p class="nomodel">
-		<font class="negrito">
+	<p>
+		<strong>
 			<xsl:choose>
 				<xsl:when test="$LANG='en'">Keywords</xsl:when>
 				<xsl:when test="$LANG='pt'">Palavras-chave</xsl:when>
 				<xsl:when test="$LANG='es'">Palabras llave</xsl:when>
 			</xsl:choose>
-		</font>: 
+		:
+		</strong>
 			<xsl:apply-templates select="KEYWORD" />.
 	</p>
 </xsl:template>

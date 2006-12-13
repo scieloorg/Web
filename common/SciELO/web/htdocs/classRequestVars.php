@@ -15,7 +15,7 @@ class RequestVars
 		//-------------------------
 		$QSCnav = $REQUEST_URI; 
 		$QSCscript = $SCRIPT_NAME; 
-		$QSCnav = ereg_replace("^$script", "", $QSCnav); 
+		$QSCnav = ereg_replace('^$script', "", $QSCnav); 
 		$QSCvars = explode("/", $QSCnav);
 		$QSCArray = array();
 		

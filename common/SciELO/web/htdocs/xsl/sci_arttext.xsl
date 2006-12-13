@@ -1,184 +1,103 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
-<xsl:include href="file:///scielo/web/htdocs/xsl/sci_navegation.xsl"/>
-<xsl:include href="file:///scielo/web/htdocs/xsl/sci_error.xsl" />
+	<xsl:output method="html" 
+	omit-xml-declaration="yes"
+	indent="no"
+	doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN" 
+	doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" />
+	
+	<xsl:include href="file:///d:/sites/scielo/web/htdocs/xsl/sci_navegation.xsl"/>
+	<xsl:include href="file:///d:/sites/scielo/web/htdocs/xsl/sci_error.xsl" />
+	<xsl:include href="file:///d:/sites/scielo/web/htdocs/xsl/sci_toolbox.xsl"/>
+	<xsl:variable name="LANGUAGE" select="//LANGUAGE"/>
+	<xsl:variable name="SCIELO_REGIONAL_DOMAIN" select="//SCIELO_REGIONAL_DOMAIN"/>
 
+	<xsl:variable name="show_toolbox" select="//toolbox"/>
+	
+	<xsl:template match="fulltext-service-list"/>
 
-<!-- xsl:output method="html" encoding="iso-8859-1" / -->
+	<xsl:template match="/">
+		<xsl:apply-templates select="//SERIAL"/>
+	</xsl:template>
 
-<xsl:template match="SERIAL">
+	<xsl:template match="SERIAL">
 	<html>
 		<head>
 			<title>
-				<xsl:value-of select="TITLEGROUP/TITLE" disable-output-escaping="yes"/> - <xsl:value-of select="normalize-space(ISSUE/ARTICLE/TITLE)" disable-output-escaping="yes" />				</title>
-			<meta http-equiv="Pragma" content="no-cache" />
-			<meta http-equiv="Expires" content="Mon, 06 Jan 1990 00:00:01 GMT" />
-			<link rel="STYLESHEET" TYPE="text/css" href="/css/scielo2.css" />
-			<script language="javascript" src="article.js"></script>
+				<xsl:value-of select="TITLEGROUP/TITLE" disable-output-escaping="yes"/> - <xsl:value-of select="normalize-space(ISSUE/ARTICLE/TITLE)" disable-output-escaping="yes"/>
+				</title>
+				<meta http-equiv="Pragma" content="no-cache"/>
+				<meta http-equiv="Expires" content="Mon, 06 Jan 1990 00:00:01 GMT"/>
+				<link rel="stylesheet" type="text/css" href="/css/screen.css"/>
+				<script language="javascript" src="article.js"/>
 		</head>		
-		<!--body bgcolor="#FFFFFF" link="#000080" vlink="#800080" onload="OpenWindow();" onunload="CloseWindow();"-->
-		<body bgcolor="#FFFFFF" link="#000080" vlink="#800080" onunload="CloseLattesWindow();">
-
-			<xsl:call-template name="NAVBAR">
-				<xsl:with-param name="bar1">articles</xsl:with-param>
-				<xsl:with-param name="bar2">articlesiah</xsl:with-param>
-				<xsl:with-param name="home">1</xsl:with-param>
-				<xsl:with-param name="alpha">
-					<xsl:choose>
-						<xsl:when test=" normalize-space(//CONTROLINFO/APP_NAME) = 'scielosp' ">0</xsl:when>
-						<xsl:otherwise>1</xsl:otherwise>
-					</xsl:choose>
-				</xsl:with-param>
-				<xsl:with-param name="scope" select="TITLEGROUP/SIGLUM"/>
-			</xsl:call-template>
-
-			<center>
-				<span>
-				<font class="nomodel" size="+1" color="#000080"><xsl:value-of select="TITLEGROUP/TITLE" disable-output-escaping="yes" /></font><br/>
-				<font class="nomodel" size="-1" color="#000080">
-				<xsl:apply-templates select="//ISSN">
-					  <xsl:with-param name="LANG" select="normalize-space(CONTROLINFO/LANGUAGE)" />
-				</xsl:apply-templates>
-				</font>
-				</span>
-			</center><br/>
-		
-				
-			<table border="0" width="100%">
-			<tr>
-			<td width="3%">&#160;</td>
-			<td width="94%">
-				<table width="100%" border="0">
-					<tr>
-					<td width="75%">
-			
+			<body>
+				<div class="container">
+					<div class="top">
+						<div id="issues"/>
+							<xsl:call-template name="NAVBAR">
+								<xsl:with-param name="bar1">articles</xsl:with-param>
+								<xsl:with-param name="bar2">articlesiah</xsl:with-param>
+								<xsl:with-param name="home">1</xsl:with-param>
+								<xsl:with-param name="alpha">
+									<xsl:choose>
+										<xsl:when test=" normalize-space(//CONTROLINFO/APP_NAME) = 'scielosp' ">0</xsl:when>
+										<xsl:otherwise>1</xsl:otherwise>
+									</xsl:choose>
+								</xsl:with-param>
+								<xsl:with-param name="scope" select="TITLEGROUP/SIGLUM"/>
+							</xsl:call-template>
+						</div>
+						<div class="content">		
+							<xsl:if test= "$show_toolbox = 1">
+								<xsl:call-template name="tool_box"/>
+							</xsl:if>
+						<h2>
+							<xsl:value-of select="TITLEGROUP/TITLE" disable-output-escaping="yes"/>
+						</h2>
+						<h2 id="printISSN">
+							<xsl:apply-templates select=".//ISSN">
+								<xsl:with-param name="LANG" select="normalize-space(CONTROLINFO/LANGUAGE)"/>
+							</xsl:apply-templates>
+						</h2>
+						<h3>
 					<xsl:if test="TITLEGROUP/SIGLUM != 'bjmbr' ">
-					<p align="LEFT"><br/>
-						<xsl:apply-templates select="ISSUE/STRIP" />
-					</p>
+						<xsl:apply-templates select="ISSUE/STRIP"/>
 					</xsl:if>
-			
-					<p align="LEFT">
-						<xsl:if test="ISSUE/ARTICLE/@PDF">
-							<font face="Symbol">&#174;</font> <a style="text-decoration: none;">
-								<xsl:call-template name="AddScieloLink">
-									<xsl:with-param name="seq" select="CONTROLINFO/PAGE_PID" />
-									<xsl:with-param name="script">sci_pdf</xsl:with-param>				 									<xsl:with-param name="txtlang"><xsl:value-of select="ISSUE/ARTICLE/@TRANSLATION"/></xsl:with-param>
-		
-								</xsl:call-template>
-<font class="nomodel" size="2" style="text-decoration: none;">
-								<xsl:choose>
-									<xsl:when test=" CONTROLINFO/LANGUAGE='en' ">download article in PDF format</xsl:when>
-									<xsl:when test=" CONTROLINFO/LANGUAGE='pt' ">carregue o artigo em formato PDF</xsl:when>
-									<xsl:when test=" CONTROLINFO/LANGUAGE='es' ">download el artículo en el formato PDF</xsl:when>
-								</xsl:choose>
-</font>
-							</a>							
-						</xsl:if>
-					</p>
-					</td>
-					<td width="25%">
-						<xsl:call-template name="PrintArticleInformationArea">
-							<xsl:with-param name="LATTES" select="ISSUE/ARTICLE/LATTES" />
-						</xsl:call-template>					
-					</td>
-					</tr>
-				</table>
-				<xsl:value-of select="ISSUE/ARTICLE/BODY" disable-output-escaping="yes" />
-			</td>
-			<td width="3%">&#160;</td>
-			</tr>
-			</table>
-			<hr/><p align="center">	
-				<xsl:apply-templates select="/SERIAL/COPYRIGHT" />
-				<xsl:apply-templates select="/SERIAL/CONTACT" />
-			</p>
+						</h3>
+						<h4 id="doi">
+							<xsl:apply-templates select="ISSUE/ARTICLE/@DOI"/>
+						</h4>
+						<xsl:apply-templates select="ISSUE/ARTICLE/BODY"/>
+						<div align="left"/>
+						<div class="spacer">&#160;</div>
+					</div>
+					<div class="footer">
+						<xsl:apply-templates select="COPYRIGHT"/>
+						<xsl:apply-templates select="CONTACT"/>
+					</div>
+				</div>
 		</body>
 	</html>
-</xsl:template>
+	</xsl:template>
 
-<xsl:template match="STRIP">
-   <font color="#800000">
-	<xsl:call-template name="SHOWSTRIP" >
-	 <xsl:with-param name="SHORTTITLE" select="SHORTTITLE"/>
-        <xsl:with-param name="VOL" select="VOL" />
-        <xsl:with-param name="NUM" select="NUM" />
-        <xsl:with-param name="SUPPL" select="SUPPL" />
-        <xsl:with-param name="CITY"  select="CITY" />
-        <xsl:with-param name="MONTH" select="MONTH" />
-        <xsl:with-param name="YEAR" select="YEAR" />
-	</xsl:call-template>
-   </font>
-</xsl:template>
-
-<!--xsl:template match="LATTES">
-	<xsl:choose>
-		<xsl:when test=" count(AUTHOR) = 1 ">
-			<a>
-				<xsl:attribute name="href"><xsl:value-of select="AUTHOR/@HREF" /></xsl:attribute>
-				<xsl:attribute name="onmouseover">status = '<xsl:value-of select="AUTHOR/@HREF" />'; return true;</xsl:attribute>
-				<xsl:attribute name="onmouseout">status = '';</xsl:attribute>
-			<img>
-				<xsl:attribute name="border">0</xsl:attribute>
-				<xsl:attribute name="src"><xsl:value-of 
-					select="//CONTROLINFO/SCIELO_INFO/PATH_GENIMG"/><xsl:value-of 
-					select="//CONTROLINFO/LANGUAGE"/>/lattescv.gif</xsl:attribute>
-			</img><br/>
-			<xsl:value-of select="normalize-space(AUTHOR)" />
-			</a>
-		</xsl:when>
-		
-		<xsl:when test=" count(AUTHOR) > 1 ">
-			
-			<xsl:call-template name="JavascriptText" />
-			
-			<a>
-				<xsl:attribute name="href">javascript:void(0);</xsl:attribute>
-				<xsl:attribute name="onclick">OpenWindow();</xsl:attribute>
-				<xsl:attribute name="onmouseover">status='<xsl:call-template name="PrintListLabel" />'; return true;</xsl:attribute>
-				<xsl:attribute name="onmouseout">status='';</xsl:attribute>
-			<img>
-				<xsl:attribute name="border">0</xsl:attribute>
-				<xsl:attribute name="src"><xsl:value-of 
-					select="//CONTROLINFO/SCIELO_INFO/PATH_GENIMG"/><xsl:value-of 
-					select="//CONTROLINFO/LANGUAGE"/>/lattescv.gif</xsl:attribute>
-			</img><br/>
-			<xsl:call-template name="PrintListLabel" />
-			</a>
-		</xsl:when>
-		
-		<xsl:otherwise>&#160;</xsl:otherwise>
-	</xsl:choose>
-</xsl:template>
-
-<xsl:template name="JavascriptText">
-	<script language="javascript">
-	<xsl:comment>
-		CreateWindowHeader ( "<xsl:call-template name="PrintListLabel" />",
-                                                    "<xsl:value-of 
-                                                           select="//CONTROLINFO/SCIELO_INFO/PATH_GENIMG"/><xsl:value-of 
-                                                           select="//CONTROLINFO/LANGUAGE"/>/lattescv.gif",
-                                                    "<xsl:value-of select=" //CONTROLINFO/LANGUAGE" />"
-                                                  );
-			
-			<xsl:apply-templates select="AUTHOR" />
-
-    		CreateWindowFooter();
-	// </xsl:comment>
-	</script>
-</xsl:template>
-
-<xsl:template match="AUTHOR">
-	InsertAuthor("<xsl:value-of select="." />", "<xsl:value-of select="@HREF" />");
-</xsl:template>
-
-<xsl:template name="PrintListLabel">
-	<xsl:choose>
-		<xsl:when test=" //CONTROLINFO/LANGUAGE = 'en' ">Authors List</xsl:when>
-		<xsl:when test=" //CONTROLINFO/LANGUAGE = 'pt' ">Lista de Autores</xsl:when>
-		<xsl:when test=" //CONTROLINFO/LANGUAGE = 'es' ">Lista de Autores</xsl:when>
-	</xsl:choose>
-</xsl:template-->
-
+	<xsl:template match="BODY">
+	
+		<xsl:apply-templates select="*|text()" mode="body-content"/>
+	</xsl:template>
+	<xsl:template match="BODY/* | BODY/text()" mode="body-content">
+		<xsl:value-of select="." disable-output-escaping="yes"/>
+	</xsl:template>
+	<xsl:template match="STRIP">
+		<xsl:call-template name="SHOWSTRIP">
+			<xsl:with-param name="SHORTTITLE" select="SHORTTITLE"/>
+			<xsl:with-param name="VOL" select="VOL"/>
+			<xsl:with-param name="NUM" select="NUM"/>
+			<xsl:with-param name="SUPPL" select="SUPPL"/>
+			<xsl:with-param name="CITY" select="CITY"/>
+			<xsl:with-param name="MONTH" select="MONTH"/>
+			<xsl:with-param name="YEAR" select="YEAR"/>
+		</xsl:call-template>
+	</xsl:template>
 </xsl:stylesheet>

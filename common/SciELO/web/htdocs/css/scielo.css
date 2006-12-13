@@ -1,3 +1,9 @@
+
+@import "screen/general.css";
+@import "screen/layout.css";
+@import "screen/styles.css";
+
+
 BODY {
     font-family : Verdana, Arial, Helvetica, sans-serif;
     font-size : 10pt;
@@ -105,4 +111,18 @@ a.isoref {
 font-family : Verdana, Arial, Helvetica, sans-serif;
 text-decoration: none;
 font-size:8pt;
+}
+
+
+/* RSS */
+A.rss {
+	background: url(../img/feed.gif) no-repeat;
+	display: block;
+	width: 16px;
+	height: 16px;
+	margin-bottom: 6px;
+}
+
+.rss SPAN {
+	display: none;
 }

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-	<xsl:include href="file:///scielo/web/htdocs/xsl/sci_navegation.xsl"/>
-	<xsl:include href="file:///scielo/web/htdocs/xsl/sci_error.xsl"/>
+<xsl:output method="html" omit-xml-declaration="yes" indent="no" />
+	<xsl:include href="file:///d:/sites/scielo/web/htdocs/xsl/sci_navegation.xsl"/>
+	<xsl:include href="file:///d:/sites/scielo/web/htdocs/xsl/sci_error.xsl"/>
+
 	<xsl:template match="SERIAL">
 		<HTML>
 			<HEAD>
@@ -17,10 +19,20 @@
 				<style type="text/css">
 	a { text-decoration: none; }
    </style>
-				<META http-equiv="Pragma" content="no-cache"/>
-				<META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT"/>
-			</HEAD>
+   <META http-equiv="Pragma" content="no-cache" />
+   <META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT" />
+   			<!-- link pro RSS aparecer automaticamente no Browser -->
+	
+			<xsl:call-template name="AddRssHeaderLink">
+				<xsl:with-param name="pid">//CURRENT/@PID</xsl:with-param>
+				<xsl:with-param name="lang">//LANGUAGE</xsl:with-param>
+				<xsl:with-param name="server">CONTROLINFO/SCIELO_INFO/SERVER</xsl:with-param>
+				<xsl:with-param name="script">rss.php</xsl:with-param>
+			</xsl:call-template>
+		</HEAD>
+
 			<BODY vLink="#800080" bgColor="#ffffff">
+
 				<xsl:call-template name="NAVBAR">
 					<xsl:with-param name="bar1">issues</xsl:with-param>
 					<xsl:with-param name="bar2">articlesiah</xsl:with-param>
@@ -135,7 +147,7 @@
 				<xsl:choose>
 					<xsl:when test="TITLE and ../NAME">
 						<FONT class="normal">
-							<FONT face="Symbol">·</FONT>&#160;</FONT>
+							<font face="Symbol">·</font> &#160;</FONT>
 					</xsl:when>
 				</xsl:choose>
 				<xsl:if test="TITLE">

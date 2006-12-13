@@ -1,7 +1,7 @@
 [PATH]
 PATH_DATA=/iah/
-PATH_CGI-BIN=/scielo/web/cgi-bin/iah/
-PATH_DATABASE=/scielo/web/bases/
+PATH_CGI-BIN=d:/sites/scielo/web/cgi-bin/iah/
+PATH_DATABASE=d:/sites/scielo/web/bases/
 
 [APPEARANCE]
 BODY BACKGROUND COLOR=white
@@ -18,15 +18,15 @@ WARNING TEXT COLOR=purple
 LOGO IMAGE=scielog.gif
 LOGO TEXT COLOR=
 LOGO BACKGROUND COLOR=
-LOGO URL=localhost
+LOGO URL=scielo.br.local
 HEADER IMAGE=^ponlinep.gif^eonlinee.gif^ionlinei.gif
 HEADER TEXT COLOR=
 HEADER BACKGROUND COLOR=
-HEADER URL=localhost
+HEADER URL=scielo.br.local
 
 [IAH]
 MANAGER E-MAIL=scielo@bireme.br
 MAINTENANCE=OFF
 REVERSE MODE=ON
 MULTI-LANGUAGE=ON
-L_OG DATABASE=/scielo/web/bases/logdia/iahlog
+L_OG DATABASE=d:/sites/scielo/web/bases/logdia/iahlog

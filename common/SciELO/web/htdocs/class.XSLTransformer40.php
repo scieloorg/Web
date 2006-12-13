@@ -13,16 +13,28 @@ Thanks to Bill Humphries for the original examples on using the Sablotron module
  	echo $transformer->getError();
   } 
 */
+include_once (dirname(__FILE__)."/class.XSLTransformSocket.php"); //socket
 
 class XSLTransformer{
-	var $xsl, $xml, $output, $error ;
+	var $xsl, $xml, $output, $error, $errorcode, $processor, $uri, $host, $port; //socket
 
 	/* Constructor  */
-
- 	function XSLTransformer() {
-		$this->processor = xslt_create();
- 	}
-
+	function XSLTransformer() { 
+                $defFile = new  DefFile("scielo.def");
+                $this->processor = xslt_create();
+                $this->host = $_SERVER["SERVER_ADDR"];
+                $this->port = $defFile->getKeyValue("SOCK_PORT");
+		$this->socket = new XSLTransformerSocket($this->host,$this->port);
+		if (!$this->socket){
+			die("socket creation error!");
+		}
+	}
+	function setXslBaseUri($uri){	
+		if ($uri != ""){
+			xslt_set_base($this->processor, $uri);
+		}	
+		return true;
+	}
   	/* Destructor */
  	function destroy() {
  		xslt_free($this->processor);
@@ -66,22 +78,26 @@ class XSLTransformer{
 */		
 
 	/* transform method */	
-	function transform() {
-//      	xslt_process($this->xsl, $this->xml, &$output, &$err);
-//		$this->setOutput($output);
-//		$this->setError($err);
-
-		$args = array("/_stylesheet", $this->xsl, "/_xmlinput", $this->xml, "/_output", 0, 0);
-		if ($err = xslt_run ($this->processor, "arg:/_stylesheet", "arg:/_xmlinput", "arg:/_output", 0, $args))
-		{			
-			$output = xslt_fetch_result ($this->processor, "arg:/_output");
-			$this->setOutput($output);
-		}
-		else
-		{
-			$this->setError($err);
-		}
-	}
+        function transform() {
+//              xslt_process($this->xsl, $this->xml, &$output, &$err);
+//              $this->setOutput($output);
+//              $this->setError($err);
+                if (getenv("ENV_SOCKET")=="true"){ //socket
+                        $result = $this->socket->transform($this->xsl, $this->xml);
+                        $this->setOutput($result."<!--transformed by SOCKET Java-->");
+                }else{
+                        $args = array("/_stylesheet", $this->xsl, "/_xmlinput", $this->xml, "/_output", 0, 0);
+                        if ($err = xslt_run ($this->processor, "arg:/_stylesheet", "arg:/_xmlinput", "arg:/_output", 0, $args))
+                        {
+                                $output = xslt_fetch_result ($this->processor, "arg:/_output");
+                                $this->setOutput($output."<!--transformed by PHP-->");
+                        }
+                        else
+                        {
+                                $this->setError($err);
+                        }
+                }
+        }
 
 	/* Error Handling */
  	function setError($string) {
@@ -117,7 +133,13 @@ class docReader {
  			}  else {
  				$length = $this->bignum;
   			}
-  			$this->setString(fread($fp,$length));
+			$acumulado = "";
+			while (!feof($fp)){
+				$acumulado .= fread ($fp, $length);
+			}
+			$this->setString ($acumulado);
+
+/*  			$this->setString(fread($fp,$length)); */
 			fclose($fp);
 			return 1;
  		} else {

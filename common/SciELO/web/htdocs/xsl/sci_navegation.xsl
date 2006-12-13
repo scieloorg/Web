@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" >
 
-<xsl:include href="file:///scielo/web/htdocs/xsl/sci_common.xsl"/>
+<xsl:include href="file:///D:/Sites/SciELO/web/htdocs/xsl/sci_common.xsl"/>
 
 <xsl:template name="NAVBAR" >
    <xsl:param name="bar1"/> 
@@ -67,6 +67,22 @@
              <xsl:if test="$alpha = 1"><xsl:call-template name="ALPHA" /></xsl:if>
              &#160;
             </TD>
+	    <xsl:if test="//PAGE_NAME = 'sci_serial' or //PAGE_NAME = 'sci_issuetoc'">
+		    <TD valign="bottom">
+			<xsl:element name="a">
+				<xsl:attribute name="href">
+					<xsl:value-of select="concat('http://',CONTROLINFO/SCIELO_INFO/SERVER,'/rss.php?pid=',//PAGE_PID,'&amp;lang=',//LANGUAGE)" />
+				</xsl:attribute>
+				<xsl:attribute name="title">
+					<xsl:value-of select="concat('RSS feed ',//TITLEGROUP/TITLE)" />
+				</xsl:attribute>
+				<xsl:attribute name="class">
+					<xsl:value-of select="'rss'" />
+				</xsl:attribute>
+					<span>RSS</span>
+			</xsl:element>
+		    </TD>
+	    </xsl:if>
          </TR>
         </TBODY>
       </TABLE>
