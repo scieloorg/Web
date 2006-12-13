@@ -255,10 +255,11 @@
 <!--	    'ABS' navigation in the articles (Abstract)                           -->
 <!-- ============================================================================ -->
 <function name="CreateControlInfoXML" action="replace" tag="4900">
-	<field action="import" tag="list">7009/7042</field> <!-- fixed -->
+	<field action="import" tag="list">7009/7041</field> <!-- fixed -->
 
 	<display><pft>
 		' <CONTROLINFO>'/,
+		'  <DATETIME>',date,'</DATETIME>'/
 		'  <LANGUAGE>',v4900^l,'</LANGUAGE>'/
 		'  <STANDARD>',v4900^s,'</STANDARD>'/
 		'  <PAGE_NAME>',v4900^f,'</PAGE_NAME>'/
@@ -268,7 +269,6 @@
 		'  <APP_NAME>',v7038,'</APP_NAME>'/,
 		"  <ENABLE_STAT_LINK>"v7039"</ENABLE_STAT_LINK>"/,
 		"  <ENABLE_CIT_REP_LINK>"v7040"</ENABLE_CIT_REP_LINK>"/,
-		"  <ENABLE_FORCETYPE>"v7042"</ENABLE_FORCETYPE>"/,		
 	</pft></display>
 	
 	<call name="CreatePathControlInfoXML">Now</call>
@@ -600,8 +600,13 @@
   
   <display>
    <pft>' <TITLEGROUP>'/,
-        ref(['TITLE']val(v4001),'  <TITLE><![CDATA[',replace(v100,'"','&quot;'),']]></TITLE>'/,"  <SUBTITLE><![CDATA["v110"]]></SUBTITLE>"/,
-		"  <SHORTTITLE><![CDATA["v150"]]></SHORTTITLE>"/,"  <SIGLUM>"v68"</SIGLUM>"/),' </TITLEGROUP>'/#</pft>
+        ref(['TITLE']val(v4001),
+			'  <TITLE><![CDATA[',replace(v100,'"','&quot;'),']]></TITLE>'/,
+			"  <SUBTITLE><![CDATA["v110"]]></SUBTITLE>"/,
+			"  <SHORTTITLE><![CDATA["v150"]]></SHORTTITLE>"/,
+			"  <SIGLUM>"v68"</SIGLUM>"/,
+			),
+		' </TITLEGROUP>'/#</pft>
   </display>
 </function>
 
@@ -790,10 +795,14 @@
 	<field action="replace"	tag="9000">
 		<pft>(if s(mpu,v12^l)=s(mpu,v4010[1]) then mpl,v12^*,break fi)</pft>
 	</field>
+	<field action="replace"	tag="9001">
+		<pft>(if s(mpu,v12^l)=s(mpu,v4010[1]) then mpl,v12^s,break fi)</pft>
+	</field>
 
 	<display>
 		<pft>
 			'  <TITLE><![CDATA['v9000']]></TITLE>'/#
+			'  <SUBTITLE><![CDATA['v9001']]></SUBTITLE>'/#
 		</pft>
 	</display>
 	
@@ -841,18 +850,23 @@
 	 4001 - pid 
      4001^n - Don't print uppercase names
      -->
-<trace>ON</trace>	 
 	<field action="replace" tag="4001"><pft>mpu,v4001,mpl</pft></field>
 
 	<field action="replace" tag="10" split="occ"><pft>ref(['ARTIGO']l(['ARTIGO'],'HR=',v4001^*),@PROC_SPLIT_MST.PFT,(v10/))</pft></field>
-	<field action="replace" tag="11" split="occ"><pft>ref(['ARTIGO']l(['ARTIGO'],'HR=',v4001^*),@PROC_SPLIT_MST.PFT,(v11/))</pft></field>
+    <field action="replace" tag="11" split="occ"><pft>ref(['ARTIGO']l(['ARTIGO'],'HR=',v4001^*),@PROC_SPLIT_MST.PFT,(v11/))</pft></field>
 	
 	<display><pft>if p(v10) or p(v11) then ' <AUTHORS>'/ fi</pft></display>
 	
     <!-- Defines tag 19988 to prevent CreateArticleAuthorsXML and CreateCorporativeAuthorsXML functions of printing uppercase names -->
     <field action="replace" tag="19988"><pft>if p(v4001^n) then v4001^n fi</pft></field>
+    
+	<!-- fixed_20051026 tradutor -->
+	<call name="CreateArticleAuthorsXML"><pft>(if v10^r='ND' then v10/ fi)</pft></call>
+	<call name="CreateArticleAuthorsXML"><pft>(if v10^r='TR' then v10/ fi)</pft></call>
+	<call name="CreateArticleAuthorsXML"><pft>(if v10^r='ED' then v10/ fi)</pft></call>
+	<call name="CreateArticleAuthorsXML"><pft>(if v10^r='COORD' then v10/ fi)</pft></call>
+	<call name="CreateArticleAuthorsXML"><pft>(if v10^r='ORG' then v10/ fi)</pft></call>
 
-	<call name="CreateArticleAuthorsXML"><pft>(v10/)</pft></call>
 	<call name="CreateCorporativeAuthorsXML"><pft>(v11/)</pft></call>
 
 	<display><pft>if p(v10) or p(v11) then ' </AUTHORS>'/# fi</pft></display>	
@@ -894,8 +908,30 @@
 	</display>	
 --> 
     
-    <display><pft>'  <AUTH_PERS>'/</pft></display>
-    
+	<!-- fixed_20051121 tradutor -->
+    <field action="replace" tag="1111">
+		<pft>(if iocc=1 then 
+			'^a',
+			if v10^r='ND' then 
+				'AUTH_PERS' 
+			else 
+				'PEOPLE'
+		fi,
+			,'^b',
+			,if v10^r='ND' then 
+				'AUTHOR' 
+			else 
+				'PERSON'
+			fi,
+			,if v10^r<>'ND' then 
+				'^c type="',v10^r,'"' 
+			fi, 
+			,fi),
+		</pft>
+	</field>
+	<!-- fixed_20051121 tradutor -->
+
+    <display><pft>'  <',v1111^a,v1111^c,'>'/</pft></display>    
     <do>
         <parm name="count"><pft>f(nocc(v10),1,0)</pft></parm>
         
@@ -905,7 +941,7 @@
         <field action="statusfile" tag="9902">ANSIUC2.TAB</field>
         
         <loop>
-            <field action="import" tag="list">10,9901,9902,19988</field>
+            <field action="import" tag="list">10,1111,9901,9902,19988</field>
             
             <field action="occ" tag="9810" from="10"><pft>v9876</pft></field>
            
@@ -929,7 +965,7 @@
             <display>
                 <pft>
                     if p(v9810^s) or p(v9810^n) then
-			        '   <AUTHOR SEARCH="', mpu,replace(s(v9999^s,|,+|v9999^n),' ','+'),mpl,'">'/
+			        '   <',v1111^b,v1111^c,' SEARCH="', mpu,replace(s(v9999^s,|,+|v9999^n),' ','+'),mpl,'">'/
       			    |    <NAME><![CDATA[|v9810^n|]]></NAME>|,/
 		    	    |    <SURNAME><![CDATA[|v9810^s|]]></SURNAME>|/                    
                     fi                    
@@ -962,7 +998,7 @@
             </display>
             
             <label>NOUPPER</label>
-            <display><pft>if p(v9810^s) or p(v9810^n) then '   </AUTHOR>'/ fi</pft></display>
+            <display><pft>'   </',v1111^b,'>'/</pft></display>
         </loop>        
     </do>   
 
@@ -976,7 +1012,7 @@
     
     <label>NOUC3</label>
     
-    <display><pft>'  </AUTH_PERS>'/</pft></display>
+    <display><pft>'  </',v1111^a,'>'/</pft></display>
 </function>
 
 <function name="CreateCorporativeAuthorsXML" action="replace" tag="4001">
@@ -1075,26 +1111,16 @@
 	Return the url in tag 7999 if pdf file is found or
 	nothing (tag 7999 undefined), otherwise.
 -->
-	<field action="import" tag="4010">4040</field> <!-- fixed 20040622 -->
+		<field action="replace" tag="4900" split="occ"><pft>v4910[1]</pft></field> <!-- fixed 20040622 -->
 
-	<field action="replace" tag="4900" split="occ"><pft>v4910[1]</pft></field> <!-- fixed 20040622 -->
-
-	<!-- fixed 20040624 -->
-	<!-- fixed 20040622 faltava R do HR= -->
-	<field action="replace" tag="4444" split="occ"><pft>'en'/,'es'/,'pt'/,'fr'/</pft></field> 
-	<field action="replace" tag="40">
-		<pft>
-    	ref(['ARTIGO']l(['ARTIGO'],'HR=',mpu,v4900,mpl),@PROC_SPLIT_MST.PFT,v40)
-		</pft>
-	</field>
-	<field action="replace" tag="4010"><pft>if v4010='' then v40 fi</pft></field> 
-	<field action="replace" tag="4010" split="occ"><pft>v4010/,(if v4010[1]<>v4444 then v4444/ fi)</pft></field> 
-
-<!--display><pft>ALL</pft></display-->
 	 <!-- Try to get the information needed to assemble the url (host name, domain, 
 	 	  path, ...) -->
-	<field action="import" tag="list">3012,7009/7041</field> <!-- fixed -->
-	
+  <!-- fixed 20041118 -->
+	<field action="import" tag="list">4040,7009/7041</field> <!-- fixed -->
+
+	 <!-- Try to get the information needed to assemble the url (host name, domain, 
+	 	  path, ...) -->
+
 	<!-- Get the lowercase siglum of the serial -->
 	<field action="replace" tag="9000">
 		<pft>
@@ -1105,7 +1131,6 @@
 	<!--display><pft>' sigla: ',v9000</pft></display-->
 
 	<!-- Gets the volumn number, issue number and supplement number -->
-	
 	<field action="replace" tag="9001">
 		<pft>
 			ref( ['NEWISSUE'] l( ['NEWISSUE'],'Y',mid(v4900,2,size(v4900)-5-1) ),
@@ -1115,22 +1140,30 @@
 
 	<!--display><pft>' vxxnxxsxx: ',v9001</pft></display-->
 
+	<!-- Gets the html file name. The pdf file has the same name as the html file,
+ 		 excluding the file extension. The only exception is the bjmbr serial.
+	     In this case, the pdf file name is one character shorter.
+	 -->
 	<field action="replace" tag="9002">
 		<pft>
     	ref(['ARTIGO']l(['ARTIGO'],'OU=',mpu,v4900,mpl),@PROC_SPLIT_MST.PFT,v799)
 		</pft>
 	</field>
+	<!-- fixed 20040622 faltava R do HR= -->
+	<field action="replace" tag="40">
+		<pft>
+    	ref(['ARTIGO']l(['ARTIGO'],'HR=',mpu,v4900,mpl),@PROC_SPLIT_MST.PFT,v40)
+		</pft>
+	</field>
 
 	<!--display><pft>' name: ',v9002</pft></display-->
-	
+
 	<!-- Gets the html file name. The pdf file has the same name as the html file,
  		 excluding the file extension. The only exception is the bjmbr serial.
 	     In this case, the pdf file name is one character shorter.
 	 -->
- 
 	 <!-- fixed 20040622 até o final da funcao -->
-	<list action="load" type="list"><pft>(v4010/)</pft></list>
-<trace>xOn</trace>
+	<list action="load" type="list"><pft>(v4040/)</pft></list>
 
 	<do task="list">
 	     <field action=define tag="1001">Isis_Current</field>
@@ -1175,12 +1208,14 @@
 			
 			<field action="export" tag="7900">7900</field>
 			<flow action="skip"><pft>if v7900<>'' then 'Quit' fi</pft></flow>
+
 	     </loop>
 
 	  </do>
 <!--display><pft>('URL='v7900/)</pft></display-->
 
 	<field action="export" tag="7999">7900</field>
+
 </function>
 
 <function name="existeFile" action="replace" tag="4900">
@@ -1205,8 +1240,8 @@
 	<field action="import" tag="list">7009/7022</field>
 
 	<!-- Get the url of the pdf file -->
-	<!-- fixed 20040624 -->
-
+	<!-- fixed 20040622 -->
+	<field action="import" tag="4040">4040</field>
 	<call name="getSerialPdfUrl"><pft>v4900</pft></call>
 
 	<display><pft>if p(v7999) then ' PDF="1"' fi</pft></display>
@@ -1217,21 +1252,26 @@
 <function name="TestTranslationPresence" action="replace" tag="4901" split="occ">
 <!-- If there is the translations then generate the elements translation
      4901 - pid 
-	 4901^l - language
+	 4901^o - original language	 
+	 4901^l - languages
+ 	 4901^d - directory	 
+ 	 4901^e - pdf ou tr (translation)	 
 	 -->
-<!--display><pft>ALL</pft></display-->	 
+	 <!--display><pft>ALL</pft></display-->	
+	<field action="import" tag="list">966</field>
+
    <field action="replace" tag="4901" split="occ"><pft>(v4901/)</pft></field> 
    <field action="replace" tag="4902" split="occ"><pft>(v4901^l/)</pft></field> 
    <field action="replace" tag="4904" split="occ"><pft>(v4901^d/)</pft></field> 
    <field action="replace" tag="4905" split="occ"><pft>(v4901^e/)</pft></field>
-   <field action="replace" tag="4902" split="occ"><pft>if v4905='pdf' then 'en'/,'es'/,'pt'/,'fr'/ fi</pft></field> <!-- fixed 20040624 -->
+   <field action="replace" tag="4902" split="occ"><pft>if v4905='pdf' then 'en'/,'es'/,'pt'/,'fr'/,'it'/,'de'/  fi</pft></field> <!-- fixed 20040624 -->
     
    <field action="replace" tag="4906" split="occ"><pft>(v4901^o/)</pft></field> <!-- fixed 20040622 -->
    <field action="replace" tag="4900"><pft>v4901[1]</pft></field>
    
    
    <flow action="jump"><pft>if v4902='' then 'NO_TRANSLATION' fi</pft></flow>
-   
+   <flow action="jump"><pft>if p(v966) then 'DO_NOT_CHECK_FILE_SYSTEM' fi</pft></flow>
    <!-- Try to get the information needed to assemble the url (host name, domain, 
 	 	  path, ...) -->
 	<field action="import" tag="list">7009/7041</field>
@@ -1282,7 +1322,7 @@
 	<!--display><pft>' name: ',v9002</pft></display-->
 
 	<!-- Assembles the relative path -->
-<trace>xOn</trace>	 
+
 	
 	<!--display><pft>' relative path: ',v9003</pft></display-->
 	
@@ -1327,12 +1367,17 @@
 					fi
 				</pft>
 			</field>
-			<field action="replace" tag="9005"><pft>v9005,if v9004^s : 'e' then '<LANG TRANSLATION="',v9003^f,'">',v9003^l,'</LANG>'/ else '<xLANG TRANSLATION="',v4904,v9003^f,'">',v9003^l,'</xLANG>'   fi</pft></field>
+			<field action="replace" tag="9005"><pft>v9005,if v9004^s : 'e' then '<LANG TRANSLATION="',v9003^f,'">',v9003^l,'</LANG>'/ fi</pft></field>
 			<field action="export" tag="list">9000/9002,9005,4904,4905</field>
 
 		</loop>
 	</do>
-	
+	<flow action="jump">NO_TRANSLATION</flow>
+
+	<label>DO_NOT_CHECK_FILE_SYSTEM</label>
+	<field action="replace" tag="4905"><pft>if v4905='' then 'tr' fi</pft></field>
+	<field action="replace" tag="9005" split="occ"><pft>(if v966^t=v4905[1] then '<LANG TRANSLATION="',v966^f,'">',v966^l,'</LANG>'/ fi)</pft></field>
+
 	<!--display><pft>'status: ',v9004</pft></display-->
 	
 	<!--display><pft>'http://',v7009,"."v7010,'/pdf/'v9003</pft></display-->
@@ -1377,7 +1422,7 @@
    <!-- Try to get the information needed to assemble the url (host name, domain, 
 	 	  path, ...) -->
 	<field action="import" tag="list">7009/7041</field>
-
+	
 	<!-- Get the lowercase siglum of the serial -->
 	<field action="replace" tag="9000">
 		<pft>
@@ -1405,6 +1450,11 @@
     	ref(['ARTIGO']l(['ARTIGO'],'OU=',mpu,v4900,mpl),@PROC_SPLIT_MST.PFT,v799)
 		</pft>
 	</field>
+	<field action="replace" tag="9002">
+		<pft>
+			replace(replace(v9002,'.HTML','.html'),'.HTM','.htm')
+		</pft>
+	</field>
 
 	<!--display><pft>' name: ',v9002</pft></display-->
 
@@ -1422,7 +1472,7 @@
 	<!-- Verify the presence of the files. The full path is compounded by the 
 		base path and relative path.
 	-->
-	<field action="replace" tag="9005" split="occ">
+	<field action="replace" tag="9005">
 		<pft>
 			if p(v9003) then
 				v4904,
@@ -1442,21 +1492,20 @@
 	<!--display><pft>'status: ',v9004</pft></display-->
 	
 	<!--display><pft>'http://',v7009,"."v7010,'/pdf/'v9003</pft></display-->
-	<field action="export" tag="7999">9006</field>
+	<field action="export" tag="7999">9006</field>	
 	
 </function>
-
 
 <function name="GetContentTranslationFileName" action="replace" tag="4901" split="occ">
 <!-- fixed 20040122 - corrige problema de leitura com cat() por causa do tamanho do arquivo -->
 	<do task="import">
-    	<parm name="file"><pft>v4901</pft></parm>
-	    <parm name="type">RLine</parm>
+	    <parm name="file"><pft>v4901</pft></parm>
+		<parm name="type">RLine</parm>
 		
 		<field action="replace" tag="7999">inicio_body</field>
     	<loop>
 			<field action="import" tag="list">7999</field>
-
+		
 			<field action="replace" tag="7900">0</field>
 			<field action="replace" tag="7901">0</field>
 
@@ -1480,11 +1529,11 @@
 
 			<field action="replace" tag="1"><pft>mid(v1,val(v7900)+1,size(v1))</pft></field>
 			<field action="replace" tag="1"><pft>if val(v7901)>0 then mid(v1,1,val(v7901)-1) fi</pft></field>
-			
+	
 			<label>DISPLAY_BODY</label>
-			<display><pft>v1</pft></display>
+			<display><pft>v1' '/</pft></display>
 			<field action="export" tag="list">7999</field>
-    	</loop>
+    		</loop>
 	</do>
 </function>
 
@@ -1555,16 +1604,25 @@
   <field action="replace" tag="3000"><pft>v4001^l</pft></field>
   <field action="replace" tag="3003"><pft>v4001^i</pft></field>
   
-  <field action="replace" tag="4002"><pft>ref(['ARTIGO']val(v4001^r),@PROC_SPLIT_MST.PFT,v880)</pft></field>
+  <field action="import" tag="list">880</field>
+
+  <field action="replace" tag="12" split="occ"><pft>ref(['ARTIGO']val(v4001^r),@PROC_SPLIT_MST.PFT,(v12/))</pft></field>
 
   <proc>
     <pft>
 	   	'd9999',
 		if p(v4001^f) and v4001^f = '1' then 
-	        ref(['ARTIGO']l(['ARTIGO']'SF='v4002),@PROC_SPLIT_MST.PFT,(|<9999>|v12|</9999>|/))
+	        (|<9999>|v12|</9999>|/)
 		else
-			ref(['ARTIGO']l(['ARTIGO']'SF='v4002),@PROC_SPLIT_MST.PFT,(|a9999~|v12|~|/))
-		fi, 
+if instr(v12,'~')=0 then 
+				(|a9999~|v12|~|/) 
+			else 
+				if instr(v12,'{')=0 then 
+					(|a9999{|v12|{|/) 
+				else 
+					('a9999~Invalid caracter in article title~'/) 
+				fi 
+			fi		fi, 
     </pft>  
   </proc>
 
@@ -1585,7 +1643,9 @@
 /*	  | NUM="|v32|"|,	*/
 	  | SUPPL="|v131|"|,
 	  | SUPPL="|v132|"|,
-	  | PUBDATE="|v65|"|,'>'/)
+	  | PUBDATE="|v65|"|,
+	  ,' STATUS="',v742,'"'
+	  '>'/)
 	</pft>	
    </display>
 </function>
@@ -1647,22 +1707,27 @@
    <pft>ref(['NEWISSUE']val(v4001^r),(v43/))</pft>
   </field>
   
-  <call name="GetLanguage"><pft>v4001^l/v4001^i/(v43/)</pft></call>
+  <call name="GetLanguage"><pft>if p(v4001^l) then v4001^l/v4001^i/(v43/) fi</pft></call>
   <field action="replace" tag="9000" split="occ">
-   <pft>(if s(mpu,v43^l)=s(mpu,v4010[1]) then mpl,v43 fi)</pft>
+   <pft>if p(v4001^l) then 
+   			(if s(mpu,v43^l)=s(mpu,v4010[1]) then mpl,v43 fi)
+		else 
+			(v43/)
+		fi
+	</pft>
   </field>
    	
   <display>
-	<pft>'<STRIP>',/
-	     "<SHORTTITLE><![CDATA["v9000^t"]]></SHORTTITLE>"/,
-  		 "<VOL>"v9000^v"</VOL>"/,
-		 "<NUM>"v9000^n"</NUM>"/,
-		 "<SUPPL>"v9000^w"</SUPPL>"/,
-		 "<SUPPL>"v9000^s"</SUPPL>"/,
-	     "<CITY>"v9000^c"</CITY>"/,
-		 "<MONTH>"v9000^m"</MONTH>"/,
-		 "<YEAR>"v9000^a"</YEAR>"/,
-		 '</STRIP>'/#</pft>
+	<pft>('<STRIP LANG="',v9000^l,'">',/
+	     '<SHORTTITLE><![CDATA[',v9000^t,']]></SHORTTITLE>'/,
+  		 '<VOL>',v9000^v,'</VOL>',/,
+		 '<NUM>',v9000^n,'</NUM>',/,
+		 '<SUPPL>',v9000^w,'</SUPPL>',/,
+		 '<SUPPL>',v9000^s,'</SUPPL>',/,
+	     '<CITY>',v9000^c,'</CITY>',/,
+		 '<MONTH>',v9000^m,'</MONTH>',/,
+		 '<YEAR>',v9000^a,'</YEAR>',/,
+		 '</STRIP>'/),#</pft>
   </display>
    
   <label>RETURN</label>
@@ -1973,46 +2038,21 @@
     4001^t - txt language-->
 
   <field action="import" tag="list">7009/7041</field>  <!--fixed-->
+	<!-- fixed 20040910 todo o trechp inserindo a funcao PROC_SPLIT_MST_range e substituindo os ref e lookups -->
 
-  <!-- 4010 - Abstract language -->
-  <!--call name="GetLanguage">
-   <pft>v4001^l/v4001^i/ref(['ARTIGO']val(v4001^m),(v83/))</pft>
-  </call-->
   <field action="replace" tag="4010" split="occ"><pft>ref(['ARTIGO']val(v4001^m),@PROC_SPLIT_MST.PFT,(v83^l/))</pft></field>
-    
-  <!-- 4002 - pid -->
   <field action="replace" tag="4002"><pft>ref(['ARTIGO']val(v4001^m),@PROC_SPLIT_MST.PFT,v880)</pft></field>
+  <field action="replace" tag="12" split="occ"><pft>ref(['ARTIGO']val(v4001^m),@PROC_SPLIT_MST.PFT,(v12/))</pft></field>
+  <field action="replace" tag="40" split="occ"><pft>ref(['ARTIGO']val(v4001^m),@PROC_SPLIT_MST.PFT,(v40/))</pft></field>
+  <field action="replace" tag="880" split="occ"><pft>ref(['ARTIGO']val(v4001^m),@PROC_SPLIT_MST.PFT,(v880/))</pft></field>
+
+  <field action="replace" tag="4002"><pft>v880</pft></field>
+  <field action="replace" tag="4004"><pft>v40</pft></field>
+
+    
   
   <!-- 4003 - article's languages from keys -->
   <field action="delete" tag="4003">ALL</field>
-  
-  <!-- 4004 - original article language from header record -->
-  <field action="replace" tag="4004" split="occ"><pft>ref(['ARTIGO']val(v4001^m),@PROC_SPLIT_MST.PFT,(v40/))</pft></field>
-    
-  <!-- Verify presence of pdf file. If pdf is present, then v7999 exists. -->
-
-  <!-- fixed 20040624 -->
-  <call name="getSerialPdfUrl"><pft>v4002</pft></call> 
-
-  <!-- 4005 - pdf language -->
-  <field action="delete" tag="4005">ALL</field>
-  <field action="replace" tag="4005" split="occ"><pft>if p(v7999) then (v4004/) fi</pft></field>
-  
-  <!-- try to get language from key TLN -->
-  <do task="keyrange">
-   <parm name="db">ARTIGO</parm>
-   <parm name="from"><pft>'TLN='v4002'AA'</pft></parm>
-   <parm name="to"><pft>'TLN='v4002'ZZ'</pft></parm>
-   <parm name=posting>1</parm>
-
-   <field action="define" tag="1001">Isis_Posting</field>   
-   
-   <loop>
-    <field action="import" tag="list">4003</field>
-    <field action="add" tag="4003"><pft>ref(['ARTIGO']val(v1001^m),@PROC_SPLIT_MST.PFT,v704^l)</pft></field>
-    <field action="export" tag="list">4003</field>
-   </loop>
-  </do>
   
   <!-- If not found language from key gets article's language from header -->
   <field action="replace" tag="4003" split="occ"><pft>if a(v4003) then (v4004/) fi</pft></field>
@@ -2098,8 +2138,9 @@
 
   <field action="delete" tag="9999">ALL</field>
   <call name="OrdenaLanguage"><pft>v4001^l/,(v4003/)</pft></call>
+    
 	<!-- fixed -->
-	<call name="TestTranslationPresence"><pft>ref(['ARTIGO']val(v4001^m),@PROC_SPLIT_MST.PFT,v880/,(if v40[1]<>v12^l then |^l|v12^l/ fi)),'^d'v7041/</pft></call>
+	<call name="TestTranslationPresence"><pft>v880/,(if v40[1]<>v12^l then |^l|v12^l/ fi),'^d'v7041/</pft></call>
 	
   <!-- fixed -->
   <display>
@@ -2115,14 +2156,14 @@
 
 	<!-- fixed -->
 	
-<trace>xOn</trace>	
-	<call name="TestTranslationPresence"><pft>ref(['ARTIGO']val(v4001^m),@PROC_SPLIT_MST.PFT,v880/,'^o',v40,(|^l|v12^l/)),'^d'v7022/,'^epdf'/</pft></call> <!-- fixed 20040622 -->
 
+	<call name="TestTranslationPresence"><pft>v880/,'^o',v40,(|^l|v12^l/),'^d'v7022/,'^epdf'/</pft></call> 
   <display>
    <pft>
-    if p(v4005) then
+
+    /* fixed 20040916 if p(v4005) then */ 
+    if p(v7999) then 
     '  <PDF_LANGS>'/
-    /* fixed 20040622 */
 	v7999
     '  </PDF_LANGS>'/
     fi
@@ -2189,13 +2230,12 @@
 	<field action="replace" tag="3001">
 		<pft>
 		(if p(v9999^s) or p(v9999^n) then,
-			if iocc > 1 then ' OR ' fi, v9999^s,|, |v9999^n,
+			if iocc > 1 then ' OR ' fi, replace(v9999^s,' .','.'),', ',replace(v9999^n,' .','.'),
 		fi)
 		</pft>
 	</field>
 	
 	<!--display><pft>"Expression = "v3001</pft></display-->
-	
 	<do task="search">
 		<parm name="db">LATTES</parm>
 		<parm name="expression"><pft>v3001</pft></parm>
@@ -2215,12 +2255,112 @@
 
 <function name="PROC_SPLIT_MST" action="replace" tag="4001">
 <!-- fixed 20040122 - corrige problema de leitura da base ao executar a proc PROC_SPLIT_MST. A solução usada foi criar uma função que faz o mesmo que a proc -->
+<!-- fixed 20040910 - melhorado -->
+<flow action="jump"><pft>if p(v4001^m) then 'splited' fi</pft></flow>
+ <do task="mfnrange">
+  <parm name="db">ARTIGO</parm>
+  <parm name="from"><pft>v4001</pft></parm>
+  <parm name="count">1</parm>
+  <loop>
+   <field action="replace" tag="4001"><pft>v32701</pft></field>   
+   <field action="export" tag="list">4001</field>   
+   <field action="export" tag="list">1/999</field>   
+  </loop>
+ </do>
+  <file action="close" type="database">ARTIGO</file>
+<flow action="jump"><pft>if a(v4001^m) then 'no_splited' fi</pft></flow>
+ <label>splited</label>
  <do task="mfnrange">
   <parm name="db"><pft>v4001^*</pft></parm>
   <parm name="from"><pft>v4001^m</pft></parm>
   <parm name="count">1</parm>
   <loop>
-   <return action="replace" tag="list">1/999</return>   
+  <!--display><pft>ALL</pft></display-->
+   <field action="export" tag="list">1/999</field>   
   </loop>
  </do>
+ <file action="close" type="database"><pft>v4001^*</pft></file>
+ <label>no_splited</label>
+<return action="replace" tag="list">1/999</return>   
+</function>
+
+<function name="PROC_SPLIT_MST_search" action="replace" tag="4001">
+<!-- fixed 20040910 - criado -->
+
+	<do task="search">
+	   	<parm name="db">ARTIGO</parm>
+		<parm name="expression"><pft>v4001</pft></parm>
+		<parm name="count">1</parm>
+		
+		<loop>
+		 <field action="export" tag="list">1/999,32701</field>
+		</loop>
+	</do>
+	
+	<call name="PROC_SPLIT_MST"><pft>v32701</pft></call>
+   <return action="replace" tag="list">1/999</return>   
+</function>
+
+<function name="PROC_SPLIT_MST_keyrange"action="replace" tag="1003">
+<!-- fixed 20040910 - criado -->
+ <do task="mfnrange">
+  <parm name="db">ARTIGO</parm>
+  <parm name="from"><pft>v1003</pft></parm>
+  <parm name="count">1</parm>
+  <loop>
+		 <field action="export" tag="list">1/999,32701</field>
+  </loop>
+ </do>
+ <call name="PROC_SPLIT_MST"><pft>v32701</pft></call>
+ <return action="replace" tag="list">1/999</return>   
+</function>
+
+<function name="getIssueDir" action="replace" tag="4900">
+<!-- fixed 20040910 - criado mas nao usado ...-->
+	<do task="search">
+    	<parm name="db">TITLE</parm>
+		<parm name="expression"><pft>'LOC=',mpu,mid(v4900,2,9),mpl</pft></parm>
+		<loop>
+			<field action="export" tag="list">68</field>
+		</loop>
+	</do>
+	<do task="search">
+    	<parm name="db">NEWISSUE</parm>
+		<parm name="expression"><pft>'Y',mid(v4900,2,size(v4900)-5-1)</pft></parm>
+		<loop>
+			<field action="export" tag="list">31,32,131,132</field>
+		</loop>
+	</do>
+	<!-- Get the lowercase siglum of the serial >
+	<field action="replace" tag="9000">
+		<pft>
+		ref(['TITLE']l(['TITLE'],'LOC=',mpu,mid(v4900,2,9),mpl),v68),			
+		</pft>
+	</field-->
+	
+	<!--display><pft>' sigla: ',v9000</pft></display-->
+
+	<!-- Gets the volumn number, issue number and supplement number >
+	
+	<field action="replace" tag="9001">
+		<pft>
+			ref( ['NEWISSUE'] l( ['NEWISSUE'],'Y',mid(v4900,2,size(v4900)-5-1) ),
+				"v"v31,"n"v32,"s"v131,"s"v132 )
+		</pft>
+	</field-->
+
+   <return action="replace" tag="list">68,31,32,131,132</return>   
+
+
+</function>
+<function name="getDOI" action="replace" tag="880">
+ <do task="search">
+  <parm name="db">ARTICLE_DOI</parm>
+  <parm name="expression"><pft>v880</pft></parm>
+  <parm name="count">1</parm>
+  <loop>
+  <display><pft>| DOI="|v1|"|</pft></display>
+</loop>
+ </do>
+ 
 </function>

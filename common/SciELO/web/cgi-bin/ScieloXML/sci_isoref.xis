@@ -2,8 +2,49 @@
 
 	<include>ScieloXML/sci_common.xis</include>
 
-	<section>
+	<function name="StandardXML" action="replace" tag="4001">
+		<field action="replace" tag="1" split="occ"><pft>'iso-e'/,'nbr6023-e'/,</pft></field>
+		<field action="replace" tag="2" split="occ"><pft>'Electronic Document Format (ISO)'/,'Electronic Document Format (ABNT)'/,</pft></field>
+		<field action="replace" tag="3" split="occ"><pft>'Formato Documento Eletrónico (ISO)'/,'Formato Documento Eletrónico (ABNT)'/,</pft></field>
+		<field action="replace" tag="4" split="occ"><pft>'Formato Documento Electrônico (ISO)'/,'Formato Documento Electrônico (ABNT)'/,</pft></field>
+		<display>
+			<pft>
+				'<standard-list>'
+			</pft>
+		</display>
+		
+		<field action="replace" tag="441"><pft>ref(['TITLE']val(v4001),(v441| |))</pft></field>
+		<field action="replace" tag="999">
+			<pft>
+					,if instr(v441,'Biological Sciences')>0 or instr(v441,'Health Sciences')>0 then
+						,'vancouv-e',
+					,fi
+				
+			</pft>
+		</field>
+		<field action="add" tag="1"><pft>if p(v999) then v999 fi</pft></field>
+		<field action="add" tag="2"><pft>if p(v999) then 'Electronic Document Format (Vancouver)'/, fi</pft></field>
+		<field action="add" tag="3"><pft>if p(v999) then 'Formato Documento ElectrÃ³nico (Vancouver)'/ fi</pft></field>
+		<field action="add" tag="4"><pft>if p(v999) then 'Formato Documento EletrÃ´nico (Vancouver)'/, fi</pft></field>
+		<display>
+			<pft>
+				(
+					'		<standard id="'v1'">'/
+					'			<label lang="en">'v2'</label>'/
+					'			<label lang="es">'v3'</label>'/
+					'			<label lang="pt">'v4'</label>'/
+					'		</standard>'/
+				)
+			</pft>
+		</display>
+		<display>
+			<pft>
+				'</standard-list>'
+			</pft>
+		</display>
+	</function>
 
+	<section>
 	<field action="cgi" tag="3000">lng</field>
 	<field action="cgi" tag="3001">nrm</field>
 	<field action="cgi" tag="3002">pid</field>	
@@ -49,6 +90,8 @@
 		<pft>'^l'v3000,'^s'v3001,'^p',v3002,'^i',v3003,'^fsci_isoref'</pft>
 	</call>
     
+	<call name="StandardXML"><pft>v3004</pft></call>
+
     <call name="CreateTitleGroupXML"><pft>v3004</pft></call>
     
     <call name="CreateISSNXML"><pft>v3004</pft></call>
@@ -72,10 +115,12 @@
                     if p(v14^l) then
                         ' LPAGE="',v14^l,'"'
                     fi
-                    ' CURR_DATE="',mid(date,1,8),'">',/#
+                    ' CURR_DATE="',mid(date,1,8),'"'
                 </pft>
             </display>
+			<call name="getDOI"><pft>v880</pft></call>
 
+			<display><pft>'>',/#</pft></display>
 			<call name="CreateArticleTitleOrSectionXML"><pft>mfn</pft></call>
 
 			<call name="CreateArtIssueInfoXML"><pft>v3005,'^l'v3000'^i'v3003'</pft></call>

@@ -52,7 +52,6 @@
 			,'AHLIST.PFT=',v5000^c,v5021,'/ahlist.pft'/			
 			,'NAVPAGE.PFT=',v5000^c,v5021,'/navpage.pft',/				
 			,'AHEMAIL.PFT=',v5000^c,v5021,'/ahemail.pft',/
-			,'LIST6003.PFT=',v5000^c,v5021,'/list6003.pft'/
 	
 			,'AHSCAD.HTM=',v5000^c,v5021,'/ahscad.htm'/	
 			,'CDSCAD.HTM=',v5000^c,v5021,'/cdscad.htm'/	
@@ -74,7 +73,7 @@
 			,'SHORTCUT.IAH=',v5000^c,v5021,'/dumy.pft',/			
 			,'QUERY.IAH=',v5000^c,v5021,'/query.pft',/
 			,'HEADER.IAH=',v5000^c,v5021,'/header.pft',/
-			
+			,'LIST6003.PFT=',v5000^c,v5021,'/list6003.pft'/
 		</pft>
 	</parm>
 
@@ -271,6 +270,7 @@
 		<!--parm name="decod"><pft>v5012^d</pft></parm-->
 		<loop>					
 			<proc><pft>'d87',( REF(['ZDECS']val(v87^d),'a87|^d',v1,'|') )</pft></proc>
+			<display><pft><pft>cat('PROC.PFT'),','</pft></pft></display>
 			<field action="replace" tag="9999" split="flddir" type="list">ALL</field>
 			<return action="replace" tag="list"><pft>v9999</pft></return>
 		</loop>
@@ -338,14 +338,14 @@
 		
 	<label>SEND</label>	
 		<file action="close" type="output"><pft>v6214</pft></file>
-		<field action="replace" tag="6213"><pft>replace(v6213,'@bireme.br','@brm.bireme.br')</pft></field>
+		<!--field action="replace" tag="6213"><pft>replace(v6213,'@bireme.br','@brm.bireme.br')</pft></field-->
 		
 		<field action="replace" tag="9" split="occ"><pft>cat(getenv('PATH_TRANSLATED'),'sendmail.conf')</pft></field>
 		<field action="replace" tag="9"><pft>(if left(v9,instr(v9,'=')-1) : 'EXECUTE' then mid(v9,instr(v9,'=')+1,size(v9)) fi/)</pft></field>
 		<field action="replace" tag="9"><pft>replace(replace(v9,'<mailto>',v6213),'<file>',v6214)</pft></field>		
 		<display><pft>system(v9)</pft></display>
 		
-		<file action="delete" type="file"><pft>v6214</pft></file>
+		<!--file action="delete" type="file"><pft>v6214</pft></file-->
 		<display><pft>@AHEMAIL.PFT</pft></display>	
 	
 </function>
@@ -824,6 +824,7 @@
 			
 			<loop>
 				<field action="import" tag="list">1032,5000/5009,5013,5018,5021,6000/6003,6102,6205,6210</field>
+				<display><pft><pft>cat('PROC.PFT'),','</pft></pft></display>
 				<display><htmlpft><pft>cat('AHBNAV.HTM')</pft></htmlpft></display>
 				<display><pft><pft>if s(mpu,v5009,mpl) : '.PFT' then '@',v5009 fi</pft></pft></display>	
 				<display><htmlpft><pft>if s(mpu,v5009,mpl) : '.HTM' then cat(v5009) fi</pft></htmlpft></display>
@@ -842,7 +843,8 @@
 				<parm name="isisxml table"><pft>if p(v6301) then '1001 current-hit'/'1002 total-hits'/(v6301/) fi</pft></parm>
 
 				<loop>	
-					<field action="import" tag="list">1031,6301,6302</field>				
+					<field action="import" tag="list">1031,6301,6302,5021</field>				
+					<display><pft><pft>cat('PROC.PFT'),','</pft></pft></display>
 					<display><isisxml><pft>if a(v6302) then '*' fi</pft></isisxml></display>
 					<flow action="skip"><pft>if a(v6302) then 'Next' fi</pft></flow>
 					
@@ -905,6 +907,7 @@
 							
 					<loop>	
 						<field action="import" tag="list">1001,1002,5009,5021,6212</field>
+						<display><pft><pft>cat('PROC.PFT'),','</pft></pft></display>
 						<flow action="jump"><pft>if v6212 = 'save-xml' then 'DISPLAY_XML' fi</pft></flow>
 							<display><pft><pft>if s(mpu,v5009,mpl) : '.PFT' then '@',v5009 fi</pft></pft></display>
 							<display><htmlpft><pft>if s(mpu,v5009,mpl) : '.HTM' then cat(v5009) fi</pft></htmlpft></display>
@@ -954,7 +957,7 @@
 				<field action="import" tag="list">1001,5003,5006,5009,5012,5021,6000/6003,6210/6212</field>
 				<field action="replace" tag="1001"><pft>f(val(v1001)+1,1,0)</pft></field>
 				<field action="replace" tag="1002"><pft>if p(v6211) then f(val(v6211[2])-val(v6211[1])+1,1,0) fi</pft></field>								
-				
+				<display><pft><pft>cat('PROC.PFT'),','</pft></pft></display>	
 				<flow action="jump"><pft>if v6212 = 'save-xml' then 'DISPLAY_XML' fi</pft></flow>
 					<display><pft>@AHLIST.PFT</pft></display>
 					<display><pft><pft>if s(mpu,v5009,mpl) : '.PFT' then '@',v5009 fi</pft></pft></display>	

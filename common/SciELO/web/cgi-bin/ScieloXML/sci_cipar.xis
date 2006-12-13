@@ -3,7 +3,22 @@ PATH_DATABASE: tag 7011
 PATH_CGI-BIN:  tag 7013
 PATH_DATA:     tag 7014
 -->
+<field action="cgi" tag="8035">PATH_TRANSLATED</field>
 <field action="replace" tag="8034"><pft>getenv('PATH_TRANSLATED')</pft></field>
+<field action="replace" tag="8034"><pft>if a(v8034) then v8035 fi</pft></field>
+
+<field action="replace" tag="8034">
+    <pft>
+		replace(v8034,'scielo.php','')
+    </pft>
+</field>
+
+<field action="replace" tag="8034">
+    <pft>
+		replace(v8034,'index.php','')
+    </pft>
+</field>
+
 <field action="replace" tag="8034">
     <pft>
         if right(v8034,1) <> '/' and right(v8034,1) <> '\' then,
@@ -21,8 +36,11 @@ PATH_DATA:     tag 7014
 
 <parm name="cipar">
 	<pft>
+'ARTICLE_DOI.*=',     v7011, 'doi/doi.*',/
 		'TITLE.*=',     v7011, 'title/title.*',/
-		'SERAREA.*=',   v7011, 'title/serarea.*',/
+		'SERAREAen.*=',   v7011, 'title/serareaEN.*',/
+		'SERAREAes.*=',   v7011, 'title/serareaES.*',/
+		'SERAREApt.*=',   v7011, 'title/serareaPT.*',/
 		'NEWISSUE.*=',  v7011, 'newissue/newissue.*',/
 		'ARTIGO.*=',    v7011, 'artigo/artigo.*',/
 		'FACCOUNT.*=',  v7011, 'issue/faccount.*',/
@@ -62,6 +80,7 @@ PATH_DATA:     tag 7014
         'artigo_x.*=', v7011, 'artigo/artigo_x.*',/
         'artigo_y.*=', v7011, 'artigo/artigo_y.*',/
         'artigo_z.*=', v7011, 'artigo/artigo_z.*',/
+        'artigo_1.*=', v7011, 'artigo/artigo_1.*',/
         'PROC_SPLIT_MST.PFT=', v8034, 'pfts/proc_split_mst.pft',/
 	</pft>
 </parm>

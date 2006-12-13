@@ -244,19 +244,19 @@
 ,'<TD><font class="isoref" size="-1">',
 
     ,if nocc(v8010) > 3 then
-        ,(if iocc = 4 then
+        ,(if iocc = 2 then
              ,' et al.',
         ,else
-             ,if iocc > 4 then ,
+             ,if iocc > 2 then ,
              ,else
                  ,if iocc > 1 then
-                     ,', ',
+                     ,'; ',
                  ,fi,
                  ,v8010,
              ,fi,
         ,fi),
     ,else
-        ,(|, |+v8010),
+        ,(|; |+v8010),
     ,fi,
     ,(if iocc=nocc(v8010) then
          ,if right(v8010,1)<>'.' then

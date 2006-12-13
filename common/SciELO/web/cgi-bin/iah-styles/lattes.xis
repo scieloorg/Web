@@ -6,7 +6,7 @@
 	<field action="cgi" tag="3001">expression</field>
 	
 	<do task="search">
-		<parm name="db">/scielo/web/bases/lattes/lattes</parm>
+		<parm name="db">/home/scielo/www/bases/lattes/lattes</parm>
 		<parm name="expression"><pft>v3001</pft></parm>
 		
 		<loop>

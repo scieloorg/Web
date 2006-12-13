@@ -85,10 +85,14 @@
                     if v4001^f = 'abs' then '^ssci_abstract' fi
                 </pft>
             </call>
-
 			<call name="CreateTitleGroupXML"><pft>if v4001^f = 'sws' then v4001^t fi</pft></call>
-
-			<call name="CreateArtIssueInfoXML"><pft>v4001^i,'^l'v3000'^i'v3003'</pft></call>
+            
+            <!-- FIXME 20040902
+                WORKAROUND: When there is an article record in article database but there isn´t a corresponding issue record in newissue database, 
+                the v4001^i variable is zero. In this case, the CreateArtIssueInfoXML function crashes. To avoid this, I first check the value of
+                v4001^i before passing the parameters to the function. There could be a better aproach...
+            -->
+			<call name="CreateArtIssueInfoXML"><pft>if val(v4001^i) > 0 then v4001^i,'^l',v3000,'^i',v3003 fi </pft></call>
 			
             <flow action="jump">
                 <pft>

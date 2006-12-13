@@ -24,17 +24,19 @@
 
 	<field action="replace" tag="3002"><pft>mpu,v3002,mpl</pft></field>
 										      
+  <!-- verifica se artigo era um ahead of print, então troca o pid pelo novo pid -->
+  <field action="replace" tag="3002"><pft>ref(['ARTIGO']l(['ARTIGO']'HR='v3002),@PROC_SPLIT_MST.PFT,v222)</pft></field>
+
 	<field action="replace" tag="3004"><pft>f(l(['TITLE'],'LOC=',mid(v3002,2,9)),1,0)</pft></field>
     <field action="replace" tag="3005"><pft>f(l(['NEWISSUE'],'Y',mid(v3002,2,17)),1,0)</pft></field>
     <field action="replace" tag="3006"><pft>f(l(['ARTIGO'],'SF=',v3002),1,0)</pft></field>
   	
-<!-- fixed 20040622 -->
-<!-- fixed 20040624 -->
-    <!--field action="replace" tag="4040" split="occ"><pft>if a(v4040) then  v3000/ fi</pft></field-->
-    <field action="replace" tag="4040" split="occ"><pft>if a(v4040) then  v3012/ fi</pft></field>    
+<!-- fixed 20041121 -->
+    <field action="replace" tag="4040" split="occ"><pft>v3012,if a(v3012) then 'en'/,'es'/,'pt'/,'fr'/,'it'/,'de'/ fi</pft></field>
+
 
 	<call name="getSerialPdfUrl"><pft>v3002</pft></call>
-		
+<field action="replace" tag="7999"><pft>v7999[1]</pft></field>
     <call name="CreateErrorXML">
 		<pft>
 			if val(v3006)<=0 then
@@ -63,6 +65,7 @@
 		<parm name="count">1</parm>
 
 		<display><pft>'<SERIAL>',/#</pft></display>
+		
 		<call name="CreateControlInfoXML">
 			<pft>'^l'v3000,'^s'v3001,'^p'v3002,'^tPDF^i',v3003,'^u',v7999,'^fsci_pdf'</pft>
 		</call>

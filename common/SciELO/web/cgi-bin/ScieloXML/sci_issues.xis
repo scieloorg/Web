@@ -44,8 +44,12 @@
 		
 	<label>NEXT_VOL</label>
 	<!-- Same Volume -->
+	<!-- ahead of print, se v31='' mas v32='ahead' manter o número no mesmo ano/volume -->
 	<flow action="jump">
-	 <pft>if s(v2001)=ref(['NEWISSUE']val(v1003^m),if p(v31) then v31 else 's/v' fi) then 'NEXT_ISSUE' fi</pft>
+	 <pft>if s(v2001)=ref(['NEWISSUE']val(v1003^m),if p(v31) then v31 else 's/v' fi) or 			
+			instr(ref(['NEWISSUE']val(v1003^m),if a(v31) then v32 fi),'ahead')>0 then 
+			,'NEXT_ISSUE',
+		,fi</pft>
 	</flow>
 	
     <!-- New Volume -->

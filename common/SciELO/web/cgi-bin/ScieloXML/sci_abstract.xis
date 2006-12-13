@@ -26,6 +26,9 @@
 
 	<field action="replace" tag="3002"><pft>mpu,v3002,mpl</pft></field>
 	
+  <!-- verifica se artigo era um ahead of print, então troca o pid pelo novo pid -->
+  <field action="replace" tag="3002"><pft>ref(['ARTIGO']l(['ARTIGO']'HR='v3002),@PROC_SPLIT_MST.PFT,v222)</pft></field>
+
 	<field action="replace" tag="3004"><pft>f(l(['TITLE'],'LOC=',mid(v3002,2,9)),1,0)</pft></field>
     <field action="replace" tag="3005"><pft>f(l(['NEWISSUE'],'Y',mid(v3002,2,17)),1,0)</pft></field>
     <field action="replace" tag="3006">

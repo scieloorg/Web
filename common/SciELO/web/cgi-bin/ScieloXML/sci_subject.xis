@@ -23,7 +23,7 @@
 
 	<do task="keyrange">
 	
-		<parm name="db">SERAREA</parm>
+		<parm name="db"><pft>'SERAREA'v3000</pft></parm>
 		<parm name="from"><pft>'A'</pft></parm>
 		<parm name="to"><pft>'zzz'</pft></parm>
         	<parm name=posting>All</parm>
@@ -63,7 +63,9 @@
 	if v3000 = 'pt' then '3' fi
 </pft></field>
 <flow action="jump"><pft>
+<!--
 	if v1000^t <>  v3000 then 'PULA_OUTRO_IDIOMA' fi
+-->
 </pft></flow>
 <display><pft>'<!-- '</pft></display>
 <display><pft>ALL</pft></display>

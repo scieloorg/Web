@@ -59,9 +59,8 @@
 						case 'APP_NAME'					    : 'h17038',
 						case 'ENABLE_STATISTICS_LINK'	    : 'h17039',
 						case 'ENABLE_CITATION_REPORTS_LINK' : 'h17040',
-						case 'PATH_TRANSLATION'             : 'h17041',				
-						
-						case 'ENABLE_FORCETYPE'  	        : 'h17042',
+						case 'PATH_TRANSLATION'             : 'h17041',
+						/* fixed */
                         
 						elsecase 'h4903'
 					endsel
