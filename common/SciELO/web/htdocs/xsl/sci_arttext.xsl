@@ -7,9 +7,9 @@
 	doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN" 
 	doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" />
 	
-	<xsl:include href="file:///d:/sites/scielo/web/htdocs/xsl/sci_navegation.xsl"/>
-	<xsl:include href="file:///d:/sites/scielo/web/htdocs/xsl/sci_error.xsl" />
-	<xsl:include href="file:///d:/sites/scielo/web/htdocs/xsl/sci_toolbox.xsl"/>
+	<xsl:include href="file:///home/scielo/web/htdocs/xsl/sci_navegation.xsl"/>
+	<xsl:include href="file:///home/scielo/web/htdocs/xsl/sci_error.xsl" />
+	<xsl:include href="file:///home/scielo/web/htdocs/xsl/sci_toolbox.xsl"/>
 	<xsl:variable name="LANGUAGE" select="//LANGUAGE"/>
 	<xsl:variable name="SCIELO_REGIONAL_DOMAIN" select="//SCIELO_REGIONAL_DOMAIN"/>
 

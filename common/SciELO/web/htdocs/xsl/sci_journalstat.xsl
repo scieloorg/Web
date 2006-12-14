@@ -3,8 +3,8 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 <xsl:output method="html" indent="no" />
-<xsl:include href="file:///d:/sites/scielo/web/htdocs/xsl/sci_common.xsl"/>
-<xsl:include href="file:///d:/sites/scielo/web/htdocs/xsl/sci_mysqlerror.xsl"/>
+<xsl:include href="file:///home/scielo/web/htdocs/xsl/sci_common.xsl"/>
+<xsl:include href="file:///home/scielo/web/htdocs/xsl/sci_mysqlerror.xsl"/>
 
 <xsl:template match="JOURNALSTAT">
 	<html>
