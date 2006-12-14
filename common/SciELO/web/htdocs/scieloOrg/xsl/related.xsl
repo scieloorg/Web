@@ -7,8 +7,13 @@
 	doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN" 
 	doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" />
 
+	<xsl:include href="file:///d:/sites/scielo/web/htdocs/applications/scielo-org/xsl/article_output.xsl"/>
+
 	<xsl:variable name="lang" select="//vars/lang"/>
-	<xsl:variable name="texts" select="document('file:///home/scielo/www/htdocs//scieloOrg/xml/texts.xml')/texts/language[@id = $lang]"/>
+
+	<xsl:variable name="texts" select="document('file:///d:/sites/scielo/web/htdocs/applications/scielo-org/xml/texts.xml')/texts/language[@id = $lang]"/>
+	<xsl:variable name="metaSearchInstances" select="document(concat('d:/sites/scielo/web/htdocs/applications/scielo-org/xml/',$lang,'/metaSearchInstances.xml'))"/>
+	
 	<xsl:variable name="links" select="//ARTICLE"/>
 	<xsl:variable name="total" select="count(//related/relatedlist/article)"/>
 	<xsl:template match="/">
@@ -16,7 +21,7 @@
 		<html>
 			<head>
 				<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
-				<link rel="stylesheet" href="/css/screen2.css" type="text/css" media="screen"/>
+				<link rel="stylesheet" href="/applications/scielo-org/css/public/style-{$lang}.css" type="text/css" media="screen"/>
 			</head>
 			<body>
 				<div class="container">
@@ -48,7 +53,8 @@
 										<xsl:choose>
 											<xsl:when test="$total &gt; 0">
 												<ul>
-													<xsl:apply-templates select="//related/relatedlist/article"/>
+															<xsl:apply-templates select="//related/relatedlist/article" mode="pre">
+															</xsl:apply-templates>
 												</ul>
 											</xsl:when>
 											<xsl:otherwise>
@@ -64,147 +70,14 @@
 				</div>
 			</body>
 		</html>
+	
 	</xsl:template>
-	<xsl:template match="article">
-		<xsl:variable name="country" select="@country"/>
-		<xsl:variable name="nameCountry" select="$texts/text[find=$country]/replace"/>
-		<xsl:variable name="domainCountry" select="$texts/text[find=$country]/url"/>
+		<xsl:template match="article" mode="pre">
+					<xsl:apply-templates select="." >
+							<xsl:with-param name="s" select="@s"/>
+							<xsl:with-param name="pos" select="position()"/>
+					</xsl:apply-templates>
 
-		<xsl:variable name="url" select="concat($domainCountry,'/scielo.php?script=sci_arttext&amp;pid=',@pid,'&amp;nrm=iso')"/>
-
-		<li>
-			<!--div>
-				<xsl:value-of select="position()"/>/<xsl:value-of select="$total"/>
-			</div-->
-			<div>
-			<xsl:value-of select="$nameCountry" /> <br />
-				<xsl:apply-templates select="authors/author">
-					<xsl:with-param name="total" select="count(authors/author)"/>
-				</xsl:apply-templates>
-				<a href="{$url}" target="_blank"><xsl:apply-templates select="titles/title[@lang=$lang]"/>
-				<xsl:if test="not(titles/title[@lang=$lang])">
-					<xsl:apply-templates select="titles/title[1]"/>
-				</xsl:if>
-				</a>
-				<i>
-					<xsl:apply-templates select="serial"/>
-					<xsl:apply-templates select="year"/>
-					<xsl:apply-templates select="volume"/>
-					<xsl:apply-templates select="number"/>
-					<xsl:apply-templates select="@pid" mode="issn"/>
-					<xsl:variable name="pid" select="@pid"/>
-				</i>
-			</div>
-		</li>
 	</xsl:template>
-	<xsl:template match="ABSTRACT_LANGS">
-		<xsl:param name="LANG"/>
-		<xsl:param name="PID"/>
-		<xsl:choose>
-			<xsl:when test="$LANG='pt'">resumo 
-					</xsl:when>
-			<xsl:when test="$LANG='es'">resumen
-					</xsl:when>
-			<xsl:when test="$LANG='en'">abstract
-					</xsl:when>
-		</xsl:choose>&#160;
-		<xsl:apply-templates select="LANG">
-			<xsl:with-param name="PID" select="$PID"/>
-			<xsl:with-param name="LANG" select="$LANG"/>
-			<xsl:with-param name="script" select="'sci_abstract'"/>
-		</xsl:apply-templates>
-	</xsl:template>
-	<xsl:template match="LANG">
-		<xsl:param name="PID"/>
-		<xsl:param name="LANG"/>
-		<xsl:param name="script"/>
-		<xsl:if test="position()&gt;1">&#160;|&#160;</xsl:if>
-		<a href="/scielo.php?script={$script}&amp;pid={$PID}&amp;lng={$LANG}&amp;nrm=&amp;tlng={.}" target="_blank">
-			<xsl:call-template name="inLanguage">
-				<xsl:with-param name="langInterface" select="$LANG"/>
-				<xsl:with-param name="langData" select="."/>
-			</xsl:call-template>
-		</a>
-	</xsl:template>
-	<xsl:template match="ART_TEXT_LANGS">
-		<xsl:param name="LANG"/>
-		<xsl:param name="PID"/>
-		<xsl:choose>
-			<xsl:when test="$LANG='pt'">texto 
-					</xsl:when>
-			<xsl:when test="$LANG='es'">texto
-					</xsl:when>
-			<xsl:when test="$LANG='en'">text
-					</xsl:when>
-		</xsl:choose>&#160;
-		<xsl:apply-templates select="LANG">
-			<xsl:with-param name="PID" select="$PID"/>
-			<xsl:with-param name="LANG" select="$LANG"/>
-			<xsl:with-param name="script" select="'sci_arttext'"/>
-		</xsl:apply-templates>
-	</xsl:template>
-	<xsl:template match="author">
-		<xsl:param name="total"/>
-		<xsl:value-of select="."/>
-		<xsl:choose>
-			<xsl:when test="position() = $total">. </xsl:when>
-			<xsl:otherwise>, </xsl:otherwise>
-		</xsl:choose>
-	</xsl:template>
-	<xsl:template match="title">
-		<b>
-			<xsl:value-of select="."/>
-		</b>.
-	</xsl:template>
-	<xsl:template match="serial">
-		<xsl:value-of select="."/>
-	</xsl:template>
-	<xsl:template match="year">
-		<xsl:value-of select="."/>,
-	</xsl:template>
-	<xsl:template match="volume">
-		vol.<xsl:value-of select="."/>,
-	</xsl:template>
-	<xsl:template match="number">
-		no.<xsl:value-of select="."/>,
-	</xsl:template>
-	<xsl:template match="@pid" mode="issn">
-		ISSN <xsl:value-of select="substring(.,2,10)"/>.
-	</xsl:template>
-	<xsl:template name="inLanguage">
-		<xsl:param name="langInterface"/>
-		<xsl:param name="langData"/>
-		<xsl:choose>
-			<xsl:when test="$langInterface='pt'">
-				<xsl:choose>
-					<xsl:when test="$langData='pt'">em português		
-					</xsl:when>
-					<xsl:when test="$langData='es'">em español
-					</xsl:when>
-					<xsl:when test="$langData='en'">em inglês
-					</xsl:when>
-				</xsl:choose>
-			</xsl:when>
-			<xsl:when test="$langInterface='es'">
-				<xsl:choose>
-					<xsl:when test="$langData='pt'">en portugués		
-					</xsl:when>
-					<xsl:when test="$langData='es'">en español
-					</xsl:when>
-					<xsl:when test="$langData='en'">en inglés
-					</xsl:when>
-				</xsl:choose>
-			</xsl:when>
-			<xsl:when test="$langInterface='en'">
-				<xsl:choose>
-					<xsl:when test="$langData='pt'">in Portuguese		
-					</xsl:when>
-					<xsl:when test="$langData='es'">in Spanish
-					</xsl:when>
-					<xsl:when test="$langData='en'">in English
-					</xsl:when>
-				</xsl:choose>
-			</xsl:when>
-		</xsl:choose>
-	</xsl:template>
+	
 </xsl:stylesheet>
