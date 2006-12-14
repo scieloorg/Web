@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by Organização PanAmericana da Saúde Bireme (Organização PanAmericana da Saúde Bireme) -->
+<texts>
+	<language id="pt">
+		<text>
+			<find>cited_by</find>
+			<replace>citado por:</replace>
+		</text>
+		<text>
+			<find>full_text</find>
+			<replace>Texto Completo</replace>
+		</text>
+		<text>
+			<find>similarity_search</find>
+			<replace>Busca por similaridade</replace>
+		</text>
+		<text>
+			<find>similarity</find>
+			<replace>Similaridade: </replace>
+		</text>
+		<text>
+			<find>results_founded</find>
+			<replace>resultados encontrados</replace>
+		</text>
+		<text>
+			<find>cited_by</find>
+			<replace>citado por:</replace>
+		</text>
+		<text>
+			<find>contact</find>
+			<replace>contato</replace>
+		</text>
+		<text>
+			<find>scielo.org</find>
+			<replace>SciELO.org - Scientific Electronic Library Online</replace>
+		</text>
+		<text>
+			<find>wasnt_cited</find>
+			<replace>Este artigo não possui citações</replace>
+		</text>
+		<text>
+			<find>related_to</find>
+			<replace>similar a</replace>
+		</text>
+		<text>
+			<find>doesnt_related</find>
+			<replace>Não exite artigo similar a este</replace>
+		</text>
+		<text>
+			<find>scl</find>
+			<replace>Brasil</replace>
+			<url>http://www.scielo.br</url>
+		</text>
+		<text>
+			<find>chl</find>
+			<replace>Chile</replace>
+			<url>http://www.scielo.cl</url>
+		</text>
+		<text>
+			<find>cub</find>
+			<replace>Cuba</replace>
+			<url>http://www.scielo.sld.cu/</url>
+		</text>
+		<text>
+			<find>spa</find>
+			<replace>Public Health</replace>
+			<url>http://www.scielosp.org/</url>
+		</text>
+		<text>
+			<find>sos</find>
+			<replace>Social Sciences</replace>
+			<url>http://socialsciences.scielo.org/</url>
+		</text>
+		<text>
+			<find>esp</find>
+			<replace>Espanha</replace>
+			<url>http://wwwscielo.isciii.es/</url>
+		</text>
+		<text>
+			<find>ven</find>
+			<replace>Venezuela</replace>
+			<url>http://www.scielo.org.ve/</url>
+		</text>
+	</language>
+	<language id="es">
+		<text>
+			<find>cited_by</find>
+			<replace>citado por</replace>
+		</text>
+		<text>
+			<find>full_text</find>
+			<replace>Texto Completo</replace>
+		</text>
+		<text>
+			<find>similarity_search</find>
+			<replace>Búsqueda por similaridad</replace>
+		</text>
+		<text>
+			<find>similarity</find>
+			<replace>Similaridad : </replace>
+		</text>
+		<text>
+			<find>results_founded</find>
+			<replace>resultados encontrados</replace>
+		</text>
+		<text>
+			<find>cited_by</find>
+			<replace>citado por</replace>
+		</text>
+		<text>
+			<find>contact</find>
+			<replace>contacto</replace>
+		</text>
+		<text>
+			<find>scielo.org</find>
+			<replace>SciELO.org - Scientific Electronic Library Online</replace>
+		</text>
+		<text>
+			<find>wasnt_cited</find>
+			<replace>no hay citación para el artículo</replace>
+		</text>
+		<text>
+			<find>related_to</find>
+			<replace>similar a</replace>
+		</text>
+		<text>
+			<find>doesnt_related</find>
+			<replace>no hay artículos similares</replace>
+		</text>
+		<text>
+			<find>scl</find>
+			<replace>Brasil</replace>
+			<url>http://www.scielo.br</url>
+		</text>
+		<text>
+			<find>chl</find>
+			<replace>Chile</replace>
+			<url>http://www.scielo.cl</url>
+		</text>
+		<text>
+			<find>cub</find>
+			<replace>Cuba</replace>
+			<url>http://www.scielo.sld.cu/</url>
+		</text>
+		<text>
+			<find>spa</find>
+			<replace>Public Health</replace>
+			<url>http://www.scielosp.org/</url>
+		</text>
+		<text>
+			<find>sos</find>
+			<replace>Social Sciences</replace>
+			<url>http://socialsciences.scielo.org/</url>
+		</text>
+		<text>
+			<find>esp</find>
+			<replace>España</replace>
+			<url>http://wwwscielo.isciii.es/</url>
+		</text>
+		<text>
+			<find>ven</find>
+			<replace>Venezuela</replace>
+			<url>http://www.scielo.org.ve/</url>
+		</text>
+	</language>
+	<language id="en">
+		<text>
+			<find>cited_by</find>
+			<replace>cited by</replace>
+		</text>
+		<text>
+			<find>full_text</find>
+			<replace>Full Text</replace>
+		</text>
+		<text>
+			<find>similarity_search</find>
+			<replace>Similarity search</replace>
+		</text>
+		<text>
+			<find>similarity</find>
+			<replace>Similarity: </replace>
+		</text>
+		<text>
+			<find>results_founded</find>
+			<replace>results founded</replace>
+		</text>
+		<text>
+			<find>cited_by</find>
+			<replace>cited by</replace>
+		</text>
+		<text>
+			<find>contact</find>
+			<replace>contact</replace>
+		</text>
+		<text>
+			<find>scielo.org</find>
+			<replace>SciELO.org - Scientific Electronic Library Online</replace>
+		</text>
+		<text>
+			<find>wasnt_cited</find>
+			<replace>this articles wasn't cited yet</replace>
+		</text>
+		<text>
+			<find>related_to</find>
+			<replace>related to</replace>
+		</text>
+		<text>
+			<find>doesnt_related</find>
+			<replace>this articles doesn't have a related to article</replace>
+		</text>
+		<text>
+			<find>scl</find>
+			<replace>Brazil</replace>
+			<url>http://www.scielo.br</url>
+		</text>
+		<text>
+			<find>chl</find>
+			<replace>Chile</replace>
+			<url>http://www.scielo.cl</url>
+		</text>
+		<text>
+			<find>cub</find>
+			<replace>Cuba</replace>
+			<url>http://www.scielo.sld.cu/</url>
+		</text>
+		<text>
+			<find>spa</find>
+			<replace>Public Health</replace>
+			<url>http://www.scielosp.org/</url>
+		</text>
+		<text>
+			<find>sos</find>
+			<replace>Social Sciences</replace>
+			<url>http://socialsciences.scielo.org/</url>
+		</text>
+		<text>
+			<find>esp</find>
+			<replace>Spain</replace>
+			<url>http://wwwscielo.isciii.es/</url>
+		</text>
+		<text>
+			<find>ven</find>
+			<replace>Venezuela</replace>
+			<url>http://www.scielo.org.ve/</url>
+		</text>
+	</language>
+</texts>

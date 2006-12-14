@@ -1,0 +1,516 @@
+/*
+	This file describes all the components boxes styles, 
+	like "about this site", "search box", and etc.
+	
+	List of Replaced HTML itens:
+
+		H3 = box title area
+		H3 SPAN = box title text
+		H4 = box sub-title area
+		H4 SPAN = box sub-title text
+		UL = box list area
+		LI = box list item
+		A = box link
+*/
+
+/* Search Box Cascading Styles */
+
+#search {
+	background: #ECECEC;
+}
+
+.level2 #search {
+	background: none;
+}
+
+.level2 .expression {
+	width: 300px !important;
+}
+
+#search H3 {
+	border-color: #91BFD9;
+}
+
+#search H3 SPAN  {
+	border-color: #6188A0;
+}
+
+#search .expression { 	/* = input to write a search expression */
+
+}
+
+#search .searchItens LABEL {
+	font-size: 95%;
+}
+
+#method, #searchExpression, #where {
+	float: left;
+	margin-right: 4px;
+}
+
+#searchExpression .expression {
+	width: 160px;
+}
+
+.searchItens .submit {
+	margin-top: 12px;
+}
+
+#search #indexes {
+	font-size: 90%;
+}
+
+#searchResult {
+	background: #E4EDED;
+	margin-bottom: .3em;
+}
+
+#searchResult #result {
+	padding: 10px;
+}
+
+#searchResult .portletTools {
+  float: right;
+  padding: 6px 4px;
+  margin-top: 1px;
+  color: #666;
+  font: bold 8pt Arial;
+  cursor: pointer;
+}
+
+#searchResult .portletTools IMG {
+  border-left: 1px solid #666;
+  padding: 0px 3px;
+  cursor: pointer;
+}
+
+#searchResult #result LI {    
+	list-style: none;
+	font-size: 98%;
+	font-weight: bold;
+}
+
+#searchResult #result LI LI {    
+	font-weight: normal;
+	font-size: 100%;
+}
+
+
+#searchResult #result UL {
+	margin-bottom: 7px;
+	padding: 0px;
+}
+
+#searchResult #result UL UL {
+	margin: 0px 0px 5px 5px;
+}
+
+
+.level2 #about {
+    width: 100%;
+}
+
+.level2 #about P {
+    padding-left: 50px;
+}
+
+#about H4 {
+	display: none;
+}
+
+/* Warning Box Styles */
+#warnings H3 {
+	border-color: #E59696;
+}
+
+#warnings H3 SPAN {
+	border-color: red;
+}
+
+#warnings UL {
+	padding: 0px;
+	margin: 5px 10px 10px 15px;
+}
+
+#warnings LI {
+	list-style: none;
+}
+
+/* Related Portals Box Styles */
+
+.network UL {
+	padding: 0px !important;
+	margin: 0px 0px 0px 5px !important;
+}
+
+.network UL UL {
+	margin: 3px 0px 5px 15px;
+}
+
+.network UL UL UL {
+	margin: 0px 0px 0px 10px;
+}
+
+.network LI {
+	list-style: none;
+	font-weight: bold;
+	margin: 5px 0px 7px 0px;
+}
+
+.network LI LI {
+	font-size: 97%;
+	margin-bottom: 3px;
+	font-weight: normal;
+}
+
+.network LI A {
+	text-decoration: none;
+}
+
+.network LI A:hover {
+	text-decoration: underline;
+}
+
+.network LI IMG {
+	margin-right: 4px !important;
+}
+
+.level2 H3 .lengthData {
+	font-size: 70% !important;
+	display: inline !important;
+	font-weight: normal !important;
+}
+
+.letters A {
+	font-family: Lucida Console, Courier New, Courier;
+	padding: 0px 5px 0px 5px;
+	border-bottom: none;
+}
+
+.letters A:hover {
+	background: #DDD;
+	border-bottom: none;
+}
+
+.level2 .letters {
+	margin-left: 18px;
+}
+
+.journals LI {
+	list-style: none;
+}
+
+.journals UL UL {
+	padding-bottom: 4px !important;
+}
+
+.journals LI LI A {
+	text-decoration: underline;
+}
+
+.journals LI UL {
+	margin-left: 0px;
+}
+
+.journals .expression {
+	width: 80px;
+}
+
+UL#subjects {
+	margin-top: 6px !important;
+}
+
+.login TD {
+	padding: 2px;
+}
+
+.login .expression {
+	width: 70px;
+}
+
+.login SPAN {
+	font-size: 95%;
+}
+
+.userInfo {
+	font-size: 85%;
+	margin: 10px 0px 0px 0px;
+}
+
+.userInfo SPAN {
+	background: url(../../../image/public/skins/classic/common/user.gif) no-repeat;
+	padding: 3px 0px 3px 17px;
+	font-weight: normal !important;
+}
+
+.userInfo A {
+	text-decoration: underline;
+}
+
+.reports UL {
+	padding-bottom: 4px !important;
+}
+
+.webServices #updates STRONG {
+	font-size: 95%;
+}
+
+.webServices #updates UL {
+	margin: 12px 0px 0px 5px !important;
+	padding: 0px;
+}
+
+.webServices #updates UL UL {
+	margin: 0px !important;
+	padding: 0px;
+}
+
+.webServices #updates UL UL LI {
+	margin: 0px;
+	padding: 0px;
+}
+
+.firstColumn DIV UL, .secondColumn DIV UL, .thirdColumn DIV UL {
+	margin-top: 0px !important;
+	padding-top: 0px !important;
+}
+
+#indicators, #updates .updateCluster {
+	margin-top: 0px !important;
+	padding-top: 10px !important;
+	border-top: 1px solid #CCC;
+	padding-bottom: 0px !important;
+}
+
+.messages {
+	color: red;
+}
+
+
+.articleList LI B A {
+	font-size: 110%;
+}
+
+.articleList DIV {
+    width: 80%;
+}
+
+.articleList LI I {
+	font-size: 95%;
+}
+
+.topicFolder LI {
+	clear: both;
+}
+
+.rank {
+	float: left;
+	margin: 0px;
+	padding: 0px;
+	width: 40px;
+}
+
+.rank A {
+	border-bottom: none;
+}
+
+.articleBlock {
+	float: left;
+	width: auto;
+}
+
+HTML>BODY .articleBlock {
+	float: left;
+	width: 85%;
+}
+
+.folderTools {
+	float: right;
+	width: 40%;
+	margin-right: 75px;
+}
+
+.folderTools UL {
+	margin: 0px;
+	padding: 0px;
+	text-align: right;
+}
+
+.folderTools LI {
+	display: inline;
+	font-size: 90%;
+	margin-left: 10px;
+}
+
+.comments {
+	font-size: 95%;
+	margin: 3px 0px 0px 0px;
+	padding: 0px !important;
+	color: #666;
+}
+
+.editLink {
+	background: url(../../../image/public/skins/classic/common/link_edit.gif) no-repeat;
+	padding-top: 4px;
+	padding-left: 18px;
+	margin-top: 2px;
+}
+
+.deleteLink {
+	background: url(../../../image/public/skins/classic/common/link_delete.gif) no-repeat;
+	padding-top: 4px;
+	padding-left: 18px;
+	margin-top: 2px;
+}
+
+.addToHome {
+        background: url(../../../image/public/skins/classic/common/addToHome.gif) no-repeat;
+        padding-top: 4px;
+        padding-left: 18px;
+        margin-top: 2px;
+}
+
+.removeFromHome {
+        background: url(../../../image/public/skins/classic/common/removeFromHome.gif) no-repeat;
+        padding-top: 4px;
+        padding-left: 18px;
+        margin-top: 2px;
+}
+
+.myNews A {
+	font-size: 120%;
+}
+
+.myNews UL {
+	clear: both;
+}
+
+.myNews LI SPAN {
+	font-size: 95%;
+	line-height: 130%;
+}
+
+#addRSS {
+	width: 180px;
+}
+
+#addRSS INPUT.expression {
+	width: 110px !important;
+}
+
+.empty {
+	clear: both;
+}
+
+.lengthData, .status {
+	color: #777 !important;
+	font-size: 90% !important;
+	margin-left: 5px !important;
+	white-space: nowrap !important;
+}
+
+.status {
+	padding-left: 18px;
+}
+
+.lengthData STRONG, .status STRONG {
+	color: #BC0812 !important;
+}
+
+A.closed {
+	padding-left: 24px;
+	font-size: 95%;
+	font-weight: bold !important;
+	background: url(../../../image/public/skins/classic/common/arrowClosed.gif) top left no-repeat;
+	border-bottom: none;
+}
+
+A.opened {
+	padding-left: 24px;
+	font-size: 95%;
+	font-weight: bold !important;
+	background: url(../../../image/public/skins/classic/common/arrowOpened.gif) top left no-repeat;
+	border-bottom: none;
+}
+
+A.remove {
+	padding-top: 4px;
+	background: url(../../../image/public/skins/classic/common/doc_delete.gif) no-repeat;
+	padding-left: 18px;
+	margin-top: 2px;
+}
+
+A.move {
+	padding-top: 4px;
+	background: url(../../../image/public/skins/classic/common/doc_move.gif) no-repeat;
+	padding-left: 18px;
+	margin-top: 2px;
+}
+
+
+.actions {
+	font-size: 95%;
+	margin-top: 5px;
+	line-height: 130%;
+}
+
+.trackAccess {
+	padding-top: 2px;
+	background: url(../../../image/public/skins/classic/common/stats4.gif) no-repeat;
+	padding-left: 15px;
+}
+
+.trackCitation {
+	padding-top: 2px;
+	background: url(../../../image/public/skins/classic/common/stats2.gif) no-repeat;
+	padding-left: 15px;
+}
+
+#myFolders {
+	position: relative;
+	top: -12px;
+	left: 160px;
+	border: 1px solid #666;
+	width: 180px;
+	height: 80px;
+	font-size: 90%;
+	overflow: scroll;
+	padding: 8px;
+}
+
+#myFolders UL {
+	padding: 0px;
+	margin: 0px;
+}
+
+#myFolders LI {
+	margin: 0px !important;
+}
+
+.actions .opened, .actions .closed, #myFolders .opened, #myFolders .closed {
+	font-weight: normal;
+	background: none;
+	padding: 0px;
+}
+
+.actions A.opened, .actions A.closed {
+	font-weight: normal !important;
+}
+
+.bar {
+	text-align: right;
+	font-weight: bold;
+	font-size: 75%;
+}
+
+.bar, .bar A {
+	color: #000;;
+}
+
+.bar #contact A {
+	background: url(../../../image/public/skins/classic/common/bt_contact.gif) no-repeat;
+}
+
+.hide{
+	display: none;
+}
