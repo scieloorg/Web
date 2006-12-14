@@ -98,14 +98,13 @@ class XSLTransformer {
                 $args = array ( '/_xml' => $this->xml, '/_xsl' => $this->xsl );
                 $result = xslt_process ($this->processor, 'arg:/_xml', 'arg:/_xsl', NULL, $args);
                 if ($result) {
-                    $this->setOutput ($result."<!--transformed by socket JAVA-->");
+                    $this->setOutput ($result."<!--transformed by PHP - Erro SOCK -->");
                 } else {
                     $err = "Error: " . xslt_error ($this->processor) . " Errorcode: " . xslt_errno ($this->processor);
                     $this->setError ($err);
                 }
 			} else {
-                    $this->setOutput ($result."<!--transformed by PHP-->");
-
+                    $this->setOutput ($result."<!--transformed by JAVA-->");
 			}
         } else {
         	$args = array ( '/_xml' => $this->xml, '/_xsl' => $this->xsl );
