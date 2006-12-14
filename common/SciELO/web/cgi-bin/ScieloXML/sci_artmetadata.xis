@@ -1,0 +1,196 @@
+<IsisScript name="sci_artmetadata">
+
+	<!-- Inclui definicao de funcao que le parametros de configuracao contidos em arquivo -->
+	<!-- No caso do scielo, apenas os paths da base, do cgi e data importam -->
+	<!--include>ScieloXML/getdefine.xis</include>
+	<include>ScieloXML/GetPIDs.xis</include-->
+	<include>ScieloXML/sci_common.xis</include>
+
+	<section>
+
+	<field action="cgi" tag="3001">nrm</field>
+	<field action="cgi" tag="3002">pid</field>	
+	<field action="cgi" tag="3010">debug</field>
+	<field action="cgi" tag="3011">def</field>
+	
+	<field action="replace" tag="3011"><pft>if a(v3011) then 'scielo.def' fi</pft></field>
+
+	<call name="DebugMode"><pft>if a(v3010) then 'OFF' else mpu,v3010,mpl fi</pft></call>
+
+	<include>ScieloXML/sci_cipar.xis</include>	
+
+	<field action="replace" tag="3002"><pft>mpu,v3002,mpl</pft></field>
+	
+	<field action="replace" tag="3004"><pft>f(l(['TITLE'],'LOC=',mid(v3002,2,9)),1,0)</pft></field>
+    <field action="replace" tag="3005"><pft>f(l(['NEWISSUE'],'Y',mid(v3002,2,17)),1,0)</pft></field>
+    <field action="replace" tag="3006">
+        <pft>f(l(['ARTIGO'],'SF=',v3002),1,0)</pft>
+    </field>
+
+    <field action="replace" tag="3012">
+        <pft>
+            if a(v3012) then v4010 fi        
+        </pft>
+    </field>
+    
+    <call name="CreateErrorXML">
+		<pft>
+			if val(v3006)<=0 then
+				'^a1^l'v3000,'^p'v3002'^c0003' 
+			else
+					if val(v3005)<=0 then
+						'^a3^l'v3000,'^p'v3002'^c0002'
+					else 
+						if val(v3004)<=0 then
+							'^a4^l'v3000,'^p'v3002'^c0001'
+						fi 
+					fi 
+			fi
+		</pft>
+	</call>
+
+	<display><pft>'<SERIAL>',/#</pft></display>
+
+	<call name="CreateControlInfoXML">
+		<pft>'^l'v3000,'^s'v3001,'^p',v3002,'^tABS^i',v3003,'^fsci_abstract'</pft>
+	</call>
+
+	<call name="CreateTitleGroupXML"><pft>v3004</pft></call>
+			
+	<call name="CreateISSNXML"><pft>v3004</pft></call>
+		
+	<call name="CreateCopyrightXML"><pft>v3004</pft></call>
+				
+	<call name="CreateContactXML"><pft>v3004</pft></call>
+
+	<call name="CreateArtIssueInfoXML"><pft>v3005</pft></call>
+    
+	<do task="mfnrange">
+		<parm name="db">ARTIGO</parm>	
+		<parm name="from"><pft>v3006</pft></parm>
+		<parm name="count">1</parm>
+			
+		<loop>
+            <field action="import" tag="list">7009/7041</field>
+            <field action="replace" tag="3006"><pft>f(mfn,1,0)</pft></field>
+            <display><pft>@PROC_SPLIT_MST.PFT,</pft></display>
+			
+            <display>
+                <pft>
+                    '<ARTICLE',| TEXT_LANG="|v40|"|,
+                    if p(v14^f) then
+                        ' FPAGE="',v14^f,'"'
+                    fi,
+                    if p(v14^l) then
+                        ' LPAGE="',v14^l,'"'
+                    fi,
+                    | PID="|v880|"|                    
+                </pft>
+            </display>
+			<call name="getDOI"><pft>v880</pft></call>
+			<call name="TestPDFPresence"><pft>v880</pft></call>
+			
+			<display><pft>'>'/#</pft></display>
+			<display><pft>'<publication-date>',v65,'</publication-date>'</pft></display>
+
+            <!--call name="CreateLattesGroupXML">
+                <pft>v880</pft>
+            </call-->   
+			
+			<field action="replace" tag="949"><pft>v49</pft></field>
+			 <do task="search">
+			    <parm name="db">NEWISSUE</parm>
+			    <parm name="expression"><pft>'Y',mid(v880,2,17)</pft></parm>
+			    <parm name="count">1</parm>
+			
+			    <loop>
+					<field action="import" tag="949">49</field>
+					<display><pft>(
+				if v49^c=v949[1] then
+					,'  <SECTION LANG="',v49^l,'"><![CDATA[',v49^t,']]></SECTION>'/
+				fi	
+				)</pft></display>
+			       <field action="add" tag="9491" split="occ"><pft>(
+				if v49^c=v949[1] then
+					,v49/
+				fi	
+				)</pft></field>
+				<field action="export" tag="9491">9491</pft></field>
+			    </loop>
+			  </do>
+			  
+			<display><pft>
+			if p(v12) then
+				,'<TITLES>'/,
+				(
+				'<TITLE LANG="',v12^l,'"><![CDATA[',v12^*,']]></TITLE>'/,
+				if p(v12^s) then
+					'<SUBTITLE LANG="',v12^l,'"><![CDATA[',v12^s,']]></SUBTITLE>'/,
+				fi
+				)/,
+				,'</TITLES>'/,
+			else 
+			,'<TITLES>'/,
+				(
+				'<TITLE LANG="',v9491^l,'"><![CDATA[',v9491^t,']]></TITLE>'/,
+				)/,
+				,'</TITLES>'/,
+			fi
+			</pft></display>
+			
+
+<!--call name="CreateLanguageXML"><pft>'^len^ien^m',v3006,'^ssci_issuetoc'</pft></call-->
+
+			
+          	<call name="CreateAuthorsGroupXML"><pft>v880</pft></call>
+
+			<display><pft>
+			(
+				'<ABSTRACT LANG="',v83^l,'"><![CDATA[',
+				,v83^a,
+				']]></ABSTRACT>'/,
+			)
+			</pft></display>
+				
+			<display><pft>
+			,'<KEYWORDS>'/,
+			(
+				if a(v85^l) then
+					
+				else
+					'<KEYWORD LANG="',v85^l,'"><![CDATA[',
+						,v85^k,
+					']]></KEYWORD>'/,
+				fi
+			)
+			,'</KEYWORDS>'/,
+			</pft></display>
+			
+			<display><pft>
+			'<ABSTRACT_LANGS>'/,
+			(
+				'<LANG>',v83^l,'</LANG>'/,
+			)
+			,'</ABSTRACT_LANGS>'/,
+			</pft></display>			
+			
+			<call name="TestTranslationPresence"><pft>v880/,(if v40[1]<>v12^l then |^l|v12^l/ fi),'^d'v7041/</pft></call>
+			<display>
+			   <pft>
+			    '  <ART_TEXT_LANGS>'/,
+			    (|   <LANG>|v40|</LANG>|/)
+				v7999	
+			    '  </ART_TEXT_LANGS>'/
+			   </pft>
+			  </display>
+
+			<display><pft>' </ARTICLE>'/#</pft></display>
+		</loop>
+	</do>	
+    
+    
+	<display><pft>'</SERIAL>'/#</pft></display>
+		
+	</section>
+	
+</IsisScript>
