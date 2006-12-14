@@ -1,0 +1,1 @@
+jre1.5.0_09\bin\java -Xincgc -ea -Djava.util.logging.config.file=transfLog.properties -Djavax.xml.transform.TransformerFactory=net.sf.saxon.TransformerFactoryImpl -cp .;XSLTransformer.jar;saxon8.jar XSLTransformer.XSLTServer 8899 xslts.ini 10

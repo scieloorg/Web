@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2006-12-14T15:47:00</date>
+  <millis>1166118420014</millis>
+  <sequence>0</sequence>
+  <logger>XSLTransformer.XSLTServer</logger>
+  <level>WARNING</level>
+  <class>XSLTransformer.XSLTServer</class>
+  <method>main</method>
+  <thread>10</thread>
+  <message>main/java.lang.Exception: putXSLT/ d:/sites/scielo_repo/web/htdocs/xsl/sci_pdf-other.xsl is not a file</message>
+</record>
+</log>
