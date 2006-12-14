@@ -43,10 +43,11 @@ class Scielo extends ScieloBase
 			$server = $this->_def->getKeyValue("SERVER_SCIELO");
 
 			$services = $this->_def->getSection("FULLTEXT_SERVICES");
+			$services_xml = array();
 			foreach ($services as $id=>$service){
 				$service = str_replace('PARAM_PID', $pid, $service);
-				$service = str_replace('PARAM_SERVER', $serverOriginal, $service);
-				$service = str_replace('CURRENT_URL', urlencode($currentURL), $service);
+				$service = str_replace('PARAM_SERVER', $server, $service);
+				$service = str_replace('CURRENT_URL', urlencode("http://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']), $service);
 				//$services_xml[count($services_xml)] = $this->callService($service, $id);
 				$services_xml[count($services_xml)] = $this->getURLService($service, $id);
 			}
@@ -87,8 +88,10 @@ class Scielo extends ScieloBase
 		}
 
 		$xml = str_replace("<CONTROLINFO>","<CONTROLINFO>".$xmlScieloOrg,$xml);
-	}
 		return $xml;
+	}
+
+		return $url;
 	}
 
 	function GenerateXslUrl()

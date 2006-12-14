@@ -66,8 +66,8 @@ class XSLTransformer {
 
 	function setXsl($uri) {
 		$this->xsl	= $uri;
-
-		/*if ( $doc = new docReader ($uri) ) {
+/*
+		if ( $doc = new docReader ($uri) ) {
 			$this->xsl	= $doc->getString();
 			return true;
 		} else {

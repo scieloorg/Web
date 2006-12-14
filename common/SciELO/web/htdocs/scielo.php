@@ -185,7 +185,8 @@ function dir_size($dir, &$older, &$older_accessed)
 
 //wxis-line-command
 function wxis_exe ( $url )
-{ 
+{
+
 	global $wxisServer;
 	global $scielo;
  	if (strpos($url,'debug=')==false && strpos($url, 'script=sci_verify')==false){
