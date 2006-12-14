@@ -1,7 +1,7 @@
 <?
-$lang = $_REQUEST['lang'];
-$pid = $_GET['pid'];
-$text = $_GET['text'];
+$lang = isset($_REQUEST['lang'])?($_REQUEST['lang']):"";
+$pid = isset($_REQUEST['pid'])?($_REQUEST['pid']):"";
+$text = isset($_REQUEST['text'])?($_REQUEST['text']):"";
 
 require_once(dirname(__FILE__)."/../../classDefFile.php");
 require_once(dirname(__FILE__)."/../../class.XSLTransformer.php");
@@ -63,8 +63,6 @@ echo file_get_contents($xslFile);
 echo '</textarea>';
 
 }
-
-
 
 $transformer->setXslBaseUri(dirname(__FILE__));
 $transformer->setXml($xml);
