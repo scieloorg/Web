@@ -7,7 +7,7 @@ class XSLTransformerSocket {
 		$this->port = $port;
 		$this->END_OF_MESS_SYMBOL = "?<==>?";		
 		$this->FINISH = "?<++>?";
-		$this->socket = fsockopen($host,$port, $errno, $errstr, 2);
+		$this->socket = @fsockopen($host,$port, $errno, $errstr, 2);
 		if ($this->socket)
 		{
 			putenv("ENV_SOCKET=true");
@@ -15,6 +15,7 @@ class XSLTransformerSocket {
 		}
 		else
 		{
+			putenv("ENV_SOCKET=false");
 			$this->output .= "<!--transformed by PHP-->";	
 		}
 	} 

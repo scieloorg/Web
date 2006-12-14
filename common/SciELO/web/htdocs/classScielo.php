@@ -16,23 +16,23 @@ class Scielo extends ScieloBase
 	function GenerateXmlUrl()
 	{
 
-    	$xml  = "http://";
-		$xml .= $this->_def->getKeyValue("SERVER_SCIELO");
-		$xml .= $this->_def->getKeyValue("PATH_WXIS_SCIELO");
-		$xml .= $this->_def->getKeyValue("PATH_DATA");
-		$xml .= "?IsisScript=";
-		$xml .= $this->_def->getKeyValue("PATH_SCRIPTS");
-		$xml .= "$this->_script.xis";
-		$xml .= "&def=$this->_deffile";
-        if ( !$this->_request->getRequestValue ("lng", $lng) ) $xml .= "&lng=" . $this->_def->getKeyValue("STANDARD_LANG");
-        if ( !$this->_request->getRequestValue ("nrm", $nrm) ) $xml .= "&nrm=iso";
+    	$url  = "http://";
+		$url .= $this->_def->getKeyValue("SERVER_SCIELO");
+		$url .= $this->_def->getKeyValue("PATH_WXIS_SCIELO");
+		$url .= $this->_def->getKeyValue("PATH_DATA");
+		$url .= "?IsisScript=";
+		$url .= $this->_def->getKeyValue("PATH_SCRIPTS");
+		$url .= "$this->_script.xis";
+		$url .= "&def=$this->_deffile";
+        if ( !$this->_request->getRequestValue ("lng", $lng) ) $url .= "&lng=" . $this->_def->getKeyValue("STANDARD_LANG");
+        if ( !$this->_request->getRequestValue ("nrm", $nrm) ) $url .= "&nrm=iso";
         if ( $this->_script == $this->_homepg && 
              !empty ( $this->_param ) && 
              !$this->_request->getQueryString () )
         {
-            $xml .= $this->_param;
+            $url .= $this->_param;
         }
-		$xml .= "&sln=" . strtolower ( $this->_def->getKeyValue("STANDARD_LANG") );
+		$url .= "&sln=" . strtolower ( $this->_def->getKeyValue("STANDARD_LANG") );
 
 		$this->_request->getRequestValue("pid", $pid);
 		$this->_request->getRequestValue("t", $textLang);
@@ -41,22 +41,7 @@ class Scielo extends ScieloBase
 		// 200603
 		if ($this->_script == 'sci_arttext' || $this->_script == 'sci_abstract' ){
 			$server = $this->_def->getKeyValue("SERVER_SCIELO");
-/*trocando os dominios .dev para "verdadeiros*/
-			$serverOriginal = $server;
-			if (strpos(' '.$server,'scielo.dev')){
-				$server = str_replace('scielo.dev', 'www.scielo.br', $server);
-			}
-			$currentURL = "http://www.scielo.br".'/scielo.php?script=sci_arttext&pid='.$pid;
 
-			//ojs_scielo_20050912
-			//$xmlFile = '/home/ojs2/roberta/ojs-2.0.1/files/journals/1/articles/23/submission/markup/23-124-1-MK.xml';
-			// ojs
-			$file = $this->getBodyUrlFromPubmedCentralXML($xmlFile);
-			if ($file){
-				$this->_request->setRequestValue ("file", $file);
-			}
-			// ojs
-			
 			$services = $this->_def->getSection("FULLTEXT_SERVICES");
 			foreach ($services as $id=>$service){
 				$service = str_replace('PARAM_PID', $pid, $service);
@@ -70,9 +55,9 @@ class Scielo extends ScieloBase
 			}
 		}
 		// 200603
-		$xml .= "&" . $this->_request->getQueryString ();
+		$url .= "&" . $this->_request->getQueryString ();
 
-		$xmlList[] = wxis_exe($xml); // 200603
+		$xmlList[] = wxis_exe($url); // 200603
 //adicionando o dominio do Site Regional...
 
 	if (strpos($url,'debug=')==false && strpos($url, 'script=sci_verify')==false){
@@ -137,18 +122,19 @@ class Scielo extends ScieloBase
 
 	function userInfo()
 	{
-//		die($_COOKIE['userID']);
 		if(isset($_COOKIE['userID']) && (intval($_COOKIE['userID']) > 0))
 		{
 			$userStatus = "login";
 			$name = trim($_COOKIE['firstName']." ".$_COOKIE['lastName']);
+			$userID = $_COOKIE['userID'];
 		}
 		else
 		{
 			$userStatus = "logout";
             $name = null;
+			$userID = null;
 		}
-		$result = "<USERINFO id=\"".$_COOKIE['userID']."\" status=\"".$userStatus."\">".$name."</USERINFO>";
+		$result = "<USERINFO id=\"".$userID."\" status=\"".$userStatus."\">".$name."</USERINFO>";
 		return($result);
  	}
 	
@@ -212,24 +198,6 @@ class Scielo extends ScieloBase
 			}
 		}
 		return $filename;
-	}
-	function getBodyUrlFromPubmedCentralXML($xmlFile){
-		$file = '';
-		if ($xmlFile && $this->_def->getKeyValue("ojs_url")){
-			//$OJS_LOCATION = '/home/ojs-2.0.1-B/files/journals/';
-			$OJS_LOCATION = 'http://'.$this->_def->getKeyValue("ojs_url").'/files/journals/';
-			//die($OJS_LOCATION);
-			require_once("ojs/Body.php");
-			$body = new Body();
-			//$body->setPid($pid);
-			//$body->setTextLang($textLang);
-			$body->setXMLFileRemoteLocation($OJS_LOCATION.$xmlFile);
-			$body->setOJS_URL('http://'.$this->_def->getKeyValue("ojs_url"));
-			//$body->setOJSPath('http://'.$this->_def->getKeyValue("ojs_path"));
-			$body->setFileLocalLocation($this->_def->getKeyValue("PATH_HTML"));
-			$file = $body->returnBody();
-		}
-		return $file;
 	}
 }
 

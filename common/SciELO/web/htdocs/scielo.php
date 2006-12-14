@@ -2,7 +2,6 @@
 
 	require_once("classScielo.php");
 	require_once('sso/header.php');
-	//require_once("class.WxisServerSocket.php");
 
 	// Create new Scielo object
 	$host = $HTTP_HOST;    
@@ -10,15 +9,14 @@
 	$CACHE_STATUS = $scielo->_def->getKeyValue("CACHE_STATUS");
 	$MAX_DAYS = $scielo->_def->getKeyValue("MAX_DAYS");
 	$MAX_SIZE = $scielo->_def->getKeyValue("MAX_SIZE");
-    //$wxisServer = new WxisServerSocket("test.scielo.br",3030);        
 	
 	if (($CACHE_STATUS == 'on') && ($MAX_DAYS>0)){
 		$filenamePage = $scielo->GetPageFile();
 	}
 
-$filenamePage = "";
-$pageContent = "";
-$GRAVA = false;
+	$filenamePage = "";
+	$pageContent = "";
+	$GRAVA = false;
 
 	if ($filenamePage){
         if (file_exists($filenamePage)){
@@ -31,6 +29,7 @@ $GRAVA = false;
 				$fp = fopen($filenamePage, "r");
                 if ($fp){
                 	$pageContent = fread($fp, filesize($filenamePage));
+					$pageContent .= "\n".'<!-- Cache File name: '.$filenamePage.'-->';
                 	fclose($fp);
 				}
 			} else {
@@ -57,9 +56,9 @@ $GRAVA = false;
         $scielo->SetXSLUrl ($xsl);
 		//$scielo->GetLoginStatus();
         $pageContent = $scielo->getPage();
-		$pageContent .= "\n".'<!-- '.$filenamePage.'-->';
-		$pageContent .= "\n".'<!-- '.$REQUEST_URI.'-->';
-        //$valid = false;
+
+		$pageContent .= "\n".'<!-- REQUEST URI: '.$REQUEST_URI.'-->';
+
         if ($GRAVA && $filenamePage){
 			if (!file_exists($filenamePage)){
 				include ("mkdir.php");
@@ -77,23 +76,12 @@ $GRAVA = false;
         	chmod($filenamePage, 0774);
         }
 	}
-//    echo showDivulgacao($lng, $script);
-
-
 	if(isset($_GET['download']))
 	{
 		require_once(dirname(__FILE__)."/export.php");
 		exit;
 	}	
-	
-	if($xsl == "/home/scielo/www/htdocs/xsl/sci_isoref.xsl__")
-	{
-		echo '<textarea cols="120" rows="20">';
-//		echo file_get_contents($xsl);
-		echo $xml;
-		echo '</textarea>';
-	}
-		
+
 	echo $pageContent;
 	
 
@@ -102,29 +90,16 @@ $GRAVA = false;
 		 $filenamePage = getDivulgacao($lang, $script);
                  $fp = fopen($filenamePage, "r");
                  if ($fp){
-//echo '<!--fp -->';
-//echo '<!--'.filesize($filenamePage).'-->';
-                         $pageContent = fread($fp, 9999);
-                         //$pageContent = '<!--'.$pageContent.'-->';
-                 fclose($fp);
+                     $pageContent = fread($fp, 9999);
+	                 fclose($fp);
                  }
-         //}
          return $pageContent;
  }
  function getDivulgacao($lang, $script){
 		$html = "";
 		 if (file_exists("divulgacao.txt")){
-//              echo '<!--existe-->';
                  $divulgacao = parse_ini_file("divulgacao.txt",true);
-/*              echo '<!--';
-         var_dump($divulgacao);
-         echo '-->';
-*/
                  $html = $divulgacao[$script][$lang];
-/*              echo '<!--';
-         var_dump($html);
-         echo '-->';
-*/
          }
          return $html;
  }
