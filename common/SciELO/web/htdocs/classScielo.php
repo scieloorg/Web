@@ -77,6 +77,24 @@ class Scielo extends ScieloBase
 //path para o script de logout
 		$xmlScieloOrg .= "<logoutURL>".$this->_def->getKeyValue("logout_url")."</logoutURL>";
 
+//Exibe ou não a opção de Login
+		$xmlScieloOrg .= "<show_login>".$this->_def->getKeyValue("show_login")."</show_login>";
+
+//Exibe ou não a opção de Envio de Artigo por email
+		$xmlScieloOrg .= "<show_send_by_email>".$this->_def->getKeyValue("show_send_by_email")."</show_send_by_email>";
+
+//Exibe ou não a opção de Citados Em Scielo
+		$xmlScieloOrg .= "<show_cited_scielo>".$this->_def->getKeyValue("show_cited_scielo")."</show_cited_scielo>";
+
+//Exibe ou não a opção de Citados em Google
+		$xmlScieloOrg .= "<show_cited_google>".$this->_def->getKeyValue("show_cited_google")."</show_cited_google>";
+
+//Exibe ou não a opção de Similares em Scielo
+		$xmlScieloOrg .= "<show_similar_in_scielo>".$this->_def->getKeyValue("show_similar_in_scielo")."</show_similar_in_scielo>";
+
+//Exibe ou não a opção de Similares em Google
+		$xmlScieloOrg .= "<show_similar_in_google>".$this->_def->getKeyValue("show_similar_in_google")."</show_similar_in_google>";
+
 		$xmlScieloOrg .=  $this->userInfo();
 		
 		$xmlScieloOrg = "<varScieloOrg>".$xmlScieloOrg."</varScieloOrg>";
