@@ -27,8 +27,10 @@
    <field action="replace" tag="2001"><pft>'-'</pft></field>
 
    <loop>
-    <field action="import" tag="list">2000,2001,4001</field>
+    <field action="import" tag="list">2000,2001,4001,5000</field>
 	
+	<field action="replace" tag="5000"><pft>ref(['NEWISSUE']val(v1003^m),if v31='ahead' or v32='ahead' then '^y',mid(v65,1,4),'^n',v35,v65*0.4,s(f(val(s(v36*4.3))+10000,2,0))*1.4 fi)</pft></field>
+
 	<flow action="jump">
 	 <pft>if s(v2000)=mid(ref(['NEWISSUE']val(v1003^m),v65),1,4) then 'NEXT_VOL' fi</pft>
 	</flow>
@@ -47,7 +49,7 @@
 	<!-- ahead of print, se v31='' mas v32='ahead' manter o número no mesmo ano/volume -->
 	<flow action="jump">
 	 <pft>if s(v2001)=ref(['NEWISSUE']val(v1003^m),if p(v31) then v31 else 's/v' fi) or 			
-			instr(ref(['NEWISSUE']val(v1003^m),if a(v31) then v32 fi),'ahead')>0 then 
+						instr(ref(['NEWISSUE']val(v1003^m),if a(v31) then v32 fi),'ahead')>0 then 
 			,'NEXT_ISSUE',
 		,fi</pft>
 	</flow>
@@ -62,21 +64,33 @@
 	</field>	
 	
 	<label>NEXT_ISSUE</label>
-	<field action="replace" tag="2003">
+    <field action="replace" tag="2003">
 	 <pft>ref(['NEWISSUE']val(v1003^m),v35,v65*0.4,s(f(val(s(v36*4.3))+10000,2,0))*1.4)</pft>
 	</field>
-    <display>
+	<display>
 	 <pft>if l(['ARTIGO']'HR=S',mpu,v2003,mpl,'00001')>0 then
-	       ref(['NEWISSUE']val(v1003^m),'    <ISSUE',mpu,if p(v32) then ' NUM="'v32'"' fi,mpl,
-		  | SUPPL="|v131|"|,| SUPPL="|v132|"|),| SEQ="|v2003|"|,'/>'/ fi</pft>
+	       ref(['NEWISSUE']val(v1003^m),
+
+		   ,if v32<>'ahead' then
+		   '    <ISSUE'
+				,mpu,if p(v32) then ' NUM="'v32'"' fi,mpl,
+				,| SUPPL="|v131|"|,| SUPPL="|v132|"|,
+				,' SEQ="',v35,v65*0.4,s(f(val(s(v36*4.3))+10000,2,0))*1.4,'"/>'/
+		  ,fi,),
+		  ,fi
+		  </pft>
 	</display>	 
 	
-	<field action="export" tag="list">2000,2001,4001</field>
+	<field action="export" tag="list">2000,2001,4001,5000</field>
    </loop>
  </do>
  
  <display><pft>if s(v2001)<>'-' then '   </VOLISSUE>'/ fi,
                if s(v2000)<>'-' then '  </YEARISSUE>'/ fi,
+
+				if p(v5000) then
+					'<AHP><ISSUE NUM="AHEAD" SEQ="',v5000^n,'"/></AHP>'/
+				fi
                ' </AVAILISSUES>'/</pft></display>
 </function>
  
