@@ -32,7 +32,8 @@
     <field action="replace" tag="3006"><pft>f(l(['ARTIGO'],'SF=',v3002),1,0)</pft></field>
   	
 <!-- fixed 20041121 -->
-    <field action="replace" tag="4040" split="occ"><pft>v3012,if a(v3012) then 'en'/,'es'/,'pt'/,'fr'/,'it'/,'de'/ fi</pft></field>
+    <call name="getAvailableTextLanguages"><pft>if a(v3012) then mid(v3002,2,9) fi</pft></call>
+    <field action="replace" tag="4040" split="occ"><pft>v3012,if a(v3012) then v9350 fi</pft></field>
 
 
 	<call name="getSerialPdfUrl"><pft>v3002</pft></call>
@@ -84,7 +85,11 @@
 			
 			<display>
 				<pft>
-					' <ARTICLE FPAGE="',v14^f,'" LPAGE="',v14^l,'" PID="',v3002,'">'/#,
+					' <ARTICLE FPAGE="',v14^f,'" LPAGE="',v14^l,'" PID="',v3002,'"',
+					 ,' CURR_DATE="',mid(date,1,8),'"'
+					 ,' ahpdate="',v223,'"'
+
+					,'>'/#,
 
 				</pft>
 			</display>
