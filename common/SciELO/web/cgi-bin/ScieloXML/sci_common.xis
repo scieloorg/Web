@@ -1,7 +1,7 @@
 <!-- Common Functions (SciELO Interface)-->
 <include>ScieloXML/sci_getdefine.xis</include>
 <!-- ============================================================================ -->
-<!--  function getLastIssue                                                       -->
+<!--  function GetCurrentIssue                                                       -->
 <!--                                                                              -->
 <!--  Gets the pid (issnyyyynnnn) of the last issue of a serial.                  -->
 <!--                                                                              -->
@@ -12,9 +12,9 @@
 <!--     If found, returns the pid of the last issue of the serial in the tag     -->
 <!--  7090. Otherwise, returns nothing.                                           -->
 <!-- ============================================================================ -->
-<function name="GetLastIssue" action="replace" tag="4900">
+<function name="GetCurrentIssue" action="replace" tag="4900">
 	<!--display><pft>'v4900 = ',v4900,'<br>'</pft></display-->
-	
+
 	<do task="keyrange">
 		<!--parm name="db">NEWISSUE</parm-->
 		<parm name="db">ARTIGO</parm>
@@ -25,21 +25,31 @@
 		<field action="define" tag="4901">Isis_Key</field>
 		
 		<loop>
+
 			<field action="import" tag="list">4900</field>
+			<!--display><pft>'v4900 = ',v4900,'<br>'</pft></display>
+			<display><pft>'v4901 = ',v4901,'<br>'</pft></display-->
+
 			<flow action="skip">
 				<pft>
-					if instr(v4901,v4900) = 0 then
-						'Quit'
-					else
-						ref(['NEWISSUE']l(['NEWISSUE'],v4901), 'Quit')
+					if ref(['NEWISSUE']l(['NEWISSUE'],v4901),v32)<>'ahead' then
+						if instr(v4901,v4900) = 0 then
+							'Quit'
+						else
+							if l(['NEWISSUE'],v4901) > 0 then
+								if l(['ARTIGO'],'HR=S',mpu,v4901*1,mpl,'00001') > 0 then
+									'Quit' 
+								fi
+							fi
+						fi
 					fi
 				</pft>
-			</flow>
+			</flow>			
 		</loop>
 	</do>
 	
 	<!--display><pft>'Isis_Key (v4901): ', v4901,'<br>'</pft></display-->
-
+	
 	<return action="replace" tag="7090">
 		<pft>
 			/* If the pid of the serial (issn) isn't in the key, then it's another serial */
@@ -60,6 +70,9 @@
 <!--  Return value:                                                               -->
 <!--     If found, returns the pid of the previous issue in the tag 7085.         -->
 <!--  Otherwise, returns nothing.                                                 -->
+<!--  Note:                                                                       -->
+<!--  If it is a ahead of print issue, the previous issue is the current issue    -->
+<!--  Otherwise any previous issue but any ahead of print                         -->
 <!-- ============================================================================ -->
 <function name="GetPreviousIssue" action="replace" tag="4900">
 	<!--display><pft>'v4900 = ',v4900,'<br>'</pft></display-->
@@ -67,26 +80,30 @@
 		<!--parm name="db">NEWISSUE</parm-->
 		<parm name="db">ARTIGO</parm>
 		<parm name="from"><pft>'Y',v4900</pft></parm>
-		<parm name="count">2</parm>
+		<!--parm name="count">2</parm-->
 		<parm name="reverse">On</parm>
 		
 		<field action="define" tag="4901">Isis_Key</field>
 		
 		<loop>
 			<field action="import" tag="4900">4900</field>
-			
+
 			<flow action="skip">
 				<pft>
 					/* The first key found whose pid isn't the current issue's  */
 					/* pid stops the loop.                                      */
-					if p(v4901) and instr(v4901,v4900) = 0 then 'Quit' fi
+					/* if p(v4901) and instr(v4901,v4900) = 0 then 'Quit' fi */
+					if ref(['NEWISSUE']l(['NEWISSUE'],v4901),v32)<>'ahead' and instr(v4901,v4900) = 0 then
+						if l(['ARTIGO'],'HR=S',mpu,v4901*1,mpl,'00001') > 0 and
+						   l(['NEWISSUE'],v4901) > 0 then, 
+							'Quit' 
+						fi
+					fi
 				</pft>
 			</flow>
 		</loop>	
 	</do>	
 
-	<!--display><pft>'Isis_Key (v4901): ', v4901,'<br>'</pft></display-->
-	
 	<return action="replace" tag="7085">
 		<pft>
 			/* The pid of the key must be different from the pid of the current issue */
@@ -94,12 +111,67 @@
 			if p(v4901) and
 			   instr(v4901, v4900) = 0 and 
 			   instr(v4901, left(v4900, size(v4900) - 8)) > 0 and			   
-/*			   l(['ARTIGO'],'HR=S',mpu,v4901*1,mpl,'00001') > 0 then, */
+			   l(['ARTIGO'],'HR=S',mpu,v4901*1,mpl,'00001') > 0 and
 			   l(['NEWISSUE'],v4901) > 0 then, 
 				v4901*1,
 			fi,
 		</pft>
 	</return>
+</function>
+
+<!-- ============================================================================ -->
+<!--  function GetAheadIssue                                                       -->
+<!--                                                                              -->
+<!--  Gets the pid (issnyyyynnnn) of the AHEAD issue					          -->
+<!--                                                                              -->
+<!--  Argument:                                                                   -->
+<!--     The ISSN of the current issue.											  -->
+<!--                                                                              -->
+<!--  Return value:                                                               -->
+<!--     If found, returns the pid of the next issue in the tag 7095. Otherwise   -->
+<!--  returns nothing.                                                            -->
+<!-- ============================================================================ -->
+<function name="GetAheadIssue" action="replace" tag="4900">
+	<!--display><pft>'v4900 = ',v4900,'<br>'</pft></display-->
+
+	<do task="keyrange">
+		<parm name="db">ARTIGO</parm>
+		<parm name="from"><pft>'AHEAD=',v4900</pft></parm>
+		<parm name="count">1</parm>
+		
+
+		<loop>
+			<field action="import" tag="4900">4900</field>
+			<field action="replace" tag="4901">
+				<pft>ref(['ARTIGO']l(['ARTIGO'],'AHEAD=',v4900),@PROC_SPLIT_MST.PFT,
+					v35,v65*0.4,s(f(val(s(v36*4.3))+10000,2,0))*1.4)</pft>
+			</field>
+			<field action="export" tag="4901">4901</field>
+
+			<flow action="skip">
+				<pft>
+					if l(['ARTIGO'],'HR=S',mpu,v4901,mpl,'00001') > 0 then
+						if l(['NEWISSUE'],'Y'v4901) > 0 then, 
+							'Quit'
+						fi
+					fi
+				</pft>
+			</flow>
+		</loop>	
+	</do>
+	
+	<return action="replace" tag="7095">
+		<pft>
+			if p(v4901) then
+				if l(['ARTIGO'],'HR=S',mpu,v4901,mpl,'00001') > 0 then
+					if l(['NEWISSUE'],'Y'v4901) > 0 then, 
+						v4901,
+					fi
+				fi
+			fi,
+		</pft>
+	</return>
+		
 </function>
 
 <!-- ============================================================================ -->
@@ -121,11 +193,27 @@
 		<!--parm name="db">NEWISSUE</parm-->
 		<parm name="db">ARTIGO</parm>
 		<parm name="from"><pft>'Y',v4900,'zzzzz'</pft></parm>
-		<parm name="count">1</parm>
+		<!--parm name="count">1</parm-->
 		
 		<field action="define" tag="4901">Isis_Key</field>
+
+		<loop>
+			<field action="import" tag="4900">4900</field>
+
+			<flow action="skip">
+				<pft>
+					/* The first key found whose pid isn't the current issue's  */
+					/* pid stops the loop.                                      */
+					if ref(['NEWISSUE']l(['NEWISSUE'],v4901),v32)<>'ahead' then
+						if l(['ARTIGO'],'HR=S',mpu,v4901*1,mpl,'00001') > 0 and
+						   l(['NEWISSUE'],v4901) > 0 then, 
+								'Quit'
+						fi
+					fi
+				</pft>
+			</flow>
 		
-		<loop></loop>	
+		</loop>	
 	</do>	
 
 	<!--display><pft>'Isis_Key (v4901): ', v4901,'<br>'</pft></display-->
@@ -135,11 +223,11 @@
 			/* The pid of the key must be different from the pid of the current issue */
 			/* and the issn must be equal.                                            */
 			if p(v4901) and 
-			   instr(v4901, v4900) = 0 and
-			   instr(v4901, left(v4900, size(v4900) - 8) ) > 0 and
-/*			   l(['ARTIGO'],'HR=S',mpu,v4901*1,mpl,'00001') > 0 then, */
-			   l(['NEWISSUE'],v4901) > 0 then, 
-				v4901*1,
+				   instr(v4901, v4900) = 0 and
+				   instr(v4901, left(v4900, size(v4900) - 8) ) > 0 and
+				   l(['ARTIGO'],'HR=S',mpu,v4901*1,mpl,'00001') > 0 and
+				   l(['NEWISSUE'],v4901) > 0 then, 
+					v4901*1,
 			fi,
 		</pft>
 	</return>
@@ -164,19 +252,21 @@
 	<do task="keyrange">
 		<parm name="db">ARTIGO</parm>
 		<parm name="from"><pft>'HR=',v4900</pft></parm>
-		<parm name="count">2</parm>
+		<!--parm name="count">2</parm-->
 		<parm name="reverse">On</parm>
-		
+
 		<field action="define" tag="4901">Isis_Key</field>
 		
 		<loop>
 			<field action="import" tag="4900">4900</field>
-			
 			<flow action="skip">
 				<pft>
 					/* The first key found whose pid isn't the current article's  */
 					/* pid stops the loop.                                        */
-					if p(v4901) and instr(v4901,v4900) = 0 then 'Quit' fi
+					/* if article has new-pid (v222) then execute next loop       */
+					if ref(['ARTIGO']l(['ARTIGO'],v4901),@PROC_SPLIT_MST.PFT,v222)='' then 
+						if p(v4901) and instr(v4901,v4900) = 0 then 'Quit' fi
+					fi
 				</pft>
 			</flow>
 		</loop>	
@@ -215,11 +305,23 @@
 	<do task="keyrange">
 		<parm name="db">ARTIGO</parm>
 		<parm name="from"><pft>'HR=',v4900,'zzzzz'</pft></parm>
-		<parm name="count">1</parm>
+		<!--parm name="count">1</parm-->
 		
 		<field action="define" tag="4901">Isis_Key</field>
 		
-		<loop></loop>	
+		<loop>
+			<field action="import" tag="4900">4900</field>
+			<flow action="skip">
+				<pft>
+					/* The first key found whose pid isn't the current article's  */
+					/* pid stops the loop.                                        */
+					/* if article has new-pid (v222) then execute next loop       */
+					if ref(['ARTIGO']l(['ARTIGO'],v4901),@PROC_SPLIT_MST.PFT,v222)='' then 
+						'Quit'
+					fi
+				</pft>
+			</flow>
+		</loop>	
 	</do>	
 
 	<!--display><pft>'Isis_Key (v4901): ', v4901,'<br>'</pft></display-->
@@ -228,7 +330,7 @@
 		<pft>
 			/* The pid of the key must be different from the pid of the current article */
 			/* and the issue must be equal.                                             */
-			if p(v4901) and 
+			if p(v4901) and ref(['ARTIGO']l(['ARTIGO'],v4901),@PROC_SPLIT_MST.PFT,v222)='' and
 			   instr(v4901, v4900) = 0 and
 			   instr(v4901, left(v4900, size(v4900) - 5)) > 0 then,
  				mid(v4901*3, 1, 23),				
@@ -247,7 +349,7 @@
 <!--  Prints the xml control information.                                         -->
 <!--                                                                              -->
 <!--  Arguments:                                                                  -->
-<!--     ^lLanguage^sStandard^pPID^tTarget^iInternational Language^fpage (from)                -->
+<!--     ^lLanguage^sStandard^pPID^tTarget^iInternational Language^fpage (from)   -->
 <!--     where Target is      	                                                  -->
 <!--	    'TIT' navigation in the issues but none either selected               -->
 <!--	    'ISS' navigation in the issues but one issue already selected         -->
@@ -256,7 +358,7 @@
 <!-- ============================================================================ -->
 <function name="CreateControlInfoXML" action="replace" tag="4900">
 	<field action="import" tag="list">7009/7041</field> <!-- fixed -->
-
+<!--trace>On</trace-->
 	<display><pft>
 		' <CONTROLINFO>'/,
 		'  <DATETIME>',date,'</DATETIME>'/
@@ -280,7 +382,7 @@
 			fi
 		</pft>
 	</call>
-	
+
 	<call name="CreatePreviousNextIssue">
 		<pft>
 			if s(mpu,v4900^t,mpl) = 'ISS' then 
@@ -320,8 +422,10 @@
 	<field action="delete" tag="list">7085,7090,7095</field>
 	
 	<!--display><pft>| v4900 = |v4900</pft></display-->
-	<call name="GetLastIssue"><pft>v4900</pft></call>
+
+	<call name="GetCurrentIssue"><pft>v4900</pft></call>
 	<call name="GetPreviousIssue"><pft>if p(v7090) then v7090 fi</pft></call>
+	<call name="GetAheadIssue"><pft>v4900</pft></call>
 
 	<display>
 		<pft>
@@ -347,6 +451,16 @@
 			   	   )
 				' />'/,
 			fi,			
+			if p(v7095) then
+				'   <NEXT PID="',v7095,'"',
+				ref( ['NEWISSUE'] l(['NEWISSUE'], 'Y',v7095), 
+					| VOL="|v31|"|,
+					if p(v32) then ' NUM="',s(mpu,v32,mpl),'"' fi,					
+/*					| NUM="|v32|"|,	*/
+					| SUPPL="|v131|"|, | SUPPL="|v132|"|
+			   	   )
+				' />'/,
+			fi,	
 			'  </ISSUES>',/			
 		</pft>
 	</display>
@@ -362,11 +476,20 @@
 <!-- ============================================================================ -->
 <function name="CreatePreviousNextIssue" action="replace" tag="4900">
 	<field action="delete" tag="list">7085,7090,7095</field>
-	
-	<!--display><pft>| v4900 = |v4900</pft></display-->
 
-	<call name="GetPreviousIssue"><pft>v4900</pft></call>
-	<call name="GetNextIssue"><pft>v4900</pft></call>
+	<field action="replace" tag="32"><pft>ref(['NEWISSUE'] l(['NEWISSUE'], 'Y',v4900), v32)</pft></field>
+
+	<!--display><pft>ALL</pft></display>
+	<trace>On</trace-->
+	<!-- GetCurrentIssue and GetPreviousIssue are excludent -->
+	<call name="GetCurrentIssue"><pft>if v32='ahead' then mid(v4900,1,9) fi</pft></call>
+	<call name="GetPreviousIssue"><pft>if v32<>'ahead' then v4900 fi</pft></call>
+	<field action="replace" tag="7085"><pft>v7090</pft></field>
+
+	<!-- GetNextIssue and GetAheadIssue are excludent -->
+	<call name="GetNextIssue"><pft>if v32<>'ahead' then v4900 fi</pft></call>
+	<!-- if not exist Next check for ahead issue -->
+	<call name="GetAheadIssue"><pft>if v32<>'ahead' and a(v7095) then mid(v4900,1,9) fi</pft></call>
 
 	<display>
 		<pft>
@@ -1198,6 +1321,7 @@
 					fi
 				</pft>
 			</field>
+
 			<call name="existeFile"><pft>v9005</pft></call>
 			<field action="add" tag="7900">
 				<pft>
@@ -1248,6 +1372,13 @@
 </function>
 
 <!-- fixed -->
+<function name="getAvailableTextLanguages" action="replace" tag="4900">
+<!-- return the available languages to fulltext
+     4900 - issn -->
+	 <field action="replace" tag="9350" split="occ"><pft>ref(['TITLE']l(['TITLE'],'LOC=',v4900),(v350/))</pft></field>
+	 <field action="export" tag="list" >9350</field>
+			
+</function>
 
 <function name="TestTranslationPresence" action="replace" tag="4901" split="occ">
 <!-- If there is the translations then generate the elements translation
@@ -1264,8 +1395,12 @@
    <field action="replace" tag="4902" split="occ"><pft>(v4901^l/)</pft></field> 
    <field action="replace" tag="4904" split="occ"><pft>(v4901^d/)</pft></field> 
    <field action="replace" tag="4905" split="occ"><pft>(v4901^e/)</pft></field>
-   <field action="replace" tag="4902" split="occ"><pft>if v4905='pdf' then 'en'/,'es'/,'pt'/,'fr'/,'it'/,'de'/  fi</pft></field> <!-- fixed 20040624 -->
-    
+   
+   <!-- fixed 20070119 - inserção de mais idiomas no texto completo e pdf -->
+   <call name="getAvailableTextLanguages"><pft>if v4905='pdf' then mid(v4901,2,9) fi</pft></call>
+   <field action="replace" tag="4902" split="occ"><pft>if v4905='pdf' then (v9350/),v4901^o/  fi</pft></field> 	
+   <!-- fixed 20070119 -->
+
    <field action="replace" tag="4906" split="occ"><pft>(v4901^o/)</pft></field> <!-- fixed 20040622 -->
    <field action="replace" tag="4900"><pft>v4901[1]</pft></field>
    
@@ -1330,31 +1465,28 @@
 	<!-- Verify the presence of the files. The full path is compounded by the 
 		base path and relative path.
 	-->
-	<do>
-    	<parm name="count"><pft>f(nocc(v4902),1,0)</pft></parm>
-		<field action="define" tag="4903">Isis_Current</field>
-		<field action="replace" tag="4922" split="occ"><pft>(v4902/)</pft></field>
-		
+	<list action="load" type="freq"><pft>(v4902/)</pft></list>
+	<do task="list">
+	     <field action="define" tag="4903">Isis_Current</field>
+	     <field action="define" tag="4922">Isis_Item</field>>
+    	
 		<loop>
-			<field action="import" tag="list">4922,9000/9002,9005,4904/4906</field> <!-- fixed 20040622 -->
+			<field action="import" tag="list">9000/9002,9005,4904/4906</field> <!-- fixed 20040622 -->
+			<!--display><pft>ALL</pft></display-->
 			<field action="replace" tag="9003">
 				<pft>
 					 if p(v9000) and p(v9001) and p(v9002) then 
 					 	
-						(""d4922,
-						,if iocc=val(v4903[1]) then
-							'^f',v9000[1],'/',v9001[1],'/',
-							if v4922<>v4906[1] then
+							'^f',v9000,'/',v9001,'/',
+							if v4922<>v4906 then
 								v4922|_|,
 							fi,
-	    					v9002[1],
+	    					v9002,
 							'^l',v4922
-						else
-							continue, 
-						fi)
 					 fi 
 				</pft>
 			</field>
+			
 			<field action="statusfile" tag="9004">
 				<pft>
 					if p(v9003) then
@@ -1369,6 +1501,7 @@
 			</field>
 			<field action="replace" tag="9005"><pft>v9005,if v9004^s : 'e' then '<LANG TRANSLATION="',v9003^f,'">',v9003^l,'</LANG>'/ fi</pft></field>
 			<field action="export" tag="list">9000/9002,9005,4904,4905</field>
+			<!--display><pft>ALL</pft></display-->
 
 		</loop>
 	</do>
@@ -1505,7 +1638,8 @@
 		<field action="replace" tag="7999">inicio_body</field>
     	<loop>
 			<field action="import" tag="list">7999</field>
-		
+			<field action="replace" tag="1"><pft>v1,if p(v2) then ,'|'v2 fi,if p(v3) then ,'|'v3 fi</pft></field>
+
 			<field action="replace" tag="7900">0</field>
 			<field action="replace" tag="7901">0</field>
 
@@ -1526,7 +1660,7 @@
 			<label>fim_body</label>
 			<field action="replace" tag="7901"><pft>if val(v7901)=0 then f(instr(v1,'</BODY>'),1,0) fi</pft></field>
 			<field action="replace" tag="7901"><pft>if val(v7901)=0 then f(instr(v1,'</body>'),1,0) fi</pft></field>		
-
+<!--display><pft>ALL</pft></display-->
 			<field action="replace" tag="1"><pft>mid(v1,val(v7900)+1,size(v1))</pft></field>
 			<field action="replace" tag="1"><pft>if val(v7901)>0 then mid(v1,1,val(v7901)-1) fi</pft></field>
 	
@@ -2155,8 +2289,6 @@ if instr(v12,'~')=0 then
   <!-- call name="OrdenaLanguage"><pft>v4001^l/,(v4003/)</pft></call -->
 
 	<!-- fixed -->
-	
-
 	<call name="TestTranslationPresence"><pft>v880/,'^o',v40,(|^l|v12^l/),'^d'v7022/,'^epdf'/</pft></call> 
   <display>
    <pft>
