@@ -5,8 +5,8 @@
 	<function name="StandardXML" action="replace" tag="4001">
 		<field action="replace" tag="1" split="occ"><pft>'iso-e'/,'nbr6023-e'/,</pft></field>
 		<field action="replace" tag="2" split="occ"><pft>'Electronic Document Format (ISO)'/,'Electronic Document Format (ABNT)'/,</pft></field>
-		<field action="replace" tag="3" split="occ"><pft>'Formato Documento Eletrónico (ISO)'/,'Formato Documento Eletrónico (ABNT)'/,</pft></field>
-		<field action="replace" tag="4" split="occ"><pft>'Formato Documento Electrônico (ISO)'/,'Formato Documento Electrônico (ABNT)'/,</pft></field>
+		<field action="replace" tag="3" split="occ"><pft>'Formato Documento Electrónico (ISO)'/,'Formato Documento Electrónico (ABNT)'/,</pft></field>
+		<field action="replace" tag="4" split="occ"><pft>'Formato Documento Eletrônico (ISO)'/,'Formato Documento Eletrônico (ABNT)'/,</pft></field>
 		<display>
 			<pft>
 				'<standard-list>'
@@ -103,9 +103,10 @@
 		<parm name="count">1</parm>
         
 		<loop>
+	
             <display><pft>@PROC_SPLIT_MST.PFT,</pft></display>
 			<field action="import" tag="list">3000/3012,7009/7041</field> <!-- fixed -->
-            
+       
             <display>
                 <pft>
                     ' <ARTICLE'
@@ -116,6 +117,7 @@
                         ' LPAGE="',v14^l,'"'
                     fi
                     ' CURR_DATE="',mid(date,1,8),'"'
+                    ' ahpdate="',v223,'"'
                 </pft>
             </display>
 			<call name="getDOI"><pft>v880</pft></call>
