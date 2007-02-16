@@ -335,7 +335,9 @@
     </loop>
    </do>
    <file action="close" type="database">NLINKS</file>
- 
+ <field action="add" tag="9999"><pft>if l(['ARTICLE_DOI'],s(v880,s(f(val(v888)+100000,5,0))*1.5)) > 0 then ref(['ARTICLE_DOI']l(['ARTICLE_DOI'],s(v880,s(f(val(v888)+100000,5,0))*1.5)),
+          (if v999^u<>'' then '<a href="',v999^u,'">',v999^l,'</a>'/ fi)) fi
+          </pft></field>
    <!--flow action="jump">
     <pft>if a(v9994) and a(v9995) and a(v9996) and a(v9997) and a(v9998)  and a(v9999)  then 'PRINT_REF' fi</pft>
    </flow-->
