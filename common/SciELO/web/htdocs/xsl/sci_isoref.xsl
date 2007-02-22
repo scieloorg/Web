@@ -2,8 +2,7 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 	<xsl:output method="html" omit-xml-declaration="yes" indent="yes" doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" />
 	<xsl:include href="file:///home/scielo/web/htdocs/xsl/sci_common.xsl"/>
-
-	<!-- xsl:output method="html" encoding="iso-8859-1" / -->
+	<xsl:include href="file:///home/scielo/web/htdocs/xsl/sci_error.xsl"/>
 	
 	<xsl:variable name="LANG" select="normalize-space(//CONTROLINFO/LANGUAGE)"/>
 				<xsl:variable name="XML">
@@ -45,7 +44,6 @@
 			</body>
 		</html>
 	</xsl:template>
-
 	<xsl:template match="ARTICLE">
 		<div class="content">
 			<h3>
@@ -78,7 +76,6 @@
 			</a -->
 		</div>
 	</xsl:template>
-	
 	<xsl:template name="PrintPageTitle">
 		<xsl:choose>
 			<xsl:when test=" $LANG = 'en' ">How to cite </xsl:when>
@@ -106,7 +103,6 @@
 			</xsl:apply-templates>
 		</li>
 	</xsl:template>
-
 	<xsl:template match="*" mode="print-ref">
 		<xsl:param name="NORM"/>
 			<xsl:call-template name="PrintAbstractHeaderInformation">
