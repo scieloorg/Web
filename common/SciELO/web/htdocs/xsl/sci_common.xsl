@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-
+	<xsl:include href="file:///scielo/web/htdocs/xsl/sci_artref.xsl"/>
 	<xsl:template name="AddRssHeaderLink">
 		<xsl:param name="pid" />
 		<xsl:param  name="lang" />
@@ -99,7 +99,8 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 		<xsl:param name="seq"/>
 		<xsl:param name="script"/>
 		<xsl:param name="txtlang"/>
-		<xsl:attribute name="href">http://<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/SERVER"/><xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_DATA"/>scielo.php?script=<xsl:value-of select="$script"/>&amp;<xsl:if test="$seq">pid=<xsl:value-of select="$seq"/>&amp;</xsl:if>lng=<xsl:value-of select="normalize-space(//CONTROLINFO/LANGUAGE)"/>&amp;nrm=<xsl:value-of select="normalize-space(//CONTROLINFO/STANDARD)"/><xsl:if test="$txtlang">&amp;tlng=<xsl:value-of select="normalize-space($txtlang)"/></xsl:if></xsl:attribute>
+		<xsl:param name="file"/>
+		<xsl:attribute name="href">http://<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/SERVER"/><xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_DATA"/>scielo.php?script=<xsl:value-of select="$script"/>&amp;<xsl:if test="$seq">pid=<xsl:value-of select="$seq"/>&amp;</xsl:if>lng=<xsl:value-of select="normalize-space(//CONTROLINFO/LANGUAGE)"/>&amp;nrm=<xsl:value-of select="normalize-space(//CONTROLINFO/STANDARD)"/><xsl:if test="$txtlang">&amp;tlng=<xsl:value-of select="normalize-space($txtlang)"/></xsl:if><xsl:if test="$file">&amp;file=<xsl:value-of select="$file"/></xsl:if></xsl:attribute>
 	</xsl:template>
 	<!-- Adds a LINK to the IAH search interface
         Parameters:
@@ -111,81 +112,7 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 		<xsl:param name="base">article</xsl:param>
 		<xsl:attribute name="href">http://<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/SERVER"/><xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_WXIS"/><xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_DATA_IAH"/>?IsisScript=<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_CGI_IAH"/>iah.xis&amp;base=<xsl:value-of select="$base"/><xsl:if test="$scope">^d<xsl:value-of select="$scope"/></xsl:if>&amp;<xsl:if test="$index">index=<xsl:value-of select="$index"/>&amp;</xsl:if>format=<xsl:value-of select="//CONTROLINFO/STANDARD"/>.pft&amp;lang=<xsl:choose><xsl:when test="//CONTROLINFO/LANGUAGE='en'">i</xsl:when><xsl:when test="//CONTROLINFO/LANGUAGE='es'">e</xsl:when><xsl:when test="//CONTROLINFO/LANGUAGE='pt'">p</xsl:when></xsl:choose><xsl:if test="$scope and $scope!='library'">&amp;limit=<xsl:value-of select="//ISSN"/></xsl:if></xsl:attribute>
 	</xsl:template>
-	<!-- Get Vol. No. Suppl. Strip
-      Parameter:
-        Element - Name of Element   -->
-	<xsl:template name="GetStrip">
-		<xsl:param name="vol"/>
-		<xsl:param name="num"/>
-		<xsl:param name="suppl"/>
-		<xsl:param name="lang"/>
-		<xsl:if test="$vol">vol.<xsl:value-of select="$vol"/>
-		</xsl:if>
-		<xsl:if test="$num">&#160;<xsl:call-template name="GetNumber">
-				<xsl:with-param name="num" select="$num"/>
-				<xsl:with-param name="lang" select="$lang"/>
-				<xsl:with-param name="strip" select="1"/>
-			</xsl:call-template>
-		</xsl:if>
-		<xsl:if test="$suppl">&#160;<xsl:call-template name="GetSuppl">
-				<xsl:with-param name="num" select="$num"/>
-				<xsl:with-param name="suppl" select="$suppl"/>
-				<xsl:with-param name="lang" select="$lang"/>
-				<xsl:with-param name="strip" select="1"/>
-			</xsl:call-template>
-		</xsl:if>
-	</xsl:template>
-	<!-- Get Number in specified language -->
-	<xsl:template name="GetNumber">
-		<xsl:param name="num"/>
-		<xsl:param name="lang"/>
-		<xsl:param name="strip"/>
-		<xsl:choose>
-			<xsl:when test="starts-with($num,'SPE')">
-				<xsl:choose>
-					<xsl:when test="$lang='en'">special<xsl:if test="$strip">&#160;issue</xsl:if>
-					</xsl:when>
-					<xsl:otherwise>
-						<xsl:if test="$strip">no.</xsl:if>especial</xsl:otherwise>
-				</xsl:choose>
-				<xsl:if test="string-length($num) > 3">
-					<xsl:value-of select="concat(' ',substring($num,4))"/>
-				</xsl:if>
-			</xsl:when>
-			<xsl:when test="starts-with($num,'MON')">
-				<xsl:choose>
-					<xsl:when test="$lang='en'">monograph<xsl:if test="$strip">&#160;issue</xsl:if>
-					</xsl:when>
-					<xsl:otherwise>
-						<xsl:if test="$strip">no.</xsl:if>monográfico</xsl:otherwise>
-				</xsl:choose>
-				<xsl:if test="string-length($num) > 3">
-					<xsl:value-of select="concat(' ',substring($num,4))"/>
-				</xsl:if>
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:if test="$strip">no.</xsl:if>
-				<xsl:value-of select="$num"/>
-			</xsl:otherwise>
-		</xsl:choose>
-	</xsl:template>
-	<!-- Get Supplement in specified language -->
-	<xsl:template name="GetSuppl">
-		<xsl:param name="num"/>
-		<xsl:param name="suppl"/>
-		<xsl:param name="lang"/>
-		<xsl:param name="strip"/>
-		<xsl:if test="$suppl">
-			<xsl:if test="$num">&#160;</xsl:if>
-			<xsl:choose>
-				<xsl:when test="$lang='en'">suppl.</xsl:when>
-				<xsl:otherwise>supl.</xsl:otherwise>
-			</xsl:choose>
-			<xsl:if test="$suppl!=0">
-				<xsl:value-of select="$suppl"/>
-			</xsl:if>
-		</xsl:if>
-	</xsl:template>
+	
 	<!-- Shows Title Group -->
 	<xsl:template match="TITLEGROUP">
 		<CENTER>
@@ -542,6 +469,7 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 		<xsl:param name="TXTLANG"/>
 		<xsl:param name="PID"/>
 		<xsl:param name="FIRST_LABEL">0</xsl:param>
+		<xsl:param name="file"/>
 		<!-- xsl:if test=" $TYPE !='abstract' ">
    <font face="Symbol" color="#000080">&#183; </font>
   </xsl:if -->
@@ -553,86 +481,28 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 						<xsl:with-param name="script">sci_abstract</xsl:with-param>
 						<xsl:with-param name="txtlang" select="$TXTLANG"/>
 					</xsl:call-template>
-					<xsl:choose>
-						<xsl:when test=" $INTLANG = 'en' ">
-							<xsl:if test="$FIRST_LABEL='1'">abstract in</xsl:if>
-							<xsl:choose>
-								<xsl:when test=" $TXTLANG = 'en' "> english</xsl:when>
-								<xsl:when test=" $TXTLANG = 'pt' "> portuguese</xsl:when>
-								<xsl:when test=" $TXTLANG = 'es' "> spanish</xsl:when>
-								<xsl:when test=" $TXTLANG = 'fr' "> french</xsl:when>
-								<xsl:when test=" $TXTLANG = 'de' "> german</xsl:when>
-								<xsl:when test=" $TXTLANG = 'it' "> italian</xsl:when>
-							</xsl:choose>
-						</xsl:when>
-						<xsl:when test=" $INTLANG = 'pt' ">
-							<xsl:if test="$FIRST_LABEL='1'">resumo em</xsl:if>
-							<xsl:choose>
-								<xsl:when test=" $TXTLANG = 'en' "> inglês</xsl:when>
-								<xsl:when test=" $TXTLANG = 'pt' "> português</xsl:when>
-								<xsl:when test=" $TXTLANG = 'es' "> espanhol</xsl:when>
-								<xsl:when test=" $TXTLANG = 'fr' "> francês</xsl:when>
-								<xsl:when test=" $TXTLANG = 'de' "> alemão</xsl:when>
-								<xsl:when test=" $TXTLANG = 'it' "> italiano</xsl:when>
-							</xsl:choose>
-						</xsl:when>
-						<xsl:when test=" $INTLANG = 'es' ">
-							<xsl:if test="$FIRST_LABEL='1'">resumen en</xsl:if>
-							<xsl:choose>
-								<xsl:when test=" $TXTLANG = 'en' "> inglés</xsl:when>
-								<xsl:when test=" $TXTLANG = 'pt' "> portugués</xsl:when>
-								<xsl:when test=" $TXTLANG = 'es' "> español</xsl:when>
-								<xsl:when test=" $TXTLANG = 'fr' "> francés</xsl:when>
-								<xsl:when test=" $TXTLANG = 'de' "> alemán</xsl:when>
-								<xsl:when test=" $TXTLANG = 'it' "> italiano</xsl:when>
-							</xsl:choose>
-						</xsl:when>
-					</xsl:choose>
+					<xsl:if test="$FIRST_LABEL='1'">
+						<xsl:choose>
+							<xsl:when test=" $INTLANG = 'en' ">abstract in</xsl:when>
+							<xsl:when test=" $INTLANG = 'pt' ">resumo em</xsl:when>
+							<xsl:when test=" $INTLANG = 'es' ">resumen en</xsl:when>
+						</xsl:choose>
+					</xsl:if>
 				</xsl:when>
 				<xsl:when test=" $TYPE='full' ">
 					<xsl:call-template name="AddScieloLink">
 						<xsl:with-param name="seq" select="$PID"/>
 						<xsl:with-param name="script">sci_arttext</xsl:with-param>
 						<xsl:with-param name="txtlang" select="$TXTLANG"/>
+						<xsl:with-param name="file" select="$file"/>
 					</xsl:call-template>
-					<xsl:choose>
-						<!-- fixed acrescenti first_label -->
-						<xsl:when test=" $INTLANG = 'en' ">
-							<xsl:if test="$FIRST_LABEL='1'">text in</xsl:if>
-							<xsl:choose>
-								<xsl:when test=" $TXTLANG = 'en' "> english</xsl:when>
-								<xsl:when test=" $TXTLANG = 'pt' "> portuguese</xsl:when>
-								<xsl:when test=" $TXTLANG = 'es' "> spanish</xsl:when>
-								<xsl:when test=" $TXTLANG = 'fr' "> french</xsl:when>
-								<xsl:when test=" $TXTLANG = 'de' "> german</xsl:when>
-								<xsl:when test=" $TXTLANG = 'it' "> italian</xsl:when>
-							</xsl:choose>
-						</xsl:when>
-						<!-- fixed acrescenti first_label -->
-						<xsl:when test=" $INTLANG = 'pt' ">
-							<xsl:if test="$FIRST_LABEL='1'">texto em</xsl:if>
-							<xsl:choose>
-								<xsl:when test=" $TXTLANG = 'en' "> inglês</xsl:when>
-								<xsl:when test=" $TXTLANG = 'pt' "> português</xsl:when>
-								<xsl:when test=" $TXTLANG = 'es' "> espanhol</xsl:when>
-								<xsl:when test=" $TXTLANG = 'fr' "> francês</xsl:when>
-								<xsl:when test=" $TXTLANG = 'de' "> alemão</xsl:when>
-								<xsl:when test=" $TXTLANG = 'it' "> italiano</xsl:when>
-							</xsl:choose>
-						</xsl:when>
-						<!-- fixed acrescenti first_label -->
-						<xsl:when test=" $INTLANG = 'es' ">
-							<xsl:if test="$FIRST_LABEL='1'">texto en</xsl:if>
-							<xsl:choose>
-								<xsl:when test=" $TXTLANG = 'en' "> inglés</xsl:when>
-								<xsl:when test=" $TXTLANG = 'pt' "> portugués</xsl:when>
-								<xsl:when test=" $TXTLANG = 'es' "> español</xsl:when>
-								<xsl:when test=" $TXTLANG = 'fr' "> francés</xsl:when>
-								<xsl:when test=" $TXTLANG = 'de' "> alemán</xsl:when>
-								<xsl:when test=" $TXTLANG = 'it' "> italiano</xsl:when>
-							</xsl:choose>
-						</xsl:when>
-					</xsl:choose>
+					<xsl:if test="$FIRST_LABEL='1'">
+						<xsl:choose>
+							<xsl:when test=" $INTLANG = 'en' ">text in</xsl:when>
+							<xsl:when test=" $INTLANG = 'pt' ">texto em</xsl:when>
+							<xsl:when test=" $INTLANG = 'es' ">texto en</xsl:when>
+						</xsl:choose>
+					</xsl:if>
 				</xsl:when>
 				<xsl:when test=" $TYPE='pdf' ">
 					<xsl:call-template name="AddScieloLink">
@@ -640,77 +510,82 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 						<xsl:with-param name="script">sci_pdf</xsl:with-param>
 						<xsl:with-param name="txtlang" select="$TXTLANG"/>
 					</xsl:call-template>
+					<xsl:if test="$FIRST_LABEL='1'">
+						<xsl:choose>
+							<xsl:when test=" $INTLANG = 'en' ">pdf in</xsl:when>
+							<xsl:when test=" $INTLANG = 'pt' ">pdf em</xsl:when>
+							<xsl:when test=" $INTLANG = 'es' ">pdf en</xsl:when>
+						</xsl:choose>
+					</xsl:if>
+				</xsl:when>
+			</xsl:choose>
+			<xsl:choose>
+				<!-- fixed acrescenti first_label -->
+				<xsl:when test=" $INTLANG = 'en' ">
 					<xsl:choose>
-						<xsl:when test=" $INTLANG = 'en' ">
-							<xsl:if test="$FIRST_LABEL='1'">pdf in
-</xsl:if>
-							<xsl:choose>
-								<xsl:when test=" $TXTLANG = 'en' "> english</xsl:when>
-								<xsl:when test=" $TXTLANG = 'pt' "> portuguese</xsl:when>
-								<xsl:when test=" $TXTLANG = 'es' "> spanish</xsl:when>
-								<xsl:when test=" $TXTLANG = 'fr' "> french</xsl:when>
-								<xsl:when test=" $TXTLANG = 'de' "> german</xsl:when>
-								<xsl:when test=" $TXTLANG = 'it' "> italian</xsl:when>
-							</xsl:choose>
-						</xsl:when>
-						<xsl:when test=" $INTLANG = 'pt' ">
-							<xsl:if test="$FIRST_LABEL='1'">pdf em</xsl:if>
-							<xsl:choose>
-								<xsl:when test=" $TXTLANG = 'en' "> inglês</xsl:when>
-								<xsl:when test=" $TXTLANG = 'pt' "> português</xsl:when>
-								<xsl:when test=" $TXTLANG = 'es' "> espanhol</xsl:when>
-								<xsl:when test=" $TXTLANG = 'fr' "> francês</xsl:when>
-								<xsl:when test=" $TXTLANG = 'de' "> alemão</xsl:when>
-								<xsl:when test=" $TXTLANG = 'it' "> italiano</xsl:when>
-							</xsl:choose>
-						</xsl:when>
-						<xsl:when test=" $INTLANG = 'es' ">
-							<xsl:if test="$FIRST_LABEL='1'">pdf en</xsl:if>
-							<xsl:choose>
-								<xsl:when test=" $TXTLANG = 'en' "> inglés</xsl:when>
-								<xsl:when test=" $TXTLANG = 'pt' "> portugués</xsl:when>
-								<xsl:when test=" $TXTLANG = 'es' "> español</xsl:when>
-								<xsl:when test=" $TXTLANG = 'fr' "> francés</xsl:when>
-								<xsl:when test=" $TXTLANG = 'de' "> alemán</xsl:when>
-								<xsl:when test=" $TXTLANG = 'it' "> italiano</xsl:when>
-							</xsl:choose>
-						</xsl:when>
+						<xsl:when test=" $TXTLANG = 'en' "> english</xsl:when>
+						<xsl:when test=" $TXTLANG = 'pt' "> portuguese</xsl:when>
+						<xsl:when test=" $TXTLANG = 'es' "> spanish</xsl:when>
+						<xsl:when test=" $TXTLANG = 'fr' "> french</xsl:when>
+						<xsl:when test=" $TXTLANG = 'de' "> german</xsl:when>
+						<xsl:when test=" $TXTLANG = 'it' "> italian</xsl:when>
+						<xsl:when test=" $TXTLANG = 'ca' "> catalán</xsl:when>
+						<xsl:when test=" $TXTLANG = 'eu' "> euskera</xsl:when>
+						<xsl:when test=" $TXTLANG = 'gl' "> gallego</xsl:when>
+						
+					</xsl:choose>
+				</xsl:when>
+				<!-- fixed acrescenti first_label -->
+				<xsl:when test=" $INTLANG = 'pt' ">
+					<xsl:choose>
+						<xsl:when test=" $TXTLANG = 'en' "> inglês</xsl:when>
+						<xsl:when test=" $TXTLANG = 'pt' "> português</xsl:when>
+						<xsl:when test=" $TXTLANG = 'es' "> espanhol</xsl:when>
+						<xsl:when test=" $TXTLANG = 'fr' "> francês</xsl:when>
+						<xsl:when test=" $TXTLANG = 'de' "> alemão</xsl:when>
+						<xsl:when test=" $TXTLANG = 'it' "> italiano</xsl:when>
+						<xsl:when test=" $TXTLANG = 'ca' "> catalão</xsl:when>
+						<xsl:when test=" $TXTLANG = 'eu' "> vasco</xsl:when>
+						<xsl:when test=" $TXTLANG = 'gl' "> galego</xsl:when>
+					</xsl:choose>
+				</xsl:when>
+				<!-- fixed acrescenti first_label -->
+				<xsl:when test=" $INTLANG = 'es' ">
+					<xsl:choose>
+						<xsl:when test=" $TXTLANG = 'en' "> inglés</xsl:when>
+						<xsl:when test=" $TXTLANG = 'pt' "> portugués</xsl:when>
+						<xsl:when test=" $TXTLANG = 'es' "> español</xsl:when>
+						<xsl:when test=" $TXTLANG = 'fr' "> francés</xsl:when>
+						<xsl:when test=" $TXTLANG = 'de' "> alemán</xsl:when>
+						<xsl:when test=" $TXTLANG = 'it' "> italiano</xsl:when>
+						<xsl:when test=" $TXTLANG = 'ca' "> catalán</xsl:when>
+						<xsl:when test=" $TXTLANG = 'eu' "> euskera</xsl:when>
+						<xsl:when test=" $TXTLANG = 'gl' "> gallego</xsl:when>
 					</xsl:choose>
 				</xsl:when>
 			</xsl:choose>
 		</a>
 		<!-- &#160;&#160;&#160; -->
 	</xsl:template>
-	<!-- Shows bibliografic strip -->
-	<xsl:template name="SHOWSTRIP">
-		<xsl:param name="SHORTTITLE"/>
-		<xsl:param name="VOL"/>
-		<xsl:param name="NUM"/>
-		<xsl:param name="SUPPL"/>
-		<xsl:param name="CITY"/>
-		<xsl:param name="MONTH"/>
-		<xsl:param name="YEAR"/>
-		<xsl:if test="$SHORTTITLE">
-			<xsl:value-of select="normalize-space($SHORTTITLE)" disable-output-escaping="yes"/>
-		</xsl:if>
-		<xsl:if test="$VOL">&#160;<xsl:value-of select="normalize-space($VOL)"/>
-		</xsl:if>
-		<xsl:if test="$NUM">&#160;<xsl:value-of select="normalize-space($NUM)"/>
-		</xsl:if>
-		<xsl:if test="$SUPPL">&#160;<xsl:value-of select="normalize-space($SUPPL)"/>
-		</xsl:if>
-		<xsl:if test="$CITY">&#160;<xsl:value-of select="normalize-space($CITY)"/>
-		</xsl:if>
-		<xsl:if test="$MONTH">&#160;<xsl:value-of select="normalize-space($MONTH)"/>
-		</xsl:if>
-		<xsl:if test="$YEAR">&#160;<xsl:value-of select="normalize-space($YEAR)"/>
-		</xsl:if>
-	</xsl:template>
+	
 	<!-- Invisible Image To Update Log File -->
 	<xsl:template name="UpdateLog">
-		<xsl:if test="//CONTROLINFO/SCIELO_INFO/SERVER_LOG">
+		<xsl:if test="//CONTROLINFO/SCIELO_INFO/SERVER_LOG!=''">
+			<!-- 20050322 img>
+   <xsl:attribute name="src">http://<xsl:value-of 
+    select="//CONTROLINFO/SCIELO_INFO/SERVER_LOG"/>/<xsl:value-of 
+    select="//CONTROLINFO/SCIELO_INFO/SCRIPT_LOG_NAME"/>?app=<xsl:value-of select="normalize-space(//CONTROLINFO/APP_NAME)" />&amp;page=<xsl:value-of 
+    select="//CONTROLINFO/PAGE_NAME"/>&amp;<xsl:if test="//CONTROLINFO/PAGE_PID">pid=<xsl:value-of
+    select="//CONTROLINFO/PAGE_PID"/>&amp;</xsl:if>lang=<xsl:value-of 
+    select="normalize-space(//CONTROLINFO/LANGUAGE)"/>&amp;norm=<xsl:value-of
+    select="normalize-space(//CONTROLINFO/STANDARD)"/>   
+   </xsl:attribute>
+   <xsl:attribute name="border">0</xsl:attribute>
+   <xsl:attribute name="height">1</xsl:attribute>
+   <xsl:attribute name="width">1</xsl:attribute>
+  </img-->
 			<img>
-				<xsl:attribute name="src">http://<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/SERVER_LOG"/>/<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/SCRIPT_LOG_NAME"/>?app=<xsl:value-of select="normalize-space(//CONTROLINFO/APP_NAME)"/>&amp;page=<xsl:value-of select="//CONTROLINFO/PAGE_NAME"/>&amp;<xsl:if test="//CONTROLINFO/PAGE_PID">pid=<xsl:value-of select="//CONTROLINFO/PAGE_PID"/>&amp;</xsl:if>lang=<xsl:value-of select="normalize-space(//CONTROLINFO/LANGUAGE)"/>&amp;norm=<xsl:value-of select="normalize-space(//CONTROLINFO/STANDARD)"/></xsl:attribute>
+				<xsl:attribute name="src">http://<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/SERVER_LOG"/>/<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/SCRIPT_LOG_NAME"/>?app=<xsl:value-of select="normalize-space(//CONTROLINFO/APP_NAME)"/>&amp;page=<xsl:value-of select="//CONTROLINFO/PAGE_NAME"/>&amp;<xsl:if test="//CONTROLINFO/PAGE_PID">pid=<xsl:value-of select="//CONTROLINFO/PAGE_PID"/>&amp;</xsl:if>lang=<xsl:value-of select="normalize-space(//CONTROLINFO/LANGUAGE)"/>&amp;norm=<xsl:value-of select="normalize-space(//CONTROLINFO/STANDARD)"/>&amp;doctopic=<xsl:value-of select="//ARTICLE/@DOCTOPIC"/>&amp;doctype=<xsl:value-of select="//ARTICLE/@DOCTYPE"/></xsl:attribute>
 				<xsl:attribute name="border">0</xsl:attribute>
 				<xsl:attribute name="height">1</xsl:attribute>
 				<xsl:attribute name="width">1</xsl:attribute>
@@ -748,40 +623,7 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 			</a>
 		</center>
 	</xsl:template>
-	<!-- Shows the formatted date
-   DATEISO : Date in format yyyymmdd
-   LANG : display language   
-   ABREV : 1 - Abreviated -->
-	<xsl:template name="ShowDate">
-		<xsl:param name="DATEISO"/>
-		<xsl:param name="LANG"/>
-		<xsl:param name="ABREV"/>
-		<xsl:choose>
-			<xsl:when test=" $LANG = 'en' ">
-				<xsl:call-template name="GET_MONTH_NAME">
-					<xsl:with-param name="LANG" select="$LANG"/>
-					<xsl:with-param name="MONTH" select="substring($DATEISO,5,2)"/>
-					<xsl:with-param name="ABREV" select="$ABREV"/>
-				</xsl:call-template>
-				<xsl:text> </xsl:text>
-				<xsl:value-of select=" substring($DATEISO,7,2) "/>, <xsl:value-of select=" substring($DATEISO,1,4) "/>
-			</xsl:when>
-			<xsl:when test=" $LANG != 'en' and $ABREV">
-				<xsl:value-of select=" substring($DATEISO,7,2) "/>-<xsl:call-template name="GET_MONTH_NAME">
-					<xsl:with-param name="LANG" select="$LANG"/>
-					<xsl:with-param name="MONTH" select="substring($DATEISO,5,2)"/>
-					<xsl:with-param name="ABREV" select="$ABREV"/>
-				</xsl:call-template>-<xsl:value-of select=" substring($DATEISO,1,4) "/>
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:value-of select=" substring($DATEISO,7,2) "/> de <xsl:call-template name="GET_MONTH_NAME">
-					<xsl:with-param name="LANG" select="$LANG"/>
-					<xsl:with-param name="MONTH" select="substring($DATEISO,5,2)"/>
-					<xsl:with-param name="ABREV" select="$ABREV"/>
-				</xsl:call-template> de <xsl:value-of select=" substring($DATEISO,1,4)"/>
-			</xsl:otherwise>
-		</xsl:choose>
-	</xsl:template>
+	
 	<!-- Adds a link to a SciELO Log page 
      Parameters: pid - PID
                  script - Name of the script to be called -->
@@ -1065,6 +907,7 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 					<xsl:otherwise>1</xsl:otherwise>
 				</xsl:choose>
 			</xsl:with-param>
+			<xsl:with-param name="file" select="@xml"/>
 		</xsl:call-template>
 	</xsl:template>
 	<xsl:template match="LANG" mode="pdf">
@@ -1188,876 +1031,7 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 	      LINK = 1 - prints authors with link
 	      SHORTTITLE - Opcional
 -->
-	<xsl:template name="PrintAbstractHeaderInformation">
-		<xsl:param name="LANG"/>
-		<xsl:param name="NORM"/>
-		<xsl:param name="AUTHLINK">0</xsl:param>
-		<xsl:choose>
-	<xsl:when test="$NORM='iso-e'">
-				<xsl:call-template name="PrintArticleReferenceElectronicISO">
-					<xsl:with-param name="LANG" select="$LANG"/>
-					<xsl:with-param name="AUTHLINK">0</xsl:with-param>
-					<xsl:with-param name="AUTHORS" select="AUTHORS"/>
-					<xsl:with-param name="ARTTITLE" select="TITLE | SECTION"/>
-					<xsl:with-param name="VOL" select="ISSUEINFO/@VOL"/>
-					<xsl:with-param name="NUM" select="ISSUEINFO/@NUM"/>
-					<xsl:with-param name="SUPPL" select="ISSUEINFO/@SUPPL"/>
-					<xsl:with-param name="MONTH" select="ISSUEINFO/STRIP/MONTH"/>
-					<xsl:with-param name="YEAR" select="ISSUEINFO/STRIP/YEAR"/>
-					<xsl:with-param name="CURR_DATE" select="@CURR_DATE"/>
-					<xsl:with-param name="PID" select="../CONTROLINFO/PAGE_PID"/>
-					<xsl:with-param name="ISSN" select="../ISSN"/>
-					<xsl:with-param name="FPAGE" select="@FPAGE"/>
-					<xsl:with-param name="LPAGE" select="@LPAGE"/>
-					<xsl:with-param name="SHORTTITLE" select="ISSUEINFO/STRIP/SHORTTITLE"/>
-				</xsl:call-template>
-			</xsl:when>
-			<xsl:when test="$NORM='vancouv-e'">
-				<xsl:call-template name="PrintArticleReferenceElectronicVancouver">
-					<xsl:with-param name="LANG" select="$LANG"/>
-					<xsl:with-param name="AUTHLINK">0</xsl:with-param>
-					<xsl:with-param name="AUTHORS" select="AUTHORS"/>
-					<xsl:with-param name="ARTTITLE" select="TITLE | SECTION"/>
-					<xsl:with-param name="VOL" select="ISSUEINFO/@VOL"/>
-					<xsl:with-param name="NUM" select="ISSUEINFO/@NUM"/>
-					<xsl:with-param name="SUPPL" select="ISSUEINFO/@SUPPL"/>
-					<xsl:with-param name="MONTH" select="ISSUEINFO/@MONTH"/>
-					<xsl:with-param name="YEAR" select="ISSUEINFO/STRIP/YEAR"/>
-					<xsl:with-param name="CURR_DATE" select="@CURR_DATE"/>
-					<xsl:with-param name="PID" select="../CONTROLINFO/PAGE_PID"/>
-					<xsl:with-param name="ISSN" select="../ISSN"/>
-					<xsl:with-param name="FPAGE" select="@FPAGE"/>
-					<xsl:with-param name="LPAGE" select="@LPAGE"/>
-					<xsl:with-param name="SHORTTITLE" select="ISSUEINFO/STRIP/SHORTTITLE"/>
-				</xsl:call-template>
-			</xsl:when>
-			<xsl:when test="$NORM='nbr6023-e'">
-				<xsl:call-template name="PrintArticleReferenceElectronicABNT">
-					<xsl:with-param name="LANG" select="$LANG"/>
-					<xsl:with-param name="AUTHLINK">0</xsl:with-param>
-					<xsl:with-param name="AUTHORS" select="AUTHORS"/>
-					<xsl:with-param name="ARTTITLE" select="TITLE | SECTION"/>
-					<xsl:with-param name="VOL" select="ISSUEINFO/@VOL"/>
-					<xsl:with-param name="NUM" select="ISSUEINFO/@NUM"/>
-					<xsl:with-param name="SUPPL" select="ISSUEINFO/@SUPPL"/>
-					<xsl:with-param name="MONTH" select="ISSUEINFO/STRIP/MONTH"/>
-					<xsl:with-param name="YEAR" select="ISSUEINFO/STRIP/YEAR"/>
-					<xsl:with-param name="CURR_DATE" select="@CURR_DATE"/>
-					<xsl:with-param name="PID" select="../CONTROLINFO/PAGE_PID"/>
-					<xsl:with-param name="ISSN" select="../ISSN"/>
-					<xsl:with-param name="FPAGE" select="@FPAGE"/>
-					<xsl:with-param name="LPAGE" select="@LPAGE"/>
-					<xsl:with-param name="SHORTTITLE" select="ISSUEINFO/STRIP/SHORTTITLE"/>
-					<xsl:with-param name="LOCAL" select="ISSUEINFO/STRIP/CITY"/>
-				</xsl:call-template>
-			</xsl:when>
-			<xsl:when test=" $NORM = 'iso' ">
-				<xsl:call-template name="PrintArticleReferenceISO">
-					<xsl:with-param name="LANG" select="$LANG"/>
-					<xsl:with-param name="AUTHLINK" select="$AUTHLINK"/>
-					<xsl:with-param name="AUTHORS" select="AUTHORS"/>
-					<xsl:with-param name="ARTTITLE" select="TITLE | SECTION"/>
-					<xsl:with-param name="VOL" select="ISSUEINFO/@VOL"/>
-					<xsl:with-param name="NUM" select="ISSUEINFO/@NUM"/>
-					<xsl:with-param name="SUPPL" select="ISSUEINFO/@SUPPL"/>
-					<xsl:with-param name="MONTH" select="ISSUEINFO/STRIP/MONTH"/>
-					<xsl:with-param name="YEAR" select="ISSUEINFO/STRIP/YEAR"/>
-					<xsl:with-param name="ISSN" select="ISSUEINFO/ISSN"/>
-					<xsl:with-param name="FPAGE" select="@FPAGE"/>
-					<xsl:with-param name="LPAGE" select="@LPAGE"/>
-					<xsl:with-param name="SHORTTITLE" select="ISSUEINFO/STRIP/SHORTTITLE"/>
-				</xsl:call-template>
-			</xsl:when>
-			<xsl:when test=" $NORM = 'van' ">
-				<xsl:call-template name="PrintArticleReferenceVAN">
-					<xsl:with-param name="LANG" select="$LANG"/>
-					<xsl:with-param name="AUTHLINK" select="$AUTHLINK"/>
-					<xsl:with-param name="AUTHORS" select="AUTHORS"/>
-					<xsl:with-param name="ARTTITLE" select="TITLE | SECTION"/>
-					<xsl:with-param name="VOL" select="ISSUEINFO/@VOL"/>
-					<xsl:with-param name="NUM" select="ISSUEINFO/@NUM"/>
-					<xsl:with-param name="SUPPL" select="ISSUEINFO/@SUPPL"/>
-					<xsl:with-param name="MONTH">
-						<xsl:call-template name="GET_MONTH_NAME">
-							<xsl:with-param name="LANG" select="$LANG"/>
-							<xsl:with-param name="MONTH" select="ISSUEINFO/@MONTH"/>
-							<xsl:with-param name="ABREV">1</xsl:with-param>
-						</xsl:call-template>
-					</xsl:with-param>
-					<xsl:with-param name="YEAR" select="ISSUEINFO/@YEAR"/>
-					<xsl:with-param name="ISSN" select="ISSUEINFO/ISSN"/>
-					<xsl:with-param name="SHORTTITLE" select="ISSUEINFO/STRIP/SHORTTITLE"/>
-				</xsl:call-template>
-			</xsl:when>
-			<xsl:when test=" $NORM = 'abn' ">
-				<xsl:call-template name="PrintArticleReferenceABN">
-					<xsl:with-param name="LANG" select="$LANG"/>
-					<xsl:with-param name="AUTHLINK" select="$AUTHLINK"/>
-					<xsl:with-param name="AUTHORS" select="AUTHORS"/>
-					<xsl:with-param name="ARTTITLE" select="TITLE | SECTION"/>
-					<xsl:with-param name="VOL" select="ISSUEINFO/@VOL"/>
-					<xsl:with-param name="NUM" select="ISSUEINFO/@NUM"/>
-					<xsl:with-param name="SUPPL" select="ISSUEINFO/@SUPPL"/>
-					<xsl:with-param name="MONTH">
-						<xsl:call-template name="GET_MONTH_NAME">
-							<xsl:with-param name="LANG" select="$LANG"/>
-							<xsl:with-param name="MONTH" select="ISSUEINFO/@MONTH"/>
-							<xsl:with-param name="ABREV">1</xsl:with-param>
-						</xsl:call-template>
-					</xsl:with-param>
-					<xsl:with-param name="YEAR" select="ISSUEINFO/@YEAR"/>
-					<xsl:with-param name="CITY" select="ISSUEINFO/STRIP/CITY"/>
-					<xsl:with-param name="ISSN" select="ISSUEINFO/ISSN"/>
-					<xsl:with-param name="SHORTTITLE" select="ISSUEINFO/STRIP/SHORTTITLE"/>
-				</xsl:call-template>
-			</xsl:when>
-		</xsl:choose>
-	</xsl:template>
-
-	<!-- Prints Article Reference  in ISO 690:1987 Format
 	
-	Parameters:
-	LANG: language
-	AUTHLINK: Flag '1' = print link for each author.
-	AUTHORS: AUTHORS element Node
-	ARTTITLE: Title of the article
-	VOL: Volumn
-	NUM: Number
-	SUPPL: Supplement
-	MONTH: month name
-	YEAR: year
-	ISSN: issn of the journal
-	FPAGE: first page of the article
-	LPAGE: last page of the article
-	SHORTTITLE: short title of the journal
--->
-	<xsl:template name="PrintArticleReferenceISO">
-		<xsl:param name="LANG"/>
-		<xsl:param name="AUTHLINK">0</xsl:param>
-		<xsl:param name="AUTHORS"/>
-		<xsl:param name="ARTTITLE"/>
-		<xsl:param name="VOL"/>
-		<xsl:param name="NUM"/>
-		<xsl:param name="SUPPL"/>
-		<xsl:param name="MONTH"/>
-		<xsl:param name="YEAR"/>
-		<xsl:param name="ISSN"/>
-		<xsl:param name="FPAGE"/>
-		<xsl:param name="LPAGE"/>
-		<xsl:param name="SHORTTITLE" select="//TITLEGROUP/SHORTTITLE"/>
-		<xsl:param name="BOLD">1</xsl:param>
-		<xsl:call-template name="PrintAuthorsISO">
-			<xsl:with-param name="AUTHORS" select="$AUTHORS"/>
-			<xsl:with-param name="LANG" select="$LANG"/>
-			<xsl:with-param name="AUTHLINK" select="$AUTHLINK"/>
-		</xsl:call-template>
-		<xsl:if test="$ARTTITLE">
-			<xsl:choose>
-				<xsl:when test=" $BOLD = 1">
-					<font class="negrito">
-						<xsl:value-of select="concat(' ', $ARTTITLE)" disable-output-escaping="yes"/>
-					</font>
-					<xsl:if test="substring($ARTTITLE,string-length($ARTTITLE)) != '.' ">.</xsl:if>
-				</xsl:when>
-				<xsl:otherwise>
-					<xsl:value-of select="concat(' ', $ARTTITLE)" disable-output-escaping="yes"/>
-					<xsl:if test="substring($ARTTITLE,string-length($ARTTITLE)) != '.' ">.</xsl:if>
-				</xsl:otherwise>
-			</xsl:choose>
-		</xsl:if>
-		<i>
-			<xsl:value-of select="concat(' ', $SHORTTITLE)" disable-output-escaping="yes"/>
-		</i>,
-  <xsl:value-of select="concat(' ', $MONTH)"/>
-		<xsl:value-of select="concat(' ', $YEAR)"/>,
-  <xsl:if test="$VOL">
-			<xsl:value-of select="concat(' vol.', $VOL)"/>
-			<xsl:if test="$NUM">,</xsl:if>
-		</xsl:if>
-		<xsl:if test="$NUM">
-			<xsl:value-of select="concat(' no.', $NUM)"/>
-			<xsl:if test="$SUPPL">,</xsl:if>
-		</xsl:if>
-		<xsl:if test="$SUPPL">
-			<xsl:choose>
-				<xsl:when test=" $LANG='en' "> suppl</xsl:when>
-				<xsl:otherwise> supl</xsl:otherwise>
-			</xsl:choose>
-			<xsl:if test="$SUPPL>0">.<xsl:value-of select="$SUPPL"/>
-			</xsl:if>
-		</xsl:if>
-		<xsl:if test="$FPAGE and $LPAGE">
-			<xsl:value-of select="concat(', p.', $FPAGE, '-', $LPAGE)"/>
-		</xsl:if>
-		<xsl:value-of select="concat('. ISSN ', $ISSN, '.')"/>
-	</xsl:template>
-	<!-- Prints Article Reference (Electronic) in ISO 690-2:1997 Format
-	
-	Parameters:
-	LANG: language
-	AUTHLINK: Flag '1' = print link for each author.
-	AUTHORS: AUTHORS element Node
-	ARTTITLE: Title of the article
-	VOL: Volumn
-	NUM: Number
-	SUPPL: Supplement
-	MONTH: month name
-	YEAR: year
-	CURR_DATE: current date in yyyymmdd format
-	PID: pid of the article
-	ISSN: issn of the journal
-	FPAGE: first page of the article
-	LPAGE: last page of the article
-	SHORTTITLE: short title of the journal
- -->
-	<xsl:template name="PrintArticleReferenceElectronicISO">
-		<xsl:param name="LANG"/>
-		<xsl:param name="AUTHLINK">0</xsl:param>
-		<xsl:param name="AUTHORS"/>
-		<xsl:param name="ARTTITLE"/>
-		<xsl:param name="VOL"/>
-		<xsl:param name="NUM"/>
-		<xsl:param name="SUPPL"/>
-		<xsl:param name="MONTH"/>
-		<xsl:param name="YEAR"/>
-		<xsl:param name="CURR_DATE"/>
-		<xsl:param name="PID"/>
-		<xsl:param name="ISSN"/>
-		<xsl:param name="FPAGE"/>
-		<xsl:param name="LPAGE"/>
-		<xsl:param name="SHORTTITLE" select="//TITLEGROUP/SHORTTITLE"/>
-		<xsl:call-template name="PrintAuthorsISO">
-			<xsl:with-param name="AUTHORS" select="$AUTHORS"/>
-			<xsl:with-param name="LANG" select="$LANG"/>
-			<xsl:with-param name="AUTHLINK" select="$AUTHLINK"/>
-		</xsl:call-template>
-		<xsl:if test="$ARTTITLE != '' ">
-			<font class="negrito">
-				<xsl:value-of select="concat(' ', $ARTTITLE)" disable-output-escaping="yes"/>
-				<xsl:if test="substring($ARTTITLE,string-length($ARTTITLE)) != '.' ">.</xsl:if>
-			</font>
-		</xsl:if>
-		<i>
-			<xsl:value-of select="concat(' ', $SHORTTITLE)" disable-output-escaping="yes"/>
-		</i>
-		<xsl:if test="substring($SHORTTITLE,string-length($SHORTTITLE)) != '.' ">.</xsl:if>
-		<!--xsl:if test="$ISSN/@TYPE">
-   <xsl:value-of select=" concat(' [', $ISSN/@TYPE, '].') " />
-  </xsl:if-->
-  [online].
-  <xsl:value-of select="concat(' ', $MONTH)"/>
-		<xsl:value-of select="concat(' ', $YEAR)"/>,
-  <xsl:if test="$VOL">
-			<xsl:value-of select="concat(' vol.', $VOL)"/>
-			<xsl:if test="$NUM">,</xsl:if>
-		</xsl:if>
-		<xsl:if test="$NUM">
-			<xsl:value-of select="concat(' no.', $NUM)"/>
-			<xsl:if test="$SUPPL">,</xsl:if>
-		</xsl:if>
-		<xsl:if test="$SUPPL">
-			<xsl:choose>
-				<xsl:when test=" $LANG='en' "> suppl.</xsl:when>
-				<xsl:otherwise> supl.</xsl:otherwise>
-			</xsl:choose>
-			<xsl:if test="$SUPPL>0">
-				<xsl:value-of select="$SUPPL"/>
-			</xsl:if>
-		</xsl:if>
-		<xsl:if test="$CURR_DATE">
-			<xsl:choose>
-				<xsl:when test=" $LANG = 'en' "> [cited</xsl:when>
-				<xsl:when test=" $LANG = 'pt' "> [citado</xsl:when>
-				<xsl:when test=" $LANG = 'es' "> [citado</xsl:when>
-			</xsl:choose>
-			<xsl:value-of select="concat(' ', substring($CURR_DATE,7,2),' ')"/>
-			<xsl:call-template name="GET_MONTH_NAME">
-				<xsl:with-param name="LANG" select="$LANG"/>
-				<xsl:with-param name="MONTH" select="substring($CURR_DATE,5,2)"/>
-			</xsl:call-template>
-			<xsl:value-of select="concat(' ',substring($CURR_DATE,1,4),']')"/>
-		</xsl:if>
-		<xsl:if test="$FPAGE and $LPAGE">
-			<xsl:value-of select="concat(', p.', $FPAGE, '-', $LPAGE, '.')"/>
-		</xsl:if>
-		<xsl:choose>
-			<xsl:when test=" $LANG = 'en' "> Available from World Wide Web: </xsl:when>
-			<xsl:when test=" $LANG = 'pt' "> Disponível na  World Wide Web: </xsl:when>
-			<xsl:when test=" $LANG = 'es' "> Disponible en la World Wide Web: </xsl:when>
-		</xsl:choose>
-  
-  &lt;<!--a>	<xsl:call-template name="AddScieloLink" >
-  	 <xsl:with-param name="seq" select="$PID" />
-  	 <xsl:with-param name="script">sci_arttext</xsl:with-param>
-  	</xsl:call-template-->http://<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/SERVER"/>
-		<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_arttext&amp;pid=<xsl:value-of select="$PID"/>&amp;lng=<xsl:value-of select="$LANG"/>&amp;nrm=iso<!--/a-->&gt;<xsl:value-of select="concat('. ISSN ', $ISSN, '.')"/>
-	</xsl:template>
-	<!-- Prints Authors list  in ISO Format: SURNAME1, Name1, SURNAME2, Name2, SURNAME3, Name3 et al.   
-       or
-
-       SURNAME1, Name1 and SURNAME2, Name2       (if num authors <= 3 authors)
-       
-	Parameters:
-	AUTHORS: AUTHORS element Node
-	LANG: language
-	AUTHLINK: Flag '1' = print link for each author.
--->
-	<xsl:template name="PrintAuthorsISO">
-		<xsl:param name="AUTHORS"/>
-		<xsl:param name="LANG"/>
-		<xsl:param name="AUTHLINK"/>
-		<xsl:apply-templates select="$AUTHORS/AUTH_PERS/AUTHOR" mode="PERS_ISO">
-			<xsl:with-param name="LANG" select="$LANG"/>
-			<xsl:with-param name="AUTHLINK" select="$AUTHLINK"/>
-			<xsl:with-param name="NUM_CORP" select="count($AUTHORS/AUTH_CORP/AUTHOR)"/>
-		</xsl:apply-templates>
-		<xsl:apply-templates select="$AUTHORS/AUTH_CORP/AUTHOR" mode="CORP_ISO">
-			<xsl:with-param name="LANG" select="$LANG"/>
-			<xsl:with-param name="MAX" select="4 - count($AUTHORS/AUTH_PERS/AUTHOR)"/>
-		</xsl:apply-templates>
-	</xsl:template>
-	<!-- Prints Author (Person) in ISO Format 
-
-	Parameters:
-	LANG: language
-	AUTHLINK: Flag '1' = print link for each author.
-	NUM_CORP: number of corporative authors
-
--->
-	<xsl:template match="AUTHOR" mode="PERS_ISO">
-		<xsl:param name="LANG"/>
-		<xsl:param name="AUTHLINK"/>
-		<xsl:param name="NUM_CORP"/>
-		<xsl:variable name="length" select="normalize-space(string-length(NAME))"/>
-		<xsl:choose>
-			<!-- If number of authors > 3 prints et al. and terminate -->
-			<xsl:when test=" position() = 4 ">
-				<i> et al</i>. </xsl:when>
-			<xsl:when test=" position() > 4 "/>
-			<xsl:otherwise>
-				<!-- Prints author in format SURNAME1, Name1, SURNAME2, Name2, SURNAME3, Name3 et al -->
-				<xsl:call-template name="CreateAuthor">
-					<xsl:with-param name="SURNAME" select="UPP_SURNAME"/>
-					<!-- Uppercase -->
-					<!--xsl:with-param name="NAME">
-      <xsl:value-of select=" normalize-space(translate(NAME, '.', '')) " /><xsl:if
-       test=" substring(NAME, $length, 1) = '.' ">.</xsl:if>
-     </xsl:with-param-->
-					<xsl:with-param name="NAME" select="NAME"/>
-					<xsl:with-param name="SEARCH">
-						<xsl:if test=" $AUTHLINK = 1 ">
-							<xsl:value-of select="@SEARCH"/>
-						</xsl:if>
-					</xsl:with-param>
-					<xsl:with-param name="LANG" select="$LANG"/>
-					<xsl:with-param name="NORM">iso</xsl:with-param>
-					<xsl:with-param name="SEPARATOR">,</xsl:with-param>
-				</xsl:call-template>
-				<xsl:choose>
-					<xsl:when test=" position() = last() and $NUM_CORP = 0 ">
-						<xsl:if test=" substring (NAME, $length, 1) != '.' ">.</xsl:if>
-						<xsl:text> </xsl:text>
-					</xsl:when>
-					<!-- Case next author is the last one (not et al), displays ' and ' or equivalent form -->
-					<xsl:when test=" position() != 3 and
-       ( (position() = last()-1 and $NUM_CORP = 0) or (position() = last() and $NUM_CORP = 1) )">
-						<xsl:choose>
-							<xsl:when test=" $LANG = 'en' "> and </xsl:when>
-							<xsl:when test=" $LANG = 'pt' "> e </xsl:when>
-							<xsl:when test=" $LANG = 'es' "> y </xsl:when>
-						</xsl:choose>
-					</xsl:when>
-					<!-- Separate authors names by ', '. -->
-					<xsl:when test=" position() != 3 ">, </xsl:when>
-				</xsl:choose>
-			</xsl:otherwise>
-		</xsl:choose>
-	</xsl:template>
-	<!-- Prints Author (Corporative) in ISO Format  The max number of authors to be printed is passed as an   argument.
-
-	Parameters:
-	LANG: language
-	MAX: max number of authors
--->
-	<xsl:template match="AUTHOR" mode="CORP_ISO">
-		<xsl:param name="LANG"/>
-		<xsl:param name="MAX"/>
-		<xsl:choose>
-			<xsl:when test=" position() = $MAX ">
-				<i> et al</i>. </xsl:when>
-			<xsl:when test=" position() > $MAX "/>
-			<xsl:otherwise>
-				<xsl:value-of select="normalize-space(UPP_ORGNAME)" disable-output-escaping="yes"/>
-				<xsl:if test="ORGNAME and ORGDIV">. </xsl:if>
-				<xsl:value-of select="normalize-space(ORGDIV)" disable-output-escaping="yes"/>
-				<xsl:choose>
-					<xsl:when test=" position() = last() ">. </xsl:when>
-					<xsl:when test=" position() = last() - 1 and last() != $MAX ">
-						<xsl:choose>
-							<xsl:when test=" $LANG = 'en' "> and </xsl:when>
-							<xsl:when test=" $LANG = 'pt' "> e </xsl:when>
-							<xsl:when test=" $LANG = 'es' "> y </xsl:when>
-						</xsl:choose>
-					</xsl:when>
-					<xsl:when test=" position() + 1 != $MAX ">, </xsl:when>
-				</xsl:choose>
-			</xsl:otherwise>
-		</xsl:choose>
-	</xsl:template>
-	<!-- Prints an Author with surname and name separated by a separator string. If search expression is defined,
- prints a link to search engine passing language and format as parameters.
- 
-Parameters:
- SURNAME: Surname 
- NAME: Name
- SEARCH: Search Expression
- LANG: language
- NORM: format
- SEPARATOR: separator string
--->
-	<xsl:template name="CreateAuthor">
-		<xsl:param name="SURNAME"/>
-		<xsl:param name="NAME"/>
-		<xsl:param name="SEARCH"/>
-		<xsl:param name="LANG"/>
-		<xsl:param name="NORM"/>
-		<xsl:param name="SEPARATOR"/>
-		<xsl:variable name="SERVER" select="//SERVER"/>
-		<xsl:variable name="PATH_WXIS" select="//PATH_WXIS"/>
-		<xsl:variable name="PATH_DATA_IAH" select="//PATH_DATA_IAH"/>
-		<xsl:variable name="PATH_CGI_IAH" select="//PATH_CGI_IAH"/>
-		<xsl:variable name="LANG_IAH">
-			<xsl:choose>
-				<xsl:when test=" $LANG='en' ">i</xsl:when>
-				<xsl:when test=" $LANG='es' ">e</xsl:when>
-				<xsl:when test=" $LANG='pt' ">p</xsl:when>
-			</xsl:choose>
-		</xsl:variable>
-
-		<xsl:choose>
-			<!-- if SEARCH expression is present prints the link -->
-			<xsl:when test=" $SEARCH != '' ">
-				<a href="http://{$SERVER}{$PATH_WXIS}{$PATH_DATA_IAH}?IsisScript={$PATH_CGI_IAH}iah.xis&amp;base=article^dlibrary&amp;format={$NORM}.pft&amp;lang={$LANG_IAH}&amp;nextAction=lnk&amp;indexSearch=AU&amp;exprSearch={$SEARCH}">
-					<xsl:value-of select="$SURNAME" disable-output-escaping="yes"/>
-					<!-- Displays separator character and space -->
-					<xsl:if test=" $NAME and $SURNAME ">
-						<xsl:value-of select="concat($SEPARATOR, ' ')"/>
-					</xsl:if>
-					<xsl:value-of select="$NAME" disable-output-escaping="yes"/>
-				</a>
-			</xsl:when>
-			<!-- Otherwise, prints only the author -->
-			<xsl:otherwise>
-				<xsl:value-of select="$SURNAME" disable-output-escaping="yes"/>
-				<!-- Displays separator character and space -->
-				<xsl:if test=" $NAME and $SURNAME ">
-					<xsl:value-of select="concat($SEPARATOR, ' ')"/>
-				</xsl:if>
-				<xsl:value-of select="$NAME" disable-output-escaping="yes"/>
-			</xsl:otherwise>
-		</xsl:choose>
-	</xsl:template>
-	<!-- Prints Article Reference  in Vancouver Format
-	
-	Parameters:
-	LANG: language
-	AUTHLINK: Flag '1' = print link for each author.
-	AUTHORS: AUTHORS element Node
-	ARTTITLE: Title of the article
-	VOL: Volumn
-	NUM: Number
-	SUPPL: Supplement
-	MONTH: month name (abbrev)
-	YEAR: year
-	ISSN: issn of the journal
-	SHORTTITLE: short title of the journal
--->
-	<xsl:template name="PrintArticleReferenceVAN">
-		<xsl:param name="LANG"/>
-		<xsl:param name="AUTHLINK">0</xsl:param>
-		<xsl:param name="AUTHORS"/>
-		<xsl:param name="ARTTITLE"/>
-		<xsl:param name="VOL"/>
-		<xsl:param name="NUM"/>
-		<xsl:param name="SUPPL"/>
-		<xsl:param name="MONTH"/>
-		<xsl:param name="YEAR"/>
-		<xsl:param name="ISSN"/>
-		<xsl:param name="SHORTTITLE" select="//TITLEGROUP/SHORTTITLE"/>
-		<xsl:call-template name="PrintAuthorsVAN">
-			<xsl:with-param name="AUTHORS" select="$AUTHORS"/>
-			<xsl:with-param name="LANG" select="$LANG"/>
-			<xsl:with-param name="AUTHLINK" select="$AUTHLINK"/>
-		</xsl:call-template>
-		<xsl:if test="$ARTTITLE">
-			<font class="negrito">
-				<xsl:value-of select="concat(' ', $ARTTITLE)" disable-output-escaping="yes"/>
-			</font>
-			<xsl:if test="substring($ARTTITLE,string-length($ARTTITLE)) != '.' ">.</xsl:if>
-		</xsl:if>
-		<i>
-			<xsl:value-of select="concat(' ', $SHORTTITLE)" disable-output-escaping="yes"/>
-		</i>,
-  <xsl:value-of select="concat(' ', $YEAR, ' ', $MONTH)" disable-output-escaping="yes"/>;
-  <xsl:if test="$VOL">
-			<xsl:value-of select="concat(' ', $VOL)"/>
-		</xsl:if>
-		<xsl:if test="$NUM">(<xsl:value-of select="$NUM"/>)</xsl:if>
-		<xsl:if test="$SUPPL">
-			<xsl:choose>
-				<xsl:when test=" $LANG='en' "> suppl</xsl:when>
-				<xsl:otherwise> supl</xsl:otherwise>
-			</xsl:choose>
-			<xsl:if test="$SUPPL>0">.<xsl:value-of select="$SUPPL"/>
-			</xsl:if>
-		</xsl:if>
-		<xsl:value-of select="concat('. ISSN ', $ISSN, '.')"/>
-	</xsl:template>
-	<!-- Prints Authors list  in Vancouver Format:
-       Surname1 Name1, Surname2  Name2, Surname3  Name3, Surname4 Name4, Surname5  Name5, Surname6  Name6 et al.   or
-
-       Surname1 Name1, Surname2 Name2       (if num authors <= 6 authors)
-
-	Parameters:
-	AUTHORS: AUTHORS element Node
-	LANG: language
-	AUTHLINK: Flag '1' = print link for each author.
--->
-	<xsl:template name="PrintAuthorsVAN">
-		<xsl:param name="AUTHORS"/>
-		<xsl:param name="LANG"/>
-		<xsl:param name="AUTHLINK"/>
-		<xsl:apply-templates select="$AUTHORS/AUTH_PERS/AUTHOR" mode="PERS_VAN">
-			<xsl:with-param name="LANG" select="$LANG"/>
-			<xsl:with-param name="AUTHLINK" select="$AUTHLINK"/>
-			<xsl:with-param name="NUM_CORP" select="count($AUTHORS/AUTH_CORP/AUTHOR)"/>
-		</xsl:apply-templates>
-		<xsl:apply-templates select="$AUTHORS/AUTH_CORP/AUTHOR" mode="CORP_VAN">
-			<xsl:with-param name="LANG" select="$LANG"/>
-			<xsl:with-param name="MAX" select="7 - count($AUTHORS/AUTH_PERS/AUTHOR)"/>
-		</xsl:apply-templates>
-	</xsl:template>
-	<!-- Prints Author (Person) in Vancouver Format 
-
-	Parameters:
-	LANG: language
-	AUTHLINK: Flag '1' = print link for each author.
-	NUM_CORP: number of corporative authors
-
--->
-	<xsl:template match="AUTHOR" mode="PERS_VAN">
-		<xsl:param name="LANG"/>
-		<xsl:param name="AUTHLINK"/>
-		<xsl:param name="NUM_CORP"/>
-		<xsl:variable name="length" select="normalize-space(string-length(NAME))"/>
-		<xsl:choose>
-			<!-- If number of authors > 3 prints et al. and terminate -->
-			<xsl:when test=" position() = 7 ">
-				<i> et al</i>. </xsl:when>
-			<xsl:when test=" position() > 7 "/>
-			<xsl:otherwise>
-				<!-- Prints author in format Surname1 Name1, Surname2 Name2, Surname3 Name3,
-          Surname4 Name4, Surname5 Name5, Surname6 Name6 et al -->
-				<xsl:call-template name="CreateAuthor">
-					<xsl:with-param name="SURNAME" select="SURNAME"/>
-					<!-- Uppercase -->
-					<!--xsl:with-param name="NAME">
-      <xsl:value-of select=" normalize-space(translate(NAME, '.', '')) " /><xsl:if
-       test=" substring(NAME, $length, 1) = '.' ">.</xsl:if>
-     </xsl:with-param-->
-					<xsl:with-param name="NAME" select="NAME"/>
-					<xsl:with-param name="SEARCH">
-						<xsl:if test=" $AUTHLINK = 1 ">
-							<xsl:value-of select="@SEARCH"/>
-						</xsl:if>
-					</xsl:with-param>
-					<xsl:with-param name="LANG" select="$LANG"/>
-					<xsl:with-param name="NORM">van</xsl:with-param>
-					<xsl:with-param name="SEPARATOR"/>
-				</xsl:call-template>
-				<xsl:choose>
-					<!-- Last author -->
-					<xsl:when test=" position() = last() and $NUM_CORP = 0 ">
-						<xsl:if test=" substring (NAME, $length, 1) != '.' ">.</xsl:if>
-						<xsl:text> </xsl:text>
-					</xsl:when>
-					<!-- Separate authors names by ', '. -->
-					<xsl:when test=" position() != 6 ">, </xsl:when>
-				</xsl:choose>
-			</xsl:otherwise>
-		</xsl:choose>
-	</xsl:template>
-	<!-- Prints Author (Corporative) in Vancouver Format  The max number of authors to be printed is passed as an   argument.
-
-	Parameters:
-	LANG: language
-	MAX: max number of authors
--->
-	<xsl:template match="AUTHOR" mode="CORP_VAN">
-		<xsl:param name="LANG"/>
-		<xsl:param name="MAX"/>
-		<xsl:choose>
-			<xsl:when test=" position() = $MAX ">
-				<i> et al</i>. </xsl:when>
-			<xsl:when test=" position() > $MAX "/>
-			<xsl:otherwise>
-				<xsl:value-of select="normalize-space(ORGNAME)" disable-output-escaping="yes"/>
-				<xsl:if test="ORGNAME and ORGDIV">. </xsl:if>
-				<xsl:value-of select="normalize-space(ORGDIV)" disable-output-escaping="yes"/>
-				<xsl:choose>
-					<xsl:when test=" position() = last() ">. </xsl:when>
-					<xsl:when test=" position() + 1 != $MAX ">, </xsl:when>
-				</xsl:choose>
-			</xsl:otherwise>
-		</xsl:choose>
-	</xsl:template>
-	<!-- Prints Article Reference  in ABNT Format
-	
-	Parameters:
-	LANG: language
-	AUTHLINK: Flag '1' = print link for each author.
-	AUTHORS: AUTHORS element Node
-	ARTTITLE: Title of the article
-	VOL: Volumn
-	NUM: Number
-	SUPPL: Supplement
-	MONTH: month name (abbrev)
-	YEAR: year
-	CITY: city of the publication
-	ISSN: issn of the journal
-	SHORTTITLE: short title of the journal
--->
-	<xsl:template name="PrintArticleReferenceABN">
-		<xsl:param name="LANG"/>
-		<xsl:param name="AUTHLINK">0</xsl:param>
-		<xsl:param name="AUTHORS"/>
-		<xsl:param name="ARTTITLE"/>
-		<xsl:param name="VOL"/>
-		<xsl:param name="NUM"/>
-		<xsl:param name="SUPPL"/>
-		<xsl:param name="MONTH"/>
-		<xsl:param name="YEAR"/>
-		<xsl:param name="CITY"/>
-		<xsl:param name="ISSN"/>
-		<xsl:param name="SHORTTITLE" select="//TITLEGROUP/SHORTTITLE"/>
-		<xsl:call-template name="PrintAuthorsABN">
-			<xsl:with-param name="AUTHORS" select="$AUTHORS"/>
-			<xsl:with-param name="LANG" select="$LANG"/>
-			<xsl:with-param name="AUTHLINK" select="$AUTHLINK"/>
-		</xsl:call-template>
-		<xsl:if test="$ARTTITLE">
-			<font class="negrito">
-				<xsl:value-of select="concat(' ', $ARTTITLE)" disable-output-escaping="yes"/>
-			</font>
-			<xsl:if test="substring($ARTTITLE,string-length($ARTTITLE)) != '.' ">.</xsl:if>
-		</xsl:if>
-		<xsl:variable name="length" select="normalize-space(string-length($SHORTTITLE))"/>
-		<i>
-			<xsl:value-of select="concat(' ', $SHORTTITLE)" disable-output-escaping="yes"/>
-		</i>
-		<xsl:if test="substring($SHORTTITLE,$length,1) != '.' ">.</xsl:if>
-		<xsl:value-of select="concat(' ',$CITY)" disable-output-escaping="yes"/>,
-  <xsl:if test="$VOL">
-			<xsl:value-of select="concat(' v.', $VOL)"/>
-		</xsl:if>
-		<xsl:if test="$NUM">
-			<xsl:value-of select="concat(' n.', $NUM)"/>
-		</xsl:if>
-		<xsl:if test="$SUPPL">
-			<xsl:choose>
-				<xsl:when test=" $LANG='en' "> suppl</xsl:when>
-				<xsl:otherwise> supl</xsl:otherwise>
-			</xsl:choose>
-			<xsl:if test="$SUPPL>0">.<xsl:value-of select="$SUPPL"/>
-			</xsl:if>
-		</xsl:if>
-		<xsl:value-of select="concat(', ', $MONTH)"/>
-		<xsl:value-of select="concat(' ', $YEAR)"/>
-		<xsl:value-of select="concat('. ISSN ', $ISSN, '.')"/>
-	</xsl:template>
-	<!-- Prints Authors list  in ABNT Format: Surname1, Name1, Surname2, Name2, Surname3, Name3 et al.   
-       or
-
-       Surname1, Name1 and Surname2, Name2       (if num authors <= 3 authors)
-       
-	Parameters:
-	AUTHORS: AUTHORS element Node
-	LANG: language
-	AUTHLINK: Flag '1' = print link for each author.
--->
-	<xsl:template name="PrintAuthorsABN">
-		<xsl:param name="AUTHORS"/>
-		<xsl:param name="LANG"/>
-		<xsl:param name="AUTHLINK"/>
-		<xsl:apply-templates select="$AUTHORS/AUTH_PERS/AUTHOR" mode="PERS_ABN">
-			<xsl:with-param name="LANG" select="$LANG"/>
-			<xsl:with-param name="AUTHLINK" select="$AUTHLINK"/>
-			<xsl:with-param name="NUM_CORP" select="count($AUTHORS/AUTH_CORP/AUTHOR)"/>
-		</xsl:apply-templates>
-		<xsl:apply-templates select="$AUTHORS/AUTH_CORP/AUTHOR" mode="CORP_ABN">
-			<xsl:with-param name="LANG" select="$LANG"/>
-			<xsl:with-param name="MAX" select="4 - count($AUTHORS/AUTH_PERS/AUTHOR)"/>
-		</xsl:apply-templates>
-	</xsl:template>
-	<!-- Prints Author (Person) in ABNT Format 
-
-	Parameters:
-	LANG: language
-	AUTHLINK: Flag '1' = print link for each author.
-	NUM_CORP: number of corporative authors
-
--->
-	<xsl:template match="AUTHOR" mode="PERS_ABN">
-		<xsl:param name="LANG"/>
-		<xsl:param name="AUTHLINK"/>
-		<xsl:param name="NUM_CORP"/>
-		<xsl:variable name="length" select="normalize-space(string-length(NAME))"/>
-		<xsl:choose>
-			<!-- If number of authors > 3 prints et al. and terminate -->
-			<xsl:when test=" position() = 4 ">
-				<i> et al</i>. </xsl:when>
-			<xsl:when test=" position() > 4 "/>
-			<xsl:otherwise>
-				<!-- Prints author in format SURNAME1, Name1, SURNAME2, Name2, SURNAME3, Name3 et al -->
-				<xsl:call-template name="CreateAuthor">
-					<xsl:with-param name="SURNAME" select="SURNAME"/>
-					<!-- Uppercase -->
-					<xsl:with-param name="NAME" select="NAME"/>
-					<xsl:with-param name="SEARCH">
-						<xsl:if test=" $AUTHLINK = 1 ">
-							<xsl:value-of select="@SEARCH"/>
-						</xsl:if>
-					</xsl:with-param>
-					<xsl:with-param name="LANG" select="$LANG"/>
-					<xsl:with-param name="NORM">abn</xsl:with-param>
-					<xsl:with-param name="SEPARATOR">,</xsl:with-param>
-				</xsl:call-template>
-				<xsl:choose>
-					<xsl:when test=" position() = last() and $NUM_CORP = 0 ">
-						<xsl:if test=" substring (NAME, $length, 1) != '.' ">.</xsl:if>
-						<xsl:text> </xsl:text>
-					</xsl:when>
-					<!-- Case next author is the last one (not et al), displays ' and ' or equivalent form -->
-					<xsl:when test=" position() != 3 and
-       ( (position() = last()-1 and $NUM_CORP = 0) or (position() = last() and $NUM_CORP = 1) )">
-						<xsl:choose>
-							<xsl:when test=" $LANG = 'en' "> and </xsl:when>
-							<xsl:when test=" $LANG = 'pt' "> e </xsl:when>
-							<xsl:when test=" $LANG = 'es' "> y </xsl:when>
-						</xsl:choose>
-					</xsl:when>
-					<!-- Separate authors names by ', '. -->
-					<xsl:when test=" position() != 3 ">, </xsl:when>
-				</xsl:choose>
-			</xsl:otherwise>
-		</xsl:choose>
-	</xsl:template>
-	<!-- Prints Author (Corporative) in ABNT Format  The max number of authors to be printed is passed as an   argument.
-
-	Parameters:
-	LANG: language
-	MAX: max number of authors
--->
-	<xsl:template match="AUTHOR" mode="CORP_ABN">
-		<xsl:param name="LANG"/>
-		<xsl:param name="MAX"/>
-		<xsl:choose>
-			<xsl:when test=" position() = $MAX ">
-				<i> et al</i>. </xsl:when>
-			<xsl:when test=" position() > $MAX "/>
-			<xsl:otherwise>
-				<xsl:value-of select="normalize-space(ORGNAME)" disable-output-escaping="yes"/>
-				<xsl:if test="ORGNAME and ORGDIV">. </xsl:if>
-				<xsl:value-of select="normalize-space(ORGDIV)" disable-output-escaping="yes"/>
-				<xsl:choose>
-					<xsl:when test=" position() = last() ">. </xsl:when>
-					<xsl:when test=" position() = last() - 1 and last() != $MAX ">
-						<xsl:choose>
-							<xsl:when test=" $LANG = 'en' "> and </xsl:when>
-							<xsl:when test=" $LANG = 'pt' "> e </xsl:when>
-							<xsl:when test=" $LANG = 'es' "> y </xsl:when>
-						</xsl:choose>
-					</xsl:when>
-					<xsl:when test=" position() + 1 != $MAX ">, </xsl:when>
-				</xsl:choose>
-			</xsl:otherwise>
-		</xsl:choose>
-	</xsl:template>
-	<xsl:template match="AUTHORS">
-		<xsl:param name="NORM"/>
-		<xsl:param name="LANG"/>
-		<xsl:param name="AUTHLINK">0</xsl:param>
-		<xsl:apply-templates select="AUTH_PERS/AUTHOR" mode="PERS">
-			<xsl:with-param name="NORM" select="$NORM"/>
-			<xsl:with-param name="LANG" select="$LANG"/>
-			<xsl:with-param name="AUTHLINK" select="$AUTHLINK"/>
-			<xsl:with-param name="NUM_CORP" select="count(AUTH_CORP/AUTHOR)"/>
-		</xsl:apply-templates>
-		<xsl:apply-templates select="AUTH_CORP/AUTHOR" mode="CORP"/>
-	</xsl:template>
-	<xsl:template match="AUTHOR" mode="PERS">
-		<xsl:param name="NORM"/>
-		<xsl:param name="LANG"/>
-		<xsl:param name="AUTHLINK"/>
-		<xsl:param name="NUM_CORP"/>
-		<xsl:call-template name="CreateAuthor">
-			<xsl:with-param name="SURNAME" select="SURNAME"/>
-			<xsl:with-param name="NAME" select="NAME"/>
-			<xsl:with-param name="SEARCH">
-				<xsl:if test=" $AUTHLINK = 1 ">
-					<xsl:value-of select="@SEARCH"/>
-				</xsl:if>
-			</xsl:with-param>
-			<xsl:with-param name="LANG" select="$LANG"/>
-			<xsl:with-param name="NORM" select="$NORM"/>
-			<xsl:with-param name="SEPARATOR">,</xsl:with-param>
-		</xsl:call-template>
-		<xsl:if test=" position() != last() or $NUM_CORP > 0 ">; </xsl:if>
-	</xsl:template>
-	<xsl:template match="AUTHOR" mode="CORP">
-		<xsl:value-of select="normalize-space(ORGNAME)" disable-output-escaping="yes"/>
-		<xsl:if test="ORGNAME and ORGDIV">. </xsl:if>
-		<xsl:value-of select="normalize-space(ORGDIV)" disable-output-escaping="yes"/>
-		<xsl:if test=" position() != last() ">, </xsl:if>
-	</xsl:template>
-	<xsl:template match="LATTES">
-		<xsl:variable name="PATH_GENIMG" select="//CONTROLINFO/SCIELO_INFO/PATH_GENIMG"/>
-		<xsl:variable name="LANGUAGE" select="//CONTROLINFO/LANGUAGE"/>
-		<tr>
-			<xsl:choose>
-				<xsl:when test=" count(AUTHOR) = 1 ">
-					<td valign="middle">
-						<a href="{AUTHOR/@HREF}" onmouseover="status='{AUTHOR/@HREF}'; return true;" onmouseout="status='';" style="text-decoration: none;">
-							<img border="0" align="middle" src="{$PATH_GENIMG}{$LANGUAGE}/lattescv-button.gif"/>
-						</a>
-					</td>
-					<td valign="middle">
-						<a href="{AUTHOR/@HREF}" onmouseover="status='{AUTHOR/@HREF}'; return true;" onmouseout="status='';" style="text-decoration: none;">
-							<font class="nomodel" size="2">Curriculum Lattes</font>
-						</a>
-					</td>
-				</xsl:when>
-				<xsl:when test=" count(AUTHOR) > 1 ">
-					<td>
-						<xsl:call-template name="JavascriptText"/>
-						<a href="javascript:void(0);" onclick="OpenLattesWindow();" onmouseout="status='';" style="text-decoration: none;">
-							<xsl:attribute name="onmouseover"><xsl:choose><xsl:when test=" $LANGUAGE = 'en' ">status='Authors List'; return true;</xsl:when><xsl:when test=" $LANGUAGE = 'pt' ">status='Lista de Autores'; return true;</xsl:when><xsl:when test=" $LANGUAGE = 'es' ">status='Lista de Autores'; return true;</xsl:when></xsl:choose></xsl:attribute>
-							<img border="0" align="middle" src="{$PATH_GENIMG}{$LANGUAGE}/lattescv-button.gif"/>
-						</a>
-					</td>
-					<td>
-						<a href="javascript:void(0);" onclick="OpenLattesWindow();" onmouseout="status='';" style="text-decoration: none;">
-							<xsl:attribute name="onmouseover"><xsl:choose><xsl:when test=" $LANGUAGE = 'en' ">status='Authors List'; return true;</xsl:when><xsl:when test=" $LANGUAGE = 'pt' ">status='Lista de Autores'; return true;</xsl:when><xsl:when test=" $LANGUAGE = 'es' ">status='Lista de Autores'; return true;</xsl:when></xsl:choose></xsl:attribute>
-							<font class="nomodel" size="2">Curriculum Lattes</font>
-						</a>
-					</td>
-				</xsl:when>
-				<xsl:otherwise>
-					<td colspan="2">&#160;</td>
-				</xsl:otherwise>
-			</xsl:choose>
-		</tr>
-	</xsl:template>
 	<xsl:template name="PrintArticleInformationArea">
 		<xsl:param name="LATTES"/>
 		<table width="100%" border="0">
@@ -2076,7 +1050,7 @@ Parameters:
 		<xsl:variable name="LANGUAGE" select="//CONTROLINFO/LANGUAGE"/>
 		<script language="javascript">
 			<xsl:comment>
-		CreateWindowHeader ( "Curriculum Lattes",
+		CreateWindowHeader ( "Curriculum ScienTI",
                                                     "<xsl:value-of select="$PATH_GENIMG"/>
 				<xsl:value-of select="$LANGUAGE"/>/lattescv.gif",
                                                     "<xsl:value-of select=" $LANGUAGE"/>"
@@ -2127,265 +1101,29 @@ Parameters:
 			<xsl:when test=" $LANGUAGE = 'es' ">Como citar este artículo</xsl:when>
 		</xsl:choose>
 	</xsl:template>
-
-<xsl:template name="PrintArticleReferenceElectronicVancouver">
-		<xsl:param name="LANG"/>
-		<xsl:param name="AUTHLINK">0</xsl:param>
-		<xsl:param name="AUTHORS"/>
-		<xsl:param name="ARTTITLE"/>
-		<xsl:param name="VOL"/>
-		<xsl:param name="NUM"/>
-		<xsl:param name="SUPPL"/>
-		<xsl:param name="MONTH"/>
-		<xsl:param name="YEAR"/>
-		<xsl:param name="CURR_DATE"/>
-		<xsl:param name="PID"/>
-		<xsl:param name="ISSN"/>
-		<xsl:param name="FPAGE"/>
-		<xsl:param name="LPAGE"/>
-		<xsl:param name="SHORTTITLE" select="//TITLEGROUP/SHORTTITLE"/>
-		<xsl:apply-templates select="$AUTHORS" mode="ref">
-			<xsl:with-param name="LANG" select="$LANG"/>
-			<xsl:with-param name="AUTHLINK" select="$AUTHLINK"/>
-			<xsl:with-param name="sep_surname_and_name" select=" ' ' "/>
-			<xsl:with-param name="sep_authors" select="', '"/>
-			<xsl:with-param name="sep_last_author" select="', '"/>
-			<xsl:with-param name="max" select="'6'"/>
-			<xsl:with-param name="max_presented" select="'6'"/>
-		</xsl:apply-templates>
-		<xsl:if test="$ARTTITLE != '' ">
-			<!--font class="negrito"-->
-			<xsl:value-of select="concat(' ', $ARTTITLE)" disable-output-escaping="yes"/>
-			<xsl:if test="substring($ARTTITLE,string-length($ARTTITLE)) != '.' ">.</xsl:if>
-			<!--/font-->
-		</xsl:if>
-		<xsl:value-of select="concat(' ', $SHORTTITLE)" disable-output-escaping="yes"/>
-		<xsl:if test="substring($SHORTTITLE,string-length($SHORTTITLE)) != '.' ">.</xsl:if>&#160;
-		<xsl:choose>
-			<xsl:when test=" $LANG = 'en' ">[serial in the Internet]. </xsl:when>
-			<xsl:when test=" $LANG = 'pt' ">[periódico na Internet]. </xsl:when>
-			<xsl:when test=" $LANG = 'es'">[periódico en la Internet]. </xsl:when>
-		</xsl:choose>
-		<!--xsl:value-of select="concat(' ', $MONTH)"/-->
-		<xsl:value-of select="$YEAR"/>&#160;
-		<xsl:call-template name="GET_MONTH_NAME">
-			<xsl:with-param name="LANG" select="$LANG"/>
-			<xsl:with-param name="ABREV" select="1"/>
-			<xsl:with-param name="MONTH" select="$MONTH"/>
-		</xsl:call-template>
-		<xsl:if test="$CURR_DATE">
-			<xsl:choose>
-				<xsl:when test=" $LANG = 'en' "> [cited </xsl:when>
-				<xsl:when test=" $LANG = 'pt' "> [citado </xsl:when>
-				<xsl:when test=" $LANG = 'es' "> [citado </xsl:when>
-			</xsl:choose>
-			<xsl:value-of select="substring($CURR_DATE,1,4)"/>&#160;
-
-			<xsl:call-template name="GET_MONTH_NAME">
-				<xsl:with-param name="LANG" select="$LANG"/>
-				<xsl:with-param name="ABREV" select="1"/>
-				<xsl:with-param name="MONTH" select="substring($CURR_DATE,5,2)"/>
-			</xsl:call-template>&#160;
-
-			<xsl:value-of select="substring($CURR_DATE,7,2)"/>]</xsl:if>;&#160;
-		<xsl:value-of select="$VOL"/>
-		<xsl:if test="$NUM">
-			<xsl:choose>
-				<xsl:when test="$NUM='SE' or $NUM='se'">Selected Edition</xsl:when>
-				<xsl:otherwise>(<xsl:value-of select="$NUM"/>):
-				</xsl:otherwise>
-			</xsl:choose>
-		</xsl:if>
-		<!--xsl:if test="$SUPPL">
-			<xsl:choose>
-				<xsl:when test=" $LANG='en' "> suppl.</xsl:when>
-				<xsl:otherwise> supl.</xsl:otherwise>
-			</xsl:choose>
-			<xsl:if test="$SUPPL>0">
-				<xsl:value-of select="$SUPPL"/>
-			</xsl:if>
-		</xsl:if-->
-		<xsl:if test="$FPAGE!=0 and $LPAGE!=0">
-			<xsl:value-of select="concat(' ',$FPAGE, '-', $LPAGE)"/>
-		</xsl:if>.
-		<xsl:choose>
-			<xsl:when test=" $LANG = 'en' "> Available from: </xsl:when>
-			<xsl:when test=" $LANG = 'pt' "> Disponível em: </xsl:when>
-			<xsl:when test=" $LANG = 'es' "> Disponible en: </xsl:when>
-		</xsl:choose>
-  		http://<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/SERVER"/>
-		<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_arttext&amp;pid=<xsl:value-of select="$PID"/>&amp;lng=<xsl:value-of select="$LANG"/>&amp;nrm=iso.
-		<xsl:apply-templates select="@DOI"/>.
+	<xsl:template match="@DOI">
+	doi: <xsl:value-of select="."/>
 	</xsl:template>
-	<xsl:template name="PrintArticleReferenceElectronicABNT">
-		<xsl:param name="LANG"/>
-		<xsl:param name="AUTHLINK">0</xsl:param>
-		<xsl:param name="AUTHORS"/>
-		<xsl:param name="ARTTITLE"/>
-		<xsl:param name="VOL"/>
-		<xsl:param name="NUM"/>
-		<xsl:param name="SUPPL"/>
-		<xsl:param name="MONTH"/>
-		<xsl:param name="YEAR"/>
-		<xsl:param name="CURR_DATE"/>
-		<xsl:param name="PID"/>
-		<xsl:param name="ISSN"/>
-		<xsl:param name="FPAGE"/>
-		<xsl:param name="LPAGE"/>
-		<xsl:param name="SHORTTITLE" select="//TITLEGROUP/SHORTTITLE"/>
-		<xsl:param name="LOCAL"/>
-		<xsl:apply-templates select="$AUTHORS" mode="ref">
-			<xsl:with-param name="LANG" select="$LANG"/>
-			<xsl:with-param name="AUTHLINK" select="$AUTHLINK"/>
-			<xsl:with-param name="sep_surname_and_name" select=" ', ' "/>
-			<xsl:with-param name="sep_authors" select="'; '"/>
-			<xsl:with-param name="sep_last_author" select="'; '"/>
-			<xsl:with-param name="uppercase_surname" select="1"/>
-			<xsl:with-param name="max" select="3"/>
-			<xsl:with-param name="max_presented" select="1"/>
-		</xsl:apply-templates>
-		<xsl:if test="$ARTTITLE != '' ">
-			<!--font class="negrito"-->
-			<xsl:value-of select="concat(' ', $ARTTITLE)" disable-output-escaping="yes"/>
-			<xsl:if test="substring($ARTTITLE,string-length($ARTTITLE)) != '.' ">.</xsl:if>
-			<!--/font-->
-		</xsl:if>
-		<b>
-			<xsl:value-of select="concat(' ', $SHORTTITLE)" disable-output-escaping="yes"/>
-		</b>
-		<xsl:if test="substring($SHORTTITLE,string-length($SHORTTITLE)) != '.' ">.</xsl:if>,&#160;
-		<xsl:value-of select="$LOCAL"/>,&#160;
-		<xsl:if test="$VOL">v. <xsl:value-of select="$VOL"/>,&#160;
-		</xsl:if>
-		<xsl:if test="$NUM">
-			<xsl:choose>
-				<xsl:when test="$NUM='SE' or $NUM='se'">Selected Edition</xsl:when>
-				<xsl:otherwise>n. <xsl:value-of select="$NUM"/>,&#160;
+	<!--
 
-				</xsl:otherwise>
-			</xsl:choose>
-		</xsl:if>
-		<xsl:call-template name="GET_MONTH_NAME">
-			<xsl:with-param name="LANG" select="$LANG"/>
-			<xsl:with-param name="ABREV" select="1"/>
-			<xsl:with-param name="MONTH" select="$MONTH"/>
-		</xsl:call-template>
-		<xsl:value-of select="$YEAR"/>.&#160;
+tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
+
+-->
+	<xsl:template match="SCIELO_REGIONAL_DOMAIN"/>
+	<xsl:template match="USERINFO"/>
+	<!--
+
+Exibe caixa para exportação da citacao para "Reference Managers"
+
+-->
+	<xsl:template name="PrintExportCitationForRefecenceManagers">
+		<xsl:param name="LANGUAGE"/>
 		<xsl:choose>
-			<xsl:when test=" $LANG = 'en' "> Available from: </xsl:when>
-			<xsl:when test=" $LANG = 'pt' "> Disponível em: </xsl:when>
-			<xsl:when test=" $LANG = 'es' "> Disponible en: </xsl:when>
+			<xsl:when test=" $LANGUAGE = 'en' ">Export to BibTex</xsl:when>
+			<xsl:when test=" $LANGUAGE = 'pt' ">Exportar para BibTex</xsl:when>
+			<xsl:when test=" $LANGUAGE = 'es' ">Exportar para BibTeX</xsl:when>
 		</xsl:choose>
-  		&lt;http://<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/SERVER"/>
-		<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_arttext&amp;pid=<xsl:value-of select="$PID"/>&amp;lng=<xsl:value-of select="$LANG"/>&amp;nrm=iso&gt;.
-		<xsl:if test="$CURR_DATE">
-			<xsl:choose>
-				<xsl:when test=" $LANG = 'en' "> Access on: </xsl:when>
-				<xsl:when test=" $LANG = 'pt' "> Acesso em: </xsl:when>
-				<xsl:when test=" $LANG = 'es' "> Acceso el: </xsl:when>
-			</xsl:choose>
-			<xsl:value-of select="substring($CURR_DATE,7,2)"/></xsl:if>&#160;
-			<xsl:call-template name="GET_MONTH_NAME">
-			<xsl:with-param name="LANG" select="$LANG"/>
-			<xsl:with-param name="ABREV" select="1"/>
-			<xsl:with-param name="MONTH" select="substring($CURR_DATE,5,2)"/>
-		</xsl:call-template>&#160;
-			<xsl:value-of select="substring($CURR_DATE,1,4)"/>.&#160;
-		<xsl:apply-templates select="@DOI"/>.
-	</xsl:template>
-	<xsl:template match="AUTHORS" mode="ref">
-		<xsl:param name="LANG"/>
-		<xsl:param name="AUTHLINK"/>
-		<xsl:param name="sep_surname_and_name"/>
-		<xsl:param name="sep_authors"/>
-		<xsl:param name="sep_last_author"/>
-		<xsl:param name="uppercase_surname"/>
-		<xsl:param name="max"/>
-		<xsl:param name="max_presented"/>
-		<xsl:variable name="MAX_PRESENTED"><xsl:choose>
-			<xsl:when test="count(.//AUTH_PERS/AUTHOR)&gt;$max"><xsl:value-of select="$max_presented"/></xsl:when>
-			<xsl:otherwise><xsl:value-of select="$max"/></xsl:otherwise>
-		</xsl:choose></xsl:variable>
-		<xsl:apply-templates select="//AUTH_PERS/AUTHOR[position()&lt;=$MAX_PRESENTED]" mode="ref-PERS">
-			<xsl:with-param name="LANG" select="$LANG"/>
-			<xsl:with-param name="AUTHLINK" select="$AUTHLINK"/>
-			<xsl:with-param name="NUM_CORP" select="count(//AUTH_CORP/AUTHOR)"/>
-			<xsl:with-param name="sep_surname_and_name" select="$sep_surname_and_name"/>
-			<xsl:with-param name="sep_authors" select="$sep_authors"/>
-			<xsl:with-param name="sep_last_author" select="$sep_last_author"/>
-			<xsl:with-param name="uppercase_surname" select="$uppercase_surname"/>
-		</xsl:apply-templates>
-		<xsl:if test="count(//AUTH_PERS/AUTHOR)&gt;$max">
-			et al
-		</xsl:if>.
-		<!--xsl:apply-templates select="AUTH_CORP/AUTHOR" mode="CORP">
-			<xsl:with-param name="LANG" select="$LANG"/>
-			<xsl:with-param name="MAX" select="4 - count(.//AUTH_PERS/AUTHOR)"/>
-			<xsl:with-param name="sep1" select="$sep1"/>
-			<xsl:with-param name="sep2" select="$sep2"/>
-			<xsl:with-param name="limit" select="$limit"/>
-		</xsl:apply-templates-->
-	</xsl:template>
-
-	<xsl:template match="AUTHOR" mode="ref-PERS">
-		<xsl:param name="LANG"/>
-		<xsl:param name="AUTHLINK"/>
-		<xsl:param name="NUM_CORP"/>
-		<xsl:param name="uppercase_surname"/>
-		<xsl:param name="sep_surname_and_name"/>
-		<xsl:param name="sep_authors"/>
-		<xsl:param name="sep_last_author"/>
-		<xsl:variable name="length" select="normalize-space(string-length(NAME))"/>
-		<xsl:variable name="fullname">
-			<xsl:choose>
-				<xsl:when test="$sep_surname_and_name!=''">
-					<xsl:choose>
-						<xsl:when test="$uppercase_surname=1">
-							<xsl:apply-templates select="UPP_SURNAME"/>
-						</xsl:when>
-						<xsl:otherwise>
-							<xsl:apply-templates select="SURNAME"/>
-						</xsl:otherwise>
-					</xsl:choose>
-					<xsl:value-of select="$sep_surname_and_name"/>
-					<xsl:apply-templates select="NAME"/>
-				</xsl:when>
-				<xsl:otherwise>
-					<xsl:apply-templates select="NAME"/>&#160;<xsl:choose>
-						<xsl:when test="$uppercase_surname=1">
-							<xsl:apply-templates select="UPP_SURNAME"/>
-						</xsl:when>
-						<xsl:otherwise>
-							<xsl:apply-templates select="SURNAME"/>
-						</xsl:otherwise>
-					</xsl:choose>
-				</xsl:otherwise>
-			</xsl:choose>
-		</xsl:variable>
-		<xsl:choose>
-			<xsl:when test="position()=1"></xsl:when>
-			<xsl:when test="position()!=last()">
-				<xsl:value-of select="$sep_authors"/>
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:value-of select="$sep_last_author"/>
-			</xsl:otherwise>
-		</xsl:choose>
-		
-		<xsl:call-template name="CreateAuthor">
-			<xsl:with-param name="SEARCH">
-				<xsl:if test=" $AUTHLINK = 1 ">
-					<xsl:value-of select="@SEARCH"/>
-				</xsl:if>
-			</xsl:with-param>
-			<xsl:with-param name="LANG" select="$LANG"/>
-			<xsl:with-param name="NAME" select="//NAME"/>
-			<xsl:with-param name="SURNAME" select="//SURNAME"/>
-			<xsl:with-param name="NORM">iso</xsl:with-param>
-		</xsl:call-template>
-
 	</xsl:template>
 
 	<xsl:template match="fulltext-service-list"/>
-
 </xsl:stylesheet>
