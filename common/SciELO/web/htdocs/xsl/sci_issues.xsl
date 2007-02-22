@@ -4,7 +4,6 @@
 	<xsl:include href="file:///home/scielo/web/htdocs/xsl/sci_error.xsl"/>
 
 	<xsl:output method="html" indent="no" />
-
 	<xsl:template match="SERIAL">
 		<HTML>
 			<HEAD>
@@ -129,16 +128,15 @@
 		</TABLE>
 	</xsl:template>
 	<xsl:template match="YEARISSUE">
-		<xsl:if test="VOLISSUE/ISSUE">
-			<!--
-     <xsl:apply-templates />
-	 -->
+	</xsl:template>
+	<xsl:template match="YEARISSUE[VOLISSUE/ISSUE]">
 			<xsl:apply-templates select="VOLISSUE">
+				
 				<xsl:sort select="@VOL" order="descending" data-type="number"/>
 			</xsl:apply-templates>
-		</xsl:if>
 	</xsl:template>
 	<xsl:template match="VOLISSUE">
+		
 		<xsl:if test="ISSUE">
 			<TR>
 				<TD vAlign="center" align="left" width="15%" bgColor="#edecee" height="35">
@@ -150,9 +148,7 @@
 						</FONT>
 					</P>
 				</TD>
-				
-				
-				<xsl:variable name="navailissues" select="count(ISSUE)"/>
+				<xsl:variable name="navailissues" select="count(ISSUE[@NUM or @SUPPL])"/>
 				<!--xsl:variable name="test_vol">
 		<xsl:apply-templates select="//YEARISSUE/VOLISSUE" mode="validation"/>
 	  </xsl:variable-->
@@ -165,7 +161,10 @@
 									<xsl:choose>
 										<xsl:when test="@VOL != '' ">
 											<xsl:choose>
-												<xsl:when test="$navailissues=0 or count( ISSUE[not(@NUM) and not(@SUPPL) ] )&gt;0">
+												<xsl:when test="$navailissues&gt;0">
+													<xsl:value-of select="@VOL"/>
+												</xsl:when>
+												<xsl:otherwise>
 													<A>
 														<xsl:call-template name="AddScieloLink">
 															<xsl:with-param name="seq" select="ISSUE/@SEQ"/>
@@ -173,9 +172,6 @@
 														</xsl:call-template>
 														<xsl:value-of select="@VOL"/>
 													</A>
-												</xsl:when>
-												<xsl:otherwise>
-													<xsl:value-of select="@VOL"/>
 												</xsl:otherwise>
 											</xsl:choose>
 										</xsl:when>
@@ -187,18 +183,19 @@
 					</xsl:when>
 					<xsl:otherwise>&#160;</xsl:otherwise>
 				</xsl:choose>
-				<xsl:apply-templates select="ISSUE[@NUM or @SUPPL]"/> <!-- fixed 20040114 
+				<xsl:apply-templates select="ISSUE[@NUM or @SUPPL]"/>
+				<!-- fixed 20040114 
 					ERRO OCASIONADO APOS CORRIGIR A AUSENCIA DE LINK NO VOLUME QUANDO ESTE NAO TINHA NEM NUMERO NEM VOLUME.
 					EXEMPLO ECLETICA QUIMICA ANO 2002.
 				-->
 
+				
 				<xsl:call-template name="AddBlankCells">
 					<xsl:with-param name="ncells" select="10-$navailissues"/>
 				</xsl:call-template>
 			</TR>
 		</xsl:if>
 	</xsl:template>
-	
 	<xsl:template match="VOLISSUE" mode="old">
 		<xsl:if test="ISSUE">
 			<TR>
@@ -277,6 +274,7 @@
 							<xsl:with-param name="suppl" select="@SUPPL"/>
 							<xsl:with-param name="lang" select="//CONTROLINFO/LANGUAGE"/>
 						</xsl:call-template>
+						<xsl:if test="@NUM='AHEAD'">ahead of print</xsl:if>
 					</A>
 				</FONT>
 			</B>
