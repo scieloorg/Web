@@ -84,13 +84,25 @@
 	<field action="export" tag="list">2000,2001,4001,5000</field>
    </loop>
  </do>
- 
+
+ <flow action="jump"><pft>if a(v5000) then 'CLOSE_VOLUME' fi</pft></flow>
+ <do task="keyrange">
+   <parm name="db">ARTIGO</parm>
+   <parm name="from"><pft>'SM='v5000^n</pft></parm>
+   <parm name="count">1</parm>
+
+   <loop>
+		<field action="import" tag="list">5000</field>
+		<display><pft>'<ISSUE NUM="AHEAD" SEQ="',v5000^n,'"/>'/</pft></display>
+	</loop>
+  </do> 
+
+
+ <label>CLOSE_VOLUME</label>
  <display><pft>if s(v2001)<>'-' then '   </VOLISSUE>'/ fi,
                if s(v2000)<>'-' then '  </YEARISSUE>'/ fi,
 
-				if p(v5000) then
-					'<AHP><ISSUE NUM="AHEAD" SEQ="',v5000^n,'"/></AHP>'/
-				fi
+				
                ' </AVAILISSUES>'/</pft></display>
 </function>
  
