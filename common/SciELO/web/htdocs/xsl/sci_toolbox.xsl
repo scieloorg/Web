@@ -103,7 +103,7 @@
 								<xsl:with-param name="txtlang">
 									<xsl:value-of select="ISSUE/ARTICLE/@TRANSLATION"/>
 									<xsl:if test="not(ISSUE/ARTICLE/@TRANSLATION)">
-										<xsl:value-of select="ISSUE/ARTICLE/@LANGUAGE"/>
+										<xsl:value-of select="ISSUE/ARTICLE/@TEXTLANG"/>
 									</xsl:if>
 								</xsl:with-param>
 							</xsl:call-template>
