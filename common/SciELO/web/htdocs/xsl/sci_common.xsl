@@ -168,124 +168,7 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 			<xsl:value-of select="."/>
 		</A>
 	</xsl:template>
-	<!-- Gets the month name in selected language
-         Parameters:
-           LANG    language code
-           MONTH (01..12)
-           ABREV  1: abbreviated name (Optional) -->
-	<xsl:template name="GET_MONTH_NAME">
-		<xsl:param name="LANG"/>
-		<xsl:param name="MONTH"/>
-		<xsl:param name="ABREV"/>
-		<xsl:choose>
-			<xsl:when test="$LANG='en'">
-				<xsl:call-template name="MONTH_NAME_EN">
-					<xsl:with-param name="MONTH" select="$MONTH"/>
-					<xsl:with-param name="ABREV" select="$ABREV"/>
-				</xsl:call-template>
-			</xsl:when>
-			<xsl:when test="$LANG='pt'">
-				<xsl:call-template name="MONTH_NAME_PT">
-					<xsl:with-param name="MONTH" select="$MONTH"/>
-					<xsl:with-param name="ABREV" select="$ABREV"/>
-				</xsl:call-template>
-			</xsl:when>
-			<xsl:when test="$LANG='es'">
-				<xsl:call-template name="MONTH_NAME_ES">
-					<xsl:with-param name="MONTH" select="$MONTH"/>
-					<xsl:with-param name="ABREV" select="$ABREV"/>
-				</xsl:call-template>
-			</xsl:when>
-		</xsl:choose>
-	</xsl:template>
-	<!-- Auxiliary function - Gets the month name in english. See GET_MONTH_NAME function -->
-	<xsl:template name="MONTH_NAME_EN">
-		<xsl:param name="MONTH"/>
-		<xsl:param name="ABREV"/>
-		<xsl:choose>
-			<xsl:when test=" $MONTH='01' ">Jan<xsl:if test="not($ABREV)">uary</xsl:if>
-			</xsl:when>
-			<xsl:when test=" $MONTH='02' ">Feb<xsl:if test="not($ABREV)">ruary</xsl:if>
-			</xsl:when>
-			<xsl:when test=" $MONTH='03' ">Mar<xsl:if test="not($ABREV)">ch</xsl:if>
-			</xsl:when>
-			<xsl:when test=" $MONTH='04' ">Apr<xsl:if test="not($ABREV)">il</xsl:if>
-			</xsl:when>
-			<xsl:when test=" $MONTH='05' ">May</xsl:when>
-			<xsl:when test=" $MONTH='06' ">June</xsl:when>
-			<xsl:when test=" $MONTH='07' ">July</xsl:when>
-			<xsl:when test=" $MONTH='08' ">Aug<xsl:if test="not($ABREV)">ust</xsl:if>
-			</xsl:when>
-			<xsl:when test=" $MONTH='09' ">Sep<xsl:if test="not($ABREV)">tember</xsl:if>
-			</xsl:when>
-			<xsl:when test=" $MONTH='10' ">Oct<xsl:if test="not($ABREV)">ober</xsl:if>
-			</xsl:when>
-			<xsl:when test=" $MONTH='11' ">Nov<xsl:if test="not($ABREV)">ember</xsl:if>
-			</xsl:when>
-			<xsl:when test=" $MONTH='12' ">Dec<xsl:if test="not($ABREV)">ember</xsl:if>
-			</xsl:when>
-		</xsl:choose>
-	</xsl:template>
-	<!-- Auxiliary function - Gets the month name in portuguese. See GET_MONTH_NAME function -->
-	<xsl:template name="MONTH_NAME_PT">
-		<xsl:param name="MONTH"/>
-		<xsl:param name="ABREV"/>
-		<xsl:choose>
-			<xsl:when test=" $MONTH='01' ">Jan<xsl:if test="not($ABREV)">eiro</xsl:if>
-			</xsl:when>
-			<xsl:when test=" $MONTH='02' ">Fev<xsl:if test="not($ABREV)">ereiro</xsl:if>
-			</xsl:when>
-			<xsl:when test=" $MONTH='03' ">Mar<xsl:if test="not($ABREV)">ço</xsl:if>
-			</xsl:when>
-			<xsl:when test=" $MONTH='04' ">Abr<xsl:if test="not($ABREV)">il</xsl:if>
-			</xsl:when>
-			<xsl:when test=" $MONTH='05' ">Maio</xsl:when>
-			<xsl:when test=" $MONTH='06' ">Jun<xsl:if test="not($ABREV)">ho</xsl:if>
-			</xsl:when>
-			<xsl:when test=" $MONTH='07' ">Jul<xsl:if test="not($ABREV)">ho</xsl:if>
-			</xsl:when>
-			<xsl:when test=" $MONTH='08' ">Ago<xsl:if test="not($ABREV)">sto</xsl:if>
-			</xsl:when>
-			<xsl:when test=" $MONTH='09' ">Set<xsl:if test="not($ABREV)">embro</xsl:if>
-			</xsl:when>
-			<xsl:when test=" $MONTH='10' ">Out<xsl:if test="not($ABREV)">ubro</xsl:if>
-			</xsl:when>
-			<xsl:when test=" $MONTH='11' ">Nov<xsl:if test="not($ABREV)">embro</xsl:if>
-			</xsl:when>
-			<xsl:when test=" $MONTH='12' ">Dez<xsl:if test="not($ABREV)">embro</xsl:if>
-			</xsl:when>
-		</xsl:choose>
-	</xsl:template>
-	<!-- Auxiliary function - Gets the month name in spanish. See GET_MONTH_NAME function -->
-	<xsl:template name="MONTH_NAME_ES">
-		<xsl:param name="MONTH"/>
-		<xsl:param name="ABREV"/>
-		<xsl:choose>
-			<xsl:when test=" $MONTH='01' ">Ene<xsl:if test="not($ABREV)">ro</xsl:if>
-			</xsl:when>
-			<xsl:when test=" $MONTH='02' ">Feb<xsl:if test="not($ABREV)">rero</xsl:if>
-			</xsl:when>
-			<xsl:when test=" $MONTH='03' ">Mar<xsl:if test="not($ABREV)">zo</xsl:if>
-			</xsl:when>
-			<xsl:when test=" $MONTH='04' ">Abr<xsl:if test="not($ABREV)">il</xsl:if>
-			</xsl:when>
-			<xsl:when test=" $MONTH='05' ">Mayo</xsl:when>
-			<xsl:when test=" $MONTH='06' ">Jun<xsl:if test="not($ABREV)">io</xsl:if>
-			</xsl:when>
-			<xsl:when test=" $MONTH='07' ">Jul<xsl:if test="not($ABREV)">io</xsl:if>
-			</xsl:when>
-			<xsl:when test=" $MONTH='08' ">Ago<xsl:if test="not($ABREV)">sto</xsl:if>
-			</xsl:when>
-			<xsl:when test=" $MONTH='09' ">Sep<xsl:if test="not($ABREV)">tiembre</xsl:if>
-			</xsl:when>
-			<xsl:when test=" $MONTH='10' ">Oct<xsl:if test="not($ABREV)">ubre</xsl:if>
-			</xsl:when>
-			<xsl:when test=" $MONTH='11' ">Nov<xsl:if test="not($ABREV)">iembre</xsl:if>
-			</xsl:when>
-			<xsl:when test=" $MONTH='12' ">Dic<xsl:if test="not($ABREV)">iembre</xsl:if>
-			</xsl:when>
-		</xsl:choose>
-	</xsl:template>
+
 	<!-- Gets the type of the ISSN
          Parameters:
            TYPE - Type Code (PRINT | CDROM | DISKE | ONLIN)  
@@ -1045,23 +928,7 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 			</tr>
 		</table>
 	</xsl:template>
-	<xsl:template name="JavascriptText">
-		<xsl:variable name="PATH_GENIMG" select="//CONTROLINFO/SCIELO_INFO/PATH_GENIMG"/>
-		<xsl:variable name="LANGUAGE" select="//CONTROLINFO/LANGUAGE"/>
-		<script language="javascript">
-			<xsl:comment>
-		CreateWindowHeader ( "Curriculum ScienTI",
-                                                    "<xsl:value-of select="$PATH_GENIMG"/>
-				<xsl:value-of select="$LANGUAGE"/>/lattescv.gif",
-                                                    "<xsl:value-of select=" $LANGUAGE"/>"
-                                                  );
-			
-			<xsl:apply-templates select="AUTHOR" mode="LATTES"/>
-
-    		CreateWindowFooter();
-	// </xsl:comment>
-		</script>
-	</xsl:template>
+	
 	<xsl:template match="AUTHOR" mode="LATTES">
 	InsertAuthor("<xsl:value-of select="."/>", "<xsl:value-of select="@HREF"/>");
 </xsl:template>
@@ -1111,19 +978,5 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
 -->
 	<xsl:template match="SCIELO_REGIONAL_DOMAIN"/>
 	<xsl:template match="USERINFO"/>
-	<!--
-
-Exibe caixa para exportação da citacao para "Reference Managers"
-
--->
-	<xsl:template name="PrintExportCitationForRefecenceManagers">
-		<xsl:param name="LANGUAGE"/>
-		<xsl:choose>
-			<xsl:when test=" $LANGUAGE = 'en' ">Export to BibTex</xsl:when>
-			<xsl:when test=" $LANGUAGE = 'pt' ">Exportar para BibTex</xsl:when>
-			<xsl:when test=" $LANGUAGE = 'es' ">Exportar para BibTeX</xsl:when>
-		</xsl:choose>
-	</xsl:template>
-
 	<xsl:template match="fulltext-service-list"/>
 </xsl:stylesheet>
