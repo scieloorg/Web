@@ -80,24 +80,46 @@
 		<!--parm name="db">NEWISSUE</parm-->
 		<parm name="db">ARTIGO</parm>
 		<parm name="from"><pft>'Y',v4900</pft></parm>
-		<!--parm name="count">2</parm-->
+		<!--parm name="count">10</parm-->
 		<parm name="reverse">On</parm>
 		
 		<field action="define" tag="4901">Isis_Key</field>
 		
 		<loop>
 			<field action="import" tag="4900">4900</field>
-
-			<flow action="skip">
+			<field action="replace" tag="4902">
 				<pft>
 					/* The first key found whose pid isn't the current issue's  */
 					/* pid stops the loop.                                      */
-					/* if p(v4901) and instr(v4901,v4900) = 0 then 'Quit' fi */
-					if ref(['NEWISSUE']l(['NEWISSUE'],v4901),v32)<>'ahead' and instr(v4901,v4900) = 0 then
-						if l(['ARTIGO'],'HR=S',mpu,v4901*1,mpl,'00001') > 0 and
-						   l(['NEWISSUE'],v4901) > 0 then, 
-							'Quit' 
+
+					if p(v4901) then
+						if  instr(v4901,v4900) = 0 then
+							/* nao eh o primeiro, que seria ele mesmo */
+							if  instr(v4901,s('Y',mid(v4900,1,9))) = 1 then
+								/* eh da mesma revista, mesmo issn */
+								if ref(['NEWISSUE']l(['NEWISSUE'],v4901),v32)<>'ahead' then
+									if l(['ARTIGO'],'HR=S',mpu,v4901*1,mpl,'00001') > 0 and
+								   		l(['NEWISSUE'],v4901) > 0 then, 
+										'OK' 
+									fi
+								fi
+							else 
+								/* eh da mesma revista, mesmo issn */
+								'Quit'
+							fi
+						else 
+							/* eh ele mesmo, entao continuar */
 						fi
+					else
+ 							'Quit' 
+					fi 
+				</pft>
+			</field>
+			<field action="export" tag="list">4902</field>
+			<flow action="skip">
+				<pft>
+					if v4902='OK' or v4902='Quit' then 
+						'Quit'
 					fi
 				</pft>
 			</flow>
@@ -108,11 +130,7 @@
 		<pft>
 			/* The pid of the key must be different from the pid of the current issue */
 			/* and the issn must be equal.                                            */
-			if p(v4901) and
-			   instr(v4901, v4900) = 0 and 
-			   instr(v4901, left(v4900, size(v4900) - 8)) > 0 and			   
-			   l(['ARTIGO'],'HR=S',mpu,v4901*1,mpl,'00001') > 0 and
-			   l(['NEWISSUE'],v4901) > 0 then, 
+			if v4902='OK' then, 
 				v4901*1,
 			fi,
 		</pft>
@@ -147,27 +165,24 @@
 					v35,v65*0.4,s(f(val(s(v36*4.3))+10000,2,0))*1.4)</pft>
 			</field>
 			<field action="export" tag="4901">4901</field>
-
-			<flow action="skip">
-				<pft>
-					if l(['ARTIGO'],'HR=S',mpu,v4901,mpl,'00001') > 0 then
-						if l(['NEWISSUE'],'Y'v4901) > 0 then, 
-							'Quit'
-						fi
-					fi
-				</pft>
-			</flow>
 		</loop>	
 	</do>
-	
+	<flow action="jump"><pft>if a(v4901) then 'Next' fi</pft></flow>
+	<do task="keyrange">
+	   <parm name="db">ARTIGO</parm>
+	   <parm name="from"><pft>'SM='v4901</pft></parm>
+	   <parm name="count">1</parm>
+
+	   <loop>
+			<field action="import" tag="4901">4901</field>
+			<field action="export" tag="4902">4901</field>
+		</loop>	
+	</do>	
+	<label>Next</label>
 	<return action="replace" tag="7095">
 		<pft>
-			if p(v4901) then
-				if l(['ARTIGO'],'HR=S',mpu,v4901,mpl,'00001') > 0 then
-					if l(['NEWISSUE'],'Y'v4901) > 0 then, 
-						v4901,
-					fi
-				fi
+			if p(v4902) then
+				v4901,
 			fi,
 		</pft>
 	</return>
@@ -1469,6 +1484,7 @@
 	<do task="list">
 	     <field action="define" tag="4903">Isis_Current</field>
 	     <field action="define" tag="4922">Isis_Item</field>>
+    	
     	
 		<loop>
 			<field action="import" tag="list">9000/9002,9005,4904/4906</field> <!-- fixed 20040622 -->
