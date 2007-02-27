@@ -14,12 +14,11 @@ class XSLTransformer {
 
 	/* Constructor  */	 
 	function XSLTransformer() {
-		$defFile = parse_ini_file(dirname(__FILE__)."\scielo.def",true);
-		$this->processor = xslt_create(); 
+	    $defFile = parse_ini_file(dirname(__FILE__)."/scielo.def",true);
+	    $this->processor = xslt_create(); 
 	    $this->host = $_SERVER["SERVER_ADDR"];
-		$this->port = $defFile["SOCKET"]["SOCK_PORT"];
-
-        $this->socket = new XSLTransformerSocket($this->host,$this->port);
+            $this->port = $defFile["SOCKET"]["SOCK_PORT"];
+            $this->socket = new XSLTransformerSocket($this->host,$this->port);
 	    if (!$this->socket){
         	die("socket creation error!");
 		}
@@ -66,8 +65,8 @@ class XSLTransformer {
 
 	function setXsl($uri) {
 		$this->xsl	= $uri;
-/*
-		if ( $doc = new docReader ($uri) ) {
+
+		/*if ( $doc = new docReader ($uri) ) {
 			$this->xsl	= $doc->getString();
 			return true;
 		} else {
@@ -91,30 +90,30 @@ class XSLTransformer {
 	/* transform method */
     function transform()
     {
-		$err = false;
         if (getenv("ENV_SOCKET")=="true"){
-			$result = $this->socket->transform($this->xsl, $this->xml);
-			if (strlen($result)<3){
-                $args = array ( '/_xml' => $this->xml, '/_xsl' => $this->xsl );
-                $result = xslt_process ($this->processor, 'arg:/_xml', 'arg:/_xsl', NULL, $args);
-                if ($result) {
-                    $this->setOutput ($result."<!--transformed by PHP - Erro SOCK -->");
-                } else {
-                    $err = "Error: " . xslt_error ($this->processor) . " Errorcode: " . xslt_errno ($this->processor);
-                    $this->setError ($err);
-                }
-			} else {
-                    $this->setOutput ($result."<!--transformed by JAVA-->");
-			}
+            $result = $this->socket->transform($this->xsl, $this->xml);
+		if (strlen($result)<3){
+
+	                $args = array ( '/_xml' => $this->xml, '/_xsl' => $this->xsl );
+        	        $result = xslt_process ($this->processor, 'arg:/_xml', 'arg:/_xsl', NULL, $args);
+                	if ($result) {
+	                    $this->setOutput ($result."<!--transformed by socket JAVA-->");
+	                } else {
+        	            $err = "Error: " . xslt_error ($this->processor) . " Errorcode: " . xslt_errno ($this->processor);
+                	    $this->setError ($err);
+	                }
+		} else {
+				$this->setOutput ($result."<!--transformed by JAVA ".date("h:m:s d-m-Y")."-->");
+		}
         } else {
         	$args = array ( '/_xml' => $this->xml, '/_xsl' => $this->xsl );
-			$result = xslt_process ($this->processor, 'arg:/_xml', 'arg:/_xsl', NULL, $args);
-			if ($result) {
-				$this->setOutput ($result."<!--transformed by PHP-->");
-            } else {
-            	$err = "Error: " . xslt_error ($this->processor) . " Errorcode: " . xslt_errno ($this->processor);
-                $this->setError ($err);
-            }
+		$result = xslt_process ($this->processor, 'arg:/_xml', 'arg:/_xsl', NULL, $args);
+		if ($result) {
+		        $this->setOutput ($result."<!--transformed by PHP ".date("h:m:s d-m-Y")."-->");
+	        } else {
+        	    	$err = "Error: " . xslt_error ($this->processor) . " Errorcode: " . xslt_errno ($this->processor);
+	                $this->setError ($err);
+        	}
         }
 		if ($err){
 			var_dump($err);

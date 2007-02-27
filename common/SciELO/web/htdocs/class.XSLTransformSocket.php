@@ -7,16 +7,15 @@ class XSLTransformerSocket {
 		$this->port = $port;
 		$this->END_OF_MESS_SYMBOL = "?<==>?";		
 		$this->FINISH = "?<++>?";
-		$this->socket = @fsockopen($host,$port, $errno, $errstr, 2);
+		$this->socket = fsockopen($host,$port, $errno, $errstr);
 		if ($this->socket)
 		{
 			putenv("ENV_SOCKET=true");
-			$this->output .= "<!--transformed by socket JAVA-->";
+			$this->output .= "<!--transformed by socket JAVA ".date('')."-->";
 		}
 		else
 		{
-			putenv("ENV_SOCKET=false");
-			$this->output .= "<!--transformed by PHP SOCK = false-->";	
+			$this->output .= "<!--transformed by PHP-->";	
 		}
 	} 
 
@@ -34,22 +33,36 @@ class XSLTransformerSocket {
 	  {
 	   	die("$errstr ($errno)<br />\n");
 	  }
-	  $xml = str_replace('<?xml version="1.0" encoding="ISO-8859-1"?>','',$xml);
+          $xml = str_replace('<?xml version="1.0" encoding="ISO-8859-1"?>','',$xml);
           $xml = str_replace('<?xml version="1.0" encoding="iso-8859-1"?>','',$xml);
-          $xml = '<?xml version="1.0" encoding="ISO-8859-1"?>'.$xml;
-	  fwrite($this->socket, "ISO-8859-1:".$xsl.":".$xml."\n");
-	  fwrite($this->socket, $this->END_OF_MESS_SYMBOL."\n");
+
+          $aspas = array(chr(147),chr(148));
+          $menos = array(chr(150));
+
+          $xml = str_replace($aspas,"&quot;",$xml);
+          $xml = str_replace($menos,"-",$xml);
+          $xml = str_replace("\n","",$xml);
+          $xml = str_replace(chr(132),"",$xml);
+          $xml = str_replace(chr(131),"",$xml);
+          $xml = str_replace(chr(134),"",$xml);
+          $xml = str_replace(chr(145),"",$xml);
+          $xml = str_replace(chr(146),"",$xml);
+
+	  fwrite($this->socket, "ISO-8859-1:".$xsl.":".$xml."\n") or die("1");
+	  fwrite($this->socket, $this->END_OF_MESS_SYMBOL."\n") or die("2");
 	  $message = $this->recebeResultado();
 	  return $message;
 	}
 
 
     function recebeResultado() {
+
        if (!$this->socket) {
            die("recebeResultado/comunicacao encerrada");
        }
        $message = NULL;
        $buffer = NULL;
+
        while (!feof($this->socket)) {
            $buffer = fgets($this->socket,4096);
            if ($buffer == false) {
@@ -62,6 +75,7 @@ class XSLTransformerSocket {
 		   
            $message .= $buffer;
        }
+
 	   return $message;
 	}
 }
