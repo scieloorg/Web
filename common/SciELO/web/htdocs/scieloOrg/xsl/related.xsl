@@ -7,7 +7,7 @@
 	doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN" 
 	doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" />
 
-	<xsl:include href="file:///d:/sites/scielo/web/htdocs/applications/scielo-org/xsl/article_output.xsl"/>
+	<xsl:include href="file:///home/scielo/www/htdocs/applications/scielo-org/xsl/article_output.xsl"/>
 
 	<xsl:variable name="lang" select="//vars/lang"/>
 
