@@ -8,7 +8,7 @@
 
 	<xsl:output method="html" indent="no"/>
 	
-	<xsl:include href="file:///d:/sites/scielo_repo/web/htdocs/xsl/sci_common.xsl"/>
+	<xsl:include href="file:///home/scielo/www/htdocs/xsl/sci_common.xsl"/>
 	<xsl:template match="/">
 		<xsl:apply-templates/>
 	</xsl:template>
