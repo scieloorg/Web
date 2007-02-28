@@ -2,12 +2,13 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 	<xsl:variable name="SCIELO_REGIONAL_DOMAIN" select="//SCIELO_REGIONAL_DOMAIN"/>
 	<xsl:variable name="show_toolbox" select="//toolbox"/>
+	<xsl:variable name="show_login" select="//show_login"/>
 	<xsl:variable name="login_url" select="//loginURL"/>
 	<xsl:variable name="logout_url" select="//logoutURL"/>
 
 	<xsl:output method="html" indent="no"/>
 	
-	<xsl:include href="file:///home/scielo/web/htdocs/xsl/sci_common.xsl"/>
+	<xsl:include href="file:///d:/sites/scielo_repo/web/htdocs/xsl/sci_common.xsl"/>
 	<xsl:template match="/">
 		<xsl:apply-templates/>
 	</xsl:template>
@@ -46,7 +47,7 @@
 					<!--
 			Usuarios no SciELO - Botao de Login
 		-->
-					<xsl:if test="$show_toolbox = 1">
+					<xsl:if test="$show_login = 1">
 						<xsl:apply-templates select="//USERINFO" mode="box">
 							<xsl:with-param name="lang" select="'en'"/>
 						</xsl:apply-templates>
