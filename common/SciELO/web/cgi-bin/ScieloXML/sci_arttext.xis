@@ -335,9 +335,6 @@
     </loop>
    </do>
    <file action="close" type="database">NLINKS</file>
- <field action="add" tag="9999"><pft>if l(['ARTICLE_DOI'],s(v880,s(f(val(v888)+100000,5,0))*1.5)) > 0 then ref(['ARTICLE_DOI']l(['ARTICLE_DOI'],s(v880,s(f(val(v888)+100000,5,0))*1.5)),
-          (if v999^u<>'' then '<a href="',v999^u,'">',v999^l,'</a>'/ fi)) fi
-          </pft></field>
    <!--flow action="jump">
     <pft>if a(v9994) and a(v9995) and a(v9996) and a(v9997) and a(v9998)  and a(v9999)  then 'PRINT_REF' fi</pft>
    </flow-->
@@ -348,6 +345,18 @@
    <field action="replace" tag="3330"><pft>s(v880,s(f(val(v888)+100000,5,0))*1.5)</pft></field>
    <field action="replace" tag="3333"><pft>ref(['ARTIGO']l(['ARTIGO'],'R='v3330),@PROC_SPLIT_MST.PFT,' intitle:%22'v12^*'%22')</pft></field> <!--('%22author:'v10^n' ','author:'v10^s'%22'), colocar antes do intitle se quiser incluir autores no try google--> 
    <field action="replace" tag="3334"><pft>ref(['ARTIGO']l(['ARTIGO'],'R='v3330),@PROC_SPLIT_MST.PFT,v12^*)</pft></field>   
+
+	<field action="add" tag="9999"><pft>
+        if l(['ARTICLE_DOI'],s(v880,s(f(val(v888)+100000,5,0))*1.5)) > 0 then
+                ref(['ARTICLE_DOI']l(['ARTICLE_DOI'],s(v880,s(f(val(v888)+100000,5,0))*1.5)),
+                        if val(v32701^m) > 0 then
+                                ,proc('R',s('../bases/',v32701^*),',',v32701^m),
+                        ,fi
+                        (if v999^u<>'' then '<a href="',v999^u,'">',v999^l,'</a>'/ fi)
+                )
+        fi
+          </pft></field>
+
 <display>
     <pft>
     	,if val(v705)>0 then mid(v704^*,1,val(v705)-1)/ else v704^*/ fi,
