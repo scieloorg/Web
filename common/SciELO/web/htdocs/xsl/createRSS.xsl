@@ -35,7 +35,7 @@
 
 <xsl:template match="ISSUE">
 	<xsl:for-each select="SECTION">
-		<xsl:apply-templates select="//ARTICLE" />
+		<xsl:apply-templates select="ARTICLE" />
 	</xsl:for-each>
 </xsl:template>
 
