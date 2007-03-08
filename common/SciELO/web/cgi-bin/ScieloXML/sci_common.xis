@@ -785,7 +785,10 @@
 				  que nao aceita expressoes com tamanho = 29. Assim, inclui-se um espaco em branco x1 para completar 30
 				*/
 				
+				/*
 				'"',left(v9000,30), if size(v9000) = 29 then x1 fi, '"'
+				*/
+				'"',left(v9000,29),'$"'
 			</pft>
 	  </parm>
 
