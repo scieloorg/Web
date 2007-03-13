@@ -8,7 +8,7 @@
 		</text>
 		<text>
 			<find>full_text</find>
-			<replace>Texto Completo</replace>
+			<replace>texto completo</replace>
 		</text>
 		<text>
 			<find>similarity_search</find>
@@ -44,7 +44,7 @@
 		</text>
 		<text>
 			<find>doesnt_related</find>
-			<replace>Não exite artigo similar a este</replace>
+			<replace>Não existe artigo similar a este</replace>
 		</text>
 		<text>
 			<find>scl</find>
@@ -59,27 +59,27 @@
 		<text>
 			<find>cub</find>
 			<replace>Cuba</replace>
-			<url>http://www.scielo.sld.cu/</url>
+			<url>http://www.scielo.sld.cu</url>
 		</text>
 		<text>
 			<find>spa</find>
-			<replace>Public Health</replace>
-			<url>http://www.scielosp.org/</url>
+			<replace>Saúde Pública</replace>
+			<url>http://www.scielosp.org</url>
 		</text>
 		<text>
 			<find>sos</find>
 			<replace>Social Sciences</replace>
-			<url>http://socialsciences.scielo.org/</url>
+			<url>http://socialsciences.scielo.org</url>
 		</text>
 		<text>
 			<find>esp</find>
 			<replace>Espanha</replace>
-			<url>http://wwwscielo.isciii.es/</url>
+			<url>http://wwwscielo.isciii.es</url>
 		</text>
 		<text>
 			<find>ven</find>
 			<replace>Venezuela</replace>
-			<url>http://www.scielo.org.ve/</url>
+			<url>http://www.scielo.org.ve</url>
 		</text>
 	</language>
 	<language id="es">
@@ -89,7 +89,7 @@
 		</text>
 		<text>
 			<find>full_text</find>
-			<replace>Texto Completo</replace>
+			<replace>texto completo</replace>
 		</text>
 		<text>
 			<find>similarity_search</find>
@@ -97,7 +97,7 @@
 		</text>
 		<text>
 			<find>similarity</find>
-			<replace>Similaridad : </replace>
+			<replace>Similaridad: </replace>
 		</text>
 		<text>
 			<find>results_founded</find>
@@ -140,27 +140,27 @@
 		<text>
 			<find>cub</find>
 			<replace>Cuba</replace>
-			<url>http://www.scielo.sld.cu/</url>
+			<url>http://www.scielo.sld.cu</url>
 		</text>
 		<text>
 			<find>spa</find>
-			<replace>Public Health</replace>
-			<url>http://www.scielosp.org/</url>
+			<replace>Salud Pública</replace>
+			<url>http://www.scielosp.org</url>
 		</text>
 		<text>
 			<find>sos</find>
 			<replace>Social Sciences</replace>
-			<url>http://socialsciences.scielo.org/</url>
+			<url>http://socialsciences.scielo.org</url>
 		</text>
 		<text>
 			<find>esp</find>
 			<replace>España</replace>
-			<url>http://wwwscielo.isciii.es/</url>
+			<url>http://wwwscielo.isciii.es</url>
 		</text>
 		<text>
 			<find>ven</find>
 			<replace>Venezuela</replace>
-			<url>http://www.scielo.org.ve/</url>
+			<url>http://www.scielo.org.ve</url>
 		</text>
 	</language>
 	<language id="en">
@@ -170,7 +170,7 @@
 		</text>
 		<text>
 			<find>full_text</find>
-			<replace>Full Text</replace>
+			<replace>full text</replace>
 		</text>
 		<text>
 			<find>similarity_search</find>
@@ -221,27 +221,27 @@
 		<text>
 			<find>cub</find>
 			<replace>Cuba</replace>
-			<url>http://www.scielo.sld.cu/</url>
+			<url>http://www.scielo.sld.cu</url>
 		</text>
 		<text>
 			<find>spa</find>
 			<replace>Public Health</replace>
-			<url>http://www.scielosp.org/</url>
+			<url>http://www.scielosp.org</url>
 		</text>
 		<text>
 			<find>sos</find>
 			<replace>Social Sciences</replace>
-			<url>http://socialsciences.scielo.org/</url>
+			<url>http://socialsciences.scielo.org</url>
 		</text>
 		<text>
 			<find>esp</find>
 			<replace>Spain</replace>
-			<url>http://wwwscielo.isciii.es/</url>
+			<url>http://wwwscielo.isciii.es</url>
 		</text>
 		<text>
 			<find>ven</find>
 			<replace>Venezuela</replace>
-			<url>http://www.scielo.org.ve/</url>
+			<url>http://www.scielo.org.ve</url>
 		</text>
 	</language>
 </texts>
