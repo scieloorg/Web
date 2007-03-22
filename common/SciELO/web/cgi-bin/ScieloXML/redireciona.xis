@@ -8,7 +8,7 @@
 	
 	<parm name=cipar>
     	<pft>
-       		'PII.*=/scielo/web/bases/artigo/pii2scid.*'/
+       		'PII.*=/home/scielo/www/bases/artigo/pii2scid.*'/
     	</pft>
 	</parm>	
 	
@@ -27,14 +27,14 @@
 	</field>
 
 	<label>PID_NORMAL</label>
-  <!-- fixed 20040621 -->
+	<!-- fixed 20040621 -->
 	<display>
 		<pft>
 			'Content-type:text/html'/#
 			'<HTML><HEAD>'/,
 			'<meta name="added" content="0;URL=http:/scielo.php?script=',v200,
 			'&pid=',v100,
-			'&tlng=',v300,
+			'&tlng=',v300,if a(v300) or v300='' then 'en' fi
 			'&lng=en&nrm=iso" http-equiv="refresh">'
 			'<TITLE>SciELO article locator</TITLE>'/,
 			'</HEAD><body></body></html>'/,
