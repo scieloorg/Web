@@ -3,7 +3,6 @@
 FILE DATABASE.*=%path_database%artigo/artigo.*
 FILE FULINV.*=%path_database%iah/library/search.*
 FILE PREINV.*=%path_database%iah/library/searchp.*
-
 FILE artigo_a.*=%path_database%artigo/artigo_a.*
 FILE artigo_b.*=%path_database%artigo/artigo_b.*
 FILE artigo_c.*=%path_database%artigo/artigo_c.*
@@ -30,29 +29,49 @@ FILE artigo_w.*=%path_database%artigo/artigo_w.*
 FILE artigo_x.*=%path_database%artigo/artigo_x.*
 FILE artigo_y.*=%path_database%artigo/artigo_y.*
 FILE artigo_z.*=%path_database%artigo/artigo_z.*
+FILE artigo_1.*=%path_database%artigo/artigo_1.*
 
 KEYRANGE SUFFIX=_KEY
 FILE FULINV_KEY.*=%path_database%iah/#/search.*
 FILE PREINV_KEY.*=%path_database%iah/#/searchp.*
 
-FILE HEADER.IAH=d:/sites/scielo/web/cgi-bin/iah-styles/header.pft
-FILE QUERY.IAH=d:/sites/scielo/web/cgi-bin/iah-styles/query.pft
-FILE LIST6003.PFT=d:/sites/scielo/web/cgi-bin/iah-styles/list6003.pft
-FILE PROC.PFT=d:/sites/scielo/web/htdocs/pfts/proc_split_mst.pft
+[AOT]
+FILE AFPAIS.*=%path_database%iah/library/AfPais.*
+FILE AFUFBR.*=%path_database%iah/library/AfUfBr.*
+FILE TIPART.*=%path_database%iah/library/TipArt.*
+FILE AFPAIS_KEY.*=%path_database%iah/library/AfPais.*
+FILE AFUFBR_KEY.*=%path_database%iah/library/AfUfBr.*
+FILE TIPART_KEY.*=%path_database%iah/library/TipArt.*
+FILE AFORG.*=%path_database%iah/library/AfOrg.*
+FILE AFORG_KEY.*=%path_database%iah/library/AfOrg.*
+FILE AFCID.*=%path_database%iah/library/AfCid.*
+FILE AFCID_KEY.*=%path_database%iah/library/AfCid.*
 
-FILE iso.pft=d:/sites/scielo/web/cgi-bin/iah-styles/fbiso.pft
-FILE abn.pft=d:/sites/scielo/web/cgi-bin/iah-styles/fbabn.pft
-FILE van.pft=d:/sites/scielo/web/cgi-bin/iah-styles/fbvan.pft
-FILE places.pft=d:/sites/scielo/web/cgi-bin/iah-styles/place-sc.pft
-FILE month1.pft=d:/sites/scielo/web/cgi-bin/iah-styles/month1.pft
-FILE month2.pft=d:/sites/scielo/web/cgi-bin/iah-styles/month2.pft
-FILE scistyle.pft=d:/sites/scielo/web/cgi-bin/iah-styles/scistyle.pft
+FI_LE AFPAISPAIS.*=%path_database%iah/library/AfPaisPais.*
+FI_LE AFPAISPAIS_KEY.*=%path_database%iah/library/AfPaisPais.*
+FILE AFPAISPAIS.*=%path_database%iah/library/v677iah%lang%.*
+FILE AFPAISPAIS_KEY.*=%path_database%iah/library/v677iah%lang%.*
 
-FILE AHBTOP.HTM=d:/sites/scielo/web/cgi-bin/iah-styles/%lang%/ahbtop.htm
-FILE AHLIST.PFT=d:/sites/scielo/web/cgi-bin/iah-styles/%lang%/ahlist.pft
-FILE ahlist.pft=d:/sites/scielo/web/cgi-bin/iah-styles/%lang%/ahlist.pft
+[/AOT]
+
+FILE HEADER.IAH=/home/scielo/www/cgi-bin/iah-styles/header.pft
+FILE QUERY.IAH=/home/scielo/www/cgi-bin/iah-styles/query.pft
+FILE LIST6003.PFT=/home/scielo/www/cgi-bin/iah-styles/list6003.pft
+FILE PROC.PFT=/home/scielo/www/htdocs/pfts/proc_split_mst.pft
+
+FILE iso.pft=/home/scielo/www/cgi-bin/iah-styles/fbiso.pft
+FILE abn.pft=/home/scielo/www/cgi-bin/iah-styles/fbabn.pft
+FILE van.pft=/home/scielo/www/cgi-bin/iah-styles/fbvan.pft
+FILE places.pft=/home/scielo/www/cgi-bin/iah-styles/place-sc.pft
+FILE month1.pft=/home/scielo/www/cgi-bin/iah-styles/month1.pft
+FILE month2.pft=/home/scielo/www/cgi-bin/iah-styles/month2.pft
+FILE scistyle.pft=/home/scielo/www/cgi-bin/iah-styles/scistyle.pft
+FILE AHBTOP.HTM=/home/scielo/www/cgi-bin/iah-styles/%lang%/ahbtop.htm
+FILE AHLIST.PFT=/home/scielo/www/cgi-bin/iah-styles/%lang%/ahlist.pft
+FILE ahlist.pft=/home/scielo/www/cgi-bin/iah-styles/%lang%/ahlist.pft
 FILE LATTES.*=%path_database%lattes/lattes.*
-FILE citation.xml=d:/sites/scielo/web/cgi-bin/iah-styles/fbisoXML.pft
+
+FILE citation.xml=/home/scielo/www/cgi-bin/iah-styles/fbisoXML.pft
 
 FILE issue.*=%path_database%issue/issue.*
 FILE facic.*=%path_database%issue/facic.*
@@ -69,12 +88,21 @@ FILE newissue.*=%path_database%newissue/newissue.*
 
 INDEX To=^pTodos os índices^eTodos los indices^iAll indexes^d*^xTO ^yFULINV
 INDEX Ti=^pPalavras do título^ePalabras del título^iTitle words^xTI ^yPREINV^uTI_^mTI_
-INDEX Au=^pAutor^eAutor^iAuthor^xAU ^yPREINV^uAU_^mAU_INDEX Kw=^pAssunto^eMateria^iSubject^xKW ^yPREINV^uKW_^mKW_
+INDEX Au=^pAutor^eAutor^iAuthor^xAU ^yPREINV^uAU_^mAU_
+INDEX Kw=^pAssunto^eMateria^iSubject^xKW ^yPREINV^uKW_^mKW_
 INDEX Ab=^pResumo^eResumen^iAbstract^xAB ^yPREINV^uAB_^mAB_
 INDEX Yr=^pAno de publicação^eAño de publicación^iPublication year^xYR ^yPREINV^uYR_^mYR_^tshort
+[AOT]
+INDEX Ta=^pTipo de artigo^eTipo de artículo^iArticle type^xTA ^yTIPART^mTA_^tshort^rCollection
+INDEX Or=^pAfiliação - Organização^eAfiliación - Organización^iAffiliation - Organization^xOR ^yAFORG^mOR_^rCollection
+INDEX Pp=^pAfiliação - País, País^eAfiliación - Pais, Pais^iAffiliation - Country, Country^xPP ^yAFPAISPAIS^mPP_^rCollection
+IN_DEX Ci=^pAfiliação - Cidade^eAfiliación - Ciudad^iAffiliation - City^xCI ^yAFCID^mCI_^rCollection
+IN_DEX Ax=^pAfiliação - País, País^eAfiliación - Pais, Pais^iAffiliation - Country, Country^xAX ^yAFPAISPAIS^mAX_^rCollection
+[/AOT]
 
 
 [APPLY_GIZMO]
+FPAISPAIS_KEY.*=%path_database%iah/#/AfPaisPais.*
 
 
 [FORMAT_NAME]
@@ -84,11 +112,9 @@ FORMAT abn.pft=^pABNT NBR 6023/89^eABNT NBR 6023/89^iABNT NBR 6023/89
 FORMAT van.pft=^pVancouver^eVancouver^iVancouver
 FORMAT DEFAULT=iso.pft
 
-
 [HELP_FORM]
 
 NOTE FORM F=nota_form1_scielo.htm
-
 
 [DISPLAY_FORM]
 
