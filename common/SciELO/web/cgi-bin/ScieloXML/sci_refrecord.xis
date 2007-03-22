@@ -67,8 +67,16 @@
                     fi,
                     | PID="|v880|"|,
                     | REQUESTS="|v4001^r|"|
+<<<<<<< .mine
+		 ,' CURR_DATE="',mid(date,1,8),'"'
+		 ,' ahpdate="',v223,'"'
+	         ,' RELATED="',ref(['related']l(['related']v880),f(nocc(v88),2,0)),'"',
+		 ,' CITED="',ref(['cited']l(['cited']v880),f(nocc(v88),2,0)),'"'
+		 ,' PROCESSDATE="',ref(l('OU=',v880),proc(if val(v32701^m) > 0 then,'R../bases/artigo/',v32701^*,',',v32701^m , fi),v91),'"',
+=======
 					 ,' CURR_DATE="',mid(date,1,8),'"'
 					 ,' ahpdate="',v223,'"'
+>>>>>>> .r611
                 </pft>
             </display>
             

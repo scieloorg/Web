@@ -80,11 +80,15 @@
         if p(v14^l) then
             ' DOCTOPIC="',v71,'"'
         fi
-		if p(v72) and val(v72)>0 then
-			' DOCTYPE="article"'
-		else
-			' DOCTYPE="text"'
-		fi
+	if p(v72) and val(v72)>0 then
+	    ' DOCTYPE="article"'
+	else
+	    ' DOCTYPE="text"'
+	fi
+	,' RELATED="',ref(['related']l(['related']v880),f(nocc(v88),2,0)),'"',
+        ,' CITED="',ref(['cited']l(['cited']v880),f(nocc(v88),2,0)),'"',
+	,' PROCESSDATE="',ref(l('OU=',v880),proc(if val(v32701^m) > 0 then,'R../bases/artigo/',v32701^*,',',v32701^m , fi),v91),'"',
+
     </pft>
    </display>
    	<call name="getDOI"><pft>v880</pft></call> 
@@ -344,7 +348,7 @@
    <field action="replace" tag="705"><pft>f(instr(v703,'</P>'),1,0)</pft></field>
    <field action="replace" tag="3330"><pft>s(v880,s(f(val(v888)+100000,5,0))*1.5)</pft></field>
    <field action="replace" tag="3333"><pft>ref(['ARTIGO']l(['ARTIGO'],'R='v3330),@PROC_SPLIT_MST.PFT,' intitle:%22'v12^*'%22')</pft></field> <!--('%22author:'v10^n' ','author:'v10^s'%22'), colocar antes do intitle se quiser incluir autores no try google--> 
-   <field action="replace" tag="3334"><pft>ref(['ARTIGO']l(['ARTIGO'],'R='v3330),@PROC_SPLIT_MST.PFT,v12^*)</pft></field>   
+   <field action="replace" tag="3334"><pft>ref(['ARTIGO']l(['ARTIGO'],'R='v3330),@PROC_SPLIT_MST.PFT,v12^*)</pft></field>    
 
 	<field action="add" tag="9999"><pft>
         if l(['ARTICLE_DOI'],s(v880,s(f(val(v888)+100000,5,0))*1.5)) > 0 then
@@ -384,7 +388,7 @@
 		fi
 		
         if val(v705)>0 then '</p>'/ fi
-    </pft>
+</pft>
 </display>
 
    <!--label>PRINT_REF</label-->

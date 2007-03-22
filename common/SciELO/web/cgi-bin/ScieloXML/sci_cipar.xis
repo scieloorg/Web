@@ -81,6 +81,10 @@ PATH_DATA:     tag 7014
         'artigo_y.*=', v7011, 'artigo/artigo_y.*',/
         'artigo_z.*=', v7011, 'artigo/artigo_z.*',/
         'artigo_1.*=', v7011, 'artigo/artigo_1.*',/
+        'related.*=', v7011, 'related/related.*',/
+        'cited.*=', v7011, 'cited/cited.*',/
+
+
         'PROC_SPLIT_MST.PFT=', v8034, 'pfts/proc_split_mst.pft',/
 	</pft>
 </parm>

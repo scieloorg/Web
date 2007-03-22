@@ -8,6 +8,7 @@
 	<xsl:variable name="show_cited_google" select="//varScieloOrg/show_cited_google" />
 	<xsl:variable name="show_similar_in_scielo" select="//varScieloOrg/show_similar_in_scielo" />
 	<xsl:variable name="show_similar_in_google" select="//varScieloOrg/show_similar_in_google" />
+        <xsl:variable name="google_last_process" select="//varScieloOrg/google_last_process" />
 
 		<div id="toolBox">
 			<h2 id="toolsSection">
@@ -101,6 +102,12 @@
 								<xsl:with-param name="seq" select="CONTROLINFO/PAGE_PID"/>
 								<xsl:with-param name="script">sci_pdf</xsl:with-param>
 								<xsl:with-param name="txtlang">
+									<!--
+									<xsl:value-of select="ISSUE/ARTICLE/@TRANSLATION"/>
+									<xsl:if test="not(ISSUE/ARTICLE/@TRANSLATION)">
+										<xsl:value-of select="ISSUE/ARTICLE/@LANGUAGE"/>
+									</xsl:if>
+									-->
 									<xsl:value-of select="ISSUE/ARTICLE/@TEXTLANG"/>
 								</xsl:with-param>
 							</xsl:call-template>
@@ -146,25 +153,29 @@
 				<xsl:if test="$show_cited_scielo = 1">
 					<!-- Cited in SciELO -->
 					<li>
-						<xsl:apply-templates select="//fulltext-service[@id='cited_SciELO']" mode="link"/>
+						<xsl:apply-templates select="//fulltext-service[@id='cited_SciELO']" mode="linkCited"/>
 					</li>
 				</xsl:if>				
 				<xsl:if test="$show_cited_google = 1">
 					<!-- Cited in Google -->
 					<li>
-						<xsl:apply-templates select="//fulltext-service[@id='cited_Google']" mode="link"/>
+						<xsl:apply-templates select="//fulltext-service[@id='cited_Google']" mode="linkGoogle">
+							<xsl:with-param name="google_last_process" select="$google_last_process"/>
+						</xsl:apply-templates>
 					</li>
 				</xsl:if>
 				<xsl:if test="$show_similar_in_scielo = 1">
 					<!-- Related in Scielo-->
 					<li>
-						<xsl:apply-templates select="//fulltext-service[@id='related']" mode="link"/>
+						<xsl:apply-templates select="//fulltext-service[@id='related']" mode="linkRelated"/>
 					</li>
 				</xsl:if>
 				<xsl:if test="$show_similar_in_google = 1">
 					<!-- Related in Google-->
 					<li>
-						<xsl:apply-templates select="//fulltext-service[@id='related_Google']" mode="link"/>
+						<xsl:apply-templates select="//fulltext-service[@id='related_Google']" mode="linkGoogle">
+                                                        <xsl:with-param name="google_last_process" select="$google_last_process"/>
+                                                </xsl:apply-templates>
 					</li>				
 				</xsl:if>
 				<xsl:if test="$show_send_by_email = 1">
@@ -185,6 +196,61 @@
 			<xsl:apply-templates select="." mode="label"/>
 		</a>
 	</xsl:template>
+
+        <xsl:template match="fulltext-service" mode="linkGoogle">
+		<xsl:param name="google_last_process"/>
+                <xsl:variable name="params">
+                        <xsl:if test="@id='cited_Google' or @id='related_Google'">,menubar=1,location=1,toolbar=1,status=1,scrollbars=1,directories=1</xsl:if>
+                </xsl:variable>
+		<xsl:choose>
+                <xsl:when test="normalize-space(//ARTICLE/@PROCESSDATE) &lt; normalize-space($google_last_process)">
+			<a href="javascript:void(0);" >
+                                <xsl:attribute name="onclick">window.open('<xsl:value-of select="concat(url,'&amp;lang=',$LANGUAGE)"/>','','width=640,height=480,resizable=yes,scrollbars=1,menubar=yes,<xsl:value-of select="$params"/>');</xsl:attribute>
+                                <xsl:apply-templates select="." mode="label"/>
+                        </a>
+                </xsl:when>
+                <xsl:otherwise>
+                        <xsl:apply-templates select="." mode="labelNotLinked"/>
+                </xsl:otherwise>
+                </xsl:choose>
+        </xsl:template>
+
+
+        <xsl:template match="fulltext-service" mode="linkRelated">
+	        <xsl:variable name="params">
+                	<xsl:if test="@id='cited_Google' or @id='related_Google'">,menubar=1,location=1,toolbar=1,status=1,scrollbars=1,directories=1</xsl:if>
+        	</xsl:variable>
+		<xsl:choose>
+                <xsl:when test="//ARTICLE/@RELATED != 0">
+	                <a href="javascript:void(0);" >
+                	        <xsl:attribute name="onclick">window.open('<xsl:value-of select="concat(url,'&amp;lang=',$LANGUAGE)"/>','','width=640,height=480,resizable=yes,scrollbars=1,menubar=yes,<xsl:value-of select="$params"/>');</xsl:attribute>
+        	                <xsl:apply-templates select="." mode="label"/>
+	                </a>
+		</xsl:when>
+		<xsl:otherwise>
+                        <xsl:apply-templates select="." mode="labelNotLinked"/>
+		</xsl:otherwise>
+		</xsl:choose>
+        </xsl:template>
+
+
+        <xsl:template match="fulltext-service" mode="linkCited">
+                <xsl:variable name="params">
+                        <xsl:if test="@id='cited_Google' or @id='related_Google'">,menubar=1,location=1,toolbar=1,status=1,scrollbars=1,directories=1</xsl:if>
+                </xsl:variable>
+                <xsl:choose>
+                <xsl:when test="//ARTICLE/@CITED != 0">
+                        <a href="javascript:void(0);" >
+                                <xsl:attribute name="onclick">window.open('<xsl:value-of select="concat(url,'&amp;lang=',$LANGUAGE)"/>','','width=640,height=480,resizable=yes,scrollbars=1,menubar=yes,<xsl:value-of select="$params"/>');</xsl:attribute>
+                                <xsl:apply-templates select="." mode="label"/>
+                        </a>
+                </xsl:when>
+                <xsl:otherwise>
+                        <xsl:apply-templates select="." mode="labelNotLinked"/>
+                </xsl:otherwise>
+                </xsl:choose>
+        </xsl:template>
+
 	
 	<xsl:template match="fulltext-service[@id='access']" mode="label">
 		<img src="/img/{$LANGUAGE}/iconStatistics.gif"/>	
@@ -196,42 +262,96 @@
 	</xsl:template>
 	
 	<xsl:template name="cited" >
-		<img src="/img/{$LANGUAGE}/iconCited.gif"/>	
 		<xsl:choose>
-			<xsl:when test=" $LANGUAGE = 'en' ">Cited by </xsl:when>
-			<xsl:when test=" $LANGUAGE = 'pt' ">Citado por </xsl:when>
-			<xsl:when test=" $LANGUAGE = 'es' ">Citado por </xsl:when>
+			<xsl:when test=" $LANGUAGE = 'en' "><img src="/img/{$LANGUAGE}/iconCitedOn.jpg" alt="{//ARTICLE/@CITED} article(s)"/>Cited by </xsl:when>
+			<xsl:when test=" $LANGUAGE = 'pt' "><img src="/img/{$LANGUAGE}/iconCitedOn.jpg" alt="{//ARTICLE/@CITED} artigo(s)"/>Citado por </xsl:when>
+			<xsl:when test=" $LANGUAGE = 'es' "><img src="/img/{$LANGUAGE}/iconCitedOn.jpg" alt="{//ARTICLE/@CITED} artículo(s)"/>Citado por </xsl:when>
 		</xsl:choose>
 	</xsl:template>
+
+        <xsl:template name="citedNotLinked">
+                <xsl:choose>
+                        <xsl:when test=" $LANGUAGE = 'en' "><img src="/img/{$LANGUAGE}/iconCitedOff.jpg" alt="have no cited articles"/>Cited by </xsl:when>
+                        <xsl:when test=" $LANGUAGE = 'pt' "><img src="/img/{$LANGUAGE}/iconCitedOff.jpg" alt="não existem artigos citados"/>Citado por </xsl:when>
+                        <xsl:when test=" $LANGUAGE = 'es' "><img src="/img/{$LANGUAGE}/iconCitedOff.jpg" alt="no hay artículos citados"/>Citado por </xsl:when>
+                </xsl:choose>
+        </xsl:template>
+
+
+        <xsl:template name="citedGoogle">
+                <xsl:choose>
+                        <xsl:when test=" $LANGUAGE = 'en' "><img src="/img/{$LANGUAGE}/iconCitedOn.jpg" alt="indexed by Google"/>Cited by </xsl:when>
+                        <xsl:when test=" $LANGUAGE = 'pt' "><img src="/img/{$LANGUAGE}/iconCitedOn.jpg" alt="indexado pelo Google"/>Citado por </xsl:when>
+                        <xsl:when test=" $LANGUAGE = 'es' "><img src="/img/{$LANGUAGE}/iconCitedOn.jpg" alt="indizado por Google"/>Citado por </xsl:when>
+                </xsl:choose>
+        </xsl:template>
+
+        <xsl:template name="citedNotLinkedGoogle">
+                <xsl:choose>
+                        <xsl:when test=" $LANGUAGE = 'en' "><img src="/img/{$LANGUAGE}/iconCitedOff.jpg" alt="on index process"/>Cited by </xsl:when>
+                        <xsl:when test=" $LANGUAGE = 'pt' "><img src="/img/{$LANGUAGE}/iconCitedOff.jpg" alt="em processo de indexação"/>Citado por </xsl:when>
+                        <xsl:when test=" $LANGUAGE = 'es' "><img src="/img/{$LANGUAGE}/iconCitedOff.jpg" alt="en proceso de indización"/>Citado por </xsl:when>
+                </xsl:choose>
+        </xsl:template>
+
 
 	<xsl:template match="fulltext-service[@id='cited_SciELO']" mode="label">
 		<xsl:call-template name="cited" />
 		SciELO
 	</xsl:template>
 
+        <xsl:template match="fulltext-service[@id='cited_SciELO']" mode="labelNotLinked">
+                <xsl:call-template name="citedNotLinked" />
+                SciELO
+        </xsl:template>
+
+
 	<xsl:template match="fulltext-service[@id='cited_Google']" mode="label">
-		<xsl:call-template name="cited" />
+		<xsl:call-template name="citedGoogle" />
 		Google
 	</xsl:template>
 
+        <xsl:template match="fulltext-service[@id='cited_Google']" mode="labelNotLinked">
+                <xsl:call-template name="citedNotLinkedGoogle" />
+                Google
+        </xsl:template>
+
+
 	<xsl:template match="fulltext-service[@id='related']" mode="label">
-		<img src="/img/{$LANGUAGE}/iconRelated.gif"/>	
 		<xsl:choose>
-			<xsl:when test=" $LANGUAGE = 'en' ">Similars in SciELO </xsl:when>
-			<xsl:when test=" $LANGUAGE = 'pt' ">Similares em SciELO </xsl:when>
-			<xsl:when test=" $LANGUAGE = 'es' ">Similares en SciELO </xsl:when>
+			<xsl:when test=" $LANGUAGE = 'en' "><img src="/img/{$LANGUAGE}/iconRelatedOn.gif" alt="{//ARTICLE/@RELATED} article(s)"/>Similars in SciELO</xsl:when>
+			<xsl:when test=" $LANGUAGE = 'pt' "><img src="/img/{$LANGUAGE}/iconRelatedOn.gif" alt="{//ARTICLE/@RELATED} artigo(s)"/>Similares em SciELO </xsl:when>
+			<xsl:when test=" $LANGUAGE = 'es' "><img src="/img/{$LANGUAGE}/iconRelatedOn.gif" alt="{//ARTICLE/@RELATED} artículo(s)"/>Similares en SciELO </xsl:when>
 		</xsl:choose>
 	</xsl:template>
+
+        <xsl:template match="fulltext-service[@id='related']" mode="labelNotLinked">
+                <xsl:choose>
+                        <xsl:when test=" $LANGUAGE = 'en' "><img src="/img/{$LANGUAGE}/iconRelatedOff.jpg" alt="have no similar articles"/>Similars in SciELO </xsl:when>
+                        <xsl:when test=" $LANGUAGE = 'pt' "><img src="/img/{$LANGUAGE}/iconRelatedOff.jpg" alt="Não existem artigos similares"/>Similares em SciELO </xsl:when>
+                        <xsl:when test=" $LANGUAGE = 'es' "><img src="/img/{$LANGUAGE}/iconRelatedOff.jpg" alt="No hay artílculos similares"/>Similares en SciELO </xsl:when>
+                </xsl:choose>
+        </xsl:template>
+
 	<xsl:template match="fulltext-service[@id='related_Google']" mode="label">
-		<img src="/img/{$LANGUAGE}/iconRelated.gif"/>
 		<xsl:choose>
-			<xsl:when test=" $LANGUAGE = 'en' ">Similars in Google</xsl:when>
-			<xsl:when test=" $LANGUAGE = 'pt' ">Similares em Google</xsl:when>
-			<xsl:when test=" $LANGUAGE = 'es' ">Similares en Google</xsl:when>
+		   <xsl:when test=" $LANGUAGE = 'en' "><img src="/img/{$LANGUAGE}/iconRelatedOn.gif" alt="indexed by Google"/>Similars in Google</xsl:when>
+		   <xsl:when test=" $LANGUAGE = 'pt' "><img src="/img/{$LANGUAGE}/iconRelatedOn.gif" alt="indexado pelo Google"/>Similares em Google</xsl:when>
+		   <xsl:when test=" $LANGUAGE = 'es' "><img src="/img/{$LANGUAGE}/iconRelatedOn.gif" alt="indizado por Google"/>Similares en Google</xsl:when>
 		</xsl:choose>
 	</xsl:template>	
+
+        <xsl:template match="fulltext-service[@id='related_Google']" mode="labelNotLinked">
+                <xsl:choose>
+                        <xsl:when test=" $LANGUAGE = 'en' "><img src="/img/{$LANGUAGE}/iconRelatedOff.jpg" alt="on index process"/>Similars in Google</xsl:when>
+                        <xsl:when test=" $LANGUAGE = 'pt' "><img src="/img/{$LANGUAGE}/iconRelatedOff.jpg" alt="em processo de indexação"/>Similares em Google</xsl:when>
+                        <xsl:when test=" $LANGUAGE = 'es' "><img src="/img/{$LANGUAGE}/iconRelatedOff.jpg" alt="en proceso de indización"/>Similares en Google</xsl:when>
+                </xsl:choose>
+        </xsl:template>
+
+
 	<xsl:template match="fulltext-service[@id='send_mail']" mode="label">
-		<img src="/img/{$LANGUAGE}/iconCited.gif"/>
+		<img src="/img/{$LANGUAGE}/iconEmail.jpg"/>
 		<xsl:choose>
 			<xsl:when test=" $LANGUAGE = 'en' ">Send this article by e-mail</xsl:when>
 			<xsl:when test=" $LANGUAGE = 'pt' ">Enviar este artigo por e-mail</xsl:when>
