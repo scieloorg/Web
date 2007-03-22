@@ -1,12 +1,12 @@
 ,proc(,if p(v880) then,
 		,if v5021 ='p' then ,
-		'GD:/Sites/SciELO/web/bases/iah/gizmo/collections_pt,880'
+		'GGIZMO_COLLETIONS_PT,880'
 		,fi,
 		,if v5021 ='e' then ,
-		'GD:/Sites/SciELO/web/bases/iah/gizmo/collections_es,880'
+		'GGIZMO_COLLETIONS_ES,880'
 		,fi,
 		,if v5021 ='i' then ,
-		'GD:/Sites/SciELO/web/bases/iah/gizmo/collections_en,880'
+		'GGIZMO_COLLETIONS_EN,880'
 		,fi,	
 	  ,fi,
 	,),
@@ -154,7 +154,7 @@
 ,'<TABLE border="0">
 <TR><td width="15%">&nbsp;</td>', 
  ,'<TD><font class="isoref" size="-1">',
- 	,v880^n,'<br/>'
+ 	'<p align="right">SciELO ',v880^n,'</p>'
     ,if nocc(v8010) > 3 then
         ,(if iocc = 2 then
              ,' et al.',
