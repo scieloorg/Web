@@ -11,8 +11,8 @@
 
 	<xsl:variable name="lang" select="//vars/lang"/>
 
-	<xsl:variable name="texts" select="document('file:///d:/sites/scielo/web/htdocs/applications/scielo-org/xml/texts.xml')/texts/language[@id = $lang]"/>
-	<xsl:variable name="metaSearchInstances" select="document(concat('d:/sites/scielo/web/htdocs/applications/scielo-org/xml/',$lang,'/metaSearchInstances.xml'))"/>
+	<xsl:variable name="texts" select="document('file:///home/scielo/www/htdocs/applications/scielo-org/xml/texts.xml')/texts/language[@id = $lang]"/>
+	<xsl:variable name="metaSearchInstances" select="document(concat('/home/scielo/www/htdocs/applications/scielo-org/xml/',$lang,'/metaSearchInstances.xml'))"/>
 	
 	<xsl:variable name="links" select="//ARTICLE"/>
 	<xsl:variable name="total" select="count(//related/relatedlist/article)"/>
