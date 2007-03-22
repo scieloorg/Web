@@ -61,7 +61,7 @@ class Scielo extends ScieloBase
 		$xmlList[] = wxis_exe($url); // 200603
 //adicionando o dominio do Site Regional...
 
-	if (strpos($url,'debug=')==false && strpos($url, 'script=sci_verify')==false){
+ 	if (strpos($url,'debug=')==false && strpos($url, 'script=sci_verify')==false){
 
 		$xmlScieloOrg = "<SCIELO_REGIONAL_DOMAIN>" . $this->_def->getKeyValue("SCIELO_REGIONAL_DOMAIN") . "</SCIELO_REGIONAL_DOMAIN>";
 
@@ -94,6 +94,9 @@ class Scielo extends ScieloBase
 
 //Exibe ou não a opção de Similares em Google
 		$xmlScieloOrg .= "<show_similar_in_google>".$this->_def->getKeyValue("show_similar_in_google")."</show_similar_in_google>";
+
+//Informa data de corte para processamento do Google Schoolar
+                $xmlScieloOrg .= "<google_last_process>".$this->_def->getKeyValue("google_last_process")."</google_last_process>";
 
 		$xmlScieloOrg .=  $this->userInfo();
 		
@@ -220,6 +223,6 @@ class Scielo extends ScieloBase
 		}
 		return $filename;
 	}
-}
+		}
 
 ?>
