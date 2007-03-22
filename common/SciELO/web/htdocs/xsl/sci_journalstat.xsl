@@ -3,8 +3,8 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 <xsl:output method="html" indent="no" />
-<xsl:include href="file:///home/scielo/web/htdocs/xsl/sci_common.xsl"/>
-<xsl:include href="file:///home/scielo/web/htdocs/xsl/sci_mysqlerror.xsl"/>
+<xsl:include href="file:///scielo/web/htdocs/xsl/sci_common.xsl"/>
+<xsl:include href="file:///scielo/web/htdocs/xsl/sci_mysqlerror.xsl"/>
 
 <xsl:template match="JOURNALSTAT">
 	<html>
@@ -166,9 +166,10 @@
 		<tr>
 		<td width="20%">
 		<p align="center">
+
 			<a>
 			<xsl:choose>
-				<xsl:when test="LIST">
+				<xsl:when test="LIST or not(JOURNAL)">
 					<xsl:attribute name="href">http://<xsl:value-of 
 						select="CONTROLINFO/SCIELO_INFO/SERVER" /><xsl:value-of 
 						select="CONTROLINFO/SCIELO_INFO/PATH_DATA" />scielo.php/lng_<xsl:value-of
@@ -181,7 +182,7 @@
 							select="CONTROLINFO/SCIELO_INFO/PATH_DATA" /><xsl:value-of 
 							select="CONTROLINFO/SCIELO_INFO/PATH_GENIMG" /><xsl:value-of
 							select="CONTROLINFO/LANGUAGE" />/fbpelogp.gif</xsl:attribute>
-						<xsl:attribute name="alt">Scientific Electronic Library Online</xsl:attribute>
+						<xsl:attribute name="alt">xScientific Electronic Library Online</xsl:attribute>
 						<xsl:attribute name="border">0</xsl:attribute>
 					</img>
 				</xsl:when>
@@ -197,7 +198,7 @@
 							select="CONTROLINFO/SCIELO_INFO/PATH_DATA" /><xsl:value-of 
 							select="CONTROLINFO/SCIELO_INFO/PATH_SERIMG" /><xsl:value-of
 							select="JOURNAL/TITLEGROUP/SIGLUM" />/plogo.gif</xsl:attribute>
-						<xsl:attribute name="alt"><xsl:value-of select="JOURNAL/TITLEGROUP/SHORTTITLE"/></xsl:attribute>
+						<xsl:attribute name="alt">x<xsl:value-of select="JOURNAL/TITLEGROUP/SHORTTITLE"/></xsl:attribute>
 						<xsl:attribute name="border">0</xsl:attribute>
 					</img>
 				</xsl:otherwise>
@@ -381,7 +382,7 @@
 				<xsl:if test="LIST">
 					<br/><xsl:call-template name="PutOrderSelector">
 						<xsl:with-param name="ORDER">1</xsl:with-param>
-						<xsl:with-param name="$TIP"><xsl:choose>
+						<xsl:with-param name="TIP"><xsl:choose>
 							<xsl:when test=" CONTROLINFO/LANGUAGE = 'en' ">Sets the order to title</xsl:when>
 							<xsl:when test=" CONTROLINFO/LANGUAGE = 'pt' ">seleciona a ordenação por título</xsl:when>
 							<xsl:when test=" CONTROLINFO/LANGUAGE = 'es' ">selecciona el orden por titulo</xsl:when>
@@ -418,7 +419,7 @@
 				<xsl:if test="LIST">
 					<br/><xsl:call-template name="PutOrderSelector">
 						<xsl:with-param name="ORDER">2</xsl:with-param>
-						<xsl:with-param name="$TIP"><xsl:choose>
+						<xsl:with-param name="TIP"><xsl:choose>
 							<xsl:when test=" CONTROLINFO/LANGUAGE = 'en' ">Sets the order to home</xsl:when>
 							<xsl:when test=" CONTROLINFO/LANGUAGE = 'pt' ">seleciona a ordenação por home</xsl:when>
 							<xsl:when test=" CONTROLINFO/LANGUAGE = 'es' ">selecciona el orden por home</xsl:when>
@@ -447,7 +448,7 @@
 				<xsl:if test="LIST">
 					<br/><xsl:call-template name="PutOrderSelector">
 						<xsl:with-param name="ORDER">3</xsl:with-param>
-						<xsl:with-param name="$TIP"><xsl:choose>
+						<xsl:with-param name="TIP"><xsl:choose>
 							<xsl:when test=" CONTROLINFO/LANGUAGE = 'en' ">Sets the order to toc</xsl:when>
 							<xsl:when test=" CONTROLINFO/LANGUAGE = 'pt' ">seleciona a ordenação por sumário</xsl:when>
 							<xsl:when test=" CONTROLINFO/LANGUAGE = 'es' ">selecciona el orden por toc</xsl:when>
@@ -475,7 +476,7 @@
 				<xsl:if test="LIST">
 					<br/><xsl:call-template name="PutOrderSelector">
 						<xsl:with-param name="ORDER">4</xsl:with-param>
-						<xsl:with-param name="$TIP"><xsl:choose>
+						<xsl:with-param name="TIP"><xsl:choose>
 							<xsl:when test=" CONTROLINFO/LANGUAGE = 'en' ">Sets the order to articles</xsl:when>
 							<xsl:when test=" CONTROLINFO/LANGUAGE = 'pt' ">seleciona a ordenação por artigos</xsl:when>
 							<xsl:when test=" CONTROLINFO/LANGUAGE = 'es' ">selecciona el orden por artículos</xsl:when>
@@ -503,7 +504,7 @@
 				<xsl:if test="LIST">
 					<br/><xsl:call-template name="PutOrderSelector">
 						<xsl:with-param name="ORDER">5</xsl:with-param>
-						<xsl:with-param name="$TIP"><xsl:choose>
+						<xsl:with-param name="TIP"><xsl:choose>
 							<xsl:when test=" CONTROLINFO/LANGUAGE = 'en' ">Sets the order to other</xsl:when>
 							<xsl:when test=" CONTROLINFO/LANGUAGE = 'pt' ">seleciona a ordenação por outros</xsl:when>
 							<xsl:when test=" CONTROLINFO/LANGUAGE = 'es' ">selecciona el orden por otros</xsl:when>

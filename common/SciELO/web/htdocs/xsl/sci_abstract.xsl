@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
-<xsl:include href="file:///home/scielo/web/htdocs/xsl/sci_navegation.xsl"/>
-<xsl:include href="file:///home/scielo/web/htdocs/xsl/sci_error.xsl" />
-<xsl:include href="file:///home/scielo/web/htdocs/xsl/sci_toolbox.xsl" />
+<xsl:include href="file:///scielo/web/htdocs/xsl/sci_navegation.xsl"/>
+<xsl:include href="file:///scielo/web/htdocs/xsl/sci_error.xsl" />
+<xsl:include href="file:///scielo/web/htdocs/xsl/sci_toolbox.xsl" />
 	<xsl:variable name="LANGUAGE" select="//LANGUAGE"/>
 	<xsl:variable name="SCIELO_REGIONAL_DOMAIN" select="//SCIELO_REGIONAL_DOMAIN" />
-	
+
 	<xsl:variable name="show_toolbox" select="//toolbox"/>
 
 	<xsl:template match="/">
@@ -58,8 +58,8 @@
 						</xsl:call-template>						
 					</div>
 					<div class="content">
-							<xsl:if test= "$show_toolbox = 1">
-								<xsl:call-template name="tool_box"/>
+						<xsl:if test= "$show_toolbox = 1">
+							<xsl:call-template name="tool_box"/>
 							</xsl:if>
 						<h2>
 							<xsl:value-of select="TITLEGROUP/TITLE" disable-output-escaping="yes"/>

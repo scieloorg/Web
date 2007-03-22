@@ -2,8 +2,8 @@
 
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
-<xsl:include href="file:///home/scielo/web/htdocs/xsl/sci_navegation.xsl"/>
-<xsl:include href="file:///home/scielo/web/htdocs/xsl/sci_error.xsl" />
+<xsl:include href="file:///scielo/web/htdocs/xsl/sci_navegation.xsl"/>
+<xsl:include href="file:///scielo/web/htdocs/xsl/sci_error.xsl" />
 
 <xsl:variable name="forceType" select="//CONTROLINFO/ENABLE_FORCETYPE"/>
 
@@ -18,13 +18,13 @@
 			<link rel="STYLESHEET" TYPE="text/css" href="/css/scielo.css" />
 
 			<!-- link pro RSS aparecer automaticamente no Browser -->
-
 			<xsl:call-template name="AddRssHeaderLink">
 				<xsl:with-param name="pid">//CURRENT/@PID</xsl:with-param>
 				<xsl:with-param name="lang">//LANGUAGE</xsl:with-param>
 				<xsl:with-param name="server">CONTROLINFO/SCIELO_INFO/SERVER</xsl:with-param>
 				<xsl:with-param name="script">rss.php</xsl:with-param>
 			</xsl:call-template>
+
 		</head>
 		<body bgcolor="#FFFFFF" link="#000080" vlink="#800080">
 
@@ -133,17 +133,22 @@
 				</img>
 			</a><br/>
 			<xsl:if test=" ENABLE_STAT_LINK = 1 or ENABLE_CIT_REP_LINK = 1 ">
-			<a>
-				<xsl:call-template name="AddScieloLink">
-					<xsl:with-param name="script">sci_jstat</xsl:with-param>   
-					<xsl:with-param name="seq" select="/SERIAL/ISSN" />
-				</xsl:call-template>
-				<img>
-					<xsl:attribute name="src"><xsl:value-of
-						select="SCIELO_INFO/PATH_GENIMG"/>en/statist.gif</xsl:attribute>
-					<xsl:attribute name="border">0</xsl:attribute>
-				</img>
-			</a>
+			<!-- xsl:element name="a">
+				<xsl:attribute name="href">
+					<xsl:value-of select="'/stat_biblio/index.php?lang='" />
+					<xsl:value-of select="LANGUAGE" />
+					<xsl:value-of select="'&amp;issn='" />
+					<xsl:value-of select="/SERIAL/ISSN" />
+				</xsl:attribute>
+			</xsl:element -->
+			<a href="/stat_biblio/index.php?lang={LANGUAGE}&amp;issn={/SERIAL/ISSN}">
+  <img>
+  <xsl:attribute name="src">
+  <xsl:value-of select="concat(SCIELO_INFO/PATH_GENIMG,'en/statist.gif')" /> 
+  </xsl:attribute>
+  <xsl:attribute name="border">0</xsl:attribute> 
+  </img>
+</a>
 			</xsl:if>
 		</td>
 		<td width="70%" align="LEFT" valign="TOP">
@@ -261,17 +266,14 @@
 				</img>
 			</a><br/>
 			<xsl:if test=" ENABLE_STAT_LINK = 1 or ENABLE_CIT_REP_LINK = 1 ">			
-			<a>
-				<xsl:call-template name="AddScieloLink">
-					<xsl:with-param name="script">sci_jstat</xsl:with-param>   
-					<xsl:with-param name="seq" select="/SERIAL/ISSN" />
-				</xsl:call-template>
-				<img>
-					<xsl:attribute name="src"><xsl:value-of
-						select="SCIELO_INFO/PATH_GENIMG"/>pt/statist.gif</xsl:attribute>
-					<xsl:attribute name="border">0</xsl:attribute>
-				</img>
-			</a>
+			<a href="/stat_biblio/index.php?lang={LANGUAGE}&amp;issn={/SERIAL/ISSN}">
+  <img>
+  <xsl:attribute name="src">
+  <xsl:value-of select="concat(SCIELO_INFO/PATH_GENIMG,'pt/statist.gif')" /> 
+  </xsl:attribute>
+  <xsl:attribute name="border">0</xsl:attribute> 
+  </img>
+</a>
 			</xsl:if>
 		</td>
 		<td width="70%" align="LEFT" valign="TOP">
@@ -375,17 +377,14 @@
 				</img>
 			</a><br/>
 			<xsl:if test=" ENABLE_STAT_LINK = 1 or ENABLE_CIT_REP_LINK = 1 ">			
-			<a>
-				<xsl:call-template name="AddScieloLink">
-					<xsl:with-param name="script">sci_jstat</xsl:with-param>   
-					<xsl:with-param name="seq" select="/SERIAL/ISSN" />
-				</xsl:call-template>
-				<img>
-					<xsl:attribute name="src"><xsl:value-of
-						select="SCIELO_INFO/PATH_GENIMG"/>es/statist.gif</xsl:attribute>
-					<xsl:attribute name="border">0</xsl:attribute>
-				</img>
-			</a>
+			<a href="/stat_biblio/index.php?lang={LANGUAGE}&amp;issn={/SERIAL/ISSN}">
+  <img>
+  <xsl:attribute name="src">
+  <xsl:value-of select="concat(SCIELO_INFO/PATH_GENIMG,'es/statist.gif')" /> 
+  </xsl:attribute>
+  <xsl:attribute name="border">0</xsl:attribute> 
+  </img>
+</a>
 			</xsl:if>
 		</td>
 		<td width="70%" align="LEFT" valign="TOP">

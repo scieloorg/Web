@@ -7,9 +7,9 @@
 	doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN" 
 	doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" />
 	
-	<xsl:include href="file:///home/scielo/web/htdocs/xsl/sci_navegation.xsl"/>
-	<xsl:include href="file:///home/scielo/web/htdocs/xsl/sci_error.xsl" />
-	<xsl:include href="file:///home/scielo/web/htdocs/xsl/sci_toolbox.xsl"/>
+	<xsl:include href="file:///scielo/web/htdocs/xsl/sci_navegation.xsl"/>
+	<xsl:include href="file:///scielo/web/htdocs/xsl/sci_error.xsl" />
+	<xsl:include href="file:///scielo/web/htdocs/xsl/sci_toolbox.xsl"/>
 	<xsl:variable name="LANGUAGE" select="//LANGUAGE"/>
 	<xsl:variable name="SCIELO_REGIONAL_DOMAIN" select="//SCIELO_REGIONAL_DOMAIN"/>
 
@@ -49,7 +49,7 @@
 								<xsl:with-param name="scope" select="TITLEGROUP/SIGLUM"/>
 							</xsl:call-template>
 						</div>
-						<div class="content">		
+						<div class="content">
 							<xsl:if test= "$show_toolbox = 1">
 								<xsl:call-template name="tool_box"/>
 							</xsl:if>

@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 <xsl:output method="html" omit-xml-declaration="yes" indent="no" />
-	<xsl:include href="file:///home/scielo/web/htdocs/xsl/sci_navegation.xsl"/>
-	<xsl:include href="file:///home/scielo/web/htdocs/xsl/sci_error.xsl"/>
 
-	<xsl:template match="SERIAL">
-		<HTML>
-			<HEAD>
+<xsl:include href="file:///scielo/web/htdocs/xsl/sci_navegation.xsl"/>
+<xsl:include href="file:///scielo/web/htdocs/xsl/sci_error.xsl"/>
+
+<xsl:template match="SERIAL">
+ <HTML>
+  <HEAD>
 				<TITLE>
 					<xsl:value-of select="//TITLEGROUP/SHORTTITLE" disable-output-escaping="yes"/> - <xsl:call-template name="GetStrip">
 						<xsl:with-param name="vol" select="//ISSUE/@VOL"/>
