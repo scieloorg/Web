@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-	<xsl:include href="file:///home/scielo/web/htdocs/xsl/sci_artref.xsl"/>
+	<xsl:include href="file:///scielo/web/htdocs/xsl/sci_artref.xsl"/>
 	<xsl:template name="AddRssHeaderLink">
 		<xsl:param name="pid" />
 		<xsl:param  name="lang" />
@@ -474,6 +474,14 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 				<xsl:attribute name="width">1</xsl:attribute>
 			</img>
 		</xsl:if>
+		<!-- to use Google Analytics -->
+		<!-- FIXME script src="http://www.google-analytics.com/urchin.js" type="text/javascript"/>
+		<script type="text/javascript">
+			_uacct = "??????????";
+			urchinTracker();
+		</script-->
+
+		<!-- to use Google Analytics -->
 	</xsl:template>
 	<xsl:template name="ImageLogo">
 		<xsl:param name="src"/>
