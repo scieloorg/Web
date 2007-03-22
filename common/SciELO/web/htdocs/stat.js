@@ -30,7 +30,7 @@
         [ "Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic" ]
     ];    
     
-    
+    var lastDay = [31,28,31,30,31,30,31,31,30,31,30,31];
     function setLanguage(lang)
     {
         switch(lang)
@@ -43,14 +43,24 @@
        
     function setStartDate(date)
     {
-        startDate = date.substring(0,8);
+        startDate = date.substring(0,8); 
+	if (date.length==6) startDate += '01'; 
     }
     
     function setLastDate(date)
     {
         limitDate = date.substring(0,8);
+	if (date.length==6) limitDate += getLastDayOftheMonth(date.substring(4,6),date.substring(0,4));
     }
-        
+    function getLastDayOftheMonth(month,year){
+	day = lastDay[month-1];
+	if (month == 2) {
+		if (isLeapYear(year)){
+			day = 29;
+		}
+	}
+	return day;
+    }    
     function CreateSelect (name, type, defaultOption, reversed)
     {
         var i = 0;
@@ -58,7 +68,13 @@
         var lim2 = 0;
         var value = 0;
         var option = 0;
-               
+        if (type == 'd') {
+		// mudança para melhorar a performance da carga da página 20060313
+		document.write(' <input type="hidden" name="' + name + '" value="'+defaultOption+'">\n');
+		return;
+	}
+
+
         document.write(' <select name="' + name + '" size="1">\n');
 //        document.write('  <option value=""></option>\n');
         
@@ -68,7 +84,6 @@
             case 'm': lim1 = 1; lim2 = 12; break;
             case 'y': lim1 = startDate.substring(0,4); lim2 = limitDate.substring(0,4); break;
         }
-        
         if (reversed)
         {           
             for (i = lim2; i >= lim1; i--)
@@ -111,10 +126,15 @@
     {
         var stdt = startDate.substring(0,4);
         var lmdt = limitDate.substring(0,4);
-        
         if (initDate == '') initDate = startDate;
         if (finalDate == '') finalDate = limitDate;
         
+	// mudança para melhorar a performance da carga da página 20060313
+
+	initDate += '01';
+	finalDate += getLastDayOftheMonth(finalDate.substring(4,6),finalDate.substring(0,4));
+	// mudança para melhorar a performance da carga da página 20060313
+
         var defInitDay =   1 * initDate.substring(6,8);
         var defInitMonth = 1 * initDate.substring(4,6);
         var defInitYear =  1 * initDate.substring(0,4);
@@ -122,10 +142,9 @@
         var defFinalDay =   1 * finalDate.substring(6,8);
         var defFinalMonth = 1 * finalDate.substring(4,6);
         var defFinalYear =  1 * finalDate.substring(0,4);
-             
+
         document.open();
         document.write('<form name="aux_form">');
-
         switch (language)
         {
             case 0:
@@ -207,6 +226,10 @@
             if (intDay > 28) return false;
         }
         
+        
+        return true;
+    }
+    
         function isLeapYear (intYear)
         {           
             if (intYear % 100 == 0)
@@ -219,31 +242,31 @@
             }   
             return false;
         }
-        
-        return true;
-    }
-    
     function validate()
     {   
         var af = document.aux_form;
         var mf = document.main_form;
         
-        var afdi = af.di.options[af.di.selectedIndex];
+        // mudança para melhorar a performance da carga da página 20060313
+	//var afdi = af.di.options[af.di.selectedIndex];
+        var afdi = af.di;
         var afmi = af.mi.options[af.mi.selectedIndex];
         var afyi = af.yi.options[af.yi.selectedIndex];
-        
-        var afdf = af.df.options[af.df.selectedIndex];
+
+        // mudança para melhorar a performance da carga da página 20060313
+        //var afdf = af.df.options[af.df.selectedIndex];
+        var afdf = af.df;
         var afmf = af.mf.options[af.mf.selectedIndex];
         var afyf = af.yf.options[af.yf.selectedIndex];
         var error;
-             
+
+	af.df.value = getLastDayOftheMonth(afmf.value, afyf.value);
         if ( !isValidDate(afdi.value, afmi.value, afyi.value) )
         {
             showMessage(0);
             af.di.focus();
             return false;
         }
-
         mf.dti.value = formatDateIso(afdi.value, afmi.value, afyi.value);
 
         // Initial date must be >= startDate
@@ -335,8 +358,10 @@
         
         function formatDate (isoDate)
         {
-            return ( language ? isoDate.substring(6,8) + "/" + isoDate.substring(4,6) : 
-                                isoDate.substring(4,6) + "/" + isoDate.substring(6,8) ) + "/" + isoDate.substring(0,4);
+            // mudança para melhorar a performance da carga da página 20060313
+	//return ( language ? isoDate.substring(6,8) + "/" + isoDate.substring(4,6) : 
+        //                        isoDate.substring(4,6) + "/" + isoDate.substring(6,8) ) + "/" + isoDate.substring(0,4);
+		return months[language][isoDate.substring(4,6)-1] + "/" + isoDate.substring(0,4) ;
         }
         
         function checkDates(date1, date2)
