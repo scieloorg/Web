@@ -106,12 +106,17 @@
 }
 
 
+#about H4 {
+	display: none;
+}
+
 .level2 #about {
     width: 100%;
 }
 
 .level2 #about P {
-    padding-left: 50px;
+    margin-left: 10px;
+    line-height: 150%;
 }
 
 #about H4 {
@@ -447,6 +452,19 @@ A.move {
 	margin-top: 2px;
 }
 
+A.seehistory {
+	padding-top: 4px;
+	background: url(../../../image/public/skins/classic/common/history.gif) no-repeat;
+	padding-left: 18px;
+	margin-top: 2px;
+}
+
+A.fulltext {
+	padding-top: 2px;
+	background: url(../../../image/public/skins/classic/common/fullText.gif) no-repeat;
+	padding-left: 16px;
+	margin-top: 2px;
+}
 
 .actions {
 	font-size: 95%;
