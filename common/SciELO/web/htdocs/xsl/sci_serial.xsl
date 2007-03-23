@@ -2,8 +2,8 @@
 
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
-<xsl:include href="file:///scielo/web/htdocs/xsl/sci_navegation.xsl"/>
-<xsl:include href="file:///scielo/web/htdocs/xsl/sci_error.xsl" />
+<xsl:include href="file:///home/scielo/www/htdocs/xsl/sci_navegation.xsl"/>
+<xsl:include href="file:///home/scielo/www/htdocs/xsl/sci_error.xsl" />
 
 <xsl:variable name="forceType" select="//CONTROLINFO/ENABLE_FORCETYPE"/>
 

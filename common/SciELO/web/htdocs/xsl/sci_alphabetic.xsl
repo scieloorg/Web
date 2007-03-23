@@ -4,8 +4,8 @@
 <!--xsl:include href="file:///httpd/htdocs/teste/sci_error.xsl" />
 <xsl:include href="file:///httpd/htdocs/teste/sci_navegation.xsl" /-->
 
-<xsl:include href="file:///scielo/web/htdocs/xsl/sci_navegation.xsl"/>
-<xsl:include href="file:///scielo/web/htdocs/xsl/sci_error.xsl" />
+<xsl:include href="file:///home/scielo/www/htdocs/xsl/sci_navegation.xsl"/>
+<xsl:include href="file:///home/scielo/www/htdocs/xsl/sci_error.xsl" />
 
 
 

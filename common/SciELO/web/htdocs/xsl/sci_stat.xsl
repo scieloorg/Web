@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format">
 
-<xsl:include href="file:///scielo/web/htdocs/xsl/sci_common.xsl"/>
+<xsl:include href="file:///home/scielo/www/htdocs/xsl/sci_common.xsl"/>
 
 <xsl:template match="STATISTICS">
 <html>
