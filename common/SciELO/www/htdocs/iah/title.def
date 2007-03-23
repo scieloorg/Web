@@ -1,0 +1,43 @@
+[FILE_LOCATION]
+
+FILE DATABASE.*=%path_database%title/title.*
+FILE FULINV.*=%path_database%title/titsrc.*
+FILE PREINV.*=%path_database%title/titsrcp.*
+
+FILE HEADER.IAH=/home/scielo/www/cgi-bin/iah-styles/header.pft
+
+FILE scistyle.pft=/home/scielo/www/cgi-bin/iah-styles/scistyle.pft
+FILE places.pft=/home/scielo/www/cgi-bin/iah-styles/place-sc.pft
+FILE iso.pft=/home/scielo/www/cgi-bin/iah-styles/fbsrc1.pft
+FILE van.pft=/home/scielo/www/cgi-bin/iah-styles/fbsrc1.pft
+FILE abn.pft=/home/scielo/www/cgi-bin/iah-styles/fbsrc1.pft
+FILE issue.*=%path_database%issue/issue.*
+FILE facic.*=%path_database%issue/facic.*
+FILE artigo.*=%path_database%artigo/artigo.*
+FILE author.*=%path_database%artigo/author.*
+FILE title.*=%path_database%title/title.*
+
+[INDEX_DEFINITION]
+
+INDEX To=^pTodos os &iacute;ndices^eTodos los indices^iAll indexes^d*^xTO ^yFULINV
+INDEX Ti=^pT&iacute;tulo^eTitulo^iTitle^xTI ^yPREINV^uTI_^mTI_
+INDEX Kw=^pAssunto^eAsunto^iSubject^xKW ^yPREINV^uKW_^mKW_
+INDEX Pu=^pPublicador^ePublicador^iPublisher^xPU ^yPREINV^uPU_^mPU_^tshort
+INDEX Lo=^pLocal^eLocal^iPlace^xLO ^yPREINV^uLO_^mLO_^tshort
+
+
+[APPLY_GIZMO]
+
+
+[FORMAT_NAME]
+
+FORMAT iso.pft=^pLongo^eLargo^iLarge
+
+[HELP_FORM]
+
+NOTE FORM F=nota_form1_scielo.htm
+
+[DISPLAY_FORM]
+
+AVAILABLE FORMS=F,B
+NAVIGATION BAR=OFF

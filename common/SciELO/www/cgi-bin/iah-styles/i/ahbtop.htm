@@ -1,0 +1,154 @@
+[pft]@AHHEAD.PFT[/pft]
+<script>
+	function AnySelected(){			
+		var any = false;
+		var count = 0;		
+
+		while(!any && count < document.forms[0].listChecked.length) {			
+			any = (document.forms[0].listChecked[count].checked || document.forms[0].listChecked[count].type == "hidden");
+			count++;
+	    }
+		if (!any)
+		{
+			alert("No reference was selected");
+			return false;
+		}	
+		else{
+			document.forms[0].nextAction.value="your_selection";			
+			document.forms[0].submit();			
+			return true;
+		}		
+	}
+</script>
+
+<form action="[pft]getenv('SCRIPT_NAME')v5000^d[/pft]" method="POST">
+	[pft]@AHHIDD.PFT[/pft]
+
+	
+	<input type="hidden" name="nextAction" value="refine/resubmit">	
+	<center>
+	<table border="0" width="600" cellspacing="0" cellpadding="0" bgcolor="[pft]v5006^b[/pft]">
+		<tr>
+			[pft]if val(v1002) = 0 then[/pft]
+				<td>&nbsp;</td>
+			[pft]else[/pft]	
+				<td align="center">
+					<a href="javascript:void(AnySelected())"><img src="[pft]v5002[/pft]yselect.gif" border="0"></a>
+				</td>
+				<td align="center">
+					<input type="image" src="[pft]v5002[/pft]sresult.gif" name="list" border="0"></a>					
+				</td>							
+				<td align="center">				
+					<input type="image" name="new search" src="[pft]v5002[/pft]npesq.gif" border="0">				
+				</td>
+				<td align="center">		
+					<input type="image" name="config" src="[pft]v5002[/pft]config.gif" border="0">			
+				</td>
+				<td align="center">			
+					<a href="#bottom"><img src="[pft]v5002[/pft]fim.gif" border="0"></a>
+				</td>	
+			[pft]fi[/pft]	
+		</tr>
+	</table>
+
+	<table border="0" width="600" cellspacing="0" cellpadding="0" align="center">	
+		<tr>
+			<td>
+			<table border="0" width="600">
+				<tr>
+					<td align="right" valign="top">
+						<font face="arial" size="2">Database :</font>
+					</td>
+					<td valign="top">
+						<font face="verdana" size="1"><b>[pft]v5003^*[/pft]</b></font>
+					</td>		
+				</tr>
+				<tr>
+					<td align="right" width="35%" valign="top">
+						<font face="arial" size="2">Search on :</font>
+					</td>
+					<td width="65%" valign="top">
+						<font face="verdana" size="1"><b>
+						[pft]
+						,if p(v6102) then
+							 v6102 | [|v6100^i|]| 
+						,else,
+							,if v6000='F' then,
+								 replace(v6002,' ',s('&nbsp;'mpu,v6001,mpl'&nbsp;'))
+							,else,	 
+								,(if p(v6002) then if iocc > 1 then '&nbsp;'v6001'&nbsp;'fi,v6002,| [|v6003^i|]| fi),
+							,fi,							
+						,fi,	
+						[/pft]				
+						</b></font>					
+					</td>
+				</tr>		
+				<tr>
+					<td align="right" valign="top">
+						<font face="arial" size="2">References found :</font>
+					</td>
+					<td>
+						<font face="verdana" size="1">
+						<b>[pft]v1002[/pft]</b>
+						[pft]if val(v1002) > 0 then '[<a href="#refine">refine</a>]' fi[/pft]
+						</font>
+					</td>				
+				</tr>	
+				[pft]if val(v1002) > 0 then[/pft]
+        		<tr>
+          			<td align="right">
+						<font face="Verdana" size="2">Displaying:</font>
+	          		</td>
+    	      		<td>
+						<font face="Verdana" size="1">
+						<b>[pft]v1031,' .. ',v1032[/pft]</b>&nbsp;&nbsp;
+						in format  [pft]'[<b>'(if  v5009[1] = v5005^n then v5005^i fi)'</b>]'[/pft]
+						</font>
+						
+		 			</td>
+        		</tr>
+				[pft]fi[/pft]
+
+				[pft]							
+					if s(mpu,v6003^n,mpl) = 'AU' then						
+						proc('d7098', 
+								if p(v6102) then
+									'a7098!',replace(replace(v6102,'"',''),' OR ','!a7098!'),'!'
+								else
+									'a7098!',v6002,'!'
+								fi,	
+							)			
+						proc('d7099',
+								(if l(['LATTES']v7098)> 0 then 'a7099!',v7098,'!' fi)
+							)						
+					fi		
+				[/pft]
+				
+				[pft]if s(mpu,v6003^n,mpl) = 'AU' and p(v7099) then[/pft]
+				<tr>
+          			<td align="right">
+						<font face="Verdana" size="2">Curriculum:</font>
+	          		</td>
+    	      		<td>
+						<font face="Verdana" size="1">
+						[pft]			
+							if nocc(v7098) = 1 and v7099 : ', ' then
+								'<a href="',ref(['LATTES']l(['LATTES']v7099),v4),'">Lattes</a>'
+							else
+								'<a href="/cgi-bin/wxis.exe/?IsisScript=iah-styles/lattes.xis&expression='replace(replace(v6102[1],'"',''),' ','+'),'">Lattes</a>'
+							fi
+						[/pft]
+						</font>
+						
+		 			</td>
+        		</tr>				
+				[pft]fi[/pft]
+				
+			</table>
+			</td>
+		</tr>
+	</table>
+	</center>
+	<br>
+	<!-- monta navegacao entre as paginas do resultado -->
+	[pft]if val(v1002) > 0 then @NAVPAGE.PFT fi[/pft]	

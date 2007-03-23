@@ -1,0 +1,12 @@
+open servidor
+user user-id password
+
+ascii
+lcd temp/transf2medline
+cd /base3/lnk.000/art.scl
+put artigo.iso
+cd /base3/lnk.000/b4c.scl
+put bib4cit.iso
+
+bye
+

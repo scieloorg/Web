@@ -1,0 +1,482 @@
+<IsisScript>
+
+<!-- Common functions -->
+<include>ScieloXML/sci_common.xis</include>
+
+<function name="PROC_SPLIT_MST" action="replace" tag=4001>
+ <do task="mfnrange">
+  <parm name="db"><pft>v4001^*</pft></parm>
+  <parm name="from"><pft>v4001^m</pft></parm>
+  <parm name="count">1</parm>
+  <loop>
+   <return action="replace" tag="list">1/999</return>   
+  </loop>
+ </do>
+</function>
+
+
+<function name="GetLanguageIAH" action="replace" tag=4001>
+<!-- Convert language to IAH format
+      4001 - Language Code
+	 Returns:
+	  4010 - IAH Language Code -->
+
+ <return action="replace" tag="4010">
+  <pft>
+   select s(v4001)	
+    case 'es': 'e'
+    case 'en': 'i'
+    case 'pt': 'p'
+   endsel	  
+  </pft>
+ </return>
+</function>
+
+<!-- fixed 20040614 - quase tudo para texto completo e traducao, alterado para ficar menos lento e por causa do erro [SciELO Site] Erro de CDATA em artigo no ppe-proc e no SciELO BR --> 
+<function name="CreateArticleXML" action="replace" tag=4001>
+<!-- Get Article Information From DB and Generate XML 
+     4001^s - MFN Issue
+	 4001^a - MFN Article (header)
+	 4001^l - Interface Language 
+	 4001^i - International Language 
+	 4001^n - Standard
+	 4001^p - PID 
+     4001^t - text language
+--> 
+ <field action="import" tag="list">7009/7034,7041</field> <!-- fixed -->
+ 
+ <call name="CreateIssueInfoXML"><pft>v4001^s</pft></call>
+ <call name="CreateIssueTitleXML"><pft>'^r'v4001^s'^l'v4001^l'^i'v4001^i</pft></call>
+ <call name="CreateIssueStripXML"><pft>'^r'v4001^s'^l'v4001^l'^i'v4001^i</pft></call>  	
+ 
+ <do task="mfnrange">
+  <parm name="db">ARTIGO</parm>
+  <parm name="from"><pft>v4001^a</pft></parm>
+  <parm name="count">1</parm>
+	
+  <loop>	
+   <display><pft>@PROC_SPLIT_MST.PFT</pft></display>
+   <field action="import" tag="list">4001,7009/7034,7041</field> <!-- fixed -->
+
+   <!-- fixed 20040607 - solucao para email solange 07/06/2004 - verifica se existe a traduçao antes -->
+   
+	<!-- -->
+	<call name="GetTranslationFileNames"><pft>'^o',v40,'^p',v4001^p,'^l'v4001^t,'^d',v7041</pft></call>
+ 	<field action="export" tag="list">7999</field>
+
+   <display>
+    <pft>
+        '<ARTICLE TEXTLANG="',v40,'"'
+		if v7999<>'' then
+			' TRANSLATION="',v4001^t,'"', /* fixed */
+		fi
+        if p(v14^f) then
+            ' FPAGE="',v14^f,'"'
+        fi
+        if p(v14^l) then
+            ' LPAGE="',v14^l,'"'
+        fi
+        | PID="|v880|"|,
+        if p(v14^l) then
+            ' DOCTOPIC="',v71,'"'
+        fi
+	if p(v72) and val(v72)>0 then
+	    ' DOCTYPE="article"'
+	else
+	    ' DOCTYPE="text"'
+	fi
+	,' RELATED="',ref(['related']l(['related']v880),f(nocc(v88),2,0)),'"',
+        ,' CITED="',ref(['cited']l(['cited']v880),f(nocc(v88),2,0)),'"',
+	,' PROCESSDATE="',ref(l('OU=',v880),proc(if val(v32701^m) > 0 then,'R../bases/artigo/',v32701^*,',',v32701^m , fi),v91),'"',
+
+    </pft>
+   </display>
+   	<call name="getDOI"><pft>v880</pft></call> 
+	<!-- fixed 20040622 -->
+	<field action="replace" tag="4040" split="occ"><pft>(v12^l/)</pft></field> 
+	<field action="replace" tag="4040" split="occ"><pft>if a(v12) then v40 fi</pft></field> 
+   <call name="TestPDFPresence"><pft>v4001^p</pft></call>
+   
+   <display><pft>'>'</pft></display>
+   
+   <call name="CreateArticleTitle1XML"><pft>'^r'v4001^a'^l'v4001^l'^i'v4001^i'^h1'</pft></call>
+   <!--call name="CreateAuthorsGroupXML"><pft>v880</pft></call-->   
+   <call name="CreateLattesGroupXML"><pft>v880</pft></call>   
+   <field action="export" tag="40">40</field>   
+  </loop>
+ </do>
+ 
+ <display><pft>'<BODY><![CDATA[ '</pft></display
+<trace>xOn</trace>
+  <flow action="jump"><pft>if v7999[1]<>'' then 'body_file_inicio' else 'body_base' fi</pft></flow>
+<label>body_file_inicio</label>
+ <call name="GetContentTranslationFileName"><pft>v7999[1]</pft></call> 
+
+<!-- identifica o primeiro e o último registro parágrafo que contenha referência -->
+<do task="search">
+  <parm name="db">ARTIGO</parm>
+  <parm name="expression"><pft>'RP='v4001^p</pft></parm>
+  <parm name="count">1</parm>
+
+  <loop>
+		<field action="replace" tag="9901"><pft>mfn</pft></field>
+		<field action="export" tag="9901">9901</field>
+  </loop>
+ </do> 
+ <do task="search">
+  <parm name="db">ARTIGO</parm>
+  <parm name="expression"><pft>'RP='v4001^p</pft></parm>
+  <parm name="count">1</parm>
+  <parm name="reverse">On</parm>
+
+  <loop>
+		<field action="replace" tag="9901"><pft>mfn</pft></field>
+		<field action="export" tag="9902">9901</field>
+  </loop>
+ </do> 
+ <field action="replace" tag="9900"><pft>
+	/* o body é obtido de um arquivo e 
+	   não foi identificado o início nem o fim do trecho de referências
+	*/
+	if v7999<>'' then 
+ 		if a(v9901) or a(v9902) then
+			,'check_reference_paragraph',
+		fi 
+	fi</pft></field>
+	
+ <label>body_base</label>
+ <do task="search">
+  <parm name="db">ARTIGO</parm>
+  <parm name="expression"><pft>'ART='v4001^p</pft></parm>
+  <parm name="count">1</parm>
+
+  <loop>
+		<field action="import" tag="9901">9901</field>
+		<field action="replace" tag="9901"><pft>if v9901='' or a(v9901) then mfn fi</pft></field>
+		<field action="export" tag="9901">9901</field>
+  </loop>
+ </do> 
+ <do task="search">
+  <parm name="db">ARTIGO</parm>
+  <parm name="expression"><pft>'ART='v4001^p</pft></parm>
+  <parm name="count">1</parm>
+  <parm name="reverse">On</parm>
+
+  <loop>
+		<field action="import" tag="9902">9902</field>
+		<field action="replace" tag="9902"><pft>if v9902='' or a(v9902) then mfn fi</pft></field>
+		<field action="export" tag="9902">9902</field>
+  </loop>
+ </do> 
+ 
+ <!-- Extract full text -->
+ <do task="mfnrange">
+ 	<parm name="db">ARTIGO</parm>
+	<parm name="from"><pft>v9901</pft></parm>
+	<parm name="to"><pft>v9902</pft></parm>
+	<field action="define" tag=1001>Isis_To</field>
+  <loop>
+<!--
+   <display><pft>'[numeracao: *** ',v1001,']'</pft></display>	
+   <display><pft>@PROC_SPLIT_MST.PFT,</pft></display>
+   asael/rpiva: 21.Jan.2004
+ fixed 20040122 - corrige problema de leitura da base ao executar a proc PROC_SPLIT_MST. A solução usada foi criar uma função que faz o mesmo que a proc    
+-->
+   <call name="PROC_SPLIT_MST"><pft>v32701</pft></call>
+   <flow action="skip"><pft>if v706 <> 'p' then 'Next' fi</pft></flow>
+
+   <field action="import" tag="list">40,4001,5000,7009/7034,7041</field>
+   <field action="import" tag="list">7999,9900,9903</field>
+   
+   <flow action="jump"><pft>if v9900<>'check_reference_paragraph' then 'paragraphs' fi</pft></flow>
+   <!-- necessário identificar se esse registro de parágrafo será mostrado ou não
+   -->
+   <field action="replace" tag="9903"><pft>if v9903<>'began_references' and p(v888) then 'began_references' fi</pft></field>
+   <field action="export" tag="9903">9903</field>
+   
+   <field action="replace" tag= "9904">
+   	<pft>
+		if a(v888) then 
+			/* esse registro de parágrafo não está associado a nenhum registro de referência */
+			if v9903<>'began_references' then 
+				/* o trecho de referências ainda não começou, então ignorar esse registro	 */
+				,'GoNext',	
+			,else,
+				/* o trecho de referências começou 
+				   mas esse parágrafo não foi identificado como referência	
+				   então 
+				   verificar se existe ou não algum registro de parágrafo de referências
+				   mais adiante
+				*/
+				,'check_next_reference_paragraph',
+			fi
+		fi</pft></field>
+	<flow action="jump"><pft>if v9904<>'' then v9904 else 'paragraphs' fi</pft></flow>
+    
+	<label>GoNext</label>
+	<flow action="skip">Next</flow>
+	
+	<label>check_next_reference_paragraph</label>
+   	<do task="mfnrange">
+   		<parm name="db">ARTIGO</parm>
+		<parm name="from"><pft>f(mfn+1,1,0)</pft></parm>
+		<parm name="to"><pft>v1001</pft></parm>
+		<loop>
+		   <display><pft>@PROC_SPLIT_MST.PFT</pft></display>
+			<field action="import" tag="9905">9905</field>
+			<field action="replace" tag="9905"><pft>if p(v888) then mfn fi</pft></field>
+			<field action="export" tag="9905">9905</field>
+		</loop>
+   	</do>
+	<!-- Quit porque já não existe mais registros de parágrafos de referências -->
+	<flow action="skip"><pft>if p(v9905) then else 'Quit' fi</pft></flow>
+   
+   	<label>paragraphs</label>
+   <!-- é parágrafo, verifica se body_file e registro de referencia -->
+   
+   <call name="GetLanguageIAH"><pft>v4001^l</pft></call>
+   <flow action="jump">
+     <pft>if p(v10) then 'CREATE_AUTHOR_LINK' 
+           else if p(v888) then 'CREATE_REF_LINK' fi
+		  fi</pft>
+   </flow>  
+   <!-- <display><pft>v704^*/</pft></display> -->
+   <display><pft>if v704^*:'http:' and not v704^*:'http://' then
+	replace(v704^*,'http:','')/,
+	else
+	v704^*/,
+	fi</pft></display>
+   <flow action="jump"><pft>'CONTINUE'</pft></flow>
+   
+   <label>CREATE_AUTHOR_LINK</label>
+
+   <!-- Create author link -->    
+   
+   <!-- 9999 - author string trimmed -->
+   <field action="replace" tag="9999" split="occ"><pft>replace(v704^*,' ',s(#))</pft></field>
+   
+   <display>
+    <pft>'<a href=http://'v7009,v7010,v7020'?IsisScript='v7021'iah.xis&nextAction=lnk&base=article^dlibrary&indexSearch=AU&exprSearch=',v9999+|+|,'&lang='v4010'>'v10'</a>'</pft>
+   </display>
+ 
+   <flow action="jump"><pft>'CONTINUE'</pft></flow> 
+   
+   <label>CREATE_REF_LINK</label>
+   
+   <field action="statusdb" tag=2001>NLINKS</field>
+	
+   <flow action="jump">
+	 <pft>if a(v2001^n) then 'PRINT_REF' fi</pft>
+   </flow>
+   
+   <!-- Create Reference Link -->   
+   <do task="search">
+    <parm name="db">NLINKS</parm>
+    <parm name="expression"><pft>v880,s(f(val(v888)+100000,5,0))*1.5</pft></parm>
+
+    <field action="define" tag=1001>Isis_Current</field>
+    <field action="define" tag=1002>Isis_Total</field>
+    <field action="define" tag=1003>Isis_Status</field>
+	
+    <loop>	
+	 <flow action="skip"><pft>if a(v2) and a(v3) and a(v4) and a(v350) and a(v881)  and a(v999) then 'Quit' fi</pft></flow>
+	 
+	 <field action="import" tag="list">4001,4010,7009/7046</field>
+	  <!-- Others -->
+         <field action="add" tag="9999" split="occ"><pft>
+          (if v999^u<>'' then '<a href="',v999^u,'">',v999^l,'</a>'/ fi)
+          </pft></field>
+    
+	 <!-- MINISTERIO DA SAUDE  [alekenji20050413]-->
+	 <field action="replace" tag="9994">
+	  <pft>
+	   if p(v4) then
+	   '<a href="http://coleciona-sus.bvs.br/cgi-bin/wxis1660.exe/lildbi/iah/?IsisScript=lildbi/iah/iah.xic&nextAction=lnk&base=',
+	    mpu,v4^a,mpl,'&exprSearch='v4^*'&indexSearch=ID&lang=p">Coleciona-SUS</a>'		
+	   fi
+	  </pft>
+	 </field>
+
+	 <!-- MEDLINE -->
+	 <field action="replace" tag="9995">
+	  <pft>
+	   if p(v350) then
+	   '<a href="http://'v7027,v7028,v7030'?IsisScript='v7029'iah.xis&nextAction=lnk&base=',
+	    mpu,v350^a,mpl,'&exprSearch='v350^*'&indexSearch=UI&lang=',v4010,'">Medline</a>'		
+	   fi
+	  </pft>
+	 </field>
+	 
+	 <!-- LILACS -->
+	 <field action="replace" tag="9996">
+	  <pft>
+	   if p(v2) then
+	   '<a href="http://'v7023,v7024,v7026'?IsisScript='v7025'iah.xis&nextAction=lnk&base=',
+	    mpu,v2^a,mpl,'&exprSearch='f(val(v2^*),1,0),'&indexSearch=ID&lang=',v4010,'">Lilacs</a>'		
+	   fi
+	  </pft>
+	 </field>
+	 	 	 
+	 <!-- ADOLEC -->
+	 <field action="replace" tag="9997">
+	  <pft>
+	   if p(v3) then
+	   '<a href="http://'v7031,v7032,v7034'?IsisScript='v7033'iah.xis&nextAction=lnk&base=',   
+	   mpu,v3^a,mpl,'&exprSearch=',f(val(v3^*),1,0),'&indexSearch=ID&lang=',v4010,'">Adolec</a>'		
+	   fi
+	  </pft>
+	 </field>
+	 
+	 <!-- SCIELO -->
+	 <field action="replace" tag="9998"><pft>
+	  if p(v881) then
+	  '<a href="http://'v7009,v7013,'scielo.php?script=sci_arttext&pid='mpu,v881^*,mpl,
+	  '&lng='v4001^l'&nrm='v4001^n'">SciELO</a>'
+	  fi</pft>
+	 </field>
+	 
+	 <field action="export" tag="list">9994/9999</field>
+    </loop>
+   </do>
+   <file action="close" type="database">NLINKS</file>
+   <!--flow action="jump">
+    <pft>if a(v9994) and a(v9995) and a(v9996) and a(v9997) and a(v9998)  and a(v9999)  then 'PRINT_REF' fi</pft>
+   </flow-->
+   
+   <field action="replace" tag="703"><pft>mpu,v704^*,mpl</pft></field>   
+   <field action="replace" tag="9669"><pft>' '</pft></field>   
+   <field action="replace" tag="705"><pft>f(instr(v703,'</P>'),1,0)</pft></field>
+   <field action="replace" tag="3330"><pft>s(v880,s(f(val(v888)+100000,5,0))*1.5)</pft></field>
+   <field action="replace" tag="3333"><pft>ref(['ARTIGO']l(['ARTIGO'],'R='v3330),@PROC_SPLIT_MST.PFT,' intitle:%22'v12^*'%22')</pft></field> <!--('%22author:'v10^n' ','author:'v10^s'%22'), colocar antes do intitle se quiser incluir autores no try google--> 
+   <field action="replace" tag="3334"><pft>ref(['ARTIGO']l(['ARTIGO'],'R='v3330),@PROC_SPLIT_MST.PFT,v12^*)</pft></field>    
+
+	<field action="add" tag="9999"><pft>
+        if l(['ARTICLE_DOI'],s(v880,s(f(val(v888)+100000,5,0))*1.5)) > 0 then
+                ref(['ARTICLE_DOI']l(['ARTICLE_DOI'],s(v880,s(f(val(v888)+100000,5,0))*1.5)),
+                        if val(v32701^m) > 0 then
+                                ,proc('R',s('../bases/',v32701^*),',',v32701^m),
+                        ,fi
+                        (if v999^u<>'' then '<a href="',v999^u,'">',v999^l,'</a>'/ fi)
+                )
+        fi
+          </pft></field>
+
+<display>
+    <pft>
+    	,if val(v705)>0 then mid(v704^*,1,val(v705)-1)/ else v704^*/ fi,
+  		,if p(v9994) or p(v9995) or p(v9996) or p(v9997) or p(v9998)  or p(v9999) then
+			'<br>'
+		,fi
+		"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ "v9995" ]",
+        "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ "v9996" ]",
+        "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ "v9997" ]",
+        "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ "v9998" ]",
+        "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ "v9994" ]",
+	("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ "v9999" ]"),
+		if a(v9994) and a(v9995) and a(v9996) and a(v9997) and a(v9998)  and a(v9999)  then
+			'<br/>'
+		fi
+
+		if p(v3333) then
+			'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ <a href="http://scholar.google.com/scholar?q=',replace(v3333,' ','+'),'" target="_blank">Try Google </a> ]',
+			|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ <a onclick="javascript:window.open('/scieloOrg/php/similar.php?lang=|v4001^t,
+			'&text=',replace(v3334,' ','+'),
+			|','popUp'|v9669|,'|,
+			'height=500,width=820,menubar=yes,location=no,resizable=yes,scrollbars=yes,status=no',
+			|');" href="#">Similar</a> ]|v9669
+
+		fi
+		
+        if val(v705)>0 then '</p>'/ fi
+</pft>
+</display>
+
+   <!--label>PRINT_REF</label-->
+   <!--display><pft>v704^*/</pft></display-->
+   <!-- portal try google -->
+
+   <!-- portal try google -->
+
+   <flow action="jump"><pft>'CONTINUE'</pft></flow>
+              
+   <label>CONTINUE</label>
+	<file action="close" type="database">ARTIGO</file>
+ 	
+  </loop>
+ </do>
+ 
+<!-- fixed 20040614 -->
+ <label>body_file_fim</label>
+ <call name="GetContentTranslationFileName"><pft>v7999[2]</pft></call> 
+
+ <display>
+  <pft>' ]]></BODY>'/'</ARTICLE>'/'</ISSUE>'/</pft>
+ </display>
+</function>
+
+<section>
+  <!-- Get CGI Parameters -->
+  <field action="cgi" tag="1">pid</field>
+  <field action="cgi" tag="2">lng</field>
+  <field action="cgi" tag="3">nrm</field>
+  <field action="cgi" tag="4">sln</field>
+  <field action="cgi" tag="10">debug</field>
+  <field action="cgi" tag="11">tlng</field>
+  <field action="cgi" tag="3011">def</field>
+	
+  <field action="replace" tag="3011"><pft>if a(v3011) then 'scielo.def' fi</pft></field>
+
+  <call name="DebugMode"><pft>if a(v10) then 'OFF' else mpu,v10,mpl fi</pft></call>
+  
+  <include>ScieloXML/sci_cipar.xis</include>  
+  
+  <!-- verifica se artigo era um ahead of print, então troca o pid pelo novo pid -->
+  <field action="replace" tag="1"><pft>ref(['ARTIGO']l(['ARTIGO']'HR='v1),@PROC_SPLIT_MST.PFT,v222)</pft></field>
+
+  <!-- 5 - Title MFN, 6 - Issue MFN, 7 - Article MFN -->  
+  <field action="replace" tag="5"><pft>f(l(['TITLE']'LOC='mid(v1,2,9)),1,0)</pft></field>
+  <field action="replace" tag="6"><pft>f(l(['NEWISSUE']'Y'mid(v1,2,17)),1,0)</pft></field>
+  <field action="replace" tag="7"><pft>f(l(['ARTIGO']'HR='v1),1,0)</pft></field>
+
+  <!-- Article text language -->
+  <field action="replace" tag="11"><pft>if a(v11) then ref(['ARTIGO']val(v7),@PROC_SPLIT_MST.PFT,v40) fi</pft></field>
+
+  <call name="CreateErrorXML">
+   <pft>
+     if val(v5)<=0 or val(v6)<=0 or val(v7)<=0 then
+      '^l'v2,'^p'v1'^c',   
+      if val(v5)<=0 then '0001'
+       else 
+	    if val(v6)<=0 then '0002'
+		 else 
+		  if val(v7)<=0 then '0003' fi
+		fi
+	  fi
+	 fi
+   </pft>
+  </call>
+  
+  <!-- Create XML heading -->
+  <display>
+   <pft>
+		'<SERIAL>'/</pft>
+  </display>
+  
+  <call name="CreateControlInfoXML"><pft>'^l'v2'^s'v3'^p'v1'^tART^i',v4,'^fsci_arttext'</pft></call>
+  
+  <!-- Get Title Information from TITLE DB -->
+    
+  <call name="CreateTitleGroupXML"><pft>v5</pft></call>
+  <call name="CreateChangesInfoXML"><pft>v5</pft></call>
+  <call name="CreateISSNXML"><pft>v5</pft></call>            
+  <call name="CreateCopyrightXML"><pft>v5</pft></call>
+  <call name="CreateContactXML"><pft>v5</pft></call>
+  
+  <!-- Create XML for Article -->	    	
+  <call name="CreateArticleXML"><pft>'^a'v7'^s'v6'^l'v2'^i'v4'^p'v1'^n'v3'^t'v11</pft></call>
+  
+  <!-- Close SERIAL -->
+  <display><pft>'</SERIAL>'</pft></display>
+</section>
+
+</IsisScript>

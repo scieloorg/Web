@@ -1,0 +1,25 @@
+if mfn = 1 then
+	'mkdir title'/
+	'cd title'/
+	'mput title/title.*'/
+	'cd ..'/
+	'mkdir issue'/
+	'cd issue'/
+	'mput issue/issue.*'/
+	'cd ..'/
+	'mkdir code'/
+	'cd code'/
+	'mput code/newcode.*'/
+	'cd ..'/
+fi,
+
+if p(v1) then
+	#
+	'mkdir',x1,v1/
+	'mkdir',x1,v1,'/',v2/
+	'mkdir',x1,v1,'/',v2,'/base'/
+
+	'cd',x1,v1,'/',v2,'/base'/
+	'mput',x1,v1,'/',v2,'/',v2,'.*'/
+	'cd ../../../'/
+fi

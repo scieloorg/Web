@@ -1,0 +1,80 @@
+BODY {
+    font-family : Verdana, Arial, Helvetica, sans-serif;
+    font-size : 10pt;
+    font-weight : normal;
+    font-style : normal;
+}
+
+P {
+    font-family : Verdana, Arial, Helvetica, sans-serif;
+    font-size : 10pt;
+}
+
+TABLE {
+    font-family : Verdana, Arial, Helvetica, sans-serif;
+    font-size : 9pt;
+    font-weight : normal;
+    font-style : normal;
+}
+
+a {
+    font-family : Verdana, Arial, Helvetica, sans-serif;
+    font-size : 9pt;
+    font-weight : normal;
+    font-style : normal;
+}
+
+a.email {
+    font-family : Verdana, Arial, Helvetica, sans-serif;
+    font-size : 9pt;
+    font-weight : normal;
+    font-style : normal;
+    text-decoration:underline;   
+    color: blue;
+}
+
+td.section {
+    font-family : Verdana, Arial, Helvetica, sans-serif;
+    font-weight : bold;	
+    font-size : 11pt;
+}
+
+p.nomodel {
+    font-family : Verdana, Arial, Helvetica, sans-serif;
+}
+	  
+font.normal {
+    font-family : Verdana, Arial, Helvetica, sans-serif;
+    font-size : 10pt;
+}
+
+font.negrito {
+    font-family : Verdana, Arial, Helvetica, sans-serif;
+    font-weight : bold;
+}
+
+font.nomodel {
+    font-family : Verdana, Arial, Helvetica, sans-serif;
+    font-weight : normal;
+    font-style : normal;
+}
+
+font.divisoria {
+    font-family : Verdana, Arial, Helvetica, sans-serif;
+    font-weight : normal;
+    font-size : 4pt;
+}
+
+FONT.linkado {
+    font-family : Verdana, Arial, Helvetica, sans-serif;
+    font-size : 9pt;
+    font-weight : normal;
+    font-style : normal;
+}
+
+font.linkado {
+    font-family : Verdana, Arial, Helvetica, sans-serif;
+    font-size : 9pt;
+    font-weight : normal;
+    font-style : normal;
+}

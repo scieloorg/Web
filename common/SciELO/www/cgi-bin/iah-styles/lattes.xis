@@ -1,0 +1,23 @@
+<IsisScript>
+<section>
+
+	<display><pft>'Content-type: text/html'/#</pft></display>
+	
+	<field action="cgi" tag="3001">expression</field>
+	
+	<do task="search">
+		<parm name="db">/home/scielo/www/bases/lattes/lattes</parm>
+		<parm name="expression"><pft>v3001</pft></parm>
+		
+		<loop>
+			<display>
+				<pft>
+					'<a href="',v4,'">',v3,'</a><BR>'
+				</pft>
+			</display>
+		</loop>	
+	</do>
+
+</section>
+</IsisScript>
+

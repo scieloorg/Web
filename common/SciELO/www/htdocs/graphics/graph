@@ -1,0 +1,44 @@
+<a name="visartmonth"><h2>The number of visited Articles per month (log scale)</h2></a>
+<?php
+$log = new LogDatabaseQueryTitle(LOGDEF);
+$flagAll = false;
+
+if (!$pid or $pid[0] == "All")
+{
+    echo "<p>All article's visits for all journals, grouped by month, since 1998.</p>\n";
+    $flagAll = true;
+}
+else
+{
+    echo "<p>All article's visits, grouped by month, since 1998, for the following titles:<br>\n";
+    echo "<ul>\n";
+    
+    $log->setPid ($pid);
+    
+    $titles = $log->GetTitles (true);
+    
+    for ($i = 0; $i < count($titles); $i++)
+    {
+        echo "<li>" . $titles[$i]["title"] . "</li>\n";
+    }
+    echo "</ul>\n";
+}
+?>
+
+
+<p>
+<table border="0" align="center" width="80%">
+<tr><td>
+<?php
+if ($flagAll)
+    echo "<img src=\"/graphics/GraphVisitsMonthAllYears.php\"/>\n";
+else
+{
+    echo "<img src=\"/graphics/GraphVisitsMonthAllYears.php?pid[]=" . $pid[0];
+    for ($i = 1; $i < count ($pid); $i++)
+    {
+        echo "&pid[]=" . $pid[$i];
+    }
+    echo "\"/>\n";
+}    
+?>

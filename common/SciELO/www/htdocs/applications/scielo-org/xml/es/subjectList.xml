@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<subjectList>
+	<subject>
+		<name>Exact and Earth Sciences</name>
+		<translate>Ciencias exactas y de la tierra</translate>
+	</subject>
+	<subject>
+		<name>Biological Sciences</name>
+		<translate>Ciencias biológicas</translate>
+	</subject>
+	<subject>
+		<name>Engineering</name>
+		<translate>Ingeniería</translate>
+	</subject>
+	<subject>
+		<name>Health Sciences</name>
+		<translate>Ciencias de la Salud</translate>
+	</subject>
+	<subject>
+		<name>Agricultural Sciences</name>
+		<translate>Ciências Agrárias</translate>
+	</subject>
+	<subject>
+		<name>Applied Social Sciences</name>
+		<translate>Ciencias Sociales Aplicadas</translate>
+	</subject>
+	<subject>
+		<name>Human Sciences</name>
+		<translate>Ciencias Humanas</translate>
+	</subject>
+	<subject>
+		<name>Linguistics, Letters and Arts</name>
+		<translate>Linguística, Letras y Artes</translate>
+	</subject>
+	<subject>
+		<name>Others</name>
+		<translate>Otros</translate>
+	</subject>
+</subjectList>

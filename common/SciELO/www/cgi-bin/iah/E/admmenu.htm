@@ -1,0 +1,53 @@
+<html>
+<head>
+<STYLE TYPE="text/css"><!--
+A { text-decoration: underline; color : Blue; font-weight : bold; font-size : 10pt; font-family : Arial;}
+A:hover { text-decoration: none; }
+BODY, TD { font-family: arial, verdana; font-size: 10pt; }
+.campo { font-family: Courier New; font-size: 10pt; }
+//--></STYLE>
+
+<title>iAH Admin</title>
+<script language="javascript" >
+function submitForm(valor)
+{
+	document.mainform.systemOption.value=valor;
+	document.mainform.submit();
+}
+
+function OpenManual(parte){
+	var str_aux = "[pft],v7001,'manual/manual',v5021,'.htm'[/pft]#" + parte;		
+	manual = window.open(str_aux,"","width=630,height=460,resizable=yes,toolbar=no,location=no,menubar=no,scrollbars=yes,status=yes");
+	manual.focus();	
+
+}
+
+</script>
+</head>
+
+<body bgcolor="#E0EBEB" link="blue" vlink="blue">
+<center><font face="verdana" size="3"><b>iAH Módulo de Admininstración</b></font></center>
+<br>
+<form action="[pft]getenv('SCRIPT_NAME'),v7001[/pft]" method="post" name="mainform">
+	<input type="hidden" name="IsisScript"    value="[pft]v7099[/pft]">
+	<input type="hidden" name="lang"		  value="[pft]v5021[/pft]">
+	<input type="hidden" name="systemOption"  value="">
+	
+
+<center>
+<table border="0" width="95%" cellpadding="5" cellspacing="5">
+	<tr bgcolor="#6291B0">		
+		<TD align="center">
+			<A href="javascript:void(submitForm('info'))">Informaciones del Sistema</a>	
+		</TD>
+		<TD align="center">				
+			<A href="javascript:void(submitForm('system configuration'))">Configuración del Sistema</a>
+		</TD>
+		<TD align="center">			
+			<a href="javascript:void(submitForm('database configuration'))">Configuración de las Bases</a>
+		</TD>					
+		<TD align="center">
+			<a href="[pft]v7001,v5021,'/admin.htm'[/pft]">Cerrar</a>
+		</TD>	
+</table>
+</center>

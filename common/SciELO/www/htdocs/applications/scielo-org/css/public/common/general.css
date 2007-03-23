@@ -1,0 +1,66 @@
+/* 
+	This file replace some HTML styles descriptions,
+	you will find here used fonts, background and others replaced definitions.
+*/
+
+BODY {
+	margin: 0px;
+}
+
+HTML>BODY {
+	/*
+	font-size: 85%;
+	*/
+}
+
+BODY, INPUT, TEXTAREA, SELECT {
+	font-family: Arial, Verdana;
+	font-size: 75%;
+}
+
+TEXTAREA, SELECT {
+	font-size: 90%;
+}
+
+INPUT {
+	font-size: 100%;
+}
+
+H1, H2, H3, H4 {
+	font-family: Trebuchet MS, Arial;
+}
+
+A {
+	color: #555;
+	border-bottom: 1px dotted #AAA;
+	text-decoration: none !important;
+}
+
+A:hover {
+	border-bottom: none;
+}
+
+A IMG {
+	border: 0px;
+}
+
+UL LI {
+	list-style: square;
+}
+
+FORM {
+	margin: 0px;
+	padding: 0px;
+}
+
+HTML>BODY H4 {
+	font-size: 130%;
+}
+
+HTML>BODY H5 {
+	font-size: 100%;
+}
+
+UL LI STRONG {
+	color: #555;
+}

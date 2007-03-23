@@ -1,0 +1,110 @@
+<html>
+<head>
+<STYLE TYPE="text/css">
+<!--
+BODY{
+	font-family : Verdana, Arial, Helvetica, sans-serif;
+}
+A{
+	font-family : Verdana, Arial, Helvetica, sans-serif;
+}
+P.title {
+	font-family : Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12pt;
+	text-align : center;
+	font-weight : bold;
+    text-align: center;
+}
+P.article{
+	font-family : Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+}
+P.roman{
+	font-family : Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+}
+P.paragraph{
+	font-family : Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+}
+P.letter{
+	font-family : Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+}
+P.item{
+	font-family : Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9pt;
+}
+TD{
+	font-family : Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9pt;
+}
+
+-->
+</STYLE>
+<script language="javascript">
+<!--
+	function goPage(pagina,posicao)	
+	{
+		document.fulltext.nextAction.value = "^nGO PAGE^p"+pagina;
+		document.fulltext.action = "[pft]getenv('SCRIPT_NAME')v5000^d[/pft]#"+posicao;
+		document.fulltext.submit();
+	}	
+-->
+</script>
+</head>
+<body bgcolor="[pft]v5006^c[/pft]" text="[pft]v5006^t[/pft]" link="[pft]v5006^l[/pft]" vlink="[pft]v5006^l[/pft]">
+
+<center>
+<table border="0" cellpadding="0" cellspacing="0" width="600" height="95">
+<tr>
+	<td width="10%" valign="top"><a name="top"><img src="[pft]v5002,v5030[/pft]" border="0"></td>
+	<td width="90%" valign="top" align="left">
+		<img src="[pft]v5002,v5040[/pft]" border="0">
+	</td>
+</tr>
+</table>
+</center>
+
+
+<form action="[pft]getenv('SCRIPT_NAME')v5000^d[/pft]" method="POST" name="fulltext">
+
+	<input type="hidden" name="IsisScript"	value="[pft]v5000^s[/pft]">
+    <input type="hidden" name="base"    	value="[pft]v5003[/pft]">
+	<input type="hidden" name="lang"		value="[pft]v5021[/pft]">
+    <input type="hidden" name="exprSearch"  value="[pft]v6002[/pft]">
+	<input type="hidden" name="isisTotal"	value="[pft]v1002[/pft]">
+	<input type="hidden" name="isisFrom"	value="[pft]v1031[/pft]">	
+	<input type="hidden" name="nextAction"	value="">	
+	<center>
+	<table border="0" width="600" cellspacing="0" cellpadding="0" bgcolor="[pft]v5006^b[/pft]">
+		<tr>
+			[pft]if val(v1002) = 0 then[/pft]
+				<td>&nbsp;</td>
+			[pft]else[/pft]	
+				<td>&nbsp;</td>
+				<td>
+					<font face="verdana" size="1"><a href="javascript:window.close()"><font size=1>close</font></a></font>
+				</td>	
+				<td>
+					<font face="verdana" size="1"><a href="javascript:window.print()"><font size=1>print</font></a></font>
+				</td>
+				<td align="right">
+   					<a href="#bottom"><img src="[pft]v5002[/pft]fim.gif" border="0"></a>
+				</td>
+			[pft]fi[/pft]	
+		</tr>
+	</table>	
+	<br>	
+	<table bgcolor="[pft]v5006^b[/pft]" border="1" cellpadding="0" cellspacing="0" width="600">
+	<tr>
+	<Td>
+	[pft]ref(['DATABASE']l(['INVERTED']'UI=',v6002*5),@simple.pft,)[/pft]
+	</td>
+	</tr>
+	</table>
+	<!-- monta navegacao entre as paginas do resultado -->
+	[pft]if val(v1002) > 0 then @NAVPAGE.PFT fi[/pft]
+	<hr width="600">	
+
+	<table width="600" border="0" cellpadding="5" cellspacing="0" align="center">

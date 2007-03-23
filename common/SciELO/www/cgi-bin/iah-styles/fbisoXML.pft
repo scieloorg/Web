@@ -1,0 +1,252 @@
+
+,if p(v7000) then
+
+    ,if size(v7000) > 9 then
+        ,proc('d8030d8031d8032d8035d8131d8132',
+              ,ref(['DATABASE']l(['author']'01=',v7000*1.9),
+		   ,@PROC.PFT,
+                   ,|a8030{|v30|{|,
+                   ,|a8031{|v31|{|,
+                   ,|a8131{|v131|{|,
+                   ,|a8032{|v32|{|,
+                   ,|a8132{|v132|{|,
+                   ,|a8035{|v35|{|,
+                  ,), 
+             ,),
+    ,else
+
+        ,proc('d8030d8031d8032d8035',
+              ,ref(['DATABASE']l(['author']'01=',v7000), 
+		   ,@PROC.PFT,
+                   ,|a8030{|v30|{|,
+                   ,|a8031{|v31|{|,
+                   ,|a8131{|v131|{|,
+                   ,|a8032{|v32|{|,
+                   ,|a8132{|v132|{|,
+                   ,|a8035{|v35|{|,
+                 ,), 
+             ,), 
+    ,fi,
+
+,else
+
+    ,proc('d8030d8031d8032d8035',
+          ,ref(['DATABASE']l(['author']'01=',v35),
+               ,@PROC.PFT,
+               ,|a8030{|v30|{|,
+               ,|a8031{|v31|{|,
+               ,|a8131{|v131|{|,
+               ,|a8032{|v32|{|,
+               ,|a8132{|v132|{|,
+               ,|a8035{|v35|{|,
+              ,),
+         ,),
+
+,fi,
+
+
+,proc('d8040',
+      ,'a8040{',v40,'{'
+     ,),
+
+
+
+,proc('d8002d8880d8012d8040d8412d4049d8049',
+
+      ,ref(['DATABASE']l(['DATABASE']'SF=',v880),
+	   ,@PROC.PFT,
+           ,'a8412{^c',
+           ,if v12^l:v40[1] then
+               ,(if v12^l=v40[1] then
+                    ,v12^*,
+                    ,if p(v12^s) then ': ',v12^s, fi,
+               ,fi),
+           ,else
+               ,v12^*[1],
+               ,if p(v12^s) then ': ',v12^s, fi,
+           ,fi,
+           ,'{',
+           ,|a8002{^c|v880|{|,
+           ,|a8880{^c|v880|{|,
+           ,|a8040{|v40|{|,
+           ,|a8049{|v49|{|,
+
+           ,if p(v123) then
+               ,if val(v123)=1 then
+                   ,ref(['newissue']l(['newissue'],v880*0.10,v49),
+                        ,('a4049{',
+                        ,v49,'{'),
+                       ,),
+               ,else
+                   ,ref(['newissue']l(['newissue'],v880*0.10,v49),
+                        ,('a4049{',
+                        ,v49,'{'),
+                       ,),
+               ,fi,
+
+           ,else
+
+               ,if p(v49) and s(v49)<>'nd' then
+                   ,ref(['newissue']l(['newissue'],v880*0.10,v49),
+                        ,('a4049{',
+                        ,v49,'{'),
+                       ,),
+               ,fi,
+           ,fi,
+          ,),
+
+     ,),
+
+
+
+,if a(v8412) or v8412^c='' then
+
+    ,if p(v8049) then
+        ,proc('d8412',
+              ,(if s(v8049[1])=s(v4049^c) then
+                   ,if s(mpu,v4049^l,mpl)=s(mpu,v8040[1],mpl) then
+                       ,'a8412{^c',v4049^t,'{',
+                   ,fi,
+              ,fi),
+             ,),
+
+        ,if a(v8412) then
+            ,proc('d8412',
+                  ,(if s(v8049[1])=s(v4049^c) then
+                       ,if s(mpu,v4049^l,mpl)='EN' then
+                           ,'a8412{^c',v4049^t,'{',
+                       ,fi,
+                  ,fi),
+                 ,),
+        ,fi,
+
+        ,if a(v8412) then
+            ,proc('d8412',
+                  ,(if s(v8049[1])=s(v4049^c) then
+                       ,'a8412{^c',v4049^t,'{',
+                  ,fi),
+                 ,),
+        ,fi,
+
+    ,fi,
+
+,fi,
+
+
+
+,proc('d8800d8801',
+
+      ,ref(['title']l(['title']'LOC=',v7000),
+
+           ,'a8800{',v100,| - |v110,'{',
+           ,'a8801{',v490,'{',
+          ,),
+
+     ,),
+
+
+
+,if a(v8065) then
+
+    ,proc('d8065',
+          ,'a8065{',v65,'{'
+         ,),
+,fi,
+
+
+,proc('d8010',
+	,(if p(v10^s) then ,'a8010{',v10^s,', ',v10^n,'{', fi),
+      ,if p(v11) then ,('a8010{',v11^*,', ',v11^d,'{'), fi,
+     ,),	 
+
+,@places.pft,
+
+,if p(v31) and v31='0' then
+    ,proc('d31'),
+,fi,
+
+,if p(v131) and v131='0' then
+    ,proc('d131'),
+,fi,
+
+,if p(v32) and v32='0' then
+    ,proc('d32'),
+,fi,
+
+,if p(v132) and v132='0' then
+    ,proc('d132'),
+,fi,
+
+,proc('d9001',
+        ,if v5021 ='p' then ,'a9001~pt~', fi,
+        ,if v5021 ='e' then ,'a9001~es~', fi,
+        ,if v5021 ='i' then ,'a9001~en~', fi,
+     ,),
+
+,'<Citation>', 
+    ,if nocc(v8010) > 3 then
+        ,(if iocc = 4 then
+             ,' et al.',
+        ,else
+             ,if iocc > 4 then ,
+             ,else
+                 ,if iocc > 1 then
+                     ,', ',
+                 ,fi,
+                 ,v8010,
+             ,fi,
+        ,fi),
+    ,else
+
+        ,if nocc(v8010) = 3 then
+            ,(if iocc = 1 then
+                 ,v8010,', ',
+            ,else
+                 ,if iocc = 2 then
+                     ,v8010,' and ',
+                 ,else
+                     ,v8010,
+                 ,fi,
+            ,fi),
+
+        ,else
+
+            ,if nocc(v8010) = 2 then
+                ,(if iocc = 1 then
+                     ,v8010,' and ',
+                ,else
+                     ,v8010,
+                ,fi),
+            ,else
+                ,v8010,
+            ,fi,
+        ,fi,
+
+    ,fi,
+
+    ,(if iocc=nocc(v8010) then
+
+         ,if right(v8010,1)<>'.' then
+             ,'.',
+         ,fi,
+    ,fi),
+
+	/* remove html marks in title */
+	proc('<8512>',v8412^c,'</8512>')
+	
+    ,' ','<Title href="http://',v7990,v7991,'sci_arttext',v7998,'pid=',v880,'&amp;lng=',v9001,'">',
+		replace(v8512,'&','&amp;')
+	'.</Title>',
+
+	,'<Serial> ',replace(v30,'&','&amp;'),', </Serial>', 
+
+    ,@month2.pft,
+
+    ,' ',v65*0.4,|, vol.|v31,| suppl.|v131,| no.|v32,| suppl.|v132,
+
+    ,'. ISSN ',v35,
+
+'</Citation>', 
+
+
+
