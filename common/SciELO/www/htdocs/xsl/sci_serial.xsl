@@ -19,9 +19,9 @@
 
 			<!-- link pro RSS aparecer automaticamente no Browser -->
 			<xsl:call-template name="AddRssHeaderLink">
-				<xsl:with-param name="pid">//CURRENT/@PID</xsl:with-param>
-				<xsl:with-param name="lang">//LANGUAGE</xsl:with-param>
-				<xsl:with-param name="server">CONTROLINFO/SCIELO_INFO/SERVER</xsl:with-param>
+				<xsl:with-param name="pid" select="//CURRENT/@PID" />
+				<xsl:with-param name="lang" select="//LANGUAGE" />
+				<xsl:with-param name="server" select="CONTROLINFO/SCIELO_INFO/SERVER" />
 				<xsl:with-param name="script">rss.php</xsl:with-param>
 			</xsl:call-template>
 
