@@ -87,7 +87,7 @@
 	fi
 	,' RELATED="',ref(['related']l(['related']v880),f(nocc(v88),2,0)),'"',
         ,' CITED="',ref(['cited']l(['cited']v880),f(nocc(v88),2,0)),'"',
-	,' PROCESSDATE="',ref(l('OU=',v880),proc(if val(v32701^m) > 0 then,'R../bases/artigo/',v32701^*,',',v32701^m , fi),v91),'"',
+        ,' PROCESSDATE="',ref(l('OU=',v880),proc(if val(v32701^m) > 0 then,'R../bases/artigo/',v32701^*,',',v32701^m , fi),v91),'"',
 
     </pft>
    </display>
@@ -354,7 +354,7 @@
         if l(['ARTICLE_DOI'],s(v880,s(f(val(v888)+100000,5,0))*1.5)) > 0 then
                 ref(['ARTICLE_DOI']l(['ARTICLE_DOI'],s(v880,s(f(val(v888)+100000,5,0))*1.5)),
                         if val(v32701^m) > 0 then
-                                ,proc('R',s('../bases/',v32701^*),',',v32701^m),
+                                ,proc('R',s('../../bases/',v32701^*),',',v32701^m),
                         ,fi
                         (if v999^u<>'' then '<a href="',v999^u,'">',v999^l,'</a>'/ fi)
                 )
