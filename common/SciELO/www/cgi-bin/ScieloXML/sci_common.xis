@@ -2510,7 +2510,7 @@ if instr(v12,'~')=0 then
   <parm name="expression"><pft>v880</pft></parm>
   <parm name="count">1</parm>
   <loop>
-  <display><pft>,proc('R',s('../bases/',v32701^*),',',v32701^m),| DOI="|v1|"|</pft></display>
+  <display><pft>,proc(if val(v32701^m) > 0 then, 'R',s('../../bases/',v32701^*),',',v32701^m ,fi),| DOI="|v1|"|</pft></display>
 </loop>
  </do>
  
