@@ -29,4 +29,4 @@ MANAGER E-MAIL=scielo@bireme.br
 MAINTENANCE=OFF
 REVERSE MODE=ON
 MULTI-LANGUAGE=ON
-LOG DATABASE=/home/scielo/www/bases/logdia/iahlog
+L__OG DATABASE=/home/scielo/www/bases/logdia/iahlog
