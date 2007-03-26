@@ -460,6 +460,7 @@
 <section name="IAH">
 
 <!-- CGI environment -->	
+        <parm name="buffersize">3000000</parm>
 	<field action="replace" tag="5999">
 		<pft>
 			'1002 isisTotal'/
