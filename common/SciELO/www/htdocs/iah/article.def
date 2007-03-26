@@ -3,6 +3,12 @@
 FILE DATABASE.*=%path_database%artigo/artigo.*
 FILE FULINV.*=%path_database%iah/library/search.*
 FILE PREINV.*=%path_database%iah/library/searchp.*
+FILE COUNTRY.*=%path_database%iah/#/artigoap%lang%.*
+FILE ORGANIZATION.*=%path_database%iah/#/artigoor.*
+FILE GIZMO_COLLETIONS_PT.*=/home/scielo/bases/iah/gizmo/collections_pt.*
+FILE GIZMO_COLLETIONS_EN.*=/home/scielo/bases/iah/gizmo/collections_en.*
+FILE GIZMO_COLLETIONS_ES.*=/home/scielo/bases/iah/gizmo/collections_es.*
+
 FILE artigo_a.*=%path_database%artigo/artigo_a.*
 FILE artigo_b.*=%path_database%artigo/artigo_b.*
 FILE artigo_c.*=%path_database%artigo/artigo_c.*
