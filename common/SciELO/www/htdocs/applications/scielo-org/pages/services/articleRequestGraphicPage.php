@@ -32,25 +32,17 @@ error_reporting(1);
     <script language="JavaScript" src="<?=$scielodef['this']['url']?>/js/functions.js"></script>
     <script language="JavaScript" src="<?=$scielodef['this']['url']?>/js/showHide.js"></script>
     <script language="JavaScript" src="<?=$scielodef['this']['url']?>/js/metasearch.js"></script>
-    <script language="JavaScript" src="http://regional.bvsalud.org/js/showHide.js"></script>
+    <script language="JavaScript" src="<?=$scielodef['this']['url']?>/js/showHide.js"></script>
     <link rel="stylesheet" href="<?=$scielodef['this']['url']?>/css/screen2.css" type="text/css" media="screen">
   </head>
   <body>
     <div class="container">
       <div class="level2">
-        <div class="bar"></div>
-        <div class="top">
-          <div id="parent"><img src="<?=$scielodef['this']['url']?>/applications/scielo-org/image/public/skins/classic/pt/banner.jpg" alt="SciELO - Scientific Electronic Librery Online"></div>
-          <div id="identification">
-            <h1><span>SciELO.org - Scientific Electronic Library Online</span></h1>
-
-          </div>
-        </div>
+		<? require_once(dirname(__FILE__)."/../../html/" . $lang . "/headerInstancesServices.html"); ?>
         <div class="middle">
           <div id="collection">
             <h3><span><?=ACCESS_STATS?></span></h3>
             <div class="content">
-             	
 				<div>
 					<?
 							$domain = "http://".str_replace("http://","",$_GET['caller']);
