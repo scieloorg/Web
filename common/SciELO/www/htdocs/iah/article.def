@@ -1,13 +1,8 @@
 [FILE_LOCATION]
 
-FILE DATABASE.*=%path_database%iah/#/artigo.*
-FILE FULINV.*=%path_database%iah/#/search.*
-FILE PREINV.*=%path_database%iah/#/searchp.*
-FILE COUNTRY.*=%path_database%iah/#/artigoap%lang%.*
-FILE ORGANIZATION.*=%path_database%iah/#/artigoor.*
-FILE GIZMO_COLLETIONS_PT.*=%path_database%iah/gizmo/collections_pt.*
-FILE GIZMO_COLLETIONS_EN.*=%path_database%iah/gizmo/collections_en.*
-FILE GIZMO_COLLETIONS_ES.*=%path_database%iah/gizmo/collections_es.*
+FILE DATABASE.*=%path_database%artigo/artigo.*
+FILE FULINV.*=%path_database%iah/library/search.*
+FILE PREINV.*=%path_database%iah/library/searchp.*
 
 FILE artigo_a.*=%path_database%artigo/artigo_a.*
 FILE artigo_b.*=%path_database%artigo/artigo_b.*
