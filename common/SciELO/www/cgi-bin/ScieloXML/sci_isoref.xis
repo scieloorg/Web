@@ -24,8 +24,8 @@
 		</field>
 		<field action="add" tag="1"><pft>if p(v999) then v999 fi</pft></field>
 		<field action="add" tag="2"><pft>if p(v999) then 'Electronic Document Format (Vancouver)'/, fi</pft></field>
-		<field action="add" tag="3"><pft>if p(v999) then 'Formato Documento ElectrÃ³nico (Vancouver)'/ fi</pft></field>
-		<field action="add" tag="4"><pft>if p(v999) then 'Formato Documento EletrÃ´nico (Vancouver)'/, fi</pft></field>
+		<field action="add" tag="3"><pft>if p(v999) then 'Formato Documento Electrónico (Vancouver)'/ fi</pft></field>
+		<field action="add" tag="4"><pft>if p(v999) then 'Formato Documento Eletrônico (Vancouver)'/, fi</pft></field>
 		<display>
 			<pft>
 				(
