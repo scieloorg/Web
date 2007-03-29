@@ -127,12 +127,13 @@
 			<font class="linkado" size="1">SciELO news</font>
 		</a><br/>
 
-		<a>
+		<!-- Removido do Scielo Metodologia -->
+		<!--a> 
 			<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of 
 				select="SCIELO_INFO/PATH_DATA"/>equipe/equipe_i.htm</xsl:attribute>
 
 			<font class="linkado" size="-1">SciELO team</font>
-		</a><br/>
+		</a><br/-->
 				<xsl:call-template name="link-ext"/>
 
 	</td>
@@ -423,13 +424,13 @@
 		<a href="http://listas.bireme.br/mailman/listinfo/scielo-l">
 			<font class="linkado" size="-1">SciELO news</font>
 		</a><br/>
-
-		<a>
+		<!-- Removido do Scielo Metodologia -->
+		<!--a>
 			<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of 
 				select="SCIELO_INFO/PATH_DATA"/>equipe/equipe_p.htm</xsl:attribute>
 
 			<font class="linkado" size="-1">equipe SciELO</font>
-		</a><br/>		<xsl:call-template name="link-ext"/>
+		</a><br/-->		<xsl:call-template name="link-ext"/>
 
 	</td>
 
@@ -708,13 +709,13 @@
 		<a href="http://listas.bireme.br/mailman/listinfo/scieloe-l">
 			<font class="linkado" size="-1">SciELO news</font>
 		</a><br/>
-
-		<a>
+		<!-- Removido do Scielo Metodologia -->
+		<!--a>
 			<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of 
 				select="SCIELO_INFO/PATH_DATA"/>equipe/equipe_e.htm</xsl:attribute>
 
 			<font class="linkado" size="-1">equipo SciELO</font>
-		</a><br/>&#160;<br/>
+		</a><br/-->
 		<xsl:call-template name="link-ext"/>
 	</td>
 
