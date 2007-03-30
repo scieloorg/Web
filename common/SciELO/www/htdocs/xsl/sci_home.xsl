@@ -24,21 +24,7 @@
 		</body>
 	</html>
 </xsl:template>
-<xsl:template name="link-ext">
-	<table>
-		<tr>
-			<td valign="top" align="right" nowrap="nowrap"  width="20%">
-		    <a href="http://www.icml9.org/meetings/openaccess/public/documents/declaration.htm" target="_blank">
-		    <img>
-		       <xsl:attribute name="border">0</xsl:attribute>
-		       <xsl:attribute name="src">http://www.scielo.org/images/openAccess.jpg</xsl:attribute>
-		     </img>
-		    </a>
-			</td>
-			<td><a href="http://www.icml9.org/meetings/openaccess/public/documents/declaration.htm" target="_blank"><font size="1">The International Seminar on Open Access for Developing Countries</font></a></td>
-		</tr>
-	</table>
-</xsl:template>
+
 <xsl:template match="CONTROLINFO[LANGUAGE='en']">
 	<p align="center">
 		<a href="http://www.scielo.org">
@@ -134,7 +120,6 @@
 
 			<font class="linkado" size="-1">SciELO team</font>
 		</a><br/-->
-				<xsl:call-template name="link-ext"/>
 
 	</td>
 
@@ -430,7 +415,7 @@
 				select="SCIELO_INFO/PATH_DATA"/>equipe/equipe_p.htm</xsl:attribute>
 
 			<font class="linkado" size="-1">equipe SciELO</font>
-		</a><br/-->		<xsl:call-template name="link-ext"/>
+		</a><br/-->
 
 	</td>
 
@@ -716,7 +701,6 @@
 
 			<font class="linkado" size="-1">equipo SciELO</font>
 		</a><br/-->
-		<xsl:call-template name="link-ext"/>
 	</td>
 
 	<td width="205" valign="top">
