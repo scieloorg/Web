@@ -5,7 +5,7 @@
 4 0 mpl,'PII=',v880,'=',v700/
 5 0 mpl,if v706='o' then 'OU=',v880 fi,
 6 0 mpl,if v706='f' then 'SF=',v880/, fi,
-6 0 mpl,if v706='h' then 'HR=',v880/, fi,
+6 0 mpl,if v706='h' then 'HR=',v880/,|HR=|v881/, fi,
 7 0 mpl,if v706='p' then 'ART=',v880 fi,
 8 0 mpl,if v706='h' then 'TT=',v35/ fi,
 10 0 mpl,if v706='h' then ('AU=',v10^s|, |,v10^n/) fi,
