@@ -454,19 +454,6 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 	<!-- Invisible Image To Update Log File -->
 	<xsl:template name="UpdateLog">
 		<xsl:if test="//CONTROLINFO/SCIELO_INFO/SERVER_LOG!=''">
-			<!-- 20050322 img>
-   <xsl:attribute name="src">http://<xsl:value-of 
-    select="//CONTROLINFO/SCIELO_INFO/SERVER_LOG"/>/<xsl:value-of 
-    select="//CONTROLINFO/SCIELO_INFO/SCRIPT_LOG_NAME"/>?app=<xsl:value-of select="normalize-space(//CONTROLINFO/APP_NAME)" />&amp;page=<xsl:value-of 
-    select="//CONTROLINFO/PAGE_NAME"/>&amp;<xsl:if test="//CONTROLINFO/PAGE_PID">pid=<xsl:value-of
-    select="//CONTROLINFO/PAGE_PID"/>&amp;</xsl:if>lang=<xsl:value-of 
-    select="normalize-space(//CONTROLINFO/LANGUAGE)"/>&amp;norm=<xsl:value-of
-    select="normalize-space(//CONTROLINFO/STANDARD)"/>   
-   </xsl:attribute>
-   <xsl:attribute name="border">0</xsl:attribute>
-   <xsl:attribute name="height">1</xsl:attribute>
-   <xsl:attribute name="width">1</xsl:attribute>
-  </img-->
 			<img>
 				<xsl:attribute name="src">http://<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/SERVER_LOG"/>/<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/SCRIPT_LOG_NAME"/>?app=<xsl:value-of select="normalize-space(//CONTROLINFO/APP_NAME)"/>&amp;page=<xsl:value-of select="//CONTROLINFO/PAGE_NAME"/>&amp;<xsl:if test="//CONTROLINFO/PAGE_PID">pid=<xsl:value-of select="//CONTROLINFO/PAGE_PID"/>&amp;</xsl:if>lang=<xsl:value-of select="normalize-space(//CONTROLINFO/LANGUAGE)"/>&amp;norm=<xsl:value-of select="normalize-space(//CONTROLINFO/STANDARD)"/>&amp;doctopic=<xsl:value-of select="//ARTICLE/@DOCTOPIC"/>&amp;doctype=<xsl:value-of select="//ARTICLE/@DOCTYPE"/></xsl:attribute>
 				<xsl:attribute name="border">0</xsl:attribute>
@@ -474,14 +461,17 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 				<xsl:attribute name="width">1</xsl:attribute>
 			</img>
 		</xsl:if>
-		<!-- to use Google Analytics -->
-		<!-- FIXME script src="http://www.google-analytics.com/urchin.js" type="text/javascript"/>
-		<script type="text/javascript">
-			_uacct = "??????????";
-			urchinTracker();
-		</script-->
 
 		<!-- to use Google Analytics -->
+		<xsl:if test="//CONTROLINFO/SCIELO_INFO/GOOGLE_CODE != ''">
+			<script src="http://www.google-analytics.com/urchin.js" type="text/javascript"/>
+			<script type="text/javascript">
+				_uacct = "<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/GOOGLE_CODE" />";
+				urchinTracker();
+			</script>
+
+		<!-- to use Google Analytics -->
+		</xsl:if>
 	</xsl:template>
 	<xsl:template name="ImageLogo">
 		<xsl:param name="src"/>

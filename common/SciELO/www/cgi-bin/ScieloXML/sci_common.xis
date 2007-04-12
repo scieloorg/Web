@@ -372,7 +372,7 @@
 <!--	    'ABS' navigation in the articles (Abstract)                           -->
 <!-- ============================================================================ -->
 <function name="CreateControlInfoXML" action="replace" tag="4900">
-	<field action="import" tag="list">7009/7041</field> <!-- fixed -->
+	<field action="import" tag="list">7009/7043</field> <!-- fixed -->
 <!--trace>On</trace-->
 	<display><pft>
 		' <CONTROLINFO>'/,
@@ -707,7 +707,7 @@
 </function>
 
 <function name="CreatePathControlInfoXML" action="replace" tag="4900">
-	<field action="import" tag="list">7009/7041</field> <!-- fixed -->
+	<field action="import" tag="list">7009/7043</field> <!-- fixed -->
 
 	<display>
 		<pft>
@@ -727,6 +727,9 @@
 		'   <SERVER_LOG>', v7036, '</SERVER_LOG>'/,
 		'   <SCRIPT_LOG_NAME>', v7037, '</SCRIPT_LOG_NAME>'/,
 		fi,
+                if v7042 = '1' then,
+                '   <GOOGLE_CODE>', v7043, '</GOOGLE_CODE>'/,
+                fi,
 		'  </SCIELO_INFO>'/,
 		</pft>		
 	</display>
@@ -785,10 +788,10 @@
 				  que nao aceita expressoes com tamanho = 29. Assim, inclui-se um espaco em branco x1 para completar 30
 				*/
 				
-				/*
-				'"',left(v9000,30), if size(v9000) = 29 then x1 fi, '"'
-				*/
-				'"',left(v9000,29),'$"'
+/*				'"',left(v9000,30), if size(v9000) = 29 then x1 fi, '"' */
+
+				'"',left(v9000,29),'$"' 
+
 			</pft>
 	  </parm>
 
@@ -1257,7 +1260,7 @@
 	 <!-- Try to get the information needed to assemble the url (host name, domain, 
 	 	  path, ...) -->
   <!-- fixed 20041118 -->
-	<field action="import" tag="list">4040,7009/7041</field> <!-- fixed -->
+	<field action="import" tag="list">4040,7009/7043</field> <!-- fixed -->
 
 	 <!-- Try to get the information needed to assemble the url (host name, domain, 
 	 	  path, ...) -->
@@ -1427,7 +1430,7 @@
    <flow action="jump"><pft>if p(v966) then 'DO_NOT_CHECK_FILE_SYSTEM' fi</pft></flow>
    <!-- Try to get the information needed to assemble the url (host name, domain, 
 	 	  path, ...) -->
-	<field action="import" tag="list">7009/7041</field>
+	<field action="import" tag="list">7009/7043</field>
 	
 	<!-- Get the lowercase siglum of the serial -->
 	<field action="replace" tag="9000">
@@ -1573,7 +1576,7 @@
    <field action="replace" tag="4900"><pft>v4901[1]</pft></field>
    <!-- Try to get the information needed to assemble the url (host name, domain, 
 	 	  path, ...) -->
-	<field action="import" tag="list">7009/7041</field>
+	<field action="import" tag="list">7009/7043</field>
 	
 	<!-- Get the lowercase siglum of the serial -->
 	<field action="replace" tag="9000">
@@ -2190,7 +2193,7 @@ if instr(v12,'~')=0 then
 	4001^i - International Language 
     4001^t - txt language-->
 
-  <field action="import" tag="list">7009/7041</field>  <!--fixed-->
+  <field action="import" tag="list">7009/7043</field>  <!--fixed-->
 	<!-- fixed 20040910 todo o trechp inserindo a funcao PROC_SPLIT_MST_range e substituindo os ref e lookups -->
 
   <field action="replace" tag="4010" split="occ"><pft>ref(['ARTIGO']val(v4001^m),@PROC_SPLIT_MST.PFT,(v83^l/))</pft></field>
@@ -2526,7 +2529,7 @@ if instr(v12,'~')=0 then
 		if p(v9900) then ref([v9900]l([v9900],v880),v1) fi
 	</pft></return>   
  </function>
- <function name="getDOILink" action="replace" tag="880">
+<function name="getDOILink" action="replace" tag="880">
 	<field action="import" tag="7011">7011</field>
 	<field action="import" tag="9900">9900</field>
 	<call name="getDOIDB"><pft>if a(v9900) then v880 fi</pft></call>

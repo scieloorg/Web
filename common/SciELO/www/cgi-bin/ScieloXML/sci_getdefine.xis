@@ -26,8 +26,8 @@
 						case 'SERVER_SCIELO'                : 'h17009',
 						case 'PATH_WXIS_SCIELO'             : 'h17010',
 						case 'PATH_DATABASE'                : 'h17011',
-						case 'PATH_CGI-BIN'	                : 'h17012',
-						case 'PATH_DATA'	                : 'h17013',
+						case 'PATH_CGI-BIN'	            : 'h17012',
+						case 'PATH_DATA'	            : 'h17013',
 						case 'PATH_SETTINGS'                : 'h17014',
 						case 'PATH_SCRIPTS'                 : 'h17015',
 						case 'PATH_SERIAL_HTML'             : 'h17016',
@@ -56,10 +56,13 @@
 						case 'ACTIVATE_LOG'                 : 'h17035',
 						case 'SERVER_LOG'                   : 'h17036',
 						case 'SCRIPT_LOG_NAME'              : 'h17037',
-						case 'APP_NAME'					    : 'h17038',
+						case 'APP_NAME'			    : 'h17038',
 						case 'ENABLE_STATISTICS_LINK'	    : 'h17039',
 						case 'ENABLE_CITATION_REPORTS_LINK' : 'h17040',
 						case 'PATH_TRANSLATION'             : 'h17041',
+                                                case 'ACTIVATE_GOOGLE'              : 'h17042',
+                                                case 'GOOGLE_CODE'                  : 'h17043',
+
 						/* fixed */
                         
 						elsecase 'h4903'
