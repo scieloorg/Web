@@ -70,6 +70,16 @@ error_reporting(1);
     </div>
     <div class="copyright">BVS Site 4.0-rc4 copy <a href="http://www.bireme.br/" target="_blank">BIREME/OPS/OMS</a>
     </div>
-  </body>
 
+                       <?
+                       $def = parse_ini_file('../../../../scielo.def',true);
+                       if($def['LOG']['ACTIVATE_LOG'] == '1') {
+                       ?>
+                                <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+                                <script type="text/javascript">
+                                _uacct = "UA-604844-1";
+                                urchinTracker();
+                                </script>
+                        <?}?>
+</body>
 </html>

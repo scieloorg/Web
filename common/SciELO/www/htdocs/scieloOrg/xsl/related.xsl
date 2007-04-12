@@ -8,6 +8,7 @@
 	doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" />
 
 	<xsl:include href="file:///home/scielo/www/htdocs/applications/scielo-org/xsl/article_output.xsl"/>
+	<xsl:include href="file:///home/scielo/www/htdocs/xsl/sci_common.xsl"/>
 
 	<xsl:variable name="lang" select="//vars/lang"/>
 
@@ -68,6 +69,7 @@
 						</div>
 					</div>
 				</div>
+				<xsl:call-template name="UpdateLog"/>
 			</body>
 		</html>
 	

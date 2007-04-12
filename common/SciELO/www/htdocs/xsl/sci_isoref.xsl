@@ -46,6 +46,7 @@
 						</div>
 					</div>
 				</div>
+				<xsl:call-template name="UpdateLog"/>
 			</body>
 		</html>
 	</xsl:template>

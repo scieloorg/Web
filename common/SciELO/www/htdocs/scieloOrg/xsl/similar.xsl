@@ -2,6 +2,8 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 	<xsl:include href="file:///home/scielo/www/htdocs/applications/scielo-org/xsl/article_output.xsl"/>
+	<xsl:include href="file:///home/scielo/www/htdocs/xsl/sci_common.xsl"/>
+
 	<xsl:output method="html"
 						omit-xml-declaration="yes"
 						indent="yes"
@@ -64,6 +66,7 @@
 						</div>
 					</div>
 				</div>
+				<xsl:call-template name="UpdateLog"/>
 			</body>
 		</html>
 	</xsl:template>

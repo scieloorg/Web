@@ -14,6 +14,8 @@ $related_Service = $defFile->getKeyValue($serviceName);
 $related_Service = str_replace("PARAM_PID",$pid,$related_Service);
 $related_Service = str_replace("PARAM_TEXT",$text,$related_Service);
 
+
+
 $xmlh = "";
 
 if ($handle = fopen($related_Service,'r'))
@@ -40,12 +42,28 @@ for($chr = 0; $chr < 32 ;$chr++){
 	$xmlh = str_replace(chr(146),"",$xmlh);
 
 $xml = '<?xml version="1.0" encoding="ISO-8859-1" ?>'."\n";
-$xml .= "<root>";
-$xml .= "<vars>";
-$xml .= "<lang>".$lang."</lang>";
-$xml .= "</vars>";
+
+$xml .= '<root>';
+
+if($defFile->getKeyValue('ACTIVATE_LOG') == '1')
+{
+	$xml .= '<CONTROLINFO>';
+	$xml .=         '<SCIELO_INFO>';
+	$xml .=                 '<SERVER_LOG>'.$defFile->getKeyValue('SERVER_LOG').'</SERVER_LOG>';
+	$xml .=                 '<SCRIPT_LOG_NAME>'.$defFile->getKeyValue('SCRIPT_LOG_NAME').'</SCRIPT_LOG_NAME>';
+	$xml .=         '</SCIELO_INFO>';
+	$xml .=         '<APP_NAME>'.$defFile->getKeyValue('APP_NAME').'</APP_NAME>';
+	$xml .=         '<PAGE_NAME>'.$serviceName.'</PAGE_NAME>';
+	$xml .=         '<PAGE_PID>'.$pid.'</PAGE_PID>';
+	$xml .=         '<LANGUAGE>'.$lang.'</LANGUAGE>';
+	$xml .= '</CONTROLINFO>';
+}
+
+$xml .= '<vars>';
+$xml .= '<lang>'.$lang.'</lang>';
+$xml .= '</vars>';
 $xml .= str_replace('<?xml version="1.0" encoding="ISO-8859-1" ?>','',$xmlh);
-$xml .= "</root>";
+$xml .= '</root>';
 
 $xslFile = dirname(__FILE__)."/../xsl/".$xslName.".xsl";
 $xsl = $xslFile;
