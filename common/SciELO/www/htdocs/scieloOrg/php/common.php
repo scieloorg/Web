@@ -45,19 +45,27 @@ $xml = '<?xml version="1.0" encoding="ISO-8859-1" ?>'."\n";
 
 $xml .= '<root>';
 
-if($defFile->getKeyValue('ACTIVATE_LOG') == '1')
-{
-	$xml .= '<CONTROLINFO>';
-	$xml .=         '<SCIELO_INFO>';
-	$xml .=                 '<SERVER_LOG>'.$defFile->getKeyValue('SERVER_LOG').'</SERVER_LOG>';
-	$xml .=                 '<SCRIPT_LOG_NAME>'.$defFile->getKeyValue('SCRIPT_LOG_NAME').'</SCRIPT_LOG_NAME>';
-	$xml .=         '</SCIELO_INFO>';
-	$xml .=         '<APP_NAME>'.$defFile->getKeyValue('APP_NAME').'</APP_NAME>';
-	$xml .=         '<PAGE_NAME>'.$serviceName.'</PAGE_NAME>';
-	$xml .=         '<PAGE_PID>'.$pid.'</PAGE_PID>';
-	$xml .=         '<LANGUAGE>'.$lang.'</LANGUAGE>';
-	$xml .= '</CONTROLINFO>';
-}
+        $xml .= '<CONTROLINFO>';
+        $xml .=         '<SCIELO_INFO>';
+        if($defFile->getKeyValue('ACTIVATE_LOG') == '1')
+        {
+                $xml .=                 '<SERVER_LOG>'.$defFile->getKeyValue('SERVER_LOG').'</SERVER_LOG>';
+                $xml .=                 '<SCRIPT_LOG_NAME>'.$defFile->getKeyValue('SCRIPT_LOG_NAME').'</SCRIPT_LOG_NAME>';
+        }
+
+        if($defFile->getKeyValue('ACTIVATE_GOOGLE') == '1')
+        {
+                $xml .=                 '<GOOGLE_CODE>'.$defFile->getKeyValue('GOOGLE_CODE').'</GOOGLE_CODE>';
+        }
+		
+		
+		$xml .=         '</SCIELO_INFO>';
+        $xml .=         '<APP_NAME>'.$defFile->getKeyValue('APP_NAME').'</APP_NAME>';
+        $xml .=         '<PAGE_NAME>'.$serviceName.'</PAGE_NAME>';
+        $xml .=         '<PAGE_PID>'.$pid.'</PAGE_PID>';
+        $xml .=         '<LANGUAGE>'.$lang.'</LANGUAGE>';
+        $xml .= '</CONTROLINFO>';
+
 
 $xml .= '<vars>';
 $xml .= '<lang>'.$lang.'</lang>';
