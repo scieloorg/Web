@@ -48,6 +48,17 @@ para ter o gráfico "multi-lingüe"
 				$ano = intval($s->getYear());
 				$values[$ano][$mes] = $s->getNumberOfRequests();
 			}
+			if($values == NULL){
+				header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
+				header("Expires: Mon, 26 Jul 1997 05:00:00 GMT"); // Date in the past
+				header("Content-type: image/png");
+				$im = @imagecreate(strlen(NO_DATA_FOR_GRAPHIC)*15, 75);
+				    $background_color = imagecolorallocate($im, 255, 255, 255);
+				    $text_color = imagecolorallocate($im, 153, 0, 0);
+				    imagestring($im, 15, 40, 35, NO_DATA_FOR_GRAPHIC, $text_color);
+				    imagepng($im);
+				    imagedestroy($im);
+			}
 
 			/*
 			"gabarito" da linha dos graficos com 12 posicoes, uma para cada mes

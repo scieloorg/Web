@@ -19,6 +19,7 @@ if(!in_array($lang,$langs)){
 if($lang == "pt")
 {
 define("ARTICLE_SUGGESTION"," indicou um artigo para você.");
+define('NO_DATA_FOR_GRAPHIC','Gráfico não disponível, dados em processamento.');
 
 /*
 rótulos para a tela envio de artigo por email
@@ -246,6 +247,7 @@ define("FULL_TEXT","texto completo");
 if ($lang=="en")
 {
 define("ARTICLE_SUGGESTION"," suggested a article to you.");
+define('NO_DATA_FOR_GRAPHIC','Graphic unavailable, data in processing.');
 
 /*
 rótulos para a tela envio de artigo por email
@@ -470,6 +472,8 @@ define("FULL_TEXT","full text");
 if ($lang=="es")
 {
 define("ARTICLE_SUGGESTION","indicou un artículo para usted.");
+define('NO_DATA_FOR_GRAPHIC','Gráfico no disponible, datos en procesamiento.');
+
 /*
 rótulos para a tela envio de artigo por email
 */
