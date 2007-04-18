@@ -1357,6 +1357,7 @@
 	     </loop>
 
 	  </do>
+	  <list action="delete">now</list>
 <!--display><pft>('URL='v7900/)</pft></display-->
 
 	<field action="export" tag="7999">7900</field>
@@ -1527,6 +1528,7 @@
 
 		</loop>
 	</do>
+	<list action="delete">now</list>
 	<flow action="jump">NO_TRANSLATION</flow>
 
 	<label>DO_NOT_CHECK_FILE_SYSTEM</label>
@@ -2294,7 +2296,7 @@ if instr(v12,'~')=0 then
 
   <field action="delete" tag="9999">ALL</field>
   <call name="OrdenaLanguage"><pft>v4001^l/,(v4003/)</pft></call>
-    
+
 	<!-- fixed -->
 	<call name="TestTranslationPresence"><pft>v880/,(if v40[1]<>v12^l then |^l|v12^l/ fi),'^d'v7041/</pft></call>
 	
