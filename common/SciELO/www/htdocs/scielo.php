@@ -182,9 +182,108 @@ function dir_size($dir, &$older, &$older_accessed)
 
        }
 
+function wxis_exe ( $url )
+{
+	global $wxisServer;
+	global $scielo;
+
+	$scielo->_def->getKeyValue("CACHE_STATUS");
+
+	$useCache = $scielo->_def->getKeyValue("ENABLED_CACHE");
+
+	if($useCache == '1'){
+		$serverCache = $scielo->_def->getKeyValue("SERVER_CACHE");
+		$serverPortCache = $scielo->_def->getKeyValue("SERVER_PORT_CACHE");
+
+			$result = "";
+			$memcache = new Memcache;
+			$memcache->connect($serverCache,$serverPortCache) or die('Erro ao tentar conectar no server de cache');
+
+			$str = $_SERVER['REQUEST_URI'];
+			//tem isso aki pq as vezes a URL vem com os
+			//paramentros da query separados por / e
+			//delimitados por _
+			$str = str_replace("sci_","sciI",$str);
+			$str = str_replace("_","=",$str);
+			$str = str_replace("/","&",$str);
+			$str = str_replace("sciI","sci_",$str);
+			parse_str(str_replace("scielo.php?","",$str),$saida);
+			if($saida['debug'] == 'cache'){
+					$arr = $memcache->getExtendedStats($saida['debugtype']);
+					$arr = array_pop($arr);
+					echo '<table border="1">';
+					foreach($arr as $key => $value){
+							echo '<tr>';
+							echo '<td>'.$key.'</td>';
+							if(is_array($value)){
+									echo '<td><table border="1">';
+									foreach($value as $k=>$v){
+											echo '<tr>';
+											echo '<td>'.$k.'</td>';
+											echo '<td>'.$v.'</td>';
+											echo '</tr>';
+									}
+									echo '</table></td>';
+							}else{
+									echo '<td>'.$value.'</td>';
+							}
+							echo '</tr>';
+					}
+					echo '</table>';
+					$memcache->close();
+					die();
+			}
+
+			$chave = $saida['script'].$saida['pid'].$saida['lng'].$saida['tlng']."XML";
+
+			$result = false;
+
+			//a chave pode ver como XML por exemplo na home, quanto não há parametros na
+			//URL, para evitar problemas, não colocamos essa chave em cache posis não podemos
+			//prever quando essa situação poderá ocorrer novamente
+			if($chave != 'XML'){
+				//pesquisa no cache a chave
+				$result = $memcache->get($chave);
+
+				if($result == false){
+					//se não achou, transforma, coloca no cache e retorna
+					$result = wxis_exe_($url);
+					$memcache->add($chave,$result);
+				}
+			}else{
+				//se chave == XML então retorna o XML, sem passar pelo cache
+				$result = wxis_exe_($url);
+			}
+		}else{
+			//se cache desligado então retorna a transformação, sem passar pelo cache
+			$result = wxis_exe_($url);
+		}
+		
+		$memcache->close();
+
+		return $result;
+}
+
+
+
+
 
 //wxis-line-command
-function wxis_exe ( $url )
+function wxis_exe_ ( $url )
+{
+	$request = "/home/scielo/www/cgi-bin/wxis.exe " ;
+	$param = substr($url, strpos($url, "?")+1);
+	$param = str_replace("&", " ", $param);
+	$request = $request.$param." PATH_TRANSLATED=/home/scielo/www/htdocs/ ";
+	if (strpos($url,'debug=')==0){
+		$r = strstr(shell_exec($request), '<');
+	}else{
+		$r = $url;
+	}
+	return $r;
+}
+
+function wxis_exe_httpd ( $url )
 {
 
 	global $wxisServer;

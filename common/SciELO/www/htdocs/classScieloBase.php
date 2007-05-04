@@ -308,8 +308,77 @@ class ScieloBase
 		exit;
 	}
 
+
 	/************************************************************************
 		Protected Method _Transform()
+
+		Verifica se é para usar o Cache, para a transformação XML
+
+		Parameters:
+			NONE
+
+		Return value:
+			NONE
+
+		Last Change:
+			02/04/2007 (André) : renomeado o método
+	*************************************************************************/
+	function _Transform()
+	{
+		$useCache = $this->_def->getKeyValue("ENABLED_CACHE");
+
+		if($useCache == '1'){
+			$serverCache = $this->_def->getKeyValue("SERVER_CACHE");
+			$serverPortCache = $this->_def->getKeyValue("SERVER_PORT_CACHE");
+
+			$result = "";
+			$memcache = new Memcache;
+			$memcache->connect($serverCache,$serverPortCache) or die('Erro ao tentar conectar no server de cache');
+
+			$str = $_SERVER['REQUEST_URI'];
+			//tem isso aki pq as vezes a URL vem com os
+			//paramentros da query separados por / e
+			//delimitados por _
+			$str = str_replace("sci_","sciI",$str);
+			$str = str_replace("_","=",$str);
+			$str = str_replace("/","&",$str);
+			$str = str_replace("sciI","sci_",$str);
+
+			parse_str(str_replace("scielo.php?","",$str),$saida);
+
+			$chave = $saida['script'].$saida['pid'].$saida['lng'].$saida['tlng']."HTML";
+
+			$result = false;
+
+			//a chave pode ver como HTML por exemplo na home, quanto não há parametros na
+			//URL, para evitar problemas, não colocamos essa chave em cache posis não podemos
+			//prever quando essa situação poderá ocorrer novamente
+			if($chave != 'HTML'){
+				//pesquisa no cache a chave
+				$result = $memcache->get($chave);
+
+				if($result == false){
+					//se não achou, transforma, coloca no cache e retorna
+					$result = $this->_TransformXML();
+					$memcache->add($chave,$result);
+					$result = $result."\n".'<!-- XHTML in cache-->';
+				}else{
+					$result = $result."\n".'<!-- XHTML in cache-->';
+				}
+			}else{
+				//se chave == HTML então retorna a transformação, sem passar pelo cache
+				$result = $this->_TransformXML();
+			}
+		}else{
+			//se cache desligado então retorna a transformação, sem passar pelo cache
+			$result = $this->_TransformXML();
+		}
+		$memcache->close();
+		return $result;
+	}
+
+	/************************************************************************
+		Protected Method _TransformXML()
 
 		Applies xslt transformation in xml file.
 
@@ -320,9 +389,10 @@ class ScieloBase
 			NONE
 
 		Last Change:
+			02/04/2007 (André) : renomeado o método
 			10/08/2001 (Roberto)
 	*************************************************************************/
-	function _Transform()
+	function _TransformXML()
 	{
         $result = "";
 

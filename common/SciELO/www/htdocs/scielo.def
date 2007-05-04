@@ -74,6 +74,9 @@ ADMIN_EMAIL = mysqladmin@bireme.br
 
 
 [CACHE]
+ENABLED_CACHE=1
+SERVER_CACHE=localhost
+SERVER_PORT_CACHE=11211
 MAX_DAYS = 1
 MAX_SIZE = 9368709120 
 PATH_CACHE=/home/scielo/www/bases/pages/
