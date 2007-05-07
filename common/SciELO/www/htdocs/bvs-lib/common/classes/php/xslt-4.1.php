@@ -22,7 +22,7 @@ Descrição:
 */
 
 class XSLTransformer {
-	var $xsl, $xml, $output, $error, $processor, $errorcode, $replacements, $xslBaseUri;
+	var $xsl, $xml, $output, $error, $processor, $errorcode, $replacements, $xslBaseUri, $xslParameters;
 
 	/* Constructor  */	 
 	function XSLTransformer() { 
@@ -82,6 +82,15 @@ class XSLTransformer {
 		}
 	}
 	
+	function setXslParameters($params) {
+		$this->xslParameters = $params;
+	}
+	
+	function getXslParameters($params) {
+		return ($this->xslParameters);
+	}
+	
+	
 	function isXmlContent($xml)
 	{
 		if (strcmp(substr($xml,0,5), "<?xml") == 0)
@@ -116,7 +125,7 @@ class XSLTransformer {
 		
 		$args = array ( '/_xml' => $this->xml, '/_xsl' => $this->xsl );
 
-        $result = xslt_process ($this->processor, 'arg:/_xml', 'arg:/_xsl', NULL, $args); 
+        $result = xslt_process ($this->processor, 'arg:/_xml', 'arg:/_xsl', NULL, $args, $this->xslParameters); 
         if ($result) {
 		    $this->setOutput ($result);
 			return true;
@@ -181,22 +190,22 @@ class docReader {
 	function readDoc(){
 		$fp = fopen ($this->getUri(),"r"); 
 
-		if ($fp) { 
- 			// get length 
-			if ( $this->getType() == 'file' ) { 
-				$length = filesize ($this->getUri()); 
-			}  
-            else { 
-				$length = $this->bignum; 
- 			} 
-
-			$this->setString (fread ($fp, $length));
-			fclose($fp);			
-			return true; 
-		} 
-        else { 
-			return false; 
-		} 
+      if($fp) { // get length
+         if ($this->getType() == 'file') {
+            $length = filesize($this->getUri());
+            $this->setString(fread($fp,$length));
+         } else {
+            $length = $this->bignum;		
+			$contents = '';
+			while (!feof($fp)) {
+			  $contents .= fread($fp, $length);
+			}
+			$this->setString($contents);
+         }
+         return true;
+      } else {
+         return false;
+      }
 	}
 
 	/* determine if a URI is a filename or URL */ 
