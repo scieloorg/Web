@@ -1,11 +1,13 @@
 <?php
 
-include("wxis.php");
+include("wxis.php"); 
 
+/* kenji 
 if ( isset($HTTP_POST_VARS) )
 {
 	$_REQUEST = $HTTP_POST_VARS;
 }
+*/
 
 if ( $_REQUEST["task"] == " list " )
 {

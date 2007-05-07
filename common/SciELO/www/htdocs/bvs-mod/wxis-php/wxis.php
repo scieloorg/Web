@@ -1,12 +1,16 @@
 <?php
 
+/* kenji
 if ( isset($HTTP_HOST) )
 {
 	$_SERVER["HTTP_HOST"] = $HTTP_HOST;
 }
+*/
+
 
 $wxis_host = $_SERVER["HTTP_HOST"];
 $wxis_action = "/cgi-bin/wxis.exe/bvs-mod/wxis-modules/";
+
 
 function wxis_document_post( $url, $content = "" )
 { 
@@ -38,7 +42,7 @@ function wxis_document_post( $url, $content = "" )
       "$query\n"; 
 	
 	// Open the connection to the host 
-	$fp = fsockopen($host, $port, &$errno, &$errstr, $timeout);
+	$fp = fsockopen($host, $port, $errno, $errstr, $timeout);
 	
 	fputs( $fp, $ReqHeader ); 
 	if ($fp) {
@@ -80,6 +84,7 @@ function wxis_list ( $param )
 
 function wxis_search ( $param )
 {
+	
 	return wxis_document_post(wxis_url("search.xis",$param));
 }
 
