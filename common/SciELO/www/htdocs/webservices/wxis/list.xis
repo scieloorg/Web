@@ -27,6 +27,8 @@
 		</pft>
 	</display>
 	<trace>xOn</trace>
+	
+	<field action="cgi" tag="2004">count</field>
 
 	<field action="replace" tag="1"><pft>getenv('PATH_TRANSLATED')</pft></field>
 	<parm name="cipar">
@@ -41,7 +43,6 @@
 	<display><pft>'<wxis-modules IsisScript="',v2,'" version="0.2">'/</pft></display>
 
 	<do task="mfnrange">
-
 		<field action="cgi" tag="2001">database</field>
 		<call name="error"><pft>"missing parameter: database"n2001</pft></call>
 		<parm name="db"><pft>v2001</pft></parm>
@@ -50,32 +51,52 @@
 		<field action="replace" tag="2007" split="occ"><pft>(v2007/)</pft></field>
 		<parm name="gizmo"><pft>(v2007/)</pft></parm>
 
-		<field action="cgi" tag="2002">from</field>
-		<parm name="from"><pft>v2002</pft></parm>
+	    <loop>
+	        <list action="load" type="sort"><pft>if p(v940) then '^k',f(99999999-val(v940),1,0),'^m',mfn fi</pft></list>
+	    </loop>
+	</do>
 
-		<field action="cgi" tag="2003">to</field>
-		<parm name="to"><pft>v2003</pft></parm>
-
-		<field action="cgi" tag="2004">count</field>
-		<parm name="count"><pft>v2004</pft></parm>
-
-		<field action="cgi" tag="2006">reverse</field>
-		<parm name="reverse"><pft>v2006</pft></parm>
-
-		<field action="define" tag="1001">Isis_Current</field>
-		<field action="define" tag="1002">Isis_Total</field>
-
-		<parm name="isisxml table">
+	<do task="list">
+	
+	  <parm name="count"><pft>v2004</pft></parm>	  
+      <field action="define" tag="1001">Isis_Current</field>
+   	  <field action="define" tag="1002">Isis_Itens</field>
+      <field action="define" tag="1">Isis_Item</field>
+	
+	  <parm name="isisxml table">
 			<pft>
 				'1001 Isis_Current'/
 				'1002 Isis_Total'/
+				'9 addDate'/
 			</pft>
-		</parm>
-
-		<loop>
-			<display><isisxml>*</isisxml></display>
-		</loop>
-
+	  </parm>
+	  
+	  <loop>
+	  	   <field action="import" tag="list">2001</field>
+		   <display>
+			<pft>ref([v2001]val(v1^m),
+			'<record>',#
+				'<title>',v100,'</title>',#
+				'<processDate>',v940,'</processDate>',#
+				'<issn>',v400,'</issn>',#
+				(,'<publisher>',v480,'</publisher>',#,)
+				(,'<subject>',v441,'</subject>',#,)
+				'<publicationStatus>',v50,'</publicationStatus>',#
+			'</record>')
+			</pft>	
+		   </display>   
+		   <!--
+		   <do task="mfnrange">	  
+ 			   <parm name="db"><pft>v2001</pft></parm>
+			   <parm name="from"><pft>v1^m</pft></parm>
+			   <parm name="count">1</parm>		   
+			   <loop>
+					<display><isisxml>*</isisxml></display>   
+			   </loop>
+			</do>			
+			-->
+	  </loop>
+	  		
 		<field action="replace" tag="2103"><pft>if val(v2003) > 1 then v2003 else v1001 fi</pft></field>
 		<field action="replace" tag="2104"><pft>if val(v2004) > 1 then v2004 else f(val(v2103) - val(v2002) + 1,1,0) fi</pft></field>
 		<field action="replace" tag="2011"><pft>if val(v2002) > 1 then f(val(v2002) - val(v2104),1,0) fi</pft></field>
@@ -107,4 +128,3 @@
 </section>
 
 </IsisScript>
-

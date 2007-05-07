@@ -1,4 +1,49 @@
 <?PHP
+//=============================================================================================
+function getElementValue ($xml, $element, $attributes = '')
+{
+        $elementPeace = "";
+        if ($attributes == '') {
+                $start_string = "<" . $element . ">";
+        } else {
+                $start_string = "<" . $element . " " . $attributes . ">";
+        }
+        $end_string = "</" . $element . ">";
+        if (strpos($xml, $start_string) > 0){
+                $elementPeace = substr($xml, strpos($xml, $start_string) + strlen($start_string), strpos($xml, $end_string) - strpos($xml, $start_string) - strlen($start_string));
+        }
+        return $elementPeace;
+}
+
+//=============================================================================================
+function getIndicators($indicator)
+{
+global $applServer,$databasePath ;
+$result="";
+        switch ($indicator){
+                case "journalTotal":
+                        $serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/bvs-mod/wxis-modules/?IsisScript=list.xis&database=".$databasePath ."title/title&count=1";
+                        $XML = readData($serviceUrl,true);
+                        $result=getElementValue(getElementValue(str_replace("<hr>","<hr />",$XML) , "Isis_Total"),"occ");
+                        break;
+                case "articleTotal":
+                        $serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/bvs-mod/wxis-modules/?IsisScript=search.xis&database=".$databasePath ."artigo/artigo&search=tp=o&count=1";
+                        $XML = readData($serviceUrl,true);
+                        $result=getElementValue(getElementValue(str_replace("<hr>","<hr />",$XML) , "Isis_Total"),"occ");
+                        break;
+                case "issueTotal":
+                        $serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/bvs-mod/wxis-modules/?IsisScript=search.xis&database=".$databasePath ."artigo/artigo&search=tp=i&count=1";
+                        $XML = readData($serviceUrl,true);
+                        $result=getElementValue(getElementValue(str_replace("<hr>","<hr />",$XML) , "Isis_Total"),"occ");
+                        break;
+                case "citationTotal":
+                        $serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/bvs-mod/wxis-modules/?IsisScript=search.xis&database=".$databasePath ."artigo/artigo&search=tp=c&count=1";
+                        $XML = readData($serviceUrl,true);
+                        $result=getElementValue(getElementValue(str_replace("<hr>","<hr />",$XML) , "Isis_Total"),"occ");
+                        break;
+        }
+        return $result;
+}
 
 //=============================================================================================
 function process($serviceUrl, $redirectHtml = "")

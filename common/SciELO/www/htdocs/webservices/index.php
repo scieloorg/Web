@@ -11,12 +11,16 @@ $transformer = new XSLTransformer();
 
 $defFile = new DefFile("../scielo.def");
 
-$version = "0.9";
+$version = "1.0";
 $serviceRoot = "SciELOWebService";
 $HTTP_RAW_POST_DATA = isset($HTTP_RAW_POST_DATA) ? $HTTP_RAW_POST_DATA : '';
 
 $applServer = $defFile->getKeyValue("SERVER_SCIELO");
+$regionalScielo = $defFile->getKeyValue("SCIELO_REGIONAL_DOMAIN");
+$collection = $defFile->getKeyValue("SHORT_NAME");
 $country = $defFile->getKeyValue("COUNTRY");
+
+$databasePath = $defFile->getKeyValue("PATH_DATABASE");
 
 $output = $_REQUEST["output"];
 if ($output == ""){
@@ -38,7 +42,7 @@ if ($output == "soap") {
 		array('return' => 'xsd:anyType'),		// output parameters
 		'urn:SciELOService',					// namespace
 		'urn:SciELOService#search',				// soapaction
-		'rpc',									// style
+		'SOAP-ENC:Array',						// style
 		'encoded',								// use
 		'Search on SciELO article database'		// documentation
 	);
@@ -47,8 +51,8 @@ if ($output == "soap") {
 		array('count' => 'xsd:string'),			// input parameters
 		array('return' => 'xsd:anyType'),		// output parameters
 		'urn:SciELOService',					// namespace
-		'urn:SciELOService#new_titles',				// soapaction
-		'rpc',									// style
+		'urn:SciELOService#new_titles',			// soapaction
+		'SOAP-ENC:Array',						// style
 		'encoded',								// use
 		'Return new titles from title database'		// documentation
 	);
@@ -58,19 +62,18 @@ if ($output == "soap") {
 		array('return' => 'xsd:anyType'),		// output parameters
 		'urn:SciELOService',					// namespace
 		'urn:SciELOService#new_titles',				// soapaction
-		'rpc',									// style
+		'SOAP-ENC:Array',									// style
 		'encoded',								// use
 		'Return new titles from title database'		// documentation
 	);
 
 	$server->register('get_titles',					// method name
-		array('lang' => 'xsd:string','letter' => 'xsd<% If  %>:string'),	// input parameters
 		array('return' => 'xsd:anyType'),		// output parameters
 		'urn:SciELOService',					// namespace
-		'urn:SciELOService#new_titles',				// soapaction
-		'rpc',									// style
+		'urn:SciELOService#get_titles',				// soapaction
+		'SOAP-ENC:Array',									// style
 		'encoded',								// use
-		'Return new titles from title database'		// documentation
+		'Return titles from title database [de acordo com o tipo e parametro]'		// documentation
 	);
 
 	// Use the request to (try to) invoke the service
@@ -88,7 +91,7 @@ if ($output == "soap") {
                  $response = new_issues($_REQUEST["count"]);
 				 break;
            case "get_titles":
-                 $response = get_titles($_REQUEST["letter"]);
+                 $response = get_titles($_REQUEST["type"], $_REQUEST["param"]);
 				 break;
 	}
 	print($response);
@@ -115,83 +118,69 @@ function search($expression, $from, $count, $lang)
 
 	$serviceUrl   = "http://" . $applServer . "/cgi-bin/wxis.exe/iah/?IsisScript=iah/iah.xis&base=article^dlibrary&exprSearch=" . $expression . "&lang=" . $iahLang . "&nextAction=xml&isisFrom=" . $from . "&count=" . $count . "&fmt=citation";
 	$redirectHtml = "http://" . $applServer . "/cgi-bin/wxis.exe/iah/?IsisScript=iah/iah.xis&base=article^dlibrary&exprSearch=" . $expression . "&lang=" . $iahLang . "&nextAction=lnk&isisFrom=" . $from . "&count=" . $count;
-
 	$response = process($serviceUrl, $redirectHtml);
 	return $response;
 }
 
 function new_titles($count)
 {
-	global $country, $applServer, $output, $transformer;
-	
-	$count= ($count != "" ? $count : "5");
-	
-	$serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/webservices/wxis/?IsisScript=listNewTitles.xis&database=/home/scielo/www/bases/title/title&gizmo=GIZMO_XML&count=" . $count;
-	$XML = process($serviceUrl);
-	$XML = str_replace('<?xml version="1.0" encoding="ISO-8859-1"?>','',$XML);
-	$serviceXML  = '<?xml version="1.0" encoding="ISO-8859-1"?>';
-	$serviceXML .= '<serviceXML>';
-	$serviceXML .= '<vars>';
-	$serviceXML .= '<applServer>'.$applServer.'</applServer>';
-	$serviceXML .= '<country>'.$country.'</country>';		
-	$serviceXML .= '</vars>';
+	global $country, $applServer, $output, $transformer, $serviceRoot, $databasePath ;
+	$count= ($count != "" ? $count : "50");
+	$serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/webservices/wxis/?IsisScript=listNewTitles.xis&database=".$databasePath ."title/title&gizmo=GIZMO_XML&count=" . $count;
+	$XML = readData($serviceUrl,true);
+	$serviceXML .= '<collection name="'.$country.'" uri="http://'.$applServer.'">';
 	$serviceXML .= $XML;
-	$serviceXML .= '</serviceXML>';
-	$transformer->setXML($serviceXML);
-	$transformer->SetXSL("http://". $applServer ."/webservices/xsl/scieloNewTitle2rss.xsl");
-	$transformer->transform();
-
-	$response = $transformer->getOutput();
-
-	return $response;
+	$serviceXML .= '</collection>';
+        if ($output == "xml"){
+                header("Content-type: text/xml");
+	        return envelopeXml($serviceXML, $serviceRoot);
+        }else{
+                return $serviceXML;
+        }
+	return $serviceXML;
 }
 
 function new_issues($count)
 {
-	global $country, $applServer, $output, $transformer;
+	global $country, $applServer, $output, $transformer, $serviceRoot,$databasePath ;
 	
-	$count= ($count != "" ? $count : "5");
-	$serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/webservices/wxis/?IsisScript=listNewIssues.xis&database=/home/scielo/www/bases/issue/issue&gizmo=GIZMO_XML&count=" . $count;
-	$XML = process($serviceUrl);
-	$XML = str_replace('<?xml version="1.0" encoding="ISO-8859-1"?>','',$XML);
-	$serviceXML  = '<?xml version="1.0" encoding="ISO-8859-1"?>';
-	$serviceXML .= '<serviceXML>';
-	$serviceXML .= '<vars>';
-	$serviceXML .= '<applServer>'.$applServer.'</applServer>';
-	$serviceXML .= '<country>'.$country.'</country>';		
-	$serviceXML .= '</vars>';
+	$count= ($count != "" ? $count : "50");
+	$serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/webservices/wxis/?IsisScript=listNewIssues.xis&database=".$databasePath."issue/issue&gizmo=GIZMO_XML&count=" . $count;
+	$XML = readData($serviceUrl,true);
+	$serviceXML .= '<collection name="'.$country.'" uri="http://'.$applServer.'">';
 	$serviceXML .= $XML;
-	$serviceXML .= '</serviceXML>';
-	$transformer->setXML($serviceXML);
-	$transformer->SetXSL("http://". $applServer ."/webservices/xsl/scieloIssues2rss.xsl");
-	$transformer->transform();
-
-	$response = $transformer->getOutput();
-
-	return $response;
+        $serviceXML .= '</collection>';
+	if ($output == "xml"){
+                header("Content-type: text/xml");
+                return envelopeXml($serviceXML, $serviceRoot);
+        }else{
+                return $serviceXML;
+        }
+        return $serviceXML;
 }
-
-function get_titles($letter)
+//traz os titulos por tipo selecionado e por parametro
+function get_titles($type, $param)
 {
-	global $country, $applServer, $output, $transformer;
-	$serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/webservices/wxis/?IsisScript=list.xis&database=/home/scielo/www/bases/title/title&gizmo=GIZMO_XML";
-	$XML = process($serviceUrl);
-	$XML = str_replace('<?xml version="1.0" encoding="ISO-8859-1"?>','',$XML);
-	$serviceXML  = '<?xml version="1.0" encoding="ISO-8859-1"?>';
-	$serviceXML .= '<serviceXML>';
-	$serviceXML .= '<vars>';
-	$serviceXML .= '<applServer>'.$applServer.'</applServer>';
-	$serviceXML .= '<country>'.$country.'</country>';	
-	$serviceXML .= '<letter>'.$letter.'</letter>';
-	$serviceXML .= '</vars>';
+global $country, $applServer, $output, $transformer, $serviceRoot, $databasePath ;
+$xslName = '';
+	$serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/webservices/wxis/?IsisScript=list.xis&database=".$databasePath."title/title&gizmo=GIZMO_XML";
+	$XML = readData($serviceUrl,true);
+//	die($serviceUrl);
+    $serviceXML .= '<collection name="'.$country.'" uri="http://'.$applServer.'">';
+	$serviceXML .= '<indicators>';
+	$serviceXML .= '<journalTotal>'.getIndicators("journalTotal").'</journalTotal>';
+        $serviceXML .= '<articleTotal>'.getIndicators("articleTotal").'</articleTotal>';
+        $serviceXML .= '<issueTotal>'.getIndicators("issueTotal").'</issueTotal>';
+        $serviceXML .= '<citationTotal>'.getIndicators("citationTotal").'</citationTotal>';
+	$serviceXML .= '</indicators>';
 	$serviceXML .= $XML;
-	$serviceXML .= '</serviceXML>';
-	$transformer->setXML($serviceXML);
-	$transformer->SetXSL("http://". $applServer ."/webservices/xsl/scieloTitle2rss.xsl");
-	$transformer->transform();
-	$response = $transformer->getOutput();
-
-	return $response;
+	$serviceXML .= '</collection>';
+        if ($output == "xml"){
+                header("Content-type: text/xml");
+                return envelopeXml($serviceXML, $serviceRoot);
+        }else{
+                return $serviceXML;
+        }
+	return $serviceXML;
 }
-
 ?>

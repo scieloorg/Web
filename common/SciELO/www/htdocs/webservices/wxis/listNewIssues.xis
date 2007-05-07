@@ -64,9 +64,8 @@
 		<parm name="from">9999</parm>
 		<parm name="count"><pft>v2004</pft></parm>
 		<parm name="reverse">On</parm>			
-		<parm name="posttag">5</parm>
+		<parm name="posttag">ALL</parm>
 
-		
 		<field action="define" tag="1">Isis_Key</field>
 		<field action="define" tag="2">Isis_Postings</field>
 		<field action="define" tag="3">Isis_Posting</field>
@@ -93,14 +92,31 @@
 		</parm>
 
 		<loop>
-			<field action="import" tag="2001">2001</field>
+			<field action="import" tag="list">2001</field>
 			<field action="replace" tag="4"><pft>ref([v2001]val(v3^m),v130)</pft></field>
+                        <!--field action="replace" tag="4"><pft>v2001</pft></field-->
 			<field action="replace" tag="5"><pft>ref([v2001]val(v3^m),v35)</pft></field>
 			<field action="replace" tag="6"><pft>ref([v2001]val(v3^m),v31)</pft></field>						
 			<field action="replace" tag="7"><pft>ref([v2001]val(v3^m),v32)</pft></field>									
 			<field action="replace" tag="8"><pft>ref([v2001]val(v3^m),mid(v65,1,4))</pft></field>
 			<field action="replace" tag="9"><pft>ref([v2001]val(v3^m),v91)</pft></field>
-			<display><isisxml>*</isisxml></display>
+			<field action="replace" tag="10"><pft>ref(['/home/scielo/www/bases/title/title']l(['/home/scielo/www/bases/title/title']s('LOC=',v5)),(,'<subject>',replace(replace(replace(v441,'&','&amp;'),'<','&lt;'),'>','&gt;'),'</subject>',))</pft></field>
+                        <field action="replace" tag="11"><pft>ref(['/home/scielo/www/bases/title/title']l(['/home/scielo/www/bases/title/title']s('LOC=',v5)),(,'<publisher>',replace(replace(replace(v480,'&','&amp;'),'<','&lt;'),'>','&gt;'),'</publisher>',))</pft></field>
+		        <display>
+					<pft>
+						'<record>',#
+						,v10,#
+						,v11,#
+						'<title>',v4,'</title>',#
+						'<issn>',v5,'</issn>',#
+						'<volume>',v6,'</volume>',#
+						'<numero>',v7,'</numero>',#
+						'<pubYear>',v8,'</pubYear>',#
+						'<updateDate>',v9,'</updateDate>',#
+						'</record>',#
+					</pft>
+					
+				</display>
 		</loop>
 
 		<parm name="isisxml table">
