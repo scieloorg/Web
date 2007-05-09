@@ -1,0 +1,3 @@
+#!/bin/bash
+WISIS4=/home/scielo/www/cgi-bin; export WISIS4
+$WISIS4/wxis.exe IsisScript=$WISIS4/ScieloXML/redireciona.xis script=sci_abstract
