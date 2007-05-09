@@ -1,7 +1,8 @@
 <?php
 require_once("../classDefFile.php");
-require_once("../bvs-lib/common/scripts/php/xslt.php");
-require_once('../bvs-lib/common/classes/php/nusoap.php');
+//require_once("../bvs-lib/common/scripts/php/xslt.php");
+//require_once('../bvs-lib/common/classes/php/nusoap.php');
+require_once("../class.XSLTransformer.php");
 require_once('common.php');
 
 // Backward compatible array creation
