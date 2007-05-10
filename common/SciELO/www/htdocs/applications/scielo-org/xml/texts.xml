@@ -3,6 +3,26 @@
 <texts>
 	<language id="pt">
 		<text>
+			<find>scieloNetwork</find>
+			<replace>Rede Scielo</replace>
+		</text>	
+		<text>
+			<find>similarLink</find>
+			<replace>Similares em:</replace>
+		</text>	
+		<text>
+			<find>tryLink</find>
+			<replace>Tente links no:</replace>
+		</text>	
+		<text>
+			<find>linksTo</find>
+			<replace>Links para:</replace>
+		</text>	
+		<text>
+			<find>findReferenceOnLine</find>
+			<replace>Serviços de links para referência</replace>
+		</text>		
+		<text>
 			<find>cited_by</find>
 			<replace>citado por:</replace>
 		</text>
@@ -84,6 +104,26 @@
 	</language>
 	<language id="es">
 		<text>
+			<find>scieloNetwork</find>
+			<replace>Red Scielo</replace>
+		</text>	
+		<text>
+			<find>similarLink</find>
+			<replace>Similares en:</replace>
+		</text>	
+		<text>
+			<find>tryLink</find>
+			<replace>Intente links en:</replace>
+		</text>	
+		<text>
+			<find>linksTo</find>
+			<replace>Links para:</replace>
+		</text>	
+		<text>
+			<find>findReferenceOnLine</find>
+			<replace>Servicios de links para la referencia</replace>
+		</text>		
+		<text>
 			<find>cited_by</find>
 			<replace>citado por</replace>
 		</text>
@@ -164,6 +204,26 @@
 		</text>
 	</language>
 	<language id="en">
+		<text>
+			<find>scieloNetwork</find>
+			<replace>Scielo Network</replace>
+		</text>	
+		<text>
+			<find>similarLink</find>
+			<replace>Similars in:</replace>
+		</text>	
+		<text>
+			<find>tryLink</find>
+			<replace>Try link to:</replace>
+		</text>	
+		<text>
+			<find>linksTo</find>
+			<replace>Links to:</replace>
+		</text>	
+		<text>
+			<find>findReferenceOnLine</find>
+			<replace>Reference links services</replace>
+		</text>		
 		<text>
 			<find>cited_by</find>
 			<replace>cited by</replace>
