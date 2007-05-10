@@ -54,7 +54,8 @@
   <parm name="from"><pft>v4001^a</pft></parm>
   <parm name="count">1</parm>
 	
-  <loop>	
+  <loop>
+   <field action="cgi" tag="11">tlng</field>
    <display><pft>@PROC_SPLIT_MST.PFT</pft></display>
    <field action="import" tag="list">4001,7009/7034,7041</field> <!-- fixed -->
 
@@ -66,7 +67,7 @@
 
    <display>
     <pft>
-        '<ARTICLE TEXTLANG="',v40,'"'
+        '<ARTICLE TEXTLANG="',v11,'"'
 		if v7999<>'' then
 			' TRANSLATION="',v4001^t,'"', /* fixed */
 		fi
