@@ -102,12 +102,6 @@
 								<xsl:with-param name="seq" select="CONTROLINFO/PAGE_PID"/>
 								<xsl:with-param name="script">sci_pdf</xsl:with-param>
 								<xsl:with-param name="txtlang">
-									<!--
-									<xsl:value-of select="ISSUE/ARTICLE/@TRANSLATION"/>
-									<xsl:if test="not(ISSUE/ARTICLE/@TRANSLATION)">
-										<xsl:value-of select="ISSUE/ARTICLE/@LANGUAGE"/>
-									</xsl:if>
-									-->
 									<xsl:value-of select="ISSUE/ARTICLE/@TEXTLANG"/>
 								</xsl:with-param>
 							</xsl:call-template>
