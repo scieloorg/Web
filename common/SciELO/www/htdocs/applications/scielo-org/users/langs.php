@@ -20,7 +20,6 @@ if($lang == "pt")
 {
 define("SCIELO.ORG"," indicou um artigo para você.");
 define("ARTICLE_REFERENCES","Referências do Artigo");
-define("ARTICLE_SUGGESTION"," indicou um artigo para você.");
 define('NO_DATA_FOR_GRAPHIC','Gráfico não disponível, dados em processamento.');
 
 /*
@@ -30,8 +29,7 @@ define("TO_EMAIL","Email do destinatário:");
 define("TO_NAME","Nome do destinatário:");
 define("COMMENTS","Comentários:");
 define("ARTICLE_TITLE","Título: ");
-define("ARTICLE_SUGGESTION"," indicou um artigo para você.");
-
+define("ARTICLE_SUGGESTION","SciELO: Artigo recomendado de ");
 /*
 rótulos para a tela envio de nova senha
 */
@@ -248,7 +246,6 @@ define("FULL_TEXT","texto completo");
 
 if ($lang=="en")
 {
-define("ARTICLE_SUGGESTION"," suggested a article to you.");
 define("ARTICLE_REFERENCES","Article References");
 define('NO_DATA_FOR_GRAPHIC','Graphic unavailable, data in processing.');
 
@@ -259,7 +256,7 @@ define("TO_EMAIL","To Email:");
 define("TO_NAME","To:");
 define("COMMENTS","Comments:");
 define("ARTICLE_TITLE","Title: ");
-define("ARTICLE_SUGGESTION"," suggested a article to you.");
+define("ARTICLE_SUGGESTION","SciELO: Recommended article from ");
 
 /*
 rótulos para a tela envio de nova senha
@@ -474,7 +471,6 @@ define("FULL_TEXT","full text");
 
 if ($lang=="es")
 {
-define("ARTICLE_SUGGESTION","indicou un artículo para usted.");
 define("ARTICLE_REFERENCES","Referencias del artículo");
 define('NO_DATA_FOR_GRAPHIC','Gráfico no disponible, datos en procesamiento.');
 
@@ -485,7 +481,7 @@ define("TO_EMAIL","Correo Electrónico del Destinatario:");
 define("TO_NAME","Destinatario:");
 define("COMMENTS","Comentários:");
 define("ARTICLE_TITLE","Título: ");
-define("ARTICLE_SUGGESTION","indicou un artículo para usted.");
+define("ARTICLE_SUGGESTION","SciELO: Artículo recomendado de ");
 
 /*
 rótulos para a tela envio de nova senha
