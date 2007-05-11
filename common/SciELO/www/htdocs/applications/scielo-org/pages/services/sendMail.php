@@ -83,7 +83,7 @@ switch($acao){
 		$_mail->AddReplyTo($cgi["from"],$cgi["fromName"]);
 		$_mail->From     = "appscielo@bireme.org";
 		$_mail->FromName = "Scielo";
-		$_mail->Subject  = $cgi["fromName"]." ".ARTICLE_SUGGESTION;
+		$_mail->Subject  = ARTICLE_SUGGESTION." ".$cgi["fromName"];
 		$_mail->Host     = "esmeralda.bireme.br";
 		$_mail->Password = "x@07sci@";
 		$_mail->Username = "appscielo";
