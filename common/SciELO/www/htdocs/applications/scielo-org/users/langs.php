@@ -18,6 +18,8 @@ if(!in_array($lang,$langs)){
 
 if($lang == "pt")
 {
+define("SCIELO.ORG"," indicou um artigo para você.");
+define("ARTICLE_REFERENCES","Referências do Artigo");
 define("ARTICLE_SUGGESTION"," indicou um artigo para você.");
 define('NO_DATA_FOR_GRAPHIC','Gráfico não disponível, dados em processamento.');
 
@@ -247,6 +249,7 @@ define("FULL_TEXT","texto completo");
 if ($lang=="en")
 {
 define("ARTICLE_SUGGESTION"," suggested a article to you.");
+define("ARTICLE_REFERENCES","Article References");
 define('NO_DATA_FOR_GRAPHIC','Graphic unavailable, data in processing.');
 
 /*
@@ -472,6 +475,7 @@ define("FULL_TEXT","full text");
 if ($lang=="es")
 {
 define("ARTICLE_SUGGESTION","indicou un artículo para usted.");
+define("ARTICLE_REFERENCES","Referencias del artículo");
 define('NO_DATA_FOR_GRAPHIC','Gráfico no disponible, datos en procesamiento.');
 
 /*
