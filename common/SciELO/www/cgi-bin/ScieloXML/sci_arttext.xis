@@ -43,7 +43,7 @@
 	 4001^p - PID 
      4001^t - text language
 --> 
- <field action="import" tag="list">7009/7034,7041</field> <!-- fixed -->
+ <field action="import" tag="list">7009/7050</field> <!-- fixed -->
  
  <call name="CreateIssueInfoXML"><pft>v4001^s</pft></call>
  <call name="CreateIssueTitleXML"><pft>'^r'v4001^s'^l'v4001^l'^i'v4001^i</pft></call>
@@ -57,7 +57,7 @@
   <loop>
    <field action="cgi" tag="11">tlng</field>
    <display><pft>@PROC_SPLIT_MST.PFT</pft></display>
-   <field action="import" tag="list">4001,7009/7034,7041</field> <!-- fixed -->
+   <field action="import" tag="list">4001,7009/7050</field> <!-- fixed -->
 
    <!-- fixed 20040607 - solucao para email solange 07/06/2004 - verifica se existe a traduçao antes -->
    
@@ -89,6 +89,8 @@
 	,' RELATED="',ref(['related']l(['related']v880),f(nocc(v88),2,0)),'"',
         ,' CITED="',ref(['cited']l(['cited']v880),f(nocc(v88),2,0)),'"',
         ,' PROCESSDATE="',ref(l('OU=',v880),proc(if val(v32701^m) > 0 then,'R../bases/artigo/',v32701^*,',',v32701^m , fi),v91),'"',
+	 ,' CURR_DATE="',mid(date,1,8),'"'
+	 ,' ahpdate="',v223,'"'
 
     </pft>
    </display>
@@ -108,7 +110,7 @@
  </do>
  
  <display><pft>'<BODY><![CDATA[ '</pft></display
-<trace>xOn</trace>
+
   <flow action="jump"><pft>if v7999[1]<>'' then 'body_file_inicio' else 'body_base' fi</pft></flow>
 <label>body_file_inicio</label>
  <call name="GetContentTranslationFileName"><pft>v7999[1]</pft></call> 
@@ -186,7 +188,7 @@
    <call name="PROC_SPLIT_MST"><pft>v32701</pft></call>
    <flow action="skip"><pft>if v706 <> 'p' then 'Next' fi</pft></flow>
 
-   <field action="import" tag="list">40,4001,5000,7009/7034,7041</field>
+   <field action="import" tag="list">40,4001,5000,7009/7050</field>
    <field action="import" tag="list">7999,9900,9903</field>
    
    <flow action="jump"><pft>if v9900<>'check_reference_paragraph' then 'paragraphs' fi</pft></flow>
@@ -352,9 +354,9 @@
    <field action="replace" tag="3333"><pft>ref(['ARTIGO']l(['ARTIGO'],'R='v3330),@PROC_SPLIT_MST.PFT,' intitle:%22'v12^*'%22')</pft></field> <!--('%22author:'v10^n' ','author:'v10^s'%22'), colocar antes do intitle se quiser incluir autores no try google--> 
    <field action="replace" tag="3334"><pft>ref(['ARTIGO']l(['ARTIGO'],'R='v3330),@PROC_SPLIT_MST.PFT,v12^*)</pft></field>    
 
-	<field action="import" tag="9900">9900</field>   
+	<field action="import" tag="9800">9800</field>   
 	<call name="getDOILink"><pft>v3330</pft></call>
-	<field action="export" tag="9900">9900</field>   
+	<field action="export" tag="9800">9800</field>   
 
 
 <display>
