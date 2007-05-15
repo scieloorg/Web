@@ -23,8 +23,9 @@ $articleService->setParams($pid);
 $article = $articleService->getArticle();
 ?>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 		<html>
 			<head>
 				<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
@@ -37,36 +38,34 @@ $article = $articleService->getArticle();
 						</div>
 						<div class="top">
 							<div id="parent">
-								<img src="/applications/scielo-org/img/<?=$lang?>/scielobre.gif')}" alt="SciELO - Scientific Electronic Librery Online"/>
+								<img src="/img/<?=$lang?>/scielobre.gif" alt="SciELO - Scientific Electronic Library Online"/>
 							</div>
 							<div id="identification">
 								<h1>
 									<span>
-										SciELO.org - Scientific Electronic Library Online
+										SciELO - Scientific Electronic Library Online
 									</span>
 								</h1>
 							</div>
 						</div>
 						<div class="middle">
 							<div id="collection">
+								<h3>
+									<span>
+										<?=ARTICLE_REFERENCES?>
+									</span>
+								</h3>
 								<div class="content">
-									<h3>
-										<span>
-											<?=ARTICLE_REFERENCES?>
-										</span>
-									</h3>
 									<TABLE border="0" cellpadding="0" cellspacing="2" width="550" align="center">
 									<TR>
-										<TD colspan="2">
-											<?=ARTICLE_TITLE?> . <?=getTitle($article->getTitle());?>
-										</TD> 
+										<TD colspan="2"><?=ARTICLE_TITLE?><?=getTitle($article->getTitle());?></TD>
 									</TR>
 									<TR>
 										<TD height="15">
 										</TD>
 									</TR>
 									<TR>
-										<TD colspan="2"><?php
+										<TD><?php
 											$serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/webservices/wxis/?IsisScript=search.xis&database=".$databasePath ."artigo/artigo&search=r=" . $pid . "$"; 
 											$xml = file_get_contents($serviceUrl);
 											$xsl = dirname(__FILE__)."/../xsl/reference.xsl";
@@ -76,7 +75,7 @@ $article = $articleService->getArticle();
 											$transformer->setXSL($xsl);
 											$transformer->transform();
 											$output = $transformer->getOutput();
-											echo ($output);
+											echo (utf8_decode($output));
 											?>
 										</TD>
 									</TR>
