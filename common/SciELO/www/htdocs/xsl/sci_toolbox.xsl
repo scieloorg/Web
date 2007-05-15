@@ -126,6 +126,18 @@
 						</xsl:choose>
 					</a>
 				</li>
+				<li>
+					<a>
+						<xsl:attribute name="href">javascript:void(0);</xsl:attribute>
+						<xsl:attribute name="onClick">javascript: window.open('http://<xsl:value-of select="concat(//SERVER,'/scieloOrg/php/reference.php?pid=',//ARTICLE/@PID,'&amp;caller=',//SERVER,'&amp;lang=',$LANGUAGE)"/>','','width=640,height=480,resizable=yes,scrollbars=1,menubar=yes');</xsl:attribute>
+						<img src="/img/{$LANGUAGE}/iconXMLDocument.gif"/>						
+						<xsl:choose>
+							<xsl:when test="$LANGUAGE='en' ">Article references</xsl:when>
+							<xsl:when test="$LANGUAGE='pt' ">Referências do artigo</xsl:when>
+							<xsl:when test="$LANGUAGE='es' ">Referencias del artículo</xsl:when>
+						</xsl:choose>
+					</a>
+				</li>
 
 				<!-- Tirando o "buraco" que fica no IE qnd não tem curriculo LATES -->
 				<xsl:if test="ISSUE/ARTICLE/LATTES/AUTHOR">
