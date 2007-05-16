@@ -7,6 +7,7 @@ PATH_DATA:     tag 7014
 <field action="replace" tag="8034"><pft>getenv('PATH_TRANSLATED')</pft></field>
 <field action="replace" tag="8034"><pft>if a(v8034) then v8035 fi</pft></field>
 
+
 <field action="replace" tag="8034">
     <pft>
 		replace(v8034,'scielo.php','')
@@ -54,7 +55,8 @@ PATH_DATA:     tag 7014
             'search.xrf=',v7011,'artigo/artigo.xrf',/
         'artigob1.*=', v7011, 'artigo/artigob1.*',/
         'artigob2.*=', v7011, 'artigo/artigob2.*',/
-        'artigo_a.*=', v7011, 'artigo/artigo_a.*',/
+	'artigo.*=', v7011, 'artigo/artigo.*',/
+	'artigo_a.*=', v7011, 'artigo/artigo_a.*',/
         'artigo_b.*=', v7011, 'artigo/artigo_b.*',/
         'artigo_c.*=', v7011, 'artigo/artigo_c.*',/
         'artigo_d.*=', v7011, 'artigo/artigo_d.*',/
@@ -83,9 +85,8 @@ PATH_DATA:     tag 7014
         'artigo_1.*=', v7011, 'artigo/artigo_1.*',/
         'related.*=', v7011, 'related/related.*',/
         'cited.*=', v7011, 'cited/cited.*',/
-
-
-        'PROC_SPLIT_MST.PFT=', v8034, 'pfts/proc_split_mst.pft',/
+	'PROC_SPLIT_MST.PFT=', v8034, 'pfts/proc_split_mst.pft',/
+	'GIZMO_XML.*=/home/scielo/www/htdocs/webservices/wxis/gizmo/gizmoXML.*',/
 	</pft>
 </parm>
 
