@@ -86,7 +86,7 @@ PATH_DATA:     tag 7014
         'related.*=', v7011, 'related/related.*',/
         'cited.*=', v7011, 'cited/cited.*',/
 	'PROC_SPLIT_MST.PFT=', v8034, 'pfts/proc_split_mst.pft',/
-	'GIZMO_XML.*=/home/scielo/www/htdocs/webservices/wxis/gizmo/gizmoXML.*',/
+	'GIZMO_XML_REF.*=/home/scielo/www/htdocs/webservices/wxis/gizmo/gizmoXML.*',/
 	</pft>
 </parm>
 
