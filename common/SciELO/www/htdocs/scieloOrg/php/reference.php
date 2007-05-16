@@ -66,8 +66,9 @@ $article = $articleService->getArticle();
 									</TR>
 									<TR>
 										<TD><?php
-											$serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/webservices/wxis/?IsisScript=search.xis&database=".$databasePath ."artigo/artigo&search=r=" . $pid . "$"; 
+											$serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/?IsisScript=ScieloXML/sci_references.xis&database=artigo&gizmo=GIZMO_XML_REF&search=r=" . $pid . "$"; 
 											$xml = file_get_contents($serviceUrl);
+											echo("<!--".$xml."-->");
 											$xsl = dirname(__FILE__)."/../xsl/reference.xsl";
 											$transformer = new XSLTransformer();
 											$transformer->setXslBaseUri(dirname(__FILE__));
