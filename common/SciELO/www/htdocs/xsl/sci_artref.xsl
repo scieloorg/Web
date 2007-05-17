@@ -1413,8 +1413,7 @@ Parameters:
 					</td>
 					<td valign="middle">
 						<a href="{AUTHOR/@HREF}" onmouseover="status='{AUTHOR/@HREF}'; return true;" onmouseout="status='';" style="text-decoration: none;">
-							<font class="nomodel" size="2">
-								<!-- fixed Curriculum Lattes -->Curriculum ScienTI</font>
+							<font class="nomodel" size="2">Curriculum ScienTI</font>
 						</a>
 					</td>
 				</xsl:when>
@@ -1429,8 +1428,7 @@ Parameters:
 					<td>
 						<a href="javascript:void(0);" onclick="OpenLattesWindow();" onmouseout="status='';" style="text-decoration: none;">
 							<xsl:attribute name="onmouseover"><xsl:choose><xsl:when test=" $LANGUAGE = 'en' ">status='Authors List'; return true;</xsl:when><xsl:when test=" $LANGUAGE = 'pt' ">status='Lista de Autores'; return true;</xsl:when><xsl:when test=" $LANGUAGE = 'es' ">status='Lista de Autores'; return true;</xsl:when></xsl:choose></xsl:attribute>
-							<font class="nomodel" size="2">
-								<!-- fixed Curriculum Lattes -->Curriculum ScienTI</font>
+							<font class="nomodel" size="2">Curriculum ScienTI</font>
 						</a>
 					</td>
 				</xsl:when>
