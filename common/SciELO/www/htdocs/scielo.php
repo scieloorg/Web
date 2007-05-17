@@ -258,9 +258,9 @@ function wxis_exe ( $url )
 			//se cache desligado então retorna a transformação, sem passar pelo cache
 			$result = wxis_exe_($url);
 		}
-		
-		$memcache->close();
-
+		if($useCache == '1'){
+			$memcache->close();
+		}
 		return $result;
 }
 

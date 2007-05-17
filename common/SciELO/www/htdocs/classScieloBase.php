@@ -373,7 +373,9 @@ class ScieloBase
 			//se cache desligado então retorna a transformação, sem passar pelo cache
 			$result = $this->_TransformXML();
 		}
-		$memcache->close();
+		if($useCache == '1'){
+			$memcache->close();
+		}
 		return $result;
 	}
 
