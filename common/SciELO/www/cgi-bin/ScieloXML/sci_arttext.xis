@@ -273,119 +273,23 @@
    </flow>
    
    <!-- Create Reference Link -->   
-   <do task="search">
-    <parm name="db">NLINKS</parm>
-    <parm name="expression"><pft>v880,s(f(val(v888)+100000,5,0))*1.5</pft></parm>
-
-    <field action="define" tag=1001>Isis_Current</field>
-    <field action="define" tag=1002>Isis_Total</field>
-    <field action="define" tag=1003>Isis_Status</field>
-	
-    <loop>	
-	 <flow action="skip"><pft>if a(v2) and a(v3) and a(v4) and a(v350) and a(v881)  and a(v999) then 'Quit' fi</pft></flow>
-	 
-	 <field action="import" tag="list">4001,4010,7009/7046</field>
-	  <!-- Others -->
-         <field action="add" tag="9999" split="occ"><pft>
-          (if v999^u<>'' then '<a href="',v999^u,'">',v999^l,'</a>'/ fi)
-          </pft></field>
-    
-	 <!-- MINISTERIO DA SAUDE  [alekenji20050413]-->
-	 <field action="replace" tag="9994">
-	  <pft>
-	   if p(v4) then
-	   '<a href="http://coleciona-sus.bvs.br/cgi-bin/wxis1660.exe/lildbi/iah/?IsisScript=lildbi/iah/iah.xic&nextAction=lnk&base=',
-	    mpu,v4^a,mpl,'&exprSearch='v4^*'&indexSearch=ID&lang=p">Coleciona-SUS</a>'		
-	   fi
-	  </pft>
-	 </field>
-
-	 <!-- MEDLINE -->
-	 <field action="replace" tag="9995">
-	  <pft>
-	   if p(v350) then
-	   '<a href="http://'v7027,v7028,v7030'?IsisScript='v7029'iah.xis&nextAction=lnk&base=',
-	    mpu,v350^a,mpl,'&exprSearch='v350^*'&indexSearch=UI&lang=',v4010,'">Medline</a>'		
-	   fi
-	  </pft>
-	 </field>
-	 
-	 <!-- LILACS -->
-	 <field action="replace" tag="9996">
-	  <pft>
-	   if p(v2) then
-	   '<a href="http://'v7023,v7024,v7026'?IsisScript='v7025'iah.xis&nextAction=lnk&base=',
-	    mpu,v2^a,mpl,'&exprSearch='f(val(v2^*),1,0),'&indexSearch=ID&lang=',v4010,'">Lilacs</a>'		
-	   fi
-	  </pft>
-	 </field>
-	 	 	 
-	 <!-- ADOLEC -->
-	 <field action="replace" tag="9997">
-	  <pft>
-	   if p(v3) then
-	   '<a href="http://'v7031,v7032,v7034'?IsisScript='v7033'iah.xis&nextAction=lnk&base=',   
-	   mpu,v3^a,mpl,'&exprSearch=',f(val(v3^*),1,0),'&indexSearch=ID&lang=',v4010,'">Adolec</a>'		
-	   fi
-	  </pft>
-	 </field>
-	 
-	 <!-- SCIELO -->
-	 <field action="replace" tag="9998"><pft>
-	  if p(v881) then
-	  '<a href="http://'v7009,v7013,'scielo.php?script=sci_arttext&pid='mpu,v881^*,mpl,
-	  '&lng='v4001^l'&nrm='v4001^n'">SciELO</a>'
-	  fi</pft>
-	 </field>
-	 
-	 <field action="export" tag="list">9994/9999</field>
-    </loop>
-   </do>
-   <file action="close" type="database">NLINKS</file>
-   <!--flow action="jump">
-    <pft>if a(v9994) and a(v9995) and a(v9996) and a(v9997) and a(v9998)  and a(v9999)  then 'PRINT_REF' fi</pft>
-   </flow-->
-   
    <field action="replace" tag="703"><pft>mpu,v704^*,mpl</pft></field>   
    <field action="replace" tag="9669"><pft>' '</pft></field>   
+   <field action="replace" tag="9999"><pft>|'|v9669</pft></field>
    <field action="replace" tag="705"><pft>f(instr(v703,'</P>'),1,0)</pft></field>
-   <field action="replace" tag="705"><pft>if val(v705)=0 then f(instr(v703,'<HR'),1,0) fi</pft></field>
    <field action="replace" tag="3330"><pft>s(v880,s(f(val(v888)+100000,5,0))*1.5)</pft></field>
    <field action="replace" tag="3333"><pft>ref(['ARTIGO']l(['ARTIGO'],'R='v3330),@PROC_SPLIT_MST.PFT,' intitle:%22'v12^*'%22')</pft></field> <!--('%22author:'v10^n' ','author:'v10^s'%22'), colocar antes do intitle se quiser incluir autores no try google--> 
    <field action="replace" tag="3334"><pft>ref(['ARTIGO']l(['ARTIGO'],'R='v3330),@PROC_SPLIT_MST.PFT,v12^*)</pft></field>    
-
-	<field action="import" tag="9800">9800</field>   
-	<call name="getDOILink"><pft>v3330</pft></call>
-	<field action="export" tag="9800">9800</field>   
-
-
 <display>
     <pft>
     	,if val(v705)>0 then mid(v704^*,1,val(v705)-1)/ else v704^*/ fi,
-  		,if p(v9994) or p(v9995) or p(v9996) or p(v9997) or p(v9998)  or p(v9999) then
-			'<br>'
-		,fi
-		"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ "v9995" ]",
-        "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ "v9996" ]",
-        "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ "v9997" ]",
-        "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ "v9998" ]",
-        "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ "v9994" ]",
-	("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ "v9999" ]"),
-		if a(v9994) and a(v9995) and a(v9996) and a(v9997) and a(v9998)  and a(v9999)  then
-			'<br/>'
-		fi
-
-		if p(v3333) then
-			'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ <a href="http://scholar.google.com/scholar?q=',replace(v3333,' ','+'),'" target="_blank">Try Google </a> ]',
-			|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ <a onclick="javascript:window.open('/scieloOrg/php/similar.php?lang=|v4001^t,
-			'&text=',replace(v3334,' ','+'),
-			|','popUp'|v9669|,'|,
-			'height=500,width=820,menubar=yes,location=no,resizable=yes,scrollbars=yes,status=no',
-			|');" href="#">Similar</a> ]|v9669
-
-		fi
-		
-         if val(v705)>0 and  v8000<>'.xml' then mid(v704^*,val(v705),size(v704^*))/ fi
+	'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ <a href="javascript:void(0);" onclick="javascript: window.open(',v9999*0.1,'/scielo.php?pid=',s(v880,s(f(val(v888)+100000,5,0))*1.5),'&lng=',v4001^t,'&script=sci_reflinks',v9999*0.1,','v9999*0.1,v9999*0.1',',v9999*0.1,'width=640,height=320,resizable=yes,scrollbars=1,menubar=yes,',v9999*0.1,');">',
+	 select s(v4001^t)	
+	    case 'es': 'Servicios de links para referencias'
+	    case 'en': 'Reference links services'
+	    case 'pt': 'Serviços de links para referências'
+	endsel
+	,'</a> ]',
 </pft>
 </display>
 
