@@ -48,7 +48,7 @@ error_reporting(1);
 				<div>
 					<?
 							$domain = "http://".str_replace("http://","",$_GET['caller']);
-							echo '<a target="_blank" href="'.$domain.'/scielo.php?script=sci_arttext&pid='.$article->getPID().'&lng='.$lang.'&nrm=iso&tlng='.$lang.'" >'.getTitle($article->getTitle())."</a><br>\n";
+							echo getTitle($article->getTitle())."<br>\n";
 							echo '</a></b>'."\n";
 							echo '<i>';
 							echo getAutors($article->getAuthorXML());
