@@ -10,7 +10,6 @@
 	<xsl:variable name="total" select="count(//similarlist/similar/article)"/>
 	<xsl:template match="/">
 	<!-- start html -->
-
 		<html>
 			<head>
 				<link rel="stylesheet" href="/applications/scielo-org/css/public/style-{$lang}.css" type="text/css" media="screen"/>
@@ -36,13 +35,17 @@
 						<div class="middle">
 							<div id="collection">
 								<h3>
-								<xsl:value-of select="$texts/text[find='findReferenceOnLine']/replace"/>
+									<span style="font-size:120%; ">
+										<xsl:value-of select="$texts/text[find='findReferenceOnLine']/replace"/>
+									</span>
 								</h3>
+								
 								<h3>
-									<span style="font-size = 80%">
+									<span style="font-weigth:none;">
 										<xsl:value-of select="//ref_TITLE"/>
 									</span>
 								</h3>
+								
 								<div class="content">
 									<div class="articleList">
 										<xsl:if test="//medline or //lilacs or //scielo or //crossref">
