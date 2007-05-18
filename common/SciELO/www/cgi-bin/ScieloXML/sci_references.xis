@@ -71,9 +71,6 @@
 
 		<field action="define" tag="1001">Isis_Current</field>
 		<field action="define" tag="1002">Isis_Total</field>
-
-		<field action="define" tag="1001">Isis_Current</field>
-		<field action="define" tag="1002">Isis_Total</field>
 		<field action="define" tag="1102">Isis_Status</field>
 
 		<parm name="isisxml table">
@@ -90,8 +87,35 @@
 		<flow action="jump"><pft>if p(v2051) then 'EXTRACT' fi</pft></flow>
 
 		<loop>
-			<display><pft>@PROC_SPLIT_MST.PFT</pft></display>
+			<field action="import" tag="list">2007</field>
+			<flow action="jump"><pft>if val(v32701^m) > 0 then 'proc_split' fi</pft></flow>
 			<display><isisxml>*</isisxml></display>
+			<flow action="skip">Next</flow>
+			
+
+			<label>proc_split</label>
+			<do task="mfnrange">
+				<parm name="db"><pft>v32701^*</pft></parm>
+				<parm name="from"><pft>v32701^m</pft></parm>
+				<parm name="count">1</parm>
+				<parm name="gizmo"><pft>(v2007)</pft></parm>
+				<field action="define" tag="1001">Isis_Current</field>
+				<field action="define" tag="1002">Isis_Total</field>
+				<field action="define" tag="1102">Isis_Status</field>
+
+				<parm name="isisxml table">
+					<pft>
+						'1001 Isis_Current'/
+						'1002 Isis_Total'/
+					</pft>
+				</parm>
+		
+				<loop>
+					<display><isisxml>*</isisxml></display>
+				</loop>
+			</do>
+			
+			
 		</loop>
 		<flow action="jump">EPILOG</flow>
 
