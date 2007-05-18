@@ -107,9 +107,9 @@
 							</xsl:call-template>
 							<img src="/img/{$LANGUAGE}/iconPDFDocument.gif"/>
 							<xsl:choose>
-								<xsl:when test="$LANGUAGE='en' ">article in PDF format</xsl:when>
-								<xsl:when test="$LANGUAGE='pt' ">artigo em formato PDF</xsl:when>
-								<xsl:when test="$LANGUAGE='es' ">artículo en el formato PDF</xsl:when>
+								<xsl:when test="$LANGUAGE='en' ">Article in PDF format</xsl:when>
+								<xsl:when test="$LANGUAGE='pt' ">Artigo em formato PDF</xsl:when>
+								<xsl:when test="$LANGUAGE='es' ">Artículo en el formato PDF</xsl:when>
 							</xsl:choose>
 						</a>
 					</li>
@@ -120,9 +120,9 @@
 						<xsl:attribute name="target">xml</xsl:attribute>
 						<img src="/img/{$LANGUAGE}/iconXMLDocument.gif"/>						
 						<xsl:choose>
-							<xsl:when test="$LANGUAGE='en' ">article in XML  format</xsl:when>
-							<xsl:when test="$LANGUAGE='pt' ">artigo em formato XML  </xsl:when>
-							<xsl:when test="$LANGUAGE='es' ">artículo en el formato XML  </xsl:when>
+							<xsl:when test="$LANGUAGE='en' ">Article in XML  format</xsl:when>
+							<xsl:when test="$LANGUAGE='pt' ">Artigo em formato XML  </xsl:when>
+							<xsl:when test="$LANGUAGE='es' ">Artículo en el formato XML  </xsl:when>
 						</xsl:choose>
 					</a>
 				</li>
