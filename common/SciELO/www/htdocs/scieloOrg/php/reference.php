@@ -58,7 +58,7 @@ $article = $articleService->getArticle();
 								<div class="content">
 									<TABLE border="0" cellpadding="0" cellspacing="2" width="550" align="center">
 									<TR>
-										<TD colspan="2"><?=ARTICLE_TITLE?><?=getTitle($article->getTitle());?></TD>
+										<TD colspan="2"><?=ARTICLE_TITLE?><b><u><?=getTitle($article->getTitle());?></u></b></TD>
 									</TR>
 									<TR>
 										<TD height="15">
