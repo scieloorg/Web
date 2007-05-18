@@ -67,7 +67,12 @@ $article = $articleService->getArticle();
 									<TR>
 										<TD><?php
 											$serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/?IsisScript=ScieloXML/sci_references.xis&database=artigo&gizmo=GIZMO_XML_REF&search=r=" . $pid . "$"; 
-											$xml = file_get_contents($serviceUrl);
+											$xmlFile = file_get_contents($serviceUrl);
+											$xml = '<?xml version="1.0" encoding="ISO-8859-1"?>';
+											$xml .='<root>';
+											$xml .='<vars><lang>'.$lang.'</lang></vars>';
+											$xml .= str_replace('<?xml version="1.0" encoding="ISO-8859-1"?>','',$xmlFile);
+											$xml .='</root>';
 											$xsl = dirname(__FILE__)."/../xsl/reference.xsl";
 											$transformer = new XSLTransformer();
 											$transformer->setXslBaseUri(dirname(__FILE__));
