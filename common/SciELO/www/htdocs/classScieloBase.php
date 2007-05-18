@@ -327,56 +327,39 @@ class ScieloBase
 	{
 		$useCache = $this->_def->getKeyValue("ENABLED_CACHE");
 
-		if($useCache == '1'){
-			$serverCache = $this->_def->getKeyValue("SERVER_CACHE");
-			$serverPortCache = $this->_def->getKeyValue("SERVER_PORT_CACHE");
+		$chave = sha1($_SERVER['REQUEST_URI']).'HTML';
+		$chaveNula = '42099b4af021e53fd8fd4e056c2568d7c2e3ffa8HTML';
+		$result = false;
 
-			$result = "";
-			$memcache = new Memcache;
-			$memcache->connect($serverCache,$serverPortCache) or die('Erro ao tentar conectar no server de cache');
+		$restrito = false;
 
-			$str = $_SERVER['REQUEST_URI'];
-			//tem isso aki pq as vezes a URL vem com os
-			//paramentros da query separados por / e
-			//delimitados por _
-			$str = str_replace("sci_","sciI",$str);
-			$str = str_replace("_","=",$str);
-			$str = str_replace("/","&",$str);
-			$str = str_replace("sciI","sci_",$str);
+		if($_SERVER['SCRIPT_NAME']=='/scielolog.php'){
+			$chave = $chaveNula;
+			$restrito = true;
+		}
 
-			parse_str(str_replace("scielo.php?","",$str),$saida);
+		if(($useCache == '1') && (!$restrito)){
+			require_once('cache.php');
 
-			$chave = $saida['script'].$saida['pid'].$saida['lng'].$saida['tlng']."HTML";
-
-			$result = false;
-
-			//a chave pode ver como HTML por exemplo na home, quanto não há parametros na
-			//URL, para evitar problemas, não colocamos essa chave em cache posis não podemos
-			//prever quando essa situação poderá ocorrer novamente
-			if($chave != 'HTML'){
-				//pesquisa no cache a chave
-				$result = $memcache->get($chave);
-
-				if($result == false){
-					//se não achou, transforma, coloca no cache e retorna
-					$result = $this->_TransformXML();
-					$memcache->add($chave,$result);
-					$result = $result."\n".'<!-- XHTML in cache-->';
+			if($chave != $chaveNula){
+				$result = getFromCache($chave);
+				if($result != false){
+					return $result."\n".'<!-- XHTML ja no cache-->'."\n <!--".$chave.'-->';
 				}else{
-					$result = $result."\n".'<!-- XHTML in cache-->';
+					$result = $this->_TransformXML();
+					if(addToCache($chave,$result)){
+						return $result."\n".'<!-- XHTML colocado cache-->'."\n <!--".$chave.'-->';
+					}else{
+						return $result."\n".'<!-- ERRO !XHTML colocado cache-->'."\n <!--".$chave.'-->';
+					}
 				}
 			}else{
-				//se chave == HTML então retorna a transformação, sem passar pelo cache
-				$result = $this->_TransformXML();
+				return $this->_TransformXML()."\n".'<!-- Null Key-->';	
 			}
 		}else{
-			//se cache desligado então retorna a transformação, sem passar pelo cache
-			$result = $this->_TransformXML();
+			return $this->_TransformXML()."\n".'<!-- not in cache -->';
 		}
-		if($useCache == '1'){
-			$memcache->close();
-		}
-		return $result;
+
 	}
 
 	/************************************************************************

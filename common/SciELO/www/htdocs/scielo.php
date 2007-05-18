@@ -1,5 +1,4 @@
 <?php	    
-
 	require_once("classScielo.php");
 	require_once('sso/header.php');
 
@@ -187,81 +186,56 @@ function wxis_exe ( $url )
 	global $wxisServer;
 	global $scielo;
 
-	$scielo->_def->getKeyValue("CACHE_STATUS");
-
 	$useCache = $scielo->_def->getKeyValue("ENABLED_CACHE");
+        $restrito = false;
 
-	if($useCache == '1'){
-		$serverCache = $scielo->_def->getKeyValue("SERVER_CACHE");
-		$serverPortCache = $scielo->_def->getKeyValue("SERVER_PORT_CACHE");
+        if($_SERVER['SCRIPT_NAME']=='/scielolog.php'){
+                $chave = $chaveNula;
+	        $restrito = true;
+        }
 
-			$result = "";
-			$memcache = new Memcache;
-			$memcache->connect($serverCache,$serverPortCache) or die('Erro ao tentar conectar no server de cache');
+	if(($useCache == '1') && (!$restrito)){
+		require_once('cache.php');
 
-			$str = $_SERVER['REQUEST_URI'];
-			//tem isso aki pq as vezes a URL vem com os
-			//paramentros da query separados por / e
-			//delimitados por _
-			$str = str_replace("sci_","sciI",$str);
-			$str = str_replace("_","=",$str);
-			$str = str_replace("/","&",$str);
-			$str = str_replace("sciI","sci_",$str);
-			parse_str(str_replace("scielo.php?","",$str),$saida);
-			if($saida['debug'] == 'cache'){
-					$arr = $memcache->getExtendedStats($saida['debugtype']);
-					$arr = array_pop($arr);
-					echo '<table border="1">';
-					foreach($arr as $key => $value){
-							echo '<tr>';
-							echo '<td>'.$key.'</td>';
-							if(is_array($value)){
-									echo '<td><table border="1">';
-									foreach($value as $k=>$v){
-											echo '<tr>';
-											echo '<td>'.$k.'</td>';
-											echo '<td>'.$v.'</td>';
-											echo '</tr>';
-									}
-									echo '</table></td>';
-							}else{
-									echo '<td>'.$value.'</td>';
-							}
-							echo '</tr>';
-					}
-					echo '</table>';
-					$memcache->close();
-					die();
-			}
+		if(strpos($_SERVER['REQUEST_URI'],'deletefromcache')){
+			$key = substr($_SERVER['REQUEST_URI'],strpos($_SERVER['REQUEST_URI'],'deletefromcache')+16,40);
+			echo 'apagando chave '.$key.'XML resultado :'.deleteFromCache($key.'XML');
+			echo '<hr>';
+			echo 'apagando chave '.$key.'HTML resultado :'.deleteFromCache($key.'HTML');
+			die();
+		}
 
-			$chave = $saida['script'].$saida['pid'].$saida['lng'].$saida['tlng']."XML";
+                if(strpos($_SERVER['REQUEST_URI'],'cachestats')){
+			echo getStatsFromCache($_GET['type'], $_GET['slabs'], 10);
+                        die();
+                }
 
-			$result = false;
+		$result = "";
+		$chave = sha1($_SERVER['REQUEST_URI']).'XML';
+		$chaveNula = '42099b4af021e53fd8fd4e056c2568d7c2e3ffa8XML';
+		$result = false;
+		//a chave pode ver como XML por exemplo na home, quanto não há parametros na
+		//URL, para evitar problemas, não colocamos essa chave em cache posis não podemos
+		//prever quando essa situação poderá ocorrer novamente
+		if($chave != $chaveNula){
+			//pesquisa no cache a chave
+			$result = getFromCache($chave);
 
-			//a chave pode ver como XML por exemplo na home, quanto não há parametros na
-			//URL, para evitar problemas, não colocamos essa chave em cache posis não podemos
-			//prever quando essa situação poderá ocorrer novamente
-			if($chave != 'XML'){
-				//pesquisa no cache a chave
-				$result = $memcache->get($chave);
-
-				if($result == false){
-					//se não achou, transforma, coloca no cache e retorna
-					$result = wxis_exe_($url);
-					$memcache->add($chave,$result);
-				}
-			}else{
-				//se chave == XML então retorna o XML, sem passar pelo cache
+			if($result == false){
+				//se não achou, transforma, coloca no cache e retorna
 				$result = wxis_exe_($url);
+				addToCache($chave,$result);
 			}
 		}else{
-			//se cache desligado então retorna a transformação, sem passar pelo cache
+			//se chave == XML então retorna o XML, sem passar pelo cache
 			$result = wxis_exe_($url);
 		}
-		if($useCache == '1'){
-			$memcache->close();
-		}
-		return $result;
+	}else{
+		//se cache desligado então retorna a transformação, sem passar pelo cache
+		$result = wxis_exe_($url);
+	}
+	
+	return $result;
 }
 
 
