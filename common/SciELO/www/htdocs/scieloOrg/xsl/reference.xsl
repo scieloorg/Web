@@ -1,23 +1,29 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 	<xsl:output method="html" version="1.0" encoding="UTF-8" indent="yes"/>
+
+	<xsl:variable name="lang" select="/root/vars/lang"/>
+	<xsl:variable name="texts" select="document('file:///home/scielo/www/htdocs/applications/scielo-org/xml/texts.xml')/texts/language[@id = $lang]"/>
+
 	<xsl:template match="/">
 		<div class="articleList">
 			<ul>
-				<xsl:apply-templates select="//record"/>
+				<xsl:apply-templates select="//root"/>
 			</ul>
 		</div>
 	</xsl:template>
+	
 	<xsl:template match="record">
 		<li>
 			<div style="clear: both; height: 1px; margin: 0px; padding: 0px;" />
 			<xsl:apply-templates select="field[(@tag = 10) or (@tag = 16)]" mode="author"/>
+			<xsl:apply-templates select="field[@tag = 64]" mode="date"/>
 			<xsl:apply-templates select="field[(@tag = 12) or (@tag = 18)]" mode="title"/>
 			<xsl:apply-templates select="field[@tag = 30]" mode="serTitle"/>
-			<xsl:apply-templates select="field[@tag = 65]" mode="dateiso" /> 
 			<xsl:apply-templates select="field[@tag = 882]" mode="volume"/>
 			<xsl:apply-templates select="field[@tag = 882]" mode="number"/>
-			<xsl:apply-templates select="field[@tag = 35]" mode="ISSN"/>. [ Serviços de links para referências ]<br/>
+			<xsl:apply-templates select="field[@tag = 35]" mode="ISSN"/>. [ <a href="http://scielo3.br.local/scielo.php?pid={field[@tag = 880]/occ}&amp;lng={$lang}&amp;script=sci_reflinks"><xsl:value-of select="$texts/text[find='findReferenceOnLine']/replace"/></a> ]<br/>
+			
 		</li>
 	</xsl:template>
 
@@ -28,7 +34,11 @@
 	</xsl:template>
 
 	<xsl:template match="field" mode="author">
-		<xsl:value-of select="occ/@n"/> 
+		<xsl:value-of select="occ/@s"/>, <xsl:value-of select="occ/@n"/> 
+	</xsl:template>
+
+	<xsl:template match="field" mode="date">
+		. <xsl:value-of select="occ"/>
 	</xsl:template>
 
 	<xsl:template match="field" mode="title">
@@ -37,10 +47,6 @@
 
 	<xsl:template match="field" mode="serTitle">
 		, <i><xsl:value-of select="occ"/></i>
-	</xsl:template>
-
-	<xsl:template match="field" mode="dateiso">
-		<xsl:value-of select="substring(field[@tag = 65],1,4)"/>,
 	</xsl:template>
 
 	<xsl:template match="field" mode="volume">
