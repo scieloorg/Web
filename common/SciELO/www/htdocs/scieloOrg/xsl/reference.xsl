@@ -10,18 +10,49 @@
 	</xsl:template>
 	<xsl:template match="record">
 		<li>
-			<div style="clear: both; height: 1px; margin: 0px; padding: 0px;"/>
-			<xsl:apply-templates select="field[@tag = 10]/occ"/>.<b>
-				<xsl:value-of select="field[@tag = 12]"/>
-			</b>. <xsl:value-of select="field[@tag = 30]"/> ,<xsl:value-of select="substring(field[@tag = 65],1,4)"/>, vol.<xsl:value-of select="field[@tag = 882]/occ/@v"/>, no.<xsl:value-of select="field[@tag = 882]/occ/@n"/>
-			<xsl:apply-templates select="field[@tag = 35]" mode="ISSN"/>.<br/>
+			<div style="clear: both; height: 1px; margin: 0px; padding: 0px;" />
+			<xsl:apply-templates select="field[(@tag = 10) or (@tag = 16)]" mode="author"/>
+			<xsl:apply-templates select="field[(@tag = 12) or (@tag = 18)]" mode="title"/>
+			<xsl:apply-templates select="field[@tag = 30]" mode="serTitle"/>
+			<xsl:apply-templates select="field[@tag = 65]" mode="dateiso" /> 
+			<xsl:apply-templates select="field[@tag = 882]" mode="volume"/>
+			<xsl:apply-templates select="field[@tag = 882]" mode="number"/>
+			<xsl:apply-templates select="field[@tag = 35]" mode="ISSN"/>. [ Serviços de links para referências ]<br/>
 		</li>
 	</xsl:template>
+
+
 	<xsl:template match="occ">
 		<xsl:if test="position()!=1">, </xsl:if>
 		<xsl:value-of select="@s"/>,  <xsl:value-of select="@n"/>
 	</xsl:template>
-	<xsl:template match="field" mode="ISSN">
-		, ISSN: <xsl:value-of select="occ"/>
+
+	<xsl:template match="field" mode="author">
+		<xsl:value-of select="occ/@n"/> 
 	</xsl:template>
+
+	<xsl:template match="field" mode="title">
+		. <b><xsl:value-of select="occ"/></b>
+	</xsl:template>
+
+	<xsl:template match="field" mode="serTitle">
+		, <i><xsl:value-of select="occ"/></i>
+	</xsl:template>
+
+	<xsl:template match="field" mode="dateiso">
+		<xsl:value-of select="substring(field[@tag = 65],1,4)"/>,
+	</xsl:template>
+
+	<xsl:template match="field" mode="volume">
+		vol.<xsl:value-of select="occ/@v"/>.
+	</xsl:template>
+
+	<xsl:template match="field" mode="number">
+		no.<xsl:value-of select="occ/@n"/>
+	</xsl:template>
+	
+	<xsl:template match="field" mode="ISSN">
+		; ISSN: <xsl:value-of select="occ"/>
+	</xsl:template>
+
 </xsl:stylesheet>
