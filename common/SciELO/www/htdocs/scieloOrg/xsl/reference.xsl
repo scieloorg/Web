@@ -12,8 +12,13 @@
 		<div class="articleList">
 			<ul>
 				<xsl:apply-templates select="//record"/>
+				<xsl:apply-templates select="//Isis_Total[occ = 0]" mode="notFound"/>
 			</ul>
 		</div>
+	</xsl:template>
+
+	<xsl:template match="occ" mode="notFound">
+		<xsl:value-of select="$texts/text[find='notFound']/replace"/>
 	</xsl:template>
 	
 	<xsl:template match="record">
