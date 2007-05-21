@@ -35,13 +35,13 @@
 						<div class="middle">
 							<div id="collection">
 								<h3>
-									<span style="font-size:120%; ">
+									<span>
 										<xsl:value-of select="$texts/text[find='findReferenceOnLine']/replace"/>
 									</span>
 								</h3>
 								
 								<h3>
-									<span style="font-weigth:none;">
+									<span style="font-size: 70%; font-weight:normal;">
 										<xsl:value-of select="//ref_TITLE"/>
 									</span>
 								</h3>
