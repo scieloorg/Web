@@ -3,12 +3,15 @@
 	<xsl:output method="html" version="1.0" encoding="UTF-8" indent="yes"/>
 
 	<xsl:variable name="lang" select="/root/vars/lang"/>
+	<xsl:variable name="applserver" select="/root/vars/applserver"/>
 	<xsl:variable name="texts" select="document('file:///home/scielo/www/htdocs/applications/scielo-org/xml/texts.xml')/texts/language[@id = $lang]"/>
+
+
 
 	<xsl:template match="/">
 		<div class="articleList">
 			<ul>
-				<xsl:apply-templates select="//root"/>
+				<xsl:apply-templates select="//record"/>
 			</ul>
 		</div>
 	</xsl:template>
@@ -22,7 +25,7 @@
 			<xsl:apply-templates select="field[@tag = 30]" mode="serTitle"/>
 			<xsl:apply-templates select="field[@tag = 882]" mode="volume"/>
 			<xsl:apply-templates select="field[@tag = 882]" mode="number"/>
-			<xsl:apply-templates select="field[@tag = 35]" mode="ISSN"/>. [ <a href="http://scielo3.br.local/scielo.php?pid={field[@tag = 880]/occ}&amp;lng={$lang}&amp;script=sci_reflinks"><xsl:value-of select="$texts/text[find='findReferenceOnLine']/replace"/></a> ]<br/>
+			<xsl:apply-templates select="field[@tag = 35]" mode="ISSN"/>. [ <a href="http://{$applserver}/scielo.php?pid={field[@tag = 880]/occ}&amp;lng={$lang}&amp;script=sci_reflinks"><xsl:value-of select="$texts/text[find='findReferenceOnLine']/replace"/></a> ]<br/>
 			
 		</li>
 	</xsl:template>
