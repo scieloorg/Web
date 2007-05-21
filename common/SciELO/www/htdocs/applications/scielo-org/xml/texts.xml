@@ -3,6 +3,10 @@
 <texts>
 	<language id="pt">
 		<text>
+			<find>notFound</find>
+			<replace>Referências não encontradas</replace>
+		</text>
+		<text>
 			<find>scieloNetwork</find>
 			<replace>Rede Scielo</replace>
 		</text>	
@@ -104,6 +108,10 @@
 	</language>
 	<language id="es">
 		<text>
+			<find>notFound</find>
+			<replace>Referencias no encontradas</replace>
+		</text>
+		<text>
 			<find>scieloNetwork</find>
 			<replace>Red Scielo</replace>
 		</text>	
@@ -204,6 +212,10 @@
 		</text>
 	</language>
 	<language id="en">
+		<text>
+			<find>notFound</find>
+			<replace>References not found</replace>
+		</text>
 		<text>
 			<find>scieloNetwork</find>
 			<replace>Scielo Network</replace>
