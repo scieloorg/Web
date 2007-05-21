@@ -58,7 +58,17 @@ $article = $articleService->getArticle();
 								<div class="content">
 									<TABLE border="0" cellpadding="0" cellspacing="2" width="550" align="center">
 									<TR>
-										<TD colspan="2"><?=ARTICLE_TITLE?><b><u><?=getTitle($article->getTitle());?></u></b></TD>
+										<TD colspan="2">
+										<h3><span style="font-weight:100;font-size: 70%; background:none;">
+										<?php
+											// pra tirar o negrito e ficar igual ao reference links
+											$titulo = str_replace("</B>","",getTitle($article->getTitle()));
+											$titulo = str_replace("<B>","",getTitle($article->getTitle()));
+											echo $titulo;
+										?>
+										</span></h3>
+										
+										</TD>
 									</TR>
 									<TR>
 										<TD height="15">
@@ -66,7 +76,7 @@ $article = $articleService->getArticle();
 									</TR>
 									<TR>
 										<TD><?php
-											$serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/?IsisScript=ScieloXML/sci_references.xis&database=artigo&gizmo=GIZMO_XML_REF&search=r=" . $pid . "$"; 
+											$serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/?IsisScript=ScieloXML/sci_references.xis&database=artigo&gizmo=GIZMO_XML_REF&search=r=" . $pid . "$";
 											$xmlFile = file_get_contents($serviceUrl);
 											$xml = '<?xml version="1.0" encoding="ISO-8859-1"?>';
 											$xml .='<root>';
@@ -85,9 +95,8 @@ $article = $articleService->getArticle();
 										</TD>
 									</TR>
 								</TABLE>
+								
 						</div>
-					<div style="clear: both;float: none;width: 100%;">
-					</div>
 				</div>
 			</div>
 		</div>
