@@ -22,22 +22,22 @@ global $applServer,$databasePath ;
 $result="";
         switch ($indicator){
                 case "journalTotal":
-                        $serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/bvs-mod/wxis-modules/?IsisScript=list.xis&database=".$databasePath ."title/title&count=1";
+                        $serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/webservices/wxis/?IsisScript=list.xis&database=".$databasePath ."title/title&count=1";
                         $XML = readData($serviceUrl,true);
                         $result=getElementValue(getElementValue(str_replace("<hr>","<hr />",$XML) , "Isis_Total"),"occ");
                         break;
                 case "articleTotal":
-                        $serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/bvs-mod/wxis-modules/?IsisScript=search.xis&database=".$databasePath ."artigo/artigo&search=tp=o&count=1";
+                        $serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/webservices/wxis/?IsisScript=search.xis&database=".$databasePath ."artigo/artigo&search=tp=o&count=1";
                         $XML = readData($serviceUrl,true);
                         $result=getElementValue(getElementValue(str_replace("<hr>","<hr />",$XML) , "Isis_Total"),"occ");
                         break;
                 case "issueTotal":
-                        $serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/bvs-mod/wxis-modules/?IsisScript=search.xis&database=".$databasePath ."artigo/artigo&search=tp=i&count=1";
+                        $serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/webservices/wxis/?IsisScript=search.xis&database=".$databasePath ."artigo/artigo&search=tp=i&count=1";
                         $XML = readData($serviceUrl,true);
                         $result=getElementValue(getElementValue(str_replace("<hr>","<hr />",$XML) , "Isis_Total"),"occ");
                         break;
                 case "citationTotal":
-                        $serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/bvs-mod/wxis-modules/?IsisScript=search.xis&database=".$databasePath ."artigo/artigo&search=tp=c&count=1";
+                        $serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/webservices/wxis/?IsisScript=search.xis&database=".$databasePath ."artigo/artigo&search=tp=c&count=1";
                         $XML = readData($serviceUrl,true);
                         $result=getElementValue(getElementValue(str_replace("<hr>","<hr />",$XML) , "Isis_Total"),"occ");
                         break;
