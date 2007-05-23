@@ -83,6 +83,9 @@ $article = $articleService->getArticle();
 											$xml .='<vars><lang>'.$lang.'</lang><applserver>'. $applServer .'</applserver></vars>';
 											$xml .= str_replace('<?xml version="1.0" encoding="ISO-8859-1"?>','',$xmlFile);
 											$xml .='</root>';
+											if($_REQUEST['debug'] == 'on'){
+												die($xml);
+											}
 											$xsl = dirname(__FILE__)."/../xsl/reference.xsl";
 											$transformer = new XSLTransformer();
 											$transformer->setXslBaseUri(dirname(__FILE__));
