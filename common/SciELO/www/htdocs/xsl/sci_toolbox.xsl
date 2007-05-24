@@ -96,13 +96,24 @@
 					</xsl:choose>
 				</xsl:if>
 				<xsl:if test="ISSUE/ARTICLE/@PDF">
+					<xsl:variable name="tlng" select="ISSUE/ARTICLE/@TEXTLANG"/>
+					<xsl:variable name="pdf_tlng">
+						<xsl:choose>
+							<xsl:when test="//LANGUAGES/PDF_LANGS[LANG=$tlng]">
+								<xsl:value-of select="$tlng"/>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:value-of select="//LANGUAGES/PDF_LANGS/LANG"/>
+							</xsl:otherwise>
+						</xsl:choose>
+					</xsl:variable>
 					<li>
 						<a>
 							<xsl:call-template name="AddScieloLink">
 								<xsl:with-param name="seq" select="CONTROLINFO/PAGE_PID"/>
 								<xsl:with-param name="script">sci_pdf</xsl:with-param>
 								<xsl:with-param name="txtlang">
-									<xsl:value-of select="ISSUE/ARTICLE/@TEXTLANG"/>
+									<xsl:value-of select="$pdf_tlng"/>
 								</xsl:with-param>
 							</xsl:call-template>
 							<img src="/img/{$LANGUAGE}/iconPDFDocument.gif"/>
