@@ -106,7 +106,7 @@ show_cited_scielo=1
 show_cited_google=1
 show_similar_in_scielo=1
 show_similar_in_google=1
-
+show_article_references=1
 
 [FULLTEXT_SERVICES]
 access="http://scielo2.br.local/applications/scielo-org/pages/services/articleRequestGraphicPage.php?pid=PARAM_PID&caller=PARAM_SERVER"
