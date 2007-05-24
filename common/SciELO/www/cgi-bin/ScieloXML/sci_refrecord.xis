@@ -91,7 +91,8 @@
                     if v4001^f = 'abs' then '^ssci_abstract' fi
                 </pft>
             </call>
-			<call name="CreateTitleGroupXML"><pft>if v4001^f = 'sws' then v4001^t fi</pft></call>
+	
+	<call name="CreateTitleGroupXML"><pft>if v4001^f = 'sws' then v4001^t fi</pft></call>
             
             <!-- FIXME 20040902
                 WORKAROUND: When there is an article record in article database but there isn´t a corresponding issue record in newissue database, 
