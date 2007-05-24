@@ -24,7 +24,7 @@
 	<xsl:template match="record">
 		<li>
 			<div style="clear: both; height: 1px; margin: 0px; padding: 0px;" />
-			<xsl:apply-templates select="field[(@tag = 10) or (@tag = 16)]" mode="author"/>
+			<xsl:value-of select="position()"/>. <xsl:apply-templates select="field[(@tag = 10) or (@tag = 16)]" mode="author"/>
 			<xsl:apply-templates select="field[@tag = 64]" mode="date"/>
 			<xsl:apply-templates select="field[(@tag = 12) or (@tag = 18)]" mode="title"/>
 			<xsl:apply-templates select="field[@tag = 30]" mode="serTitle"/>
