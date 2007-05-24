@@ -106,6 +106,7 @@ show_cited_scielo=1
 show_cited_google=1
 show_similar_in_scielo=1
 show_similar_in_google=1
+google_last_process=20060901
 show_article_references=1
 
 [FULLTEXT_SERVICES]
