@@ -71,6 +71,9 @@ class Scielo extends ScieloBase
 //exibir o link Requests ?
 		$xmlScieloOrg .= "<requests>".$this->_def->getKeyValue("show_requests")."</requests>";
 
+//exibir o link Requests ?
+		$xmlScieloOrg .= "<show_article_references>".$this->_def->getKeyValue("show_article_references")."</show_article_references>";
+
 //path para o script de login
 		$xmlScieloOrg .= "<loginURL>".$this->_def->getKeyValue("login_url")."</loginURL>";
 
