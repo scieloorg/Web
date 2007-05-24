@@ -9,6 +9,7 @@
 	<xsl:variable name="show_similar_in_scielo" select="//varScieloOrg/show_similar_in_scielo" />
 	<xsl:variable name="show_similar_in_google" select="//varScieloOrg/show_similar_in_google" />
         <xsl:variable name="google_last_process" select="//varScieloOrg/google_last_process" />
+	<xsl:variable name="show_article_references" select="//varScieloOrg/show_article_references" />
 
 		<div id="toolBox">
 			<h2 id="toolsSection">
@@ -137,6 +138,7 @@
 						</xsl:choose>
 					</a>
 				</li>
+				<xsl:if test="$show_article_references = 1">
 				<li>
 					<a>
 						<xsl:attribute name="href">javascript:void(0);</xsl:attribute>
@@ -149,6 +151,7 @@
 						</xsl:choose>
 					</a>
 				</li>
+				</xsl:if>
 
 				<!-- Tirando o "buraco" que fica no IE qnd não tem curriculo LATES -->
 				<xsl:if test="ISSUE/ARTICLE/LATTES/AUTHOR">
