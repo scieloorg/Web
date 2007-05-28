@@ -25,6 +25,9 @@
 		<li>
 			<div style="clear: both; height: 1px; margin: 0px; padding: 0px;" />
 			<xsl:value-of select="position()"/>. <xsl:apply-templates select="field[(@tag = 10) or (@tag = 16)]" mode="author"/>
+			<xsl:apply-templates select="field[@tag = 17]" mode="corpAuth"/>
+			<xsl:apply-templates select="field[@tag = 28]" mode="authPeriod"/>
+			<xsl:apply-templates select="field[@tag = 29]" mode="orgName"/>
 			<xsl:apply-templates select="field[@tag = 64]" mode="date"/>
 			<xsl:apply-templates select="field[(@tag = 12) or (@tag = 18)]" mode="title"/>
 			<xsl:apply-templates select="field[@tag = 30]" mode="serTitle"/>
@@ -42,19 +45,31 @@
 	</xsl:template>
 
 	<xsl:template match="field" mode="author">
-		<xsl:value-of select="occ/@s"/>, <xsl:value-of select="occ/@n"/> 
+		<xsl:value-of select="occ/@s"/>, <xsl:value-of select="occ/@n"/>. 
+	</xsl:template>
+	
+	<xsl:template match="field" mode="corpAuth">
+		<xsl:value-of select="occ"/>. 
+	</xsl:template>
+	
+	<xsl:template match="field" mode="authPeriod">
+		<xsl:value-of select="occ"/>. 
+	</xsl:template>
+
+	<xsl:template match="field" mode="orgName">
+		<xsl:value-of select="occ"/>.
 	</xsl:template>
 
 	<xsl:template match="field" mode="date">
-		. <xsl:value-of select="occ"/>
+		 <xsl:value-of select="occ"/>.
 	</xsl:template>
 
 	<xsl:template match="field" mode="title">
-		. <b><xsl:value-of select="occ"/></b>
+		 <b><xsl:value-of select="occ"/></b>,
 	</xsl:template>
 
 	<xsl:template match="field" mode="serTitle">
-		, <i><xsl:value-of select="occ"/></i>
+		 <i><xsl:value-of select="occ"/></i>
 	</xsl:template>
 
 	<xsl:template match="field" mode="volume">
