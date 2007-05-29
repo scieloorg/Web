@@ -28,7 +28,7 @@
 			fi
 		</pft>
 	</display>
-	<trace>xOn</trace>
+
 
 	<field action="replace" tag="1"><pft>getenv('PATH_TRANSLATED')</pft></field>
 	<field action="cgi" tag="2">IsisScript</field>
@@ -43,17 +43,21 @@
 	
 	<display><pft>'<wxis-modules IsisScript="',v2,'" version="0.2">'/</pft></display>
 
+	<field action="cgi" tag="2001">database</field>
+	<field action="cgi" tag="2005">search</field>
+
+
+	<field action="replace" tag="4000"><pft>ref([v2001]l([v2001],replace(v2005,'$',''),'00001'),v32701)</pft></field>
+	
 	<do task="search">
 
-		<field action="cgi" tag="2001">database</field>
 		<call name="error"><pft>"missing parameter: database"n2001</pft></call>
 		<parm name="db"><pft>v2001</pft></parm>
 		
 		<field action="cgi" tag="2007">gizmo</field>
 		<field action="replace" tag="2007" split="occ"><pft>(v2007/)</pft></field>
-		<parm name="gizmo"><pft>(v2007)</pft></parm>
+		<parm name="gizmo"><pft>if v4000<>'' then '' else (v2007) fi</pft></parm>
 
-		<field action="cgi" tag="2005">search</field>
 		<call name="error"><pft>"missing parameter: expression"n2005</pft></call>
 		<parm name="expression"><pft>v2005</pft></parm>
 
@@ -114,7 +118,7 @@
 					<display><isisxml>*</isisxml></display>
 				</loop>
 			</do>
-			
+			<file action="close" type="database"><pft>v32701^*</pft></file>
 			
 		</loop>
 		<flow action="jump">EPILOG</flow>
