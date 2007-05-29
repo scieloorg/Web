@@ -128,7 +128,7 @@
 				</xsl:if>
 				<li>
 					<a>
-						<xsl:attribute name="href">http://<xsl:value-of select="concat(//SERVER,//PATH_WXIS,'/?IsisScript=ScieloXML/sci_arttext.xis&amp;def=scielo.def&amp;pid=',//ARTICLE/@PID)"/></xsl:attribute>
+						<xsl:attribute name="href">http://<xsl:value-of select="concat(//SERVER,'/scieloOrg/php/articleXML.php?pid=',//ARTICLE/@PID)"/></xsl:attribute>
 						<xsl:attribute name="target">xml</xsl:attribute>
 						<img src="/img/{$LANGUAGE}/iconXMLDocument.gif"/>						
 						<xsl:choose>
