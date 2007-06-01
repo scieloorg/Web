@@ -55,7 +55,6 @@
   <parm name="count">1</parm>
 	
   <loop>
-   <field action="cgi" tag="11">tlng</field>
    <display><pft>@PROC_SPLIT_MST.PFT</pft></display>
    <field action="import" tag="list">4001,7009/7050</field> <!-- fixed -->
 
@@ -67,7 +66,7 @@
 
    <display>
     <pft>
-        '<ARTICLE TEXTLANG="',v11,'"'
+        '<ARTICLE TEXTLANG="',v4001^t,'" ORIGINALLANG="',v40,'"',
 		if v7999<>'' then
 			' TRANSLATION="',v4001^t,'"', /* fixed */
 		fi
@@ -285,6 +284,7 @@
    <field action="replace" tag="9669"><pft>' '</pft></field>   
    <field action="replace" tag="9999"><pft>|'|v9669</pft></field>
    <field action="replace" tag="705"><pft>f(instr(v703,'</P>'),1,0)</pft></field>
+   <field action="replace" tag="705"><pft>if val(v705)=0 then f(instr(v703,'<HR'),1,0) fi</pft></field>
    <field action="replace" tag="3330"><pft>s(v880,s(f(val(v888)+100000,5,0))*1.5)</pft></field>
    <field action="replace" tag="3333"><pft>ref(['ARTIGO']l(['ARTIGO'],'R='v3330),@PROC_SPLIT_MST.PFT,' intitle:%22'v12^*'%22')</pft></field> <!--('%22author:'v10^n' ','author:'v10^s'%22'), colocar antes do intitle se quiser incluir autores no try google--> 
    <field action="replace" tag="3334"><pft>ref(['ARTIGO']l(['ARTIGO'],'R='v3330),@PROC_SPLIT_MST.PFT,v12^*)</pft></field>    
