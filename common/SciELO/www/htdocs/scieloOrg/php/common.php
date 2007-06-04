@@ -17,23 +17,11 @@ $related_Service = str_replace("PARAM_TEXT",$text,$related_Service);
 
 
 $xmlh = "";
-
-if ($handle = fopen($related_Service,'r'))
-{
-	while (!feof($handle)){
-		$xmlh.=fgets($handle, 512);
-	}
-}
-else
-{
-	print("problems to resolve URL: ".$related_Service);
-}
-
+$xmlh = file_get_contents(str_replace(' ','%20',utf8_decode(urldecode($related_Service))));
 $xmlh = str_replace("&lt;","<",$xmlh);
 $xmlh = str_replace("&gt;",">",$xmlh);
 $xmlh = str_replace("&amp;","&",$xmlh);
 $xmlh = str_replace("&quot;","\"",$xmlh);
-
 
 for($chr = 0; $chr < 32 ;$chr++){
 	$xmlh = str_replace(chr($chr),"",$xmlh);
