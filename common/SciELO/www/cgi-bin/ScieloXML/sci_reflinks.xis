@@ -101,7 +101,7 @@ IsisScript que gera o XML Para a tela de links da referencia bibliografica
 	 <!-- SCIELO -->
 	 <field action="replace" tag="9998"><pft>
 	  if p(v881) then
-	  '<a href="http://'v7009,v7013,'scielo.php?script=sci_arttext&pid='mpu,v3002^**0.23,mpl,
+	  '<a href="http://'v7009,v7013,'scielo.php?script=sci_arttext&pid='mpu,v881^*,mpl,
 	  '&lng=',v3000,'" target="_blank">SciELO</a>'
 	  fi</pft>
 	 </field>
