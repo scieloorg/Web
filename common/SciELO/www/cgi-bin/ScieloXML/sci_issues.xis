@@ -67,10 +67,10 @@
     <field action="replace" tag="2003">
 	 <pft>ref(['NEWISSUE']val(v1003^m),v35,v65*0.4,s(f(val(s(v36*4.3))+10000,2,0))*1.4)</pft>
 	</field>
+	<call name="issueHasArticles"><pft>v2003</pft></call>
 	<display>
-	 <pft>if l(['ARTIGO']'HR=S',mpu,v2003,mpl,'00001')>0 then
+	 <pft>if p(v9036) then
 	       ref(['NEWISSUE']val(v1003^m),
-
 		   ,if v32<>'ahead' then
 		   '    <ISSUE'
 				,mpu,if p(v32) then ' NUM="'v32'"' fi,mpl,
@@ -79,8 +79,7 @@
 		  ,fi,),
 		  ,fi
 		  </pft>
-	</display>	 
-	
+	</display>	 	
 	<field action="export" tag="list">2000,2001,4001,5000</field>
    </loop>
  </do>

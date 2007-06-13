@@ -161,7 +161,8 @@
   <!-- 5 - Title MFN, 6 - Issue MFN, 7 - Article MFN -->  
   <field action="replace" tag="5"><pft>f(l(['TITLE']'LOC='mid(v1,1,9)),1,0)</pft></field>
   <field action="replace" tag="6"><pft>f(l(['NEWISSUE']'Y'v1),1,0)</pft></field>
-  <field action="replace" tag="7"><pft>f(l(['ARTIGO']'HR=S'v1'00001'),1,0)</pft></field>
+  <call name="issueHasArticles"><pft>v1</pft></call>
+  <field action="replace" tag="7"><pft>if v1=v9036 then '1' else '0' fi</pft></field>
   
   <call name="CreateErrorXML">
    <pft>
