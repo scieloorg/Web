@@ -2610,14 +2610,15 @@
 <!--  article which pid has the last 5 digits equal to '00001'					 -->
 <!-- ============================================================================ -->
 <function name="issueHasArticles" action="replace" tag="4901">
-	<do task="keyrange">
+	<do task="search">
 	   <parm name="db">ARTIGO</parm>
-	   <parm name="from"><pft>'SM='v4901</pft></parm>
+	   <parm name="expression"><pft>'SM='v4901,'$'</pft></parm>
 	   <parm name="count">1</parm>
 
 	   <loop>
-			<field action="import" tag="4901">4901</field>
-			<field action="export" tag="4902">4901</field>
+			<display><pft>@PROC_SPLIT_MST.PFT</pft></display>
+			<field action="replace" tag="4902"><pft>v121</pft></field>
+			<field action="export" tag="4902">4902</field>
 		</loop>	
 	</do>	
 	<return action="replace" tag="9036">
@@ -2628,7 +2629,6 @@
 		</pft>
 	</return>
 </function>
-
 <function name="isXML" action="replace" tag="702">
 	<return action="replace" tag="8000"><pft>replace(mid(v702,size(v702)-3,4),'.XML','.xml')</pft></return> 
 </function>
