@@ -114,7 +114,10 @@ define("MONTH_LIST", "jan,fev,mar,abr,mai,jun,jul,ago,set,out,nov,dez");
 define("CITED_BY","Citado Por");
 define("SEE","Ver");
 define("SEE_HISTORY","Ver Histórico");
-
+define("CHOOSE_PERIOD", "Escolha por ano:");
+define("START_YEAR", "De:");
+define("LAST_YEAR", "Até:");
+define("BUTTON_REFRESH", "Atualizar gráfico");
 /*
 textos das mensagens de erro
 */
@@ -342,6 +345,10 @@ define("MONTH_LIST", "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sept,Oct,Nov,Dec");
 define("CITED_BY","Cited By");
 define("SEE","See");
 define("SEE_HISTORY","See History");
+define("CHOOSE_PERIOD", "Choose by Year:");
+define("START_YEAR", "From:");
+define("LAST_YEAR", "Even:");
+define("BUTTON_REFRESH", "Change graphic");
 
 /*
 textos das mensagens de erro
@@ -567,7 +574,10 @@ define("MONTH_LIST", "ene,feb,mar,abr,mayo,jun,jul,ago,sept,oct,nov,dic");
 define("CITED_BY","Citado Por");
 define("SEE","Ver");
 define("SEE_HISTORY","Ver Histórico");
-
+define("CHOOSE_PERIOD", "Elegir por año:");
+define("START_YEAR", "De:");
+define("LAST_YEAR", "Hasta:");
+define("BUTTON_REFRESH", "Actualizar gráfico");
 /*
 textos das mensagens de erro
 */
