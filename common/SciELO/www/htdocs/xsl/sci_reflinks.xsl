@@ -42,7 +42,7 @@
 								
 								<h3>
 									<span style="font-size: 70%; font-weight:normal;">
-										<xsl:value-of select="//ref_TITLE"/>
+										<xsl:value-of select="//TITLE"/>
 									</span>
 								</h3>
 								
