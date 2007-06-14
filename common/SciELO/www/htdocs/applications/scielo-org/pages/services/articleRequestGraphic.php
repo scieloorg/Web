@@ -5,6 +5,18 @@ error_reporting(1);
 	require_once(dirname(__FILE__)."/../../classes/services/AccessServiceBar.php");
 	$accessService = new AccessService();
 	$accessService->setParams($_REQUEST['pid']);
-	$accessService->buildGraphic($accessService->getStats());
+	$startYear = $_REQUEST['startYear'];
+	$lastYear = $_REQUEST['lastYear'];
+	
+	if($startYear !="" && $lastYear!="")
+	{
+		$accessService->buildGraphicByYear($accessService->getStats(), $startYear, $lastYear);
+	}
+	else
+	{
+		$accessService->buildGraphic($accessService->getStats());
+	}
+
+
 
 ?>
