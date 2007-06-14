@@ -11,9 +11,11 @@ error_reporting(1);
 	$DirHtml = $DirNameLocalGraphPage."../html/" .$lang . "/";
 	$site = parse_ini_file($DirNameLocalGraphPage."/../../../../ini/" . $lang . "/bvs.ini", true);
 	$scielodef = parse_ini_file($DirNameLocalGraphPage."/../../scielo.def", true);
-
+	
 	$pid = $_REQUEST['pid'];
 	$caller = $_REQUEST["caller"];
+	$startYear = $_REQUEST['startYear'];
+	$lastYear = $_REQUEST['lastYear'];
 	
 	$articleService = new ArticleService($caller);
 	$articleService->setParams($pid);
@@ -35,7 +37,108 @@ error_reporting(1);
     <script language="JavaScript" src="<?=$scielodef['this']['url']?>/js/showHide.js"></script>
     <script language="JavaScript" src="<?=$scielodef['this']['url']?>/js/metasearch.js"></script>
     <script language="JavaScript" src="<?=$scielodef['this']['url']?>/js/showHide.js"></script>
+	<script language="JavaScript">
+		// verifica o tamanho de um input
+		function tamanho(objeto) 
+		{
+			if (objeto.value.length != 4) 
+			{
+				objeto.focus();
+				return false;
+			}	
+			return true;
+		}
+		// verifica se o usuario está digitando um numero
+		function isNumber(objeto)
+		{
+			var ValidChars = "0123456789.";
+			var Char;
+   
+			for (i = 0; i < objeto.value.length; i++) 
+			{ 
+				Char = objeto.value.charAt(i); 
+				if (ValidChars.indexOf(Char) == -1) 
+				{
+					objeto.focus();
+					return false;
+				}
+			}
+			return true;
+		}
+		
+		// Verifica se a data é valida
+		function dataValida(objeto)
+		{
+			if(objeto.value < 1950)
+			{
+				objeto.focus();
+				return false;
+			}
+			else if(objeto.value > 2150)
+			{
+				objeto.focus();
+				return false;
+			}
+			else
+			{
+				objeto.focus();
+				return true;
+			}
+		}
+		
+		// valida o formulário
+		function valida_form() 
+		{
+			if (!tamanho(document.form1.startYear)) 
+			{
+				return false;
+			}
+			else if(!isNumber(document.form1.startYear))
+			{
+				return false;
+			}
+			else if(!dataValida(document.form1.startYear))
+			{
+				return false;
+			}
+			else if(document.form1.lastYear.value.length != 0)
+			{
+				if(!tamanho(document.form1.lastYear))
+				{
+					return false;
+				}
+				else if(!isNumber(document.form1.lastYear))
+				{
+					return false;
+				}
+				else if(!dataValida(document.form1.lastYear))
+				{
+					return false;
+				}
+				else if( document.form1.startYear.value > document.form1.lastYear.value )
+				{
+					return false;
+				}
+				else
+				{
+					return true;
+				}
+			}
+			// se somente startYear tem valor então lastYear fica com o mesmo valor
+			// e pesquisamos a estatisticas de um ano especifico
+			else if(document.form1.lastYear.value.length == 0 )
+			{
+				document.form1.lastYear.value = document.form1.startYear.value;
+				return true;
+			}
+			else 
+			{
+				return true;
+			}
+		}
+	</script>
     <link rel="stylesheet" href="<?=$scielodef['this']['url']?>/css/screen2.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="<?=$scielodef['this']['url']?>/css/common/styles.css" type="text/css">
   </head>
   <body>
     <div class="container">
@@ -44,6 +147,17 @@ error_reporting(1);
         <div class="middle">
           <div id="collection">
             <h3><span><?=ACCESS_STATS?></span></h3>
+			<!-- Formulário de opção de estatísticas por data -->
+			<form action="articleRequestGraphicPage.php" name="form1" method="get" onSubmit="return valida_form();">
+				<p><b><?=CHOOSE_PERIOD?></b><br/>
+				<?=START_YEAR?> <input type="text" id="startYear" name="startYear" size="4" maxlength="4"/>
+				<?=LAST_YEAR?> <input type="text" id="lastYear" name="lastYear" size="4" maxlength="4"/> 
+				<input type="submit" class="submit" value="<?=BUTTON_REFRESH?>">
+				<input type="hidden" id="lang" name="lang" value="<?=$lang?>">
+				<input type="hidden" id="caller" name="caller" value="<?=$caller?>">
+				<input type="hidden" id="pid" name="pid" value="<?=$pid?>">
+			</form>
+
             <div class="content">
 				<div>
 					<?
@@ -58,7 +172,8 @@ error_reporting(1);
 						?>
 				</div>
 				<div>
-						<img src="<?=$scielodef['this']['url'].$scielodef['this']['relpath']?>/pages/services/articleRequestGraphic.php?pid=<?=$pid?>" />
+						<!-- Monta o gráfico -->
+						<img src="<?=$scielodef['this']['url'].$scielodef['this']['relpath']?>/pages/services/articleRequestGraphic.php?pid=<?=$pid?>&startYear=<?=$startYear?>&lastYear=<?=$lastYear?>"/>
 				
 				</div>
 				            </div>
