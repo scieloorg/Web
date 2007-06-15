@@ -10,7 +10,7 @@ para ter o gráfico "multi-lingüe"
 	require_once(dirname(__FILE__)."/../../users/langs.php");
 	require_once(dirname(__FILE__)."/../../includes/jpgraph-1.20.4/src/jpgraph.php");
 	require_once(dirname(__FILE__)."/../../includes/jpgraph-1.20.4/src/jpgraph_bar.php");
-
+	require_once(dirname(__FILE__)."/../../includes/jpgraph-1.20.4/src/jpgraph_canvas.php");
 	require_once(dirname(__FILE__)."/../XML_XSL/XML_XSL.inc.php");
 	require_once(dirname(__FILE__)."/../XML_XSL/xslt.inc.php");
 	
@@ -161,9 +161,12 @@ para ter o gráfico "multi-lingüe"
 			$graph->Stroke();
 		}
 
-		/** Constroi o gráfico entre periodos de anos **/
+		/** Constroi o gráfico entre periodos de anos 
+			retorna true se o grafico foi montado e false se não foi
+		**/
 		function buildGraphicByYear($stats, $startYear, $lastYear)
 		{
+			$graficoStatus = false; // Para descobrir se entrou no for e vai construir um gráfico
 			$stat = $stats->getRequests();
 
 			// Pega todos os anos entre o Ano Inicial e o Ano Final 
@@ -286,11 +289,29 @@ para ter o gráfico "multi-lingüe"
 				{
 					if($ano == $startYear+$i)
 					{
+						$graficoStatus = true; // entrou no for significa que o gráfico vai ser construido
 						array_push($bars,$$nome);
 					}
 				}
 
 
+			}
+			/****************************************************************
+			* Se não existir dados estatísticos para o período selecionado	*
+			* Então ele constroi uma imagem com a mensagem de que não		*
+			* existem dados estatísticos.									*
+			*****************************************************************/
+			if($graficoStatus == false)
+			{
+				$graph = new CanvasGraph(600, 30);
+				$t1 = new Text(GRAFIC_STATS_FALSE);
+				$t1->Pos(0.05, 0.5);
+				$t1->SetOrientation('h');
+				$t1->SetFont(FF_FONT1, FS_BOLD);
+				$t1->SetColor('black');
+				$graph->AddText($t1);
+				$graph->Stroke();
+				return $graficoStatus;
 			}
 
 			$gbplot = new GroupBarPlot($bars);
@@ -313,8 +334,13 @@ para ter o gráfico "multi-lingüe"
 //			$graph->legend->SetLayout(LEGEND_VER);
 			$graph->legend->Pos(.04,0.092,"","center");
 			$graph->legend->SetLayout(LEGEND_HOR); 
-			// Display the graph
-			$graph->Stroke();
+			// Mostra o gráfico somente se, o ano que o usuario entrou existir estatisticas
+			if($graficoStatus == true)
+			{
+				$graph->Stroke();
+			}
+			
+			return $graficoStatus;
 		}
 
 
