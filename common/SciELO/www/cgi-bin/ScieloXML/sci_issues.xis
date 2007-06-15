@@ -85,16 +85,13 @@
  </do>
 
  <flow action="jump"><pft>if a(v5000) then 'CLOSE_VOLUME' fi</pft></flow>
- <do task="keyrange">
-   <parm name="db">ARTIGO</parm>
-   <parm name="from"><pft>'SM='v5000^n</pft></parm>
-   <parm name="count">1</parm>
-
-   <loop>
-		<field action="import" tag="list">5000</field>
-		<display><pft>'<ISSUE NUM="AHEAD" SEQ="',v5000^n,'"/>'/</pft></display>
-	</loop>
-  </do> 
+ <call name="issueHasArticles"><pft>v5000^n</pft></call>
+<display>
+	<pft>if p(v9036) then
+			'<ISSUE NUM="AHEAD" SEQ="',v5000^n,'"/>'/
+		,fi
+	</pft>
+</display>	
 
 
  <label>CLOSE_VOLUME</label>
