@@ -69,7 +69,7 @@
 	</field>
 	<call name="issueHasArticles"><pft>v2003</pft></call>
 	<display>
-	 <pft>if p(v9036) then
+	 <pft>if  v9036=v2003 then
 	       ref(['NEWISSUE']val(v1003^m),
 		   ,if v32<>'ahead' then
 		   '    <ISSUE'
@@ -87,7 +87,7 @@
  <flow action="jump"><pft>if a(v5000) then 'CLOSE_VOLUME' fi</pft></flow>
  <call name="issueHasArticles"><pft>v5000^n</pft></call>
 <display>
-	<pft>if p(v9036) then
+	<pft>if v9036=v5000^n then
 			'<ISSUE NUM="AHEAD" SEQ="',v5000^n,'"/>'/
 		,fi
 	</pft>
