@@ -118,6 +118,7 @@ define("CHOOSE_PERIOD", "Escolha por ano:");
 define("START_YEAR", "De:");
 define("LAST_YEAR", "Até:");
 define("BUTTON_REFRESH", "Atualizar gráfico");
+define("GRAFIC_STATS_FALSE", "Não existem dados estatísticos para o período selecionado");
 /*
 textos das mensagens de erro
 */
@@ -349,6 +350,7 @@ define("CHOOSE_PERIOD", "Choose by Year:");
 define("START_YEAR", "From:");
 define("LAST_YEAR", "Even:");
 define("BUTTON_REFRESH", "Change graphic");
+define("GRAFIC_STATS_FALSE", "Do not exists statistic data for the selected period");
 
 /*
 textos das mensagens de erro
@@ -578,6 +580,7 @@ define("CHOOSE_PERIOD", "Elegir por año:");
 define("START_YEAR", "De:");
 define("LAST_YEAR", "Hasta:");
 define("BUTTON_REFRESH", "Actualizar gráfico");
+define("GRAFIC_STATS_FALSE", "No hay datos estadísticos para el periodo elegido");
 /*
 textos das mensagens de erro
 */
