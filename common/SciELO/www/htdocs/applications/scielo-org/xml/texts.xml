@@ -9,23 +9,23 @@
 		<text>
 			<find>scieloNetwork</find>
 			<replace>Rede Scielo</replace>
-		</text>	
+		</text>
 		<text>
 			<find>similarLink</find>
 			<replace>Similares em:</replace>
-		</text>	
+		</text>
 		<text>
 			<find>tryLink</find>
 			<replace>Tente links no:</replace>
-		</text>	
+		</text>
 		<text>
 			<find>linksTo</find>
 			<replace>Links para:</replace>
-		</text>	
+		</text>
 		<text>
 			<find>findReferenceOnLine</find>
-			<replace>Serviços de links para referência</replace>
-		</text>		
+			<replace>Links</replace>
+		</text>
 		<text>
 			<find>cited_by</find>
 			<replace>citado por:</replace>
@@ -114,23 +114,23 @@
 		<text>
 			<find>scieloNetwork</find>
 			<replace>Red Scielo</replace>
-		</text>	
+		</text>
 		<text>
 			<find>similarLink</find>
 			<replace>Similares en:</replace>
-		</text>	
+		</text>
 		<text>
 			<find>tryLink</find>
 			<replace>Intente links en:</replace>
-		</text>	
+		</text>
 		<text>
 			<find>linksTo</find>
 			<replace>Links para:</replace>
-		</text>	
+		</text>
 		<text>
 			<find>findReferenceOnLine</find>
-			<replace>Servicios de links para la referencia</replace>
-		</text>		
+			<replace>Links</replace>
+		</text>
 		<text>
 			<find>cited_by</find>
 			<replace>citado por</replace>
@@ -219,23 +219,23 @@
 		<text>
 			<find>scieloNetwork</find>
 			<replace>Scielo Network</replace>
-		</text>	
+		</text>
 		<text>
 			<find>similarLink</find>
 			<replace>Similars in:</replace>
-		</text>	
+		</text>
 		<text>
 			<find>tryLink</find>
 			<replace>Try link to:</replace>
-		</text>	
+		</text>
 		<text>
 			<find>linksTo</find>
 			<replace>Links to:</replace>
-		</text>	
+		</text>
 		<text>
 			<find>findReferenceOnLine</find>
-			<replace>Reference links services</replace>
-		</text>		
+			<replace>Links</replace>
+		</text>
 		<text>
 			<find>cited_by</find>
 			<replace>cited by</replace>
