@@ -73,7 +73,7 @@
 	</xsl:template>
 
 	<xsl:template match="field" mode="volume">
-		vol.<xsl:value-of select="occ"/>.
+		vol.<xsl:value-of select="occ"/>&#160;
 	</xsl:template>
 
 	<xsl:template match="field" mode="number">
