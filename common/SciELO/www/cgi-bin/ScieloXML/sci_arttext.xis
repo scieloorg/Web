@@ -316,9 +316,9 @@
 				,if val(v705)>0 then mid(v704^*,1,val(v705)-1)/ else v704^*/ fi,
 	'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ <a href="javascript:void(0);" onclick="javascript: window.open(',v9999*0.1,'/scielo.php?pid=',s(v880,s(f(val(v888)+100000,5,0))*1.5),'&lng=',v4001^l,'&script=sci_reflinks',v9999*0.1,','v9999*0.1,v9999*0.1',',v9999*0.1,'width=640,height=500,resizable=yes,scrollbars=1,menubar=yes,',v9999*0.1,');">',
 	 select s(v4001^l)	
-	    case 'es': 'Servicios de links para referencias'
-	    case 'en': 'Reference links services'
-	    case 'pt': 'Serviços de links para referências'
+	    case 'es': 'Links'
+	    case 'en': 'Links'
+	    case 'pt': 'Links'
 	endsel
 	,'</a> ]',
 			</pft>
