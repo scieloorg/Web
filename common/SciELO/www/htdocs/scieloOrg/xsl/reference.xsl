@@ -31,8 +31,8 @@
 			<xsl:apply-templates select="field[@tag = 64]" mode="date"/>
 			<xsl:apply-templates select="field[(@tag = 12) or (@tag = 18)]" mode="title"/>
 			<xsl:apply-templates select="field[@tag = 30]" mode="serTitle"/>
-			<xsl:apply-templates select="field[@tag = 882]" mode="volume"/>
-			<xsl:apply-templates select="field[@tag = 882]" mode="number"/>
+			<xsl:apply-templates select="field[@tag = 31]" mode="volume"/>
+			<xsl:apply-templates select="field[@tag = 32]" mode="number"/>
 			<xsl:apply-templates select="field[@tag = 35]" mode="ISSN"/>. [ <a href="http://{$applserver}/scielo.php?pid={field[@tag = 880]/occ}&amp;lng={$lang}&amp;script=sci_reflinks"><xsl:value-of select="$texts/text[find='findReferenceOnLine']/replace"/></a> ]<br/>
 			
 		</li>
@@ -73,11 +73,11 @@
 	</xsl:template>
 
 	<xsl:template match="field" mode="volume">
-		vol.<xsl:value-of select="occ/@v"/>.
+		vol.<xsl:value-of select="occ"/>.
 	</xsl:template>
 
 	<xsl:template match="field" mode="number">
-		no.<xsl:value-of select="occ/@n"/>
+		no.<xsl:value-of select="occ"/>
 	</xsl:template>
 	
 	<xsl:template match="field" mode="ISSN">
