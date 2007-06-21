@@ -1,0 +1,288 @@
+/* 
+	This file describes the where any information will be disposed
+	on the VHL website.
+*/
+
+.container {
+	position: relative;
+	width: 760px;
+	margin: 0px auto;
+	padding-left: 8px;
+	padding-right: 7px;
+}
+
+.bar {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	width: 50%;
+	padding: 2px;
+}
+
+.bar #otherVersions, .bar #contact {
+	display: inline;
+	margin-right: 10px;
+}
+
+#contact A {
+	padding-left: 20px;
+	padding-bottom: 10px;
+}
+
+.top {
+	height: 110px;
+	clear: both;
+}
+
+.top #parent {
+	padding: 5px 0px 0px 0px;
+	margin: 0px auto;
+	width: 100%;
+}
+
+.top #identification {
+	float: left;
+	width: 60%;
+	height: 110px;
+	display: none;
+}
+
+.top #identification H1 {
+	margin: 0px;
+	margin-top: 75px;
+	margin-left: 200px;
+}
+
+.top #institutionList {
+	float: right;
+	margin-top: 15px;
+	width: 20%;
+	display: none;
+}
+
+.top #institutionList UL {
+	padding: 0px;
+	margin: 10px 20px 0px 15px;
+	width: 119px;
+}
+
+.top #institutionList LI {
+	display: inline;
+	margin-right: 5px;
+}
+
+.middle {
+	position: relative;
+	padding: .6em;
+	clear: both;
+}
+
+.middle .masterColumn {
+	width: 80%;
+	float: left;
+	margin-right: .3em;
+}
+
+.middle .firstColumn {
+	float: left;
+	width: 30.9%;
+	margin-right: .3em;
+}
+
+.middle .secondColumn {
+	float: left;
+	width: 68%;
+}
+
+HTML>BODY .middle .secondColumn {
+
+}
+.middle .thirdColumn {
+	float: left;
+	width: 19%;
+	margin-left: -3px;
+}
+
+.middle .centerLeftColumn {
+	float: left;
+	width: 49.5%;
+	margin-right: .3em;
+}
+
+.middle .centerRightColumn {
+	float: left;
+	width: 49.5%;
+}
+
+.middle #search {
+	width: 99.2%;
+	margin: 6px 0px .6em 0px;
+}
+
+.bottom {
+	clear: both;
+	width: 100%;
+}
+
+.level2 .bottom {
+	display: none;
+}
+
+/* Cascading definitions #Start */
+#search, #searchGoogle, .firstColumn DIV {
+	padding-bottom: 10px;
+	margin-bottom: .3em;
+}
+
+.secondColumn .centerLeftColumn DIV, .secondColumn .centerRightColumn DIV, .thirdColumn DIV, #search, #searchGoogle, .level2 .middle DIV {
+	margin-bottom: .3em;
+}
+
+.firstColumn DIV H3, .secondColumn DIV H3, .thirdColumn DIV H3, #search H3, #searchConcepts H3, .level2 .middle DIV H3 {
+	margin: 0px;
+	padding: 2px;
+}
+
+.firstColumn DIV H3 SPAN, .secondColumn DIV H3 SPAN, .thirdColumn DIV H3 SPAN, #search H3 SPAN, #searchGoogle H3 SPAN, .level2 .middle DIV H3 SPAN {
+	display: block;
+}
+
+.secondColumn DIV H3 SPAN A, .centerLeftColumn DIV H3 SPAN A,.thirdColumn DIV H3 SPAN A, #search H3 SPAN A, #searchGoogle H3 SPAN A, .level2 .middle DIV H3 SPAN A {
+	color: #BC0812;
+	text-decoration: none;
+}
+
+.secondColumn DIV H3 SPAN A:hover, .centerLeftColumn DIV H3 SPAN A:hover ,.thirdColumn DIV H3 SPAN A:hover, #search H3 SPAN A:hover, #searchGoogle H3 SPAN A:hover, .level2 .middle DIV H3 SPAN A:hover {
+	text-decoration: underline;
+}
+
+.secondColumn DIV UL, .thirdColumn DIV UL {
+	margin: 8px;
+	padding: 8px;
+}
+
+.secondColumn DIV UL UL, .thirdColumn DIV UL UL {
+	margin-top: 0px;
+	padding-top: 0px;
+}
+
+/* Cascading definitions #End */
+
+#search FORM,  #searchGoogle FORM {
+	padding: 10px 10px 0px 10px;
+}
+
+#search .expression {
+	width: 65%;
+}
+
+#search .searchItens {
+}
+
+.level2 #search .searchItens {
+	float: none;
+}
+
+.level2 #search UL {
+	margin: 10px 0px 0px 10px;
+	padding: 0px;
+}
+
+.level2 #search LI {
+	margin-bottom: 10px;
+}
+
+.level2 #search LI LI {
+	width: 80%;
+	margin-bottom: 5px;
+}
+
+#search .searchFeatures {
+	float: right;
+	width: 30%;
+}
+
+#search .searchFeatures UL {
+	margin: 0px 0px 0px 10px;
+	padding: 0px 0px 0px 10px;
+}
+
+.bottom TABLE {
+	width: 100% !important;
+}
+
+.bottom #footNotes {
+	padding: 8px;
+}
+
+.bottom #footNotes P {
+	margin: 0px;
+}
+
+.level2 .middle #contact A {
+	padding: 0px;
+}
+
+.level2 #contact .name, .level2 #contact .from, .level2 #contact .message {
+	width: 200px;
+}
+
+.level2 #contact .message {
+	height: 50px;
+}
+
+.level2 .content {
+	padding: 5px 5px 5px 15px;	
+	max-width: 800px;
+}
+
+.level2 H4  {
+	margin-top: 0px;
+	margin-bottom: 5px;
+}
+
+.level2 H5 {
+	margin: 0px;
+}
+
+.level2 #breadCrumb {
+	padding: 0px;
+	clear: both;
+}
+
+.level2 .description, .level2 .portal {
+	display: inline;
+}
+
+.level2 .content UL LI {
+	list-style: square;
+	margin-bottom: 8px;
+}
+
+
+/* MetaIAH Pop-up styles */
+#popUp {
+	margin: 20px 5px 5px 5px;
+}
+
+#popUp .bottom {
+	margin-top: 20px;
+	padding: 3px;
+}
+
+.copyright {
+	width: 750px;
+	margin: 0px auto;
+	padding-left: 8px;
+	padding-right: 17px;
+	padding-bottom: 10px;
+}
+
+.spacer {
+	width: 100%;
+	padding: 0px;
+	margin: 0px;
+	font-size: 1px;
+	clear: both;
+	background: red;
+}

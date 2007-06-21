@@ -1,0 +1,45 @@
+/* monta as tres linhas de pesquisa com todas as opções de índice do DEF */
+
+,proc('d6099',
+      'a6099!'
+	  ,(if (v6000[1]='A' or a(v6099^f)) and v6099^t <> 'hidden' then 	  
+	    if v6099^r = 'Collection' and v5003[1]^d <> 'library' then 
+			/* não habilita opção caso seja indice de coleção ^r e estiver na pesquisa por revista */
+		else		
+			'<option value="'v6099'" ' if v6003^x[1] = v6099^x then 'selected' fi'>'			
+			if s(mpu,v5021[1],mpl) = 'P' then v6099^p fi
+			if s(mpu,v5021[1],mpl) = 'E' then v6099^e fi
+			if s(mpu,v5021[1],mpl) = 'I' then v6099^i fi		
+			'</option>'
+		fi
+	  ,fi),'!'
+
+      'a6099!'
+	  ,(if (v6000[1]='A' or a(v6099^f)) and v6099^t <> 'hidden' then 	  
+	    if v6099^r = 'Collection' and v5003[1]^d <> 'library' then 
+			/* não habilita opção caso seja indice de coleção ^r e estiver na pesquisa por revista */
+		else		
+			'<option value="'v6099'" ' if v6003^x[2] = v6099^x then 'selected' fi'>'			
+			if s(mpu,v5021[1],mpl) = 'P' then v6099^p fi
+			if s(mpu,v5021[1],mpl) = 'E' then v6099^e fi
+			if s(mpu,v5021[1],mpl) = 'I' then v6099^i fi		
+			'</option>'
+		fi
+	  ,fi),'!'
+
+      'a6099!'
+	  ,(if (v6000[1]='A' or a(v6099^f)) and v6099^t <> 'hidden' then 	  
+	    if v6099^r = 'Collection' and v5003[1]^d <> 'library' then 
+			/* não habilita opção caso seja indice de coleção ^r e estiver na pesquisa por revista */
+		else		
+			'<option value="'v6099'" ' if v6003^x[3] = v6099^x then 'selected' fi'>'			
+			if s(mpu,v5021[1],mpl) = 'P' then v6099^p fi
+			if s(mpu,v5021[1],mpl) = 'E' then v6099^e fi
+			if s(mpu,v5021[1],mpl) = 'I' then v6099^i fi		
+			'</option>'
+		fi
+	  ,fi),'!'
+	  
+,),
+
+

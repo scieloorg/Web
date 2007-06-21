@@ -1,0 +1,18 @@
+<form action="" method="POST" name="months" action="http:/graphics/index.php">
+<b>Choose a Journal</b><br/>
+<select name="pid[]" multiple="1" size="20">
+	<option value="All">Library Collection</option>
+    <?php
+        $titles = $log->GetTitles (false);
+        $log->destroy();
+        
+        for ($i = 0; $i < count($titles); $i++)
+        {
+            echo "<option value=\"" . $titles[$i]["issn"] . "\">" . $titles[$i]["title"] . "</option>\n";
+        }
+        
+    ?>
+</select>
+<br/>
+<input type="submit" value="Go!"/>
+</form>

@@ -1,0 +1,19 @@
+'
+<script language="javascript">
+function showFullText(lawkey)
+	{ 
+		var str_aux = "',getenv('SCRIPT_NAME'),v5000^d,'?IsisScript=',replace(v5000^s,'iah.xic','fulltext.xis'),'&base=',v5003,'&lang=',v5021,'&exprSearch=[FT]+"+lawkey;
+        janela = window.open(str_aux,"FullText","width=640,height=480,resizable=yes,toolbar=no,location=no,menubar=no,scrollbars=yes,status=yes");
+        janela.focus()
+    }
+</script>
+</tr>
+	<td width="28%">'
+		,if npost(['INVERTED']'FT_'v2) > 1 then,
+			,`<a href="javascript:void(showFullText('`,v2,`'))"><img src="`,v5002,`fulltext.gif" border="0"></a>`,
+		,fi,		
+	'</td>	
+	<td width="72%">
+		<font face="verdana" size="1"><i>fulltext</i></font>
+	</td>
+</tr>'
