@@ -19,7 +19,7 @@ if [ -f crossref_UploadXML.sh ]; then
 	./crossref_UploadXML.sh
 	rm crossref_UploadXML.sh
 fi
-if [ -f toRemove ]; then
+if [ -f toRemove.sh ]; then
 echo "Running toRemove.sh" # This shell file is generated dinamically by the the step before.
 	chmod 777 toRemove.sh
 	./toRemove.sh
@@ -35,6 +35,6 @@ if [ -f *.log ]; then
 	mv *.log ../output/crossref/log
 fi
 echo "Copying Database to SciELO"
-cp ../database/crossref/* $scielo_dir/bases/doi
+cp ../databases/crossref/* $scielo_dir/bases/doi
 
 echo "all process done!"
