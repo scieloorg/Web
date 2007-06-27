@@ -3,7 +3,7 @@
 ##################
 export database_dir="/home/scielo/www/bases"
 export conversor_dir="/home/scielo/www/proc/scielo_crs"
-export cisis_dir="/home/scielo/www/proc/cisis5.2" 
+export cisis_dir="/usr/local/bireme/cisis/5.2a/lind" 
 export scielo_dir="/home/scielo/www"
 
 #JAVA RUNTIME ENVIRONMENT VARS

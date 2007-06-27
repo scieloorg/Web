@@ -9,6 +9,7 @@ DATE=`$cisis_dir/mx tmp count=1 "pft=s(date).8"`
 
 if [ ! -f ../databases/crossref/crossref_DOIReport.mst ]; then
 	$cisis_dir/mx seq=/dev/null create=../databases/crossref/crossref_DOIReport
+	$cisis_dir/mx ../databases/crossref/crossref_DOIReport fst=@../databases/crossref/crossref_DOIReport.fst fullinv=../databases/crossref/crossref_DOIReport -all now
 fi
 
 
