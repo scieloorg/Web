@@ -1,9 +1,9 @@
 '<doi_batch xmlns="http://www.crossref.org/schema/4.1.0" version="4.1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">',#
 	'<head>',#
 		,if p(v881) then,
-        	        '<doi_batch_id>',v35,v936^y,v881*14.4'</doi_batch_id>',#
+        	        '<doi_batch_id>',v881,'</doi_batch_id>',#
 		,else,
-	                '<doi_batch_id>',v35,v936^y,v880*14.4'</doi_batch_id>',#
+	                '<doi_batch_id>',v880,'</doi_batch_id>',#
 		,fi,
                 '<timestamp>',mid(replace(date,' ',''),0,14),'</timestamp>',#
                 '<depositor>',#
@@ -30,7 +30,11 @@
                         '</journal_issue>',#
                         '<journal_article publication_type="full_text">',#
                                 '<titles>',#
-                                        (if s(mpu,v12^l,mpl)='EN' then ,'<title>',v12^*,'</title>',#, fi )
+					,if p(v12) then,
+        	                                (if s(mpu,v12^l,mpl)='EN' then ,'<title>',v12^*,'</title>',#, fi )
+					,else,
+	                                        (if s(mpu,v18^l,mpl)='EN' then ,'<title>',v18^*,'</title>',#, fi )
+					,fi,
                                 '</titles>',#
                                 ,if p(v10) then,
                                 '<contributors>',#
