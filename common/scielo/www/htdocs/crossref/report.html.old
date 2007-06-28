@@ -1,0 +1,214 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+	<title>DOI Report Interface</title>
+	<link rel="stylesheet" type="text/css" href="layout.css">	
+</head>
+<script Language="JavaScript">
+
+	function MM_findObj(n, d) 
+	{
+				 var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+				  d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);
+				 }
+				 if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+				 for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+				 if(!x && document.getElementById) x=document.getElementById(n); return x;
+	}
+	
+	function MM_showhideLayers() 
+	{
+				 var i,p,v,obj,args=MM_showhideLayers.arguments; 
+				 for (i=0; i<(args.length-2); i+=3) if ((obj=MM_findObj(args[i]))!=null) {
+				  v=args[i+2]; z=args[i+3]; 
+				  if (!z) {
+				   if (obj.style) { obj=obj.style; v=(v=='show')?'block':(v=='hide')?'none':v; } 
+				   obj.display=v; 
+				  } else {
+				   if (obj.style) { obj=obj.style; v=(v=='show')?z:(v=='hide')?'none':v; } 
+				   obj.display=v; 
+				  }
+				 }
+	} 
+	
+	function showVerb(verb)
+	{
+		MM_showhideLayers('UpdatedDOI','','hide');
+		MM_showhideLayers('NewDOI','','hide');
+		MM_showhideLayers('ErrorDOI','','hide');
+		MM_showhideLayers('AllDOI','','hide');
+
+		MM_showhideLayers(verb,'','show');
+	}
+	
+	function setForm(verb){
+		document.sendQuery.status.disabled = false;
+		if(verb == 'UpdatedDOI'){
+			selectAgent = 0;
+		} 
+		else if(verb == 'NewDOI'){
+			selectAgent = 1;			
+		}
+		else if(verb == 'ErrorDOI'){
+			selectAgent = 2;			
+		}
+		else{
+			selectAgent = 3;
+		}		
+		document.sendQuery.status.selectedIndex = selectAgent;
+	}
+	
+	function submitForm()
+	{				
+		from = document.sendQuery.from.value;
+		to = document.sendQuery.to.value;
+		sts = document.sendQuery.status.selectedIndex;
+		formStatus = true;
+		URL = 'report.php';		
+		
+		URL = URL+"?stat="+document.sendQuery.status[sts].value+"&getXML="+document.sendQuery.getXML.checked+"&from="+from+"&to="+to;
+				
+		document.sendQuery.outputURL.value = URL;
+		window.open(URL,'oai_output');
+		formStatus = true;
+		if (formStatus)
+		{
+			document.sendQuery.outputURL.value = URL;
+			window.open(URL,'oai_output');
+		}
+	}
+	
+</script>
+<body marginheight="0" topmargin="0" leftmargin="0">
+<div id="header">
+	<div id="title">
+		DOI Report Interface
+	</div>
+	<div id="language">
+		<a href="index_pt.html">pt</a> - <a href="index_es.html">es</a>
+	</div>
+</div>
+<FORM name="sendQuery" method="post" action="#">
+<div id="main_group">
+	<div id="group_title">URL</div>
+	<div id="group_content">URL: <input type="text" name="oaiURL" size="50" maxlength="50"/> &nbsp; &nbsp; http://www.scielo.br/oai/scielo-oai.php</div>			
+</div>	
+<div>
+	<table width="100%" cellpadding="0" cellspacing="0">
+		<tr>
+			<td width="30%">
+			<div id="left">			
+				<div id="group">
+					<div id="group_title">verbs</div>
+					<div id="group_content">
+						<div id="menu_item"><a href="javascript: setForm('UpdatedDOI'); showVerb('UpdatedDOI');">Updated DOI</a></div>
+						<div id="menu_item"><a href="javascript: setForm('NewDOI'); showVerb('NewDOI');">New DOI</a></div>
+						<div id="menu_item"><a href="javascript: setForm('ErrorDOI'); showVerb('ErrorDOI');">Error DOI</a></div>
+						<div id="menu_item"><a href="javascript: setForm('AllDOI'); showVerb('AllDOI');">All DOI</a></div>						
+					</div>			
+				</div>
+				<div id="group">
+					<div id="group_title">verb description</div>
+					<div id="group_content">
+						<div id="UpdatedDOI" name="UpdatedDOI" style="display: none;">
+							<p>This verb returns all updated DOI.</p>
+							<p>
+							<b>Compulsory parameters</b>
+							<ul>
+								<li>From</li>
+								<li>To</li>								
+							</ul>
+							</p>
+						</div>
+						<div id="NewDOI" name="NewDOI" style="display: none;">
+							<p>This verb returns all new DOI that had been submitted between a specified range of time.</p>
+							<p>
+							<b>Compulsory parameters</b>
+							<ul>
+								<li>From</li>
+								<li>To</li>								
+							</ul>
+							</p>							
+						</div>
+						<div id="ErrorDOI" name="ErrorDOI" style="display: none;">
+							<p>This verb returns all error flaged DOI that had been submitted between a specified range of time.</p>
+							<p>
+							<b>Compulsory parameters</b>
+							<ul>
+								<li>From</li>
+								<li>To</li>								
+							</ul>
+							</p>																
+						</div>
+						<div id="AllDOI" name="AllDOI" style="display: none;">
+							<p>This verb returns all DOI that had been submitted between a specified range of time.</p>
+							<p>
+							<b>Compulsory parameters</b>
+							<ul>
+								<li>From</li>
+								<li>To</li>
+							</ul>
+							</p>				
+						</div>																																			
+					</div>			
+				</div>		
+			</div>
+			</td>
+			<td width="70%">
+			<div id="right">
+				<div id="group">
+					<div id="group_title">setup parameters</div>
+					<div id="group_content">
+							<table>
+								<tr>
+									<td>From</td>
+									<td><input type="text" name="from" maxlength="15"/></td>
+									<td>YYYYMMDD</td>
+								</tr>							
+								<tr>
+									<td>To</td>
+									<td><input type="text" name="to" maxlength="15"/></td>
+									<td>YYYYMMDD</td>
+								</tr>
+								<tr>
+									<td>Status</td>
+									<td>
+										<select id="status" name="status">											
+											<option value="Update">Updated</option>
+											<option value="New">New</option>
+											<option value="Error">Error</option>
+											<option value="$">All</option>
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<td>Get XML</td>
+									<td>
+										<input type="checkbox" name="getXML"/>
+									</td>
+								</tr>										
+							</table>
+							<p align="right">
+							<a href="javascript: submitForm();">do report</a>
+							</p>		
+					</div>			
+				</div>
+				<div id="group">
+					<div id="group_title">output</div>
+					<div id="group_content">
+						<div id="output">
+							Harvested URL:</br>
+							<input type="text" name="outputURL" size="100"/></br>
+							Result:</br>
+							<iframe name="oai_output" width="99%"/>
+						</div>
+					</div>			
+				</div>	
+			</div>
+			</td>
+		</tr>
+	</table>	
+</div>
+</FORM>
+</body>
+</html>
