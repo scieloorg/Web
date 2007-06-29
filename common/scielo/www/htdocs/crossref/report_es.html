@@ -59,7 +59,7 @@
 	}
 	
 	function verDate(date){
-		var re = new RegExp("([0-9]{4})([0-9]{1,2})([0-9]{1,2})");
+		var re = new RegExp("([0-9]{2})-([0-9]{2})-([0-9]{4})");
 		if(!re.test(date)){
 			alert("Parámetro inválido de la fecha");
 			return false;
@@ -80,11 +80,19 @@
 			document.sendQuery.to.focus();
 		}
 		else{	
+			fromISO = from.substring(6);
+			fromISO += from.substring(3,5);
+			fromISO += from.substring(0,2);
+			
+			toISO = to.substring(6);
+			toISO += to.substring(3,5);
+			toISO += to.substring(0,2);
+
 			sts = document.sendQuery.status.selectedIndex;
 			formStatus = true;
 			URL = 'report.php';		
 			
-			URL = URL+"?stat="+document.sendQuery.status[sts].value+"&getXML="+document.sendQuery.getXML.checked+"&from="+from+"&to="+to;
+			URL = URL+"?stat="+document.sendQuery.status[sts].value+"&getXML="+document.sendQuery.getXML.checked+"&from="+fromISO+"&to="+toISO;
 					
 			document.sendQuery.outputURL.value = URL;
 			window.open(URL,'oai_output');
@@ -121,12 +129,12 @@
 								<tr>
 									<td>From</td>
 									<td><input type="text" name="from" maxlength="15"/></td>
-									<td>YYYYMMDD</td>
+									<td>DD-MM-AAAA</td>
 								</tr>							
 								<tr>
 									<td>To</td>
 									<td><input type="text" name="to" maxlength="15"/></td>
-									<td>YYYYMMDD</td>
+									<td>DD-MM-AAAA</td>
 								</tr>
 								<tr>
 									<td>Status</td>
