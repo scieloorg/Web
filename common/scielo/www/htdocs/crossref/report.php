@@ -19,7 +19,7 @@ $serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/webservices/wxis/?Isi
 $xmlFile = file_get_contents($serviceUrl);
 $xml = '<?xml version="1.0" encoding="ISO-8859-1"?>';
 $xml .='<root>';
-$xml .='<vars><from>'.$_REQUEST['from'].'</from><to>'.$_REQUEST['to'].'</to></vars>';
+$xml .='<vars><from>'.$_REQUEST['from'].'</from><to>'.$_REQUEST['to'].'</to><domain>'.$applServer.'</domain></vars>';
 $xml .= str_replace('<?xml version="1.0" encoding="ISO-8859-1"?>','',$xmlFile);
 $xml .='</root>';
 
