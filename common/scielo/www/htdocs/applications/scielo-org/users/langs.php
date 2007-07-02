@@ -348,7 +348,7 @@ define("SEE","See");
 define("SEE_HISTORY","See History");
 define("CHOOSE_PERIOD", "Choose by Year:");
 define("START_YEAR", "From:");
-define("LAST_YEAR", "Even:");
+define("LAST_YEAR", "To:");
 define("BUTTON_REFRESH", "Change graphic");
 define("GRAFIC_STATS_FALSE", "Do not exists statistic data for the selected period");
 
