@@ -1,4 +1,4 @@
-/home/scielo/repositorio/www/proc/scieloUpdate/cantUpdate.txt
-/home/scielo/repositorio/www/proc/scieloUpdate/conf.sh
-/home/scielo/repositorio/www/proc/scieloUpdate/LEIA-ME.txt
-/home/scielo/repositorio/www/proc/scieloUpdate/subversion.sh
+/home/scielo/repositorio/linux/www/proc/scieloUpdate/cantUpdate.txt
+/home/scielo/repositorio/linux/www/proc/scieloUpdate/conf.sh
+/home/scielo/repositorio/linux/www/proc/scieloUpdate/LEIA-ME.txt
+/home/scielo/repositorio/linux/www/proc/scieloUpdate/subversion.sh
