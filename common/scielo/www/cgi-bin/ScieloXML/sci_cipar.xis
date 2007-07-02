@@ -87,6 +87,7 @@ PATH_DATA:     tag 7014
         'cited.*=', v7011, 'cited/cited.*',/
 	'PROC_SPLIT_MST.PFT=', v8034, 'pfts/proc_split_mst.pft',/
 	'PROC_XML_PMC.PFT=',v8034, 'pfts/proc_xml_pmc.pft',/
+	'PROC_XML_CRS.PFT=',v8034, 'pfts/proc_xml_crs.pft',/
 	'GIZMO_XML_REF.*=', v8034, 'webservices/wxis/gizmo/gizmoXML.*',/
 	</pft>
 </parm>
