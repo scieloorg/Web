@@ -38,11 +38,11 @@ os arquivos extras nele.
 Ex: Quero que os arquivos /home/scielo/www/htdocs/rss.php e /home/scielo/www/htdocs/info.php não sejam
 atualizados, para isto devo colocar no arquivo cantUpdate.txt as seguintes linhas:
 
-/home/scielo/repositorio/www/htdocs/rss.php
-/home/scielo/repositorio/www/htdocs/info.php
+/home/scielo/repositorio/common/scielo/www/htdocs/rss.php
+/home/scielo/repositorio/common/scielo/www/htdocs/info.php
 
 OBS: Se você mudou a variavel caminhoTemp a sua linha deve ficar assim
-/home/scielo/$caminhoTemp/www ... 
+/home/scielo/$caminhoTemp/scielo/(common ou linux depende em qual parte do repositorio que esta o arquivo) ... 
 onde $caminhoTemp é o conteúdo da variável caminhoTemp
 e altere os arquivos padrão do cantUpdate.txt conforme acima citado
 
