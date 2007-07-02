@@ -13,13 +13,16 @@ O Sincronizador do Scielo Local (scielo metodologia) com o Repositório atualiza 
 variáveis significam:
 
 ---------------------------------------------------------
-- Variável   - Significado				*
+- Variável    - Significado				*
 ---------------------------------------------------------
-login	     - seu usuário no Subversion		*
-senha	     - sua senha no SUbversion			*
-svnLocal     - Local do Repositório			*
-caminhoTemp  - Pasta temporária				*
-caminhoAPL   - Pasta onde o Scielo será atualizado	*
+login	      - seu usuário no Subversion		*
+senha	      - sua senha no SUbversion			*
+svnLocal      - Local do Repositório			*
+caminhoTemp   - Pasta temporária			*
+caminhoAPL    - Pasta onde o Scielo será atualizado	*
+reiniciaChama -	true para o chama se reiniciado e false	*
+		para o contrário			*
+CHAMA_HOME    - path do chama				*
 ---------------------------------------------------------
 
 OBS: Preencha as variáveis login e senha. As outras já estão com um valor default, 
@@ -27,9 +30,10 @@ altere se desejar.
 
 1.2 CONFIGURAÇÕES ADICIONAIS
 
-    No pacote sincronizador.zip temos o arquivo cantUpdate.txt, onde devem ser colocados o caminho 
-dos arquivos adicionais que não devem ser atualizados. O Padrão é o arquivo sem nada, mas dependendo 
-da necessidade do Scielo que está sendo atualizado seja necessário escrever os arquivos extras nele.
+    No pacote sincronizador.zip temos o arquivo cantUpdate.txt, onde devem ser colocados os caminhos 
+dos arquivos adicionais que não devem ser atualizados. O Padrão é o arquivo com os arquivos do diretório
+scieloUpdate, mas dependendo da necessidade do Scielo que está sendo atualizado seja necessário escrever 
+os arquivos extras nele.
 
 Ex: Quero que os arquivos /home/scielo/www/htdocs/rss.php e /home/scielo/www/htdocs/info.php não sejam
 atualizados, para isto devo colocar no arquivo cantUpdate.txt as seguintes linhas:
@@ -40,6 +44,7 @@ atualizados, para isto devo colocar no arquivo cantUpdate.txt as seguintes linha
 OBS: Se você mudou a variavel caminhoTemp a sua linha deve ficar assim
 /home/scielo/$caminhoTemp/www ... 
 onde $caminhoTemp é o conteúdo da variável caminhoTemp
+e altere os arquivos padrão do cantUpdate.txt conforme acima citado
 
 OBS: Os arquivos .def e .ini, e diretórios .svn são removidos automaticamente
 
@@ -64,5 +69,10 @@ ou como preferir
      |-- subversion.sh	-> SHELL SCRIPT MAIN
 
 OBS: Os passos 1 e 2 só precisam ser feitos uma vez.
+
+5 - OBSERVAÇÕES FINAIS
+
+A pasta /home/scielo/www/proc/scieloUpdate não é atualizada pela ferramenta, o diretório deve ser atualizado
+manualmente quando for divulgado novas atualizações na ferramenta.
 
 ****************************************************************************************		
