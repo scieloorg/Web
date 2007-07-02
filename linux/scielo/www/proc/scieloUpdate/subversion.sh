@@ -41,6 +41,7 @@ rm -rf `cat svn.txt`
 # Remove todos os arquivos opcionais que estão no arquivo cantUpdate.txt
 echo "REMOVENDO ARQUIVOS OPCIONAIS"
 rm -rf `cat cantUpdate.txt`
+rm -f `cat cantUpdate.txt`
 
 # Zipando as pastas
 echo "ZIPANDO DIRETÓRIOS COMMON (SEM BASES E BASES-WORK) e LINUX" 
@@ -57,9 +58,9 @@ cd $caminhoAPL/www
 tar xfpz $caminhoTemp/common.tgz 
 tar xfpz $caminhoTemp/linux.tgz 
 
-# Apagando repositório
+# Apagando repositório temporario
 echo "APAGANDO ARQUIVOS TEMPORARIOS"
-rm -r $caminhoTemp
+rm -rf $caminhoTemp
 
 # Altera permisao do wxis.exe para 775
 echo "ALTERANDO PERMISSAO DO WXIS E DO DIRETORIO PROC"
