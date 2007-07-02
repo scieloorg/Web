@@ -58,7 +58,7 @@ cd $caminhoAPL/www
 tar xfpz $caminhoTemp/common.tgz 
 tar xfpz $caminhoTemp/linux.tgz 
 
-# Apagando repositório temporario
+# Apagando repositório
 echo "APAGANDO ARQUIVOS TEMPORARIOS"
 rm -rf $caminhoTemp
 
@@ -68,6 +68,7 @@ cd $caminhoAPL/www/cgi-bin/
 chmod 775 wxis.exe
 chmod -R 774 $caminhoAPL/www/proc/*
 # funcionalidade de reiniciar o chama automatico
+# Nao use por enquanto... Não é recomendado...
 if [ "$reiniciaChama" == "true" ] 
 then
 	echo "MATANDO O JAVA"
