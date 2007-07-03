@@ -245,10 +245,20 @@ function wxis_exe ( $url )
 //wxis-line-command
 function wxis_exe_ ( $url )
 {
+	// Criar um novo Objeto Scielo
+	$host = $HTTP_HOST;    
+    $scielo = new Scielo ($host);
+	/************************************************************************************	
+	*	Pegamos o path do htdocs, isso é importante porque deixamos mais configuravel	*
+	*	os diferentes scielos não precisando mexer na scielo.php, somente no scielo.def	*
+	************************************************************************************/
+	$PATH_HTDOCS = $scielo->_def->getKeyValue("PATH_HTDOCS");
+
 	$request = "/home/scielo/www/cgi-bin/wxis.exe " ;
 	$param = substr($url, strpos($url, "?")+1);
 	$param = str_replace("&", " ", $param);
-	$request = $request.$param." PATH_TRANSLATED=/home/scielo/www/htdocs/ ";
+	$request = $request.$param." PATH_TRANSLATED=".$PATH_HTDOCS;
+
 	if (strpos($url,'debug=')==0){
 		$r = strstr(shell_exec($request), '<');
 	}else{
