@@ -247,7 +247,7 @@ function wxis_exe_ ( $url )
 {
 	// Criar um novo Objeto Scielo
 	$host = $HTTP_HOST;    
-    $scielo = new Scielo ($host);
+	$scielo = new Scielo ($host);
 	/************************************************************************************	
 	*	Pegamos o path do htdocs, isso é importante porque deixamos mais configuravel	*
 	*	os diferentes scielos não precisando mexer na scielo.php, somente no scielo.def	*
