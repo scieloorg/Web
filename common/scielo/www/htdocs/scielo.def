@@ -47,6 +47,7 @@ PATH_DATABASE=/home/scielo/www/bases/
 PATH_SETTINGS=
 PATH_PDF=/home/scielo/www/bases/pdf/
 PATH_TRANSLATION=/home/scielo/www/bases/translation/
+PATH_HTDOCS=/home/scielo/www/htdocs/
 
 [LOG]
 ACTIVATE_LOG=0
