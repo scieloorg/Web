@@ -199,11 +199,11 @@
 				 select="SCIELO_INFO/PATH_DATA" />bib2jcr.htm</xsl:attribute>
 			<font class="linkado" size="-1">journal citation</font>
 		</a-->
-		<a href="http://statbiblio.scielo.br/stat_biblio/index.php?lang={LANGUAGE}">
+		<a href="{SCIELO_INFO/STAT_SERVER}stat_biblio/index.php?lang={LANGUAGE}">
 			<font class="linkado" size="-1">journal citation</font>
 		</a>
 		<br/>
-		<a href="http://statbiblio.scielo.br/stat_biblio/index.php?xml=http://statbiblio.scielo.br/stat_biblio/xml/16.xml&amp;lang={LANGUAGE}&amp;state=16">
+		<a href="{SCIELO_INFO/STAT_SERVER}stat_biblio/index.php?xml{SCIELO_INFO/STAT_SERVER}stat_biblio/xml/16.xml&amp;lang={LANGUAGE}&amp;state=16">
 			<font class="linkado" size="-1">co-authors</font>
 		</a>
 		</xsl:if>
@@ -497,11 +497,11 @@
 				 select="SCIELO_INFO/PATH_DATA" />bib2jcrp.htm</xsl:attribute>
 			<font class="linkado" size="-1">citações de revistas</font>
 		</a-->
-		<a href="http://statbiblio.scielo.br/stat_biblio/index.php?lang={LANGUAGE}">
+		<a href="{SCIELO_INFO/STAT_SERVER}stat_biblio/index.php?lang={LANGUAGE}">
 			<font class="linkado" size="-1">citações de revistas</font>
 		</a>
 		<br/>
-		<a href="http://statbiblio.scielo.br/stat_biblio/index.php?xml=http://statbiblio.scielo.br/stat_biblio/xml/16.xml&amp;lang={LANGUAGE}&amp;state=16">
+		<a href="{SCIELO_INFO/STAT_SERVER}stat_biblio/index.php?xml={SCIELO_INFO/STAT_SERVER}stat_biblio/xml/16.xml&amp;lang={LANGUAGE}&amp;state=16">
 			<font class="linkado" size="-1">co-autoria</font>
 		</a>
 		</xsl:if>
@@ -780,11 +780,11 @@
 				 select="SCIELO_INFO/PATH_DATA" />bib2jcre.htm</xsl:attribute>
 			<font class="linkado" size="-1">citas de revistas</font>
 		</a-->
-		<a href="http://statbiblio.scielo.br/stat_biblio/index.php?lang={LANGUAGE}">
+		<a href="{SCIELO_INFO/STAT_SERVER}stat_biblio/index.php?lang={LANGUAGE}">
 			<font class="linkado" size="-1">citas de revistas</font>
 		</a>
 		<br/>
-		<a href="http://statbiblio.scielo.br/stat_biblio/index.php?xml=http://statbiblio.scielo.br/stat_biblio/xml/16.xml&amp;lang={LANGUAGE}&amp;state=16">
+		<a href="{SCIELO_INFO/STAT_SERVER}stat_biblio/index.php?xml={SCIELO_INFO/STAT_SERVER}stat_biblio/xml/16.xml&amp;lang={LANGUAGE}&amp;state=16">
 			<font class="linkado" size="-1">co-autoria</font>
 		</a>
 		</xsl:if>
