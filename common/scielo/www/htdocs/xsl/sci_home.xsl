@@ -203,7 +203,7 @@
 			<font class="linkado" size="-1">journal citation</font>
 		</a>
 		<br/>
-		<a href="{SCIELO_INFO/STAT_SERVER}stat_biblio/index.php?xml{SCIELO_INFO/STAT_SERVER}stat_biblio/xml/16.xml&amp;lang={LANGUAGE}&amp;state=16">
+		<a href="{SCIELO_INFO/STAT_SERVER}stat_biblio/index.php?xml={SCIELO_INFO/STAT_SERVER}stat_biblio/xml/16.xml&amp;lang={LANGUAGE}&amp;state=16">
 			<font class="linkado" size="-1">co-authors</font>
 		</a>
 		</xsl:if>
