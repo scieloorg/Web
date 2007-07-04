@@ -22,66 +22,8 @@
 	</xsl:template>
 	
 	<xsl:template match="record">
-		<li>
-			<div style="clear: both; height: 1px; margin: 0px; padding: 0px;" />
-			<xsl:value-of select="position()"/>. <xsl:apply-templates select="field[(@tag = 10) or (@tag = 16)]" mode="author"/>
-			<xsl:apply-templates select="field[@tag = 17]" mode="corpAuth"/>
-			<xsl:apply-templates select="field[@tag = 28]" mode="authPeriod"/>
-			<xsl:apply-templates select="field[@tag = 29]" mode="orgName"/>
-			<xsl:apply-templates select="field[@tag = 64]" mode="date"/>
-			<xsl:apply-templates select="field[(@tag = 12) or (@tag = 18)]" mode="title"/>
-			<xsl:apply-templates select="field[@tag = 30]" mode="serTitle"/>
-			<xsl:apply-templates select="field[@tag = 31]" mode="volume"/>
-			<xsl:apply-templates select="field[@tag = 32]" mode="number"/>
-			<xsl:apply-templates select="field[@tag = 35]" mode="ISSN"/>. [ <a href="http://{$applserver}/scielo.php?pid={field[@tag = 880]/occ}&amp;lng={$lang}&amp;script=sci_reflinks"><xsl:value-of select="$texts/text[find='findReferenceOnLine']/replace"/></a> ]<br/>
-			
-		</li>
-	</xsl:template>
-
-
-	<xsl:template match="occ">
-		<xsl:if test="position()!=1">, </xsl:if>
-		<xsl:value-of select="@s"/>,  <xsl:value-of select="@n"/>
-	</xsl:template>
-
-	<xsl:template match="field" mode="author">
-		<xsl:value-of select="occ/@s"/>, <xsl:value-of select="occ/@n"/>. 
+		<xsl:apply-templates select="field[@tag =704 ]/occ"/>[ <a href="http://{$applserver}/scielo.php?pid={field[@tag = 880]/occ}&amp;lng={$lang}&amp;script=sci_reflinks"><xsl:value-of select="$texts/text[find='findReferenceOnLine']/replace"/></a> ]<br/><br/>
 	</xsl:template>
 	
-	<xsl:template match="field" mode="corpAuth">
-		<xsl:value-of select="occ"/>. 
-	</xsl:template>
-	
-	<xsl:template match="field" mode="authPeriod">
-		<xsl:value-of select="occ"/>. 
-	</xsl:template>
-
-	<xsl:template match="field" mode="orgName">
-		<xsl:value-of select="occ"/>.
-	</xsl:template>
-
-	<xsl:template match="field" mode="date">
-		 <xsl:value-of select="occ"/>.
-	</xsl:template>
-
-	<xsl:template match="field" mode="title">
-		 <b><xsl:value-of select="occ"/></b>,
-	</xsl:template>
-
-	<xsl:template match="field" mode="serTitle">
-		 <i><xsl:value-of select="occ"/></i>
-	</xsl:template>
-
-	<xsl:template match="field" mode="volume">
-		vol.<xsl:value-of select="occ"/>&#160;
-	</xsl:template>
-
-	<xsl:template match="field" mode="number">
-		no.<xsl:value-of select="occ"/>
-	</xsl:template>
-	
-	<xsl:template match="field" mode="ISSN">
-		; ISSN: <xsl:value-of select="occ"/>
-	</xsl:template>
 
 </xsl:stylesheet>
