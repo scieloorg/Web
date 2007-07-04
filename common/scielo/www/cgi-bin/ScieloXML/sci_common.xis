@@ -726,6 +726,8 @@
 		'   <PATH_SERIMG>',      v7019, '</PATH_SERIMG>'/,
 		'   <PATH_DATA_IAH>',    v7020, '</PATH_DATA_IAH>'/,
 		'   <PATH_CGI_IAH>',     v7021, '</PATH_CGI_IAH>'/,
+                '   <PATH_HTDOCS>',      v7044, '</PATH_HTDOCS>'/,
+                '   <STAT_SERVER>',      v7045, '</STAT_SERVER>'/,
 		if v7035 = '1' then,
 		'   <SERVER_LOG>', v7036, '</SERVER_LOG>'/,
 		'   <SCRIPT_LOG_NAME>', v7037, '</SCRIPT_LOG_NAME>'/,

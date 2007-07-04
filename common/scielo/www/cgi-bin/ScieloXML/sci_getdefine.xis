@@ -62,6 +62,8 @@
 						case 'PATH_TRANSLATION'             : 'h17041',
                                                 case 'ACTIVATE_GOOGLE'              : 'h17042',
                                                 case 'GOOGLE_CODE'                  : 'h17043',
+						case 'PATH_HTDOCS'                  : 'h17044',
+						case 'STAT_SERVER'                  : 'h17045',
 
 						/* fixed */
                         
