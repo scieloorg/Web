@@ -9,20 +9,25 @@ echo "************************************"
 echo "** Atualiza com Repositorio 0.2	**"
 echo "************************************"
 sleep 3
-echo "Acessando o Repositorio."
+echo "ACESSANDO REPOSITORIO."
 sleep 1
-echo $clear
-echo "Acessando o Repositorio.."
+echo "ACESSANDO REPOSITORIO.."
 sleep 1
-echo $clear
-echo "Acessando o Repositorio..."
-sleep 1
+echo "BAIXANDO DO REPOSITORIO"
 
 # Cria a pasta Temporaria
 mkdir -p $caminhoTemp
 
 # Acessa o repositorio e baixa todo o conteudo do scielo.br para a pasta temporaria
 svn co $svnLocal --username $login --password $senha -q $caminhoTemp
+
+# Testamos se o subversion rodou normalmente
+if [ $? -ne 0 ]
+then
+	echo "UM ERRO ACONTECEU NO SVN, PROCESSO INTERROMPIDO..."
+	echo "VERIFIQUE O ARQUIVO CONF.SH E EXECUTE O PROCESSO NOVAMENTE"
+	exit
+fi
 
 # Acha todos os arquivos .def e remove eles 
 echo "REMOVENDO ARQUIVOS DE CONFIGURAÇÃO" 
@@ -68,7 +73,7 @@ cd $caminhoAPL/www/cgi-bin/
 chmod 775 wxis.exe
 chmod -R 774 $caminhoAPL/www/proc/*
 # funcionalidade de reiniciar o chama automatico
-# Nao use por enquanto... Não é recomendado...
+# nao eh recomendavel usa-la
 if [ "$reiniciaChama" == "true" ] 
 then
 	echo "MATANDO O JAVA"
