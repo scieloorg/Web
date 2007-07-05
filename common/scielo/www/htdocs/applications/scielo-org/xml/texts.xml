@@ -3,6 +3,11 @@
 <texts>
 	<language id="pt">
 		<text>
+                       <find>doiNotFound</find>
+                       <replace>Nenhum registro encontrado</replace>
+                </text>
+										
+		<text>
 			<find>notFound</find>
 			<replace>Referências não encontradas</replace>
 		</text>
@@ -108,6 +113,10 @@
 	</language>
 	<language id="es">
 		<text>
+	                <find>doiNotFound</find>
+		        <replace>Registros no encontrados</replace>
+		</text>	
+		<text>
 			<find>notFound</find>
 			<replace>Referencias no encontradas</replace>
 		</text>
@@ -212,6 +221,11 @@
 		</text>
 	</language>
 	<language id="en">
+		<text>
+ 	               <find>doiNotFound</find>
+	               <replace>Records not found</replace>
+	        </text>
+									      
 		<text>
 			<find>notFound</find>
 			<replace>References not found</replace>
