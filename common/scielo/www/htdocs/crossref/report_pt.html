@@ -87,20 +87,26 @@
 			toISO = to.substring(6);
 			toISO += to.substring(3,5);
 			toISO += to.substring(0,2);
-			 
-			sts = document.sendQuery.status.selectedIndex;
-			formStatus = true;
-			URL = 'report.php';		
 			
-			URL = URL+"?stat="+document.sendQuery.status[sts].value+"&getXML="+document.sendQuery.getXML.checked+"&from="+fromISO+"&to="+toISO;
+			if(toISO.replace(/-/g,"") <= fromISO.replace(/-/g,"")){
+				alert("Parâmetro de data inválido");
+				document.sendQuery.from.focus();
+			}
+			else{
+				sts = document.sendQuery.status.selectedIndex;
+				formStatus = true;
+				URL = 'report.php';		
+			
+				URL = URL+"?stat="+document.sendQuery.status[sts].value+"&getXML="+document.sendQuery.getXML.checked+"&from="+fromISO+"&to="+toISO;
 					
-			document.sendQuery.outputURL.value = URL;
-			window.open(URL,'oai_output');
-			formStatus = true;
-			if (formStatus)
-			{
 				document.sendQuery.outputURL.value = URL;
 				window.open(URL,'oai_output');
+				formStatus = true;
+				if (formStatus)
+				{
+					document.sendQuery.outputURL.value = URL;
+					window.open(URL,'oai_output');
+				}
 			}
 		}
 	
