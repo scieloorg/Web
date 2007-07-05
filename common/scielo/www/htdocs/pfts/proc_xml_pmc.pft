@@ -77,8 +77,14 @@ if (v706='h') then
 		,fi,
 	'</article-meta>',#
 '</front>',#
-	if (ref(['artigo']l(['artigo']'R='v880'00001'),v32701) = '') then
-		,'</article>',#
+	if p(v32701) then
+		if (ref(['artigo']l(['artigo']'R='v880'00001'),v32701) = '') then
+			,'</article>',#
+		fi
+	else
+                if (ref(['artigo']l(['artigo']'R='v880'00001'),v880) = '') then
+                        ,'</article>',#
+                fi
 	fi
 fi
 
