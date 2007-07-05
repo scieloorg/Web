@@ -1,7 +1,7 @@
 <?php
 ini_set("display_errors","1");
 error_reporting(E_ALL ^E_NOTICE);
-//$lang = isset($_REQUEST['lang'])?($_REQUEST['lang']):"";
+$lang = $_REQUEST['lang'];
 
 
 require_once(dirname(__FILE__)."/../class.XSLTransformer.php");
@@ -19,7 +19,7 @@ $serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/webservices/wxis/?Isi
 $xmlFile = file_get_contents($serviceUrl);
 $xml = '<?xml version="1.0" encoding="ISO-8859-1"?>';
 $xml .='<root>';
-$xml .='<vars><from>'.$_REQUEST['from'].'</from><to>'.$_REQUEST['to'].'</to><domain>'.$applServer.'</domain></vars>';
+$xml .='<vars><from>'.$_REQUEST['from'].'</from><to>'.$_REQUEST['to'].'</to><domain>'.$applServer.'</domain><lang>'.$lang.'</lang></vars>';
 $xml .= str_replace('<?xml version="1.0" encoding="ISO-8859-1"?>','',$xmlFile);
 $xml .='</root>';
 

@@ -90,7 +90,7 @@
 			formStatus = true;
 			URL = 'report.php';		
 			
-			URL = URL+"?stat="+document.sendQuery.status[sts].value+"&getXML="+document.sendQuery.getXML.checked+"&from="+from.replace(/-/g,"")+"&to="+to.replace(/-/g,"");
+			URL = URL+"?stat="+document.sendQuery.status[sts].value+"&getXML="+document.sendQuery.getXML.checked+"&from="+from.replace(/-/g,"")+"&to="+to.replace(/-/g,"")+"&lang=en";
 					
 			document.sendQuery.outputURL.value = URL;
 			window.open(URL,'oai_output');

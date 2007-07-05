@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 <xsl:output method="html" version="1.0" encoding="UTF-8" indent="yes"/>
+<xsl:variable name="lang" select="//lang"/>
+<xsl:variable name="texts" select="document('file:///home/scielo/www/htdocs/applications/scielo-org/xml/texts.xml')/texts/language[@id = $lang]"/>
 <xsl:variable name="from" select="//from"/>
 <xsl:variable name="to">
 	<xsl:choose>
@@ -13,12 +15,14 @@
 		<html>
 			<body>				
 				<xsl:apply-templates select="//record" mode="total"/>
-				<table border="1" width="100%">
-					<tr>
-						<td></td><td>PID</td><td>DATE</td><td>STATUS</td><td>LINKS</td>
-					</tr>					
-					<xsl:apply-templates select="//record" mode="content"/>					
-				</table>
+					<table border="1" width="100%">
+						<xsl:if test="(normalize-space(field[@tag = 10]/occ) &gt;= normalize-space($from)) and  (normalize-space(field[@tag = 10]/occ) &lt;= normalize-space($to))">						
+							<tr>
+								<td></td><td>PID</td><td>DATE</td><td>STATUS</td><td>LINKS</td>
+							</tr>					
+						</xsl:if>
+						<xsl:apply-templates select="//record" mode="content"/>					
+					</table>				
 			</body>
 		</html>
 	</xsl:template>
@@ -45,11 +49,22 @@
 			</xsl:if>
 		</xsl:template>
 		
-		<xsl:template match="record" mode="total">
+		<!-- xsl:template match="record" mode="total">
 			<xsl:if test="(normalize-space(field[@tag = 10]/occ) &gt;= normalize-space($from)) and  (normalize-space(field[@tag = 10]/occ) &lt;= normalize-space($to))">
                         	<xsl:if test="position() = last()">Total: <xsl:value-of select="position()"/></xsl:if>
 			</xsl:if>									
+		</xsl:template -->
+		
+		<xsl:template match="record" mode="total">
+			<xsl:choose>
+				<xsl:when test="(normalize-space(field[@tag = 10]/occ) &gt;= normalize-space($from)) and  (normalize-space(field[@tag = 10]/occ) &lt;= normalize-space($to))">
+			 		<xsl:if test="position() = last()">Total: <xsl:value-of select="position()"/></xsl:if>
+	                 	</xsl:when>
+				<xsl:otherwise>
+					<xsl:if test="position() = last()"><xsl:value-of select="$texts/text[find='doiNotFound']/replace"/></xsl:if>
+				</xsl:otherwise>
+			</xsl:choose>
 		</xsl:template>
-
+														
 	
 </xsl:stylesheet>
