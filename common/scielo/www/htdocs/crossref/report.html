@@ -60,6 +60,7 @@
 	
 	function verDate(date){
 		var re = new RegExp("([0-9]{4})-([0-9]{2})-([0-9]{2})");
+				
 		if(!re.test(date)){
 			alert("Invalid date parameter");
 			return false;
@@ -78,6 +79,10 @@
 		}
 		else if(!verDate(to)){
 			document.sendQuery.to.focus();
+		}
+		else if(to.replace(/-/g,"") <= from.replace(/-/g,"")){
+			alert("Invalid date range");
+			document.sendQuery.from.focus();
 		}
 		else{
 			
