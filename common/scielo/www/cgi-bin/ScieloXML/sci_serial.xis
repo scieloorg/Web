@@ -39,7 +39,7 @@
 		<parm name="count">1</parm>
 
 		<loop>
-			<field action="import" tag="list">3000/3003,7009/7041</field> <!-- fixed -->
+			<field action="import" tag="list">3000/3003,7009/7050</field> <!-- fixed -->
 
 			<display><pft>'<SERIAL ',|LASTUPDT="|v943|"|,'>',/#</pft></display>
 			

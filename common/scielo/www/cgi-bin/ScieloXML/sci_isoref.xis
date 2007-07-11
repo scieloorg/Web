@@ -105,7 +105,7 @@
 		<loop>
 	
             <display><pft>@PROC_SPLIT_MST.PFT,</pft></display>
-			<field action="import" tag="list">3000/3012,7009/7041</field> <!-- fixed -->
+			<field action="import" tag="list">3000/3012,7009/7050</field> <!-- fixed -->
        
             <display>
                 <pft>

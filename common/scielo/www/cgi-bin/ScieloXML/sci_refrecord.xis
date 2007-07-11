@@ -11,7 +11,7 @@
                          sws - scielo web services style
                          sta - statistics style
 -->
-    <field action="import" tag="list">7009/7041</field> <!-- fixed 20040112 -->
+    <field action="import" tag="list">7009/7050</field> <!-- fixed 20040112 -->
     
 <!--    <field action="replace" tag="3000"><pft>v4001^l</pft></field>
     <field action="replace" tag="3003"><pft>v4001^s</pft></field>
@@ -24,7 +24,7 @@
 			
 		<loop>
             <display><pft>@PROC_SPLIT_MST.PFT,</pft></display>
-			<field action="import" tag="list">v4001,7009/7041</field> <!-- fixed -->
+			<field action="import" tag="list">v4001,7009/7050</field> <!-- fixed -->
 
             <field action="replace" tag="3000">
                 <pft>

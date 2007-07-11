@@ -110,7 +110,7 @@
             <field action=define tag="1003">Isis_Posting</field>
             
             <loop>
-                <field action="import" tag="list">1001,3000/3004,7009/7040</field>
+                <field action="import" tag="list">1001,3000/3004,7009/7050</field>
                                 
                 <flow action="jump">
                     <pft>
