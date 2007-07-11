@@ -135,13 +135,13 @@
 			<xsl:if test=" ENABLE_STAT_LINK = 1 or ENABLE_CIT_REP_LINK = 1 ">
 			<!-- xsl:element name="a">
 				<xsl:attribute name="href">
-					<xsl:value-of select="'/stat_biblio/index.php?lang='" />
+					<xsl:value-of select="'{SCIELO_INFO/STAT_SERVER}stat_biblio/index.php?lang='" />
 					<xsl:value-of select="LANGUAGE" />
 					<xsl:value-of select="'&amp;issn='" />
 					<xsl:value-of select="/SERIAL/ISSN" />
 				</xsl:attribute>
 			</xsl:element -->
-			<a href="/stat_biblio/index.php?lang={LANGUAGE}&amp;issn={/SERIAL/ISSN}">
+			<a href="{SCIELO_INFO/STAT_SERVER}stat_biblio/index.php?lang={LANGUAGE}&amp;issn={/SERIAL/ISSN}">
   <img>
   <xsl:attribute name="src">
   <xsl:value-of select="concat(SCIELO_INFO/PATH_GENIMG,'en/statist.gif')" /> 
@@ -266,7 +266,7 @@
 				</img>
 			</a><br/>
 			<xsl:if test=" ENABLE_STAT_LINK = 1 or ENABLE_CIT_REP_LINK = 1 ">			
-			<a href="/stat_biblio/index.php?lang={LANGUAGE}&amp;issn={/SERIAL/ISSN}">
+			<a href="{SCIELO_INFO/STAT_SERVER}stat_biblio/index.php?lang={LANGUAGE}&amp;issn={/SERIAL/ISSN}">
   <img>
   <xsl:attribute name="src">
   <xsl:value-of select="concat(SCIELO_INFO/PATH_GENIMG,'pt/statist.gif')" /> 
@@ -377,7 +377,7 @@
 				</img>
 			</a><br/>
 			<xsl:if test=" ENABLE_STAT_LINK = 1 or ENABLE_CIT_REP_LINK = 1 ">			
-			<a href="/stat_biblio/index.php?lang={LANGUAGE}&amp;issn={/SERIAL/ISSN}">
+			<a href="{SCIELO_INFO/STAT_SERVER}stat_biblio/index.php?lang={LANGUAGE}&amp;issn={/SERIAL/ISSN}">
   <img>
   <xsl:attribute name="src">
   <xsl:value-of select="concat(SCIELO_INFO/PATH_GENIMG,'es/statist.gif')" /> 
