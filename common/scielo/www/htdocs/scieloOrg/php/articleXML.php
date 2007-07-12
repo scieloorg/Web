@@ -25,20 +25,20 @@ $databasePath = $defFile["PATH_DATABASE"];
 
 // Contem o artigo da revista
 $xml1 = "http://".$applServer."/cgi-bin/wxis.exe/?IsisScript=ScieloXML/";
-$xml1 .="sci_xmloutput.xis&database=artigo&search=IV=". $pid ."\$"; 
+$xml1 .="sci_xmloutput.xis&database=artigo&gizmo=GIZMO_XML_REF&search=IV=". $pid ."\$"; 
 $xml1 = file_get_contents($xml1);
 
 
 // Contem o elemento <BODY> </BODY>
 $xml2 = "http://".$applServer."/cgi-bin/wxis.exe/?IsisScript=ScieloXML/";
-$xml2 .= "sci_arttext.xis&def=scielo.def&pid=".$pid;
+$xml2 .= "sci_arttext.xis&def=scielo.def&gizmo=GIZMO_XML_REF&pid=".$pid;
 $xml2 = file_get_contents($xml2);
 
 
 // Pegando o conteudo entre as tags <BODY> ... </BODY>
 $posicaoInicial = strpos($xml2, "<BODY>");
 $posicaoFinal= strpos($xml2, "</ARTICLE>") - $posicaoInicial;
-$body = substr($xml2, strpos($xml2, "<BODY>"), $posicaoFinal);
+$body = substr($xml2, strpos($xml2, "<BODY>"), $posicaoFinal-1);
 $body = str_replace("<BODY>","<body>",$body);
 $body = str_replace("</BODY>","</body>", $body);
 
