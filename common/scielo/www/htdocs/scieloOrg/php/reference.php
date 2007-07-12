@@ -58,22 +58,29 @@ $article = $articleService->getArticle();
 								<div class="content">
 									<TABLE border="0" cellpadding="0" cellspacing="2" width="550" align="center">
 									<TR>
-										<TD colspan="2">
-										<h3><span style="font-weight:100;font-size: 70%; background:none;">
-										<?php
+										<TD colspan="3">
+											<h3><span style="font-weight:100;font-size: 70%; background:none;">
+											<?php
 											// pra tirar o negrito e ficar igual ao reference links
-											$titulo = str_replace("</B>","",getTitle($article->getTitle()));
-											$titulo = str_replace("<B>","",getTitle($article->getTitle()));
-											echo $titulo;
-										?>
+											//$titulo = str_replace("</B>","",getTitle($article->getTitle()));
+											//$titulo = str_replace("<B>","",getTitle($article->getTitle()));
+											//echo $titulo.'.'."<br/>";
+											
+											echo getAutors($article->getAuthorXML());
+											echo '<i>';
+											echo getTitle($article->getTitle())."<br/>";
+											
+											echo '</i>';
+										        						
+											echo $article->getSerial(). ', '.$article->getYear().', vol:'.$article->getVolume();
+											echo ', n. '.$article->getNumber().', ISSN '.substr($article->getPID(),1,9).'.<br/><br/>'."\n";
+											?>
 										</span></h3>
+										</TD>
+									</TR>
+
 										
-										</TD>
-									</TR>
-									<TR>
-										<TD height="15">
-										</TD>
-									</TR>
+										
 									<TR>
 										<TD><?php
 											$serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/?IsisScript=ScieloXML/sci_references.xis&database=artigo&gizmo=GIZMO_XML_REF&search=rp=" . $pid . "$";
