@@ -128,7 +128,8 @@
 				</xsl:if>
 				<li>
 					<a>
-						<xsl:attribute name="href">http://<xsl:value-of select="concat(//SERVER,'/scieloOrg/php/articleXML.php?pid=',//ARTICLE/@PID)"/></xsl:attribute>
+						<xsl:attribute name="href">http://<xsl:value-of select="concat(//SERVER,'/scieloOrg/php/articleXML.php?pid=',//ARTICLE/@PID,'&lang=',$LANGUAGE)"/></xsl:attribute>
+						<xsl:attribute name="rel">nofollow</xsl:attribute>
 						<xsl:attribute name="target">xml</xsl:attribute>
 						<img src="/img/{$LANGUAGE}/iconXMLDocument.gif"/>						
 						<xsl:choose>
