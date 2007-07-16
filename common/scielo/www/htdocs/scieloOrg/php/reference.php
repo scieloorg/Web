@@ -58,7 +58,7 @@ $article = $articleService->getArticle();
 								<div class="content">
 									<TABLE border="0" cellpadding="0" cellspacing="2" width="550" align="center">
 									<TR>
-										<TD colspan="3">
+										<TD colspan="2">
 											<h3><span style="font-weight:100;font-size: 70%; background:none;">
 											<?php
 											// pra tirar o negrito e ficar igual ao reference links
@@ -66,23 +66,19 @@ $article = $articleService->getArticle();
 											//$titulo = str_replace("<B>","",getTitle($article->getTitle()));
 											//echo $titulo.'.'."<br/>";
 											
-											echo getAutors($article->getAuthorXML());
-											echo '<i>';
-											echo getTitle($article->getTitle())."<br/>";
+											echo (getAutors($article->getAuthorXML()));
+											echo ('<i><b>');
+											echo (getTitle($article->getTitle()).".<br/>");
+											echo ('</b></i>');					        
+											echo ($article->getSerial(). ', '.$article->getYear().', vol:'.$article->getVolume());
+											echo (', n. '.$article->getNumber().', ISSN '.substr($article->getPID(),1,9).'.<br/><br/>'."\n");
 											
-											echo '</i>';
-										        						
-											echo $article->getSerial(). ', '.$article->getYear().', vol:'.$article->getVolume();
-											echo ', n. '.$article->getNumber().', ISSN '.substr($article->getPID(),1,9).'.<br/><br/>'."\n";
 											?>
-										</span></h3>
+											</span></h3>
 										</TD>
-									</TR>
-
-										
-										
+									</TR>									
 									<TR>
-										<TD><?php
+										<TD colspan="2"><?php
 											$serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/?IsisScript=ScieloXML/sci_references.xis&database=artigo&gizmo=GIZMO_XML_REF&search=rp=" . $pid . "$";
 											
 											$xmlFile = file_get_contents($serviceUrl);
