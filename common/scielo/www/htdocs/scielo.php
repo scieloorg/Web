@@ -198,7 +198,7 @@ function wxis_exe ( $url )
 		require_once('cache.php');
 
 		if(strpos($_SERVER['REQUEST_URI'],'deletefromcache')){
-			$key = substr($_SERVER['REQUEST_URI'],strpos($_SERVER['REQUEST_URI'],'deletefromcache')+16,40);
+			$key = sha1(substr($_SERVER['REQUEST_URI'],0,strpos($_SERVER['REQUEST_URI'],'deletefromcache')-1));
 			echo 'apagando chave '.$key.'XML resultado :'.deleteFromCache($key.'XML');
 			echo '<hr>';
 			echo 'apagando chave '.$key.'HTML resultado :'.deleteFromCache($key.'HTML');
