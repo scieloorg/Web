@@ -389,6 +389,7 @@
 		'  <APP_NAME>',v7038,'</APP_NAME>'/,
 		"  <ENABLE_STAT_LINK>"v7039"</ENABLE_STAT_LINK>"/,
 		"  <ENABLE_CIT_REP_LINK>"v7040"</ENABLE_CIT_REP_LINK>"/,
+		"  <MIMETEX>"v7046"</MIMETEX>"/,
 	</pft></display>
 	
 	<call name="CreatePathControlInfoXML">Now</call>
@@ -750,6 +751,7 @@
 			'  <TITLE><![CDATA[',replace(v100,'"','&quot;'),']]></TITLE>'/,
 			"  <SUBTITLE><![CDATA["v110"]]></SUBTITLE>"/,
 			"  <SHORTTITLE><![CDATA["v150"]]></SHORTTITLE>"/,
+			"  <SHORTTITLE-MEDLINE><![CDATA["v421"]]></SHORTTITLE-MEDLINE>"/,
 			"  <SIGLUM>"v68"</SIGLUM>"/,
 			),
 		' </TITLEGROUP>'/#</pft>
@@ -935,45 +937,53 @@
 </function>
 
 <function name="CreateArticleTitleXML" action="replace" tag="4001">
-<!-- Generate XML for article's title, according to interface language or international language
+<!-- Generate XML for article's title, according to selected language or interface language or international language
 	4001 - article's title lines -->
-	<field action="import" tag="list">3000,3003</field>
+	<field action="import" tag="list">3000,3003,3012,8000</field>
 	<field action="replace" tag="12" split="occ"><pft>(v4001/)</pft></field>
-	<call name="GetLanguage"><pft>v3000/v3003/(v12/)</pft></call>
+	<call name="GetLanguage"><pft>if a(v3012) then v3000/v3003/(|^l|v12^l/) fi</pft></call>
 
+	<field action="replace"	tag="4010">
+		<pft>if p(v3012) and s(mpu,v12):s(mpu,'^l'v3012) then v3012 fi</pft>
+	</field>
 	<field action="replace"	tag="9000">
 		<pft>(if s(mpu,v12^l)=s(mpu,v4010[1]) then mpl,v12^*,break fi)</pft>
 	</field>
 	<field action="replace"	tag="9001">
 		<pft>(if s(mpu,v12^l)=s(mpu,v4010[1]) then mpl,v12^s,break fi)</pft>
 	</field>
+	<field action="replace"	tag="1000">
+		<pft>if v8000<>'.xml' then '^i<![CDATA[^f]]>' fi</pft>
+	</field>
 
 
 	<display>
 		<pft>
-			'  <TITLE><![CDATA['v9000']]></TITLE>'/#
-			'  <SUBTITLE><![CDATA['v9001']]></SUBTITLE>'/#
+			'  <TITLE>',v1000^i,v9000,v1000^f,'</TITLE>'/#
+			'  <SUBTITLE>',v1000^i,v9001,v1000^f,'</SUBTITLE>'/#
 		</pft>
 	</display>
+	<display><pft>if v8000='.xml' then  (if v12^l<>v4010[1]  then '  <trans-title xml:lang="',v12^l,'">'v12^*'</trans-title>'/ fi) fi</pft></display>
 	
 </function>
 
-<function name="CreateArticleAbstractXML" action="replace" tag="4001">
+<function name="CreateArticleAbstractXML" action="replace" split="occ" tag="4001">
 <!-- Generate XML for abstract, according to interface language or international language
 	4001 - abstract lines -->
-	<field action="import" tag="list">3000,3003,3012</field>
-	
-	<field action="replace" tag="83" split="occ"><pft>(v4001/)</pft></field>
+	<field action="import" tag="list">3000,3003,3012,8000</field>
 
-	<call name="GetLanguage"><pft>v3012/v3003/(v83/)</pft></call>
+	<call name="GetLanguage"><pft>v3012/v3003/(|^l|v4001^l/)</pft></call>
 
     <field action="replace" tag="9000">
-   		<pft>(if s(mpu,v83^l)=s(mpu,v4010[1]) then mpl,v83^a,break fi)</pft>
+   		<pft>(if s(mpu,v4001^l)=s(mpu,v4010[1]) then mpl,v4001^a,break fi)</pft>
     </field>
+	<field action="replace"	tag="1000">
+		<pft>if v8000<>'.xml' then '^i<![CDATA[^f]]>' fi</pft>
+	</field>
 	
 	<display>
 		<pft>
-			'  <ABSTRACT><![CDATA['v9000']]></ABSTRACT>'/#
+			'  <ABSTRACT xml:lang="',v4010,'">',v1000^i,v9000,v1000^f,'</ABSTRACT>'/#
 		</pft>
 	</display>
 
@@ -1130,6 +1140,7 @@
             <field action="import" tag="list">10,1111,9901,9902,19988</field>
             
             <field action="occ" tag="9810" from="10"><pft>v9876</pft></field>
+            <field action="replace" tag="1300" split="occ"><pft>replace(v9810^1,' ',s(#))</pft></field>
            
 		   
         	<proc>
@@ -1153,6 +1164,9 @@
                 <pft>
                     if p(v9810^s) or p(v9810^n) then
 			        '   <',v1111^b,v1111^c,' SEARCH="', mpu,replace(s(v9999^s,|,+|v9999^n),' ','+'),mpl,'">'/
+					if p(v1300) then
+						('<AFF xref="',v1300,'"/>'/)
+					fi
       			    |    <NAME><![CDATA[|v9810^n|]]></NAME>|,/
 		    	    |    <SURNAME><![CDATA[|v9810^s|]]></SURNAME>|/                    
                     fi 
@@ -1426,7 +1440,7 @@
 <function name="TestPDFPresence" action="replace" tag="4900">
 <!-- If there is a pdf then generate the attribute pdf="1"
      4900 - pid -->
-	<field action="import" tag="list">7009/7050</field>
+	<field action="import" tag="list">7009/7022</field>
 
 	<!-- Get the url of the pdf file -->
 	<!-- fixed 20040622 -->
@@ -1695,7 +1709,7 @@
 	
 </function>
 
-<function name="GetContentTranslationFileName" action="replace" tag="4901" split="occ">
+<function name="oldGetContentTranslationFileName" action="replace" tag="4901" split="occ">
 <!-- fixed 20040122 - corrige problema de leitura com cat() por causa do tamanho do arquivo -->
 	<do task="import">
 	    <parm name="file"><pft>v4901</pft></parm>
@@ -1735,6 +1749,11 @@
 			<field action="export" tag="list">7999</field>
     		</loop>
 	</do>
+</function>
+
+<function name="GetContentTranslationFileName" action="replace" tag="4901" split="occ">
+<!-- fixed 20040122 - corrige problema de leitura com cat() por causa do tamanho do arquivo -->
+	<display><pft>'[replace-this-by-content]',v4901,'[/replace-this-by-content]'</pft></display>
 </function>
 
 <function name="CreateScieloCopyInfoXML" action="replace" tag="4900">
@@ -1807,6 +1826,7 @@
   <field action="import" tag="list">880</field>
 
   <field action="replace" tag="12" split="occ"><pft>ref(['ARTIGO']val(v4001^r),@PROC_SPLIT_MST.PFT,(v12/))</pft></field>
+  <call name="isXML"><pft>ref(['ARTIGO']val(v4001^r),@PROC_SPLIT_MST.PFT,v702)</pft></call>
 
   <proc>
     <pft>
@@ -2189,7 +2209,7 @@
     Prints article title if present. Otherwise section name.
     v4000 - mfn 
     -->
-	<field action="import" tag="list">3000,3003</field>
+	<field action="import" tag="list">3000,3003,3012</field>
 
     <do task="mfnrange">
 		<parm name="db">ARTIGO</parm>	
@@ -2198,12 +2218,13 @@
 
         <loop>
             <display><pft>@PROC_SPLIT_MST.PFT,</pft></display>
-        	<field action="import" tag="list">3000,3003</field>
+        	<field action="import" tag="list">3000,3003,3012</field>
         
             <flow action="jump">
                 <pft>if a(v12) then 'SECTION' fi</pft>
             </flow>
     
+            <call name="isXML"><pft>v702</pft></call>
             <call name="CreateArticleTitleXML"><pft>(v12/)</pft></call>
             <flow action="skip">Quit</flow>
     
@@ -2631,6 +2652,7 @@
 		</pft>
 	</return>
 </function>
+
 <function name="isXML" action="replace" tag="702">
 	<return action="replace" tag="8000"><pft>replace(mid(v702,size(v702)-3,4),'.XML','.xml')</pft></return> 
 </function>
