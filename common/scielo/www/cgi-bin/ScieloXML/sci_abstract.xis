@@ -17,7 +17,7 @@
 	<field action="cgi" tag="3011">def</field>
     <field action="cgi" tag="3012">tlng</field>
 	<field action="cgi" tag="3013">ws</field>
-    
+    <parm name="buffersize">400000</parm>
 	<field action="replace" tag="3011"><pft>if a(v3011) then 'scielo.def' fi</pft></field>
 
 	<call name="DebugMode"><pft>if a(v3010) then 'OFF' else mpu,v3010,mpl fi</pft></call>
@@ -42,7 +42,7 @@
     </field>
     <field action="replace" tag="3007" split="occ"><pft>ref(['ARTIGO']val(v3006),,@PROC_SPLIT_MST.PFT,(v83/))</pft></field>
 
-  	<call name="GetLanguage"><pft>v3000/v3003/(v3007/)</pft></call>
+  	<call name="GetLanguage"><pft>v3000/v3003/(|^l|v3007^l/)</pft></call>
 
     <field action="replace" tag="3012">
         <pft>
