@@ -1,17 +1,21 @@
 <?php
+//require_once('../../../includes/functions.inc.php');
+//import('config.Config');
 
-define('XML_PROCESSING_INSTRUCTION','<?xml version="1.0" encoding="iso-8859-1"?>');
+define('XML_PROCESSING_INSTRUCTION','<?xml version="1.0" encoding="utf-8"?>');
 
 class XSL_XML  {
 
 	function XSL_XML($xslBaseUri=''){
 		$this->xslBaseUri = $xslBaseUri;
 	}
+	function getTransformer(){
+		return $this->transform;
+	}
 	
 	function xml_xsl ( $xml, $xsl, $debug="" )
 	{
 		$hidden='';
-
 		$xslBaseUri = $this->xslBaseUri;
 		if ($xml=='') die("falta o XML");
 		if ($xsl=='') die("falta XSL para transformar\n");
@@ -20,15 +24,15 @@ class XSL_XML  {
 
 		if (!file_exists($xsl)){die($xsl." not found.");}
 		$transform = new XSLTransformer();
-		
+
 		if (strpos(' '.$xml, '/')==1 || strpos(' '.$xml, 'http://')==1 || strpos(' '.$xml, 'ftp://')==1){	
 		} else {
 			$xml = $this->insertProcessingInstruction(trim($xml));		
 		} 
+
 		if ($xslBaseUri){
 			$transform->setXslBaseUri("file://" . $xslBaseUri);
 		}
-		
 		if ($transform->setXml($xml) == false)
 		       die($transform->getErrorMessage());
 		if ($transform->setXsl($xsl) == false)
@@ -38,19 +42,24 @@ class XSL_XML  {
 		}else{
 			//transform sempre retorna UTF-8
 			$r = $transform->getOutput();
-			if (!$this->isUTF8($xml)){
+			//$r = utf8_decode($r);
+			/*
+			if (!$this->isUTF8($r)){
 				//necessario fazer utf8_decode
+			   $r = html_entity_decode($r);
 		       $r = utf8_decode($r);
-			   $r = preg_replace("/UTF-8/i",$this->find($xml,' encoding="','"'),$r);			   
-			}			
+			   $r = preg_replace("/UTF-8/i",$this->find($r,' encoding="','"'),$r);			 
+			}			*/
 		}
-		
+		//die("XML.php xml é iso?",	strpos(strtolower($xml),'iso-8859-1'));	
+		//debug("XML.php r é iso?",	strpos(strtolower($r),'iso-8859-1'));	
 		return $r.$hidden;
 	}
+	
 	function isUTF8($xml){
 		$processInstruction = substr($xml,0,strpos($xml,'?>'));
 		$processInstruction = strtoupper($processInstruction);
-		return (strpos($processInstruction,'UTF-8')>0);
+		return (strpos($processInstruction,'UTF-')>0);
 	}
 	function returnContent($fileName){
 		if (file_exists($fileName)) {
@@ -137,7 +146,6 @@ class XSL_XML  {
 		if ($this->isUTF8($xml)){
 		
 		} else {
-			$xml = utf8_encode($xml);
 			$xml = trim($this->extractContent($xml));
 			$xml = XML_PROCESSING_INSTRUCTION.$xml;
 		}
@@ -180,13 +188,22 @@ class XSL_XML  {
 	
 	
 	function extractContent($xml, $teste=''){
-/*		if (!$this->isUTF8($xml)){
+
+		$test = strtolower($xml);
+		
+		if (strpos($test, "iso-8859-1")>0 || strpos($test, "utf-")==0){
+			//echo '<!-- iso: '; var_dump($xml); echo '-->';
 			$xml = utf8_encode($xml);
-		}*/
+			//echo '<!-- utf8_encode: '; var_dump($xml); echo '-->';
+		} else {
+			//echo '<!-- nada: '; var_dump($xml);  echo '-->';
+		}
+		//echo '<!-- '; var_dump($xml); echo '-->';
 		$return = $xml;
 		$temp = ' '.trim($xml);
 		
 		$p_invalid_character = strpos($temp,'ÿþ');
+		
 		if (!$p_invalid_character){
 			$return = $xml;
 			$p = strpos($temp,'<?xml');
@@ -208,9 +225,30 @@ class XSL_XML  {
 			}
 			$return = trim($return);
 		}
+		//echo '<!-- '; var_dump($return); echo '-->';
 		return $return;
 	}
 
+	
+/*	
+	function validate ($xmlContent){
+
+		$version = split ("\.", phpversion());
+		$return = $xmlContent;
+
+	    if ( $version[0] > 4 || ($version[0] == 4 && $version[1] >= 1) ) {
+			$return = domxml_open_mem($xmlContent);
+	    }
+	    else {
+			// $return = xmldoc($xmlContent); old function
+			$return = domxml_open_mem($xmlContent);
+	    }
+
+		return $return;
+	}
+*/
+	
+	
 	function new_recursiveFind($xml, $init, $end, $trim=true){
 		$i = 0;
 		$res = array();
@@ -315,7 +353,10 @@ class XSL_XML  {
 
 	function setAttribute($xml, $nodePath, $position, $attrName, $attrValue, $mode='', $setNameSpace=''){
 		if ($attrValue || ($mode=='update')){
-
+echo '<!-- inicio setAttribute '.$attrName.' ';	
+//var_dump(substr($xml,0,100));	
+//var_dump($setNameSpace);
+echo '-->';			
 			$xmlList[count($xmlList)] = "<xml>".$this->extractContent($xml)."</xml>";
 			$xmlList[count($xmlList)] = "<setNameSpace>".$setNameSpace."</setNameSpace>";		
 			$xmlList[count($xmlList)] = "<selection>";					
@@ -329,6 +370,10 @@ class XSL_XML  {
 			$xmlList[count($xmlList)] = "<value>".$attrValue."</value>";
 			$xmlList[count($xmlList)] = "</selection>";
 			$xml = $this->xml_xsl($this->concatXML($xmlList), $this->getXslAttribute());
+echo '<!-- fim setAttribute '.$attrName.' ';	
+//var_dump(substr($xml,0,100));	
+
+echo '-->';	//	die($xml);	
 		}
 		return $xml;
 	}
