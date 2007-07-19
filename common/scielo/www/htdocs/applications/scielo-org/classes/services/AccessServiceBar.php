@@ -160,6 +160,42 @@ para ter o gráfico "multi-lingüe"
 			// Display the graph
 			$graph->Stroke();
 		}
+		
+		/**
+		 * Método que retorna os anos que existem dados 
+		 * estatisticos sobre determinado artigo
+		 *
+		 * @author Deivid Martins
+		 * @access public
+		 * @param Object $stats
+		 * @return int[] $anos 
+		 *
+		 **/
+		function getYears($stats)
+		{
+			// Recebe os dados estatisticos de um artigo
+			$stat = $stats->getRequests();
+			$ano = array();
+			
+			for($i = 0, $j = 0; $i <count($stat) ; $i++)
+			{
+				if($i == 0)
+				{
+					$ano[$j] = $stat[$i]->getYear();
+					$j++;
+				}
+				else
+				{
+					if($stat[$i]->getYear() != $ano[$j-1])
+					{
+						$ano[$j] = $stat[$i]->getYear();
+						$j++;
+					}
+				}
+			}
+
+			return $ano;
+		}
 
 		/** Constroi o gráfico entre periodos de anos 
 			retorna true se o grafico foi montado e false se não foi
@@ -211,7 +247,7 @@ para ter o gráfico "multi-lingüe"
 			$graph->SetScale("textlin");
 		
 		/*
-		cira um array bi-dimencional contendo array(ano{array com a quantidade de acessos por mes})
+		cria um array bi-dimencional contendo array(ano{array com a quantidade de acessos por mes})
 		*/
 
 			$colorIndex = 0;
