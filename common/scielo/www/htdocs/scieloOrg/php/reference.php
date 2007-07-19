@@ -65,6 +65,14 @@ $article = $articleService->getArticle();
 											//$titulo = str_replace("</B>","",getTitle($article->getTitle()));
 											//$titulo = str_replace("<B>","",getTitle($article->getTitle()));
 											//echo $titulo.'.'."<br/>";
+											
+											echo (getAutors($article->getAuthorXML()));
+											echo ('<i><b>');
+											echo (getTitle($article->getTitle()).".<br/>");
+											echo ('</b></i>');					        
+											echo ($article->getSerial(). ', '.$article->getYear().', vol:'.$article->getVolume());
+											echo (', n. '.$article->getNumber().', ISSN '.substr($article->getPID(),1,9).'.<br/><br/>'."\n");
+											
 											?>
 											</span></h3>
 										</TD>
