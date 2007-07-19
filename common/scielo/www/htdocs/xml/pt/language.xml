@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<languages name="pt">
+	<language id="pt">Português</language>
+	<language id="en">Inglês</language>
+	<language id="es">Espanhol</language>
+	<language id="af">Africaner</language>
+	<language id="de">Alemão</language>
+	<language id="ar" view="r2l">Arabe</language>
+	<language id="bg">Búlgaro</language>
+	<language id="ca">Catalão</language>
+	<language id="ch">Chinês</language>
+	<language id="ko">Coreano</language>
+	<language id="da">Dinamarquês</language>
+	<language id="sk">Eslovaco</language>
+	<language id="eo">Esperanto</language>
+	<language id="fr">Francês</language>
+	<language id="gl">Galego</language>
+	<language id="gr">Grego</language>
+	<language id="he">Hebraico</language>
+	<language id="hi">Hindu</language>
+	<language id="nl">Holandês</language>
+	<language id="hu">Húngaro</language>
+	<language id="in">Indonésio</language>
+	<language id="ia">Interlingua</language>
+	<language id="ie">Interlingue</language>
+	<language id="it">Italiano</language>
+	<language id="ja">Japonês</language>
+	<language id="la">Latim</language>
+	<language id="no">Norueguês</language>
+	<language id="pl">Polonês</language>
+	<language id="ro">Românico</language>
+	<language id="ru">Russo</language>
+	<language id="sa">Sânscrito</language>
+	<language id="sh">Servo-Croata</language>
+	<language id="sn">Slovenian</language>
+	<language id="sv">Sueco</language>
+	<language id="cs">Tcheco</language>
+	<language id="tr">Turco</language>
+	<language id="uk">Ucraniano</language>
+	<language id="ur">Urdu</language>
+	<language id="eu">Vasco</language>
+	<language id="zz">Outros</language>
+</languages>
