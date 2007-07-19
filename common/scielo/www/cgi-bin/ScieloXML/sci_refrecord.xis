@@ -5,7 +5,7 @@
     v4001^a - mfn article
     v4001^l - interface language
     v4001^s - default language
-    v4001^o - original text language
+    v4001^o - (original or translation) text language 
     v4001^r - number of requests
     v4001^f - page type: abs - abstract style
                          sws - scielo web services style
@@ -69,7 +69,7 @@
                     | REQUESTS="|v4001^r|"|
 		 ,' CURR_DATE="',mid(date,1,8),'"'
 		 ,' ahpdate="',v223,'"'
-	         ,' RELATED="',ref(['related']l(['related']v880),f(nocc(v88),2,0)),'"',
+         ,' RELATED="',ref(['related']l(['related']v880),f(nocc(v88),2,0)),'"',
 		 ,' CITED="',ref(['cited']l(['cited']v880),f(nocc(v88),2,0)),'"'
 		 ,' PROCESSDATE="',ref(l('OU=',v880),proc(if val(v32701^m) > 0 then,'R../bases/artigo/',v32701^*,',',v32701^m , fi),v91),'"',
                 </pft>
@@ -91,8 +91,7 @@
                     if v4001^f = 'abs' then '^ssci_abstract' fi
                 </pft>
             </call>
-	
-	<call name="CreateTitleGroupXML"><pft>if v4001^f = 'sws' then v4001^t fi</pft></call>
+			<call name="CreateTitleGroupXML"><pft>if v4001^f = 'sws' then v4001^t fi</pft></call>
             
             <!-- FIXME 20040902
                 WORKAROUND: When there is an article record in article database but there isn´t a corresponding issue record in newissue database, 
