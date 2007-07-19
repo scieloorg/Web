@@ -14,7 +14,7 @@ error_reporting(1);
 	}
 	else
 	{
-		$accessService->buildGraphic($accessService->getStats());
+		$accessService->buildGraphicByYear($accessService->getStats(),date("Y"), date("Y"));
 	}
 
 

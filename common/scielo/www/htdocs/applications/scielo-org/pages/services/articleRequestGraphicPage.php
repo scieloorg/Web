@@ -7,6 +7,7 @@ error_reporting(1);
 	require_once($DirNameLocalGraphPage."../../users/langs.php");
 	require_once($DirNameLocalGraphPage."../../../../php/include.php");
 	require_once($DirNameLocalGraphPage."../../classes/services/ArticleServices.php");
+	require_once(dirname(__FILE__)."/../../classes/services/AccessServiceBar.php");
 
 	$DirHtml = $DirNameLocalGraphPage."../html/" .$lang . "/";
 	$site = parse_ini_file($DirNameLocalGraphPage."/../../../../ini/" . $lang . "/bvs.ini", true);
@@ -150,8 +151,36 @@ error_reporting(1);
 			<!-- Formulário de opção de estatísticas por data -->
 			<form action="articleRequestGraphicPage.php" name="form1" method="get" onSubmit="return valida_form();">
 				<p><b><?=CHOOSE_PERIOD?></b><br/>
-				<?=START_YEAR?> <input type="text" id="startYear" name="startYear" size="4" maxlength="4"/>
-				<?=LAST_YEAR?> <input type="text" id="lastYear" name="lastYear" size="4" maxlength="4"/> 
+				<?php
+					$accessService = new AccessService();
+					$accessService->setParams($_REQUEST['pid']);
+					$years = array();
+					$years = $accessService->getYears($accessService->getStats());
+					
+				?>
+				<?=START_YEAR?> 
+				<select id="startYear" name="startYear"> 	
+				<?php
+					for($i = 0; $i < count($years); $i++)
+					{
+						echo '<option value="'.$years[$i].'">'.$years[$i].'</option>'; 	
+					}
+				?>
+				</select> 
+				
+				<!--<input type="text" id="startYear" name="startYear" size="4" maxlength="4"/>-->
+
+				
+				<?=LAST_YEAR?>
+				<select id="lastYear" name="lastYear">
+				<?php
+					for($i = 0; $i < count($years); $i++)
+					{
+						echo '<option value="'.$years[$i].'">'.$years[$i].'</option>'; 	
+					}
+				?>
+				</select>
+				<!--<input type="text" id="lastYear" name="lastYear" size="4" maxlength="4"/> -->
 				<input type="submit" class="submit" value="<?=BUTTON_REFRESH?>">
 				<input type="hidden" id="lang" name="lang" value="<?=$lang?>">
 				<input type="hidden" id="caller" name="caller" value="<?=$caller?>">
