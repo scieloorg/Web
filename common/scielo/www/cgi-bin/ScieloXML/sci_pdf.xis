@@ -23,10 +23,9 @@
 	<include>ScieloXML/sci_cipar.xis</include>	
 
 	<field action="replace" tag="3002"><pft>mpu,v3002,mpl</pft></field>
-    <field action="replace" tag="3002"><pft>ref(['ARTIGO']l(['ARTIGO']'HR='v3002),@PROC_SPLIT_MST.PFT,if p(v222) then v222 else v880 fi)</pft></field>
 										      
   <!-- verifica se artigo era um ahead of print, então troca o pid pelo novo pid -->
-  <field action="replace" tag="3002"><pft>ref(['ARTIGO']l(['ARTIGO']'HR='v3002),@PROC_SPLIT_MST.PFT,v222)</pft></field>
+  <field action="replace" tag="3002"><pft>ref(['ARTIGO']l(['ARTIGO']'HR='v3002),@PROC_SPLIT_MST.PFT,if p(v222) then v222 else v880 fi)</pft></field>
 
 	<field action="replace" tag="3004"><pft>f(l(['TITLE'],'LOC=',mid(v3002,2,9)),1,0)</pft></field>
     <field action="replace" tag="3005"><pft>f(l(['NEWISSUE'],'Y',mid(v3002,2,17)),1,0)</pft></field>
@@ -74,7 +73,7 @@
 		
 		<loop>
             <display><pft>@PROC_SPLIT_MST.PFT,</pft></display>
-			<field action="import" tag="list">3000/3006,7999</field>
+			<field action="import" tag="list">3000/3006,3012,7999</field>
 	
 			<call name="CreateTitleGroupXML"><pft>v3004</pft></call>
 			
