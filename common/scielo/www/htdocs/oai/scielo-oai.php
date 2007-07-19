@@ -1,6 +1,6 @@
 <?php
     include_once ( "classDefFile.php" );
-    include_once ( "class.XSLTransformer.php" );
+    include_once ( "../class.XSLTransformer.php" );
 //    include_once ( "classScielo.php" );
 	include_once ( "version-4.1-like-4.0.php" );
 	include_once ( "scielo-ws.php" );
