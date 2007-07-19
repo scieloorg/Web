@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 	<xsl:variable name="SCIELO_REGIONAL_DOMAIN" select="//SCIELO_REGIONAL_DOMAIN"/>
 	<xsl:variable name="show_toolbox" select="//toolbox"/>
@@ -24,7 +24,8 @@
 		</body>
 	</html>
 </xsl:template>
-
+<xsl:template name="link-ext">
+</xsl:template>
 <xsl:template match="CONTROLINFO[LANGUAGE='en']">
 	<p align="center">
 		<a href="http://www.scielo.org">
@@ -91,14 +92,14 @@
 			<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of 
 				select="SCIELO_INFO/PATH_DATA"/>scielo.php/script_sci_home/lng_pt/nrm_iso</xsl:attribute>
 
-			<font class="linkado" size="-1">português</font>
+			<font class="linkado" size="-1">portuguÃªs</font>
 		</a><br/>
 
 		<a>
 			<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of 
 				select="SCIELO_INFO/PATH_DATA"/>scielo.php/script_sci_home/lng_es/nrm_iso</xsl:attribute>
 
-			<font class="linkado" size="-1">español</font>
+			<font class="linkado" size="-1">espaÃ±ol</font>
 		</a><br/>&#160;<br/>
 
 		<a href="#help">
@@ -225,7 +226,7 @@
 		<td width="70%">
 			<br/><br/>
 			<font class="nomodel" size="-1">
-				The Scientific Electronic Library Online - SciELO is an electronic library covering a selected collection of Brazilian scientific journals.<br/><br/>The library is an integral part of a project being developed by <a href="http://www.fapesp.br">FAPESP</a> - Fundação de Amparo à Pesquisa do Estado de São Paulo, in partnership with <a href="http://www.bireme.br/bvs/I/ihome.htm">BIREME</a> - the Latin American and Caribbean Center on Health Sciences Information. Since 2002, the Project is also supported by <a href="http://www.cnpq.br">CNPq</a> - Conselho Nacional de Desenvolvimento Científico e Tecnológico.<br/><br/>The Project envisages the development of a common methodology for the preparation, storage, dissemination and evaluation of scientific literature in electronic format.<br/><br/>As the project develops, new journal titles are being added in the library collection.
+				The Scientific Electronic Library Online - SciELO is an electronic library covering a selected collection of Brazilian scientific journals.<br/><br/>The library is an integral part of a project being developed by <a href="http://www.fapesp.br">FAPESP</a> - FundaÃ§Ã£o de Amparo Ã  Pesquisa do Estado de SÃ£o Paulo, in partnership with <a href="http://www.bireme.br/bvs/I/ihome.htm">BIREME</a> - the Latin American and Caribbean Center on Health Sciences Information. Since 2002, the Project is also supported by <a href="http://www.cnpq.br">CNPq</a> - Conselho Nacional de Desenvolvimento CientÃ­fico e TecnolÃ³gico.<br/><br/>The Project envisages the development of a common methodology for the preparation, storage, dissemination and evaluation of scientific literature in electronic format.<br/><br/>As the project develops, new journal titles are being added in the library collection.
 			</font>
 		</td>
 
@@ -278,7 +279,7 @@
 		<td width="70%">
 			<br/><br/>
 			<font class="nomodel" size="-1">
-				The Scientific Electronic Library Online - SciELO is an electronic virtual library covering a selected collection of Brazilian scientific journals.<br/><br/>The library is an integral part of a project being developed by <a href="http://www.fapesp.br">FAPESP</a> - Fundação de Amparo à Pesquisa do Estado de São Paulo, in partnership with <a href="http://www.bireme.br/bvs/I/ihome.htm">BIREME</a> - the Latin American and Caribbean Center on Health Sciences Information.<br/><br/>The FAPESP-BIREME Project envisages the development of a common methodology for the preparation, storage, dissemination and evaluation of scientific literature in electronic format.<br/><br/>As the project develops, new journal titles will be added in the library collection.
+				The Scientific Electronic Library Online - SciELO is an electronic virtual library covering a selected collection of Brazilian scientific journals.<br/><br/>The library is an integral part of a project being developed by <a href="http://www.fapesp.br">FAPESP</a> - FundaÃ§Ã£o de Amparo Ã  Pesquisa do Estado de SÃ£o Paulo, in partnership with <a href="http://www.bireme.br/bvs/I/ihome.htm">BIREME</a> - the Latin American and Caribbean Center on Health Sciences Information.<br/><br/>The FAPESP-BIREME Project envisages the development of a common methodology for the preparation, storage, dissemination and evaluation of scientific literature in electronic format.<br/><br/>As the project develops, new journal titles will be added in the library collection.
 			</font>
 		</td>
 
@@ -343,7 +344,7 @@
 		</img>
 	</p>
 
-<!-- <p align="center"><font color="red"><b>Atenção!</b>&#160;Por motivo de manutenção na rede elétrica<br/>os servidores SciELO não estarão disponíveis no dia 30/06/2001,<br/>das 14h00 às 22h00.</font></p> -->
+<!-- <p align="center"><font color="red"><b>AtenÃ§Ã£o!</b>&#160;Por motivo de manutenÃ§Ã£o na rede elÃ©trica<br/>os servidores SciELO nÃ£o estarÃ£o disponÃ­veis no dia 30/06/2001,<br/>das 14h00 Ã s 22h00.</font></p> -->
 
 	<table border="0">
 	<tr>
@@ -368,21 +369,21 @@
 			<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of 
 				select="SCIELO_INFO/PATH_DATA"/>criteria/scielo_brasil_pt.html</xsl:attribute>
 
-			<font class="linkado" size="-1">critérios SciELO Brasil</font>
+			<font class="linkado" size="-1">critÃ©rios SciELO Brasil</font>
 		</a><br/>
 
 		<a>
 			<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of 
 				select="SCIELO_INFO/PATH_DATA"/>comite/comite_pt.htm</xsl:attribute>
 
-			<font class="linkado" size="-1">comitê SciELO Brasil</font>
+			<font class="linkado" size="-1">comitÃª SciELO Brasil</font>
 		</a><br/-->
 
 		<a>
 			<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of 
 				select="SCIELO_INFO/PATH_DATA"/>avaliacao/avaliacao_pt.htm</xsl:attribute>
 
-			<font class="linkado" size="-1">avaliação de periódicos</font>
+			<font class="linkado" size="-1">avaliaÃ§Ã£o de periÃ³dicos</font>
 		</a><br/>&#160;<br/>
 
 		<a>
@@ -396,7 +397,7 @@
 			<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of 
 				select="SCIELO_INFO/PATH_DATA"/>scielo.php/script_sci_home/lng_es/nrm_iso</xsl:attribute>
 				
-			<font class="linkado" size="-1">español</font>
+			<font class="linkado" size="-1">espaÃ±ol</font>
 		</a><br/>&#160;<br/>
 
 		<a href="#help">
@@ -420,13 +421,13 @@
 	</td>
 
 	<td width="205" valign="top">
-		<font class="nomodel" color="#800000" size="-1">periódicos</font><br/><br/>
+		<font class="nomodel" color="#800000" size="-1">periÃ³dicos</font><br/><br/>
 
 		<a>
 			<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of 
 				select="SCIELO_INFO/PATH_DATA"/>scielo.php/script_sci_alphabetic/lng_pt/nrm_iso</xsl:attribute>
 
-			<font class="linkado" size="-1">lista alfabética</font>
+			<font class="linkado" size="-1">lista alfabÃ©tica</font>
 		</a><br/>
 
 		<a>
@@ -442,7 +443,7 @@
 				select="SCIELO_INFO/PATH_DATA_IAH"/>?IsisScript=<xsl:value-of 
 				select="SCIELO_INFO/PATH_CGI_IAH"/>iah.xis&amp;base=title&amp;fmt=iso.pft&amp;lang=p</xsl:attribute>
 				
-			<font class="linkado" size="-1">pesquisa de títulos</font>
+			<font class="linkado" size="-1">pesquisa de tÃ­tulos</font>
 		</a><br/>
 	</td>
 
@@ -455,7 +456,7 @@
 				select="SCIELO_INFO/PATH_DATA_IAH"/>?IsisScript=<xsl:value-of 
 				select="SCIELO_INFO/PATH_CGI_IAH"/>iah.xis&amp;base=article^dlibrary&amp;index=AU&amp;fmt=iso.pft&amp;lang=p</xsl:attribute>
 
-			<font class="linkado" size="-1">índice de autores</font>
+			<font class="linkado" size="-1">Ã­ndice de autores</font>
 		</a><br/>
 
 		<a>
@@ -464,7 +465,7 @@
 				select="SCIELO_INFO/PATH_DATA_IAH"/>?IsisScript=<xsl:value-of 
 				select="SCIELO_INFO/PATH_CGI_IAH"/>iah.xis&amp;base=article^dlibrary&amp;index=KW&amp;fmt=iso.pft&amp;lang=p</xsl:attribute>
 
-			<font class="linkado" size="-1">índice de assuntos</font>
+			<font class="linkado" size="-1">Ã­ndice de assuntos</font>
 		</a><br/>
 
 		<a>
@@ -479,7 +480,7 @@
 
 	<td valign="top" width="205">
 		<xsl:if test="ENABLE_STAT_LINK = 1 or ENABLE_CIT_REP_LINK = 1 ">
-		<font class="nomodel" color="#800000" size="-1">relatórios</font><br/><br/>
+		<font class="nomodel" color="#800000" size="-1">relatÃ³rios</font><br/><br/>
 		</xsl:if>
 
 		<xsl:if test="ENABLE_STAT_LINK = 1">
@@ -495,10 +496,10 @@
 		<!--a>
 			<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER" /><xsl:value-of
 				 select="SCIELO_INFO/PATH_DATA" />bib2jcrp.htm</xsl:attribute>
-			<font class="linkado" size="-1">citações de revistas</font>
+			<font class="linkado" size="-1">citaÃ§Ãµes de revistas</font>
 		</a-->
 		<a href="{SCIELO_INFO/STAT_SERVER}stat_biblio/index.php?lang={LANGUAGE}">
-			<font class="linkado" size="-1">citações de revistas</font>
+			<font class="linkado" size="-1">citaÃ§Ãµes de revistas</font>
 		</a>
 		<br/>
 		<a href="{SCIELO_INFO/STAT_SERVER}stat_biblio/index.php?xml={SCIELO_INFO/STAT_SERVER}stat_biblio/xml/16.xml&amp;lang={LANGUAGE}&amp;state=16">
@@ -519,7 +520,7 @@
 	</td>
 
 	<td width="70%"><br/><br/><font class="nomodel" size="-1">
-		A Scientific Electronic Library Online - SciELO é uma biblioteca eletrônica que abrange uma coleção selecionada de periódicos científicos brasileiros.<br/><br/>A SciELO é o resultado de um projeto de pesquisa da <a href="http://www.fapesp.br">FAPESP</a> - Fundação de Amparo à Pesquisa do Estado de São Paulo, em parceria com a <a href="http://www.bireme.br">BIREME</a> - Centro Latino-Americano e do Caribe de Informação em Ciências da Saúde. A partir de 2002, o Projeto conta com o apoio do <a href="http://www.cnpq.br">CNPq</a> - Conselho Nacional de Desenvolvimento Científico e Tecnológico.<br/><br/>O Projeto tem por objetivo o desenvolvimento de uma metodologia comum para a preparação, armazenamento, disseminação e avaliação da produção científica em formato eletrônico.<br/><br/>Com o avanço das atividades do projeto, novos títulos de periódicos estão sendo incorporados à coleção da biblioteca.<br/><br/></font></td><td width="10%">&#160; 
+		A Scientific Electronic Library Online - SciELO Ã© uma biblioteca eletrÃ´nica que abrange uma coleÃ§Ã£o selecionada de periÃ³dicos cientÃ­ficos brasileiros.<br/><br/>A SciELO Ã© o resultado de um projeto de pesquisa da <a href="http://www.fapesp.br">FAPESP</a> - FundaÃ§Ã£o de Amparo Ã  Pesquisa do Estado de SÃ£o Paulo, em parceria com a <a href="http://www.bireme.br">BIREME</a> - Centro Latino-Americano e do Caribe de InformaÃ§Ã£o em CiÃªncias da SaÃºde. A partir de 2002, o Projeto conta com o apoio do <a href="http://www.cnpq.br">CNPq</a> - Conselho Nacional de Desenvolvimento CientÃ­fico e TecnolÃ³gico.<br/><br/>O Projeto tem por objetivo o desenvolvimento de uma metodologia comum para a preparaÃ§Ã£o, armazenamento, disseminaÃ§Ã£o e avaliaÃ§Ã£o da produÃ§Ã£o cientÃ­fica em formato eletrÃ´nico.<br/><br/>Com o avanÃ§o das atividades do projeto, novos tÃ­tulos de periÃ³dicos estÃ£o sendo incorporados Ã  coleÃ§Ã£o da biblioteca.<br/><br/></font></td><td width="10%">&#160; 
 	</td>
 	</tr>
 
@@ -533,7 +534,7 @@
 	<td width="70%">
 		<br/><br/><br/>
 		<font class="nomodel" size="-1">
-			Esta é a home page do site SciELO Brasil.<br/><br/>O objetivo deste site é implementar uma biblioteca eletrônica que possa proporcionar um amplo acesso a coleções de periódicos como um todo, aos fascículos de cada título de periódico, assim como aos textos completos dos artigos. O acesso aos títulos dos periódicos e aos artigos pode ser feito através de índices e de formulários de busca.<br/><br/>O site da SciELO é parte do Projeto FAPESP/BIREME/CNPq e um dos produtos da aplicação da metodologia para preparação de publicações eletrônicas em desenvolvimento, especialmente o módulo de interface Internet.<br/><br/>Este site é constantemente atualizado tanto no seu formato como no seu conteúdo, de acordo com os avanços e os resultados do projeto.<br/>
+			Esta Ã© a home page do site SciELO Brasil.<br/><br/>O objetivo deste site Ã© implementar uma biblioteca eletrÃ´nica que possa proporcionar um amplo acesso a coleÃ§Ãµes de periÃ³dicos como um todo, aos fascÃ­culos de cada tÃ­tulo de periÃ³dico, assim como aos textos completos dos artigos. O acesso aos tÃ­tulos dos periÃ³dicos e aos artigos pode ser feito atravÃ©s de Ã­ndices e de formulÃ¡rios de busca.<br/><br/>O site da SciELO Ã© parte do Projeto FAPESP/BIREME/CNPq e um dos produtos da aplicaÃ§Ã£o da metodologia para preparaÃ§Ã£o de publicaÃ§Ãµes eletrÃ´nicas em desenvolvimento, especialmente o mÃ³dulo de interface Internet.<br/><br/>Este site Ã© constantemente atualizado tanto no seu formato como no seu conteÃºdo, de acordo com os avanÃ§os e os resultados do projeto.<br/>
 		</font><br/>
 	</td>
 
@@ -550,7 +551,7 @@
 
 	<td width="70%"><br/><br/><br/>
 		<font class="nomodel" size="-1">
-			A interface SciELO proporciona acesso à sua coleção de periódicos através de uma <i>lista alfabética</i> de títulos, ou por meio de uma <i>lista de assuntos</i>, ou ainda através de um módulo de <i>pesquisa de títulos</i> dos periódicos, por assunto, pelos nomes das instituições publicadoras e pelo local de publicação.<br/><br/>A interface também propicia acesso aos textos completos dos artigos através de um <i>índice de autor</i> e um <i>índice de assuntos</i>, ou por meio de um formulário de <i>pesquisa de artigos</i>, que busca os elementos que o compõem, tais como autor, palavras do título, assunto, palavras do texto e ano de publicação.<br/><br/>Clique nas opções marcadas com links no <a href="#top">topo</a> da página para ter acesso às páginas correspondentes.<br/></font><br/><br/><br/><br/>
+			A interface SciELO proporciona acesso Ã  sua coleÃ§Ã£o de periÃ³dicos atravÃ©s de uma <i>lista alfabÃ©tica</i> de tÃ­tulos, ou por meio de uma <i>lista de assuntos</i>, ou ainda atravÃ©s de um mÃ³dulo de <i>pesquisa de tÃ­tulos</i> dos periÃ³dicos, por assunto, pelos nomes das instituiÃ§Ãµes publicadoras e pelo local de publicaÃ§Ã£o.<br/><br/>A interface tambÃ©m propicia acesso aos textos completos dos artigos atravÃ©s de um <i>Ã­ndice de autor</i> e um <i>Ã­ndice de assuntos</i>, ou por meio de um formulÃ¡rio de <i>pesquisa de artigos</i>, que busca os elementos que o compÃµem, tais como autor, palavras do tÃ­tulo, assunto, palavras do texto e ano de publicaÃ§Ã£o.<br/><br/>Clique nas opÃ§Ãµes marcadas com links no <a href="#top">topo</a> da pÃ¡gina para ter acesso Ã s pÃ¡ginas correspondentes.<br/></font><br/><br/><br/><br/>
 	</td>
 
 	<td width="10%">&#160;</td>
@@ -567,7 +568,7 @@
 	</td>
 
 	<td width="70%"><br/><br/><font class="nomodel" size="-1">
-		A Scientific Electronic Library Online - SciELO é uma biblioteca virtual que abrange uma coleção selecionada de periódicos científicos brasileiros.<br/><br/>A SciELO é a aplicação de um projeto de pesquisa da Fundação de Amparo à Pesquisa do Estado de São Paulo - <a href="http://www.fapesp.br">FAPESP</a>, em parceria com o Centro Latino-Americano e do Caribe de Informação em Ciências da Saúde - <a href="http://www.bireme.br">BIREME</a>.<br/><br/>O Projeto FAPESP/BIREME tem por objetivo o desenvolvimento de uma metodologia comum para a preparação, armazenamento, disseminação e avaliação da produção científica em formato eletrônico.<br/><br/>Com o avanço das atividades do projeto, novos títulos de periódicos serão incorporados à coleção da biblioteca.<br/><br/></font></td><td width="10%">&#160; 
+		A Scientific Electronic Library Online - SciELO Ã© uma biblioteca virtual que abrange uma coleÃ§Ã£o selecionada de periÃ³dicos cientÃ­ficos brasileiros.<br/><br/>A SciELO Ã© a aplicaÃ§Ã£o de um projeto de pesquisa da FundaÃ§Ã£o de Amparo Ã  Pesquisa do Estado de SÃ£o Paulo - <a href="http://www.fapesp.br">FAPESP</a>, em parceria com o Centro Latino-Americano e do Caribe de InformaÃ§Ã£o em CiÃªncias da SaÃºde - <a href="http://www.bireme.br">BIREME</a>.<br/><br/>O Projeto FAPESP/BIREME tem por objetivo o desenvolvimento de uma metodologia comum para a preparaÃ§Ã£o, armazenamento, disseminaÃ§Ã£o e avaliaÃ§Ã£o da produÃ§Ã£o cientÃ­fica em formato eletrÃ´nico.<br/><br/>Com o avanÃ§o das atividades do projeto, novos tÃ­tulos de periÃ³dicos serÃ£o incorporados Ã  coleÃ§Ã£o da biblioteca.<br/><br/></font></td><td width="10%">&#160; 
 	</td>
 	</tr>
 
@@ -581,7 +582,7 @@
 	<td width="70%">
 		<br/><br/><br/>
 		<font class="nomodel" size="-1">
-			Esta é a home page do site SciELO.<br/><br/>O objetivo deste site é implementar uma biblioteca eletrônica que possa proporcionar um amplo acesso a coleções de periódicos como um todo, aos fascículos de cada título de periódico, assim como aos textos completos dos artigos. O acesso aos títulos dos periódicos e aos artigos pode ser feito através de índices e de formulários de busca.<br/><br/>O site da SciELO é parte do Projeto FAPESP/BIREME e um dos produtos da aplicação da metodologia para preparação de publicações eletrônicas em desenvolvimento, especialmente o módulo de interface Internet.<br/><br/>Este site é constantemente atualizado tanto no seu formato como no seu conteúdo, de acordo com os avanços e os resultados do projeto.<br/>
+			Esta Ã© a home page do site SciELO.<br/><br/>O objetivo deste site Ã© implementar uma biblioteca eletrÃ´nica que possa proporcionar um amplo acesso a coleÃ§Ãµes de periÃ³dicos como um todo, aos fascÃ­culos de cada tÃ­tulo de periÃ³dico, assim como aos textos completos dos artigos. O acesso aos tÃ­tulos dos periÃ³dicos e aos artigos pode ser feito atravÃ©s de Ã­ndices e de formulÃ¡rios de busca.<br/><br/>O site da SciELO Ã© parte do Projeto FAPESP/BIREME e um dos produtos da aplicaÃ§Ã£o da metodologia para preparaÃ§Ã£o de publicaÃ§Ãµes eletrÃ´nicas em desenvolvimento, especialmente o mÃ³dulo de interface Internet.<br/><br/>Este site Ã© constantemente atualizado tanto no seu formato como no seu conteÃºdo, de acordo com os avanÃ§os e os resultados do projeto.<br/>
 		</font><br/>
 	</td>
 
@@ -598,7 +599,7 @@
 
 	<td width="70%"><br/><br/><br/>
 		<font class="nomodel" size="-1">
-			A interface SciELO proporciona acesso à sua coleção de periódicos através de uma lista alfabética de títulos, ou por meio de um índice de assuntos, ou ainda através de um módulo de busca por palavras do título dos periódicos, pelos nomes das instituições publicadoras, pelo local de publicação e por assunto.<br/><br/>A interface também propicia acesso aos textos completos dos artigos através de índices de autor e de assunto, ou por meio de um formulário de busca dos elementos que compõem um artigo, tais como autor, palavras do título, assunto e palavras do texto.<br/><br/>Clique nas opções marcadas com links para ter acesso às páginas correspondentes.<br/></font><br/><br/><br/><br/>
+			A interface SciELO proporciona acesso Ã  sua coleÃ§Ã£o de periÃ³dicos atravÃ©s de uma lista alfabÃ©tica de tÃ­tulos, ou por meio de um Ã­ndice de assuntos, ou ainda atravÃ©s de um mÃ³dulo de busca por palavras do tÃ­tulo dos periÃ³dicos, pelos nomes das instituiÃ§Ãµes publicadoras, pelo local de publicaÃ§Ã£o e por assunto.<br/><br/>A interface tambÃ©m propicia acesso aos textos completos dos artigos atravÃ©s de Ã­ndices de autor e de assunto, ou por meio de um formulÃ¡rio de busca dos elementos que compÃµem um artigo, tais como autor, palavras do tÃ­tulo, assunto e palavras do texto.<br/><br/>Clique nas opÃ§Ãµes marcadas com links para ter acesso Ã s pÃ¡ginas correspondentes.<br/></font><br/><br/><br/><br/>
 	</td>
 
 	<td width="10%">&#160;</td>
@@ -627,7 +628,7 @@
 		</img>
 	</p>
 
-	<!-- <p align="center"><font color="red"><b>Atenção!</b>&#160;Por motivo de mantenimiento en la red eléctrica<br/>los servidores SciELO no estarán disponibles a partir de<br/>las 14:00hs hasta las 22:00hs del 30/06/2001.</font></p> -->
+	<!-- <p align="center"><font color="red"><b>AtenÃ§Ã£o!</b>&#160;Por motivo de mantenimiento en la red elÃ©ctrica<br/>los servidores SciELO no estarÃ¡n disponibles a partir de<br/>las 14:00hs hasta las 22:00hs del 30/06/2001.</font></p> -->
 
 	<table border="0">
 	<tr>
@@ -659,14 +660,14 @@
 			<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of 
 				select="SCIELO_INFO/PATH_DATA"/>comite/comite_es.htm</xsl:attribute>
 
-			<font class="linkado" size="-1">comité SciELO Brasil</font>
+			<font class="linkado" size="-1">comitÃ© SciELO Brasil</font>
 		</a><br/-->
 
 		<a>
 			<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of 
 				select="SCIELO_INFO/PATH_DATA"/>avaliacao/avaliacao_es.htm</xsl:attribute>
 
-			<font class="linkado" size="-1">evaluación de periodicos</font>
+			<font class="linkado" size="-1">evaluaciÃ³n de periodicos</font>
 		</a><br/>&#160;<br/>
 
 		<a>
@@ -680,7 +681,7 @@
 			<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of 
 				select="SCIELO_INFO/PATH_DATA"/>scielo.php/script_sci_home/lng_pt/nrm_iso</xsl:attribute>
 
-			<font class="linkado" size="-1">português</font>
+			<font class="linkado" size="-1">portuguÃªs</font>
 		</a><br/>&#160;<br/>
 
 		<a href="#help">
@@ -710,7 +711,7 @@
 			<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of 
 				select="SCIELO_INFO/PATH_DATA"/>scielo.php/script_sci_alphabetic/lng_es/nrm_iso</xsl:attribute>
 
-			<font class="linkado" size="-1">lista alfabética</font>
+			<font class="linkado" size="-1">lista alfabÃ©tica</font>
 		</a><br/>
 
 		<a>
@@ -726,19 +727,19 @@
 				select="SCIELO_INFO/PATH_DATA_IAH"/>?IsisScript=<xsl:value-of 
 				select="SCIELO_INFO/PATH_CGI_IAH"/>iah.xis&amp;base=title&amp;fmt=iso.pft&amp;lang=e</xsl:attribute>
 
-			<font class="linkado" size="-1">búsqueda de títulos</font>
+			<font class="linkado" size="-1">bÃºsqueda de tÃ­tulos</font>
 		</a><br/>
 	</td>
 
 	<td width="205" valign="top">
-		<font class="nomodel" color="#800000" size="-1">artículos</font><br/><br/>
+		<font class="nomodel" color="#800000" size="-1">artÃ­culos</font><br/><br/>
 		<a>
 			<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of 
 				select="SCIELO_INFO/PATH_WXIS"/><xsl:value-of 
 				select="SCIELO_INFO/PATH_DATA_IAH"/>?IsisScript=<xsl:value-of 
 				select="SCIELO_INFO/PATH_CGI_IAH"/>iah.xis&amp;base=article^dlibrary&amp;index=AU&amp;fmt=iso.pft&amp;lang=e</xsl:attribute>
 
-			<font class="linkado" size="-1">índice de autores</font>
+			<font class="linkado" size="-1">Ã­ndice de autores</font>
 		</a><br/>
 
 		<a>
@@ -747,7 +748,7 @@
 				select="SCIELO_INFO/PATH_DATA_IAH"/>?IsisScript=<xsl:value-of 
 				select="SCIELO_INFO/PATH_CGI_IAH"/>iah.xis&amp;base=article^dlibrary&amp;index=KW&amp;fmt=iso.pft&amp;lang=e</xsl:attribute>
 
-			<font class="linkado" size="-1">índice de materia</font>
+			<font class="linkado" size="-1">Ã­ndice de materia</font>
 		</a><br/>
 
 		<a>
@@ -756,7 +757,7 @@
 				select="SCIELO_INFO/PATH_DATA_IAH"/>?IsisScript=<xsl:value-of 
 				select="SCIELO_INFO/PATH_CGI_IAH"/>iah.xis&amp;base=article^dlibrary&amp;fmt=iso.pft&amp;lang=e</xsl:attribute>
 
-			<font class="linkado" size="-1">búsqueda de artículos</font>
+			<font class="linkado" size="-1">bÃºsqueda de artÃ­culos</font>
 		</a><br/>
 	</td>
 
@@ -805,7 +806,7 @@
 	<td width="70%">
 		<br/><br/>
 		<font class="nomodel" size="-1">
-			La Scientific Electronic Library Online - SciELO es una biblioteca electrónica que abarca una colección seleccionada de revistas científicas Brasileñas. <br/><br/>La biblioteca es resultado de un proyecto de investigación de la <a href="http://www.fapesp.br">FAPESP</a> - Fundação de Amparo à Pesquisa do Estado de São Paulo, en colaboración con <a href="http://www.bireme.br/bvs/E/ehome.htm">BIREME</a> - Centro Latinoamericano y del Caribe de Información en Ciencias de la Salud. A partir de 2002, el Proyecto conta con el apoyo del <a href="http://www.cnpq.br">CNPq</a> - Conselho Nacional de Desenvolvimento Científico e Tecnológico.<br/><br/>El proyecto contempla el desarrollo de una metodología común para la preparación, almacenamiento, diseminación y evaluación de literatura científica en formato electrónico.<br/><br/>Con el desarrollo del proyecto, nuevos títulos son añadidos a la colección de la biblioteca. <br/><br/>
+			La Scientific Electronic Library Online - SciELO es una biblioteca electrÃ³nica que abarca una colecciÃ³n seleccionada de revistas cientÃ­ficas BrasileÃ±as. <br/><br/>La biblioteca es resultado de un proyecto de investigaciÃ³n de la <a href="http://www.fapesp.br">FAPESP</a> - FundaÃ§Ã£o de Amparo Ã  Pesquisa do Estado de SÃ£o Paulo, en colaboraciÃ³n con <a href="http://www.bireme.br/bvs/E/ehome.htm">BIREME</a> - Centro Latinoamericano y del Caribe de InformaciÃ³n en Ciencias de la Salud. A partir de 2002, el Proyecto conta con el apoyo del <a href="http://www.cnpq.br">CNPq</a> - Conselho Nacional de Desenvolvimento CientÃ­fico e TecnolÃ³gico.<br/><br/>El proyecto contempla el desarrollo de una metodologÃ­a comÃºn para la preparaciÃ³n, almacenamiento, diseminaciÃ³n y evaluaciÃ³n de literatura cientÃ­fica en formato electrÃ³nico.<br/><br/>Con el desarrollo del proyecto, nuevos tÃ­tulos son aÃ±adidos a la colecciÃ³n de la biblioteca. <br/><br/>
 		</font>
 	</td>
 
@@ -822,7 +823,7 @@
 	<td width="70%">
 		<br/><br/><br/>
 		<font class="nomodel" size="-1">
-			Esta es la home page del Sitio SciELO Brasil.<br/><br/>El objetivo del sitio es implementar una biblioteca electrónica, que proporcione acceso completo a una colección de revistas, una colección de números de revistas individuales, así como al texto completo de los artículos. El acceso tanto a las revistas como a los artículos se puede realizar usando índices y formularios de búsqueda.<br/><br/>El sitio de SciELO es una parte del Proyecto FAPESP/BIREME/CNPq y es una aplicación de la metodología que el proyecto está desarrollando, en particular, el módulo de Interfaz en Internet.<br/><br/>El sitio será constantemente actualizado tanto en forma como en contenido, en la medida en que el proyecto avance.
+			Esta es la home page del Sitio SciELO Brasil.<br/><br/>El objetivo del sitio es implementar una biblioteca electrÃ³nica, que proporcione acceso completo a una colecciÃ³n de revistas, una colecciÃ³n de nÃºmeros de revistas individuales, asÃ­ como al texto completo de los artÃ­culos. El acceso tanto a las revistas como a los artÃ­culos se puede realizar usando Ã­ndices y formularios de bÃºsqueda.<br/><br/>El sitio de SciELO es una parte del Proyecto FAPESP/BIREME/CNPq y es una aplicaciÃ³n de la metodologÃ­a que el proyecto estÃ¡ desarrollando, en particular, el mÃ³dulo de Interfaz en Internet.<br/><br/>El sitio serÃ¡ constantemente actualizado tanto en forma como en contenido, en la medida en que el proyecto avance.
 		</font>
 		<br/><br/>
 	</td>
@@ -841,7 +842,7 @@
 	<td width="70%">
 		<br/><br/><br/>
 		<font class="nomodel" size="-1">
-			La interfaz SciELO proporciona acceso a su colección de revistas mediante una <i>lista alfabética</i> de títulos, una <i>lista por materia</i>, o una <i>búsqueda de títulos</i> de los periódicos, por palabra del título, materia, nombres de publicadores y ciudad de publicación.<br/><br/>La interfaz también proporciona acceso al texto completo de los artículos por medio de un <i>índice de autores</i>, un <i>índice de materia</i> o un formulario de <i>búsqueda de artículos</i> por sus elementos, como nombres de autores, palabras del título, materias, palabras del texto completo y año de publicación.<br/><br/>Clique un enlace hipertexto en el <a href="#top">topo</a> de la página para llamar la correspondiente página de acceso.<br/>
+			La interfaz SciELO proporciona acceso a su colecciÃ³n de revistas mediante una <i>lista alfabÃ©tica</i> de tÃ­tulos, una <i>lista por materia</i>, o una <i>bÃºsqueda de tÃ­tulos</i> de los periÃ³dicos, por palabra del tÃ­tulo, materia, nombres de publicadores y ciudad de publicaciÃ³n.<br/><br/>La interfaz tambiÃ©n proporciona acceso al texto completo de los artÃ­culos por medio de un <i>Ã­ndice de autores</i>, un <i>Ã­ndice de materia</i> o un formulario de <i>bÃºsqueda de artÃ­culos</i> por sus elementos, como nombres de autores, palabras del tÃ­tulo, materias, palabras del texto completo y aÃ±o de publicaciÃ³n.<br/><br/>Clique un enlace hipertexto en el <a href="#top">topo</a> de la pÃ¡gina para llamar la correspondiente pÃ¡gina de acceso.<br/>
 		</font><br/><br/><br/><br/>
 	</td>
 
@@ -861,7 +862,7 @@
 	<td width="70%">
 		<br/><br/>
 		<font class="nomodel" size="-1">
-			La Scientific Electronic Library Online - SciELO es una biblioteca virtual que abarca una colección seleccionada de revistas científicas Brasileñas. <br/><br/>La biblioteca es parte de un proyecto que está siendo desarrollado por la <a href="http://www.fapesp.org">FAPESP</a> - Fundação de Amparo à Pesquisa do Estado de São Paulo, en colaboración con <a href="http://www.bireme.br/bvs/E/ehome.htm">BIREME</a> - Centro Latinoamericano y del Caribe de Información en Ciencias de la Salud.<br/><br/>El proyecto FAPESP/BIREME contempla el desarrollo de una metodología común para la preparación, almacenamiento, diseminación y evaluación de literatura científica en formato electrónico.<br/><br/>Con el desarrollo del proyecto, nuevos títulos serán añadidos a la colección de la biblioteca. <br/><br/>
+			La Scientific Electronic Library Online - SciELO es una biblioteca virtual que abarca una colecciÃ³n seleccionada de revistas cientÃ­ficas BrasileÃ±as. <br/><br/>La biblioteca es parte de un proyecto que estÃ¡ siendo desarrollado por la <a href="http://www.fapesp.org">FAPESP</a> - FundaÃ§Ã£o de Amparo Ã  Pesquisa do Estado de SÃ£o Paulo, en colaboraciÃ³n con <a href="http://www.bireme.br/bvs/E/ehome.htm">BIREME</a> - Centro Latinoamericano y del Caribe de InformaciÃ³n en Ciencias de la Salud.<br/><br/>El proyecto FAPESP/BIREME contempla el desarrollo de una metodologÃ­a comÃºn para la preparaciÃ³n, almacenamiento, diseminaciÃ³n y evaluaciÃ³n de literatura cientÃ­fica en formato electrÃ³nico.<br/><br/>Con el desarrollo del proyecto, nuevos tÃ­tulos serÃ¡n aÃ±adidos a la colecciÃ³n de la biblioteca. <br/><br/>
 		</font>
 	</td>
 
@@ -878,7 +879,7 @@
 	<td width="70%">
 		<br/><br/><br/>
 		<font class="nomodel" size="-1">
-			Esta es la home page del Sitio SciELO.<br/><br/>El objetivo del sitio es implementar una biblioteca electrónica, que proporcione acceso completo a una colección de revistas, una colección de números de revistas individuales, así como al texto completo de los artículos. El acceso tanto a las revistas como a los artículos se puede realizar usando índices y formularios de búsqueda.<br/><br/>El sitio de SciELO es una parte del Proyecto FAPESP/BIREME y es una aplicación de la metodología que el proyecto está desarrollando, en particular, el módulo de Interfase en Internet.<br/><br/>El sitio será constantemente actualizado tanto en forma como en contenido, en la medida en que el proyecto avance.
+			Esta es la home page del Sitio SciELO.<br/><br/>El objetivo del sitio es implementar una biblioteca electrÃ³nica, que proporcione acceso completo a una colecciÃ³n de revistas, una colecciÃ³n de nÃºmeros de revistas individuales, asÃ­ como al texto completo de los artÃ­culos. El acceso tanto a las revistas como a los artÃ­culos se puede realizar usando Ã­ndices y formularios de bÃºsqueda.<br/><br/>El sitio de SciELO es una parte del Proyecto FAPESP/BIREME y es una aplicaciÃ³n de la metodologÃ­a que el proyecto estÃ¡ desarrollando, en particular, el mÃ³dulo de Interfase en Internet.<br/><br/>El sitio serÃ¡ constantemente actualizado tanto en forma como en contenido, en la medida en que el proyecto avance.
 		</font>
 		<br/><br/>
 	</td>
@@ -897,7 +898,7 @@
 	<td width="70%">
 		<br/><br/><br/>
 		<font class="nomodel" size="-1">
-			La interfase SciELO proporciona acceso a su colección de revistas mediante una lista alfabética de títulos, un índice de materias, o una búsqueda por palabra de las revistas, nombres de publicadores, ciudad de publicación y materia.<br/><br/>La interfase también proporciona acceso al texto completo de los artículos por medio de un índice de autores, un índice de materias o un formulario de búsqueda por los elementos del artículo como nombres de autores, palabras del título, materias y palabras del texto completo.<br/><br/>Clique un enlace hipertexto para llamar la correspondiente página de acceso.<br/>
+			La interfase SciELO proporciona acceso a su colecciÃ³n de revistas mediante una lista alfabÃ©tica de tÃ­tulos, un Ã­ndice de materias, o una bÃºsqueda por palabra de las revistas, nombres de publicadores, ciudad de publicaciÃ³n y materia.<br/><br/>La interfase tambiÃ©n proporciona acceso al texto completo de los artÃ­culos por medio de un Ã­ndice de autores, un Ã­ndice de materias o un formulario de bÃºsqueda por los elementos del artÃ­culo como nombres de autores, palabras del tÃ­tulo, materias y palabras del texto completo.<br/><br/>Clique un enlace hipertexto para llamar la correspondiente pÃ¡gina de acceso.<br/>
 		</font><br/><br/><br/><br/>
 	</td>
 

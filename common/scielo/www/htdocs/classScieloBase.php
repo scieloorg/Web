@@ -18,7 +18,7 @@ class ScieloBase
 
 		$_homepg = "sci_home";		// default home page script
 	var $_param = "";               // default parameters for home page script
-
+	var $_IsisScriptUrl = "";
 	// ------------------------------------------------------------------------------------------
 	// -----------------------------   Protected Data Members   ---------------------------------
 	// ------------------------------------------------------------------------------------------
@@ -202,8 +202,11 @@ class ScieloBase
 	/************************************************************************
 		Protected Method _BypassTransformer()
 
-		If debug is xml then shows the xml file in a textarea. Otherwise,
-		shows the corresponding html page directly.
+		If debug is YES then shows the xml file in a textarea. 
+		If debug is XML then shows the xml file. 
+		If debug is XSL then shows the XSL file url. 
+		If debug is ON then shows the IsisScript debugging. 
+				
 
 		Parameter:
 			NONE
@@ -212,39 +215,44 @@ class ScieloBase
 			NONE
 
 		Last Change:
+			05/07/2007 (Takenaka)
 			19/06/2001 (Roberto)
 	*************************************************************************/
 	function _BypassTransformer()
 	{
-	
-		$fd = fopen ($this->_xml,"r"); 
+		switch ($this->_debug){
+			case "XML":
+				header("Content-type:text/xml; charset=utf-8\n");
+		        echo $this->_xml;
+				break;
+			case "ON":
+				$fd = fopen ($this->_IsisScriptUrl,"r"); 
 
-		if (!$fd) { 
-			echo "<br><b>Could not open url:</b> [".$this->_xml."]\n<br>";
-			return;
-		} 
-	
-		//$buf = fread($fd,2000000);
-		while (!feof($fd)){
-				$buf .= fgets ($fd, 4096);
-			}
+				if (!$fd) { 
+					echo "<br><b>Could not open url:</b> [".$this->_IsisScriptUrl."]\n<br>";
+					return;
+				} 
+			
+				$buf = '';
+				while (!feof($fd)){
+					$buf .= fgets ($fd, 4096);
+				}
+				fclose($fd);
+				echo $buf;
+				break;
+			case "XSL":
+				echo $this->_xsl;
+				break;
+			default:
+				echo "<form>\n";
+				echo "<b>Generated XML</b><br>\n";
+				echo "<TEXTAREA cols=80 rows=20>\n";
+				echo $this->_xml;
+				echo "\n</TEXTAREA>\n</form>";
 
-		fclose($fd);
-
-		if ($this->_debug == 'XML')
-		{
-			echo "<form>\n";
-			echo "<b>Generated XML</b><br>\n";
-			echo "<TEXTAREA cols=80 rows=20>\n";
-	        echo $buf;
-			echo "\n</TEXTAREA>\n</form>";
-
-			echo "<b>\$xml</b>=$this->_xml<br>\n";
-			echo "<b>\$xsl</b>=$this->_xsl<br>\n";
-		}
-		else
-		{
-			echo $buf;
+				echo "<b>url of IsisScript</b>=$this->_IsisScriptUrl<br>\n";
+				echo "<b>\$xsl</b>=$this->_xsl<br>\n";
+				break;
 		}
 	}
 
@@ -390,7 +398,6 @@ class ScieloBase
 		{
    			if($transform->setXml($this->_xml))
 			{
-
     	 		$transform->transform();
 
 				if ($transform->getError() == 0)
@@ -455,7 +462,7 @@ class ScieloBase
 
 		if ( $this->_CheckBypassTransformer() )
 		{
-			$this->_BypassTransformer($this->_xml);
+			$this->_BypassTransformer();
 			exit;
 		}
     }

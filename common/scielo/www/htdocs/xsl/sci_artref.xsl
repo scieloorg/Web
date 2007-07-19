@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 	<!-- Get Vol. No. Suppl. Strip
       Parameter:
@@ -44,8 +44,8 @@
 			</xsl:when>
 			<xsl:when test="$num='se' or $num='SE'">
 				<xsl:choose>
-					<xsl:when test="$lang='es'">edición especial</xsl:when>
-					<xsl:when test="$lang='pt'">edição especial</xsl:when>
+					<xsl:when test="$lang='es'">ediciÃ³n especial</xsl:when>
+					<xsl:when test="$lang='pt'">ediÃ§Ã£o especial</xsl:when>
 					<xsl:otherwise>especial edition</xsl:otherwise>
 				</xsl:choose>
 				<xsl:if test="string-length($num) > 3">
@@ -58,7 +58,7 @@
 					<xsl:when test="$lang='en'">monograph<xsl:if test="$strip">&#160;issue</xsl:if>
 					</xsl:when>
 					<xsl:otherwise>
-						<xsl:if test="$strip">no.</xsl:if>monográfico</xsl:otherwise>
+						<xsl:if test="$strip">no.</xsl:if>monogrÃ¡fico</xsl:otherwise>
 				</xsl:choose>
 				<xsl:if test="string-length($num) > 3">
 					<xsl:value-of select="concat(' ',substring($num,4))"/>
@@ -441,7 +441,7 @@
 		<xsl:param name="ISSN"/>
 		<xsl:param name="FPAGE"/>
 		<xsl:param name="LPAGE"/>
-		<xsl:param name="SHORTTITLE" select="//TITLEGROUP/SHORTTITLE"/>
+		<xsl:param name="SHORTTITLE" select="//TITLEGROUP/TITLE"/>
 		<xsl:call-template name="PrintAuthorsISO">
 			<xsl:with-param name="AUTHORS" select="$AUTHORS"/>
 			<xsl:with-param name="LANG" select="$LANG"/>
@@ -461,7 +461,7 @@
 		<i>
 			<xsl:value-of select="concat(' ', $SHORTTITLE)" disable-output-escaping="yes"/>
 		</i>
-		<xsl:if test="substring($SHORTTITLE,string-length($SHORTTITLE)) != '.' ">.</xsl:if>
+		
 		<!--xsl:if test="$ISSN/@TYPE">
    <xsl:value-of select=" concat(' [', $ISSN/@TYPE, '].') " />
   </xsl:if-->
@@ -504,12 +504,12 @@
 		</xsl:if>.
 		<!--xsl:choose>
 			<xsl:when test=" $LANG = 'en' "> Available from World Wide Web: </xsl:when>
-			<xsl:when test=" $LANG = 'pt' "> Disponível na  World Wide Web: </xsl:when>
+			<xsl:when test=" $LANG = 'pt' "> DisponÃ­vel na  World Wide Web: </xsl:when>
 			<xsl:when test=" $LANG = 'es' "> Disponible en la World Wide Web: </xsl:when>
 		</xsl:choose-->
 		<xsl:choose>
 			<xsl:when test=" $LANG = 'en' "> Available from: </xsl:when>
-			<xsl:when test=" $LANG = 'pt' "> Disponível em: </xsl:when>
+			<xsl:when test=" $LANG = 'pt' "> DisponÃ­vel em: </xsl:when>
 			<xsl:when test=" $LANG = 'es' "> Disponible en: </xsl:when>
 		</xsl:choose>
   
@@ -1119,7 +1119,7 @@ Parameters:
 		<xsl:param name="ISSN"/>
 		<xsl:param name="FPAGE"/>
 		<xsl:param name="LPAGE"/>
-		<xsl:param name="SHORTTITLE" select="//TITLEGROUP/SHORTTITLE"/>
+		<xsl:param name="SHORTTITLE" select="//TITLEGROUP/SHORTTITLE-MEDLINE"/>
 		<xsl:apply-templates select="$AUTHORS" mode="ref">
 			<xsl:with-param name="LANG" select="$LANG"/>
 			<xsl:with-param name="AUTHLINK" select="$AUTHLINK"/>
@@ -1135,12 +1135,11 @@ Parameters:
 			<xsl:if test="substring($ARTTITLE,string-length($ARTTITLE)) != '.' ">.</xsl:if>
 			<!--/font-->
 		</xsl:if>
-		<xsl:value-of select="concat(' ', $SHORTTITLE)" disable-output-escaping="yes"/>
-		<xsl:if test="substring($SHORTTITLE,string-length($SHORTTITLE)) != '.' ">.</xsl:if>&#160;
+		<xsl:value-of select="concat(' ', $SHORTTITLE)" disable-output-escaping="yes"/>&#160;
 		<xsl:choose>
 			<xsl:when test=" $LANG = 'en' ">[serial on the Internet]. </xsl:when>
-			<xsl:when test=" $LANG = 'pt' ">[periódico na Internet]. </xsl:when>
-			<xsl:when test=" $LANG = 'es'">[periódico en la Internet]. </xsl:when>
+			<xsl:when test=" $LANG = 'pt' ">[periÃ³dico na Internet]. </xsl:when>
+			<xsl:when test=" $LANG = 'es'">[periÃ³dico en la Internet]. </xsl:when>
 		</xsl:choose>
 		<!--xsl:value-of select="concat(' ', $MONTH)"/-->
 		<xsl:if test="$NUM!='ahead'">
@@ -1192,7 +1191,7 @@ Parameters:
 
 		<xsl:choose>
 			<xsl:when test=" $LANG = 'en' "> Available from: </xsl:when>
-			<xsl:when test=" $LANG = 'pt' "> Disponível em: </xsl:when>
+			<xsl:when test=" $LANG = 'pt' "> DisponÃ­vel em: </xsl:when>
 			<xsl:when test=" $LANG = 'es' "> Disponible en: </xsl:when>
 		</xsl:choose>
   		http://<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/SERVER"/>
@@ -1224,7 +1223,7 @@ Parameters:
 		<xsl:param name="ISSN"/>
 		<xsl:param name="FPAGE"/>
 		<xsl:param name="LPAGE"/>
-		<xsl:param name="SHORTTITLE" select="//TITLEGROUP/SHORTTITLE"/>
+		<xsl:param name="SHORTTITLE" select="//TITLEGROUP/TITLE"/>
 		<xsl:param name="LOCAL"/>
 		<xsl:apply-templates select="$AUTHORS" mode="ref">
 			<xsl:with-param name="LANG" select="$LANG"/>
@@ -1245,28 +1244,39 @@ Parameters:
 		<b>
 			<xsl:value-of select="concat(' ', $SHORTTITLE)" disable-output-escaping="yes"/>
 		</b>
-		<xsl:if test="substring($SHORTTITLE,string-length($SHORTTITLE)) != '.' ">.</xsl:if>,&#160;
+		,&#160;
 		<xsl:value-of select="$LOCAL"/>
-		<xsl:if test="$NUM!='ahead'">,&#160;
-		<xsl:if test="$VOL">v. <xsl:value-of select="$VOL"/>,&#160;
-		</xsl:if>
-			<xsl:if test="$NUM">
-				<xsl:choose>
-					<xsl:when test="$NUM='SE' or $NUM='se'">Selected Edition</xsl:when>
-					<xsl:otherwise>n. <xsl:value-of select="$NUM"/>,&#160;
-
-				</xsl:otherwise>
-				</xsl:choose>
+		<xsl:choose>
+			<xsl:when test="$NUM!='ahead'">,&#160;
+			<xsl:if test="$VOL">v. <xsl:value-of select="$VOL"/>,&#160;
 			</xsl:if>
-			<xsl:call-template name="GET_MONTH_NAME">
-				<xsl:with-param name="LANG" select="$LANG"/>
-				<xsl:with-param name="ABREV" select="1"/>
-				<xsl:with-param name="MONTH" select="$MONTH"/>
-			</xsl:call-template>
-			<xsl:value-of select="$YEAR"/>
-		</xsl:if>.&#160; Disponível em: 
+				<xsl:if test="$NUM">
+					<xsl:choose>
+						<xsl:when test="$NUM='SE' or $NUM='se'">Selected Edition</xsl:when>
+						<xsl:otherwise>n. <xsl:value-of select="$NUM"/>,&#160;</xsl:otherwise>
+					</xsl:choose>
+				</xsl:if>
+				<xsl:call-template name="GET_MONTH_NAME">
+					<xsl:with-param name="LANG" select="$LANG"/>
+					<xsl:with-param name="ABREV" select="1"/>
+					<xsl:with-param name="MONTH" select="$MONTH"/>
+				</xsl:call-template>
+				<xsl:value-of select="$YEAR"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:choose>
+					<xsl:when test="//ARTICLE/@ahpdate=''">
+						<xsl:value-of select="substring(//ARTICLE/@CURR_DATE,1,4)"/>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="substring(//ARTICLE/@ahpdate,1,4)"/>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:otherwise>
+		</xsl:choose>
+		.&#160; DisponÃ­vel em: 
 		<!--xsl:choose>
-		<xsl:when test=" $LANG = 'pt' "> Disponível em: </xsl:when>
+		<xsl:when test=" $LANG = 'pt' "> DisponÃ­vel em: </xsl:when>
 			<xsl:when test=" $LANG = 'en' "> Available from: </xsl:when>
 			
 			<xsl:when test=" $LANG = 'es' "> Disponible en: </xsl:when>
@@ -1286,7 +1296,9 @@ Parameters:
 			<xsl:with-param name="ABREV" select="1"/>
 			<xsl:with-param name="MONTH" select="substring($CURR_DATE,5,2)"/>
 		</xsl:call-template>&#160;
-			<xsl:value-of select="substring($CURR_DATE,1,4)"/>.&#160; Pré-publicação.
+			<xsl:value-of select="substring($CURR_DATE,1,4)"/>.
+			
+			<xsl:if test="$NUM='ahead'"> &#160; PrÃ©-publicaÃ§Ã£o.</xsl:if>
 		<xsl:apply-templates select="@DOI"/>
 	</xsl:template>
 	<xsl:template match="AUTHORS" mode="ref">
@@ -1505,7 +1517,7 @@ Parameters:
 			</xsl:when>
 			<xsl:when test=" $MONTH='02' ">Fev<xsl:if test="not($ABREV)">ereiro</xsl:if>
 			</xsl:when>
-			<xsl:when test=" $MONTH='03' ">Mar<xsl:if test="not($ABREV)">ço</xsl:if>
+			<xsl:when test=" $MONTH='03' ">Mar<xsl:if test="not($ABREV)">Ã§o</xsl:if>
 			</xsl:when>
 			<xsl:when test=" $MONTH='04' ">Abr<xsl:if test="not($ABREV)">il</xsl:if>
 			</xsl:when>

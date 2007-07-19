@@ -32,8 +32,7 @@
 													<xsl:with-param name="scope" select="$scope"/>
 												</xsl:call-template>
 											</xsl:when>
-										</xsl:choose>&#160;
-             <xsl:choose>
+										</xsl:choose>&#160;<xsl:choose>
 											<xsl:when test="$bar2='issues'">
 												<xsl:call-template name="IssuesBarGroup"/>
 											</xsl:when>
@@ -65,8 +64,7 @@
 													<xsl:with-param name="scope" select="$scope"/>
 												</xsl:call-template>
 											</xsl:when>
-										</xsl:choose>&#160;   
-             <xsl:choose>
+										</xsl:choose>&#160;<xsl:choose>
 											<xsl:when test="$bar2='issues'">
 												<xsl:call-template name="IssuesBar"/>
 											</xsl:when>
@@ -281,7 +279,7 @@
 					<xsl:with-param name="file">next.gif</xsl:with-param>
 					<xsl:with-param name="alttext">
 						<xsl:choose>
-							<xsl:when test="//ABSTRACT or //BODY">
+							<xsl:when test="//ABSTRACT or //BODY or //fulltext">
 								<xsl:value-of select="normalize-space(//NEXT)" disable-output-escaping="yes"/>
 							</xsl:when>
 							<xsl:otherwise>
@@ -298,7 +296,7 @@
 					<xsl:with-param name="script">
 						<xsl:choose>
 							<xsl:when test="//ABSTRACT">sci_abstract</xsl:when>
-							<xsl:when test="//BODY">sci_arttext</xsl:when>
+							<xsl:when test="//BODY or //fulltext">sci_arttext</xsl:when>
 							<xsl:otherwise>sci_issuetoc</xsl:otherwise>
 						</xsl:choose>
 					</xsl:with-param>

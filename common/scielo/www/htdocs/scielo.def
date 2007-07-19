@@ -88,7 +88,7 @@ CACHE_STATUS = off
 SCIELO_REGIONAL_DOMAIN=test.scielo.org
 
 [SOCKET]
-xSOCK_PORT=8080
+;SOCK_PORT=8080
 SOCK_PORT=8899
 
 [SCIELO_REGIONAL]
@@ -110,6 +110,7 @@ show_similar_in_google=1
 google_last_process=20060901
 show_article_references=1
 
+
 [FULLTEXT_SERVICES]
 access="http://scielo2.br.local/applications/scielo-org/pages/services/articleRequestGraphicPage.php?pid=PARAM_PID&caller=PARAM_SERVER"
 cited_SciELO="http://scielo2.br.local/scieloOrg/php/citedScielo.php?pid=PARAM_PID"
@@ -120,3 +121,9 @@ related_Google="http://scholar.google.com/scholar?q=related:CURRENT_URL"
 related="http://scielo2.br.local/scieloOrg/php/related.php?pid=PARAM_PID"
 related_service="http://trigramas.bireme.br/cgi-bin/mxlind/cgi=@related?pid=PARAM_PID"
 send_mail="http://scielo2.br.local/applications/scielo-org/pages/services/sendMail.php?pid=PARAM_PID&caller=PARAM_SERVER"
+
+[mimetex]
+mimetex=/cgi-bin/mimetex.exe
+
+[language]
+client_charset = utf-8

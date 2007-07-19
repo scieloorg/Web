@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format">
 
 <!--xsl:include href="file:///httpd/htdocs/teste/sci_error.xsl" />
@@ -7,7 +7,7 @@
 <xsl:include href="file:///home/scielo/www/htdocs/xsl/sci_navegation.xsl"/>
 <xsl:include href="file:///home/scielo/www/htdocs/xsl/sci_error.xsl" />
 
-
+<xsl:output encoding="utf-8"/>
 
 <xsl:template match="/">
 	<html>
@@ -18,10 +18,10 @@
 					Alphabetic list
 				</xsl:when>
 				<xsl:when test="//SERIALLIST/CONTROLINFO[normalize-space(LANGUAGE)='pt']">
-					Lista alfabética
+					Lista alfabÃ©tica
 				</xsl:when>
 				<xsl:when test="//SERIALLIST/CONTROLINFO[normalize-space(LANGUAGE)='es']">
-					Lista alfabética
+					Lista alfabÃ©tica
 				</xsl:when>
 			</xsl:choose>	
 		</title>
@@ -46,10 +46,10 @@
 				Library Collection
 			</xsl:when>
 			<xsl:when test="//SERIALLIST/CONTROLINFO[normalize-space(LANGUAGE)='pt']">
-				Coleção da biblioteca
+				ColeÃ§Ã£o da biblioteca
 			</xsl:when>
 			<xsl:when test="//SERIALLIST/CONTROLINFO[normalize-space(LANGUAGE)='es']">
-				Colección de la biblioteca
+				ColecciÃ³n de la biblioteca
 			</xsl:when>
 		</xsl:choose>
 		</font>
@@ -74,9 +74,9 @@
 				Alphabetic list - <xsl:value-of select="count(SERIAL)" /> serials listed
 			</xsl:when>
 			<xsl:when test="//SERIALLIST/CONTROLINFO[normalize-space(LANGUAGE)='pt']">
-				Lista alfabética - <xsl:value-of select="count(SERIAL)" /> periódicos listados				</xsl:when>
+				Lista alfabÃ©tica - <xsl:value-of select="count(SERIAL)" /> periÃ³dicos listados				</xsl:when>
 			<xsl:when test="//SERIALLIST/CONTROLINFO[normalize-space(LANGUAGE)='es']">
-				Lista alfabética - <xsl:value-of select="count(SERIAL)" /> seriadas listadas
+				Lista alfabÃ©tica - <xsl:value-of select="count(SERIAL)" /> seriadas listadas
 			</xsl:when>
 		</xsl:choose>
 		</font>
@@ -106,10 +106,10 @@
 					 issue<xsl:if test="@QTYISS > 1">s</xsl:if>
 				</xsl:when>
 				<xsl:when test="//SERIALLIST/CONTROLINFO[normalize-space(LANGUAGE)='pt']"> 
-					número<xsl:if test="@QTYISS > 1">s</xsl:if>
+					nÃºmero<xsl:if test="@QTYISS > 1">s</xsl:if>
 				</xsl:when>
 				<xsl:when test="//SERIALLIST/CONTROLINFO[normalize-space(LANGUAGE)='es']"> 
-					número<xsl:if test="@QTYISS > 1">s</xsl:if>
+					nÃºmero<xsl:if test="@QTYISS > 1">s</xsl:if>
 				</xsl:when>
 			</xsl:choose>
 			<xsl:if test="not(starts-with(normalize-space(following-sibling::node()/TITLE), substring(normalize-space(TITLE), 1, 1)))"><br/></xsl:if>

@@ -11,9 +11,10 @@ class Scielo extends ScieloBase
 	{
 		$this->XML_XSL = new XSL_XML();
 		$this->ScieloBase ($host);
+		$this->_special_xsl = '';
 	}
 
-	function GenerateXmlUrl()
+	function GenerateIsisScriptUrl()
 	{
 
     	$url  = "http://";
@@ -33,15 +34,24 @@ class Scielo extends ScieloBase
             $url .= $this->_param;
         }
 		$url .= "&sln=" . strtolower ( $this->_def->getKeyValue("STANDARD_LANG") );
+		$url .= "&" . $this->_request->getQueryString ();
+		return $url;
+	}
+		
+	function GenerateXmlUrl()
+	{
+    	$this->_IsisScriptUrl = $this->GenerateIsisScriptUrl();
+
+		$xmlFromIsisScript = wxis_exe($this->_IsisScriptUrl); 
+
 
 		$this->_request->getRequestValue("pid", $pid);
 		$this->_request->getRequestValue("t", $textLang);
 		$this->_request->getRequestValue("file", $xmlFile);
 
-		// 200603
+		
 		if ($this->_script == 'sci_arttext' || $this->_script == 'sci_abstract' ){
 			$server = $this->_def->getKeyValue("SERVER_SCIELO");
-
 			$services = $this->_def->getSection("FULLTEXT_SERVICES");
 			$services_xml = array();
 			foreach ($services as $id=>$service){
@@ -54,74 +64,73 @@ class Scielo extends ScieloBase
 			if (count($services_xml)>0){
 				$xmlList[] = $this->XML_XSL->concatXML($services_xml, "fulltext-service-list");
 			}
+
+			require_once("classes/XMLFromIsisScript.php"); 
+			$xmlIsisScript = new XMLFromIsisScript($xmlFromIsisScript);
+			$xmlFromIsisScript = $xmlIsisScript->getXml();
+			$this->_special_xsl = $xmlIsisScript->getSpecialXSL();
 		}
-		// 200603
-		$url .= "&" . $this->_request->getQueryString ();
 
-		$xmlList[] = wxis_exe($url); // 200603
-//adicionando o dominio do Site Regional...
+		$xmlList[] = $xmlFromIsisScript;
 
- 	if (strpos($url,'debug=')==false && strpos($url, 'script=sci_verify')==false){
-
-		$xmlScieloOrg = "<SCIELO_REGIONAL_DOMAIN>" . $this->_def->getKeyValue("SCIELO_REGIONAL_DOMAIN") . "</SCIELO_REGIONAL_DOMAIN>";
-
-//exibir ou não a toolbox ?
-		$xmlScieloOrg .= "<toolbox>".$this->_def->getKeyValue("show_toolbox")."</toolbox>";
-
-//exibir o link Requests ?
-		$xmlScieloOrg .= "<requests>".$this->_def->getKeyValue("show_requests")."</requests>";
-
-//exibir as Referencias do Artigo
-		$xmlScieloOrg .= "<show_article_references>".$this->_def->getKeyValue("show_article_references")."</show_article_references>";
-
-//path para o script de login
-		$xmlScieloOrg .= "<loginURL>".$this->_def->getKeyValue("login_url")."</loginURL>";
-
-//path para o script de logout
-		$xmlScieloOrg .= "<logoutURL>".$this->_def->getKeyValue("logout_url")."</logoutURL>";
-
-//Exibe ou não a opção de Login
-		$xmlScieloOrg .= "<show_login>".$this->_def->getKeyValue("show_login")."</show_login>";
-
-//Exibe ou não a opção de Envio de Artigo por email
-		$xmlScieloOrg .= "<show_send_by_email>".$this->_def->getKeyValue("show_send_by_email")."</show_send_by_email>";
-
-//Exibe ou não a opção de Citados Em Scielo
-		$xmlScieloOrg .= "<show_cited_scielo>".$this->_def->getKeyValue("show_cited_scielo")."</show_cited_scielo>";
-
-//Exibe ou não a opção de Citados em Google
-		$xmlScieloOrg .= "<show_cited_google>".$this->_def->getKeyValue("show_cited_google")."</show_cited_google>";
-
-//Exibe ou não a opção de Similares em Scielo
-		$xmlScieloOrg .= "<show_similar_in_scielo>".$this->_def->getKeyValue("show_similar_in_scielo")."</show_similar_in_scielo>";
-
-//Exibe ou não a opção de Similares em Google
-		$xmlScieloOrg .= "<show_similar_in_google>".$this->_def->getKeyValue("show_similar_in_google")."</show_similar_in_google>";
-
-//Informa data de corte para processamento do Google Schoolar
-                $xmlScieloOrg .= "<google_last_process>".$this->_def->getKeyValue("google_last_process")."</google_last_process>";
-
-		$xmlScieloOrg .=  $this->userInfo();
 		
-		$xmlScieloOrg = "<varScieloOrg>".$xmlScieloOrg."</varScieloOrg>";
+		$xmlScieloOrg = '';
+		if (strpos($this->_IsisScriptUrl, 'script=sci_verify')==false){
+			$elements = array(
+				//adicionando o dominio do Site Regional...
+				"SCIELO_REGIONAL_DOMAIN"=> "SCIELO_REGIONAL_DOMAIN",
+				//exibir o toolbox ?
+				"toolbox"=>"show_toolbox",
+				//exibir o link Requests ?
+				"requests" => "show_requests", 	
+				//exibir as Referencias do Artigo
+				"show_article_references" => "show_article_references", 
+				//path para o script de login
+				"loginURL" => "login_url",
+				//path para o script de logout
+				"logoutURL" => "logout_url",
+				//Exibe ou não a opção de Login
+				"show_login" => "show_login",
+				//Exibe ou não a opção de Envio de Artigo por email
+				"show_send_by_email" => "show_send_by_email",
+				//Exibe ou não a opção de Citados Em Scielo
+				"show_cited_scielo" => "show_cited_scielo",
+				//Exibe ou não a opção de Citados em Google
+				"show_cited_google" => "show_cited_google",
 
+				//Exibe ou não a opção de Similares em Scielo
+				"show_similar_in_scielo" => "show_similar_in_scielo",
+
+				//Exibe ou não a opção de Similares em Google
+				"show_similar_in_google" => "show_similar_in_google",
+
+				//Informa data de corte para processamento do Google Schoolar
+				"google_last_process" => "google_last_process"
+			);
+
+
+			foreach ($elements as $k => $v) {
+				$xmlScieloOrg .= "<$k>" . $this->_def->getKeyValue($v) . "</$k>";				
+			}
+			$xmlScieloOrg .=  $this->userInfo();			
+			$xmlScieloOrg = "<varScieloOrg>".$xmlScieloOrg."</varScieloOrg>";
+
+		}
 		if (count($xmlList)>1){
 			$xml = $this->XML_XSL->concatXML($xmlList, "root");
 		} else {
-			$xml = $xmlList[0];
+			$xml = $this->XML_XSL->insertProcessingInstruction($xmlList[0]);
 		}
 
 		$xml = str_replace("<CONTROLINFO>","<CONTROLINFO>".$xmlScieloOrg,$xml);
-		return $xml;
-	}
 
-		return $url;
+		return $xml;
 	}
 
 	function GenerateXslUrl()
 	{
 		$xsl = $this->_def->getKeyValue("PATH_XSL");
-		$xsl = $xsl . "$this->_script.xsl";
+		$xsl = $xsl . $this->_script.$this->_special_xsl.".xsl";
 
 		return $xsl;
 	}

@@ -1,9 +1,9 @@
-<?php	    
+<?php	
 	require_once("classScielo.php");
 	require_once('sso/header.php');
 
 	// Create new Scielo object
-	$host = $HTTP_HOST;    
+	$host = $_SERVER['HTTP_HOST'];    
     $scielo = new Scielo ($host);
 	$CACHE_STATUS = $scielo->_def->getKeyValue("CACHE_STATUS");
 	$MAX_DAYS = $scielo->_def->getKeyValue("MAX_DAYS");
@@ -80,7 +80,11 @@
 		require_once(dirname(__FILE__)."/export.php");
 		exit;
 	}	
-
+	if (strpos(" ".$pageContent, "<?xml-stylesheet")>0){
+		header("Content-type:text/xml; charset=utf-8\n");
+	} else {
+		header("Content-type:text/html; charset=utf-8\n");
+	}
 	echo $pageContent;
 	
 
@@ -242,11 +246,11 @@ function wxis_exe ( $url )
 
 
 
-// wxis-line-command
+//wxis-line-command
 function wxis_exe_ ( $url )
 {
 	// Criar um novo Objeto Scielo
-	$host = $HTTP_HOST;    
+	$host = $_SERVER['HTTP_HOST'];    
 	$scielo = new Scielo ($host);
 	
 	/************************************************************************************	
@@ -259,21 +263,13 @@ function wxis_exe_ ( $url )
 	$param = substr($url, strpos($url, "?")+1);
 	$param = str_replace("&", " ", $param);
 	$request = $request.$param." PATH_TRANSLATED=".$PATH_HTDOCS;
-
-	if (strpos($url,'debug=')==0)
-	{
-		$r = strstr(shell_exec($request), '<');
-	}
-	else
-	{
-		$r = $url;
-	}
+	
+	$r = strstr(shell_exec($request), '<');
 	return $r;
 }
 
 function wxis_exe_httpd ( $url )
 {
-
 	global $wxisServer;
 	global $scielo;
  	if (strpos($url,'debug=')==false && strpos($url, 'script=sci_verify')==false){
@@ -295,5 +291,7 @@ function wxis_exe_httpd ( $url )
 	}
     return $url;
 }
+
+
 
 ?>

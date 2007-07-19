@@ -2,7 +2,7 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 	<xsl:include href="file:///home/scielo/www/htdocs/xsl/sci_common.xsl"/>
 	<xsl:include href="file:///home/scielo/www/htdocs/xsl/sci_error.xsl"/>
-
+	
 	<xsl:output method="html"
         omit-xml-declaration="yes"
         indent="no"
@@ -38,7 +38,7 @@
 					<div class="level2">
 						    <div class="top">
 							<div id="parent">
-								<img src="/img/en/scielobre.gif" alt="SciELO - Scientific Electronic Library Online" />
+								<img src="/img/en/scielobre.gif" alt="SciELO - Scientific Electronic Librery Online" />
 						       </div>
 						    </div>
 						<div class="middle">

@@ -90,9 +90,10 @@ class XSLTransformer {
 	/* transform method */
     function transform()
     {
+		$err = "";
         if (getenv("ENV_SOCKET")=="true"){
             $result = $this->socket->transform($this->xsl, $this->xml);
-		if (strlen($result)<3){
+			if (strlen($result)<3){
 
 	                $args = array ( '/_xml' => $this->xml, '/_xsl' => $this->xsl );
         	        $result = xslt_process ($this->processor, 'arg:/_xml', 'arg:/_xsl', NULL, $args);
@@ -102,13 +103,13 @@ class XSLTransformer {
         	            $err = "Error: " . xslt_error ($this->processor) . " Errorcode: " . xslt_errno ($this->processor);
                 	    $this->setError ($err);
 	                }
-		} else {
+			} else {
 				$this->setOutput ($result."<!--transformed by JAVA ".date("h:m:s d-m-Y")."-->");
-		}
+			}
         } else {
         	$args = array ( '/_xml' => $this->xml, '/_xsl' => $this->xsl );
-		$result = xslt_process ($this->processor, 'arg:/_xml', 'arg:/_xsl', NULL, $args);
-		if ($result) {
+			$result = xslt_process ($this->processor, 'arg:/_xml', 'arg:/_xsl', NULL, $args);
+			if ($result) {
 		        $this->setOutput ($result."<!--transformed by PHP ".date("h:m:s d-m-Y")."-->");
 	        } else {
         	    	$err = "Error: " . xslt_error ($this->processor) . " Errorcode: " . xslt_errno ($this->processor);

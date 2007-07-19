@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 	<xsl:include href="file:///home/scielo/www/htdocs/xsl/sci_artref.xsl"/>
 	<xsl:template name="AddRssHeaderLink">
@@ -21,7 +21,7 @@
 
 <!--
 
-Exibe caixa para exportação da citacao para "Reference Managers"
+Exibe caixa para exportaÃ§Ã£o da citacao para "Reference Managers"
 
 -->
 	<xsl:template name="PrintExportCitationForRefecenceManagers">
@@ -37,7 +37,7 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 					<span>
 						<xsl:choose>
 							<xsl:when test=" $LANGUAGE = 'en' ">Reference Managers</xsl:when>
-							<xsl:when test=" $LANGUAGE = 'pt' ">Gerenciadores de referências</xsl:when>
+							<xsl:when test=" $LANGUAGE = 'pt' ">Gerenciadores de referÃªncias</xsl:when>
 							<xsl:when test=" $LANGUAGE = 'es' ">Gerenciadores de citas</xsl:when>
 						</xsl:choose>
 					</span>
@@ -186,7 +186,7 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 				</xsl:choose>
 			</xsl:when>
 			<xsl:when test=" $LANG = 'pt' ">
-				<em>versão
+				<em>versÃ£o
      <xsl:choose>
 						<xsl:when test=" $TYPE = 'PRINT' "> impressa</xsl:when>
 						<xsl:when test=" $TYPE = 'CDROM' "> em CDROM</xsl:when>
@@ -196,7 +196,7 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 				</em>
 			</xsl:when>
 			<xsl:when test=" $LANG = 'es' ">
-				<em>versión
+				<em>versiÃ³n
      <xsl:choose>
 						<xsl:when test=" $TYPE = 'PRINT' "> impresa</xsl:when>
 						<xsl:when test=" $TYPE = 'CDROM' "> en CDROM</xsl:when>
@@ -217,8 +217,8 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 			<font color="#000000">
 				<xsl:choose>
 					<xsl:when test="$LANG='en'">Former Title:</xsl:when>
-					<xsl:when test="$LANG='pt'">Título anterior:</xsl:when>
-					<xsl:when test="$LANG='es'">Título anterior:</xsl:when>
+					<xsl:when test="$LANG='pt'">TÃ­tulo anterior:</xsl:when>
+					<xsl:when test="$LANG='es'">TÃ­tulo anterior:</xsl:when>
 				</xsl:choose>
 			</font>
 			<br/>
@@ -233,8 +233,8 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 			<font color="#000000">
 				<xsl:choose>
 					<xsl:when test="$LANG='en'">New title:</xsl:when>
-					<xsl:when test="$LANG='pt'">Título novo:</xsl:when>
-					<xsl:when test="$LANG='es'">Título nuevo:</xsl:when>
+					<xsl:when test="$LANG='pt'">TÃ­tulo novo:</xsl:when>
+					<xsl:when test="$LANG='es'">TÃ­tulo nuevo:</xsl:when>
 				</xsl:choose>
 			</font>
 			<br/>
@@ -402,51 +402,8 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 					</xsl:if>
 				</xsl:when>
 			</xsl:choose>
-			<xsl:choose>
-				<!-- fixed acrescenti first_label -->
-				<xsl:when test=" $INTLANG = 'en' ">
-					<xsl:choose>
-						<xsl:when test=" $TXTLANG = 'en' "> english</xsl:when>
-						<xsl:when test=" $TXTLANG = 'pt' "> portuguese</xsl:when>
-						<xsl:when test=" $TXTLANG = 'es' "> spanish</xsl:when>
-						<xsl:when test=" $TXTLANG = 'fr' "> french</xsl:when>
-						<xsl:when test=" $TXTLANG = 'de' "> german</xsl:when>
-						<xsl:when test=" $TXTLANG = 'it' "> italian</xsl:when>
-						<xsl:when test=" $TXTLANG = 'ca' "> catalán</xsl:when>
-						<xsl:when test=" $TXTLANG = 'eu' "> euskera</xsl:when>
-						<xsl:when test=" $TXTLANG = 'gl' "> gallego</xsl:when>
-						
-					</xsl:choose>
-				</xsl:when>
-				<!-- fixed acrescenti first_label -->
-				<xsl:when test=" $INTLANG = 'pt' ">
-					<xsl:choose>
-						<xsl:when test=" $TXTLANG = 'en' "> inglês</xsl:when>
-						<xsl:when test=" $TXTLANG = 'pt' "> português</xsl:when>
-						<xsl:when test=" $TXTLANG = 'es' "> espanhol</xsl:when>
-						<xsl:when test=" $TXTLANG = 'fr' "> francês</xsl:when>
-						<xsl:when test=" $TXTLANG = 'de' "> alemão</xsl:when>
-						<xsl:when test=" $TXTLANG = 'it' "> italiano</xsl:when>
-						<xsl:when test=" $TXTLANG = 'ca' "> catalão</xsl:when>
-						<xsl:when test=" $TXTLANG = 'eu' "> vasco</xsl:when>
-						<xsl:when test=" $TXTLANG = 'gl' "> galego</xsl:when>
-					</xsl:choose>
-				</xsl:when>
-				<!-- fixed acrescenti first_label -->
-				<xsl:when test=" $INTLANG = 'es' ">
-					<xsl:choose>
-						<xsl:when test=" $TXTLANG = 'en' "> inglés</xsl:when>
-						<xsl:when test=" $TXTLANG = 'pt' "> portugués</xsl:when>
-						<xsl:when test=" $TXTLANG = 'es' "> español</xsl:when>
-						<xsl:when test=" $TXTLANG = 'fr' "> francés</xsl:when>
-						<xsl:when test=" $TXTLANG = 'de' "> alemán</xsl:when>
-						<xsl:when test=" $TXTLANG = 'it' "> italiano</xsl:when>
-						<xsl:when test=" $TXTLANG = 'ca' "> catalán</xsl:when>
-						<xsl:when test=" $TXTLANG = 'eu' "> euskera</xsl:when>
-						<xsl:when test=" $TXTLANG = 'gl' "> gallego</xsl:when>
-					</xsl:choose>
-				</xsl:when>
-			</xsl:choose>
+			<xsl:variable name="languages" select="document(concat('../xml/',$INTLANG,'/language.xml'))//language"/>
+			<xsl:text> </xsl:text><xsl:value-of select="translate(substring($languages[@id=$TXTLANG],1,1),'ABCDEFGHJIKLMNOPQRSTUVWXYZ','abcdefghjiklmnopqrstuvwxyz')"/><xsl:value-of select="substring($languages[@id=$TXTLANG],2)"/>
 		</a>
 		<!-- &#160;&#160;&#160; -->
 	</xsl:template>
@@ -461,7 +418,6 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 				<xsl:attribute name="width">1</xsl:attribute>
 			</img>
 		</xsl:if>
-
 		<!-- to use Google Analytics -->
 		<xsl:if test="//CONTROLINFO/SCIELO_INFO/GOOGLE_CODE != ''">
 			<script src="http://www.google-analytics.com/urchin.js" type="text/javascript"/>
@@ -628,8 +584,8 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 				<font color="blue">
 					<xsl:choose>
 						<xsl:when test=" //CONTROLINFO/LANGUAGE = 'en' ">There are no statistics for that period.</xsl:when>
-						<xsl:when test=" //CONTROLINFO/LANGUAGE = 'pt' ">Não existem estatísticas nesse período.</xsl:when>
-						<xsl:when test=" //CONTROLINFO/LANGUAGE = 'es' ">No existen estadísticas para ese período.</xsl:when>
+						<xsl:when test=" //CONTROLINFO/LANGUAGE = 'pt' ">NÃ£o existem estatÃ­sticas nesse perÃ­odo.</xsl:when>
+						<xsl:when test=" //CONTROLINFO/LANGUAGE = 'es' ">No existen estadÃ­sticas para ese perÃ­odo.</xsl:when>
 					</xsl:choose>
 				</font>
 			</center>
@@ -901,7 +857,7 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 -->
 	<xsl:template name="CREATE_VERIFY_LINK">
 		<xsl:param name="PID"/>
-		<font face="Symbol" color="#800000">Ñ </font>
+		<font face="Symbol" color="#800000">Ã‘ </font>
 		<a>
 			<xsl:attribute name="href">http://<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/SERVER"/><xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_verify&amp;pid=<xsl:value-of select="$PID"/></xsl:attribute>see mst o/h/f records</a>
 	</xsl:template>
@@ -963,7 +919,7 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 		<xsl:choose>
 			<xsl:when test=" $LANGUAGE = 'en' ">How to cite this article</xsl:when>
 			<xsl:when test=" $LANGUAGE = 'pt' ">Como citar este artigo</xsl:when>
-			<xsl:when test=" $LANGUAGE = 'es' ">Como citar este artículo</xsl:when>
+			<xsl:when test=" $LANGUAGE = 'es' ">Como citar este artÃ­culo</xsl:when>
 		</xsl:choose>
 	</xsl:template>
 	<xsl:template match="@DOI">

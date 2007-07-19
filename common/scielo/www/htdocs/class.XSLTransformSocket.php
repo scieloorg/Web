@@ -33,24 +33,32 @@ class XSLTransformerSocket {
 	  {
 	   	die("$errstr ($errno)<br />\n");
 	  }
-          $xml = str_replace('<?xml version="1.0" encoding="ISO-8859-1"?>','',$xml);
-          $xml = str_replace('<?xml version="1.0" encoding="iso-8859-1"?>','',$xml);
+		$aspas = array(chr(147),chr(148));
+		$menos = array(chr(150));
 
-          $aspas = array(chr(147),chr(148));
-          $menos = array(chr(150));
+		$xml = str_replace($aspas,"&quot;",$xml);
+		$xml = str_replace($menos,"-",$xml);
+		$xml = str_replace("\n","",$xml);
+		$xml = str_replace(chr(132),"",$xml);
+		$xml = str_replace(chr(131),"",$xml);
+		$xml = str_replace(chr(134),"",$xml);
+		$xml = str_replace(chr(145),"",$xml);
+		$xml = str_replace(chr(146),"",$xml);
 
-          $xml = str_replace($aspas,"&quot;",$xml);
-          $xml = str_replace($menos,"-",$xml);
-          $xml = str_replace("\n","",$xml);
-          $xml = str_replace(chr(132),"",$xml);
-          $xml = str_replace(chr(131),"",$xml);
-          $xml = str_replace(chr(134),"",$xml);
-          $xml = str_replace(chr(145),"",$xml);
-          $xml = str_replace(chr(146),"",$xml);
+		$xml = utf8_decode($xml);
+	  //fwrite($this->socket, "ISO-8859-1:".$xsl.":".$xml."\n") or die("1");
 
-	  fwrite($this->socket, "ISO-8859-1:".$xsl.":".$xml."\n") or die("1");
+	  fwrite($this->socket, "utf-8:".$xsl.":".$xml."\n") or die("1");
+
 	  fwrite($this->socket, $this->END_OF_MESS_SYMBOL."\n") or die("2");
 	  $message = $this->recebeResultado();
+//var_dump($xml);
+//var_dump($xsl);
+//var_dump($message);
+	  //$message =  utf8_decode($message);
+//die($message);
+//
+
 	  return $message;
 	}
 

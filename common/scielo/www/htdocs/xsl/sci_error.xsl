@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" >
 
-<xsl:output method="html" indent="no" />
+<!--xsl:output method="html" indent="no" /-->
 
 <xsl:template match="ERROR">
 	<html>
@@ -45,7 +45,7 @@
 					pid:&#160;<xsl:value-of select="PID" />
 				</font><br/><br/>
 				<font face="verdana" size="2" color="#800000">
-					Sorry, the requested title was not found.<br/><br/>Click on the SciELO logo to browse the SciELO Library or use the browser "BACK" button to return to the previous page.<br/><br/>Please feel free to email us your questions, comments or concerns using the link below.
+					Sorry, the requestedÂ title was not found.<br/><br/>Click on the SciELO logo to browse the SciELO Library or use the browser "BACK" button to return to the previous page.<br/><br/>Please feel free to email us your questions, comments or concerns using the link below.
 				</font>
 			</xsl:when>
 
@@ -58,7 +58,7 @@
 					pid:&#160;<xsl:value-of select="PID" />
 				</font><br/><br/>
 				<font face="verdana" size="2" color="#800000">
-					A revista solicitada não foi encontrada.<br/><br/>Clique no logo da SciELO para visualizar a Biblioteca SciELO ou use o botão "BACK" do browser para voltar à página anterior.<br/><br/>Por favor envie-nos um email com suas perguntas, comentários ou sugestões usando o link abaixo.				</font>
+					A revista solicitada nÃ£o foi encontrada.<br/><br/>Clique no logo da SciELO para visualizar a Biblioteca SciELO ou use o botÃ£o "BACK" do browser para voltar Ã  pÃ¡gina anterior.<br/><br/>Por favor envie-nos um email com suas perguntas, comentÃ¡rios ou sugestÃµes usando o link abaixo.				</font>
 			</xsl:when>
 			
 			<xsl:when test="CONTROLINFO/LANGUAGE='es'">
@@ -70,7 +70,7 @@
 					pid:&#160;<xsl:value-of select="PID" />
 				</font><br/><br/>
 				<font face="verdana" size="2" color="#800000">
-					La revista solicitada no fue encontrada.<br/><br/>Clique en el logo de SciELO para revisar la Biblioteca SciELO o use el botón "BACK" del visualizador para volver a la página anterior.<br/><br/>Agradeceríamos que nos enviaran emails con cualquier pregunta, comentario o sugerencia usando el link que aparece a continuación.
+					La revista solicitada no fue encontrada.<br/><br/>Clique en el logo de SciELO para revisar la Biblioteca SciELO o use el botÃ³n "BACK" del visualizador para volver a la pÃ¡gina anterior.<br/><br/>AgradecerÃ­amos que nos enviaran emails con cualquier pregunta, comentario o sugerencia usando el link que aparece a continuaciÃ³n.
 				</font>
 			</xsl:when>
 		</xsl:choose>
