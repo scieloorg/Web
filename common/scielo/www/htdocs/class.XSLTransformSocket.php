@@ -36,6 +36,7 @@ class XSLTransformerSocket {
 		$aspas = array(chr(147),chr(148));
 		$menos = array(chr(150));
 
+		$xml = utf8_decode($xml);
 		$xml = str_replace($aspas,"&quot;",$xml);
 		$xml = str_replace($menos,"-",$xml);
 		$xml = str_replace("\n","",$xml);
@@ -44,8 +45,6 @@ class XSLTransformerSocket {
 		$xml = str_replace(chr(134),"",$xml);
 		$xml = str_replace(chr(145),"",$xml);
 		$xml = str_replace(chr(146),"",$xml);
-
-		$xml = utf8_decode($xml);
 	  //fwrite($this->socket, "ISO-8859-1:".$xsl.":".$xml."\n") or die("1");
 
 	  fwrite($this->socket, "utf-8:".$xsl.":".$xml."\n") or die("1");
