@@ -29,7 +29,7 @@ for($chr = 0; $chr < 32 ;$chr++){
 
 	$xmlh = str_replace(chr(146),"",$xmlh);
 
-$xml = '<?xml version="1.0" encoding="ISO-8859-1" ?>'."\n";
+$xml = '<?xml version="1.0" encoding="UTF-8" ?>'."\n";
 
 $xml .= '<root>';
 
@@ -79,9 +79,9 @@ echo '</textarea>';
 }
 
 $transformer->setXslBaseUri(dirname(__FILE__));
-$transformer->setXml($xml);
+$transformer->setXml(utf8_encode($xml));
 $transformer->setXsl($xsl);
 $transformer->transform();
-$result = $transformer->getOutput();
+$result = utf8_decode($transformer->getOutput());
 print($result);
 ?>
