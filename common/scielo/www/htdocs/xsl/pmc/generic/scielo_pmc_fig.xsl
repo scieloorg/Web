@@ -30,7 +30,7 @@
 		<xsl:variable name="id" select="."/>
 		<xsl:choose>
 			<xsl:when test="$var_IMAGES_INFO"><xsl:value-of select="$var_IMAGES_INFO//image[@id=$id]"/></xsl:when>
-			<xsl:otherwise><xsl:value-of select="$var_IMAGE_PATH"/><xsl:value-of select="."/>.gif</xsl:otherwise>
+			<xsl:otherwise><xsl:value-of select="$var_IMAGE_PATH"/><xsl:value-of select="."/>.jpg</xsl:otherwise>
 		</xsl:choose>
 		</xsl:template>	
 </xsl:transform>
