@@ -8,6 +8,7 @@ error_reporting(1);
 	require_once($DirNameLocalGraphPage."../../../../php/include.php");
 	require_once($DirNameLocalGraphPage."../../classes/services/ArticleServices.php");
 	require_once(dirname(__FILE__)."/../../classes/services/AccessServiceBar.php");
+	require_once(dirname(__FILE__)."/../../classes/Open_Flash_Chart/ofc-library/open_flash_chart_object.php");
 
 	$DirHtml = $DirNameLocalGraphPage."../html/" .$lang . "/";
 	$site = parse_ini_file($DirNameLocalGraphPage."/../../../../ini/" . $lang . "/bvs.ini", true);
@@ -32,112 +33,15 @@ error_reporting(1);
     <meta name="robots" content="all">
     <meta name="MSSmartTagsPreventParsing" content="true">
     <meta name="generator" content="BVS-Site 4.0-rc4">
-
+	
     <script language="JavaScript">lang = '<?=$lang?>';</script>
     <script language="JavaScript" src="<?=$scielodef['this']['url']?>/js/functions.js"></script>
     <script language="JavaScript" src="<?=$scielodef['this']['url']?>/js/showHide.js"></script>
     <script language="JavaScript" src="<?=$scielodef['this']['url']?>/js/metasearch.js"></script>
     <script language="JavaScript" src="<?=$scielodef['this']['url']?>/js/showHide.js"></script>
-	<script language="JavaScript">
-		// verifica o tamanho de um input
-		function tamanho(objeto) 
-		{
-			if (objeto.value.length != 4) 
-			{
-				objeto.focus();
-				return false;
-			}	
-			return true;
-		}
-		// verifica se o usuario está digitando um numero
-		function isNumber(objeto)
-		{
-			var ValidChars = "0123456789.";
-			var Char;
-   
-			for (i = 0; i < objeto.value.length; i++) 
-			{ 
-				Char = objeto.value.charAt(i); 
-				if (ValidChars.indexOf(Char) == -1) 
-				{
-					objeto.focus();
-					return false;
-				}
-			}
-			return true;
-		}
-		
-		// Verifica se a data é valida
-		function dataValida(objeto)
-		{
-			if(objeto.value < 1950)
-			{
-				objeto.focus();
-				return false;
-			}
-			else if(objeto.value > 2150)
-			{
-				objeto.focus();
-				return false;
-			}
-			else
-			{
-				objeto.focus();
-				return true;
-			}
-		}
-		
-		// valida o formulário
-		function valida_form() 
-		{
-			if (!tamanho(document.form1.startYear)) 
-			{
-				return false;
-			}
-			else if(!isNumber(document.form1.startYear))
-			{
-				return false;
-			}
-			else if(!dataValida(document.form1.startYear))
-			{
-				return false;
-			}
-			else if(document.form1.lastYear.value.length != 0)
-			{
-				if(!tamanho(document.form1.lastYear))
-				{
-					return false;
-				}
-				else if(!isNumber(document.form1.lastYear))
-				{
-					return false;
-				}
-				else if(!dataValida(document.form1.lastYear))
-				{
-					return false;
-				}
-				else if( document.form1.startYear.value > document.form1.lastYear.value )
-				{
-					return false;
-				}
-				else
-				{
-					return true;
-				}
-			}
-			// se somente startYear tem valor então lastYear fica com o mesmo valor
-			// e pesquisamos a estatisticas de um ano especifico
-			else if(document.form1.lastYear.value.length == 0 )
-			{
-				document.form1.lastYear.value = document.form1.startYear.value;
-				return true;
-			}
-			else 
-			{
-				return true;
-			}
-		}
-	</script>
+	<script language="Javascript" src="flash.js"></script>
+	<script language="JavaScript" src="graphVerif.js"></script>
+
     <link rel="stylesheet" href="<?=$scielodef['this']['url']?>/css/screen2.css" type="text/css" media="screen">
     <link rel="stylesheet" href="<?=$scielodef['this']['url']?>/css/common/styles.css" type="text/css">
   </head>
@@ -156,7 +60,6 @@ error_reporting(1);
 					$accessService->setParams($_REQUEST['pid']);
 					$years = array();
 					$years = $accessService->getYears($accessService->getStats());
-					
 				?>
 				<?=START_YEAR?> 
 				<select id="startYear" name="startYear"> 	
@@ -167,10 +70,6 @@ error_reporting(1);
 					}
 				?>
 				</select> 
-				
-				<!--<input type="text" id="startYear" name="startYear" size="4" maxlength="4"/>-->
-
-				
 				<?=LAST_YEAR?>
 				<select id="lastYear" name="lastYear">
 				<?php
@@ -180,7 +79,6 @@ error_reporting(1);
 					}
 				?>
 				</select>
-				<!--<input type="text" id="lastYear" name="lastYear" size="4" maxlength="4"/> -->
 				<input type="submit" class="submit" value="<?=BUTTON_REFRESH?>">
 				<input type="hidden" id="lang" name="lang" value="<?=$lang?>">
 				<input type="hidden" id="caller" name="caller" value="<?=$caller?>">
@@ -201,12 +99,16 @@ error_reporting(1);
 						?>
 				</div>
 				<div>
-						<!-- Monta o gráfico -->
-						<img src="<?=$scielodef['this']['url'].$scielodef['this']['relpath']?>/pages/services/articleRequestGraphic.php?pid=<?=$pid?>&startYear=<?=$startYear?>&lastYear=<?=$lastYear?>"/>
-				
+					<!-- Monta o gráfico -->
+					<?php 
+						$urlFlash = ''.$scielodef['this']['url'].$scielodef['this']['relpath'].'/pages/services/articleRequestGraphic.php?pid='.$pid.'&startYear='.$startYear.'&lastYear='.$lastYear.'';
+						echo '<!-- URL FLASH: '.$urlFlash.'-->';
+					?>
+					<script type="text/javascript">
+						GerarSWF('<?php echo flashentities($urlFlash)?>',760,350);
+					</script>
 				</div>
-				            </div>
-
+			</div>
             <div style="clear: both;float: none;width: 100%;"></div>
           </div>
         </div>
@@ -214,16 +116,15 @@ error_reporting(1);
     </div>
     <div class="copyright">BVS Site 4.0-rc4 copy <a href="http://www.bireme.br/" target="_blank">BIREME/OPS/OMS</a>
     </div>
-
-                       <?
-                       $def = parse_ini_file('../../../../scielo.def',true);
-                       if($def['LOG']['ACTIVATE_LOG'] == '1') {
-                       ?>
-                                <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
-                                <script type="text/javascript">
-                                _uacct = "UA-604844-1";
-                                urchinTracker();
-                                </script>
-                        <?}?>
+	<?
+		$def = parse_ini_file('../../../../scielo.def',true);
+		if($def['LOG']['ACTIVATE_LOG'] == '1') {
+	?>
+	<script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		_uacct = "UA-604844-1";
+		urchinTracker();
+	</script>
+	<?}?>
 </body>
 </html>
