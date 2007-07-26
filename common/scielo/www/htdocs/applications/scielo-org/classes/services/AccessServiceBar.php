@@ -8,11 +8,12 @@ para ter o gráfico "multi-lingüe"
 */
 	require_once(dirname(__FILE__)."/../../../../php/include.php");
 	require_once(dirname(__FILE__)."/../../users/langs.php");
-	require_once(dirname(__FILE__)."/../../includes/jpgraph-1.20.4/src/jpgraph.php");
-	require_once(dirname(__FILE__)."/../../includes/jpgraph-1.20.4/src/jpgraph_bar.php");
-	require_once(dirname(__FILE__)."/../../includes/jpgraph-1.20.4/src/jpgraph_canvas.php");
+	//require_once(dirname(__FILE__)."/../../includes/jpgraph-1.20.4/src/jpgraph.php");
+	//require_once(dirname(__FILE__)."/../../includes/jpgraph-1.20.4/src/jpgraph_bar.php");
+	//require_once(dirname(__FILE__)."/../../includes/jpgraph-1.20.4/src/jpgraph_canvas.php");
 	require_once(dirname(__FILE__)."/../XML_XSL/XML_XSL.inc.php");
 	require_once(dirname(__FILE__)."/../XML_XSL/xslt.inc.php");
+	require_once(dirname(__FILE__)."/../Open_Flash_Chart/ofc-library/Graph.php");
 	
 	
 	class AccessService extends Service {
@@ -197,6 +198,112 @@ para ter o gráfico "multi-lingüe"
 			return $ano;
 		}
 
+
+		/**
+		 * Método que cria um gráfico de estatisticas de acesso pela classe Graph do pacote
+		 * Open Chart Flash http://sourceforge.net/projects/o-flash-chart/
+		 * 
+		 * @author Deivid Martins
+		 * @access public
+		 * @param Object $stats
+		 * @param Integer $startYear
+		 * @param Integer $lastYear
+		 * @return Boolean $graficoStatus se o gráfico foi montado ou não
+		 **/
+		function buildGraphicByYearFlash($stats, $startYear, $lastYear)
+		{
+			$graph = new Graph();   
+			$graficoStatus = false; // Se existem ou não estatisticas
+			$dadosRequeridos = array();	// Estatisticas que usuario pediu
+			$maximo = 0; // Maior valor do gráfico
+			
+			// Gabarito de cores para linhas do gráfico
+			$cores = array(	"#191970",	// MidnightBlue
+							"#FFA500",	// orange
+							"#A020F0",	// purple
+							"#008B8B",	// cyan4
+							"#CD1076",	// DeepPink3
+							"#FF0000",	// red
+							"#A0522D",	// sienna
+							"#66CDAA",	// MediumAquamarine
+							"#8B8B7A",	// LightYellow4
+							"#FFB5C5",	// pink
+							"#8B0000",	// Red4
+							"#006400");	// DarkGreen
+			
+			$stat = $stats->getRequests();
+
+			foreach ($stat as $s)
+			{
+				$mes = intval($s->getMonth());
+				$ano = intval($s->getYear());
+				
+				if($s->getNumberOfRequests() == "")
+					$values[$ano][$mes] = 0;
+				else
+					$values[$ano][$mes] = $s->getNumberOfRequests();
+			}
+
+			// Montamos o gráfico
+			$graph->title( utf8_encode(ARTICLE_ACCESS), 20, '#333333' ); 
+			$graph->bg_colour = '#FFFFFF';
+			$graph->set_inner_background( '#F8F8FF', '#CBD7E6', 90 );
+		
+			// Somente monta o gráfico dos anos exigidos pelo usuário
+			for($i = 0; $i <= $lastYear - $startYear ; $i++)
+			{
+				$dadosRequeridos[$i] = range(0,11);
+				$graficoStatus = true; // entrou no for significa que o gráfico vai ser construido
+				for($j = 0; $j < 12; $j++)
+				{
+					/*	Tem alguns meses que não existem estatisticas e retorna null
+						e o php retorna o array quebrado
+						Ex: ([0] => 5, [1] => 7, [5] => 6) pulando alguns elementos
+					*/
+					if(is_null($values[$startYear + $i][$j+1]))
+						$dadosRequeridos[$i][$j] = 'null'; // Para o Flash entender que aqui é NULL
+					else
+						$dadosRequeridos[$i][$j] = $values[$startYear + $i][$j+1]; 
+				}
+
+				// Procuramos o maior valor daquele ano
+				$tempMax = max($values[$startYear + $i]);
+				if($tempMax > $maximo)
+					$maximo = $tempMax;
+
+				// Criamos a linha de um determinado ano
+				$graph->set_data( $dadosRequeridos[$i] );
+				$graph->line_hollow( 2, 3,$cores[$i], ($startYear + $i) , 12 );
+				$graph->set_tool_tip( ACCESSES.': #val#' );
+				
+			}
+			// Não existem dados, portanto o gráfico não deve ser montado
+			if($graficoStatus == false)
+			{
+				return $graficoStatus;
+			}
+
+			// Dados eixo X
+			$graph->set_x_labels( explode(",",MONTH_LIST));
+			$graph->set_x_label_style( 12, '#333333',2);
+			// Valor máximo do eixo Y
+			$graph->set_y_max($maximo + 2);
+			$graph->set_y_label_style( 12, '#333333' );
+			$graph->y_label_steps( 4 );
+			// Legendas eixo X e Y
+			$graph->set_x_legend( MONTHS, 12, '#444444');
+			$graph->set_y_legend( ACCESSES, 12, '#444444');
+			
+			// Cores da grade
+			$graph->x_axis_colour( '#68838B', '#FFFFFF' );
+			$graph->y_axis_colour( '#68838B', '#FFFFFF' );
+
+			// Mostra o gráfico somente se, o ano que o usuario entrou existir estatisticas
+			if($graficoStatus == true)
+				echo $graph->render();
+			
+			return $graficoStatus;
+		}
 		/** Constroi o gráfico entre periodos de anos 
 			retorna true se o grafico foi montado e false se não foi
 		**/
