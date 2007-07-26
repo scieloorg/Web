@@ -1047,15 +1047,15 @@
 		<pft>
 			('<AFFILIATION ID="',v70^i,'">'/,
 				if v70*0.1<>'^' then 
-					'<ORGNAME>'v70^*'</ORGNAME>'/
-					'<ORGDIV>'v70^1'</ORGDIV>'/
-					'<ORGDIV>'v70^2'</ORGDIV>'/
+					'<ORGNAME><![CDATA['v70^*']]></ORGNAME>'/
+					'<ORGDIV><![CDATA['v70^1']]></ORGDIV>'/
+					'<ORGDIV><![CDATA['v70^2']]></ORGDIV>'/
 				else 
-					'<ORGNAME>'v70^1'</ORGNAME>'/
-					'<ORGDIV>'v70^2'</ORGDIV>'/
-					'<ORGDIV>'v70^3'</ORGDIV>'/
+					'<ORGNAME><![CDATA['v70^1']]></ORGNAME>'/
+					'<ORGDIV><![CDATA['v70^2']]></ORGDIV>'/
+					'<ORGDIV><![CDATA['v70^3']]></ORGDIV>'/
 				fi,
-			,'<E-MAIL><![CDATA['v70^e']]></E-MAIL>'/
+				,'<E-MAIL><![CDATA['v70^e']]></E-MAIL>'/
 			,'<CITY>'v70^c'</CITY>'/
 			,'<STATE>'v70^s'</STATE>'/
 			,'<COUNTRY>'v70^p'</COUNTRY>'/
