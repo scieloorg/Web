@@ -95,7 +95,7 @@ error_reporting(1);
 							echo getAutors($article->getAuthorXML());
 							echo '</i><br />';
 							echo '<i>'.$article->getSerial(). ', '.$article->getYear().', vol:'.$article->getVolume();
-							echo ', n. '.$article->getNumber().', ISSN '.substr($article->getPID(),1,9).'</i><br/><br/>'."\n";
+							echo ', n. '.$article->getNumber().', ISSN '.substr($article->getPID(),1,9).'</i><br/>'."\n";
 						?>
 				</div>
 				<div>
@@ -103,6 +103,7 @@ error_reporting(1);
 					<?php 
 						$urlFlash = ''.$scielodef['this']['url'].$scielodef['this']['relpath'].'/pages/services/articleRequestGraphic.php?pid='.$pid.'&startYear='.$startYear.'&lastYear='.$lastYear.'';
 						echo '<!-- URL FLASH: '.$urlFlash.'-->';
+						echo "<div align='center' style='width:760px; height:5px;padding-top:6px;' ><b>".ARTICLE_ACCESS."</b></div>";
 					?>
 					<script type="text/javascript">
 						GerarSWF('<?php echo flashentities($urlFlash)?>',760,350);
