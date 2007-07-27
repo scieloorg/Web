@@ -245,7 +245,8 @@ para ter o gráfico "multi-lingüe"
 			}
 
 			// Montamos o gráfico
-			$graph->title( utf8_encode(ARTICLE_ACCESS), 20, '#333333' ); 
+			//$graph->title( utf8_encode(ARTICLE_ACCESS), 14, '#000000' ); 
+			//Estamos montando o titulo no html
 			$graph->bg_colour = '#FFFFFF';
 			$graph->set_inner_background( '#F8F8FF', '#CBD7E6', 90 );
 		
@@ -273,7 +274,7 @@ para ter o gráfico "multi-lingüe"
 
 				// Criamos a linha de um determinado ano
 				$graph->set_data( $dadosRequeridos[$i] );
-				$graph->line_hollow( 2, 3,$cores[$i], ($startYear + $i) , 12 );
+				$graph->line_hollow( 2, 3,$cores[$i], ($startYear + $i) , 11 );
 				$graph->set_tool_tip( ACCESSES.': #val#' );
 				
 			}
@@ -285,15 +286,15 @@ para ter o gráfico "multi-lingüe"
 
 			// Dados eixo X
 			$graph->set_x_labels( explode(",",MONTH_LIST));
-			$graph->set_x_label_style( 12, '#333333',2);
+			$graph->set_x_label_style( 11, '#333333',2);
 			// Valor máximo do eixo Y
 			$graph->set_y_max($maximo + 2);
-			$graph->set_y_label_style( 12, '#333333' );
+			$graph->set_y_label_style( 11, '#333333' );
 			$graph->y_label_steps( 4 );
 			// Legendas eixo X e Y
 			$graph->set_x_legend( MONTHS, 12, '#444444');
 			$graph->set_y_legend( ACCESSES, 12, '#444444');
-			
+			$graph->set_x_tick_size(10);
 			// Cores da grade
 			$graph->x_axis_colour( '#68838B', '#FFFFFF' );
 			$graph->y_axis_colour( '#68838B', '#FFFFFF' );
