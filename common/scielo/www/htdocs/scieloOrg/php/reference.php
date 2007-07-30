@@ -70,7 +70,7 @@ $article = $articleService->getArticle();
 											echo ('<i><b>');
 											echo (getTitle($article->getTitle()).".<br/>");
 											echo ('</b></i>');					        
-											echo ($article->getSerial(). ', '.$article->getYear().', vol:'.$article->getVolume());
+											echo ($article->getSerial(). ', '.$article->getYear().', vol.'.$article->getVolume());
 											echo (', n. '.$article->getNumber().', ISSN '.substr($article->getPID(),1,9).'.<br/><br/>'."\n");
 											
 											?>
