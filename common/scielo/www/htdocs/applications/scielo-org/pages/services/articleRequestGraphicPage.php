@@ -64,19 +64,21 @@ error_reporting(1);
 				<?=START_YEAR?> 
 				<select id="startYear" name="startYear"> 	
 				<?php
-					for($i = 0; $i < count($years); $i++)
+					for($i = 0; $i < count($years) - 1; $i++)
 					{
 						echo '<option value="'.$years[$i].'">'.$years[$i].'</option>'; 	
 					}
+					echo '<option  selected value="'.$years[$i].'">'.$years[$i].'</option>'; 	
 				?>
 				</select> 
 				<?=LAST_YEAR?>
 				<select id="lastYear" name="lastYear">
 				<?php
-					for($i = 0; $i < count($years); $i++)
+					for($i = 0; $i < count($years) -1; $i++)
 					{
 						echo '<option value="'.$years[$i].'">'.$years[$i].'</option>'; 	
 					}
+					echo '<option  selected value="'.$years[$i].'">'.$years[$i].'</option>'; 	
 				?>
 				</select>
 				<input type="submit" class="submit" value="<?=BUTTON_REFRESH?>">
@@ -94,7 +96,7 @@ error_reporting(1);
 							echo '<i>';
 							echo getAutors($article->getAuthorXML());
 							echo '</i><br />';
-							echo '<i>'.$article->getSerial(). ', '.$article->getYear().', vol:'.$article->getVolume();
+							echo '<i>'.$article->getSerial(). ', '.$article->getYear().', vol.'.$article->getVolume();
 							echo ', n. '.$article->getNumber().', ISSN '.substr($article->getPID(),1,9).'</i><br/>'."\n";
 						?>
 				</div>
