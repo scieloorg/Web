@@ -35,8 +35,12 @@ class XSLTransformerSocket {
 	  }
 		$aspas = array(chr(147),chr(148));
 		$menos = array(chr(150));
-
-		$xml = utf8_decode($xml);
+		
+		if (strpos(strtolower($xml),'utf-')>0) {
+			$xml = utf8_decode($xml);
+		}else {
+			$iso = true;
+        }
 		$xml = str_replace($aspas,"&quot;",$xml);
 		$xml = str_replace($menos,"-",$xml);
 		$xml = str_replace("\n","",$xml);
@@ -51,6 +55,7 @@ class XSLTransformerSocket {
 
 	  fwrite($this->socket, $this->END_OF_MESS_SYMBOL."\n") or die("2");
 	  $message = $this->recebeResultado();
+      if ($iso) $message = utf8_decode($message);
 //var_dump($xml);
 //var_dump($xsl);
 //var_dump($message);
