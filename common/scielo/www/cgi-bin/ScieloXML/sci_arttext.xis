@@ -319,7 +319,7 @@
 		<display>
 			<pft>
 				,if val(v705)>0 then mid(v704^*,1,val(v705)-1) else v704^* fi,
-	'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&#160;<a href="javascript:void(0);" onclick="javascript: window.open(',v9999*0.1,'/scielo.php?pid=',v3330,'&lng=',v4001^l,'&script=sci_reflinks',v9999*0.1,','v9999*0.1,v9999*0.1',',v9999*0.1,'width=640,height=500,resizable=yes,scrollbars=1,menubar=yes,',v9999*0.1,');">',
+	'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&#160;<a href="javascript:void(0);" onclick="javascript: window.open(',v9999*0.1,'/scieloOrg/php/reflinks.php?refpid=',v3330,'&pid=',v880,'&lng=',v4001^l,'',v9999*0.1,','v9999*0.1,v9999*0.1',',v9999*0.1,'width=640,height=500,resizable=yes,scrollbars=1,menubar=yes,',v9999*0.1,');">',
 	 select s(v4001^l)	
 	    case 'es': 'Links'
 	    case 'en': 'Links'
