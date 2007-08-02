@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<!-- XSL que pega o XML criado pelo ISISCRIPT sci_reflinks.xis que contem os links e da um parse nos dados -->
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-	<xsl:include href="file:///home/scielo/www/htdocs/applications/scielo-org/xsl/article_output.xsl"/>
 	<xsl:output method="html" omit-xml-declaration="yes" indent="yes" doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 	<xsl:variable name="lang" select="//vars/lang"/>
 	<xsl:variable name="texts" select="document('file:///home/scielo/www/htdocs/applications/scielo-org/xml/texts.xml')/texts/language[@id = $lang]"/>
-	<xsl:variable name="metaSearchInstances" select="document(concat('/home/scielo/www/htdocs/applications/scielo-org/xml/',$lang,'/metaSearchInstances.xml'))"/>
 	<xsl:variable name="links" select="//ARTICLE"/>
 	<xsl:variable name="total" select="count(//similarlist/similar/article)"/>
 	<xsl:template match="/">
@@ -42,7 +39,7 @@
 								
 								<h3>
 									<span style="font-size: 70%; font-weight:normal;">
-										<xsl:value-of select="//TITLE"/>
+										<xsl:value-of select="//ref_TITLE"/>
 									</span>
 								</h3>
 								
