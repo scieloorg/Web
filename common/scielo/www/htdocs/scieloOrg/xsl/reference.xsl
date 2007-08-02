@@ -22,7 +22,10 @@
 	</xsl:template>
 	
 	<xsl:template match="record">
-		<xsl:apply-templates select="field[@tag =704 ]/occ"/>[ <a href="http://{$applserver}/scielo.php?pid={field[@tag = 880]/occ}&amp;lng={$lang}&amp;script=sci_reflinks"><xsl:value-of select="$texts/text[find='findReferenceOnLine']/replace"/></a> ]<br/><br/>
+
+		<xsl:variable name="refpid" select="concat(field[@tag = 880]/occ,format-number(field[@tag = 888]/occ,'#00000'))"/>
+		<xsl:variable name="pid" select="field[@tag = 880]/occ"/>
+		<xsl:apply-templates select="field[@tag =704 ]/occ"/>[ <a href="http://{$applserver}/scieloOrg/php/reflinks.php?refpid={$refpid}&amp;lng={$lang}&amp;pid={$pid}"><xsl:value-of select="$texts/text[find='findReferenceOnLine']/replace"/></a> ]<br/><br/>
 	</xsl:template>
 	
 
