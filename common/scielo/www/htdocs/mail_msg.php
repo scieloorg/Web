@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__)."/classes/phpmailer/class.phpmailer.php");
+require_once(dirname(__FILE__)."/applications/scielo-org/includes/phpmailer/class.phpmailer.php");
 $defFile = parse_ini_file(dirname(__FILE__)."/scielo.def");
 
 $msg_no_html = "Date: " . date("l dS of F Y h:i:s A") . "\n\n";
