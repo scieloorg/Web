@@ -1,6 +1,5 @@
 <?php
 include_once (dirname(__FILE__)."/classes/class_xml_check/class_xml_check.php"); //classe para verificacao de XML
-include_once (dirname(__FILE__)."/applications/scielo-org/includes/phpmailer/class.phpmailer.php"); //classe para envio de email
 include_once (dirname(__FILE__)."/class.XSLTransformer.php");
 
 class XSLTransformerSocket {
