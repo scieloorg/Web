@@ -89,7 +89,7 @@
 										<!-- Search in Google Scholar -->
 											<li>
 													<a>
-													<xsl:attribute name="href">http://scholar.google.com.br/scholar?q=<xsl:value-of select="//ref_TITLE" disable-output-escaping="yes"/></xsl:attribute>
+													<xsl:attribute name="href">http://scholar.google.com.br/scholar?q=<xsl:value-of select="//TITLE" disable-output-escaping="yes"/></xsl:attribute>
 													<xsl:attribute name="target">_blank</xsl:attribute>
 													
 													<b>Google</b>
@@ -101,7 +101,7 @@
 
 											<li>																	
 												<a>
-													<xsl:attribute name="href">/scieloOrg/php/similar.php?text=<xsl:value-of select="//ref_TITLE" disable-output-escaping="yes"/>&amp;lang=<xsl:value-of select="$lang"/></xsl:attribute>
+													<xsl:attribute name="href">/scieloOrg/php/similar.php?text=<xsl:value-of select="//TITLE" disable-output-escaping="yes"/>&amp;lang=<xsl:value-of select="$lang"/></xsl:attribute>
 													<xsl:attribute name="target">_blank</xsl:attribute>
 													<b><xsl:value-of select="$texts/text[find='scieloNetwork']/replace" /></b>																									
 												</a>
