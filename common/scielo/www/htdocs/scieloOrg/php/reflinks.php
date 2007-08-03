@@ -49,7 +49,7 @@
 	$xmlFinal = '<?xml version="1.0" encoding="ISO-8859-1"?>';
 	$xmlFinal .= substr($xml2, strpos($xml2, "<root>"), strpos($xml2, "<ref_TITLE>") - strpos($xml2, "<root>"));
 	$xmlFinal .= " <ref_TITLE><![CDATA[".$fullTitle."]]></ref_TITLE>";
-	$xmlFinal .= substr($xml2, strpos($xml2, "</TITLE>") + strlen("</TITLE>"));
+	$xmlFinal .= substr($xml2, strpos($xml2, "<TITLE>"));
 
 	// Transformação Final, página de links de referencia
 	$transformerFinal = new XSLTransformer();
