@@ -1424,8 +1424,7 @@ Parameters:
 						</a>
 					</td>
 					<td valign="middle">
-						<a href="{AUTHOR/@HREF}" onmouseover="status='{AUTHOR/@HREF}'; return true;" onmouseout="status='';" style="text-decoration: none;">
-							<font class="nomodel" size="2">Curriculum ScienTI</font>
+						<a href="{AUTHOR/@HREF}" onmouseover="status='{AUTHOR/@HREF}'; return true;" onmouseout="status='';" style="text-decoration: none;">Curriculum ScienTI
 						</a>
 					</td>
 				</xsl:when>
