@@ -2,7 +2,7 @@
 ini_set("display_errors","1");
 error_reporting(E_ALL ^E_NOTICE);
 
-$lang = isset($_REQUEST['lang'])?($_REQUEST['lang']):"";
+$lang = isset($_REQUEST['lang']) && $_REQUEST['lang']!=""?($_REQUEST['lang']):'pt';
 
 require_once(dirname(__FILE__)."/../class.XSLTransformer.php");
 
@@ -18,6 +18,7 @@ $xml .= '</SCIELO_INFO>';
 $xml .= '</CONTROLINFO>';
 $xml .= '<EMAIL>scielo@bireme.br</EMAIL>';
 $xml .= '</ERROR>';
+
 
 $xsl = dirname(__FILE__)."/../xsl/sci_error.xsl";
 $transformer = new XSLTransformer();
