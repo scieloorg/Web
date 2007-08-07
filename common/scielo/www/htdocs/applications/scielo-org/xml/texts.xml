@@ -19,6 +19,10 @@
 			<replace>Referências não encontradas</replace>
 		</text>
 		<text>
+			<find>dataFound</find>
+			<replace>Dados não encontrados</replace>
+		</text>
+		<text>
 			<find>scieloNetwork</find>
 			<replace>Rede Scielo</replace>
 		</text>
@@ -136,6 +140,10 @@
 			<replace>Referencias no encontradas</replace>
 		</text>
 		<text>
+			<find>dataFound</find>
+			<replace>Datos no encontrados</replace>
+		</text>		
+		<text>
 			<find>scieloNetwork</find>
 			<replace>Red Scielo</replace>
 		</text>
@@ -247,11 +255,14 @@
 		<text>
  	         <find>doiNotFound</find>
 	         <replace>Records not found</replace>
-	    </text>
-									      
+	    </text>						      
 		<text>
 			<find>notFound</find>
 			<replace>References not found</replace>
+		</text>
+		<text>
+			<find>dataFound</find>
+			<replace>Data not Found</replace>
 		</text>
 		<text>
 			<find>scieloNetwork</find>

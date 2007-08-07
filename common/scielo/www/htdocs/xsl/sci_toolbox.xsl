@@ -10,6 +10,7 @@
 	<xsl:variable name="show_similar_in_google" select="//varScieloOrg/show_similar_in_google" />
         <xsl:variable name="google_last_process" select="//varScieloOrg/google_last_process" />
 	<xsl:variable name="show_article_references" select="//varScieloOrg/show_article_references" />
+	<xsl:variable name="show_datasus" select="//varScieloOrg/show_datasus" />
 
 		<div id="toolBox">
 			<h2 id="toolsSection">
@@ -153,6 +154,23 @@
 					</a>
 				</li>
 				</xsl:if>
+				<xsl:if test="$show_datasus = 1 and //ARTICLE/@AREASGEO != 0">
+				<li>
+					<a>
+						<xsl:attribute name="href">javascript:void(0);</xsl:attribute>
+						<xsl:attribute name="onClick">javascript: window.open('http://<xsl:value-of select="concat(//SERVER,'/scieloOrg/php/datasus.php?pid=',//ARTICLE/@PID,'&amp;caller=',//SERVER,'&amp;lang=',$LANGUAGE)"/>','','width=640,height=480,resizable=yes,scrollbars=1,menubar=yes');</xsl:attribute>
+						<img src="/img/{$LANGUAGE}/iconDATASUS.gif"/>
+
+						<xsl:choose>
+							<xsl:when test="$LANGUAGE='en' ">Health Idicators</xsl:when>
+							<xsl:when test="$LANGUAGE='pt' ">Indicadores de Saúde</xsl:when>
+							<xsl:when test="$LANGUAGE='es' ">Indicadores de Salud</xsl:when>
+						</xsl:choose>
+						
+					</a>
+				</li>
+				</xsl:if>
+				
 
 				<!-- Tirando o "buraco" que fica no IE qnd não tem curriculo LATES -->
 				<xsl:if test="ISSUE/ARTICLE/LATTES/AUTHOR">
@@ -301,9 +319,9 @@
 
         <xsl:template name="citedGoogle">
                 <xsl:choose>
-                        <xsl:when test=" $LANGUAGE = 'en' "><img src="/img/{$LANGUAGE}/iconCitedOn.jpg" alt="indexed by Google"/>Cited by </xsl:when>
-                        <xsl:when test=" $LANGUAGE = 'pt' "><img src="/img/{$LANGUAGE}/iconCitedOn.jpg" alt="indexado pelo Google"/>Citado por </xsl:when>
-                        <xsl:when test=" $LANGUAGE = 'es' "><img src="/img/{$LANGUAGE}/iconCitedOn.jpg" alt="indizado por Google"/>Citado por </xsl:when>
+                        <xsl:when test=" $LANGUAGE = 'en' "><img src="/img/{$LANGUAGE}/iconcitedbygoogle.gif" alt="indexed by Google"/>Cited by </xsl:when>
+                        <xsl:when test=" $LANGUAGE = 'pt' "><img src="/img/{$LANGUAGE}/iconcitedbygoogle.gif" alt="indexado pelo Google"/>Citado por </xsl:when>
+                        <xsl:when test=" $LANGUAGE = 'es' "><img src="/img/{$LANGUAGE}/iconcitedbygoogle.gif" alt="indizado por Google"/>Citado por </xsl:when>
                 </xsl:choose>
         </xsl:template>
 

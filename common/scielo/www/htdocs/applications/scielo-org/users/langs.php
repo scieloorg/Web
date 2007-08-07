@@ -18,6 +18,14 @@ if(!in_array($lang,$langs)){
 
 if($lang == "pt")
 {
+/*
+rótulos tela DATASUS
+*/
+define("DATASUS","DATASUS - Caderno de Informação de Saúde");
+
+/*
+rótulos tela Article References
+*/
 define("SCIELO.ORG"," indicou um artigo para você.");
 define("ARTICLE_REFERENCES","Referências do Artigo");
 define('NO_DATA_FOR_GRAPHIC','Gráfico não disponível, dados em processamento.');
@@ -250,6 +258,16 @@ define("FULL_TEXT","texto completo");
 
 if ($lang=="en")
 {
+
+/*
+rótulos tela DATASUS
+*/
+define("DATASUS","DATASUS - Caderno de Información en Salud");
+
+/*
+rótulos tela Article References
+*/
+
 define("ARTICLE_REFERENCES","Article References");
 define('NO_DATA_FOR_GRAPHIC','Graphic unavailable, data in processing.');
 
@@ -480,6 +498,16 @@ define("FULL_TEXT","full text");
 
 if ($lang=="es")
 {
+
+/*
+rótulos tela DATASUS
+*/
+define("DATASUS","DATASUS - Health Information Notebook");
+
+/*
+rótulos tela Article References
+*/
+
 define("ARTICLE_REFERENCES","Referencias del artículo");
 define('NO_DATA_FOR_GRAPHIC','Gráfico no disponible, datos en procesamiento.');
 

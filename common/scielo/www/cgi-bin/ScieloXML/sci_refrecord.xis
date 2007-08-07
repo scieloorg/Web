@@ -71,6 +71,7 @@
 		 ,' ahpdate="',v223,'"'
          ,' RELATED="',ref(['related']l(['related']v880),f(nocc(v88),2,0)),'"',
 		 ,' CITED="',ref(['cited']l(['cited']v880),f(nocc(v88),2,0)),'"'
+		 ,' AREASGEO="',ref(['areasgeo']l(['areasgeo']v880),f(nocc(v880),2,0)),'"'
 		 ,' PROCESSDATE="',ref(l('OU=',v880),proc(if val(v32701^m) > 0 then,'R../bases/artigo/',v32701^*,',',v32701^m , fi),v91),'"',
                 </pft>
             </display>

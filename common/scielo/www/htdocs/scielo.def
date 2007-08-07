@@ -28,6 +28,7 @@ SERVER_SCIELO=scielo2.br.local
 PATH_WXIS_SCIELO=/cgi-bin/wxis.exe
 PATH_CGI_BIN_IAH_SCIELO=iah/
 PATH_DATA_IAH_SCIELO=/iah/
+STAT_SERVER=http://statbiblio.scielo.br/
 
 [ADOLEC]
 SERVER_ADOLEC=www.bireme.br
@@ -100,6 +101,7 @@ check_login_url=/applications/scielo-org/sso/checkLogin.php
 [services]
 sci_artlangs="http://teste.trigramas.bvs.br/cgi-bin/wxis.exe/?IsisScript=ScieloXML/sci_artlangs.xis&def=scielo.def&pid=PARAM_PID"
 show_toolbox=1
+show_datasus=1
 show_requests=1
 show_login=1
 show_send_by_email=1
@@ -127,3 +129,8 @@ mimetex=/cgi-bin/mimetex.exe
 
 [language]
 client_charset = utf-8
+
+[XML_ERROR]
+ENABLED_XML_ERROR=1
+MAILTO_XML_ERROR=gustavo.fonseca@bireme.org
+NAMETO_XML_ERROR=SciELO

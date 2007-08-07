@@ -97,15 +97,14 @@ class Scielo extends ScieloBase
 				"show_cited_scielo" => "show_cited_scielo",
 				//Exibe ou não a opção de Citados em Google
 				"show_cited_google" => "show_cited_google",
-
 				//Exibe ou não a opção de Similares em Scielo
 				"show_similar_in_scielo" => "show_similar_in_scielo",
-
 				//Exibe ou não a opção de Similares em Google
 				"show_similar_in_google" => "show_similar_in_google",
-
 				//Informa data de corte para processamento do Google Schoolar
-				"google_last_process" => "google_last_process"
+				"google_last_process" => "google_last_process",
+				//Serviço do DATASUS
+				"show_datasus" => "show_datasus"
 			);
 
 
