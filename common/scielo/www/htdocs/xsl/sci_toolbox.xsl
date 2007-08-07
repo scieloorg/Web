@@ -85,13 +85,13 @@
 						<xsl:when test="normalize-space(//USERINFO/@status) = normalize-space('logout') ">
 							<xsl:choose>
 								<xsl:when test=" $LANGUAGE = 'en' ">
-									<li><a href="http://{$SCIELO_REGIONAL_DOMAIN}/applications/scielo-org/sso/loginScielo.php">Login</a></li>
+									<li><a href="http://{$SCIELO_REGIONAL_DOMAIN}/applications/scielo-org/sso/loginScielo.php?lang={$LANGUAGE}"><img src="/img/{$LANGUAGE}/iconLogin.gif"/>Custom services</a></li>
 								</xsl:when>
 								<xsl:when test=" $LANGUAGE = 'pt' ">
-									<li><a href="http://{$SCIELO_REGIONAL_DOMAIN}/applications/scielo-org/sso/loginScielo.php">Efetuar Login</a></li>
+									<li><a href="http://{$SCIELO_REGIONAL_DOMAIN}/applications/scielo-org/sso/loginScielo.php?lang={$LANGUAGE}"><img src="/img/{$LANGUAGE}/iconLogin.gif"/>Serviços personalizados</a></li>
 								</xsl:when>
 								<xsl:when test=" $LANGUAGE = 'es' ">
-									<li><a href="http://{$SCIELO_REGIONAL_DOMAIN}/applications/scielo-org/sso/loginScielo.php">Hacer el Login</a></li>
+									<li><a href="http://{$SCIELO_REGIONAL_DOMAIN}/applications/scielo-org/sso/loginScielo.php?lang={$LANGUAGE}"><img src="/img/{$LANGUAGE}/iconLogin.gif"/>Servicios customizados</a></li>
 								</xsl:when>
 							</xsl:choose>
 						</xsl:when>
