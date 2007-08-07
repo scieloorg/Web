@@ -162,7 +162,7 @@
 						<img src="/img/{$LANGUAGE}/iconDATASUS.gif"/>
 
 						<xsl:choose>
-							<xsl:when test="$LANGUAGE='en' ">Health Idicators</xsl:when>
+							<xsl:when test="$LANGUAGE='en' ">Health Indicators</xsl:when>
 							<xsl:when test="$LANGUAGE='pt' ">Indicadores de Saúde</xsl:when>
 							<xsl:when test="$LANGUAGE='es' ">Indicadores de Salud</xsl:when>
 						</xsl:choose>
