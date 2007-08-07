@@ -938,7 +938,7 @@
 		<xsl:variable name="STATUS" select="@status"/>
 		<xsl:if test="$STATUS = 'logout' and $show_login=1">
 			<p>
-				<a href="http://{$SCIELO_REGIONAL_DOMAIN}/{$login_url}">
+				<a href="http://{$SCIELO_REGIONAL_DOMAIN}/{$login_url}?lang={$lang}">
 					<xsl:choose>
 						<xsl:when test="$lang = 'pt'">
 							<span>Registre-se Gratuitamente</span>
