@@ -941,13 +941,13 @@
 				<a href="http://{$SCIELO_REGIONAL_DOMAIN}/{$login_url}">
 					<xsl:choose>
 						<xsl:when test="$lang = 'pt'">
-							<span>Efetuar Login</span>
+							<span>Registre-se Gratuitamente</span>
 						</xsl:when>
 						<xsl:when test="$lang = 'en'">
-							<span>Login</span>
+							<span>Free sign up</span>
 						</xsl:when>
 						<xsl:when test="$lang = 'es'">
-							<span>Login</span>
+							<span>Se Registre Gratuitamente</span>
 						</xsl:when>
 					</xsl:choose>
 				</a>
