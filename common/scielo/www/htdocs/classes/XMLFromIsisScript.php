@@ -36,11 +36,15 @@ class XMLFromIsisScript {
 			$body = $this->read($filename);
 
 			$bodyBegin = strpos(strtolower($body), '<body');
-			$body = substr($body, $bodyBegin);
-			$bodyBegin = strpos($body, '>');
-			$body = substr($body, $bodyBegin+1);
+			if ($bodyBegin>0){
+				$body = substr($body, $bodyBegin);
+				$bodyBegin = strpos($body, '>');
+				$body = substr($body, $bodyBegin+1);
+			}
 			$bodyEnd = strpos(strtolower($body), '</body>');
-			$body = substr($body, 0, $bodyEnd);
+			if ($bodyEnd >0){
+				$body = substr($body, 0, $bodyEnd);
+			}
 
 			$xml = str_replace($expression, '<!-- inicio arquivo -->'.$body.'<!-- fim arquivo -->', $xml);
 			$xml = $this->replaceThisByContent($xml);
