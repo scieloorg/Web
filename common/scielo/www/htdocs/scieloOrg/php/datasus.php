@@ -87,7 +87,6 @@ $article = $articleService->getArticle();
 											$xml .='<vars>
 														<lang>'.$lang.'</lang>
 														<applserver>'. $applServer .'</applserver>
-														<processCode>scl</processCode> 
 													</vars>';
 											$xml .= str_replace('<?xml version="1.0" encoding="ISO-8859-1" ?>','',$xmlFile);
 											$xml .='</root>';
