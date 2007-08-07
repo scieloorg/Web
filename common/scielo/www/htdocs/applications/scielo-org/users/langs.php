@@ -21,7 +21,7 @@ if($lang == "pt")
 /*
 rótulos tela DATASUS
 */
-define("DATASUS","DATASUS - Caderno de Informação de Saúde");
+define("DATASUS","Indicadores de Saúde");
 
 /*
 rótulos tela Article References
@@ -262,7 +262,7 @@ if ($lang=="en")
 /*
 rótulos tela DATASUS
 */
-define("DATASUS","DATASUS - Caderno de Información en Salud");
+define("DATASUS","Indicadores de Salud");
 
 /*
 rótulos tela Article References
@@ -502,7 +502,7 @@ if ($lang=="es")
 /*
 rótulos tela DATASUS
 */
-define("DATASUS","DATASUS - Health Information Notebook");
+define("DATASUS","DATASUS - Health Indicators");
 
 /*
 rótulos tela Article References
