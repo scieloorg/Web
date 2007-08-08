@@ -1,26 +1,26 @@
 <?php
-ini_set("display_errors","1");
-error_reporting(E_ALL ^E_NOTICE);
-$lang = isset($_REQUEST['lang'])?($_REQUEST['lang']):"";
-$pid = isset($_REQUEST['pid'])?($_REQUEST['pid']):"";
-$text = isset($_REQUEST['text'])?($_REQUEST['text']):"";
+	ini_set("display_errors","1");
+	error_reporting(E_ALL ^E_NOTICE);
+	$lang = isset($_REQUEST['lang'])?($_REQUEST['lang']):"";
+	$pid = isset($_REQUEST['pid'])?($_REQUEST['pid']):"";
+	$text = isset($_REQUEST['text'])?($_REQUEST['text']):"";
 
-require_once(dirname(__FILE__)."/../../applications/scielo-org/users/functions.php");
-require_once(dirname(__FILE__)."/../../applications/scielo-org/users/langs.php");	
-require_once(dirname(__FILE__)."/../../classDefFile.php");
-require_once(dirname(__FILE__)."/../../applications/scielo-org/classes/services/ArticleServices.php");
-//require_once(dirname(__FILE__)."/../../class.XSLTransformer.php");
+	require_once(dirname(__FILE__)."/../../applications/scielo-org/users/functions.php");
+	require_once(dirname(__FILE__)."/../../applications/scielo-org/users/langs.php");	
+	require_once(dirname(__FILE__)."/../../classDefFile.php");
+	require_once(dirname(__FILE__)."/../../applications/scielo-org/classes/services/ArticleServices.php");
+	//require_once(dirname(__FILE__)."/../../class.XSLTransformer.php");
 
-//$transformer = new XSLTransformer();
-$defFile = parse_ini_file(dirname(__FILE__)."/../../scielo.def");
+	//$transformer = new XSLTransformer();
+	$defFile = parse_ini_file(dirname(__FILE__)."/../../scielo.def");
 
-$applServer = $defFile["SERVER_SCIELO"];
-$databasePath = $defFile["PATH_DATABASE"];
+	$applServer = $defFile["SERVER_SCIELO"];
+	$databasePath = $defFile["PATH_DATABASE"];
 
-//geting metadatas from PID
-$articleService = new ArticleService($applServer);
-$articleService->setParams($pid);
-$article = $articleService->getArticle();
+	//geting metadatas from PID
+	$articleService = new ArticleService($applServer);
+	$articleService->setParams($pid);
+	$article = $articleService->getArticle();
 ?>
 
 <!DOCTYPE html
@@ -56,29 +56,29 @@ $article = $articleService->getArticle();
 									</span>
 								</h3>
 								<div class="content">
-									<TABLE border="0" cellpadding="0" cellspacing="2" width="550" align="center">
+									<TABLE border="0" cellpadding="0" cellspacing="2" width="760" align="center">
 									<TR>
 										<TD colspan="2">
 											<h3><span style="font-weight:100;font-size: 70%; background:none;">
 											<?php
-											// pra tirar o negrito e ficar igual ao reference links
-											//$titulo = str_replace("</B>","",getTitle($article->getTitle()));
-											//$titulo = str_replace("<B>","",getTitle($article->getTitle()));
-											//echo $titulo.'.'."<br/>";
-											
-											echo (getAutors($article->getAuthorXML()));
-											echo ('<i><b>');
-											echo (getTitle($article->getTitle()).".<br/>");
+
+											$author = getAutors($article->getAuthorXML());
+											$pos = strrpos($author, ";");
+											$author[$pos] = " ";
+
+											echo $author;
+											echo '<i><b>';
+											echo (getTitle($article->getTitle(), $lang).". ");
 											echo ('</b></i>');					        
 											echo ($article->getSerial(). ', '.$article->getYear().', vol.'.$article->getVolume());
 											echo (', n. '.$article->getNumber().', ISSN '.substr($article->getPID(),1,9).'.<br/><br/>'."\n");
-											
 											?>
 											</span></h3>
 										</TD>
 									</TR>									
 									<TR>
-										<TD colspan="2"><?php
+										<TD colspan="2">
+										<?php
 											$serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/?IsisScript=ScieloXML/sci_references.xis&database=artigo&gizmo=GIZMO_XML_REF&search=rp=" . $pid . "$";
 											
 											$xmlFile = file_get_contents($serviceUrl);
@@ -104,7 +104,7 @@ $article = $articleService->getArticle();
 											$output = str_replace('<p>',' ',$output);
 											$output = str_replace('</p>',' ',$output);				
 											echo (utf8_decode($output));
-											?>
+										?>
 										</TD>
 									</TR>
 								</TABLE>

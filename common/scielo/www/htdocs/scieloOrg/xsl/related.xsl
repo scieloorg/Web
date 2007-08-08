@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-
-	<xsl:output method="html" 
-	omit-xml-declaration="yes"
-	indent="no"
-	doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN" 
-	doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" />
+	<xsl:output method="html" omit-xml-declaration="yes" indent="no" />
 
 	<xsl:include href="file:///home/scielo/www/htdocs/applications/scielo-org/xsl/article_output.xsl"/>
 	<xsl:include href="file:///home/scielo/www/htdocs/xsl/sci_common.xsl"/>
@@ -19,59 +14,22 @@
 	<xsl:variable name="total" select="count(//related/relatedlist/article)"/>
 	<xsl:template match="/">
 
-		<html>
-			<head>
-				<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
-				<link rel="stylesheet" href="/applications/scielo-org/css/public/style-{$lang}.css" type="text/css" media="screen"/>
-			</head>
-			<body>
-				<div class="container">
-					<div class="level2">
-						<div class="bar">
-						</div>
-						<div class="top">
-							<div id="parent">
-								<img src="{concat('/img/',$lang,'/scielobre.gif')}" alt="SciELO - Scientific Electronic Librery Online"/>
-							</div>
-							<div id="identification">
-								<h1>
-									<span>
-										<xsl:value-of select="$texts/text[find='scielo.org']/replace"/>
-									</span>
-								</h1>
-							</div>
-						</div>
-						<div class="middle">
-							<div id="collection">
-								<h3>
-									<span>
-										<xsl:value-of select="$texts/text[find='related_to']/replace"/>
-										<xsl:value-of select="concat(' ',$total)"/>
-									</span>
-								</h3>
-								<div class="content">
-									<div class="articleList">
-										<xsl:choose>
-											<xsl:when test="$total &gt; 0">
-												<ul>
-															<xsl:apply-templates select="//related/relatedlist/article" mode="pre">
-															</xsl:apply-templates>
-												</ul>
-											</xsl:when>
-											<xsl:otherwise>
-												<xsl:value-of select="$texts/text[find='doesnt_related']/replace"/>
-											</xsl:otherwise>
-										</xsl:choose>
-									</div>
-								</div>
-								<div style="clear: both;float: none;width: 100%;"/>
-							</div>
-						</div>
-					</div>
-				</div>
-				<xsl:call-template name="UpdateLog"/>
-			</body>
-		</html>
+	<div class="content">
+		<div class="articleList">
+			<xsl:choose>
+				<xsl:when test="$total &gt; 0">
+					<ul>
+								<xsl:apply-templates select="//related/relatedlist/article" mode="pre">
+								</xsl:apply-templates>
+					</ul>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="$texts/text[find='doesnt_related']/replace"/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</div>
+	</div>
+
 	
 	</xsl:template>
 		<xsl:template match="article" mode="pre">
