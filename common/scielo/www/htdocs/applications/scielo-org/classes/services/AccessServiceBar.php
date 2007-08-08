@@ -12,7 +12,7 @@ para ter o gráfico "multi-lingüe"
 	//require_once(dirname(__FILE__)."/../../includes/jpgraph-1.20.4/src/jpgraph_bar.php");
 	//require_once(dirname(__FILE__)."/../../includes/jpgraph-1.20.4/src/jpgraph_canvas.php");
 	require_once(dirname(__FILE__)."/../XML_XSL/XML_XSL.inc.php");
-	require_once(dirname(__FILE__)."/../XML_XSL/xslt.inc.php");
+	require_once("/home/scielo/www/htdocs/class.XSLTransformer.php");
 	require_once(dirname(__FILE__)."/../Open_Flash_Chart/ofc-library/Graph.php");
 	
 	

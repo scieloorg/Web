@@ -1,7 +1,7 @@
 <?php
 $dir = dirname(__FILE__);
-require_once($dir.'/xslt.inc.php');
 
+require_once($dir.'/../../../../class.XSLTransformer.php');
 define('XML_PROCESSING_INSTRUCTION','<?xml version="1.0" encoding="utf-8"?>');
 
 class XSL_XML  {

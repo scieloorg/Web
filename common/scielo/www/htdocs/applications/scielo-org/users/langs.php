@@ -120,6 +120,7 @@ define("REMOVE_ACCESS_ALERT","Não receber mais alertas de acessos desse artigo")
 define("REMOVE_CITED_ALTER","Não receber mais alertas de citação desse artigo");
 define("MONTH_LIST", "jan,fev,mar,abr,mai,jun,jul,ago,set,out,nov,dez");
 define("CITED_BY","Citado Por");
+define("SIMILARYS_IN","Similares em");
 define("SEE","Ver");
 define("SEE_HISTORY","Ver Histórico");
 define("CHOOSE_PERIOD", "Escolha por ano:");
@@ -362,6 +363,7 @@ define("REMOVE_ACCESS_ALERT","I do not want to receive any further alerts of acc
 define("REMOVE_CITED_ALTER","I do not want to receive any further alerts of citations to  this article");
 define("MONTH_LIST", "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sept,Oct,Nov,Dec");
 define("CITED_BY","Cited By");
+define("SIMILARYS_IN","Similars in");
 define("SEE","See");
 define("SEE_HISTORY","See History");
 define("CHOOSE_PERIOD", "Choose by Year:");
@@ -602,6 +604,7 @@ define("REMOVE_ACCESS_ALERT","No quiero más recibir alertas de accessos de este 
 define("REMOVE_CITED_ALTER","No quiero más recibir alertas de citaciones a este artículo");
 define("MONTH_LIST", "ene,feb,mar,abr,mayo,jun,jul,ago,sept,oct,nov,dic");
 define("CITED_BY","Citado Por");
+define("SIMILARYS_IN","Similares en");
 define("SEE","Ver");
 define("SEE_HISTORY","Ver Histórico");
 define("CHOOSE_PERIOD", "Elegir por año:");

@@ -12,15 +12,18 @@ require_once(dirname(__FILE__)."/../classes/domit-1/xml_domit_lite_include.inc.p
 require_once(dirname(__FILE__)."/../../../php/include.php");
 
 /**
-*Extrai os titulos do XML
-*
-* Retorna (se possivel) o Titulo do artigo no mesmo idioma da interface Scielo,
-* se não encontra um Titulo no idioma corrente retorna o 1o titulo encontrado
-*
-*@param String authorsXML XML contendo os titulos
-*@retuns String String com titulo
-*/
-function getTitle($titleXML)
+ * Extrai os titulos do XML
+ * 
+ * Retorna (se possivel) o Titulo do artigo no mesmo idioma da interface Scielo,
+ * se não encontra um Titulo no idioma corrente retorna o 1o titulo encontrado
+ * 
+ * 07/08/2007 -> Adicionado o parametro lang. Antes as vezes tinha no mesmo idioma,
+ * mas retornava de outro porque $lang era NULL
+ *
+ * @param String authorsXML XML contendo os titulos
+ * @retuns String String com titulo
+ */
+function getTitle($titleXML, $lang = '')
 {
     $domLiteDocument =& new DOMIT_Lite_Document();
     $domLiteDocument->parseXML($titleXML);
@@ -34,6 +37,7 @@ function getTitle($titleXML)
     /*
     procura um titulo no lang corrente para exibir
     */
+	
     for($j = 0; $j < $nodes->getLEngth(); $j++)
 	{
         $node = $nodes->item($j); 
@@ -41,6 +45,7 @@ function getTitle($titleXML)
         if($lang_article == $lang)
         $article_title = $node->getText();
     }
+
     return  $article_title;
 }
 

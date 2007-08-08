@@ -44,6 +44,7 @@ error_reporting(1);
 
     <link rel="stylesheet" href="<?=$scielodef['this']['url']?>/css/screen2.css" type="text/css" media="screen">
     <link rel="stylesheet" href="<?=$scielodef['this']['url']?>/css/common/styles.css" type="text/css">
+	<link rel="stylesheet" href="<?=$scielodef['this']['url']?>/applications/scielo-org/css/public/style-<?=$lang?>.css" type="text/css" media="screen"/>
   </head>
   <body>
     <div class="container">
@@ -52,54 +53,65 @@ error_reporting(1);
         <div class="middle">
           <div id="collection">
             <h3><span><?=ACCESS_STATS?></span></h3>
-			<!-- Formulário de opção de estatísticas por data -->
-			<form action="articleRequestGraphicPage.php" name="form1" method="get" onSubmit="return valida_form();">
-				<p><b><?=CHOOSE_PERIOD?></b><br/>
-				<?php
-					$accessService = new AccessService();
-					$accessService->setParams($_REQUEST['pid']);
-					$years = array();
-					$years = $accessService->getYears($accessService->getStats());
-				?>
-				<?=START_YEAR?> 
-				<select id="startYear" name="startYear"> 	
-				<?php
-					for($i = 0; $i < count($years) - 1; $i++)
-					{
-						echo '<option value="'.$years[$i].'">'.$years[$i].'</option>'; 	
-					}
-					echo '<option  selected value="'.$years[$i].'">'.$years[$i].'</option>'; 	
-				?>
-				</select> 
-				<?=LAST_YEAR?>
-				<select id="lastYear" name="lastYear">
-				<?php
-					for($i = 0; $i < count($years) -1; $i++)
-					{
-						echo '<option value="'.$years[$i].'">'.$years[$i].'</option>'; 	
-					}
-					echo '<option  selected value="'.$years[$i].'">'.$years[$i].'</option>'; 	
-				?>
-				</select>
-				<input type="submit" class="submit" value="<?=BUTTON_REFRESH?>">
-				<input type="hidden" id="lang" name="lang" value="<?=$lang?>">
-				<input type="hidden" id="caller" name="caller" value="<?=$caller?>">
-				<input type="hidden" id="pid" name="pid" value="<?=$pid?>">
-			</form>
+			<div class="content">
+				<TABLE border="0" cellpadding="0" cellspacing="2" width="760" align="center">
+					<TR>
+						<TD colspan="2">
+							<h3><span style="font-weight:100;font-size: 70%; background:none;">
+							<?php
+								
+								$author = getAutors($article->getAuthorXML());
+								$pos = strrpos($author, ";");
+								$author[$pos] = " ";
 
+								echo $author;
+								echo '<i><b>';
+								echo (getTitle($article->getTitle(), $lang).". ");
+								echo ('</b></i>');					        
+								echo ($article->getSerial(). ', '.$article->getYear().', vol.'.$article->getVolume());
+								echo (', n. '.$article->getNumber().', ISSN '.substr($article->getPID(),1,9).'.<br/><br/>'."\n");
+								
+							?>
+							</span></h3>
+						</TD>
+					</TR>	
+				</TABLE>
+				<!-- Formulário de opção de estatísticas por data -->
+				<form action="articleRequestGraphicPage.php" name="form1" method="get" onSubmit="return valida_form();">
+					<p><b><?=CHOOSE_PERIOD?></b><br/>
+					<?php
+						$accessService = new AccessService();
+						$accessService->setParams($_REQUEST['pid']);
+						$years = array();
+						$years = $accessService->getYears($accessService->getStats());
+					?>
+					<?=START_YEAR?> 
+					<select id="startYear" name="startYear"> 	
+					<?php
+						for($i = 0; $i < count($years) - 1; $i++)
+						{
+							echo '<option value="'.$years[$i].'">'.$years[$i].'</option>'; 	
+						}
+						echo '<option  selected value="'.$years[$i].'">'.$years[$i].'</option>'; 	
+					?>
+					</select> 
+					<?=LAST_YEAR?>
+					<select id="lastYear" name="lastYear">
+					<?php
+						for($i = 0; $i < count($years) -1; $i++)
+						{
+							echo '<option value="'.$years[$i].'">'.$years[$i].'</option>'; 	
+						}
+						echo '<option  selected value="'.$years[$i].'">'.$years[$i].'</option>'; 	
+					?>
+					</select>
+					<input type="submit" class="submit" value="<?=BUTTON_REFRESH?>">
+					<input type="hidden" id="lang" name="lang" value="<?=$lang?>">
+					<input type="hidden" id="caller" name="caller" value="<?=$caller?>">
+					<input type="hidden" id="pid" name="pid" value="<?=$pid?>">
+				</form>
+			</div>
             <div class="content">
-				<div>
-					<?
-							$domain = "http://".str_replace("http://","",$_GET['caller']);
-							echo getTitle($article->getTitle())."<br>\n";
-							echo '</a></b>'."\n";
-							echo '<i>';
-							echo getAutors($article->getAuthorXML());
-							echo '</i><br />';
-							echo '<i>'.$article->getSerial(). ', '.$article->getYear().', vol.'.$article->getVolume();
-							echo ', n. '.$article->getNumber().', ISSN '.substr($article->getPID(),1,9).'</i><br/>'."\n";
-						?>
-				</div>
 				<div>
 					<!-- Monta o gráfico -->
 					<?php 
