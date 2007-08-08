@@ -7,7 +7,7 @@ $msg_no_html .= "Error: " . $xmlCheck->get_full_error() . "\n\n";
 $msg_no_html .= "Server Name: " . $_SERVER['SERVER_NAME'] . "\n";
 $msg_no_html .= "Server IP: " . $_SERVER['SERVER_ADDR'] . "\n";
 $msg_no_html .= "URL: " .$_SERVER['REQUEST_URI'] . "\n\n";
-//$msg_no_html .= "XML: \n" . $xml . "\n";
+$msg_no_html .= "XML: \n" . $xml . "\n";
 
 //Formato: Ano-Mes-Dia-Hora_Minuto_Segundo
 $fileName = "XMLerror_".date("y-m-d-H_i_s").".xml";
