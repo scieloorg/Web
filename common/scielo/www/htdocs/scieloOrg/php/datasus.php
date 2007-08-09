@@ -42,11 +42,11 @@ $article = $articleService->getArticle();
 						padding-left: 6px;
 					}
 					.articleList UL LI A {
-						background: url(mark.gif) no-repeat;
+						background: url(/img/mark.gif) no-repeat;
 						padding: 0px 0px 2px 15px;
 					}
 					.articleList UL LI A:hover {
-						background: url(markHover.gif) no-repeat;
+						background: url(/img/markHover.gif) no-repeat;
 					}
 					
 				</style>
