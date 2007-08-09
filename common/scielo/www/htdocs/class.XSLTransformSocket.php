@@ -40,7 +40,14 @@ class XSLTransformerSocket {
 		$aspas = array(chr(147),chr(148));
 		$menos = array(chr(150));
 
-		$xml = utf8_decode($xml);
+		/* 
+			o transformador via socket usa xml com encoding iso,
+			assim, se o xml vier em utf, necessário executar o utf8_decode
+		*/
+		if (strpos(strtolower($xml),'utf-')>0) {
+ 			$xml = utf8_decode($xml);
+			$utf = true;
+ 	    } 
 		$xml = str_replace($aspas,"&quot;",$xml);
 		$xml = str_replace($menos,"-",$xml);
 		$xml = str_replace("\n","",$xml);
@@ -68,6 +75,10 @@ class XSLTransformerSocket {
 			fwrite($this->socket, $this->END_OF_MESS_SYMBOL."\n") or die("2");
 			$message = ($this->recebeResultado() . "<!-- XML well formed verifier OFF -->");
 		}
+		/*
+			se o xml de entrada tem encoding iso, entao necessario executar utf8_decode
+		*/
+		if (!$utf) $message = utf8_decode($message);
 
 		//var_dump($xml);
 		//var_dump($xsl);
