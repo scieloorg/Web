@@ -974,8 +974,10 @@
 
 	<call name="GetLanguage"><pft>v3012/v3003/(|^l|v4001^l/)</pft></call>
 
-    <field action="replace" tag="9000">
-   		<pft>(if s(mpu,v4001^l)=s(mpu,v4010[1]) then mpl,v4001^a,break fi)</pft>
+	<!-- anteriormente tag="9000", foi substituído por tag="4001", reaproveitando-o, 
+	pois havia um problema de memória no wxis.exe, reaproveitando o campo, reaproveita-se a memória -->
+    <field action="replace" tag="4001">
+   		<pft>(if s(mpu,v4001^l)=s(mpu,v4010[1]) then mpl,v4001,break fi)</pft>
     </field>
 	<field action="replace"	tag="1000">
 		<pft>if v8000<>'.xml' then '^i<![CDATA[^f]]>' fi</pft>
@@ -983,7 +985,7 @@
 	
 	<display>
 		<pft>
-			'  <ABSTRACT xml:lang="',v4010,'">',v1000^i,v9000,v1000^f,'</ABSTRACT>'/#
+			'  <ABSTRACT xml:lang="',v4010,'">',v1000^i,v4001^a,v1000^f,'</ABSTRACT>'/#
 		</pft>
 	</display>
 
