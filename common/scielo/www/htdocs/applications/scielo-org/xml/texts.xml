@@ -3,14 +3,6 @@
 <texts>
 	<language id="pt">
 		<text>
-             <find>pidNotFound</find>
-             <replace>A revista solicitada não foi encontrada.Clique no logo da SciELO para visualizar a Biblioteca SciELO ou use o botão "BACK" do browser para voltar à página anterior.Por favor envie-nos um email com suas perguntas, comentários ou sugestões usando o link abaixo.</replace>
-        </text>
-		<text>
-             <find>xmlNotWellFormed</find>
-             <replace>Nenhum registro encontrado</replace>
-        </text>
-		<text>
              <find>doiNotFound</find>
              <replace>Nenhum registro encontrado</replace>
         </text>										
@@ -124,14 +116,6 @@
 	</language>
 	<language id="es">
 		<text>
-             <find>pidNotFound</find>
-             <replace>La revista solicitada no fue encontrada.Clique en el logo de SciELO para revisar la Biblioteca SciELO o use el botón "BACK" del visualizador para volver a la página anterior.Agradeceríamos que nos enviaran emails con cualquier pregunta, comentario o sugerencia usando el link que aparece a continuación.</replace>
-        </text>
-		<text>
-             <find>xmlNotWellFormed</find>
-             <replace>Nenhum registro encontrado</replace>
-        </text>
-		<text>
 	                <find>doiNotFound</find>
 		        <replace>Registros no encontrados</replace>
 		</text>	
@@ -244,14 +228,6 @@
 		</text>
 	</language>
 	<language id="en">
-		<text>
-             <find>pidNotFound</find>
-             <replace>Nenhum registro encontrado</replace>
-        </text>
-		<text>
-             <find>xmlNotWellFormed</find>
-             <replace>Nenhum registro encontrado</replace>
-        </text>
 		<text>
  	         <find>doiNotFound</find>
 	         <replace>Records not found</replace>
