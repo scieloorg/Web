@@ -31,6 +31,25 @@ $article = $articleService->getArticle();
 			<head>
 				<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
 				<link rel="stylesheet" href="/applications/scielo-org/css/public/style-<?=$lang?>.css" type="text/css" media="screen"/>
+				<style>
+					.articleList {
+						padding-left: 20px;
+					}
+					.articleList UL {
+						padding: 6px;
+					}
+					.articleList UL LI {
+						padding-left: 6px;
+					}
+					.articleList UL LI A {
+						background: url(mark.gif) no-repeat;
+						padding: 0px 0px 2px 15px;
+					}
+					.articleList UL LI A:hover {
+						background: url(markHover.gif) no-repeat;
+					}
+					
+				</style>
 			</head>
 			<body>
 				<div class="container">
@@ -80,35 +99,38 @@ $article = $articleService->getArticle();
 										</TD>
 									</TR>									
 									<TR>
-										<TD colspan="2"><?php
-											$serviceUrl = "http://trigramas.bireme.br/cgi-bin/mxlind/cgi=@areasgeo?pid=".$pid;
-											$xmlFile = file_get_contents($serviceUrl);
-											$xml = '<?xml version="1.0" encoding="ISO-8859-1"?>';
-											$xml .='<root>';
-											$xml .='<vars>
-														<lang>'.$lang.'</lang>
-														<applserver>'. $applServer .'</applserver>
-													</vars>';
-											$xml .= str_replace('<?xml version="1.0" encoding="ISO-8859-1" ?>','',$xmlFile);
-											$xml .='</root>';
-											if($_REQUEST['debug'] == 'xml'){
-												die($xml);
-											}
-											$xsl = dirname(__FILE__)."/../xsl/datasus.xsl";
-											$transformer = new XSLTransformer();
-											$transformer->setXslBaseUri(dirname(__FILE__));
-											$transformer->setXML($xml);
-											$transformer->setXSL($xsl);
-											$transformer->transform();
-											$output = $transformer->getOutput();
-											$output = str_replace('&amp;','&',$output);
-											$output = str_replace('&lt;','<',$output);
-											$output = str_replace('&gt;','>',$output);
-											$output = str_replace('&quot;','"',$output);
-											$output = str_replace('<p>',' ',$output);
-											$output = str_replace('</p>',' ',$output);				
-											echo (utf8_decode($output));
-											?>
+										<TD colspan="2">
+											<div class="articleList">
+											<?php
+												$serviceUrl = "http://trigramas.bireme.br/cgi-bin/mxlind/cgi=@areasgeo?pid=".$pid;
+												$xmlFile = file_get_contents($serviceUrl);
+												$xml = '<?xml version="1.0" encoding="ISO-8859-1"?>';
+												$xml .='<root>';
+												$xml .='<vars>
+															<lang>'.$lang.'</lang>
+															<applserver>'. $applServer .'</applserver>
+														</vars>';
+												$xml .= str_replace('<?xml version="1.0" encoding="ISO-8859-1" ?>','',$xmlFile);
+												$xml .='</root>';
+												if($_REQUEST['debug'] == 'xml'){
+													die($xml);
+												}
+												$xsl = dirname(__FILE__)."/../xsl/datasus.xsl";
+												$transformer = new XSLTransformer();
+												$transformer->setXslBaseUri(dirname(__FILE__));
+												$transformer->setXML($xml);
+												$transformer->setXSL($xsl);
+												$transformer->transform();
+												$output = $transformer->getOutput();
+												$output = str_replace('&amp;','&',$output);
+												$output = str_replace('&lt;','<',$output);
+												$output = str_replace('&gt;','>',$output);
+												$output = str_replace('&quot;','"',$output);
+												$output = str_replace('<p>',' ',$output);
+												$output = str_replace('</p>',' ',$output);				
+												echo (utf8_decode($output));
+												?>
+											</div>
 										</TD>
 									</TR>
 								</TABLE>
