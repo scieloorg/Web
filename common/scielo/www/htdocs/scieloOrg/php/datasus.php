@@ -32,23 +32,27 @@ $article = $articleService->getArticle();
 				<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
 				<link rel="stylesheet" href="/applications/scielo-org/css/public/style-<?=$lang?>.css" type="text/css" media="screen"/>
 				<style>
-					.articleList {
-						padding-left: 20px;
+					.articleList TH {
+						text-align: left;
+						border-bottom: 2px solid #AAA;
+						padding: 2px 0px;
 					}
-					.articleList UL {
-						padding: 6px;
+					.articleList TD {
+						padding-bottom: 6px;
+							
 					}
-					.articleList UL LI {
-						padding-left: 6px;
+					.articleList TD TD {
+						border-bottom: 1px solid #AAA;
 					}
-					.articleList UL LI A {
-						background: url(/img/mark.gif) no-repeat;
-						padding: 0px 0px 2px 15px;
+					.articleList TD TD TD {
+						border-bottom: 1px solid #DEDEDE;
 					}
-					.articleList UL LI A:hover {
-						background: url(/img/markHover.gif) no-repeat;
+					.region {
+						padding-top: 12px;
 					}
-					
+					.state {
+						margin-top: 12px;
+					}
 				</style>
 			</head>
 			<body>
@@ -128,7 +132,7 @@ $article = $articleService->getArticle();
 												$output = str_replace('&quot;','"',$output);
 												$output = str_replace('<p>',' ',$output);
 												$output = str_replace('</p>',' ',$output);				
-												echo (utf8_decode($output));
+												echo ($output);
 												?>
 											</div>
 										</TD>
