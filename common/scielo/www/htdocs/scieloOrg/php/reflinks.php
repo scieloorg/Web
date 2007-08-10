@@ -31,7 +31,7 @@
 	$xml .= str_replace('<?xml version="1.0" encoding="ISO-8859-1"?>','',$xml1);
 	$xml .='</root>';
 
-	if($_REQUEST['debug'] == 'on')
+	if($_REQUEST['debug1'] == 'on')
 	{
 		die($xml);
 	}
@@ -50,6 +50,11 @@
 	$xmlFinal .= substr($xml2, strpos($xml2, "<root>"), strpos($xml2, "<ref_TITLE>") - strpos($xml2, "<root>"));
 	$xmlFinal .= " <ref_TITLE><![CDATA[".$fullTitle."]]></ref_TITLE>";
 	$xmlFinal .= substr($xml2, strpos($xml2, "<TITLE>"));
+
+	if($_REQUEST['debug2'] == 'on')
+	{
+		die($xmlFinal);
+	}
 
 	// Transformação Final, página de links de referencia
 	$transformerFinal = new XSLTransformer();
