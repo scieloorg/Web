@@ -98,17 +98,13 @@
 										</ul>
 										<xsl:value-of select="$texts/text[find='similarLink']/replace" />
 										<ul>
-
 											<li>																	
 												<a>
 													<xsl:attribute name="href">/scieloOrg/php/similar.php?text=<xsl:value-of select="//TITLE" disable-output-escaping="yes"/>&amp;lang=<xsl:value-of select="$lang"/></xsl:attribute>
 													<xsl:attribute name="target">_blank</xsl:attribute>
-													<b><xsl:value-of select="$texts/text[find='scieloNetwork']/replace" /></b>																									
-												</a>
-
-										
-											</li>
-						
+													<b><xsl:value-of select="$texts/text[find='scieloNetwork']/replace" /></b>		
+												</a>										
+											</li>						
 										</ul>
 									</div>
 								</div>
