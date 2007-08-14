@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-	<xsl:include href="file:///home/scielo/www/htdocs/xsl/sci_artref.xsl"/>
+	<xsl:include href="sci_artref.xsl"/>
 	<xsl:template name="AddRssHeaderLink">
 		<xsl:param name="pid" />
 		<xsl:param  name="lang" />

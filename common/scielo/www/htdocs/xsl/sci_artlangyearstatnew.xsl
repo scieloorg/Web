@@ -3,8 +3,8 @@
 
 
 <!--xsl:output method="html" encoding="iso-8859-1" /-->
-<xsl:include href="file:///home/scielo/www/htdocs/xsl/sci_common.xsl"/>
-<xsl:include href="file:///home/scielo/www/htdocs/xsl/sci_mysqlerror.xsl"/>
+<xsl:include href="sci_common.xsl"/>
+<xsl:include href="sci_mysqlerror.xsl"/>
 
 <xsl:template match="QUERY_RESULT">
 	<html>

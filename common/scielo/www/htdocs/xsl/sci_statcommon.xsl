@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
-<xsl:include href="file:///home/scielo/www/htdocs/xsl/sci_common.xsl"/>
+<xsl:include href="sci_common.xsl"/>
 
 <xsl:template name="HeadStatJournal">
  <xsl:param name="entities_en" />
