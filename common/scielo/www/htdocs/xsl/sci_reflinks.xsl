@@ -2,7 +2,7 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 	<xsl:output method="html" omit-xml-declaration="yes" indent="yes" doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 	<xsl:variable name="lang" select="//vars/lang"/>
-	<xsl:variable name="texts" select="document('file:///home/scielo/www/htdocs/applications/scielo-org/xml/texts.xml')/texts/language[@id = $lang]"/>
+	<xsl:variable name="texts" select="document('../applications/scielo-org/xml/texts.xml')/texts/language[@id = $lang]"/>
 	<xsl:variable name="links" select="//ARTICLE"/>
 	<xsl:variable name="total" select="count(//similarlist/similar/article)"/>
 	<xsl:template match="/">
