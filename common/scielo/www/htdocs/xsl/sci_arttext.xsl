@@ -27,6 +27,7 @@
 				<meta Content-math-Type="text/mathml"/>
 				<link rel="stylesheet" type="text/css" href="/css/screen.css"/>
 				<xsl:apply-templates select="." mode="css"/>
+				<script language="javascript" src="applications/scielo-org/js/httpAjaxHandler.js" />
 				<script language="javascript" src="article.js"/>
 			</head>
 			<body>

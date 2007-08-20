@@ -100,7 +100,15 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 		<xsl:param name="script"/>
 		<xsl:param name="txtlang"/>
 		<xsl:param name="file"/>
+		<xsl:choose>
+			<xsl:when test="$script = 'sci_pdf' ">
+				<xsl:attribute name="href">javascript: void(0); </xsl:attribute>
+				<xsl:attribute name="onClick">callUpdateArticleLog('artigo_em_formato_pdf');setTimeout("window.open('http://<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/SERVER"/><xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_DATA"/>scielo.php?script=<xsl:value-of select="$script"/>&amp;<xsl:if test="$seq">pid=<xsl:value-of select="$seq"/>&amp;</xsl:if>lng=<xsl:value-of select="normalize-space(//CONTROLINFO/LANGUAGE)"/>&amp;nrm=<xsl:value-of select="normalize-space(//CONTROLINFO/STANDARD)"/><xsl:if test="$txtlang">&amp;tlng=<xsl:value-of select="normalize-space($txtlang)"/></xsl:if><xsl:if test="$file">&amp;file=<xsl:value-of select="$file"/></xsl:if> ','_self')", 3000);</xsl:attribute>
+			</xsl:when>
+			<xsl:otherwise>
 		<xsl:attribute name="href">http://<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/SERVER"/><xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_DATA"/>scielo.php?script=<xsl:value-of select="$script"/>&amp;<xsl:if test="$seq">pid=<xsl:value-of select="$seq"/>&amp;</xsl:if>lng=<xsl:value-of select="normalize-space(//CONTROLINFO/LANGUAGE)"/>&amp;nrm=<xsl:value-of select="normalize-space(//CONTROLINFO/STANDARD)"/><xsl:if test="$txtlang">&amp;tlng=<xsl:value-of select="normalize-space($txtlang)"/></xsl:if><xsl:if test="$file">&amp;file=<xsl:value-of select="$file"/></xsl:if></xsl:attribute>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 	<!-- Adds a LINK to the IAH search interface
         Parameters:
@@ -895,7 +903,8 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 		</xsl:variable>
 		<td valign="middle">
 			<a href="javascript:void(0);" onmouseout="status='';" class="nomodel" style="text-decoration: none;">
-				<xsl:attribute name="onclick">OpenArticleInfoWindow ( 640, 320,  "<xsl:value-of select="$INFOPAGE"/>");</xsl:attribute>
+				<xsl:attribute name="onclick">OpenArticleInfoWindow ( 640, 320,  "<xsl:value-of select="$INFOPAGE"/>");
+				callUpdateArticleLog('como_citar_este_artigo');</xsl:attribute>
 				<xsl:attribute name="onmouseover">
 				status='<xsl:call-template name="PrintArticleInformationLabel"><xsl:with-param name="LANGUAGE" select="$LANGUAGE"/></xsl:call-template>'; return true;
 			</xsl:attribute>
@@ -904,7 +913,7 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 		</td>
 		<td>
 			<a href="javascript:void(0);" onmouseout="status='';" class="nomodel" style="text-decoration: none;">
-				<xsl:attribute name="onclick">OpenArticleInfoWindow ( 640, 320,  "<xsl:value-of select="$INFOPAGE"/>");</xsl:attribute>
+				<xsl:attribute name="onclick">OpenArticleInfoWindow ( 640, 320,  "<xsl:value-of select="$INFOPAGE"/>");callUpdateArticleLog('como_citar_este_artigo');</xsl:attribute>
 				<xsl:attribute name="onmouseover">
 				status='<xsl:call-template name="PrintArticleInformationLabel"><xsl:with-param name="LANGUAGE" select="$LANGUAGE"/></xsl:call-template>'; return true;
 			</xsl:attribute>
