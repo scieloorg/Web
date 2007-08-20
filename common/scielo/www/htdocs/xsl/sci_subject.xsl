@@ -120,7 +120,7 @@
 			</xsl:when>
 			<xsl:otherwise>
 				<a>
-					<xsl:attribute name="href">http://<xsl:value-of select="//SERVER"/><xsl:value-of select="//PATH_DATA"/>scielo.php/script_sci_serial/pid_<xsl:value-of select ="TITLE/@ISSN"/>/lng_<xsl:value-of  select="normalize-space(//CONTROLINFO/LANGUAGE)"/>/nrm_<xsl:value-of select="normalize-space(//CONTROLINFO/STANDARD)"/></xsl:attribute>
+					<xsl:attribute name="href">http://<xsl:value-of select="//SERVER"/><xsl:value-of select="//PATH_DATA"/>scielo.php?script=sci_serial&amp;pid=<xsl:value-of select ="TITLE/@ISSN"/>&amp;lng=<xsl:value-of  select="normalize-space(//CONTROLINFO/LANGUAGE)"/>&amp;nrm=<xsl:value-of select="normalize-space(//CONTROLINFO/STANDARD)"/></xsl:attribute>
 					<xsl:value-of select="TITLE" disable-output-escaping="yes" />
 				</a>
 			</xsl:otherwise>

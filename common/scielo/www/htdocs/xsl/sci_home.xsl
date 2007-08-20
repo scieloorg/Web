@@ -90,14 +90,14 @@
 
 		<a>
 			<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of 
-				select="SCIELO_INFO/PATH_DATA"/>scielo.php/script_sci_home/lng_pt/nrm_iso</xsl:attribute>
+				select="SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_home&amp;lng=pt&amp;nrm=iso</xsl:attribute>
 
 			<font class="linkado" size="-1">português</font>
 		</a><br/>
 
 		<a>
 			<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of 
-				select="SCIELO_INFO/PATH_DATA"/>scielo.php/script_sci_home/lng_es/nrm_iso</xsl:attribute>
+				select="SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_home&amp;lng=es&amp;nrm=iso</xsl:attribute>
 
 			<font class="linkado" size="-1">español</font>
 		</a><br/>&#160;<br/>
@@ -129,14 +129,14 @@
 
 		<a>
 			<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of 
-				select="SCIELO_INFO/PATH_DATA"/>scielo.php/script_sci_alphabetic/lng_en/nrm_iso</xsl:attribute>
+				select="SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_alphabetic&amp;lng=en&amp;nrm=iso</xsl:attribute>
 
 			<font class="linkado" size="-1">alphabetic list</font>
 		</a><br/>
 
 		<a>
 			<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of 
-				select="SCIELO_INFO/PATH_DATA"/>scielo.php/script_sci_subject/lng_en/nrm_iso</xsl:attribute>
+				select="SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_subject&amp;lng=en&amp;nrm=iso</xsl:attribute>
 
 			<font class="linkado" size="-1">subject list</font>
 		</a><br/>
@@ -388,14 +388,14 @@
 
 		<a>
 			<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of 
-				select="SCIELO_INFO/PATH_DATA"/>scielo.php/script_sci_home/lng_en/nrm_iso</xsl:attribute>
+				select="SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_home&amp;lng=en&amp;nrm=iso</xsl:attribute>
 
 			<font class="linkado" size="-1">english</font>
 		</a><br/>
 
 		<a>
 			<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of 
-				select="SCIELO_INFO/PATH_DATA"/>scielo.php/script_sci_home/lng_es/nrm_iso</xsl:attribute>
+				select="SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_home&amp;lng=es&amp;nrm=iso</xsl:attribute>
 				
 			<font class="linkado" size="-1">español</font>
 		</a><br/>&#160;<br/>
@@ -425,14 +425,14 @@
 
 		<a>
 			<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of 
-				select="SCIELO_INFO/PATH_DATA"/>scielo.php/script_sci_alphabetic/lng_pt/nrm_iso</xsl:attribute>
+				select="SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_alphabetic&amp;lng=pt&amp;nrm=iso</xsl:attribute>
 
 			<font class="linkado" size="-1">lista alfabética</font>
 		</a><br/>
 
 		<a>
 			<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of 
-				select="SCIELO_INFO/PATH_DATA"/>scielo.php/script_sci_subject/lng_pt/nrm_iso</xsl:attribute>
+				select="SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_subject&amp;lng=pt&amp;nrm=iso</xsl:attribute>
 
 			<font class="linkado" size="-1">lista por assunto</font>
 		</a><br/>
@@ -672,14 +672,14 @@
 
 		<a>
 			<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of 
-				select="SCIELO_INFO/PATH_DATA"/>scielo.php/script_sci_home/lng_en/nrm_iso</xsl:attribute>
+				select="SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_home&amp;lng=en&amp;nrm=iso</xsl:attribute>
 
 			<font class="linkado" size="-1">english</font>
 		</a><br/>
 
 		<a>
 			<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of 
-				select="SCIELO_INFO/PATH_DATA"/>scielo.php/script_sci_home/lng_pt/nrm_iso</xsl:attribute>
+				select="SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_home&amp;lng=pt&amp;nrm=iso</xsl:attribute>
 
 			<font class="linkado" size="-1">português</font>
 		</a><br/>&#160;<br/>
@@ -709,14 +709,14 @@
 
 		<a>
 			<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of 
-				select="SCIELO_INFO/PATH_DATA"/>scielo.php/script_sci_alphabetic/lng_es/nrm_iso</xsl:attribute>
+				select="SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_alphabetic&amp;lng=es&amp;nrm=iso</xsl:attribute>
 
 			<font class="linkado" size="-1">lista alfabética</font>
 		</a><br/>
 
 		<a>
 			<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of 
-				select="SCIELO_INFO/PATH_DATA"/>scielo.php/script_sci_subject/lng_es/nrm_iso</xsl:attribute>
+				select="SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_subject&amp;lng=es&amp;nrm=iso</xsl:attribute>
 
 			<font class="linkado" size="-1">lista por materia</font>
 		</a><br/>

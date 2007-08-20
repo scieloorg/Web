@@ -64,16 +64,16 @@
 					<a>
 				<xsl:attribute name="href">http://<xsl:value-of 
 					select="SCIELO_INFO/SERVER"/><xsl:value-of
-					select="SCIELO_INFO/PATH_DATA"/>scielo.php/script_sci_serial/lng_pt/pid_<xsl:value-of
-					select="/SERIAL/ISSN"/>/nrm_<xsl:value-of
+					select="SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_serial&amp;lng=pt&amp;pid=<xsl:value-of
+					select="/SERIAL/ISSN"/>&amp;nrm=<xsl:value-of
 					select="normalize-space(STANDARD)"/></xsl:attribute>
 				<font class="linkado" size="-2">português</font>
 				</a><br/>&#160;
 				<a>
 				<xsl:attribute name="href">http://<xsl:value-of
 					select="SCIELO_INFO/SERVER"/><xsl:value-of
-					select="SCIELO_INFO/PATH_DATA"/>scielo.php/script_sci_serial/lng_es/pid_<xsl:value-of
-					select="/SERIAL/ISSN"/>/nrm_<xsl:value-of
+					select="SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_serial&amp;lng=es&amp;pid=<xsl:value-of
+					select="/SERIAL/ISSN"/>&amp;nrm=<xsl:value-of
 					select="normalize-space(STANDARD)"/></xsl:attribute>
 				<font class="linkado" size="-2">español</font>
 				</a><br/>					
@@ -202,11 +202,11 @@
 					</xsl:when>
 					<xsl:otherwise>
 						<a>
-						<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_DATA"/>scielo.php/script_sci_serial/lng_en/pid_<xsl:value-of select="/SERIAL/ISSN"/>/nrm_<xsl:value-of select="normalize-space(STANDARD)"/></xsl:attribute>
+						<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_serial&amp;lng=en&amp;pid=<xsl:value-of select="/SERIAL/ISSN"/>&amp;nrm=<xsl:value-of select="normalize-space(STANDARD)"/></xsl:attribute>
 						<font class="linkado" size="-2">english</font>
 						</a><br/>&#160;
 						<a>
-						<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_DATA"/>scielo.php/script_sci_serial/lng_es/pid_<xsl:value-of select="/SERIAL/ISSN"/>/nrm_<xsl:value-of select="normalize-space(STANDARD)"/></xsl:attribute>
+						<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_serial&amp;lng=es&amp;pid=<xsl:value-of select="/SERIAL/ISSN"/>&amp;nrm=<xsl:value-of select="normalize-space(STANDARD)"/></xsl:attribute>
 						<font class="linkado" size="-2">español</font>
 						</a><br/>					
 					</xsl:otherwise>
@@ -315,11 +315,11 @@
 		<td width="30%" align="LEFT" valign="TOP">
 			<p class="nomodel" align="center">&#160;
 						<a>
-						<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_DATA"/>scielo.php/script_sci_serial/lng_en/pid_<xsl:value-of select="/SERIAL/ISSN"/>/nrm_<xsl:value-of select="normalize-space(STANDARD)"/></xsl:attribute>
+						<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_serial&amp;lng=en&amp;pid=<xsl:value-of select="/SERIAL/ISSN"/>&amp;nrm=<xsl:value-of select="normalize-space(STANDARD)"/></xsl:attribute>
 						<font class="linkado" size="-2">english</font>
 						</a><br/>&#160;
 						<a>
-						<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_DATA"/>scielo.php/script_sci_serial/lng_pt/pid_<xsl:value-of select="/SERIAL/ISSN"/>/nrm_<xsl:value-of select="normalize-space(STANDARD)"/></xsl:attribute>
+						<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_serial&amp;lng=pt&amp;pid=<xsl:value-of select="/SERIAL/ISSN"/>&amp;nrm=<xsl:value-of select="normalize-space(STANDARD)"/></xsl:attribute>
 						<font class="linkado" size="-2">português</font>
 						</a><br/>					
 					</p>
