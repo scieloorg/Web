@@ -78,7 +78,7 @@ function callUpdateArticleLog( serviceName )
 		serviceName = "citado_por_scielo";
 
 
-	if(!navigator.appName == "Microsoft Internet Explorer")
+	if(navigator.appName != "Microsoft Internet Explorer")
 	{
 		// Agora sabemos por exemplo se o visitante suporta Flash, Applet, etc...
 		for(i = 0; i < navigator.mimeTypes.length - 1; i++)
