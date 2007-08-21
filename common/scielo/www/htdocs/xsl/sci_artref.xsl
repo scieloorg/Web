@@ -1419,12 +1419,12 @@ Parameters:
 			<xsl:choose>
 				<xsl:when test=" count(AUTHOR) = 1 ">
 					<td valign="middle">
-						<a href="{AUTHOR/@HREF}" onmouseover="status='{AUTHOR/@HREF}'; return true;" onmouseout="status='';" style="text-decoration: none;">
+						<a href="{AUTHOR/@HREF}" onmouseover="status='{AUTHOR/@HREF}'; return true;" onmouseout="status='';" style="text-decoration: none;" onclick="callUpdateArticleLog('curriculum_scienti');">
 							<img border="0" align="middle" src="{$PATH_GENIMG}{$LANGUAGE}/lattescv-button.gif"/>
 						</a>
 					</td>
 					<td valign="middle">
-						<a href="{AUTHOR/@HREF}" onmouseover="status='{AUTHOR/@HREF}'; return true;" onmouseout="status='';" style="text-decoration: none;">Curriculum ScienTI
+						<a href="{AUTHOR/@HREF}" onmouseover="status='{AUTHOR/@HREF}'; return true;" onmouseout="status='';" style="text-decoration: none;"  onclick="callUpdateArticleLog('curriculum_scienti');" >Curriculum ScienTI
 						</a>
 					</td>
 				</xsl:when>
