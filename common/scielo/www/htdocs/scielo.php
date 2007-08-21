@@ -12,11 +12,9 @@
 	if (($CACHE_STATUS == 'on') && ($MAX_DAYS>0)){
 		$filenamePage = $scielo->GetPageFile();
 	}
-
 	$filenamePage = "";
 	$pageContent = "";
 	$GRAVA = false;
-
 	if ($filenamePage){
         if (file_exists($filenamePage)){
 			echo "<!-- EXISTE $filenamePage -->";
@@ -197,6 +195,15 @@ function wxis_exe ( $url )
                 $chave = $chaveNula;
 	        $restrito = true;
         }
+	//verificando se usuario esta logado para utilizar o cacke, se estiver logado cache nao pode ser utilizado
+	//isso ocorre apenas para sci_arttext e sci_abstract
+
+        if (isset($_COOKIE["userID"])){
+		if ($_REQUEST["script"] == 'sci_arttext' or $_REQUEST["script"] == 'sci_abstract' or $_REQUEST["script"] == 'sci_home'  or $_REQUEST["script"] == ''){
+	               	$restrito = true;
+		      	$useCache == '0';
+	        }
+	}
 
 	if(($useCache == '1') && (!$restrito)){
 		require_once('cache.php');
