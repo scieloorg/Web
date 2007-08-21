@@ -90,7 +90,7 @@ function callUpdateArticleLog( serviceName )
 	dados = (String)("servico=" + serviceName + "&browser=" + browserV.replace(/;/g, " ") 
 		+ "&idioma=" + idiomaV.replace(/;/g, " ") + "&resolucao=" + resolucaoV.replace(/;/g, " ") 
 		+ "&SO=" + SOV.replace(/;/g, " ") + "&suporte=" + suporteV.replace(/;/g, " ") 
-		+ "&url=" + escape(urlV.replace(/;/g, " ")) + "&titulo=" + tituloV.replace(/;/g, " ") );
+		+ "&url=" + escape(urlV.replace(/;/g, " ")) + "&titulo=" + escape(tituloV.replace(/;/g, " ")) );
 
 	// inicializa a XMLHttpRequest
 	httpInit();
