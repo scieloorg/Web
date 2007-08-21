@@ -77,10 +77,15 @@ function callUpdateArticleLog( serviceName )
 	else if(serviceName.replace(/ /g,"") == "cited_SciELO")
 		serviceName = "citado_por_scielo";
 
-	// Agora sabemos por exemplo se o visitante suporta Flash, Applet, etc...
-	for(i = 0; i < navigator.mimeTypes.length - 1; i++)
-		suporteV += navigator.mimeTypes[i].type + " ..#.. ";
-	suporteV += navigator.mimeTypes[i].type;
+
+	if(!navigator.appName == "Microsoft Internet Explorer")
+	{
+		// Agora sabemos por exemplo se o visitante suporta Flash, Applet, etc...
+		for(i = 0; i < navigator.mimeTypes.length - 1; i++)
+			suporteV += navigator.mimeTypes[i].type + " ..#.. ";
+		suporteV += navigator.mimeTypes[i].type;
+	}
+	// OBS: Implementar na proxima versão detector de mimetypes para o IE 
 
 	dados = (String)("servico=" + serviceName + "&browser=" + browserV.replace(/;/g, " ") 
 		+ "&idioma=" + idiomaV.replace(/;/g, " ") + "&resolucao=" + resolucaoV.replace(/;/g, " ") 
