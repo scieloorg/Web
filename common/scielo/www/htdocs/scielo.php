@@ -53,6 +53,7 @@
         $scielo->SetXSLUrl ($xsl);
 		//$scielo->GetLoginStatus();
         $pageContent = $scielo->getPage();
+
 		$pageContent .= "\n".'<!-- REQUEST URI: '.$REQUEST_URI.'-->';
 		$pageContent .= "\n"."<!--SERVER:".$SERVER_ADDR."-->";
 
@@ -198,7 +199,7 @@ function wxis_exe ( $url )
 	//verificando se usuario esta logado para utilizar o cacke, se estiver logado cache nao pode ser utilizado
 	//isso ocorre apenas para sci_arttext e sci_abstract
 
-        if (isset($_COOKIE["userID"])){
+        if (isset($_COOKIE["userID"]) && $_COOKIE["userID"] != "-2"){
 		if ($_REQUEST["script"] == 'sci_arttext' or $_REQUEST["script"] == 'sci_abstract' or $_REQUEST["script"] == 'sci_home'  or $_REQUEST["script"] == ''){
 	               	$restrito = true;
 		      	$useCache == '0';
