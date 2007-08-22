@@ -53,8 +53,8 @@
         $scielo->SetXSLUrl ($xsl);
 		//$scielo->GetLoginStatus();
         $pageContent = $scielo->getPage();
-
 		$pageContent .= "\n".'<!-- REQUEST URI: '.$REQUEST_URI.'-->';
+		$pageContent .= "\n"."<!--SERVER:".$SERVER_ADDR."-->";
 
         if ($GRAVA && $filenamePage){
 			if (!file_exists($filenamePage)){
