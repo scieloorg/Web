@@ -60,7 +60,7 @@
 	<table cellspacing="0" border="0" cellpadding="7" width="100%">
 	<tr>
 		<td width="30%" align="LEFT" valign="TOP">
-			<p class="nomodel" align="center">&#160;
+			<p class="nomodel" align="left">
 					<a>
 				<xsl:attribute name="href">http://<xsl:value-of 
 					select="SCIELO_INFO/SERVER"/><xsl:value-of
@@ -68,7 +68,7 @@
 					select="/SERIAL/ISSN"/>&amp;nrm=<xsl:value-of
 					select="normalize-space(STANDARD)"/></xsl:attribute>
 				<font class="linkado" size="-2">português</font>
-				</a><br/>&#160;
+				</a><br/>
 				<a>
 				<xsl:attribute name="href">http://<xsl:value-of
 					select="SCIELO_INFO/SERVER"/><xsl:value-of
@@ -79,7 +79,7 @@
 				</a><br/>					
 
 			</p>
-			<p class="nomodel" align="center">
+			<p class="nomodel" align="left">
 				<font class="nomodel" color="#000080">
 					Updated on<br/>
 					<xsl:call-template name="GET_MONTH_NAME">
@@ -188,13 +188,13 @@
 	<table cellspacing="0" border="0" cellpadding="7" width="100%">
 	<tr>
 		<td width="30%" align="LEFT" valign="TOP">
-			<p class="nomodel" align="center">&#160;
+			<p class="nomodel" align="left">
 				<xsl:choose>
 					<xsl:when test="$forceType=0">
 						<a>
 						<xsl:attribute name="href">http://<xsl:value-of	select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_serial&amp;lng=en&amp;pid=<xsl:value-of select="/SERIAL/ISSN"/>&amp;nrm=<xsl:value-of select="normalize-space(STANDARD)"/></xsl:attribute>
 						<font class="linkado" size="-2">english</font>
-						</a><br/>&#160;
+						</a><br/>
 						<a>
 						<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_serial&amp;lng=es&amp;pid=<xsl:value-of select="/SERIAL/ISSN"/>&amp;nrm=<xsl:value-of select="normalize-space(STANDARD)"/></xsl:attribute>
 						<font class="linkado" size="-2">español</font>
@@ -204,7 +204,7 @@
 						<a>
 						<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_serial&amp;lng=en&amp;pid=<xsl:value-of select="/SERIAL/ISSN"/>&amp;nrm=<xsl:value-of select="normalize-space(STANDARD)"/></xsl:attribute>
 						<font class="linkado" size="-2">english</font>
-						</a><br/>&#160;
+						</a><br/>
 						<a>
 						<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_serial&amp;lng=es&amp;pid=<xsl:value-of select="/SERIAL/ISSN"/>&amp;nrm=<xsl:value-of select="normalize-space(STANDARD)"/></xsl:attribute>
 						<font class="linkado" size="-2">español</font>
@@ -212,7 +212,7 @@
 					</xsl:otherwise>
 				</xsl:choose>			
 			</p>
-			<p class="nomodel" align="center">
+			<p class="nomodel" align="left">
 				<font class="nomodel" color="#000080">
 					Atualizado em<br/>
 					<xsl:call-template name="GET_MONTH_NAME">
@@ -313,17 +313,17 @@
 	<table cellspacing="0" border="0" cellpadding="7" width="100%">
 	<tr>
 		<td width="30%" align="LEFT" valign="TOP">
-			<p class="nomodel" align="center">&#160;
+			<p class="nomodel" align="left">
 						<a>
 						<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_serial&amp;lng=en&amp;pid=<xsl:value-of select="/SERIAL/ISSN"/>&amp;nrm=<xsl:value-of select="normalize-space(STANDARD)"/></xsl:attribute>
 						<font class="linkado" size="-2">english</font>
-						</a><br/>&#160;
+						</a><br/>
 						<a>
 						<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_serial&amp;lng=pt&amp;pid=<xsl:value-of select="/SERIAL/ISSN"/>&amp;nrm=<xsl:value-of select="normalize-space(STANDARD)"/></xsl:attribute>
 						<font class="linkado" size="-2">português</font>
 						</a><br/>					
 					</p>
-			<p class="nomodel" align="center">
+			<p class="nomodel" align="left">
 				<font class="nomodel" color="#000080">
 					Actualizado en<br/>
 					<xsl:call-template name="GET_MONTH_NAME">
