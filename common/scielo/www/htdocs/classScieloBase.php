@@ -346,27 +346,39 @@ class ScieloBase
 			$restrito = true;
 		}
 
-		if(($useCache == '1') && (!$restrito)){
-			require_once('cache.php');
+        //verificando se usuario esta logado para utilizar o cacke, se estiver logado cache nao pode ser utilizado
+        //isso ocorre apenas para sci_arttext e sci_abstract
 
-			if($chave != $chaveNula){
-				$result = getFromCache($chave);
-				if($result != false){
-					return $result."\n".'<!-- XHTML ja no cache-->'."\n <!--".$chave.'-->';
-				}else{
-					$result = $this->_TransformXML();
-					if(addToCache($chave,$result)){
-						return $result."\n".'<!-- XHTML colocado cache-->'."\n <!--".$chave.'-->';
-					}else{
-						return $result."\n".'<!-- ERRO !XHTML colocado cache-->'."\n <!--".$chave.'-->';
-					}
-				}
-			}else{
-				return $this->_TransformXML()."\n".'<!-- Null Key-->';	
-			}
-		}else{
-			return $this->_TransformXML()."\n".'<!-- not in cache -->';
-		}
+                if (isset($_COOKIE["userID"])){
+                        if ($_REQUEST["script"] == 'sci_arttext' or $_REQUEST["script"] == 'sci_abstract' or $_REQUEST["script"] == 'sci_home'  or $_REQUEST["script"] == ''){
+                               $restrito = true;
+                               $useCache == '0';
+                        }
+                }
+
+
+                if(($useCache == '1') && (!$restrito)){
+                        require_once('cache.php');
+
+                        if($chave != $chaveNula){
+                                $result = getFromCache($chave);
+                                if($result != false){
+                                        return $result."\n".'<!--CACHE MSG: XHTML ENCONTRADO NO CACHE-->'."\n <!--".$chave.'-->';
+                                }else{
+                                        $result = $this->_TransformXML();
+                                        if(addToCache($chave,$result)){
+                                                return $result."\n".'<!--CACHE MSG: XHTML COLOCADO NO CACHE-->'."\n <!--".$chave.'-->';
+                                        }else{
+                                                return $result."\n".'<!--CACHE MSG: ERRO - XHTML NAO FOI INSERIDO NO CACHE-->'."\n <!--".$chave.'-->';
+                                        }
+                                }
+                        }else{
+                                return $this->_TransformXML()."\n".'<!--CACHE MSG: CACHE NAO FOI UTILIZADO  -->';
+                        }
+                }else{
+                        return $this->_TransformXML()."\n".'<!--CACHE MSG: CACHE NAO FOI UTILIZADO -->';
+                }
+
 
 	}
 
