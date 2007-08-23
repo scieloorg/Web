@@ -10,7 +10,7 @@ error_reporting(E_ALL);
 */
 include_once (dirname(__FILE__)."/class.XSLTransformSocket.php"); //socket
 class XSLTransformer {
-        var $xsl, $xml, $output, $error, $errorcode, $processor, $uri, $host, $port;   //socket
+        var $xsl, $xml, $output, $error, $errorcode, $processor, $uri, $host, $port, $byJava;   //socket
 
 	/* Constructor  */	 
 	function XSLTransformer() {
@@ -40,7 +40,11 @@ class XSLTransformer {
 	}
 
 	function getOutput() {
-		return utf8_encode($this->output);
+		if($this->byJava == 'true'){
+			return $this->output;
+		}else{
+			return utf8_encode($this->output);
+		}
 	}
 
 	/* set methods */
@@ -97,19 +101,22 @@ class XSLTransformer {
 	                $args = array ( '/_xml' => $this->xml, '/_xsl' => $this->xsl );
         	        $result = xslt_process ($this->processor, 'arg:/_xml', 'arg:/_xsl', NULL, $args);
                 	if ($result) {
+			    $this->byJava = 'false';
 	                    $this->setOutput ($result."<!--transformed by PHP-->");
 	                } else {
         	            $err = "Error: " . xslt_error ($this->processor) . " Errorcode: " . xslt_errno ($this->processor);
                 	    $this->setError ($err);
 	                }
 			} else {
+				$this->byJava ='true';
 				$this->setOutput ($result."<!--transformed by JAVA ".date("h:m:s d-m-Y")."-->");
 			}
         } else {
         	$args = array ( '/_xml' => $this->xml, '/_xsl' => $this->xsl );
 			$result = xslt_process ($this->processor, 'arg:/_xml', 'arg:/_xsl', NULL, $args);
 			if ($result) {
-		        $this->setOutput ($result."<!--transformed by PHP ".date("h:m:s d-m-Y")."-->");
+		        	$this->byJava = 'false';
+				$this->setOutput ($result."<!--transformed by PHP ".date("h:m:s d-m-Y")."-->");
 	        } else {
         	    	$err = "Error: " . xslt_error ($this->processor) . " Errorcode: " . xslt_errno ($this->processor);
 	                $this->setError ($err);

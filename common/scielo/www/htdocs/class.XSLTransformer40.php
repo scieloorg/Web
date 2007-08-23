@@ -16,7 +16,7 @@ Thanks to Bill Humphries for the original examples on using the Sablotron module
 include_once (dirname(__FILE__)."/class.XSLTransformSocket.php"); //socket
 
 class XSLTransformer{
-	var $xsl, $xml, $output, $error, $errorcode, $processor, $uri, $host, $port; //socket
+	var $xsl, $xml, $output, $error, $errorcode, $processor, $uri, $host, $port, $byJava; //socket
 
 	/* Constructor  */
 	function XSLTransformer() { 
@@ -46,8 +46,13 @@ class XSLTransformer{
 	}
 
 	function getOutput() {
-		return utf8_encode($this->output);
-	}
+	    if($this->byJava == 'true'){
+			return $this->output;
+		}else{
+			return utf8_encode($this->output);
+		}
+    }
+
 
 	/* set methods */
 	function setXml($uri) {
@@ -84,13 +89,15 @@ class XSLTransformer{
 //              $this->setError($err);
                 if (getenv("ENV_SOCKET")=="true"){ //socket
                         $result = $this->socket->transform($this->xsl, $this->xml);
+						$this->byJava = 'true';
                         $this->setOutput($result."<!--transformed by SOCKET Java-->");
                 }else{
                         $args = array("/_stylesheet", $this->xsl, "/_xmlinput", $this->xml, "/_output", 0, 0);
                         if ($err = xslt_run ($this->processor, "arg:/_stylesheet", "arg:/_xmlinput", "arg:/_output", 0, $args))
                         {
                                 $output = xslt_fetch_result ($this->processor, "arg:/_output");
-                                $this->setOutput($output."<!--transformed by PHP-->");
+                                $this->byJava = 'false';
+								$this->setOutput($output."<!--transformed by PHP-->");
                         }
                         else
                         {
