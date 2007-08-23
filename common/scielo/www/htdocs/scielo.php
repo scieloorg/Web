@@ -1,6 +1,6 @@
 <?php	
 	require_once("classScielo.php");
-	require_once('sso/header.php');
+	require_once('applications/scielo-org/sso/header.php');
 
 	// Create new Scielo object
 	$host = $_SERVER['HTTP_HOST'];    
@@ -53,9 +53,8 @@
         $scielo->SetXSLUrl ($xsl);
 		//$scielo->GetLoginStatus();
         $pageContent = $scielo->getPage();
-
-		$pageContent .= "\n".'<!-- REQUEST URI: '.$REQUEST_URI.'-->';
-		$pageContent .= "\n"."<!--SERVER:".$SERVER_ADDR."-->";
+	$pageContent .= "\n".'<!-- REQUEST URI: '.$REQUEST_URI.'-->';
+	$pageContent .= "\n"."<!--SERVER:".$SERVER_ADDR."-->";
 
         if ($GRAVA && $filenamePage){
 			if (!file_exists($filenamePage)){
@@ -200,11 +199,11 @@ function wxis_exe ( $url )
 	//isso ocorre apenas para sci_arttext e sci_abstract
 
         if (isset($_COOKIE["userID"]) && $_COOKIE["userID"] != "-2"){
-		if ($_REQUEST["script"] == 'sci_arttext' or $_REQUEST["script"] == 'sci_abstract' or $_REQUEST["script"] == 'sci_home'  or $_REQUEST["script"] == ''){
-	               	$restrito = true;
-		      	$useCache == '0';
-	        }
-	}
+                if ($_REQUEST["script"] == 'sci_arttext' or $_REQUEST["script"] == 'sci_abstract' or $_REQUEST["script"] == 'sci_home'  or $_REQUEST["script"] == ''){
+                        $restrito = true;
+                        $useCache == '0';
+                }
+        }
 
 	if(($useCache == '1') && (!$restrito)){
 		require_once('cache.php');
