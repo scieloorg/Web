@@ -46,7 +46,7 @@ class XSLTransformer{
 	}
 
 	function getOutput() {
-		return $this->output;
+		return utf8_encode($this->output);
 	}
 
 	/* set methods */
