@@ -5,7 +5,7 @@
 /**
  * @param string LOG_DIR Diretório onde serão gravados os logs 
  */
-define("LOG_DIR","/home/scielo/www/bases/logs/");
+define("LOG_DIR",$ini["LOGS"]["SERVICESLOGPATH"]);
 /**
  * @param string LOG_SEPARATOR Caracter delimitador de campos
  *

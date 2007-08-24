@@ -5,7 +5,7 @@
 	<xsl:variable name="lang" select="/root/vars/lang"/>
 	<xsl:variable name="applserver" select="/root/vars/applserver"/>
 	<xsl:variable name="processCode" select="/root/vars/processCode"/>
-	<xsl:variable name="texts" select="document('file:///home/scielo/www/htdocs/applications/scielo-org/xml/texts.xml')/texts/language[@id = $lang]"/>
+	<xsl:variable name="texts" select="document('../../applications/scielo-org/xml/texts.xml')/texts/language[@id = $lang]"/>
 
 
 

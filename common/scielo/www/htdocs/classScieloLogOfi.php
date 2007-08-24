@@ -145,7 +145,7 @@ class ScieloLog extends Scielo
 	{
 		$html="";
 	    $filesize=90000;
-		$pag_cache="/home/scielo/www/bases/pages/sci_stat/".$script.$pid.$lng.$nrm.$order.$dtf.$dti.$access.$cpage.$nlines.".html";
+		$pag_cache="/home/scielosp/www/bases/pages/sci_stat/".$script.$pid.$lng.$nrm.$order.$dtf.$dti.$access.$cpage.$nlines.".html";
 	
 		   	$this->_CheckAlternateDisplay ();
 			$html=$this->_Transform ();

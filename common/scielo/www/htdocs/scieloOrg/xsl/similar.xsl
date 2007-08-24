@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
-	<xsl:include href="file:///home/scielo/www/htdocs/applications/scielo-org/xsl/article_output.xsl"/>
-	<xsl:include href="file:///home/scielo/www/htdocs/xsl/sci_common.xsl"/>
+	<xsl:include href="../../applications/scielo-org/xsl/article_output.xsl"/>
+	<xsl:include href="../../xsl/sci_common.xsl"/>
 
 	<xsl:output method="html"
 						omit-xml-declaration="yes"
@@ -11,8 +11,8 @@
 						doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
 	<xsl:variable name="lang" select="//vars/lang"/>
-	<xsl:variable name="texts" select="document('file:///home/scielo/www/htdocs/applications/scielo-org/xml/texts.xml')/texts/language[@id = $lang]"/>
-	<xsl:variable name="metaSearchInstances" select="document(concat('/home/scielo/www/htdocs/applications/scielo-org/xml/',$lang,'/metaSearchInstances.xml'))"/>
+	<xsl:variable name="texts" select="document('../../applications/scielo-org/xml/texts.xml')/texts/language[@id = $lang]"/>
+	<xsl:variable name="metaSearchInstances" select="document(concat('../../applications/scielo-org/xml/',$lang,'/metaSearchInstances.xml'))"/>
 	<xsl:variable name="links" select="//ARTICLE"/>
 	<xsl:variable name="total" select="count(//similarlist/similar/article)"/>
 

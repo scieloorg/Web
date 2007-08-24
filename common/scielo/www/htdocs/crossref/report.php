@@ -15,7 +15,7 @@ $defFile = parse_ini_file(dirname(__FILE__)."/../scielo.def");
 $applServer = $defFile["SERVER_SCIELO"];
 $databasePath = $defFile["PATH_DATABASE"];
 
-$serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/webservices/wxis/?IsisScript=search.xis&database=/home/scielo/www/bases/doi/crossref_DOIReport&search=ST=".$_REQUEST['stat'];
+$serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/webservices/wxis/?IsisScript=search.xis&database=".$databasePath."/doi/crossref_DOIReport&search=ST=".$_REQUEST['stat'];
 $xmlFile = file_get_contents($serviceUrl);
 $xml = '<?xml version="1.0" encoding="ISO-8859-1"?>';
 $xml .='<root>';

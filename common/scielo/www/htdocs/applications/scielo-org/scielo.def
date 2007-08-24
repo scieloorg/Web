@@ -45,6 +45,10 @@ IAH = 1
 IAHPATH = applications/scielo-org/iah
 METAIAHPATH = metaiah
 
+[LOGS]
+SERVICESLOGPATH=/home/scielo/www/bases/logs/
+
+
 [FULLTEXT_SERVICES]
 access="http://vm.scielo.br/applications/scielo-org/pages/services/articleRequestGraphicPage.php?pid=PARAM_PID&caller=PARAM_SERVER"
 cited=true

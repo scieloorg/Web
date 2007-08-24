@@ -14,6 +14,7 @@
 	$defFile = parse_ini_file(dirname(__FILE__)."/../../scielo.def");
 	$applServer = $defFile["SERVER_SCIELO"];
 	$databasePath = $defFile["PATH_DATABASE"];
+	$pathHtdocs = $defFile["PATH_HTDOCS"];
 
 	// XML que tem o Título completo do artigo
 	$xml1 = "http://" . $applServer . "/cgi-bin/wxis.exe/?IsisScript=ScieloXML/sci_references.xis&database=artigo&gizmo=GIZMO_XML_REF&search=rp=" . $pid . "$";
@@ -58,8 +59,8 @@
 
 	// Transformação Final, página de links de referencia
 	$transformerFinal = new XSLTransformer();
-	$xslFinal = "/home/scielo/www/htdocs/xsl/sci_reflinks.xsl";
-	$transformerFinal->setXslBaseUri("/home/scielo/www/htdocs/xsl");
+	$xslFinal = $pathHtdocs."xsl/sci_reflinks.xsl";
+	$transformerFinal->setXslBaseUri($pathHtdocs."xsl");
 	$transformerFinal->setXML($xmlFinal);
 	$transformerFinal->setXSL($xslFinal);
 	$transformerFinal->transform();
