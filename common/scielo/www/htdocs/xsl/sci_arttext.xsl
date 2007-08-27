@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:mml="http://www.w3.org/1998/Math/MathML">
-	<xsl:include href="pmc/configuration/scielo_pmc_config.xsl"/>
+	<xsl:include href="scielo_pmc_config.xsl"/>
 	<xsl:include href="sci_navegation.xsl"/>
 	<xsl:include href="sci_error.xsl"/>
 	<xsl:include href="sci_toolbox.xsl"/>
@@ -15,7 +15,7 @@
 	</xsl:template>
 	<xsl:template match="SERIAL">
 		<xsl:if test=".//mml:math">
-			<xsl:processing-instruction name="xml-stylesheet"> type="text/xsl" href="/xsl/mathml/mathml.xsl"</xsl:processing-instruction>
+			<xsl:processing-instruction name="xml-stylesheet"> type="text/xsl" href="/xsl/mathml.xsl"</xsl:processing-instruction>
 		</xsl:if>
 		<html xmlns="http://www.w3.org/1999/xhtml">
 			<head>
