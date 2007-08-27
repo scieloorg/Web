@@ -103,7 +103,7 @@
 											$output = str_replace('&quot;','"',$output);
 											$output = str_replace('<p>',' ',$output);
 											$output = str_replace('</p>',' ',$output);				
-											echo (utf8_decode($output));
+											echo ($output);
 										?>
 										</TD>
 									</TR>
