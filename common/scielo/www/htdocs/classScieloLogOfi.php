@@ -72,6 +72,7 @@ class ScieloLog extends Scielo
 	$path_cgi_iah=$this->_def->getKeyValue("PATH_CGI_BIN_IAH_SCIELO");
 	$serverlog=$this->_def->getKeyValue("SERVER_LOG");
 	$scriptlog=$this->_def->getKeyValue("SCRIPT_LOG_NAME");
+	$script_log_run=$this->_def->getKeyValue("SCRIPT_LOG_RUN");
 	$contact=$this->_def->getKeyValue("E_MAIL");
 	$owner=$this->_def->getKeyValue("SHORT_NAME");
 	
@@ -98,6 +99,7 @@ class ScieloLog extends Scielo
 	$control.="<PATH_CGI_IAH>$path_cgi_iah</PATH_CGI_IAH>\n";
 	$control.="<SERVER_LOG>$serverlog</SERVER_LOG>\n";
 	$control.="<SCRIPT_LOG_NAME>$scriptlog</SCRIPT_LOG_NAME>\n";
+	$control.="<SCRIPT_LOG_RUN>$script_log_run</SCRIPT_LOG_RUN>\n";
 	$control.="</SCIELO_INFO>\n";
 	$control.="</CONTROLINFO>\n";
 	$control.="<COPYRIGHT YEAR=\"2004\">\n";
@@ -117,7 +119,7 @@ class ScieloLog extends Scielo
 	
 	$table = "";
     $filesize=90000;
-	$url_xml="http://".$serverlog."/scielolog/scielolog03B2.php?script=".$script."&pid=".$pid."&lng=".$lng."&nrm=".$nrm."&order=".$order."&dtf=".$dtf."&dti=".$dti."&access=".$access."&cpage=".$cpage."&nlines=".$nlines;
+	$url_xml="http://".$serverlog.$script_log_run"/?script=".$script."&pid=".$pid."&lng=".$lng."&nrm=".$nrm."&order=".$order."&dtf=".$dtf."&dti=".$dti."&access=".$access."&cpage=".$cpage."&nlines=".$nlines;
 	$fp2=fopen($url_xml, "r");
 		while(!feof($fp2)) {
 	   		$table.=fread ($fp2, $filesize);
