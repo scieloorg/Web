@@ -385,7 +385,7 @@
 	<!-- ============================================================= -->
 	<!--  2. ROOT TEMPLATE - HANDLES HTML FRAMEWORK                    -->
 	<!-- ============================================================= -->
-	<!-- NO_USE ISSO É SOBRE-ESCRITO por sci_arttext -->
+	<!-- NO_USE ISSO eh SOBRE-ESCRITO por sci_arttext -->
 	<xsl:template match="/" mode="old">
 		<xsl:call-template name="nl-1"/>
 		<html>
@@ -405,7 +405,7 @@
       - "make-a-piece" as required;
       - adapt the selection of elements that get managed as a set:
         footnotes, cross-references, tables, and figures. -->
-	<!-- NO_USE não existe o elemento article, no lugar fazer o mesmo para ARTICLE[body] -->
+	<!-- NO_USE nao existe o elemento article, no lugar fazer o mesmo para ARTICLE[body] -->
 	<xsl:template match="article">
 		<xsl:call-template name="make-a-piece"/>
 	</xsl:template>
