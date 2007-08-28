@@ -85,6 +85,8 @@ CACHE_STATUS = off
 
 [SOCKET]
 SOCK_PORT=8899
+ACCESS_LOG_FILE=/home/scielo/www/bases/logs/socket_access_log.log
+ENABLE_ACCESS_LOG=0
 
 [SCIELO_REGIONAL]
 SCIELO_REGIONAL_DOMAIN=teste.scielo.org

@@ -1,9 +1,27 @@
 <?php
+ini_set("display_errors","1");
+error_reporting(E_ALL ^E_NOTICE ^E_WARNING);
 include_once (dirname(__FILE__)."/classes/class_xml_check/class_xml_check.php"); //classe para verificacao de XML
 include_once (dirname(__FILE__)."/class.XSLTransformer.php");
 
 class XSLTransformerSocket {
 	var $xsl, $xml, $host, $port, $FINISH, $END_OF_MESS_SYMBOL, $socket, $output, $defFile;
+
+        function writeLog($content,$filename){
+        	if (!$handle = fopen($filename, 'x+')) {
+                        if (!$handle = fopen($filename, 'a+')) {
+                        	exit;
+                        }
+                }else{
+			chmod($filename, 0766);
+		}
+                if (fwrite($handle, $content) === FALSE) {
+// 	               echo "Cannot write to file ($filename)";
+                       exit;
+                }
+                fclose($handle);
+        }
+
 	/* Constructor  */	 
 	function XSLTransformerSocket($host,$port) { 
 		$this->defFile = parse_ini_file(dirname(__FILE__)."/scielo.def",true);
@@ -12,18 +30,31 @@ class XSLTransformerSocket {
 		$this->END_OF_MESS_SYMBOL = "?<==>?";		
 		$this->FINISH = "?<++>?";
 		$this->socket = @fsockopen($host,$port, $errno, $errstr);
-		if ($this->socket)
-		{
-			putenv("ENV_SOCKET=true");
-			$this->output .= "<!--transformed by socket JAVA ".date('')."-->";
-		}
-		else
-		{
-			$this->output .= "<!--transformed by PHP-->";	
+		$this->socket_log_file = $this->defFile['SOCKET']['ACCESS_LOG_FILE'];
+		$this->enable_socket_log = $this->defFile['SOCKET']['ENABLE_ACCESS_LOG'];
+		for($i=0 ; $i<10 ; $i++){ //implementando tentativas para conectar ao java.
+			if ($this->socket)
+			{
+				putenv("ENV_SOCKET=true");
+				$this->output .= "<!--transformed by socket JAVA ".date('')."-->";
+                              	if ($this->enable_socket_log){
+					$this->writeLog($_SERVER["SERVER_ADDR"]." JAVA \n",$this->socket_log_file);
+				}
+				break;
+			}
+			else
+			{
+				$this->output .= "<!--transformed by PHP-->";	
+				if ($this->enable_socket_log){
+					$this->writeLog($_SERVER["SERVER_ADDR"]." PHP  \n",$this->socket_log_file);
+					header('Location: http://'.$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"]);
+				}
+			}
 		}
 	} 
 
  	/* Destructor */ 
+
 	function destroy() { 
        if ($this->socket) {
        fwrite($this->socket, FINISH."\n");
