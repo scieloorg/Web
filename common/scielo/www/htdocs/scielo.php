@@ -83,6 +83,11 @@
 	} else {
 		header("Content-type:text/html; charset=utf-8\n");
 	}
+        if ( !$scielo->_request->getRequestValue ( "lng", $lng ) )
+                {
+                    $lng = $scielo->_def->getKeyValue ( "STANDARD_LANG" );
+                }
+	echo showDivulgacao($lng,$scielo->_script);
 	echo $pageContent;
 	
 
