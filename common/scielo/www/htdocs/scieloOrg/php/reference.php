@@ -6,7 +6,7 @@
 	$text = isset($_REQUEST['text'])?($_REQUEST['text']):"";
 
 	require_once(dirname(__FILE__)."/../../applications/scielo-org/users/functions.php");
-	require_once(dirname(__FILE__)."/../../applications/scielo-org/users/langs.php");	
+	require_once(dirname(__FILE__)."/../../applications/scielo-org/users/langs.php");
 	require_once(dirname(__FILE__)."/../../classDefFile.php");
 	require_once(dirname(__FILE__)."/../../applications/scielo-org/classes/services/ArticleServices.php");
 	//require_once(dirname(__FILE__)."/../../class.XSLTransformer.php");
@@ -69,18 +69,18 @@
 											echo $author;
 											echo '<i><b>';
 											echo (getTitle($article->getTitle(), $lang).". ");
-											echo ('</b></i>');					        
+											echo ('</b></i>');
 											echo ($article->getSerial(). ', '.$article->getYear().', vol.'.$article->getVolume());
 											echo (', n. '.$article->getNumber().', ISSN '.substr($article->getPID(),1,9).'.<br/><br/>'."\n");
 											?>
 											</span></h3>
 										</TD>
-									</TR>									
+									</TR>
 									<TR>
 										<TD colspan="2">
 										<?php
 											$serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/?IsisScript=ScieloXML/sci_references.xis&database=artigo&gizmo=GIZMO_XML_REF&search=rp=" . $pid . "$";
-											
+
 											$xmlFile = file_get_contents($serviceUrl);
 											$xml = '<?xml version="1.0" encoding="ISO-8859-1"?>';
 											$xml .='<root>';
@@ -90,8 +90,17 @@
 											if($_REQUEST['debug'] == 'on'){
 												die($xml);
 											}
+
 											$xsl = dirname(__FILE__)."/../xsl/reference.xsl";
+
 											$transformer = new XSLTransformer();
+
+											if (getenv("ENV_SOCKET")!="true"){  //socket
+												$xsl = file_get_contents($xsl);
+												//die("socket = false");
+											}
+											//die("socket = true");
+
 											$transformer->setXslBaseUri(dirname(__FILE__));
 											$transformer->setXML($xml);
 											$transformer->setXSL($xsl);
@@ -102,18 +111,18 @@
 											$output = str_replace('&gt;','>',$output);
 											$output = str_replace('&quot;','"',$output);
 											$output = str_replace('<p>',' ',$output);
-											$output = str_replace('</p>',' ',$output);				
+											$output = str_replace('</p>',' ',$output);
 											echo ($output);
 										?>
 										</TD>
 									</TR>
 								</TABLE>
-								
+
 						</div>
 				</div>
 			</div>
 		</div>
-			<? 
+			<?
 				if($defFile['LOG']['ACTIVATE_LOG'] == '1') {
 			?>
 				<script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
