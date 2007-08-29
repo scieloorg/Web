@@ -1,0 +1,10 @@
+<div class="scielo10bar">
+        <div>
+                <ul>
+                        <li><a href="http://www.eventos.bvsalud.org/scielo10/?lang=es" target="_blank"><img src="/img/scielo.gif"/></a></li>
+                        <li><a href="http://www.eventos.bvsalud.org/scielo10/?lang=es" target="_blank">SciELO 10 anos</a></li>
+                        <li><a href="http://www2.scielo.org/?lang=es" target="_blank">Acceda el nuevo portal de la  Red SciELO</a></li>
+                </ul>
+        </div>
+</div>
+
