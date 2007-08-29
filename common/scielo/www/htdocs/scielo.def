@@ -130,3 +130,6 @@ client_charset = utf-8
 ENABLED_XML_ERROR=1
 MAILTO_XML_ERROR=gustavo.fonseca@bireme.org
 NAMETO_XML_ERROR=SciELO
+
+[DIVULGACAO]
+ENABLE_DIVULGACAO=0

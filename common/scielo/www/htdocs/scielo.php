@@ -8,6 +8,7 @@
 	$CACHE_STATUS = $scielo->_def->getKeyValue("CACHE_STATUS");
 	$MAX_DAYS = $scielo->_def->getKeyValue("MAX_DAYS");
 	$MAX_SIZE = $scielo->_def->getKeyValue("MAX_SIZE");
+	$DIVULGA = $scielo->_def->getKeyValue("ENABLE_DIVULGACAO");
 	
 	if (($CACHE_STATUS == 'on') && ($MAX_DAYS>0)){
 		$filenamePage = $scielo->GetPageFile();
@@ -87,7 +88,9 @@
                 {
                     $lng = $scielo->_def->getKeyValue ( "STANDARD_LANG" );
                 }
-	echo showDivulgacao($lng,$scielo->_script);
+	if ($DIVULGA){
+		echo showDivulgacao($lng,$scielo->_script);
+	}
 	echo $pageContent;
 	
 
