@@ -26,3 +26,7 @@ en=/home/scielo/www/htdocs/scieloBar/10anos_en.txt
 pt=/home/scielo/www/htdocs/scieloBar/10anos_pt.txt
 es=/home/scielo/www/htdocs/scieloBar/10anos_es.txt
 en=/home/scielo/www/htdocs/scieloBar/10anos_en.txt
+[sci_issue]
+pt=/home/scielo/www/htdocs/scieloBar/10anos_pt.txt
+es=/home/scielo/www/htdocs/scieloBar/10anos_es.txt
+en=/home/scielo/www/htdocs/scieloBar/10anos_en.txt
