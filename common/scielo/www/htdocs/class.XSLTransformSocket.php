@@ -32,23 +32,21 @@ class XSLTransformerSocket {
 		$this->socket = @fsockopen($host,$port, $errno, $errstr);
 		$this->socket_log_file = $this->defFile['SOCKET']['ACCESS_LOG_FILE'];
 		$this->enable_socket_log = $this->defFile['SOCKET']['ENABLE_ACCESS_LOG'];
-		for($i=0 ; $i<10 ; $i++){ //implementando tentativas para conectar ao java.
-			if ($this->socket)
-			{
-				putenv("ENV_SOCKET=true");
-				$this->output .= "<!--transformed by socket JAVA ".date('')."-->";
-                              	if ($this->enable_socket_log){
-					$this->writeLog($_SERVER["SERVER_ADDR"]." JAVA \n",$this->socket_log_file);
-				}
-				break;
+		if ($this->socket)
+		{
+			putenv("ENV_SOCKET=true");
+			$this->output .= "<!--transformed by socket JAVA ".date('')."-->";
+			if ($this->enable_socket_log){
+				$this->writeLog($_SERVER["SERVER_ADDR"]." JAVA \n",$this->socket_log_file);
 			}
-			else
-			{
-				$this->output .= "<!--transformed by PHP-->";	
-				if ($this->enable_socket_log){
-					$this->writeLog($_SERVER["SERVER_ADDR"]." PHP  \n",$this->socket_log_file);
-					header('Location: http://'.$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"]);
-				}
+			break;
+		}
+		else
+		{
+			$this->output .= "<!--transformed by PHP-->";	
+			if ($this->enable_socket_log){
+				$this->writeLog($_SERVER["SERVER_ADDR"]." PHP  \n",$this->socket_log_file);
+				header('Location: http://'.$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"]);
 			}
 		}
 	} 
