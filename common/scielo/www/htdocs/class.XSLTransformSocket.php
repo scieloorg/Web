@@ -39,7 +39,6 @@ class XSLTransformerSocket {
 			if ($this->enable_socket_log){
 				$this->writeLog($_SERVER["SERVER_ADDR"]." JAVA \n",$this->socket_log_file);
 			}
-			break;
 		}
 		else
 		{
