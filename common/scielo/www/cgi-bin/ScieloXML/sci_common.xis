@@ -938,14 +938,24 @@
 
 <function name="CreateArticleTitleXML" action="replace" tag="4001">
 <!-- Generate XML for article's title, according to selected language or interface language or international language
-	4001 - article's title lines -->
+	4001 - article's title lines 		
+	-->
+	<!-- imports 3012 which contains the selected language -->
 	<field action="import" tag="list">3000,3003,3012,8000</field>
 	<field action="replace" tag="12" split="occ"><pft>(v4001/)</pft></field>
-	<call name="GetLanguage"><pft>if a(v3012) then v3000/v3003/(|^l|v12^l/) fi</pft></call>
 
-	<field action="replace"	tag="4010">
-		<pft>if p(v3012) and s(mpu,v12):s(mpu,'^l'v3012) then v3012 fi</pft>
+	<!-- check if some of the data v12 is in the language v3012 -->
+	<field action="replace" tag="4010">
+ 	    <pft>,if p(v3012) then 
+				,if  s(mpu,v12):s(mpu,'^l'v3012) then v3012
+				,fi
+			,fi
+		</pft>
 	</field>
+
+	<!-- check other languages -->
+	<call name="GetLanguage"><pft>if a(v4010) then v3000/v3003/(|^l|v12^l/) fi</pft></call>
+
 	<field action="replace"	tag="9000">
 		<pft>(if s(mpu,v12^l)=s(mpu,v4010[1]) then mpl,v12^*,break fi)</pft>
 	</field>
