@@ -7,7 +7,7 @@
 	$refPid = isset($_REQUEST['refpid'])?($_REQUEST['refpid']):"";
 
 	require_once(dirname(__FILE__)."/../../applications/scielo-org/users/functions.php");
-	require_once(dirname(__FILE__)."/../../applications/scielo-org/users/langs.php");	
+	require_once(dirname(__FILE__)."/../../applications/scielo-org/users/langs.php");
 	require_once(dirname(__FILE__)."/../../classDefFile.php");
 	require_once(dirname(__FILE__)."/../../applications/scielo-org/classes/services/ArticleServices.php");
 
@@ -45,7 +45,7 @@
 	$output = $transformer->getOutput();
 	// Pegamos o título completo da referência do artigo
 	$fullTitle = $output;
-	
+
 	// XML Final que contem os dados que precisamos do XML1 e XML2
 	$xmlFinal = '<?xml version="1.0" encoding="ISO-8859-1"?>';
 	$xmlFinal .= substr($xml2, strpos($xml2, "<root>"), strpos($xml2, "<ref_TITLE>") - strpos($xml2, "<root>"));
@@ -76,8 +76,8 @@
 	$output = str_replace('&gt;','>',$output);
 	$output = str_replace('&quot;','"',$output);
 	$output = str_replace('<p>',' ',$output);
-	$output = str_replace('</p>',' ',$output);	
-	 
-	echo html_entity_decode(utf8_decode($output));
+	$output = str_replace('</p>',' ',$output);
+
+	echo html_entity_decode($output);
 
 ?>

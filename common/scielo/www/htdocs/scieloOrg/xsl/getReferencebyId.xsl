@@ -5,9 +5,9 @@
 	<xsl:variable name="refId" select="//vars/refId"/>
 	
 	<xsl:template match="/">
+		
+			<xsl:value-of select="//wxis-modules/record[field[@tag = 888]/occ = $refId]/field[@tag=704]/occ"/>
 	
-			<xsl:apply-templates select="//wxis-modules/record[field/@tag = 888 and field/occ = $refId]/field[@tag=704]/occ"/>
-
 	</xsl:template>
 	
 </xsl:stylesheet>
