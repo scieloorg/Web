@@ -37,11 +37,20 @@ $xml2 = file_get_contents($xml2);
 
 // Pegando o conteudo entre as tags <BODY> ... </BODY>
 $posicaoInicial = strpos($xml2, "<BODY>");
-$posicaoFinal= strpos($xml2, "</ARTICLE>") - $posicaoInicial;
-$body = substr($xml2, strpos($xml2, "<BODY>"), $posicaoFinal-1);
-$body = str_replace("<BODY>","<body>",$body);
-$body = str_replace("</BODY>","</body>", $body);
-
+if ($posicaoInicial > 0) {
+	// BODY - SciELO
+	$posicaoFinal= strpos($xml2, "</ARTICLE>") - $posicaoInicial;
+	$body = substr($xml2, $posicaoInicial, $posicaoFinal-1);
+	$body = str_replace("<BODY>","<body>",$body);
+	$body = str_replace("</BODY>","</body>", $body);
+} else {
+	// body - pubmed central - tags body e back dentro de fulltext
+	$posicaoInicial = strpos($xml2, "<body");
+	if ($posicaoInicial > 0) {
+		$posicaoFinal= strpos($xml2, "</body>") + strlen("</body>") - $posicaoInicial;
+		$body = substr($xml2, $posicaoInicial, $posicaoFinal);
+	}
+}
 
 // Retirando <wxis-modules até o comeco de front
 $tagWxis = strpos($xml1, "<article xmlns");
