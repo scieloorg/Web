@@ -48,7 +48,28 @@
 
 
 	<field action="replace" tag="4000"><pft>ref([v2001]l([v2001],replace(v2005,'$',''),'00001'),v32701)</pft></field>
+
+	<field action="replace" tag="2505"><pft>mid(v2005,instr(v2005,'=')+1,size(v2005))</pft></field>
+	<flow action="jump"><pft>if ref([v2001]l([v2001],'HR=',replace(v2505,'$','') ),@PROC_SPLIT_MST.PFT,mid(v702,size(v702)-3,size(v702)))<>'.xml' then 'REFERENCES_FROM_HTML' fi</pft></flow>
+	<label>REFERENCES_FROM_XML</label>
+	<do task="search">
+		<parm name="db"><pft>v2001</pft></parm>
+		<call name="error"><pft>"missing parameter: expression"n2005</pft></call>
+		<parm name="expression"><pft>'ART='v2505</pft></parm>
+
+		<display><pft>'<root  xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML">'/</pft></display>
+		<display><pft>'<nlm-xsl-file-path>../../xsl/</nlm-xsl-file-path>'/,
+					'<ARTICLE PID="',mid(v2505,1,size(v2505)-1),'"/>'</pft></display>
+		<display><pft>'<references-from-xml>'</pft></display>
+		<loop>
+			<display><pft>v704^*</pft></display>
+		</loop>
+		<display><pft>'</references-from-xml></root>'</pft></display>
+	</do>
+	<flow action="jump">sci_references_fim</flow>
 	
+	<label>REFERENCES_FROM_HTML</label>		
+
 	<do task="search">
 
 		<call name="error"><pft>"missing parameter: database"n2001</pft></call>
@@ -172,6 +193,7 @@
 		<display><isisxml>*</isisxml></display>
 	</do>
 
+	<label>sci_references_fim</label>
 	<display></wxis-modules></display>
 
 </section>

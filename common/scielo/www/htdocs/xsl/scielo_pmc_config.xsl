@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:mml="http://www.w3.org/1998/Math/MathML">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:mml="http://www.w3.org/1998/Math/MathML"  xmlns:util="http://dtd.nlm.nih.gov/xsl/util" >
 	<!--xsl:output method="xhtml" omit-xml-declaration="yes" indent="yes" doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/-->
 	
 	
@@ -29,6 +29,10 @@
 	</xsl:variable>
 	<xsl:variable name="var_IMAGES_INFO" select="//images-info"/>
 	<xsl:variable name="languages" select="document('../xml/en/language.xml')"/>
+	
+	<xsl:variable name="person-strings" select="document('viewnlm-v2_scielo.xsl')/*/util:map[@id='person-strings']/item"/>
+
+
 	
 	<xsl:include href="viewnlm-v2_scielo.xsl"/>
 	<xsl:include href="scielo_pmc_front.xsl"/>

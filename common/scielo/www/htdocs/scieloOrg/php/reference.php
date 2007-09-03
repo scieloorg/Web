@@ -98,10 +98,12 @@
 											if (getenv("ENV_SOCKET")!="true"){  //socket
 												$xsl = file_get_contents($xsl);
 												//die("socket = false");
+											} else {
+												$xsl = 'SCI_REFERENCES';
 											}
 											//die("socket = true");
 
-											$transformer->setXslBaseUri(dirname(__FILE__));
+											$transformer->setXslBaseUri(dirname(__FILE__).'/');
 											$transformer->setXML($xml);
 											$transformer->setXSL($xsl);
 											$transformer->transform();

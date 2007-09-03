@@ -371,7 +371,7 @@
 	<xsl:key name="element-by-rid" match="*[@rid]" use="@rid"/>
 	<!-- Lookup table for person-type strings
      used in nlm-citations -->
-	<xsl:variable name="person-strings" select="document('viewnlm-v2_scielo.xsl')/*/util:map[@id='person-strings']/item"/>
+	<!--xsl:variable name="person-strings" select="document(concat($filePath,'viewnlm-v2_scielo.xsl'))/*/util:map[@id='person-strings']/item"/-->
 	<util:map id="person-strings">
 		<item source="editor" singular="editor" plural="editors"/>
 		<item source="assignee" singular="assignee" plural="assignees"/>

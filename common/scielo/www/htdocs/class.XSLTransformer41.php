@@ -24,7 +24,8 @@ class XSLTransformer {
 		}
 	} 
 	function setXslBaseUri($uri){	
-		if ($uri != ""){
+		if ($uri != ""){			
+			if (strpos(' '.$uri,'file://')==0) $uri = 'file://'.$uri; // eh obrigatorio file:// para Windows 
 			xslt_set_base($this->processor, $uri);
 		}	
 		return true;
