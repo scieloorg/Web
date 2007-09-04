@@ -38,6 +38,13 @@
 	}
 	$xsl = dirname(__FILE__)."/../xsl/getReferencebyId.xsl";
 	$transformer = new XSLTransformer();
+	if (getenv("ENV_SOCKET")!="true"){  //socket
+		$xsl = file_get_contents($xsl);
+			//die("socket = false");
+	} else {
+		$xsl = 'SCI_GET_REFERENCE_BY_ID';
+	}
+	//die("socket = true");
 	$transformer->setXslBaseUri(dirname(__FILE__));
 	$transformer->setXML($xml);
 	$transformer->setXSL($xsl);
@@ -48,7 +55,7 @@
 
 	// XML Final que contem os dados que precisamos do XML1 e XML2
 	$xmlFinal = '<?xml version="1.0" encoding="ISO-8859-1"?>';
-	$xmlFinal .= substr($xml2, strpos($xml2, "<root>"), strpos($xml2, "<ref_TITLE>") - strpos($xml2, "<root>"));
+	$xmlFinal .= substr($xml2, strpos($xml2, "<root>"), strpos($xml2, "<ref_TITLE>") - strpos($xml2, "<root>")).'<vars><htdocs>'.$pathHtdocs.'</htdocs></vars>';
 	$xmlFinal .= " <ref_TITLE><![CDATA[".$fullTitle."]]></ref_TITLE>";
 	$xmlFinal .= substr($xml2, strpos($xml2, "<TITLE>"));
 
@@ -60,6 +67,13 @@
 	// Transformação Final, página de links de referencia
 	$transformerFinal = new XSLTransformer();
 	$xslFinal = $pathHtdocs."xsl/sci_reflinks.xsl";
+	if (getenv("ENV_SOCKET")!="true"){  //socket
+		$xslFinal = file_get_contents($xslFinal);
+		//die("socket = false");
+	} else {
+		$xslFinal = 'SCI_REFLINKS';
+	}
+	//die("socket = true");
 	$transformerFinal->setXslBaseUri($pathHtdocs."xsl");
 	$transformerFinal->setXML($xmlFinal);
 	$transformerFinal->setXSL($xslFinal);
@@ -79,5 +93,5 @@
 	$output = str_replace('</p>',' ',$output);
 
 	echo html_entity_decode($output);
-
+	//echo ($output);
 ?>
