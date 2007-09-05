@@ -15,7 +15,7 @@
 <link rel="STYLESHEET" type="text/css" href="/css/scielo.css">
 </head>
 <body bgcolor="'v5006^c'" text="'v5006^t'" link="'v5006^l'" vlink="'v5006^l'">
-			<div class="scielo10bar">
+			<!--div class="scielo10bar">
 				<div>
 				<ul>
 					<li><a href="http://www.eventos.bvsalud.org/scielo10/?lang=en" border="0"><img src="/img/scielo.gif"/></a></li>
@@ -23,6 +23,6 @@
 					<li><a href="http://www2.scielo.org/?lang=en">Access the new SciELO Network Portal</a></li>
 				</ul>
 				</div>
-			</div>
+			</div-->
 '
 ,@HEADER.IAH,
