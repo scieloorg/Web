@@ -102,9 +102,6 @@
      ,),
 
 ,proc('d8002d8880d8012d8040d8412d4049d8049',
-/*      ,ref(['DATABASE']l(['DATABASE']'HR=',v880),
-           ,'a8012{^c',(if v12^l=v40[1] then v12^* fi),'{',
-           ,), */
       ,ref(['DATABASE']l(['DATABASE']'SF=',v880),
            /* parece ser o mais certo pois traz italicos e subescrito/superscrito */
 	   ,@PROC.PFT,
@@ -188,16 +185,15 @@
 ,fi,
 
 ,proc('d8010',
-	,(if p(v10^s) then ,'a8010{',v10^s,', ',v10^n,'{', fi),
+	,(if p(v10^s) and (v10^r='nd' or v10^r='ND') then ,'a8010{',v10^s,', ',v10^n,'{', fi),
       ,if p(v11) then ,('a8010{',v11^*,', ',v11^d,'{'), fi,
+     ,),	 
+,proc('d8011',
+	,(if p(v10^s)  and (v10^r<>'nd' and v10^r<>'ND') then ,'a8011{',v10,'{', fi),
      ,),	 
 
 ,proc('d4070',
-/*      ,if l(['ftp']v880)<>0 then
-          ,'a4070{TRUE{',
-      ,else */
           ,'a4070{FALSE{',
-/*      ,fi, */
      ,),
 ,@places.pft,
 ,if p(v31) and v31='0' then
@@ -256,125 +252,29 @@
              ,'.',
          ,fi,
     ,fi),
-    ,' <font class="negrito" size="-1">',v8412^c,'</font>. <I>',v30,
+
+    ,' <font class="negrito" size="-1">',v8412^c,'</font>. ',
+	,if p(v8011) then 
+		,(if v8011^r='TR' or v8011^r='tr' then
+			'Translated by ',v8011^n,' ',v8011^s+|, |
+		,fi)
+	,'. '
+	,fi,
+	,'<I>',v30,
     ,'</I>, ',
     ,@month1.pft,
-    ,' ',v65*0.4,|, vol.|v31,|, suppl.|v131,|, no.|v32,|, suppl.|v132,
+    ,' ',v65*0.4,|, vol.|v31,|, suppl.|v131,
+	,if v32='SE' or v32='se' then 
+		,', special edition' 
+	,else 
+		|, no.|v32,
+	,fi,
+	,|, suppl.|v132,
     ,|, p.|v14^f,|-|v14^l,
     ,'. ISSN ',v35,
 	,'<br>',
-/*    ,'<center>',
-	,'<table width="100%"><tr>',
+    ,'<div align="left">',
 	,if p(v83) then
-      	,'<td align="left">',
-		,('<font face="Symbol" color="#000080" size=1>&#183;</font><font size=1>&nbsp;',
-		,'<a href="http://',v7990[1],v7991[1],'sci_abstract',v7998[1],
-      	,'pid=',v880[1],'&lng=',v9001[1],
-      	,'&nrm=',v5009[1]*0.3,'&tlng=',v83^l,'">',
-      	,v9030^t[1],
-		,if v83^l='en' then
-			,v9030^e[1],
-		,fi,
-		,if v83^l='es' then
-			,v9030^s[1],
-		,fi,
-		,if v83^l='pt' then
-			,v9030^p[1],
-		,fi,
-		,if v83^l='fr' then
-                        ,v9030^f[1],
-                ,fi,
-		,if v83^l='de' then
-			,v9030^g[1],
-		,fi,
-		,if v83^l='it' then
-			,v9030^l[1],
-		,fi,
-      	,'</a></font>',if nocc(v83) > iocc then '<br>' fi),
-		,'</td>',
-	,fi,
-	,'<td align="center">',
-      ,('<font face="Symbol" color="#000080" size=1>&#183;</font><font size=1>&nbsp;',
-	,'<a href="http://',v7990[1],v7991[1],'sci_arttext',v7998[1],
-	,'pid=',v880[1],'&lng=',v9001[1],
-	,'&nrm=',v5009[1]*0.3,|&tlng=|v8041,'"><font class="isoref" size="-1">',
-	,v9031^t[1],
-	,if p(v8041) then
-		,if v8041^l='en' then
-			,v9031^e[1],
-		,fi,
-		,if v8041^l='es' then
-			,v9031^s[1],
-		,fi,
-		,if v8041^l='pt' then
-			,v9031^p[1],
-		,fi,
-		,if v8041^l='fr' then
-                        ,v9031^f[1],
-                ,fi,
-		,if v8041^l='de' then
-			,v9031^g[1],
-		,fi,
-		,if v8041^l='it' then
-			,v9031^l[1],
-		,fi,
-	,else
-		,if v8040='en' then
-			,v9031^e[1],
-		,fi,
-		,if v8040='es' then
-			,v9031^s[1],
-		,fi,
-		,if v8040='pt' then
-			,v9031^p[1],
-		,fi,
-		,if v8040='fr' then
-                        ,v9031^f[1],
-                ,fi,
-		,if v8040='de' then
-			,v9031^g[1],
-		,fi,
-		,if v8040='it' then
-			,v9031^l[1],
-		,fi,
-	,fi,
-	,'</font></a>',if p(v8041) then ,if nocc(v8041) > iocc then ' |' fi,fi),
-	,'</td>',
-    	,if v4070='TRUE' then
-		,'<td align="center">',
-		,' <font face="Symbol" color="#000080" size=1>&#183;',
-		,'</font><font size=1>&nbsp;',
-		,'<a href="http://',v7990,v7991,'sci_pdf',v7998,
-		,'pid=',v880,'&lng=',v9001,
-		,'&nrm=',v5009*0.3,|&tlng=|v8040,'">',
-		,v9032^t,
-		,if v8040='en' then
-			,v9031^e,
-		,fi,
-		,if v8040='es' then
-			,v9031^s,
-		,fi,
-		,if v8040='pt' then
-			,v9031^p,
-		,fi,
-		,if v8040='fr' then
-                        ,v9031^f[1],
-                ,fi,
-		,if v8040='de' then
-			,v9031^g[1],
-		,fi,
-		,if v8040='it' then
-			,v9031^l[1],
-		,fi,
-		,'</a></font>',
-		,'</td>',
-    	,fi,
-	,'</tr></table>',
-    ,'</center>', */
-
-    ,'<div align="left">',/* <table align="center"> */
-	,if p(v83) then
-      	/* ,'<tr><td>', */
 		,(if nocc(v83)>=1 and iocc = 1 then '&#160;&#160;&#160;&#160;<font face="Symbol" color="#000080" size=1>&#183;</font>&nbsp;', fi,'<a class="isoref" href="http://',v7990[1],v7991[1],'sci_abstract',v7998[1],
       	,'pid=',v880[1],'&lng=',v9001[1],
       	,'&nrm=',v5009[1]*0.3,'&tlng=',v83^l,'">',
@@ -399,9 +299,7 @@
 			,v9030^l[1],
 		,fi,
       	,'</font></a>',if nocc(v83) > iocc then ' | ' fi),
-		/* ,'</td></tr>', */
 	,fi,
-	/* ,'<tr><td>', */
       ,'&#160;&#160;&#160;&#160;',
       ,'<font face="Symbol" color="#000080" size=1>&#183;</font>&nbsp;',
 	,('<a class="isoref" href="http://',v7990[1],v7991[1],'sci_arttext',v7998[1],
@@ -476,18 +374,7 @@
 		,fi,
 		,'</font></a>',
     	,fi,
-	/* ,'</td></tr></table></div>', */
 
-/*    ,if v8040='en' then
-        ,v9031^e,
-    ,fi,
-    ,if v8040='es' then
-        ,v9031^s,
-    ,fi,
-    ,if v8040='pt' then
-        ,v9031^p,
-    ,fi,
-    ,' ]', */
 
 '</td></tr></TABLE>', 
 
