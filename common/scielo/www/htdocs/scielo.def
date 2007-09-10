@@ -128,8 +128,11 @@ client_charset = utf-8
 
 [XML_ERROR]
 ENABLED_XML_ERROR=1
+ENABLED_MAIL_ALERT=1
+ENABLED_LOG_XML_ERROR=1
 MAILTO_XML_ERROR=gustavo.fonseca@bireme.org
 NAMETO_XML_ERROR=SciELO
+LOG_XML_ERROR_FILENAME=/home/scielo/www/logs/xml_error_log.txt
 
 [DIVULGACAO]
 ENABLE_DIVULGACAO=0
