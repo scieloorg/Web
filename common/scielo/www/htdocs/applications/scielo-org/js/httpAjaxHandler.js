@@ -52,7 +52,7 @@ function callUpdateArticleLog( serviceName )
 	var urlV = document.URL;		// URL do Documento
 
 	var dados = "";					// Dados a serem enviados
-	var url = "applications/scielo-org/ajax/updateLog.php";	//	url para onde mandamos os dados
+	var url = "/applications/scielo-org/ajax/updateLog.php";	//	url para onde mandamos os dados
 	var i = 0;
 
 	// O IE trata de um jeito a linguagem padrão, e o Firefox e Opera de outra maneira
@@ -74,8 +74,9 @@ function callUpdateArticleLog( serviceName )
 		serviceName = "similares_em_google";
 	else if(serviceName.replace(/ /g,"") == "send_mail")
 		serviceName = "enviar_este_artigo_por_email";
-	else if(serviceName.replace(/ /g,"") == "cited_SciELO")
+	else if(serviceName.replace(/ /g,"") == "cited_SciELO"){
 		serviceName = "citado_por_scielo";
+	}
 
 
 	if(navigator.appName != "Microsoft Internet Explorer")
@@ -94,6 +95,7 @@ function callUpdateArticleLog( serviceName )
 
 	// inicializa a XMLHttpRequest
 	httpInit();
+	
 	xmlHttp.open("POST", url, true);
 	xmlHttp.onreadystatechange = UpdateRate;  
 
@@ -103,30 +105,9 @@ function callUpdateArticleLog( serviceName )
 	xmlHttp.setRequestHeader("Cache-Control","no-store, no-cache, must-revalidate");
 	xmlHttp.setRequestHeader("Cache-Control","post-check=0, pre-check=0");
 	xmlHttp.setRequestHeader("Pragma", "no-cache");
-
+	
 	// Enviamos os dados via POST
     xmlHttp.send(dados);	
-}
-
-function callUpdateArticleRate(shelf,rate){	
-// inicializing XMLHttpRequest
- httpInit();
- var url = "../users/changeArticleRate.php?shelf=" + shelf + "&rate=" + rate;
-   	xmlHttp.open("POST", url, true);
-    xmlHttp.onreadystatechange = UpdateRate;  
-    xmlHttp.send(null);
-
-}
-
-function callUpdateLinkRate(_link,rate){	
-//alert("here "+_link+" rate "+rate);
-// inicializing XMLHttpRequest
- httpInit();
- var url = "../users/changeLinkRate.php?link=" + _link + "&rate=" + rate;
-   	xmlHttp.open("POST", url, true);
-    xmlHttp.onreadystatechange = UpdateRate;  
-    xmlHttp.send(null);
-
 }
 
 function UpdateRate(){
@@ -137,14 +118,16 @@ function UpdateRate(){
 
     //result.innerHTML = "<div align='center'><img src='../image/common/loading.gif' border='0'></div>";
 
-    if (xmlHttp.readyState == 4) {			
+    if (xmlHttp.readyState == 4) {
+
         if (xmlHttp.status == 200) {		
       	    //var responseXml = xmlHttp.responseXML;
-   			var responseText = xmlHttp.responseText;
-			rateResult = responseText;
+   			var responseText = xmlHttp.responseText; 
+			rateResult = responseText;  //descomentado
+
         }
 		else {
-			window.alert("ERRO");
+			alert(xmlHttp.status);
 		}
     }
 }

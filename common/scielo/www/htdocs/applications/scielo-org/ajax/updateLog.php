@@ -1,11 +1,11 @@
 <?php
 	header('Content-Type: text/html');
-	
+
 	$ini = parse_ini_file(dirname(__FILE__)."/../scielo.def", true);
 
 	// Classe com Dados dos Usuários do Scielo
 	require_once("../classes/ScieloUserData.php");
-	
+
 	// Classes de LOG
 	require_once("../classes/log/defineLog.php");
 	require_once("../classes/log/class.Log.php");
@@ -23,7 +23,7 @@
 	$data = date("d-m-Y");
 
 	$dadosUsuario = new ScieloUserData();
-	
+
 	// Definindo Dados do Usuário
 	$dadosUsuario->setBrowser($navegador);
 	$dadosUsuario->setLanguage($idioma);
@@ -32,12 +32,11 @@
 	$dadosUsuario->setSupport($suporte);
 	$dadosUsuario->setTitle($titulo);
 	$dadosUsuario->setURL($url);
-	
+
 	// Definindo dados a serem gravados
 	$userData = new UserDataLog($servico, $dadosUsuario);
 	$userData->setFileName("_".$data."_logServices.txt");
 
 	// Gravamos o arquivo com o log de acesso
 	$userData->writeLog();
-
 ?>

@@ -1,7 +1,7 @@
 <?php
 /**
  * Classe que grava os acessos a cada serviço do Scielo
- * 
+ *
  * @author Deivid Martins
  * @since 15/08/2007
  * @version 0.1
@@ -16,9 +16,9 @@ class UserDataLog extends log
 	 */
 	function UserDataLog($serviceName, $userData)
 	{
-				
+
 		$this->serviceName = $serviceName;
-		$this->setDirectory();	
+		$this->setDirectory();
 
 		// Definindo dados do usuário
 		$this->fields['ip'] = $userData->getIp();
@@ -33,12 +33,12 @@ class UserDataLog extends log
 		$support = array();
 		$browser = $userData->getBrowser();
 		$support = $userData->getSupport();
-		
+
 		$i = 0;
 		for($i = 0; $i < count($browser) - 1; $i++)
-			$this->fields['browser'] .= $browser[$i]." , "; 
+			$this->fields['browser'] .= $browser[$i]." , ";
 		$this->fields['browser'] .= $browser[$i];
-		
+
 		for($i = 0; $i < count($support) - 1; $i++)
 			$this->fields['support'] .= $support[$i]." , ";
 		$this->fields['support'] .= $support[$i];
@@ -51,17 +51,18 @@ class UserDataLog extends log
 	function setFileName($fileName)
 	{
 		/**
-		 * 
+		 *
 		 * Assim vai ficar mais facil quando quisermos ler
 		 * estatisticas de um determinado serviço
-		 * 
+		 *
 		 **/
-		$this->fileName = str_replace(" ", "", $this->serviceName.$fileName);
+		//$this->fileName = str_replace(" ", "", $this->serviceName.$fileName);
+		$this->fileName = str_replace(" ", "", $this->serviceName);
 	}
-	
+
 	function sendMailAdmin($message)
 	{
-		if ( defined('LOG_ADMIN') ) 
+		if ( defined('LOG_ADMIN') )
 		{
 			$headers = "MIME-Version: 1.0\n";
 			$headers .= "Content-type: text/plain; charset=iso-8859-1\n";

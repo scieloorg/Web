@@ -5,54 +5,61 @@
  * @version 1.3
  * @author  Domingos Teruel <domingosteruel@terra.com.br>
  * @since 01 de setembro de 2004
- * @copyright  BIREME - SCI - 2004 
+ * @copyright  BIREME - SCI - 2004
 */
 
 
 class log
 {
     /**
-     * @var string 
+     * @var string
+     * @desc Path do diretorio de logs
+     */
+	var $log_dir;
+	/**
+     * @var string
      * @desc Path do diretorio de logs com permissão 777
-     */    
+     */
 	var $directory;
 	/**
 	 * @var string
 	 * @desc Nome do arquivo de log
-	 */	 
-	var $fileName;	
-	
+	 */
+	var $fileName;
+
 	var $fields  = Array();
 	/**
 	 * @var Array
 	 * @desc Campos de informacao do log (linhas dos arquivos)
-	 */	 
-	
+	 */
+
 	/**
 	 * @desc constructor
 	 */
 	function log()
 	{
 	    $this->setDirectory();
-	}	 
+	}
 	/**
 	 * @desc metodo que seta o diretorio onde os logs deveram ser escritos
 	 * @param string LOG_DIR constante definida como o path para o dir de logs
-	 */	
-	function setDirectory()	
+	 */
+	function setDirectory()
 	{
-		if (!defined('LOG_DIR')) {
-    		define('LOG_DIR', realpath( dirname(__FILE__) . "/../logs") . "/");
+		if (!isset($this->log_dir)){
+			//$this->log_dir = realpath(dirname(__FILE__)."/../../../../../logs/");
+			$this->log_dir = '/home/scielo/www/logs/'; //APAGAR
 		}
-		if ( is_dir(LOG_DIR) ){
-			$this->directory = LOG_DIR;
+
+		if ( is_dir($this->log_dir) ){
+			$this->directory = $this->log_dir;
 		}else{
-			if ( $this->mkdirs(LOG_DIR,0775) ){
-				$this->directory = LOG_DIR;
+			if ( $this->mkdirs($this->log_dir,0775) ){
+				$this->directory = $this->log_dir;
 			}else{
-				$this->logError("Unable to create directory " . LOG_DIR);
-			}	
-		}	
+				$this->logError("Unable to create directory " . $this->log_dir);
+			}
+		}
 	}
     /**
      * @desc metodo que define o nome do arquivo e log
@@ -76,7 +83,7 @@ class log
 			chmod($this->directory . $this->fileName,0774);
 			fwrite($fp, $head);
 		}
-		
+
 		if ($fp){
 			return $fp;
 		}else{
@@ -85,19 +92,18 @@ class log
 	}
 	/**
 	 * @desc grava no arquivo de log
-	 */	 
+	 */
 	function writeLog()
 	{
-
 		$fp = $this->openFileWriter($this->directory,$this->fileName);
 		$logLine = implode(LOG_SEPARATOR, $this->fields);
 
 		$logInfo = date("Y-m-d H:i:s") . LOG_SEPARATOR . $logLine ."\r\n";
 		if (!fwrite($fp, $logInfo)){
-			$this->logError("Unable to write log file " . LOG_DIR . $this->fileName);
+			$this->logError("Unable to write log file " . $this->log_dir . $this->fileName);
 		}else{
 			fclose($fp);
-		}	
+		}
 	}
 
 	/**
@@ -120,8 +126,8 @@ class log
 		$fp = fopen ($this->directory . "logerror.txt", "a+b");
 		if ( !$fp ){
 			$this->sendMailAdmin("Unable to open log file for update " . $this->directory . "logerror.txt");
-		}else{	
-			if ( !fwrite($fp, $message) ){	
+		}else{
+			if ( !fwrite($fp, $message) ){
 				$this->sendMailAdmin("Unable to write in log file " . $this->directory . "logerror.txt");
 			}else{
 				$this->sendMailAdmin("Log error message: " . $message);
@@ -129,11 +135,11 @@ class log
 		}
 		return;
 	}
-	
+
 	function sendMailAdmin($message)
 	{
 		if ( defined('LOG_ADMIN') ) {
-			
+
 			$headers = "MIME-Version: 1.0\n";
 			$headers .= "Content-type: text/plain; charset=iso-8859-1\n";
 			$headers .= "X-Priority: 1\n";
@@ -141,7 +147,7 @@ class log
 			$headers .= "X-Mailer: php\n";
 			$headers .= "To: " . LOG_ADMIN . "\n";
 			$headers .= "From: log@bireme.br\n";
-			
+
 			return ( mail(LOG_ADMIN, "BVSLOG error", $message, $headers) );
 		}
 	}
@@ -150,11 +156,11 @@ class log
 	{
 		if ( is_dir($strPath) ) {
 		 	return true;
-		}	
+		}
 		$pStrPath = dirname($strPath);
 		if ( ! $this->mkdirs($pStrPath, $mode) ){
 			 return false;
-		}	 
+		}
 		$old_umask = umask(0);
 		$mk = mkdir($strPath, $mode);
 		umask($old_umask);
