@@ -99,7 +99,7 @@
 												$xsl = file_get_contents($xsl);
 												//die("socket = false");
 											} else {
-												$xsl = 'SCI_REFERENCES';
+												$xsl = 'REFERENCE';
 											}
 											//die("socket = true");
 

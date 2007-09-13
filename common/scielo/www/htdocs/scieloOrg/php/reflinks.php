@@ -42,7 +42,7 @@
 		$xsl = file_get_contents($xsl);
 			//die("socket = false");
 	} else {
-		$xsl = 'SCI_GET_REFERENCE_BY_ID';
+		$xsl = 'GETREFERENCEBYID';
 	}
 	//die("socket = true");
 	$transformer->setXslBaseUri(dirname(__FILE__));
