@@ -1,7 +1,8 @@
 <?php
 	ini_set("display_errors","1");
 	error_reporting(E_ALL ^E_NOTICE);
-	$lang = isset($_REQUEST['lang'])?($_REQUEST['lang']):"";
+	$lang = isset($_REQUEST['lng'])?($_REQUEST['lng']):"en";
+	$_REQUEST['lang'] = $lang;
 	$pid = isset($_REQUEST['pid'])?($_REQUEST['pid']):"";
 	$text = isset($_REQUEST['text'])?($_REQUEST['text']):"";
 	$refPid = isset($_REQUEST['refpid'])?($_REQUEST['refpid']):"";
@@ -42,7 +43,7 @@
 		$xsl = file_get_contents($xsl);
 			//die("socket = false");
 	} else {
-		$xsl = 'GETREFERENCEBYID';
+		$xsl = 'SCI_GET_REFERENCE_BY_ID';
 	}
 	//die("socket = true");
 	$transformer->setXslBaseUri(dirname(__FILE__));
