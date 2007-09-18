@@ -34,11 +34,11 @@ if(strlen($pid) == 9){
 		    }
 		    $xml .= $data;
 		} while(true);
-		
+
 		fclose ($handle);
 
 		$cortado = strstr($xml, '<CURRENT PID="');
-	
+
 		if($cortado != "")
 		{
 			$posInicio = strpos($cortado,"\"");
@@ -58,14 +58,13 @@ if(strlen($pid) == 9){
 	    }
 	    $xml .= $data;
 	} while(true);
-	
+
 	fclose ($handle);
 
-//	$xsl = file_get_contents(dirname(__FILE__)."/xsl/createRSS.xsl");
 	$xsl = dirname(__FILE__)."/xsl/createRSS.xsl";
 
 	if(isset($debug)){
-		
+
 		echo '<h1>XML</h1>';
 		echo '<textarea cols="120" rows="18">'."\n";
 			echo $xml;
@@ -79,13 +78,25 @@ if(strlen($pid) == 9){
 	}
 
 	$t = new XSLTransformer();
+
+	if (getenv("ENV_SOCKET")!="true"){  //socket
+		$xsl = file_get_contents($xsl);
+	} else {
+		$xsl = 'CREATERSS';
+	}
+
 	$t->setXml($xml);
 	$t->setXsl($xsl);
 	$t->transform();
 	$result = $t->getOutput();
 
-	Header("Content-type: text/xml; charset:utf-8");
-	echo($result);
+	Header("Content-type: text/xml; charset:ISO-8859-1");
+
+	if(getenv("ENV_SOCKET")!="true"){
+		echo utf8_decode($result);
+	}else{
+		echo ($result);
+	}
 
 ob_flush();
 
