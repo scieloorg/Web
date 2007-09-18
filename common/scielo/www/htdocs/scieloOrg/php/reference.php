@@ -91,7 +91,7 @@
 												die($xml);
 											}
 
-											$xsl = dirname(__FILE__)."/../xsl/reference.xsl";
+											$xsl = $defFile["PATH_XSL"]."reference.xsl";
 
 											$transformer = new XSLTransformer();
 
@@ -103,7 +103,7 @@
 											}
 											//die("socket = true");
 
-											$transformer->setXslBaseUri(dirname(__FILE__).'/');
+											$transformer->setXslBaseUri($defFile["PATH_XSL"]);
 											$transformer->setXML($xml);
 											$transformer->setXSL($xsl);
 											$transformer->transform();

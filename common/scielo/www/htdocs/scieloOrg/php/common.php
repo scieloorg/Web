@@ -8,7 +8,6 @@
 	{
 		require_once(dirname(__FILE__)."/../../class.XSLTransformer.php");
 	}
-
 	$transformer = new XSLTransformer();
 	$defFile = new DefFile(dirname(__FILE__)."/../../scielo.def");
 
@@ -22,14 +21,12 @@
 	$xmlh = str_replace("&gt;",">",$xmlh);
 	$xmlh = str_replace("&amp;","&",$xmlh);
 	$xmlh = str_replace("&quot;","\"",$xmlh);
-
 	for($chr = 0; $chr < 32 ;$chr++)
 	{
 		$xmlh = str_replace(chr($chr),"",$xmlh);
 	}
 
 	$xmlh = str_replace(chr(146),"",$xmlh);
-
 	$xml = '<?xml version="1.0" encoding="UTF-8" ?>'."\n";
 	$xml .= '<root>';
 	$xml .= '<CONTROLINFO>';
@@ -57,10 +54,13 @@
 	$xml .= '</vars>';
 	$xml .= str_replace('<?xml version="1.0" encoding="ISO-8859-1" ?>','',$xmlh);
 	$xml .= '</root>';
-
-	$xslFile = dirname(__FILE__)."/../xsl/".$xslName.".xsl";
+	if (getenv("ENV_SOCKET") == "true"){  //socket
+		$xslFile = strtoupper($xslName);
+		//die("socket = false");
+	} else {
+		$xslFile = file_get_contents($defFile->getKeyValue("PATH_XSL").$xslName.".xsl");
+	}
 	$xsl = $xslFile;
-
 	if(isset($_REQUEST['debug']))
 	{
 		echo '<textarea cols="80" rows="10">';
@@ -70,15 +70,16 @@
 		echo file_get_contents($xslFile);
 		echo '</textarea>';
 	}
-	$transformer->setXslBaseUri(dirname(__FILE__));
+	$transformer->setXslBaseUri($defFile->getKeyValue("PATH_XSL"));
 	$transformer->setXml(utf8_encode($xml));
 	$transformer->setXsl($xsl);
 	$transformer->transform();
 
 	$result = utf8_decode($transformer->getOutput());
+
 	if($transformer->getError())
 		echo $transformer->getError();
 
-	print($result);
+	echo $result;
 
 ?>

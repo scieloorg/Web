@@ -1,27 +1,25 @@
 <?php
-ini_set("display_errors","1");
-error_reporting(E_ALL);
+	ini_set("display_errors","1");
+	error_reporting(E_ALL);
+	$lang = isset($_REQUEST['lang'])?($_REQUEST['lang']):"";
+	$pid = isset($_REQUEST['pid'])?($_REQUEST['pid']):"";
+	$text = isset($_REQUEST['text'])?($_REQUEST['text']):"";
 
-$lang = isset($_REQUEST['lang'])?($_REQUEST['lang']):"";
-$pid = isset($_REQUEST['pid'])?($_REQUEST['pid']):"";
-$text = isset($_REQUEST['text'])?($_REQUEST['text']):"";
+	require_once(dirname(__FILE__)."/../../applications/scielo-org/users/functions.php");
+	require_once(dirname(__FILE__)."/../../applications/scielo-org/users/langs.php");	
+	require_once(dirname(__FILE__)."/../../classDefFile.php");
+	require_once(dirname(__FILE__)."/../../applications/scielo-org/classes/services/ArticleServices.php");
 
-require_once(dirname(__FILE__)."/../../applications/scielo-org/users/functions.php");
-require_once(dirname(__FILE__)."/../../applications/scielo-org/users/langs.php");	
-require_once(dirname(__FILE__)."/../../classDefFile.php");
-require_once(dirname(__FILE__)."/../../applications/scielo-org/classes/services/ArticleServices.php");
-//require_once(dirname(__FILE__)."/../../class.XSLTransformer.php");
+	//$transformer = new XSLTransformer();
+	$defFile = parse_ini_file(dirname(__FILE__)."/../../scielo.def");
 
-//$transformer = new XSLTransformer();
-$defFile = parse_ini_file(dirname(__FILE__)."/../../scielo.def");
+	$applServer = $defFile["SERVER_SCIELO"];
+	$databasePath = $defFile["PATH_DATABASE"];
 
-$applServer = $defFile["SERVER_SCIELO"];
-$databasePath = $defFile["PATH_DATABASE"];
-
-//geting metadatas from PID
-$articleService = new ArticleService($applServer);
-$articleService->setParams($pid);
-$article = $articleService->getArticle();
+	//geting metadatas from PID
+	$articleService = new ArticleService($applServer);
+	$articleService->setParams($pid);
+	$article = $articleService->getArticle();
 ?>
 
 <!DOCTYPE html
@@ -119,9 +117,17 @@ $article = $articleService->getArticle();
 												if($_REQUEST['debug'] == 'xml'){
 													die($xml);
 												}
-												$xsl = dirname(__FILE__)."/../xsl/datasus.xsl";
 												$transformer = new XSLTransformer();
-												$transformer->setXslBaseUri(dirname(__FILE__));
+
+												if (getenv("ENV_SOCKET") == "true"){  //socket
+													$xslFile = strtoupper('datasus');
+												} else {
+													//die($defFile["PATH_XSL"]."datasus.xsl");
+													$xslFile = file_get_contents($defFile["PATH_XSL"]."datasus.xsl");
+												}
+												$xsl = $xslFile;
+
+												$transformer->setXslBaseUri($defFile["PATH_XSL"]);
 												$transformer->setXML($xml);
 												$transformer->setXSL($xsl);
 												$transformer->transform();
@@ -131,8 +137,15 @@ $article = $articleService->getArticle();
 												$output = str_replace('&gt;','>',$output);
 												$output = str_replace('&quot;','"',$output);
 												$output = str_replace('<p>',' ',$output);
-												$output = str_replace('</p>',' ',$output);				
-												echo ($output);
+												$output = str_replace('</p>',' ',$output);
+												
+												if (getenv("ENV_SOCKET") == "true"){  //socket
+													echo $output;
+												} else {
+													echo utf8_decode($output);	
+												}
+
+												
 												?>
 											</div>
 										</TD>
