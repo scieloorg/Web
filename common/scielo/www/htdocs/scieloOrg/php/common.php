@@ -27,7 +27,7 @@
 	}
 
 	$xmlh = str_replace(chr(146),"",$xmlh);
-	$xml = '<?xml version="1.0" encoding="UTF-8" ?>'."\n";
+	$xml = '<?xml version="1.0" encoding="ISO-8859-1" ?>'."\n";
 	$xml .= '<root>';
 	$xml .= '<CONTROLINFO>';
 	$xml .=         '<SCIELO_INFO>';
@@ -42,7 +42,7 @@
 	{
 		$xml .=                 '<GOOGLE_CODE>'.$defFile->getKeyValue('GOOGLE_CODE').'</GOOGLE_CODE>';
 	}
-		
+
 	$xml .=         '</SCIELO_INFO>';
 	$xml .=         '<APP_NAME>'.$defFile->getKeyValue('APP_NAME').'</APP_NAME>';
 	$xml .=         '<PAGE_NAME>'.$serviceName.'</PAGE_NAME>';
@@ -71,15 +71,23 @@
 		echo '</textarea>';
 	}
 	$transformer->setXslBaseUri($defFile->getKeyValue("PATH_XSL"));
-	$transformer->setXml(utf8_encode($xml));
+	//$transformer->setXml(utf8_encode($xml));
+	$transformer->setXml($xml);
 	$transformer->setXsl($xsl);
 	$transformer->transform();
 
-	$result = utf8_decode($transformer->getOutput());
+	$result = $transformer->getOutput();
 
 	if($transformer->getError())
 		echo $transformer->getError();
 
-	echo $result;
+	if(getenv("ENV_SOCKET")!="true"){
+		//PHP
+		echo utf8_decode($result);
+	}else{
+		//JAVA
+		echo $result;
+	}
+
 
 ?>

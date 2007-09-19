@@ -37,13 +37,13 @@
 	{
 		die($xml);
 	}
-	$xsl = dirname(__FILE__)."/../xsl/getReferencebyId.xsl";
+	$xsl = $pathHtdocs."/xsl/getReferencebyId.xsl";
 	$transformer = new XSLTransformer();
 	if (getenv("ENV_SOCKET")!="true"){  //socket
 		$xsl = file_get_contents($xsl);
 			//die("socket = false");
 	} else {
-		$xsl = 'SCI_GET_REFERENCE_BY_ID';
+		$xsl = 'GETREFERENCEBYID';
 	}
 	//die("socket = true");
 	$transformer->setXslBaseUri(dirname(__FILE__));
@@ -53,6 +53,11 @@
 	$output = $transformer->getOutput();
 	// Pegamos o título completo da referência do artigo
 	$fullTitle = $output;
+
+	if(getenv("ENV_SOCKET")!="true"){
+		//PHP
+		$fullTitle = utf8_decode($fullTitle);
+	}
 
 	// XML Final que contem os dados que precisamos do XML1 e XML2
 	$xmlFinal = '<?xml version="1.0" encoding="ISO-8859-1"?>';
@@ -80,6 +85,11 @@
 	$transformerFinal->setXSL($xslFinal);
 	$transformerFinal->transform();
 	$output = $transformerFinal->getOutput();
+
+	if(getenv("ENV_SOCKET")!="true"){
+		//PHP
+		$output = utf8_decode($output);
+	}
 
 	if($transformerFinal->getError())
 	{

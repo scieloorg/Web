@@ -6,7 +6,7 @@
 	$text = isset($_REQUEST['text'])?($_REQUEST['text']):"";
 
 	require_once(dirname(__FILE__)."/../../applications/scielo-org/users/functions.php");
-	require_once(dirname(__FILE__)."/../../applications/scielo-org/users/langs.php");	
+	require_once(dirname(__FILE__)."/../../applications/scielo-org/users/langs.php");
 	require_once(dirname(__FILE__)."/../../classDefFile.php");
 	require_once(dirname(__FILE__)."/../../applications/scielo-org/classes/services/ArticleServices.php");
 	//require_once(dirname(__FILE__)."/../../class.XSLTransformer.php");
@@ -62,7 +62,7 @@
 										<TD colspan="2">
 											<h3><span style="font-weight:100;font-size: 70%; background:none;">
 											<?php
-											
+
 											$author = getAutors($article->getAuthorXML());
 											$pos = strrpos($author, ";");
 											$author[$pos] = " ";
@@ -70,13 +70,13 @@
 											echo $author;
 											echo '<i><b>';
 											echo (getTitle($article->getTitle(), $lang).". ");
-											echo ('</b></i>');					        
+											echo ('</b></i>');
 											echo ($article->getSerial(). ', '.$article->getYear().', vol.'.$article->getVolume());
 											echo (', n. '.$article->getNumber().', ISSN '.substr($article->getPID(),1,9).'.<br/><br/>'."\n");
 											?>
 											</span></h3>
 										</TD>
-									</TR>									
+									</TR>
 									<TR>
 										<TD colspan="2">
 										<?php
@@ -88,12 +88,12 @@
 										</TD>
 									</TR>
 								</TABLE>
-								
+
 						</div>
 				</div>
 			</div>
 		</div>
-			<? 
+			<?
 				if($defFile['LOG']['ACTIVATE_LOG'] == '1') {
 			?>
 				<script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
