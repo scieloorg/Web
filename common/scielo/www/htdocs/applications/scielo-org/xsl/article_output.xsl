@@ -14,7 +14,7 @@
 						<xsl:value-of select="$pos"/> / <xsl:value-of select="$total"/>
 					</div>
 					<div class="collection">
-				        SciELO <xsl:value-of select="$metaSearchInstances//instance[indexCode = $country]/@name"/>
+				        SciELO <xsl:value-of select="$nameCountry"/>
 					</div>
 				</div>
 				<div style="clear: both; height: 1px; margin: 0px; padding: 0px;"/>
