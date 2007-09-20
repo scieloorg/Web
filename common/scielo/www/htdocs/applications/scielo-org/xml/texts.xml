@@ -3,9 +3,9 @@
 <texts>
 	<language id="pt">
 		<text>
-             <find>doiNotFound</find>
-             <replace>Nenhum registro encontrado</replace>
-        </text>										
+	             	<find>doiNotFound</find>
+             		<replace>Nenhum registro encontrado</replace>
+        	</text>										
 		<text>
 			<find>notFound</find>
 			<replace>Referências não encontradas</replace>
@@ -79,6 +79,11 @@
 			<replace>Não existe artigo similar a este</replace>
 		</text>
 		<text>
+			<find>arg</find>
+			<replace>Argentina</replace>
+			<url>http://www.scielo.org.ar</url>
+		</text>
+		<text>
 			<find>scl</find>
 			<replace>Brasil</replace>
 			<url>http://www.scielo.br</url>
@@ -87,6 +92,16 @@
 			<find>chl</find>
 			<replace>Chile</replace>
 			<url>http://www.scielo.cl</url>
+		</text>
+		<text>
+			<find>col</find>
+			<replace>Colômbia</replace>
+			<url>http://www.scielo.org.co</url>
+		</text>
+		<text>
+			<find>cri</find>
+			<replace>Costa Rica</replace>
+			<url>http://www.scielo.sa.cr</url>
 		</text>
 		<text>
 			<find>cub</find>
@@ -99,7 +114,7 @@
 			<url>http://www.scielosp.org</url>
 		</text>
 		<text>
-			<find>sos</find>
+			<find>sss</find>
 			<replace>Social Sciences</replace>
 			<url>http://socialsciences.scielo.org</url>
 		</text>
@@ -107,6 +122,56 @@
 			<find>esp</find>
 			<replace>Espanha</replace>
 			<url>http://wwwscielo.isciii.es</url>
+		</text>
+		<text>
+			<find>mex</find>
+			<replace>México</replace>
+			<url>http://www.scielo.org.mx</url>
+		</text>
+		<text>
+			<find>per</find>
+			<replace>Perú</replace>
+			<url>http://www.scielo.org.pe</url>
+		</text>
+		<text>
+			<find>prt</find>
+			<replace>Portugal</replace>
+			<url>http://www.scielo.oces.mctes.pt</url>
+		</text>
+		<text>
+			<find>pry</find>
+			<replace>Paraguay</replace>
+			<url>http://scielo.iics.una.py</url>
+		</text>
+		<text>
+			<find>ury</find>
+			<replace>Uruguai</replace>
+			<url>http://www.scielo.edu.uy</url>
+		</text>
+		<text>
+			<find>wid</find>
+			<replace>West Indian</replace>
+			<url>http://caribbean.scielo.org</url>
+		</text>
+		<text>
+			<find>cec</find>
+			<replace>Ciência e Cultura</replace>
+			<url>http://cienciaecultura.bvs.br/</url>
+		</text>
+		<text>
+			<find>inv</find>
+			<replace>Inovação</replace>
+			<url>http://inovacao.bvs.br/</url>
+		</text>
+		<text>
+			<find>pro</find>
+			<replace>Proceedings</replace>
+			<url>http://www.proceedings.scielo.br</url>
+		</text>
+		<text>
+			<find>the</find>
+			<replace>Thesis</replace>
+			<url>http://portalteses.cict.fiocruz.br/</url>
 		</text>
 		<text>
 			<find>ven</find>
@@ -192,6 +257,11 @@
 			<replace>no hay artículos similares</replace>
 		</text>
 		<text>
+			<find>arg</find>
+			<replace>Argentina</replace>
+			<url>http://www.scielo.org.ar</url>
+		</text>
+		<text>
 			<find>scl</find>
 			<replace>Brasil</replace>
 			<url>http://www.scielo.br</url>
@@ -202,17 +272,27 @@
 			<url>http://www.scielo.cl</url>
 		</text>
 		<text>
+			<find>col</find>
+			<replace>Colombia</replace>
+			<url>http://www.scielo.org.co</url>
+		</text>
+		<text>
+			<find>cri</find>
+			<replace>Costa Rica</replace>
+			<url>http://www.scielo.sa.cr</url>
+		</text>
+		<text>
 			<find>cub</find>
 			<replace>Cuba</replace>
 			<url>http://www.scielo.sld.cu</url>
 		</text>
 		<text>
 			<find>spa</find>
-			<replace>Salud Pública</replace>
+			<replace>Salud Publica</replace>
 			<url>http://www.scielosp.org</url>
 		</text>
 		<text>
-			<find>sos</find>
+			<find>sss</find>
 			<replace>Social Sciences</replace>
 			<url>http://socialsciences.scielo.org</url>
 		</text>
@@ -220,6 +300,56 @@
 			<find>esp</find>
 			<replace>España</replace>
 			<url>http://wwwscielo.isciii.es</url>
+		</text>
+		<text>
+			<find>mex</find>
+			<replace>México</replace>
+			<url>http://www.scielo.org.mx</url>
+		</text>
+		<text>
+			<find>per</find>
+			<replace>Perú</replace>
+			<url>http://www.scielo.org.pe</url>
+		</text>
+		<text>
+			<find>prt</find>
+			<replace>Portugal</replace>
+			<url>http://www.scielo.oces.mctes.pt</url>
+		</text>
+		<text>
+			<find>pry</find>
+			<replace>Paraguay</replace>
+			<url>http://scielo.iics.una.py</url>
+		</text>
+		<text>
+			<find>ury</find>
+			<replace>Uruguai</replace>
+			<url>http://www.scielo.edu.uy</url>
+		</text>
+		<text>
+			<find>wid</find>
+			<replace>West Indian</replace>
+			<url>http://caribbean.scielo.org</url>
+		</text>
+		<text>
+			<find>cec</find>
+			<replace>Ciencia e Cultura</replace>
+			<url>http://cienciaecultura.bvs.br/</url>
+		</text>
+		<text>
+			<find>inv</find>
+			<replace>Inovación</replace>
+			<url>http://inovacao.bvs.br/</url>
+		</text>
+		<text>
+			<find>pro</find>
+			<replace>Proceedings</replace>
+			<url>http://www.proceedings.scielo.br</url>
+		</text>
+		<text>
+			<find>the</find>
+			<replace>Thesis</replace>
+			<url>http://portalteses.cict.fiocruz.br/</url>
 		</text>
 		<text>
 			<find>ven</find>
@@ -305,6 +435,11 @@
 			<replace>this articles doesn't have a related to article</replace>
 		</text>
 		<text>
+			<find>arg</find>
+			<replace>Argentina</replace>
+			<url>http://www.scielo.org.ar</url>
+		</text>
+		<text>
 			<find>scl</find>
 			<replace>Brazil</replace>
 			<url>http://www.scielo.br</url>
@@ -313,6 +448,16 @@
 			<find>chl</find>
 			<replace>Chile</replace>
 			<url>http://www.scielo.cl</url>
+		</text>
+		<text>
+			<find>col</find>
+			<replace>Colombia</replace>
+			<url>http://www.scielo.org.co</url>
+		</text>
+		<text>
+			<find>cri</find>
+			<replace>Costa Rica</replace>
+			<url>http://www.scielo.sa.cr</url>
 		</text>
 		<text>
 			<find>cub</find>
@@ -325,7 +470,7 @@
 			<url>http://www.scielosp.org</url>
 		</text>
 		<text>
-			<find>sos</find>
+			<find>sss</find>
 			<replace>Social Sciences</replace>
 			<url>http://socialsciences.scielo.org</url>
 		</text>
@@ -335,9 +480,59 @@
 			<url>http://wwwscielo.isciii.es</url>
 		</text>
 		<text>
+			<find>mex</find>
+			<replace>Mexico</replace>
+			<url>http://www.scielo.org.mx</url>
+		</text>
+		<text>
+			<find>per</find>
+			<replace>Peru</replace>
+			<url>http://www.scielo.org.pe</url>
+		</text>
+		<text>
+			<find>prt</find>
+			<replace>Portugal</replace>
+			<url>http://www.scielo.oces.mctes.pt</url>
+		</text>
+		<text>
+			<find>pry</find>
+			<replace>Paraguay</replace>
+			<url>http://scielo.iics.una.py</url>
+		</text>
+		<text>
+			<find>ury</find>
+			<replace>Uruguay</replace>
+			<url>http://www.scielo.edu.uy</url>
+		</text>
+		<text>
+			<find>wid</find>
+			<replace>West Indian</replace>
+			<url>http://caribbean.scielo.org</url>
+		</text>
+		<text>
+			<find>cec</find>
+			<replace>Culture &amp; Science</replace>
+			<url>http://cienciaecultura.bvs.br/</url>
+		</text>
+		<text>
+			<find>inv</find>
+			<replace>Inovação</replace>
+			<url>http://inovacao.bvs.br/</url>
+		</text>
+		<text>
+			<find>pro</find>
+			<replace>Proceedings</replace>
+			<url>http://www.proceedings.scielo.br</url>
+		</text>
+		<text>
+			<find>the</find>
+			<replace>Thesis</replace>
+			<url>http://portalteses.cict.fiocruz.br/</url>
+		</text>
+		<text>
 			<find>ven</find>
 			<replace>Venezuela</replace>
 			<url>http://www.scielo.org.ve</url>
 		</text>
-	</language>
+		</language>
 </texts>
