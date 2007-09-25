@@ -5,10 +5,10 @@
 	<field action=cgi tag=100>pid</field>
 	<field action=cgi tag=200>script</field>
 	<field action=cgi tag=300>tlng</field> <!-- fixed 20040621 -->
-	
+	<field action=cgi tag=400>path</field> 
 	<parm name=cipar>
     	<pft>
-       		'PII.*=/home/scielo/www/bases/artigo/pii2scid.*'/
+       		'PII.*=',v400,'/bases/artigo/pii2scid.*'/
     	</pft>
 	</parm>	
 	
@@ -27,7 +27,7 @@
 	</field>
 
 	<label>PID_NORMAL</label>
-	<!-- fixed 20040621 -->
+	
 	<display>
 		<pft>
 			'Content-type:text/html'/#
