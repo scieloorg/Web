@@ -7,7 +7,7 @@ FILE PREINV.*=%path_database%title/titsrcp.*
 FILE HEADER.IAH=/home/scielo/www/cgi-bin/iah-styles/header.pft
 
 FILE scistyle.pft=/home/scielo/www/cgi-bin/iah-styles/scistyle.pft
-FILE places.pft=/home/scielo/www/cgi-bin/iah-styles/place-sc.pft
+FILE places.pft=/home/scielo/www/cgi-bin/iah-styles/place-generico.pft
 FILE iso.pft=/home/scielo/www/cgi-bin/iah-styles/fbsrc1.pft
 FILE van.pft=/home/scielo/www/cgi-bin/iah-styles/fbsrc1.pft
 FILE abn.pft=/home/scielo/www/cgi-bin/iah-styles/fbsrc1.pft

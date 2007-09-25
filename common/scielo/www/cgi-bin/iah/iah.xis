@@ -23,6 +23,7 @@
 	<field action="replace" tag="7998" split="occ"><pft>,(replace(v7998,'%path_cgi-bin%',v5000^c[1]) /),</pft></field>
 	<field action="replace" tag="7998" split="occ"><pft>,(replace(v7998,'%lang%',v5021[1])/),</pft></field>
 	<field action="replace" tag="7998" split="occ"><pft>,(replace(v7998,'#',v5003^d[1]) /),</pft></field>
+
 	<!-- inclue arquivos cipar externos -->
 	<field action="replace" tag="7999" split="occ"><pft>(if v1 : 'INCLUDE CIPAR=' then mid(v1,instr(v1,'=')+1,size(v1)) fi/ )</pft></field>
 	<field action="replace" tag="7999" split="occ"><pft>if p(v7999) then (cat(getenv('PATH_TRANSLATED'),v7999)) fi</pft></field>
@@ -76,7 +77,7 @@
 			,'LIST6003.PFT=',v5000^c,v5021,'/list6003.pft'/
 		</pft>
 	</parm>
-
+	
 </function>
 
 <function name="SetStat" action="replace" tag="1">
@@ -177,18 +178,35 @@
 	<field action="replace" tag="5008"><pft>if a(v5008) then '10' fi</pft></field>
 	<field action="replace" tag="5009"><pft>if a(v5009) then  (if v5005^n = 'DEFAULT' then v5005^f fi) fi</pft></field>	
 	
+	<field action="replace" tag="7999" split="occ"><pft>mid(v1,instr(v1,'DISPLAY_FORM]'),size(v1))</pft></field>
+	<field action="replace" tag="7999" split="occ"><pft>if instr(v7999,'[')>0 then  mid(v7999,1,instr(v7999,'[')) fi</pft></field>
 	<field action="replace" tag="5018">
 		<pft>(
-				if left(v1,instr(v1,'=')-1) : 'FEATURES'  then '^f',mid(v1,instr(v1,'=')+1,size(v1)) fi,
-				if left(v1,instr(v1,'=')-1) : 'SEND RESULT BY EMAIL' then '^e',mid(v1,instr(v1,'=')+1,size(v1)) fi,
-				if left(v1,instr(v1,'=')-1) : 'KEYRANGE SUFFIX' then '^k',mid(v1,instr(v1,'=')+1,size(v1)) fi,
+				if left(v7999,instr(v7999,'=')-1) : 'FEATURES'  then '^f',mid(v7999,instr(v7999,'=')+1,size(v7999)) fi,
+				if left(v7999,instr(v7999,'=')-1) : 'SEND RESULT BY EMAIL' then '^e',mid(v7999,instr(v7999,'=')+1,size(v7999)) fi,
+				if left(v7999,instr(v7999,'=')-1) : 'KEYRANGE SUFFIX' then '^k',mid(v7999,instr(v7999,'=')+1,size(v7999)) fi,
 				
 			)</pft>
 	</field>
 
+	<field action="replace" tag="7999" split="occ"><pft>mid(v1,instr(v1,'VARIABLES]'),size(v1))</pft></field>
+	<field action="replace" tag="7999" split="occ"><pft>if instr(v7999,'[')>0 then  mid(v7999,1,instr(v7999,'[')) fi</pft></field>
+	
+	<field action="replace" tag="3100">
+		<pft>
+			,(,
+      	      ,if v7999 : 'APP_IMG_RELPATH='   then '^a',mid(v7999,instr(v7999,'=')+1,size(v7999)) fi
+			  ,if v7999 : 'APP_PATH='  then '^b',mid(v7999,instr(v7999,'=')+1,size(v7999)) fi
+    	 	  ,if v7999 : 'APP_REVISTAS_PATH='  then '^c',mid(v7999,instr(v7999,'=')+1,size(v7999)) fi
+     	      ,if v7999 : 'APP_REVISTAS_RELPATH='    	then '^d',mid(v7999,instr(v7999,'=')+1,size(v7999)) fi
+    	      ,if v7999 : 'APP_IMG_REVISTAS_RELPATH='    	then '^e',mid(v7999,instr(v7999,'=')+1,size(v7999)) fi
+			,),
+		</pft>
+	</field>
+
 	<field action="replace" tag="6000"><pft>if a(v6000) then v5014.1 fi</pft></field>
 	
-	<field action="export" tag="list">5003/5005,5007/5010,5012/5014,5018,6000</field>
+	<field action="export" tag="list">3100,5003/5005,5007/5010,5012/5014,5018,6000</field>
 </function>
 
 <function name="LoadAplDef">
@@ -504,12 +522,14 @@
 			'6213 sendToEmail'/			
 			'7000 limit'/
 		</pft>
-	</field>
+	</field>	
+
 	<cgitable><pft>v5999</pft></cgitable>
 	<field action="cgi" tag="prefix">tag</field>
 	<display><pft>if v5013^* = 'DEBUG' then 'Content-type: text/html'/# fi</pft></display>
+
 	<trace><pft>if v5013^* = 'DEBUG' then 'On' fi</pft></trace>
-	
+
 	<call name="NextAction">now</call>
 	<call name="UpdPATH_TRANSLATED"><pft>if right(replace(getenv('PATH_TRANSLATED'),'\','/'),1) <> '/' then 'Now' fi</pft></call>
 	<call name="LoadAplDef"><pft>if a(v5000) then 'Now' fi</pft></call>
@@ -534,7 +554,7 @@
 		<call name="LoadIndexList">6099</call>		
 				
 		<display><htmlpft><pft>cat('AHFORM.HTM')</pft></htmlpft></display>		
-		
+
 		<flow action="jump">DONE</flow>		
 
 	<label>GETINDEX</label>
@@ -823,6 +843,8 @@
 			<parm name="gizmo"><pft>(v5012^g/)</pft></parm>
 			
 			<loop>
+				<!-- v3100 contém as variaveis definidas no .def da aplicação no caso article.def -->
+				<field action="import" tag="list">5041,3100</field>
 				<field action="import" tag="list">1032,5000/5009,5013,5018,5021,6000/6003,6102,6205,6210</field>
 				<display><pft><pft>cat('PROC.PFT'),','</pft></pft></display>
 				<display><htmlpft><pft>cat('AHBNAV.HTM')</pft></htmlpft></display>

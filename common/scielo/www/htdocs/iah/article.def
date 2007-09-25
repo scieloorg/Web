@@ -63,7 +63,7 @@ FILE PROC.PFT=/home/scielo/www/htdocs/pfts/proc_split_mst.pft
 FILE iso.pft=/home/scielo/www/cgi-bin/iah-styles/fbiso.pft
 FILE abn.pft=/home/scielo/www/cgi-bin/iah-styles/fbabn.pft
 FILE van.pft=/home/scielo/www/cgi-bin/iah-styles/fbvan.pft
-FILE places.pft=/home/scielo/www/cgi-bin/iah-styles/place-sc.pft
+FILE places.pft=/home/scielo/www/cgi-bin/iah-styles/place-generico.pft
 FILE month1.pft=/home/scielo/www/cgi-bin/iah-styles/month1.pft
 FILE month2.pft=/home/scielo/www/cgi-bin/iah-styles/month2.pft
 FILE scistyle.pft=/home/scielo/www/cgi-bin/iah-styles/scistyle.pft
@@ -83,7 +83,6 @@ FILE logo.*=%path_database%title/logo.*
 FILE ftp.*=%path_database%ftp/ftp.*
 FILE user.*=%path_database%user/user.*
 FILE newissue.*=%path_database%newissue/newissue.*
-
 
 [INDEX_DEFINITION]
 
@@ -122,3 +121,10 @@ NOTE FORM F=nota_form1_scielo.htm
 AVAILABLE FORMS=B,F
 NAVIGATION BAR=OFF
 SEND RESULT BY EMAIL=ON
+
+[VARIABLES]
+VARIABLE APP_PATH=/home/scielo/www
+VARIABLE APP_REVISTAS_PATH=/home/scielo/www/htdocs/revistas/
+VARIABLE APP_REVISTAS_RELPATH=/revistas/
+VARIABLE APP_IMG_REVISTAS_RELPATH=/img/revistas/
+VARIABLE APP_IMG_RELPATH=/img/
