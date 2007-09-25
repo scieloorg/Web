@@ -24,6 +24,9 @@ if(strlen($pid) == 9){
 
 		$url = "http://".$_SERVER['HTTP_HOST']."/cgi-bin/wxis.exe/?IsisScript=ScieloXML/sci_issues.xis&def=scielo.def&sln=$lang&script=sci_issues&pid=$pid&lng=$lang&nrm=iso";
 
+		$xml = file_get_contents($url);
+
+/*
 		$handle = fopen($url, "rb");
 
 		$xml = "";
@@ -36,7 +39,7 @@ if(strlen($pid) == 9){
 		} while(true);
 
 		fclose ($handle);
-
+*/
 		$cortado = strstr($xml, '<CURRENT PID="');
 
 		if($cortado != "")
@@ -48,6 +51,8 @@ if(strlen($pid) == 9){
 }
 	$url = "http://".$_SERVER['HTTP_HOST']."/cgi-bin/wxis.exe/?IsisScript=ScieloXML/sci_issuetoc.xis&def=scielo.def&sln=en&script=sci_issuetoc&pid=$pid&lng=$lang&nrm=iso";
 
+	$xml = file_get_contents($url);
+/*
 	$handle = fopen($url, "rb");
 
 	$xml = "";
@@ -60,7 +65,7 @@ if(strlen($pid) == 9){
 	} while(true);
 
 	fclose ($handle);
-
+*/
 	$xsl = dirname(__FILE__)."/xsl/createRSS.xsl";
 
 	if(isset($debug)){
@@ -90,12 +95,16 @@ if(strlen($pid) == 9){
 	$t->transform();
 	$result = $t->getOutput();
 
-	Header("Content-type: text/xml; charset:ISO-8859-1");
+	//Header("Content-type: text/xml; charset:UTF-8");
 
-	if(getenv("ENV_SOCKET")!="true"){
+	if(getenv("ENV_SOCKET")!="true"){ //PHP
 		echo utf8_decode($result);
-	}else{
-		echo ($result);
+	}else{ //JAVA
+		if (strpos(strtolower($_SERVER['HTTP_USER_AGENT']),'gecko')>0) {
+			echo ($result);
+		}else{
+			echo utf8_encode($result);
+		}
 	}
 
 ob_flush();
