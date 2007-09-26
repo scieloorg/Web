@@ -1,8 +1,8 @@
 lw(9000),
 if p(v1) and v3 <> 'del' then
-  'call batch\CriaDiretorio.bat ',v401,'\img\revistas\',v1/
-  'call batch\CriaDiretorio.bat ',v401,'\img\revistas\',v1,'\',v2/
-  'call batch\CriaDiretorio.bat ',v401,'\img\revistas\',v1,'\',v2,'\html'/
-  'call batch\CriaDiretorio.bat ',v401,'\pdf\',v1/
-  'call batch\CriaDiretorio.bat ',v401,'\pdf\',v1,'\',v2/
+  'call batch\CriaDiretorio.bat ',v401,'\htdocs\img\revistas\',v1/
+  'call batch\CriaDiretorio.bat ',v401,'\htdocs\img\revistas\',v1,'\',v2/
+  'call batch\CriaDiretorio.bat ',v401,'\htdocs\img\revistas\',v1,'\',v2,'\html'/
+  'call batch\CriaDiretorio.bat ',v401,'\bases\pdf\',v1/
+  'call batch\CriaDiretorio.bat ',v401,'\bases\pdf\',v1,'\',v2/
 fi

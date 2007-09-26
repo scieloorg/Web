@@ -6,7 +6,7 @@
 'pwd'/
 'cd',x1,v1,'/',v2/
 'lcd .'/
-'lcd img/revistas/',v1,'/',v2/
+'lcd htdocs/img/revistas/',v1,'/',v2/
 'bin'/
 'mput *.g??'/
 'mput *.G??'/
@@ -36,6 +36,9 @@
 /* img */
 'lcd .'/
 'lcd ..'/
+/* htdocs */
+'lcd .'/
+'lcd ..'/
 
 'pwd'/
 'cd ../../../../../../bases/pdf'/
@@ -44,7 +47,7 @@
 'pwd'/
 'cd',x1,v1,'/',v2/
 'lcd .'/
-'lcd pdf/',v1,'/',v2/
+'lcd bases/pdf/',v1,'/',v2/
 'bin'/
 'mput *.p??'/
 'mput *.P??'/
@@ -60,3 +63,7 @@
 /* pdf */
 'lcd .'/
 'lcd ..'/
+/* bases */
+'lcd .'/
+'lcd ..'/
+
