@@ -14,6 +14,18 @@ class Scielo extends ScieloBase
 		$this->_special_xsl = '';
 	}
 
+	function loadPreviousUrlWhichContainsOldPid(){
+		$this->_request->getRequestValue("pid", $pid);
+		if (strpos($pid,'(')>0){
+			$this->_request->getRequestValue("script", $script);
+			switch ($script){
+				case "sci_arttext": $oldscript = "fbtext"; break;
+				case "sci_serial": $oldscript = "fbsite"; break;
+				case "sci_abstract": $oldscript = "fbabs"; break;
+			}
+			header('Location: /cgi-bin/fbpe/'.$oldscript.'?pid='.$pid);
+		}
+	}
 	function GenerateIsisScriptUrl()
 	{
 

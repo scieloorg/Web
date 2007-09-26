@@ -5,6 +5,10 @@
 	// Create new Scielo object
 	$host = $_SERVER['HTTP_HOST'];    
     $scielo = new Scielo ($host);
+
+	// This check the pid is old, then redirect to the script can treat it
+	$scielo->loadPreviousUrlWhichContainsOldPid();
+
 	$CACHE_STATUS = $scielo->_def->getKeyValue("CACHE_STATUS");
 	$MAX_DAYS = $scielo->_def->getKeyValue("MAX_DAYS");
 	$MAX_SIZE = $scielo->_def->getKeyValue("MAX_SIZE");
@@ -45,6 +49,7 @@
 	}
 	if (!$pageContent){
 
+		
     // Generate wxis url and set xml url
         $xml = $scielo->GenerateXmlUrl();
         $scielo->SetXMLUrl ($xml);
