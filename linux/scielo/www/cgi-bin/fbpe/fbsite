@@ -1,3 +1,0 @@
-#!/bin/bash
-WISIS4=..; export WISIS4
-$WISIS4/wxis.exe IsisScript=$WISIS4/ScieloXML/redireciona.xis script=sci_serial path=../..
