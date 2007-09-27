@@ -17,11 +17,11 @@ cls
 echo === ATENCAO ===
 echo.
 echo Sera executado o seguinte comando:
-echo EnviaImgPdfScielo.bat \scielo transf\EnviaImgPdfLogOn.txt log\EnviaImgPdfScieloPadrao.log cria \scielo\web\htdocs
+echo EnviaImgPdfScielo.bat \scielo transf\EnviaImgPdfLogOn.txt log\EnviaImgPdfScieloPadrao.log cria \scielo\web
 echo.
 echo Tecle CONTROL-C para sair ou ENTER para continuar...
 
 pause > nul
 
-EnviaImgPdfScielo.bat \scielo transf\EnviaImgPdfLogOn.txt log\EnviaImgPdfScieloPadrao.log cria \scielo\web\htdocs
+EnviaImgPdfScielo.bat \scielo transf\EnviaImgPdfLogOn.txt log\EnviaImgPdfScieloPadrao.log cria \scielo\web
 

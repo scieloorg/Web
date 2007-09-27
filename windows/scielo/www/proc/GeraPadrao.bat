@@ -38,8 +38,17 @@ echo Tecle CONTROL-C para sair ou ENTER para continuar...
 
 pause > nul
 
-deltree /Y \scielo\web\bases-work\*.*
-call ExtraiRevistasArtigo.bat \scielo \scielo\web log\ExtraiRevistasArtigo.bat adiciona
+rmdir /S /Q \scielo\web\bases-work
+rmdir /S /Q \scielo\web\bases\artigo
+rmdir /S /Q \scielo\web\bases\iah
+rmdir /S /Q \scielo\web\bases\issue
+rmdir /S /Q \scielo\web\bases\newissue
+
+md \scielo\web\bases-work
+md ..\bases\artigo
+cisis\mx null count=1 create=..\bases\artigo\artigo -all now
+
+call ExtraiRevistasArtigo.bat ..\.. .. log\ExtraiRevistasArtigo.log adiciona
 
 :NORMAL
 call GeraScielo.bat \scielo \scielo\web log\GeraPadrao.log adiciona
