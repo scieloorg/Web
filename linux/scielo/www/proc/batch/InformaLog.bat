@@ -9,8 +9,8 @@ call batch/VerifPresencaParametro.bat $0 @$3 mensagem
 
 if [ $2 == "dh" ]
 then
-   $CISIS_DIR/mx tmp count=1 "pft='[VERSAO 2.0]'/,x3,s(date).13/"
-   $CISIS_DIR/mx tmp count=1 "pft='[VERSAO 2.0]'/,x3,s(date).13/" >> $INFORMALOG
+   $CISIS_DIR/mx tmp count=1 "pft='[VERSAO 2.1]'/,x3,s(date).13/"
+   $CISIS_DIR/mx tmp count=1 "pft='[VERSAO 2.1]'/,x3,s(date).13/" >> $INFORMALOG
 fi
 
 echo [$1]
