@@ -17,11 +17,11 @@ cls
 echo === ATENCAO ===
 echo.
 echo Sera executado o seguinte comando:
-echo EnviaBasesScielo.bat \scielo transf\EnviaBasesLogOn.txt log\EnviaBasesScieloPadrao.log cria
+echo EnviaBasesScielo.bat \scielo transf\EnviaBasesLogOn.txt log\EnviaBasesScieloPadrao.log cria 1
 echo.
 echo Tecle CONTROL-C para sair ou ENTER para continuar...
 
 pause > nul
 
-EnviaBasesScielo.bat \scielo transf\EnviaBasesLogOn.txt log\EnviaBasesScieloPadrao.log cria
+EnviaBasesScielo.bat \scielo transf\EnviaBasesLogOn.txt log\EnviaBasesScieloPadrao.log cria 1
 
