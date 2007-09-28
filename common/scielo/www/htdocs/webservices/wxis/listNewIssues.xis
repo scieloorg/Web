@@ -26,17 +26,23 @@
 			fi
 		</pft>
 	</display>
-	<trace>xOn</trace>
 
 	<field action="cgi" tag="2001">database</field>
 	<call name="error"><pft>"missing parameter: database"n2001</pft></call>
 	
 	<field action="cgi" tag="2004">count</field>
-	
+
 	<field action="replace" tag="1"><pft>getenv('PATH_TRANSLATED')</pft></field>	
+
+	<field action="replace" tag="4902"><pft>cat(s(v1,'../../scielo.def'))</pft></field>
+	<field action="replace" tag="4902" split="occ"><pft>mid(v4902,instr(v4902,'PATH_DATABASE'),size(v4902))</pft></field>
+	<field action="replace" tag="4902"><pft>mid(v4902[1],instr(v4902[1],'=')+1,size(v4902[1]))</pft></field>
+
+
 	<parm name="cipar">
 		<pft>
 			'GIZMO_XML.*=',v1,'gizmo/gizmoXML.*'/
+			'TITLE.*=',v4902[1],'title/title.*'/
 		</pft>
 	</parm>	
 
@@ -100,8 +106,8 @@
 			<field action="replace" tag="7"><pft>ref([v2001]val(v3^m),v36)</pft></field>									
 			<field action="replace" tag="8"><pft>ref([v2001]val(v3^m),mid(v65,1,4))</pft></field>
 			<field action="replace" tag="9"><pft>ref([v2001]val(v3^m),v91)</pft></field>
-			<field action="replace" tag="10"><pft>ref(['/home/scielo/www/bases/title/title']l(['/home/scielo/www/bases/title/title']s('LOC=',v5)),(,'<subject>',replace(replace(replace(v441,'&','&amp;'),'<','&lt;'),'>','&gt;'),'</subject>',))</pft></field>
-                        <field action="replace" tag="11"><pft>ref(['/home/scielo/www/bases/title/title']l(['/home/scielo/www/bases/title/title']s('LOC=',v5)),(,'<publisher>',replace(replace(replace(v480,'&','&amp;'),'<','&lt;'),'>','&gt;'),'</publisher>',))</pft></field>
+			<field action="replace" tag="10"><pft>ref(['TITLE']l(['TITLE']s('LOC=',v5)),(,'<subject>',replace(replace(replace(v441,'&','&amp;'),'<','&lt;'),'>','&gt;'),'</subject>',))</pft></field>
+                        <field action="replace" tag="11"><pft>ref(['TITLE']l(['TITLE']s('LOC=',v5)),(,'<publisher>',replace(replace(replace(v480,'&','&amp;'),'<','&lt;'),'>','&gt;'),'</publisher>',))</pft></field>
 		        <display>
 					<pft>
 						'<record>',#
