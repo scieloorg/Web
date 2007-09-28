@@ -1,5 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="iso-8859-1"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:mml="http://www.w3.org/1998/Math/MathML">
+
+	<!--xsl:output method="xml" version="1.0" encoding="ISO-8859-1" indent="yes"/-->
+
 	<xsl:include href="scielo_pmc_config.xsl"/>
 	<xsl:include href="sci_navegation.xsl"/>
 	<xsl:include href="sci_error.xsl"/>
@@ -7,7 +10,7 @@
 	<xsl:variable name="LANGUAGE" select="//LANGUAGE"/>
 	<xsl:variable name="SCIELO_REGIONAL_DOMAIN" select="//SCIELO_REGIONAL_DOMAIN"/>
 	<xsl:variable name="show_toolbox" select="//toolbox"/>
-	
+
 	<xsl:template match="fulltext-service-list"/>
 
 	<xsl:template match="/">

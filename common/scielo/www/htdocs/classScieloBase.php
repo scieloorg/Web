@@ -246,7 +246,7 @@ class ScieloBase
 			default:
 				echo "<form>\n";
 				echo "<b>Generated XML</b><br>\n";
-				echo "<TEXTAREA cols=80 rows=20>\n";
+				echo '<TEXTAREA cols="80" rows="20">\n';
 				echo $this->_xml;
 				echo "\n</TEXTAREA>\n</form>";
 
@@ -414,13 +414,8 @@ class ScieloBase
 
 				if ($transform->getError() == 0)
 				{
-					if (getenv("ENV_SOCKET")=="true"){  //socket
 						$result = $transform->getOutput();
-					}
-					else{
-						$result = utf8_decode($transform->getOutput());
-					}
-	      			}
+	      		}
 				else
 				{
 	   				$result = "<p>Error transforming ".$this->_xml.".</p>\n";

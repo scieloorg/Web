@@ -155,7 +155,7 @@
 					</a>
 				</li>
 				</xsl:if>
-				<xsl:if test="$show_datasus = 1 and //ARTICLE/@AREASGEO != 0">
+				<xsl:if test="$show_datasus = 1 and (//ARTICLE/@AREASGEO != 0 and //ARTICLE/@AREASGEO != '')">
 				<li>
 					<a>
 						<xsl:attribute name="href">javascript:void(0);</xsl:attribute>

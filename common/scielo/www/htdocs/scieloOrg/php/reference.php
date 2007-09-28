@@ -114,16 +114,7 @@
 											$output = str_replace('&quot;','"',$output);
 											$output = str_replace('<p>',' ',$output);
 											$output = str_replace('</p>',' ',$output);
-
-											if(getenv("ENV_SOCKET")!="true"){
-												//PHP
-												echo utf8_decode($output);
-											}else{
-												//JAVA
-												echo $output;
-											}
-
-
+											echo $output;
 										?>
 										</TD>
 									</TR>

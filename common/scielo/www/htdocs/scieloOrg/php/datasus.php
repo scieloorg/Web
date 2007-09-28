@@ -138,13 +138,8 @@
 												$output = str_replace('&quot;','"',$output);
 												$output = str_replace('<p>',' ',$output);
 												$output = str_replace('</p>',' ',$output);
-												
-												if (getenv("ENV_SOCKET") == "true"){  //socket
-													echo $output;
-												} else {
-													echo utf8_decode($output);	
-												}
 
+												echo $output;
 												
 												?>
 											</div>

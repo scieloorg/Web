@@ -41,11 +41,7 @@ class XSLTransformer {
 	}
 
 	function getOutput() {
-		if($this->byJava == 'true'){
-			return $this->output;
-		}else{
-			return utf8_encode($this->output);
-		}
+		return $this->xml_utf8_decode($this->output);
 	}
 
 	/* set methods */
@@ -91,6 +87,18 @@ class XSLTransformer {
 		}
 	}
 	
+	function xml_utf8_decode($xml){
+		$xml = utf8_decode($xml);
+		$xml = str_replace('utf-8','iso-8859-1',$xml);
+		$xml = str_replace('UTF-8','iso-8859-1',$xml);
+		return $xml;
+	}
+	function xml_utf8_encode($xml){
+		$xml = utf8_encode($xml);
+		$xml = str_replace('iso-8859-1','utf-8',$xml);
+		$xml = str_replace('ISO-8859-1','utf-8',$xml);
+		return $xml;
+	}
 	/* transform method */
     function transform()
     {

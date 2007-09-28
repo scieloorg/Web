@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
-	<xsl:output method="html" encoding="ISO-8859-1" omit-xml-declaration="yes"	indent="no"/>
+	<xsl:output method="html" omit-xml-declaration="yes" indent="no"/>
 
 	<xsl:include href="../applications/scielo-org/xsl/article_output.xsl"/>
 	<xsl:include href="sci_common.xsl"/>

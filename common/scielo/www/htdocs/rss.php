@@ -95,18 +95,7 @@ if(strlen($pid) == 9){
 	$t->transform();
 	$result = $t->getOutput();
 
-	//Header("Content-type: text/xml; charset:UTF-8");
-
-	if(getenv("ENV_SOCKET")!="true"){ //PHP
-		echo utf8_decode($result);
-	}else{ //JAVA
-		if (strpos(strtolower($_SERVER['HTTP_USER_AGENT']),'gecko')>0) {
-			echo ($result);
-		}else{
-			echo utf8_encode($result);
-		}
-	}
-
+	echo $result;
 ob_flush();
 
 ?>

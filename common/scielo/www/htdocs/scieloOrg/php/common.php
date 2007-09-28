@@ -78,16 +78,9 @@
 
 	$result = $transformer->getOutput();
 
-	if($transformer->getError())
+	if($transformer->getError()){
 		echo $transformer->getError();
-
-	if(getenv("ENV_SOCKET")!="true"){
-		//PHP
-		echo utf8_decode($result);
-	}else{
-		//JAVA
-		echo $result;
 	}
-
+	echo $result;
 
 ?>
