@@ -145,18 +145,21 @@ class ScieloLog extends Scielo
 	
 	function ShowPage ($script,$dti,$dtf,$access,$cpage,$nlines,$pid,$lng,$nrm,$order,$tpages,$maccess)
 	{
+
+		$logCachePath =$this->_def->getKeyValue("PATH_LOG_CACHE");
+
 		$html="";
 	    $filesize=90000;
-		$pag_cache="/home/scielosp/www/bases/pages/sci_stat/".$script.$pid.$lng.$nrm.$order.$dtf.$dti.$access.$cpage.$nlines.".html";
-	
-		   	$this->_CheckAlternateDisplay ();
-			$html=$this->_Transform ();
+		if ($logCachePath) {
+			$pag_cache=$logCachePath.$script.$pid.$lng.$nrm.$order.$dtf.$dti.$access.$cpage.$nlines.".html";
+		}
 
-			$out=fopen($pag_cache, "w");
-			fwrite($out, $html);
-echo '<!--' .$pag_cache.'--> ';
-	//	}
-		
+	   	$this->_CheckAlternateDisplay ();
+		$html=$this->_Transform ();
+
+		$out=fopen($pag_cache, "w");
+		fwrite($out, $html);
+		echo '<!--' .$pag_cache.'--> ';
         echo $html;
 	}
 }

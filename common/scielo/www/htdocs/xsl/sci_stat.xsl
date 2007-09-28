@@ -170,8 +170,9 @@
 						</xsl:choose>
 					</a>
 				</li-->
+				<xsl:if test="//SCRIPT_TOP_TEN">
 				<li>
-	<a href="http://{//SERVER_LOG}/scielolog/ofigraph20.php">
+					<a href="{//SCRIPT_TOP_TEN}">
 						<xsl:choose>
 							<xsl:when test=" CONTROLINFO/LANGUAGE='en' ">Top ten titles</xsl:when>
 							<xsl:when test=" CONTROLINFO/LANGUAGE='pt' ">10 títulos mais visitados</xsl:when>
@@ -179,8 +180,10 @@
 						</xsl:choose>											
 					</a>
 				</li>
+				</xsl:if>
+				<xsl:if test="//SCRIPT_ARTICLES_PER_MONTH">
 				<li>
-	<a href="http://{//SERVER_LOG}/scielolog/ofigraph21.php">
+					<a href="{//SCRIPT_ARTICLES_PER_MONTH}">
 						<xsl:choose>
 							<xsl:when test=" CONTROLINFO/LANGUAGE='en' ">Articles per month</xsl:when>
 							<xsl:when test=" CONTROLINFO/LANGUAGE='pt' ">Artigos visitados por mês</xsl:when>
@@ -188,6 +191,7 @@
 						</xsl:choose>											
 					</a>
 				</li>
+				</xsl:if>
 				<!--li>
 					<a href="/graphics/graph22.php">
 						<xsl:choose>
