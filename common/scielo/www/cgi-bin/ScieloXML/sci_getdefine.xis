@@ -64,6 +64,9 @@
                                                 case 'GOOGLE_CODE'                  : 'h17043',
 						case 'PATH_HTDOCS'                  : 'h17044',
 						case 'STAT_SERVER'                  : 'h17045',
+						case 'mimetex'	: 'h17046',
+						case 'SCRIPT_TOP_TEN'	: 'h17047',
+						case 'SCRIPT_ARTICLES_PER_MONTH'	: 'h17048',
 
 						/* fixed */
                         

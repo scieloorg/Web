@@ -390,6 +390,9 @@
 		"  <ENABLE_STAT_LINK>"v7039"</ENABLE_STAT_LINK>"/,
 		"  <ENABLE_CIT_REP_LINK>"v7040"</ENABLE_CIT_REP_LINK>"/,
 		"  <MIMETEX>"v7046"</MIMETEX>"/,
+		"  <SCRIPT_TOP_TEN>"v7047"</SCRIPT_TOP_TEN>"/,
+		"  <SCRIPT_ARTICLES_PER_MONTH>"v7048"</SCRIPT_ARTICLES_PER_MONTH>"/,
+
 	</pft></display>
 	
 	<call name="CreatePathControlInfoXML">Now</call>
