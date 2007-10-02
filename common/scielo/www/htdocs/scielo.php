@@ -1,9 +1,9 @@
-<?php	
+<?php
 	require_once("classScielo.php");
 	require_once('applications/scielo-org/sso/header.php');
 
 	// Create new Scielo object
-	$host = $_SERVER['HTTP_HOST'];    
+	$host = $_SERVER['HTTP_HOST'];
     $scielo = new Scielo ($host);
 
 	// This check the pid is old, then redirect to the script can treat it
@@ -13,7 +13,7 @@
 	$MAX_DAYS = $scielo->_def->getKeyValue("MAX_DAYS");
 	$MAX_SIZE = $scielo->_def->getKeyValue("MAX_SIZE");
 	$DIVULGA = $scielo->_def->getKeyValue("ENABLE_DIVULGACAO");
-	
+
 	if (($CACHE_STATUS == 'on') && ($MAX_DAYS>0)){
 		$filenamePage = $scielo->GetPageFile();
 	}
@@ -49,7 +49,7 @@
 	}
 	if (!$pageContent){
 
-		
+
     // Generate wxis url and set xml url
         $xml = $scielo->GenerateXmlUrl();
         $scielo->SetXMLUrl ($xml);
@@ -83,13 +83,9 @@
 	{
 		require_once(dirname(__FILE__)."/export.php");
 		exit;
-	}	
-	if (strpos(" ".$pageContent, "<?xml-stylesheet")>0){
-		header("Content-type:text/xml; charset=utf-8\n");
-	} else {
-		header("Content-type:text/html; charset=utf-8\n");
 	}
-        if ( !$scielo->_request->getRequestValue ( "lng", $lng ) )
+
+	if ( !$scielo->_request->getRequestValue ( "lng", $lng ) )
                 {
                     $lng = $scielo->_def->getKeyValue ( "STANDARD_LANG" );
                 }
@@ -97,7 +93,7 @@
 		echo showDivulgacao($lng,$scielo->_script);
 	}
 	echo $pageContent;
-	
+
 
  function showDivulgacao($lang, $script){
 		 $pageContent = "";
@@ -258,7 +254,7 @@ function wxis_exe ( $url )
 		//se cache desligado então retorna a transformação, sem passar pelo cache
 		$result = wxis_exe_($url);
 	}
-	
+
 	return $result;
 }
 
@@ -269,21 +265,22 @@ function wxis_exe ( $url )
 //wxis-line-command
 function wxis_exe_ ( $url )
 {
+
 	// Criar um novo Objeto Scielo
-	$host = $_SERVER['HTTP_HOST'];    
+	$host = $_SERVER['HTTP_HOST'];
 	$scielo = new Scielo ($host);
-	
-	/************************************************************************************	
+
+	/************************************************************************************
 	*	Pegamos o path do htdocs, isso é importante porque deixamos mais configuráveis	*
 	*	os diferentes scielos não precisando mexer na scielo.php, somente no scielo.def	*
 	************************************************************************************/
 	$PATH_HTDOCS = $scielo->_def->getKeyValue("PATH_HTDOCS");
-	
+
 	$request = $PATH_HTDOCS."../cgi-bin/wxis.exe " ;
 	$param = substr($url, strpos($url, "?")+1);
 	$param = str_replace("&", " ", $param);
 	$request = $request.$param." PATH_TRANSLATED=".$PATH_HTDOCS;
-	
+
 	$r = strstr(shell_exec($request), '<');
 	return $r;
 }
