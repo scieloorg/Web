@@ -1,45 +1,46 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <table width="100%">
 			<tr>
-				<td valign="top" align="right" nowrap="" width="20%">
+				<td valign="top" align="right"  width="20%">
 					<br/>
 					<a name="about">&#160;</a>
 					<font class="negrito" size="-1">sobre este site&#160;&#160;&#160;</font>
 				</td>
-				<td width="70%">
-						<br/>
-						<br/>
+				
+    <td width="70%"><br/>
 						<br/>
 					
 					<font class="nomodel" size="-1">
-						<p>
-							<b>SciELO Latin
-	American Social Sciences Journals English Edition</b> é produto do esforço conjunto
-	da <a href="http://www.scielo.org/">SciELO</a> (Scientific Electronic Library
-	Online) e do <a href="http://www.centroedelstein.org.br/index.asp">Centro
-	Edelstein de Pesquisas Sociais</a>, com apoio da Open Society Institute (OSI).</p>
+						
+      <p> <b>SciELO Social Sciences English Edition</b> é produto do esforço conjunto 
+        da <a href="http://www.scielo.org/" target="_blank">SciELO</a> (Scientific 
+        Electronic Library Online) e do <a href="http://www.centroedelstein.org.br/english/index.asp" target="_blank">Centro 
+        Edelstein de Pesquisas Sociais</a>, com apoio da Open Society Institute 
+        (OSI).</p>
 						<br/>
 						<br/>
-						<p align="center">
-							<a href="http://www.centroedelstein.org.br/index.asp">
-								<img alt="The Edelstein Center for Social Research" border="0" src="/img/en/glogo_Edelstein.gif"/>
-							</a>
-						</p>
+						
+      <p align="center"> <a href="http://www.centroedelstein.org.br/english/index.asp" target="_blank"> 
+        <img alt="The Edelstein Center for Social Research" border="0" src="/img/en/glogo_Edelstein.gif"/> 
+        </a> </p>
 						<br/>
 						<br/>
-						<p>
-<b>SciELO Latin American Social Sciences Journals English Edition</b> tem como objetivo contribuir para promover o acesso internacional
-	as revistas científicas em Ciências Sociais na América Latina e sua principal
-	caracteristica é a disponibilização dos textos em inglês, gratuitamente com vistas a aumentar
-	a visibilidade e acessibilidade.</p>
-						<p>Na fase inicial o site incluirá 30 revistas da Argentina, Bolivia, Brazil, Chile, Paraguai and Uruguai.
+						
+      <p> <b>SciELO Social Sciences English Edition</b> tem como objetivo promover 
+        o acesso internacional as revistas científicas em Ciências Sociais na 
+        América Latina e sua principal caracteristica é a disponibilização dos 
+        textos em inglês, gratuitamente com vistas a aumentar a visibilidade e 
+        acessibilidade.</p>
+						<p>Na fase inicial o site incluirá 30 revistas da Argentina, Bolivia, Brasil, Chile, Paraguai and Uruguai.
 	Nos próximos meses serão adicionados 4 revistas ao mês.</p>
-						<p><b>SciELO Latin American Social Sciences Journals English Edition</b> utiliza a Metodologia <b>SciELO</b>
-	desenvolvida em conjunto pela <a href="http://www.fapesp.br">FAPESP</a> - Fundação
-	de Amparo à Pesquisa do Estado de São Paulo, em parceria com a <a href="http://www.bireme.br">BIREME</a>
-	- Centro Latino-Americano e do Caribe de Informação em Ciências da Saúde. A
-	partir de 2002, o Projeto conta com o apoio do <a href="http://www.cnpq.br">CNPq</a> - Conselho Nacional de
-	Desenvolvimento Científico e Tecnológico.</p>
+						
+      <p><b>SciELO Social Sciences English Edition</b> utiliza a Metodologia <b>SciELO</b> 
+        desenvolvida em conjunto pela <a href="http://www.fapesp.br" target="_blank">FAPESP</a> 
+        - Fundação de Amparo à Pesquisa do Estado de São Paulo, em parceria com 
+        a <a href="http://www.bireme.br" target="_blank">BIREME</a> - Centro Latino-Americano 
+        e do Caribe de Informação em Ciências da Saúde. A partir de 2002, o Projeto 
+        conta com o apoio do <a href="http://www.cnpq.br" target="_blank">CNPq</a> 
+        - Conselho Nacional de Desenvolvimento Científico e Tecnológico.</p>
 					</font>
 					<br/>
 					<br/>
@@ -47,16 +48,18 @@
 				<td width="10%">&#160;</td>
 			</tr>
 			<tr>
-				<td valign="top" align="right" nowrap="" width="20%">
+				<td valign="top" align="right"  width="20%">
 					<a name="ajuda">&#160;</a>
 					<font class="negrito" size="-1">help&#160;&#160;&#160;</font>
 				</td>
 				<td width="70%">
 					<font class="nomodel" size="-1">
-						<p>
-							<b>SciELO Latin American Social Sciences Journals English
-Edition</b> proporciona acesso à sua coleção de periódicos através de uma <i>lista alfabética</i> de títulos, ou por meio de uma <i>lista de assuntos</i> ou ainda através de um módulo de <i>pesquisa de títulos</i>dos
- periódicos, por assunto, pelos nomes das instituições publicadoras e pelo local e publicação.<br/>
+						
+      <p> <b>SciELO Social Sciences English Edition</b> proporciona acesso à sua 
+        coleção de periódicos através de uma <i>lista alfabética</i> de títulos, 
+        ou por meio de uma <i>lista de assuntos</i> ou ainda através de um módulo 
+        de <i>pesquisa de títulos</i>dos periódicos, por assunto, pelos nomes 
+        das instituições publicadoras e pelo local e publicação.<br/>
 							<br/>
 Interface também propicia acesso aos textos completos dos artigos através de um <i>índice de
 	autor</i> e um <i>índice de assuntos</i>, ou por meio de um formulário de <i>pesquisa de artigos</i>, que busca os elementos que o compõem, tais como autor, palavras
