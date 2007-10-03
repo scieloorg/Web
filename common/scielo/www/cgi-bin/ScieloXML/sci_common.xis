@@ -389,7 +389,7 @@
 		'  <APP_NAME>',v7038,'</APP_NAME>'/,
 		"  <ENABLE_STAT_LINK>"v7039"</ENABLE_STAT_LINK>"/,
 		"  <ENABLE_CIT_REP_LINK>"v7040"</ENABLE_CIT_REP_LINK>"/,
-		"  <MIMETEX>"v7046"</MIMETEX>"/,
+		
 	</pft></display>
 	
 	<call name="CreatePathControlInfoXML">Now</call>

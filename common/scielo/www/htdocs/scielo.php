@@ -84,11 +84,7 @@
 		require_once(dirname(__FILE__)."/export.php");
 		exit;
 	}	
-	if (strpos(" ".$pageContent, "<?xml-stylesheet")>0){
-		header("Content-type:text/xml; charset=utf-8\n");
-	} else {
-		header("Content-type:text/html; charset=utf-8\n");
-	}
+
         if ( !$scielo->_request->getRequestValue ( "lng", $lng ) )
                 {
                     $lng = $scielo->_def->getKeyValue ( "STANDARD_LANG" );
@@ -96,6 +92,11 @@
 	if ($DIVULGA){
 		echo showDivulgacao($lng,$scielo->_script);
 	}
+	if (strpos($pageContent,'<?xml-stylesheet')>0) {
+/* nao retirar isso, senao a conversao de formulas matematicas nao funcionara */
+		header("Content-type:text/xml");
+	}
+
 	echo $pageContent;
 	
 

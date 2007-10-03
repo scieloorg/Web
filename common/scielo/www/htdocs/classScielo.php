@@ -116,7 +116,10 @@ class Scielo extends ScieloBase
 				//Informa data de corte para processamento do Google Schoolar
 				"google_last_process" => "google_last_process",
 				//Serviço do DATASUS
-				"show_datasus" => "show_datasus"
+				"show_datasus" => "show_datasus",
+				"MIMETEX" => "mimetex",
+				"SCRIPT_TOP_TEN" => "SCRIPT_TOP_TEN",
+				"SCRIPT_ARTICLES_PER_MONTH" => "SCRIPT_ARTICLES_PER_MONTH"
 			);
 
 
