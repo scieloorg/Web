@@ -1,7 +1,7 @@
 [PATH]
 PATH_DATA=/iah/
-PATH_CGI-BIN=/home/scielo/www/cgi-bin/iah/
-PATH_DATABASE=/home/scielo/www/bases/
+PATH_CGI-BIN=/home/scielo-ss/www/cgi-bin/iah/
+PATH_DATABASE=/home/scielo-ss/www/bases/
 
 [APPEARANCE]
 BODY BACKGROUND COLOR=white
@@ -18,15 +18,15 @@ WARNING TEXT COLOR=
 LOGO IMAGE=scielog.gif
 LOGO TEXT COLOR=
 LOGO BACKGROUND COLOR=
-LOGO URL=www.scielo.br
+LOGO URL=socialsciences.scielo.org
 HEADER IMAGE=^ponlinep.gif^eonlinee.gif^ionlinei.gif
 HEADER TEXT COLOR=
 HEADER BACKGROUND COLOR=
-HEADER URL=www.scielo.br
+HEADER URL=socialsciences.scielo.org
 
 [IAH]
-MANAGER E-MAIL=scielo@bireme.br
+MANAGER E-MAIL=scielo.socialsciences@bireme.org
 MAINTENANCE=OFF
 REVERSE MODE=ON
 MULTI-LANGUAGE=ON
-LOG_DATABASE=/home/scielo/www/bases/logdia/iahlog
+REM-LOG DATABASE=/home/scielo-ss/www/bases/logdia/iahlog

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<labels>
+	<label id="serial browsing">serial browsing</label>
+	<label id="alphabetic list">alphabetic list</label>
+	<label id="subject list">subject list</label>
+	<label id="search form">search form</label>
+	<label id="article browsing">article browsing</label>
+	<label id="author index">author index</label>
+	<label id="subject index">subject index</label>
+	<label id="search form2">search form</label>
+	<label id="reports">reports</label>
+	<label id="site usage">site usage</label>
+	<label id="journal citation">journal citation</label>
+</labels>

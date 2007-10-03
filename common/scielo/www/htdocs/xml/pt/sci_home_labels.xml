@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<labels>
+	<label id="serial browsing">periódicos</label>
+	<label id="alphabetic list">lista alfabética</label>
+
+	<label id="subject list">lista por assunto</label>
+	
+	<label id="search form">pesquisa de títulos</label>
+	<label id="article browsing">artigos</label>
+	<label id="author index">índice de autores</label>
+	<label id="subject index">índice de assuntos</label>
+<label id="search form2">pesquisa de artigos</label>
+	<label id="reports">relatórios</label>
+	<label id="site usage">uso do site</label>
+	<label id="journal citation">citações de revistas</label>
+</labels>			

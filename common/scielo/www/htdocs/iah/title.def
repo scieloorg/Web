@@ -4,13 +4,13 @@ FILE DATABASE.*=%path_database%title/title.*
 FILE FULINV.*=%path_database%title/titsrc.*
 FILE PREINV.*=%path_database%title/titsrcp.*
 
-FILE HEADER.IAH=/home/scielo/www/cgi-bin/iah-styles/header.pft
+FILE HEADER.IAH=/home/scielo-ss/www/cgi-bin/iah-styles/header.pft
 
-FILE scistyle.pft=/home/scielo/www/cgi-bin/iah-styles/scistyle.pft
-FILE places.pft=/home/scielo/www/cgi-bin/iah-styles/place-generico.pft
-FILE iso.pft=/home/scielo/www/cgi-bin/iah-styles/fbsrc1.pft
-FILE van.pft=/home/scielo/www/cgi-bin/iah-styles/fbsrc1.pft
-FILE abn.pft=/home/scielo/www/cgi-bin/iah-styles/fbsrc1.pft
+FILE scistyle.pft=/home/scielo-ss/www/cgi-bin/iah-styles/scistyle.pft
+FILE places.pft=/home/scielo-ss/www/cgi-bin/iah-styles/place-generico.pft
+FILE iso.pft=/home/scielo-ss/www/cgi-bin/iah-styles/fbsrc1.pft
+FILE van.pft=/home/scielo-ss/www/cgi-bin/iah-styles/fbsrc1.pft
+FILE abn.pft=/home/scielo-ss/www/cgi-bin/iah-styles/fbsrc1.pft
 FILE issue.*=%path_database%issue/issue.*
 FILE facic.*=%path_database%issue/facic.*
 FILE artigo.*=%path_database%artigo/artigo.*
