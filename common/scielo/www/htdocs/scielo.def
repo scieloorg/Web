@@ -5,8 +5,8 @@ SITE_AUTHOR=FAPESP - BIREME
 ADDRESS_1=Rua Botucatu, 862 - Vila Clementino
 ADDRESS_2=04023-901 São Paulo SP
 COUNTRY=Brasil
-PHONE_NUMBER=+55 11 5576-9863
-FAX_NUMBER=+55 11 5575-8868
+PHONE_NUMBER="+55 11 5576-9863"
+FAX_NUMBER="+55 11 5575-8868"
 E_MAIL=scielo@bireme.br
 STANDARD_LANG=en
 APP_NAME=scielo
@@ -61,8 +61,8 @@ MYSQL_PASSWORD=20log01
 ACTIVATE_GOOGLE=0
 GOOGLE_CODE=UA-604844-1
 PATH_LOG_CACHE=/home/scielo/www/bases/pages/sci_stat/
-SCRIPT_TOP_TEN=http://scielo-log.bireme.br/scielolog/ofigraph20.php?app=scielo
-SCRIPT_ARTICLES_PER_MONTH=http://scielo-log.bireme.br/scielolog/ofigraph21.php?app=scielo
+SCRIPT_TOP_TEN="http://scielo-log.bireme.br/scielolog/ofigraph20.php?app=scielo"
+SCRIPT_ARTICLES_PER_MONTH="http://scielo-log.bireme.br/scielolog/ofigraph21.php?app=scielo"
 
 [LOG_DATABASE_INFO]
 DB_NAME = log
@@ -130,10 +130,10 @@ mimetex=/cgi-bin/mimetex.exe
 client_charset = utf-8
 
 [XML_ERROR]
-ENABLED_XML_ERROR=1
-ENABLED_MAIL_ALERT=1
+ENABLED_XML_ERROR=0
+ENABLED_MAIL_ALERT=0
 ENABLED_LOG_XML_ERROR=1
-MAILTO_XML_ERROR=gustavo.fonseca@bireme.org
+MAILTO_XML_ERROR=xxx@xxx.xxx
 NAMETO_XML_ERROR=SciELO
 LOG_XML_ERROR_FILENAME=/home/scielo/www/logs/xml_error_log.txt
 

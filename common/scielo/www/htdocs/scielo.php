@@ -92,6 +92,11 @@
 	if ($DIVULGA){
 		echo showDivulgacao($lng,$scielo->_script);
 	}
+	if (strpos($pageContent,'<?xml-stylesheet')>0) {
+/* nao retirar isso, senao a conversao de formulas matematicas nao funcionara */
+		header("Content-type:text/xml");
+	}
+
 	echo $pageContent;
 
 
