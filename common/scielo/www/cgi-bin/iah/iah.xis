@@ -178,8 +178,7 @@
 	<field action="replace" tag="5008"><pft>if a(v5008) then '10' fi</pft></field>
 	<field action="replace" tag="5009"><pft>if a(v5009) then  (if v5005^n = 'DEFAULT' then v5005^f fi) fi</pft></field>	
 	
-	<field action="replace" tag="7999" split="occ"><pft>mid(v1,instr(v1,'DISPLAY_FORM]'),size(v1))</pft></field>
-	<field action="replace" tag="7999" split="occ"><pft>if instr(v7999,'[')>0 then  mid(v7999,1,instr(v7999,'[')) fi</pft></field>
+	<field action="replace" tag="7999" split="occ"><pft>(v1/)</pft></field>
 	<field action="replace" tag="5018">
 		<pft>(
 				if left(v7999,instr(v7999,'=')-1) : 'FEATURES'  then '^f',mid(v7999,instr(v7999,'=')+1,size(v7999)) fi,
@@ -189,9 +188,6 @@
 			)</pft>
 	</field>
 
-	<field action="replace" tag="7999" split="occ"><pft>mid(v1,instr(v1,'VARIABLES]'),size(v1))</pft></field>
-	<field action="replace" tag="7999" split="occ"><pft>if instr(v7999,'[')>0 then  mid(v7999,1,instr(v7999,'[')) fi</pft></field>
-	
 	<field action="replace" tag="3100">
 		<pft>
 			,(,
