@@ -2,7 +2,11 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 <xsl:output method="html" version="1.0" encoding="UTF-8" indent="yes"/>
 <xsl:variable name="lang" select="//lang"/>
-<xsl:variable name="texts" select="document('../applications/scielo-org/xml/texts.xml')/texts/language[@id = $lang]"/>
+
+<xsl:variable name="pathhtdocs" select="/root/vars/htdocs"/>
+<xsl:variable name="texts" select="document(concat('file://',$pathhtdocs,'applications/scielo-org/xml/texts.xml'))/texts/language[@id = $lang]"/>
+
+
 <xsl:variable name="from" select="//from"/>
 <xsl:variable name="to">
 	<xsl:choose>
@@ -58,7 +62,7 @@
 		<xsl:template match="record" mode="total">
 			<xsl:choose>
 				<xsl:when test="(normalize-space(field[@tag = 10]/occ) &gt;= normalize-space($from)) and  (normalize-space(field[@tag = 10]/occ) &lt;= normalize-space($to))">
-			 		<xsl:if test="position() = last()">Total: <xsl:value-of select="position()"/></xsl:if>
+			 		<xsl:if test="position() = last()">Total: <xsl:value-of select="//Isis_Total/occ"/></xsl:if>
 	                 	</xsl:when>
 				<xsl:otherwise>
 					<xsl:if test="position() = last()"><xsl:value-of select="$texts/text[find='doiNotFound']/replace"/></xsl:if>
