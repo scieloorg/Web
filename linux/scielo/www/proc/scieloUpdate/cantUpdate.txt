@@ -2,3 +2,6 @@
 /home/scielo/repositorio/linux/scielo/www/proc/scieloUpdate/conf.sh
 /home/scielo/repositorio/linux/scielo/www/proc/scieloUpdate/LEIA-ME.txt
 /home/scielo/repositorio/linux/scielo/www/proc/scieloUpdate/subversion.sh
+/home/scielo/repositorio/linux/scielo/www/proc/transform/chama.sh
+/home/scielo/repositorio/linux/scielo/www/proc/transform/xslts.ini
+/home/scielo/repositorio/common/scielo/www/cgi-bin/iah-styles/place-sc.pft
