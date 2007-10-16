@@ -7,7 +7,7 @@
 
 	define ( "DEFNAME", "scielo.def" );
     define ( "DEFAULT_CACHE_EXPIRES", 180 );
-
+	$defFile = parse_ini_file(dirname(__FILE__)."/../scielo.def");
     $metadataPrefixList = array ( "oai_dc" => array( "ns" => "http://www.openarchives.org/OAI/2.0/oai_dc/",
                                                      "schema" => "http://www.openarchives.org/OAI/2.0/oai_dc.xsd") );
 /*
@@ -165,7 +165,7 @@
 
     function generatePayload ( $ws_client_url, $service, $service_name, $parameters, $xsl )
     {
-        global $debug;
+        global $debug, $defFile;
 			//die($service_name." - ".$service);
 			switch ( $service_name )
 			{
@@ -203,9 +203,15 @@
        // $result = "";
         if ( !$debug )
         {
-	        $transform = new XSLTransformer ();
+			$transform = new XSLTransformer ();
+			if (getenv("ENV_SOCKET")!="true"){  //socket
+				$xsl = file_get_contents($defFile["PATH_OAI"].$xsl);
+			} else {
+				$xsl = str_replace('.XSL','',strtoupper($xsl));
+			}
+	    	$transform->setXslBaseUri($defFile["PATH_OAI"]);	
     	    $transform->setXsl ( $xsl );
-	        $transform->setXml2 ( $response );
+	        $transform->setXml ( $response );
 	        $transform->transform();
             if ( $transform->getError() )
     	    {
@@ -250,8 +256,8 @@
                                   
             if ( $debug ) $parameters[ "debug" ] = true;
                                   
-	        $xsl = $xslPath . "GetRecord.xsl";
-
+	       // $xsl = $xslPath . "GetRecord.xsl";
+			 $xsl = "GetRecord.xsl";
 	    	$result = generatePayload ( $ws_client_url, "getAbstractArticle", "GetRecord", $parameters, $xsl );
 	    }
 
@@ -290,8 +296,8 @@
 
         if ( $debug ) $parameters[ "debug" ] = true;
             
-        $xsl = $xslPath . "Identify.xsl";
-
+       // $xsl = $xslPath . "Identify.xsl";
+		 $xsl = "Identify.xsl";
 	   	$result = generatePayload ( $ws_client_url, "listRecords","Identify", $parameters, $xsl );
         
         $payload .= trim ( str_replace ( "datestamp", "earliestDatestamp", $result ) );
@@ -324,8 +330,8 @@
                                   
             if ( $debug ) $parameters[ "debug" ] = true;
 
-        	$xsl = $xslPath . "ListMetadataFormats.xsl";
-
+        	//$xsl = $xslPath . "ListMetadataFormats.xsl";
+			$xsl = "ListMetadataFormats.xsl";
     		$payload = generatePayload ( $ws_client_url, "getAbstractArticle","ListMetadataFormats", $parameters, $xsl );
 		}
 
@@ -360,8 +366,8 @@
     {
         global $debug;
         
-        $xsl = $xslPath . "ListSets.xsl";
-
+        //$xsl = $xslPath . "ListSets.xsl";
+		$xsl = "ListSets.xsl";
 		$parameters = array ( "lang" => "en" );
         
         if ( $debug ) $parameters[ "debug" ] = true;
@@ -407,8 +413,8 @@
 
             if ( $debug ) $parameters[ "debug" ] = true;
             
-	        $xsl = $xslPath . "$verb.xsl";
-
+	        //$xsl = $xslPath . "$verb.xsl";
+			$xsl = "$verb.xsl";
 	    	$result = generatePayload ( $ws_client_url, "listRecords", $verb, $parameters, $xsl );
 	    }
 
