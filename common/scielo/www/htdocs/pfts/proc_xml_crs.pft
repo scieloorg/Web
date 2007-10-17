@@ -62,7 +62,7 @@
                                         else
                                         '<doi>10.1590/',v880,'</doi>',#
                                         fi
-                                        '<resource>http://ojps.aip.org/link/?apl/74/2268/ab</resource>',#
+                                        '<resource>http://www.scielo.br/scielo.php?script=sci_arttext&amp;pid=',if p(v881) then v881 else v880 fi,'&amp;lng=en&amp;nrm=iso&amp;tlng=en</resource>',#
                                 '</doi_data>',#
                         '</journal_article>',#
                 '</journal>',#
