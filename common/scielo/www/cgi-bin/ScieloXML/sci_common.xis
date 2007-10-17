@@ -27,20 +27,21 @@
 		<loop>
 
 			<field action="import" tag="list">4900</field>
-			<!--display><pft>'v4900 = ',v4900,'<br>'</pft></display>
-			<display><pft>'v4901 = ',v4901,'<br>'</pft></display-->
-			<call name="issueHasArticles"><pft>v4900</pft></call>
-			
+			<field action="delete" tag="list">9032</field>
+			<call name="isAnIssueAvailableBeforePrint"><pft>v4901*1</pft></call>
+	<display><pft>'<!-- v4901=', v4901,' -->'</pft></display>
+	<display><pft>'<!-- v4900=', v4900,' -->'</pft></display>
+	<display><pft>'<!-- l([NEWISSUE],v4901)=',f(l(['NEWISSUE'],v4901),1,0),' -->'</pft></display>
+
 			<flow action="skip">
 				<pft>
-					if ref(['NEWISSUE']l(['NEWISSUE'],v4901),v32)<>'ahead' then
+					if v9032='' then
+
 						if instr(v4901,v4900) = 0 then
 							'Quit'
 						else
 							if l(['NEWISSUE'],v4901) > 0 then
-								if v9036=v4900 then
 									'Quit' 
-								fi
 							fi
 						fi
 					fi
@@ -50,6 +51,7 @@
 	</do>
 	
 	<!--display><pft>'Isis_Key (v4901): ', v4901,'<br>'</pft></display-->
+	<display><pft>'<!-- retorno=',if p(v4901) and instr(v4901, v4900) > 0 then v4901*1 fi,' -->'</pft></display>
 	
 	<return action="replace" tag="7090">
 		<pft>
@@ -77,6 +79,22 @@
 <!-- ============================================================================ -->
 <function name="GetPreviousIssue" action="replace" tag="4900">
 	<!--display><pft>'v4900 = ',v4900,'<br>'</pft></display-->
+
+
+	<!-- as tres partes abaixo se excluem -->
+	<!-- parte 1 - no caso de current=review entao previous=ahead -->
+	<call name="isAnIssueAvailableBeforePrint"><pft>v4900</pft></call>
+	<call name="GetIssueAvailableBeforePrint"><pft>if v9032='review' then '^a',mid(v4900,1,9),'^bAHEAD' fi</pft></call>
+	<field action="replace" tag="7085"><pft>v7095</pft></field>
+	<field action="delete" tag="7095">1</field>
+
+	<!-- parte 2 - no caso de current=review ou current=ahead entao previous=ultimo issue diferente de ahead -->
+	<call name="GetCurrentIssue"><pft>if a(v7085) then if v9032='ahead' or v9032='review' then mid(v4900,1,9) fi fi</pft></call>
+	<field action="replace" tag="7085"><pft>v7090</pft></field>
+	<field action="delete" tag="7090">1</field>
+
+	<!-- parte 3 - no caso de nenhum das anteriores, entao previous eh qualquer issue normal -->
+	<flow action="jump"><pft>if p(v7085) then 'fim' fi</pft></flow>
 	<do task="keyrange">
 		<!--parm name="db">NEWISSUE</parm-->
 		<parm name="db">ARTIGO</parm>
@@ -87,89 +105,119 @@
 		<field action="define" tag="4901">Isis_Key</field>
 		
 		<loop>
+			<display><pft>'<!-- ',v4901,' -->'/</pft></display>
 			<field action="import" tag="4900">4900</field>
-			<call name="issueHasArticles"><pft>v4900</pft></call>
+			<call name="isAnIssueAvailableBeforePrint"><pft>v4901*1</pft></call>
 			<field action="replace" tag="4902">
 				<pft>
-					/* The first key found whose pid isn't the current issue's  */
-					/* pid stops the loop.                                      */
-
+					/* The first key found whose pid isn't the current issue's and it is not ahead neither review */
 					if p(v4901) then
 						if  instr(v4901,v4900) = 0 then
-							/* nao eh o primeiro, que seria ele mesmo */
+							/* eh a proxima chave, agora verifica se eh a mesma revista */
 							if  instr(v4901,s('Y',mid(v4900,1,9))) = 1 then
 								/* eh da mesma revista, mesmo issn */
-								if ref(['NEWISSUE']l(['NEWISSUE'],v4901),v32)<>'ahead' then
-									if v4900=v9036 and
-								   		l(['NEWISSUE'],v4901) > 0 then, 
+								if v9032<>'ahead' and v9032<>'review' then
+									if l(['NEWISSUE'],v4901) > 0 then, 
 										'OK' 
 									fi
 								fi
 							else 
-								/* eh da mesma revista, mesmo issn */
-								'Quit'
+								/* nao eh da mesma revista, issn diferente */
+								'Error'
 							fi
 						else 
-							/* eh ele mesmo, entao continuar */
+							/* eh a mesma chave, entao continuar */
 						fi
 					else
- 							'Quit' 
+ 							'Error' 
 					fi 
 				</pft>
 			</field>
-			<field action="export" tag="list">4902</field>
+			
+			<field action="export" tag="list">4901,4902</field>
 			<flow action="skip">
 				<pft>
-					if v4902='OK' or v4902='Quit' then 
+					if v4902='OK' or v4902='Error' then 
 						'Quit'
 					fi
 				</pft>
 			</flow>
 		</loop>	
 	</do>	
-
-	<return action="replace" tag="7085">
-		<pft>
-			/* The pid of the key must be different from the pid of the current issue */
-			/* and the issn must be equal.                                            */
-			if v4902='OK' then, 
-				v4901*1,
-			fi,
-		</pft>
-	</return>
+	<field action="replace" tag="7085"><pft>if v4902='OK' then v4901*1 fi</pft></field>
+	<label>fim</label>
+	<return action="replace" tag="7085"><pft>v7085</pft></return>
 </function>
 
 <!-- ============================================================================ -->
-<!--  function GetAheadIssue                                                       -->
+<!--  function isAnIssueAvailableBeforePrint						              -->
 <!--                                                                              -->
-<!--  Gets the pid (issnyyyynnnn) of the AHEAD issue					          -->
+<!--  Gets the pid (issnyyyynnnn) of an issue with special characteristics,       -->
+<!--            which can be ahead or review, or ...                              -->
 <!--                                                                              -->
 <!--  Argument:                                                                   -->
-<!--     The ISSN of the current issue.											  -->
+<!--   v4900 :   The pid (issnyyyynnnn)  									  -->
+<!--   v4900^m : mfn do issue													  -->
 <!--                                                                              -->
 <!--  Return value:                                                               -->
-<!--     If found, returns the pid of the next issue in the tag 7095. Otherwise   -->
-<!--  returns nothing.                                                            -->
+<!--     If found, returns the pid of an issue with special characteristics       -->
+<!--     in the tag 9032. Otherwise  returns nothing.							  -->
+<!--																	          -->
 <!-- ============================================================================ -->
-<function name="GetAheadIssue" action="replace" tag="4900">
+<function name="isAnIssueAvailableBeforePrint" action="replace" tag="4900">
+	<!--display><pft>'v4900 = ',v4900,'<br>'</pft></display-->
+	<!-- 
+		Essa funcao foi criada para encapsular o que identifica a caracteristica 
+		de um issue ser publicado antes de impresso (ahead or review) 
+		Atualmente, foi decidido que o v32 (numero) eh o que identifica, mas
+		em breve, isso pode mudar. Havendo essa função muda-se as regras aqui 
+		e o restante do programa continuará valendo
+	-->
+
+	<field action="replace" tag="1">
+		<pft>if p(v4900^m) then v4900^m else f(l(['NEWISSUE'],'Y',v4900),1,0) fi</pft>
+	</field>
+	<field action="replace" tag="9032">
+		<pft>if ref(['NEWISSUE']val(v1),v32)='ahead' or ref(['NEWISSUE']val(v1),v32)='review' then ref(['NEWISSUE']val(v1),v32) fi</pft>
+	</field>
+	
+	<return action="replace" tag="9032"><pft>v9032</pft></return>
+		
+</function>
+
+<!-- ============================================================================ -->
+<!--  function GetIssueAvailableBeforePrint                                  -->
+<!--                                                                              -->
+<!--  Gets the pid (issnyyyynnnn) of an issue with special characteristics,       -->
+<!--            which can be ahead or review, or ...                              -->
+<!--                                                                              -->
+<!--  Argument:                                                                   -->
+<!--   v4900^a :   The ISSN of the title.										  -->
+<!--   v4900^b :   the prefix: AHEAD or REVIEW									  -->
+<!--   v4900^c :   retorna o pid mesmo que não tenha artigos                      -->
+<!--  Return value:                                                               -->
+<!--     If found, returns the pid of an issue with special characteristics       -->
+<!--     in the tag 7095. Otherwise  returns nothing.							  -->
+<!--																	          -->
+<!-- ============================================================================ -->
+<function name="GetIssueAvailableBeforePrint" action="replace" tag="4900">
 	<!--display><pft>'v4900 = ',v4900,'<br>'</pft></display-->
 
 	<do task="keyrange">
 		<parm name="db">ARTIGO</parm>
-		<parm name="from"><pft>'AHEAD=',v4900</pft></parm>
+		<parm name="from"><pft>v4900^b,'='v4900^a</pft></parm>
 		<parm name="count">1</parm>
-		
 
 		<loop>
 			<field action="import" tag="4900">4900</field>
 			<field action="replace" tag="4901">
-				<pft>ref(['ARTIGO']l(['ARTIGO'],'AHEAD=',v4900),@PROC_SPLIT_MST.PFT,
+				<pft>ref(['ARTIGO']l(['ARTIGO'],v4900^b,'=',v4900^a),@PROC_SPLIT_MST.PFT,
 					v35,v65*0.4,s(f(val(s(v36*4.3))+10000,2,0))*1.4)</pft>
 			</field>
 			<field action="export" tag="4901">4901</field>
 		</loop>	
 	</do>
-	<flow action="jump"><pft>if a(v4901) then 'Next' fi</pft></flow>
+	<flow action="jump"><pft>if a(v4901) or v4900^c='0' then 'Next' fi</pft></flow>
 	<do task="keyrange">
 	   <parm name="db">ARTIGO</parm>
 	   <parm name="from"><pft>'SM='v4901</pft></parm>
@@ -181,16 +229,9 @@
 		</loop>	
 	</do>	
 	<label>Next</label>
-	<return action="replace" tag="7095">
-		<pft>
-			if p(v4902) then
-				v4901,
-			fi,
-		</pft>
-	</return>
+	<return action="replace" tag="7095"><pft>if p(v4902) or p(v4900^c) then v4901,if v4900^c='1' and p(v4902) then '^f1' fi, fi</pft></return>
 		
 </function>
-
 
 <!-- ============================================================================ -->
 <!--  function GetNextIssue                                                       -->
@@ -206,7 +247,13 @@
 <!-- ============================================================================ -->
 <function name="GetNextIssue" action="replace" tag="4900">
 	<!--display><pft>'v4900 = ',v4900,'<br>'</pft></display-->
-	<call name="issueHasArticles"><pft>v4900</pft></call>
+	
+	<call name="isAnIssueAvailableBeforePrint"><pft>v4900</pft></call>
+
+	<flow action="jump"><pft>if v9032='ahead' then 'CHECK_REVIEW'	fi</pft></flow>
+
+	<flow action="jump"><pft>if v9032='review' then 'NO_NEXT'	fi</pft></flow>
+
 	<do task="keyrange">
 		<!--parm name="db">NEWISSUE</parm-->
 		<parm name="db">ARTIGO</parm>
@@ -216,16 +263,16 @@
 		<field action="define" tag="4901">Isis_Key</field>
 
 		<loop>
+			<display><pft>'<!-- ',v4901,' -->'/</pft></display>
 			<field action="import" tag="list">9036,4900</field>
 			
 			<flow action="skip">
 				<pft>
 					/* The first key found whose pid isn't the current issue's  */
 					/* pid stops the loop.                                      */
-					if ref(['NEWISSUE']l(['NEWISSUE'],v4901),v32)<>'ahead' then
-						if v4900=v9036 and
-						   l(['NEWISSUE'],v4901) > 0 then, 
-								'Quit'
+					if v9032<>'ahead' and v9032<>'review'  then
+						if l(['NEWISSUE'],v4901) > 0 then, 
+							'Quit'
 						fi
 					fi
 				</pft>
@@ -233,22 +280,34 @@
 		
 		</loop>	
 	</do>	
-
-	<!--display><pft>'Isis_Key (v4901): ', v4901,'<br>'</pft></display-->
-	
-	<return action="replace" tag="7095">
-		<pft>
+	<field action="replace" tag="7095"><pft>
 			/* The pid of the key must be different from the pid of the current issue */
 			/* and the issn must be equal.                                            */
+
+			/* chave valida */
 			if p(v4901) and 
-				   instr(v4901, v4900) = 0 and
+					/* chave nao eh a mesma do issue atual */
+				   instr(v4901, v4900) = 0 and  	
+				
+				   /* mas eh do mesmo issn */
 				   instr(v4901, left(v4900, size(v4900) - 8) ) > 0 and
-				   v4900=v9036 and
-				   l(['NEWISSUE'],v4901) > 0 then, 
+				   
+				   /* existe em newissue */
+					l(['NEWISSUE'],v4901) > 0 then, 
+
 					v4901*1,
 			fi,
 		</pft>
-	</return>
+	</field>
+
+	<label>CHECK_AHEAD</label>
+	<call name="GetIssueAvailableBeforePrint"><pft>if a(v7095) then '^a',mid(v4900,1,9),'^bAHEAD' fi</pft></call>
+	
+	<label>CHECK_REVIEW</label>
+	<call name="GetIssueAvailableBeforePrint"><pft>if a(v7095) then '^a',mid(v4900,1,9),'^bREVIEW' fi</pft></call>
+
+	<label>NO_NEXT</label>
+	<return action="replace" tag="7095"><pft>v7095</pft></return>
 		
 </function>
 
@@ -443,8 +502,11 @@
 	<!--display><pft>| v4900 = |v4900</pft></display-->
 
 	<call name="GetCurrentIssue"><pft>v4900</pft></call>
-	<call name="GetPreviousIssue"><pft>if p(v7090) then v7090 fi</pft></call>
-	<call name="GetAheadIssue"><pft>v4900</pft></call>
+	<call name="GetPreviousIssue"><pft>v7090</pft></call>
+	<call name="GetNextIssue"><pft>v7090</pft></call>
+	<!--call name="GetIssueAvailableBeforePrint"><pft>'^a'v4900,'^bAHEAD'</pft></call>
+
+	<call name="GetIssueAvailableBeforePrint"><pft>if a(v7095) then '^a'v4900,'^bREVIEW' fi</pft></call-->
 
 	<display>
 		<pft>
@@ -496,19 +558,13 @@
 <function name="CreatePreviousNextIssue" action="replace" tag="4900">
 	<field action="delete" tag="list">7085,7090,7095</field>
 
-	<field action="replace" tag="32"><pft>ref(['NEWISSUE'] l(['NEWISSUE'], 'Y',v4900), v32)</pft></field>
+	<!-- inicio - get v7085 = Previous issue -->
+	<call name="GetPreviousIssue"><pft>v4900</pft></call>
+	<!-- fim - get v7085 = Previous issue -->
 
-	<!--display><pft>ALL</pft></display>
-	<trace>On</trace-->
-	<!-- GetCurrentIssue and GetPreviousIssue are excludent -->
-	<call name="GetCurrentIssue"><pft>if v32='ahead' then mid(v4900,1,9) fi</pft></call>
-	<call name="GetPreviousIssue"><pft>if v32<>'ahead' then v4900 fi</pft></call>
-	<field action="replace" tag="7085"><pft>v7090</pft></field>
-
-	<!-- GetNextIssue and GetAheadIssue are excludent -->
-	<call name="GetNextIssue"><pft>if v32<>'ahead' then v4900 fi</pft></call>
-	<!-- if not exist Next check for ahead issue -->
-	<call name="GetAheadIssue"><pft>if v32<>'ahead' and a(v7095) then mid(v4900,1,9) fi</pft></call>
+	<!-- inicio - get v7095 = Next issue -->
+	<call name="GetNextIssue"><pft>v4900</pft></call>
+	<!-- fim - get v7095 = Next issue -->
 
 	<display>
 		<pft>

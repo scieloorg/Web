@@ -9,6 +9,13 @@
      4001^p - PID (ISSN) 
 	 4001^l - Interface language -->
 
+
+ <call name="GetIssueAvailableBeforePrint"><pft>'^a',v4001^p,'^bAHEAD^c1'</pft></call>
+ <field action="replace" tag="5000"><pft>v7095</pft></field>
+
+ <call name="GetIssueAvailableBeforePrint"><pft>'^a',v4001^p,'^bREVIEW^c1'</pft></call>
+ <field action="replace" tag="5001"><pft>v7095</pft></field>
+	
  <display><pft>' <AVAILISSUES>'/</pft></display>
 	 
  <!-- Get Issues from NEWISSUE DB -->
@@ -27,29 +34,31 @@
    <field action="replace" tag="2001"><pft>'-'</pft></field>
 
    <loop>
-    <field action="import" tag="list">2000,2001,4001,5000</field>
-	
-	<field action="replace" tag="5000"><pft>ref(['NEWISSUE']val(v1003^m),if v31='ahead' or v32='ahead' then '^y',mid(v65,1,4),'^n',v35,v65*0.4,s(f(val(s(v36*4.3))+10000,2,0))*1.4 fi)</pft></field>
+    <field action="import" tag="list">2000,2001,4001,5000,5001</field>
 
+	<!-- if it is an issue available before print then skip next -->
+	<flow action="skip"><pft>if v1002*1=v5000^* or v1002*1=v5001^* then 'Next' fi</pft></flow>
+	
+    <field action="replace" tag="9065"><pft>ref(['NEWISSUE']val(v1003^m),mid(v65,1,4))</pft></field>	
+	
 	<flow action="jump">
-	 <pft>if s(v2000)=mid(ref(['NEWISSUE']val(v1003^m),v65),1,4) then 'NEXT_VOL' fi</pft>
+	 <pft>if s(v2000)=v9065 then 'NEXT_VOL' fi</pft>
 	</flow>
 	
 	<!-- New Year -->
    	<display>
 	 <pft>if s(v2001)<>'-' then '   </VOLISSUE>'/ fi,
 	      if s(v2000)<>'-' then '  </YEARISSUE>'/ fi,
-	      ref(['NEWISSUE']val(v1003^m),'  <YEARISSUE YEAR="'mid(v65,1,4)'">'/)</pft>
+	      '  <YEARISSUE YEAR="',v9065,'">'/</pft>
 	</display>
-    <field action="replace" tag=2000><pft>ref(['NEWISSUE']val(v1003^m),mid(v65,1,4))</pft></field>	
+    <field action="replace" tag="2000"><pft>v9065</pft></field>	
     <field action="replace" tag="2001"><pft>'-'</pft></field>
 		
 	<label>NEXT_VOL</label>
 	<!-- Same Volume -->
-	<!-- ahead of print, se v31='' mas v32='ahead' manter o número no mesmo ano/volume -->
+    <field action="replace" tag="9031"><pft>ref(['NEWISSUE']val(v1003^m),if p(v31) then v31 else 's/v' fi)</pft></field>	
 	<flow action="jump">
-	 <pft>if s(v2001)=ref(['NEWISSUE']val(v1003^m),if p(v31) then v31 else 's/v' fi) or 			
-						instr(ref(['NEWISSUE']val(v1003^m),if a(v31) then v32 fi),'ahead')>0 then 
+	 <pft>if s(v2001)=v9031 then 
 			,'NEXT_ISSUE',
 		,fi</pft>
 	</flow>
@@ -57,38 +66,35 @@
     <!-- New Volume -->
 	<display>
 	 <pft>if s(v2001)<>'-' then '   </VOLISSUE>'/ fi,
-	      ref(['NEWISSUE']val(v1003^m),'   <VOLISSUE VOL="'v31'">'/)</pft>
+	      '   <VOLISSUE VOL="'v9031'">'/</pft>
 	</display>
-    <field action="replace" tag=2001>
-	  <pft>ref(['NEWISSUE']val(v1003^m),if p(v31) then v31 else 's/v' fi)</pft>
-	</field>	
+    <field action="replace" tag="2001"><pft>v9031</pft></field>	
 	
 	<label>NEXT_ISSUE</label>
-    <field action="replace" tag="2003">
-	 <pft>ref(['NEWISSUE']val(v1003^m),v35,v65*0.4,s(f(val(s(v36*4.3))+10000,2,0))*1.4)</pft>
-	</field>
+    <field action="replace" tag="2003"><pft>v1002*1</pft></field>
 	<call name="issueHasArticles"><pft>v2003</pft></call>
 	<display>
 	 <pft>if  v9036=v2003 then
 	       ref(['NEWISSUE']val(v1003^m),
-		   ,if v32<>'ahead' then
 		   '    <ISSUE'
 				,mpu,if p(v32) then ' NUM="'v32'"' fi,mpl,
 				,| SUPPL="|v131|"|,| SUPPL="|v132|"|,
-				,' SEQ="',v35,v65*0.4,s(f(val(s(v36*4.3))+10000,2,0))*1.4,'"/>'/
-		  ,fi,),
+		  ),
+ 		  ,' SEQ="',v1002*1,'"/>'/
 		  ,fi
 		  </pft>
 	</display>	 	
-	<field action="export" tag="list">2000,2001,4001,5000</field>
+	<field action="export" tag="list">2000,2001,4001,5000,5001</field>
    </loop>
  </do>
 
- <flow action="jump"><pft>if a(v5000) then 'CLOSE_VOLUME' fi</pft></flow>
- <call name="issueHasArticles"><pft>v5000^n</pft></call>
 <display>
-	<pft>if v9036=v5000^n then
-			'<ISSUE NUM="AHEAD" SEQ="',v5000^n,'"/>'/
+	<pft>
+		if p(v5000^f) then
+			'<ISSUE NUM="AHEAD" SEQ="',v5000^*,'"/>'/
+		,fi
+		if p(v5001^f) then
+			'<ISSUE NUM="REVIEW" SEQ="',v5001^*,'"/>'/
 		,fi
 	</pft>
 </display>	

@@ -275,6 +275,11 @@
 							<xsl:with-param name="lang" select="//CONTROLINFO/LANGUAGE"/>
 						</xsl:call-template>
 						<xsl:if test="@NUM='AHEAD'">ahead of print</xsl:if>
+						<xsl:if test="@NUM='REVIEW'"><xsl:choose>
+					<xsl:when test="//CONTROLINFO/LANGUAGE='es'">en revisión</xsl:when>
+					<xsl:when test="//CONTROLINFO/LANGUAGE='pt'">em revisão</xsl:when>
+					<xsl:otherwise>review in progress</xsl:otherwise>
+				</xsl:choose></xsl:if>
 					</A>
 				</FONT>
 			</B>

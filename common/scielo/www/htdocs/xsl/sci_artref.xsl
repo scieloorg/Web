@@ -24,6 +24,11 @@
 			</xsl:call-template>
 		</xsl:if>
 		<xsl:if test="contains($num,'ahead')">ahead of print</xsl:if>
+		<xsl:if test="contains($num,'review')"><xsl:choose>
+					<xsl:when test="$lang='es'">en revisión</xsl:when>
+					<xsl:when test="$lang='pt'">em revisão</xsl:when>
+					<xsl:otherwise>review in progress</xsl:otherwise>
+				</xsl:choose></xsl:if>
 	</xsl:template>
 	<!-- Get Number in specified language -->
 	<xsl:template name="GetNumber">
@@ -44,14 +49,15 @@
 			</xsl:when>
 			<xsl:when test="$num='se' or $num='SE'">
 				<xsl:choose>
-					<xsl:when test="$lang='es'">edición especial</xsl:when>
-					<xsl:when test="$lang='pt'">edição especial</xsl:when>
-					<xsl:otherwise>especial edition</xsl:otherwise>
+					<xsl:when test="$lang='es'">edición special</xsl:when>
+					<xsl:when test="$lang='pt'">edição special</xsl:when>
+					<xsl:otherwise>special edition</xsl:otherwise>
 				</xsl:choose>
 				<xsl:if test="string-length($num) > 3">
 					<xsl:value-of select="concat(' ',substring($num,4))"/>
 				</xsl:if>
 			</xsl:when>
+			<xsl:when test="starts-with($num,'REVIEW')"/>
 			<xsl:when test="starts-with($num,'AHEAD')"/>
 			<xsl:when test="starts-with($num,'MON')">
 				<xsl:choose>
@@ -116,6 +122,13 @@
 						</xsl:if>
 					</xsl:otherwise>
 				</xsl:choose> ahead of print
+			</xsl:when>
+			<xsl:when test="contains($NUM,'review')">&#160;
+				<xsl:choose>
+					<xsl:when test="//CONTROLINFO/LANGUAGE='es'">en revisión</xsl:when>
+					<xsl:when test="//CONTROLINFO/LANGUAGE='pt'">em revisão</xsl:when>
+					<xsl:otherwise>review in progress</xsl:otherwise>
+				</xsl:choose>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:if test="$VOL">&#160;<xsl:value-of select="normalize-space($VOL)"/>
@@ -370,6 +383,16 @@
 					</xsl:otherwise>
 				</xsl:choose>
 			</xsl:when>
+			<xsl:when test="$NUM='review'">
+				<xsl:choose>
+					<xsl:when test="//ARTICLE/@ahpdate=''">
+						<xsl:value-of select="substring(//ARTICLE/@CURR_DATE,1,4)"/>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="substring(//ARTICLE/@ahpdate,1,4)"/>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:when>
 			<xsl:otherwise>
 				<xsl:value-of select="concat(' ', $MONTH)"/>
 				<xsl:value-of select="concat(' ', $YEAR)"/>,
@@ -467,7 +490,7 @@
   </xsl:if-->
   [online].
   <!--xsl:value-of select="concat(' ', $MONTH)"/-->
-		<xsl:if test="$NUM!='ahead'">
+		<xsl:if test="$NUM!='ahead' and $NUM!='review'">
 			<xsl:value-of select="concat(' ', $YEAR)"/>,
 		<xsl:if test="$VOL">
 				<xsl:value-of select="concat(' vol. ', $VOL)"/>
@@ -772,6 +795,9 @@ Parameters:
 			<xsl:when test="$NUM='ahead'">
 				<xsl:value-of select="substring(//ARTICLE/@ahpdate,1,4)"/>
 			</xsl:when>
+			<xsl:when test="$NUM='review'">
+				<xsl:value-of select="substring(//ARTICLE/@ahpdate,1,4)"/>
+			</xsl:when>
 			<xsl:otherwise>
 				<xsl:value-of select="concat(' ', $YEAR, ' ', $MONTH)" disable-output-escaping="yes"/>;
   <xsl:if test="$VOL">
@@ -936,6 +962,9 @@ Parameters:
 		<xsl:value-of select="concat(' ',$CITY)" disable-output-escaping="yes"/>,
   <xsl:choose>
 			<xsl:when test="$NUM='ahead'">
+				<xsl:value-of select="substring(//ARTICLE/@ahpdate,1,4)"/>
+			</xsl:when>
+			<xsl:when test="$NUM='review'">
 				<xsl:value-of select="substring(//ARTICLE/@ahpdate,1,4)"/>
 			</xsl:when>
 			<xsl:otherwise>
@@ -1142,7 +1171,7 @@ Parameters:
 			<xsl:when test=" $LANG = 'es'">[periódico en la Internet]. </xsl:when>
 		</xsl:choose>
 		<!--xsl:value-of select="concat(' ', $MONTH)"/-->
-		<xsl:if test="$NUM!='ahead'">
+		<xsl:if test="$NUM!='ahead' and $NUM!='review'">
 			<xsl:value-of select="$YEAR"/>&#160;
 		<xsl:call-template name="GET_MONTH_NAME">
 				<xsl:with-param name="LANG" select="$LANG"/>
@@ -1165,7 +1194,7 @@ Parameters:
 			</xsl:call-template>&#160;
 
 			<xsl:value-of select="substring($CURR_DATE,7,2)"/>]</xsl:if>
-		<xsl:if test="$NUM!='ahead'">
+		<xsl:if test="$NUM!='ahead' and $NUM!='review'">
 ;&#160;
 		<xsl:value-of select="$VOL"/>
 			<xsl:if test="$NUM">
@@ -1247,7 +1276,7 @@ Parameters:
 		,&#160;
 		<xsl:value-of select="$LOCAL"/>
 		<xsl:choose>
-			<xsl:when test="$NUM!='ahead'">,&#160;
+			<xsl:when test="$NUM!='ahead' and $NUM!='review'">,&#160;
 			<xsl:if test="$VOL">v. <xsl:value-of select="$VOL"/>,&#160;
 			</xsl:if>
 				<xsl:if test="$NUM">
