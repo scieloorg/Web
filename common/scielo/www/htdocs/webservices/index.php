@@ -1,7 +1,7 @@
 <?php
 require_once("../classDefFile.php");
 //require_once("../bvs-lib/common/scripts/php/xslt.php");
-//require_once('../bvs-lib/common/classes/php/nusoap.php');
+require_once('nusoap/nusoap.php');
 require_once("../class.XSLTransformer.php");
 require_once('common.php');
 
@@ -23,14 +23,18 @@ $country = $defFile->getKeyValue("COUNTRY");
 
 $databasePath = $defFile->getKeyValue("PATH_DATABASE");
 
+//$output = 'xml';
+
+
 $output = $_REQUEST["output"];
+
 if ($output == ""){
 	if ($_REQUEST['service'] != "" && $HTTP_RAW_POST_DATA == "") {
 		$output = "xml";
 	}else{
 		$output = "soap";
 	}
-}	
+}
 
 if ($output == "soap") {
 	// Create the server instance
@@ -100,13 +104,13 @@ if ($output == "soap") {
 }
 
 // Define the method as a PHP function
-function search($expression, $from, $count, $lang) 
+function search($expression, $from, $count, $lang)
 {
 	global $applServer, $output;
-	
+
 	$from = ($from  != "" ? $from  : "1");
 	$count= ($count != "" ? $count : "10");
-	
+
 	if ($lang == "es"){
 		$iahLang = "e";
 	}else{
@@ -144,7 +148,7 @@ function new_titles($count)
 function new_issues($count)
 {
 	global $country, $applServer, $output, $transformer, $serviceRoot,$databasePath ;
-	
+
 	$count= ($count != "" ? $count : "50");
 	$serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/webservices/wxis/?IsisScript=listNewIssues.xis&database=".$databasePath."issue/issue&gizmo=GIZMO_XML&count=" . $count;
 	$XML = readData($serviceUrl,true);
