@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<stat>
+	<text type="html"><![CDATA[
+ <li><font face="Verdana" size="2">Relatório de acesso da biblioteca<br>(Dados produzidos com Analog3.0/Unix)</font></li>
+
+                     <ul>
+                        <li><a href="/site_usage/reports/scielobr-1998.htm">1998</a></li>
+                        <li><a href="/site_usage/reports/scielobr-1999.htm">1999</a></li>
+                        <li><a href="/site_usage/reports/scielobr-2000.htm">2000</a></li>
+                        <li>
+                           						2001 
+                           						(dados perdidos desde 7 até 9 de Junho)
+                        </li>
+                        <ul>
+
+                           <li><a href="/site_usage/reports/scielobr-2001jan2jun.htm">A partir de Janeiro até 7 de Junho</a></li>
+                           <li><a href="/site_usage/reports/scielobr-2001jun2dec.htm">De 9 de junho em diante</a></li>
+                        </ul>
+                     </ul>
+                     <li><font face="Verdana" size="2">Relatório de acesso da biblioteca<br>(Dados produzidos com AWStats - Advanced Web Statistics 5.6)</font></li>
+                     <ul>
+                        <li><a href="http://www.scielo.br/site_usage/scieloBR-2002.htm">2002</a></li>
+
+                        <li><a href="http://www.scielo.br/site_usage/scieloBR-2003.htm">2003</a></li>
+                        <li><a href="http://www.scielo.br/site_usage/scieloBR-2004.htm">2004</a></li>
+                        <li><a href="http://www.scielo.br/site_usage/scieloBR-2005.htm">2005-server1</a></li>
+                        <li><a href="http://www.scielo.br/site_usage/scielo2BR-2005.htm">2005-server2</a></li>
+                        <li><a href="http://logs.bireme.br/cgi-bin/awstats.pl?config=scieloBR">2006-server1</a></li>
+                        <li><a href="http://logs.bireme.br/cgi-bin/awstats.pl?config=scielo2BR">2006-server2</a></li>
+
+                     </ul>]]></text>
+</stat>
