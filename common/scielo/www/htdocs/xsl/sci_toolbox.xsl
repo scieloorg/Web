@@ -85,13 +85,13 @@
 						<xsl:when test="normalize-space(//USERINFO/@status) = normalize-space('logout') ">
 							<xsl:choose>
 								<xsl:when test=" $LANGUAGE = 'en' ">
-									<li><a href="http://{$SCIELO_REGIONAL_DOMAIN}/applications/scielo-org/sso/loginScielo.php?lang={$LANGUAGE}" onclick="callUpdateArticleLog('servicos_personalizados');"><img src="/img/{$LANGUAGE}/iconLogin.gif"/>Custom services</a></li>
+									<li><a href="http://{$SCIELO_REGIONAL_DOMAIN}/applications/scielo-org/sso/loginScielo.php?lang={$LANGUAGE}" rel="nofollow" onclick="callUpdateArticleLog('servicos_personalizados');"><img src="/img/{$LANGUAGE}/iconLogin.gif"/>Custom services</a></li>
 								</xsl:when>
 								<xsl:when test=" $LANGUAGE = 'pt' ">
-									<li><a href="http://{$SCIELO_REGIONAL_DOMAIN}/applications/scielo-org/sso/loginScielo.php?lang={$LANGUAGE}" onclick="callUpdateArticleLog('servicos_personalizados');"><img src="/img/{$LANGUAGE}/iconLogin.gif"/>Serviços personalizados</a></li>
+									<li><a href="http://{$SCIELO_REGIONAL_DOMAIN}/applications/scielo-org/sso/loginScielo.php?lang={$LANGUAGE}" rel="nofollow" onclick="callUpdateArticleLog('servicos_personalizados');"><img src="/img/{$LANGUAGE}/iconLogin.gif"/>Serviços personalizados</a></li>
 								</xsl:when>
 								<xsl:when test=" $LANGUAGE = 'es' ">
-									<li><a href="http://{$SCIELO_REGIONAL_DOMAIN}/applications/scielo-org/sso/loginScielo.php?lang={$LANGUAGE}" onclick="callUpdateArticleLog('servicos_personalizados');"><img src="/img/{$LANGUAGE}/iconLogin.gif"/>Servicios customizados</a></li>
+									<li><a href="http://{$SCIELO_REGIONAL_DOMAIN}/applications/scielo-org/sso/loginScielo.php?lang={$LANGUAGE}" rel="nofollow" onclick="callUpdateArticleLog('servicos_personalizados');"><img src="/img/{$LANGUAGE}/iconLogin.gif"/>Servicios customizados</a></li>
 								</xsl:when>
 							</xsl:choose>
 						</xsl:when>
@@ -163,7 +163,7 @@
 						<img src="/img/{$LANGUAGE}/iconDATASUS.gif"/>
 
 						<xsl:choose>
-							<xsl:when test="$LANGUAGE='en' ">Health Indicators</xsl:when>
+							<xsl:when test="$LANGUAGE='en' "><xsl:value-of select="//ARTICLE/@AREASGEO"/>Health Indicators</xsl:when>
 							<xsl:when test="$LANGUAGE='pt' ">Indicadores de Saúde</xsl:when>
 							<xsl:when test="$LANGUAGE='es' ">Indicadores de Salud</xsl:when>
 						</xsl:choose>
