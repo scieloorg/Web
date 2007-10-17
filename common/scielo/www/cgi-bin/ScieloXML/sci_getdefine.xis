@@ -63,9 +63,11 @@
                                                 case 'ACTIVATE_GOOGLE'              : 'h17042',
                                                 case 'GOOGLE_CODE'                  : 'h17043',
 						case 'PATH_HTDOCS'                  : 'h17044',
-						case 'STAT_SERVER'                  : 'h17045',						
+						case 'STAT_SERVER'                  : 'h17045',
 						/* fixed */
-                        
+                        case 'BEFOREPRINT_ISSUES'                  : 'h17049',
+                        case 'BEFOREPRINT_ISSUETOC'                  : 'h17050',
+						
 						elsecase 'h4903'
 					endsel
 

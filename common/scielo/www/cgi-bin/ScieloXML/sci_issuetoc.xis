@@ -4,15 +4,29 @@
 <!-- Common functions -->
 <include>ScieloXML/sci_common.xis</include>
 
+<function name="translateSectionName" action="replace" tag="4001">
+  <return action="replace" tag="5010">
+	<pft>
+		,if v4001^s='ahead' then 
+				'Ahead of print'
+		,else
+			,if v4001^s='review' then 
+			,'Review in progress',
+			,fi
+		,fi
+	</pft>
+   </return>
+</function>
 <function name="CreateArticleListXML" action="replace" tag=4001>
 <!-- Create Article List
      4001^p - PID 
 	 4001^l - Interface Language 
 	 4001^i - International Language 
 	 4001^s - Issue MFN -->
-
+<display><pft>'<!-- aqui comeca -->'</pft></display>
   <field action="import" tag="list">7009/7050</field> <!--fixed-->
-    
+  <field action="import" tag="list">5010</field> <!--fixed-->
+  <call name="translateSectionName"><pft>if p(v5010) then '^l',v4001^l,'^s',v5010 fi</pft></call>
   <do task="keyrange">
    <parm name="db">ARTIGO</parm>
    <parm name="from"><pft>'SM='v4001^p</pft></parm>
@@ -29,6 +43,7 @@
    <loop>
    <!-- 2000 - Section Code -->
     <field action="import" tag="list">2000,4001,7009/7050</field> <!--fixed-->
+    <field action="import" tag="list">5010</field> <!--fixed-->
 	<field action="replace" tag="1005"><pft>f(val(v1003^m)+1,1,0)</pft></field>
 	<flow action="skip">
                 <pft>
@@ -85,7 +100,7 @@
 	
 	<label>NO_SECTION_NAME</label>
 	<display>
-	 <pft>if s(v2000)<>'-' then '</SECTION>'/ fi,'<SECTION>'/,|<NAME><![CDATA[|v4010|]]></NAME>|/</pft>
+	 <pft>if s(v2000)<>'-' then '</SECTION>'/ fi,'<SECTION>'/,|<NAME><![CDATA[|v4010|]]></NAME>|/,|<NAME><![CDATA[|v5010|]]></NAME>|/,</pft>
 	</display>
 
 	
@@ -114,6 +129,8 @@
   </do> 
   
   <display><pft>if s(v2000)<>'-' then '</SECTION>'  fi</pft></display> 
+  <display><pft>'<!-- aqui termina -->'</pft></display>
+
 </function>
 	 
 <function name="CreateIssueXML" action="replace" tag=4001>
@@ -123,12 +140,20 @@
 	 4001^i - International Language 
 	 4001^s - Issue MFN --> 
  <field action="import" tag="list">7009/7050</field> <!--fixed-->
- 
+
+ <call name="checkPresentationBeforePrintIssuesTogether"><pft>v4001^p</pft></call>
  <call name="CreateIssueInfoXML"><pft>v4001^s</pft></call>
  <call name="CreateIssueTitleXML"><pft>'^r'v4001^s'^l'v4001^l'^i'v4001^i</pft></call>
  <call name="CreateIssueStripXML"><pft>'^r'v4001^s'^l'v4001^l'^i'v4001^i</pft></call>  	
-   
+
+ <field action="replace" tag="5010"><pft>v5011[1]</pft></field>
  <call name="CreateArticleListXML"><pft>v4001</pft></call>
+
+
+ <!-- begin - Presents the review in progress articles  -->
+ <field action="replace" tag="5010"><pft>v5011[3]</pft></field>
+ <call name="CreateArticleListXML"><pft>if p(v5011[3]) then replace(v4001,v4001^p,v5011[2]) fi</pft></call>
+ <!-- end - Presents the review in progress articles  -->
  
  <display><pft>'</ISSUE>'/</pft></display>
 </function>

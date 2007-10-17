@@ -246,7 +246,9 @@
 <!--  returns nothing.                                                            -->
 <!-- ============================================================================ -->
 <function name="GetNextIssue" action="replace" tag="4900">
+	<field action="import" tag="list">7049/7050</field>
 	<!--display><pft>'v4900 = ',v4900,'<br>'</pft></display-->
+	<!--display><pft>ALL</pft></display-->
 	
 	<call name="isAnIssueAvailableBeforePrint"><pft>v4900</pft></call>
 
@@ -304,7 +306,7 @@
 	<call name="GetIssueAvailableBeforePrint"><pft>if a(v7095) then '^a',mid(v4900,1,9),'^bAHEAD' fi</pft></call>
 	
 	<label>CHECK_REVIEW</label>
-	<call name="GetIssueAvailableBeforePrint"><pft>if a(v7095) then '^a',mid(v4900,1,9),'^bREVIEW' fi</pft></call>
+	<call name="GetIssueAvailableBeforePrint"><pft>if a(v7095) and v7050<>'together' then '^a',mid(v4900,1,9),'^bREVIEW' fi</pft></call>
 
 	<label>NO_NEXT</label>
 	<return action="replace" tag="7095"><pft>v7095</pft></return>
@@ -497,7 +499,7 @@
 <!--     The pid (issn) of the serial.                                            -->
 <!-- ============================================================================ -->
 <function name="CreateCurrentPreviousIssue" action="replace" tag="4900">
-	<field action="delete" tag="list">7085,7090,7095</field>
+	<field action="delete" tag="list">7050,7085,7090,7095</field>
 	
 	<!--display><pft>| v4900 = |v4900</pft></display-->
 
@@ -557,6 +559,7 @@
 <!-- ============================================================================ -->
 <function name="CreatePreviousNextIssue" action="replace" tag="4900">
 	<field action="delete" tag="list">7085,7090,7095</field>
+	<field action="import" tag="list">7049/7050</field>
 
 	<!-- inicio - get v7085 = Previous issue -->
 	<call name="GetPreviousIssue"><pft>v4900</pft></call>
@@ -1917,12 +1920,24 @@
   <call name="CreateArticleTitleXML"><pft>(v9999/)</pft></call>
 </function>
 
-<function name="CreateIssueInfoXML" action="replace" tag=4001>
+<function name="CreateIssueInfoXML" action="replace" tag="4001">
+	<field action="import" tag="list">5011</field>
 <!-- Generate XML for Title of Article
      4001 - MFN -->
 
    <display>
     <pft>
+	if p(v5011) then
+	 ref(['NEWISSUE']val(v4001),
+	  '<ISSUE',
+ 	  ' NUM="beforeprint"' 
+	  | VOL="|v31|"|,
+	  | SUPPL="|v131|"|,
+	  | SUPPL="|v132|"|,
+	  | PUBDATE="|v65|"|,
+	  ,' STATUS="',v742,'"'
+	  '>'/)
+	else
 	 ref(['NEWISSUE']val(v4001),
 	  '<ISSUE',
 	  | VOL="|v31|"|,
@@ -1933,6 +1948,7 @@
 	  | PUBDATE="|v65|"|,
 	  ,' STATUS="',v742,'"'
 	  '>'/)
+	  fi
 	</pft>	
    </display>
 </function>
@@ -1985,6 +2001,9 @@
 </function>
 
 <function name="CreateIssueStripXML" action="replace" tag=4001>
+  <field action="import" tag="list">5011</field> <!-- fixed -->
+  <field action="replace" tag="5011"><pft>if p(v5011) then '1' fi</pft></field> <!-- fixed -->
+
 <!-- Generate XML for City of Issue 
      ^r - MFN 
 	 ^l - Interface Language 
@@ -2008,7 +2027,7 @@
 	<pft>('<STRIP LANG="',v9000^l,'">',/
 	     '<SHORTTITLE><![CDATA[',v9000^t,']]></SHORTTITLE>'/,
   		 '<VOL>',v9000^v,'</VOL>',/,
-		 '<NUM>',v9000^n,'</NUM>',/,
+		 '<NUM>',if a(v5011[1]) then v9000^n else 'beforeprint' fi,'</NUM>',/,
 		 |<SUPPL>|v9000^w|</SUPPL>|,/,
 		 |<SUPPL>|v9000^s|</SUPPL>|,/,
 	     '<CITY>',v9000^c,'</CITY>',/,
@@ -2723,4 +2742,17 @@
 
 <function name="isXML" action="replace" tag="702">
 	<return action="replace" tag="8000"><pft>replace(mid(v702,size(v702)-3,4),'.XML','.xml')</pft></return> 
+</function>
+
+<function name="checkPresentationBeforePrintIssuesTogether" action="replace" tag="4001">
+	<field action="import" tag="list">7049/7050</field>
+
+	 <call name="GetIssueAvailableBeforePrint"><pft>if v7050='together' then '^a',v4001*0.9,'^bAHEAD' fi</pft></call>
+	 <field action="replace" tag="5010"><pft>if v4001=v7095 then v7095 fi</pft></field>
+	 <field action="delete" tag="7095">1</field>
+	 <call name="GetIssueAvailableBeforePrint"><pft>if p(v5010) then '^a',v4001*0.9,'^bREVIEW' fi</pft></call>
+	 <field action="replace" tag="5011"><pft>v7095</pft></field>
+	<return action="replace" tag="5011" split="occ">
+		<pft>if p(v5011) then 'ahead'/,v5011/,'review'/ fi</pft>
+	</return>
 </function>

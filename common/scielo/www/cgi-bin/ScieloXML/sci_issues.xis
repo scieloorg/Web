@@ -8,6 +8,7 @@
 <!-- Get Available Issues Information From DB and Generate XML 
      4001^p - PID (ISSN) 
 	 4001^l - Interface language -->
+    <field action="import" tag="list">7049</field>
 
 
  <call name="GetIssueAvailableBeforePrint"><pft>'^a',v4001^p,'^bAHEAD^c1'</pft></call>
@@ -90,12 +91,19 @@
 
 <display>
 	<pft>
-		if p(v5000^f) then
-			'<ISSUE NUM="AHEAD" SEQ="',v5000^*,'"/>'/
-		,fi
-		if p(v5001^f) then
-			'<ISSUE NUM="REVIEW" SEQ="',v5001^*,'"/>'/
-		,fi
+		if v7049='together' then
+			if p(v5000^f) then 
+				'<ISSUE NUM="beforeprint" SEQ="',v5000^*,'"/>'/
+			,fi
+		,else
+			if p(v5000^f) then 
+				'<ISSUE NUM="AHEAD" SEQ="',v5000^*,'"/>'/
+			,fi
+			if p(v5001^f) then
+				'<ISSUE NUM="REVIEW" SEQ="',v5001^*,'"/>'/
+			,fi
+		,fi,
+
 	</pft>
 </display>	
 
