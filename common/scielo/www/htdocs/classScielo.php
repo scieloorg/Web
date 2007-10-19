@@ -39,8 +39,8 @@ class Scielo extends ScieloBase
 		$url .= "&def=$this->_deffile";
         if ( !$this->_request->getRequestValue ("lng", $lng) ) $url .= "&lng=" . $this->_def->getKeyValue("STANDARD_LANG");
         if ( !$this->_request->getRequestValue ("nrm", $nrm) ) $url .= "&nrm=iso";
-        if ( $this->_script == $this->_homepg && 
-             !empty ( $this->_param ) && 
+        if ( $this->_script == $this->_homepg &&
+             !empty ( $this->_param ) &&
              !$this->_request->getQueryString () )
         {
             $url .= $this->_param;
@@ -49,19 +49,19 @@ class Scielo extends ScieloBase
 		$url .= "&" . $this->_request->getQueryString ();
 		return $url;
 	}
-		
+
 	function GenerateXmlUrl()
 	{
     	$this->_IsisScriptUrl = $this->GenerateIsisScriptUrl();
 
-		$xmlFromIsisScript = wxis_exe($this->_IsisScriptUrl); 
+		$xmlFromIsisScript = wxis_exe($this->_IsisScriptUrl);
 
 
 		$this->_request->getRequestValue("pid", $pid);
 		$this->_request->getRequestValue("t", $textLang);
 		$this->_request->getRequestValue("file", $xmlFile);
 
-		
+
 		if ($this->_script == 'sci_arttext' || $this->_script == 'sci_abstract' ){
 			$server = $this->_def->getKeyValue("SERVER_SCIELO");
 			$services = $this->_def->getSection("FULLTEXT_SERVICES");
@@ -77,7 +77,7 @@ class Scielo extends ScieloBase
 				$xmlList[] = $this->XML_XSL->concatXML($services_xml, "fulltext-service-list");
 			}
 
-			require_once("classes/XMLFromIsisScript.php"); 
+			require_once("classes/XMLFromIsisScript.php");
 			$xmlIsisScript = new XMLFromIsisScript($xmlFromIsisScript);
 			$xmlFromIsisScript = $xmlIsisScript->getXml();
 			$this->_special_xsl = $xmlIsisScript->getSpecialXSL();
@@ -85,7 +85,7 @@ class Scielo extends ScieloBase
 
 		$xmlList[] = $xmlFromIsisScript;
 
-		
+
 		$xmlScieloOrg = '';
 		if (strpos($this->_IsisScriptUrl, 'script=sci_verify')==false){
 			$elements = array(
@@ -94,9 +94,9 @@ class Scielo extends ScieloBase
 				//exibir o toolbox ?
 				"toolbox"=>"show_toolbox",
 				//exibir o link Requests ?
-				"requests" => "show_requests", 	
+				"requests" => "show_requests",
 				//exibir as Referencias do Artigo
-				"show_article_references" => "show_article_references", 
+				"show_article_references" => "show_article_references",
 				//path para o script de login
 				"loginURL" => "login_url",
 				//path para o script de logout
@@ -119,14 +119,16 @@ class Scielo extends ScieloBase
 				"show_datasus" => "show_datasus",
 				"MIMETEX" => "mimetex",
 				"SCRIPT_TOP_TEN" => "SCRIPT_TOP_TEN",
-				"SCRIPT_ARTICLES_PER_MONTH" => "SCRIPT_ARTICLES_PER_MONTH"
+				"SCRIPT_ARTICLES_PER_MONTH" => "SCRIPT_ARTICLES_PER_MONTH",
+				//Habilita ou não o log dos servicos
+				"services_log" => "ENABLE_SERVICES_LOG"
 			);
 
 
 			foreach ($elements as $k => $v) {
-				$xmlScieloOrg .= "<$k>" . $this->_def->getKeyValue($v) . "</$k>";				
+				$xmlScieloOrg .= "<$k>" . $this->_def->getKeyValue($v) . "</$k>";
 			}
-			$xmlScieloOrg .=  $this->userInfo();			
+			$xmlScieloOrg .=  $this->userInfo();
 			$xmlScieloOrg = "<varScieloOrg>".$xmlScieloOrg."</varScieloOrg>";
 
 		}
@@ -150,9 +152,9 @@ class Scielo extends ScieloBase
 	}
 
 	function callService($url, $serviceName){
-		$fp = fopen ($url,"r"); 
+		$fp = fopen ($url,"r");
 
-		if ($fp) { 
+		if ($fp) {
 			$acumulado = "";
 			while (!feof($fp)){
 				$acumulado .= fgets($fp, 4096);
@@ -163,7 +165,7 @@ class Scielo extends ScieloBase
 
 		return $acumulado;
 	}
-	
+
 	function getURLService($url, $serviceName){
 		$acumulado = '<url><![CDATA['.$url.']]></url>';
 		$acumulado = $this->XML_XSL->insertElement($acumulado, "fulltext-service", 'id="'.$serviceName.'"');
@@ -187,8 +189,8 @@ class Scielo extends ScieloBase
 		$result = "<USERINFO id=\"".$userID."\" status=\"".$userStatus."\">".$name."</USERINFO>";
 		return($result);
  	}
-	
-	// fixed 20041004 - gravação de html a cada requisição	
+
+	// fixed 20041004 - gravação de html a cada requisição
 	function GetPageFile()
 	{
 
@@ -198,7 +200,7 @@ class Scielo extends ScieloBase
 			$doit = (($script=='sci_issuetoc') || ($script=='xsci_issues') || ($script=='sci_arttext') );
 			if ($doit){
 		$root = $this->_def->getKeyValue("PATH_CACHE");
-				
+
 				$test = $this->_request->getRequestValue("pid", $pid);
 				$dir = strtoupper($pid);
 				if ($test) {
@@ -225,12 +227,12 @@ class Scielo extends ScieloBase
 				}
 				$test = $this->_request->getRequestValue("lng", $lng);
 				$test = $this->_request->getRequestValue("tlng", $tlng);
-		
-		
+
+
 				if (!$failure){
 					if ($dir){
 						$filePath .= $dir.'/';
-					}		
+					}
 					if ($lng){
 						$filePath .= $lng.'/';
 					} else {
@@ -240,7 +242,7 @@ class Scielo extends ScieloBase
 						if (!$tlng) $tlng = $lng;
 						$filePath .= $tlng.'/';
 					}
-		
+
 					if ($filePath){
 						$filename = $root. $filePath. $script . $file. '.html';
 					}
