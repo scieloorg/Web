@@ -26,6 +26,11 @@ class log
 	 * @desc Nome do arquivo de log
 	 */
 	var $fileName;
+	/**
+	 * @var string
+	 * @desc Recebe os valores do scielo.def
+	 */
+	var $def;
 
 	var $fields  = Array();
 	/**
@@ -38,7 +43,7 @@ class log
 	 */
 	function log()
 	{
-	    $this->setDirectory();
+		$this->setDirectory();
 	}
 	/**
 	 * @desc metodo que seta o diretorio onde os logs deveram ser escritos
@@ -47,17 +52,21 @@ class log
 	function setDirectory()
 	{
 		if (!isset($this->log_dir)){
-			//$this->log_dir = realpath(dirname(__FILE__)."/../../../../../logs/");
-			$this->log_dir = '/home/scielo/www/logs/'; //APAGAR
+			$this->def = parse_ini_file(dirname(__FILE__).'/../../../../scielo.def',true);
+			$this->log_dir = $this->def['LOG']['SERVICES_LOG_DIRECTORY'];
 		}
 
 		if ( is_dir($this->log_dir) ){
 			$this->directory = $this->log_dir;
+
 		}else{
+
 			if ( $this->mkdirs($this->log_dir,0775) ){
 				$this->directory = $this->log_dir;
+				//die("CREATED");
 			}else{
 				$this->logError("Unable to create directory " . $this->log_dir);
+				//die("NOT CREATED");
 			}
 		}
 	}
@@ -76,11 +85,11 @@ class log
 	function openFileWriter()
 	{
 		if ( is_file($this->directory . $this->fileName) ){
-			$fp = fopen ($this->directory . $this->fileName, "a+b");
+			$fp = fopen ($this->directory .'/'. $this->fileName, "a+b");
 		}else{
-			$fp = fopen ($this->directory . $this->fileName, "a+b");
+			$fp = fopen ($this->directory .'/'. $this->fileName, "a+b");
 			$head = "date" . LOG_SEPARATOR . implode(LOG_SEPARATOR, array_keys($this->fields)) . "\r\n";
-			chmod($this->directory . $this->fileName,0774);
+			chmod($this->directory .'/'. $this->fileName,0774);
 			fwrite($fp, $head);
 		}
 
