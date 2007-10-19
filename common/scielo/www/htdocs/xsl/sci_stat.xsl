@@ -58,7 +58,7 @@
 						<td>
 							<blockquote>
 								<ul>
-								<xsl:apply-templates select="document('../xml/',//CONTROLINFO/LANGUAGE,'/sci_stat.xml')//text"/>
+								<xsl:apply-templates select="document(concat('../xml/',//CONTROLINFO/LANGUAGE,'/sci_stat.xml'))//text"/>
 									<!--li>
 										<font face="Verdana" size="2">
 											<xsl:choose>
