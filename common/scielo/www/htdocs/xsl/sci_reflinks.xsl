@@ -6,11 +6,16 @@
 	<xsl:variable name="texts" select="document(concat('file://',$pathhtdocs,'applications/scielo-org/xml/texts.xml'))/texts/language[@id = $lang]"/>
 	<xsl:variable name="links" select="//ARTICLE"/>
 	<xsl:variable name="total" select="count(//similarlist/similar/article)"/>
+	
+	<xsl:variable name="service_log" select="/root/vars/service_log"/>
+	
 	<xsl:template match="/">
 	<!-- start html -->
 		<html>
 			<head>
 				<link rel="stylesheet" href="/applications/scielo-org/css/public/style-{$lang}.css" type="text/css" media="screen"/>
+				<!-- Adicionado script para passa a utilizar o serviço de log comentado por Jamil Atta Junior (jamil.atta@bireme.org)-->
+				<script language="javascript" src="/../../applications/scielo-org/js/httpAjaxHandler.js"></script>
 				<title>SciELO.org - Scientific Electronic Library Online</title>
 			</head>
 			<body>
@@ -76,9 +81,8 @@
 											<!-- pega a string de antes de > e criamos o link para abrir em nova janela -->
 											<xsl:variable name="url" select="substring-after(substring-before(//crossref,'&quot;&gt;CrossRef'),'&quot;')" />											
 												<a href="{$url}" target="_blank">CrossRef</a>
-
+												<xsl:if test="$service_log = 1"><xsl:attribute name="onClick">callUpdateArticleLog('crossref');</xsl:attribute></xsl:if>											
 											</xsl:if>
-
 											</li>
 										</ul>
 										</b>	
@@ -92,7 +96,7 @@
 													<a>
 													<xsl:attribute name="href">http://scholar.google.com.br/scholar?q=<xsl:value-of select="//TITLE" disable-output-escaping="yes"/></xsl:attribute>
 													<xsl:attribute name="target">_blank</xsl:attribute>
-													
+													<xsl:if test="$service_log = 1"><xsl:attribute name="onClick">callUpdateArticleLog('similares_em_google');</xsl:attribute></xsl:if>
 													<b>Google</b>
 												</a>
 											</li>
@@ -103,6 +107,7 @@
 												<a>
 													<xsl:attribute name="href">/scieloOrg/php/similar.php?text=<xsl:value-of select="//TITLE" disable-output-escaping="yes"/>&amp;lang=<xsl:value-of select="$lang"/></xsl:attribute>
 													<xsl:attribute name="target">_blank</xsl:attribute>
+													<xsl:if test="$service_log = 1"><xsl:attribute name="onClick">callUpdateArticleLog('similares_em_scielo');</xsl:attribute></xsl:if>
 													<b><xsl:value-of select="$texts/text[find='scieloNetwork']/replace" /></b>		
 												</a>										
 											</li>						

@@ -11,6 +11,11 @@
 	$transformer = new XSLTransformer();
 	$defFile = new DefFile(dirname(__FILE__)."/../../scielo.def");
 
+
+	//Adicionado para flag de log comentado por Jamil Atta Junior (jamil.atta@bireme.org)
+	$flagLog = $defFile->getKeyValue('ENABLE_SERVICES_LOG');
+
+
 	$related_Service = $defFile->getKeyValue($serviceName);
 	$related_Service = str_replace("PARAM_PID",$pid,$related_Service);
 	$related_Service = str_replace("PARAM_TEXT",$text,$related_Service);
@@ -52,6 +57,7 @@
 	$xml .= '<vars>';
 	$xml .= '<lang>'.$lang.'</lang>';
 	$xml .= '</vars>';
+	$xml .= '<service_log>'.$flagLog.'</service_log>';
 	$xml .= str_replace('<?xml version="1.0" encoding="ISO-8859-1" ?>','',$xmlh);
 	$xml .= '</root>';
 	if (getenv("ENV_SOCKET") == "true"){  //socket

@@ -38,10 +38,6 @@
 					<call>callUpdateArticleLog('envie-me_estatisticas_de_acesso');</call>
 				</service>
 				<service>
-					<name>servicosPersonalizados</name>
-					<call>callUpdateArticleLog('servicos_personalizados');</call>
-				</service>
-				<service>
 					<name>referenciasArtigo</name>
 					<call>callUpdateArticleLog('referencias_do_artigo');</call>
 				</service>

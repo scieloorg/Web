@@ -17,6 +17,8 @@
 	$applServer = $defFile["SERVER_SCIELO"];
 	$databasePath = $defFile["PATH_DATABASE"];
 	$htdocsPath = $defFile["PATH_HTDOCS"];
+	//Adicionado para flag de log comentado por Jamil Atta Junior (jamil.atta@bireme.org)
+	$flagLog = $defFile['ENABLE_SERVICES_LOG'];
 	//geting metadatas from PID
 	$articleService = new ArticleService($applServer);
 	$articleService->setParams($pid);
@@ -30,6 +32,8 @@
 			<head>
 				<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
 				<link rel="stylesheet" href="/applications/scielo-org/css/public/style-<?=$lang?>.css" type="text/css" media="screen"/>
+				<!-- Adicionado script para passa a utilizar o serviço de log comentado por Jamil Atta Junior (jamil.atta@bireme.org)-->
+				<script language="javascript" src="/../../applications/scielo-org/js/httpAjaxHandler.js"></script>
 			</head>
 			<body>
 				<div class="container">
@@ -84,7 +88,7 @@
 											$xmlFile = file_get_contents($serviceUrl);
 											$xml = '<?xml version="1.0" encoding="ISO-8859-1"?>';
 											$xml .='<root>';
-											$xml .='<vars><htdocs>'.$htdocsPath.'</htdocs><lang>'.$lang.'</lang><applserver>'. $applServer .'</applserver></vars>';
+											$xml .='<vars><htdocs>'.$htdocsPath.'</htdocs><lang>'.$lang.'</lang><applserver>'. $applServer .'</applserver><service_log>'.$flagLog.'</service_log></vars>';
 											$xml .= str_replace('<?xml version="1.0" encoding="ISO-8859-1"?>','',$xmlFile);
 											$xml .='</root>';
 											if($_REQUEST['debug'] == 'on'){

@@ -7,6 +7,7 @@
 		<xsl:variable name="nameCountry" select="$texts/text[find=$country]/replace"/>
 		<xsl:variable name="domainCountry" select="$texts/text[find=$country]/url"/>
 		<xsl:variable name="url" select="concat($domainCountry,'/scielo.php?script=sci_arttext&amp;pid=',@pid,'&amp;nrm=iso&amp;lng=',$lang)"/>
+		<xsl:variable name="/root/service_log"/>
 		<li>
 			<div>
 				<div class="articleHeader">
@@ -33,6 +34,7 @@
 								<xsl:attribute name="href">
 									<xsl:value-of select="concat($url,'&amp;tlng=',$lang)"/>
 								</xsl:attribute>
+								<xsl:if test="$service_log = 1 "><xsl:attribute name="OnClick">callUpdateArticleLog('similares_em_scielo');</xsl:attribute></xsl:if>							
 								<xsl:apply-templates select="titles/title[@lang=$lang]"/>
 							</xsl:when>
 							<xsl:otherwise>
@@ -44,6 +46,7 @@
 							<xsl:attribute name="href">
 								<xsl:value-of select="concat($url,'&amp;tlng=',titles/title[1]/@lang)"/>
 							</xsl:attribute>
+							<xsl:if test="$service_log = 1 "><xsl:attribute name="OnClick">callUpdateArticleLog('similares_em_scielo');</xsl:attribute></xsl:if>							
 								<xsl:apply-templates select="titles/title[1]"/>
 							</xsl:otherwise>
 					</xsl:choose>

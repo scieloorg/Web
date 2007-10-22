@@ -7,6 +7,7 @@
 	<xsl:include href="../xsl/viewnlm-v2_scielo.xsl"/>
 	<xsl:include href="../xsl/scielo_pmc_references.xsl"/>
 	<xsl:variable name="LANGUAGE" select="/root/vars/lang"/>
+	<xsl:variable name="service_log" select="/root/vars/service_log"/>
 
 	<xsl:output method="html" version="1.0" encoding="ISO-8859-1" indent="yes"/>
 
@@ -14,8 +15,7 @@
 	<xsl:variable name="applserver" select="/root/vars/applserver"/>	
 	<xsl:variable name="pathhtdocs" select="/root/vars/htdocs"/>
 	<xsl:variable name="texts" select="document(concat('file://',$pathhtdocs,'applications/scielo-org/xml/texts.xml'))/texts/language[@id = $lang]"/>
-
-
+	
 	<xsl:template match="/">
 		<div class="articleList">
 			<ul>
@@ -33,11 +33,10 @@
 			</ul>
 		</div>
 	</xsl:template>
-
 	<xsl:template match="record">
 		<xsl:variable name="refpid" select="concat(field[@tag = 880]/occ,format-number(field[@tag = 888]/occ,'#00000'))"/>
 		<xsl:variable name="pid" select="field[@tag = 880]/occ"/>
-		<xsl:apply-templates select="field[@tag =704 ]/occ"/>[ <a href="http://{$applserver}/scieloOrg/php/reflinks.php?refpid={$refpid}&amp;lng={$lang}&amp;pid={$pid}" target="_blank"><xsl:value-of select="$texts/text[find='findReferenceOnLine']/replace"/></a> ]<br/><br/>
+		<xsl:apply-templates select="field[@tag =704 ]/occ"/>[ <a href="http://{$applserver}/scieloOrg/php/reflinks.php?refpid={$refpid}&amp;lng={$lang}&amp;pid={$pid}" target="_blank"><xsl:if test="$service_log = 1"><xsl:attribute name="onClick">callUpdateArticleLog('referencias_artigo_links');</xsl:attribute></xsl:if><xsl:value-of select="$texts/text[find='findReferenceOnLine']/replace"/></a> ]<br/><br/>
 	</xsl:template>
 
 	<xsl:template match="occ" mode="notFound">
