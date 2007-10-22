@@ -14,6 +14,7 @@
  <call name="GetIssueAvailableBeforePrint"><pft>'^a',v4001^p,'^bAHEAD^c1'</pft></call>
  <field action="replace" tag="5000"><pft>v7095</pft></field>
 
+ <field action="delete" tag="7095">1</field>
  <call name="GetIssueAvailableBeforePrint"><pft>'^a',v4001^p,'^bREVIEW^c1'</pft></call>
  <field action="replace" tag="5001"><pft>v7095</pft></field>
 	
