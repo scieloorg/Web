@@ -7,7 +7,7 @@
 		<xsl:variable name="nameCountry" select="$texts/text[find=$country]/replace"/>
 		<xsl:variable name="domainCountry" select="$texts/text[find=$country]/url"/>
 		<xsl:variable name="url" select="concat($domainCountry,'/scielo.php?script=sci_arttext&amp;pid=',@pid,'&amp;nrm=iso&amp;lng=',$lang)"/>
-		<xsl:variable name="/root/service_log"/>
+		<xsl:variable name="service_log" select="/root/service_log"/>
 		<li>
 			<div>
 				<div class="articleHeader">
