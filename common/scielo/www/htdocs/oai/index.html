@@ -212,101 +212,101 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 				</div>
 				<div id="group">
 					<div id="group_title">verb description</div>
-					<div id="group_content">
-						<div id="Identify" name="Identify" style="display: none;">
-							<p>This verb returns the main protocol information.</p>
-							<p>
-							<b>Compulsory parameters</b>
-							<ul><li>verb</li></ul>
-							</p>
-						</div>
-						<div id="ListMetadataFormats" name="ListMetadataFormats" style="display: none;">
-							<p>It describes the metadata formats used in the protocol. In SciELO, the only format used is oai_dc.</p>
-							<p>
-							<b>Compulsory parameters</b>
-							<ul>
-								<li>verb</li>
+						<div id="group_content">
+							<div id="Identify" name="Identify" style="display: none;">
+								<p>This verb returns the main protocol information.</p>
+								<p>
+								<b>Compulsory parameters</b>
+								<ul><li>verb</li></ul>
+								</p>
+							</div>
+							<div id="ListMetadataFormats" name="ListMetadataFormats" style="display: none;">
+								<p>It describes the metadata formats used in the protocol. In SciELO, the only format used is oai_dc.</p>
+								<p>
+								<b>Compulsory parameters</b>
+								<ul>
+									<li>verb</li>
+									</ul>
+								</p>							
+							</div>
+							<div id="ListIdentifiers" name="ListIdentifiers" style="display: none;">
+								<p>It retrieves a list with the single identifier of each article published.</p>
+								<p>
+								<b>Compulsory parameters</b>
+								<ul>
+									<li>verb</li>
+									<li>metadataPrefix</li>								
 								</ul>
-							</p>							
-						</div>
-						<div id="ListIdentifiers" name="ListIdentifiers" style="display: none;">
-							<p>It retrieves a list with the single identifier of each article published.</p>
-							<p>
-							<b>Compulsory parameters</b>
-							<ul>
-								<li>verb</li>
-								<li>metadataPrefix</li>								
-							</ul>
-							</p>
-							<p>
-							<b>Optional parameters</b>
-							<ul>
-								<li>from</li>
-								<li>until</li>
-								<li>set</li>								
-							</ul>
-							<p>
-							<b>Exclusive parameter</b>
-							<ul>
-								<li>resumptionToken</li>
-							</ul>
-							</p>									
-						</div>
-						<div id="ListSets" name="ListSets" style="display: none;">
-							<p>It retrieves a list with all journals published in SciELO, and informs the title and setSpec (ISSN) of each journal.</p>
-							<p>
-							<b>Compulsory parameters</b>
-							<ul>
-								<li>verb</li>
-							</ul>
-							</p>	
-							<p>
-							<b>Exclusive parameter</b>
-							<ul>
-								<li>resumptionToken</li>
-							</ul>
-							</p>									
-													
-						</div>
-						<div id="ListRecords" name="ListRecords" style="display: none;">
-							<p>It retrieves the header of articles in SciELO.</p>
-							<p>
-							<b>Compulsory parameters</b>
-							<ul>
-								<li>verb</li>
-								<li>metadataPrefix</li>								
-							</ul>
-							</p>
-							<p>
-							<b>Optional parameters</b>
-							<ul>
-								<li>from</li>
-								<li>until</li>
-								<li>set</li>								
-							</ul>
-							<p>
-							<b>Exclusive parameter</b>
-							<ul>
-								<li>resumptionToken</li>
-							</ul>
-							</p>															
-						</div>
-						<div id="GetRecord" name="GetRecord" style="display: none;">
-							<p>It retrieves the metadata of a specific article.</p>
-							<p>
-							<b>Compulsory parameters</b>
-							<ul>
-								<li>verb</li>
-								<li>metadataPrefix</li>						
-								<li>identifier</li>								
-							</ul>
-							</p>							
-						</div>																														
-					</div>			
-				</div>		
-			</div>
+								</p>
+								<p>
+								<b>Optional parameters</b>
+								<ul>
+									<li>from</li>
+									<li>until</li>
+									<li>set</li>								
+								</ul>
+								<p>
+								<b>Exclusive parameter</b>
+								<ul>
+									<li>resumptionToken</li>
+								</ul>
+								</p>									
+							</div>
+							<div id="ListSets" name="ListSets" style="display: none;">
+								<p>It retrieves a list with all journals published in SciELO, and informs the title and setSpec (ISSN) of each journal.</p>
+								<p>
+								<b>Compulsory parameters</b>
+								<ul>
+									<li>verb</li>
+								</ul>
+								</p>	
+								<p>
+								<b>Exclusive parameter</b>
+								<ul>
+									<li>resumptionToken</li>
+								</ul>
+								</p>									
+														
+							</div>
+							<div id="ListRecords" name="ListRecords" style="display: none;">
+								<p>It retrieves the header of articles in SciELO.</p>
+								<p>
+								<b>Compulsory parameters</b>
+								<ul>
+									<li>verb</li>
+									<li>metadataPrefix</li>								
+								</ul>
+								</p>
+								<p>
+								<b>Optional parameters</b>
+								<ul>
+									<li>from</li>
+									<li>until</li>
+									<li>set</li>								
+								</ul>
+								<p>
+								<b>Exclusive parameter</b>
+								<ul>
+									<li>resumptionToken</li>
+								</ul>
+								</p>															
+							</div>
+							<div id="GetRecord" name="GetRecord" style="display: none;">
+								<p>It retrieves the metadata of a specific article.</p>
+								<p>
+								<b>Compulsory parameters</b>
+								<ul>
+									<li>verb</li>
+									<li>metadataPrefix</li>						
+									<li>identifier</li>								
+								</ul>
+								</p>							
+							</div>																														
+						</div>			
+					</div>		
+				</div>
 			</td>
-			<td width="70%">
+			<td width="70%" valign="top">
 			<div id="right">
 				<div id="group">
 					<div id="group_title">setup parameters</div>
