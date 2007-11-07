@@ -526,11 +526,12 @@
 
 	<trace><pft>if v5013^* = 'DEBUG' then 'On' fi</pft></trace>
 
+
 	<call name="NextAction">now</call>
 	<call name="UpdPATH_TRANSLATED"><pft>if right(replace(getenv('PATH_TRANSLATED'),'\','/'),1) <> '/' then 'Now' fi</pft></call>
 	<call name="LoadAplDef"><pft>if a(v5000) then 'Now' fi</pft></call>
 	<call name="UpdEnvironment"><pft>if p(v5000^l) then 'Now' fi</pft></call>
-	<call name="LoadBaseDef"><pft>if a(v5005) or p(v5003^n) then 'Now' fi</pft></call>
+	<call name="LoadBaseDef"><pft>if a(v5005) or p(v5003) then 'Now' fi</pft></call>
 	<call name="LoadCipar">now</call>
 	<field action="replace" tag="5002"><pft>if a(v5002) then v5000^d,s(mpu,v5021,mpl),'/image/', fi</pft></field>
 
