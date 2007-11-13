@@ -40,7 +40,7 @@
 		
 			<table cellpadding="0" cellspacing="0" width="100%">
 				<tr>
-					<td valign="top" class="region" width="18%"><a href="{@url}"><xsl:value-of select="@name"/></a></td>
+					<td valign="top" width="18%"><a href="{@url}"><xsl:value-of select="@name"/></a></td>
 					<td valign="top"><xsl:apply-templates select="state"/></td>
 				</tr>
 			</table>
