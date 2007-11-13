@@ -129,7 +129,7 @@ fi
 				,fi
 
 			,if p(v16) then
-				'<person-group person-group-type="editor">',#
+				'<person-group person-group-type="',if p(v10) then 'editor' else 'author' fi,'">',#
 					if p(v16) then
 					(,'<name>',#
 						|<surname><![CDATA[|v16^s|]]></surname>|/,
