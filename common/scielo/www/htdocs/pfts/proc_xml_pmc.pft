@@ -95,7 +95,9 @@ fi
 		fi
 		if (v706='c') then
 		'<ref id="B',v701,'">',#
+			,|<label>|v118|</label>|,
 			'<nlm-citation citation-type="',
+
 			,if p(v30) then
 				,'journal',
 			,else
@@ -108,7 +110,7 @@ fi
 
 					,fi
 				,fi
-			,fi
+			,fi,
 			,'">',#
 				'<person-group person-group-type="',
 			,if p(v10) or p(v11) then
@@ -116,7 +118,8 @@ fi
 			,else
 				,'editor',
 			,fi
-				,">',#
+				
+				,'">',#
 					if p(v10) then
 					(,'<name>',#
 						|<surname><![CDATA[|v10^s|]]></surname>|/,
@@ -138,32 +141,30 @@ fi
 				fi
 				'<source><![CDATA[',v30^*,v18^*,']]></source>',#
 				'<year>',mid(v64,1,4),'</year>',#			
-				if mid(v64,5,2)<>'' then '<month>',mid(v64,5,2),'</month>',# fi
-				if mid(v64,7,2)<>'' then '<day>',mid(v64,7,2),'</day>',#		fi
-				|<volume>|v31|</volume>|/,						
+				,if mid(v64,5,2)<>'' then '<month>',mid(v64,5,2),'</month>',# fi
+				,if mid(v64,7,2)<>'' then '<day>',mid(v64,7,2),'</day>',#		fi
+				|<volume>|v882^v|</volume>|/,						
 				|<edition>|v63|</edition>|/,
 				,if p(v53) then,
 					|<conf-name><![CDATA[|v53^*|]]></conf-name>|/,		
 					|<conf-date>|v54^*|</conf-date>|/,
 					'<conf-loc>',v56^*,' ',v56^e,'</conf-loc>',#
 				,fi,				
-				|<issue>|v32|</issue>|/,
-				|<supplement>|v131|</supplement>|/,				
-				|<supplement>|v132|</supplement>|/,				
+				|<issue>|v882^n|</issue>|/,
+				|<supplement>|v882^s|</supplement>|/,				
 				|<fpage>|v14^f|</fpage>|/,
 				|<lpage>|v14^l|</lpage>|/,
-
-				if p(v66) or p(v62) then
+				,if p(v66) or p(v62) then
 				'<publisher-loc><![CDATA[',v66,' ',v66^*,']]></publisher-loc>',#
 
 				'<publisher-name><![CDATA[',v62,']]></publisher-name>',#			
-				fi
-			'</nlm-citation>',#
+				,fi
+				,'</nlm-citation>',#
 		'</ref>',#
-		if ref(mfn+1,v706)<>'c' then
+		,if ref(mfn+1,v706)<>'c' then
 			'</ref-list>',#
 			'</back>',#				
 			'</article>',#	
-		fi
-		fi
+		,fi,
+		,fi,
 
