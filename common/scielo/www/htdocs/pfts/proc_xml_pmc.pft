@@ -146,7 +146,7 @@ fi
 				|<volume>|v31|</volume>|/,						
 				|<edition>|v63|</edition>|/,
 				,if p(v53) then,
-					|<conf-name><![CDATA[|v53^*|]]></conf-name>|/,		
+					'<conf-name><![CDATA[',v53^n,' 'v53^*,']]></conf-name>'/,		
 					|<conf-date>|v54^*|</conf-date>|/,
 					'<conf-loc>',v56^*,' ',v56^e,'</conf-loc>',#
 				,fi,				
