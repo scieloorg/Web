@@ -112,20 +112,24 @@ fi
 				,fi
 			,fi,
 			,'">',#
-				'<person-group person-group-type="',
-			,if p(v10) or p(v11) then
-				,'author',
-			,else
-				,'editor',
-			,fi
-				
-				,'">',#
+
+			,if p(v10) then
+				'<person-group person-group-type="author">',#
 					if p(v10) then
 					(,'<name>',#
 						|<surname><![CDATA[|v10^s|]]></surname>|/,
 						|<given-names><![CDATA[|v10^n|]]></given-names>|/,
 					'</name>',#,)
 					fi
+				'</person-group>',#
+			,fi
+			,(|<collab>|v11|</collab>|/),
+				,if p(v12) then
+					'<article-title xml:lang="',v12^l,'"><![CDATA[',v12^*,']]></article-title>',#
+				,fi
+
+			,if p(v16) then
+				'<person-group person-group-type="editor">',#
 					if p(v16) then
 					(,'<name>',#
 						|<surname><![CDATA[|v16^s|]]></surname>|/,
@@ -133,10 +137,8 @@ fi
 					'</name>',#,)
 					fi
 				'</person-group>',#
-				,if p(v12) then
-					'<article-title xml:lang="',v12^l,'"><![CDATA[',v12^*,']]></article-title>',#
-				,fi
-
+			,fi
+			,(|<collab>|v17|</collab>|/),
 				'<source><![CDATA[',v30^*,v18^*,']]></source>',#
 				'<year>',mid(v64,1,4),'</year>',#			
 				,if mid(v64,5,2)<>'' then '<month>',mid(v64,5,2),'</month>',# fi
@@ -149,11 +151,15 @@ fi
 					'<conf-loc>',v56^*,' ',v56^e,'</conf-loc>',#
 				,fi,				
 				|<issue>|v32|</issue>|/,
-				|<supplement>|v32^s|</supplement>|/,				
-				|<fpage>|v14^f|</fpage>|/,
-				|<lpage>|v14^l|</lpage>|/,
+				|<supplement>|v32^s|</supplement>|/,		
+				,if p(v14^f) then
+					|<fpage>|v14^f|</fpage>|/,
+					|<lpage>|v14^l|</lpage>|/,
+				,else
+					|<page-range>|v14|</page-range>|
+				,fi
 				,if p(v66) then
-				'<publisher-loc><![CDATA[',v66,' ',v66^*,']]></publisher-loc>',#
+				'<publisher-loc><![CDATA[',v66,' ',v66^e,']]></publisher-loc>',#
 				,fi
 				,if p(v62) then
 				'<publisher-name><![CDATA[',v62,']]></publisher-name>',#			
