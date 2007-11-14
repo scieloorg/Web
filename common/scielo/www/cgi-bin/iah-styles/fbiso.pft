@@ -7,19 +7,19 @@
 
 ,proc('d9030d9031d9032',
       ,if v5021='i' then
-         ,'a9030{^i0^tabstract in ^eenglish^sspanish^pportuguese^ffrench^ggerman^litalian{',
-         ,'a9031{^i0^ttext in ^eenglish^sspanish^pportuguese^ffrench^ggerman^litalian{',
-         ,'a9032{^i0^tpdf in ^eenglish^sspanish^pportuguese^ffrench^ggerman^litalian{',
+         ,'a9030{^i0^tabstract in ^eenglish^sspanish^pportuguese^ffrench^ggerman^litalian^aarabic{',
+         ,'a9031{^i0^ttext in ^eenglish^sspanish^pportuguese^ffrench^ggerman^litalian^aarabic{',
+         ,'a9032{^i0^tpdf in ^eenglish^sspanish^pportuguese^ffrench^ggerman^litalian^aarabic{',
       ,fi,
       ,if v5021='p' then
-         ,'a9030{^i0^tresumo em ^einglês^sespanhol^pportuguês^ffrancês^galemão^litaliano{',
-         ,'a9031{^i0^ttexto em ^einglês^sespanhol^pportuguês^ffrancês^galemão^litaliano{',
-         ,'a9032{^i0^tpdf em ^einglês^sespanhol^pportuguês^ffrancês^galemão^litaliano{',
+         ,'a9030{^i0^tresumo em ^einglês^sespanhol^pportuguês^ffrancês^galemão^litaliano^aárabe{',
+         ,'a9031{^i0^ttexto em ^einglês^sespanhol^pportuguês^ffrancês^galemão^litaliano^aárabe{',
+         ,'a9032{^i0^tpdf em ^einglês^sespanhol^pportuguês^ffrancês^galemão^litaliano^aárabe{',
       ,fi,
       ,if v5021='e' then
-         ,'a9030{^i0^tresumen en ^einglés^sespañol^pportugués^ffrancés^galemán^litaliano{',
-         ,'a9031{^i0^ttexto en ^einglés^sespañol^pportugués^ffrancés^galemán^litaliano{',
-         ,'a9032{^i0^tpdf en ^einglés^sespañol^pportugués^ffrancés^galemán^litaliano{',
+         ,'a9030{^i0^tresumen en ^einglés^sespañol^pportugués^ffrancés^galemán^litaliano^aárabe{',
+         ,'a9031{^i0^ttexto en ^einglés^sespañol^pportugués^ffrancés^galemán^litaliano^aárabe{',
+         ,'a9032{^i0^tpdf en ^einglés^sespañol^pportugués^ffrancés^galemán^litaliano^aárabe{',
       ,fi,
      ,),
 
@@ -65,13 +65,13 @@
 
 ,proc('d9031',
       ,if v5021='i' then
-          ,'a9031{^i0^ttext in ^eenglish^sspanish^pportuguese^ffrench^ggerman^litalian{',
+          ,'a9031{^i0^ttext in ^eenglish^sspanish^pportuguese^ffrench^ggerman^litalian^aarabic{',
 	  ,fi,
       ,if v5021='e' then
-          ,'a9031{^i0^ttexto en ^einglés^sespañol^pportugués^ffrancés^galemán^litaliano{',
+          ,'a9031{^i0^ttexto en ^einglés^sespañol^pportugués^ffrancés^galemán^litalian^aarabic{',
 	  ,fi,
       ,if v5021='p' then
-          ,'a9031{^i0^ttexto em ^einglês^sespanhol^pportuguês^ffrancês^galemão^litaliano{',
+          ,'a9031{^i0^ttexto em ^einglês^sespanhol^pportuguês^ffrancês^galemão^litalian^aarabic{',
 	  ,fi,
      ,),
 
@@ -298,6 +298,9 @@
 		,if v83^l='it' then
 			,v9030^l[1],
 		,fi,
+		,if v83^l='ar' then
+			,v9030^a[1],
+		,fi,
       	,'</font></a>',if nocc(v83) > iocc then ' | ' fi),
 	,fi,
       ,'&#160;&#160;&#160;&#160;',
@@ -325,6 +328,10 @@
 		,if v8041^l='it' then
 			,v9031^l[1],
 		,fi,
+		,if v8041^l='ar' then
+			,v9031^a[1],
+		,fi,
+
 	,else
 		,if v8040='en' then
 			,v9031^e[1],
@@ -343,6 +350,9 @@
 		,fi,
 		,if v8040='it' then
 			,v9031^l[1],
+		,fi,
+		,if v8040='ar' then
+			,v9031^a[1],
 		,fi,
 	,fi,
 	,'</font></a>',if p(v8041) then ,if nocc(v8041) > iocc then ' | ' fi,fi),
@@ -371,6 +381,9 @@
 		,fi,
 		,if v8040='it' then
 			,v9031^l[1],
+		,fi,
+		,if v8040='ar' then
+			,v9031^a[1],
 		,fi,
 		,'</font></a>',
     	,fi,
