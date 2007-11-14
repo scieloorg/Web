@@ -181,10 +181,9 @@
 	<field action="replace" tag="7999" split="occ"><pft>(v1/)</pft></field>
 	<field action="replace" tag="5018">
 		<pft>(
-				if left(v7999,instr(v7999,'=')-1) : 'FEATURES'  then '^f',mid(v7999,instr(v7999,'=')+1,size(v7999)) fi,
-				if left(v7999,instr(v7999,'=')-1) : 'SEND RESULT BY EMAIL' then '^e',mid(v7999,instr(v7999,'=')+1,size(v7999)) fi,
-				if left(v7999,instr(v7999,'=')-1) : 'KEYRANGE SUFFIX' then '^k',mid(v7999,instr(v7999,'=')+1,size(v7999)) fi,
-				
+			,if v7999 : 'FEATURES='  then '^f',mid(v7999,instr(v7999,'=')+1,size(v7999)) fi,
+			,if v7999 : 'SEND RESULT BY EMAIL=' then '^e',mid(v7999,instr(v7999,'=')+1,size(v7999)) fi,
+			,if v7999 : 'KEYRANGE SUFFIX=' then '^k',mid(v7999,instr(v7999,'=')+1,size(v7999)) fi,
 			)</pft>
 	</field>
 
