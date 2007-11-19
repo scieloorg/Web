@@ -935,6 +935,7 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 			<a href="javascript:void(0);" onmouseout="status='';" class="nomodel" style="text-decoration: none;">
 				<xsl:attribute name="onclick">OpenArticleInfoWindow ( 640, 320,  "<xsl:value-of select="$INFOPAGE"/>");
 				<xsl:if test="$service_log  = 1">callUpdateArticleLog('como_citar_este_artigo');</xsl:if ></xsl:attribute>
+				<xsl:attribute name="rel">nofollow</xsl:attribute>
 				<xsl:attribute name="onmouseover">
 				status='<xsl:call-template name="PrintArticleInformationLabel"><xsl:with-param name="LANGUAGE" select="$LANGUAGE"/></xsl:call-template>'; return true;
 			</xsl:attribute>
@@ -944,6 +945,7 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 		<td>
 			<a href="javascript:void(0);" onmouseout="status='';" class="nomodel" style="text-decoration: none;">
 				<xsl:attribute name="onclick">OpenArticleInfoWindow ( 640, 320,  "<xsl:value-of select="$INFOPAGE"/>");<xsl:if test="$service_log = 1">callUpdateArticleLog('como_citar_este_artigo');</xsl:if></xsl:attribute>
+				<xsl:attribute name="rel">nofollow</xsl:attribute>
 				<xsl:attribute name="onmouseover">
 				status='<xsl:call-template name="PrintArticleInformationLabel"><xsl:with-param name="LANGUAGE" select="$LANGUAGE"/></xsl:call-template>'; return true;
 			</xsl:attribute>

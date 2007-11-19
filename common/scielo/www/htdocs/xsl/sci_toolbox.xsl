@@ -44,13 +44,13 @@
 							<li>
 								<xsl:choose>
 									<xsl:when test="$LANGUAGE = 'en' ">
-										<a href="javascript:void(0);" onclick='window.open("","mensagem","toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,resizable=0,width=320,height=240"); document.forms.addToShelf.submit();{$services//service[name="minhaColecao"]/call} '><img src="/img/en/iconSend2MyLibrary.gif"/>Add to My Collection</a>
+										<a href="javascript:void(0);" onclick='window.open("","mensagem","toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,resizable=0,width=320,height=240"); document.forms.addToShelf.submit();{$services//service[name="minhaColecao"]/call}' rel="nofollow"><img src="/img/en/iconSend2MyLibrary.gif"/>Add to My Collection</a>
 									</xsl:when>
 									<xsl:when test=" $LANGUAGE = 'pt' ">
-										<a href="javascript:void(0);" onclick='window.open("","mensagem","toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,resizable=0,width=320,height=240"); document.forms.addToShelf.submit();{$services//service[name="minhaColecao"]/call}'><img src="/img/en/iconSend2MyLibrary.gif"/>Adicionar à Minha Coleção</a>
+										<a href="javascript:void(0);" onclick='window.open("","mensagem","toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,resizable=0,width=320,height=240"); document.forms.addToShelf.submit();{$services//service[name="minhaColecao"]/call}' rel="nofollow"><img src="/img/en/iconSend2MyLibrary.gif"/>Adicionar à Minha Coleção</a>
 									</xsl:when>
 									<xsl:when test=" $LANGUAGE = 'es' ">
-										<a href="javascript:void(0);" onclick='window.open("","mensagem","toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,resizable=0,width=320,height=240"); document.forms.addToShelf.submit();{$services//service[name="minhaColecao"]/call}'><img src="/img/en/iconSend2MyLibrary.gif"/>Añadir a mi colección</a>
+										<a href="javascript:void(0);" onclick='window.open("","mensagem","toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,resizable=0,width=320,height=240"); document.forms.addToShelf.submit();{$services//service[name="minhaColecao"]/call}' rel="nofollow"><img src="/img/en/iconSend2MyLibrary.gif"/>Añadir a mi colección</a>
 									</xsl:when>
 								</xsl:choose>
 							</li>
@@ -58,26 +58,26 @@
 
 								<xsl:choose>
 									<xsl:when test=" $LANGUAGE = 'en' ">
-										<a href="javascript:void(0);" onclick='window.open("","mensagem","toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,resizable=0,width=320,height=240"); document.forms.citedAlert.submit();{$services//service[name="aviseMeCitado"]/call}'><img src="/img/en/iconAlert.gif" />Alert me when cited</a>
+										<a href="javascript:void(0);" onclick='window.open("","mensagem","toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,resizable=0,width=320,height=240"); document.forms.citedAlert.submit();{$services//service[name="aviseMeCitado"]/call}' rel="nofollow"><img src="/img/en/iconAlert.gif" />Alert me when cited</a>
 									</xsl:when>
 									<xsl:when test=" $LANGUAGE = 'pt' ">
-										<a href="javascript:void(0);" onclick='window.open("","mensagem","toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,resizable=0,width=320,height=240"); document.forms.citedAlert.submit();{$services//service[name="aviseMeCitado"]/call}'><img src="/img/en/iconAlert.gif" />Avise-me quando for citado</a>
+										<a href="javascript:void(0);" onclick='window.open("","mensagem","toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,resizable=0,width=320,height=240"); document.forms.citedAlert.submit();{$services//service[name="aviseMeCitado"]/call}' rel="nofollow"><img src="/img/en/iconAlert.gif" />Avise-me quando for citado</a>
 									</xsl:when>
 									<xsl:when test=" $LANGUAGE = 'es' ">
-										<a href="javascript:void(0);" onclick='window.open("","mensagem","toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,resizable=0,width=320,height=240");document.forms.citedAlert.submit();{$services//service[name="aviseMeCitado"]/call}'><img src="/img/en/iconAlert.gif" />Alerteme cuando el artículo es citado</a>
+										<a href="javascript:void(0);" onclick='window.open("","mensagem","toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,resizable=0,width=320,height=240");document.forms.citedAlert.submit();{$services//service[name="aviseMeCitado"]/call}' rel="nofollow"><img src="/img/en/iconAlert.gif" />Alerteme cuando el artículo es citado</a>
 									</xsl:when>
 								</xsl:choose>
 							</li>
 							<li>
 								<xsl:choose>
 									<xsl:when test=" $LANGUAGE = 'en' ">
-										<a href="javascript:void(0);" onclick='window.open("","mensagem","toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,resizable=0,width=320,height=240");document.forms.accessAlert.submit();{$services//service[name="envieMeEstatisticaAcesso"]/call}'><img src="/img/en/iconStatistics.gif"/>Send me access statistics</a>
+										<a href="javascript:void(0);" onclick='window.open("","mensagem","toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,resizable=0,width=320,height=240");document.forms.accessAlert.submit();{$services//service[name="envieMeEstatisticaAcesso"]/call}' rel="nofollow"><img src="/img/en/iconStatistics.gif"/>Send me access statistics</a>
 									</xsl:when>
 									<xsl:when test=" $LANGUAGE = 'pt' ">
-										<a href="javascript:void(0);" onclick='window.open("","mensagem","toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,resizable=0,width=320,height=240");document.forms.accessAlert.submit();{$services//service[name="envieMeEstatisticaAcesso"]/call}'><img src="/img/pt/iconStatistics.gif"/>Envie-me estatisticas de acesso</a>
+										<a href="javascript:void(0);" onclick='window.open("","mensagem","toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,resizable=0,width=320,height=240");document.forms.accessAlert.submit();{$services//service[name="envieMeEstatisticaAcesso"]/call}' rel="nofollow"><img src="/img/pt/iconStatistics.gif"/>Envie-me estatisticas de acesso</a>
 									</xsl:when>
 									<xsl:when test=" $LANGUAGE = 'es' ">
-										<a href="javascript:void(0);" onclick='window.open("","mensagem","toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,resizable=0,width=320,height=240");document.forms.accessAlert.submit();{$services//service[name="envieMeEstatisticaAcesso"]/call}'><img src="/img/es/iconStatistics.gif"/>Enviarme estadísticas del acceso</a>
+										<a href="javascript:void(0);" onclick='window.open("","mensagem","toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,resizable=0,width=320,height=240");document.forms.accessAlert.submit();{$services//service[name="envieMeEstatisticaAcesso"]/call}' rel="nofollow"><img src="/img/es/iconStatistics.gif"/>Enviarme estadísticas del acceso</a>
 									</xsl:when>
 								</xsl:choose>
 							</li>
@@ -85,13 +85,13 @@
 						<xsl:when test="normalize-space(//USERINFO/@status) = normalize-space('logout') ">
 							<xsl:choose>
 								<xsl:when test=" $LANGUAGE = 'en' ">
-									<li><a href="http://{$SCIELO_REGIONAL_DOMAIN}/applications/scielo-org/sso/loginScielo.php?lang={$LANGUAGE}"><img src="/img/{$LANGUAGE}/iconLogin.gif"/>Custom services</a></li>
+									<li><a href="http://{$SCIELO_REGIONAL_DOMAIN}/applications/scielo-org/sso/loginScielo.php?lang={$LANGUAGE}" rel="nofollow"><img src="/img/{$LANGUAGE}/iconLogin.gif"/>Custom services</a></li>
 								</xsl:when>
 								<xsl:when test=" $LANGUAGE = 'pt' ">
-									<li><a href="http://{$SCIELO_REGIONAL_DOMAIN}/applications/scielo-org/sso/loginScielo.php?lang={$LANGUAGE}"><img src="/img/{$LANGUAGE}/iconLogin.gif"/>Serviços personalizados</a></li>
+									<li><a href="http://{$SCIELO_REGIONAL_DOMAIN}/applications/scielo-org/sso/loginScielo.php?lang={$LANGUAGE}" rel="nofollow"><img src="/img/{$LANGUAGE}/iconLogin.gif"/>Serviços personalizados</a></li>
 								</xsl:when>
 								<xsl:when test=" $LANGUAGE = 'es' ">
-									<li><a href="http://{$SCIELO_REGIONAL_DOMAIN}/applications/scielo-org/sso/loginScielo.php?lang={$LANGUAGE}"><img src="/img/{$LANGUAGE}/iconLogin.gif"/>Servicios customizados</a></li>
+									<li><a href="http://{$SCIELO_REGIONAL_DOMAIN}/applications/scielo-org/sso/loginScielo.php?lang={$LANGUAGE}" rel="nofollow"><img src="/img/{$LANGUAGE}/iconLogin.gif"/>Servicios customizados</a></li>
 								</xsl:when>
 							</xsl:choose>
 						</xsl:when>
@@ -146,6 +146,7 @@
 					<a>
 						<xsl:attribute name="href">javascript: void(0);</xsl:attribute>
 						<xsl:attribute name="onClick">window.open('http://<xsl:value-of select="concat(//SERVER,'/scieloOrg/php/reference.php?pid=',//ARTICLE/@PID,'&amp;caller=',//SERVER,'&amp;lang=',$LANGUAGE)"/>','','width=640,height=480,resizable=yes,scrollbars=1,menubar=yes'); <xsl:value-of select="$services//service[name='indicadoresSaude']/call"/></xsl:attribute>
+						<xsl:attribute name="rel">nofollow</xsl:attribute>
 						<img src="/img/{$LANGUAGE}/iconReferences.gif"/>						
 						<xsl:choose>
 							<xsl:when test="$LANGUAGE='en' ">Article references</xsl:when>
@@ -161,7 +162,7 @@
 						<xsl:attribute name="href">javascript:void(0);</xsl:attribute>
 						<xsl:attribute name="onClick">javascript: window.open('http://<xsl:value-of select="concat(//SERVER,'/scieloOrg/php/datasus.php?pid=',//ARTICLE/@PID,'&amp;caller=',//SERVER,'&amp;lang=',$LANGUAGE)"/>','','width=640,height=480,resizable=yes,scrollbars=1,menubar=yes'); <xsl:value-of select="$services//service[name='indicadoresSaude']/call"/></xsl:attribute>
 						<img src="/img/{$LANGUAGE}/iconDATASUS.gif"/>
-
+						<xsl:attribute name="rel">nofollow</xsl:attribute>
 						<xsl:choose>
 							<xsl:when test="$LANGUAGE='en' ">Health Indicators</xsl:when>
 							<xsl:when test="$LANGUAGE='pt' ">Indicadores de Saúde</xsl:when>
@@ -233,6 +234,7 @@
 		</xsl:variable>
 		<a href="javascript:void(0);" >	
 			<xsl:attribute name="onclick">window.open('<xsl:value-of select="concat(url,'&amp;lang=',$LANGUAGE)"/>','','width=640,height=480,resizable=yes,scrollbars=1,menubar=yes,<xsl:value-of select="$params"/>');<xsl:if test="$service_log = 1">callUpdateArticleLog('<xsl:value-of select="@id"/> ');</xsl:if></xsl:attribute>
+<xsl:attribute name="rel">nofollow</xsl:attribute>
 			<xsl:apply-templates select="." mode="label"/>
 		</a>
 	</xsl:template>
@@ -246,6 +248,7 @@
                 <xsl:when test="normalize-space(//ARTICLE/@PROCESSDATE) &lt; normalize-space($google_last_process)">
 			<a href="javascript:void(0);" >
                                 <xsl:attribute name="onclick">window.open('<xsl:value-of select="concat(url,'&amp;lang=',$LANGUAGE)"/>','','width=640,height=480,resizable=yes,scrollbars=1,menubar=yes,<xsl:value-of select="$params"/>');<xsl:if test="$service_log = 1">callUpdateArticleLog('<xsl:value-of select="@id"/> ');</xsl:if></xsl:attribute>
+<xsl:attribute name="rel">nofollow</xsl:attribute>
                                 <xsl:apply-templates select="." mode="label"/>
                         </a>
                 </xsl:when>
@@ -264,6 +267,7 @@
                 <xsl:when test="//ARTICLE/@RELATED != 0">
 	                <a href="javascript:void(0);" >
                 	        <xsl:attribute name="onclick">window.open('<xsl:value-of select="concat(url,'&amp;lang=',$LANGUAGE)"/>','','width=640,height=480,resizable=yes,scrollbars=1,menubar=yes,<xsl:value-of select="$params"/>');<xsl:if test="$service_log = 1">callUpdateArticleLog('<xsl:value-of select="@id"/> ');</xsl:if></xsl:attribute>
+<xsl:attribute name="rel">nofollow</xsl:attribute>
         	                <xsl:apply-templates select="." mode="label"/>
 	                </a>
 		</xsl:when>
@@ -282,6 +286,7 @@
                 <xsl:when test="//ARTICLE/@CITED != 0">
                         <a href="javascript:void(0);" >
                                 <xsl:attribute name="onclick">window.open('<xsl:value-of select="concat(url,'&amp;lang=',$LANGUAGE)"/>','','width=640,height=480,resizable=yes,scrollbars=1,menubar=yes,<xsl:value-of select="$params"/>');<xsl:if test="$service_log = 1">callUpdateArticleLog('<xsl:value-of select="@id"/> ');</xsl:if></xsl:attribute>
+<xsl:attribute name="rel">nofollow</xsl:attribute>
                                 <xsl:apply-templates select="." mode="label"/>
                         </a>
                 </xsl:when>
