@@ -33,7 +33,7 @@
   	
 <!-- fixed 20041121 -->
     <call name="getAvailableTextLanguages"><pft>if a(v3012) then mid(v3002,2,9) fi</pft></call>
-    <field action="replace" tag="4040" split="occ"><pft>v3012,if a(v3012) then v9350 fi</pft></field>
+    <field action="replace" tag="4040" split="occ"><pft>v3012,if a(v3012) then (v9350/) fi</pft></field>
 
 
 	<call name="getSerialPdfUrl"><pft>v3002</pft></call>
