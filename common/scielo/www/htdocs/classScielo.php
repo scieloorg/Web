@@ -14,15 +14,24 @@ class Scielo extends ScieloBase
 		$this->_special_xsl = '';
 	}
 
+/********************************************************************
+*              Verifica se o PID e um PID antigo                    *
+/********************************************************************/
+
 	function loadPreviousUrlWhichContainsOldPid(){
+		//retorna o valor de pid
 		$this->_request->getRequestValue("pid", $pid);
+		//verifica se o pid contém '(' caracter
 		if (strpos($pid,'(')>0){
+			//retorna o valor de script
 			$this->_request->getRequestValue("script", $script);
+			//troca o script encontrado pelo antigo carrepondente
 			switch ($script){
 				case "sci_arttext": $oldscript = "fbtext"; break;
 				case "sci_serial": $oldscript = "fbsite"; break;
 				case "sci_abstract": $oldscript = "fbabs"; break;
 			}
+			//altera a url para receber o script antigo
 			header('Location: /cgi-bin/fbpe/'.$oldscript.'?pid='.$pid);
 		}
 	}
@@ -53,15 +62,17 @@ class Scielo extends ScieloBase
 	function GenerateXmlUrl()
 	{
     	$this->_IsisScriptUrl = $this->GenerateIsisScriptUrl();
-
+		
 		$xmlFromIsisScript = wxis_exe($this->_IsisScriptUrl);
-
-
+		//parei
+		//die($xmlFromIsisScript);
+		//Necessario saber qual é essa variável t
+		//Parei
 		$this->_request->getRequestValue("pid", $pid);
 		$this->_request->getRequestValue("t", $textLang);
 		$this->_request->getRequestValue("file", $xmlFile);
 
-
+		
 		if ($this->_script == 'sci_arttext' || $this->_script == 'sci_abstract' ){
 			$server = $this->_def->getKeyValue("SERVER_SCIELO");
 			$services = $this->_def->getSection("FULLTEXT_SERVICES");
@@ -115,6 +126,8 @@ class Scielo extends ScieloBase
 				"show_similar_in_google" => "show_similar_in_google",
 				//Informa data de corte para processamento do Google Schoolar
 				"google_last_process" => "google_last_process",
+				//Exibe ou não a opção de Comments em Scielo
+				"services_comments" => "show_comments",
 				//Serviço do DATASUS
 				"show_datasus" => "show_datasus",
 				"MIMETEX" => "mimetex",
@@ -136,16 +149,18 @@ class Scielo extends ScieloBase
 			$xml = $this->XML_XSL->concatXML($xmlList, "root");
 		} else {
 			$xml = $this->XML_XSL->insertProcessingInstruction($xmlList[0]);
+			//die($xml);
 		}
 
 		$xml = str_replace("<CONTROLINFO>","<CONTROLINFO>".$xmlScieloOrg,$xml);
-
+		//die($xml);
 		return $xml;
 	}
 
 	function GenerateXslUrl()
 	{
 		$xsl = $this->_def->getKeyValue("PATH_XSL");
+		//die($xsl . $this->_script.$this->_special_xsl.".xsl");
 		$xsl = $xsl . $this->_script.$this->_special_xsl.".xsl";
 
 		return $xsl;
@@ -193,14 +208,18 @@ class Scielo extends ScieloBase
 	// fixed 20041004 - gravação de html a cada requisição
 	function GetPageFile()
 	{
-
+		//resgada o valor de debug
 		$test = $this->_request->getRequestValue("debug", $debug);
+		//se não tiver nada em debug
 		if (!$debug){
+			//resgata o valor de script
 			$test = $this->_request->getRequestValue("script", $script);
+			//entrega para doit o valor de script apenas se for um dos valores
 			$doit = (($script=='sci_issuetoc') || ($script=='xsci_issues') || ($script=='sci_arttext') );
 			if ($doit){
-		$root = $this->_def->getKeyValue("PATH_CACHE");
-
+			//resgata o valor de PATH_CACHE e entrega para root 
+			$root = $this->_def->getKeyValue("PATH_CACHE");
+				//resgata o valor de pid e entrega para test
 				$test = $this->_request->getRequestValue("pid", $pid);
 				$dir = strtoupper($pid);
 				if ($test) {

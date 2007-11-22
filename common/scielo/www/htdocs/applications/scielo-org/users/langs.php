@@ -121,6 +121,12 @@ define("REMOVE_CITED_ALTER","Não receber mais alertas de citação desse artigo");
 define("MONTH_LIST", "jan,fev,mar,abr,mai,jun,jul,ago,set,out,nov,dez");
 define("CITED_BY","Citado Por");
 define("SIMILARYS_IN","Similares em");
+define("COMMENTS_ARTICLE","Comentários");
+define("COMMENTS_ADD","(Adicionar Comentários)");
+define("COMMENTS_USER_AUTHOR","Nome: ");
+define("COMMNETS_USER_EMAIL","Email: ");
+define("COMMNETS_USER_BUTTON","Enviar");
+define("COMMNETS_USER_COMMENT","Comentário:");
 define("SEE","Ver");
 define("SEE_HISTORY","Ver Histórico");
 define("CHOOSE_PERIOD", "Escolha por ano:");
@@ -364,6 +370,12 @@ define("REMOVE_CITED_ALTER","I do not want to receive any further alerts of cita
 define("MONTH_LIST", "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sept,Oct,Nov,Dec");
 define("CITED_BY","Cited By");
 define("SIMILARYS_IN","Similars in");
+define("COMMENTS_ARTICLE","Comments");
+define("COMMENTS_ADD","(Add Comments)");
+define("COMMENTS_USER_AUTHOR","Name: ");
+define("COMMNETS_USER_EMAIL","Email: ");
+define("COMMNETS_USER_BUTTON","Send");
+define("COMMNETS_USER_COMMENT","Comments:");
 define("SEE","See");
 define("SEE_HISTORY","See History");
 define("CHOOSE_PERIOD", "Choose by Year:");
@@ -605,6 +617,14 @@ define("REMOVE_CITED_ALTER","No quiero más recibir alertas de citaciones a este 
 define("MONTH_LIST", "ene,feb,mar,abr,mayo,jun,jul,ago,sept,oct,nov,dic");
 define("CITED_BY","Citado Por");
 define("SIMILARYS_IN","Similares en");
+define("COMMENTS_ARTICLE","Comentarios");
+define("COMMENTS_ADD","(Añadir Comentarios)");
+define("COMMENTS_USER_AUTHOR","Nombre: ");
+define("COMMNETS_USER_EMAIL","Email: ");
+define("COMMNETS_USER_BUTTON","Enviar");
+define("COMMNETS_USER_COMMENT","Comentario:");
+
+
 define("SEE","Ver");
 define("SEE_HISTORY","Ver Histórico");
 define("CHOOSE_PERIOD", "Elegir por año:");

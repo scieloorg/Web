@@ -8,9 +8,13 @@
 	<xsl:variable name="show_cited_google" select="//varScieloOrg/show_cited_google" />
 	<xsl:variable name="show_similar_in_scielo" select="//varScieloOrg/show_similar_in_scielo" />
 	<xsl:variable name="show_similar_in_google" select="//varScieloOrg/show_similar_in_google" />
-        <xsl:variable name="google_last_process" select="//varScieloOrg/google_last_process" />
+     <xsl:variable name="google_last_process" select="//varScieloOrg/google_last_process" />
 	<xsl:variable name="show_article_references" select="//varScieloOrg/show_article_references" />
 	<xsl:variable name="show_datasus" select="//varScieloOrg/show_datasus" />
+	<xsl:variable name="services_comments" select="//varScieloOrg/services_comments" />
+	<xsl:variable name="acron" select="//SIGLUM" />
+	
+
 
 		<div id="toolBox">
 			<h2 id="toolsSection">
@@ -91,13 +95,28 @@
 									<li><a href="http://{$SCIELO_REGIONAL_DOMAIN}/applications/scielo-org/sso/loginScielo.php?lang={$LANGUAGE}" rel="nofollow"><img src="/img/{$LANGUAGE}/iconLogin.gif"/>Serviços personalizados</a></li>
 								</xsl:when>
 								<xsl:when test=" $LANGUAGE = 'es' ">
-									<li><a href="http://{$SCIELO_REGIONAL_DOMAIN}/applications/scielo-org/sso/loginScielo.php?lang={$LANGUAGE}" rel="nofollow"><img src="/img/{$LANGUAGE}/iconLogin.gif"/>Servicios customizados</a></li>
+									<li><a href="http://{$SCIELO_REGIONAL_DOMAIN}/applications/scielo-org/sso/loginScielo.php?lang={$LANGUAGE}" rel="nofollow" ><img src="/img/{$LANGUAGE}/iconLogin.gif"/>Servicios customizados</a></li>
 								</xsl:when>
 							</xsl:choose>
 						</xsl:when>
 					</xsl:choose>
 				</xsl:if>
-				<xsl:if test="ISSUE/ARTICLE/@PDF">
+				<xsl:if test="$services_comments != 0">
+					<li>
+						<a>
+						<xsl:attribute name="href">javascript: void(0);</xsl:attribute>
+						<xsl:attribute name="onClick">window.open('http://<xsl:value-of select="concat(//SERVER,'/scieloOrg/php/wpPosts.php?pid=',//ARTICLE/@PID,'&amp;lang=',$LANGUAGE,'&amp;acron=',$acron)"/>','','width=640,height=480,resizable=yes,scrollbars=1,menubar=yes'); <xsl:value-of select="$services//service[name='comentarios']/call"/></xsl:attribute>
+						<xsl:attribute name="rel">nofollow</xsl:attribute>
+						<img src="/img/{$LANGUAGE}/iconStatistics.gif"/>						
+						<xsl:choose>
+							<xsl:when test="$LANGUAGE='en' ">Comment this article</xsl:when>
+							<xsl:when test="$LANGUAGE='pt' ">Comente este artigo</xsl:when>
+							<xsl:when test="$LANGUAGE='es' ">Comentar este artículo</xsl:when>
+						</xsl:choose>
+						</a>					
+						</li>
+				</xsl:if>
+					<xsl:if test="ISSUE/ARTICLE/@PDF">
 					<xsl:variable name="tlng" select="ISSUE/ARTICLE/@TEXTLANG"/>
 					<xsl:variable name="pdf_tlng">
 						<xsl:choose>
@@ -215,8 +234,8 @@
 					<!-- Related in Google-->
 					<li>
 						<xsl:apply-templates select="//fulltext-service[@id='related_Google']" mode="linkGoogle">
-                                                        <xsl:with-param name="google_last_process" select="$google_last_process"/>
-                                                </xsl:apply-templates>
+                               <xsl:with-param name="google_last_process" select="$google_last_process"/>
+                                </xsl:apply-templates>
 					</li>				
 				</xsl:if>
 				<xsl:if test="$show_send_by_email = 1">
@@ -287,7 +306,7 @@
                         <a href="javascript:void(0);" >
                                 <xsl:attribute name="onclick">window.open('<xsl:value-of select="concat(url,'&amp;lang=',$LANGUAGE)"/>','','width=640,height=480,resizable=yes,scrollbars=1,menubar=yes,<xsl:value-of select="$params"/>');<xsl:if test="$service_log = 1">callUpdateArticleLog('<xsl:value-of select="@id"/> ');</xsl:if></xsl:attribute>
 <xsl:attribute name="rel">nofollow</xsl:attribute>
-                                <xsl:apply-templates select="." mode="label"/>
+                <xsl:apply-templates select="." mode="label"/>
                         </a>
                 </xsl:when>
                 <xsl:otherwise>

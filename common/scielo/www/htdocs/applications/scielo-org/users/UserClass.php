@@ -345,7 +345,7 @@ class UserClass {
 			$this->setLastName($arr[0]['user_lastname']);
 			$this->setGender($arr[0]['user_gender']);
 			$this->setLogin($arr[0]['user_login']);
-			$this->setEMail($arr[0]['user_email']);
+			$this->setEmail($arr[0]['user_email']);
 
 	//carregando os dados do profile do usuário
 			$userProfileDAO = new UserProfileDAO();

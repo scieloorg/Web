@@ -3,9 +3,9 @@
 <texts>
 	<language id="pt">
 		<text>
-	             	<find>doiNotFound</find>
-             		<replace>Nenhum registro encontrado</replace>
-        	</text>										
+			<find>doiNotFound</find>
+			<replace>Nenhum registro encontrado</replace>
+		</text>
 		<text>
 			<find>notFound</find>
 			<replace>Referências não encontradas</replace>
@@ -77,6 +77,10 @@
 		<text>
 			<find>doesnt_related</find>
 			<replace>Não existe artigo similar a este</replace>
+		</text>
+		<text>
+			<find>doesnt_comment</find>
+			<replace>Não existe comentários para este artigo.</replace>
 		</text>
 		<text>
 			<find>arg</find>
@@ -181,9 +185,9 @@
 	</language>
 	<language id="es">
 		<text>
-	                <find>doiNotFound</find>
-		        <replace>Registros no encontrados</replace>
-		</text>	
+			<find>doiNotFound</find>
+			<replace>Registros no encontrados</replace>
+		</text>
 		<text>
 			<find>notFound</find>
 			<replace>Referencias no encontradas</replace>
@@ -191,7 +195,11 @@
 		<text>
 			<find>dataFound</find>
 			<replace>Datos no encontrados</replace>
-		</text>		
+		</text>
+		<text>
+			<find>doesnt_comment</find>
+			<replace>No comentarios para este artículo.</replace>
+		</text>
 		<text>
 			<find>scieloNetwork</find>
 			<replace>Red Scielo</replace>
@@ -359,9 +367,13 @@
 	</language>
 	<language id="en">
 		<text>
- 	         <find>doiNotFound</find>
-	         <replace>Records not found</replace>
-	    </text>						      
+			<find>doesnt_comment</find>
+			<replace>No comments for this article.</replace>
+		</text>
+		<text>
+			<find>doiNotFound</find>
+			<replace>Records not found</replace>
+		</text>
 		<text>
 			<find>notFound</find>
 			<replace>References not found</replace>
@@ -534,5 +546,5 @@
 			<replace>Venezuela</replace>
 			<url>http://www.scielo.org.ve</url>
 		</text>
-		</language>
+	</language>
 </texts>

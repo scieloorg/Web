@@ -28,7 +28,8 @@ var $_conn = null;
 * @var string $_host
 */
 //var $_host = "127.0.0.1";
-var $_host = "127.0.0.1";
+var $_host = "172.0.0.1";
+
 
 /**
 * Nome do usuário do BD
@@ -48,15 +49,22 @@ var $_password = "scielo";
 */
 var $_db = "scieloorgusers";
 
-	function DBClass(){
+function DBClass($params = null){
+		if (isset($params)){
+			$this->_host = $params['host'];
+			$this->_user = $params['user'];
+			$this->_password = $params['password'];
+			$this->_db = $params['db'];
+		}
 
 		$this->_conn = mysql_connect($this->_host, $this->_user, $this->_password) or die("Não foi possível conectar: " . mysql_error());
+		
 		mysql_select_db($this->_db) or die("Não pude selecinar o banco de dados");
 	}
 
+	
 	function databaseExecInsert($query){
 		$result = mysql_query($query);
-		
 		if($result)
 		{
 			return(mysql_insert_id());

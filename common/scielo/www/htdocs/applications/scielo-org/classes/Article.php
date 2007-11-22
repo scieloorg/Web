@@ -7,6 +7,7 @@
 		function Article(){
 		
 		}
+
 		function setPID($value){
 			$this->_data['pid'] = $value;
 		}
@@ -89,6 +90,37 @@
 			return $this->_data['keywordXML'];
 		}
 
+		/********************************************/
+		function getWpPostID(){
+			return $this->_data['wp_post_id'];
+		}
+		
+		function setWpPostID($value){
+				$this->_data['wp_post_id'] = $value;
+		}
+		/********************************************/
+
+		/********************************************/
+		function getWpURL(){
+			return $this->_data['wp_url'];
+		}
+		
+		function setWpURL($value){
+				$this->_data['wp_url'] = $value;
+		}
+		/********************************************/
+
+		/********************************************/
+		function getWpPostDate(){
+			return $this->_data['wp_post_date'];
+		}
+		
+		function setWpPostDate($value){
+				$this->_data['wp_post_date'] = $value;
+		}
+		/********************************************/
+
+
 		function articleExists(){
 			$articleDAO = new ArticleDAO();
 			$result = $articleDAO->getArticle($this->getPID());
@@ -131,6 +163,5 @@
 			$this->setAuthorXML($a->getAuthorXML());
 			$this->setKeywordXML($a->getKeywordXML());
 		}
-
 	}
 ?>
