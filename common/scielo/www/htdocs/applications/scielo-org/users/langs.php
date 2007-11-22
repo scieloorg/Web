@@ -127,6 +127,7 @@ define("COMMENTS_USER_AUTHOR","Nome: ");
 define("COMMNETS_USER_EMAIL","Email: ");
 define("COMMNETS_USER_BUTTON","Enviar");
 define("COMMNETS_USER_COMMENT","Comentário:");
+define("COMMNETS_MESSAGE_BLOG","Esta revista não pode receber comentários.");
 define("SEE","Ver");
 define("SEE_HISTORY","Ver Histórico");
 define("CHOOSE_PERIOD", "Escolha por ano:");
@@ -376,6 +377,7 @@ define("COMMENTS_USER_AUTHOR","Name: ");
 define("COMMNETS_USER_EMAIL","Email: ");
 define("COMMNETS_USER_BUTTON","Send");
 define("COMMNETS_USER_COMMENT","Comments:");
+define("COMMNETS_MESSAGE_BLOG","This journal can't receive comments");
 define("SEE","See");
 define("SEE_HISTORY","See History");
 define("CHOOSE_PERIOD", "Choose by Year:");
@@ -623,6 +625,7 @@ define("COMMENTS_USER_AUTHOR","Nombre: ");
 define("COMMNETS_USER_EMAIL","Email: ");
 define("COMMNETS_USER_BUTTON","Enviar");
 define("COMMNETS_USER_COMMENT","Comentario:");
+define("COMMNETS_MESSAGE_BLOG","Este periódico no puede recibir comentarios.");
 
 
 define("SEE","Ver");

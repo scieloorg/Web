@@ -24,5 +24,18 @@ function getBlogIdByName($acron){
 
 		return $blogId;
 	}
+
+
+function getBlogByName($acron){
+	$acron = "/blog/".$acron."/";
+	$strsql = "SELECT blog_id from blog.wp_blogs where path='".$acron."'";
+
+		$arr = $this->_db->databaseQuery($strsql);
+		if($arr){
+			return true;
+		}else{
+			return false;
+		}
+	}
 }
 ?>

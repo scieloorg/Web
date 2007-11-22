@@ -37,70 +37,74 @@ $ArticleDAO = new articleDAO();
 
 $insertDate = date('Y-m-d h:i:s');
 $acron = $_REQUEST["acron"];
-
-$guidUrl = "http://".$_SERVER["SERVER_NAME"]."/blog/".$acron."/".substr($insertDate,0,4)."/".substr($insertDate,5,2)."/".substr($insertDate,8,2)."/".$article->getPID()."/";
-$guiSubmit = "http://".$_SERVER["SERVER_NAME"]."/blog/".$acron."/wp-comments-post.php";
-
-$Post = new wpPosts();
-$Post->setPostName($article->getPID());
-$Post->setPostGuid($guidUrl);
-$Post->setPostDate($insertDate);
-$titleStart = strpos($article->getTitle(),"<![CDATA[");
-$titleEnd = strpos($article->getTitle(),"]]");
-$title = substr($article->getTitle(),$titleStart+9,$titleEnd-($titleStart+9));
-$Post->setPostTitle($title);
-$Post->setPostAuth("1");
-$Post->setPostDateGmt($insertDate);
-$Post->setPostContent("");
-$Post->setPostCategory("0");
-$Post->setPostStatus("publish");
-$Post->setPingStatus("open");
-$Post->setPostModified($insertDate);
-$Post->setPostModifiedGmt($insertDate);
-$Post->setPostParent("0");
-$Post->setMenuOrder("0");
-$Post->setCommentCount("0");
-$Post->setCommentStatus("1");
-//var_dump($_COOKIE);
-
-	
 $BlogDAO = new wpBlogDAO();
 $PostsDAO = new wpPostsDAO();
-$blogId = $BlogDAO->getBlogIdByName($acron);
-$blogTable = "wp_".$blogId."_posts";
-	if($ArticleDAO->getArticleByPID($article->getPID())){
-		if($ArticleDAO->getWpPostByID($article->getPID())){
-			$postDate = $ArticleDAO->getPostDate($article->getPID());
-			//redefinindo a url 
-			$guidUrl = "http://".$_SERVER["SERVER_NAME"]."/blog/".$acron."/".substr($postDate,0,4)."/".substr($postDate,5,2)."/".substr($postDate,8,2)."/".$article->getPID()."/";
+$blogExiste = $BlogDAO->getBlogByName($acron);
+//verifica se o blog existe
+if($blogExiste==true){
+	//echo "ok blog existe".$blogExiste;
+	$guidUrl = "http://".$_SERVER["SERVER_NAME"]."/blog/".$acron."/".substr($insertDate,0,4)."/".substr($insertDate,5,2)."/".substr($insertDate,8,2)."/".$article->getPID()."/";
+	$guiSubmit = "http://".$_SERVER["SERVER_NAME"]."/blog/".$acron."/wp-comments-post.php";
+
+	$Post = new wpPosts();
+	$Post->setPostName($article->getPID());
+	$Post->setPostGuid($guidUrl);
+	$Post->setPostDate($insertDate);
+	$titleStart = strpos($article->getTitle(),"<![CDATA[");
+	$titleEnd = strpos($article->getTitle(),"]]");
+	$title = substr($article->getTitle(),$titleStart+9,$titleEnd-($titleStart+9));
+	$Post->setPostTitle($title);
+	$Post->setPostAuth("1");
+	$Post->setPostDateGmt($insertDate);
+	$Post->setPostContent("");
+	$Post->setPostCategory("0");
+	$Post->setPostStatus("publish");
+	$Post->setPingStatus("open");
+	$Post->setPostModified($insertDate);
+	$Post->setPostModifiedGmt($insertDate);
+	$Post->setPostParent("0");
+	$Post->setMenuOrder("0");
+	$Post->setCommentCount("0");
+	$Post->setCommentStatus("1");
+	//var_dump($_COOKIE);
+
+	
+
+	$blogId = $BlogDAO->getBlogIdByName($acron);
+	$blogTable = "wp_".$blogId."_posts";
+		if($ArticleDAO->getArticleByPID($article->getPID())){
+			if($ArticleDAO->getWpPostByID($article->getPID())){
+				$postDate = $ArticleDAO->getPostDate($article->getPID());
+				//redefinindo a url 
+				$guidUrl = "http://".$_SERVER["SERVER_NAME"]."/blog/".$acron."/".substr($postDate,0,4)."/".substr($postDate,5,2)."/".substr($postDate,8,2)."/".$article->getPID()."/";
+			}else{
+				if ($blogId != 0){ 
+					//verifica se blog da revista já existe.
+					$addedPostId = $PostsDAO->addPost($Post,$blogId);
+					$article->setWpPostID($addedPostId);
+					$article->setWpURL($guidUrl);		
+					$article->setWpPostDate($insertDate);
+					//Pesquisa o ID do Blog
+					$ArticleDAO->updatePosts($article,$blogId);
+				}else{
+					$error = "Comentários não estão disponíveis para esta revista";
+				}
+			}
 		}else{
-			if ($blogId != 0){ 
-				//verifica se blog da revista já existe.
-				$addedPostId = $PostsDAO->addPost($Post,$blogId);
-				$article->setWpPostID($addedPostId);
-				$article->setWpURL($guidUrl);		
-				$article->setWpPostDate($insertDate);
-				//Pesquisa o ID do Blog
-				$ArticleDAO->updatePosts($article,$blogId);
-			}else{
-				$error = "Comentários não estão disponíveis para esta revista";
-			}
+				if ($blogId != 0){ //verifica se blog da revista já existe.
+					//Adiciona o post 
+					$addedPostId = $PostsDAO->addPost($Post,$blogId);
+					$article->setWpPostID($addedPostId);
+					$article->setWpURL($guidUrl);
+					$article->setWpPostDate($insertDate);
+
+					$ArticleDAO->AddArticle($article);
+				}else{
+					$error = "Comentários não estão disponíveis para esta revista";
+				}
+
 		}
-	}else{
-			if ($blogId != 0){ //verifica se blog da revista já existe.
-				//Adiciona o post 
-				$addedPostId = $PostsDAO->addPost($Post,$blogId);
-				$article->setWpPostID($addedPostId);
-				$article->setWpURL($guidUrl);
-				$article->setWpPostDate($insertDate);
-
-				$ArticleDAO->AddArticle($article);
-			}else{
-				$error = "Comentários não estão disponíveis para esta revista";
-			}
-
-	}
-/****************************************/
+}
 ?>
 
 <!DOCTYPE html
@@ -147,7 +151,7 @@ src="http://vm.scielo.br/blog/wp-content/plugins/ajax-comments/ajax-comments.php
 	
 	<?
 		//Verificando se o User esta logado
-		if($_COOKIE["userID"] && $_COOKIE["userID"]!=-2){
+		if($_COOKIE["userID"] && $_COOKIE["userID"]!=-2 && $blogExiste==true){
 	?>
 	<span style="font-weight:100;font-size: 80%; background:none;">
 		<A HREF="#add"><?=COMMENTS_ADD?></A>
@@ -180,45 +184,49 @@ src="http://vm.scielo.br/blog/wp-content/plugins/ajax-comments/ajax-comments.php
 		<TD colspan="2">
 		<?php
 			//Alterar URL para busca os comments por artigo
-			$serviceUrl =  $guidUrl."feed/";	
-			//echo $serviceUrl;
-			$xmlFile = file_get_contents($serviceUrl);
-			$xml = '<?xml version="1.0" encoding="utf-8"?>';
-			$xml .='<root>';
-			$xml .='<vars><htdocs>'.$htdocsPath.'</htdocs><lang>'.$lang.'</lang><applserver>'. $wordpress .'</applserver><service_log>'.$flagLog.'</service_log></vars>';
-			$xml .= str_replace('<?xml version="1.0" encoding="UTF-8"?><!-- generator="wordpress/2.3.1" -->','',$xmlFile);
-			$xml .='</root>';
-			if($_REQUEST['debug'] == 'on'){
-				die($xml);
-			}else if($_REQUEST['debug'] == 'xml'){
-				header("Content-type:text/xml; charset=utf-8\n");
-				echo ($xml);
+			if($blogExiste==true){
+					$serviceUrl =  $guidUrl."feed/";	
+					//echo $serviceUrl;
+					$xmlFile = file_get_contents($serviceUrl);
+					$xml = '<?xml version="1.0" encoding="utf-8"?>';
+					$xml .='<root>';
+					$xml .='<vars><htdocs>'.$htdocsPath.'</htdocs><lang>'.$lang.'</lang><applserver>'. $wordpress .'</applserver><service_log>'.$flagLog.'</service_log></vars>';
+					$xml .= str_replace('<?xml version="1.0" encoding="UTF-8"?><!-- generator="wordpress/2.3.1" -->','',$xmlFile);
+					$xml .='</root>';
+					if($_REQUEST['debug'] == 'on'){
+						die($xml);
+					}else if($_REQUEST['debug'] == 'xml'){
+						header("Content-type:text/xml; charset=utf-8\n");
+						echo ($xml);
+					}
+
+					$xsl = $defFile["PATH_XSL"]."comments.xsl";
+					
+					$transformer = new XSLTransformer();
+
+					if (getenv("ENV_SOCKET")!="true"){  //socket
+						$xsl = file_get_contents($xsl);
+						//die("socket = false");
+					} else {
+						$xsl = 'COMMENTS';
+					}
+					//die("socket = true");
+
+					$transformer->setXslBaseUri($defFile["PATH_XSL"]);
+					$transformer->setXML($xml);
+					$transformer->setXSL($xsl);
+					$transformer->transform();
+					$output = $transformer->getOutput();
+					$output = str_replace('&amp;','&',$output);
+					$output = str_replace('&slt;','<',$output);
+					$output = str_replace('&gt;','>',$output);
+					$output = str_replace('&quot;','"',$output);
+					$output = str_replace('<p>',' ',$output);
+					$output = str_replace('</p>',' ',$output);
+					echo $output;
+			}else{
+				echo COMMNETS_MESSAGE_BLOG;
 			}
-
-			$xsl = $defFile["PATH_XSL"]."comments.xsl";
-			
-			$transformer = new XSLTransformer();
-
-			if (getenv("ENV_SOCKET")!="true"){  //socket
-				$xsl = file_get_contents($xsl);
-				//die("socket = false");
-			} else {
-				$xsl = 'COMMENTS';
-			}
-			//die("socket = true");
-
-			$transformer->setXslBaseUri($defFile["PATH_XSL"]);
-			$transformer->setXML($xml);
-			$transformer->setXSL($xsl);
-			$transformer->transform();
-			$output = $transformer->getOutput();
-			$output = str_replace('&amp;','&',$output);
-			$output = str_replace('&slt;','<',$output);
-			$output = str_replace('&gt;','>',$output);
-			$output = str_replace('&quot;','"',$output);
-			$output = str_replace('<p>',' ',$output);
-			$output = str_replace('</p>',' ',$output);
-			echo $output;
 		?>
 		
 		</TD>
@@ -228,7 +236,7 @@ src="http://vm.scielo.br/blog/wp-content/plugins/ajax-comments/ajax-comments.php
 <ol class="commentlist"></ol>
 <? 
 	//Verificando se o User esta logado
-	if($_COOKIE["userID"] && $_COOKIE["userID"]!=-2){?>
+	if($_COOKIE["userID"] && $_COOKIE["userID"]!=-2 && $blogExiste==true){?>
 					
 					<h3>
 					<span style="font-weight:100;font-size: 100%; background:none;">
