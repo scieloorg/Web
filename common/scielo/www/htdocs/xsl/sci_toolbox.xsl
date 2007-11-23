@@ -8,7 +8,7 @@
 	<xsl:variable name="show_cited_google" select="//varScieloOrg/show_cited_google" />
 	<xsl:variable name="show_similar_in_scielo" select="//varScieloOrg/show_similar_in_scielo" />
 	<xsl:variable name="show_similar_in_google" select="//varScieloOrg/show_similar_in_google" />
-     <xsl:variable name="google_last_process" select="//varScieloOrg/google_last_process" />
+	<xsl:variable name="google_last_process" select="//varScieloOrg/google_last_process" />
 	<xsl:variable name="show_article_references" select="//varScieloOrg/show_article_references" />
 	<xsl:variable name="show_datasus" select="//varScieloOrg/show_datasus" />
 	<xsl:variable name="services_comments" select="//varScieloOrg/services_comments" />
@@ -164,7 +164,7 @@
 				<li>
 					<a>
 						<xsl:attribute name="href">javascript: void(0);</xsl:attribute>
-						<xsl:attribute name="onClick">window.open('http://<xsl:value-of select="concat(//SERVER,'/scieloOrg/php/reference.php?pid=',//ARTICLE/@PID,'&amp;caller=',//SERVER,'&amp;lang=',$LANGUAGE)"/>','','width=640,height=480,resizable=yes,scrollbars=1,menubar=yes'); <xsl:value-of select="$services//service[name='indicadoresSaude']/call"/></xsl:attribute>
+						<xsl:attribute name="onClick">window.open('http://<xsl:value-of select="concat(//SERVER,'/scieloOrg/php/reference.php?pid=',//ARTICLE/@PID,'&amp;caller=',//SERVER,'&amp;lang=',$LANGUAGE)"/>','','width=640,height=480,resizable=yes,scrollbars=1,menubar=yes'); <xsl:value-of select="$services//service[name='referenciasArtigo']/call"/></xsl:attribute>
 						<xsl:attribute name="rel">nofollow</xsl:attribute>
 						<img src="/img/{$LANGUAGE}/iconReferences.gif"/>						
 						<xsl:choose>
@@ -179,7 +179,7 @@
 				<li>
 					<a>
 						<xsl:attribute name="href">javascript:void(0);</xsl:attribute>
-						<xsl:attribute name="onClick">javascript: window.open('http://<xsl:value-of select="concat(//SERVER,'/scieloOrg/php/datasus.php?pid=',//ARTICLE/@PID,'&amp;caller=',//SERVER,'&amp;lang=',$LANGUAGE)"/>','','width=640,height=480,resizable=yes,scrollbars=1,menubar=yes'); <xsl:value-of select="$services//service[name='indicadoresSaude']/call"/></xsl:attribute>
+						<xsl:attribute name="onClick">javascript: window.open('http://<xsl:value-of select="concat(//SERVER,'/scieloOrg/php/datasus.php?pid=',//ARTICLE/@PID,'&amp;caller=',//SERVER,'&amp;lang=',$LANGUAGE)"/>','','width=640,height=480,resizable=yes,scrollbars=1,menubar=yes'); <xsl:value-of select="$services//service[name='referenciasArtigo']/call"/></xsl:attribute>
 						<xsl:attribute name="rel">nofollow</xsl:attribute>
 						<img src="/img/{$LANGUAGE}/iconDATASUS.gif"/>
 						<xsl:choose>
