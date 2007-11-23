@@ -238,7 +238,7 @@ src="http://vm.scielo.br/blog/wp-content/plugins/ajax-comments/ajax-comments.php
 	if($_COOKIE["userID"] && $_COOKIE["userID"]!=-2 && $blogExiste==true){?>
 					
 		<h3>
-			<span style="font-weight:100;font-size: 100%; background:none;">
+			<span class="addComments">
 				<A NAME="add"></A>
 				<?
 				$quotes = array("(",")");
