@@ -125,7 +125,6 @@ src="http://vm.scielo.br/blog/wp-content/plugins/ajax-comments/ajax-comments.php
 <script language="javascript" src="/../../applications/scielo-org/js/httpAjaxHandler.js"></script>
 </head>
 <body>
-<form action="<?php echo $guiSubmit; ?>" method="post" id="commentform">
 <div class="container">
 <div class="level2">
 <div class="bar">
@@ -235,26 +234,28 @@ src="http://vm.scielo.br/blog/wp-content/plugins/ajax-comments/ajax-comments.php
 <TD colspan="2" >
 <ol class="commentlist"></ol>
 <? 
-	//Verificando se o User esta logado
+	//Verificando se o User esta logado e se o blog existe 
 	if($_COOKIE["userID"] && $_COOKIE["userID"]!=-2 && $blogExiste==true){?>
 					
-					<h3>
-					<span style="font-weight:100;font-size: 100%; background:none;">
-						<A NAME="add"></A>
-						<?
-						$quotes = array("(",")");
-						$comments = str_replace($quotes,"",COMMENTS_ADD);
-						echo $comments;
-						?>
-					</span>		
-				</h3>
+		<h3>
+			<span style="font-weight:100;font-size: 100%; background:none;">
+				<A NAME="add"></A>
+				<?
+				$quotes = array("(",")");
+				$comments = str_replace($quotes,"",COMMENTS_ADD);
+				echo $comments;
+				?>
+			</span>		
+		</h3>
+		<form action="<?php echo $guiSubmit; ?>" method="post" id="commentform">
 					<input type="hidden" name="blogId" value="<?=$blogId?>"/>
 					<input type="hidden" name="comment_post_ID" value="<?php echo $ArticleDAO->getWpPostByIDValue($article->getPID());?>" />
 					<input type="hidden" name="lang" value="<?=$lang ?>" />
-					<TR>
+		<TR>
 			<TD align="right" width="0" valign="top">
 			</TD>
-			<TD></TD>
+			<TD>
+			</TD>
 		</TR>
 		<TR>
 			<TD height="15">

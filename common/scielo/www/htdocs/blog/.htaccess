@@ -1,0 +1,14 @@
+RewriteEngine On
+RewriteBase /blog/
+
+
+#uploaded files
+RewriteRule ^(.*/)?files/$ index.php [L]
+RewriteRule ^(.*/)?files/(.*) wp-content/blogs.php?file=$2 [L]
+
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule . - [L]
+RewriteRule  ^([_0-9a-zA-Z-]+/)?(wp-.*) $2 [L]
+RewriteRule  ^([_0-9a-zA-Z-]+/)?(.*\.php)$ $2 [L]
+RewriteRule . index.php [L]
