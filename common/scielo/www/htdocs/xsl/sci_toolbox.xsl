@@ -107,7 +107,7 @@
 						<xsl:attribute name="href">javascript: void(0);</xsl:attribute>
 						<xsl:attribute name="onClick">window.open('http://<xsl:value-of select="concat(//SERVER,'/scieloOrg/php/wpPosts.php?pid=',//ARTICLE/@PID,'&amp;lang=',$LANGUAGE,'&amp;acron=',$acron)"/>','','width=640,height=480,resizable=yes,scrollbars=1,menubar=yes'); <xsl:value-of select="$services//service[name='comentarios']/call"/></xsl:attribute>
 						<xsl:attribute name="rel">nofollow</xsl:attribute>
-						<img src="/img/{$LANGUAGE}/iconStatistics.gif"/>						
+						<img src="/img/{$LANGUAGE}/iconComment.gif"/>						
 						<xsl:choose>
 							<xsl:when test="$LANGUAGE='en' ">Comment this article</xsl:when>
 							<xsl:when test="$LANGUAGE='pt' ">Comente este artigo</xsl:when>
