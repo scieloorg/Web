@@ -1447,13 +1447,13 @@ Parameters:
 			<xsl:choose>
 				<xsl:when test=" count(AUTHOR) = 1 ">
 					<td valign="middle">
-						<a href="{AUTHOR/@HREF}" onmouseover="status='{AUTHOR/@HREF}'; return true;" onmouseout="status='';" style="text-decoration: none;" >
-							<img border="0" align="middle" src="{$PATH_GENIMG}{$LANGUAGE}/lattescv-button.gif"/>
+						<a href="{AUTHOR/@HREF}" onmouseover="status='{AUTHOR/@HREF}'; return true;" onmouseout="status='';" style="text-decoration: none;" rel="nofollow" onclick="callUpdateArticleLog('curriculum_scienTI');">
+						<img border="0" align="middle" src="{$PATH_GENIMG}{$LANGUAGE}/lattescv-button.gif"/>
 						</a>
 					</td>
 					<td valign="middle">
-						<a href="{AUTHOR/@HREF}" onmouseover="status='{AUTHOR/@HREF}'; return true;" onmouseout="status='';" style="text-decoration: none;" >Curriculum ScienTI
-						</a>
+						<a href="{AUTHOR/@HREF}" onmouseover="status='{AUTHOR/@HREF}'; return true;" onmouseout="status='';" style="text-decoration: none;" rel="nofollow" onclick="callUpdateArticleLog('curriculum_scienTI');">Curriculum ScienTI
+										</a>
 					</td>
 				</xsl:when>
 				<xsl:when test=" count(AUTHOR) > 1 ">
@@ -1461,13 +1461,15 @@ Parameters:
 						<xsl:call-template name="JavascriptText"/>
 						<a href="javascript:void(0);" onclick="OpenLattesWindow();" onmouseout="status='';" style="text-decoration: none;">
 						<xsl:attribute name="rel">nofollow</xsl:attribute>
-							<xsl:attribute name="onmouseover"><xsl:choose><xsl:when test=" $LANGUAGE = 'en' ">status='Authors List'; return true;</xsl:when><xsl:when test=" $LANGUAGE = 'pt' ">status='Lista de Autores'; return true;</xsl:when><xsl:when test=" $LANGUAGE = 'es' ">status='Lista de Autores'; return true;</xsl:when></xsl:choose></xsl:attribute>
+						<xsl:attribute name="onclick">callUpdateArticleLog('curriculum_scienTI');</xsl:attribute>				
+						<xsl:attribute name="onmouseover"><xsl:choose><xsl:when test=" $LANGUAGE = 'en' ">status='Authors List'; return true;</xsl:when><xsl:when test=" $LANGUAGE = 'pt' ">status='Lista de Autores'; return true;</xsl:when><xsl:when test=" $LANGUAGE = 'es' ">status='Lista de Autores'; return true;</xsl:when></xsl:choose></xsl:attribute>
 							<img border="0" align="middle" src="{$PATH_GENIMG}{$LANGUAGE}/lattescv-button.gif"/>
 						</a>
 					</td>
 					<td>
 						<a href="javascript:void(0);" onclick="OpenLattesWindow();" onmouseout="status='';" style="text-decoration: none;">
 						<xsl:attribute name="rel">nofollow</xsl:attribute>
+						<xsl:attribute name="onclick">callUpdateArticleLog('curriculum_scienTI');</xsl:attribute>
 							<xsl:attribute name="onmouseover"><xsl:choose><xsl:when test=" $LANGUAGE = 'en' ">status='Authors List'; return true;</xsl:when><xsl:when test=" $LANGUAGE = 'pt' ">status='Lista de Autores'; return true;</xsl:when><xsl:when test=" $LANGUAGE = 'es' ">status='Lista de Autores'; return true;</xsl:when></xsl:choose></xsl:attribute>Curriculum ScienTI
 						</a>
 					</td>

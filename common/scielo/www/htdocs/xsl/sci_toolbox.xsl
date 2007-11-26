@@ -252,7 +252,7 @@
 			<xsl:if test="@id='cited_Google' or @id='related_Google'">,menubar=1,location=1,toolbar=1,status=1,scrollbars=1,directories=1</xsl:if>
 		</xsl:variable>
 		<a href="javascript:void(0);" >	
-			<xsl:attribute name="onclick">window.open('<xsl:value-of select="concat(url,'&amp;lang=',$LANGUAGE)"/>','','width=640,height=480,resizable=yes,scrollbars=1,menubar=yes,<xsl:value-of select="$params"/>');<xsl:if test="$service_log = 1">callUpdateArticleLog('<xsl:value-of select="@id"/> ');</xsl:if></xsl:attribute>
+			<xsl:attribute name="onclick">window.open('<xsl:value-of select="concat(url,'&amp;lang=',$LANGUAGE)"/>','','width=640,height=480,resizable=yes,scrollbars=1,menubar=yes,<xsl:value-of select="$params"/>');<xsl:if test="$service_log = 1">callUpdateArticleLog('<xsl:value-of select="@id"/>');</xsl:if></xsl:attribute>
 <xsl:attribute name="rel">nofollow</xsl:attribute>
 			<xsl:apply-templates select="." mode="label"/>
 		</a>
@@ -266,7 +266,7 @@
 		<xsl:choose>
                 <xsl:when test="normalize-space(//ARTICLE/@PROCESSDATE) &lt; normalize-space($google_last_process)">
 			<a href="javascript:void(0);" >
-                                <xsl:attribute name="onclick">window.open('<xsl:value-of select="concat(url,'&amp;lang=',$LANGUAGE)"/>','','width=640,height=480,resizable=yes,scrollbars=1,menubar=yes,<xsl:value-of select="$params"/>');<xsl:if test="$service_log = 1">callUpdateArticleLog('<xsl:value-of select="@id"/> ');</xsl:if></xsl:attribute>
+                                <xsl:attribute name="onclick">window.open('<xsl:value-of select="concat(url,'&amp;lang=',$LANGUAGE)"/>','','width=640,height=480,resizable=yes,scrollbars=1,menubar=yes,<xsl:value-of select="$params"/>');<xsl:if test="$service_log = 1">callUpdateArticleLog('<xsl:value-of select="@id"/>');</xsl:if></xsl:attribute>
 <xsl:attribute name="rel">nofollow</xsl:attribute>
                                 <xsl:apply-templates select="." mode="label"/>
                         </a>
@@ -285,7 +285,7 @@
 		<xsl:choose>
                 <xsl:when test="//ARTICLE/@RELATED != 0">
 	                <a href="javascript:void(0);" >
-                	        <xsl:attribute name="onclick">window.open('<xsl:value-of select="concat(url,'&amp;lang=',$LANGUAGE)"/>','','width=640,height=480,resizable=yes,scrollbars=1,menubar=yes,<xsl:value-of select="$params"/>');<xsl:if test="$service_log = 1">callUpdateArticleLog('<xsl:value-of select="@id"/> ');</xsl:if></xsl:attribute>
+                	        <xsl:attribute name="onclick">window.open('<xsl:value-of select="concat(url,'&amp;lang=',$LANGUAGE)"/>','','width=640,height=480,resizable=yes,scrollbars=1,menubar=yes,<xsl:value-of select="$params"/>');<xsl:if test="$service_log = 1">callUpdateArticleLog('<xsl:value-of select="@id"/>');</xsl:if></xsl:attribute>
 <xsl:attribute name="rel">nofollow</xsl:attribute>
         	                <xsl:apply-templates select="." mode="label"/>
 	                </a>
@@ -304,7 +304,7 @@
                 <xsl:choose>
                 <xsl:when test="//ARTICLE/@CITED != 0">
                         <a href="javascript:void(0);" >
-                                <xsl:attribute name="onclick">window.open('<xsl:value-of select="concat(url,'&amp;lang=',$LANGUAGE)"/>','','width=640,height=480,resizable=yes,scrollbars=1,menubar=yes,<xsl:value-of select="$params"/>');<xsl:if test="$service_log = 1">callUpdateArticleLog('<xsl:value-of select="@id"/> ');</xsl:if></xsl:attribute>
+                                <xsl:attribute name="onclick">window.open('<xsl:value-of select="concat(url,'&amp;lang=',$LANGUAGE)"/>','','width=640,height=480,resizable=yes,scrollbars=1,menubar=yes,<xsl:value-of select="$params"/>');<xsl:if test="$service_log = 1">callUpdateArticleLog('<xsl:value-of select="@id"/>');</xsl:if></xsl:attribute>
 <xsl:attribute name="rel">nofollow</xsl:attribute>
                 <xsl:apply-templates select="." mode="label"/>
                         </a>
