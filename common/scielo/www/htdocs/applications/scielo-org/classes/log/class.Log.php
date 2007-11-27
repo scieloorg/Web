@@ -84,7 +84,7 @@ class log
 	 */
 	function openFileWriter()
 	{
-		if ( is_file($this->directory . $this->fileName) ){
+		if ( is_file($this->directory .'/'. $this->fileName) ){
 			$fp = fopen ($this->directory .'/'. $this->fileName, "a+b");
 		}else{
 			$fp = fopen ($this->directory .'/'. $this->fileName, "a+b");
@@ -105,6 +105,7 @@ class log
 	function writeLog()
 	{
 		$fp = $this->openFileWriter($this->directory,$this->fileName);
+		
 		$logLine = implode(LOG_SEPARATOR, $this->fields);
 
 		$logInfo = date("Y-m-d H:i:s") . LOG_SEPARATOR . $logLine ."\r\n";
@@ -112,6 +113,7 @@ class log
 			$this->logError("Unable to write log file " . $this->log_dir . $this->fileName);
 		}else{
 			fclose($fp);
+			die("true");
 		}
 	}
 
@@ -131,8 +133,8 @@ class log
 	 * @desc adiciona log de erro
 	 */
 	function logError($message)
-	{
-		$fp = fopen ($this->directory . "logerror.txt", "a+b");
+	{	die("huhu");
+		$fp = fopen ($this->directory .'/'. "logerror.txt", "a+b");
 		if ( !$fp ){
 			$this->sendMailAdmin("Unable to open log file for update " . $this->directory . "logerror.txt");
 		}else{
@@ -147,6 +149,7 @@ class log
 
 	function sendMailAdmin($message)
 	{
+		die("here2");
 		if ( defined('LOG_ADMIN') and (LOG_ADMIN != 0)) {
 
 			$headers = "MIME-Version: 1.0\n";
