@@ -15,6 +15,6 @@ define("LOG_SEPARATOR", ";");
  * @param string LOG_ADMIN para quem vai ser mandando o e-mail de erro.
  *
  */
-define("LOG_ADMIN", "deivid.martins@bireme.org");
+define("LOG_ADMIN", $ini["LOGS"]["SERVICES_LOG_ERROR_MAIL_ALERT"]);
 
 ?>

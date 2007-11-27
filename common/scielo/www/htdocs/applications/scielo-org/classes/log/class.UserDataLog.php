@@ -62,7 +62,7 @@ class UserDataLog extends log
 
 	function sendMailAdmin($message)
 	{
-		if ( defined('LOG_ADMIN') )
+		if ( defined('LOG_ADMIN') and (LOG_ADMIN != 0))
 		{
 			$headers = "MIME-Version: 1.0\n";
 			$headers .= "Content-type: text/plain; charset=iso-8859-1\n";
