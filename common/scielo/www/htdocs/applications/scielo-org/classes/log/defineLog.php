@@ -5,7 +5,7 @@
 /**
  * @param string LOG_DIR Diretório onde serão gravados os logs 
  */
-define("LOG_DIR",$ini["LOGS"]["SERVICESLOGPATH"]);
+define("LOG_DIR",$ini["LOG"]["SERVICES_LOG_DIRECTORY"]);
 /**
  * @param string LOG_SEPARATOR Caracter delimitador de campos
  *
@@ -15,6 +15,6 @@ define("LOG_SEPARATOR", ";");
  * @param string LOG_ADMIN para quem vai ser mandando o e-mail de erro.
  *
  */
-define("LOG_ADMIN", $ini["LOGS"]["SERVICES_LOG_ERROR_MAIL_ALERT"]);
+define("LOG_ADMIN", $ini["LOG"]["SERVICES_LOG_ERROR_MAIL_ALERT"]);
 
 ?>
