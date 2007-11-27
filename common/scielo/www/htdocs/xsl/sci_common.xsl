@@ -49,6 +49,10 @@
 					<name>referenciasArtigo</name>
 					<call>callUpdateArticleLog('referencias_do_artigo');</call>
 				</service>
+				<service>
+					<name>servicosCustomizados</name>
+					<call>callUpdateArticleLog('servicos_customizados');</call>
+				</service>
 			</services>
 		</xsl:if>
 		</xsl:variable>
