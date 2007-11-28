@@ -53,6 +53,10 @@
 					<name>servicosCustomizados</name>
 					<call>callUpdateArticleLog('servicos_customizados');</call>
 				</service>
+				<service>
+					<name>curriculumScienTI</name>
+				<call>callUpdateArticleLog('curriculum_scienTI');</call>
+				</service>
 			</services>
 		</xsl:if>
 		</xsl:variable>
