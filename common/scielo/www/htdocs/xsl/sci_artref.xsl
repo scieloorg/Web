@@ -1443,76 +1443,54 @@ Parameters:
 	<xsl:template match="LATTES">
 		<xsl:variable name="PATH_GENIMG" select="//CONTROLINFO/SCIELO_INFO/PATH_GENIMG"/>
 		<xsl:variable name="LANGUAGE" select="//CONTROLINFO/LANGUAGE"/>
-		<tr>
-			<xsl:choose>
-				<xsl:when test=" count(AUTHOR) = 1 ">
-					<td valign="middle">
-						<a href="{AUTHOR/@HREF}" onmouseover="status='{AUTHOR/@HREF}'; return true;" onmouseout="status='';" style="text-decoration: none;" rel="nofollow">
-						<xsl:if test="$service_log = 1">
-							<xsl:attribute name="onclick">
-								<xsl:value-of select="$services//service[name='curriculumScienTI']/call"/>
-							</xsl:attribute>
-							</xsl:if>
-						<img border="0" align="middle" src="{$PATH_GENIMG}{$LANGUAGE}/lattescv-button.gif"/>
-						</a>
-					</td>
-					<td valign="middle">
-						<a href="{AUTHOR/@HREF}" onmouseover="status='{AUTHOR/@HREF}'; return true;" onmouseout="status='';" style="text-decoration: none;" rel="nofollow">Curriculum ScienTI
-						<xsl:if test="$service_log = 1">
-							<xsl:attribute name="onclick">
-								<xsl:value-of select="$services//service[name='curriculumScienTI']/call"/>
-							</xsl:attribute>
-						</xsl:if>
-					</a>
-					</td>
-				</xsl:when>
-				<xsl:when test=" count(AUTHOR) > 1 ">
-					<td>
-						<xsl:call-template name="JavascriptText"/>
-						<a href="javascript:void(0);"  onmouseout="status='';" style="text-decoration: none;">
+		<xsl:choose>
+			<xsl:when test=" count(AUTHOR) = 1 ">
+				<a href="{AUTHOR/@HREF}" onmouseover="status='{AUTHOR/@HREF}'; return true;" onmouseout="status='';" style="text-decoration: none;" rel="nofollow">
+					<xsl:if test="$service_log = 1">
+						<xsl:attribute name="onclick">
+							<xsl:value-of select="$services//service[name='curriculumScienTI']/call"/>
+						</xsl:attribute>
+					</xsl:if>
+					<img border="0" align="middle" src="{$PATH_GENIMG}{$LANGUAGE}/lattescv-button.gif"/> Curriculum ScienTI
+				</a>
+			</xsl:when>
+			<xsl:when test=" count(AUTHOR) > 1 ">
+				<xsl:call-template name="JavascriptText"/>
+					<a href="javascript:void(0);"  onmouseout="status='';" style="text-decoration: none;">
 						<xsl:attribute name="rel">nofollow</xsl:attribute>
 						<xsl:choose>
-						<xsl:when test="$service_log = 1">
-							<xsl:attribute name="onclick">
-							OpenLattesWindow();
-								<xsl:value-of select="$services//service[name='curriculumScienTI']/call"/>
-							</xsl:attribute>
-						</xsl:when>	
-						<xsl:otherwise>
+							<xsl:when test="$service_log = 1">
 								<xsl:attribute name="onclick">
-										OpenLattesWindow();
+									OpenLattesWindow();
+									<xsl:value-of select="$services//service[name='curriculumScienTI']/call"/>
 								</xsl:attribute>
-						</xsl:otherwise>	
+							</xsl:when>	
+							<xsl:otherwise>
+								<xsl:attribute name="onclick">
+									OpenLattesWindow();
+								</xsl:attribute>
+							</xsl:otherwise>	
 						</xsl:choose>
-			
-						<xsl:attribute name="onmouseover"><xsl:choose><xsl:when test=" $LANGUAGE = 'en' ">status='Authors List'; return true;</xsl:when><xsl:when test=" $LANGUAGE = 'pt' ">status='Lista de Autores'; return true;</xsl:when><xsl:when test=" $LANGUAGE = 'es' ">status='Lista de Autores'; return true;</xsl:when></xsl:choose></xsl:attribute>
-							<img border="0" align="middle" src="{$PATH_GENIMG}{$LANGUAGE}/lattescv-button.gif"/>
+						<xsl:attribute name="onmouseover">
+							<xsl:choose>
+								<xsl:when test=" $LANGUAGE = 'en' ">
+									status='Authors List'; return true;
+								</xsl:when>
+								<xsl:when test=" $LANGUAGE = 'pt' ">
+									status='Lista de Autores'; return true;
+								</xsl:when>
+								<xsl:when test=" $LANGUAGE = 'es' ">
+									status='Lista de Autores'; return true;
+								</xsl:when>
+							</xsl:choose>
+						</xsl:attribute>
+						<img border="0" align="middle" src="{$PATH_GENIMG}{$LANGUAGE}/lattescv-button.gif"/> Curriculum ScienTI
 						</a>
-					</td>
-					<td>
-						<a href="javascript:void(0);"  onmouseout="status='';" style="text-decoration: none;">
-						<xsl:attribute name="rel">nofollow</xsl:attribute>
-						<xsl:choose>
-						<xsl:when test="$service_log = 1">
-							<xsl:attribute name="onclick">
-							OpenLattesWindow();
-								<xsl:value-of select="$services//service[name='curriculumScienTI']/call"/>
-							</xsl:attribute>
-						</xsl:when>	
-						<xsl:otherwise>
-								<xsl:attribute name="onclick">
-										OpenLattesWindow();
-								</xsl:attribute>
-						</xsl:otherwise>	
-						</xsl:choose>							<xsl:attribute name="onmouseover"><xsl:choose><xsl:when test=" $LANGUAGE = 'en' ">status='Authors List'; return true;</xsl:when><xsl:when test=" $LANGUAGE = 'pt' ">status='Lista de Autores'; return true;</xsl:when><xsl:when test=" $LANGUAGE = 'es' ">status='Lista de Autores'; return true;</xsl:when></xsl:choose></xsl:attribute>Curriculum ScienTI
-						</a>
-					</td>
 				</xsl:when>
 				<xsl:otherwise>
 					<td colspan="2">&#160;</td>
 				</xsl:otherwise>
 			</xsl:choose>
-		</tr>
 	</xsl:template>
 	<!-- Gets the month name in selected language
          Parameters:
