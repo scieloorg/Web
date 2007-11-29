@@ -115,6 +115,8 @@ class Scielo extends ScieloBase
 				"show_similar_in_google" => "show_similar_in_google",
 				//Informa data de corte para processamento do Google Schoolar
 				"google_last_process" => "google_last_process",
+				//Exibe ou não a opção de Comments em Scielo
+				"services_comments" => "show_comments",
 				//Serviço do DATASUS
 				"show_datasus" => "show_datasus",
 				"MIMETEX" => "mimetex",
