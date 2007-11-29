@@ -17,11 +17,13 @@ class XSLTransformer {
 	    $defFile = parse_ini_file(dirname(__FILE__)."/scielo.def",true);
 	    $this->processor = xslt_create(); 
 	    $this->host = $_SERVER["SERVER_ADDR"];
-            $this->port = $defFile["SOCKET"]["SOCK_PORT"];
-            $this->socket = new XSLTransformerSocket($this->host,$this->port);
-	    if (!$this->socket){
+        $this->port = $defFile["SOCKET"]["SOCK_PORT"];
+        $this->socket = new XSLTransformerSocket($this->host,$this->port);
+	   /* retirado por Roberta 
+	   if (!$this->socket){
         	die("socket creation error!");
 		}
+		*/
 	} 
 	function setXslBaseUri($uri){	
 		if ($uri != ""){			
@@ -103,6 +105,57 @@ class XSLTransformer {
     function transform()
     {
 		$err = "";
+		$result = "";
+		$tryByPHP = false;
+		$tryRedirect = false;
+		if ($this->socket->checkSocketOpen()) {
+			$result = $this->socket->transform($this->xsl, $this->xml);
+			switch ($result){
+				case "INVALID_XML":
+					include_once (dirname(__FILE__)."/mail_msg.php");
+					$url = "http://".$_SERVER['SERVER_NAME']."/php/xmlError.php?lang=".$_REQUEST['lng'];
+					exit('<META http-equiv="refresh" content="0;URL='.$url.'">');
+					break;
+				case "NO_SOCKET":
+					/* try again, redirecting or try by PHP */
+					//$tryByPHP = true;
+					$tryRedirect = true;
+					break;
+				default:
+					$tryByPHP = false;
+					$tryRedirect = false;
+					$this->byJava ='true';
+					$this->setOutput ($result."<!--transformed by JAVA ".date("h:m:s d-m-Y")."-->");
+					break;
+			}
+        } else {
+			/* try again, redirecting or try by PHP */			
+			$tryByPHP = true;
+			//$tryRedirect = true;
+		}
+
+		if ($tryByPHP){
+        	$args = array ( '/_xml' => $this->xml, '/_xsl' => $this->xsl );
+			$result = xslt_process ($this->processor, 'arg:/_xml', 'arg:/_xsl', NULL, $args);
+			if ($result) {
+		        $this->byJava = 'false';
+				$this->setOutput ($result."<!--transformed by PHP ".date("h:m:s d-m-Y")."-->");
+	        } else {
+        	    $err = "Error: " . xslt_error ($this->processor) . " Errorcode: " . xslt_errno ($this->processor);
+	            $this->setError ($err);
+				var_dump($err);
+				var_dump($this->xsl);
+				var_dump($this->xml);
+        	}
+        } elseif ($tryRedirect) {
+			header('Location: http://'.$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"]);
+		}		
+    }
+    
+	/* transform method */
+    function old_transform()
+    {
+		$err = "";
         if (getenv("ENV_SOCKET")=="true"){
             $result = $this->socket->transform($this->xsl, $this->xml);
 			if (strlen($result)<3){
@@ -137,7 +190,6 @@ class XSLTransformer {
 			var_dump($this->xml);
 		}
     }
-    
 	/* Error Handling */ 
 	function setError ($string) { 
 		$this->error = $string; 

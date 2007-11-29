@@ -32,24 +32,33 @@ class XSLTransformerSocket {
 		$this->socket = @fsockopen($host,$port, $errno, $errstr);
 		$this->socket_log_file = $this->defFile['SOCKET']['ACCESS_LOG_FILE'];
 		$this->enable_socket_log = $this->defFile['SOCKET']['ENABLE_ACCESS_LOG'];
+		
 		if ($this->socket)
 		{
 			putenv("ENV_SOCKET=true");
-			$this->output .= "<!--transformed by socket JAVA ".date('')."-->";
+			$this->output .= "<!--transformed by socket JAVA ".date('YmdHis')."-->";
 			if ($this->enable_socket_log){
 				$this->writeLog($_SERVER["SERVER_ADDR"]." JAVA \n",$this->socket_log_file);
 			}
 		}
 		else
 		{
-			$this->output .= "<!--transformed by PHP-->";	
+			putenv("ENV_SOCKET=false"); //acrescentado
+			$this->output .= "<!--transformed by PHP ".date('YmdHis')."-->";	
 			if ($this->enable_socket_log){
 				$this->writeLog($_SERVER["SERVER_ADDR"]." PHP  \n",$this->socket_log_file);
-				header('Location: http://'.$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"]);
+				//tratado no XSLTransformer - header('Location: http://'.$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"]);
 			}
 		}
 	} 
 
+	function checkSocketOpen(){
+		$r = false;
+		if ($this->socket) {
+			$r = true;
+		}
+		return $r;
+	}
  	/* Destructor */ 
 
 	function destroy() { 
@@ -75,6 +84,68 @@ class XSLTransformerSocket {
 	}
 
 	function transform($xsl, $xml){
+		if ($this->socket)
+		{
+			$aspas = array(chr(147),chr(148));
+			$menos = array(chr(150));
+
+			/* 
+				o transformador via socket usa xml com encoding iso,
+				assim, se o xml vier em utf, necessário executar o utf8_decode
+			*/
+
+			if (strpos(strtolower($xml),'utf-')>0) {
+				$xml = $this->xml_utf8_decode($xml);
+				$utf = true;
+			} 
+
+			$xml = str_replace($aspas,"&quot;",$xml);
+			$xml = str_replace($menos,"-",$xml);
+			$xml = str_replace("\n","",$xml);
+			$xml = str_replace(chr(132),"",$xml);
+			$xml = str_replace(chr(131),"",$xml);
+			$xml = str_replace(chr(134),"",$xml);
+			$xml = str_replace(chr(145),"",$xml);
+			$xml = str_replace(chr(146),"",$xml);
+
+		/* reescrito por Roberta
+			if($this->defFile['XML_ERROR']['ENABLED_XML_ERROR'] == '1'){
+				$xmlCheck = new XML_check();
+				$xml1 = $xml;
+				if($xmlCheck->check_string($xml1)){ // verifica se o XML é bem formado
+					fwrite($this->socket, "utf-8:".$xsl.":".$xml."\n") or die("1");
+					fwrite($this->socket, $this->END_OF_MESS_SYMBOL."\n") or die("2");
+					$message = ($this->recebeResultado() . "<!-- XML well formed verifier ON -->");
+				}else{
+					include_once (dirname(__FILE__)."/mail_msg.php");
+					$url = "http://".$_SERVER['SERVER_NAME']."/php/xmlError.php?lang=".$_REQUEST['lng'];
+					exit('<META http-equiv="refresh" content="0;URL='.$url.'">');
+				}
+			}else{
+				fwrite($this->socket, "utf-8:".$xsl.":".$xml."\n") or die("1");
+				fwrite($this->socket, $this->END_OF_MESS_SYMBOL."\n") or die("2");
+				$message = ($this->recebeResultado() . "<!-- XML well formed verifier OFF -->");
+			}
+			*/
+			$validXML = true;
+			if ($this->defFile['XML_ERROR']['ENABLED_XML_ERROR'] == '1'){
+				$xmlCheck = new XML_check();
+				$xml1 = $xml;
+				$validXML = $xmlCheck->check_string($xml1); // verifica se o XML é bem formado
+			}
+			if ($validXML){
+				fwrite($this->socket, "utf-8:".$xsl.":".$xml."\n") or die("1");
+				fwrite($this->socket, $this->END_OF_MESS_SYMBOL."\n") or die("2");
+				$message = ($this->recebeResultado() . "<!-- XML well formed verifier ON -->");
+			} else {
+				$message = 'INVALID_XML';
+			}
+		} else {
+			$message = 'NO_SOCKET';
+		}
+	 	return $message;
+	}
+	function old_transform($xsl, $xml){
 	  if (!$this->socket)
 	  {
 	   	die("$errstr ($errno)<br />\n");
@@ -121,7 +192,6 @@ class XSLTransformerSocket {
 		}
 	 	return $message;
 	}
-
 
     function recebeResultado() {
 
