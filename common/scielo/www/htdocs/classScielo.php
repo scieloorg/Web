@@ -186,7 +186,7 @@ class Scielo extends ScieloBase
             $name = null;
 			$userID = null;
 		}
-		$result = "<USERINFO id=\"".$userID."\" status=\"".$userStatus."\">".$name."</USERINFO>";
+		$result = "<USERINFO id=\"".$userID."\" status=\"".$userStatus."\">".utf8_encode($name)."</USERINFO>";
 		return($result);
  	}
 
