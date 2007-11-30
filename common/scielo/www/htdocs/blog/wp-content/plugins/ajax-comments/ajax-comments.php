@@ -137,7 +137,7 @@ if(quant>=1){
 
   }else{
 
-	alert(quant);
+	//alert(quant);
     if(ajax_comment_loading) return false;
 
   ajax_comments_loading(true);
