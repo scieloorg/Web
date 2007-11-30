@@ -8,7 +8,6 @@ Faz o logout na instancia (ou seja "mata" os cookies de usuario)
     setcookie("userID","",0,"/");
     setcookie("firstName","",0,"/");
     setcookie("lastName","",0,"/");
-	setcookie("email","",0,"/");
 
     unset($_COOKIE['userID']);
     unset($_COOKIE['checkedLogin']);
