@@ -31,6 +31,7 @@ function getBlogByName($acron){
 	$strsql = "SELECT blog_id from blog.wp_blogs where path='".$acron."'";
 
 		$arr = $this->_db->databaseQuery($strsql);
+
 		if($arr){
 			return true;
 		}else{

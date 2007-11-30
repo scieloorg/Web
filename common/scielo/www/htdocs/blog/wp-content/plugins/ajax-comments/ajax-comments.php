@@ -19,6 +19,11 @@ if(strstr($_SERVER['PHP_SELF'], PLUGIN_AJAXCOMMENTS_PATH.PLUGIN_AJAXCOMMENTS_FIL
    && isset($_GET['js'])):
 header("Content-Type:text/javascript"); ?>
 var ajax_comment_loading = false;
+
+//*****************************************
+var quant=0;
+//*****************************************
+
 function ajax_comments_loading(on) { if(on) {
   ajax_comment_loading = true;
   var f = $('commentform');
@@ -67,6 +72,16 @@ function find_commentlist() {
 
 
 function ajax_comments_submit() {
+
+
+if(quant>=1){
+
+//*****************************************
+ alert(quant);
+ //*****************************************
+ document.getElementById('commentlist').innerHTML="";
+ //*****************************************
+
   if(ajax_comment_loading) return false;
 
   ajax_comments_loading(true);
@@ -91,18 +106,91 @@ function ajax_comments_submit() {
     onComplete: function(request) { ajax_comments_loading(false);
       window.clearTimeout(request['timeout_ID']);
 //      rotate_auth_image(); // AuthImage
-      if(request.status!=200) return;
+      if(request.status!=200){ return;}
+	   else{
+	   quant = quant + 1;
+	   alert(quant);
+	   }
+   	   //*****************************************
+		
+       // Reset comment
+       // f.comment.value=''; 
+	   //*****************************************
+	   //document.getElementById('author').value="";
+ 	   //document.getElementById('email').value="";
+       document.getElementById('comment').value="";
+  	   //*****************************************
 
       f.comment.value=''; // Reset comment
 
       new Insertion.Bottom(ol, request.responseText);
       var li = ol.lastChild, className = li.className, style = li.style;
       new Effect.BlindDown(li, {
-        afterFinish: function() { li.className = className; li.style = style; }
+        //*****************************************
+	    <!--removido param afterFinish: function() { li.className = className; li.style = style; }-->
+	   //*****************************************
+        afterFinish: function() { li.className = className; }
       });
     }
   });
   return false;
+
+  }else{
+
+	alert(quant);
+    if(ajax_comment_loading) return false;
+
+  ajax_comments_loading(true);
+  var f = $('commentform'), ol = find_commentlist();
+  new Ajax.Request('<?=get_settings('siteurl').PLUGIN_AJAXCOMMENTS_PATH.PLUGIN_AJAXCOMMENTS_FILE?>?submit', {
+    method: 'post',
+    asynchronous: true,
+    postBody: Form.serialize(f),
+    onLoading: function(request) {
+      request['timeout_ID'] = window.setTimeout(function() {
+        switch (request.readyState) {
+        case 1: case 2: case 3:
+          request.abort();
+          alert('Comment Error: Timeout\nThe server is taking a long time to respond. Try again in a few minutes.');
+          break;
+        }
+      }, 25000);
+    },
+    onFailure: function(request) {
+      alert((request.status!=406? 'Comment Error '+request.status+' : '+request.statusText+'\n' : '')+request.responseText);
+    },
+    onComplete: function(request) { ajax_comments_loading(false);
+      window.clearTimeout(request['timeout_ID']);
+//      rotate_auth_image(); // AuthImage
+      if(request.status!=200){ return;}
+	   else{
+	   quant = quant + 1;
+	   alert(quant);
+	   }
+   	   //*****************************************
+		
+       // Reset comment
+       // f.comment.value=''; 
+	   //*****************************************
+	   //document.getElementById('author').value="";
+ 	   //document.getElementById('email').value="";
+       document.getElementById('comment').value="";
+  	   //*****************************************
+
+      f.comment.value=''; // Reset comment
+
+      new Insertion.Bottom(ol, request.responseText);
+      var li = ol.lastChild, className = li.className, style = li.style;
+      new Effect.BlindDown(li, {
+		//*****************************************
+	    <!--removido param afterFinish: function() { li.className = className; li.style = style; }-->
+	   //*****************************************
+        afterFinish: function() { li.className = className; }
+      });
+    }
+  });
+  return false;
+  }
 }
 <?php endif;
 
@@ -267,13 +355,15 @@ $idReturnInsert = wp_insert_comment_ajax(array(
 
   // if the user is not already logged in and wants to be Remembered
   if ( !$user_ID && isset($_remember) ) { // remember cookie
-    setcookie('comment_author_' . COOKIEHASH, $_author, time() + 30000000, COOKIEPATH, COOKIE_DOMAIN);
-    setcookie('comment_author_email_' . COOKIEHASH, $_email, time() + 30000000, COOKIEPATH, COOKIE_DOMAIN);
-    setcookie('comment_author_url_' . COOKIEHASH, $_url, time() + 30000000, COOKIEPATH, COOKIE_DOMAIN);
+    //setcookie('comment_author_' . COOKIEHASH, $_author, time() + 30000000, COOKIEPATH, COOKIE_DOMAIN);
+    //setcookie('comment_author_email_' . COOKIEHASH, $_email, time() + 30000000, COOKIEPATH, COOKIE_DOMAIN);
+    //setcookie('comment_author_url_' . COOKIEHASH, $_url, time() + 30000000, COOKIEPATH, COOKIE_DOMAIN);
+	//setcookie('lang', "en", time() + 30000000, COOKIEPATH, COOKIE_DOMAIN);
   } else { // forget cookie
-    setcookie('comment_author_' . COOKIEHASH, '', time() - 30000000, COOKIEPATH, COOKIE_DOMAIN);
-    setcookie('comment_author_email_' . COOKIEHASH, '', time() - 30000000, COOKIEPATH, COOKIE_DOMAIN);
-    setcookie('comment_author_url_' . COOKIEHASH, '', time() - 30000000, COOKIEPATH, COOKIE_DOMAIN);
+    //setcookie('comment_author_' . COOKIEHASH, '', time() - 30000000, COOKIEPATH, COOKIE_DOMAIN);
+    //setcookie('comment_author_email_' . COOKIEHASH, '', time() - 30000000, COOKIEPATH, COOKIE_DOMAIN);
+    //setcookie('comment_author_url_' . COOKIEHASH, '', time() - 30000000, COOKIEPATH, COOKIE_DOMAIN);
+	//setcookie('lang', "en", time() + 30000000, COOKIEPATH, COOKIE_DOMAIN);
   }
 	
 	
@@ -293,14 +383,14 @@ $idReturnInsert = wp_insert_comment_ajax(array(
   preg_match('#<li(.*?)>(.*)</li>#ims', $commentout, $matches); // Regular Expression cuts out the LI element's HTML
 
   // return comment HTML to XML HTTP Request object
- // echo '<li '.$matches[1].' style="display:none">'.$matches[2].'</li>';
-	if($_POST['lang']=='pt'){
+  echo '<li '.$matches[1].' style="display:none">'.$matches[2].'</li>';
+	/*if($_POST['lang']=='pt'){
 		fail("Sua mensagem foi adicionada com sucesso aguarde aprovação");
 	}else if($_POST['lang']=='en'){	
 		fail("Your message has been successfully added wait approval");
 	}else{
 		fail("Su mensaje se ha añadido la aprobación de espera");
-	}
+	}*/
   exit;
 endif;
 

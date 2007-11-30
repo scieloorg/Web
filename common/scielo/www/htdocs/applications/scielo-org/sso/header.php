@@ -29,6 +29,7 @@ $loginURL = "http://".$defi['SCIELO_REGIONAL']['SCIELO_REGIONAL_DOMAIN']. $defi[
 			setcookie("firstName",$_GET['firstName'],time()+3600,"/");
 			setcookie("lastName",$_GET['lastName'],time()+3600,"/");
 			setcookie("userToken",$_GET['userToken'],time()+3600,"/");
+			setcookie("email",$_GET['email'],time()+3600,"/");
 			session_write_close();
 			Header("Location: ".$self_url);
 			exit;

@@ -62,13 +62,14 @@ else
 			setcookie("userID",$usr->getID(),time()+3600,"/");
 			setcookie("firstName",$usr->getFirstName(),time()+3600,"/");
 			setcookie("lastName",$usr->getlastName(),time()+3600,"/");
+			setcookie("email",$usr->getEmail(),time()+3600,"/");
 
 			if($useSGU){
 				setcookie("userToken",$usr->getToken(),time()+3600,"/");
 				setcookie("tokenVisit",$usr->getVisitToken(),time()+3600,"/");
 			}
 
-			$result = "userID=".$usr->getID()."&firstName=".$usr->getfirstName()."&lastName=".$usr->getlastName()."&lng=".$lang."&tlng=".$lang."&lang=".$lang."&userToken=".$usr->getToken()."&tokenVisit=".$usr->getVisitToken();
+			$result = "userID=".$usr->getID()."&firstName=".$usr->getfirstName()."&lastName=".$usr->getlastName()."&lng=".$lang."&tlng=".$lang."&lang=".$lang."&userToken=".$usr->getToken()."&tokenVisit=".$usr->getVisitToken()."&email=".$usr->getEmail();
 
 			if(strpos($origem,"?"))
 			{

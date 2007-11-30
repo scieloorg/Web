@@ -19,8 +19,8 @@
 			<xsl:choose>
 				<xsl:when test="$total &gt; 0">
 					<ul>
-								<xsl:apply-templates select="//related/relatedlist/article" mode="pre">
-								</xsl:apply-templates>
+					<xsl:apply-templates select="//related/relatedlist/article" mode="pre">
+					</xsl:apply-templates>
 					</ul>
 				</xsl:when>
 				<xsl:otherwise>

@@ -35,6 +35,7 @@ $ArticleDAO = new articleDAO();
 
 /*****************************************/
 
+
 $insertDate = date('Y-m-d h:i:s');
 $acron = $_REQUEST["acron"];
 $BlogDAO = new wpBlogDAO();
@@ -152,8 +153,8 @@ src="http://vm.scielo.br/blog/wp-content/plugins/ajax-comments/ajax-comments.php
 		//Verificando se o User esta logado
 		if($_COOKIE["userID"] && $_COOKIE["userID"]!=-2 && $blogExiste==true){
 	?>
-	<span style="font-weight:100;font-size: 80%; background:none;">
-		<A HREF="#add"><?=COMMENTS_ADD?></A>
+	<span class="addSpanAnchor">
+		<A HREF="#add" class="addCommentAnchor"><?=COMMENTS_ADD?></A>
 	</span>
 	<?
 		}
@@ -232,11 +233,11 @@ src="http://vm.scielo.br/blog/wp-content/plugins/ajax-comments/ajax-comments.php
 	</TR>
 	<TR>
 <TD colspan="2" >
-<ol class="commentlist"></ol>
 <? 
+	
 	//Verificando se o User esta logado e se o blog existe 
 	if($_COOKIE["userID"] && $_COOKIE["userID"]!=-2 && $blogExiste==true){?>
-					
+		<form action="<?php echo $guiSubmit; ?>" method="post" id="commentform">		
 		<h3>
 			<span class="addComments">
 				<A NAME="add"></A>
@@ -247,7 +248,6 @@ src="http://vm.scielo.br/blog/wp-content/plugins/ajax-comments/ajax-comments.php
 				?>
 			</span>		
 		</h3>
-		<form action="<?php echo $guiSubmit; ?>" method="post" id="commentform">
 					<input type="hidden" name="blogId" value="<?=$blogId?>"/>
 					<input type="hidden" name="comment_post_ID" value="<?php echo $ArticleDAO->getWpPostByIDValue($article->getPID());?>" />
 					<input type="hidden" name="lang" value="<?=$lang ?>" />
@@ -267,8 +267,8 @@ src="http://vm.scielo.br/blog/wp-content/plugins/ajax-comments/ajax-comments.php
 					<?=COMMENTS_USER_AUTHOR?>
 				</span>
 			</TD>
-			<TD>
-				<input type="text" name="author" id="author" value="<?=$_COOKIE["firstName"]?>" size="22" tabindex="1" disabled />
+			<TD><!---->
+				<input type="text" name="author" id="author" value="<?=$_COOKIE["firstName"]?>" size="22" tabindex="1"  />
 			</TD>
 		</TR>
 		<TR>
@@ -278,7 +278,7 @@ src="http://vm.scielo.br/blog/wp-content/plugins/ajax-comments/ajax-comments.php
 					<?=COMMNETS_USER_EMAIL?>
 				</span>
 			</TD>
-			<TD>										
+			<TD><!---->
 				<input type="text" name="email" id="email" value="<?=$_COOKIE["email"]?>" size="30" tabindex="2" />
 			</TD>
 		</TR>

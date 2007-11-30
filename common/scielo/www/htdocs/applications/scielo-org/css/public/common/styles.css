@@ -238,7 +238,16 @@ H3 SPAN A {
 	font-size:95%;
 	color: #555555;
 }
-
+a.addCommentAnchor {
+border-bottom:medium none;
+font-size:95%;
+text-decoration:none !important;
+}
+span.addSpanAnchor{
+font-weight:100!important;
+font-size: 70%!important;
+background:none!important;
+}
 
 /* classes for Collexis */
 

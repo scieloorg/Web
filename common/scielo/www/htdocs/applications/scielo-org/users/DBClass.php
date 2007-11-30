@@ -28,20 +28,20 @@ var $_conn = null;
 * @var string $_host
 */
 //var $_host = "127.0.0.1";
-var $_host = "172.0.0.1";
+var $_host = "localhost";
 
 
 /**
 * Nome do usuário do BD
 * @var string $_user
 */
-var $_user = "scielo";
+var $_user = "root";
 
 /**
 * Senha do usuário do BD
 * @var string $_password
 */
-var $_password = "scielo";
+var $_password = "";
 
 /**
 * Nome do databse
@@ -49,7 +49,9 @@ var $_password = "scielo";
 */
 var $_db = "scieloorgusers";
 
-function DBClass($params = null){
+var $params = null;
+
+function DBClass($params){
 		if (isset($params)){
 			$this->_host = $params['host'];
 			$this->_user = $params['user'];

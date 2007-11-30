@@ -27,8 +27,13 @@ class ArticleDAO {
 * Construtor da Classe ArticleDAO
 */
 	function ArticleDAO(){
-
-	$this->_db = new DBClass();
+/*
+	$DBparams["password"] = "";
+	$DBparams["db"] = "scieloorgusers";
+	$DBparams["user"] = "root";
+	$DBparams["host"] = "localhost";
+*/
+	$this->_db = new DBClass($DBparams);
 
 	}
 

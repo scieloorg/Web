@@ -314,3 +314,30 @@ HTML>BODY #search .searchItens {
 	padding: 6px;
 	border: 1px solid;
 }
+#collection h3 span{
+    float: left;
+    margin-right: 5px;
+}
+
+#collection .content {
+    clear: both;
+}
+
+.articleHeader{
+    width: 100% !important; 
+}
+
+.collection {
+    width: 400px !important;
+    float: right;
+}
+
+.count {
+    width: 75px !important;
+}
+
+.addComments {
+	font-weight:bold !important;
+	font-size: 70% !important;
+	background:none !important;
+}

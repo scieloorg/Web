@@ -10,7 +10,7 @@
 	<xsl:template match="/">
 		<xsl:apply-templates select="//SERIAL"/>
 	</xsl:template>
-	
+		
 	<xsl:template match="SERIAL">
 		<xsl:if test=".//mml:math">
 			<xsl:processing-instruction name="xml-stylesheet"> type="text/xsl" href="/xsl/mathml.xsl"</xsl:processing-instruction>
