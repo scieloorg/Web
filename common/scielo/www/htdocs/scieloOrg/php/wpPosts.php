@@ -115,10 +115,10 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD
 <head>
 <!-- Adicionado script para passar a utilizar o serviço de ajax comentado por Jamil Atta Junior (jamil.atta@bireme.org)-->
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-<script type="text/javascript" src="http://vm.scielo.br/blog/wp-content/plugins/ajax-comments/scriptaculous/prototype.js"></script>
-<script type="text/javascript" src="http://vm.scielo.br/blog/wp-content/plugins/ajax-comments/scriptaculous/scriptaculous.js"></script>
+<script type="text/javascript" src="/blog/wp-content/plugins/ajax-comments/scriptaculous/prototype.js"></script>
+<script type="text/javascript" src="/blog/wp-content/plugins/ajax-comments/scriptaculous/scriptaculous.js"></script>
 <script type="text/javascript" 
-src="http://vm.scielo.br/blog/wp-content/plugins/ajax-comments/ajax-comments.php?js"></script>
+src="/blog/wp-content/plugins/ajax-comments/ajax-comments.php?js"></script>
 
 <link rel="stylesheet" href="/applications/scielo-org/css/public/style-<?=$lang?>.css" type="text/css" media="screen"/>
 
