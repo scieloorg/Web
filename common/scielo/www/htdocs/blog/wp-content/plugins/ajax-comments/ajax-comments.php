@@ -77,7 +77,7 @@ function ajax_comments_submit() {
 if(quant>=1){
 
 //*****************************************
- alert(quant);
+ //alert(quant);
  //*****************************************
  document.getElementById('commentlist').innerHTML="";
  //*****************************************
@@ -109,7 +109,7 @@ if(quant>=1){
       if(request.status!=200){ return;}
 	   else{
 	   quant = quant + 1;
-	   alert(quant);
+	   //alert(quant);
 	   }
    	   //*****************************************
 		
@@ -165,7 +165,7 @@ if(quant>=1){
       if(request.status!=200){ return;}
 	   else{
 	   quant = quant + 1;
-	   alert(quant);
+	   //alert(quant);
 	   }
    	   //*****************************************
 		
