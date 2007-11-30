@@ -13,9 +13,9 @@ require_once(dirname(__FILE__)."/../users/DBClass.php");
 class wpPostsDAO{
 
 function wpPostsDAO(){
-		$DBparams["password"] = "batalha";
+		$DBparams["password"] = "botucatu862";
 		$DBparams["db"] = "blog";
-		$DBparams["user"] = "fabio";
+		$DBparams["user"] = "apague";
 		$DBparams["host"] = "localhost";
 		$this->_db = new DBClass($DBparams);
 }
