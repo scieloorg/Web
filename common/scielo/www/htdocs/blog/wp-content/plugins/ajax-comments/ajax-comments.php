@@ -378,11 +378,12 @@ $idReturnInsert = wp_insert_comment_ajax(array(
   // scrape templated comment HTML from /themes directory
   ob_start(); // start buffering output
   $comments = array($comment); // make it look like there is one comment to be displayed
-  include(TEMPLATEPATH.'/comments.php'); // now ask comments.php from the themes directory to display it
+  include(TEMPLATEPATH.'/commentsAjaxScielo.php'); // now ask comments.php from the themes directory to display it
   $commentout = ob_get_clean(); // grab buffered output
   preg_match('#<li(.*?)>(.*)</li>#ims', $commentout, $matches); // Regular Expression cuts out the LI element's HTML
 
   // return comment HTML to XML HTTP Request object
+  header("Content-type: text/xml; charset=utf-8");
   echo '<li '.$matches[1].' style="display:none">'.$matches[2].'</li>';
 	/*if($_POST['lang']=='pt'){
 		fail("Sua mensagem foi adicionada com sucesso aguarde aprovação");
