@@ -27,7 +27,7 @@ var quant=0;
 function ajax_comments_loading(on) { if(on) {
   ajax_comment_loading = true;
   var f = $('commentform');
-  f.submit.disabled = true; // disable submitS
+  f.submit.disabled = true; // disable submit
   new Insertion.Before(f, '<div id="ajax_comments_loading" style="display:none;">Adicionando</div>'); // create loading
 
   var l = $('ajax_comments_loading');
@@ -116,8 +116,8 @@ if(quant>=1){
        // Reset comment
        // f.comment.value=''; 
 	   //*****************************************
-	   //document.getElementById('author').value="";
- 	   //document.getElementById('email').value="";
+	   document.getElementById('author').value="";
+ 	   document.getElementById('email').value="";
        document.getElementById('comment').value="";
   	   //*****************************************
 
@@ -161,7 +161,7 @@ if(quant>=1){
     },
     onComplete: function(request) { ajax_comments_loading(false);
       window.clearTimeout(request['timeout_ID']);
-//      rotate_auth_image(); // AuthImage
+	   //rotate_auth_image(); // AuthImage
       if(request.status!=200){ return;}
 	   else{
 	   quant = quant + 1;
@@ -173,7 +173,7 @@ if(quant>=1){
        // f.comment.value=''; 
 	   //*****************************************
 	   //document.getElementById('author').value="";
- 	   //document.getElementById('email').value="";
+ 	   document.getElementById('email').value="";
        document.getElementById('comment').value="";
   	   //*****************************************
 
@@ -209,11 +209,14 @@ if(strstr($_SERVER['PHP_SELF'], PLUGIN_AJAXCOMMENTS_PATH.PLUGIN_AJAXCOMMENTS_FIL
 
   // trim and decode all POST variables
  
-  //foreach($_POST as $k => $v)
+  foreach($_POST as $k => $v)
     $_POST[$k] = trim(urldecode($v));
 
   // extract & alias POST variables
    extract($_POST, EXTR_PREFIX_ALL, '');
+
+  //fail(var_dump($_POST));
+  //die();
 	 
 	$wpdb->posts = "wp_".$_blogId."_posts";
 	//fail($_comment.$_blogId.$_email.$_url);
@@ -243,36 +246,36 @@ if(strstr($_SERVER['PHP_SELF'], PLUGIN_AJAXCOMMENTS_PATH.PLUGIN_AJAXCOMMENTS_FIL
   if ( get_settings('require_name_email') && !$user_ID )
     if ( $_author == '' ){ // make sure the Name isn't blank
 	   if($_POST['lang']=='pt'){
-			fail("Você esqueceu de preencher o seu nome!");
+			fail("Por favor preencher o seu nome");
 		}else if($_POST['lang']=='en'){	
-			 fail('You forgot to fill-in your Name!');
+			 fail('Please fill-in your Name');
 		}else{
-			fail("Si te olvidaste de relleno en su Nombre!");
+			fail("Si te olvidaste de relleno en su Nombre");
 		}
   }elseif ( $_email == '' ){ // make sure the Email Address isn't blank
 		 if($_POST['lang']=='pt'){
-			fail("Você esqueceu de preencher o email!");
+			fail("Por favor preencher o email");
 		}else if($_POST['lang']=='en'){	
-			 fail('You forgot to fill-in your Email Address!');
+			 fail('You forgot to fill-in your Email Address');
 		}else{
-			fail("Si te olvidaste de relleno en su Dirección de correo electrónico!");
+			fail("Si te olvidaste de relleno en su Dirección de correo electrónico");
 		}
   }elseif ( !is_email($_email) ){ // make sure the Email Address looks right
 		  if($_POST['lang']=='pt'){
-			fail("Seu e-mail esta inválido. Por favor tente outro.");
+			fail("E-mail esta inválido. Por favor tente outro.");
 		}else if($_POST['lang']=='en'){	
-			 fail('Your Email Address appears invalid. Please try another.');
+			 fail('Email Address appears invalid. Please try another.');
 		}else{
 			fail("Su dirección de correo electrónico aparece inválido. Por favor, pruebe con otra.");
 		}
   }
   if ( $_comment == '' ){ // make sure the Comment isn't blank
 	  if($_POST['lang']=='pt'){
-			fail("Você esqueceu de preencher seu comentário!");
+			fail("Por favor preencher seu comentário.");
 		}else if($_POST['lang']=='en'){	
-			 fail('You forgot to fill-in your Comment!');
+			 fail('You forgot to fill-in your Comment.');
 		}else{
-			fail("Si te olvidaste de relleno en su comentario!");
+			fail("Si te olvidaste de relleno en su comentario.");
 		}
   }
   // Simple duplicate check
@@ -284,7 +287,7 @@ if(strstr($_SERVER['PHP_SELF'], PLUGIN_AJAXCOMMENTS_PATH.PLUGIN_AJAXCOMMENTS_FIL
   ) AND comment_content = '".$wpdb->escape($_comment)."'
   LIMIT 1;")){
 		if($_POST['lang']=='pt'){
-			fail("Você falou isso antes.!");
+			fail("Menssagem enviada anteriormente.");
 		}else if($_POST['lang']=='en'){	
 			 fail("You've said that before. No need to repeat yourself.!");
 		}else{
@@ -382,16 +385,11 @@ $idReturnInsert = wp_insert_comment_ajax(array(
   $commentout = ob_get_clean(); // grab buffered output
   preg_match('#<li(.*?)>(.*)</li>#ims', $commentout, $matches); // Regular Expression cuts out the LI element's HTML
 
+if ($commentcount%2 == 0) $matches[1] = str_replace('class="alt"', 'class=""', $matches[1]); // fixing class="alt" bug :)
+
   // return comment HTML to XML HTTP Request object
   header("Content-type: text/xml; charset=utf-8");
   echo '<li '.$matches[1].' style="display:none">'.$matches[2].'</li>';
-	/*if($_POST['lang']=='pt'){
-		fail("Sua mensagem foi adicionada com sucesso aguarde aprovação");
-	}else if($_POST['lang']=='en'){	
-		fail("Your message has been successfully added wait approval");
-	}else{
-		fail("Su mensaje se ha añadido la aprobación de espera");
-	}*/
   exit;
 endif;
 

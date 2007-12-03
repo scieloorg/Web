@@ -11,11 +11,10 @@ require_once(dirname(__FILE__)."/../../classDefFile.php");
 require_once(dirname(__FILE__)."/../../applications/scielo-org/classes/services/ArticleServices.php");
 require_once(dirname(__FILE__)."/../../applications/scielo-org/classes/wpPosts.php");
 require_once(dirname(__FILE__)."/../../applications/scielo-org/classes/wpBlog.php");
+require_once(dirname(__FILE__)."/../../applications/scielo-org/sso/header.php");
 
 
-//require_once(dirname(__FILE__)."/../../class.XSLTransformer.php");
 
-//$transformer = new XSLTransformer();
 $defFile = parse_ini_file(dirname(__FILE__)."/../../scielo.def");
 
 $applServer = $defFile["SERVER_SCIELO"];
@@ -27,23 +26,14 @@ $flagLog  = $defFile["ENABLE_SERVICES_LOG"];
 $articleService = new ArticleService($applServer);
 $articleService->setParams($pid);
 $article = $articleService->getArticle();
-
-
-/****************************************/
-
 $ArticleDAO = new articleDAO();
-
-/*****************************************/
 
 
 $insertDate = date('Y-m-d h:i:s');
 $acron = $_REQUEST["acron"];
 $BlogDAO = new wpBlogDAO();
 $PostsDAO = new wpPostsDAO();
-$blogExiste = $BlogDAO->getBlogByName($acron);
-//verifica se o blog existe
-if($blogExiste==true){
-	//echo "ok blog existe".$blogExiste;
+
 	$guidUrl = "http://".$_SERVER["SERVER_NAME"]."/blog/".$acron."/".substr($insertDate,0,4)."/".substr($insertDate,5,2)."/".substr($insertDate,8,2)."/".$article->getPID()."/";
 	$guiSubmit = "http://".$_SERVER["SERVER_NAME"]."/blog/".$acron."/wp-comments-post.php";
 
@@ -54,7 +44,9 @@ if($blogExiste==true){
 	$titleStart = strpos($article->getTitle(),"<![CDATA[");
 	$titleEnd = strpos($article->getTitle(),"]]");
 	$title = substr($article->getTitle(),$titleStart+9,$titleEnd-($titleStart+9));
-	$Post->setPostTitle($title);
+	//echo preg_replace("<[^>]*>", "",$title);
+	echo $Post->setPostTitle(preg_replace("<[^>]*>", " ",$title));
+	//$Post->setPostTitle($title);
 	$Post->setPostAuth("1");
 	$Post->setPostDateGmt($insertDate);
 	$Post->setPostContent("");
@@ -67,9 +59,6 @@ if($blogExiste==true){
 	$Post->setMenuOrder("0");
 	$Post->setCommentCount("0");
 	$Post->setCommentStatus("1");
-	//var_dump($_COOKIE);
-
-	
 
 	$blogId = $BlogDAO->getBlogIdByName($acron);
 	$blogTable = "wp_".$blogId."_posts";
@@ -87,8 +76,6 @@ if($blogExiste==true){
 					$article->setWpPostDate($insertDate);
 					//Pesquisa o ID do Blog
 					$ArticleDAO->updatePosts($article,$blogId);
-				}else{
-					$error = "Comentários não estão disponíveis para esta revista";
 				}
 			}
 		}else{
@@ -98,14 +85,11 @@ if($blogExiste==true){
 					$article->setWpPostID($addedPostId);
 					$article->setWpURL($guidUrl);
 					$article->setWpPostDate($insertDate);
-
+					//Pesquisa o ID do Blog
 					$ArticleDAO->AddArticle($article);
-				}else{
-					$error = "Comentários não estão disponíveis para esta revista";
 				}
 
 		}
-}
 ?>
 
 <!DOCTYPE html
@@ -184,7 +168,7 @@ src="/blog/wp-content/plugins/ajax-comments/ajax-comments.php?js"></script>
 		<TD colspan="2">
 		<?php
 			//Alterar URL para busca os comments por artigo
-			if($blogExiste==true){
+				if($blogId!=0){
 					$serviceUrl =  $guidUrl."feed/";	
 					//echo $serviceUrl;
 					$xmlFile = file_get_contents($serviceUrl);
@@ -224,11 +208,8 @@ src="/blog/wp-content/plugins/ajax-comments/ajax-comments.php?js"></script>
 					$output = str_replace('<p>',' ',$output);
 					$output = str_replace('</p>',' ',$output);
 					echo $output;
-			}else{
-				echo COMMNETS_MESSAGE_BLOG;
 			}
 		?>
-		
 		</TD>
 	</TR>
 	<TR>
@@ -236,7 +217,7 @@ src="/blog/wp-content/plugins/ajax-comments/ajax-comments.php?js"></script>
 <? 
 	
 	//Verificando se o User esta logado e se o blog existe 
-	if($_COOKIE["userID"] && $_COOKIE["userID"]!=-2 && $blogExiste==true){?>
+	if($_COOKIE["userID"] && $_COOKIE["userID"]!=-2 && $blogId!=0){?>
 		<form action="<?php echo $guiSubmit; ?>" method="post" id="commentform">		
 		<h3>
 			<span class="addComments">
@@ -302,8 +283,11 @@ src="/blog/wp-content/plugins/ajax-comments/ajax-comments.php?js"></script>
 				<script type="text/javascript"><!--
 				$('commentform').onsubmit = ajax_comments_submit;
 				//--></script>	
-		<?}else{
-			//echo "Necessário efetuar logon.";
+		<?}elseif($blogId==0){
+			$url = "There are no comments about this article: Please ". "<a href=".'"'."http://vm.scielo.org//applications/scielo-org/sso/loginScielo.php?lang=".$lang.'"'.">login</a>"." if you want to submit a comment."; 
+			echo COMMNETS_DONT_BLOG;
+			}else{
+			echo COMMNETS_MESSAGE_BLOG;
 			} ?>
 </tr>
 </td>

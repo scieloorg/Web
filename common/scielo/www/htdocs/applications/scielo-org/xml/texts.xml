@@ -80,7 +80,7 @@
 		</text>
 		<text>
 			<find>doesnt_comment</find>
-			<replace>Não existe comentários para este artigo.</replace>
+			<replace>Este artigo ainda não foi comentado.</replace>
 		</text>
 		<text>
 			<find>arg</find>
@@ -368,7 +368,7 @@
 	<language id="en">
 		<text>
 			<find>doesnt_comment</find>
-			<replace>There are no comments about this article: Please login if you want to submit a comment.</replace>
+			<replace>This articles wasn't comment yet</replace>
 		</text>
 		<text>
 			<find>doiNotFound</find>
