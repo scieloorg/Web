@@ -26,8 +26,8 @@ var quant=0;
 
 function ajax_comments_loading(on) { if(on) {
   ajax_comment_loading = true;
-  var f = $('commentform');
-  f.submit.disabled = true; // disable submit
+  var f = $('commentimage');
+  $('commentform').submit.disabled = true; // disable submit
   new Insertion.Before(f, '<div id="ajax_comments_loading" style="display:none;">Adicionando</div>'); // create loading
 
   var l = $('ajax_comments_loading');
@@ -116,8 +116,8 @@ if(quant>=1){
        // Reset comment
        // f.comment.value=''; 
 	   //*****************************************
-	   document.getElementById('author').value="";
- 	   document.getElementById('email').value="";
+	   //document.getElementById('author').value="";
+ 	   //document.getElementById('email').value="";
        document.getElementById('comment').value="";
   	   //*****************************************
 
@@ -173,7 +173,7 @@ if(quant>=1){
        // f.comment.value=''; 
 	   //*****************************************
 	   //document.getElementById('author').value="";
- 	   document.getElementById('email').value="";
+ 	   //document.getElementById('email').value="";
        document.getElementById('comment').value="";
   	   //*****************************************
 
@@ -246,19 +246,19 @@ if(strstr($_SERVER['PHP_SELF'], PLUGIN_AJAXCOMMENTS_PATH.PLUGIN_AJAXCOMMENTS_FIL
   if ( get_settings('require_name_email') && !$user_ID )
     if ( $_author == '' ){ // make sure the Name isn't blank
 	   if($_POST['lang']=='pt'){
-			fail("Por favor preencher o seu nome");
+			fail("Por favor preencher o seu nome.");
 		}else if($_POST['lang']=='en'){	
-			 fail('Please fill-in your Name');
+			 fail('Please fill-in your Name.');
 		}else{
-			fail("Si te olvidaste de relleno en su Nombre");
+			fail("Si te olvidaste de relleno en su Nombre.");
 		}
   }elseif ( $_email == '' ){ // make sure the Email Address isn't blank
 		 if($_POST['lang']=='pt'){
-			fail("Por favor preencher o email");
+			fail("Por favor preencher o email.");
 		}else if($_POST['lang']=='en'){	
-			 fail('You forgot to fill-in your Email Address');
+			 fail('You forgot to fill-in your Email Address.');
 		}else{
-			fail("Si te olvidaste de relleno en su Dirección de correo electrónico");
+			fail("Si te olvidaste de relleno en su Dirección de correo electrónic.o");
 		}
   }elseif ( !is_email($_email) ){ // make sure the Email Address looks right
 		  if($_POST['lang']=='pt'){
@@ -358,15 +358,7 @@ $idReturnInsert = wp_insert_comment_ajax(array(
 
   // if the user is not already logged in and wants to be Remembered
   if ( !$user_ID && isset($_remember) ) { // remember cookie
-    //setcookie('comment_author_' . COOKIEHASH, $_author, time() + 30000000, COOKIEPATH, COOKIE_DOMAIN);
-    //setcookie('comment_author_email_' . COOKIEHASH, $_email, time() + 30000000, COOKIEPATH, COOKIE_DOMAIN);
-    //setcookie('comment_author_url_' . COOKIEHASH, $_url, time() + 30000000, COOKIEPATH, COOKIE_DOMAIN);
-	//setcookie('lang', "en", time() + 30000000, COOKIEPATH, COOKIE_DOMAIN);
   } else { // forget cookie
-    //setcookie('comment_author_' . COOKIEHASH, '', time() - 30000000, COOKIEPATH, COOKIE_DOMAIN);
-    //setcookie('comment_author_email_' . COOKIEHASH, '', time() - 30000000, COOKIEPATH, COOKIE_DOMAIN);
-    //setcookie('comment_author_url_' . COOKIEHASH, '', time() - 30000000, COOKIEPATH, COOKIE_DOMAIN);
-	//setcookie('lang', "en", time() + 30000000, COOKIEPATH, COOKIE_DOMAIN);
   }
 	
 	

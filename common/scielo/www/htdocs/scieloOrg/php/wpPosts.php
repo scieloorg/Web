@@ -135,7 +135,7 @@ src="/blog/wp-content/plugins/ajax-comments/ajax-comments.php?js"></script>
 	
 	<?
 		//Verificando se o User esta logado
-		if($_COOKIE["userID"] && $_COOKIE["userID"]!=-2 && $blogExiste==true){
+		if($_COOKIE["userID"] && $_COOKIE["userID"]!=-2 && $blogId!=0){
 	?>
 	<span class="addSpanAnchor">
 		<A HREF="#add" class="addCommentAnchor"><?=COMMENTS_ADD?></A>
@@ -145,6 +145,7 @@ src="/blog/wp-content/plugins/ajax-comments/ajax-comments.php?js"></script>
 	?>
 </h3>
 <div class="content">
+<form action="<?php echo $guiSubmit; ?>" method="post" id="commentform">
 	<TABLE border="0" cellpadding="0" cellspacing="2" width="700" align="center">
 	<TR>
 		<TD colspan="2">
@@ -214,11 +215,11 @@ src="/blog/wp-content/plugins/ajax-comments/ajax-comments.php?js"></script>
 	</TR>
 	<TR>
 <TD colspan="2" >
+<div id="commentimage"></div>
+<ol id="commentlist"></ol>
 <? 
-	
 	//Verificando se o User esta logado e se o blog existe 
 	if($_COOKIE["userID"] && $_COOKIE["userID"]!=-2 && $blogId!=0){?>
-		<form action="<?php echo $guiSubmit; ?>" method="post" id="commentform">		
 		<h3>
 			<span class="addComments">
 				<A NAME="add"></A>
