@@ -12,16 +12,25 @@ $url = $ini['scielo_org_urls']['home'];
 
 $origem = $_GET['origem']?$_GET['origem']:$_SERVER['HTTP_REFERER'];
 
-if($origem == "")
-{
+$count = 0;
+foreach ($_GET as $key => $value) {
+	$count = $count+1;
+	if ($count == 1){
+		$origem = $value."?";
+	}else{
+		$origem .= $key."=".$value."&";
+	}
+}
+$origem = substr($origem,0,strlen($origem)-1);
+
+if($origem == ""){
 	$origem = $url;
 }
 
 if(isset($_COOKIE['userID']) && (intval($_COOKIE['userID']) > 0))
 {
     session_write_close();
-    if(strpos($origem,"?"))
-    {
+    if(strpos($origem,"?")){
         header("Location: ".$origem."&userID=".$_COOKIE['userID']."&firstName=".$_COOKIE['firstName']."&lastName=".$_COOKIE['lastName']."&lng=".$lang."&tlng=".$lang."&lang=".$lang."&userToken=".$_COOKIE['userToken']."&tokenVisit=".$_COOKIE['tokenVisit']);
     }
     else{

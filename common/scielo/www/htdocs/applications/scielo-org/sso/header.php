@@ -4,13 +4,10 @@
 //error_reporting(E_ALL);
 session_start();
 $dir = dirname(__FILE__);
-
 $defi = parse_ini_file($dir."/../../../scielo.def",true);
-
 if($defi['services']['show_login'] != "0"){
 
 $loginURL = "http://".$defi['SCIELO_REGIONAL']['SCIELO_REGIONAL_DOMAIN']. $defi['SCIELO_REGIONAL']['check_login_url'];
-	
 	if(isset($_GET['userID']))
 	{
 			if (strpos($_SERVER["REQUEST_URI"],"lng"))
@@ -39,18 +36,16 @@ $loginURL = "http://".$defi['SCIELO_REGIONAL']['SCIELO_REGIONAL_DOMAIN']. $defi[
 	*/
 	if(!isset($_SESSION['checkedLogin']))
 	{
-
 		$self_url = "http://".$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
-
 		$inicio = strpos($self_url,"userID") -1 ;
 
 		if($inicio > 0){
 		   $self_url = substr($self_url, 0, $inicio);
 		}
-
 		$_SESSION['checkedLogin'] = "true";
 		session_write_close();
-		header("Location: ".$loginURL."?origem=".urlencode($self_url));
+		$self_url = '?origem='.str_replace('?','&',$self_url);
+		header("Location: ".$loginURL.$self_url);
 	}
 }
 ?>
