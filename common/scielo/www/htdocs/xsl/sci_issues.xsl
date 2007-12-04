@@ -2,8 +2,11 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 	<xsl:include href="sci_navegation.xsl"/>
 	<xsl:include href="sci_error.xsl"/>
-
-	<xsl:output method="html" indent="no" />
+	<xsl:output method="html" indent="no"/>
+	<xsl:variable name="spaceYear" select="'12%'"/>
+	<xsl:variable name="spaceVol" select="'7%'"/>
+	<xsl:variable name="spaceIssue" select="'5%'"/>
+	<xsl:variable name="spaceIssues" select="'70%'"/>
 	<xsl:template match="SERIAL">
 		<HTML>
 			<HEAD>
@@ -52,7 +55,7 @@
 		<TABLE width="100%" border="0">
 			<TBODY>
 				<TR>
-					<TD width="5%">&#160;</TD>
+					<TD>&#160;</TD>
 					<TD width="95%">
 						<P align="left">
 							<FONT class="nomodel" color="#800000">
@@ -66,7 +69,7 @@
 						<TABLE borderColor="#c0c0c0" cellSpacing="3" cellPadding="3" width="100%" border="0">
 							<TBODY>
 								<TR>
-									<TD vAlign="center" align="left" width="15%" bgColor="#e1e6e6" height="35">
+									<TD vAlign="center" align="left" width="{$spaceYear}" bgColor="#e1e6e6" height="35">
 										<P align="center">
 											<FONT color="#000080">
 												<B>
@@ -84,14 +87,14 @@
 	  </xsl:variable-->
 									<!--xsl:if test="YEARISSUE/VOLISSUE/@VOL!=''"-->
 									<xsl:if test="$test_vol != ''">
-										<TD align="middle" width="10%" bgColor="#e1e6e6" height="35">
+										<TD align="middle" width="{$spaceVol}" bgColor="#e1e6e6" height="35">
 											<FONT class="normal" color="#000080">
 												<B>Vol.</B>
 											</FONT>
 										</TD>
 									</xsl:if>
 									<xsl:if test="YEARISSUE/VOLISSUE/ISSUE/@NUM or YEARISSUE/VOLISSUE/ISSUE/@SUPPL">
-										<TD align="left" width="75%" bgColor="#e1e6e6" colSpan="12" height="35">
+										<TD align="left" width="{$spaceIssues}" bgColor="#e1e6e6" colSpan="14" height="35">
            &#160;&#160;
           <FONT class="normal" color="000080">
 												<B>
@@ -112,7 +115,7 @@
 								</xsl:apply-templates>
 								<xsl:if test="//CHANGESINFO">
 									<TR>
-										<TD colspan="12">
+										<TD colspan="14">
 											<BR/>
 											<xsl:apply-templates select="//CHANGESINFO">
 												<xsl:with-param name="LANG" select="//CONTROLINFO/LANGUAGE"/>
@@ -130,16 +133,14 @@
 	<xsl:template match="YEARISSUE">
 	</xsl:template>
 	<xsl:template match="YEARISSUE[VOLISSUE/ISSUE]">
-			<xsl:apply-templates select="VOLISSUE">
-				
-				<xsl:sort select="@VOL" order="descending" data-type="number"/>
-			</xsl:apply-templates>
+		<xsl:apply-templates select="VOLISSUE">
+			<xsl:sort select="@VOL" order="descending" data-type="number"/>
+		</xsl:apply-templates>
 	</xsl:template>
 	<xsl:template match="VOLISSUE">
-		
 		<xsl:if test="ISSUE">
 			<TR>
-				<TD vAlign="center" align="left" width="15%" bgColor="#edecee" height="35">
+				<TD vAlign="center" align="left" width="{$spaceYear}" bgColor="#edecee" height="35">
 					<P align="center">
          &#160;&#160;<FONT color="#000080">
 							<B>
@@ -155,7 +156,7 @@
 				<!-- fixed -->
 				<xsl:choose>
 					<xsl:when test=" $test_vol != '' ">
-						<TD align="middle" width="10%" bgColor="#edecee" height="35">
+						<TD align="middle" width="{$spaceVol}" bgColor="#edecee" height="35">
 							<B>
 								<FONT class="normal" color="#000080">
 									<xsl:choose>
@@ -188,76 +189,14 @@
 					ERRO OCASIONADO APOS CORRIGIR A AUSENCIA DE LINK NO VOLUME QUANDO ESTE NAO TINHA NEM NUMERO NEM VOLUME.
 					EXEMPLO ECLETICA QUIMICA ANO 2002.
 				-->
-
-				
 				<xsl:call-template name="AddBlankCells">
-					<xsl:with-param name="ncells" select="10-$navailissues"/>
-				</xsl:call-template>
-			</TR>
-		</xsl:if>
-	</xsl:template>
-	<xsl:template match="VOLISSUE" mode="old">
-		<xsl:if test="ISSUE">
-			<TR>
-				<TD vAlign="center" align="left" width="15%" bgColor="#edecee" height="35">
-					<P align="center">
-         &#160;&#160;<FONT color="#000080">
-							<B>
-								<xsl:value-of select="../@YEAR"/>
-							</B>
-						</FONT>
-					</P>
-				</TD>
-				<xsl:variable name="navailissues" select="count(ISSUE)"/>
-				<!--xsl:variable name="test_vol">
-		<xsl:apply-templates select="//YEARISSUE/VOLISSUE" mode="validation"/>
-	  </xsl:variable-->
-				<xsl:choose>
-					<xsl:when test="$navailissues!=0 and (ISSUE/@SUPPL or ISSUE/@NUM)">
-						<xsl:choose>
-							<!-- xsl:when test="@VOL!='' or $test_vol !=''" -->
-							<xsl:when test=" $test_vol != '' ">
-								<TD align="middle" width="10%" bgColor="#edecee" height="35">
-									<B>
-										<FONT class="normal" color="#000080">
-											<xsl:choose>
-												<xsl:when test="@VOL != '' ">
-													<xsl:value-of select="@VOL"/>
-												</xsl:when>
-												<xsl:otherwise>&#160;</xsl:otherwise>
-											</xsl:choose>
-										</FONT>
-									</B>
-								</TD>
-							</xsl:when>
-							<xsl:otherwise>&#160;</xsl:otherwise>
-						</xsl:choose>
-						<xsl:apply-templates select="ISSUE"/>
-					</xsl:when>
-					<xsl:otherwise>
-						<TD align="middle" width="10%" bgColor="#edecee" height="35">
-							<B>
-								<FONT color="#000080">
-									<A>
-										<xsl:call-template name="AddScieloLink">
-											<xsl:with-param name="seq" select="ISSUE/@SEQ"/>
-											<xsl:with-param name="script">sci_issuetoc</xsl:with-param>
-										</xsl:call-template>
-										<xsl:value-of select="@VOL"/>
-									</A>
-								</FONT>
-							</B>
-						</TD>
-					</xsl:otherwise>
-				</xsl:choose>
-				<xsl:call-template name="AddBlankCells">
-					<xsl:with-param name="ncells" select="10-$navailissues"/>
+					<xsl:with-param name="ncells" select="14-$navailissues"/>
 				</xsl:call-template>
 			</TR>
 		</xsl:if>
 	</xsl:template>
 	<xsl:template match="ISSUE">
-		<TD align="middle" width="6.25%" bgColor="#f5f5eb" height="35">
+		<TD align="middle" width="{$spaceIssue}" bgColor="#f5f5eb" height="35">
 			<B>
 				<FONT color="#000080">
 					<A>
@@ -274,17 +213,21 @@
 							<xsl:with-param name="suppl" select="@SUPPL"/>
 							<xsl:with-param name="lang" select="//CONTROLINFO/LANGUAGE"/>
 						</xsl:call-template>
-						<xsl:if test="@NUM='beforeprint'">				<xsl:choose>
-					<xsl:when test="//CONTROLINFO/LANGUAGE='es'">no impresos</xsl:when>
-					<xsl:when test="//CONTROLINFO/LANGUAGE='pt'">não impressos</xsl:when>
-					<xsl:otherwise>not printed</xsl:otherwise>
-				</xsl:choose></xsl:if>
+						<xsl:if test="@NUM='beforeprint'">
+							<xsl:choose>
+								<xsl:when test="//CONTROLINFO/LANGUAGE='es'">no impresos</xsl:when>
+								<xsl:when test="//CONTROLINFO/LANGUAGE='pt'">não impressos</xsl:when>
+								<xsl:otherwise>not printed</xsl:otherwise>
+							</xsl:choose>
+						</xsl:if>
 						<xsl:if test="@NUM='AHEAD'">ahead of print</xsl:if>
-						<xsl:if test="@NUM='REVIEW'"><xsl:choose>
-					<xsl:when test="//CONTROLINFO/LANGUAGE='es'">en revisión</xsl:when>
-					<xsl:when test="//CONTROLINFO/LANGUAGE='pt'">em revisão</xsl:when>
-					<xsl:otherwise>review in progress</xsl:otherwise>
-				</xsl:choose></xsl:if>
+						<xsl:if test="@NUM='REVIEW'">
+							<xsl:choose>
+								<xsl:when test="//CONTROLINFO/LANGUAGE='es'">en revisión</xsl:when>
+								<xsl:when test="//CONTROLINFO/LANGUAGE='pt'">em revisão</xsl:when>
+								<xsl:otherwise>review in progress</xsl:otherwise>
+							</xsl:choose>
+						</xsl:if>
 					</A>
 				</FONT>
 			</B>
@@ -295,7 +238,7 @@
 	<xsl:template name="AddBlankCells">
 		<xsl:param name="ncells"/>
 		<xsl:if test="$ncells>0">
-			<TD align="middle" width="6.25%" height="35">&#160;</TD>
+			<TD align="middle" width="{$spaceIssue}" height="35" bgColor="#f5f5eb">&#160;</TD>
 			<xsl:call-template name="AddBlankCells">
 				<xsl:with-param name="ncells" select="$ncells - 1"/>
 			</xsl:call-template>
