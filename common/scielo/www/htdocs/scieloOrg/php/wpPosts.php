@@ -279,7 +279,7 @@ src="/blog/wp-content/plugins/ajax-comments/ajax-comments.php?js"></script>
 				$('commentform').onsubmit = ajax_comments_submit;
 				//--></script>	
 		<?}elseif($blogId==0){
-			$url = "There are no comments about this article: Please ". "<a href=".'"'."http://vm.scielo.org//applications/scielo-org/sso/loginScielo.php?lang=".$lang.'"'.">login</a>"." if you want to submit a comment."; 
+			$url = "There are no comments about this article: Please ". "<a href=".'"'."http://".$defFile["SCIELO_REGIONAL_DOMAIN"]."//applications/scielo-org/sso/loginScielo.php?lang=".$lang.'"'.">login</a>"." if you want to submit a comment."; 
 			echo COMMNETS_DONT_BLOG;
 			}else{
 			echo COMMNETS_MESSAGE_BLOG;
