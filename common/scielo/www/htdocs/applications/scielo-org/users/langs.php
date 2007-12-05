@@ -127,14 +127,9 @@ define("COMMENTS_USER_AUTHOR","Nome: ");
 define("COMMNETS_USER_EMAIL","Email: ");
 define("COMMNETS_USER_BUTTON","Enviar");
 define("COMMNETS_USER_COMMENT","Comentário:");
-<<<<<<< .mine
 define("COMMNETS_MESSAGE_BLOG_INI","Por favor efetuar");
 define("COMMNETS_MESSAGE_BLOG_FIM"," se deseja enviar um comentário.");
 define("COMMNETS_DONT_BLOG","Esta revista não pode receber comentários.");
-=======
-define("COMMNETS_MESSAGE_BLOG","Por favor efetuar ". "<a href=".'"'."http://vm.scielo.org//applications/scielo-org/sso/loginScielo.php?lang=pt".'"'.">login</a>"." se deseja enviar um comentário.");
-define("COMMNETS_DONT_BLOG","Esta revista não pode receber comentários.");
->>>>>>> .r1618
 define("SEE","Ver");
 define("SEE_HISTORY","Ver Histórico");
 define("CHOOSE_PERIOD", "Escolha por ano:");
@@ -384,14 +379,9 @@ define("COMMENTS_USER_AUTHOR","Name: ");
 define("COMMNETS_USER_EMAIL","Email: ");
 define("COMMNETS_USER_BUTTON","Send");
 define("COMMNETS_USER_COMMENT","Comments:");
-<<<<<<< .mine
 define("COMMNETS_MESSAGE_BLOG_INI","Please ");
 define("COMMNETS_MESSAGE_BLOG_FIM"," if you want to submit a comment.");
 define("COMMNETS_DONT_BLOG","This journal can't receive comments");
-=======
-define("COMMNETS_MESSAGE_BLOG","Please ". "<a href=".'"'."http://vm.scielo.org//applications/scielo-org/sso/loginScielo.php?lang=en".'"'.">login</a>"." if you want to submit a comment.");
-define("COMMNETS_DONT_BLOG","This journal can't receive comments");
->>>>>>> .r1618
 define("SEE","See");
 define("SEE_HISTORY","See History");
 define("CHOOSE_PERIOD", "Choose by Year:");
@@ -639,15 +629,9 @@ define("COMMENTS_USER_AUTHOR","Nombre: ");
 define("COMMNETS_USER_EMAIL","Email: ");
 define("COMMNETS_USER_BUTTON","Enviar");
 define("COMMNETS_USER_COMMENT","Comentario:");
-<<<<<<< .mine
 define("COMMNETS_MESSAGE_BLOG_INI","Por favor, haga el ");
 define("COMMNETS_MESSAGE_BLOG_FIM"," para enviar un comentario a ese artículo.");
 define("COMMNETS_DONT_BLOG","Disculpa, ese artículo no podrá ser comentado.");
-=======
-define("COMMNETS_MESSAGE_BLOG","Por favor, haga el ". "<a href=".'"'."http://vm.scielo.org//applications/scielo-org/sso/loginScielo.php?lang=es".'"'.">login</a>"." para enviar un comentario a ese artículo.");
-define("COMMNETS_DONT_BLOG","Disculpa, ese artículo no podrá ser comentado.");
->>>>>>> .r1618
-
 
 define("SEE","Ver");
 define("SEE_HISTORY","Ver Histórico");
