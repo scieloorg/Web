@@ -278,20 +278,11 @@ src="/blog/wp-content/plugins/ajax-comments/ajax-comments.php?js"></script>
 				<script type="text/javascript"><!--
 				$('commentform').onsubmit = ajax_comments_submit;
 				//--></script>	
-<<<<<<< .mine
 		<?}elseif($blogId==0){
 			echo COMMNETS_DONT_BLOG;
 		}else{
 			echo COMMNETS_MESSAGE_BLOG_INI.'<a href="http://'.$defFile["SCIELO_REGIONAL_DOMAIN"].'//applications/scielo-org/sso/loginScielo.php?lang='.$lang.'>login</a>'.COMMNETS_MESSAGE_BLOG_FIM;
 		} ?>
-=======
-		<?}elseif($blogId==0){
-			$url = "There are no comments about this article: Please ". "<a href=".'"'."http://".$defFile["SCIELO_REGIONAL_DOMAIN"]."//applications/scielo-org/sso/loginScielo.php?lang=".$lang.'"'.">login</a>"." if you want to submit a comment."; 
-			echo COMMNETS_DONT_BLOG;
-			}else{
-			echo COMMNETS_MESSAGE_BLOG;
-			} ?>
->>>>>>> .r1618
 </tr>
 </td>
 </TABLE>
