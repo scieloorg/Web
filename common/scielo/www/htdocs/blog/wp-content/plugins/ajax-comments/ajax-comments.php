@@ -19,11 +19,7 @@ if(strstr($_SERVER['PHP_SELF'], PLUGIN_AJAXCOMMENTS_PATH.PLUGIN_AJAXCOMMENTS_FIL
    && isset($_GET['js'])):
 header("Content-Type:text/javascript"); ?>
 var ajax_comment_loading = false;
-
-//*****************************************
 var quant=0;
-//*****************************************
-
 function ajax_comments_loading(on) { if(on) {
   ajax_comment_loading = true;
   var f = $('commentimage');
@@ -75,13 +71,7 @@ function ajax_comments_submit() {
 
 
 if(quant>=1){
-
-//*****************************************
- //alert(quant);
- //*****************************************
  document.getElementById('commentlist').innerHTML="";
- //*****************************************
-
   if(ajax_comment_loading) return false;
 
   ajax_comments_loading(true);
@@ -111,17 +101,8 @@ if(quant>=1){
 	   quant = quant + 1;
 	   //alert(quant);
 	   }
-   	   //*****************************************
-		
-       // Reset comment
-       // f.comment.value=''; 
-	   //*****************************************
-	   //document.getElementById('author').value="";
- 	   //document.getElementById('email').value="";
-       document.getElementById('comment').value="";
-  	   //*****************************************
 
-      f.comment.value=''; // Reset comment
+       document.getElementById('comment').value="";
 
       new Insertion.Bottom(ol, request.responseText);
       var li = ol.lastChild, className = li.className, style = li.style;
@@ -167,17 +148,8 @@ if(quant>=1){
 	   quant = quant + 1;
 	   //alert(quant);
 	   }
-   	   //*****************************************
-		
-       // Reset comment
-       // f.comment.value=''; 
-	   //*****************************************
-	   //document.getElementById('author').value="";
- 	   //document.getElementById('email').value="";
+   	   
        document.getElementById('comment').value="";
-  	   //*****************************************
-
-      f.comment.value=''; // Reset comment
 
       new Insertion.Bottom(ol, request.responseText);
       var li = ol.lastChild, className = li.className, style = li.style;
@@ -215,18 +187,13 @@ if(strstr($_SERVER['PHP_SELF'], PLUGIN_AJAXCOMMENTS_PATH.PLUGIN_AJAXCOMMENTS_FIL
   // extract & alias POST variables
    extract($_POST, EXTR_PREFIX_ALL, '');
 
-  //fail(var_dump($_POST));
-  //die();
-	 
 	$wpdb->posts = "wp_".$_blogId."_posts";
-	//fail($_comment.$_blogId.$_email.$_url);
+	
 	$wpdb->comments = "wp_".$_blogId."_comments";
-	//fail($_POST['_comment']);
-	//fail($_REQUEST['_comment']);
-
+	
   // get the post comment_status {$wpdb->posts}
   $post_status = $wpdb->get_var("SELECT comment_status FROM {$wpdb->posts} WHERE ID = '".$wpdb->escape($_comment_post_ID)."' LIMIT 1;");
- //echo ("SELECT comment_status FROM {$wpdb->posts} WHERE ID = '".$wpdb->escape($_comment_post_ID)."' LIMIT 1;");
+
   if ( empty($post_status) ) // make sure the post exists
 	//fail($wpdb->posts);
     fail("That post doesn't even exist! Id post: ".$post_status);
@@ -248,17 +215,17 @@ if(strstr($_SERVER['PHP_SELF'], PLUGIN_AJAXCOMMENTS_PATH.PLUGIN_AJAXCOMMENTS_FIL
 	   if($_POST['lang']=='pt'){
 			fail("Por favor preencher o seu nome.");
 		}else if($_POST['lang']=='en'){	
-			 fail('Please fill-in your Name.');
+			 fail('Please, fill the field name.');
 		}else{
-			fail("Si te olvidaste de relleno en su Nombre.");
+			fail("Por favor, llenar su nombre..");
 		}
   }elseif ( $_email == '' ){ // make sure the Email Address isn't blank
 		 if($_POST['lang']=='pt'){
-			fail("Por favor preencher o email.");
+			fail("Por favor preencher o seu email.");
 		}else if($_POST['lang']=='en'){	
-			 fail('You forgot to fill-in your Email Address.');
+			 fail('Please, fill the field email.');
 		}else{
-			fail("Si te olvidaste de relleno en su Dirección de correo electrónic.o");
+			fail("Por favor, llenar su email.");
 		}
   }elseif ( !is_email($_email) ){ // make sure the Email Address looks right
 		  if($_POST['lang']=='pt'){
@@ -273,9 +240,9 @@ if(strstr($_SERVER['PHP_SELF'], PLUGIN_AJAXCOMMENTS_PATH.PLUGIN_AJAXCOMMENTS_FIL
 	  if($_POST['lang']=='pt'){
 			fail("Por favor preencher seu comentário.");
 		}else if($_POST['lang']=='en'){	
-			 fail('You forgot to fill-in your Comment.');
+			 fail('Please, fill the field comments.');
 		}else{
-			fail("Si te olvidaste de relleno en su comentario.");
+			fail("Por favor, llenar su comentario.");
 		}
   }
   // Simple duplicate check
@@ -291,7 +258,7 @@ if(strstr($_SERVER['PHP_SELF'], PLUGIN_AJAXCOMMENTS_PATH.PLUGIN_AJAXCOMMENTS_FIL
 		}else if($_POST['lang']=='en'){	
 			 fail("You've said that before. No need to repeat yourself.!");
 		}else{
-			fail("Usted ha dicho que antes. No hay necesidad de repetir a ti mismo.!");
+			fail("Mensaje enviada anteriormente.");
 		}
   }
   // Simple flood-protection
@@ -307,7 +274,7 @@ if(strstr($_SERVER['PHP_SELF'], PLUGIN_AJAXCOMMENTS_PATH.PLUGIN_AJAXCOMMENTS_FIL
 		}else if($_POST['lang']=='en'){	
 			 fail("Sorry, you can only post a new comment once every 15 seconds. Slow down cowboy.");
 		}else{
-			fail("Lo siento, sólo puede enviar un nuevo comentario una vez cada 15 segundos.");
+			fail("Disculpa, mas usted solamente podrá enviar un nuevo comentario una vez a cada 15 segundos.");
 		}
     }
   }

@@ -14,8 +14,6 @@
 	<xsl:variable name="services_comments" select="//varScieloOrg/services_comments" />
 	<xsl:variable name="acron" select="//SIGLUM" />
 	
-
-
 		<div id="toolBox">
 			<h2 id="toolsSection">
 				<xsl:choose>
@@ -111,7 +109,7 @@
 						<xsl:choose>
 							<xsl:when test="$LANGUAGE='en' ">Comment this article</xsl:when>
 							<xsl:when test="$LANGUAGE='pt' ">Comente este artigo</xsl:when>
-							<xsl:when test="$LANGUAGE='es' ">Comentar este artículo</xsl:when>
+							<xsl:when test="$LANGUAGE='es' ">Comentar ese artículo</xsl:when>
 						</xsl:choose>
 						</a>					
 						</li>

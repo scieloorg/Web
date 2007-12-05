@@ -627,8 +627,8 @@ define("COMMENTS_USER_AUTHOR","Nombre: ");
 define("COMMNETS_USER_EMAIL","Email: ");
 define("COMMNETS_USER_BUTTON","Enviar");
 define("COMMNETS_USER_COMMENT","Comentario:");
-define("COMMNETS_MESSAGE_BLOG","Please ". "<a href=".'"'."http://vm.scielo.org//applications/scielo-org/sso/loginScielo.php?lang=es".'"'.">login</a>"." if you want to submit a comment.");
-define("COMMNETS_DONT_BLOG","Este periódico no puede recibir comentarios.");
+define("COMMNETS_MESSAGE_BLOG","Por favor, haga el ". "<a href=".'"'."http://vm.scielo.org//applications/scielo-org/sso/loginScielo.php?lang=es".'"'.">login</a>"." para enviar un comentario a ese artículo.");
+define("COMMNETS_DONT_BLOG","Disculpa, ese artículo no podrá ser comentado.");
 
 
 define("SEE","Ver");
