@@ -281,7 +281,7 @@ src="/blog/wp-content/plugins/ajax-comments/ajax-comments.php?js"></script>
 		<?}elseif($blogId==0){
 			echo COMMNETS_DONT_BLOG;
 		}else{
-			echo COMMNETS_MESSAGE_BLOG_INI.'<a href="http://'.$defFile["SCIELO_REGIONAL_DOMAIN"].'//applications/scielo-org/sso/loginScielo.php?lang='.$lang.'>login</a>'.COMMNETS_MESSAGE_BLOG_FIM;
+			echo COMMNETS_MESSAGE_BLOG_INI.'<a href="http://'.$defFile["SCIELO_REGIONAL_DOMAIN"].'//applications/scielo-org/sso/loginScielo.php?lang='.$lang.'">login</a>'.COMMNETS_MESSAGE_BLOG_FIM;
 		} ?>
 </tr>
 </td>
