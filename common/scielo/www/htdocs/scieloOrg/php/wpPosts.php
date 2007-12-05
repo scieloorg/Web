@@ -3,8 +3,7 @@ ini_set("display_errors","1");
 error_reporting(E_ALL ^E_NOTICE);
 $lang = isset($_REQUEST['lang'])?($_REQUEST['lang']):"";
 $pid = isset($_REQUEST['pid'])?($_REQUEST['pid']):"";
-$text = isset($_REQUEST['text'])?($_REQUEST['text']):"";
-
+$defFile = parse_ini_file(dirname(__FILE__)."/../../scielo.def");
 require_once(dirname(__FILE__)."/../../applications/scielo-org/users/functions.php");
 require_once(dirname(__FILE__)."/../../applications/scielo-org/users/langs.php");
 require_once(dirname(__FILE__)."/../../classDefFile.php");
@@ -13,26 +12,21 @@ require_once(dirname(__FILE__)."/../../applications/scielo-org/classes/wpPosts.p
 require_once(dirname(__FILE__)."/../../applications/scielo-org/classes/wpBlog.php");
 require_once(dirname(__FILE__)."/../../applications/scielo-org/sso/header.php");
 
+	$applServer = $defFile["SERVER_SCIELO"];
+	$wordpress =  $defFile["WORDPRESS"];
+	$databasePath = $defFile["PATH_DATABASE"];
+	$flagLog  = $defFile["ENABLE_SERVICES_LOG"];
 
+	//getting metadatas from PID
+	$articleService = new ArticleService($applServer);
+	$articleService->setParams($pid);
+	$article = $articleService->getArticle();
+	$ArticleDAO = new articleDAO();
 
-$defFile = parse_ini_file(dirname(__FILE__)."/../../scielo.def");
-
-$applServer = $defFile["SERVER_SCIELO"];
-$wordpress =  $defFile["WORDPRESS"];
-$databasePath = $defFile["PATH_DATABASE"];
-$flagLog  = $defFile["ENABLE_SERVICES_LOG"];
-
-//getting metadatas from PID
-$articleService = new ArticleService($applServer);
-$articleService->setParams($pid);
-$article = $articleService->getArticle();
-$ArticleDAO = new articleDAO();
-
-
-$insertDate = date('Y-m-d h:i:s');
-$acron = $_REQUEST["acron"];
-$BlogDAO = new wpBlogDAO();
-$PostsDAO = new wpPostsDAO();
+	$insertDate = date('Y-m-d h:i:s');
+	$acron = $_REQUEST["acron"];
+	$BlogDAO = new wpBlogDAO();
+	$PostsDAO = new wpPostsDAO();
 
 	$guidUrl = "http://".$_SERVER["SERVER_NAME"]."/blog/".$acron."/".substr($insertDate,0,4)."/".substr($insertDate,5,2)."/".substr($insertDate,8,2)."/".$article->getPID()."/";
 	$guiSubmit = "http://".$_SERVER["SERVER_NAME"]."/blog/".$acron."/wp-comments-post.php";
@@ -41,12 +35,11 @@ $PostsDAO = new wpPostsDAO();
 	$Post->setPostName($article->getPID());
 	$Post->setPostGuid($guidUrl);
 	$Post->setPostDate($insertDate);
-	$titleStart = strpos($article->getTitle(),"<![CDATA[");
-	$titleEnd = strpos($article->getTitle(),"]]");
-	$title = substr($article->getTitle(),$titleStart+9,$titleEnd-($titleStart+9));
-	//echo preg_replace("<[^>]*>", "",$title);
-	echo $Post->setPostTitle(preg_replace("<[^>]*>", " ",$title));
-	//$Post->setPostTitle($title);
+	//Tratamento title
+	$title = str_replace("<![CDATA[","",$article->getTitle());
+	$title = str_replace("]]>","",$article->getTitle());
+	$Post->setPostTitle(ereg_replace("<[^>]*>", "",$title));
+	$Post->setPostTitle($title);
 	$Post->setPostAuth("1");
 	$Post->setPostDateGmt($insertDate);
 	$Post->setPostContent("");
@@ -62,6 +55,7 @@ $PostsDAO = new wpPostsDAO();
 
 	$blogId = $BlogDAO->getBlogIdByName($acron);
 	$blogTable = "wp_".$blogId."_posts";
+
 		if($ArticleDAO->getArticleByPID($article->getPID())){
 			if($ArticleDAO->getWpPostByID($article->getPID())){
 				$postDate = $ArticleDAO->getPostDate($article->getPID());
