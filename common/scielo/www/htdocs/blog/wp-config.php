@@ -1,10 +1,13 @@
 <?php
 /* Don't try to create this file by hand. Read the README.txt and run the installer. */
 // ** MySQL settings ** //
-define('DB_NAME', 'blog');    // The name of the database
-define('DB_USER', 'root');     // Your MySQL username
-define('DB_PASSWORD', ''); // ...and password
-define('DB_HOST', 'localhost');    // 99% chance you won't need to change this value
+
+$fileDef = parse_ini_file(dirname(__FILE__)."/../scielo.def");
+
+define('DB_NAME', $fileDef["DB_BLOG"]);    // The name of the database
+define('DB_USER', $fileDef["DB_USER_BLOG"]);     // Your MySQL username
+define('DB_PASSWORD', $fileDef["DB_USER_BLOG_PASSWORD"]); // ...and password
+define('DB_HOST', $fileDef["DB_HOST_BLOG"]);    // 99% chance you won't need to change this value
 define('DB_CHARSET', 'utf8');
 define('DB_COLLATE', '');
 define('VHOST', 'no'); 
