@@ -37,9 +37,8 @@ require_once(dirname(__FILE__)."/../../applications/scielo-org/sso/header.php");
 	$Post->setPostDate($insertDate);
 	//Tratamento title
 	$title = str_replace("<![CDATA[","",$article->getTitle());
-	$title = str_replace("]]>","",$article->getTitle());
+	$title = str_replace("]]>","",$title);
 	$Post->setPostTitle(ereg_replace("<[^>]*>", "",$title));
-	$Post->setPostTitle($title);
 	$Post->setPostAuth("1");
 	$Post->setPostDateGmt($insertDate);
 	$Post->setPostContent("");
