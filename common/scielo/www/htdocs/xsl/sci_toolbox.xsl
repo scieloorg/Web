@@ -13,7 +13,8 @@
 	<xsl:variable name="show_datasus" select="//varScieloOrg/show_datasus" />
 	<xsl:variable name="services_comments" select="//varScieloOrg/services_comments" />
 	<xsl:variable name="acron" select="//SIGLUM" />
-	
+	<!--<xsl:variable name="review" select="//ISSUE/@NUM"/>-->
+		
 		<div id="toolBox">
 			<h2 id="toolsSection">
 				<xsl:choose>
@@ -100,6 +101,7 @@
 					</xsl:choose>
 				</xsl:if>
 				<xsl:if test="$services_comments != 0">
+					<xsl:if test="ISSUE/@NUM">
 					<li>
 						<a>
 						<xsl:attribute name="href">javascript: void(0);</xsl:attribute>
@@ -114,6 +116,7 @@
 						</a>					
 						</li>
 				</xsl:if>
+			</xsl:if>
 					<xsl:if test="ISSUE/ARTICLE/@PDF">
 					<xsl:variable name="tlng" select="ISSUE/ARTICLE/@TEXTLANG"/>
 					<xsl:variable name="pdf_tlng">
