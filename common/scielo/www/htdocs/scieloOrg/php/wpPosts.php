@@ -274,6 +274,13 @@ src="/blog/wp-content/plugins/ajax-comments/ajax-comments.php?js"></script>
 			<input name="submit" type="submit" id="submit" class="submit" tabindex="5" value="<?=COMMNETS_USER_BUTTON?>" />
 			</TD>
 		</TR>
+			<TR>
+			<TD >
+			</TD>
+			<TD >
+			*campus requeridos
+			</TD>
+		</TR>
 				<script type="text/javascript"><!--
 				$('commentform').onsubmit = ajax_comments_submit;
 				//--></script>	
