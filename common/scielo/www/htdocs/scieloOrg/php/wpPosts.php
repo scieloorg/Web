@@ -30,15 +30,21 @@ require_once(dirname(__FILE__)."/../../applications/scielo-org/sso/header.php");
 
 	$guidUrl = "http://".$_SERVER["SERVER_NAME"]."/blog/".$acron."/".substr($insertDate,0,4)."/".substr($insertDate,5,2)."/".substr($insertDate,8,2)."/".$article->getPID()."/";
 	$guiSubmit = "http://".$_SERVER["SERVER_NAME"]."/blog/".$acron."/wp-comments-post.php";
-
 	$Post = new wpPosts();
 	$Post->setPostName($article->getPID());
 	$Post->setPostGuid($guidUrl);
 	$Post->setPostDate($insertDate);
-	//Tratamento title
-	$title = str_replace("<![CDATA[","",$article->getTitle());
+	$title = $article->getTitle();
+	/************************************************
+	* Transformando e assegurando que o Title seja cadastrado em English
+	************************************************/
+	$posTitleEn = strpos($article->getTitle(),'"en"');
+	$titleEn = substr($title, $posTitleEn);
+	$title = ereg_replace("<[^>]*>", "",$titleEn);
+	$title = str_replace('"en">',"",$title);
 	$title = str_replace("]]>","",$title);
-	$Post->setPostTitle(ereg_replace("<[^>]*>", "",$title));
+
+	$Post->setPostTitle($title);
 	$Post->setPostAuth("1");
 	$Post->setPostDateGmt($insertDate);
 	$Post->setPostContent("");
