@@ -238,7 +238,7 @@
 	<xsl:template name="AddBlankCells">
 		<xsl:param name="ncells"/>
 		<xsl:if test="$ncells>0">
-			<TD align="middle" width="{$spaceIssue}" height="35" bgColor="#f5f5eb">&#160;</TD>
+			<TD align="middle" width="{$spaceIssue}" height="35" >&#160;</TD>
 			<xsl:call-template name="AddBlankCells">
 				<xsl:with-param name="ncells" select="$ncells - 1"/>
 			</xsl:call-template>
