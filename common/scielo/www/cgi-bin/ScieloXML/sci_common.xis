@@ -1,5 +1,6 @@
 <!-- Common Functions (SciELO Interface)-->
 <include>ScieloXML/sci_getdefine.xis</include>
+<!--include>ScieloXML/sci_journal.xis</include-->
 <!-- ============================================================================ -->
 <!--  function GetCurrentIssue                                                       -->
 <!--                                                                              -->
@@ -80,12 +81,12 @@
 <function name="GetPreviousIssue" action="replace" tag="4900">
 	<!--display><pft>'v4900 = ',v4900,'<br>'</pft></display-->
 
-
 	<!-- as tres partes abaixo se excluem -->
 	<!-- parte 1 - no caso de current=review entao previous=ahead -->
 	<call name="isAnIssueAvailableBeforePrint"><pft>v4900</pft></call>
 	<call name="GetIssueAvailableBeforePrint"><pft>if v9032='review' then '^a',mid(v4900,1,9),'^bAHEAD' fi</pft></call>
 	<field action="replace" tag="7085"><pft>v7095</pft></field>
+	
 	<field action="delete" tag="7095">1</field>
 
 	<!-- parte 2 - no caso de current=review ou current=ahead entao previous=ultimo issue diferente de ahead -->
@@ -218,9 +219,9 @@
 		</loop>	
 	</do>
 	<flow action="jump"><pft>if a(v4901) or v4900^c='0' then 'Next' fi</pft></flow>
-	<do task="keyrange">
+<do task="search">
 	   <parm name="db">ARTIGO</parm>
-	   <parm name="from"><pft>'SM='v4901</pft></parm>
+	   <parm name="expression"><pft>'SM='v4901,'$'</pft></parm>
 	   <parm name="count">1</parm>
 
 	   <loop>
@@ -256,6 +257,16 @@
 
 	<flow action="jump"><pft>if v9032='review' then 'NO_NEXT'	fi</pft></flow>
 
+	<label>IS_AHEAD</label>
+	<call name="GetIssueAvailableBeforePrint"><pft>'^a',mid(v4900,1,9),'^bAHEAD^c1'</pft></call>
+	<field action="replace" tag="5000"><pft>v7095</pft></field>
+	<field action="delete" tag="7095">1</field>
+
+	<label>IS_REVIEW</label>
+	<call name="GetIssueAvailableBeforePrint"><pft>'^a',mid(v4900,1,9),'^bREVIEW^c1'</pft></call>
+	<field action="replace" tag="5001"><pft>v7095</pft></field>
+	<field action="delete" tag="7095">1</field>
+
 	<do task="keyrange">
 		<!--parm name="db">NEWISSUE</parm-->
 		<parm name="db">ARTIGO</parm>
@@ -265,14 +276,16 @@
 		<field action="define" tag="4901">Isis_Key</field>
 
 		<loop>
-			<display><pft>'<!-- ',v4901,' -->'/</pft></display>
-			<field action="import" tag="list">9036,4900</field>
+			<field action="import" tag="list">5000,5001</field>
+			<display><pft>'<!-- ',v4901*1,' -->'/</pft></display>
+			<display><pft>'<!-- ',v5000,' -->'/</pft></display>
+			<display><pft>'<!-- ',v5001,' -->'/</pft></display>
 			
 			<flow action="skip">
 				<pft>
 					/* The first key found whose pid isn't the current issue's  */
 					/* pid stops the loop.                                      */
-					if v9032<>'ahead' and v9032<>'review'  then
+					if v4901*1<>v5000^* and v4901*1<>v5001^*  then
 						if l(['NEWISSUE'],v4901) > 0 then, 
 							'Quit'
 						fi
@@ -815,6 +828,7 @@
 			),
 		' </TITLEGROUP>'/#</pft>
   </display>
+  <!--call name="getXMLJournalStatusHistory"><pft>ref(['TITLE']val(v4001),v400)</pft></call-->
 </function>
 
 <function name="CreateChangesInfoXML" action="replace" tag=4001>

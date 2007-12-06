@@ -39,8 +39,16 @@
     <field action="import" tag="list">2000,2001,4001,5000,5001</field>
 
 	<!-- if it is an issue available before print then skip next -->
+<display><pft>'<!-- xxx 1001=',v1001/</pft></display>
+<display><pft>'1002='v1002/</pft></display>
+<display><pft>'5000='v5000/</pft></display>
+<display><pft>'5001='v5001/,'-->'/</pft></display>
 	<flow action="skip"><pft>if v1002*1=v5000^* or v1002*1=v5001^* then 'Next' fi</pft></flow>
 	
+	<field action="replace" tag="2003"><pft>v1002*1</pft></field>
+	<call name="issueHasArticles"><pft>v2003</pft></call>
+	<flow action="skip"><pft>if v9036<>v2003 then 'Next' fi </pft></flow>	 	
+
     <field action="replace" tag="9065"><pft>ref(['NEWISSUE']val(v1003^m),mid(v65,1,4))</pft></field>	
 	
 	<flow action="jump">
@@ -73,17 +81,15 @@
     <field action="replace" tag="2001"><pft>v9031</pft></field>	
 	
 	<label>NEXT_ISSUE</label>
-    <field action="replace" tag="2003"><pft>v1002*1</pft></field>
-	<call name="issueHasArticles"><pft>v2003</pft></call>
 	<display>
-	 <pft>if  v9036=v2003 then
+	 <pft>
 	       ref(['NEWISSUE']val(v1003^m),
 		   '    <ISSUE'
 				,mpu,if p(v32) then ' NUM="'v32'"' fi,mpl,
 				,| SUPPL="|v131|"|,| SUPPL="|v132|"|,
 		  ),
- 		  ,' SEQ="',v1002*1,'"/>'/
-		  ,fi
+ 		  ,' SEQ="',v2003,'"/>'/
+		  
 		  </pft>
 	</display>	 	
 	<field action="export" tag="list">2000,2001,4001,5000,5001</field>
