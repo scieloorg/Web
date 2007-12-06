@@ -278,7 +278,7 @@ src="/blog/wp-content/plugins/ajax-comments/ajax-comments.php?js"></script>
 			<TD >
 			</TD>
 			<TD >
-			*campus requeridos
+			<?=REQUIRED_FIELD_TEXT?>
 			</TD>
 		</TR>
 				<script type="text/javascript"><!--
