@@ -101,7 +101,7 @@
 					</xsl:choose>
 				</xsl:if>
 				<xsl:if test="$services_comments != 0">
-					<xsl:if test="ISSUE/@NUM">
+					<xsl:if test="ISSUE/@NUM='REVIEW'">
 					<li>
 						<a>
 						<xsl:attribute name="href">javascript: void(0);</xsl:attribute>
