@@ -27,7 +27,7 @@
             $debug_str .= $str;
         }
     }
-    
+   
     function printdebug ()
     {
         global $debug, $debug_str;
@@ -165,12 +165,13 @@
 
     function generatePayload ( $ws_client_url, $service, $service_name, $parameters, $xsl )
     {
+
         global $debug, $defFile;
 			//die($service_name." - ".$service);
 			switch ( $service_name )
 			{
 			case "Identify": 
-				{
+				{				
 				$response = listRecords( $set = $parameters["set"], $from = $parameters["from"], $until = $parameters["until"], $control = $parameters["control"], $lang = "en", $nrm = "iso", $count = 30, $debug = false );
 				break;
 				}
@@ -203,12 +204,15 @@
        // $result = "";
         if ( !$debug )
         {
+
 			$transform = new XSLTransformer ();
 			if (getenv("ENV_SOCKET")!="true"){  //socket
-				$xsl = file_get_contents($defFile["PATH_OAI"].$xsl);
+//				$xsl = file_get_contents($defFile["PATH_OAI"].$xsl);
+				$xsl = file_get_contents($xsl);
 			} else {
 				$xsl = str_replace('.XSL','',strtoupper($xsl));
 			}
+			
 	    	$transform->setXslBaseUri($defFile["PATH_OAI"]);	
     	    $transform->setXsl ( $xsl );
 	        $transform->setXml ( $response );
@@ -221,12 +225,11 @@
 	            $transform->destroy();
 	            exit ();
     	    }
-			
 	        $result = $transform->getOutput();
 	        $transform->destroy();
         }
-
-	    return $result;
+		
+	    return ($result);
     }
 
 	/**************************************** verbo GetRecord **************************************/
