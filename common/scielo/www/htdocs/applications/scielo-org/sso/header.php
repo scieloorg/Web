@@ -12,7 +12,7 @@ $loginURL = "http://".$defi['SCIELO_REGIONAL']['SCIELO_REGIONAL_DOMAIN']. $defi[
 	{
 			if (strpos($_SERVER["REQUEST_URI"],"lng"))
 			{
-				$self_url = str_replace("en",$_GET['lng'],"http://".$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"]);
+				$self_url = str_replace("lng=en","lng=".$_GET['lng'],"http://".$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"]);
 			}else{
 				$self_url = "http://".$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"]."&lng=".$_GET['lng'];
 			}
