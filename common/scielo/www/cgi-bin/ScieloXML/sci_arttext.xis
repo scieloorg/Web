@@ -176,8 +176,7 @@
    </display>
    	<call name="getDOI"><pft>v880</pft></call> 
 	<!-- fixed 20040622 -->
-	<field action="replace" tag="4040" split="occ"><pft>(v12^l/)</pft></field> 
-	<field action="replace" tag="4040" split="occ"><pft>if a(v12) then v40 fi</pft></field> 
+	<field action="replace" tag="4040" split="occ"><pft>v4001^t</pft></field> 
    <call name="TestPDFPresence"><pft>v4001^p</pft></call>
    
    <display><pft>'>'/</pft></display>
