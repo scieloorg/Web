@@ -211,7 +211,7 @@
        // $result = "";
         if ( !$debug )
         {
-die($response);
+
 			$transform = new XSLTransformer ();
 			if (getenv("ENV_SOCKET")!="true"){  //socket
 //				$xsl = file_get_contents($defFile["PATH_OAI"].$xsl);
