@@ -9,7 +9,9 @@
     define ( "DEFAULT_CACHE_EXPIRES", 180 );
 	$defFile = parse_ini_file(dirname(__FILE__)."/../scielo.def");
     $metadataPrefixList = array ( "oai_dc" => array( "ns" => "http://www.openarchives.org/OAI/2.0/oai_dc/",
-                                                     "schema" => "http://www.openarchives.org/OAI/2.0/oai_dc.xsd") );
+                                                     "schema" => "http://www.openarchives.org/OAI/2.0/oai_dc.xsd"),
+								  "oai_dc_agris" => array("ns" => "http://www.purl.org/agmes/agrisap/schema/",
+								  							"schema" => "http://www.purl.org/agmes/agrisap/schema/agris.xsd"));
 /*
 	$repositoryName = "SciELO Online Library Collection";
 	$earliestDatestamp = "1996-01-01";
@@ -80,17 +82,22 @@
 
 	/******************************************* isValidPrefix *******************************************/
 
-	function isValidPrefix ( $metadataPrefix )
+	function isValidPrefix ( $metadataPrefix )	
 	{
 		global $metadataPrefixList;
 
 		reset ( $metadataPrefixList );
+
 
 		while ( list ( $key, )  = each ( $metadataPrefixList ) )
 		{
 			if ( $key == $metadataPrefix ) return true;
 		}
 
+/*
+		foreach($metadataPrefixList as $key){
+			if ( $key == $metadataPrefix ) return true;
+		}*/
 		return false;
 	}
 
@@ -204,7 +211,7 @@
        // $result = "";
         if ( !$debug )
         {
-
+die($response);
 			$transform = new XSLTransformer ();
 			if (getenv("ENV_SOCKET")!="true"){  //socket
 //				$xsl = file_get_contents($defFile["PATH_OAI"].$xsl);
@@ -212,6 +219,7 @@
 			} else {
 				$xsl = str_replace('.XSL','',strtoupper($xsl));
 			}
+
 			
 	    	$transform->setXslBaseUri($defFile["PATH_OAI"]);	
     	    $transform->setXsl ( $xsl );
@@ -236,6 +244,7 @@
 
     function getRecord_OAI ( $request_uri, $ws_client_url, $xslPath, $identifier, $metadataPrefix )
     {
+
         global $debug;
         
     	if ( !isset ( $identifier ) || empty ( $identifier ) )
@@ -261,6 +270,11 @@
                                   
 	       // $xsl = $xslPath . "GetRecord.xsl";
 			 $xsl = "GetRecord.xsl";
+			 if($metadataPrefix == 'oai_dc_agris'){
+			 	$xsl = "GetRecord_agris.xsl";
+			 }
+
+						 
 	    	$result = generatePayload ( $ws_client_url, "getAbstractArticle", "GetRecord", $parameters, $xsl );
 	    }
 
@@ -388,6 +402,7 @@
     
     function ListIdOrRecords_OAI ( $verb, $request_uri, $ws_client_url, $xslPath, $metadataPrefix, $set = "", $from = "", $until = "", $control = "" )
     {
+    	
         global $debug;
 
     	if ( !isset ( $metadataPrefix ) || empty ( $metadataPrefix ) )
@@ -418,7 +433,12 @@
             
 	        //$xsl = $xslPath . "$verb.xsl";
 			$xsl = "$verb.xsl";
-	    	$result = generatePayload ( $ws_client_url, "listRecords", $verb, $parameters, $xsl );
+			
+			if($metadataPrefix == 'oai_dc_agris'){
+				if($verb == 'ListRecords') $xsl = $verb . '_agris.xsl'; 
+			}
+			
+			$result = generatePayload ( $ws_client_url, "listRecords", $verb, $parameters, $xsl );
 	    }
 
 	    $oai_packet = generateOAI_packet ( $request_uri, $verb, $result );

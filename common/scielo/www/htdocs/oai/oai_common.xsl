@@ -45,8 +45,11 @@
 	</xsl:template>
 
 	<xsl:template match="TITLE">
+		<xsl:variable name="elemento">
+			dc:title xml:lang="teste"
+		</xsl:variable>
 		<xsl:call-template name="escaped_element">
-			<xsl:with-param name="name">dc:title</xsl:with-param>
+			<xsl:with-param name="name">$elemento</xsl:with-param>
 			<xsl:with-param name="value"><xsl:apply-templates select="text()" mode="cdata"/></xsl:with-param>
 		</xsl:call-template>
 	</xsl:template>
