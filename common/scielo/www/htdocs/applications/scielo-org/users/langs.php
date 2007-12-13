@@ -127,9 +127,13 @@ define("COMMENTS_USER_AUTHOR","*Nome: ");
 define("COMMNETS_USER_EMAIL","*Email: ");
 define("COMMNETS_USER_BUTTON","Enviar");
 define("COMMNETS_USER_COMMENT","*Comentário:");
-define("COMMNETS_MESSAGE_BLOG_INI","Por favor efetuar");
+define("COMMNETS_MESSAGE_BLOG_INI","Por favor efetuar ");
 define("COMMNETS_MESSAGE_BLOG_FIM"," se deseja enviar um comentário.");
 define("COMMNETS_DONT_BLOG","Esta revista não pode receber comentários.");
+define("COMMNETS_MESSAGE_ERRO_1","Desculpe, mas você só pode postar um novo comentário uma vez a cada 15 segundos.");
+define("COMMNETS_MESSAGE_ERRO_2","Menssagem enviada anteriormente.");
+define("COMMNETS_MESSAGE_INFO_1","Comentário enviado por: ");
+define("COMMNETS_MESSAGE_INFO_2",", aguarde aprovação.");
 define("SEE","Ver");
 define("SEE_HISTORY","Ver Histórico");
 define("CHOOSE_PERIOD", "Escolha por ano:");
@@ -382,6 +386,11 @@ define("COMMNETS_USER_COMMENT","*Comments:");
 define("COMMNETS_MESSAGE_BLOG_INI","Please ");
 define("COMMNETS_MESSAGE_BLOG_FIM"," if you want to submit a comment.");
 define("COMMNETS_DONT_BLOG","This journal can't receive comments");
+define("COMMNETS_MESSAGE_ERRO_1","Sorry, you can only post a new comment once every 15 seconds. Slow down.");
+define("COMMNETS_MESSAGE_ERRO_2","You've said that before. No need to repeat yourself.");
+define("COMMNETS_MESSAGE_INFO_1","Comment sent by: "); 
+define("COMMNETS_MESSAGE_INFO_2",", waiting approve.");
+
 define("SEE","See");
 define("SEE_HISTORY","See History");
 define("CHOOSE_PERIOD", "Choose by Year:");
@@ -632,6 +641,10 @@ define("COMMNETS_USER_COMMENT","*Comentario:");
 define("COMMNETS_MESSAGE_BLOG_INI","Por favor, haga el ");
 define("COMMNETS_MESSAGE_BLOG_FIM"," para enviar un comentario a ese artículo.");
 define("COMMNETS_DONT_BLOG","Disculpa, ese artículo no podrá ser comentado.");
+define("COMMNETS_MESSAGE_ERRO_1","Disculpa, mas usted solamente podrá enviar un nuevo comentario una vez a cada 15 segundos.");
+define("COMMNETS_MESSAGE_INFO_1","Comentario enviado por: ");
+define("COMMNETS_MESSAGE_INFO_2",", aguarde aprobación.");
+
 
 define("SEE","Ver");
 define("SEE_HISTORY","Ver Histórico");

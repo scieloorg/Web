@@ -341,3 +341,33 @@ HTML>BODY #search .searchItens {
 	font-size: 70% !important;
 	background:none !important;
 }
+
+.addComments {
+	font-weight:bold !important;
+	font-size: 70% !important;
+	background:none !important;
+}
+.liComments{
+	width:70%;
+	margin-top:5px;
+	margin-left:-18px;
+	background:#f7f8f7;
+}
+.divComments{
+	color:#990000;
+	font-family:Trebuchet;
+	font-weight:bold;
+	padding:10px
+}
+.divCommentText{
+	color:#000000;
+	font-weight:normal;
+	font-family:Trebuchet;
+}
+.rssComments{
+	text-decoration:none !important;
+	border-bottom:medium none;
+}
+
+
+

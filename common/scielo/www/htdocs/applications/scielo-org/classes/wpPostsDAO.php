@@ -56,5 +56,14 @@ function addPost($post,$blogId){
 
 	}
 
+	function getLastComment($blogID,$commentID){
+		$strsql = "SELECT comment_author,comment_content from wp_".$blogID."_comments where comment_ID=".$commentID;
+
+		$arr = $this->_db->databaseQuery($strsql);
+
+		return $arr;
+
+	}
+
 }
 ?>
