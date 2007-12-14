@@ -95,7 +95,7 @@
 	</flow>
 
 	<call name="GetSectionName">
-	 <pft>'^l'v4001^l'^c'v999'^s'v4001^s'^i'v4001^i</pft>
+	 <pft>'^l'v4001^l'^c'v999'^s'v4001^s'^i'v4001^i,'^p'v4001^p*0.17</pft>
 	</call>
 	
 	<label>NO_SECTION_NAME</label>

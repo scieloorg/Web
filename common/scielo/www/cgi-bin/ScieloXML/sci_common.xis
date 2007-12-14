@@ -2274,35 +2274,24 @@
 <!-- Get the name of the section in a given language
      4001^l - Interface Language
 	 4001^c - Section Code 
-	 4001^s - Issue MFN
+	 4001^p - Issue ID
 	 4001^i - International Language
 	 Returns: 
 	 4010 - Section Name -->
 
-  <do task="mfnrange">
-    <parm name="db">NEWISSUE</parm>
-    <parm name="from"><pft>v4001^s</pft></parm>
-    <parm name="count">1</parm>
 
-    <loop>
-      <field action="export" tag=49>49</field>  
-    </loop>
-  </do>
+	<field action="replace" tag="49" split="occ"><pft>ref(['ARTIGO']l(['ARTIGO'],'Y',v4001^p),@PROC_SPLIT_MST.PFT,(v49/))</pft></field>
+	<field action="replace" tag="4008"><pft>(if s(mpu,v49^c)=s(mpu,v4001^c[1]) then mpl,'^l'v49^l,'^t'v49^t/ fi)</pft></field>
 
-  <!-- Extract sections with that section code -->
-  <field action="replace" tag="4008">
-   <pft>(if s(mpu,v49^c)=s(mpu,v4001^c[1]) then mpl,'^l'v49^l,'^t'v49^t/ fi)</pft>
-  </field>
- 
-  <call name="GetLanguage"><pft>v4001^l/v4001^i/v4008</pft></call>
+	<call name="GetLanguage"><pft>v4001^l/v4001^i/v4008</pft></call>
   
-  <field action="replace" tag="4009" split="occ"><pft>v4008</pft></field>
+	<field action="replace" tag="4009" split="occ"><pft>v4008</pft></field>
   
-  <field action="replace" tag="4010">
-   <pft>(if s(mpu,v4009^l)=s(mpu,v4010[1]) then mpl,v4009^t fi)</pft>
-  </field>
+	<field action="replace" tag="4010">
+		<pft>(if s(mpu,v4009^l)=s(mpu,v4010[1]) then mpl,v4009^t fi)</pft>
+	</field>
  
-  <return action="replace" tag="4010"><pft>v4010</pft></return>
+	<return action="replace" tag="4010"><pft>v4010</pft></return>
 </function>
 
 <function name="CreateArticleTitleOrSectionXML" action="replace" tag="4000">
