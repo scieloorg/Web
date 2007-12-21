@@ -93,7 +93,14 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 		{
 			URL = URL+"?verb="+verb;
 			if (MetadataPrefix) 
-			{URL = URL+"&metadataPrefix="+MetadataPrefix;}
+			{
+				if(MetadataPrefix == 'oai_dc_agris'){
+					if(!set){
+						alert("el parámetro set es obligatório");
+						formStatus = false;
+					} 
+				}
+				URL = URL+"&metadataPrefix="+MetadataPrefix;}
 			else 
 			{ 
 			alert("el parámetro metadataPrefix es obligatório");

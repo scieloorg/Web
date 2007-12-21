@@ -92,6 +92,34 @@
 
 		return $result;
 	}
+	
+	function getAbstractArticleAgris ( $pid, $lang = "en", $tlng = "en", $ws_oai = false, $debug = false  )
+	{
+		global $scielo_xml, $server;
+		if ( $pid == "" )
+		{
+//    		return new soap_fault ( 'Scielo_WS_Server','','Client must supply a valid PID.' );
+    		return new soap_fault ( 'Scielo_WS_Server','Client must supply a valid PID.' );
+	    }
+
+		//$parameters = array ( "pid" => $pid, "lng" => $lang, "tlng" => $tlng ,"database" => "artigo","search=IV" => '$');
+        $parameters = array ( "database" => "artigo","search=IV" => $pid.'$');
+        
+        if ( $ws_oai )
+        {
+            $parameters[ "ws" ] = "true";
+        }
+
+		$result = $scielo_xml->getXML ( "sci_xmloutput", $parameters, $debug );
+
+		if ( $error = $scielo_xml->getError () )
+		{
+//			return new soap_fault ( "Scielo_WS_Server", "", $error );
+			return new soap_fault ( "Scielo_WS_Server", $error );
+		}
+
+		return $result;
+	}
 
 	function getArticle ( $pid, $lang = "en", $tlng = "en", $debug = false )
 	{
@@ -188,6 +216,34 @@
 		return $result;
     }
 
+	function listRecordsAgris ( $set = "", $from = "", $until = "", $control = "", $lang = "en", $nrm = "iso", $count = 30, $debug = false )
+    {
+		global $scielo_xml, $server;
+    
+        $parameters = array();
+        
+        //if ( !empty ( $set ) ) $parameters[ "set" ] = $set;
+        if ( !empty ( $from ) ) $parameters[ "from" ] = $from;
+        if ( !empty ( $until ) ) $parameters[ "until" ] = $until;
+        if ( !empty ( $control ) ) $parameters[ "resume" ] = $control;
+        ///$parameters[ "lng" ] = $lang;
+        //$parameters[ "nrm" ] = $nrm;
+        $parameters[ "count" ] = $count;
+		$parameters[ "database" ] = 'artigo';
+		$parameters[ "search" ] = 'HR=S'.$set.'$'; 
+		
+		
+		
+		$result = $scielo_xml->getXML ( "sci_xmloutput_agris", $parameters, $debug );
+
+		if ( $error = $scielo_xml->getError () )
+		{
+//			return new soap_fault ( "Scielo_WS_Server", "", $error );
+			return new soap_fault ( "Scielo_WS_Server", $error );
+		}
+
+		return $result;
+    }
 	/*********************************** MAIN CODE *****************************************/
 
 	if ( isset ( $_SERVER ) && !isset ( $DOCUMENT_ROOT ) )

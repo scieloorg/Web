@@ -35,6 +35,8 @@
 				}
 			}
 
+
+
 			@$fd = fopen ( $url,"r" );
 
 			if ( !$fd )
@@ -56,7 +58,7 @@
     		}
 
     		fclose ( $fd );
-//			die("here");
+//			die($buffer); 
 			return $buffer;
 		}
 

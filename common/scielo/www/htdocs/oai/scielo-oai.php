@@ -94,10 +94,6 @@
 			if ( $key == $metadataPrefix ) return true;
 		}
 
-/*
-		foreach($metadataPrefixList as $key){
-			if ( $key == $metadataPrefix ) return true;
-		}*/
 		return false;
 	}
 
@@ -116,7 +112,7 @@
     {
         global $identifier, $metadataPrefix, $from, $until, $set, $resumptionToken;
         
-        $envelop  = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
+        $envelop  = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\n";
         $envelop .= "<OAI-PMH xmlns=\"http://www.openarchives.org/OAI/2.0/\"\n";
         $envelop .= "         xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n";
         $envelop .= "         xsi:schemaLocation=\"http://www.openarchives.org/OAI/2.0/\n";
@@ -198,8 +194,13 @@
 				break;
 				}				
 			case "ListRecords":
-				{
+				{				
 				$response = ListRecords( $set = $parameters["set"], $from = $parameters["from"], $until = $parameters["until"], $control = $parameters["control"], $lang = "en", $nrm = "iso", $count = 30, $debug = false );
+				break;
+				}
+			case "ListRecordsAgris":
+				{
+				$response = ListRecordsAgris( $set = $parameters["set"], $from = $parameters["from"], $until = $parameters["until"], $control = $parameters["control"], $lang = "en", $nrm = "iso", $count = 30, $debug = false );
 				break;
 				}
 			case "GetRecord":
@@ -207,22 +208,27 @@
 				$response = getAbstractArticle( $pid = $parameters["pid"],$lang = "en", $ws = $parameters["ws_oai"], $debug = false );
 				break;
 				}
+			case "GetRecordAgris":
+				{
+				$response = getAbstractArticleAgris( $pid = $parameters["pid"],$lang = "en", $ws = $parameters["ws_oai"], $debug = false );
+				break;
+				}
 			}
        // $result = "";
         if ( !$debug )
         {
-
+//die($response);
 			$transform = new XSLTransformer ();
 			if (getenv("ENV_SOCKET")!="true"){  //socket
 //				$xsl = file_get_contents($defFile["PATH_OAI"].$xsl);
-				$xsl = file_get_contents($xsl);
+				$xsl = file_get_contents($xsl);				
 			} else {
 				$xsl = str_replace('.XSL','',strtoupper($xsl));
 			}
 
 			
 	    	$transform->setXslBaseUri($defFile["PATH_OAI"]);	
-    	    $transform->setXsl ( $xsl );
+    	    $transform->setXsl ( $xsl );			
 	        $transform->setXml ( $response );
 	        $transform->transform();
             if ( $transform->getError() )
@@ -237,7 +243,7 @@
 	        $transform->destroy();
         }
 		
-	    return ($result);
+	    return $result;
     }
 
 	/**************************************** verbo GetRecord **************************************/
@@ -266,16 +272,21 @@
                                   "tlng" => "en", 
                                   "ws_oai" => true );
                                   
-            if ( $debug ) $parameters[ "debug" ] = true;
+        	if ( $debug ) $parameters[ "debug" ] = true;
                                   
 	       // $xsl = $xslPath . "GetRecord.xsl";
-			 $xsl = "GetRecord.xsl";
+
+			 
 			 if($metadataPrefix == 'oai_dc_agris'){
-			 	$xsl = "GetRecord_agris.xsl";
+			 	$xsl = 'GetRecord_agris.xsl';
+			 	$result = generatePayload ( $ws_client_url, "getAbstractArticleAgris", "GetRecordAgris", $parameters, $xsl );
+			 }else{
+			 	$xsl = 'GetRecord.xsl';
+			 	$result = generatePayload ( $ws_client_url, "getAbstractArticle", "GetRecord", $parameters, $xsl );				
 			 }
 
 						 
-	    	$result = generatePayload ( $ws_client_url, "getAbstractArticle", "GetRecord", $parameters, $xsl );
+	    	
 	    }
 
 	    $oai_packet = generateOAI_packet ( $request_uri, "GetRecord", $result );
@@ -432,17 +443,24 @@
             if ( $debug ) $parameters[ "debug" ] = true;
             
 	        //$xsl = $xslPath . "$verb.xsl";
-			$xsl = "$verb.xsl";
 			
-			if($metadataPrefix == 'oai_dc_agris'){
-				if($verb == 'ListRecords') $xsl = $verb . '_agris.xsl'; 
-			}
+			if($verb == 'ListRecords'){
+				if($metadataPrefix == 'oai_dc_agris'){				
+				 	$xsl = 'ListRecords_agris.xsl';
+				 	$result = generatePayload ( $ws_client_url, "listRecordsAgris", "ListRecordsAgris", $parameters, $xsl );
+				 }else{
+					$xsl = "$verb.xsl";
+					$result = generatePayload ( $ws_client_url, "listRecords", $verb, $parameters, $xsl ); 	
+				 }
+			}else{
+				$xsl = "$verb.xsl";
+				$result = generatePayload ( $ws_client_url, "listRecords", $verb, $parameters, $xsl ); 	
+			}			
 			
-			$result = generatePayload ( $ws_client_url, "listRecords", $verb, $parameters, $xsl );
 	    }
 
 	    $oai_packet = generateOAI_packet ( $request_uri, $verb, $result );
-        
+
 //	    $oai_packet = str_replace ( "localhost", "200.6.42.159", $oai_packet);
 
 	    return $oai_packet;    
