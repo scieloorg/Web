@@ -21,8 +21,10 @@ class XMLFromIsisScript {
 	function fixUtfEntities($s){
 		$s = str_replace('&#x2028;', '<p/>', $s);
 		$s = str_replace('&#710;', '^', $s);
+		/* 
 		$s = str_replace(' < ', '&lt; ', $s);
 		$s = str_replace(' > ', ' &gt;', $s);
+		*/
 		$s = str_replace(' & ', '&amp; ', $s);
 		
 		return $s;
