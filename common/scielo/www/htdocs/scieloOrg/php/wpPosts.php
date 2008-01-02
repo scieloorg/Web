@@ -29,9 +29,9 @@
 	$BlogDAO = new wpBlogDAO();
 	$PostsDAO = new wpPostsDAO();
 
-	$guidUrl = "http://".$wordpress."/blog/".$acron."/".substr($insertDate,0,4)."/".substr($insertDate,5,2)."/".substr($insertDate,8,2)."/".$article->getPID()."/";
+	$guidUrl = "http://".$wordpress."/".$acron."/".substr($insertDate,0,4)."/".substr($insertDate,5,2)."/".substr($insertDate,8,2)."/".$article->getPID()."/";
 	//$guiSubmit = "http://".$_SERVER["SERVER_NAME"]."/blog/".$acron."/wp-comments-post.php";
-	$guiSubmit = "http://".$wordpress."/blog/".$acron."/wp-comments-post.php";
+	$guiSubmit = "http://".$wordpress."/".$acron."/wp-comments-post.php";
 	$Post = new wpPosts();
 	$Post->setPostName($article->getPID());
 	$Post->setPostGuid($guidUrl);
@@ -63,11 +63,11 @@
 	$blogId = $BlogDAO->getBlogIdByName($acron);
 	$blogTable = "wp_".$blogId."_posts";
 
-		if($ArticleDAO->getArticleByPID($article->getPID())){
+		if($ArticleDAO->getArticleByPID($article->getPID())){//verifica se existe na base de articles
 			if($ArticleDAO->getWpPostByID($article->getPID())){
 				$postDate = $ArticleDAO->getPostDate($article->getPID());$guidUrl = //"http://".$_SERVER["SERVER_NAME"]."/blog/".$acron."/".substr($postDate,0,4)."/".substr($postDate,5,2)."/".substr($postDate,8,2)."/".$article->getPID()."/";
 				//redefinindo a url 
-				$guidUrl = "http://".$wordpress."/blog/".$acron."/".substr($postDate,0,4)."/".substr($postDate,5,2)."/".substr($postDate,8,2)."/".$article->getPID()."/";
+				$guidUrl = "http://".$wordpress."/".$acron."/".substr($postDate,0,4)."/".substr($postDate,5,2)."/".substr($postDate,8,2)."/".$article->getPID()."/";
 			}else{
 				if ($blogId != 0){ 
 					//verifica se blog da revista já existe.
@@ -131,7 +131,7 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD
 				<A HREF="#add" class="addCommentAnchor"><?=COMMENTS_ADD?></A>
 			</span>
 		
-			<a class="rssComments" title=<?="RSS Feed".$title?> href=<?=$guidUrl."feed/"?>><img src=<?='"http://'.$_SERVER["SERVER_NAME"].'/img/feed.gif"'?>> </a>
+			<a class="rssComments" target="_blank" title=<?="RSS Feed".$title?> href=<?=$guidUrl."feed/"?>><img src=<?='"http://'.$_SERVER["SERVER_NAME"].'/img/feed.gif"'?>> </a>
 			<?
 			}
 			?>
@@ -163,8 +163,7 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD
 					//Alterar URL para busca os comments por artigo
 					//echo $guidUrl."feed/";
 						if($blogId!=0){
-							$serviceUrl =  $guidUrl."feed/";
-							//echo $serviceUrl;
+							$serviceUrl = $guidUrl."feed/";
 							$xmlFile = file_get_contents($serviceUrl);
 							//die($xmlFile);
 							$xml = '<?xml version="1.0" encoding="utf-8"?>';
@@ -262,7 +261,7 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD
 		<input type="hidden" name="blogId" value="<?=$blogId?>"/>
 		<input type="hidden" name="comment_post_ID" value="<?php echo $ArticleDAO->getWpPostByIDValue($article->getPID());?>" />
 			<!--<input type="hidden" name="lang" value="<?=$lang ?>" />-->
-			<input type="hidden" name="origem" value=<?='"http://'.$wordpress.'/scieloOrg/php/wpPosts.php?pid='.$pid."&lang=".$lang."&acron=".$acron.'"'?>/>
+			<input type="hidden" name="origem" value=<?='"http://'.$applServer.'/scieloOrg/php/wpPosts.php?pid='.$pid."&lang=".$lang."&acron=".$acron.'"'?>/>
 		<TR>
 			<TD align="right" width="0" valign="top">
 			</TD>
