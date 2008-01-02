@@ -1,96 +1,96 @@
 <?php
-			ini_set("display_errors","1");
-			error_reporting(E_ALL ^E_NOTICE);
-			$lang = isset($_REQUEST['lang'])?($_REQUEST['lang']):"";
-			$pid = isset($_REQUEST['pid'])?($_REQUEST['pid']):"";
-			$defFile = parse_ini_file(dirname(__FILE__)."/../../scielo.def");
-			require_once(dirname(__FILE__)."/../../applications/scielo-org/users/functions.php");
-			require_once(dirname(__FILE__)."/../../applications/scielo-org/users/langs.php");
-			require_once(dirname(__FILE__)."/../../classDefFile.php");
-			require_once(dirname(__FILE__)."/../../applications/scielo-org/classes/services/ArticleServices.php");
-			require_once(dirname(__FILE__)."/../../applications/scielo-org/classes/wpPosts.php");
-			require_once(dirname(__FILE__)."/../../applications/scielo-org/classes/wpBlog.php");
-			require_once(dirname(__FILE__)."/../../applications/scielo-org/sso/header.php");
+	ini_set("display_errors","1");
+	error_reporting(E_ALL ^E_NOTICE);
+	$lang = isset($_REQUEST['lang'])?($_REQUEST['lang']):"";
+	$pid = isset($_REQUEST['pid'])?($_REQUEST['pid']):"";
+	$defFile = parse_ini_file(dirname(__FILE__)."/../../scielo.def");
+	require_once(dirname(__FILE__)."/../../applications/scielo-org/users/functions.php");
+	require_once(dirname(__FILE__)."/../../applications/scielo-org/users/langs.php");
+	require_once(dirname(__FILE__)."/../../classDefFile.php");
+	require_once(dirname(__FILE__)."/../../applications/scielo-org/classes/services/ArticleServices.php");
+	require_once(dirname(__FILE__)."/../../applications/scielo-org/classes/wpPosts.php");
+	require_once(dirname(__FILE__)."/../../applications/scielo-org/classes/wpBlog.php");
+	require_once(dirname(__FILE__)."/../../applications/scielo-org/sso/header.php");
 
-			$applServer = $defFile["SERVER_SCIELO"];
-			$wordpress =  $defFile["DB_WORDPRESS"];
-			$databasePath = $defFile["PATH_DATABASE"];
-			$flagLog  = $defFile["ENABLE_SERVICES_LOG"];
-			$blogLastComment = $_REQUEST['commentID'];
+	$applServer = $defFile["SERVER_SCIELO"];
+	$wordpress =  $defFile["DB_WORDPRESS"];
+	$databasePath = $defFile["PATH_DATABASE"];
+	$flagLog  = $defFile["ENABLE_SERVICES_LOG"];
+	$blogLastComment = $_REQUEST['commentID'];
 
-			//getting metadatas from PID
-			$articleService = new ArticleService($applServer);
-			$articleService->setParams($pid);
-			$article = $articleService->getArticle();
-			$ArticleDAO = new articleDAO();
+	//getting metadatas from PID
+	$articleService = new ArticleService($applServer);
+	$articleService->setParams($pid);
+	$article = $articleService->getArticle();
+	$ArticleDAO = new articleDAO();
 
-			$insertDate = date('Y-m-d h:i:s');
-			$acron = $_REQUEST["acron"];
-			$BlogDAO = new wpBlogDAO();
-			$PostsDAO = new wpPostsDAO();
+	$insertDate = date('Y-m-d h:i:s');
+	$acron = $_REQUEST["acron"];
+	$BlogDAO = new wpBlogDAO();
+	$PostsDAO = new wpPostsDAO();
 
-			$guidUrl = "http://".$wordpress."/blog/".$acron."/".substr($insertDate,0,4)."/".substr($insertDate,5,2)."/".substr($insertDate,8,2)."/".$article->getPID()."/";
+	$guidUrl = "http://".$wordpress."/blog/".$acron."/".substr($insertDate,0,4)."/".substr($insertDate,5,2)."/".substr($insertDate,8,2)."/".$article->getPID()."/";
+	//$guiSubmit = "http://".$_SERVER["SERVER_NAME"]."/blog/".$acron."/wp-comments-post.php";
+	$guiSubmit = "http://".$wordpress."/blog/".$acron."/wp-comments-post.php";
+	$Post = new wpPosts();
+	$Post->setPostName($article->getPID());
+	$Post->setPostGuid($guidUrl);
+	$Post->setPostDate($insertDate);
+	$title = $article->getTitle();
+	/************************************************
+	* Transformando e assegurando que o Title seja cadastrado em English
+	************************************************/
+	$posTitleEn = strpos($article->getTitle(),'"en"');
+	$titleEn = substr($title, $posTitleEn);
+	$title = ereg_replace("<[^>]*>", "",$titleEn);
+	$title = str_replace('"en">',"",$title);
+	$title = str_replace("]]>","",$title);
+	$Post->setPostTitle($title);
+	/************************************************/
+	$Post->setPostAuth("1");
+	$Post->setPostDateGmt($insertDate);
+	$Post->setPostContent("");
+	$Post->setPostCategory("0");
+	$Post->setPostStatus("publish");
+	$Post->setPingStatus("open");
+	$Post->setPostModified($insertDate);
+	$Post->setPostModifiedGmt($insertDate);
+	$Post->setPostParent("0");
+	$Post->setMenuOrder("0");
+	$Post->setCommentCount("0");
+	$Post->setCommentStatus("1");
 
-			$guiSubmit = "http://".$wordpress."/blog/".$acron."/wp-comments-post.php";
-			$Post = new wpPosts();
-			$Post->setPostName($article->getPID());
-			$Post->setPostGuid($guidUrl);
-			$Post->setPostDate($insertDate);
-			$title = $article->getTitle();
-			/************************************************
-			* Transformando e assegurando que o Title seja cadastrado em English
-			************************************************/
-			$posTitleEn = strpos($article->getTitle(),'"en"');
-			$titleEn = substr($title, $posTitleEn);
-			$title = ereg_replace("<[^>]*>", "",$titleEn);
-			$title = str_replace('"en">',"",$title);
-			$title = str_replace("]]>","",$title);
-			$Post->setPostTitle($title);
-			/************************************************/
-			$Post->setPostAuth("1");
-			$Post->setPostDateGmt($insertDate);
-			$Post->setPostContent("");
-			$Post->setPostCategory("0");
-			$Post->setPostStatus("publish");
-			$Post->setPingStatus("open");
-			$Post->setPostModified($insertDate);
-			$Post->setPostModifiedGmt($insertDate);
-			$Post->setPostParent("0");
-			$Post->setMenuOrder("0");
-			$Post->setCommentCount("0");
-			$Post->setCommentStatus("1");
+	$blogId = $BlogDAO->getBlogIdByName($acron);
+	$blogTable = "wp_".$blogId."_posts";
 
-			$blogId = $BlogDAO->getBlogIdByName($acron);
-			$blogTable = "wp_".$blogId."_posts";
-
-				if($ArticleDAO->getArticleByPID($article->getPID())){
-					if($ArticleDAO->getWpPostByID($article->getPID())){
-						$postDate = $ArticleDAO->getPostDate($article->getPID());
-						//redefinindo a url 
-						$guidUrl = "http://".$wordpress."/blog/".$acron."/".substr($postDate,0,4)."/".substr($postDate,5,2)."/".substr($postDate,8,2)."/".$article->getPID()."/";
-					}else{
-						if ($blogId != 0){ 
-							//verifica se blog da revista já existe.
-							$addedPostId = $PostsDAO->addPost($Post,$blogId);
-							$article->setWpPostID($addedPostId);
-							$article->setWpURL($guidUrl);
-							$article->setWpPostDate($insertDate);
-							//Pesquisa o ID do Blog
-							$ArticleDAO->updatePosts($article,$blogId);
-						}
-					}
-				}else{
-						if ($blogId != 0){ //verifica se blog da revista já existe.
-							//Adiciona o post 
-							$addedPostId = $PostsDAO->addPost($Post,$blogId);
-							$article->setWpPostID($addedPostId);
-							$article->setWpURL($guidUrl);
-							$article->setWpPostDate($insertDate);
-							//Pesquisa o ID do Blog
-							$ArticleDAO->AddArticle($article);
-						}
-
+		if($ArticleDAO->getArticleByPID($article->getPID())){
+			if($ArticleDAO->getWpPostByID($article->getPID())){
+				$postDate = $ArticleDAO->getPostDate($article->getPID());$guidUrl = //"http://".$_SERVER["SERVER_NAME"]."/blog/".$acron."/".substr($postDate,0,4)."/".substr($postDate,5,2)."/".substr($postDate,8,2)."/".$article->getPID()."/";
+				//redefinindo a url 
+				$guidUrl = "http://".$wordpress."/blog/".$acron."/".substr($postDate,0,4)."/".substr($postDate,5,2)."/".substr($postDate,8,2)."/".$article->getPID()."/";
+			}else{
+				if ($blogId != 0){ 
+					//verifica se blog da revista já existe.
+					$addedPostId = $PostsDAO->addPost($Post,$blogId);
+					$article->setWpPostID($addedPostId);
+					$article->setWpURL($guidUrl);		
+					$article->setWpPostDate($insertDate);
+					//Pesquisa o ID do Blog
+					$ArticleDAO->updatePosts($article,$blogId);
 				}
+			}
+		}else{
+				if ($blogId != 0){ //verifica se blog da revista já existe.
+					//Adiciona o post 
+					$addedPostId = $PostsDAO->addPost($Post,$blogId);
+					$article->setWpPostID($addedPostId);
+					$article->setWpURL($guidUrl);
+					$article->setWpPostDate($insertDate);
+					//Pesquisa o ID do Blog
+					$ArticleDAO->AddArticle($article);
+				}
+
+		}
 ?>
 <!DOCTYPE html
 PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -124,14 +124,14 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD
 			<?=COMMENTS_ARTICLE?> 
 		</span>
 			<?
+				//Verificando se o User esta logado
 				if($_COOKIE["userID"] && $_COOKIE["userID"]!=-2 && $blogId!=0){
 			?>
 			<span class="addSpanAnchor">
 				<A HREF="#add" class="addCommentAnchor"><?=COMMENTS_ADD?></A>
 			</span>
-			<span>
-				<a class="rssComments" title=<?="RSS Feed".$title?> href=<?=$guidUrl."feed/"?>><img src=<?='"http://'.$_SERVER["SERVER_NAME"].'/img/feed.gif"'?>> </a>
-			</span>
+		
+			<a class="rssComments" title=<?="RSS Feed".$title?> href=<?=$guidUrl."feed/"?>><img src=<?='"http://'.$_SERVER["SERVER_NAME"].'/img/feed.gif"'?>> </a>
 			<?
 			}
 			?>
@@ -160,32 +160,36 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD
 	<TR>
 		<TD colspan="2">
 				<?php
+					//Alterar URL para busca os comments por artigo
+					//echo $guidUrl."feed/";
 						if($blogId!=0){
 							$serviceUrl =  $guidUrl."feed/";
+							//echo $serviceUrl;
 							$xmlFile = file_get_contents($serviceUrl);
+							//die($xmlFile);
 							$xml = '<?xml version="1.0" encoding="utf-8"?>';
 							$xml .='<root>';
-							$xml .='<vars><lang>'.$lang.'</lang><applserver>'. $wordpress .'</applserver><service_log>'.$flagLog.'</service_log></vars>';
+							$xml .='<vars><htdocs>'.$htdocsPath.'</htdocs><lang>'.$lang.'</lang><applserver>'. $wordpress .'</applserver><service_log>'.$flagLog.'</service_log></vars>';
 							$xml .= str_replace('<?xml version="1.0" encoding="UTF-8"?><!-- generator="wordpress/2.3.1" -->','',$xmlFile);
 							$xml .='</root>';
-
-							if(isset($_REQUEST['debug']))
-							{
-								echo '<textarea cols="100" rows="50">';
-								echo $xml;
-								echo '</textarea>';
-								exit;
+							if($_REQUEST['debug'] == 'on'){
+								die($xml);
+							}else if($_REQUEST['debug'] == 'xml'){
+								header("Content-type:text/xml; charset=utf-8\n");
+								echo ($xml);
 							}
 
 							$xsl = $defFile["PATH_XSL"]."comments.xsl";
 							
 							$transformer = new XSLTransformer();
 
-							if (getenv("ENV_SOCKET")!="true"){
+							if (getenv("ENV_SOCKET")!="true"){  //socket
 								$xsl = file_get_contents($xsl);
+								//die("socket = false");
 							} else {
 								$xsl = 'COMMENTS';
 							}
+							//die("socket = true");
 
 							$transformer->setXslBaseUri($defFile["PATH_XSL"]);
 							$transformer->setXML($xml);
@@ -258,7 +262,7 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD
 		<input type="hidden" name="blogId" value="<?=$blogId?>"/>
 		<input type="hidden" name="comment_post_ID" value="<?php echo $ArticleDAO->getWpPostByIDValue($article->getPID());?>" />
 			<!--<input type="hidden" name="lang" value="<?=$lang ?>" />-->
-			<input type="hidden" name="origem" value=<?='"http://'.$_SERVER["SERVER_NAME"].'/scieloOrg/php/wpPosts.php?pid='.$pid."&lang=".$lang."&acron=".$acron.'"'?>/>
+			<input type="hidden" name="origem" value=<?='"http://'.$wordpress.'/scieloOrg/php/wpPosts.php?pid='.$pid."&lang=".$lang."&acron=".$acron.'"'?>/>
 		<TR>
 			<TD align="right" width="0" valign="top">
 			</TD>
@@ -309,33 +313,18 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD
 		</TR>
 			<TR>
 				<TD >
-				 </TD>
+				</TD>
 					<TD >
 					<?=REQUIRED_FIELD_TEXT?>
-					 </TD>
-					 </tr>
-					 <TR>
-					 	<TD >
-						 </TD>
-						<TD >
-					<?}elseif($blogId==0){
+					</TD>
+						</TR>
+						<?}elseif($blogId==0){
 							echo COMMNETS_DONT_BLOG;
-						}else{?>
-							<!--<span class="messageCommnet">
-							<div style="font-family: Trebuchet MS,Arial; font-size: 120%; z-index: 2; position: absolute; left: 120px; background-color: #f7f8f9; width: 300px; padding: 10px; border: #990000 2px dotted; padding: 5px">-->
-							<div class="x">
-							<strong>
-							<div style="font-size: 10pt; font-family:Arial,Verdana;color:#990000;">
-								<?
-								echo COMMNETS_MESSAGE_BLOG_INI.'<a href="http://'.$defFile["SCIELO_REGIONAL_DOMAIN"].'//applications/scielo-org/sso/loginScielo.php?lang='.$lang.'">login</a>'.COMMNETS_MESSAGE_BLOG_FIM;
-								?>
-								<?}?>
-								</div>
-								</strong>
-							</div>
-							<!--</span>-->
-						 </TD>
-					 </tr>
+						}else{
+							echo COMMNETS_MESSAGE_BLOG_INI.'<a href="http://'.$defFile["SCIELO_REGIONAL_DOMAIN"].'//applications/scielo-org/sso/loginScielo.php?lang='.$lang.'">login</a>'.COMMNETS_MESSAGE_BLOG_FIM;
+						} ?>
+						</tr>
+					</td>
 					</TABLE>
 				</div>
 			</div>

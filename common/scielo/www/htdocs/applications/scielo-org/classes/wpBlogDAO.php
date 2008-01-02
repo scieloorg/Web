@@ -18,8 +18,7 @@ function wpBlogDAO(){
 
 function getBlogIdByName($acron){
 	$acron = "/blog/".$acron."/";
-	$strsql = "SELECT blog_id from blog.wp_blogs where path='".$acron."'";
-
+	$strsql = "SELECT blog_id from wp_blogs where path='".$acron."'";
 		$arr = $this->_db->databaseQuery($strsql);
 		$blogId = $arr[0]["blog_id"];
 
@@ -29,7 +28,7 @@ function getBlogIdByName($acron){
 
 function getBlogByName($acron){
 	$acron = "/blog/".$acron."/";
-	$strsql = "SELECT blog_id from blog.wp_blogs where path='".$acron."'";
+	$strsql = "SELECT blog_id from wp_blogs where path='".$acron."'";
 
 		$arr = $this->_db->databaseQuery($strsql);
 
