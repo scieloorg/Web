@@ -13,6 +13,7 @@
 	<xsl:variable name="show_datasus" select="//varScieloOrg/show_datasus" />
 	<xsl:variable name="services_comments" select="//varScieloOrg/services_comments" />
 	<xsl:variable name="acron" select="//SIGLUM" />
+	<xsl:variable name="commentCount" select="//commentCount" />
 	<!--<xsl:variable name="review" select="//ISSUE/@NUM"/>-->
 		
 		<div id="toolBox">
@@ -101,7 +102,7 @@
 					</xsl:choose>
 				</xsl:if>
 				<xsl:if test="$services_comments != 0">
-					<xsl:if test="ISSUE/@NUM='REVIEW' or ARTICLE/ISSUEINFO/@NUM='review'">
+					<!--<xsl:if test="ISSUE/@NUM='REVIEW' or ARTICLE/ISSUEINFO/@NUM='review'">-->
 					<li>
 						<a>
 						<xsl:attribute name="href">javascript: void(0);</xsl:attribute>
@@ -109,13 +110,13 @@
 						<xsl:attribute name="rel">nofollow</xsl:attribute>
 						<img src="/img/{$LANGUAGE}/iconComment.gif"/>						
 						<xsl:choose>
-							<xsl:when test="$LANGUAGE='en' ">Comment this article</xsl:when>
-							<xsl:when test="$LANGUAGE='pt' ">Comente este artigo</xsl:when>
-							<xsl:when test="$LANGUAGE='es' ">Comentar ese artículo</xsl:when>
+							<xsl:when test="$LANGUAGE='en' "><xsl:value-of select="concat('Comment(',$commentCount,')')"/></xsl:when>
+							<xsl:when test="$LANGUAGE='pt' "><xsl:value-of select="concat('Comente(',$commentCount,')')"/></xsl:when>
+							<xsl:when test="$LANGUAGE='es' "><xsl:value-of select="concat('Comentar(',$commentCount,')')"/></xsl:when>
 						</xsl:choose>
 						</a>					
 						</li>
-				</xsl:if>
+				<!--</xsl:if>-->
 			</xsl:if>
 					<xsl:if test="ISSUE/ARTICLE/@PDF">
 					<xsl:variable name="tlng" select="ISSUE/ARTICLE/@TEXTLANG"/>
@@ -284,7 +285,7 @@
                 	<xsl:if test="@id='cited_Google' or @id='related_Google'">,menubar=1,location=1,toolbar=1,status=1,scrollbars=1,directories=1</xsl:if>
         	</xsl:variable>
 		<xsl:choose>
-                <xsl:when test="//ARTICLE/@RELATED != 0 and //ARTICLE/@RELATED != ''">
+                <xsl:when test="//ARTICLE/@RELATED != 0">
 	                <a href="javascript:void(0);" >
                 	        <xsl:attribute name="onclick">window.open('<xsl:value-of select="concat(url,'&amp;lang=',$LANGUAGE)"/>','','width=640,height=480,resizable=yes,scrollbars=1,menubar=yes,<xsl:value-of select="$params"/>');<xsl:if test="$service_log = 1">callUpdateArticleLog('<xsl:value-of select="@id"/>');</xsl:if></xsl:attribute>
 <xsl:attribute name="rel">nofollow</xsl:attribute>
@@ -303,7 +304,7 @@
                         <xsl:if test="@id='cited_Google' or @id='related_Google'">,menubar=1,location=1,toolbar=1,status=1,scrollbars=1,directories=1</xsl:if>
                 </xsl:variable>
                 <xsl:choose>
-                <xsl:when test="//ARTICLE/@CITED != 0 and //ARTICLE/@CITED != ''">
+                <xsl:when test="//ARTICLE/@CITED != 0">
                         <a href="javascript:void(0);" >
                                 <xsl:attribute name="onclick">window.open('<xsl:value-of select="concat(url,'&amp;lang=',$LANGUAGE)"/>','','width=640,height=480,resizable=yes,scrollbars=1,menubar=yes,<xsl:value-of select="$params"/>');<xsl:if test="$service_log = 1">callUpdateArticleLog('<xsl:value-of select="@id"/>');</xsl:if></xsl:attribute>
 <xsl:attribute name="rel">nofollow</xsl:attribute>

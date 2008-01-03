@@ -2,10 +2,10 @@
 
 include("classScieloBase.php");
 require_once("classes/XML_XSL/XML_XSL.inc.php"); // 200603
+require_once("applications/scielo-org/classes/wpBlogDAO.php");//200801
 class Scielo extends ScieloBase
 {
 	var	$XML_XSL; // 200603
-
 
 	function Scielo ($host)
 	{
@@ -52,15 +52,31 @@ class Scielo extends ScieloBase
 
 	function GenerateXmlUrl()
 	{
-    	$this->_IsisScriptUrl = $this->GenerateIsisScriptUrl();
-
+		$this->_IsisScriptUrl = $this->GenerateIsisScriptUrl();
 		$xmlFromIsisScript = wxis_exe($this->_IsisScriptUrl);
 
+		/*
+		*Resgatando o valor de siglum
+		*/
 
+		$str1 = strpos($xmlFromIsisScript,"<SIGLUM>");
+		$str2 = strpos($xmlFromIsisScript,"</SIGLUM>");
+		$strResultSiglum = substr($xmlFromIsisScript,$str1+8,($str2-$str1)-8);
+		
 		$this->_request->getRequestValue("pid", $pid);
 		$this->_request->getRequestValue("t", $textLang);
 		$this->_request->getRequestValue("file", $xmlFile);
 
+		/*
+		*Resgatando o count do comment e verificando o comment
+		*/
+
+		$show_comments = $this->_def->getKeyValue("show_comments");
+
+		if(isset($pid) && isset($strResultSiglum) && $show_comments!=0){
+		$BlogDAO = new wpBlogDAO();
+		$commentCount = $BlogDAO->getCountCommentByPid($pid,$strResultSiglum);
+		}
 
 		if ($this->_script == 'sci_arttext' || $this->_script == 'sci_abstract' ){
 			$server = $this->_def->getKeyValue("SERVER_SCIELO");
@@ -84,8 +100,8 @@ class Scielo extends ScieloBase
 		}
 
 		$xmlList[] = $xmlFromIsisScript;
-
-
+		
+		
 		$xmlScieloOrg = '';
 		if (strpos($this->_IsisScriptUrl, 'script=sci_verify')==false){
 			$elements = array(
@@ -125,12 +141,13 @@ class Scielo extends ScieloBase
 				//Habilita ou não o log dos servicos
 				"services_log" => "ENABLE_SERVICES_LOG"
 			);
-
+				//die($commentCount);
 
 			foreach ($elements as $k => $v) {
 				$xmlScieloOrg .= "<$k>" . $this->_def->getKeyValue($v) . "</$k>";
 			}
 			$xmlScieloOrg .=  $this->userInfo();
+			$xmlScieloOrg.="<commentCount>".$commentCount."</commentCount>";
 			$xmlScieloOrg = "<varScieloOrg>".$xmlScieloOrg."</varScieloOrg>";
 
 		}
