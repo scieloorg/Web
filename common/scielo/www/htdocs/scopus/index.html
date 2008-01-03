@@ -1,0 +1,228 @@
+<!DOCTYPE html
+PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+	<title>Scopus Scielo Harvesting Interface</title>
+	<link rel="stylesheet" type="text/css" href="layout.css">	
+</head>
+<script Language="JavaScript">
+
+	function MM_findObj(n, d) 
+	{
+				 var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+				  d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);
+				 }
+				 if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+				 for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+				 if(!x && document.getElementById) x=document.getElementById(n); return x;
+	}
+	
+	function MM_showhideLayers() 
+	{
+				 var i,p,v,obj,args=MM_showhideLayers.arguments; 
+				 for (i=0; i<(args.length-2); i+=3) if ((obj=MM_findObj(args[i]))!=null) {
+				  v=args[i+2]; z=args[i+3]; 
+				  if (!z) {
+				   if (obj.style) { obj=obj.style; v=(v=='show')?'block':(v=='hide')?'none':v; } 
+				   obj.display=v; 
+				  } else {
+				   if (obj.style) { obj=obj.style; v=(v=='show')?z:(v=='hide')?'none':v; } 
+				   obj.display=v; 
+				  }
+				 }
+	} 
+	
+	function showVerb(verb)
+	{
+		MM_showhideLayers('Scopus','','hide');
+
+		MM_showhideLayers(verb,'','show');		
+	}
+
+	function submitForm()
+	{
+		URL = document.sendQuery.oaiURL.value;
+		ISSN = document.sendQuery.issn.value;
+		ano = document.sendQuery.ano.value;
+		volume = document.sendQuery.volume.value;
+		number = document.sendQuery.number.value;
+		reqid = document.sendQuery.reqid.value;
+		ver = document.sendQuery.ver.value;
+		consumer = document.sendQuery.consumer.value;
+		opaqueinfo = document.sendQuery.opaqueinfo.value;
+		loglevel = document.sendQuery.loglevel.value;
+		absmetsource = document.sendQuery.absmetsource.value;
+		responsestyle = document.sendQuery.responsestyle.value;
+		dataresponsestyle = document.sendQuery.dataresponsestyle.value;
+		
+		formStatus = true;
+		if (!URL)
+		{
+			alert("Is necessary to fill the URL field");
+			formStatus = false;
+		}
+		else if (ISSN) {
+			URL = URL +"?issn="+ISSN+"&ano="+ano+"&volume="+volume+"&number="+number+"&reqid="+reqid+
+			"&ver="+ver+"&consumer="+consumer+"&opaqueinfo="+opaqueinfo+"&loglevel="+loglevel+
+			"&absmetsource="+absmetsource+"&responsestyle="+responsestyle+"&dataresponsestyle="+dataresponsestyle+"&url="+URL;
+			//formStatus = false;
+		}
+		else {
+			alert("parameter ISSN is necessary");
+			formStatus = false;
+		}
+		if (formStatus)
+		{
+			document.sendQuery.outputURL.value = URL;
+			window.open(URL,'scopus_output');
+		}
+	}
+	function setForm(verb)
+	{
+		/*for (i=0 ; i<document.sendQuery.elements.length ; i++)
+		{	
+			if (document.sendQuery.elements[i].name != "oaiURL")
+				document.sendQuery.elements[i].disabled = true;
+		}*/
+		
+		if (verb == "Scopus")
+		{
+			//document.sendQuery.ver.value = "Identify";
+		}
+	}
+</script>
+<body marginheight="0" topmargin="0" leftmargin="0">
+<div id="header">
+	<div id="title">
+		Scopus Scielo Metadata Harvesting Interface
+	</div>
+	<div id="language">
+		<a href="index_pt.html">pt</a> - <a href="index_es.html">es</a>
+	</div>
+</div>
+<FORM name="sendQuery" method="get" action="#">
+<div id="main_group">
+	<div id="group_title">Scopus URL</div>
+	<div id="group_content">URL: <input type="text" name="oaiURL" size="50" maxlength="50"/> &nbsp; &nbsp; http://www.scielo.br/scopus/scielo-scopus.php</div>			
+</div>	
+<div>
+	<table width="100%" cellpadding="0" cellspacing="0">
+		<tr>
+			<td width="30%" valign="top">
+			<div id="left">			
+				<div id="group">
+					<div id="group_title">verbs</div>
+					<div id="group_content">
+						<div id="menu_item"><a href="javascript: setForm('Scopus'); showVerb('Scopus');">Cited by Count</a></div>																							
+					</div>			
+				</div>
+				<div id="group">
+					<div id="group_title">verb description</div>
+						<div id="group_content">
+							<div id="Scopus" name="Scopus" style="display: none;">
+								<p>This verb returns the main protocol information.</p>
+								<p>
+								<b>Compulsory parameters</b>
+								<ul><li>ISSN</li></ul>
+								<ul><li>Reqld</li></ul>
+ 								<ul><li>Ver</li></ul>
+ 								<ul><li>Consumer</li></ul>
+								<ul><li>LogLevel</li></ul>
+								</p>
+							</div>																											
+						</div>			
+					</div>		
+				</div>
+			</td>
+			<td width="70%" valign="top">
+			<div id="right">
+				<div id="group">
+					<div id="group_title">setup parameters</div>
+					<div id="group_content">
+							<table>
+								<tr>
+									<td>ISSN</td>
+									<td><input type="text" name="issn" maxlength="9" size="10"/></td>
+									<td>Required</td>
+								</tr>
+								<tr>
+									<td>Ano</td>
+									<td><input type="text" name="ano" maxlength="4" size="5"/></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td>Volume</td>
+									<td><input type="text" name="volume" maxlength="4" size="5"/></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td>Number</td>
+									<td><input type="text" name="number" maxlength="5" size="6" /></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td>ReqId</td>
+									<td><input type="text" name="reqid"/></td>
+									<td></td>
+								</tr>							
+								<tr>
+									<td>Ver</td>
+									<td><input type="text" name="ver" maxlength="15"/></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td>Consumer</td>
+									<td><input type="text" name="consumer" size="9" maxlength="9"/></td>
+									<td></td>
+								</tr>	
+								<tr>
+									<td>OpaqueInfo</td>
+									<td><input type="text" name="opaqueinfo" size="34" maxlength="34"/></td>
+									<td></td>
+								</tr>	
+								<tr>
+									<td>LogLevel</td>
+									<td><input type="text" name="loglevel" size="10" maxlength="10"/></td>
+									<td>Debug | Info | Default </td>
+								</tr>		
+								<tr>
+									<td>dataResponseStyle</td>
+									<td><input type="text" name="dataresponsestyle" size="12" maxlength="10" disabled=true value="MESSAGE"/></td>
+									<td></td>									
+								</tr>	
+								<tr>
+									<td>absMetSource</td>
+									<td><input type="text" name="absmetsource" size="5" disabled=true value="all" /></td>
+									<td></td>									
+								</tr>
+								<tr>
+									<td>responseStyle</td>
+									<td><input type="text" name="responsestyle" size="12" disabled=true value="wellDefined" disabled=true/></td>
+									<td></td>									
+								</tr>	
+							</table>
+							<p align="right">
+							<a href="javascript: submitForm();">do harvesting</a>
+							</p>		
+					</div>			
+				</div>
+				<div id="group">
+					<div id="group_title">output</div>
+					<div id="group_content">
+						<div id="output">
+							Harvested URL:</br>
+							<input type="text" name="outputURL" size="100"/></br>
+							Result:</br>
+							<iframe name="scopus_output" width="99%"/>
+						</div>
+					</div>			
+				</div>	
+			</div>
+			</td>
+		</tr>
+	</table>	
+</div>
+</FORM>
+</body>
+</html>
