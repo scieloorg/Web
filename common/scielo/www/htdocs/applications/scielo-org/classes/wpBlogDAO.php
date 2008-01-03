@@ -44,18 +44,24 @@ function getCountCommentByPid($PID,$acron){
 
 	$reacron = $this->getBlogIdByName($acron);
 
+	if($reacron!=0){
+
 	$strsql = "SELECT comment_count FROM wp_".$reacron."_posts WHERE post_name='".$PID."'";
 
 		$arr = $this->_db->databaseQuery($strsql);
 
-	if(!isset($arr[0]["comment_count"])){
-		return '0';
-	}else{
-		return $arr[0]["comment_count"];
+			if(!isset($arr[0]["comment_count"])){
+					return '0';
+				}else{
+					return $arr[0]["comment_count"];
+			}
+
+			}else{
+				return '0';
+			}
 	}
 
-	
-	}
 
-}
+
+}//class
 ?>
