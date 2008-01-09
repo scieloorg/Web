@@ -49,22 +49,22 @@
 		        				</xsl:when>
 							<xsl:when test=" //FILTER/ORDER = 2 ">
 								<xsl:apply-templates select="//JOURNAL">
-									<xsl:sort select="HOMEPAGE" order="descending" />
+									<xsl:sort select="HOMEPAGE" order="descending"  data-type="number"/>
 								</xsl:apply-templates>
 							</xsl:when>
 							<xsl:when test=" //FILTER/ORDER = 3 ">
 								<xsl:apply-templates select="//JOURNAL">
-									<xsl:sort select="ISSUETOC" order="descending" />
+									<xsl:sort select="ISSUETOC" order="descending"  data-type="number"/>
 								</xsl:apply-templates>
 							</xsl:when>
 							<xsl:when test=" //FILTER/ORDER = 4 ">
 								<xsl:apply-templates select="//JOURNAL">
-									<xsl:sort select="ARTICLES" order="descending" />
+									<xsl:sort select="ARTICLES" order="descending"  data-type="number"/>
 								</xsl:apply-templates>
 							</xsl:when>
 							<xsl:when test=" //FILTER/ORDER = 5 ">
 								<xsl:apply-templates select="//JOURNAL">
-									<xsl:sort select="OTHERS" order="descending" />
+									<xsl:sort select="OTHERS" order="descending"  data-type="number" />
 								</xsl:apply-templates>
 							</xsl:when>
 							<xsl:otherwise>
