@@ -47,15 +47,3 @@ METAIAHPATH = metaiah
 
 [LOGS]
 SERVICESLOGPATH=/home/scielo/www/bases/logs/
-
-
-[FULLTEXT_SERVICES]
-access="http://vm.scielo.br/applications/scielo-org/pages/services/articleRequestGraphicPage.php?pid=PARAM_PID&caller=PARAM_SERVER"
-cited=true
-cited_SciELO="http://vm.scielo.br/applications/scielo-org/service/citedScielo.php?pid=PARAM_PID"
-cited_SciELO_service="http://trigramas.bireme.br/cgi-bin/mxlind/cgi=@cited?pid=PARAM_PID"
-cited_Google="http://scholar.google.com/scholar?q=link:CURRENT_URL"
-related_Google="http://scholar.google.com/scholar?q=related:CURRENT_URL"
-related="http://vm.scielo.br/scieloOrg/php/related.php?pid=PARAM_PID"
-related_service="http://trigramas.bireme.br/cgi-bin/mxlind/cgi=@cited?pid=PARAM_PID"
-send_mail="http://vm.scielo.br/applications/scielo-org/pages/services/sendMail.php?pid=PARAM_PID&caller=PARAM_SERVER"

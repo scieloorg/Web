@@ -77,7 +77,6 @@ TABLE_TITLE_NAME = biblio.title
 TITLE_SOURCE = scielobr
 ADMIN_EMAIL = mysqladmin@bireme.br
 
-
 [CACHE]
 ENABLED_CACHE=0
 SERVER_CACHE=localhost
@@ -85,7 +84,6 @@ SERVER_PORT_CACHE=11211
 MAX_DAYS = 1
 MAX_SIZE = 9368709120 
 PATH_CACHE=/home/scielo/www/bases/pages/
-CHECK_EXPIRED = 0
 CACHE_STATUS = off
 
 [SOCKET]
@@ -100,7 +98,6 @@ logout_url=/applications/scielo-org/sso/logoutScielo.php
 check_login_url=/applications/scielo-org/sso/checkLogin.php
 
 [services]
-sci_artlangs="http://teste.trigramas.bvs.br/cgi-bin/wxis.exe/?IsisScript=ScieloXML/sci_artlangs.xis&def=scielo.def&pid=PARAM_PID"
 show_toolbox=1
 show_requests=1
 show_login=1
@@ -128,9 +125,6 @@ send_mail="http://vm.scielo.br/applications/scielo-org/pages/services/sendMail.p
 [mimetex]
 mimetex=/cgi-bin/mimetex.exe
 
-[language]
-client_charset = utf-8
-
 [XML_ERROR]
 ENABLED_XML_ERROR=0
 ENABLED_MAIL_ALERT=0
@@ -157,6 +151,3 @@ DB_USER_SCIELO_PASSWORD=batalha
 DB_USER_BLOG_PASSWORD=batalha
 DB_HOST_BLOG = 172.27.0.155
 DB_HOST_SCIELO = 172.27.0.155
-
-
-
