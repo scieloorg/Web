@@ -63,7 +63,7 @@
 		-->
 
 		
-		<a href="http://www.scielo.org">
+		<a href="http://www.scielo.org/php/index.php?lang=en">
 			<font class="linkado" size="-1">SciELO.org</font>
 		</a><br/>
 
@@ -360,7 +360,7 @@
 					<!--
 			Fim: Usuarios no SciELO - Botao de Login
 		-->
-		<a href="http://www.scielo.org/index_p.html">
+		<a href="http://www.scielo.org/php/index.php?lang=pt">
 			<font class="linkado" size="-1">SciELO.org</font>
 		</a><br/>
 
@@ -643,7 +643,7 @@
 					<!--
 			Fim: Usuarios no SciELO - Botao de Login
 		-->
-		<a href="http://www.scielo.org/index_e.html">
+		<a href="http://www.scielo.org/php/index.php?lang=es">
 			<font class="linkado" size="-1">SciELO.org</font>
 		</a><br/>
 
