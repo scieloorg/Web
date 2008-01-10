@@ -15,15 +15,13 @@
 *@copyright     BIREME
 */
 
-
-class DBClass{
-
+class DBClassBlog{
 
 /**
 * Objeto de conexão com o banco de dados
 * @var Object $_conn
 */
-var $_connScielo = null;
+var $_conn = null;
 
 /**
 * Endereço do host
@@ -37,7 +35,6 @@ var $_host = "";
 * Nome do usuário do BD
 * @var string $_user
 */
-//var $_user = $DBUser;
 var $_user = "";
 
 /**
@@ -52,23 +49,24 @@ var $_password = "";
 */
 var $_db = "";
 
-function DBClass(){
+
+function DBClassBlog(){
 
      $fileDef = parse_ini_file(dirname(__FILE__)."/../../../scielo.def");
-     $this->_password = $fileDef["DB_USER_SCIELO_PASSWORD"];
-     $this->_db  = $fileDef["DB_SCIELO"];
-     $this->_user = $fileDef["DB_USER_SCIELO"];
-     $this->_host = $fileDef["DB_HOST_SCIELO"];
+     $this->_password = $fileDef["DB_USER_BLOG_PASSWORD"];
+     $this->_db  = $fileDef["DB_BLOG"];
+     $this->_user = $fileDef["DB_USER_BLOG"];
+     $this->_host = $fileDef["DB_HOST_BLOG"];
 
-               $this->_connScielo = mysql_connect($this->_host, $this->_user, $this->_password) or die("Não foi possível conectar: " . mysql_error());
 
-                mysql_select_db($this->_db) or die("Não pude selecinar o banco de dados");
-        }
-
+		$this->_conn = mysql_connect($this->_host, $this->_user, $this->_password) or die("Não foi possível conectar: " . mysql_error());
+		
+		mysql_select_db($this->_db) or die("Não pude selecinar o banco de dados");
+	}
 
 	
 	function databaseExecInsert($query){
-		$result = mysql_query($query,$this->_connScielo);
+		$result = mysql_query($query,$this->_conn);
 		if($result)
 		{
 			return(mysql_insert_id());
@@ -78,7 +76,7 @@ function DBClass(){
 	}
 
 	function databaseExecUpdate($query){
-		$result = mysql_query($query,$this->_connScielo);
+		$result = mysql_query($query,$this->_conn);
 		$error = mysql_error();
 		if ($error){
 			die("A consulta falhou : " . $error . $query);
@@ -87,7 +85,7 @@ function DBClass(){
 	}
 
 	function databaseQuery($query){
-		$result = mysql_query($query,$this->_connScielo) or die("A consulta falhou : " . mysql_error() . $query);
+		$result = mysql_query($query,$this->_conn) or die("A consulta falhou : " . mysql_error() . $query);
 		
 		$recordSet = array();
 		
@@ -99,11 +97,10 @@ function DBClass(){
 	}
 
 	function fechaConexao(){
-		
-		mysql_close($this->_connScielo);
-		
-	}
 
+	mysql_close($this->_conn);
+	
+	}
 
 
 }

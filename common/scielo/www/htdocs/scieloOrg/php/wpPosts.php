@@ -23,11 +23,11 @@
 			$articleService->setParams($pid);
 			$article = $articleService->getArticle();
 			$ArticleDAO = new articleDAO();
+			 $BlogDAO = new wpBlogDAO();
+                        $PostsDAO = new wpPostsDAO();
 
 			$insertDate = date('Y-m-d h:i:s');
 			$acron = $_REQUEST["acron"];
-			$BlogDAO = new wpBlogDAO();
-			$PostsDAO = new wpPostsDAO();
 
 			$guidUrl = "http://".$wordpress."/".$acron."/".substr($insertDate,0,4)."/".substr($insertDate,5,2)."/".substr($insertDate,8,2)."/".$article->getPID()."/";
 
@@ -63,13 +63,15 @@
 			$blogId = $BlogDAO->getBlogIdByName($acron);
 			$blogTable = "wp_".$blogId."_posts";
 
-				if($ArticleDAO->getArticleByPID($article->getPID())){
-					if($ArticleDAO->getWpPostByID($article->getPID())){
+
+				if($ArticleDAO->getArticleByPID($article->getPID())){//se o artigo existe
+					if($ArticleDAO->getWpPostByID($article->getPID())){//se existe o id do blog
 						$postDate = $ArticleDAO->getPostDate($article->getPID());
 						//redefinindo a url 
 						$guidUrl = "http://".$wordpress."/".$acron."/".substr($postDate,0,4)."/".substr($postDate,5,2)."/".substr($postDate,8,2)."/".$article->getPID()."/";
 					}else{
 						if ($blogId != 0){ 
+							echo "entrou";
 							//verifica se blog da revista já existe.
 							$addedPostId = $PostsDAO->addPost($Post,$blogId);
 							$article->setWpPostID($addedPostId);
@@ -88,6 +90,7 @@
 							$article->setWpPostDate($insertDate);
 							//Pesquisa o ID do Blog
 							$ArticleDAO->AddArticle($article);
+
 						}
 
 				}
@@ -257,7 +260,6 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD
 		}?>
 		<input type="hidden" name="blogId" value="<?=$blogId?>"/>
 		<input type="hidden" name="comment_post_ID" value="<?php echo $ArticleDAO->getWpPostByIDValue($article->getPID());?>" />
-			<!--<input type="hidden" name="lang" value="<?=$lang ?>" />-->
 			<input type="hidden" name="origem" value=<?='"http://'.$_SERVER["SERVER_NAME"].'/scieloOrg/php/wpPosts.php?pid='.$pid."&lang=".$lang."&acron=".$acron.'"'?>/>
 		<TR>
 			<TD align="right" width="0" valign="top">
@@ -275,7 +277,7 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD
 					<?=COMMENTS_USER_AUTHOR?>
 				</span>
 			</TD>
-			<TD><!---->
+			<TD>
 				<input type="text" name="author" id="author" value="<?=$_COOKIE["firstName"]?>" size="22" tabindex="1"  />
 			</TD>
 		</TR>
@@ -286,7 +288,7 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD
 					<?=COMMNETS_USER_EMAIL?>
 				</span>
 			</TD>
-			<TD><!---->
+			<TD>
 				<input type="text" name="email" id="email" value="<?=$_COOKIE["email"]?>" size="30" tabindex="2" />
 			</TD>
 		</TR>
@@ -321,9 +323,6 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD
 					<?}elseif($blogId==0){
 							echo COMMNETS_DONT_BLOG;
 						}else{?>
-							<!--<span class="messageCommnet">
-							<div style="font-family: Trebuchet MS,Arial; font-size: 120%; z-index: 2; position: absolute; left: 120px; background-color: #f7f8f9; width: 300px; padding: 10px; border: #990000 2px dotted; padding: 5px">-->
-							<div class="x">
 							<strong>
 							<div style="font-size: 10pt; font-family:Arial,Verdana;color:#990000;">
 								<?
@@ -332,8 +331,6 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD
 								<?}?>
 								</div>
 								</strong>
-							</div>
-							<!--</span>-->
 						 </TD>
 					 </tr>
 					</TABLE>

@@ -1,17 +1,18 @@
 <?
 require_once(dirname(__FILE__)."/wpPosts.php");
-require_once(dirname(__FILE__)."/../users/DBClass.php");
+require_once(dirname(__FILE__)."/../users/DBClassBlog.php");
 
 class wpPostsDAO{
 
 function wpPostsDAO(){
 	
-	$fileDef = parse_ini_file(dirname(__FILE__)."/../../../scielo.def");
-		$DBparams["password"] = $fileDef["DB_USER_BLOG_PASSWORD"];
-		$DBparams["db"] = $fileDef["DB_BLOG"];
-		$DBparams["user"] = $fileDef["DB_USER_BLOG"];
-		$DBparams["host"] = $fileDef["DB_HOST_BLOG"];
-		$this->_db = new DBClass($DBparams);
+//	$fileDef = parse_ini_file(dirname(__FILE__)."/../../../scielo.def");
+//		$DBparams["password"] = $fileDef["DB_USER_BLOG_PASSWORD"];
+//		$DBparams["db"] = $fileDef["DB_BLOG"];
+//		$DBparams["user"] = $fileDef["DB_USER_BLOG"];
+//		$DBparams["host"] = $fileDef["DB_HOST_BLOG"];
+//		$this->_db = new DBClass($DBparams);
+		$this->_db = new DBClassBlog();
 }
 
 function addPost($post,$blogId){

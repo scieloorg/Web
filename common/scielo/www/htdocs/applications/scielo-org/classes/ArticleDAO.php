@@ -28,12 +28,13 @@ class ArticleDAO {
 */
 	function ArticleDAO(){
 
-	$fileDef = parse_ini_file(dirname(__FILE__)."/../../../scielo.def");
-		$DBparams["password"] = $fileDef["DB_USER_SCIELO_PASSWORD"];
-		$DBparams["db"] = $fileDef["DB_SCIELO"];
-		$DBparams["user"] = $fileDef["DB_USER_SCIELO"];
-		$DBparams["host"] = $fileDef["DB_HOST_SCIELO"];
-		$this->_db = new DBClass($DBparams);
+//	$fileDef = parse_ini_file(dirname(__FILE__)."/../../../scielo.def");
+//		$DBparams["password"] = $fileDef["DB_USER_SCIELO_PASSWORD"];
+//		$DBparams["db"] = $fileDef["DB_SCIELO"];
+//		$DBparams["user"] = $fileDef["DB_USER_SCIELO"];
+//		$DBparams["host"] = $fileDef["DB_HOST_SCIELO"];
+//		$this->_db = new DBClass($DBparams);
+		$this->_db = new DBClass();
 
 	}
 
@@ -81,7 +82,6 @@ class ArticleDAO {
 		.$article->getWpURL()."','"
 		.$article->getWpPostDate()."'"
 		.")";
-		
 		$result = $this->_db->databaseExecInsert($strsql);
 		return $result;
 	}
