@@ -71,7 +71,6 @@
 						$guidUrl = "http://".$wordpress."/".$acron."/".substr($postDate,0,4)."/".substr($postDate,5,2)."/".substr($postDate,8,2)."/".$article->getPID()."/";
 					}else{
 						if ($blogId != 0){ 
-							echo "entrou";
 							//verifica se blog da revista já existe.
 							$addedPostId = $PostsDAO->addPost($Post,$blogId);
 							$article->setWpPostID($addedPostId);
