@@ -28,7 +28,7 @@
 </xsl:template>
 <xsl:template match="CONTROLINFO[LANGUAGE='en']">
 	<p align="center">
-		<a href="http://www.scielo.org">
+		<a href="http://www.scielo.org/php/index.php?lang=en">
 			<img>
 				<xsl:attribute name="alt">Scientific Electronic Library Online</xsl:attribute>
 				<xsl:attribute name="border">0</xsl:attribute>
@@ -325,7 +325,7 @@
 
 <xsl:template match="CONTROLINFO[LANGUAGE='pt']">
 	<p align="center">
-		<a href="http://www.scielo.org/index_p.html">
+		<a href="http://www.scielo.org/php/index.php?lang=pt">
 			<img>
 				<xsl:attribute name="alt">Scientific Electronic Library Online</xsl:attribute>
 				<xsl:attribute name="border">0</xsl:attribute>
@@ -608,7 +608,7 @@
 
 <xsl:template match="CONTROLINFO[LANGUAGE='es']">
 	<p align="center">
-		<a href="http://www.scielo.org/index_e.html">
+		<a href="http://www.scielo.org/php/index.php?lang=es">
 			<img>
 				<xsl:attribute name="alt">Scientific Electronic Library Online</xsl:attribute>
 				<xsl:attribute name="border">0</xsl:attribute>
