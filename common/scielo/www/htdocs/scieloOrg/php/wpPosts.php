@@ -23,8 +23,8 @@
 			$articleService->setParams($pid);
 			$article = $articleService->getArticle();
 			$ArticleDAO = new articleDAO();
-			 $BlogDAO = new wpBlogDAO();
-                        $PostsDAO = new wpPostsDAO();
+			$BlogDAO = new wpBlogDAO();
+			$PostsDAO = new wpPostsDAO();
 
 			$insertDate = date('Y-m-d h:i:s');
 			$acron = $_REQUEST["acron"];
@@ -49,7 +49,23 @@
 			/************************************************/
 			$Post->setPostAuth("1");
 			$Post->setPostDateGmt($insertDate);
-			$Post->setPostContent("");
+			/************************************************
+			* Abstract cadastrado nas duas linguagens
+			************************************************/
+			$abstract = $article->getAbstractXML();
+			$posAbstractpt = strpos($article->getAbstractXML(),'"pt\"');
+			if($posAbstractpt){
+			$abstractpt = substr($abstract, $posAbstractpt);
+			$abstract = str_replace('"pt\"><![CDATA[',"",$abstractpt);
+			$abstract = str_replace(']]></ABSTRACT>',"",$abstract);
+			}else{
+			$posAbstracten = strpos($article->getAbstractXML(),'"en\"');
+			$abstracten = substr($abstract, $posAbstracten);
+			$abstract = str_replace('"en\"><![CDATA[',"",$abstracten);
+			$abstract = str_replace(']]></ABSTRACT>',"",$abstract);
+			}
+			$Post->setPostContent($abstract);
+			/************************************************/
 			$Post->setPostCategory("0");
 			$Post->setPostStatus("publish");
 			$Post->setPingStatus("open");

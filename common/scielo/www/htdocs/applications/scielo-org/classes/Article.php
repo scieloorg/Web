@@ -89,6 +89,12 @@
 		function getKeywordXML(){
 			return $this->_data['keywordXML'];
 		}
+		function setAbstractXML($value){
+			$this->_data['AbstractXML'] = mysql_escape_string($value);
+		}
+		function getAbstractXML(){
+			return $this->_data['AbstractXML'];
+		}
 
 		/********************************************/
 		function getWpPostID(){
@@ -162,6 +168,7 @@
 			$this->setYear($a->getYear());
 			$this->setAuthorXML($a->getAuthorXML());
 			$this->setKeywordXML($a->getKeywordXML());
+			$this->setAbstractXML($a->getAbstractXML());
 		}
 	}
 ?>

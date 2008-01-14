@@ -60,6 +60,7 @@ class ArticleDAO {
 		year, 
 		authors_xml, 
 		keywords_xml,
+		abstract_xml,
 		process_date,
 		publication_date,
 		wp_post_id,
@@ -76,6 +77,7 @@ class ArticleDAO {
 		.$article->getYear()."','"
 		.mysql_escape_string($article->getAuthorXML())."','"
 		.mysql_escape_string(str_replace("'","&apos;",$article->getKeywordXML()))."','"
+		.mysql_escape_string(str_replace("'","&apos;",$article->getAbstractXML()))."','"
 		.date('Y-m-d H:i:s')."','"
 		.formatDate($article->getPublicationDate())."',"
 		.$article->getWpPostID().",'"
@@ -103,6 +105,7 @@ class ArticleDAO {
 						year = '".$article->getYear()."',
 						authors_xml = '".mysql_escape_string(str_replace("'","&apos;",$article->getAuthorXML()))."',
 						keywords_xml = '".mysql_escape_string(str_replace("'","&apos;",$article->getKeywordXML()))."',
+						abstract_xml = '".mysql_escape_string(str_replace("'","&apos;",$article->getAbstractXML()))."',
 						publication_date = '".formatDate($article->getPublicationDate())."'
 					WHERE PID = '".$article->getPID()."'";
 
@@ -220,6 +223,7 @@ class ArticleDAO {
 		$article->setUrl($p['url']);
 		$article->setAuthorXML($p['authors_xml']);
 		$article->setKeywordXML($p['keywords_xml']);
+		$article->setAbstractXML($p['abstract_xml']);
 		$article->setWpPostID($p['wp_post_id']);
 		$article->setWpURL($p['wp_url']);
 		return $article;

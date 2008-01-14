@@ -35,6 +35,7 @@ class ArticleServicesResult extends ServiceResult {
 			$article->setTitle($this->getNodeXML($item, 'TITLES'));
 			$article->setAuthorXML($this->getNodeXML($item, 'AUTHORS'));
 			$article->setKeywordXML($this->getNodeXML($item, 'KEYWORDS'));
+			$article->setAbstractXML($this->getNodeXML($item, 'ABSTRACT'));
 		}
 		return $article;
 	}
