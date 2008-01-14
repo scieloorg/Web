@@ -109,7 +109,11 @@
 	<!-- parte 1 - no caso de current=review entao previous=ahead -->
 	<field action="replace" tag="7085"><pft>if v1001^t='REVIEW' then (if v3900^t='AHEAD' then v3900^*, break,fi) fi</pft></field>
 	
-	<!-- parte 2 - no caso de nenhum das anteriores, entao previous eh qualquer issue normal -->
+	<!-- parte 2 - no caso de current=ahead entao previous=current -->
+	<call name="GetCurrentIssue"><pft>if v1001^t='AHEAD' then v4900*0.9 fi</pft></call>
+	<field action="replace" tag="7085"><pft>v7090</pft></field>
+	
+	<!-- parte 3 - no caso de nenhum das anteriores, entao previous eh qualquer issue normal -->
 	<flow action="jump"><pft>if p(v7085) then 'fim' fi</pft></flow>
 
 	<field action="replace" tag="1001"><pft>(v3900,' ')</pft></field>
