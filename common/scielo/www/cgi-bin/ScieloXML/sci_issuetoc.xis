@@ -6,15 +6,7 @@
 
 <function name="translateSectionName" action="replace" tag="4001">
   <return action="replace" tag="5010">
-	<pft>
-		,if v4001^s='ahead' then 
-				'Ahead of print'
-		,else
-			,if v4001^s='review' then 
-			,'Review in progress',
-			,fi
-		,fi
-	</pft>
+	<pft>replace(replace(v4001^s,'REVIEW','Review in progress'),'AHEAD','Ahead of print')</pft>
    </return>
 </function>
 <function name="CreateArticleListXML" action="replace" tag=4001>
@@ -25,8 +17,7 @@
 	 4001^s - Issue MFN -->
 <display><pft>'<!-- aqui comeca -->'</pft></display>
   <field action="import" tag="list">7009/7050</field> <!--fixed-->
-  <field action="import" tag="list">5010</field> <!--fixed-->
-  <call name="translateSectionName"><pft>if p(v5010) then '^l',v4001^l,'^s',v5010 fi</pft></call>
+  <call name="translateSectionName"><pft>if p(v4001^x) then '^l',v4001^l,'^s',v4001^x fi</pft></call>
   <do task="keyrange">
    <parm name="db">ARTIGO</parm>
    <parm name="from"><pft>'SM='v4001^p</pft></parm>
@@ -75,7 +66,7 @@
         ref(['ARTIGO']val(v1003^m),@PROC_SPLIT_MST.PFT,(v49/))
                 </pft>
     </field>
-		
+<!--display><pft>ALL</pft></display-->
 	<!-- Check for section : 999-Current Section Code -->
 	<field action="replace" tag="999">
      <pft>s(mpu,v49,mpl)</pft>
@@ -141,21 +132,45 @@
 	 4001^s - Issue MFN --> 
  <field action="import" tag="list">7009/7050</field> <!--fixed-->
 
- <call name="checkPresentationBeforePrintIssuesTogether"><pft>v4001^p</pft></call>
+ <call name="GetNotPrintedIssues"><pft>v4001^p*0.9</pft></call>
+ <field action="replace" tag="5001" split="occ"><pft>(if p(v3900^f) then v3900/ fi)</pft></field>
+ 
+ <!-- check the issue is a not printed issue -->
+ <field action="replace" tag="5100"><pft>(if instr(v5001,v4001^p[1])>0 then v5001, break fi)</pft></field>
+
+ <!-- create a list with the pid of the issues which compose the toc
+	  case 1: all ahead and all review are presented together
+	  case 2: all ahead or all review issues
+	  case 3: only the selected issue
+ -->
+ <field action="replace" tag="5101" split="occ">
+	<pft>
+		,if p(v5100) then 
+			,if v7050='together' then
+				(v5001,'^x',v5001^t,' ',mid(v5001^*,10,4)/) 
+			,else
+				(if v5100^t[1]=v5001^t then v5001,'^x',mid(v5001^*,10,4)/ fi) 
+			,fi
+		,else
+			,v4001^p,
+		,fi
+	</pft>
+</field>
+
+
  <call name="CreateIssueInfoXML"><pft>v4001^s</pft></call>
  <call name="CreateIssueTitleXML"><pft>'^r'v4001^s'^l'v4001^l'^i'v4001^i</pft></call>
  <call name="CreateIssueStripXML"><pft>'^r'v4001^s'^l'v4001^l'^i'v4001^i</pft></call>  	
 
- <field action="replace" tag="5010"><pft>v5011[1]</pft></field>
- <call name="CreateArticleListXML"><pft>v4001</pft></call>
+ <display><pft>'<!-- '/,(v5101/),' -->'/</pft></display>
+ <display><pft>'<!-- '/,v4001/,' -->'/</pft></display>
+	<!-- OBS.: tentei usar do task list e não funcionou, talvez problema de memória -->
+  <call name="CreateArticleListXML"><pft>if nocc(v5101)>0 then replace(v4001,v4001^p,v5101[1]^*) fi</pft></call>
+  <call name="CreateArticleListXML"><pft>if nocc(v5101)>1 then replace(v4001,v4001^p,v5101[2]^*) fi</pft></call>
+  <call name="CreateArticleListXML"><pft>if nocc(v5101)>2 then replace(v4001,v4001^p,v5101[3]^*) fi</pft></call>
+  <call name="CreateArticleListXML"><pft>if nocc(v5101)>3 then replace(v4001,v4001^p,v5101[4]^*) fi</pft></call>
 
-
- <!-- begin - Presents the review in progress articles  -->
- <field action="replace" tag="5010"><pft>v5011[3]</pft></field>
- <call name="CreateArticleListXML"><pft>if p(v5011[3]) then replace(v4001,v4001^p,v5011[2]) fi</pft></call>
- <!-- end - Presents the review in progress articles  -->
- 
- <display><pft>'</ISSUE>'/</pft></display>
+  <display><pft>'</ISSUE>'/</pft></display>
 </function>
 
 <function name="CreateDebugInfoXML" action="replace" tag="4000">
