@@ -414,11 +414,11 @@
 <function name="GetPreviousArticle" action="replace" tag="4900">
 	<!--display><pft>'v4900 = ',v4900,'<br>'</pft></display-->
 	<field action="replace" tag="5000"><pft>v4900^x</pft></field>
-	<field action="replace" tag="4900"><pft>v4900^*</pft></field>
+	<field action="replace" tag="4900"><pft>mid(v4900^*,2,17),'-',mid(v4900^*,21,3)</pft></field>
 
 	<do task="keyrange">
 		<parm name="db">ARTIGO</parm>
-		<parm name="from"><pft>'HR=',v4900</pft></parm>
+		<parm name="from"><pft>'SM=',v4900</pft></parm>
 		<!--parm name="count">2</parm-->
 		<parm name="reverse">On</parm>
 
@@ -448,7 +448,7 @@
 			if p(v4901) and
 			   instr(v4901, v4900) = 0 and 
 			   instr(v4901, left(v4900, size(v4900) - 5)) > 0 then,
- 				mid(v4901*3, 1, 23),
+ 				,mid(v4901*3, 1, 23),
 			fi,
 		</pft>
 	</field>
@@ -457,7 +457,7 @@
 	<field action="replace" tag="4900"><pft>v5000</pft></field>
 	<do task="keyrange">
 		<parm name="db">ARTIGO</parm>
-		<parm name="from"><pft>'HR=',v4900,'zzz'</pft></parm>
+		<parm name="from"><pft>'SM=',v4900,'zzz'</pft></parm>
 		<parm name="reverse">On</parm>
 
 		<field action="define" tag="4901">Isis_Key</field>
@@ -491,6 +491,8 @@
 	</do>	
 	<field action="replace" tag="7085"><pft>v5001</pft></field>
 	<label>FOUND_PREV_ARTICLE</label>
+	<field action="replace" tag="7085"><pft>if p(v7085) then 'S',mid(v7085,1,17),'00',mid(v7085,19,3) fi</pft></field>
+
 	<return action="replace" tag="7085"><pft>v7085</pft></return>
 </function>
 
@@ -510,10 +512,10 @@
 	<!--display><pft>'v4900 = ',v4900,'<br>'</pft></display-->
 
 	<field action="replace" tag="5000"><pft>v4900^x</pft></field>
-	<field action="replace" tag="4900"><pft>v4900^*</pft></field>
+	<field action="replace" tag="4900"><pft>mid(v4900^*,2,17),'-',mid(v4900^*,21,3)</pft></field>
 	<do task="keyrange">
 		<parm name="db">ARTIGO</parm>
-		<parm name="from"><pft>'HR=',v4900,'zzzzz'</pft></parm>
+		<parm name="from"><pft>'SM=',v4900,'zzzzz'</pft></parm>
 		<!--parm name="count">1</parm-->
 		
 		<field action="define" tag="4901">Isis_Key</field>
@@ -553,7 +555,7 @@
 	<field action="replace" tag="4900"><pft>v5000</pft></field>
 	<do task="keyrange">
 		<parm name="db">ARTIGO</parm>
-		<parm name="from"><pft>'HR=',v4900</pft></parm>
+		<parm name="from"><pft>'SM=',v4900</pft></parm>
 
 		<field action="define" tag="4901">Isis_Key</field>
 		
@@ -586,6 +588,8 @@
 	</do>	
 	<field action="replace" tag="7095"><pft>v5001</pft></field>
 	<label>FOUND_NEXT_ARTICLE</label>
+	<field action="replace" tag="7095"><pft>if p(v7095) then 'S',mid(v7095,1,17),'00',mid(v7095,19,3) fi</pft></field>
+
 	<return action="replace" tag="7095"><pft>v7095</pft></return>
 		
 </function>
