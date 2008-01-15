@@ -7,6 +7,16 @@
 	<xsl:variable name="spaceVol" select="'7%'"/>
 	<xsl:variable name="spaceIssue" select="'5%'"/>
 	<xsl:variable name="spaceIssues" select="'70%'"/>
+
+	
+	<xsl:variable name="columns" select="//COLUMNS"/>
+	<xsl:variable name="colnumber"><xsl:choose>
+		<xsl:when test="$columns='' or not($columns)">14</xsl:when>
+		<xsl:when test="$columns &lt; 14">12</xsl:when>
+		<xsl:otherwise><xsl:value-of select="$columns"/></xsl:otherwise>
+	</xsl:choose></xsl:variable>
+	
+	
 	<xsl:template match="SERIAL">
 		<HTML>
 			<HEAD>
@@ -94,7 +104,7 @@
 										</TD>
 									</xsl:if>
 									<xsl:if test="YEARISSUE/VOLISSUE/ISSUE/@NUM or YEARISSUE/VOLISSUE/ISSUE/@SUPPL">
-										<TD align="left" width="{$spaceIssues}" bgColor="#e1e6e6" colSpan="14" height="35">
+										<TD align="left" width="{$spaceIssues}" bgColor="#e1e6e6" colSpan="{$colnumber}" height="35">
            &#160;&#160;
           <FONT class="normal" color="000080">
 												<B>
@@ -115,7 +125,7 @@
 								</xsl:apply-templates>
 								<xsl:if test="//CHANGESINFO">
 									<TR>
-										<TD colspan="14">
+										<TD colspan="{$colnumber}">
 											<BR/>
 											<xsl:apply-templates select="//CHANGESINFO">
 												<xsl:with-param name="LANG" select="//CONTROLINFO/LANGUAGE"/>
@@ -190,7 +200,7 @@
 					EXEMPLO ECLETICA QUIMICA ANO 2002.
 				-->
 				<xsl:call-template name="AddBlankCells">
-					<xsl:with-param name="ncells" select="14-$navailissues"/>
+					<xsl:with-param name="ncells" select="$colnumber - $navailissues"/>
 				</xsl:call-template>
 			</TR>
 		</xsl:if>

@@ -31,13 +31,19 @@
    <field action="replace" tag="2000"><pft>'-'</pft></field>
    <field action="replace" tag="2001"><pft>'-'</pft></field>
 
+	<field action="replace" tag="9123"><pft>'0'</pft></field>
+
    <loop>
 
    	<display>
 	 <pft>'<!-- ',v1002,' -->'/</pft>
 	</display>
     <field action="import" tag="list">2000,2001,4001,5000,3900</field>
-    
+
+	<field action="import" tag="list">9122,9123</field>
+	<field action="replace" tag="9123"><pft>if val(v9122) > val(v9123) then v9122 fi</pft></field>
+   	<field action="export" tag="list">9122,9123</field>
+
 	<field action="replace" tag="9065"><pft>ref(['ARTIGO']val(v1003^m),@PROC_SPLIT_MST.PFT,,mid(v65,1,4))</pft></field>	
 	<field action="replace" tag="9031"><pft>ref(['ARTIGO']val(v1003^m),@PROC_SPLIT_MST.PFT,,if p(v31) then v31 else 's/v' fi)</pft></field>	
     
@@ -60,6 +66,9 @@
 	      if s(v2000)<>'-' then '  </YEARISSUE>'/ fi,
 	      '  <YEARISSUE YEAR="',v9065,'">'/</pft>
 	</display>
+    
+	<field action="replace" tag="9122"><pft>'0'</pft></field>
+
     <field action="replace" tag="2000"><pft>v9065</pft></field>	
     <field action="replace" tag="2001"><pft>'-'</pft></field>
 		
@@ -79,6 +88,9 @@
     <field action="replace" tag="2001"><pft>v9031</pft></field>	
 	
 	<label>NEXT_ISSUE</label>
+	<field action="replace" tag="9122"><pft>f(val(v9122)+1,1,0)</pft></field>
+	<field action="export" tag="list">9122</field>
+
 	<display>
 	 <pft>
 	       ref(['ARTIGO']val(v1003^m),,@PROC_SPLIT_MST.PFT,
@@ -127,6 +139,7 @@
 
 				
                ' </AVAILISSUES>'/</pft></display>
+<display><pft>if p(v9123) then '<COLUMNS>',f(val(v9123)+nocc(v6000),1,0),'</COLUMNS>'/ fi</pft></display>
 </function>
  
 <section>
