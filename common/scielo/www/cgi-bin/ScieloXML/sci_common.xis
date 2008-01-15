@@ -414,11 +414,11 @@
 <function name="GetPreviousArticle" action="replace" tag="4900">
 	<!--display><pft>'v4900 = ',v4900,'<br>'</pft></display-->
 	<field action="replace" tag="5000"><pft>v4900^x</pft></field>
-	<field action="replace" tag="4900"><pft>mid(v4900^*,2,17),'-',mid(v4900^*,21,3)</pft></field>
+	<field action="replace" tag="4900"><pft>'SM=',mid(v4900^*,2,17),'-',mid(v4900^*,21,3)</pft></field>
 
 	<do task="keyrange">
 		<parm name="db">ARTIGO</parm>
-		<parm name="from"><pft>'SM=',v4900</pft></parm>
+		<parm name="from"><pft>v4900</pft></parm>
 		<!--parm name="count">2</parm-->
 		<parm name="reverse">On</parm>
 
@@ -447,7 +447,7 @@
 			/* and the issue must be equal.                                           */
 			if p(v4901) and
 			   instr(v4901, v4900) = 0 and 
-			   instr(v4901, left(v4900, size(v4900) - 5)) > 0 then,
+			   instr(v4901, left(v4900, size(v4900) - 4)) > 0 then,
  				,mid(v4901*3, 1, 23),
 			fi,
 		</pft>
@@ -457,7 +457,7 @@
 	<field action="replace" tag="4900"><pft>v5000</pft></field>
 	<do task="keyrange">
 		<parm name="db">ARTIGO</parm>
-		<parm name="from"><pft>'SM=',v4900,'zzz'</pft></parm>
+		<parm name="from"><pft>v4900,'zzz'</pft></parm>
 		<parm name="reverse">On</parm>
 
 		<field action="define" tag="4901">Isis_Key</field>
@@ -471,7 +471,7 @@
 					/* The pid of the key must be different from the pid of the current article */
 					/* and the issue must be equal.                                             */
 					if p(v4901) then
-						,if instr(v4901, left(v4900, size(v4900) - 5)) > 0 then,
+						,if instr(v4901, left(v4900, size(v4900) - 4)) > 0 then,
 							,mid(v4901*3, 1, 23),
 						,else
 							,'Quit'
@@ -512,10 +512,10 @@
 	<!--display><pft>'v4900 = ',v4900,'<br>'</pft></display-->
 
 	<field action="replace" tag="5000"><pft>v4900^x</pft></field>
-	<field action="replace" tag="4900"><pft>mid(v4900^*,2,17),'-',mid(v4900^*,21,3)</pft></field>
+	<field action="replace" tag="4900"><pft>'SM=',mid(v4900^*,2,17),'-',mid(v4900^*,21,3)</pft></field>
 	<do task="keyrange">
 		<parm name="db">ARTIGO</parm>
-		<parm name="from"><pft>'SM=',v4900,'zzzzz'</pft></parm>
+		<parm name="from"><pft>v4900,'zzzzz'</pft></parm>
 		<!--parm name="count">1</parm-->
 		
 		<field action="define" tag="4901">Isis_Key</field>
@@ -545,7 +545,7 @@
 			/* and the issue must be equal.                                             */
 			if p(v4901) and ref(['ARTIGO']l(['ARTIGO'],v4901),@PROC_SPLIT_MST.PFT,v222)='' and
 			   instr(v4901, v4900) = 0 and
-			   instr(v4901, left(v4900, size(v4900) - 5)) > 0 then,
+			   instr(v4901, left(v4900, size(v4900) - 4)) > 0 then,
  				,mid(v4901*3, 1, 23),				
 			fi,
 		</pft>
@@ -555,7 +555,7 @@
 	<field action="replace" tag="4900"><pft>v5000</pft></field>
 	<do task="keyrange">
 		<parm name="db">ARTIGO</parm>
-		<parm name="from"><pft>'SM=',v4900</pft></parm>
+		<parm name="from"><pft>v4900</pft></parm>
 
 		<field action="define" tag="4901">Isis_Key</field>
 		
@@ -568,7 +568,7 @@
 					/* The pid of the key must be different from the pid of the current article */
 					/* and the issue must be equal.                                             */
 					if p(v4901) then
-						,if instr(v4901, left(v4900, size(v4900) - 5)) > 0 then,
+						,if instr(v4901, left(v4900, size(v4900) - 4)) > 0 then,
 							,mid(v4901*3, 1, 23),
 						,else
 							,'Quit'
