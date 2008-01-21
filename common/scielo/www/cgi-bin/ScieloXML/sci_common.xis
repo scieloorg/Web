@@ -1601,6 +1601,7 @@
 	<field action="replace" tag="9001">
 		<pft>
 			ref( ['NEWISSUE'] l( ['NEWISSUE'],'Y',mid(v4900,2,size(v4900)-5-1) ),
+				,if (v32='ahead' or v32='review') and val(v65*0.4) > 2007 then ,v65*0.4, fi,
 				"v"v31,"n"v32,"s"v131,"s"v132 )
 		</pft>
 	</field>
@@ -1767,6 +1768,7 @@
 	<field action="replace" tag="9001">
 		<pft>
 			ref( ['NEWISSUE'] l( ['NEWISSUE'],'Y',mid(v4900,2,size(v4900)-5-1) ),
+,if (v32='ahead' or v32='review') and val(v65*0.4) > 2007 then ,v65*0.4, fi,
 				"v"v31,"n"v32,"s"v131,"s"v132 )
 		</pft>
 	</field>
@@ -1913,6 +1915,7 @@
 	<field action="replace" tag="9001">
 		<pft>
 			ref( ['NEWISSUE'] l( ['NEWISSUE'],'Y',mid(v4900,2,size(v4900)-5-1) ),
+,if (v32='ahead' or v32='review') and val(v65*0.4) > 2007 then ,v65*0.4, fi,
 				"v"v31,"n"v32,"s"v131,"s"v132 )
 		</pft>
 	</field>
