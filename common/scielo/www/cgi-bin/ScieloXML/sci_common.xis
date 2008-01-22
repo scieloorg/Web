@@ -235,6 +235,7 @@
 
 	<call name="GetNotPrintedIssuePID"><pft>'^a',v4900,'^bREVIEW'</pft></call>
 	<field action="add" tag="3900" split="occ"><pft>(v7095/)</pft></field>
+	<field action="delete" tag="7095">1</field>
 
 	<call name="GetNotPrintedIssuePID"><pft>'^a',v4900,'^bAHEAD'</pft></call>
 	<field action="add" tag="3900" split="occ"><pft>(v7095/)</pft></field>
