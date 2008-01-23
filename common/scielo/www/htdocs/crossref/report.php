@@ -32,13 +32,19 @@ if($pg==1){
 	$inicio = $fim - $viewNum; 
 }
 
-$serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/webservices/wxis/?IsisScript=search.xis&database=".$databasePath."/doi/crossref_DOIReport&search=ST=".$_REQUEST['stat']."&from=".$inicio."&count=".$viewNum;
+if($_REQUEST['PID']){
+	$serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/webservices/wxis/?IsisScript=search.xis&database=".$databasePath."/doi/crossref_DOIReport&search=HR=".$_REQUEST['PID']."&from=".$inicio."&count=".$viewNum;
+}else{
+	$serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/webservices/wxis/?IsisScript=search.xis&database=".$databasePath."/doi/crossref_DOIReport&search=ST=".$_REQUEST['stat']."&from=".$inicio."&count=".$viewNum;
+}
 $xmlFile = file_get_contents($serviceUrl);
 $xml = '<?xml version="1.0" encoding="ISO-8859-1"?>';
 $xml .='<root>';
 $xml .='<vars><htdocs>'.$htdocsPath.'</htdocs><from>'.$_REQUEST['from'].'0001</from><to>'.$_REQUEST['to'].'0001</to><domain>'.$applServer.'</domain><lang>'.$lang.'</lang></vars>';
 $xml .= str_replace('<?xml version="1.0" encoding="ISO-8859-1"?>','',$xmlFile);
 $xml .='</root>';
+
+
 
 if($_REQUEST['getXML'] == "true"){
 				die($xml);
@@ -72,14 +78,19 @@ if($_REQUEST['getXML'] == "true"){
 
 			$pgPrevious = $pg - 1;
 			$pgNext = $pg + 1;
+			$totalPages = (int) ceil((substr($xml,strpos($xml,"Isis_Total")+24,4))/$viewNum);
 			$previous = str_replace("&pg=".$pg,"",$_SERVER['REQUEST_URI']);
 			$previous .= "&pg=".$pgPrevious;
 			$next = str_replace("&pg=".$pg,"",$_SERVER['REQUEST_URI']); 
 			$next .= "&pg=".$pgNext; 
 			
-			if($pgPrevious!=0){echo "<a href=$previous>&lt;&lt;</a>";} echo " | <a href=$next>&gt;&gt;</a>";
-			echo ("  - Pag ".$pg);
-			echo ' / '. (int)((substr($xml,strpos($xml,"Isis_Total")+24,4))/$viewNum);
+			if($pg <= $totalPages){
+			//if($totalPages!=1){
+				if($pgPrevious>0){echo "<a href=$previous>&lt;&lt;</a>";} 
+				if($pgNext<=$totalPages){echo " | <a href=$next>&gt;&gt;</a>";}
+				echo ("  - Pag ".$pg);
+				echo ' / '. $totalPages;
+			}
 		?>	
 	</body>
 </html>

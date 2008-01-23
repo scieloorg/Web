@@ -70,40 +70,38 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 		}
 	}
 	
-	function submitForm()
-	{				
+	function submitForm(){				
+		pid = document.sendQuery.pid.value;
 		from = document.sendQuery.from.value;
 		to = document.sendQuery.to.value;
-		
-		if(!verDate(from)){
-			document.sendQuery.from.focus();
-		}
-		else if(!verDate(to)){
-			document.sendQuery.to.focus();
-		}
-		else if(to.replace(/-/g,"") <= from.replace(/-/g,"")){
-			alert("Invalid date range");
-			document.sendQuery.from.focus();
-		}
-		else{
-			
-			sts = document.sendQuery.status.selectedIndex;
+		var formStatus = false;
+				
+		if(pid !=  ""){			
 			formStatus = true;
 			URL = 'report.php';		
 			
-			URL = URL+"?stat="+document.sendQuery.status[sts].value+"&getXML="+document.sendQuery.getXML.checked+"&from="+from.replace(/-/g,"")+"&to="+to.replace(/-/g,"")+"&lang=en";
-					
-			document.sendQuery.outputURL.value = URL;
-			window.open(URL,'oai_output');
-			formStatus = true;
-			if (formStatus)
-			{
-				document.sendQuery.outputURL.value = URL;
-				window.open(URL,'oai_output');
-			}
+			URL = URL+"?PID="+pid+"&getXML="+document.sendQuery.getXML.checked+"&lang=en";
+		}else{
+			if(!verDate(from)){
+				document.sendQuery.from.focus();
+			}else if(!verDate(to)){
+				document.sendQuery.to.focus();
+			}else if(to.replace(/-/g,"") <= from.replace(/-/g,"")){
+				alert("Invalid date range");
+				document.sendQuery.from.focus();
+			}else{		
+				sts = document.sendQuery.status.selectedIndex;
+				formStatus = true;
+				URL = 'report.php';		
+			
+				URL = URL+"?stat="+document.sendQuery.status[sts].value+"&getXML="+document.sendQuery.getXML.checked+"&from="+from.replace(/-/g,"")+"&to="+to.replace(/-/g,"")+"&lang=en";
 		}
-	
+	}			
+	if (formStatus){
+		document.sendQuery.outputURL.value = URL;
+		window.open(URL,'oai_output');		
 	}
+}
 	
 </script>
 <body marginheight="0" topmargin="0" leftmargin="0">
@@ -125,6 +123,10 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 					<div id="group_title">setup parameters</div>
 						<div id="group_content">
 							<table>
+								<tr>
+									<td>By PID</td>
+									<td><input type="text" name="pid" maxlength="23"/></td>									
+								</tr>							
 								<tr>
 									<td>From</td>
 									<td><input type="text" name="from" maxlength="15"/></td>
