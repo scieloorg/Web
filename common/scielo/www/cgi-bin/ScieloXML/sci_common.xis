@@ -455,7 +455,7 @@
 	</field>
 
 	<flow action="jump"><pft>if p(v7085) or a(v5000) then 'FOUND_PREV_ARTICLE' fi</pft></flow>
-	<field action="replace" tag="4900"><pft>v5000</pft></field>
+	<field action="replace" tag="4900"><pft>|SM=|v5000*1</pft></field>
 	<do task="keyrange">
 		<parm name="db">ARTIGO</parm>
 		<parm name="from"><pft>v4900,'zzz'</pft></parm>
@@ -553,7 +553,7 @@
 	</field>
 	
 	<flow action="jump"><pft>if p(v7095) or a(v5000) then 'FOUND_NEXT_ARTICLE' fi</pft></flow>
-	<field action="replace" tag="4900"><pft>v5000</pft></field>
+	<field action="replace" tag="4900"><pft>|SM=|v5000*1</pft></field>
 	<do task="keyrange">
 		<parm name="db">ARTIGO</parm>
 		<parm name="from"><pft>v4900</pft></parm>
