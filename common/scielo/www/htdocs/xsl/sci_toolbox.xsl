@@ -110,9 +110,9 @@
 						<xsl:attribute name="rel">nofollow</xsl:attribute>
 						<img src="/img/{$LANGUAGE}/iconComment.gif"/>						
 						<xsl:choose>
-							<xsl:when test="$LANGUAGE='en' "><xsl:value-of select="concat('Comment(',$commentCount,')')"/></xsl:when>
-							<xsl:when test="$LANGUAGE='pt' "><xsl:value-of select="concat('Comente(',$commentCount,')')"/></xsl:when>
-							<xsl:when test="$LANGUAGE='es' "><xsl:value-of select="concat('Comentar(',$commentCount,')')"/></xsl:when>
+							<xsl:when test="$LANGUAGE='en' "><xsl:value-of select="concat('Comments(',$commentCount,')')"/></xsl:when>
+							<xsl:when test="$LANGUAGE='pt' "><xsl:value-of select="concat('Comentários(',$commentCount,')')"/></xsl:when>
+							<xsl:when test="$LANGUAGE='es' "><xsl:value-of select="concat('Comentarios(',$commentCount,')')"/></xsl:when>
 						</xsl:choose>
 						</a>					
 						</li>
