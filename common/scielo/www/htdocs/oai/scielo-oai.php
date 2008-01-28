@@ -1,9 +1,9 @@
 <?php
-    include_once ( "classDefFile.php" );
-    include_once ( "../class.XSLTransformer.php" );
-//    include_once ( "classScielo.php" );
-	include_once ( "version-4.1-like-4.0.php" );
-	include_once ( "scielo-ws.php" );
+    include_once ("classDefFile.php");
+    include_once ("class.XSLTransformer.php");
+//    include_once ("classScielo.php");
+	include_once ("version-4.1-like-4.0.php");
+	include_once ("scielo-ws.php");
 
 	define ( "DEFNAME", "scielo.def" );
     define ( "DEFAULT_CACHE_EXPIRES", 180 );
@@ -218,7 +218,7 @@
         if ( !$debug )
         {
 //die($response);
-			$transform = new XSLTransformer ();
+			$transform = new XSLTransformerOAI();
 			if (getenv("ENV_SOCKET")!="true"){  //socket
 //				$xsl = file_get_contents($defFile["PATH_OAI"].$xsl);
 				$xsl = file_get_contents($xsl);				
