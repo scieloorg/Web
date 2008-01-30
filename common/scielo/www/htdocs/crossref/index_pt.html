@@ -60,6 +60,7 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 		document.sendQuery.status.selectedIndex = selectAgent;
 	}
 	
+	/*
 	function verDate(date){
 		var re = new RegExp("([0-9]{4})-([0-9]{2})-([0-9]{2})");
 				
@@ -70,11 +71,10 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 			return true;
 		}
 	}
-	
+	*/
 	function submitForm(){				
 		pid = document.sendQuery.pid.value;
-		from = document.sendQuery.from.value;
-		to = document.sendQuery.to.value;
+		dateExp = document.sendQuery.dateExp.value;
 		var formStatus = false;
 				
 		if(pid !=  ""){			
@@ -83,21 +83,12 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 			
 			URL = URL+"?PID="+pid+"&getXML="+document.sendQuery.getXML.checked+"&lang=en";
 		}else{
-			if(!verDate(from)){
-				document.sendQuery.from.focus();
-			}else if(!verDate(to)){
-				document.sendQuery.to.focus();
-			}else if(to.replace(/-/g,"") <= from.replace(/-/g,"")){
-				alert("Invalid date range");
-				document.sendQuery.from.focus();
-			}else{		
-				sts = document.sendQuery.status.selectedIndex;
-				formStatus = true;
-				URL = 'report.php';		
+			sts = document.sendQuery.status.selectedIndex;
+			formStatus = true;
+			URL = 'report.php';		
 			
-				URL = URL+"?stat="+document.sendQuery.status[sts].value+"&getXML="+document.sendQuery.getXML.checked+"&from="+from.replace(/-/g,"")+"&to="+to.replace(/-/g,"")+"&lang=en";
+			URL = URL+"?stat="+document.sendQuery.status[sts].value+"&dateExp="+dateExp+"&lang=en&getXML="+document.sendQuery.getXML.checked;
 		}
-	}			
 	if (formStatus){
 		document.sendQuery.outputURL.value = URL;
 		window.open(URL,'oai_output');		
@@ -128,14 +119,9 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 									<td><input type="text" name="pid" maxlength="23"/></td>									
 								</tr>
 								<tr>
-									<td>From</td>
-									<td><input type="text" name="from" maxlength="15"/></td>
-									<td>AAAA-MM-DD</td>
-								</tr>							
-								<tr>
-									<td>To</td>
-									<td><input type="text" name="to" maxlength="15"/></td>
-									<td>AAAA-MM-DD</td>
+									<td>Date Expression</td>
+									<td><input type="text" name="dateExp" maxlength="13"/></td>
+									<td>Ex.: 2007$</td>
 								</tr>
 								<tr>
 									<td>Status</td>

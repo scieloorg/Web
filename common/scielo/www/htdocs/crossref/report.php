@@ -35,20 +35,19 @@ if($pg==1){
 if($_REQUEST['PID']){
 	$serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/webservices/wxis/?IsisScript=search.xis&database=".$databasePath."/doi/crossref_DOIReport&search=HR=".$_REQUEST['PID']."&from=".$inicio."&count=".$viewNum;
 }else{
-	$serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/webservices/wxis/?IsisScript=search.xis&database=".$databasePath."/doi/crossref_DOIReport&search=ST=".$_REQUEST['stat']."&from=".$inicio."&count=".$viewNum;
+	$serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/webservices/wxis/?IsisScript=search.xis&database=".$databasePath."/doi/crossref_DOIReport&search=ST=".$_REQUEST['stat']."%20and%20DT=".$_REQUEST['dateExp']."&from=".$inicio."&count=".$viewNum;
 }
+
 $xmlFile = file_get_contents($serviceUrl);
 $xml = '<?xml version="1.0" encoding="ISO-8859-1"?>';
 $xml .='<root>';
-$xml .='<vars><htdocs>'.$htdocsPath.'</htdocs><from>'.$_REQUEST['from'].'0001</from><to>'.$_REQUEST['to'].'0001</to><domain>'.$applServer.'</domain><lang>'.$lang.'</lang></vars>';
+$xml .='<vars><htdocs>'.$htdocsPath.'</htdocs><domain>'.$applServer.'</domain><lang>'.$lang.'</lang></vars>';
 $xml .= str_replace('<?xml version="1.0" encoding="ISO-8859-1"?>','',$xmlFile);
 $xml .='</root>';
 
-
-
 if($_REQUEST['getXML'] == "true"){
-				die($xml);
-			}
+	die($xml);
+}
 ?>
 <html>
 	<head>

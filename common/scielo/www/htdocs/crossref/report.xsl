@@ -5,37 +5,35 @@
 
 <xsl:variable name="pathhtdocs" select="/root/vars/htdocs"/>
 <xsl:variable name="texts" select="document(concat('file://',$pathhtdocs,'applications/scielo-org/xml/texts.xml'))/texts/language[@id = $lang]"/>
-
-
-<xsl:variable name="from" select="//from"/>
-<xsl:variable name="to">
-	<xsl:choose>
-		<xsl:when test="normalize-space(//to)=''">99999999</xsl:when>
-		<xsl:otherwise><xsl:value-of select="//to"/></xsl:otherwise>	
-	</xsl:choose>
-</xsl:variable>
 <xsl:variable name="domain" select="//domain"/>
+<xsl:variable name="total" select="//Isis_Total/occ"/>
+
 	<xsl:template match="/">
-		<html>
-			<body>				
-				<xsl:apply-templates select="//record" mode="total"/>
-					<table border="1" width="100%">
-						<xsl:if test="(normalize-space(field[@tag = 10]/occ) &gt;= normalize-space($from)) and  (normalize-space(field[@tag = 10]/occ) &lt;= normalize-space($to))">						
-							<tr>
-								<td></td><td>PID</td><td>DATE</td><td>STATUS</td><td>LINKS</td>
-							</tr>					
-						</xsl:if>
-						<xsl:apply-templates select="//record" mode="content"/>					
-					</table>				
-			</body>
-		</html>
+	<html>
+		<body>
+		<xsl:choose>
+			<xsl:when test="$total = '0'">
+				Nenhum registro encontrado.		
+			</xsl:when>
+			<xsl:otherwise>
+				Total: <xsl:value-of select="$total"/>	
+				<table border="1" width="100%">				
+					<tr>
+						<td>MFN</td><td>PID</td><td>DATE</td><td>STATUS</td><td>LINKS</td>
+					</tr>					
+					<xsl:apply-templates select="//record" mode="content"/>
+				</table>
+			</xsl:otherwise>
+		</xsl:choose>
+	       </body>
+        </html>
+
 	</xsl:template>
 
 		<xsl:template match="record" mode="content">
-			<xsl:if test="(normalize-space(field[@tag = 10]/occ) &gt;= normalize-space($from)) and  (normalize-space(field[@tag = 10]/occ) &lt;= normalize-space($to))">
 				<tr>
 					<td>
-						<xsl:value-of select="position()"/>
+						<xsl:value-of select="@mfn"/>
 					</td>
 					<td>
 						<a href="http://{$domain}/scielo.php?script=sci_abstract&amp;pid={field[@tag = 880]/occ}&amp;lng=en&amp;nrm=iso&amp;tlng=pt" target="_blank"><xsl:value-of select="field[@tag = 880]/occ"/></a>
@@ -50,25 +48,5 @@
 						<a href="crossrefxml.php?pid={field[@tag = 880]/occ}" target="_blank">crossref xml</a>
 					</td>
 				</tr>
-			</xsl:if>
 		</xsl:template>
-		
-		<!-- xsl:template match="record" mode="total">
-			<xsl:if test="(normalize-space(field[@tag = 10]/occ) &gt;= normalize-space($from)) and  (normalize-space(field[@tag = 10]/occ) &lt;= normalize-space($to))">
-                        	<xsl:if test="position() = last()">Total: <xsl:value-of select="position()"/></xsl:if>
-			</xsl:if>									
-		</xsl:template -->
-		
-		<xsl:template match="record" mode="total">
-			<xsl:choose>
-				<xsl:when test="(normalize-space(field[@tag = 10]/occ) &gt;= normalize-space($from)) and  (normalize-space(field[@tag = 10]/occ) &lt;= normalize-space($to))">
-			 		<xsl:if test="position() = last()">Total: <xsl:value-of select="//Isis_Total/occ"/></xsl:if>
-	                 	</xsl:when>
-				<xsl:otherwise>
-					<xsl:if test="position() = last()"><xsl:value-of select="$texts/text[find='doiNotFound']/replace"/></xsl:if>
-				</xsl:otherwise>
-			</xsl:choose>
-		</xsl:template>
-														
-	
 </xsl:stylesheet>
