@@ -14,8 +14,8 @@
 	<dc:title xml:lang="{article-title/@xml:lang}"><xsl:value-of select="article-title"/></dc:title>
 </xsl:template>
 
-<xsl:template match="contrib-group" mode="creator">
-	<ags:creatorPersonal><xsl:value-of select="normalize-space(//name/.)"/></ags:creatorPersonal>
+<xsl:template match="contrib" mode="creator">
+	<ags:creatorPersonal><xsl:value-of select="normalize-space(concat(name/surname,', ',name/given-names))"/></ags:creatorPersonal>
 </xsl:template>
 
 <xsl:template match="publisher" mode="publisher">
@@ -30,8 +30,8 @@
 	</dc:date>
 </xsl:template>
 
-<xsl:template match="kwd-group" mode="subject">
-	<dc:subject><xsl:value-of select="kwd"/></dc:subject>		
+<xsl:template match="kwd" mode="subject">
+	<dc:subject><xsl:value-of select="."/></dc:subject>		
 </xsl:template>
 
 <xsl:template match="abstract" mode="description">
@@ -52,38 +52,63 @@
 		<ags:resource ags:ARN="SC{concat(substring(article-meta/article-id,11,4),$spacechar,substring(article-meta/article-id,17,2),substring(article-meta/article-id,22,2) )}">
 			<xsl:apply-templates select=".//title-group" mode="title"/>
 			<dc:creator>
-				<xsl:apply-templates select=".//contrib-group" mode="creator"/>
+				<xsl:apply-templates select=".//contrib-group/contrib" mode="creator"/>
 			</dc:creator>
 			<xsl:apply-templates select=".//publisher" mode="publisher"/>
 			<xsl:apply-templates select=".//pub-date[@pub-type='pub']" mode="date"/>
-			<xsl:apply-templates select=".//kwd-group" mode="subject"/>
+			<xsl:apply-templates select=".//kwd-group/kwd" mode="subject"/>
 			<xsl:apply-templates select=".//abstract" mode="description"/>
 			<xsl:apply-templates select=".//article-meta" mode="identifier"/>
 			<dc:type>journal article</dc:type>
 			<dc:format>text/xml</dc:format>
 			<xsl:apply-templates select=".//title-group" mode="language"/>				
+			<xsl:apply-templates select="article-meta" mode="article-id"/>
 			<agls:availability>
 				<ags:availabilityLocation>SCIELO</ags:availabilityLocation>
 				<ags:availabilityNumber><xsl:value-of select="article-meta/article-id"/></ags:availabilityNumber>
 			</agls:availability>
-			<xsl:apply-templates select="../back/ref-list/ref/nlm-citation" mode="back"/>			
+			<ags:citation>
+		              <xsl:apply-templates select="journal-meta/publisher/publisher-name" mode="citationTitle"/>
+                		 <xsl:apply-templates select="journal-meta/issn" mode="issn"/>
+		              <xsl:apply-templates select="article-meta" mode="volnum"/>
+		              <xsl:apply-templates select="article-meta/pub-date[@pub-type='pub']/year" mode="year"/>
+			</ags:citation>
 		</ags:resource>			
 </xsl:template>
 
-<xsl:template match="nlm-citation" mode="back">
-	<ags:citation>
-		<xsl:apply-templates select="article-title" mode="citationTitle"/>
-		<xsl:apply-templates select="issn" mode="issn"/>
-		<xsl:apply-templates select="page-range" mode="page-range"/>
-		<xsl:apply-templates select="year" mode="year"/>
-	</ags:citation>
+<xsl:template match="publisher-name" mode="citationTitle">
+	<ags:citationTitle><xsl:value-of select="normalize-space(.)"/></ags:citationTitle>
 </xsl:template>
 
-<xsl:template match="article-title" mode="citationTitle">
-	<ags:citationTitle xml:lang="{@xml:lang}"><xsl:value-of select="normalize-space(.)"/></ags:citationTitle>
-</xsl:template><xsl:template match="issn" mode="issn"><ags:citationIdentifier scheme="ags:ISSN"><xsl:value-of select="normalize-space(.)"/></ags:citationIdentifier>
+<xsl:template match="issn" mode="issn">
+	<ags:citationIdentifier scheme="ags:ISSN"><xsl:value-of select="normalize-space(.)"/></ags:citationIdentifier>
 </xsl:template>
 
-<xsl:template match="page-range" mode="page-range"><ags:citationNumber>p. <xsl:value-of select="normalize-space(.)"/></ags:citationNumber></xsl:template>
+<xsl:template match="article-meta" mode="volnum">
+	<ags:citationNumber>
+		<xsl:apply-templates select="volume" mode="volnum"/>
+		<xsl:apply-templates select="numero" mode="volnum"/>
+	</ags:citationNumber>
+</xsl:template>
 
-<xsl:template match="year" mode="year"><ags:citationChronology><xsl:value-of select="normalize-space(.)"/></ags:citationChronology></xsl:template></xsl:stylesheet>
+<xsl:template match="volume" mode="volnum">
+	vol.<xsl:value-of select="."/>
+</xsl:template>
+
+<xsl:template match="numero" mode="volnum">
+	num.<xsl:value-of select="."/>
+</xsl:template>
+
+<xsl:template match="year" mode="year">
+	<ags:citationChronology>
+		<xsl:value-of select="normalize-space(.)"/>
+	</ags:citationChronology>
+</xsl:template>
+
+<xsl:template match="article-meta" mode="article-id">
+	<dc:relation>
+  		<dcterms:references scheme="ags:DOI">10.1590/<xsl:value-of select="article-id"/></dcterms:references> 
+  	</dc:relation>
+</xsl:template>
+
+</xsl:stylesheet>
