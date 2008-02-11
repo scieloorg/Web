@@ -8,7 +8,7 @@
                 '<timestamp>',mid(replace(date,' ',''),0,14),'</timestamp>',#
                 '<depositor>',#
                         '<name>BIREME/PAHO/WHO</name>',#
-                        '<email_address>scielo@bireme.br</email_address>',#
+                        '<email_address>bireme.crossref@gmail.com</email_address>',#
                 '</depositor>',#
                 '<registrant>10.1590</registrant>',#
         '</head>',#
