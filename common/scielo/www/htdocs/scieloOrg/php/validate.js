@@ -26,3 +26,14 @@ function checkMail(mail){
         return false;
         }
 }
+
+var intLim=1024;
+function me_checkLim(obj){			 
+			intLng=obj.value.length;			 
+			if(intLng>intLim){				 
+				obj.value=obj.value.substring(0,intLim)								 
+			} 
+			else{				 
+				document.getElementById('carRest').innerHTML=(intLim-obj.value.length);				 
+			} 
+		} 	

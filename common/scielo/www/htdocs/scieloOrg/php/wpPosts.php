@@ -101,7 +101,7 @@
 
 						if ($blogId != 0){ 
 
-							//verifica se blog da revista já existe.
+							//verifica se blog da revista jï¿½ existe.
 							$addedPostId = $PostsDAO->addPost($Post,$blogId);
 							$article->setWpPostID($addedPostId);
 							$article->setWpURL($guidUrl);
@@ -113,7 +113,7 @@
 
 				}else{
 
-						if ($blogId != 0){ //verifica se blog da revista já existe.
+						if ($blogId != 0){ //verifica se blog da revista jï¿½ existe.
 
 							//Adiciona o post 
 							$addedPostId = $PostsDAO->addPost($Post,$blogId);	
@@ -346,7 +346,8 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD
 				<?=COMMNETS_USER_COMMENT?>
 			</TD>
 			<TD>
-				<p><textarea name="comment" id="comment" cols="70%" rows="10" tabindex="3"></textarea></p>
+				<textarea name="comment" id="comment" cols="70%" rows="10" onblur="me_checkLim(this);" onkeydown="me_checkLim(this);" tabindex="3"></textarea>
+				<div style="margin-left: 25%;"><?=CHAR_LIMIT?><span id="carRest">1024</span></div>
 			</TD>
 		</TR>
 		
