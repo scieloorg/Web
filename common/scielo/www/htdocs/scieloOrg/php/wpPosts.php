@@ -4,6 +4,7 @@
 			$lang = isset($_REQUEST['lang'])?($_REQUEST['lang']):"";
 			$pid = isset($_REQUEST['pid'])?($_REQUEST['pid']):"";
 			$defFile = parse_ini_file(dirname(__FILE__)."/../../scielo.def");
+
 			require_once(dirname(__FILE__)."/../../applications/scielo-org/users/functions.php");
 			require_once(dirname(__FILE__)."/../../applications/scielo-org/users/langs.php");
 			require_once(dirname(__FILE__)."/../../classDefFile.php");
@@ -37,6 +38,7 @@
 			$Post->setPostGuid($guidUrl);
 			$Post->setPostDate($insertDate);
 			$title = $article->getTitle();
+
 			/************************************************
 			* Transformando e assegurando que o Title seja cadastrado em English
 			************************************************/
@@ -47,22 +49,28 @@
 			$title = str_replace("]]>","",$title);
 			$Post->setPostTitle($title);
 			/************************************************/
+
 			$Post->setPostAuth("1");
 			$Post->setPostDateGmt($insertDate);
+
 			/************************************************
 			* Abstract cadastrado nas duas linguagens
 			************************************************/
 			$abstract = $article->getAbstractXML();
 			$posAbstractpt = strpos($article->getAbstractXML(),'"pt\"');
 			if($posAbstractpt){
-			$abstractpt = substr($abstract, $posAbstractpt);
-			$abstract = str_replace('"pt\"><![CDATA[',"",$abstractpt);
-			$abstract = str_replace(']]></ABSTRACT>',"",$abstract);
+
+				$abstractpt = substr($abstract, $posAbstractpt);
+				$abstract = str_replace('"pt\"><![CDATA[',"",$abstractpt);
+				$abstract = str_replace(']]></ABSTRACT>',"",$abstract);
+
 			}else{
-			$posAbstracten = strpos($article->getAbstractXML(),'"en\"');
-			$abstracten = substr($abstract, $posAbstracten);
-			$abstract = str_replace('"en\"><![CDATA[',"",$abstracten);
-			$abstract = str_replace(']]></ABSTRACT>',"",$abstract);
+
+				$posAbstracten = strpos($article->getAbstractXML(),'"en\"');
+				$abstracten = substr($abstract, $posAbstracten);
+				$abstract = str_replace('"en\"><![CDATA[',"",$abstracten);
+				$abstract = str_replace(']]></ABSTRACT>',"",$abstract);
+
 			}
 			$Post->setPostContent($abstract);
 			/************************************************/
@@ -81,12 +89,18 @@
 
 
 				if($ArticleDAO->getArticleByPID($article->getPID())){//se o artigo existe
+
 					if($ArticleDAO->getWpPostByID($article->getPID())){//se existe o id do blog
+
 						$postDate = $ArticleDAO->getPostDate($article->getPID());
+
 						//redefinindo a url 
 						$guidUrl = "http://".$wordpress."/".$acron."/".substr($postDate,0,4)."/".substr($postDate,5,2)."/".substr($postDate,8,2)."/".$article->getPID()."/";
+
 					}else{
+
 						if ($blogId != 0){ 
+
 							//verifica se blog da revista já existe.
 							$addedPostId = $PostsDAO->addPost($Post,$blogId);
 							$article->setWpPostID($addedPostId);
@@ -96,10 +110,13 @@
 							$ArticleDAO->updatePosts($article,$blogId);
 						}
 					}
+
 				}else{
+
 						if ($blogId != 0){ //verifica se blog da revista já existe.
+
 							//Adiciona o post 
-							$addedPostId = $PostsDAO->addPost($Post,$blogId);
+							$addedPostId = $PostsDAO->addPost($Post,$blogId);	
 							$article->setWpPostID($addedPostId);
 							$article->setWpURL($guidUrl);
 							$article->setWpPostDate($insertDate);
@@ -161,16 +178,17 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD
 		<TD colspan="2">
 			<h3><span style="font-weight:100;font-size: 70%; background:none;">
 					<?php
+					echo $guiSubmit;
 					$author = getAutors($article->getAuthorXML());
 					$pos = strrpos($author, ";");
 					$author[$pos] = " ";
-
 					echo $author;
 					echo '<i><b>';
 					echo (getTitle($article->getTitle(), $lang).". ");
 					echo ('</b></i>');
 					echo ($article->getSerial(). ', '.$article->getYear().', vol.'.$article->getVolume());
 					echo (', n. '.$article->getNumber().', ISSN '.substr($article->getPID(),1,9).'.<br/><br/>'."\n");
+
 					?>
 			</span></h3>
 		</TD>
@@ -179,6 +197,7 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD
 		<TD colspan="2">
 				<?php
 						if($blogId!=0){
+
 							$serviceUrl =  $guidUrl."feed/";
 							$xmlFile = file_get_contents($serviceUrl);
 							$xml = '<?xml version="1.0" encoding="utf-8"?>';
@@ -189,10 +208,12 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD
 
 							if(isset($_REQUEST['debug']))
 							{
+
 								echo '<textarea cols="100" rows="50">';
 								echo $xml;
 								echo '</textarea>';
 								exit;
+
 							}
 
 							$xsl = $defFile["PATH_XSL"]."comments.xsl";
@@ -200,9 +221,13 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD
 							$transformer = new XSLTransformer();
 
 							if (getenv("ENV_SOCKET")!="true"){
+
 								$xsl = file_get_contents($xsl);
+
 							} else {
+
 								$xsl = 'COMMENTS';
+
 							}
 
 							$transformer->setXslBaseUri($defFile["PATH_XSL"]);
@@ -243,9 +268,13 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD
 			<div class="divComments">
 				<?php
 				 $lastComment = $PostsDAO->getLastComment($blogId,$blogLastComment);
+
 				 echo COMMNETS_MESSAGE_INFO_1;
+
 				 echo $lastComment[0]['comment_author'];
+
 				 echo COMMNETS_MESSAGE_INFO_2;
+
 				 ?>
 				<div class="divCommentText">
 				<?=$lastComment[0]['comment_content'];?>
@@ -255,7 +284,9 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD
 	</ol>
 		<?}
 			if(isset($_REQUEST['erro'])){
+
 				if($_REQUEST['erro']==1){?>
+
 			<ol class="commentlist">
 			<li class="liComments">
 			<div class="divComments">
@@ -264,6 +295,7 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD
 		</li>
 	</ol>
 				<?}elseif($_REQUEST['erro']==2){?>
+
 				<ol class="commentlist">
 			<li class="liComments">
 			<div class="divComments">
@@ -275,7 +307,9 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD
 		}?>
 		<input type="hidden" name="blogId" value="<?=$blogId?>"/>
 		<input type="hidden" name="comment_post_ID" value="<?php echo $ArticleDAO->getWpPostByIDValue($article->getPID());?>" />
+		<input type="hidden" name="userID" value="<?=$_COOKIE['userID']?>"/>
 			<input type="hidden" name="origem" value=<?='"http://'.$_SERVER["SERVER_NAME"].'/scieloOrg/php/wpPosts.php?pid='.$pid."&lang=".$lang."&acron=".$acron.'"'?>/>
+			<!-- <? echo "blogId=".$blogId."postId=".$ArticleDAO->getWpPostByIDValue($article->getPID())."userId=".$_COOKIE['userID']; ?> -->
 		<TR>
 			<TD align="right" width="0" valign="top">
 			</TD>
@@ -336,8 +370,11 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD
 						 </TD>
 						<TD >
 					<?}elseif($blogId==0){
+
 							echo COMMNETS_DONT_BLOG;
+
 						}else{?>
+
 							<strong>
 							<div style="font-size: 10pt; font-family:Arial,Verdana;color:#990000;">
 								<?
