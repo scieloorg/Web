@@ -60,6 +60,7 @@
 			<call name="CreateCopyrightXML"><pft>mfn</pft></call>
 			
 			<call name="CreateContactXML"><pft>mfn</pft></call>
+			<display><pft>if p(v692) then '<link type="online-submission">',v692,'</link>' fi/#</pft></display>
 
 			<display><pft>'</SERIAL>'/#</pft></display>
 		</loop>		

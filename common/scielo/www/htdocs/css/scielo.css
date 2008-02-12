@@ -126,3 +126,10 @@ A.rss {
 .rss SPAN {
 	display: none;
 }
+.optionsMenu {
+				font-size: 10pt;
+				color: #000;
+				text-decoration: none;
+				padding-left: 10px;
+				background: url(pointer.gif) left no-repeat;
+			}

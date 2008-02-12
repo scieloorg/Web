@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 	<xsl:include href="sci_navegation.xsl"/>
 	<xsl:include href="sci_error.xsl"/>
@@ -46,339 +46,6 @@
 			</body>
 		</html>
 	</xsl:template>
-	<xsl:template match="CONTROLINFO[normalize-space(LANGUAGE)='en']">
-		<xsl:param name="YEAR"/>
-		<xsl:param name="MONTH"/>
-		<xsl:param name="DAY"/>
-		<table cellspacing="0" border="0" cellpadding="7" width="100%">
-			<tr>
-				<td width="30%" align="LEFT" valign="TOP">
-					<p class="nomodel" align="left">
-						<a>
-							<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_serial&amp;lng=pt&amp;pid=<xsl:value-of select="/SERIAL/ISSN"/>&amp;nrm=<xsl:value-of select="normalize-space(STANDARD)"/></xsl:attribute>
-							<font class="linkado" size="-2">portugu�s</font>
-						</a>
-						<br/>
-						<a>
-							<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_serial&amp;lng=es&amp;pid=<xsl:value-of select="/SERIAL/ISSN"/>&amp;nrm=<xsl:value-of select="normalize-space(STANDARD)"/></xsl:attribute>
-							<font class="linkado" size="-2">espa�ol</font>
-						</a>
-						<br/>
-					</p>
-					<p class="nomodel" align="left">
-						<font class="nomodel" color="#000080">
-					Updated on<br/>
-							<xsl:call-template name="GET_MONTH_NAME">
-								<xsl:with-param name="LANG" select="'en'"/>
-								<xsl:with-param name="MONTH" select="$MONTH"/>
-							</xsl:call-template>&#160;<xsl:value-of select="$DAY"/>,&#160;<xsl:value-of select="$YEAR"/>
-						</font>
-					</p>
-					<br/>
-					<a>
-						<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_SERIAL_HTML"/><xsl:value-of select="/SERIAL/TITLEGROUP/SIGLUM"/>/iaboutj.htm</xsl:attribute>
-						<img>
-							<xsl:attribute name="src"><xsl:value-of select="SCIELO_INFO/PATH_GENIMG"/>en/aboutj.gif</xsl:attribute>
-							<xsl:attribute name="border">0</xsl:attribute>
-						</img>
-					</a>
-					<br/>
-					<a>
-						<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_SERIAL_HTML"/><xsl:value-of select="/SERIAL/TITLEGROUP/SIGLUM"/>/iedboard.htm</xsl:attribute>
-						<img>
-							<xsl:attribute name="src"><xsl:value-of select="SCIELO_INFO/PATH_GENIMG"/>en/edboard.gif</xsl:attribute>
-							<xsl:attribute name="border">0</xsl:attribute>
-						</img>
-					</a>
-					<br/>
-					<a>
-						<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_SERIAL_HTML"/><xsl:value-of select="/SERIAL/TITLEGROUP/SIGLUM"/>/iinstruc.htm</xsl:attribute>
-						<img>
-							<xsl:attribute name="src"><xsl:value-of select="SCIELO_INFO/PATH_GENIMG"/>en/instruc.gif</xsl:attribute>
-							<xsl:attribute name="border">0</xsl:attribute>
-						</img>
-					</a>
-					<br/>
-					<a>
-						<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_SERIAL_HTML"/><xsl:value-of select="/SERIAL/TITLEGROUP/SIGLUM"/>/isubscrp.htm</xsl:attribute>
-						<img>
-							<xsl:attribute name="src"><xsl:value-of select="SCIELO_INFO/PATH_GENIMG"/>en/subscri.gif</xsl:attribute>
-							<xsl:attribute name="border">0</xsl:attribute>
-						</img>
-					</a>
-					<br/>
-					<xsl:if test=" ENABLE_STAT_LINK = 1 or ENABLE_CIT_REP_LINK = 1 ">
-						<!-- xsl:element name="a">
-				<xsl:attribute name="href">
-					<xsl:value-of select="'{SCIELO_INFO/STAT_SERVER}stat_biblio/index.php?lang='" />
-					<xsl:value-of select="LANGUAGE" />
-					<xsl:value-of select="'&amp;issn='" />
-					<xsl:value-of select="/SERIAL/ISSN" />
-				</xsl:attribute>
-			</xsl:element -->
-						<a href="{SCIELO_INFO/STAT_SERVER}stat_biblio/index.php?lang={LANGUAGE}&amp;issn={/SERIAL/ISSN}">
-							<img>
-								<xsl:attribute name="src"><xsl:value-of select="concat(SCIELO_INFO/PATH_GENIMG,'en/statist.gif')"/></xsl:attribute>
-								<xsl:attribute name="border">0</xsl:attribute>
-							</img>
-						</a>
-					</xsl:if>
-				</td>
-				<td width="70%" align="LEFT" valign="TOP">
-					<p align="left">
-						<xsl:call-template name="ImageLogo">
-							<xsl:with-param name="src">
-								<xsl:value-of select="SCIELO_INFO/PATH_SERIMG"/>
-								<xsl:value-of select="/SERIAL/TITLEGROUP/SIGLUM"/>/glogo.gif</xsl:with-param>
-							<xsl:with-param name="alt">
-								<xsl:value-of select="/SERIAL/TITLEGROUP/TITLE" disable-output-escaping="yes"/>
-							</xsl:with-param>
-						</xsl:call-template>
-						<br/>
-						<br/>
-						<xsl:apply-templates select="/SERIAL/ISSN">
-							<xsl:with-param name="LANG" select="normalize-space(LANGUAGE)"/>
-							<xsl:with-param name="SERIAL" select="1"/>
-						</xsl:apply-templates>
-					</p>
-					<p align="left">
-						<font color="#000080">Publication of the<br/>
-							<xsl:apply-templates select="/SERIAL/PUBLISHERS/PUBLISHER"/>
-						</font>
-						<font color="#800000">
-							<br/>
-						</font>Mission<br/>
-						<xsl:apply-templates select="/SERIAL/MISSION"/>
-						<xsl:apply-templates select="/SERIAL/CHANGESINFO">
-							<xsl:with-param name="LANG" select="normalize-space(LANGUAGE)"/>
-						</xsl:apply-templates>
-					</p>
-				</td>
-			</tr>
-		</table>
-	</xsl:template>
-	<xsl:template match="CONTROLINFO[normalize-space(LANGUAGE)='pt']">
-		<xsl:param name="YEAR"/>
-		<xsl:param name="MONTH"/>
-		<xsl:param name="DAY"/>
-		<table cellspacing="0" border="0" cellpadding="7" width="100%">
-			<tr>
-				<td width="30%" align="LEFT" valign="TOP">
-					<p class="nomodel" align="left">
-						<xsl:choose>
-							<xsl:when test="$forceType=0">
-								<a>
-									<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_serial&amp;lng=en&amp;pid=<xsl:value-of select="/SERIAL/ISSN"/>&amp;nrm=<xsl:value-of select="normalize-space(STANDARD)"/></xsl:attribute>
-									<font class="linkado" size="-2">english</font>
-								</a>
-								<br/>
-								<a>
-									<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_serial&amp;lng=es&amp;pid=<xsl:value-of select="/SERIAL/ISSN"/>&amp;nrm=<xsl:value-of select="normalize-space(STANDARD)"/></xsl:attribute>
-									<font class="linkado" size="-2">espa�ol</font>
-								</a>
-								<br/>
-							</xsl:when>
-							<xsl:otherwise>
-								<a>
-									<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_serial&amp;lng=en&amp;pid=<xsl:value-of select="/SERIAL/ISSN"/>&amp;nrm=<xsl:value-of select="normalize-space(STANDARD)"/></xsl:attribute>
-									<font class="linkado" size="-2">english</font>
-								</a>
-								<br/>
-								<a>
-									<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_serial&amp;lng=es&amp;pid=<xsl:value-of select="/SERIAL/ISSN"/>&amp;nrm=<xsl:value-of select="normalize-space(STANDARD)"/></xsl:attribute>
-									<font class="linkado" size="-2">espa�ol</font>
-								</a>
-								<br/>
-							</xsl:otherwise>
-						</xsl:choose>
-					</p>
-					<p class="nomodel" align="left">
-						<font class="nomodel" color="#000080">
-					Atualizado em<br/>
-							<xsl:call-template name="GET_MONTH_NAME">
-								<xsl:with-param name="LANG" select="'pt'"/>
-								<xsl:with-param name="MONTH" select="$MONTH"/>
-							</xsl:call-template>&#160;<xsl:value-of select="$DAY"/>,&#160;<xsl:value-of select="$YEAR"/>
-						</font>
-					</p>
-					<br/>
-					<a>
-						<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_SERIAL_HTML"/><xsl:value-of select="/SERIAL/TITLEGROUP/SIGLUM"/>/paboutj.htm</xsl:attribute>
-						<img>
-							<xsl:attribute name="src"><xsl:value-of select="SCIELO_INFO/PATH_GENIMG"/>pt/aboutj.gif</xsl:attribute>
-							<xsl:attribute name="border">0</xsl:attribute>
-						</img>
-					</a>
-					<br/>
-					<a>
-						<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_SERIAL_HTML"/><xsl:value-of select="/SERIAL/TITLEGROUP/SIGLUM"/>/pedboard.htm</xsl:attribute>
-						<img>
-							<xsl:attribute name="src"><xsl:value-of select="SCIELO_INFO/PATH_GENIMG"/>pt/edboard.gif</xsl:attribute>
-							<xsl:attribute name="border">0</xsl:attribute>
-						</img>
-					</a>
-					<br/>
-					<a>
-						<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_SERIAL_HTML"/><xsl:value-of select="/SERIAL/TITLEGROUP/SIGLUM"/>/pinstruc.htm</xsl:attribute>
-						<img>
-							<xsl:attribute name="src"><xsl:value-of select="SCIELO_INFO/PATH_GENIMG"/>pt/instruc.gif</xsl:attribute>
-							<xsl:attribute name="border">0</xsl:attribute>
-						</img>
-					</a>
-					<br/>
-					<a>
-						<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_SERIAL_HTML"/><xsl:value-of select="/SERIAL/TITLEGROUP/SIGLUM"/>/psubscrp.htm</xsl:attribute>
-						<img>
-							<xsl:attribute name="src"><xsl:value-of select="SCIELO_INFO/PATH_GENIMG"/>pt/subscri.gif</xsl:attribute>
-							<xsl:attribute name="border">0</xsl:attribute>
-						</img>
-					</a>
-					<br/>
-					<xsl:if test=" ENABLE_STAT_LINK = 1 or ENABLE_CIT_REP_LINK = 1 ">
-						<a href="{SCIELO_INFO/STAT_SERVER}stat_biblio/index.php?lang={LANGUAGE}&amp;issn={/SERIAL/ISSN}">
-							<img>
-								<xsl:attribute name="src"><xsl:value-of select="concat(SCIELO_INFO/PATH_GENIMG,'pt/statist.gif')"/></xsl:attribute>
-								<xsl:attribute name="border">0</xsl:attribute>
-							</img>
-						</a>
-					</xsl:if>
-				</td>
-				<td width="70%" align="LEFT" valign="TOP">
-					<p align="left">
-						<xsl:call-template name="ImageLogo">
-							<xsl:with-param name="src">
-								<xsl:value-of select="SCIELO_INFO/PATH_SERIMG"/>
-								<xsl:value-of select="/SERIAL/TITLEGROUP/SIGLUM"/>/glogo.gif</xsl:with-param>
-							<xsl:with-param name="alt">
-								<xsl:value-of select="/SERIAL/TITLEGROUP/TITLE" disable-output-escaping="yes"/>
-							</xsl:with-param>
-						</xsl:call-template>
-						<br/>
-						<br/>
-						<xsl:apply-templates select="/SERIAL/ISSN">
-							<xsl:with-param name="LANG" select="normalize-space(LANGUAGE)"/>
-							<xsl:with-param name="SERIAL" select="1"/>
-						</xsl:apply-templates>
-					</p>
-					<p align="left">
-						<font color="#000080">Publica��o de<br/>
-							<xsl:apply-templates select="/SERIAL/PUBLISHERS/PUBLISHER"/>
-						</font>
-						<font color="#800000">
-							<br/>
-						</font>Miss�o<br/>
-						<xsl:apply-templates select="/SERIAL/MISSION"/>
-						<xsl:apply-templates select="/SERIAL/CHANGESINFO">
-							<xsl:with-param name="LANG" select="normalize-space(LANGUAGE)"/>
-						</xsl:apply-templates>
-					</p>
-				</td>
-			</tr>
-		</table>
-	</xsl:template>
-	<xsl:template match="CONTROLINFO[normalize-space(LANGUAGE)='es']">
-		<xsl:param name="YEAR"/>
-		<xsl:param name="MONTH"/>
-		<xsl:param name="DAY"/>
-		<table cellspacing="0" border="0" cellpadding="7" width="100%">
-			<tr>
-				<td width="30%" align="LEFT" valign="TOP">
-					<p class="nomodel" align="left">
-						<a>
-							<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_serial&amp;lng=en&amp;pid=<xsl:value-of select="/SERIAL/ISSN"/>&amp;nrm=<xsl:value-of select="normalize-space(STANDARD)"/></xsl:attribute>
-							<font class="linkado" size="-2">english</font>
-						</a>
-						<br/>
-						<a>
-							<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_serial&amp;lng=pt&amp;pid=<xsl:value-of select="/SERIAL/ISSN"/>&amp;nrm=<xsl:value-of select="normalize-space(STANDARD)"/></xsl:attribute>
-							<font class="linkado" size="-2">portugu�s</font>
-						</a>
-						<br/>
-					</p>
-					<p class="nomodel" align="left">
-						<font class="nomodel" color="#000080">
-					Actualizado en<br/>
-							<xsl:call-template name="GET_MONTH_NAME">
-								<xsl:with-param name="LANG" select="'es'"/>
-								<xsl:with-param name="MONTH" select="$MONTH"/>
-							</xsl:call-template>&#160;<xsl:value-of select="$DAY"/>,&#160;<xsl:value-of select="$YEAR"/>
-						</font>
-					</p>
-					<br/>
-					<a>
-						<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_SERIAL_HTML"/><xsl:value-of select="/SERIAL/TITLEGROUP/SIGLUM"/>/eaboutj.htm</xsl:attribute>
-						<img>
-							<xsl:attribute name="src"><xsl:value-of select="SCIELO_INFO/PATH_GENIMG"/>es/aboutj.gif</xsl:attribute>
-							<xsl:attribute name="border">0</xsl:attribute>
-						</img>
-					</a>
-					<br/>
-					<a>
-						<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_SERIAL_HTML"/><xsl:value-of select="/SERIAL/TITLEGROUP/SIGLUM"/>/eedboard.htm</xsl:attribute>
-						<img>
-							<xsl:attribute name="src"><xsl:value-of select="SCIELO_INFO/PATH_GENIMG"/>es/edboard.gif</xsl:attribute>
-							<xsl:attribute name="border">0</xsl:attribute>
-						</img>
-					</a>
-					<br/>
-					<a>
-						<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_SERIAL_HTML"/><xsl:value-of select="/SERIAL/TITLEGROUP/SIGLUM"/>/einstruc.htm</xsl:attribute>
-						<img>
-							<xsl:attribute name="src"><xsl:value-of select="SCIELO_INFO/PATH_GENIMG"/>es/instruc.gif</xsl:attribute>
-							<xsl:attribute name="border">0</xsl:attribute>
-						</img>
-					</a>
-					<br/>
-					<a>
-						<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_SERIAL_HTML"/><xsl:value-of select="/SERIAL/TITLEGROUP/SIGLUM"/>/esubscrp.htm</xsl:attribute>
-						<img>
-							<xsl:attribute name="src"><xsl:value-of select="SCIELO_INFO/PATH_GENIMG"/>es/subscri.gif</xsl:attribute>
-							<xsl:attribute name="border">0</xsl:attribute>
-						</img>
-					</a>
-					<br/>
-					<xsl:if test=" ENABLE_STAT_LINK = 1 or ENABLE_CIT_REP_LINK = 1 ">
-						<a href="{SCIELO_INFO/STAT_SERVER}stat_biblio/index.php?lang={LANGUAGE}&amp;issn={/SERIAL/ISSN}">
-							<img>
-								<xsl:attribute name="src"><xsl:value-of select="concat(SCIELO_INFO/PATH_GENIMG,'es/statist.gif')"/></xsl:attribute>
-								<xsl:attribute name="border">0</xsl:attribute>
-							</img>
-						</a>
-					</xsl:if>
-				</td>
-				<td width="70%" align="LEFT" valign="TOP">
-					<p align="left">
-						<xsl:call-template name="ImageLogo">
-							<xsl:with-param name="src">
-								<xsl:value-of select="SCIELO_INFO/PATH_SERIMG"/>
-								<xsl:value-of select="/SERIAL/TITLEGROUP/SIGLUM"/>/glogo.gif</xsl:with-param>
-							<xsl:with-param name="alt">
-								<xsl:value-of select="/SERIAL/TITLEGROUP/TITLE" disable-output-escaping="yes"/>
-							</xsl:with-param>
-						</xsl:call-template>
-						<br/>
-						<br/>
-						<xsl:apply-templates select="/SERIAL/ISSN">
-							<xsl:with-param name="LANG" select="normalize-space(LANGUAGE)"/>
-							<xsl:with-param name="SERIAL" select="1"/>
-						</xsl:apply-templates>
-					</p>
-					<p align="left">
-						<font color="#000080">Publicaci�n del<br/>
-							<xsl:apply-templates select="/SERIAL/PUBLISHERS/PUBLISHER"/>
-						</font>
-						<font color="#800000">
-							<br/>
-						</font>Misi�n<br/>
-						<xsl:apply-templates select="/SERIAL/MISSION"/>
-						<xsl:apply-templates select="/SERIAL/CHANGESINFO">
-							<xsl:with-param name="LANG" select="normalize-space(LANGUAGE)"/>
-						</xsl:apply-templates>
-					</p>
-				</td>
-			</tr>
-		</table>
-	</xsl:template>
 	<xsl:template match="PUBLISHER">
 		<xsl:value-of select="NAME" disable-output-escaping="yes"/>
 		<br/>
@@ -389,5 +56,234 @@
 			<br/>
 		</font>
 		<br/>
+	</xsl:template>
+	
+	<!--
+		links dos idiomas da interface
+	-->	
+	<xsl:template match="CONTROLINFO" mode="change-language">
+		<xsl:choose>
+			<xsl:when test="normalize-space(LANGUAGE)='en'">
+				<a>
+					<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_serial&amp;lng=pt&amp;pid=<xsl:value-of select="/SERIAL/ISSN"/>&amp;nrm=<xsl:value-of select="normalize-space(STANDARD)"/></xsl:attribute>
+					<font class="linkado" size="-2">português</font>
+				</a>
+				<br/>
+				<a>
+					<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_serial&amp;lng=es&amp;pid=<xsl:value-of select="/SERIAL/ISSN"/>&amp;nrm=<xsl:value-of select="normalize-space(STANDARD)"/></xsl:attribute>
+					<font class="linkado" size="-2">español</font>
+				</a>
+				<br/>
+			</xsl:when>
+			<xsl:when test="normalize-space(LANGUAGE)='pt'">
+				<a>
+					<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_serial&amp;lng=en&amp;pid=<xsl:value-of select="/SERIAL/ISSN"/>&amp;nrm=<xsl:value-of select="normalize-space(STANDARD)"/></xsl:attribute>
+					<font class="linkado" size="-2">english</font>
+				</a>
+				<br/>
+				<a>
+					<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_serial&amp;lng=es&amp;pid=<xsl:value-of select="/SERIAL/ISSN"/>&amp;nrm=<xsl:value-of select="normalize-space(STANDARD)"/></xsl:attribute>
+					<font class="linkado" size="-2">español</font>
+				</a>
+				<br/>
+			</xsl:when>
+			<xsl:when test="normalize-space(LANGUAGE)='es'">
+				<a>
+					<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_serial&amp;lng=en&amp;pid=<xsl:value-of select="/SERIAL/ISSN"/>&amp;nrm=<xsl:value-of select="normalize-space(STANDARD)"/></xsl:attribute>
+					<font class="linkado" size="-2">english</font>
+				</a>
+				<br/>
+				<a>
+					<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_serial&amp;lng=pt&amp;pid=<xsl:value-of select="/SERIAL/ISSN"/>&amp;nrm=<xsl:value-of select="normalize-space(STANDARD)"/></xsl:attribute>
+					<font class="linkado" size="-2">português</font>
+				</a>
+				<br/>
+			</xsl:when>
+		</xsl:choose>
+	</xsl:template>
+	<!--
+		formacao do link de página secundária
+	-->	
+	<xsl:template match="CONTROLINFO" mode="link">
+		<xsl:param name="itemName"/>
+		<xsl:param name="itemName2"/>
+		<xsl:variable name="pref">
+			<xsl:choose>
+				<xsl:when test="LANGUAGE='en' ">i</xsl:when>
+				<xsl:when test="LANGUAGE='es' ">e</xsl:when>
+				<xsl:when test="LANGUAGE='pt' ">p</xsl:when>
+			</xsl:choose>
+		</xsl:variable>
+		<a class="optionsMenu">
+			<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_SERIAL_HTML"/><xsl:value-of select="/SERIAL/TITLEGROUP/SIGLUM"/>/<xsl:value-of select="$pref"/><xsl:if test="$itemName2"><xsl:value-of select="$itemName2"/></xsl:if><xsl:if test="not($itemName2)"><xsl:value-of select="$itemName"/></xsl:if>.htm</xsl:attribute>
+			<xsl:apply-templates select="." mode="link-text">
+				<xsl:with-param name="type" select="$itemName"/>
+			</xsl:apply-templates>
+		</a>
+		<br/>
+	</xsl:template>
+	<!--
+		formacao dos links das páginas secundárias
+	-->		
+	<xsl:template match="CONTROLINFO" mode="links">
+		<xsl:apply-templates select="." mode="link">
+			<xsl:with-param name="itemName" select="'aboutj'"/>
+		</xsl:apply-templates>
+		<xsl:apply-templates select="." mode="link">
+			<xsl:with-param name="itemName" select="'edboard'"/>
+		</xsl:apply-templates>
+		<xsl:apply-templates select="." mode="link">
+			<xsl:with-param name="itemName" select="'instruc'"/>
+		</xsl:apply-templates>
+		<xsl:apply-templates select="." mode="link">
+			<xsl:with-param name="itemName" select="'subscri'"/>
+			<xsl:with-param name="itemName2" select="'subscrp'"/>
+		</xsl:apply-templates>
+		<xsl:if test=" ENABLE_STAT_LINK = 1 or ENABLE_CIT_REP_LINK = 1 ">
+			<a class="optionsMenu" href="{SCIELO_INFO/STAT_SERVER}stat_biblio/index.php?lang={LANGUAGE}&amp;issn={/SERIAL/ISSN}">
+				<xsl:apply-templates select="." mode="link-text">
+					<xsl:with-param name="type" select="'statistic'"/>
+				</xsl:apply-templates>
+				<br/>
+			</a>
+		</xsl:if>
+		<xsl:apply-templates select="..//link[@type='online-submission']"/>
+	</xsl:template>
+	<!--
+		link de submissão
+	-->			
+	<xsl:template match="link">
+		<a class="optionsMenu" href="{.}" target="subm">
+			<xsl:apply-templates select="../CONTROLINFO" mode="link-text">
+				<xsl:with-param name="type" select="'subm'"/>
+			</xsl:apply-templates>
+		</a>
+		<br/>
+	</xsl:template>
+	<!--
+		textos traduzidos
+	-->				
+	<xsl:template match="CONTROLINFO" mode="text-mission">
+		<xsl:choose>
+			<xsl:when test="LANGUAGE='en'">Mission</xsl:when>
+			<xsl:when test="LANGUAGE='es'">Misión</xsl:when>
+			<xsl:when test="LANGUAGE='pt'">Missão</xsl:when>
+		</xsl:choose>
+	</xsl:template>
+	<xsl:template match="CONTROLINFO" mode="text-publication-of">
+		<xsl:choose>
+			<xsl:when test="LANGUAGE='en'">Publication of</xsl:when>
+			<xsl:when test="LANGUAGE='es'">Publicación de</xsl:when>
+			<xsl:when test="LANGUAGE='pt'">Publicação de</xsl:when>
+		</xsl:choose>
+	</xsl:template>
+	<xsl:template match="CONTROLINFO" mode="update-date">
+		<xsl:choose>
+			<xsl:when test="LANGUAGE='en'">Update on</xsl:when>
+			<xsl:when test="LANGUAGE='es'">Actualizado em</xsl:when>
+			<xsl:when test="LANGUAGE='pt'">Atualizado em</xsl:when>
+		</xsl:choose>
+	</xsl:template>
+	<xsl:template match="CONTROLINFO[LANGUAGE='en']" mode="link-text">
+		<xsl:param name="type"/>
+		<span>
+			<xsl:choose>
+				<xsl:when test="$type='aboutj'">about the journal</xsl:when>
+				<xsl:when test="$type='edboard'">editorial board</xsl:when>
+				<xsl:when test="$type='instruc'">instructions to authors</xsl:when>
+				<xsl:when test="$type='subscri'">subscription</xsl:when>
+				<xsl:when test="$type='statistic'">statistics</xsl:when>
+				<xsl:when test="$type='subm'">online submission</xsl:when>
+			</xsl:choose>
+		</span>
+	</xsl:template>
+	<xsl:template match="CONTROLINFO[LANGUAGE='es']" mode="link-text">
+		<xsl:param name="type"/>
+		<span>
+			<xsl:choose>
+				<xsl:when test="$type='aboutj'">sobre nosotros</xsl:when>
+				<xsl:when test="$type='edboard'">cuerpo editorial</xsl:when>
+				<xsl:when test="$type='instruc'">instrucciones a los autores</xsl:when>
+				<xsl:when test="$type='subscri'">subscripción</xsl:when>
+				<xsl:when test="$type='statistic'">estadísticas</xsl:when>
+				<xsl:when test="$type='subm'">sumisión en línea</xsl:when>
+			</xsl:choose>
+		</span>
+	</xsl:template>
+	<xsl:template match="CONTROLINFO[LANGUAGE='pt']" mode="link-text">
+		<xsl:param name="type"/>
+		<span>
+			<xsl:choose>
+				<xsl:when test="$type='aboutj'">sobre nós</xsl:when>
+				<xsl:when test="$type='edboard'">corpo editorial</xsl:when>
+				<xsl:when test="$type='instruc'">instruções aos autores</xsl:when>
+				<xsl:when test="$type='subscri'">assinaturas</xsl:when>
+				<xsl:when test="$type='statistic'">estatísticas</xsl:when>
+				<xsl:when test="$type='subm'">submissão online</xsl:when>
+			</xsl:choose>
+		</span>
+	</xsl:template>
+	<!-- 
+	CONTROLINFO
+	-->
+	<xsl:template match="CONTROLINFO">
+		<xsl:param name="YEAR"/>
+		<xsl:param name="MONTH"/>
+		<xsl:param name="DAY"/>
+		<table cellspacing="0" border="0" cellpadding="7" width="100%">
+			<tr>
+				<td width="30%" align="LEFT" valign="TOP">
+					<p class="nomodel" align="left">
+						<xsl:apply-templates select="." mode="change-language"/>
+					</p>
+					<p class="nomodel" align="left">
+						<font class="nomodel" color="#000080">
+							<xsl:apply-templates select="." mode="update-date"/>
+							<br/>
+							<xsl:call-template name="GET_MONTH_NAME">
+								<xsl:with-param name="LANG" select="LANGUAGE"/>
+								<xsl:with-param name="MONTH" select="$MONTH"/>
+							</xsl:call-template>&#160;<xsl:value-of select="$DAY"/>,&#160;<xsl:value-of select="$YEAR"/>
+						</font>
+					</p>
+					<br/>
+					<xsl:apply-templates select="." mode="links"/>
+				</td>
+				<td width="70%" align="LEFT" valign="TOP">
+					<p align="left">
+						<xsl:call-template name="ImageLogo">
+							<xsl:with-param name="src">
+								<xsl:value-of select="SCIELO_INFO/PATH_SERIMG"/>
+								<xsl:value-of select="/SERIAL/TITLEGROUP/SIGLUM"/>/glogo.gif</xsl:with-param>
+							<xsl:with-param name="alt">
+								<xsl:value-of select="/SERIAL/TITLEGROUP/TITLE" disable-output-escaping="yes"/>
+							</xsl:with-param>
+						</xsl:call-template>
+						<br/>
+						<br/>
+						<xsl:apply-templates select="/SERIAL/ISSN">
+							<xsl:with-param name="LANG" select="normalize-space(LANGUAGE)"/>
+							<xsl:with-param name="SERIAL" select="1"/>
+						</xsl:apply-templates>
+					</p>
+					<p align="left">
+						<font color="#000080">
+							<xsl:apply-templates select="." mode="text-publication-of"/>
+							<br/>
+							<xsl:apply-templates select="/SERIAL/PUBLISHERS/PUBLISHER"/>
+						</font>
+						<font color="#800000">
+							<br/>
+						</font>
+						<xsl:apply-templates select="." mode="text-mission"/>
+						<br/>
+						<xsl:apply-templates select="/SERIAL/MISSION"/>
+						<xsl:apply-templates select="/SERIAL/CHANGESINFO">
+							<xsl:with-param name="LANG" select="normalize-space(LANGUAGE)"/>
+						</xsl:apply-templates>
+					</p>
+				</td>
+			</tr>
+		</table>
 	</xsl:template>
 </xsl:stylesheet>
