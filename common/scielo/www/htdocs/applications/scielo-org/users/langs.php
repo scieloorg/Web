@@ -134,7 +134,7 @@ define("COMMNETS_MESSAGE_ERRO_1","Desculpe, mas você só pode postar um novo come
 define("COMMNETS_MESSAGE_ERRO_2","Menssagem enviada anteriormente.");
 define("COMMNETS_MESSAGE_INFO_1","Comentário enviado por: ");
 define("COMMNETS_MESSAGE_INFO_2",", aguarde aprovação.");
-define("CHAR_LIMIT","limite de 1024 caracteres | restantes : ");
+define("CHAR_LIMIT","Limite de 1024 caracteres | restantes : ");
 define("SEE","Ver");
 define("SEE_HISTORY","Ver Histórico");
 define("CHOOSE_PERIOD", "Escolha por ano:");
@@ -391,7 +391,7 @@ define("COMMNETS_MESSAGE_ERRO_1","Sorry, you can only post a new comment once ev
 define("COMMNETS_MESSAGE_ERRO_2","You've said that before. No need to repeat yourself.");
 define("COMMNETS_MESSAGE_INFO_1","Comment sent by: "); 
 define("COMMNETS_MESSAGE_INFO_2",", waiting approve.");
-define("CHAR_LIMIT","limite de 1024 caracteres | restantes : ");
+define("CHAR_LIMIT","Limit of 1024 characters | remaining: ");
 
 define("SEE","See");
 define("SEE_HISTORY","See History");
