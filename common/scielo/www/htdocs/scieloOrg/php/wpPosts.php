@@ -166,12 +166,13 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD
 			<span class="addSpanAnchor">
 				<A HREF="#add" class="addCommentAnchor"><?=COMMENTS_ADD?></A>
 			</span>
-			<span>
-				<a class="rssComments"  target="_blank" title=<?="RSS Feed".$title ?> href=<?=$guidUrl."feed/"?>><img src=<?='"http://'.$_SERVER["SERVER_NAME"].'/img/feed.gif"'?>> </a>
-			</span>
+			
 			<?
 			}
 			?>
+			<span>
+				<a class="rssComments"  target="_blank" title=<?="RSS Feed".$title ?> href=<?=$guidUrl."feed/"?>><img src=<?='"http://'.$_SERVER["SERVER_NAME"].'/img/feed.gif"'?>> </a>
+			</span>
 </h3>
 	<div class="content"> 
 		<form action="<?php echo $guiSubmit?>" method="post" id="commentform" onSubmit="return validaSubmit()" >
