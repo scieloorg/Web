@@ -18,6 +18,8 @@
 			$databasePath = $defFile["PATH_DATABASE"];
 			$flagLog  = $defFile["ENABLE_SERVICES_LOG"];
 			$blogLastComment = $_REQUEST['commentID'];
+			$show_login	= $defFile["show_login"];
+			
 
 			//getting metadatas from PID
 			$articleService = new ArticleService($applServer);
@@ -347,13 +349,12 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD
 			</TD>
 			<TD>
 				<textarea name="comment" id="comment" cols="70%" rows="10" onblur="me_checkLim(this);" onkeydown="me_checkLim(this);" tabindex="3"></textarea>
-				<div style="margin-left: 25%;"><?=CHAR_LIMIT?><span id="carRest">1024</span></div>
+				<div style="margin-left: 20%;"><?=CHAR_LIMIT?><span id="carRest">1024</span></div>
 			</TD>
 		</TR>
 		
 		<TR>
 			<TD height="10" align="right">
-			
 			</TD>
 			<TD height="10" align="left">
 			<input name="submit" type="submit" id="submit" class="submit" tabindex="5" value="<?=COMMNETS_USER_BUTTON?>" />
@@ -373,8 +374,12 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD
 					<?}elseif($blogId==0){
 
 							echo COMMNETS_DONT_BLOG;
-
-						}else{?>
+						
+						}
+						elseif($show_login==0){
+							
+						}
+						else{?>
 
 							<strong>
 							<div style="font-size: 10pt; font-family:Arial,Verdana;color:#990000;">
