@@ -118,8 +118,8 @@
 						</li>
 				</xsl:if>
 			</xsl:if>
-					<xsl:if test="ISSUE/ARTICLE/@PDF">
-					<xsl:variable name="tlng" select="ISSUE/ARTICLE/@TEXTLANG"/>
+					<xsl:if test="//ARTICLE/@PDF">
+					<xsl:variable name="tlng" select="//ARTICLE/@TEXTLANG"/>
 					<xsl:variable name="pdf_tlng">
 						<xsl:choose>
 							<xsl:when test="//LANGUAGES/PDF_LANGS[LANG=$tlng]">

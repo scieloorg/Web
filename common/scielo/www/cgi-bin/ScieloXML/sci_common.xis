@@ -1708,7 +1708,7 @@
 <function name="TestPDFPresence" action="replace" tag="4900">
 <!-- If there is a pdf then generate the attribute pdf="1"
      4900 - pid -->
-	<field action="import" tag="list">7009/7050</field>
+	<field action="import" tag="list">40,7009/7050</field>
 
 	<!-- Get the url of the pdf file -->
 	<!-- fixed 20040622 -->
