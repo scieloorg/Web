@@ -1715,6 +1715,12 @@
 	<field action="import" tag="4040">4040</field>
 	<call name="getSerialPdfUrl"><pft>v4900</pft></call>
 
+	<flow action="jump"><pft>if p(v7999) then 'PDF_OK' fi</pft></flow>
+    <call name="getAvailableTextLanguages"><pft>mid(v4900,2,9)</pft></call>
+    <field action="replace" tag="4040" split="occ"><pft>v40/,(if v9350<>v40[1] then v9350 fi/)</pft></field>
+	<call name="getSerialPdfUrl"><pft>v4900</pft></call>
+	
+	<label>PDF_OK</label>
 	<display><pft>if p(v7999) then ' PDF="1"' fi</pft></display>
 </function>
 
