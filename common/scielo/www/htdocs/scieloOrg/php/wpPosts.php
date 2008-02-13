@@ -3,7 +3,7 @@
 			error_reporting(E_ALL ^E_NOTICE);
 			$lang = isset($_REQUEST['lang'])?($_REQUEST['lang']):"";
 			$pid = isset($_REQUEST['pid'])?($_REQUEST['pid']):"";
-			$defFile = parse_ini_file(dirname(__FILE__)."/../../scielo.def.php");
+			$defFile = parse_ini_file(dirname(__FILE__)."/../../scielo.def");
 
 			require_once(dirname(__FILE__)."/../../applications/scielo-org/users/functions.php");
 			require_once(dirname(__FILE__)."/../../applications/scielo-org/users/langs.php");
