@@ -3,7 +3,7 @@
 			error_reporting(E_ALL ^E_NOTICE);
 			$lang = isset($_REQUEST['lang'])?($_REQUEST['lang']):"";
 			$pid = isset($_REQUEST['pid'])?($_REQUEST['pid']):"";
-			$defFile = parse_ini_file(dirname(__FILE__)."/../../scielo.def");
+			$defFile = parse_ini_file(dirname(__FILE__)."/../../scielo.def.php");
 
 			require_once(dirname(__FILE__)."/../../applications/scielo-org/users/functions.php");
 			require_once(dirname(__FILE__)."/../../applications/scielo-org/users/langs.php");
@@ -134,7 +134,7 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-		<script language="javascript" src="validate.js"></script>
+		<script language="javascript" src="../js/validate.js"></script>
 		<link rel="stylesheet" href="/applications/scielo-org/css/public/style-<?=$lang?>.css" type="text/css" media="screen"/>
 	</head>
 <body>
