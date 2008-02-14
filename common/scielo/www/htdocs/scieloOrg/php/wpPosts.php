@@ -3,7 +3,7 @@
 			error_reporting(E_ALL ^E_NOTICE);
 			$lang = isset($_REQUEST['lang'])?($_REQUEST['lang']):"";
 			$pid = isset($_REQUEST['pid'])?($_REQUEST['pid']):"";
-			$defFile = parse_ini_file(dirname(__FILE__)."/../../scielo.def");
+			$defFile = parse_ini_file(dirname(__FILE__)."/../../scielo.def.php");
 
 			require_once(dirname(__FILE__)."/../../applications/scielo-org/users/functions.php");
 			require_once(dirname(__FILE__)."/../../applications/scielo-org/users/langs.php");
@@ -313,8 +313,9 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD
 		<input type="hidden" name="blogId" value="<?=$blogId?>"/>
 		<input type="hidden" name="comment_post_ID" value="<?php echo $ArticleDAO->getWpPostByIDValue($article->getPID());?>" />
 		<input type="hidden" name="userID" value="<?=$_COOKIE['userID']?>"/>
-			<input type="hidden" name="origem" value=<?='"http://'.$_SERVER["SERVER_NAME"].'/scieloOrg/php/wpPosts.php?pid='.$pid."&lang=".$lang."&acron=".$acron.'"'?>/>
-			<!-- <? echo "blogId=".$blogId."postId=".$ArticleDAO->getWpPostByIDValue($article->getPID())."userId=".$_COOKIE['userID']; ?> -->
+		<input type="hidden" name="PID" value="<?=$article->getPID()?>"/>
+		<input type="hidden" name="origem" value=<?='"http://'.$_SERVER["SERVER_NAME"].'/scieloOrg/php/wpPosts.php?pid='.$pid."&lang=".$lang."&acron=".$acron.'"'?>/>
+		<!-- <? echo "blogId=".$blogId."postId=".$ArticleDAO->getWpPostByIDValue($article->getPID())."userId=".$_COOKIE['userID']; ?> -->
 		<TR>
 			<TD align="right" width="0" valign="top">
 			</TD>
