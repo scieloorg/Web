@@ -12,6 +12,7 @@
 11 0 mpl,if v706='c' then 'MDL=',v880,'=',v701/, fi,
 12 0 mpl,if v706='h' and v11>'' then ('AU=',v11^*|, |,v11^d/) fi,
 13 0 mpl,if v706='i' then 'Y',v35,v65*0.4,s(f(val(s(v36*4.3))+10000,2,0))*1.4/, fi,
+60 0 mpl,if v706='i' then v91/, fi,    /* webservices - new_issues - SciELO.org */
 14 0 mpl,if v706='p' and p(v704^l) then 'TLN=',v880,v704^l fi,
 15 0 mpl,if v706='h' then 'DTH=',v65*0.4, if v65*4.2 = '00' then, '01', else v65*4.2, fi, '01=',v35,s(f(val(v936^o)+10000,1,0))*1.4,s(f(val(v121)+10000,1,0))*1.4 fi,
 16 0 mpl,if v706='c' then 'R=',v880/, fi,
