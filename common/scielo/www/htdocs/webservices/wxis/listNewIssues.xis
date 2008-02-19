@@ -34,7 +34,7 @@
 
 	<field action="replace" tag="1"><pft>getenv('PATH_TRANSLATED')</pft></field>	
 
-	<field action="replace" tag="4902"><pft>cat(s(v1,'../../scielo.def'))</pft></field>
+	<field action="replace" tag="4902"><pft>cat(s(v1,'../../scielo.def.php'))</pft></field>
 	<field action="replace" tag="4902" split="occ"><pft>mid(v4902,instr(v4902,'PATH_DATABASE'),size(v4902))</pft></field>
 	<field action="replace" tag="4902"><pft>mid(v4902[1],instr(v4902[1],'=')+1,size(v4902[1]))</pft></field>
 

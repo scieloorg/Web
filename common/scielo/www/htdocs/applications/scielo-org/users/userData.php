@@ -6,7 +6,7 @@ ob_start("ob_gzhandler");
 */
 session_start();
 
-$ini = parse_ini_file(dirname(__FILE__)."/../scielo.def",true);
+$ini = parse_ini_file(dirname(__FILE__)."/../scielo.def.php",true);
 $useSGU = intval($ini['sgu']['enabled'])?true:false;
 
 $bvsSiteIni = parse_ini_file(dirname(__FILE__)."/../../../bvs-site-conf.php",true);

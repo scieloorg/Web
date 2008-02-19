@@ -46,7 +46,7 @@ a url do serviço que retorna os meta-dados do artigo
 */
 	$domain = str_replace("http://","",$_data['url']);
 	$domain = substr($domain,0,strpos($domain,"/"));
-	$scielodef = parse_ini_file(dirname(__FILE__)."/../scielo.def", true);
+	$scielodef = parse_ini_file(dirname(__FILE__)."/../scielo.def.php", true);
 /*
 chamando o serviço (ele devolve um objeto Article)
 */

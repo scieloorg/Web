@@ -1,7 +1,7 @@
 <?php
     include_once ("classLogDatabaseQueryTitle.php");
     
-    define ("LOGDEF", "../scielo.def");
+    define ("LOGDEF", "../scielo.def.php");
 ?>
 <html>
 <head>

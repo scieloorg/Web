@@ -20,7 +20,7 @@
 
 	
 	$site = parse_ini_file($DirNameLocal."../ini/" . $lang . "/bvs.ini", true);
-	$scieloAppdef = parse_ini_file(dirname(__FILE__)."/../scielo.def", true);
+	$scieloAppdef = parse_ini_file(dirname(__FILE__)."/../scielo.def.php", true);
 	$DirHtml = realpath(dirname(__FILE__) . "..") . "/html/" .$lang . "/";
 
 	if ($scieloAppdef['this']['url']!=$scieloAppdef['scielo_org_urls']['home']){

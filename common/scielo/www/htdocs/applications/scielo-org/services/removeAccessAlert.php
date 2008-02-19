@@ -27,7 +27,7 @@ require_once(dirname(__FILE__)."/../classes/Shelf.php");
 require_once(dirname(__FILE__)."/../users/langs.php");
 require_once(dirname(__FILE__)."/../classes/services/ArticleServices.php");
 
-$scielodef = parse_ini_file(dirname(__FILE__) . '/../scielo.def', true);
+$scielodef = parse_ini_file(dirname(__FILE__) . '/../scielo.def.php', true);
 
 $_data['PID'] = $_REQUEST['pid'];
 $_data['url'] = $scielodef['scielo_org_urls']['home']."/users/myAlerts.php";

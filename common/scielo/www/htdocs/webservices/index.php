@@ -10,7 +10,7 @@ $_REQUEST = (isset($_REQUEST) ? $_REQUEST : array_merge($HTTP_GET_VARS, $HTTP_PO
 
 $transformer = new XSLTransformer();
 
-$defFile = new DefFile("../scielo.def");
+$defFile = new DefFile("../scielo.def.php");
 
 $version = "1.0";
 $serviceRoot = "SciELOWebService";

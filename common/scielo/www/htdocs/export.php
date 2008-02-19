@@ -9,7 +9,7 @@ ini_set("display_errors","On");
 $pid = $_REQUEST['pid'];
 $format = $_REQUEST['format'];
 
-$url = "http://".$_SERVER['HTTP_HOST']."/cgi-bin/wxis.exe/?IsisScript=ScieloXML/sci_artmetadata.xis&def=scielo.def&pid=".$pid."&";
+$url = "http://".$_SERVER['HTTP_HOST']."/cgi-bin/wxis.exe/?IsisScript=ScieloXML/sci_artmetadata.xis&def=scielo.def.php&pid=".$pid."&";
 
 $handle = fopen($url, "rb");
 

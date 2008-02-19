@@ -7,7 +7,7 @@
 	class TrigramaService extends Service {
 		function TrigramaService(){
 			$f = dirname(__FILE__);
-			$this->ini = parse_ini_file($f."/../../scielo.def",true);
+			$this->ini = parse_ini_file($f."/../../scielo.def.php",true);
 
 			$this->Service('profile_article');
 			$this->setParam('port', '1718');

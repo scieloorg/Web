@@ -64,7 +64,7 @@ class TrigramaServiceResult extends ServiceResult {
 	}
 	function getURL($source_country, &$articleMetadataServer, &$articleDomain){
 		$f = dirname(__FILE__);
-		$ini = parse_ini_file($f."/../../scielo.def", true);
+		$ini = parse_ini_file($f."/../../scielo.def.php", true);
 
 		$articleMetadataServer = $ini['article_metadata_server'][$source_country];
 		$articleDomain = $ini['article_server'][$source_country];

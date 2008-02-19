@@ -20,7 +20,7 @@ class XSLTransformer{
 
 	/* Constructor  */
 	function XSLTransformer() { 
-                $defFile = new  DefFile("scielo.def");
+                $defFile = new  DefFile("scielo.def.php");
                 $this->processor = xslt_create();
                 $this->host = $_SERVER["SERVER_ADDR"];
                 $this->port = $defFile->getKeyValue("SOCK_PORT");

@@ -8,7 +8,7 @@ $acao = $_REQUEST['acao'];
 /**
 *Verificando se é para usar o SGU ou não
 */
-$ini = parse_ini_file(dirname(__FILE__)."/../scielo.def",true);
+$ini = parse_ini_file(dirname(__FILE__)."/../scielo.def.php",true);
 $useSGU = intval($ini['sgu']['enabled'])?true:false;
 
 

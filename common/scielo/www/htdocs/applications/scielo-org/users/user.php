@@ -9,7 +9,7 @@ session_start();
 ini_set("display_errors", "1");
 error_reporting(E_ALL);
 
-$ini = parse_ini_file(dirname(__FILE__)."/../scielo.def",true);
+$ini = parse_ini_file(dirname(__FILE__)."/../scielo.def.php",true);
 $useSGU = intval($ini['sgu']['enabled'])?true:false;
 
 $bvsSiteIni = parse_ini_file(dirname(__FILE__)."/../../../bvs-site-conf.php",true);

@@ -22,7 +22,7 @@
 
 	$DirNameLocal = dirname(__FILE__).'/';
 	
-	$ini = parse_ini_file($DirNameLocal."../scielo.def", true);
+	$ini = parse_ini_file($DirNameLocal."../scielo.def.php", true);
 
 	$home = $ini['this']['url'];
 

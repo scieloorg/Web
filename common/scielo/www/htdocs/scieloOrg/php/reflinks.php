@@ -12,7 +12,7 @@
 	require_once(dirname(__FILE__)."/../../classDefFile.php");
 	require_once(dirname(__FILE__)."/../../applications/scielo-org/classes/services/ArticleServices.php");
 
-	$defFile = parse_ini_file(dirname(__FILE__)."/../../scielo.def");
+	$defFile = parse_ini_file(dirname(__FILE__)."/../../scielo.def.php");
 	$applServer = $defFile["SERVER_SCIELO"];
 	$databasePath = $defFile["PATH_DATABASE"];
 	$pathHtdocs = $defFile["PATH_HTDOCS"];
@@ -24,7 +24,7 @@
 	$xml1 = "http://" . $applServer . "/cgi-bin/wxis.exe/?IsisScript=ScieloXML/sci_references.xis&database=artigo&gizmo=GIZMO_XML_REF&search=rp=" . $pid . "$";
 
 	// XML que tem as informações se determinado artigo tem referência no Medline, Lilacs, etc.
-	$xml2 = "http://" . $applServer . "/cgi-bin/wxis.exe/?IsisScript=ScieloXML/sci_reflinks.xis&def=scielo.def&lng=en&pid=" . $refPid . "";
+	$xml2 = "http://" . $applServer . "/cgi-bin/wxis.exe/?IsisScript=ScieloXML/sci_reflinks.xis&def=scielo.def.php&lng=en&pid=" . $refPid . "";
 
 	$xml1 = file_get_contents($xml1);
 	$xml2 = file_get_contents($xml2);

@@ -1,7 +1,7 @@
 <?php
 include ("classLogDatabaseQuery.php");
 
-define ("LOGDEF", "scielo.def");
+define ("LOGDEF", "scielo.def.php");
 define ("MYSQL_SUCCESS", 0);
 
 class LogDatabaseQueryJournal extends LogDatabaseQuery

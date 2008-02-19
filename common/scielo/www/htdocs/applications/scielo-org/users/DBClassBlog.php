@@ -52,7 +52,7 @@ var $_db = "";
 
 function DBClassBlog(){
 
-     $fileDef = parse_ini_file(dirname(__FILE__)."/../../../scielo.def");
+     $fileDef = parse_ini_file(dirname(__FILE__)."/../../../scielo.def.php");
      $this->_password = $fileDef["DB_USER_BLOG_PASSWORD"];
      $this->_db  = $fileDef["DB_BLOG"];
      $this->_user = $fileDef["DB_USER_BLOG"];

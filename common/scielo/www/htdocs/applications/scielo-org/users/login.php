@@ -10,7 +10,7 @@ error_reporting(E_ALL ^ E_NOTICE);
 /**
 *Verificando se é para usar o SGU ou não
 */
-$ini = parse_ini_file(dirname(__FILE__)."/../scielo.def",true);
+$ini = parse_ini_file(dirname(__FILE__)."/../scielo.def.php",true);
 $useSGU = intval($ini['sgu']['enabled'])?true:false;
 
 require_once(dirname(__FILE__)."/langs.php");
@@ -24,7 +24,7 @@ if($useSGU)
 
 require_once(dirname(__FILE__)."/../../../php/include.php");
 
-$ini = parse_ini_file(dirname(__FILE__)."/../scielo.def", true);
+$ini = parse_ini_file(dirname(__FILE__)."/../scielo.def.php", true);
 
 $home = $ini['scielo_org_urls']['home'];
 

@@ -11,7 +11,7 @@
 	require_once(dirname(__FILE__)."/functions.php");
 	
 	$site = parse_ini_file(dirname(__FILE__)."/../../../../ini/" . $lang . "/bvs.ini", true);
-	$ini = parse_ini_file(dirname(__FILE__)."/../scielo.def", true);
+	$ini = parse_ini_file(dirname(__FILE__)."/../scielo.def.php", true);
 	$home = $ini['this']['url'];
 
 	ob_start("ob_gzhandler");

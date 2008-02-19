@@ -23,7 +23,7 @@ class ScieloBase
 	// -----------------------------   Protected Data Members   ---------------------------------
 	// ------------------------------------------------------------------------------------------
 	var $_script = "",
-        $_deffile = "scielo.def",	// default def file name
+        $_deffile = "scielo.def.php",	// default def file name
         $_debug = "",
 		$_def = null,
         $_request = null;

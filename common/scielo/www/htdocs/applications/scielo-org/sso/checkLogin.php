@@ -7,7 +7,7 @@ session_start();
 require_once(dirname(__FILE__)."/../users/UserClass.php");
 require_once(dirname(__FILE__)."/../users/langs.php");
 
-$ini = parse_ini_file($dir."/../scielo.def" , true);
+$ini = parse_ini_file($dir."/../scielo.def.php" , true);
 $url = $ini['scielo_org_urls']['home'];
 
 $origem = $_GET['origem']?$_GET['origem']:$_SERVER['HTTP_REFERER'];

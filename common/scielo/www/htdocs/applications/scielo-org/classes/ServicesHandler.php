@@ -5,7 +5,7 @@
 	var $xml, $ini, $serviceURL, $aditionalPath, $params, $serviceDomain;
 
 		function ServicesHandler(){
-			$ini = parse_ini_file(dirname(__FILE__)."/../../scielo.def",true);
+			$ini = parse_ini_file(dirname(__FILE__)."/../../scielo.def.php",true);
 			$this->setServiceDomain($ini['trigrama_server']['server']);
 		}
 

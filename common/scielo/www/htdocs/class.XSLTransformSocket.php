@@ -24,7 +24,7 @@ class XSLTransformerSocket {
 
 	/* Constructor  */	 
 	function XSLTransformerSocket($host,$port) { 
-		$this->defFile = parse_ini_file(dirname(__FILE__)."/scielo.def",true);
+		$this->defFile = parse_ini_file(dirname(__FILE__)."/scielo.def.php",true);
 		$this->host = $host;
 		$this->port = $port;
 		$this->END_OF_MESS_SYMBOL = "?<==>?";		

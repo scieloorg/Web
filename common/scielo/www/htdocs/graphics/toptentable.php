@@ -43,7 +43,7 @@
 <?php
 include_once ("classLogDatabaseQueryTopTenTitles.php");
 
-define ("LOGDEF", "../scielo.def");
+define ("LOGDEF", "../scielo.def.php");
 define ("MYSQL_SUCCESS", 0);
 
 $log = new LogDatabaseQueryTopTenTitles (LOGDEF);

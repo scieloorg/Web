@@ -24,7 +24,7 @@ require_once(dirname(__FILE__)."/../classes/services/ArticleServices.php");
 
 $DirNameLocal=dirname(__FILE__).'/';
 
-$scielodef = parse_ini_file($DirNameLocal."../scielo.def", true);
+$scielodef = parse_ini_file($DirNameLocal."../scielo.def.php", true);
 
 	$_data['PID'] = $_REQUEST['PID'];
 	$_data['url'] = $_REQUEST['url'];

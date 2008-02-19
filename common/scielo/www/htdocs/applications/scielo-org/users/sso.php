@@ -6,7 +6,7 @@ include_once($dir."UserClass.php");
 include_once($dir."langs.php");
 
 $dir = dirname(__FILE__);
-$ini = parse_ini_file($dir."/../scielo.def" , true);
+$ini = parse_ini_file($dir."/../scielo.def.php" , true);
 $url = $ini['scielo_org_urls']['home'];
 
 $origem = $_GET['origem']?$_GET['origem']:$_SERVER['HTTP_REFERER'];

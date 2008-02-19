@@ -58,7 +58,7 @@
 	$localPath['ini'] = $def['DATABASE_PATH'] . "ini/" . $checked['lang'] . "/";
 
 	//IAH - METAIAH PATH  Para SciELO ORG
-	$orgDef = parse_ini_file($DirNameLocal."../applications/scielo-org/scielo.def", true);
+	$orgDef = parse_ini_file($DirNameLocal."../applications/scielo-org/scielo.def.php", true);
 	$IAH = $orgDef["services"]["IAH"];
 	if ($IAH == 1){
 		$IAHService = $orgDef["services"]["IAHPATH"];

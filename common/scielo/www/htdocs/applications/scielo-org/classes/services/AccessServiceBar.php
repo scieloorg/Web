@@ -20,7 +20,7 @@ para ter o gráfico "multi-lingüe"
 		function AccessService(){
 		
 			$f = dirname(__FILE__);
-			$this->ini = parse_ini_file($f."/../../scielo.def", true);
+			$this->ini = parse_ini_file($f."/../../scielo.def.php", true);
 			$this->Service('access');
 		}
 		function setParams($pid){

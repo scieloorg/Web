@@ -13,7 +13,7 @@ require_once(dirname(__FILE__)."/UserProfileClass.php");
 require_once(dirname(__FILE__)."/../sgu/chamaWebService.php");
 require_once(dirname(__FILE__)."/../classes/UserProfileAction.php");
 
-define("DEF_FILE",dirname(__FILE__)."/../scielo.def");
+define("DEF_FILE",dirname(__FILE__)."/../scielo.def.php");
 
 /**
 *Classe de Usuários do Scielo regional

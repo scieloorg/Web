@@ -8,7 +8,7 @@ $dir = dirname(__FILE__);
 $lang = $_REQUEST['lang'];
 require_once(dirname(__FILE__)."/../users/langs.php");
 
-$ini = parse_ini_file($dir."/../scielo.def" , true);
+$ini = parse_ini_file($dir."/../scielo.def.php" , true);
 $url = $ini['scielo_org_urls']['home'];
 $useSGU = intval($ini['sgu']['enabled'])?true:false;
 $hotsiteurl = $ini['hotsite']['url'];

@@ -19,7 +19,7 @@ if($bvsSiteIni['ENVIRONMENT']['LETTER_UNIT'] != null){
 	$baseDir = $bvsSiteIni['ENVIRONMENT']['DATABASE_PATH'];
 }
 
-$scielodef = parse_ini_file($DirName."/../../scielo.def", true);
+$scielodef = parse_ini_file($DirName."/../../scielo.def.php", true);
 $site = parse_ini_file(dirname(__FILE__)."/../../../ini/" . $lang . "/bvs.ini", true);
 $home = $scielodef['this']['url'];
 
@@ -287,7 +287,7 @@ switch($acao){
 
 			</script>
 			<? 
-				$def = parse_ini_file('../../../../scielo.def',true);
+				$def = parse_ini_file('../../../../scielo.def.php',true);
 				if($def['LOG']['ACTIVATE_LOG'] == '1') {
 			?>
 				<script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>

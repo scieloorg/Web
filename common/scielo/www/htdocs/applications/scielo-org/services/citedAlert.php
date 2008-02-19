@@ -30,7 +30,7 @@ $_data['PID'] = $_REQUEST['PID'];
 $_data['url'] = $_REQUEST['url'];
 $_data['userID'] = $_REQUEST['userID'];
 $_data['cited_stat'] = 1;
-$scielodef = parse_ini_file(dirname(__FILE__)."/../scielo.def", true);
+$scielodef = parse_ini_file(dirname(__FILE__)."/../scielo.def.php", true);
 
 /*
 fazendo a consistencia de usuário logado/não logado

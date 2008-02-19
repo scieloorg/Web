@@ -7,7 +7,7 @@
 	include_once(dirname(__FILE__)."/../../../php/include.php");
 	$DirHtml = realpath(dirname(__FILE__) . "..") . "/html/" .$lang . "/";
 	$site = parse_ini_file(dirname(__FILE__)."/../../../../../bases/site/ini/" . $lang . "/bvs.ini", true);
-	$scielodef = parse_ini_file("../scielo.def", true);
+	$scielodef = parse_ini_file("../scielo.def.php", true);
 
 	$bvsSiteIni = parse_ini_file(dirname(__FILE__)."/../../../bvs-site-conf.php",true);
 

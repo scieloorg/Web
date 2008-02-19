@@ -5,9 +5,9 @@
 	include_once ("version-4.1-like-4.0.php");
 	include_once ("scielo-ws.php");
 
-	define ( "DEFNAME", "scielo.def" );
+	define ( "DEFNAME", "scielo.def.php" );
     define ( "DEFAULT_CACHE_EXPIRES", 180 );
-	$defFile = parse_ini_file(dirname(__FILE__)."/../scielo.def");
+	$defFile = parse_ini_file(dirname(__FILE__)."/../scielo.def.php");
     $metadataPrefixList = array ( "oai_dc" => array( "ns" => "http://www.openarchives.org/OAI/2.0/oai_dc/",
                                                      "schema" => "http://www.openarchives.org/OAI/2.0/oai_dc.xsd"),
 								  "oai_dc_agris" => array("ns" => "http://www.purl.org/agmes/agrisap/schema/",

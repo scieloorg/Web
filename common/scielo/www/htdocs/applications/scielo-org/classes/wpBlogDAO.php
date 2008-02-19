@@ -8,7 +8,7 @@ require_once(dirname(__FILE__)."/../users/DBClassBlog.php");
 class wpBlogDAO{
 
 function wpBlogDAO(){
-//		$fileDef = parse_ini_file(dirname(__FILE__)."/../../../scielo.def");
+//		$fileDef = parse_ini_file(dirname(__FILE__)."/../../../scielo.def.php");
 //		$DBparams["password"] = $fileDef["DB_USER_BLOG_PASSWORD"];
 //		$DBparams["db"] = $fileDef["DB_BLOG"];
 //		$DBparams["user"] = $fileDef["DB_USER_BLOG"];

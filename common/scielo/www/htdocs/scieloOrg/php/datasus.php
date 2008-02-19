@@ -11,7 +11,7 @@
 	require_once(dirname(__FILE__)."/../../applications/scielo-org/classes/services/ArticleServices.php");
 
 	//$transformer = new XSLTransformer();
-	$defFile = parse_ini_file(dirname(__FILE__)."/../../scielo.def");
+	$defFile = parse_ini_file(dirname(__FILE__)."/../../scielo.def.php");
 
 	$applServer = $defFile["SERVER_SCIELO"];
 	$databasePath = $defFile["PATH_DATABASE"];

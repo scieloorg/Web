@@ -1,7 +1,7 @@
 <?php
 	header('Content-Type: text/html');
 
-	$ini = parse_ini_file(dirname(__FILE__)."/../../../scielo.def", true);
+	$ini = parse_ini_file(dirname(__FILE__)."/../../../scielo.def.php", true);
 
 	// Classe com Dados dos Usuários do Scielo
 	require_once("../classes/ScieloUserData.php");

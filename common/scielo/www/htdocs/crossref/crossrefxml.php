@@ -4,7 +4,7 @@ header("Content-type: application/xml");
 require_once(dirname(__FILE__)."/../class.XSLTransformer.php");
 require_once(dirname(__FILE__)."/../classDefFile.php");
 
-$defFile = parse_ini_file(dirname(__FILE__)."/../scielo.def");
+$defFile = parse_ini_file(dirname(__FILE__)."/../scielo.def.php");
 
 $applServer = $defFile["SERVER_SCIELO"];
 $databasePath = $defFile["PATH_DATABASE"];

@@ -5,7 +5,7 @@ require_once(dirname(__FILE__)."/../../../php/include.php");
 
 $origem = $_SERVER['HTTP_REFERER'];
 
-$scielodef = parse_ini_file(dirname(__FILE__)."/../scielo.def", true);
+$scielodef = parse_ini_file(dirname(__FILE__)."/../scielo.def.php", true);
 
 if(!$origem)
     $origem = $scielodef['scielo_org_urls']['home'];

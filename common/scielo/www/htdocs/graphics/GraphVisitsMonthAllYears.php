@@ -4,7 +4,7 @@ include_once ("jpgraph/jpgraph.php");
 include_once ("jpgraph/jpgraph_log.php");
 include_once ("jpgraph/jpgraph_bar.php");
 
-define ("LOGDEF", "../scielo.def");
+define ("LOGDEF", "../scielo.def.php");
 
 class PlotVisitsMonthAllYears
 {

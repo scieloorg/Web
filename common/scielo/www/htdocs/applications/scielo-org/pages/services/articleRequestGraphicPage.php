@@ -12,7 +12,7 @@ error_reporting(1);
 
 	$DirHtml = $DirNameLocalGraphPage."../html/" .$lang . "/";
 	$site = parse_ini_file($DirNameLocalGraphPage."/../../../../ini/" . $lang . "/bvs.ini", true);
-	$scielodef = parse_ini_file($DirNameLocalGraphPage."/../../scielo.def", true);
+	$scielodef = parse_ini_file($DirNameLocalGraphPage."/../../scielo.def.php", true);
 	
 	$pid = $_REQUEST['pid'];
 	$caller = $_REQUEST["caller"];
@@ -132,7 +132,7 @@ error_reporting(1);
     <div class="copyright">BVS Site 4.0-rc4 copy <a href="http://www.bireme.br/" target="_blank">BIREME/OPS/OMS</a>
     </div>
 	<?
-		$def = parse_ini_file('../../../../scielo.def',true);
+		$def = parse_ini_file('../../../../scielo.def.php',true);
 		if($def['LOG']['ACTIVATE_LOG'] == '1') {
 	?>
 	<script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>

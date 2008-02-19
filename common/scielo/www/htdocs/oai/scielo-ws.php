@@ -1,6 +1,6 @@
 <?php
 	include_once ( "classScielo_XML.php" );
-	define ( "DEFNAME", "scielo.def" );
+	define ( "DEFNAME", "scielo.def.php" );
 
 	/******************************* SERVICES DEFINITION ***********************************/
 

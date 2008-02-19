@@ -1,7 +1,7 @@
 <?php
 include_once ("classLogDatabaseQueryArticleLanguageYearNew.php");
 
-define ("LOGDEF", "../scielo.def");
+define ("LOGDEF", "../scielo.def.php");
 
 $log = new LogDatabaseQueryArticleLanguageYear(LOGDEF);
 

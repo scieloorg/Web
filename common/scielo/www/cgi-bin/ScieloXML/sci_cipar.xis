@@ -33,7 +33,7 @@ PATH_DATA:     tag 7014
 </field>
 
 <call name="getDefine"><pft>v8034,v3011</pft></call>	
-<!--call name="getDefine"><pft>'C:\httpd\htdocs\ScieloXML\scielo.def'</pft></call-->
+<!--call name="getDefine"><pft>'C:\httpd\htdocs\ScieloXML\scielo.def.php'</pft></call-->
 
 <parm name="cipar">
 	<pft>

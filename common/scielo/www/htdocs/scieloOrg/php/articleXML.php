@@ -18,7 +18,7 @@ require_once(dirname(__FILE__)."/../../applications/scielo-org/users/langs.php")
 require_once(dirname(__FILE__)."/../../classDefFile.php");
 require_once(dirname(__FILE__)."/../../class.XSLTransformer.php");
 
-$defFile = parse_ini_file(dirname(__FILE__)."/../../scielo.def");
+$defFile = parse_ini_file(dirname(__FILE__)."/../../scielo.def.php");
 $applServer = $defFile["SERVER_SCIELO"];
 $databasePath = $defFile["PATH_DATABASE"];
 
@@ -31,7 +31,7 @@ $xml1 = file_get_contents($xml1);
 
 // Contem o elemento <BODY> </BODY>
 $xml2 = "http://".$applServer."/cgi-bin/wxis.exe/?IsisScript=ScieloXML/";
-$xml2 .= "sci_arttext.xis&def=scielo.def&pid=".$pid;
+$xml2 .= "sci_arttext.xis&def=scielo.def.php&pid=".$pid;
 $xml2 = file_get_contents($xml2);
 
 

@@ -5,7 +5,7 @@
 	require_once("functions.php");
 	$site = parse_ini_file(dirname(__FILE__)."/../../../ini/" . $lang . "/bvs.ini", true);
 
-	$ini = parse_ini_file("../scielo.def", true);
+	$ini = parse_ini_file("../scielo.def.php", true);
 	$home = $ini['this']['url'];
 	if(!isset($_COOKIE['userID']))
 		header("Location: ".$home);

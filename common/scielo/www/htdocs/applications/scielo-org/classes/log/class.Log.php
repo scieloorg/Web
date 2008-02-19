@@ -28,7 +28,7 @@ class log
 	var $fileName;
 	/**
 	 * @var string
-	 * @desc Recebe os valores do scielo.def
+	 * @desc Recebe os valores do scielo.def.php
 	 */
 	var $def;
 
@@ -52,7 +52,7 @@ class log
 	function setDirectory()
 	{
 		if (!isset($this->log_dir)){
-			$this->def = parse_ini_file(dirname(__FILE__).'/../../../../scielo.def',true);
+			$this->def = parse_ini_file(dirname(__FILE__).'/../../../../scielo.def.php',true);
 			$this->log_dir = $this->def['LOG']['SERVICES_LOG_DIRECTORY'];
 		}
 

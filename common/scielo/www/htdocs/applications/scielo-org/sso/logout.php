@@ -1,5 +1,5 @@
 <?
-$ini = parse_ini_file(dirname(__FILE__)."/../scielo.def",true);
+$ini = parse_ini_file(dirname(__FILE__)."/../scielo.def.php",true);
 $useSGU = intval($ini['sgu']['enabled'])?true:false;
 /*
 Faz o logout na instancia (ou seja "mata" os cookies de usuario) 

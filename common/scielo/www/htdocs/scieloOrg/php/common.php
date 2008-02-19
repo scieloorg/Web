@@ -9,7 +9,7 @@
 		require_once(dirname(__FILE__)."/../../class.XSLTransformer.php");
 	}
 	$transformer = new XSLTransformer();
-	$defFile = new DefFile(dirname(__FILE__)."/../../scielo.def");
+	$defFile = new DefFile(dirname(__FILE__)."/../../scielo.def.php");
 
 
 	//Adicionado para flag de log comentado por Jamil Atta Junior (jamil.atta@bireme.org)

@@ -14,7 +14,7 @@ class XSLTransformer {
 
 	/* Constructor  */	 
 	function XSLTransformer() {
-	    $defFile = parse_ini_file(dirname(__FILE__)."/scielo.def",true);
+	    $defFile = parse_ini_file(dirname(__FILE__)."/scielo.def.php",true);
 	    $this->processor = xslt_create(); 
 	    $this->host = $_SERVER["SERVER_ADDR"];
         $this->port = $defFile["SOCKET"]["SOCK_PORT"];

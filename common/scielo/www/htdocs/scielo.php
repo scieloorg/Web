@@ -277,7 +277,7 @@ function wxis_exe_ ( $url )
 
 	/************************************************************************************
 	*	Pegamos o path do htdocs, isso é importante porque deixamos mais configuráveis	*
-	*	os diferentes scielos não precisando mexer na scielo.php, somente no scielo.def	*
+	*	os diferentes scielos não precisando mexer na scielo.php, somente no scielo.def.php	*
 	************************************************************************************/
 	$PATH_HTDOCS = $scielo->_def->getKeyValue("PATH_HTDOCS");
 

@@ -9,7 +9,7 @@
 	
 	$DirHtml = realpath($DirNameLocal . "..") . "/html/" .$lang . "/";
 	$site = parse_ini_file($DirNameLocal."../ini/" . $lang . "/bvs.ini", true);
-	$scielodef = parse_ini_file($DirNameLocal."../scielo.def", true);
+	$scielodef = parse_ini_file($DirNameLocal."../scielo.def.php", true);
 	$DirHtml = realpath(dirname(__FILE__) . "..") . "/html/" .$lang . "/";
 
 

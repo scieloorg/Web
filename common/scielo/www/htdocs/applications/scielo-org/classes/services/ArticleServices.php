@@ -22,7 +22,7 @@
 			$this->dataDomain = $dataDomain;
 			$this->setCall($serverDomain.'/cgi-bin/wxis.exe/');
 			$this->setParam('IsisScript', 'ScieloXML/sci_artmetadata.xis');
-			$this->setParam('def', 'scielo.def');
+			$this->setParam('def', 'scielo.def.php');
 		}
 		function setParams($pid){
 			$this->setParam('pid', $pid);

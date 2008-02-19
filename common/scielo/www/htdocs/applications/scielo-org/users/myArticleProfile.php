@@ -22,7 +22,7 @@
     $site = parse_ini_file($DirNameLocal."../ini/" . $lang . "/bvs.ini", true);
 
 	$dir = dirname(__FILE__);
-	$ini = parse_ini_file($dir."/../scielo.def" , true);
+	$ini = parse_ini_file($dir."/../scielo.def.php" , true);
 
 	$home = $ini['this']['url'];
 

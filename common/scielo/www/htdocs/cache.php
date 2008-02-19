@@ -1,7 +1,7 @@
 <?php
 
 	function getFromCache($key){
-		$ini = parse_ini_file('scielo.def',true);
+		$ini = parse_ini_file('scielo.def.php',true);
 		$memcache = new Memcache;
 		$memcache->connect($ini['CACHE']['SERVER_CACHE'],$ini['CACHE']['SERVER_PORT_CACHE']);
 		$result = $memcache->get($key);
@@ -11,7 +11,7 @@
 
 
 	function addToCache($key,$content){
-			$ini = parse_ini_file('scielo.def',true);
+			$ini = parse_ini_file('scielo.def.php',true);
 			$memcache = new Memcache;
 			$memcache->connect($ini['CACHE']['SERVER_CACHE'],$ini['CACHE']['SERVER_PORT_CACHE']);
 			$result = $memcache->add($key,$content);
@@ -20,7 +20,7 @@
 	}
 
 	function deleteFromCache($key){
-			$ini = parse_ini_file('scielo.def',true);
+			$ini = parse_ini_file('scielo.def.php',true);
 			$memcache = new Memcache;
 			$memcache->connect($ini['CACHE']['SERVER_CACHE'],$ini['CACHE']['SERVER_PORT_CACHE']);
 			$result = $memcache->delete($key,10);
@@ -32,7 +32,7 @@
 	}
 
 	function getStatsFromCache($type='sizes', $slabib=null, $limit=100){
-		$ini = parse_ini_file('scielo.def',true);
+		$ini = parse_ini_file('scielo.def.php',true);
 		$memcache = new Memcache;
 		$memcache->connect($ini['CACHE']['SERVER_CACHE'],$ini['CACHE']['SERVER_PORT_CACHE']);
 		if($slabib != null){

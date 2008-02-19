@@ -7,7 +7,7 @@
 include_once(dirname(__FILE__)."/../../../php/include.php");
 
 
-$ini = parse_ini_file(dirname(__FILE__)."/../scielo.def" , true);
+$ini = parse_ini_file(dirname(__FILE__)."/../scielo.def.php" , true);
 $url = $ini['scielo_org_urls']['home'];
 
 $langs = array("pt","en","es");

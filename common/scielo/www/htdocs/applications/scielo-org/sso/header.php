@@ -4,7 +4,7 @@
 //error_reporting(E_ALL);
 session_start();
 $dir = dirname(__FILE__);
-$defi = parse_ini_file($dir."/../../../scielo.def",true);
+$defi = parse_ini_file($dir."/../../../scielo.def.php",true);
 $robotsUserAgents = parse_ini_file($dir."/../../../robotsUserAgents.def",true); 
 
 $isaRobot = false;

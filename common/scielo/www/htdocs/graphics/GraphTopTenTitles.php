@@ -3,7 +3,7 @@ include_once ("classLogDatabaseQueryTopTenTitles.php");
 include_once ("jpgraph/jpgraph.php");
 include_once ("jpgraph/jpgraph_pie.php");
 
-define ("LOGDEF", "../scielo.def");
+define ("LOGDEF", "../scielo.def.php");
 define ("MYSQL_SUCCESS", 0);
 
 class PlotTopTenTitles

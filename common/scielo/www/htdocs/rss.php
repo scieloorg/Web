@@ -22,7 +22,7 @@ if(strlen($pid) == 9){
 
 	$pid = substr($pid,0,9);
 
-		$url = "http://".$_SERVER['HTTP_HOST']."/cgi-bin/wxis.exe/?IsisScript=ScieloXML/sci_issues.xis&def=scielo.def&sln=$lang&script=sci_issues&pid=$pid&lng=$lang&nrm=iso";
+		$url = "http://".$_SERVER['HTTP_HOST']."/cgi-bin/wxis.exe/?IsisScript=ScieloXML/sci_issues.xis&def=scielo.def.php&sln=$lang&script=sci_issues&pid=$pid&lng=$lang&nrm=iso";
 
 		$xml = file_get_contents($url);
 
@@ -49,7 +49,7 @@ if(strlen($pid) == 9){
 			$pid = substr($cortado, $posInicio+1, $posFim-$posInicio-1);
 		}
 }
-	$url = "http://".$_SERVER['HTTP_HOST']."/cgi-bin/wxis.exe/?IsisScript=ScieloXML/sci_issuetoc.xis&def=scielo.def&sln=en&script=sci_issuetoc&pid=$pid&lng=$lang&nrm=iso";
+	$url = "http://".$_SERVER['HTTP_HOST']."/cgi-bin/wxis.exe/?IsisScript=ScieloXML/sci_issuetoc.xis&def=scielo.def.php&sln=en&script=sci_issuetoc&pid=$pid&lng=$lang&nrm=iso";
 
 	$xml = file_get_contents($url);
 /*
