@@ -427,6 +427,9 @@
 		
 		<loop>
 			<field action="import" tag="4900">4900</field>
+			<display><pft>'<!-- '/,'from:',v4900/</pft></display>
+			<display><pft>'curr: ',v4901/,'-->'/</pft></display>
+
 			<flow action="skip">
 				<pft>
 					/* The first key found whose pid isn't the current article's  */
@@ -460,34 +463,25 @@
 		<parm name="db">ARTIGO</parm>
 		<parm name="from"><pft>v4900,'zzz'</pft></parm>
 		<parm name="reverse">On</parm>
+		<parm name="count">1</parm>
 
 		<field action="define" tag="4901">Isis_Key</field>
 		
 		<loop>
 			<field action="import" tag="4900">4900</field>
 			<display><pft>'<!-- ',v4900/</pft></display>
+			<display><pft>'left(v4900, size(v4900) - 4)',left(v4900, size(v4900) - 4)/</pft></display>
 			<display><pft>v4901,'-->'/</pft></display>
 			<field action="replace" tag="5001">
 				<pft>
-					/* The pid of the key must be different from the pid of the current article */
-					/* and the issue must be equal.                                             */
 					if p(v4901) then
 						,if instr(v4901, left(v4900, size(v4900) - 4)) > 0 then,
 							,mid(v4901*3, 1, 23),
-						,else
-							,'Quit'
 						,fi
-					,else
-						'Quit'
 					fi,
 				</pft>
 			</field>
 			<field action="export" tag="5001">5001</field>
-			<flow action="skip">
-				<pft>
-					if v5001<>'Quit' then 'Quit',fi,
-				</pft>
-			</flow>
 		</loop>	
 	</do>	
 	<field action="replace" tag="7085"><pft>v5001</pft></field>
@@ -523,15 +517,15 @@
 		
 		<loop>
 			<field action="import" tag="4900">4900</field>
-<display><pft>'<!-- ',v4900/</pft></display>
-			<display><pft>v4901,'-->'/</pft></display>
+			<display><pft>'<!-- '/,'from:',v4900/</pft></display>
+			<display><pft>'curr: ',v4901/,'-->'/</pft></display>
 			<flow action="skip">
 				<pft>
 					/* The first key found whose pid isn't the current article's  */
 					/* pid stops the loop.                                        */
 					/* if article has new-pid (v222) then execute next loop       */
 					if ref(['ARTIGO']l(['ARTIGO'],v4901),@PROC_SPLIT_MST.PFT,v222)='' then 
-						'Quit'
+						if p(v4901) and instr(v4901,v4900) = 0 then 'Quit' fi
 					fi
 				</pft>
 			</flow>
@@ -557,34 +551,26 @@
 	<do task="keyrange">
 		<parm name="db">ARTIGO</parm>
 		<parm name="from"><pft>v4900</pft></parm>
+		<parm name="count">1</parm>
 
 		<field action="define" tag="4901">Isis_Key</field>
 		
 		<loop>
 			<field action="import" tag="4900">4900</field>
-			<display><pft>'<!-- ',v4900/</pft></display>
-			<display><pft>v4901,'-->'/</pft></display>
+			<display><pft>'<!-- '/,'from:',v4900/</pft></display>
+			<display><pft>'curr: ',v4901/,'-->'/</pft></display>
 			<field action="replace" tag="5001">
 				<pft>
 					/* The pid of the key must be different from the pid of the current article */
-					/* and the issue must be equal.                                             */
+					/* and the ISSN must be equal.                                             */
 					if p(v4901) then
 						,if instr(v4901, left(v4900, size(v4900) - 4)) > 0 then,
 							,mid(v4901*3, 1, 23),
-						,else
-							,'Quit'
 						,fi
-					,else
-						'Quit'
 					fi,
 				</pft>
 			</field>
 			<field action="export" tag="5001">5001</field>
-			<flow action="skip">
-				<pft>
-					if v5001<>'Quit' then 'Quit',fi,
-				</pft>
-			</flow>
 		</loop>	
 	</do>	
 	<field action="replace" tag="7095"><pft>v5001</pft></field>
