@@ -1187,7 +1187,7 @@
 		<pft>(if s(mpu,v901^l)=s(mpu,v4010[1]) then mpl,v901^*,break fi)</pft>
 	</field>
 	
-	<display><pft>' <MISSION>'v9000'</MISSION>'/#</pft></display>
+	<display><pft>' <MISSION><![CDATA['v9000']]></MISSION>'/#</pft></display>
 	
 </function>
 
