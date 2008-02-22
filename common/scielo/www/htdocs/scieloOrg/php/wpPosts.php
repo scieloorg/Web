@@ -3,7 +3,7 @@
 			error_reporting(E_ALL ^E_NOTICE);
 			$lang = isset($_REQUEST['lang'])?($_REQUEST['lang']):"";
 			$pid = isset($_REQUEST['pid'])?($_REQUEST['pid']):"";
-			$defFile = parse_ini_file(dirname(__FILE__)."/../../scielo.def.php.php");
+			$defFile = parse_ini_file(dirname(__FILE__)."/../../scielo.def.php");
 
 			require_once(dirname(__FILE__)."/../../applications/scielo-org/users/functions.php");
 			require_once(dirname(__FILE__)."/../../applications/scielo-org/users/langs.php");
@@ -14,11 +14,13 @@
 			require_once(dirname(__FILE__)."/../../applications/scielo-org/sso/header.php");
 
 			$applServer = $defFile["SERVER_SCIELO"];
+			$applServerOrg = $defFile["SCIELO_REGIONAL_DOMAIN"];
 			$wordpress =  $defFile["DB_WORDPRESS"];
 			$databasePath = $defFile["PATH_DATABASE"];
 			$flagLog  = $defFile["ENABLE_SERVICES_LOG"];
 			$blogLastComment = $_REQUEST['commentID'];
 			$show_login	= $defFile["show_login"];
+			$login_error = $_REQUEST["error"];
 			
 
 			//getting metadatas from PID
@@ -314,6 +316,7 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD
 		<input type="hidden" name="comment_post_ID" value="<?php echo $ArticleDAO->getWpPostByIDValue($article->getPID());?>" />
 		<input type="hidden" name="userID" value="<?=$_COOKIE['userID']?>"/>
 		<input type="hidden" name="PID" value="<?=$article->getPID()?>"/>
+		<input type="hidden" name="acron" value="<?=$acron?>"/>
 		<input type="hidden" name="origem" value=<?='"http://'.$_SERVER["SERVER_NAME"].'/scieloOrg/php/wpPosts.php?pid='.$pid."&lang=".$lang."&acron=".$acron.'"'?>/>
 		<!-- <? echo "blogId=".$blogId."postId=".$ArticleDAO->getWpPostByIDValue($article->getPID())."userId=".$_COOKIE['userID']; ?> -->
 		<TR>
@@ -384,18 +387,58 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD
 							
 						}
 						else{?>
+							 </TD>
+					 </tr>
+					</TABLE>
+				</form>
 
 							<strong>
 							<div style="font-size: 10pt; font-family:Arial,Verdana;color:#990000;">
 								<?
-								echo COMMNETS_MESSAGE_BLOG_INI.'<a href="http://'.$defFile["SCIELO_REGIONAL_DOMAIN"].'//applications/scielo-org/sso/loginScielo.php?lang='.$lang.'">login</a>'.COMMNETS_MESSAGE_BLOG_FIM;
+								//echo COMMNETS_MESSAGE_BLOG_INI.'<a href="http://'.$defFile["SCIELO_REGIONAL_DOMAIN"].'//applications/scielo-org/sso/loginScielo.php?lang='.$lang.'">login</a>'.COMMNETS_MESSAGE_BLOG_FIM;
+								echo COMMNETS_MESSAGE_BLOG_INI.'login'.COMMNETS_MESSAGE_BLOG_FIM;
 								?>
-								<?}?>
-								</div>
-								</strong>
-						 </TD>
-					 </tr>
-					</TABLE>
+						</div> 
+						</strong>
+						<div class="thirdColumn">
+						<div class="intro">		
+						<div class="login">
+						<form name="login" method="get" action=<?='"http://'.$applServerOrg.'//applications/scielo-org/sso/loginScielo.php"'?> style="float:right">
+							<table width="100%" cellpadding="0" cellspacing="0" border="0">
+								<tr>
+									<th align="right"><?=FIELD_LOGIN?></th>
+									<td align="right"><input type="text" name="login" size="25"/>
+											<?
+												if($login_error)
+													echo '<span class="tfvHighlight" >'. LOGIN_ERROR . '</span>';
+											?>
+									</td>
+								</tr>
+								<tr>
+									<th align="right"><?=FIELD_PASSWORD?></th>
+									<td align="right"><input type="password" name="password" size="25"/></td>
+								</tr>
+								<tr>
+									<th>&nbsp;</th>
+									<td><input type="submit" class="submit" value="<?=BUTTON_LOGIN?>"/></td>
+								</tr>
+								<tr>
+									<th>&nbsp;</th>
+									<td>
+										<a href=<?='"http://'.$applServerOrg.'/applications/scielo-org/users/forgot.php"'?> target="_blank"><?=FORGOT_PASSWORD?></a>
+										<br/>
+										<a href=<?='"http://'.$applServerOrg.'/applications/scielo-org/users/userData.php"'?> target="_blank"><?=REGISTER?></a>							
+									</td>
+								</tr>
+							</table>
+							<input type="hidden" name="acao" value="login"/>
+							<input type="hidden" name="origem" value=<?='"http://'.$_SERVER["SERVER_NAME"].'/scieloOrg/php/wpPosts.php?pid='.$pid."&lang=".$lang."&acron=".$acron.'"'?>/>
+							<input type="hidden" name="otherLocation" value="true"/>
+						</form>
+						</div>
+						</div>
+						</div>
+					<?}?>				
 				</div>
 			</div>
 		</div>
@@ -410,6 +453,6 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD
 		urchinTracker();
 	</script>
 	<?}?>
-		</form>
+
 	</BODY>
 </HTML>
