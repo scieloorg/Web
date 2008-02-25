@@ -313,7 +313,14 @@ function wxis_exe_httpd ( $url )
 	}
     return $url;
 }
-
+/**
+ * Inclusão do arquivo gerador de log de usuários autenticados somente se o serviço estiver habilitado no scielo.def, e existir o cookie userID
+ */
+if($scielo->_def->getKeyValue("ENABLE_AUTH_USERS_LOG") == 1){
+	if(isset($_COOKIE['userID']) && $_COOKIE['userID']!= -2 ){
+		require_once(dirname(_FILE_)."/applications/scielo-org/ajax/AuthupdateLog.php");
+	}
+}
 
 
 ?>

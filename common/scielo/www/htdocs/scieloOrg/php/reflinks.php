@@ -108,5 +108,13 @@
 	$output = str_replace('</p>',' ',$output);
 
 	echo html_entity_decode($output);
-	//echo ($output);
+	
+/**
+ * Inclusão do arquivo gerador de log de usuários autenticados somente se o serviço estiver habilitado no scielo.def, e existir o cookie userID
+ */
+if($defFile['ENABLE_AUTH_USERS_LOG'] == 1){	
+	if(isset($_COOKIE['userID']) && $_COOKIE['userID']!= -2 ){
+		require_once(dirname(__FILE__)."/../../applications/scielo-org/ajax/authLogServicesInclude.php");
+	}
+}	
 ?>
