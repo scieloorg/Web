@@ -125,7 +125,7 @@
 		<text>
 			<find>esp</find>
 			<replace>Espanha</replace>
-			<url>http://wwwscielo.isciii.es</url>
+			<url>http://scielo.isciii.es</url>
 		</text>
 		<text>
 			<find>mex</find>
@@ -307,7 +307,7 @@
 		<text>
 			<find>esp</find>
 			<replace>España</replace>
-			<url>http://wwwscielo.isciii.es</url>
+			<url>http://scielo.isciii.es</url>
 		</text>
 		<text>
 			<find>mex</find>
@@ -489,7 +489,7 @@
 		<text>
 			<find>esp</find>
 			<replace>Spain</replace>
-			<url>http://wwwscielo.isciii.es</url>
+			<url>http://scielo.isciii.es</url>
 		</text>
 		<text>
 			<find>mex</find>
