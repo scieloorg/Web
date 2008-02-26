@@ -113,7 +113,6 @@ class log
 			$this->logError("Unable to write log file " . $this->log_dir . $this->fileName);
 		}else{
 			fclose($fp);
-			die("true");
 		}
 	}
 
