@@ -45,7 +45,7 @@
 </xsl:template>
 
 <xsl:template match="title-group" mode="language">
-	<dc:language scheme="ags:ISO-8859-1"><xsl:value-of select="article-title/@xml:lang"/></dc:language>
+	<dc:language scheme="ags:ISO639-1"><xsl:value-of select="article-title/@xml:lang"/></dc:language>
 </xsl:template>
 
 <xsl:template match="front">	
@@ -69,7 +69,7 @@
 			</agls:availability>
 			<ags:citation>
 		              <xsl:apply-templates select="journal-meta/publisher/publisher-name" mode="citationTitle"/>
-                		 <xsl:apply-templates select="journal-meta/issn" mode="issn"/>
+	               		 <xsl:apply-templates select="journal-meta/issn" mode="issn"/>
 		              <xsl:apply-templates select="article-meta" mode="volnum"/>
 		              <xsl:apply-templates select="article-meta/pub-date[@pub-type='pub']/year" mode="year"/>
 			</ags:citation>
@@ -85,19 +85,12 @@
 </xsl:template>
 
 <xsl:template match="article-meta" mode="volnum">
-	<ags:citationNumber>
-		<xsl:apply-templates select="volume" mode="volnum"/>
-		<xsl:apply-templates select="numero" mode="volnum"/>
-	</ags:citationNumber>
+	<ags:citationNumber><xsl:apply-templates select="volume" mode="volnum"/><xsl:apply-templates select="numero" mode="volnum"/></ags:citationNumber>
 </xsl:template>
 
-<xsl:template match="volume" mode="volnum">
-	vol.<xsl:value-of select="."/>
-</xsl:template>
+<xsl:template match="volume" mode="volnum">vol.<xsl:value-of select="normalize-space(.)"/></xsl:template>
 
-<xsl:template match="numero" mode="volnum">
-	num.<xsl:value-of select="."/>
-</xsl:template>
+<xsl:template match="numero" mode="volnum">num.<xsl:value-of select="normalize-space(.)"/></xsl:template>
 
 <xsl:template match="year" mode="year">
 	<ags:citationChronology>
