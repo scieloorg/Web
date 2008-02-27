@@ -75,24 +75,44 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 	function submitForm(){				
 		pid = document.sendQuery.pid.value;
 		dateExp = document.sendQuery.dateExp.value;
-		var formStatus = false;
+		
 				
-		if(pid !=  ""){			
+		if(dateExp != ""){
+			dateExpVar = "&dateExp="+dateExp;
+		}else{
+			dateExpVar = "&dateExp=$";
+		}
+
+		if(pid != ""){
+			pidVar = "&PID="+pid;
+		}else{
+			pidVar = "&PID=$";
+		}
+		
+/*		if(pid !=  ""){			
+			sts = document.sendQuery.status.selectedIndex;
 			formStatus = true;
 			URL = 'report.php';		
-			
-			URL = URL+"?PID="+pid+"&getXML="+document.sendQuery.getXML.checked+"&lang=en";
+
+			//URL = URL+"?PID="+pid+"&getXML="+document.sendQuery.getXML.checked+"&lang=en"+dateExpVar+"&stat="+document.sendQuery.status[sts].value;
+			URL = URL+"?stat="+document.sendQuery.status[sts].value+"&lang=en&getXML="+document.sendQuery.getXML.checked+dateExpVar+pidVar;
+alert(URL);
 		}else{
 			sts = document.sendQuery.status.selectedIndex;
 			formStatus = true;
 			URL = 'report.php';		
 			
 			URL = URL+"?stat="+document.sendQuery.status[sts].value+"&dateExp="+dateExp+"&lang=en&getXML="+document.sendQuery.getXML.checked;
-		}
-	if (formStatus){
+		}  
+*/
+		sts = document.sendQuery.status.selectedIndex;
+		formStatus = true;
+		URL = 'report.php';		
+
+		URL = URL+"?stat="+document.sendQuery.status[sts].value+"&lang=en&getXML="+document.sendQuery.getXML.checked+dateExpVar+pidVar;
 		document.sendQuery.outputURL.value = URL;
-		window.open(URL,'oai_output');		
-	}
+		window.open(URL,'oai_output');	
+	
 }
 	
 </script>

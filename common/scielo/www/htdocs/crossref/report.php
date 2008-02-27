@@ -32,11 +32,25 @@ if($pg==1){
 	$inicio = $fim - $viewNum; 
 }
 
+/*
 if($_REQUEST['PID']){
-	$serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/webservices/wxis/?IsisScript=search.xis&database=".$databasePath."/doi/crossref_DOIReport&search=HR=".$_REQUEST['PID']."&from=".$inicio."&count=".$viewNum;
+	if($_REQUEST['dateExp']){
+		//die("Com data");
+		$serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/webservices/wxis/?IsisScript=search.xis&database=".$databasePath."/doi/crossref_DOIReport&search=HR=".$_REQUEST['PID']."%20and%20DT=".$_REQUEST['dateExp']."%20and%20ST=".$_REQUEST['stat']."&from=".$inicio."&count=".$viewNum;
+	}else{
+		//die("Sem data");
+		$serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/webservices/wxis/?IsisScript=search.xis&database=".$databasePath."/doi/crossref_DOIReport&search=HR=".$_REQUEST['PID']."&from=".$inicio."&count=".$viewNum;
+	}
 }else{
+	//die("somente data");
 	$serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/webservices/wxis/?IsisScript=search.xis&database=".$databasePath."/doi/crossref_DOIReport&search=ST=".$_REQUEST['stat']."%20and%20DT=".$_REQUEST['dateExp']."&from=".$inicio."&count=".$viewNum;
 }
+
+*/
+
+$serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/webservices/wxis/?IsisScript=search.xis&database=".$databasePath."/doi/crossref_DOIReport&search=HR=".$_REQUEST['PID']."%20and%20DT=".$_REQUEST['dateExp']."%20and%20ST=".$_REQUEST['stat']."&from=".$inicio."&count=".$viewNum;
+
+//die($serviceUrl);
 
 $xmlFile = file_get_contents($serviceUrl);
 $xml = '<?xml version="1.0" encoding="ISO-8859-1"?>';
