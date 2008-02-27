@@ -42,6 +42,7 @@
 
 <xsl:template match="article-meta" mode="identifier">
 	<dc:identifier scheme="dcterms:URI">http://www.scielo.br/scielo.php?script=sci_arttext&amp;pid=<xsl:value-of select="article-id"/></dc:identifier>
+	<dc:identifier scheme="dcterms:DOI">10.1590/<xsl:value-of select="article-id"/></dc:identifier>
 </xsl:template>
 
 <xsl:template match="title-group" mode="language">
@@ -65,7 +66,7 @@
 			<xsl:apply-templates select="article-meta" mode="article-id"/>
 			<agls:availability>
 				<ags:availabilityLocation>SCIELO</ags:availabilityLocation>
-				<ags:availabilityNumber><xsl:value-of select="article-meta/article-id"/></ags:availabilityNumber>
+				<!--ags:availabilityNumber><xsl:value-of select="article-meta/article-id"/></ags:availabilityNumber-->
 			</agls:availability>
 			<ags:citation>
 		              <xsl:apply-templates select="journal-meta/publisher/publisher-name" mode="citationTitle"/>
@@ -98,10 +99,10 @@
 	</ags:citationChronology>
 </xsl:template>
 
-<xsl:template match="article-meta" mode="article-id">
+<!--xsl:template match="article-meta" mode="article-id">
 	<dc:relation>
   		<dcterms:references scheme="ags:DOI">10.1590/<xsl:value-of select="article-id"/></dcterms:references> 
   	</dc:relation>
-</xsl:template>
+</xsl:template-->
 
 </xsl:stylesheet>
