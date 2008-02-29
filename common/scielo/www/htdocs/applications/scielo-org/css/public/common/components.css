@@ -225,6 +225,18 @@ UL#subjects {
 	margin-top: 6px !important;
 }
 
+.loginBlog {
+	width: 40%; 
+}
+
+.loginBlog TH {
+	text-align: left; 
+}
+
+.loginBlog INPUT {
+	margin-bottom: 8px;
+}
+
 .login TD {
 	padding: 2px;
 }
