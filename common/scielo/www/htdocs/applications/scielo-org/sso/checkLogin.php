@@ -31,10 +31,10 @@ if(isset($_COOKIE['userID']) && (intval($_COOKIE['userID']) > 0))
 {
     session_write_close();
     if(strpos($origem,"?")){
-        header("Location: ".$origem."&userID=".$_COOKIE['userID']."&firstName=".$_COOKIE['firstName']."&lastName=".$_COOKIE['lastName']."&lng=".$lang."&tlng=".$lang."&lang=".$lang."&userToken=".$_COOKIE['userToken']."&tokenVisit=".$_COOKIE['tokenVisit']);
+        header("Location: ".$origem."&userID=".$_COOKIE['userID']."&firstName=".$_COOKIE['firstName']."&lastName=".$_COOKIE['lastName']."&lng=".$lang."&tlng=".$lang."&lang=".$lang."&userToken=".$_COOKIE['userToken']."&tokenVisit=".$_COOKIE['tokenVisit'].$_COOKIE['email']);
     }
     else{
-        header("Location: ".$origem."?userID=".$_COOKIE['userID']."&firstName=".$_COOKIE['firstName']."&lastName=".$_COOKIE['lastName']."&lng=".$lang."&tlng=".$lang."&lang=".$lang."&userToken=".$_COOKIE['userToken']."&tokenVisit=".$_COOKIE['tokenVisit']);
+        header("Location: ".$origem."?userID=".$_COOKIE['userID']."&firstName=".$_COOKIE['firstName']."&lastName=".$_COOKIE['lastName']."&lng=".$lang."&tlng=".$lang."&lang=".$lang."&userToken=".$_COOKIE['userToken']."&tokenVisit=".$_COOKIE['tokenVisit'].$_COOKIE['email']);
     }
 }
 else

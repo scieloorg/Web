@@ -8,12 +8,13 @@ Faz o logout na instancia (ou seja "mata" os cookies de usuario)
     setcookie("userID","",0,"/");
     setcookie("firstName","",0,"/");
     setcookie("lastName","",0,"/");
+    setcookie("email","",0,"/");
 
     unset($_COOKIE['userID']);
     unset($_COOKIE['checkedLogin']);
     unset($_COOKIE['firstName']);
     unset($_COOKIE['lastName']);
-	unset($_COOKIE['email']);
+    unset($_COOKIE['email']);
 
 	if($useSGU){
 		/*
