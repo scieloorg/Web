@@ -185,7 +185,6 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD
 		<TD colspan="2">
 			<h3><span style="font-weight:100;font-size: 70%; background:none;">
 					<?php
-					echo $guiSubmit;
 					$author = getAutors($article->getAuthorXML());
 					$pos = strrpos($author, ";");
 					$author[$pos] = " ";
