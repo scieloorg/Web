@@ -98,6 +98,7 @@
 		</parm>
 
 		<loop>
+			<field action="delete" tag="list">4/13</field>
 			<field action="import" tag="list">2001</field>
 			<field action="replace" tag="4"><pft>ref([v2001]val(v3^m),v130)</pft></field>
                         <!--field action="replace" tag="4"><pft>v2001</pft></field-->
@@ -109,6 +110,7 @@
 			<field action="replace" tag="9"><pft>ref([v2001]val(v3^m),v91)</pft></field>
 			<field action="replace" tag="10"><pft>ref(['TITLE']l(['TITLE']s('LOC=',v5)),(,'<subject>',replace(replace(replace(v441,'&','&amp;'),'<','&lt;'),'>','&gt;'),'</subject>',))</pft></field>
                         <field action="replace" tag="11"><pft>ref(['TITLE']l(['TITLE']s('LOC=',v5)),(,'<publisher>',replace(replace(replace(v480,'&','&amp;'),'<','&lt;'),'>','&gt;'),'</publisher>',))</pft></field>
+                        <field action="replace" tag="13"><pft>ref([v2001]val(v3^m),v131,v132)</pft></field>
 		        <display>
 					<pft>
 						'<record>',#
@@ -116,8 +118,15 @@
 						,v11,#
 						'<title>',v4,'</title>',#
 						'<issn>',v5,'</issn>',#
+                                                ,if v6 <> '' then,
 						'<volume>',v6,'</volume>',#
+						,fi
+						,if v12 <> '' then,
                                                 '<numero>',v12,'</numero>',#
+						,fi,
+						,if v13 <> '' then,
+                                                '<suplemento>',v13,'</suplemento>',#
+						,fi,
 						'<pubYear>',v7*0.4,'</pubYear>',#
 						'<updateDate>',v9,'</updateDate>',#
 						'<pid>',v5,v7*0.4,right(s('0000',v7*4),4),'</pid>',#
