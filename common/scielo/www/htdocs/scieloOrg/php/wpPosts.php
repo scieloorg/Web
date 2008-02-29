@@ -400,14 +400,13 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD
 								?>
 						</div> 
 						</strong>
-						<div class="thirdColumn">
 						<div class="intro">		
-						<div class="login">
-						<form name="login" method="get" action=<?='"http://'.$applServerOrg.'//applications/scielo-org/sso/loginScielo.php"'?> style="float:right">
+						<div class="loginBlog">
+						<form name="login" method="get" action=<?='"http://'.$applServerOrg.'//applications/scielo-org/sso/loginScielo.php"'?>>
 							<table width="100%" cellpadding="0" cellspacing="0" border="0">
 								<tr>
-									<th align="right"><?=FIELD_LOGIN?></th>
-									<td align="right"><input type="text" name="login" size="25"/>
+									<th><?=FIELD_LOGIN?></th>
+									<td><input type="text" name="login" size="25"/>
 											<?
 												if($login_error)
 													echo '<span class="tfvHighlight" >'. LOGIN_ERROR . '</span>';
@@ -415,8 +414,8 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD
 									</td>
 								</tr>
 								<tr>
-									<th align="right"><?=FIELD_PASSWORD?></th>
-									<td align="right"><input type="password" name="password" size="25"/></td>
+									<th><?=FIELD_PASSWORD?></th>
+									<td><input type="password" name="password" size="25"/></td>
 								</tr>
 								<tr>
 									<th>&nbsp;</th>
@@ -437,7 +436,7 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD
 						</form>
 						</div>
 						</div>
-						</div>
+					
 					<?}?>				
 				</div>
 			</div>
