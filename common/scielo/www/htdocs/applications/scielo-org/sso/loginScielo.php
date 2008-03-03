@@ -79,12 +79,18 @@ else
 				$redirectCommand = "Location: ".$origem."?".$result;
 			}
 			session_write_close();
+			//echo $origem;
 			header($redirectCommand);
 		}
 		else
 		{
-			$login_error = 1;
-			session_write_close();
+				if($_REQUEST["otherLocation"] == true){
+					$redirectCommand = "Location: ".$origem."&error=1";
+					header($redirectCommand);
+				}else{
+					$login_error = 1;
+					session_write_close();
+				}
 		} // userValid
 	} // acao
 } // userID
@@ -193,7 +199,102 @@ ob_start();
 	</body>
 </html>
 <?
- }
+ }else//echo SERVICE_SOCKET_ERROR;
+			{?>
+		
+
+		<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+		<title>
+			SciELO.org - Scientific Electronic Library Online		</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="Expires" content="-1" />
+<meta http-equiv="pragma" content="no-cache" />	
+
+
+<meta name="robots" content="all" />
+<meta name="MSSmartTagsPreventParsing" content="true" />
+<meta name="generator" content="BVS-Site 4.0-rc4" />
+
+
+<script language="JavaScript">lang = 'pt';</script>
+
+<script language="JavaScript" src="/js/functions.js"></script>
+<script language="JavaScript" src="/js/showHide.js"></script>
+<script language="JavaScript" src="/js/metasearch.js"></script>
+
+<link rel="stylesheet" href="/applications/scielo-org/css/public/print.css" type="text/css" media="print"/>
+<link rel="stylesheet" href="/applications/scielo-org/css/public/style-pt.css" type="text/css" media="screen"/>	
+
+<style>
+	.container {
+		width: 760px;
+		margin: 0 auto;
+	}
+	.login {
+		width: 25%;
+		float: right;
+	}
+	.intro {
+		width: 75%;
+		float: left;
+		line-height: 150%;
+	}
+</style>
+</head>
+	<body>
+	
+		<div class="container">	
+			
+			<div class="top">
+					<div id="parent"><img src="/applications/scielo-org/image/public/skins/classic/<?=$lang?>/banner.jpg" alt="SciELO - Scientific Electronic Librery Online"></div>
+				<div id="identification">
+					<h1><span>SciELO.org - Scientific Electronic Library Online</span></h1>
+				</div>
+			</div>
+			
+			<div class="middle">	
+				<div class="intro">
+					<h4><?=FREE_REGISTRATION?></h4>
+					<p><?=FREE_REGISRATION_DESC?><br/><a href="<?=$hotsiteurl?>?lang=<?=$lang?>"><strong><?=LEARN_MORE?></strong></a></p>					
+				</div>
+				<div class="login">
+					<form name="login" method="get" >
+						<table width="100%" cellpadding="0" cellspacing="0" border="0">
+							<tr>
+								
+								<td align="center">
+								<?
+								$str = SERVICE_SOCKET_ERROR;
+								echo str_replace("/", "<br/>",$str);
+								?>
+								</td>
+							</tr>
+							<tr>
+								<td align="center">
+								<a href="#" target="_self" OnClick="back();"><?=BUTTON_BACK?></a>
+								</td>
+							</tr>
+							<tr>
+								<th>&nbsp;</th>
+								<td>
+									<br/>		
+								</td>
+							</tr>
+						</table>
+					</form>
+				</div>
+
+			</div>
+		</div>
+	</body>
+</html>
+				
+			
+			
+<?}
 
 ob_flush();
 
