@@ -44,7 +44,7 @@
 				<!--SCIMAGO CONSULTA ../XML/SCIIMAGO.XML-->
 				<xsl:if test="$graphMago">
 				<a>
-				<xsl:attribute name="href">http://www.scimagojr.com/journalsearch.php?q=<xsl:value-of select="concat(substring($ISSN,0,5),substring($ISSN,6,10))"/>&amp;tip=iss&amp;exact=yes></xsl:attribute>
+				<xsl:attribute name="href">http://www.scimagojr.com/journalsearch.php?q=<xsl:value-of select="$ISSN"/>&amp;tip=iss&amp;exact=yes></xsl:attribute>
 					<img>
 						<xsl:attribute name="src">http://www.scimagojr.com/journal_img.php?id=<xsl:value-of select="$graphMago"/>&amp;title=false</xsl:attribute>
 						<xsl:attribute name="alt">SCImago Journal &amp; Country Rank</xsl:attribute>
