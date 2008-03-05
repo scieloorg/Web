@@ -3,12 +3,15 @@
 	<xsl:include href="sci_navegation.xsl"/>
 	<xsl:include href="sci_error.xsl"/>
 	<xsl:variable name="forceType" select="//CONTROLINFO/ENABLE_FORCETYPE"/>
+	<xsl:variable name="ISSN" select="concat(substring-before(/SERIAL/ISSN,'-'),substring-after(/SERIAL/ISSN,'-'))" />
 	<xsl:output method="html" indent="no"/>
 	<xsl:template match="SERIAL">
+	<!--SCIMAGO-->
+	<xsl:variable name="graphMago" select="document('../../bases/scimago/scimago.xml')/SCIMAGOLIST/title[@ISSN = $ISSN]/@SCIMAGO_ID"/>
 		<html>
 			<head>
 				<title>
-					<xsl:value-of select="TITLEGROUP/TITLE" disable-output-escaping="yes"/> - Home page</title>
+				<xsl:value-of select="TITLEGROUP/TITLE" disable-output-escaping="yes"/> - Home page</title>
 				<meta http-equiv="Pragma" content="no-cache"/>
 				<meta http-equiv="Expires" content="Mon, 06 Jan 1990 00:00:01 GMT"/>
 				<link rel="STYLESHEET" TYPE="text/css" href="/css/scielo.css"/>
@@ -38,7 +41,19 @@
 					<xsl:with-param name="DAY" select="substring(@LASTUPDT,7,2)"/>
 				</xsl:apply-templates>
 				<br/>
-				<hr/>
+				<!--SCIMAGO CONSULTA ../XML/SCIIMAGO.XML-->
+				<xsl:if test="$graphMago">
+				<a>
+				<xsl:attribute name="href">http://www.scimagojr.com/journalsearch.php?q=<xsl:value-of select="concat(substring($ISSN,0,5),substring($ISSN,6,10))"/>&amp;tip=iss&amp;exact=yes></xsl:attribute>
+					<img>
+						<xsl:attribute name="src">http://www.scimagojr.com/journal_img.php?id=<xsl:value-of select="$graphMago"/>&amp;title=false</xsl:attribute>
+						<xsl:attribute name="alt">SCImago Journal &amp; Country Rank</xsl:attribute>
+						<xsl:attribute name="border">0</xsl:attribute>
+					</img>
+				</a>
+				</xsl:if>
+				<!--SCIMAGO-->
+				<hr/>					
 				<p align="center">
 					<xsl:apply-templates select="/SERIAL/COPYRIGHT"/>
 					<xsl:apply-templates select="/SERIAL/CONTACT"/>
@@ -104,6 +119,7 @@
 	<!--
 		formacao do link de página secundária
 	-->	
+	
 	<xsl:template match="CONTROLINFO" mode="link">
 		<xsl:param name="itemName"/>
 		<xsl:param name="itemName2"/>
@@ -151,7 +167,8 @@
 	</xsl:template>
 	<!--
 		link de submissão
-	-->			
+	-->	
+			
 	<xsl:template match="link">
 		<a class="optionsMenu" href="{.}" target="subm">
 			<xsl:apply-templates select="../CONTROLINFO" mode="link-text">
@@ -187,6 +204,7 @@
 	<xsl:template match="CONTROLINFO[LANGUAGE='en']" mode="link-text">
 		<xsl:param name="type"/>
 		<span>
+		
 			<xsl:choose>
 				<xsl:when test="$type='aboutj'">about the journal</xsl:when>
 				<xsl:when test="$type='edboard'">editorial board</xsl:when>
@@ -226,7 +244,7 @@
 	<!-- 
 	CONTROLINFO
 	-->
-	<xsl:template match="CONTROLINFO">
+		<xsl:template match="CONTROLINFO">
 		<xsl:param name="YEAR"/>
 		<xsl:param name="MONTH"/>
 		<xsl:param name="DAY"/>
@@ -287,3 +305,4 @@
 		</table>
 	</xsl:template>
 </xsl:stylesheet>
+
