@@ -132,7 +132,7 @@ class log
 	 * @desc adiciona log de erro
 	 */
 	function logError($message)
-	{	die("huhu");
+	{	
 		$fp = fopen ($this->directory .'/'. "logerror.txt", "a+b");
 		if ( !$fp ){
 			$this->sendMailAdmin("Unable to open log file for update " . $this->directory . "logerror.txt");
@@ -148,7 +148,7 @@ class log
 
 	function sendMailAdmin($message)
 	{
-		die("here2");
+		
 		if ( defined('LOG_ADMIN') and (LOG_ADMIN != 0)) {
 
 			$headers = "MIME-Version: 1.0\n";
