@@ -1,6 +1,7 @@
 <!-- File name: getdefine.xis -->
 
 <function name="getDefine" action="replace" tag="4901">
+<parm name="buffersize">60000</parm>
 	<field action="replace" tag="4902"><pft>cat(v4901)</pft></field>
 	<field action="cgi" tag="4902"><pft>if a(v4902) then 'getDefine' fi</pft></field>
 	<field action="replace" tag="4902" split="occ"><pft>(v4902/)</pft></field>
