@@ -4,6 +4,7 @@
 	<xsl:include href="sci_error.xsl"/>
 	<xsl:variable name="forceType" select="//CONTROLINFO/ENABLE_FORCETYPE"/>
 	<xsl:variable name="ISSN" select="concat(substring-before(/SERIAL/ISSN,'-'),substring-after(/SERIAL/ISSN,'-'))" />
+	<xsl:variable name="show_scimago" select="//show_scimago"/>
 	<xsl:output method="html" indent="no"/>
 	<xsl:template match="SERIAL">
 	<!--SCIMAGO-->
@@ -42,17 +43,19 @@
 				</xsl:apply-templates>
 				<br/>
 				<!--SCIMAGO CONSULTA ../XML/SCIIMAGO.XML-->
-				<xsl:if test="$graphMago">
-				<a>
-				<xsl:attribute name="href">http://www.scimagojr.com/journalsearch.php?q=<xsl:value-of select="$ISSN"/>&amp;tip=iss&amp;exact=yes></xsl:attribute>
-					<img>
-						<xsl:attribute name="src">http://www.scimagojr.com/journal_img.php?id=<xsl:value-of select="$graphMago"/>&amp;title=false</xsl:attribute>
-						<xsl:attribute name="alt">SCImago Journal &amp; Country Rank</xsl:attribute>
-						<xsl:attribute name="border">0</xsl:attribute>
-					</img>
-				</a>
+				<xsl:if test="$show_scimago!=0" >				
+					<xsl:if test="$graphMago">
+					<a>
+					<xsl:attribute name="href">http://www.scimagojr.com/journalsearch.php?q=<xsl:value-of select="$ISSN"/>&amp;tip=iss&amp;exact=yes></xsl:attribute>
+						<img>
+							<xsl:attribute name="src">http://www.scimagojr.com/journal_img.php?id=<xsl:value-of select="$graphMago"/>&amp;title=false</xsl:attribute>
+							<xsl:attribute name="alt">SCImago Journal &amp; Country Rank</xsl:attribute>
+							<xsl:attribute name="border">0</xsl:attribute>
+						</img>
+					</a>
+					</xsl:if>
 				</xsl:if>
-				<!--SCIMAGO-->
+					<!--SCIMAGO-->
 				<hr/>					
 				<p align="center">
 					<xsl:apply-templates select="/SERIAL/COPYRIGHT"/>

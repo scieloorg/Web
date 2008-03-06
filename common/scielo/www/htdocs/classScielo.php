@@ -72,7 +72,7 @@ class Scielo extends ScieloBase
 		*/
 
 		$show_comments = $this->_def->getKeyValue("show_comments");
-
+		
 		if(isset($pid) && isset($strResultSiglum) && $show_comments!=0){
 		$BlogDAO = new wpBlogDAO();
 		$commentCount = $BlogDAO->getCountCommentByPid($pid,$strResultSiglum);
@@ -117,29 +117,30 @@ class Scielo extends ScieloBase
 				"loginURL" => "login_url",
 				//path para o script de logout
 				"logoutURL" => "logout_url",
-				//Exibe ou não a opção de Login
+				//Exibe ou nï¿½o a opï¿½ï¿½o de Login
 				"show_login" => "show_login",
-				//Exibe ou não a opção de Envio de Artigo por email
+				//Exibe ou nï¿½o a opï¿½ï¿½o de Envio de Artigo por email
 				"show_send_by_email" => "show_send_by_email",
-				//Exibe ou não a opção de Citados Em Scielo
+				//Exibe ou nï¿½o a opï¿½ï¿½o de Citados Em Scielo
 				"show_cited_scielo" => "show_cited_scielo",
-				//Exibe ou não a opção de Citados em Google
+				//Exibe ou nï¿½o a opï¿½ï¿½o de Citados em Google
 				"show_cited_google" => "show_cited_google",
-				//Exibe ou não a opção de Similares em Scielo
+				//Exibe ou nï¿½o a opï¿½ï¿½o de Similares em Scielo
 				"show_similar_in_scielo" => "show_similar_in_scielo",
-				//Exibe ou não a opção de Similares em Google
+				//Exibe ou nï¿½o a opï¿½ï¿½o de Similares em Google
 				"show_similar_in_google" => "show_similar_in_google",
 				//Informa data de corte para processamento do Google Schoolar
 				"google_last_process" => "google_last_process",
-				//Exibe ou não a opção de Comments em Scielo
+				//Exibe ou nï¿½o a opï¿½ï¿½o de Comments em Scielo
 				"services_comments" => "show_comments",
-				//Serviço do DATASUS
+				//Serviï¿½o do DATASUS
 				"show_datasus" => "show_datasus",
 				"MIMETEX" => "mimetex",
 				"SCRIPT_TOP_TEN" => "SCRIPT_TOP_TEN",
 				"SCRIPT_ARTICLES_PER_MONTH" => "SCRIPT_ARTICLES_PER_MONTH",
-				//Habilita ou não o log dos servicos
-				"services_log" => "ENABLE_SERVICES_LOG"
+				//Habilita ou nï¿½o o log dos servicos
+				"services_log" => "ENABLE_SERVICES_LOG",
+				"show_scimago" => "show_scimago"
 			);
 				//die($commentCount);
 
@@ -209,7 +210,7 @@ class Scielo extends ScieloBase
 		return($result);
  	}
 
-	// fixed 20041004 - gravação de html a cada requisição
+	// fixed 20041004 - gravaï¿½ï¿½o de html a cada requisiï¿½ï¿½o
 	function GetPageFile()
 	{
 
