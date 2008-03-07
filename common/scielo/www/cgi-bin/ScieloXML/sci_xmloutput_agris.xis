@@ -27,10 +27,12 @@
 		</pft>
 	</display>
 
+	<field action="cgi" tag="9999">debug</field>
+	<trace><pft>v9999</pft></trace>
 	<field action="replace" tag="1"><pft>getenv('PATH_TRANSLATED')</pft></field>
 	<field action="cgi" tag="2">IsisScript</field>
         <field action="cgi" tag="3011">def</field>
-	<field action="replace" tag="3011"><pft>'scielo.def'</pft></field>
+	<field action="replace" tag="3011"><pft>'scielo.def.php'</pft></field>
 
 	<include>ScieloXML/sci_cipar.xis</include>
 
