@@ -8,7 +8,7 @@
 	<xsl:output method="html" indent="no"/>
 	<xsl:template match="SERIAL">
 	<!--SCIMAGO-->
-	<xsl:variable name="graphMago" select="document('../../bases/scimago/scimago.xml')/SCIMAGOLIST/title[@ISSN = $ISSN]/@SCIMAGO_ID"/>
+
 		<html>
 			<head>
 				<title>
@@ -42,20 +42,7 @@
 					<xsl:with-param name="DAY" select="substring(@LASTUPDT,7,2)"/>
 				</xsl:apply-templates>
 				<br/>
-				<!--SCIMAGO CONSULTA ../XML/SCIIMAGO.XML-->
-				<xsl:if test="$show_scimago!=0" >				
-					<xsl:if test="$graphMago">
-					<a>
-					<xsl:attribute name="href">http://www.scimagojr.com/journalsearch.php?q=<xsl:value-of select="$ISSN"/>&amp;tip=iss&amp;exact=yes></xsl:attribute>
-						<img>
-							<xsl:attribute name="src">http://www.scimagojr.com/journal_img.php?id=<xsl:value-of select="$graphMago"/>&amp;title=false</xsl:attribute>
-							<xsl:attribute name="alt">SCImago Journal &amp; Country Rank</xsl:attribute>
-							<xsl:attribute name="border">0</xsl:attribute>
-						</img>
-					</a>
-					</xsl:if>
-				</xsl:if>
-					<!--SCIMAGO-->
+				
 				<hr/>					
 				<p align="center">
 					<xsl:apply-templates select="/SERIAL/COPYRIGHT"/>
@@ -166,6 +153,24 @@
 				<br/>
 			</a>
 		</xsl:if>
+		<br />
+		<span>
+		<!--SCIMAGO CONSULTA ../XML/SCIIMAGO.XML-->
+			<xsl:variable name="graphMago" select="document('../../bases/scimago/scimago.xml')/SCIMAGOLIST/title[@ISSN = $ISSN]/@SCIMAGO_ID"/>
+		<xsl:if test="$show_scimago!=0" >				
+			<xsl:if test="$graphMago">
+			<a>
+			<xsl:attribute name="href">http://www.scimagojr.com/journalsearch.php?q=<xsl:value-of select="$ISSN"/>&amp;tip=iss&amp;exact=yes></xsl:attribute>
+				<img>
+					<xsl:attribute name="src">http://www.scimagojr.com/journal_img.php?id=<xsl:value-of select="$graphMago"/>&amp;title=false</xsl:attribute>
+					<xsl:attribute name="alt">SCImago Journal &amp; Country Rank</xsl:attribute>
+					<xsl:attribute name="border">0</xsl:attribute>
+				</img>
+			</a>
+			</xsl:if>
+		</xsl:if>
+		</span>
+		<!--SCIMAGO-->
 		<xsl:apply-templates select="..//link[@type='online-submission']"/>
 	</xsl:template>
 	<!--
@@ -207,7 +212,6 @@
 	<xsl:template match="CONTROLINFO[LANGUAGE='en']" mode="link-text">
 		<xsl:param name="type"/>
 		<span>
-		
 			<xsl:choose>
 				<xsl:when test="$type='aboutj'">about the journal</xsl:when>
 				<xsl:when test="$type='edboard'">editorial board</xsl:when>
@@ -244,6 +248,7 @@
 			</xsl:choose>
 		</span>
 	</xsl:template>
+	
 	<!-- 
 	CONTROLINFO
 	-->
