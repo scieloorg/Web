@@ -15,7 +15,20 @@
 </xsl:template>
 
 <xsl:template match="contrib" mode="creator">
-	<ags:creatorPersonal><xsl:value-of select="normalize-space(concat(name/surname,', ',name/given-names))"/></ags:creatorPersonal>
+	<xsl:variable name="aff">
+		<xsl:apply-templates select="xref" mode="aff" />	
+	</xsl:variable>
+	<ags:creatorPersonal><xsl:value-of select="normalize-space(concat(name/surname,', ',name/given-names))"/>(<xsl:value-of select="normalize-space(substring-after($aff,','))" />)</ags:creatorPersonal>
+</xsl:template>
+
+<xsl:template match="xref" mode="aff">
+	<xsl:variable name="rid" select="@rid" />
+	<xsl:apply-templates select="../../../aff[@id = $rid]" mode="aff"/>
+
+</xsl:template>
+
+<xsl:template match="aff" mode="aff">
+	<xsl:value-of select="institution" />
 </xsl:template>
 
 <xsl:template match="publisher" mode="publisher">
@@ -31,7 +44,7 @@
 </xsl:template>
 
 <xsl:template match="kwd" mode="subject">
-	<dc:subject><xsl:value-of select="."/></dc:subject>		
+	<dc:subject xml:lang="{@lng}"><xsl:value-of select="."/></dc:subject>		
 </xsl:template>
 
 <xsl:template match="abstract" mode="description">
@@ -41,7 +54,7 @@
 </xsl:template>
 
 <xsl:template match="article-meta" mode="identifier">
-	<dc:identifier scheme="dcterms:URI">http://www.scielo.br/scielo.php?script=sci_arttext&amp;pid=<xsl:value-of select="article-id"/></dc:identifier>
+	<dc:identifier scheme="dcterms:URI">http://www.scielo.br/scielo.php?script=sci_arttext&#x0026;pid=<xsl:value-of select="article-id"/></dc:identifier>
 	<dc:identifier scheme="dcterms:DOI">10.1590/<xsl:value-of select="article-id"/></dc:identifier>
 </xsl:template>
 
@@ -63,18 +76,17 @@
 			<dc:type>journal article</dc:type>
 			<dc:format>text/xml</dc:format>
 			<xsl:apply-templates select=".//title-group" mode="language"/>				
-			<xsl:apply-templates select="article-meta" mode="article-id"/>
+			<!--xsl:apply-templates select="article-meta" mode="article-id"/-->
 			<agls:availability>
 				<ags:availabilityLocation>SCIELO</ags:availabilityLocation>
-				<!--ags:availabilityNumber><xsl:value-of select="article-meta/article-id"/></ags:availabilityNumber-->
 			</agls:availability>
 			<ags:citation>
 		              <xsl:apply-templates select="journal-meta/publisher/publisher-name" mode="citationTitle"/>
-	               		 <xsl:apply-templates select="journal-meta/issn" mode="issn"/>
+	               	 <xsl:apply-templates select="journal-meta/issn" mode="issn"/>
 		              <xsl:apply-templates select="article-meta" mode="volnum"/>
 		              <xsl:apply-templates select="article-meta/pub-date[@pub-type='pub']/year" mode="year"/>
 			</ags:citation>
-		</ags:resource>			
+		</ags:resource>		
 </xsl:template>
 
 <xsl:template match="publisher-name" mode="citationTitle">
@@ -91,18 +103,11 @@
 
 <xsl:template match="volume" mode="volnum">vol.<xsl:value-of select="normalize-space(.)"/></xsl:template>
 
-<xsl:template match="numero" mode="volnum">num.<xsl:value-of select="normalize-space(.)"/></xsl:template>
+<xsl:template match="numero" mode="volnum"> num.<xsl:value-of select="normalize-space(.)"/></xsl:template>
 
 <xsl:template match="year" mode="year">
 	<ags:citationChronology>
-		<xsl:value-of select="normalize-space(.)"/>
+		<xsl:value-of select="normalize-space(.)"/>/<xsl:value-of select="normalize-space(../month)"/>
 	</ags:citationChronology>
 </xsl:template>
-
-<!--xsl:template match="article-meta" mode="article-id">
-	<dc:relation>
-  		<dcterms:references scheme="ags:DOI">10.1590/<xsl:value-of select="article-id"/></dcterms:references> 
-  	</dc:relation>
-</xsl:template-->
-
 </xsl:stylesheet>

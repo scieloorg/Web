@@ -58,6 +58,7 @@
 			'<year>',mid(v65,1,4),'</year>',#
 		'</pub-date>',#
 		|<volume>|v31|</volume>|/,
+		|<numero>|v32|</numero>|/,
 		|<fpage>|v14^f|</fpage>|/,
 		|<lpage>|v14^l|</lpage>|/,
 		'<copyright-statement/>',#
@@ -137,7 +138,8 @@ if (v706='c' and v701='1') then
 				'<year>',mid(v64,1,4),'</year>',#			
 				,if mid(v64,5,2)<>'' then '<month>',mid(v64,5,2),'</month>',# fi
 				,if mid(v64,7,2)<>'' then '<day>',mid(v64,7,2),'</day>',#		fi
-				|<volume>|v31|</volume>|/,						
+				|<volume>|v31|</volume>|/,
+				|<numero>|v32|</numero>|/,
 				|<edition>|v63|</edition>|/,
 				,if p(v53) then,
 					'<conf-name><![CDATA[',v53^n,' 'v53^*,']]></conf-name>'/,		
