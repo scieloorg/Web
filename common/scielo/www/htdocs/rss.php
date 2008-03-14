@@ -48,8 +48,9 @@ if(strlen($pid) == 9){
 			$posFim = strpos($cortado,"\"",$posInicio+1);
 			$pid = substr($cortado, $posInicio+1, $posFim-$posInicio-1);
 		}
-}
-	$url = "http://".$_SERVER['HTTP_HOST']."/cgi-bin/wxis.exe/?IsisScript=ScieloXML/sci_issuetoc.xis&def=scielo.def.php&sln=en&script=sci_issuetoc&pid=$pid&lng=$lang&nrm=iso";
+}	
+	/* CHANGE: alterado em 20080314 para utilização do script sci_issuerss.xis (adiconado abstract ao XML) no lugar de sci_issuetoc.xis */
+	$url = "http://".$_SERVER['HTTP_HOST']."/cgi-bin/wxis.exe/?IsisScript=ScieloXML/sci_issuerss.xis&def=scielo.def.php&sln=en&script=sci_issuetoc&pid=$pid&lng=$lang&nrm=iso";
 
 	$xml = file_get_contents($url);
 /*

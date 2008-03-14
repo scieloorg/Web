@@ -51,7 +51,12 @@
 			</xsl:choose>
 		</xsl:element>
 		<xsl:element name="link">http://<xsl:value-of select="$server"/>/scielo.php?script=sci_arttext&amp;pid=<xsl:value-of select="@PID" />&amp;lng=<xsl:value-of select="$lang" />&amp;nrm=iso&amp;tlng=<xsl:value-of select="$lang" /></xsl:element>
+		<!-- CHANGE: elemento adicionado em 20080314 usando elemento abstract gerado pelo script sci_issuerss.xis -->
+		<xsl:element name="description">
+			<xsl:value-of select="ABSTRACT"/>
+		</xsl:element>
 	</xsl:element>
+		
 </xsl:template>
 
 <xsl:template match="STRIP">
