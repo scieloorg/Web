@@ -7,8 +7,7 @@
 	<xsl:variable name="show_scimago" select="//show_scimago"/>
 	<xsl:output method="html" indent="no"/>
 	<xsl:template match="SERIAL">
-	<!--SCIMAGO-->
-
+	
 		<html>
 			<head>
 				<title>
@@ -153,9 +152,11 @@
 				<br/>
 			</a>
 		</xsl:if>
-		<br />
+		<!--link de submissão-->	
+		<xsl:apply-templates select="..//link[@type='online-submission']"/>
+		<br/>
 		<span>
-		<!--SCIMAGO CONSULTA ../XML/SCIIMAGO.XML-->
+		<!--SCIMAGO CONSULTA ../../bases/sciemago/scimago.xml-->
 			<xsl:variable name="graphMago" select="document('../../bases/scimago/scimago.xml')/SCIMAGOLIST/title[@ISSN = $ISSN]/@SCIMAGO_ID"/>
 		<xsl:if test="$show_scimago!=0" >				
 			<xsl:if test="$graphMago">
@@ -171,11 +172,8 @@
 		</xsl:if>
 		</span>
 		<!--SCIMAGO-->
-		<xsl:apply-templates select="..//link[@type='online-submission']"/>
 	</xsl:template>
-	<!--
-		link de submissão
-	-->	
+	
 			
 	<xsl:template match="link">
 		<a class="optionsMenu" href="{.}" target="subm">
