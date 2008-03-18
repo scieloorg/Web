@@ -177,10 +177,12 @@
    	<call name="getDOI"><pft>v880</pft></call> 
 	<!-- fixed 20040622 -->
 	<field action="replace" tag="4040" split="occ"><pft>v4001^t</pft></field> 
-   <call name="TestPDFPresence"><pft>v4001^p</pft></call>
+	<call name="showText"><pft>v264</pft></call>
+	<call name="TestPDFPresence"><pft>if v8264<>'no' then v4001^p fi</pft></call>
    
-   <display><pft>'>'/</pft></display>
-   
+	<display><pft>'>'/</pft></display>
+	<display><pft>if p(v264) then '<EMBARGO date="',v264,'" text="',v8264,'"/>'/ fi</pft></display>
+
             <call name="CreateLanguageXML">
                 <pft>
                     '^l'v3000'^i'v3003'^m',mfn,"^t"v3012,
@@ -221,10 +223,11 @@
 	
 	<label>yes</label>
 
-   <field action="export" tag="list">40,8000</field>   
+   <field action="export" tag="list">40,8000,8264</field>   
   </loop>
  </do>
  
+ <flow action="jump"><pft>if v8264='no' then 'NO_TEXT_AVAILABLE' fi</pft></flow>
  <display>
 	<pft>
 		if v8000='.xml' then 
@@ -341,8 +344,14 @@
  <label>body_file_fim</label>
  <call name="GetContentTranslationFileName"><pft>v7999[2]</pft></call> 
 
+
  <display>
-  <pft>if  v8000<>'.xml' then ' ]]></BODY>'/ else '</fulltext>' fi,'</ARTICLE>'/'</ISSUE>'/</pft>
+  <pft>if  v8000<>'.xml' then ' ]]></BODY>'/ else '</fulltext>' fi</pft>
+ </display>
+ <label>NO_TEXT_AVAILABLE</label>
+
+ <display>
+  <pft>'</ARTICLE>'/'</ISSUE>'/</pft>
  </display>
 </function>
 

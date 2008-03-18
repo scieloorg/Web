@@ -176,7 +176,7 @@
 					<xsl:with-param name="MONTH" select="substring($DATEISO,5,2)"/>
 					<xsl:with-param name="ABREV" select="$ABREV"/>
 				</xsl:call-template>
-				<xsl:text/>
+				<xsl:text>&#160;</xsl:text>
 				<xsl:value-of select=" substring($DATEISO,7,2) "/>, <xsl:value-of select=" substring($DATEISO,1,4) "/>
 			</xsl:when>
 			<xsl:when test=" $LANG != 'en' and $ABREV">

@@ -58,7 +58,7 @@
 			
             <display>
                 <pft>
-                    '<ARTICLE',| TEXT_LANG="|v40|"|,
+                    '<ARTICLE',| TEXT_LANG="|v40|"|,| TEXTLANG="|v40|"|,
                     if p(v14^f) then
                         ' FPAGE="',v14^f,'"'
                     fi,
@@ -69,16 +69,21 @@
                     | REQUESTS="|v4001^r|"|
 		 ,' CURR_DATE="',mid(date,1,8),'"'
 		 ,' ahpdate="',v223,'"'
+         ,' entrdate="',v265,'"'
          ,' RELATED="',ref(['related']l(['related']v880),f(nocc(v88),2,0)),'"',
+
 		 ,' CITED="',ref(['cited']l(['cited']v880),f(nocc(v88),2,0)),'"'
 		 ,' AREASGEO="',ref(['areasgeo']l(['areasgeo']v880),f(nocc(v880),2,0)),'"'
 		 ,' PROCESSDATE="',ref(l('OU=',v880),proc(if val(v32701^m) > 0 then,'R../bases/artigo/',v32701^*,',',v32701^m , fi),v91),'"',
                 </pft>
             </display>
             
-			<call name="TestPDFPresence"><pft>v880</pft></call>
+<call name="showText"><pft>v264</pft></call>
+
+			<call name="TestPDFPresence"><pft>if v8264<>'no' then v880 fi</pft></call>
 			
 			<display><pft>'>'/#</pft></display>
+			<display><pft>if p(v264) then '<EMBARGO date="',v264,'" text="',v8264,'"/>'/ fi</pft></display>
 
             <call name="CreateLattesGroupXML">
                 <pft>

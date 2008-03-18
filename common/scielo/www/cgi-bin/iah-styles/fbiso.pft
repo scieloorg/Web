@@ -74,6 +74,82 @@
           ,'a9031{^i0^ttexto em ^einglês^sespanhol^pportuguês^ffrancês^galemão^litalian^aarabic{',
 	  ,fi,
      ,),
+,proc('d9264',
+      ,if p(v264) then
+		,if val(v264)>val(mid(date,1,8)) then
+			,'a9264{^sunavailable^t',
+			  ,if v5021='i' then
+				  ,'text available after ',
+			  ,fi,
+			  ,if v5021='e' then
+				  ,'texto disponible después de ',
+			  ,fi,
+			  ,if v5021='p' then
+				  ,'texto disponível após ',
+			  ,fi,
+			
+	,if v5021='e' then
+		,v264*6.2,' ',
+        ,select s(v264*4.2)
+            case '01': ,'Enero',
+            ,case '02': ,'Febrero',
+            ,case '03': ,'Marzo',
+            ,case '04': ,'Abril',
+            ,case '05': ,'Mayo',
+            ,case '06': ,'Junio',
+            ,case '07': ,'Julio',
+            ,case '08': ,'Agosto',
+            ,case '09': ,'Septiembre',
+            ,case '10': ,'Octubre',
+            ,case '11': ,'Noviembre',
+            ,case '12': ,'Diciembre',
+        ,endsel,
+    ,else,
+        ,if v5021='p' then
+			,v264*6.2,' ',
+            ,select s(v264*4.2)
+                case '01': ,'Janeiro',
+                ,case '02': ,'Fevereiro',
+                ,case '03': ,'Março',
+                ,case '04': ,'Abril',
+                ,case '05': ,'Maio',
+                ,case '06': ,'Junho',
+                ,case '07': ,'Julho',
+                ,case '08': ,'Agosto',
+                ,case '09': ,'Setembro',
+                ,case '10': ,'Outubro',
+                ,case '11': ,'Novembro',
+                ,case '12': ,'Dezembro',
+            ,endsel,			
+        ,else,
+            ,select s(v264*4.2)
+                case '01': ,'January',
+                ,case '02': ,'February',
+                ,case '03': ,'March',
+                ,case '04': ,'April',
+                ,case '05': ,'May',
+                ,case '06': ,'June',
+                ,case '07': ,'July',
+                ,case '08': ,'August',
+                ,case '09': ,'September',
+                ,case '10': ,'October',
+                ,case '11': ,'November',
+                ,case '12': ,'December',	    		
+			,endsel,
+			,' ',v264*6.2,
+        ,fi,
+    ,fi,
+	,' ',		
+	,v264*0.4,
+
+			
+			
+			
+			
+			,'{',		
+		,fi
+	  ,fi,
+     ,),
 
 ,if l(['DATABASE']'TLN=',v880)<> 0 then
 	,proc('d8041',
@@ -303,6 +379,8 @@
 		,fi,
       	,'</font></a>',if nocc(v83) > iocc then ' | ' fi),
 	,fi,
+
+	,if v9264^s<>'unavailable' then
       ,'&#160;&#160;&#160;&#160;',
       ,'<font face="Symbol" color="#000080" size=1>&#183;</font>&nbsp;',
 	,('<a class="isoref" href="http://',v7990[1],v7991[1],'sci_arttext',v7998[1],
@@ -387,7 +465,9 @@
 		,fi,
 		,'</font></a>',
     	,fi,
-
+	,else
+		,'&#160;&#160;&#160;&#160;<font face="Symbol" color="#000080"  class="isoref" size=1>&#183;</font>&nbsp;',v9264^t,'</font>&nbsp;',
+	,fi, /* text available */
 
 '</td></tr></TABLE>', 
 

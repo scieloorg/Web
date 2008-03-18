@@ -84,7 +84,6 @@
 		   fi
 		  fi</pft>
 	</flow>
-
 	<call name="GetSectionName">
 	 <pft>'^l'v4001^l'^c'v999'^s'v4001^s'^i'v4001^i,'^p'v4001^p*0.17</pft>
 	</call>
@@ -166,7 +165,7 @@
 	</pft>
 </field>
 
-
+<!--display><pft>ALL</pft></display-->
  <call name="CreateIssueInfoXML"><pft>v4001^s</pft></call>
  <call name="CreateIssueTitleXML"><pft>'^r'v4001^s'^l'v4001^l'^i'v4001^i</pft></call>
  <call name="CreateIssueStripXML"><pft>'^r'v4001^s'^l'v4001^l'^i'v4001^i</pft></call>  	
@@ -201,6 +200,8 @@
   <field action="cgi" tag="10">debug</field>
   <field action="cgi" tag="3011">def</field>
 	
+  <field action="replace" tag="1"><pft>mid(v1,1,13)</pft></field>
+
   <field action="replace" tag="3011"><pft>if a(v3011) then 'scielo.def.php' fi</pft></field>
 
   <call name="DebugMode"><pft>if a(v10) then 'OFF' else mpu,v10,mpl fi</pft></call>
@@ -209,8 +210,9 @@
     
   <!-- 5 - Title MFN, 6 - Issue MFN, 7 - Article MFN -->  
   <field action="replace" tag="5"><pft>f(l(['TITLE']'LOC='mid(v1,1,9)),1,0)</pft></field>
-  <field action="replace" tag="6"><pft>f(l(['NEWISSUE']'Y'v1),1,0)</pft></field>
+  
   <call name="issueHasArticles"><pft>v1</pft></call>
+  <field action="replace" tag="6"><pft>if v1=v9036 then '1' else '0' fi</pft></field>
   <field action="replace" tag="7"><pft>if v1=v9036 then '1' else '0' fi</pft></field>
   
   <call name="CreateErrorXML">
@@ -245,7 +247,30 @@
   <call name="CreateDebugInfoXML"><pft>mpu,v10,mpl</pft></call>
   
   <!-- Create XML for Issue -->	    	
-  <call name="CreateIssueXML"><pft>'^s'v6'^p'v1'^l'v2'^i'v4</pft></call>
+ <display><pft>'<GROUPED-BY-YEAR>'</pft></display>
+	<do task="keyrange">
+		<!--parm name="db">NEWISSUE</parm-->
+		<parm name="db">ARTIGO</parm>
+		<parm name="from"><pft>'Y',v1</pft></parm>
+		<parm name="to"><pft>'Y',v1,'zzzz'</pft></parm>
+		<parm name="posting"><pft>'ALL'</pft></parm>
+		
+		
+		<field action="define" tag="1001">Isis_Current</field>
+		<field action="define" tag="1002">Isis_Key</field>
+		<field action="define" tag="1003">Isis_Posting</field>
+		<field action="define" tag="1004">Isis_Postings</field>
+		
+		<loop>
+			<field action="import" tag="list">7009/7050</field>
+			<field action="import" tag="list">1,2,4</field>
+
+			<call name="CreateIssueXML"><pft>'^s',f(l(['NEWISSUE']v1002),1,0),'^p'v1002*1,'^l'v2'^i'v4</pft></call>
+
+		</loop>
+	</do>
+ <display><pft>'</GROUPED-BY-YEAR>'</pft></display>
+
   
   <!-- Close SERIAL -->
   <display><pft>'</SERIAL>'</pft></display>

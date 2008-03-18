@@ -612,6 +612,8 @@
 		'  <APP_NAME>',v7038,'</APP_NAME>'/,
 		"  <ENABLE_STAT_LINK>"v7039"</ENABLE_STAT_LINK>"/,
 		"  <ENABLE_CIT_REP_LINK>"v7040"</ENABLE_CIT_REP_LINK>"/,
+		"  <NAVEGATION_TYPE>"v7048"</NAVEGATION_TYPE>"/,
+		"  <NEW_HOME>"v7047"</NEW_HOME>"/,
 		
 	</pft></display>
 	
@@ -619,20 +621,45 @@
 	
 	<call name="CreateCurrentPreviousIssue">
 		<pft>
+			if a(v7048) then
 			if s(mpu,v4900^t,mpl) = 'TIT' then 
 				mpu,v4900^p,mpl 
+			fi
 			fi
 		</pft>
 	</call>
 
 	<call name="CreatePreviousNextIssue">
 		<pft>
+			if a(v7048) then
 			if s(mpu,v4900^t,mpl) = 'ISS' then 
 				mpu,v4900^p,mpl 
+			fi
 			fi
 		</pft>
 	</call>
 	
+	<call name="CreateCurrentPreviousYear">
+		<pft>
+		if p(v7048) then
+			if s(mpu,v4900^t,mpl) = 'TIT' then 
+				mpu,v4900^p,mpl 
+			fi
+		fi
+		</pft>
+	</call>
+	
+	<call name="CreatePreviousNextYear">
+		<pft>
+			if p(v7048) then
+				if s(mpu,v4900^t,mpl) = 'ISS' then 
+					mpu,v4900^p,mpl 
+				fi
+			fi
+		</pft>
+	</call>
+
+
 	<call name="CreatePreviousNextArticle">
 		<pft>
 			/* Pass ^pPid^lLanguage^iInternational Lang^tTarget type */
@@ -754,6 +781,295 @@
 			   	   )
 				' />'/,
 			fi,
+			'  </ISSUES>',/			
+		</pft>
+	</display>
+</function>
+
+<!-- ============================================================================ -->
+<!--  function GetCurrentYear                                                       -->
+<!--                                                                              -->
+<!--  Gets the pid (issnyyyynnnn) of the last issue of a serial.                  -->
+<!--                                                                              -->
+<!--  Argument:                                                                   -->
+<!--     The pid (issn) of the serial.                                            -->
+<!--                                                                              -->
+<!--  Return value:                                                               -->
+<!--     If found, returns the pid of the last issue of the serial in the tag     -->
+<!--  7090. Otherwise, returns nothing.                                           -->
+<!-- ============================================================================ -->
+<function name="GetCurrentYEAR" action="replace" tag="4900">
+	<!--display><pft>'v4900 = ',v4900,'<br>'</pft></display-->
+
+	<field action="import" tag="3900">3900</field>
+	<field action="replace" tag="4900"><pft>v4900*0.13</pft></field>
+	
+	<field action="replace" tag="9000"><pft>(v3900,' ')</pft></field>
+	
+	<do task="keyrange">
+		<!--parm name="db">NEWISSUE</parm-->
+		<parm name="db">ARTIGO</parm>
+		<parm name="from"><pft>'Y',v4900,'zzzz'</pft></parm>
+		<!--parm name="count">1</parm-->
+		<parm name="reverse">On</parm>
+		
+		<field action="define" tag="4901">Isis_Key</field>
+		
+		<loop>
+			<field action="import" tag="list">4900,9000</field>
+			<flow action="skip">
+				<pft>
+					if instr(v4901,v4900) = 0 then
+						'Quit'
+					else
+						if l(['NEWISSUE'],v4901) > 0 then
+							,if instr(v9000,v4901*1)=0 then
+								'Quit' 
+							,fi
+						fi
+					fi
+				</pft>
+			</flow>			
+		</loop>
+		<field action="export" tag="list">9000</field>
+	</do>
+	
+	<field action="replace" tag="7090">
+		<pft>
+			/* If the pid of the serial (issn) isn't in the key, then it's another serial */
+			if p(v4901) and instr(v4901, v4900) > 0 and instr(v9000,v4901*1)=0 then v4901*1.13 fi
+		</pft>
+	</field>
+	<display><pft>'<!-- retorno=',v7090,' -->'</pft></display>
+	
+	<return action="replace" tag="7090">
+		<pft>
+			v7090
+		</pft>
+	</return>
+
+</function>
+
+<!-- ============================================================================ -->
+<!--  function GetPreviousYEAR                                                   -->
+<!--                                                                              -->
+<!--  Gets the pid (issnyyyynnnn) of the previous issue of the current issue.     -->
+<!--                                                                              -->
+<!--  Argument:                                                                   -->
+<!--     The pid (issnyyyynnnn) of the current issue.                             -->
+<!--                                                                              -->
+<!--  Return value:                                                               -->
+<!--     If found, returns the pid of the previous issue in the tag 7085.         -->
+<!--  Otherwise, returns nothing.                                                 -->
+<!--  Note:                                                                       -->
+<!--  If it is a ahead of print issue, the previous issue is the current issue    -->
+<!--  Otherwise any previous issue but any ahead of print                         -->
+<!-- ============================================================================ -->
+<function name="GetPreviousYEAR" action="replace" tag="4900">
+	<!--display><pft>'v4900 = ',v4900,'<br>'</pft></display-->
+	<field action="import" tag="3900">3900</field>
+	
+	<field action="replace" tag="4900"><pft>v4900*0.13</pft></field>
+	<field action="replace" tag="1001"><pft>(if instr(v3900,v4900[1])>0 then v3900 fi)</pft></field>
+
+	<do task="keyrange">
+		<!--parm name="db">NEWISSUE</parm-->
+		<parm name="db">ARTIGO</parm>
+		<parm name="from"><pft>'Y',v4900,'0000'</pft></parm>
+		<!--parm name="count">10</parm-->
+		<parm name="reverse">On</parm>
+		
+		<field action="define" tag="4901">Isis_Key</field>
+		
+		<loop>
+			<display><pft>'<!-- ',v4901,' -->'/</pft></display>
+			<field action="import" tag="list">4900,1001</field>
+			<field action="replace" tag="4902">
+				<pft>
+					/* The first key found whose pid isn't the current issue's and it is not ahead neither review */
+					if p(v4901) then
+						if  instr(v4901,v4900) = 0 then
+							/* eh a proxima chave, agora verifica se eh a mesma revista */
+							if  instr(v4901,s('Y',mid(v4900,1,9))) = 1 then
+								/* eh da mesma revista, mesmo issn */
+								if instr(v1001,v4901*1)=0 then
+									/* eh printed issue */
+
+									if l(['NEWISSUE'],v4901) > 0 then, 
+										'OK' 
+									fi
+								fi
+							else 
+								/* nao eh da mesma revista, issn diferente */
+								'Error'
+							fi
+						else 
+							/* eh a mesma chave, entao continuar */
+						fi
+					else
+ 							'Error' 
+					fi 
+				</pft>
+			</field>
+			
+			<field action="export" tag="list">4901,4902</field>
+			<flow action="skip">
+				<pft>
+					if v4902='OK' or v4902='Error' then 
+						'Quit'
+					fi
+				</pft>
+			</flow>
+		</loop>	
+	</do>	
+	<field action="replace" tag="7085"><pft>if v4902='OK' then v4901*1.13 fi</pft></field>
+	<label>fim</label>
+	<return action="replace" tag="7085"><pft>v7085</pft></return>
+</function>
+<!-- ============================================================================ -->
+<!--  function GetNextYEAR                                                       -->
+<!--                                                                              -->
+<!--  Gets the pid (issnyyyynnnn) of the next issue of the current issue.         -->
+<!--                                                                              -->
+<!--  Argument:                                                                   -->
+<!--     The pid (issnyyyynnnn) of the current issue.                             -->
+<!--                                                                              -->
+<!--  Return value:                                                               -->
+<!--     If found, returns the pid of the next issue in the tag 7095. Otherwise   -->
+<!--  returns nothing.                                                            -->
+<!-- ============================================================================ -->
+<function name="GetNextYEAR" action="replace" tag="4900">
+	<field action="import" tag="list">7049/7050</field>
+	<!--display><pft>'v4900 = ',v4900,'<br>'</pft></display-->
+	<!--display><pft>ALL</pft></display-->
+	<field action="import" tag="3900">3900</field>
+	
+	<field action="replace" tag="4900"><pft>v4900*0.13</pft></field>
+	
+	<field action="replace" tag="1003"><pft>(v3900,' ')</pft></field>
+	<do task="keyrange">
+		<!--parm name="db">NEWISSUE</parm-->
+		<parm name="db">ARTIGO</parm>
+		<parm name="from"><pft>'Y',v4900,'zzzz'</pft></parm>
+		<!--parm name="count">10</parm-->
+		
+		
+		<field action="define" tag="4901">Isis_Key</field>
+		
+		<loop>
+			<display><pft>'<!-- ',v4901,' -->'/</pft></display>
+			<field action="import" tag="list">4900,1003</field>
+			<field action="replace" tag="4902">
+				<pft>
+					/* The first key found whose pid isn't the current issue's and it is not ahead neither review */
+					if p(v4901) then
+						if  instr(v4901,v4900) = 0 then
+							/* eh a proxima chave, agora verifica se eh a mesma revista */
+							if  instr(v4901,s('Y',mid(v4900,1,9))) = 1 then
+								/* eh da mesma revista, mesmo issn */
+								if instr(v1003,v4901*1)=0 then
+									/* eh printed issue */
+									if l(['NEWISSUE'],v4901) > 0 then, 
+										'OK' 
+									fi
+								fi
+							else 
+								/* nao eh da mesma revista, issn diferente */
+								'Error'
+							fi
+						else 
+							/* eh a mesma chave, entao continuar */
+						fi
+					else
+ 							'Error' 
+					fi 
+				</pft>
+			</field>
+			
+			<field action="export" tag="list">4901,4902</field>
+			<flow action="skip">
+				<pft>
+					if v4902='OK' or v4902='Error' then 
+						'Quit'
+					fi
+				</pft>
+			</flow>
+		</loop>	
+	</do>	
+	<field action="replace" tag="7095"><pft>if v4902='OK' then v4901*1.13 fi</pft></field>
+	<return action="replace" tag="7095"><pft>v7095</pft></return>
+		
+</function>
+<!-- ============================================================================ -->
+<!--  function CreateCurrentPreviousYear                                         -->
+<!--                                                                              -->
+<!--  Prints the current and previous issues' control information.              -->
+<!--                                                                              -->
+<!--  Argument:                                                                   -->
+<!--     The pid (issn) of the serial.                                            -->
+<!-- ============================================================================ -->
+<function name="CreateCurrentPreviousYear" action="replace" tag="4900">
+	<field action="delete" tag="list">7050,7085,7090,7095</field>
+	
+	<!--display><pft>| v4900 = |v4900</pft></display-->
+	<call name="GetNotPrintedIssues"><pft>mid(v4900,1,9)</pft></call>
+	<call name="GetCurrentYEAR"><pft>v4900</pft></call>
+	<call name="GetPreviousYEAR"><pft>v7090</pft></call>
+	<call name="GetNextYEAR"><pft>v7090,if a(v7090) then 'NO_CURRENT_ISSUE' fi</pft></call>
+
+	<display>
+		<pft>
+			'  <ISSUES>',/			
+			if p(v7085) then
+				'   <PREVIOUS PID="',v7085,'" YEAR="',v7085*9.4,'" />'/,
+			fi,
+			
+			if p(v7090) then
+				'   <CURRENT PID="',v7090^*,'" YEAR="',v7090*9.4,'" />'/,
+			fi,			
+			if p(v7095) then
+				'   <NEXT PID="',v7095,'" YEAR="',v7095*9.4,'" />'/,
+			fi,	
+			'  </ISSUES>',/			
+		</pft>
+	</display>
+</function>
+
+<!-- ============================================================================ -->
+<!--  function CreatePreviousNextYear                                            -->
+<!--                                                                              -->
+<!--  Prints the next and previous issues' control information.                   -->
+<!--                                                                              -->
+<!--  Argument:                                                                   -->
+<!--     The pid (issnyyyynnnn) of the current issue.                             -->
+<!-- ============================================================================ -->
+<function name="CreatePreviousNextYear" action="replace" tag="4900">
+	<field action="delete" tag="list">7085,7090,7095</field>
+	<field action="import" tag="list">7049/7050</field>
+
+	<call name="GetNotPrintedIssues"><pft>mid(v4900,1,9)</pft></call>
+
+	<!-- inicio - get v7085 = Previous issue -->
+	<call name="GetPreviousYEAR"><pft>v4900</pft></call>
+	<!-- fim - get v7085 = Previous issue -->
+
+	<!-- inicio - get v7095 = Next issue -->
+	<call name="GetNextYEAR"><pft>v4900</pft></call>
+	<!-- fim - get v7095 = Next issue -->
+
+	<display>
+		<pft>
+			'  <ISSUES>',/			
+			if p(v7085) then
+				'   <PREVIOUS PID="',v7085,'" YEAR="',v7085*9.4,'" />'/,
+			fi,
+			
+			if p(v7090) then
+				'   <CURRENT PID="',v7090^*,'" YEAR="',v7090*9.4,'" />'/,
+			fi,			
+			if p(v7095) then
+				'   <NEXT PID="',v7095,'" YEAR="',v7095*9.4,'" />'/,
+			fi,	
 			'  </ISSUES>',/			
 		</pft>
 	</display>
@@ -2527,6 +2843,8 @@
   <field action="import" tag="list">7009/7050</field>  <!--fixed-->
 	<!-- fixed 20040910 todo o trechp inserindo a funcao PROC_SPLIT_MST_range e substituindo os ref e lookups -->
 
+  <field action="replace" tag="264" split="occ"><pft>ref(['ARTIGO']val(v4001^m),@PROC_SPLIT_MST.PFT,v264)</pft></field>
+
   <field action="replace" tag="4010" split="occ"><pft>ref(['ARTIGO']val(v4001^m),@PROC_SPLIT_MST.PFT,(v83^l/))</pft></field>
   <field action="replace" tag="4002"><pft>ref(['ARTIGO']val(v4001^m),@PROC_SPLIT_MST.PFT,v880)</pft></field>
   <field action="replace" tag="12" split="occ"><pft>ref(['ARTIGO']val(v4001^m),@PROC_SPLIT_MST.PFT,(v12/))</pft></field>
@@ -2623,6 +2941,8 @@
    </pft>
   </display>
 
+  <call name="showText"><pft>v264</pft></call>
+  <flow action="jump"><pft>if v8264='no' then 'NO_TEXT_AVAILABLE' fi</pft></flow>
   <field action="delete" tag="9999">ALL</field>
   <call name="OrdenaLanguage"><pft>v4001^l/,(v4003/)</pft></call>
     
@@ -2655,6 +2975,7 @@
    </pft>
   </display>
         
+  <label>NO_TEXT_AVAILABLE</label>
   <display>
    <pft>
     ' </LANGUAGES>'/    
@@ -2928,3 +3249,17 @@
 	<return action="replace" tag="8000"><pft>replace(mid(v702,size(v702)-3,4),'.XML','.xml')</pft></return> 
 </function>
 
+<function name="showText" action="replace"  tag="264">
+	<return action="replace" tag="8264">
+		<pft>if p(v264) then 
+				if val(v264)>val(s(date)*0.8) then 
+					,'no', 
+				,else
+					,'yes'
+				fi
+			else
+				,'yes',
+			fi
+		</pft>
+	</return>
+</function>

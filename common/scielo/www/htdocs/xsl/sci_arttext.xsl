@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:mml="http://www.w3.org/1998/Math/MathML">
-
 	<!--xsl:output method="xml" version="1.0" encoding="ISO-8859-1" indent="yes"/-->
-
 	<xsl:include href="scielo_pmc_config.xsl"/>
 	<xsl:include href="sci_navegation.xsl"/>
 	<xsl:include href="sci_error.xsl"/>
@@ -10,9 +8,7 @@
 	<xsl:variable name="LANGUAGE" select="//LANGUAGE"/>
 	<xsl:variable name="SCIELO_REGIONAL_DOMAIN" select="//SCIELO_REGIONAL_DOMAIN"/>
 	<xsl:variable name="show_toolbox" select="//toolbox"/>
-
 	<xsl:template match="fulltext-service-list"/>
-
 	<xsl:template match="/">
 		<xsl:apply-templates select="//SERIAL"/>
 	</xsl:template>
@@ -30,7 +26,7 @@
 				<meta Content-math-Type="text/mathml"/>
 				<link rel="stylesheet" type="text/css" href="/css/screen.css"/>
 				<xsl:apply-templates select="." mode="css"/>
-				<script language="javascript" src="applications/scielo-org/js/httpAjaxHandler.js" />
+				<script language="javascript" src="applications/scielo-org/js/httpAjaxHandler.js"/>
 				<script language="javascript" src="article.js"/>
 			</head>
 			<body>
@@ -74,10 +70,15 @@
 						<xsl:if test="ISSUE/ARTICLE/fulltext">
 							<xsl:apply-templates select="ISSUE/ARTICLE[fulltext]"/>
 						</xsl:if>
+						<xsl:if test="not(ISSUE/ARTICLE/BODY) and not(ISSUE/ARTICLE/fulltext)">
+							<xsl:apply-templates select="ISSUE/ARTICLE/EMBARGO/@date">
+								<xsl:with-param name="lang" select="$interfaceLang"/>
+							</xsl:apply-templates>
+						</xsl:if>
 						<div align="left"/>
 						<div class="spacer">&#160;</div>
 					</div>
-					<div class="footer">						
+					<div class="footer">
 						<xsl:apply-templates select="COPYRIGHT"/>
 						<xsl:apply-templates select="CONTACT"/>
 					</div>

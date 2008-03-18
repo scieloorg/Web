@@ -15,13 +15,21 @@
 			<title>SciELO - Scientific electronic library online</title>
 			<meta http-equiv="Pragma" content="no-cache" />
 			<meta http-equiv="Expires" content="Mon, 06 Jan 1990 00:00:01 GMT" />
+			<xsl:if test="//NEW_HOME">
+				<xsl:variable name="X" select="//NEW_HOME"/>
+				<meta HTTP-EQUIV="REFRESH">
+					<xsl:attribute name="Content"><xsl:value-of select="concat('0;URL=',$X)"/></xsl:attribute>
+				</meta>
+
+			</xsl:if>
 			<link rel="STYLESHEET" type="text/css" href="/css/scielo.css" />
 		</head>
-		
+		<xsl:if test="not(//NEW_HOME)">
 		<body link="#000080" vlink="#800080" bgcolor="#ffffff">
 			<xsl:apply-templates select="CONTROLINFO" />
 			<xsl:apply-templates select="SCIELOINFOGROUP" />
 		</body>
+					</xsl:if>
 	</html>
 </xsl:template>
 <xsl:template name="link-ext">

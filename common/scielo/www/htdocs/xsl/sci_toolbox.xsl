@@ -162,7 +162,7 @@
 						</xsl:choose>
 					</a>
 				</li>
-				<xsl:if test="$show_article_references = 1">
+				<xsl:if test="($show_article_references = 1) and (//EMBARGO/@text='yes' or not(//EMBARGO))">
 				<li>
 					<a>
 						<xsl:attribute name="href">javascript: void(0);</xsl:attribute>

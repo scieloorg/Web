@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+	<xsl:variable name="interfaceLang" select="//CONTROLINFO/LANGUAGE"/>
 	<xsl:include href="sci_artref.xsl"/>
 	<xsl:template name="AddRssHeaderLink">
 		<xsl:param name="pid" />
@@ -672,6 +673,12 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 					<xsl:with-param name="PID" select="$PID"/>
 				</xsl:call-template>
 			</xsl:if>
+			<xsl:if test="../EMBARGO/@text='no'">
+				&#160;&#160;&#160;&#160;<font face="Symbol" color="#000080">&#183; </font>
+				<xsl:apply-templates select="../EMBARGO/@date">
+					<xsl:with-param name="lang" select="$interfaceLang"/>
+				</xsl:apply-templates>
+			</xsl:if>
 			<!--         </td>
             </tr>
         </table> -->
@@ -986,4 +993,17 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
 	<xsl:template match="SCIELO_REGIONAL_DOMAIN"/>
 	<xsl:template match="USERINFO"/>
 	<xsl:template match="fulltext-service-list"/>
+
+	<xsl:template match="EMBARGO/@date">
+		<xsl:param name="lang"/>
+		<xsl:choose>
+			<xsl:when test="$lang='pt'">texto disponível após </xsl:when>
+			<xsl:when test="$lang='es'">texto disponible después de </xsl:when>
+			<xsl:when test="$lang='en'">text available after </xsl:when>
+		</xsl:choose>
+		<xsl:call-template name="ShowDate">
+			<xsl:with-param name="DATEISO" select="."/>
+			<xsl:with-param name="LANG" select="$lang"/>
+		</xsl:call-template>
+	</xsl:template>
 </xsl:stylesheet>

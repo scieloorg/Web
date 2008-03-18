@@ -75,6 +75,7 @@
             <field action="import" tag="list">7009/7050</field>
             <field action="replace" tag="3006"><pft>f(mfn,1,0)</pft></field>
             <display><pft>@PROC_SPLIT_MST.PFT,</pft></display>
+			<call name="showText"><pft>v264</pft></call>
 			
             <display>
                 <pft>
@@ -88,10 +89,15 @@
                     | PID="|v880|"|                    
                 </pft>
             </display>
-			<call name="getDOI"><pft>v880</pft></call>
-			<call name="TestPDFPresence"><pft>v880</pft></call>
+
+			<call name="getDOI"><pft>if v8264<>'no' then v880 fi</pft></call>
+			<call name="TestPDFPresence"><pft>if v8264<>'no' then v880 fi</pft></call>
 			
 			<display><pft>'>'/#</pft></display>
+
+			<display><pft>if p(v264) then '<EMBARGO date="',v264,'" text="',v8264,'"/>'/ fi</pft></display>
+			
+
 			<display><pft>'<publication-date>',v65,'</publication-date>'</pft></display>
 
             <!--call name="CreateLattesGroupXML">

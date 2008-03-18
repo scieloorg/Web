@@ -90,7 +90,8 @@
 										</xsl:if>
              &#160;
             </TD>
-									<xsl:if test="//PAGE_NAME = 'sci_serial' or //PAGE_NAME = 'sci_issuetoc'">
+            								<xsl:variable name="issuetoc"><xsl:apply-templates select="." mode="issuetoc"/></xsl:variable>
+									<xsl:if test="//PAGE_NAME = 'sci_serial' or //PAGE_NAME = '{$issuetoc}'">
 										<TD valign="bottom">
 											<xsl:element name="a">
 												<xsl:attribute name="href"><xsl:value-of select="concat('http://',CONTROLINFO/SCIELO_INFO/SERVER,'/rss.php?pid=',//PAGE_PID,'&amp;lang=',//LANGUAGE)"/></xsl:attribute>
@@ -203,7 +204,7 @@
 						</xsl:choose>
 					</xsl:with-param>
 					<xsl:with-param name="pid" select="//ISSN"/>
-					<xsl:with-param name="script">sci_issues</xsl:with-param>
+					<xsl:with-param name="script"><xsl:apply-templates select="." mode="issues"/></xsl:with-param>
 				</xsl:call-template>
 			</xsl:otherwise>
 		</xsl:choose>
@@ -234,7 +235,7 @@
 						<xsl:choose>
 							<xsl:when test="//ABSTRACT">sci_abstract</xsl:when>
 							<xsl:when test="//BODY">sci_arttext</xsl:when>
-							<xsl:otherwise>sci_issuetoc</xsl:otherwise>
+							<xsl:otherwise><xsl:apply-templates select="." mode="issuetoc"/></xsl:otherwise>
 						</xsl:choose>
 					</xsl:with-param>
 				</xsl:call-template>
@@ -261,7 +262,7 @@
 						</xsl:call-template>
 					</xsl:with-param>
 					<xsl:with-param name="pid" select="//CONTROLINFO/ISSUES/CURRENT/@PID"/>
-					<xsl:with-param name="script">sci_issuetoc</xsl:with-param>
+					<xsl:with-param name="script"><xsl:apply-templates select="." mode="issuetoc"/></xsl:with-param>
 				</xsl:call-template>
 			</xsl:when>
 			<xsl:otherwise>
@@ -297,7 +298,7 @@
 						<xsl:choose>
 							<xsl:when test="//ABSTRACT">sci_abstract</xsl:when>
 							<xsl:when test="//BODY or //fulltext">sci_arttext</xsl:when>
-							<xsl:otherwise>sci_issuetoc</xsl:otherwise>
+							<xsl:otherwise><xsl:apply-templates select="." mode="issuetoc"/></xsl:otherwise>
 						</xsl:choose>
 					</xsl:with-param>
 				</xsl:call-template>
@@ -401,8 +402,8 @@
 			<xsl:with-param name="alttext">
 				<xsl:choose>
 					<xsl:when test="//CONTROLINFO/LANGUAGE='en'">author index</xsl:when>
-					<xsl:when test="//CONTROLINFO/LANGUAGE='es'">̮dice de autores</xsl:when>
-					<xsl:when test="//CONTROLINFO/LANGUAGE='pt'">̮dice de autores</xsl:when>
+					<xsl:when test="//CONTROLINFO/LANGUAGE='es'">índice de autores</xsl:when>
+					<xsl:when test="//CONTROLINFO/LANGUAGE='pt'">índice de autores</xsl:when>
 				</xsl:choose>
 			</xsl:with-param>
 			<xsl:with-param name="index">AU</xsl:with-param>
@@ -417,8 +418,8 @@
 			<xsl:with-param name="alttext">
 				<xsl:choose>
 					<xsl:when test="//CONTROLINFO/LANGUAGE='en'">subject index</xsl:when>
-					<xsl:when test="//CONTROLINFO/LANGUAGE='es'">̮dice de materia</xsl:when>
-					<xsl:when test="//CONTROLINFO/LANGUAGE='pt'">̮dice de assuntos</xsl:when>
+					<xsl:when test="//CONTROLINFO/LANGUAGE='es'">índice de materia</xsl:when>
+					<xsl:when test="//CONTROLINFO/LANGUAGE='pt'">índice de assuntos</xsl:when>
 				</xsl:choose>
 			</xsl:with-param>
 			<xsl:with-param name="index">KW</xsl:with-param>
@@ -465,8 +466,8 @@
 					<xsl:with-param name="alttext">
 						<xsl:choose>
 							<xsl:when test="//CONTROLINFO/LANGUAGE='en'">alphabetic serial listing</xsl:when>
-							<xsl:when test="//CONTROLINFO/LANGUAGE='es'">lista alfab賩ca de seriadas</xsl:when>
-							<xsl:when test="//CONTROLINFO/LANGUAGE='pt'">lista alfab賩ca de peri򣨣os</xsl:when>
+							<xsl:when test="//CONTROLINFO/LANGUAGE='es'">lista alfabética de seriadas</xsl:when>
+							<xsl:when test="//CONTROLINFO/LANGUAGE='pt'">lista alfabética de periódicos</xsl:when>
 						</xsl:choose>
 					</xsl:with-param>
 					<xsl:with-param name="script">sci_alphabetic</xsl:with-param>
@@ -487,7 +488,7 @@
 				</xsl:call-template>
 			</xsl:with-param>
 			<xsl:with-param name="pid" select="//CONTROLINFO/CURRENTISSUE/@PID"/>
-			<xsl:with-param name="script">sci_issuetoc</xsl:with-param>
+			<xsl:with-param name="script"><xsl:apply-templates select="." mode="issuetoc"/></xsl:with-param>
 		</xsl:call-template>
 	</xsl:template>
 	<!-- Show Subject List Button -->
@@ -527,4 +528,7 @@
 			<xsl:with-param name="base">title</xsl:with-param>
 		</xsl:call-template>
 	</xsl:template>
+	<xsl:template match="*" mode="issuetoc">sci_issuetoc<xsl:value-of select="//NAVEGATION_TYPE"/></xsl:template>
+	<xsl:template match="*" mode="issues">sci_issues<xsl:value-of select="//NAVEGATION_TYPE"/></xsl:template>
+
 </xsl:stylesheet>
