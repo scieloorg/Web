@@ -6,8 +6,9 @@
 
 <xsl:template match="/">
 	<ags:resources>		
-		<xsl:apply-templates select="//article/front"/>
-	</ags:resources>
+		<xsl:apply-templates select="//article/front"/>	
+		<xsl:apply-templates select="//RESUME"/>
+	</ags:resources>		
 </xsl:template>
 
 <xsl:template match="title-group" mode="title">
@@ -62,6 +63,43 @@
 	<dc:language scheme="ags:ISO639-1"><xsl:value-of select="article-title/@xml:lang"/></dc:language>
 </xsl:template>
 
+<xsl:template match="RESUME">
+		<xsl:variable name="from">
+			<xsl:call-template name="FormatDate">
+				<xsl:with-param name="date" select="@FROM"/>
+			</xsl:call-template>
+		</xsl:variable>
+
+		<xsl:variable name="until">
+			<xsl:call-template name="FormatDate">
+				<xsl:with-param name="date" select="@UNTIL"/>
+			</xsl:call-template>
+		</xsl:variable>
+		
+		<xsl:variable name="resumptionToken">
+			<xsl:if test="@CONTROL">
+				<xsl:value-of select="@CONTROL"/>:<xsl:value-of select="@SET"/>:<xsl:value-of select="$from"/>:<xsl:value-of select="$until"/>
+			</xsl:if>
+		</xsl:variable>
+		<resumptionToken><xsl:value-of select="normalize-space($resumptionToken)"/></resumptionToken>
+</xsl:template>
+
+<xsl:template name="FormatDate">
+		<xsl:param name="date"/>
+		<xsl:if test="$date">
+			<xsl:choose>
+				<xsl:when test=" substring($date,5,2) = '00' ">
+					<xsl:value-of select="concat(substring($date,1,4),'-01-01') "/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="concat(substring($date,1,4), '-', substring($date,5,2), '-01') "/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:if>
+	</xsl:template>
+
+
+
 <xsl:template match="front">	
 		<ags:resource ags:ARN="SC{concat(substring(article-meta/article-id,11,4),$spacechar,substring(article-meta/article-id,17,2),substring(article-meta/article-id,22,2) )}">
 			<xsl:apply-templates select=".//title-group" mode="title"/>
@@ -85,8 +123,8 @@
 	               	 <xsl:apply-templates select="journal-meta/issn" mode="issn"/>
 		              <xsl:apply-templates select="article-meta" mode="volnum"/>
 		              <xsl:apply-templates select="article-meta/pub-date[@pub-type='pub']/year" mode="year"/>
-			</ags:citation>
-		</ags:resource>		
+			</ags:citation>			
+		</ags:resource>				
 </xsl:template>
 
 <xsl:template match="publisher-name" mode="citationTitle">

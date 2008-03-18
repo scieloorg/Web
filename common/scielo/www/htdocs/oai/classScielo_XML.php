@@ -35,8 +35,6 @@
 				}
 			}
 
-
-
 			@$fd = fopen ( $url,"r" );
 
 			if ( !$fd )

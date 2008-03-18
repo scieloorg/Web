@@ -215,8 +215,30 @@
 
 		return $result;
     }
-
+	
 	function listRecordsAgris ( $set = "", $from = "", $until = "", $control = "", $lang = "en", $nrm = "iso", $count = 30, $debug = false )
+    {
+		global $scielo_xml, $server;
+    
+        $parameters = array();
+        
+        if ( !empty ( $set ) ) $parameters[ "set" ] = $set;
+        if ( !empty ( $from ) ) $parameters[ "from" ] = $from;
+        if ( !empty ( $until ) ) $parameters[ "until" ] = $until;
+        if ( !empty ( $control ) ) $parameters[ "resume" ] = $control;
+        $parameters[ "lng" ] = $lang;
+        $parameters[ "nrm" ] = $nrm;
+        $parameters[ "count" ] = $count;
+		$result = $scielo_xml->getXML ( "sci_listrecords_agris", $parameters, $debug );
+		if ( $error = $scielo_xml->getError () )
+		{
+//			return new soap_fault ( "Scielo_WS_Server", "", $error );
+			return new soap_fault ( "Scielo_WS_Server", $error );
+		}
+
+		return $result;
+    }
+	/*function listRecordsAgris ( $set = "", $from = "", $until = "", $control = "", $lang = "en", $nrm = "iso", $count = 30, $debug = false )
     {
 		global $scielo_xml, $server;
     
@@ -234,7 +256,7 @@
 		
 		
 		
-		$result = $scielo_xml->getXML ( "sci_xmloutput_agris", $parameters, $debug );
+		$result = $scielo_xml->getXML ( "sci_listrecords_agris", $parameters, $debug );
 
 		if ( $error = $scielo_xml->getError () )
 		{
@@ -243,7 +265,7 @@
 		}
 
 		return $result;
-    }
+    }*/
 	/*********************************** MAIN CODE *****************************************/
 
 	if ( isset ( $_SERVER ) && !isset ( $DOCUMENT_ROOT ) )
