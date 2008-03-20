@@ -114,13 +114,13 @@
 		<xsl:choose>
 			<xsl:when test="$forceType=0">
 				<a>
-					<xsl:attribute name="href">http://<xsl:value-of select="//SERVER"/><xsl:value-of select="//PATH_DATA"/>scielo.php?script=sci_serial&amp;pid=<xsl:value-of select ="TITLE/@ISSN"/>&amp;lng=<xsl:value-of select="normalize-space(//CONTROLINFO/LANGUAGE)"/>&amp;nrm=<xsl:value-of select="normalize-space(//CONTROLINFO/STANDARD)"/></xsl:attribute>
+					<xsl:attribute name="href">http://<xsl:value-of select="//SERVER"/><xsl:value-of select="//PATH_DATA"/>scielo.php?script=<xsl:apply-templates select="." mode="sci_serial"/>&amp;pid=<xsl:value-of select ="TITLE/@ISSN"/>&amp;lng=<xsl:value-of select="normalize-space(//CONTROLINFO/LANGUAGE)"/>&amp;nrm=<xsl:value-of select="normalize-space(//CONTROLINFO/STANDARD)"/></xsl:attribute>
 					<xsl:value-of select="TITLE" disable-output-escaping="yes" />
 				</a> 				
 			</xsl:when>
 			<xsl:otherwise>
 				<a>
-					<xsl:attribute name="href">http://<xsl:value-of select="//SERVER"/><xsl:value-of select="//PATH_DATA"/>scielo.php?script=sci_serial&amp;pid=<xsl:value-of select ="TITLE/@ISSN"/>&amp;lng=<xsl:value-of  select="normalize-space(//CONTROLINFO/LANGUAGE)"/>&amp;nrm=<xsl:value-of select="normalize-space(//CONTROLINFO/STANDARD)"/></xsl:attribute>
+					<xsl:attribute name="href">http://<xsl:value-of select="//SERVER"/><xsl:value-of select="//PATH_DATA"/>scielo.php?script=<xsl:apply-templates select="." mode="sci_serial"/>&amp;pid=<xsl:value-of select ="TITLE/@ISSN"/>&amp;lng=<xsl:value-of  select="normalize-space(//CONTROLINFO/LANGUAGE)"/>&amp;nrm=<xsl:value-of select="normalize-space(//CONTROLINFO/STANDARD)"/></xsl:attribute>
 					<xsl:value-of select="TITLE" disable-output-escaping="yes" />
 				</a>
 			</xsl:otherwise>

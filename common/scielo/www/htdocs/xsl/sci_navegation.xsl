@@ -91,7 +91,8 @@
              &#160;
             </TD>
             								<xsl:variable name="issuetoc"><xsl:apply-templates select="." mode="issuetoc"/></xsl:variable>
-									<xsl:if test="//PAGE_NAME = 'sci_serial' or //PAGE_NAME = '{$issuetoc}'">
+            								<xsl:variable name="sci_serial"><xsl:apply-templates select="." mode="sci_serial"/></xsl:variable>
+									<xsl:if test="//PAGE_NAME = '{$sci_serial}' or //PAGE_NAME = '{$issuetoc}'">
 										<TD valign="bottom">
 											<xsl:element name="a">
 												<xsl:attribute name="href"><xsl:value-of select="concat('http://',CONTROLINFO/SCIELO_INFO/SERVER,'/rss.php?pid=',//PAGE_PID,'&amp;lang=',//LANGUAGE)"/></xsl:attribute>
@@ -317,7 +318,7 @@
 				<A>
 					<xsl:attribute name="href">http://<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/SERVER"/><xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_DATA"/>scielo.php?lng=<xsl:value-of select="normalize-space(//CONTROLINFO/LANGUAGE)"/></xsl:attribute>
 					<IMG>
-						<xsl:attribute name="src"><xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_GENIMG"/><xsl:value-of select="normalize-space(//CONTROLINFO/LANGUAGE)"/>/fbpelogp.gif</xsl:attribute>
+						<xsl:attribute name="src"><xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_GENIMG"/><xsl:value-of select="normalize-space(//CONTROLINFO/LANGUAGE)"/>/<xsl:apply-templates select="." mode="logoImg"/></xsl:attribute>
 						<xsl:attribute name="border">0</xsl:attribute>
 						<xsl:attribute name="alt">Scientific Electronic Library Online</xsl:attribute>
 					</IMG>
@@ -326,6 +327,11 @@
 			</P>
 		</TD>
 	</xsl:template>
+	<xsl:template match="*" mode="logoImg"><xsl:choose>
+			<xsl:when test="//CONTROLINFO/NEW_HOME">identification.gif</xsl:when>
+			<xsl:otherwise>fbpelogp.gif</xsl:otherwise>
+		</xsl:choose></xsl:template>
+	
 	<!-- Shows a navigation bar button
       Parameters:
         file - file containing image
@@ -445,12 +451,14 @@
 	</xsl:template>
 	<!-- Show Home Button  -->
 	<xsl:template name="HOME">
+		<xsl:if test="not(//NO_SCI_SERIAL) or //NO_SCI_SERIAL!='yes'">
 		<xsl:call-template name="ShowNavBarButton">
 			<xsl:with-param name="file">home.gif</xsl:with-param>
 			<xsl:with-param name="alttext">Home Page</xsl:with-param>
 			<xsl:with-param name="pid" select="//ISSN"/>
 			<xsl:with-param name="script">sci_serial</xsl:with-param>
 		</xsl:call-template>
+		</xsl:if>
 	</xsl:template>
 	<!-- Show Alphabetic List Button -->
 	<xsl:template name="ALPHA">
@@ -530,5 +538,9 @@
 	</xsl:template>
 	<xsl:template match="*" mode="issuetoc">sci_issuetoc<xsl:value-of select="//NAVEGATION_TYPE"/></xsl:template>
 	<xsl:template match="*" mode="issues">sci_issues<xsl:value-of select="//NAVEGATION_TYPE"/></xsl:template>
+	<xsl:template match="*" mode="sci_serial"><xsl:choose>
+							<xsl:when test="//CONTROLINFO/NO_SCI_SERIAL='yes'"><xsl:apply-templates select="." mode="issues"/></xsl:when>
+							<xsl:otherwise>sci_serial</xsl:otherwise>
+						</xsl:choose></xsl:template>
 
 </xsl:stylesheet>

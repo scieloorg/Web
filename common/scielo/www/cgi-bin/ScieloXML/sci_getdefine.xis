@@ -66,6 +66,7 @@
 						case 'PATH_HTDOCS'                  : 'h17044',
 						case 'STAT_SERVER'                  : 'h17045',
 						/* fixed */
+						 case 'NO_SCI_SERIAL'                  : 'h17046',
 						 case 'NEW_HOME'                  : 'h17047',
 						 case 'NAVEGATION_TYPE'                  : 'h17048',
                         case 'BEFOREPRINT_ISSUES'                  : 'h17049',

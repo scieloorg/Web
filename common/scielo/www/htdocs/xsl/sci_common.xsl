@@ -303,7 +303,7 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 				<a>
 					<xsl:call-template name="AddScieloLink">
 						<xsl:with-param name="seq" select="TITLE/@ISSN"/>
-						<xsl:with-param name="script">sci_serial</xsl:with-param>
+						<xsl:with-param name="script"><xsl:apply-templates select="." mode="sci_serial"/></xsl:with-param>
 					</xsl:call-template>
 					<xsl:value-of select="normalize-space(TITLE)" disable-output-escaping="yes"/>
 				</a>
@@ -321,7 +321,7 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 				<a>
 					<xsl:call-template name="AddScieloLink">
 						<xsl:with-param name="seq" select="TITLE/@ISSN"/>
-						<xsl:with-param name="script">sci_serial</xsl:with-param>
+						<xsl:with-param name="script"><xsl:apply-templates select="." mode="sci_serial"/></xsl:with-param>
 					</xsl:call-template>
 					<xsl:value-of select="normalize-space(TITLE)" disable-output-escaping="yes"/>
 				</a>

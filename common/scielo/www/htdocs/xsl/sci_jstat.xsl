@@ -24,7 +24,7 @@
 				<p align="center">
 					<a>
 						<xsl:call-template name="AddScieloLink">
-							<xsl:with-param name="script">sci_serial</xsl:with-param>
+							<xsl:with-param name="script"><xsl:apply-templates select="." mode="sci_serial"/></xsl:with-param>
 							<xsl:with-param name="seq" select="ISSN" />
 						</xsl:call-template>
 
