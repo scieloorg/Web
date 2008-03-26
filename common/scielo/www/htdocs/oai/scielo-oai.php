@@ -194,7 +194,7 @@
 				break;
 				}				
 			case "ListRecords":
-				{				
+				{
 				$response = ListRecords( $set = $parameters["set"], $from = $parameters["from"], $until = $parameters["until"], $control = $parameters["control"], $lang = "en", $nrm = "iso", $count = 30, $debug = false );
 				break;
 				}
@@ -445,7 +445,7 @@
 	        //$xsl = $xslPath . "$verb.xsl";
 			
 			if($verb == 'ListRecords'){
-				if($metadataPrefix == 'oai_dc_agris'){				
+				if($metadataPrefix == 'oai_dc_agris'){
 				 	$xsl = 'ListRecords_agris.xsl';
 				 	$result = generatePayload ( $ws_client_url, "listRecordsAgris", "ListRecordsAgris", $parameters, $xsl );
 				 }else{
@@ -499,7 +499,6 @@
     
 	$repositoryName = trim ( $deffile->getKeyValue("SITE_NAME") );
 	$adminEmails = array ( trim ( $deffile->getKeyValue("E_MAIL") ) );
-
     switch ( $verb )
     {
     	case "Identify":
@@ -520,12 +519,12 @@
             
         case "ListIdentifiers":
         case "ListRecords":
+	    $metadataPrefix2 = $metadataPrefix; // $metadataPrefix perde seu valor original apos o IF abaixo.
             if ( $resumptionToken && !parseResumptionToken ( $resumptionToken ) )
             {
                 $packet = createOAIErrorpacket ( $self, $verb, "badResumptionToken" );
                 break;
             }
-            
             if ( $from && !isDatestamp ( $from ) )
             {
                 $packet = createOAIErrorpacket ( $self, $verb, "badArgument", "Invalid date format" );
@@ -537,8 +536,7 @@
                 $packet = createOAIErrorpacket ( $self, $verb, "badArgument", "Invalid date format" );
                 break;
             }
-
-            $packet = ListIdOrRecords_OAI ( $verb, $self, $ws_client_url, $xslPath, $metadataPrefix, $set, $from, $until, $control );
+            $packet = ListIdOrRecords_OAI ( $verb, $self, $ws_client_url, $xslPath, $metadataPrefix2, $set, $from, $until, $control );
 			break;
 
         default:
