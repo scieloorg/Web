@@ -20,24 +20,7 @@ foreach($robotsUserAgents["ROBOTS_AGENT"] as $key => $value){
 if (!$isaRobot){
 	if($defi['services']['show_login'] != "0"){
 
-		$loginURL = "http://".$defi['SCIELO_REGIONAL']['SCIELO_REGIONAL_DOMAIN']. $defi['SCIELO_REGIONAL']['check_login_url'];
-		 /*
-                se nao verificou no Regional o Login do usuario vai verificar
-                */
-                if(!isset($_SESSION['checkedLogin']))
-                {
-                        $self_url = "http://".$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
-                        $inicio = strpos($self_url,"userID") -1 ;
-
-                        if($inicio > 0){
-                           $self_url = substr($self_url, 0, $inicio);
-                        }
-                        $_SESSION['checkedLogin'] = "true";
-                        session_write_close();
-                        $self_url = '?origem='.str_replace('?','&',$self_url);
-                        header("Location: ".$loginURL.$self_url);
-                }
-
+	$loginURL = "http://".$defi['SCIELO_REGIONAL']['SCIELO_REGIONAL_DOMAIN']. $defi['SCIELO_REGIONAL']['check_login_url'];
 		if(isset($_GET['userID']))
 		{
 				if (strpos($_SERVER["REQUEST_URI"],"lng"))
@@ -61,7 +44,22 @@ if (!$isaRobot){
 				Header("Location: ".$self_url);
 				exit;
 		}
-		$_SESSION = array();
-	}//defi
-}// isaRobot
+		/*
+		se nao verificou no Regional o Login do usuario vai verificar
+		*/
+		if(!isset($_SESSION['checkedLogin']))
+		{
+			$self_url = "http://".$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+			$inicio = strpos($self_url,"userID") -1 ;
+	
+			if($inicio > 0){
+			   $self_url = substr($self_url, 0, $inicio);
+			}
+			$_SESSION['checkedLogin'] = "true";
+			session_write_close();
+			$self_url = '?origem='.str_replace('?','&',$self_url);
+			header("Location: ".$loginURL.$self_url);
+		}
+	}
+}
 ?>
