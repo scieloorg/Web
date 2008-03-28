@@ -17,15 +17,15 @@
 
 <xsl:template match="contrib" mode="creator">
 	<xsl:variable name="aff">
-		<xsl:apply-templates select="xref" mode="aff" />	
+		<xsl:apply-templates select="xref" mode="aff" />
 	</xsl:variable>
-	<ags:creatorPersonal><xsl:value-of select="normalize-space(concat(name/surname,', ',name/given-names))"/>(<xsl:value-of select="normalize-space(substring-after($aff,','))" />)</ags:creatorPersonal>
+	<ags:creatorPersonal><xsl:value-of select="normalize-space(concat(name/surname,', ',name/given-names))"/>
+	<xsl:if test="normalize-space($aff) != '' ">(<xsl:value-of select="normalize-space(substring-after($aff,','))" />)</xsl:if></ags:creatorPersonal>
 </xsl:template>
 
 <xsl:template match="xref" mode="aff">
 	<xsl:variable name="rid" select="@rid" />
 	<xsl:apply-templates select="../../../aff[@id = $rid]" mode="aff"/>
-
 </xsl:template>
 
 <xsl:template match="aff" mode="aff">
