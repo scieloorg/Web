@@ -45,7 +45,14 @@
 </xsl:template>
 
 <xsl:template match="kwd" mode="subject">
-	<dc:subject xml:lang="{@lng}"><xsl:value-of select="."/></dc:subject>		
+	<dc:subject>
+		<xsl:if test="normalize-space(@lng) != ''">
+			<xsl:attribute name="xml:lang">
+					<xsl:value-of select="@lng" />
+			</xsl:attribute>
+		</xsl:if>
+		<xsl:value-of select="."/>
+	</dc:subject>		
 </xsl:template>
 
 <xsl:template match="abstract" mode="description">
@@ -117,6 +124,7 @@
 			<!--xsl:apply-templates select="article-meta" mode="article-id"/-->
 			<agls:availability>
 				<ags:availabilityLocation>SCIELO</ags:availabilityLocation>
+				<ags:availabilityNumber>10.1590/<xsl:value-of select=".//article-meta/article-id"/></ags:availabilityNumber> 
 			</agls:availability>
 			<ags:citation>
 		              <xsl:apply-templates select="journal-meta/publisher/publisher-name" mode="citationTitle"/>
