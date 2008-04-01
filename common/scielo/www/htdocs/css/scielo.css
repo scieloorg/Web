@@ -133,3 +133,18 @@ A.rss {
 				padding-left: 10px;
 				background: url(pointer.gif) left no-repeat;
 			}
+.optionsSubMenu {
+	margin-left: 10px;
+}
+
+.optionsSubMenu DIV {
+	margin: 4 0px;
+}
+
+.optionsSubMenu div, .optionsSubMenu div A {
+	font-family: Verdana,Arial,Helvetica,sans-serif;
+	font-size: 90%;
+	font-style: normal;
+	font-weight: normal;
+	text-decoration: none;
+}

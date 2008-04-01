@@ -152,18 +152,18 @@
 				<br/>
 			</a>
 		</xsl:if>
-		<br />
+		
+		
 		<!--link de submissão-->	
 		<xsl:apply-templates select="..//link[@type='online-submission']"/>
-		<br />
-		<span>
-		<!--SCIMAGO CONSULTA ../../bases/sciemago/scimago.xml-->
+			<div class="optionsSubMenu">
+			<!--SCIMAGO CONSULTA ../XML/SCIIMAGO.XML-->
 			<xsl:variable name="graphMago" select="document('../../bases/scimago/scimago.xml')/SCIMAGOLIST/title[@ISSN = $ISSN]/@SCIMAGO_ID"/>
 		<xsl:if test="$show_scimago!=0" >				
 			<xsl:if test="$graphMago">
+			<div>Indicadores SCImago</div>
 			<a>
 			<xsl:attribute name="href">http://www.scimagojr.com/journalsearch.php?q=<xsl:value-of select="$ISSN"/>&amp;tip=iss&amp;exact=yes></xsl:attribute>
-			<xsl:attribute name="target">_blank</xsl:attribute>
 				<img>
 					<xsl:attribute name="src">http://www.scimagojr.com/journal_img.php?id=<xsl:value-of select="$graphMago"/>&amp;title=false</xsl:attribute>
 					<xsl:attribute name="alt">SCImago Journal &amp; Country Rank</xsl:attribute>
@@ -172,9 +172,8 @@
 			</a>
 			</xsl:if>
 		</xsl:if>
-		</span>
-		<!--SCIMAGO-->
-	</xsl:template>
+		</div>
+			</xsl:template>
 	
 			
 	<xsl:template match="link">
