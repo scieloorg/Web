@@ -58,8 +58,7 @@ class XMLFromIsisScript {
 		return $xml;
 	}
 	function read($filename){
-		$f = fopen($filename, "r");
-		$s = fread($f, 100*1024);
+		$s = file_get_contents($filename);
 		return $s;
 	}
 }
