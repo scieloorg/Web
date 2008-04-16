@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 	<xsl:template name="tool_box">
-	<xsl:variable name="show_requests" select="//varScieloOrg/requests" />
-	<xsl:variable name="show_login" select="//varScieloOrg/show_login" />
-	<xsl:variable name="show_send_by_email" select="//varScieloOrg/show_send_by_email" />
-	<xsl:variable name="show_cited_scielo" select="//varScieloOrg/show_cited_scielo" />
-	<xsl:variable name="show_cited_google" select="//varScieloOrg/show_cited_google" />
-	<xsl:variable name="show_similar_in_scielo" select="//varScieloOrg/show_similar_in_scielo" />
-	<xsl:variable name="show_similar_in_google" select="//varScieloOrg/show_similar_in_google" />
-	<xsl:variable name="google_last_process" select="//varScieloOrg/google_last_process" />
-	<xsl:variable name="show_article_references" select="//varScieloOrg/show_article_references" />
-	<xsl:variable name="show_datasus" select="//varScieloOrg/show_datasus" />
-	<xsl:variable name="services_comments" select="//varScieloOrg/services_comments" />
-	<xsl:variable name="acron" select="//SIGLUM" />
-	<xsl:variable name="commentCount" select="//commentCount" />
-	<!--<xsl:variable name="review" select="//ISSUE/@NUM"/>-->
+		<xsl:variable name="show_requests" select="//varScieloOrg/requests" />
+		<xsl:variable name="show_login" select="//varScieloOrg/show_login" />
+		<xsl:variable name="show_send_by_email" select="//varScieloOrg/show_send_by_email" />
+		<xsl:variable name="show_cited_scielo" select="//varScieloOrg/show_cited_scielo" />
+		<xsl:variable name="show_cited_google" select="//varScieloOrg/show_cited_google" />
+		<xsl:variable name="show_similar_in_scielo" select="//varScieloOrg/show_similar_in_scielo" />
+		<xsl:variable name="show_similar_in_google" select="//varScieloOrg/show_similar_in_google" />
+		<xsl:variable name="google_last_process" select="//varScieloOrg/google_last_process" />
+		<xsl:variable name="show_article_references" select="//varScieloOrg/show_article_references" />
+		<xsl:variable name="show_datasus" select="//varScieloOrg/show_datasus" />
+		<xsl:variable name="services_comments" select="//varScieloOrg/services_comments" />
+		<xsl:variable name="acron" select="//SIGLUM" />
+		<xsl:variable name="commentCount" select="//commentCount" />
+		<xsl:variable name="current_issn" select="//ARTICLE/ISSUEINFO/ISSN"/>
+		<xsl:variable name="allow_comments" select="document('../xml/allow_comment.xml')/COMMENT/ISSN[text() = $current_issn ]"/>
 		
 		<div id="toolBox">
 			<h2 id="toolsSection">
@@ -102,7 +103,7 @@
 					</xsl:choose>
 				</xsl:if>
 				<xsl:if test="$services_comments != 0">
-					<xsl:if test="ISSUE/@NUM='REVIEW' or ARTICLE/ISSUEINFO/@NUM='review'">
+					<xsl:if test="string-length($allow_comments) !=  '0' ">					
 					<li>
 						<a>
 						<xsl:attribute name="href">javascript: void(0);</xsl:attribute>
@@ -423,5 +424,5 @@
 			<xsl:when test=" $LANGUAGE = 'pt' ">Enviar este artigo por e-mail</xsl:when>
 			<xsl:when test=" $LANGUAGE = 'es' ">Enviar este artículo por e-mail</xsl:when>
 		</xsl:choose>
-	</xsl:template>		
+	</xsl:template>
 </xsl:stylesheet>
