@@ -63,6 +63,20 @@ class Scielo extends ScieloBase
 		$str2 = strpos($xmlFromIsisScript,"</SIGLUM>");
 		$strResultSiglum = substr($xmlFromIsisScript,$str1+8,($str2-$str1)-8);
 		
+		/*
+		 * Validando o site do scimago
+		 */
+		
+		if( $_REQUEST['script']=='sci_serial'){
+			$issn = $_REQUEST['pid'];
+			$issn = str_replace("-","",$issn);
+			
+			$url = "http://www.scimagojr.com/journalsearch.php?q=".$issn."&amp;tip=iss&amp;exact=yes";
+
+			$handle = fopen($url,'r');
+
+		}
+		
 		$this->_request->getRequestValue("pid", $pid);
 		$this->_request->getRequestValue("t", $textLang);
 		$this->_request->getRequestValue("file", $xmlFile);
@@ -72,6 +86,7 @@ class Scielo extends ScieloBase
 		*/
 
 		$show_comments = $this->_def->getKeyValue("show_comments");
+
 		
 		if(isset($pid) && isset($strResultSiglum) && $show_comments!=0){
 		$BlogDAO = new wpBlogDAO();
@@ -148,6 +163,12 @@ class Scielo extends ScieloBase
 				$xmlScieloOrg .= "<$k>" . $this->_def->getKeyValue($v) . "</$k>";
 			}
 			$xmlScieloOrg .=  $this->userInfo();
+			if($handle == false){
+				$xmlScieloOrg.= "<scimago_status>offline</scimago_status>";
+			}else{
+				$xmlScieloOrg.= "<scimago_status>online</scimago_status>";
+				
+			}
 			$xmlScieloOrg.="<commentCount>".$commentCount."</commentCount>";
 			$xmlScieloOrg = "<varScieloOrg>".$xmlScieloOrg."</varScieloOrg>";
 

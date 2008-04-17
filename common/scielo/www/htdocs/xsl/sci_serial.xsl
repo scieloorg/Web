@@ -5,8 +5,9 @@
 	<xsl:variable name="forceType" select="//CONTROLINFO/ENABLE_FORCETYPE"/>
 	<xsl:variable name="ISSN" select="concat(substring-before(/SERIAL/ISSN,'-'),substring-after(/SERIAL/ISSN,'-'))" />
 	<xsl:variable name="show_scimago" select="//show_scimago"/>
+	<xsl:variable name="scimago_status" select="//scimago_status"/>
 	<xsl:output method="html" indent="no"/>
-	<xsl:template match="SERIAL">
+	<xsl:template match="SERIAL">	
 	
 		<html>
 			<head>
@@ -159,7 +160,7 @@
 			<div class="optionsSubMenu">
 			<!--SCIMAGO CONSULTA ../XML/SCIIMAGO.XML-->
 			<xsl:variable name="graphMago" select="document('../../bases/scimago/scimago.xml')/SCIMAGOLIST/title[@ISSN = $ISSN]/@SCIMAGO_ID"/>
-		<xsl:if test="$show_scimago!=0" >				
+		<xsl:if test="$show_scimago!=0 and normalize-space($scimago_status) = normalize-space('online')" >				
 			<xsl:if test="$graphMago">
 			<div>Indicadores SCImago</div>
 			<a>
