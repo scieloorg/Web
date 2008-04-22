@@ -198,10 +198,16 @@
 			,),
 		</pft>
 	</field>
-
+<field action="replace" tag="3101">
+		<pft>
+			,(,
+      	      ,if v7999 : 'ISSUE_NAV='   then mid(v7999,instr(v7999,'=')+1,size(v7999)) fi
+			,),
+		</pft>
+	</field>
 	<field action="replace" tag="6000"><pft>if a(v6000) then v5014.1 fi</pft></field>
 	
-	<field action="export" tag="list">3100,5003/5005,5007/5010,5012/5014,5018,6000</field>
+	<field action="export" tag="list">3100,3101,5003/5005,5007/5010,5012/5014,5018,6000</field>
 </function>
 
 <function name="LoadAplDef">
