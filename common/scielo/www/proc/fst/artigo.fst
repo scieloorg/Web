@@ -19,3 +19,11 @@
 20 0 mpl,if v706='p' and p(v888) then 'RP=',v880 fi,
 50 0 mpl,if v706='i' and v32='ahead' then 'AHEAD=',v35 fi
 50 0 mpl,if v706='i' and v32='review' then 'REVIEW=',v35 fi
+70 0 mpl,if v706='h' and p(v268) and p(v265) then 'SM_D=',v265/, fi,
+71 0 mpl,if v706='h' and p(v268) and p(v265) then 'SM_R=',s(f(val(v268)+100000,6,0))*1.5,v265/, fi,
+72 0 mpl,if v706='h' and p(v268) and p(v265) then 'SM_RJ=',s(f(val(v268)+100000,6,0))*1.5,v35,v265/, fi,
+73 0 mpl,if v706='h' and p(v268) and p(v265) then 'SM_J=',v35,v265/, fi,
+74 0 mpl,if v706='h' and p(v268) and p(v265) then 'REP=',s(f(val(v268)+100000,6,0))*1.5/, fi,
+75 0 mpl,if v706='c' and p(v268) then 'C_REP=',s(f(val(v268)+100000,6,0))*1.5/, fi,
+
+
