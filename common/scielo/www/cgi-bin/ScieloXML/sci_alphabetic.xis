@@ -21,6 +21,11 @@
 
 	<include>ScieloXML/sci_cipar.xis</include>	
 	
+	<field action="cgi" tag="2005">rep</field>
+	<field action="replace" tag="2005"><pft>if p(v2005) then s(f(val(v2005)+100000,6,0))*1.5 fi</pft></field>
+	<flow action="jump"><pft>if p(v2005) then 'REPO_TITLES' fi</pft></flow>
+
+	<label>ALL_TITLES</label>
 	<do task="keyrange">	
 		<parm name="db">TITLE</parm>
 		<parm name="from"><pft>'A=A'</pft></parm>
@@ -67,13 +72,120 @@
 			</pft></display>
 			
 		</loop>		
-		
+
 		<display><pft>
 			' </LIST>',/#
 			'</SERIALLIST>',/
 		</pft></display>
 	</do>
+	<flow action="jump">END_SERIAL_LIST</flow>
 
+	<label>REPO_TITLES</label>
+
+		<display>
+			<pft>'<SERIALLIST>',/#</pft>
+		</display>	
+
+		<call name="CreateControlInfoXML"><pft>'^l',v3000,'^s',v3001,'^fsci_alphabetic'</pft></call>
+		
+		<call name="CreateScieloCopyInfoXML">Now</call>	
+		
+		<display><pft>' <LIST>',/#</pft></display>
+
+	<field action="replace" tag="5003">0</field>
+	<do task="mfnrange">
+		
+		<parm name="db">TITLE</parm>
+
+		<field action="cgi" tag="2007">gizmo</field>
+		<field action="replace" tag="2007" split="occ"><pft>(v2007/)</pft></field>
+		<parm name="gizmo"><pft>(v2007/)</pft></parm>
+
+	    <loop>
+			<field action="import" tag="list">2005,5003</field>
+
+			<field action="delete" tag="list">5000</field>
+			<do task="keyrange">
+				<parm name="db">ARTIGO</parm>
+				<parm name="from"><pft>'SM_RJ=',v2005,v400</pft></parm>
+				<parm name="count">1</parm>
+
+				<parm name=posting>All</parm>
+
+				<field action="define" tag="1">Isis_Key</field>
+				<field action="define" tag="2">Isis_Postings</field>
+				<field action="define" tag="3">Isis_Posting</field>
+
+				<field action="define" tag="4">Isis_Current</field>
+				<field action="define" tag="5">Isis_Total</field>
+				<field action="define" tag="6">Isis_Item</field>
+				<field action="define" tag="7">Isis_Value</field>
+				<field action="define" tag="8">Isis_Items</field>
+
+				<loop>
+				
+					<field action="import" tag="list">2005,400,5003</field>
+					<field action="replace" tag="5003"><pft>if v1:s('SM_RJ=',v2005,v400) then f(val(v5003)+1,1,0) fi</pft></field>
+					<field action="replace" tag="5000"><pft>if v1:s('SM_RJ=',v2005,v400) then 'yes' fi</pft></field>
+					<field action="export" tag="list">5000/5003</field>
+				</loop>
+				<field action="export" tag="list">5000/5003</field>
+			</do>
+			<field action="export" tag="list">5003</field>
+	    
+			<display><pft>
+				if p(v940) and v5000='yes' then 
+					'  <SERIAL>',/
+					'   <TITLE ISSN="', v400, '">',/
+						'    <![CDATA[',v100,| - |v110,']]>'/
+					'   </TITLE>',/
+					'  </SERIAL>',/#
+				fi
+			</pft></display>
+	    </loop>
+	</do>
+	<field action="replace" tag="5001">0</field>
+	<field action="replace" tag="3002">0</field>
+
+	<do task="search">
+		<parm name="db">ARTIGO</parm>
+		<parm name="expression"><pft>'REP='v2005,' and SM=$'</pft></parm>
+		<parm name="count">1</parm>
+
+		<field action="define" tag="1001">Isis_Current</field>
+		<field action="define" tag="1002">Isis_Total</field>
+		<loop>
+			<field action="export" tag="5002">1002</field>
+		</loop>
+	</do>
+	<do task="search">
+		<parm name="db">ARTIGO</parm>
+		<parm name="expression"><pft>'C_REP='v2005</pft></parm>
+		<parm name="count">1</parm>
+
+		<field action="define" tag="1001">Isis_Current</field>
+		<field action="define" tag="1002">Isis_Total</field>
+		<loop>
+			<field action="export" tag="5001">1002</field>
+		</loop>
+	</do>
+	<display><pft>
+		'<indicators>'/
+			'<journalTotal>',v5003,'</journalTotal>'/
+			'<articleTotal>',v5002,'</articleTotal>'/     
+			'<citationTotal>',v5001,'</citationTotal>'/
+		'</indicators>'/
+	</pft></display>
+	<field action="cgi" tag="3311">rep</field>
+	<field action="replace" tag="3311"><pft>if p(v3311) then s(f(val(v3311)+100000,6,0))*1.5 fi</pft></field>
+	<display><pft>if p(v3311) then '<PAGINATION rep="',v3311,'" />',/# fi</pft></display>
+	<display><pft>
+		' </LIST>',/#
+		'</SERIALLIST>',/
+	</pft></display>
+	<flow action="jump">END_SERIAL_LIST</flow>
+
+	<label>END_SERIAL_LIST</label>
 	</section>
 	
 </IsisScript>

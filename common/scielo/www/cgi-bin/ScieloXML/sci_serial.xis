@@ -13,6 +13,9 @@
 	<field action="cgi" tag="3010">debug</field>
 	<field action="cgi" tag="3011">def</field>
 	
+	<field action="cgi" tag="3311">rep</field>
+	<field action="replace" tag="3311"><pft>if p(v3311) then s(f(val(v3311)+100000,6,0))*1.5 fi</pft></field>
+
 	<field action="replace" tag="3011"><pft>if a(v3011) then 'scielo.def.php' fi</pft></field>
 
 	<call name="DebugMode"><pft>if a(v3010) then 'OFF' else mpu,v3010,mpl fi</pft></call>
@@ -39,7 +42,7 @@
 		<parm name="count">1</parm>
 
 		<loop>
-			<field action="import" tag="list">3000/3003,7009/7050</field> <!-- fixed -->
+			<field action="import" tag="list">3000/3003,7009/7050,3311</field> <!-- fixed -->
 
 			<display><pft>'<SERIAL ',|LASTUPDT="|v943|"|,'>',/#</pft></display>
 			
@@ -61,6 +64,7 @@
 			
 			<call name="CreateContactXML"><pft>mfn</pft></call>
 			<display><pft>if p(v692) then '<link type="online-submission">',v692,'</link>' fi/#</pft></display>
+	<display><pft>if p(v3311) then '<PAGINATION rep="',v3311,'" journal="',v3002,'"/>',/# fi</pft></display>
 
 			<display><pft>'</SERIAL>'/#</pft></display>
 		</loop>		

@@ -78,6 +78,20 @@
 												<xsl:call-template name="ArticlesIAHBar">
 													<xsl:with-param name="scope" select="$scope"/>
 												</xsl:call-template>
+												<xsl:if test="//CONTROLINFO/NO_SCI_SERIAL='yes'">
+													<xsl:call-template name="ShowNavBarButton">
+														<xsl:with-param name="file">all.gif</xsl:with-param>
+														<xsl:with-param name="alttext">
+															<xsl:choose>
+																<xsl:when test="//CONTROLINFO/LANGUAGE='en'">articles</xsl:when>
+																<xsl:when test="//CONTROLINFO/LANGUAGE='es'">artículos</xsl:when>
+																<xsl:when test="//CONTROLINFO/LANGUAGE='pt'">artigos</xsl:when>
+															</xsl:choose>
+														</xsl:with-param>
+														<xsl:with-param name="pid" select="//ISSN"/>
+														<xsl:with-param name="script">sci_artlist</xsl:with-param>
+													</xsl:call-template>
+												</xsl:if>
 											</xsl:when>
 										</xsl:choose>
 									</TD>
@@ -90,8 +104,12 @@
 										</xsl:if>
              &#160;
             </TD>
-            								<xsl:variable name="issuetoc"><xsl:apply-templates select="." mode="issuetoc"/></xsl:variable>
-            								<xsl:variable name="sci_serial"><xsl:apply-templates select="." mode="sci_serial"/></xsl:variable>
+									<xsl:variable name="issuetoc">
+										<xsl:apply-templates select="." mode="issuetoc"/>
+									</xsl:variable>
+									<xsl:variable name="sci_serial">
+										<xsl:apply-templates select="." mode="sci_serial"/>
+									</xsl:variable>
 									<xsl:if test="//PAGE_NAME = '{$sci_serial}' or //PAGE_NAME = '{$issuetoc}'">
 										<TD valign="bottom">
 											<xsl:element name="a">
@@ -120,16 +138,40 @@
 	</xsl:template>
 	<!-- Shows issues bar group -->
 	<xsl:template name="IssuesBarGroup">
-		<xsl:call-template name="ShowGroupIMG">
-			<xsl:with-param name="file">grp1a.gif</xsl:with-param>
-		</xsl:call-template>
+		<xsl:choose>
+			<xsl:when test="//CONTROLINFO/NO_SCI_SERIAL = 'yes'">
+				<span class="invisible">
+					<xsl:call-template name="ShowGroupIMG">
+						<xsl:with-param name="file">grp1a.gif</xsl:with-param>
+					</xsl:call-template>
+				</span>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:call-template name="ALLISSUES"/>
+				<xsl:call-template name="PREVIOUS"/>
+				<xsl:call-template name="CURRENT"/>
+				<xsl:call-template name="NEXT"/>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 	<!-- Show  issues bar -->
 	<xsl:template name="IssuesBar">
-		<xsl:call-template name="ALLISSUES"/>
-		<xsl:call-template name="PREVIOUS"/>
-		<xsl:call-template name="CURRENT"/>
-		<xsl:call-template name="NEXT"/>
+		<xsl:choose>
+			<xsl:when test="//CONTROLINFO/NO_SCI_SERIAL = 'yes'">
+				<span class="invisible">
+					<xsl:call-template name="ALLISSUES"/>
+					<xsl:call-template name="PREVIOUS"/>
+					<xsl:call-template name="CURRENT"/>
+					<xsl:call-template name="NEXT"/>
+				</span>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:call-template name="ALLISSUES"/>
+				<xsl:call-template name="PREVIOUS"/>
+				<xsl:call-template name="CURRENT"/>
+				<xsl:call-template name="NEXT"/>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 	<!-- Shows articles IAH bar group -->
 	<xsl:template name="ArticlesIAHBarGroup">
@@ -205,7 +247,9 @@
 						</xsl:choose>
 					</xsl:with-param>
 					<xsl:with-param name="pid" select="//ISSN"/>
-					<xsl:with-param name="script"><xsl:apply-templates select="." mode="issues"/></xsl:with-param>
+					<xsl:with-param name="script">
+						<xsl:apply-templates select="." mode="issues"/>
+					</xsl:with-param>
 				</xsl:call-template>
 			</xsl:otherwise>
 		</xsl:choose>
@@ -236,7 +280,9 @@
 						<xsl:choose>
 							<xsl:when test="//ABSTRACT">sci_abstract</xsl:when>
 							<xsl:when test="//BODY">sci_arttext</xsl:when>
-							<xsl:otherwise><xsl:apply-templates select="." mode="issuetoc"/></xsl:otherwise>
+							<xsl:otherwise>
+								<xsl:apply-templates select="." mode="issuetoc"/>
+							</xsl:otherwise>
 						</xsl:choose>
 					</xsl:with-param>
 				</xsl:call-template>
@@ -263,7 +309,9 @@
 						</xsl:call-template>
 					</xsl:with-param>
 					<xsl:with-param name="pid" select="//CONTROLINFO/ISSUES/CURRENT/@PID"/>
-					<xsl:with-param name="script"><xsl:apply-templates select="." mode="issuetoc"/></xsl:with-param>
+					<xsl:with-param name="script">
+						<xsl:apply-templates select="." mode="issuetoc"/>
+					</xsl:with-param>
 				</xsl:call-template>
 			</xsl:when>
 			<xsl:otherwise>
@@ -299,7 +347,9 @@
 						<xsl:choose>
 							<xsl:when test="//ABSTRACT">sci_abstract</xsl:when>
 							<xsl:when test="//BODY or //fulltext">sci_arttext</xsl:when>
-							<xsl:otherwise><xsl:apply-templates select="." mode="issuetoc"/></xsl:otherwise>
+							<xsl:otherwise>
+								<xsl:apply-templates select="." mode="issuetoc"/>
+							</xsl:otherwise>
 						</xsl:choose>
 					</xsl:with-param>
 				</xsl:call-template>
@@ -316,9 +366,9 @@
 		<TD vAlign="top" width="26%">
 			<P align="center">
 				<A>
-					<xsl:attribute name="href">http://<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/SERVER"/><xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_DATA"/>scielo.php?lng=<xsl:value-of select="normalize-space(//CONTROLINFO/LANGUAGE)"/></xsl:attribute>
+					<xsl:attribute name="href">http://<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/SERVER"/><xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_DATA"/>scielo.php?lng=<xsl:value-of select="normalize-space(//CONTROLINFO/LANGUAGE)"/><xsl:apply-templates select="." mode="repo_url_param_scielo"/></xsl:attribute>
 					<IMG>
-						<xsl:attribute name="src"><xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_GENIMG"/><xsl:value-of select="normalize-space(//CONTROLINFO/LANGUAGE)"/>/<xsl:apply-templates select="." mode="logoImg"/></xsl:attribute>
+						<xsl:attribute name="src"><xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_GENIMG"/><xsl:apply-templates select="." mode="logoImg"/></xsl:attribute>
 						<xsl:attribute name="border">0</xsl:attribute>
 						<xsl:attribute name="alt">Scientific Electronic Library Online</xsl:attribute>
 					</IMG>
@@ -327,11 +377,13 @@
 			</P>
 		</TD>
 	</xsl:template>
-	<xsl:template match="*" mode="logoImg"><xsl:choose>
-			<xsl:when test="//CONTROLINFO/NEW_HOME">identification.gif</xsl:when>
-			<xsl:otherwise>fbpelogp.gif</xsl:otherwise>
-		</xsl:choose></xsl:template>
-	
+	<xsl:template match="*" mode="logoImg">
+		<xsl:choose>
+			<xsl:when test="//PAGINATION[@rep]">repo/<xsl:value-of select="normalize-space(//CONTROLINFO/LANGUAGE)"/>/r<xsl:value-of select="normalize-space(//PAGINATION/@rep)"/>.gif</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="normalize-space(//CONTROLINFO/LANGUAGE)"/>/fbpelogp.gif</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
 	<!-- Shows a navigation bar button
       Parameters:
         file - file containing image
@@ -452,12 +504,14 @@
 	<!-- Show Home Button  -->
 	<xsl:template name="HOME">
 		<xsl:if test="not(//NO_SCI_SERIAL) or //NO_SCI_SERIAL!='yes'">
-		<xsl:call-template name="ShowNavBarButton">
-			<xsl:with-param name="file">home.gif</xsl:with-param>
-			<xsl:with-param name="alttext">Home Page</xsl:with-param>
-			<xsl:with-param name="pid" select="//ISSN"/>
-			<xsl:with-param name="script">sci_serial</xsl:with-param>
-		</xsl:call-template>
+			<xsl:call-template name="ShowNavBarButton">
+				<xsl:with-param name="file">home.gif</xsl:with-param>
+				<xsl:with-param name="alttext">Home Page</xsl:with-param>
+				<xsl:with-param name="pid" select="//ISSN"/>
+				<xsl:with-param name="script">
+					<xsl:apply-templates select="." mode="sci_serial"/>
+				</xsl:with-param>
+			</xsl:call-template>
 		</xsl:if>
 	</xsl:template>
 	<!-- Show Alphabetic List Button -->
@@ -496,7 +550,9 @@
 				</xsl:call-template>
 			</xsl:with-param>
 			<xsl:with-param name="pid" select="//CONTROLINFO/CURRENTISSUE/@PID"/>
-			<xsl:with-param name="script"><xsl:apply-templates select="." mode="issuetoc"/></xsl:with-param>
+			<xsl:with-param name="script">
+				<xsl:apply-templates select="." mode="issuetoc"/>
+			</xsl:with-param>
 		</xsl:call-template>
 	</xsl:template>
 	<!-- Show Subject List Button -->
@@ -536,11 +592,59 @@
 			<xsl:with-param name="base">title</xsl:with-param>
 		</xsl:call-template>
 	</xsl:template>
-	<xsl:template match="*" mode="issuetoc">sci_issuetoc<xsl:value-of select="//NAVEGATION_TYPE"/></xsl:template>
-	<xsl:template match="*" mode="issues">sci_issues<xsl:value-of select="//NAVEGATION_TYPE"/></xsl:template>
-	<xsl:template match="*" mode="sci_serial"><xsl:choose>
-							<xsl:when test="//CONTROLINFO/NO_SCI_SERIAL='yes'"><xsl:apply-templates select="." mode="issues"/></xsl:when>
-							<xsl:otherwise>sci_serial</xsl:otherwise>
-						</xsl:choose></xsl:template>
-
+	<xsl:template match="*" mode="issuetoc">sci_issuetoc<xsl:value-of select="//NAVEGATION_TYPE"/>
+	</xsl:template>
+	<xsl:template match="*" mode="issues">sci_issues<xsl:value-of select="//NAVEGATION_TYPE"/>
+	</xsl:template>
+	<xsl:template match="*" mode="sci_serial">
+		<xsl:choose>
+			<xsl:when test="//CONTROLINFO/NO_SCI_SERIAL='yes'">sci_artlist</xsl:when>
+			<xsl:otherwise>sci_serial</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+	<xsl:template match="*" mode="repo_database">
+		<xsl:param name="scope"/>
+		<xsl:choose>
+			<xsl:when test="//PAGINATION">
+				<xsl:apply-templates select="//PAGINATION/@rep" mode="rep3"/>
+				<xsl:if test="//PAGINATION/@journal=//ISSN">
+					<xsl:value-of select="$scope"/>
+				</xsl:if>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="$scope"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+	<xsl:template match="@rep" mode="rep3">r<xsl:value-of select="substring(.,4)"/>
+	</xsl:template>
+	<xsl:template match="*" mode="repo_limit">
+		<xsl:choose>
+			<xsl:when test="//PAGINATION">
+				<xsl:choose>
+					<xsl:when test="//PAGINATION/@rep and //PAGINATION/@journal">
+						<xsl:value-of select="//PAGINATION/@journal"/> and rep=<xsl:value-of select="//PAGINATION/@rep"/>
+					</xsl:when>
+					<xsl:when test="//PAGINATION/@rep">rep=<xsl:value-of select="//PAGINATION/@rep"/>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="//PAGINATION/@journal"/>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="//ISSN"/>
+			</xsl:otherwise>
+		</xsl:choose>		
+	</xsl:template>
+	<xsl:template match="*" mode="repo_url_param">
+		<xsl:apply-templates select="//PAGINATION/@rep" mode="repo_url_param"/>
+	</xsl:template>
+	<xsl:template match="@rep" mode="repo_url_param">&amp;rep=<xsl:value-of select="."/>
+	</xsl:template>
+	<xsl:template match="*" mode="repo_url_param_scielo">
+		<xsl:apply-templates select="//PAGINATION/@*" mode="repo_url_param_scielo"/>
+	</xsl:template>
+	<xsl:template match="@*" mode="repo_url_param_scielo">&amp;<xsl:value-of select="name()"/>=<xsl:value-of select="."/>
+	</xsl:template>
 </xsl:stylesheet>

@@ -3,26 +3,19 @@
 	<xsl:variable name="interfaceLang" select="//CONTROLINFO/LANGUAGE"/>
 	<xsl:include href="sci_artref.xsl"/>
 	<xsl:template name="AddRssHeaderLink">
-		<xsl:param name="pid" />
-		<xsl:param  name="lang" />
-		<xsl:param  name="server" />
-		<xsl:param  name="script" />
-
+		<xsl:param name="pid"/>
+		<xsl:param name="lang"/>
+		<xsl:param name="server"/>
+		<xsl:param name="script"/>
 		<xsl:element name="link">
 			<xsl:attribute name="rel">alternate</xsl:attribute>
 			<xsl:attribute name="type">application/rss+xml</xsl:attribute>
 			<xsl:attribute name="title">SciELO</xsl:attribute>
-
-			<xsl:attribute name="href">
-				<xsl:value-of select="concat('http://',$server,'/',$script,'?pid=',$pid,'&amp;lang=',$lang)" />
-			</xsl:attribute>
+			<xsl:attribute name="href"><xsl:value-of select="concat('http://',$server,'/',$script,'?pid=',$pid,'&amp;lang=',$lang)"/></xsl:attribute>
 		</xsl:element>
 	</xsl:template>
-
-
-<!-- Variável de Flag utilizada para log utilizada também no arquivo sci_toolbox -->
+	<!-- Variável de Flag utilizada para log utilizada também no arquivo sci_toolbox -->
 	<xsl:variable name="service_log" select="//services_log"/>
-	
 	<xsl:variable name="services">
 		<xsl:if test="$service_log = 1">
 			<services>
@@ -56,13 +49,12 @@
 				</service>
 				<service>
 					<name>curriculumScienTI</name>
-				<call>callUpdateArticleLog('curriculum_scienTI');</call>
+					<call>callUpdateArticleLog('curriculum_scienTI');</call>
 				</service>
 			</services>
 		</xsl:if>
-		</xsl:variable>
-
-<!--
+	</xsl:variable>
+	<!--
 
 Exibe caixa para exportação da citacao para "Reference Managers"
 
@@ -143,13 +135,15 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 		<xsl:param name="script"/>
 		<xsl:param name="txtlang"/>
 		<xsl:param name="file"/>
+		<xsl:param name="date"/>
+
 		<xsl:choose>
 			<xsl:when test="$script = 'sci_pdf' ">
 				<xsl:attribute name="href">javascript: void(0); </xsl:attribute>
 				<xsl:attribute name="onClick">setTimeout("window.open('http://<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/SERVER"/><xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_DATA"/>scielo.php?script=<xsl:value-of select="$script"/>&amp;<xsl:if test="$seq">pid=<xsl:value-of select="$seq"/>&amp;</xsl:if>lng=<xsl:value-of select="normalize-space(//CONTROLINFO/LANGUAGE)"/>&amp;nrm=<xsl:value-of select="normalize-space(//CONTROLINFO/STANDARD)"/><xsl:if test="$txtlang">&amp;tlng=<xsl:value-of select="normalize-space($txtlang)"/></xsl:if><xsl:if test="$file">&amp;file=<xsl:value-of select="$file"/></xsl:if> ','_self')", 3000);</xsl:attribute>
 			</xsl:when>
 			<xsl:otherwise>
-		<xsl:attribute name="href">http://<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/SERVER"/><xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_DATA"/>scielo.php?script=<xsl:value-of select="$script"/>&amp;<xsl:if test="$seq">pid=<xsl:value-of select="$seq"/>&amp;</xsl:if>lng=<xsl:value-of select="normalize-space(//CONTROLINFO/LANGUAGE)"/>&amp;nrm=<xsl:value-of select="normalize-space(//CONTROLINFO/STANDARD)"/><xsl:if test="$txtlang">&amp;tlng=<xsl:value-of select="normalize-space($txtlang)"/></xsl:if><xsl:if test="$file">&amp;file=<xsl:value-of select="$file"/></xsl:if></xsl:attribute>
+				<xsl:attribute name="href">http://<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/SERVER"/><xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_DATA"/>scielo.php?script=<xsl:value-of select="$script"/>&amp;<xsl:if test="$seq">pid=<xsl:value-of select="$seq"/>&amp;</xsl:if>lng=<xsl:value-of select="normalize-space(//CONTROLINFO/LANGUAGE)"/>&amp;nrm=<xsl:value-of select="normalize-space(//CONTROLINFO/STANDARD)"/><xsl:if test="$txtlang">&amp;tlng=<xsl:value-of select="normalize-space($txtlang)"/></xsl:if><xsl:if test="$file">&amp;file=<xsl:value-of select="$file"/></xsl:if><xsl:apply-templates select="." mode="repo_url_param_scielo"/><xsl:if test="$date!=''">&amp;date=<xsl:value-of select="$date"/></xsl:if></xsl:attribute>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
@@ -161,9 +155,8 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 		<xsl:param name="index"/>
 		<xsl:param name="scope"/>
 		<xsl:param name="base">article</xsl:param>
-		<xsl:attribute name="href">http://<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/SERVER"/><xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_WXIS"/><xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_DATA_IAH"/>?IsisScript=<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_CGI_IAH"/>iah.xis&amp;base=<xsl:value-of select="$base"/><xsl:if test="$scope">^d<xsl:value-of select="$scope"/></xsl:if>&amp;<xsl:if test="$index">index=<xsl:value-of select="$index"/>&amp;</xsl:if>format=<xsl:value-of select="//CONTROLINFO/STANDARD"/>.pft&amp;lang=<xsl:choose><xsl:when test="//CONTROLINFO/LANGUAGE='en'">i</xsl:when><xsl:when test="//CONTROLINFO/LANGUAGE='es'">e</xsl:when><xsl:when test="//CONTROLINFO/LANGUAGE='pt'">p</xsl:when></xsl:choose><xsl:if test="$scope and $scope!='library'">&amp;limit=<xsl:value-of select="//ISSN"/></xsl:if></xsl:attribute>
+		<xsl:attribute name="href">http://<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/SERVER"/><xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_WXIS"/><xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_DATA_IAH"/>?IsisScript=<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_CGI_IAH"/>iah.xis&amp;base=<xsl:value-of select="$base"/><xsl:if test="$scope">^d<xsl:apply-templates select="." mode="repo_database"><xsl:with-param name="scope" select="$scope"/></xsl:apply-templates></xsl:if>&amp;<xsl:if test="$index">index=<xsl:value-of select="$index"/>&amp;</xsl:if>format=<xsl:value-of select="//CONTROLINFO/STANDARD"/>.pft&amp;lang=<xsl:choose><xsl:when test="//CONTROLINFO/LANGUAGE='en'">i</xsl:when><xsl:when test="//CONTROLINFO/LANGUAGE='es'">e</xsl:when><xsl:when test="//CONTROLINFO/LANGUAGE='pt'">p</xsl:when></xsl:choose><xsl:if test="$scope and $scope!='library'">&amp;limit=<xsl:apply-templates select="." mode="repo_limit"/></xsl:if></xsl:attribute>
 	</xsl:template>
-	
 	<!-- Shows Title Group -->
 	<xsl:template match="TITLEGROUP">
 		<CENTER>
@@ -219,7 +212,6 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 			<xsl:value-of select="."/>
 		</A>
 	</xsl:template>
-
 	<!-- Gets the type of the ISSN
          Parameters:
            TYPE - Type Code (PRINT | CDROM | DISKE | ONLIN)  
@@ -303,7 +295,9 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 				<a>
 					<xsl:call-template name="AddScieloLink">
 						<xsl:with-param name="seq" select="TITLE/@ISSN"/>
-						<xsl:with-param name="script"><xsl:apply-templates select="." mode="sci_serial"/></xsl:with-param>
+						<xsl:with-param name="script">
+							<xsl:apply-templates select="." mode="sci_serial"/>
+						</xsl:with-param>
 					</xsl:call-template>
 					<xsl:value-of select="normalize-space(TITLE)" disable-output-escaping="yes"/>
 				</a>
@@ -321,7 +315,9 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 				<a>
 					<xsl:call-template name="AddScieloLink">
 						<xsl:with-param name="seq" select="TITLE/@ISSN"/>
-						<xsl:with-param name="script"><xsl:apply-templates select="." mode="sci_serial"/></xsl:with-param>
+						<xsl:with-param name="script">
+							<xsl:apply-templates select="." mode="sci_serial"/>
+						</xsl:with-param>
 					</xsl:call-template>
 					<xsl:value-of select="normalize-space(TITLE)" disable-output-escaping="yes"/>
 				</a>
@@ -454,11 +450,12 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 				</xsl:when>
 			</xsl:choose>
 			<xsl:variable name="languages" select="document(concat('../xml/',$INTLANG,'/language.xml'))//language"/>
-			<xsl:text> </xsl:text><xsl:value-of select="translate(substring($languages[@id=$TXTLANG],1,1),'ABCDEFGHJIKLMNOPQRSTUVWXYZ','abcdefghjiklmnopqrstuvwxyz')"/><xsl:value-of select="substring($languages[@id=$TXTLANG],2)"/>
+			<xsl:text> </xsl:text>
+			<xsl:value-of select="translate(substring($languages[@id=$TXTLANG],1,1),'ABCDEFGHJIKLMNOPQRSTUVWXYZ','abcdefghjiklmnopqrstuvwxyz')"/>
+			<xsl:value-of select="substring($languages[@id=$TXTLANG],2)"/>
 		</a>
 		<!-- &#160;&#160;&#160; -->
 	</xsl:template>
-	
 	<!-- Invisible Image To Update Log File -->
 	<xsl:template name="UpdateLog">
 		<xsl:if test="//CONTROLINFO/SCIELO_INFO/SERVER_LOG!=''">
@@ -473,11 +470,10 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 		<xsl:if test="//CONTROLINFO/SCIELO_INFO/GOOGLE_CODE != ''">
 			<script src="http://www.google-analytics.com/urchin.js" type="text/javascript"/>
 			<script type="text/javascript">
-				_uacct = "<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/GOOGLE_CODE" />";
+				_uacct = "<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/GOOGLE_CODE"/>";
 				urchinTracker();
 			</script>
-
-		<!-- to use Google Analytics -->
+			<!-- to use Google Analytics -->
 		</xsl:if>
 	</xsl:template>
 	<xsl:template name="ImageLogo">
@@ -511,7 +507,6 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 			</a>
 		</center>
 	</xsl:template>
-	
 	<!-- Adds a link to a SciELO Log page 
      Parameters: pid - PID
                  script - Name of the script to be called -->
@@ -925,7 +920,6 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 	      LINK = 1 - prints authors with link
 	      SHORTTITLE - Opcional
 -->
-	
 	<xsl:template name="PrintArticleInformationArea">
 		<xsl:param name="LATTES"/>
 		<table width="100%" border="0">
@@ -939,7 +933,6 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 			</tr>
 		</table>
 	</xsl:template>
-	
 	<xsl:template match="AUTHOR" mode="LATTES">
 	InsertAuthor("<xsl:value-of select="."/>", "<xsl:value-of select="@HREF"/>");
 </xsl:template>
@@ -953,7 +946,7 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 		<td valign="middle">
 			<a href="javascript:void(0);" onmouseout="status='';" class="nomodel" style="text-decoration: none;">
 				<xsl:attribute name="onclick">OpenArticleInfoWindow ( 640, 320,  "<xsl:value-of select="$INFOPAGE"/>");
-				<xsl:if test="$service_log  = 1">callUpdateArticleLog('como_citar_este_artigo');</xsl:if ></xsl:attribute>
+				<xsl:if test="$service_log  = 1">callUpdateArticleLog('como_citar_este_artigo');</xsl:if></xsl:attribute>
 				<xsl:attribute name="rel">nofollow</xsl:attribute>
 				<xsl:attribute name="onmouseover">
 				status='<xsl:call-template name="PrintArticleInformationLabel"><xsl:with-param name="LANGUAGE" select="$LANGUAGE"/></xsl:call-template>'; return true;
@@ -993,7 +986,6 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
 	<xsl:template match="SCIELO_REGIONAL_DOMAIN"/>
 	<xsl:template match="USERINFO"/>
 	<xsl:template match="fulltext-service-list"/>
-
 	<xsl:template match="EMBARGO/@date">
 		<xsl:param name="lang"/>
 		<xsl:choose>
@@ -1006,4 +998,61 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
 			<xsl:with-param name="LANG" select="$lang"/>
 		</xsl:call-template>
 	</xsl:template>
+	<!--xsl:template match="*" mode="repo_database">
+		<xsl:param name="scope"/>
+		<xsl:choose>
+			<xsl:when test="//PAGINATION">
+				<xsl:apply-templates select="//PAGINATION/@rep" mode="rep3"/>
+				<xsl:if test="//PAGINATION/@journal=//ISSN">
+					<xsl:value-of select="$scope"/>
+				</xsl:if>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="$scope"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+	<xsl:template match="@rep" mode="rep3">r<xsl:value-of select="substring(.,4)"/>
+	</xsl:template>
+	<xsl:template match="*" mode="repo_limit">
+		<xsl:choose>
+			<xsl:when test="//PAGINATION">
+				<xsl:choose>
+					<xsl:when test="//PAGINATION/@rep and //PAGINATION/@journal">
+						<xsl:value-of select="//PAGINATION/@journal"/> and rep=<xsl:value-of select="//PAGINATION/@rep"/>
+					</xsl:when>
+					<xsl:when test="//PAGINATION/@rep">rep=<xsl:value-of select="//PAGINATION/@rep"/>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="//PAGINATION/@journal"/>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="//ISSN"/>
+			</xsl:otherwise>
+		</xsl:choose>		
+	</xsl:template>
+	<xsl:template match="*" mode="repo_url_param">
+		<xsl:apply-templates select="//PAGINATION/@rep" mode="repo_url_param"/>
+	</xsl:template>
+	<xsl:template match="@rep" mode="repo_url_param">&amp;rep=<xsl:value-of select="."/>
+	</xsl:template>
+	<xsl:template match="*" mode="repo_url_param_scielo">
+		<xsl:apply-templates select="//PAGINATION/@*" mode="repo_url_param_scielo"/>
+	</xsl:template>
+	<xsl:template match="@*" mode="repo_url_param_scielo">&amp;<xsl:value-of select="name()"/>=<xsl:value-of select="."/>
+	</xsl:template-->
+	<!--
+<xsl:with-param name="others">
+				<xsl:if test="$PAGINATION/@rep">&amp;rep=<xsl:value-of select="$PAGINATION/@rep"/>
+				</xsl:if>
+				<xsl:if test="$date!=''">&amp;date=<xsl:value-of select="$date"/>
+				</xsl:if>
+				<xsl:if test="$page!=''">&amp;page=<xsl:value-of select="$page"/>
+					<xsl:if test="$PAGINATION/@date">&amp;date=<xsl:value-of select="$PAGINATION/@date"/>
+					</xsl:if>
+				</xsl:if>
+			</xsl:with-param>
+-->
 </xsl:stylesheet>
