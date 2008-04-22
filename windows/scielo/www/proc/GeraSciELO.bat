@@ -33,10 +33,16 @@ call batch\VerifExistemBases.bat %1
 call batch\CriaDiretorio.bat ..\bases-work\title
 call batch\GeraNovasDatas.bat %2\bases\title\title scilista.lst temp\NovasDatas
 call batch\GeraMaster.bat %1\serial\title\title ..\bases-work\title\title prc\GeraDatas.prc
+
+call batch\CopiaDiretorio.bat %1\code %1\serial
+
 call batch\GeraNewcodeAux.bat %1\serial temp\
 call batch\OrdenaMaster.bat ..\bases-work\title\title 150 pft\OrdTitle.pft
 call batch\GeraInvertido.bat ..\bases-work\title\title fst\title.fst ..\bases-work\title\title
 call batch\GeraInvertido.bat ..\bases-work\title\title fst\serarea.fst ..\bases-work\title\serarea
+
+call geraSubjectList.bat
+
 call batch\GeraInvertido.bat ..\bases-work\title\title fst\titsrc.fst ..\bases-work\title\titsrc
 call batch\GeraInvertido.bat ..\bases-work\title\title fst\titsrcp.fst ..\bases-work\title\titsrcp
 
@@ -57,6 +63,12 @@ call batch\GeraIssueIAH.bat %1
 call batch\Seq2Master.bat scilista.lst space temp\scilista
 call batch\TabulaMaster.bat temp\scilista temp\listatb 10 pft\TabLista.pft
 call batch\GeraInvIAH.bat %1 temp\listatb
+
+rem REPOSITORIO INICIO
+if not exist repo\repo.seq goto SKIP_REPOSITORIO
+call repo\RepoGenerateIndex.bat %1
+:SKIP_REPOSITORIO
+rem REPOSITORIO FIM
 
 call batch\ManutencaoOn.bat ..\bases
 call batch\CopiaWork2Teste.bat ..\bases-work ..\bases
