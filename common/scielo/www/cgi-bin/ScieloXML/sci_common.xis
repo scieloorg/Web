@@ -599,6 +599,17 @@
 <!-- ============================================================================ -->
 <function name="CreateControlInfoXML" action="replace" tag="4900">
 	<field action="import" tag="list">7009/7050</field> <!-- fixed -->
+	<field action="import" tag="list">3311</field> 
+
+	<call name="checkNewHome"><pft>if p(v7047) and p(v3311) then '^u'v7047,'^r',v3311,'^l',v4900^l fi</pft></call>
+	<field action="replace" tag="7047">
+		<pft>if instr(v7047,'REPLACE_PARAM_')>0 then
+			,replace(replace(replace(v7047,'REPLACE_PARAM_REP',v3311),'REPLACE_SERVER_SCIELO',v7009),'REPLACE_PARAM_LANG',v4900^l) fi
+		</pft>
+	</field>
+	<field action="delete" tag="7047">
+		<pft>if instr(v7047,v7009)>0 and instr(v7047,'sci_home')>0 then 'yes' fi</pft>
+	</field>
 <!--trace>On</trace-->
 	<display><pft>
 		' <CONTROLINFO>'/,
@@ -615,7 +626,11 @@
 		"  <NAVEGATION_TYPE>"v7048"</NAVEGATION_TYPE>"/,
 		
 		"  <NO_SCI_SERIAL>"v7046"</NO_SCI_SERIAL>"/,
-		"  <NEW_HOME>"v7047"</NEW_HOME>"/,
+		if p(v7047) then
+		'  <NEW_HOME>',
+					,v7047, 
+		'</NEW_HOME>'/,
+		fi
 		
 	</pft></display>
 	
@@ -3264,4 +3279,22 @@
 			fi
 		</pft>
 	</return>
+</function>
+<function name="checkNewHome" action="replace" tag="4000">
+
+	<do task="import">
+	    <parm name="file">../htdocs/rep.def.php</parm>
+		<parm name="type">RLine</parm>
+    	<loop>
+			<field action="import" tag="list">4000</field>
+			<field action="replace" tag="1"><pft>s(f(val(v1)+100000,6,0))*1.5</pft></field>
+			<field action="replace" tag="1000"><pft>s(f(val(v4000^r)+100000,6,0))*1.5</pft></field>
+			<field action="replace" tag="7047"><pft>if v1=v1000 then v3 fi</pft></field>
+			<field action="replace" tag="7047"><pft>if p(v7047) then v7047,if instr(v7047,'?')>0 then '&amp;' else '?' fi,'lang=',v4000^l,  fi</pft></field>
+			<field action="export" tag="list">7047</field>
+			<flow action="skip"><pft>if p(v7047) then 'Quit' fi</pft></flow>
+   		</loop>
+		<field action="export" tag="list">7047</field>
+	</do>
+<return action="replace" tag="7047"><pft>v7047</pft></return>
 </function>
