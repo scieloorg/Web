@@ -98,9 +98,11 @@
 				<xsl:attribute name="href">http://<xsl:value-of select="//SERVER"/><xsl:value-of
 					 select="//PATH_DATA"/>scielo.php?script=<xsl:apply-templates select="." mode="sci_serial"/>&amp;pid=<xsl:value-of 
 					 select ="TITLE/@ISSN"/>&amp;lng=<xsl:value-of 
-					 select="normalize-space(//CONTROLINFO/LANGUAGE)"/>&amp;nrm=<xsl:value-of     					 select="normalize-space(//CONTROLINFO/STANDARD)"/></xsl:attribute>
+					 select="normalize-space(//CONTROLINFO/LANGUAGE)"/>&amp;nrm=<xsl:value-of     					 select="normalize-space(//CONTROLINFO/STANDARD)"/><xsl:apply-templates select="." mode="repo_url_param"/></xsl:attribute>
 				<xsl:value-of select="TITLE" disable-output-escaping="yes" />
-			</a> - <xsl:value-of select="@QTYISS" />				
+			</a>
+			<xsl:if test="not(//NO_SCI_SERIAL='yes')">
+			- <xsl:value-of select="@QTYISS" />				
 			<xsl:choose>
 				<xsl:when test="//SERIALLIST/CONTROLINFO[normalize-space(LANGUAGE)='en']">
 					 issue<xsl:if test="@QTYISS > 1">s</xsl:if>
@@ -112,6 +114,7 @@
 					número<xsl:if test="@QTYISS > 1">s</xsl:if>
 				</xsl:when>
 			</xsl:choose>
+			</xsl:if>
 			<xsl:if test="not(starts-with(normalize-space(following-sibling::node()/TITLE), substring(normalize-space(TITLE), 1, 1)))"><br/></xsl:if>
 		</font>
 		<br />
