@@ -31,7 +31,7 @@
 	</xsl:template>
 	<xsl:template match="AFF[@xref]" mode="format">
 		<sup>
-			<xsl:apply-templates select="@xref" mode="format"/>		
+			<xsl:apply-templates select="@xref" mode="format"/>
 		</sup>
 	</xsl:template>
 	<xsl:template match="AFF/@xref|AFFILIATION/@ID" mode="format">
@@ -61,7 +61,25 @@
 			<sup>
 				<xsl:apply-templates select="@ID" mode="format"/>
 			</sup>
-			<xsl:apply-templates select="*"/>
+			<xsl:apply-templates select="ORGNAME | ORGDIV"/>
+			<xsl:apply-templates select="." mode="addr"/>
 		</p>
 	</xsl:template>
+	<xsl:template match="ORGDIV">,<xsl:value-of select="."/>
+	</xsl:template>
+	<xsl:template match="AFFILIATION" mode="addr">
+		<xsl:if test="CITY">, 
+		</xsl:if>
+		<xsl:value-of select="CITY"/>
+		<xsl:if test="CITY and STATE">, 
+		</xsl:if>
+		<xsl:value-of select="STATE"/>
+		<xsl:if test="(CITY or STATE) and COUNTRY">, 
+		</xsl:if>
+		<xsl:value-of select="COUNTRY"/>
+		<xsl:if test="(CITY or STATE or COUNTRY) and EMAIL">, 
+		</xsl:if>
+		<xsl:apply-templates select="EMAIL"/>
+	</xsl:template>
+	<xsl:template match="EMAIL"><a href="mailto:{.}"><xsl:value-of select="."/></a></xsl:template>
 </xsl:transform>
