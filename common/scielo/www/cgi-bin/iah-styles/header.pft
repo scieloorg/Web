@@ -10,7 +10,27 @@
 	
 */	
 
+/*
+O trecho da proc abaixo foi inserido para diferencia issn e limit colocando-os em tags distintos (7000 e 7003).
+limit nem sempre é igual ao valor do issn. limit é a expressão de busca usada para filtrar os artigos por issn e por rep (repositório)
+*/
+,proc(
+	,if v7000:'rep=' then
+		,if instr(v7000,' and ')>0 then
+			'a7003{',mid(v7000,1,instr(v7000,' and ')-1),'{',
+		,fi
+		'a7001{',mid(v7000,instr(v7000,'rep=')+4,5),'{',
+	,else
+		'a7003{',v7000,'{',
+	,fi
+),
 
+'<!--'/,
+
+'limit:'v7000/
+'issn: 'v7003/
+'rep : 'v7001/
+'-->'
 ,proc('d7021'
 	   	,if v5021 ='p' then 'a7021~pt~' fi
 		,if v5021 ='e' then 'a7021~es~' fi
@@ -18,7 +38,7 @@
 ,),
 
 ,proc('d7800d7801',
-      ,ref(['title']l(['title']'LOC=',v7000),
+      ,ref(['title']l(['title']'LOC=',v7003),
            ,'a7800{',v100,| - |v110,'{',
            ,'a7801{',v490,'{',
           ,),
@@ -26,12 +46,12 @@
 
 
 ,proc('d7007d7008d7009d7010d7011d7012d7013d7014d7015d7016d7017d7018',
-    ,ref(['logo']l(['logo'],v7000),
+    ,ref(['logo']l(['logo'],v7003),
         ,|a7902{|v2|{|,
         ,|a7903{|v3|{|,),
-    ,ref(['title']l(['title']'LOC=',v7000),
+    ,ref(['title']l(['title']'LOC=',v7003),
         ,|a7803{|v150|{|,),
-    ,ref(['issue']l(['issue']'LAST=',v7000),
+    ,ref(['issue']l(['issue']'LAST=',v7003),
          ,'a7010{'v35,v65*0.4,s(f(val(s(v36*4.3))+10000,2,0))*1.4'{',
          ,|a7013{|v31|{|,
          ,|a7014{|v32|{|,
@@ -60,7 +80,7 @@
 
 ,proc('d9018d9019d9020d9021d9022d9029',
 	
-	,if a(v7000) then,
+	,if a(v7003) then,
         ,if v7021 = 'en' then,			
 			     ,'a9018{en/serbrow.gif{',
 				 ,'a9019{en/artbrow.gif{',
@@ -133,7 +153,7 @@
 
 ,),
 
-,if p(v7000) then
+,if p(v7003) then
     ,proc('d7960d9022',
           ,if p(v7010) then
               ,if v7021 = 'en' then
@@ -202,9 +222,16 @@
     ,'</TD>',
     ,'<TD WIDTH="74%" VALIGN="TOP">',
         ,'<table><tr><td nowrap>',
-        ,if p(v7000) then
-            ,'<IMG SRC="http://',v7990,v7004,v9018,'">&nbsp;<IMG SRC="http://',v7990,v7004,v9019,'"><BR>',
-            ,'<a href="http://',v7990,v7991,'sci_issues',v7998,'pid=',v7000,'&lng=',v7021,'&nrm=',v5009.3'">',
+        ,if p(v7003) then
+			,if v3101='no' then
+			,else
+	            ,'<IMG SRC="http://',v7990,v7004,v9018,'">&nbsp;',
+			,fi
+			,'<IMG SRC="http://',v7990,v7004,v9019,'"><BR>',
+			
+			,if v3101='no' then
+			,else
+            ,'<a href="http://',v7990,v7991,'sci_issues',v7998,'pid=',v7003,'&lng=',v7021,'&nrm=',v5009.3'">',
             ,'<IMG SRC="http://',v7990,v7004,v9020^i,'" border=0 alt="',v9020^t,'"></a>',
             ,if p(v7012) then
                 ,'<a href="http://',v7990,v7991,'sci_issuetoc',v7998,'pid=',
@@ -233,7 +260,7 @@
             ,else
                 ,'<IMG SRC="http://',v7990,v7004,v9021^d,'" border=0>',
             ,fi,
-			
+
             ,'<a href="http://',v7990,v7991,'sci_issuetoc',v7998,'pid=',
             ,v7010,'&lng=',v7021,'&nrm=',v5009.3,'">',
             ,'<IMG SRC="http://',v7990,v7004,v9022^i,'" border=0 alt="',
@@ -257,7 +284,6 @@
                   fi
                   ," s."d7007, if val(v7007) > 0 then v7007 fi            
             ,'"></a>',
-			
             ,if p(v7011) then
                 ,'<a href="http://',v7990,v7991,'sci_issuetoc',v7998,'pid=',
                 ,v7011,'&lng=',v7021,'&nrm=',v5009.3,'">',
@@ -285,19 +311,20 @@
             ,else
                 ,'<IMG SRC="http://',v7990,v7004,v9023^d,'" border=0>',
             ,fi,
-			
-	        ,'&nbsp;',
-			,if v5001^s*0.5 = 'INDEX' and v6100^x='AU ' then,
+		    ,'&nbsp;',
+		,fi
+
+	     	,if v5001^s*0.5 = 'INDEX' and v6100^x='AU ' then,
 	            ,'<IMG SRC="http://',v7990,v7004,v9024^d,'" border=0>',
 			,else,
-				,'<a href="',v5000^a,'?IsisScript='v5000^s,'&base=',v7992^a,'^d',if p(v5003^d) then v5003^d else 'library' fi,'&index=AU&lang='v5021,"&limit="v7000,"&fmt="v5009,'&form=B">',
+				,'<a href="',v5000^a,'?IsisScript='v5000^s,'&base=',v7992^a,'^d',if p(v5003^d) then v5003^d else 'library' fi,'&index=AU&lang='v5021,"&limit="v7002,"&fmt="v5009,'&form=B">',
 				,'<IMG SRC="http://',v7990,v7004,v9024^i,'" border=0 alt="',v9024^t,'">',
 				,'</a>',
 			,fi,
 			,if v5001^s*0.5 = 'INDEX' and v6100^x='KW ' then,
 			    ,'<IMG SRC="http://',v7990,v7004,v9025^d,'" border=0>',
 			,else,
-			     ,'<a href="http:',v5000^a,'?IsisScript='v5000^s,'&base=',v7992^a,'^d',if p(v5003^d) then v5003^d else 'library' fi,'&index=KW&lang='v5021,"&limit="v7000,"&fmt="v5009,'&form=B">',
+			     ,'<a href="http:',v5000^a,'?IsisScript='v5000^s,'&base=',v7992^a,'^d',if p(v5003^d) then v5003^d else 'library' fi,'&index=KW&lang='v5021,"&limit="v7002,"&fmt="v5009,'&form=B">',
             	,'<IMG SRC="http://',v7990,v7004,v9025^i,'" border=0 alt="',v9025^t,'">',				
 				,'</a>',
 			,fi,	
@@ -305,14 +332,17 @@
 			,if v5001^s = 'FORM' then,
 	            ,'<IMG SRC="http://',v7990,v7004,v9026^d,'" border=0>', 
 			,else,
-				,'<a href="http:',v5000^a,'?IsisScript='v5000^s,'&base=',v7992^a'^d',if p(v5003^d) then v5003^d else 'library' fi,,'&lang='v5021,"&limit="v7000,"&fmt="v5009,'&form=B">',
+				,'<a href="http:',v5000^a,'?IsisScript='v5000^s,'&base=',v7992^a'^d',if p(v5003^d) then v5003^d else 'library' fi,,'&lang='v5021,"&limit="v7002,"&fmt="v5009,'&form=B">',
 				,'<IMG SRC="http://',v7990,v7004,v9026^i,'" border=0>', 
 				,'</a>',
 			,fi,		
 
-            ,'</td><td nowrap>',
-            ,'<a href="http://',v7990,v7991,'sci_serial',v7998,'pid=',v7000,
-            ,'&lng=',v7021,'&nrm=',v5009.3,'">',
+            ,'</td><td nowrap><br/>',
+			,if v3101='no' then
+				,'<a href="http://',v7990,v7991,'sci_artlist',v7998,|pid=|v7003,|&rep=|v7001,'&lng=',v7021,'&nrm=',v5009.3,'">',
+			,else
+				,'<a href="http://',v7990,v7991,'sci_serial',v7998,'pid=',v7003,|&rep=|v7001,'&lng=',v7021,'&nrm=',v5009.3,'">',
+			,fi
             ,'<IMG SRC="http://',v7990,v7004,v9029^i,'" border=0 alt="',v9029^t,'"></a>',
         ,else
             ,'<IMG SRC="http://',v7990,v7004,v9018,'">&nbsp;<IMG SRC="http://',v7990,v7004,v9019,'"><BR>',
@@ -336,7 +366,7 @@
 			,if v5001^s*0.5 = 'INDEX' and v6100^x='AU ' then,
 	            ,'<IMG SRC="http://',v7990,v7004,v9024^d,'" border=0>',
 			,else,
-				,'<a href="',v5000^a,'?IsisScript='v5000^s,'&base=',v7992^a,'^d',if p(v5003^d) then v5003^d else 'library' fi,'&index=AU&lang='v5021,"&limit="v7000,"&fmt="v5009,'&form=B">',	
+				,'<a href="',v5000^a,'?IsisScript='v5000^s,'&base=',v7992^a,'^d',if p(v5003^d) then v5003^d else 'library' fi,'&index=AU&lang='v5021,"&limit="v7002,"&fmt="v5009,'&form=B">',	
 	            ,'<IMG SRC="http://',v7990,v7004,v9024^i,'" border=0 alt="',v9024^t,'">',
 				,'</a>',
 			,fi,
@@ -345,12 +375,12 @@
 			,if v5001^s*0.5 = 'INDEX' and v6100^x='KW ' then,
 			    ,'<IMG SRC="http://',v7990,v7004,v9025^d,'" border=0>',
 			,else,
-			     ,'<a href="http:',v5000^a,'?IsisScript='v5000^s,'&base=',v7992^a,'^d',if p(v5003^d) then v5003^d else 'library' fi,'&index=KW&lang='v5021,"&limit="v7000,"&fmt="v5009,'&form=B">',
+			     ,'<a href="http:',v5000^a,'?IsisScript='v5000^s,'&base=',v7992^a,'^d',if p(v5003^d) then v5003^d else 'library' fi,'&index=KW&lang='v5021,"&limit="v7002,"&fmt="v5009,'&form=B">',
             	,'<IMG SRC="http://',v7990,v7004,v9025^i,'" border=0 alt="',v9025^t,'">',				
 				,'</a>',
 			,fi,	
 			,if v5001^s <> 'FORM' or v5003^*='title' then,
-				,'<a href="http:',v5000^a,'?IsisScript='v5000^s,'&base=',v7992^a,'^d',if p(v5003^d) then v5003^d else 'library' fi,'&lang='v5021,"&limit="v7000,"&fmt="v5009,"&form="v6000'">',
+				,'<a href="http:',v5000^a,'?IsisScript='v5000^s,'&base=',v7992^a,'^d',if p(v5003^d) then v5003^d else 'library' fi,'&lang='v5021,"&limit="v7002,"&fmt="v5009,"&form="v6000'">',
 				,'<IMG SRC="http://',v7990,v7004,v9026^i,'" border=0>', 
 				,'</a>',
 			,else,	
@@ -364,7 +394,7 @@
     ,'</TD></TR>',
     ,'</TABLE>',
 	,'<FONT SIZE=+1 COLOR="#000080"><B>',
-    ,if p(v7000) then
+    ,if p(v7003) then
         ,v7800,
         ,'</B></FONT><BR><FONT COLOR="#000080">',
         ,if v7021='en' then
@@ -376,7 +406,7 @@
         ,if v7021='pt' then
             ,'ISSN impresso ',
         ,fi,
-        ,v7000,'</FONT>',
+        ,v7003,'</FONT>',
         ,'<BR>',
     ,else
         ,if v7021='en' then
