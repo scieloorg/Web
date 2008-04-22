@@ -17,5 +17,9 @@ if v706<>'i' then
         ,s(f(100000+val(v701),2,0))*1.5,,
     ,fi,
     '{',
+    /* repositorio */
+	,if v706='c' then
+		,ref(l('hd=',v2),'a268{',v268,'{'),
+	,fi
 
 ,fi,
