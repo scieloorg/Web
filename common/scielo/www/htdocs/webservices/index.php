@@ -5,6 +5,7 @@ require_once('nusoap/nusoap.php');
 require_once("../class.XSLTransformer.php");
 require_once('common.php');
 
+
 // Backward compatible array creation
 $_REQUEST = (isset($_REQUEST) ? $_REQUEST : array_merge($HTTP_GET_VARS, $HTTP_POST_VARS, $HTTP_COOKIE_VARS));
 
@@ -90,13 +91,13 @@ if ($output == "soap") {
                  $response = search($_REQUEST["expression"], $_REQUEST["from"], $_REQUEST["count"],$_REQUEST["lang"]);
                  break;
            case "new_titles":
-                 $response = new_titles($_REQUEST["count"]);
+                 $response = new_titles($_REQUEST["count"], $_REQUEST["rep"]);
 				 break;
            case "new_issues":
                  $response = new_issues($_REQUEST["count"]);
 				 break;
            case "get_titles":
-                 $response = get_titles($_REQUEST["type"], $_REQUEST["param"]);
+                 $response = get_titles($_REQUEST["type"], $_REQUEST["rep"]);
 				 break;
 	}
 	print($response);
@@ -127,11 +128,15 @@ function search($expression, $from, $count, $lang)
 	return $response;
 }
 
-function new_titles($count)
+function new_titles($count, $rep)
 {
 	global $country, $applServer, $output, $transformer, $serviceRoot, $databasePath ;
 	$count= ($count != "" ? $count : "50");
 	$serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/webservices/wxis/?IsisScript=listNewTitles.xis&database=".$databasePath ."title/title&gizmo=GIZMO_XML&count=" . $count;
+	if ($rep){
+		$serviceUrl .="&rep=".$rep;
+		
+	}
 	$XML = readData($serviceUrl,true);
 	$serviceXML .= '<collection name="'.$country.'" uri="http://'.$applServer.'">';
 	$serviceXML .= $XML;
@@ -164,22 +169,33 @@ function new_issues($count)
         return $serviceXML;
 }
 //traz os titulos por tipo selecionado e por parametro
-function get_titles($type, $param)
+function get_titles($type, $rep)
 {
 global $country, $applServer, $output, $transformer, $serviceRoot, $databasePath ;
 $xslName = '';
+
 	$serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/webservices/wxis/?IsisScript=list.xis&database=".$databasePath."title/title&gizmo=GIZMO_XML";
+	if ($rep){
+		$serviceUrl .= "&rep=".$rep;
+	}
 	$XML = readData($serviceUrl,true);
 //	die($serviceUrl);
-    $serviceXML .= '<collection name="'.$country.'" uri="http://'.$applServer.'">';
-	$serviceXML .= '<indicators>';
-	$serviceXML .= '<journalTotal>'.getIndicators("journalTotal").'</journalTotal>';
+	if ($rep) {
+		
+	    $serviceXML .= '<collection name="'.$country.'" uri="http://'.$applServer.'">';
+		$serviceXML .= $XML;
+		$serviceXML .= '</collection>';
+	} else {
+	    $serviceXML .= '<collection name="'.$country.'" uri="http://'.$applServer.'">';
+		$serviceXML .= '<indicators>';
+		$serviceXML .= '<journalTotal>'.getIndicators("journalTotal").'</journalTotal>';
         $serviceXML .= '<articleTotal>'.getIndicators("articleTotal").'</articleTotal>';
         $serviceXML .= '<issueTotal>'.getIndicators("issueTotal").'</issueTotal>';
         $serviceXML .= '<citationTotal>'.getIndicators("citationTotal").'</citationTotal>';
-	$serviceXML .= '</indicators>';
-	$serviceXML .= $XML;
-	$serviceXML .= '</collection>';
+		$serviceXML .= '</indicators>';
+		$serviceXML .= $XML;
+		$serviceXML .= '</collection>';
+	}
         if ($output == "xml"){
                 header("Content-type: text/xml");
                 return envelopeXml($serviceXML, $serviceRoot);

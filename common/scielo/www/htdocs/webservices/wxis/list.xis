@@ -26,22 +26,35 @@
 			fi
 		</pft>
 	</display>
-	<trace>xOn</trace>
+<field action="cgi" tag="9999">debug</field>
+	<trace><pft>v9999</pft></trace>
 	
 	<field action="cgi" tag="2004">count</field>
-
+	
 	<field action="replace" tag="1"><pft>getenv('PATH_TRANSLATED')</pft></field>
+	<field action="replace" tag="4902"><pft>cat(s(v1,'../../scielo.def.php'))</pft></field>
+	<field action="replace" tag="4902" split="occ"><pft>mid(v4902,instr(v4902,'PATH_DATABASE'),size(v4902))</pft></field>
+	<field action="replace" tag="4902"><pft>mid(v4902[1],instr(v4902[1],'=')+1,size(v4902[1]))</pft></field>
+
+
 	<parm name="cipar">
 		<pft>
 			'GIZMO_XML.*=',v1,'gizmo/gizmoXML.*'/
+			'ARTIGO.*=',v4902[1],'artigo/artigo.*'/
 		</pft>
-	</parm>
+	</parm>	
 
 	<field action="cgi" tag="2">IsisScript</field>
 	<field action="replace" tag="3"><pft>date</pft></field>
 	<field action="replace" tag="4"><pft>'^d',v3.8,'^t',v3*9.6</pft></field>
-	<display><pft>'<wxis-modules IsisScript="',v2,'" version="0.2">'/</pft></display>
+	
+	
 
+	<field action="cgi" tag="2005">rep</field>
+	<field action="replace" tag="2005"><pft>if p(v2005) then s(f(val(v2005)+100000,6,0))*1.5 fi</pft></field>
+	<flow action="jump"><pft>if p(v2005) then 'REPO_TITLES' fi</pft></flow>
+
+	<label>ALL_TITLES</label>
 	<do task="mfnrange">
 		<field action="cgi" tag="2001">database</field>
 		<call name="error"><pft>"missing parameter: database"n2001</pft></call>
@@ -55,6 +68,100 @@
 	        <list action="load" type="sort"><pft>if p(v940) then '^k',f(99999999-val(v940),1,0),'^m',mfn fi</pft></list>
 	    </loop>
 	</do>
+	<flow action="jump">CREATE_XML</flow>
+
+	<label>REPO_TITLES</label>
+	<field action="replace" tag="5003">0</field>
+	<do task="mfnrange">
+		<field action="cgi" tag="2001">database</field>
+		<call name="error"><pft>"missing parameter: database"n2001</pft></call>
+		<parm name="db"><pft>v2001</pft></parm>
+
+		<field action="cgi" tag="2007">gizmo</field>
+		<field action="replace" tag="2007" split="occ"><pft>(v2007/)</pft></field>
+		<parm name="gizmo"><pft>(v2007/)</pft></parm>
+
+	    <loop>
+			<field action="import" tag="list">2005,5003</field>
+
+			<field action="delete" tag="list">5000</field>
+			<do task="keyrange">
+				<parm name="db">ARTIGO</parm>
+				<parm name="from"><pft>'SM_RJ=',v2005,v400</pft></parm>
+				<parm name="count">1</parm>
+
+				<parm name=posting>All</parm>
+
+				<field action="define" tag="1">Isis_Key</field>
+				<field action="define" tag="2">Isis_Postings</field>
+				<field action="define" tag="3">Isis_Posting</field>
+
+				<field action="define" tag="4">Isis_Current</field>
+				<field action="define" tag="5">Isis_Total</field>
+				<field action="define" tag="6">Isis_Item</field>
+				<field action="define" tag="7">Isis_Value</field>
+				<field action="define" tag="8">Isis_Items</field>
+
+				<loop>
+				
+					<field action="import" tag="list">2005,400,5003</field>
+					<field action="replace" tag="5003"><pft>if v1:s('SM_RJ=',v2005,v400) then f(val(v5003)+1,1,0) fi</pft></field>
+					<field action="replace" tag="5000"><pft>if v1:s('SM_RJ=',v2005,v400) then 'yes' fi</pft></field>
+					<field action="export" tag="list">5000/5003</field>
+				</loop>
+				<field action="export" tag="list">5000/5003</field>
+			</do>
+			<field action="export" tag="list">5003</field>
+
+	        <list action="load" type="sort">
+				<pft>
+					if p(v940) and v5000='yes' then 
+						'^k',f(99999999-val(v940),1,0),'^m',mfn,'^r',v2005 
+					fi
+				</pft>
+			</list>
+	    </loop>
+	</do>
+	<field action="replace" tag="5001">0</field>
+	<field action="replace" tag="3002">0</field>
+
+	<do task="search">
+		<parm name="db">ARTIGO</parm>
+		<parm name="expression"><pft>'REP='v2005,' and SM=$'</pft></parm>
+		<parm name="count">1</parm>
+
+		<field action="define" tag="1001">Isis_Current</field>
+		<field action="define" tag="1002">Isis_Total</field>
+		<loop>
+			<field action="export" tag="5002">1002</field>
+		</loop>
+	</do>
+	<do task="search">
+		<parm name="db">ARTIGO</parm>
+		<parm name="expression"><pft>'C_REP='v2005</pft></parm>
+		<parm name="count">1</parm>
+
+		<field action="define" tag="1001">Isis_Current</field>
+		<field action="define" tag="1002">Isis_Total</field>
+		<loop>
+			<field action="export" tag="5001">1002</field>
+		</loop>
+	</do>
+	<display><pft>
+		'<indicators>'/
+			'<journalTotal>',v5003,'</journalTotal>'/
+			'<articleTotal>',v5002,'</articleTotal>'/     
+			'<issueTotal>0</issueTotal>'/     
+			'<citationTotal>',v5001,'</citationTotal>'/
+		'</indicators>'/
+	</pft></display>
+	
+	<flow action="jump">CREATE_XML</flow>
+	
+
+
+	<label>CREATE_XML</label>
+	<display><pft>'<wxis-modules IsisScript="',v2,'" version="0.2">'/</pft></display>
 
 	<do task="list">
 	
@@ -73,6 +180,7 @@
 	  
 	  <loop>
 	  	   <field action="import" tag="list">2001</field>
+			<flow action="skip"><pft>if ref([v2001]val(v1^m),v50)='C' then else 'Next' fi</pft></flow>
 		   <display>
 			<pft>ref([v2001]val(v1^m),
 			'<record>',#
@@ -82,7 +190,10 @@
 				(,'<publisher>',v480,'</publisher>',#,)
 				(,'<subject>',v441,'</subject>',#,)
 				'<publicationStatus>',v50,'</publicationStatus>',#
-			'</record>')
+				),
+			'<repository>',v1^r,'</repository>'/
+
+			'</record>'/
 			</pft>	
 		   </display>   
 		   <!--
