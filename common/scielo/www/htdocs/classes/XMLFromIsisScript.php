@@ -26,7 +26,7 @@ class XMLFromIsisScript {
 		$s = str_replace(' < ', '&lt; ', $s);
 		$s = str_replace(' > ', ' &gt;', $s);
 		*/
-		$s = str_replace(' & ', '&amp; ', $s);
+		$s = str_replace(' & ', ' &amp; ', $s);
 		
 		return $s;
 	}
