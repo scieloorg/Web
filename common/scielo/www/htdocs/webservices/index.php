@@ -25,7 +25,11 @@ $country = $defFile->getKeyValue("COUNTRY");
 $databasePath = $defFile->getKeyValue("PATH_DATABASE");
 
 //$output = 'xml';
-
+if ($_REQUEST["colname"]) {
+	$colname = $_REQUEST["colname"];
+} else {
+	$colname = $country;
+}
 
 $output = $_REQUEST["output"];
 
@@ -131,6 +135,7 @@ function search($expression, $from, $count, $lang)
 function new_titles($count, $rep)
 {
 	global $country, $applServer, $output, $transformer, $serviceRoot, $databasePath ;
+	global $colname;
 	$count= ($count != "" ? $count : "50");
 	$serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/webservices/wxis/?IsisScript=listNewTitles.xis&database=".$databasePath ."title/title&gizmo=GIZMO_XML&count=" . $count;
 	if ($rep){
@@ -138,7 +143,7 @@ function new_titles($count, $rep)
 		
 	}
 	$XML = readData($serviceUrl,true);
-	$serviceXML .= '<collection name="'.$country.'" uri="http://'.$applServer.'">';
+	$serviceXML .= '<collection name="'.$colname.'" uri="http://'.$applServer.'">';
 	$serviceXML .= $XML;
 	$serviceXML .= '</collection>';
         if ($output == "xml"){
@@ -153,11 +158,12 @@ function new_titles($count, $rep)
 function new_issues($count)
 {
 	global $country, $applServer, $output, $transformer, $serviceRoot,$databasePath ;
+	global $colname;
 
 	$count= ($count != "" ? $count : "50");
 	$serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/webservices/wxis/?IsisScript=listNewIssues.xis&database=".$databasePath."issue/issue&gizmo=GIZMO_XML&count=" . $count;
 	$XML = readData($serviceUrl,true);
-	$serviceXML .= '<collection name="'.$country.'" uri="http://'.$applServer.'">';
+	$serviceXML .= '<collection name="'.$colname.'" uri="http://'.$applServer.'">';
 	$serviceXML .= $XML;
         $serviceXML .= '</collection>';
 	if ($output == "xml"){
@@ -172,6 +178,7 @@ function new_issues($count)
 function get_titles($type, $rep)
 {
 global $country, $applServer, $output, $transformer, $serviceRoot, $databasePath ;
+global $colname;
 $xslName = '';
 
 	$serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/webservices/wxis/?IsisScript=list.xis&database=".$databasePath."title/title&gizmo=GIZMO_XML";
@@ -182,11 +189,11 @@ $xslName = '';
 //	die($serviceUrl);
 	if ($rep) {
 		
-	    $serviceXML .= '<collection name="'.$country.'" uri="http://'.$applServer.'">';
+	    $serviceXML .= '<collection name="'.$colname.'" uri="http://'.$applServer.'">';
 		$serviceXML .= $XML;
 		$serviceXML .= '</collection>';
 	} else {
-	    $serviceXML .= '<collection name="'.$country.'" uri="http://'.$applServer.'">';
+	    $serviceXML .= '<collection name="'.$colname.'" uri="http://'.$applServer.'">';
 		$serviceXML .= '<indicators>';
 		$serviceXML .= '<journalTotal>'.getIndicators("journalTotal").'</journalTotal>';
         $serviceXML .= '<articleTotal>'.getIndicators("articleTotal").'</articleTotal>';
