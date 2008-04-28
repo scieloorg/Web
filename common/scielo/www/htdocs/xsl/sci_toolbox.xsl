@@ -14,7 +14,8 @@
 		<xsl:variable name="services_comments" select="//varScieloOrg/services_comments" />
 		<xsl:variable name="acron" select="//SIGLUM" />
 		<xsl:variable name="commentCount" select="//commentCount" />
-		<xsl:variable name="current_issn" select="//ARTICLE/ISSUEINFO/ISSN"/>
+		<!--xsl:variable name="current_issn" select="//ARTICLE/ISSUEINFO/ISSN"/-->
+		<xsl:variable name="current_issn" select="//SERIAL/ISSN"/>
 		<xsl:variable name="allow_comments" select="document('../xml/allow_comment.xml')/COMMENT/ISSN[text() = $current_issn ]"/>
 		
 		<div id="toolBox">
@@ -103,7 +104,7 @@
 					</xsl:choose>
 				</xsl:if>
 				<xsl:if test="$services_comments != 0">
-					<xsl:if test="string-length($allow_comments) !=  '0' ">					
+					<!--xsl:if test="string-length($allow_comments) !=  '0' "-->					
 					<li>
 						<a>
 						<xsl:attribute name="href">javascript: void(0);</xsl:attribute>
@@ -117,7 +118,7 @@
 						</xsl:choose>
 						</a>					
 						</li>
-				</xsl:if>
+				<!--/xsl:if-->
 			</xsl:if>
 					<xsl:if test="//ARTICLE/@PDF">
 					<xsl:variable name="tlng" select="//ARTICLE/@TEXTLANG"/>
