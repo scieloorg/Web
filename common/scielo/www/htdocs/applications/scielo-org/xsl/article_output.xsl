@@ -94,7 +94,7 @@
 		no.<xsl:value-of select="."/>,
 	</xsl:template>
 	<xsl:template match="@pid" mode="issn">
-		ISSN <xsl:value-of select="substring(.,2,10)"/>.
+		ISSN <xsl:value-of select="substring(.,2,9)"/>.
 	</xsl:template>
 	
 	
