@@ -63,7 +63,7 @@
 
 <xsl:template match="article-meta" mode="identifier">
 	<dc:identifier scheme="dcterms:URI">http://www.scielo.br/scielo.php?script=sci_arttext&#x0026;pid=<xsl:value-of select="article-id"/></dc:identifier>
-	<dc:identifier scheme="dcterms:DOI">10.1590/<xsl:value-of select="article-id"/></dc:identifier>
+	<dc:identifier scheme="ags:DOI">10.1590/<xsl:value-of select="article-id"/></dc:identifier>
 </xsl:template>
 
 <xsl:template match="title-group" mode="language">
