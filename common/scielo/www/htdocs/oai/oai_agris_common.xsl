@@ -12,7 +12,7 @@
 </xsl:template>
 
 <xsl:template match="title-group" mode="title">
-	<dc:title xml:lang="{article-title/@xml:lang}"><xsl:value-of select="article-title"/></dc:title>
+	<dc:title xml:lang="{article-title/@xml:lang}"><xsl:text disable-output-escaping="yes">&lt;![CDATA[</xsl:text><xsl:value-of select="article-title"/><xsl:text disable-output-escaping="yes">]]&gt;</xsl:text></dc:title>
 </xsl:template>
 
 <xsl:template match="contrib" mode="creator">
@@ -57,7 +57,7 @@
 
 <xsl:template match="abstract" mode="description">
 	<dc:description>
-		<dcterms:abstract xml:lang="{@xml:lang}"><xsl:value-of select="p"/></dcterms:abstract>
+		<dcterms:abstract xml:lang="{@xml:lang}"><xsl:text disable-output-escaping="yes">&lt;![CDATA[</xsl:text><xsl:value-of select="p"/><xsl:text disable-output-escaping="yes">]]&gt;</xsl:text></dcterms:abstract>
 	</dc:description>
 </xsl:template>
 
