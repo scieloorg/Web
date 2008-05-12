@@ -108,31 +108,53 @@
 
 
 <xsl:template match="front">	
-		<ags:resource ags:ARN="SC{concat(substring(article-meta/article-id,11,4),$spacechar,substring(article-meta/article-id,17,2),substring(article-meta/article-id,22,2) )}">
-			<xsl:apply-templates select=".//title-group" mode="title"/>
-			<dc:creator>
-				<xsl:apply-templates select=".//contrib-group/contrib" mode="creator"/>
-			</dc:creator>
-			<xsl:apply-templates select=".//publisher" mode="publisher"/>
-			<xsl:apply-templates select=".//pub-date[@pub-type='pub']" mode="date"/>
-			<xsl:apply-templates select=".//kwd-group/kwd" mode="subject"/>
-			<xsl:apply-templates select=".//abstract" mode="description"/>
-			<xsl:apply-templates select=".//article-meta" mode="identifier"/>
-			<dc:type>journal article</dc:type>
-			<dc:format>text/xml</dc:format>
-			<xsl:apply-templates select=".//title-group" mode="language"/>				
-			<!--xsl:apply-templates select="article-meta" mode="article-id"/-->
-			<agls:availability>
-				<ags:availabilityLocation>SCIELO</ags:availabilityLocation>
-				<ags:availabilityNumber>10.1590/<xsl:value-of select=".//article-meta/article-id"/></ags:availabilityNumber> 
-			</agls:availability>
-			<ags:citation>
-		              <xsl:apply-templates select="journal-meta/publisher/publisher-name" mode="citationTitle"/>
-	               	 <xsl:apply-templates select="journal-meta/issn" mode="issn"/>
-		              <xsl:apply-templates select="article-meta" mode="volnum"/>
-		              <xsl:apply-templates select="article-meta/pub-date[@pub-type='pub']/year" mode="year"/>
-			</ags:citation>			
-		</ags:resource>				
+	<record>
+		<header>
+			<xsl:apply-templates select=".//article-meta/article-id" mode="identifier"/>
+			<xsl:apply-templates select="article-meta/pub-date[@pub-type='pub']" mode="datestamp" />
+			<xsl:apply-templates select="journal-meta/issn" mode="setSpec" />
+		</header>
+		<metadata>
+			<ags:resource ags:ARN="SC{concat(substring(article-meta/article-id,11,4),$spacechar,substring(article-meta/article-id,17,2),substring(article-meta/article-id,22,2) )}">
+				<xsl:apply-templates select=".//title-group" mode="title"/>
+				<dc:creator>
+					<xsl:apply-templates select=".//contrib-group/contrib" mode="creator"/>
+				</dc:creator>
+				<xsl:apply-templates select=".//publisher" mode="publisher"/>
+				<xsl:apply-templates select=".//pub-date[@pub-type='pub']" mode="date"/>
+				<xsl:apply-templates select=".//kwd-group/kwd" mode="subject"/>
+				<xsl:apply-templates select=".//abstract" mode="description"/>
+				<xsl:apply-templates select=".//article-meta" mode="identifier"/>
+				<dc:type>journal article</dc:type>
+				<dc:format>text/xml</dc:format>
+				<xsl:apply-templates select=".//title-group" mode="language"/>				
+				<!--xsl:apply-templates select="article-meta" mode="article-id"/-->
+				<agls:availability>
+					<ags:availabilityLocation>SCIELO</ags:availabilityLocation>
+					<ags:availabilityNumber>10.1590/<xsl:value-of select=".//article-meta/article-id"/></ags:availabilityNumber> 
+				</agls:availability>
+				<ags:citation>
+			              <xsl:apply-templates select="journal-meta/publisher/publisher-name" mode="citationTitle"/>
+		               	 <xsl:apply-templates select="journal-meta/issn" mode="issn"/>
+			              <xsl:apply-templates select="article-meta" mode="volnum"/>
+			              <xsl:apply-templates select="article-meta/pub-date[@pub-type='pub']/year" mode="year"/>
+				</ags:citation>			
+			</ags:resource>
+		</metadata>
+	</record>
+</xsl:template>
+
+<xsl:template match="article-id" mode="identifier">
+	<!--identifier>oai:agris.scielo:<xsl:value-of select="normalize-space(.)"/></identifier-->
+	<identifier>oai:agris.scielo:SC<xsl:value-of select="concat(substring(.,11,4),$spacechar,substring(.,17,2),substring(.,22,2) )"/></identifier>
+</xsl:template>
+
+<xsl:template match="issn" mode="setSpec">
+	<setSpec><xsl:value-of select="normalize-space(.)"/></setSpec>
+</xsl:template>
+
+<xsl:template match="pub-date" mode="datestamp">
+	<datestamp><xsl:value-of select="year"/>-<xsl:value-of select="month"/>-<xsl:value-of select="day"/></datestamp>
 </xsl:template>
 
 <xsl:template match="publisher-name" mode="citationTitle">
