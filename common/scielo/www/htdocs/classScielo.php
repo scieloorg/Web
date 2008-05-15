@@ -155,7 +155,8 @@ class Scielo extends ScieloBase
 				"SCRIPT_ARTICLES_PER_MONTH" => "SCRIPT_ARTICLES_PER_MONTH",
 				//Habilita ou n�o o log dos servicos
 				"services_log" => "ENABLE_SERVICES_LOG",
-				"show_scimago" => "show_scimago"
+				"show_scimago" => "show_scimago",
+				"NO_SCI_SERIAL" => "NO_SCI_SERIAL"
 			);
 				//die($commentCount);
 

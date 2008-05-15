@@ -139,38 +139,38 @@
 	<!-- Shows issues bar group -->
 	<xsl:template name="IssuesBarGroup">
 		<xsl:choose>
-			<xsl:when test="//CONTROLINFO/NO_SCI_SERIAL = 'yes'">
-				<span class="invisible">
+			<xsl:when test="//CONTROLINFO/NO_SCI_SERIAL != 'yes'"> 
+				<!-- <span class="invisible"> -->
 					<xsl:call-template name="ShowGroupIMG">
 						<xsl:with-param name="file">grp1a.gif</xsl:with-param>
 					</xsl:call-template>
-				</span>
-			</xsl:when>
-			<xsl:otherwise>
+				<!-- </span> -->
+			</xsl:when> 
+			<!--xsl:otherwise>
 				<xsl:call-template name="ALLISSUES"/>
 				<xsl:call-template name="PREVIOUS"/>
 				<xsl:call-template name="CURRENT"/>
 				<xsl:call-template name="NEXT"/>
-			</xsl:otherwise>
-		</xsl:choose>
+			</xsl:otherwise-->
+		 </xsl:choose>
 	</xsl:template>
 	<!-- Show  issues bar -->
 	<xsl:template name="IssuesBar">
 		<xsl:choose>
-			<xsl:when test="//CONTROLINFO/NO_SCI_SERIAL = 'yes'">
-				<span class="invisible">
+			<xsl:when test="//CONTROLINFO/NO_SCI_SERIAL != 'yes'">
+				<!-- <span class="invisible"> -->
 					<xsl:call-template name="ALLISSUES"/>
 					<xsl:call-template name="PREVIOUS"/>
 					<xsl:call-template name="CURRENT"/>
 					<xsl:call-template name="NEXT"/>
-				</span>
+				<!-- </span> -->
 			</xsl:when>
-			<xsl:otherwise>
+		<!--	<xsl:otherwise>
 				<xsl:call-template name="ALLISSUES"/>
 				<xsl:call-template name="PREVIOUS"/>
 				<xsl:call-template name="CURRENT"/>
 				<xsl:call-template name="NEXT"/>
-			</xsl:otherwise>
+			</xsl:otherwise> -->
 		</xsl:choose>
 	</xsl:template>
 	<!-- Shows articles IAH bar group -->
@@ -635,7 +635,7 @@
 			<xsl:otherwise>
 				<xsl:value-of select="//ISSN"/>
 			</xsl:otherwise>
-		</xsl:choose>		
+		</xsl:choose>
 	</xsl:template>
 	<xsl:template match="*" mode="repo_url_param">
 		<xsl:apply-templates select="//PAGINATION/@rep" mode="repo_url_param"/>
