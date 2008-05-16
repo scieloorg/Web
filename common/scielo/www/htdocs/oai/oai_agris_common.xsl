@@ -5,10 +5,10 @@
 <xsl:variable name="spacechar">00</xsl:variable>
 
 <xsl:template match="/">
-	<ags:resources>		
+	<ListRecords>
 		<xsl:apply-templates select="//article/front"/>	
 		<xsl:apply-templates select="//RESUME"/>
-	</ags:resources>		
+	</ListRecords>		
 </xsl:template>
 
 <xsl:template match="title-group" mode="title">
@@ -115,31 +115,33 @@
 			<xsl:apply-templates select="journal-meta/issn" mode="setSpec" />
 		</header>
 		<metadata>
-			<ags:resource ags:ARN="SC{concat(substring(article-meta/article-id,11,4),$spacechar,substring(article-meta/article-id,17,2),substring(article-meta/article-id,22,2) )}">
-				<xsl:apply-templates select=".//title-group" mode="title"/>
-				<dc:creator>
-					<xsl:apply-templates select=".//contrib-group/contrib" mode="creator"/>
-				</dc:creator>
-				<xsl:apply-templates select=".//publisher" mode="publisher"/>
-				<xsl:apply-templates select=".//pub-date[@pub-type='pub']" mode="date"/>
-				<xsl:apply-templates select=".//kwd-group/kwd" mode="subject"/>
-				<xsl:apply-templates select=".//abstract" mode="description"/>
-				<xsl:apply-templates select=".//article-meta" mode="identifier"/>
-				<dc:type>journal article</dc:type>
-				<dc:format>text/xml</dc:format>
-				<xsl:apply-templates select=".//title-group" mode="language"/>				
-				<!--xsl:apply-templates select="article-meta" mode="article-id"/-->
-				<agls:availability>
-					<ags:availabilityLocation>SCIELO</ags:availabilityLocation>
-					<ags:availabilityNumber>10.1590/<xsl:value-of select=".//article-meta/article-id"/></ags:availabilityNumber> 
-				</agls:availability>
-				<ags:citation>
-			              <xsl:apply-templates select="journal-meta/publisher/publisher-name" mode="citationTitle"/>
-		               	 <xsl:apply-templates select="journal-meta/issn" mode="issn"/>
-			              <xsl:apply-templates select="article-meta" mode="volnum"/>
-			              <xsl:apply-templates select="article-meta/pub-date[@pub-type='pub']/year" mode="year"/>
-				</ags:citation>			
-			</ags:resource>
+			<ags:resources>		
+				<ags:resource ags:ARN="SC{concat(substring(article-meta/article-id,11,4),$spacechar,substring(article-meta/article-id,17,2),substring(article-meta/article-id,22,2) )}">
+					<xsl:apply-templates select=".//title-group" mode="title"/>
+					<dc:creator>
+						<xsl:apply-templates select=".//contrib-group/contrib" mode="creator"/>
+					</dc:creator>
+					<xsl:apply-templates select=".//publisher" mode="publisher"/>
+					<xsl:apply-templates select=".//pub-date[@pub-type='pub']" mode="date"/>
+					<xsl:apply-templates select=".//kwd-group/kwd" mode="subject"/>
+					<xsl:apply-templates select=".//abstract" mode="description"/>
+					<xsl:apply-templates select=".//article-meta" mode="identifier"/>
+					<dc:type>journal article</dc:type>
+					<dc:format><dcterms:medium>text/xml</dcterms:medium></dc:format>
+					<xsl:apply-templates select=".//title-group" mode="language"/>				
+					<!--xsl:apply-templates select="article-meta" mode="article-id"/-->
+					<agls:availability>
+						<ags:availabilityLocation>SCIELO</ags:availabilityLocation>
+						<ags:availabilityNumber>10.1590/<xsl:value-of select=".//article-meta/article-id"/></ags:availabilityNumber> 
+					</agls:availability>
+					<ags:citation>
+				              <xsl:apply-templates select="journal-meta/publisher/publisher-name" mode="citationTitle"/>
+			               	 <xsl:apply-templates select="journal-meta/issn" mode="issn"/>
+				              <xsl:apply-templates select="article-meta" mode="volnum"/>
+				              <xsl:apply-templates select="article-meta/pub-date[@pub-type='pub']/year" mode="year"/>
+					</ags:citation>			
+				</ags:resource>
+			</ags:resources>
 		</metadata>
 	</record>
 </xsl:template>
