@@ -11,6 +11,6 @@ export cisis_dir="$scielo_dir/proc/cisis"
 export JAVA_HOME=/usr/local/jdk1.5.0_06
 
 #variaveis com dados de conexao ao crossref
-export crossrefUserName=bireme
-export crossrefPassword=bireme303
+export crossrefUserName=
+export crossrefPassword=
 # ------------------------------------------------------------------------- #
