@@ -287,7 +287,7 @@
 
 ,'<TABLE><TR><td width="15%">&nbsp;</td>', 
  ,'<TD><font class="isoref" size="-1">',
-	if p(v268) then '<p align="right">',@repo.pft,'</p>' fi
+	/* if p(v268) then '<p align="right">',@repo.pft,'</p>' fi */
     ,if nocc(v8010) > 3 then
         ,(if iocc = 2 then
              ,' et al.',
