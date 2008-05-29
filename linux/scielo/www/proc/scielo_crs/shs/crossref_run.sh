@@ -52,31 +52,26 @@ if [ -f "*.log" ]; then
         mv *.log ../output/crossref/log
 fi
 echo "Copying Database to SciELO"
-#[nos tempos do SciELO3] cp ../databases/crossref/* $scielo_dir/bases/doi
+#cp ../databases/crossref/* $scielo_dir/bases/doi
 # Corrente: scielo_crs/shs
-# Temporariamente envia tambem para SciELO3, no dia que SciELO.ORG estiver em HM1 tira isso tb!
-echo "scp ../databases/crossref/* scielo3:$scielo_dir/bases/doi"
-      scp ../databases/crossref/* scielo3:$scielo_dir/bases/doi
 
-echo "scp ../databases/crossref/* scielohm1:$scielo_dir/bases/doi"
-      scp ../databases/crossref/* scielohm1:$scielo_dir/bases/doi
+# Copiar para servidor de TESTE
+if  [ $scieloteste ]; then
+echo "scp ../databases/crossref/* $scieloteste:$scielo_dir/bases/doi"
+      scp ../databases/crossref/* $scieloteste:$scielo_dir/bases/doi
+fi
 
-# Transferencia FTP deve equivalente:
+#Copiar para servidor de Homologação
+if  [ $scielohomol ]; then
+echo "scp ../databases/crossref/* $scielohomol:$scielo_dir/bases/doi"
+      scp ../databases/crossref/* $scielohomol:$scielo_dir/bases/doi
+fi
 
-#echo "Envia resultados para SciELOhm1"
-#echo "open scielohm1.bireme.br"               >qdoi.ftp
-#echo "user scielosp 03ssp323"                >>qdoi.ftp
-#echo "bin"                                   >>qdoi.ftp
-#
-#echo "Posiciona diretorios"
-#echo "cd $scielo_dir/bases/doi"              >>qdoi.ftp
-#echo "lcd $conversor_dir/databases/crossref" >>qdoi.ftp
-#
-#echo "mput *"                                >>qdoi.ftp
-#
-#echo "bye"                                   >>qdoi.ftp
-#ftp -i -v -n < qdoi.ftp >../../outs/log_qdoi_ftp.log
-
+#Copiar para servidor de Produção
+if  [ $scieloprodu ]; then
+echo "scp ../databases/crossref/* $scieloprodu:$scielo_dir/bases/doi"
+      scp ../databases/crossref/* $scieloprodu:$scielo_dir/bases/doi
+fi
 echo "all process done!"
 
 echo ""
