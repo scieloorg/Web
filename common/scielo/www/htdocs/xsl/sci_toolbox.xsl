@@ -104,7 +104,7 @@
 					</xsl:choose>
 				</xsl:if>
 				<xsl:if test="$services_comments != 0">
-					<!--xsl:if test="string-length($allow_comments) !=  '0' "-->					
+					<xsl:if test="string-length($allow_comments) !=  '0' ">					
 					<li>
 						<a>
 						<xsl:attribute name="href">javascript: void(0);</xsl:attribute>
@@ -118,7 +118,7 @@
 						</xsl:choose>
 						</a>					
 						</li>
-				<!--/xsl:if-->
+				</xsl:if>
 			</xsl:if>
 					<xsl:if test="//ARTICLE/@PDF">
 					<xsl:variable name="tlng" select="//ARTICLE/@TEXTLANG"/>
