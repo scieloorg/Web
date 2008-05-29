@@ -136,6 +136,7 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 		<xsl:param name="txtlang"/>
 		<xsl:param name="file"/>
 		<xsl:param name="date"/>
+		<xsl:param name="page"/>
 
 		<xsl:choose>
 			<xsl:when test="$script = 'sci_pdf' ">
@@ -143,7 +144,7 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 				<xsl:attribute name="onClick">setTimeout("window.open('http://<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/SERVER"/><xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_DATA"/>scielo.php?script=<xsl:value-of select="$script"/>&amp;<xsl:if test="$seq">pid=<xsl:value-of select="$seq"/>&amp;</xsl:if>lng=<xsl:value-of select="normalize-space(//CONTROLINFO/LANGUAGE)"/>&amp;nrm=<xsl:value-of select="normalize-space(//CONTROLINFO/STANDARD)"/><xsl:if test="$txtlang">&amp;tlng=<xsl:value-of select="normalize-space($txtlang)"/></xsl:if><xsl:if test="$file">&amp;file=<xsl:value-of select="$file"/></xsl:if> ','_self')", 3000);</xsl:attribute>
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:attribute name="href">http://<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/SERVER"/><xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_DATA"/>scielo.php?script=<xsl:value-of select="$script"/>&amp;<xsl:if test="$seq">pid=<xsl:value-of select="$seq"/>&amp;</xsl:if>lng=<xsl:value-of select="normalize-space(//CONTROLINFO/LANGUAGE)"/>&amp;nrm=<xsl:value-of select="normalize-space(//CONTROLINFO/STANDARD)"/><xsl:if test="$txtlang">&amp;tlng=<xsl:value-of select="normalize-space($txtlang)"/></xsl:if><xsl:if test="$file">&amp;file=<xsl:value-of select="$file"/></xsl:if><xsl:apply-templates select="." mode="repo_url_param_scielo"/><xsl:if test="$date!=''">&amp;date=<xsl:value-of select="$date"/></xsl:if></xsl:attribute>
+				<xsl:attribute name="href">http://<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/SERVER"/><xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_DATA"/>scielo.php?script=<xsl:value-of select="$script"/>&amp;<xsl:if test="$seq">pid=<xsl:value-of select="$seq"/>&amp;</xsl:if>lng=<xsl:value-of select="normalize-space(//CONTROLINFO/LANGUAGE)"/>&amp;nrm=<xsl:value-of select="normalize-space(//CONTROLINFO/STANDARD)"/><xsl:if test="$txtlang">&amp;tlng=<xsl:value-of select="normalize-space($txtlang)"/></xsl:if><xsl:if test="$file">&amp;file=<xsl:value-of select="$file"/></xsl:if><xsl:apply-templates select="." mode="repo_url_param_scielo"/><xsl:if test="$date!=''">&amp;date=<xsl:value-of select="$date"/></xsl:if><xsl:if test="$page!=''">&amp;page=<xsl:value-of select="$page"/></xsl:if></xsl:attribute>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>

@@ -276,6 +276,8 @@ ol li.current * { color: #000; text-decoration: none; background: none; cursor: 
 			<xsl:with-param name="seq" select="$PAGINATION/@journal"/>
 			<xsl:with-param name="script">sci_artlist</xsl:with-param>			
 			<xsl:with-param name="date" select="$date"/>
+			<xsl:with-param name="page" select="$page"/>
+
 		</xsl:call-template>
 	</xsl:template>
 	<xsl:template match="PAGINATION">
