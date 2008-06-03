@@ -12,12 +12,13 @@
 		<xsl:variable name="show_article_references" select="//varScieloOrg/show_article_references" />
 		<xsl:variable name="show_datasus" select="//varScieloOrg/show_datasus" />
 		<xsl:variable name="services_comments" select="//varScieloOrg/services_comments" />
+		<xsl:variable name="show_article_wltranslation" select="//varScieloOrg/show_article_wltranslation" />
 		<xsl:variable name="acron" select="//SIGLUM" />
 		<xsl:variable name="commentCount" select="//commentCount" />
 		<!--xsl:variable name="current_issn" select="//ARTICLE/ISSUEINFO/ISSN"/-->
 		<xsl:variable name="current_issn" select="//SERIAL/ISSN"/>
 		<xsl:variable name="allow_comments" select="document('../xml/allow_comment.xml')/COMMENT/ISSN[text() = $current_issn ]"/>
-		
+				
 		<div id="toolBox">
 			<h2 id="toolsSection">
 				<xsl:choose>
@@ -179,6 +180,7 @@
 					</a>
 				</li>
 				</xsl:if>
+				
 				<xsl:if test="$show_datasus = 1 and (//ARTICLE/@AREASGEO != 0 and //ARTICLE/@AREASGEO != '')">
 				<li>
 					<a>
@@ -242,6 +244,23 @@
                                 </xsl:apply-templates>
 					</li>				
 				</xsl:if>
+				
+				<xsl:if test="($show_article_wltranslation = 1)">
+					<li>
+						<a>
+							<xsl:attribute name="href">javascript: void(0);</xsl:attribute>
+							<xsl:attribute name="onClick">window.open('http://<xsl:value-of select="concat(//SERVER,'/scieloOrg/php/translate.php?pid=',//ARTICLE/@PID,'&amp;caller=',//SERVER,'&amp;lang=',$LANGUAGE,'&amp;tlang=',//ISSUE/ARTICLE/@TEXTLANG)"/>','','width=640,height=480,resizable=yes,scrollbars=1,menubar=yes'); <xsl:value-of select="$services//service[name='referenciasArtigo']/call"/></xsl:attribute>
+							<xsl:attribute name="rel">nofollow</xsl:attribute>
+							<img src="/img/{$LANGUAGE}/iconReferences.gif"/>						
+							<xsl:choose>
+								<xsl:when test="$LANGUAGE='en' ">Automatic translation</xsl:when>
+								<xsl:when test="$LANGUAGE='pt' ">Tradução automática</xsl:when>
+								<xsl:when test="$LANGUAGE='es' ">Traducción automática</xsl:when>
+							</xsl:choose>
+						</a>
+					</li>
+				</xsl:if>
+				
 				<xsl:if test="$show_send_by_email = 1">
 					<li>
 						<xsl:apply-templates select="//fulltext-service[@id='send_mail']" mode="link"/>

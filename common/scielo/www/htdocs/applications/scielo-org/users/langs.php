@@ -28,6 +28,7 @@ rótulos tela Article References
 */
 define("SCIELO.ORG"," indicou um artigo para você.");
 define("ARTICLE_REFERENCES","Referências do Artigo");
+define("ARTICLE_TRANSLATION","Tradução automática utilizando o serviço Windows Live Translator ");
 define('NO_DATA_FOR_GRAPHIC','Gráfico não disponível, dados em processamento.');
 
 /*
@@ -142,6 +143,22 @@ define("START_YEAR", "De:");
 define("LAST_YEAR", "Até:");
 define("BUTTON_REFRESH", "Atualizar gráfico");
 define("GRAFIC_STATS_FALSE", "Não existem dados estatísticos para o período selecionado");
+
+define("ENGLISH_GERMAN","Inglês->Alemão");
+define("ENGLISH_ARABIC","Inglês->Árabe");
+define("ENGLISH_CHINESE_S","Inglês->Chines simplificado");
+define("ENGLISH_CHINESE_T","Inglês->Chines tradicional");
+define("ENGLISH_KOREAN","Inglês->Coreano");
+define("ENGLISH_SPANISH","Inglês->Espanhol");
+define("ENGLISH_FRENCH","Inglês->Francês");
+define("ENGLISH_DUTCH","Inglês->Holandês");
+define("ENGLISH_ITALIAN","Inglês->Italiano");
+define("ENGLISH_JAPANESE","Inglês->Japonês");
+define("ENGLISH_PORTUGUESE","Inglês->Português");
+define("FRENCH_GERMAN","Francês->Alemão");
+define("FRENCH_ENGLISH","Francês->Inglês");
+define("SPANISH_ENGLISH","Espanhol->Inglês");
+define("PORTUGUESE_ENGLISH","Português->Inglês");
 /*
 textos das mensagens de erro
 */
@@ -284,6 +301,7 @@ rótulos tela Article References
 */
 
 define("ARTICLE_REFERENCES","Article References");
+define("ARTICLE_TRANSLATION","Automatic translation using Windows Live Translator service");
 define('NO_DATA_FOR_GRAPHIC','Graphic unavailable, data in processing.');
 
 /*
@@ -400,6 +418,22 @@ define("START_YEAR", "From:");
 define("LAST_YEAR", "To:");
 define("BUTTON_REFRESH", "Change graphic");
 define("GRAFIC_STATS_FALSE", "Do not exists statistic data for the selected period");
+
+define("ENGLISH_GERMAN","English->German");
+define("ENGLISH_ARABIC","English->Arabic");
+define("ENGLISH_CHINESE_S","English->Chinese simplified");
+define("ENGLISH_CHINESE_T","English->Chinese traditional");
+define("ENGLISH_KOREAN","English->Korean");
+define("ENGLISH_SPANISH","English->Spanish");
+define("ENGLISH_FRENCH","English->French");
+define("ENGLISH_DUTCH","English->Dutch");
+define("ENGLISH_ITALIAN","English->Italian");
+define("ENGLISH_JAPANESE","English->Japanese");
+define("ENGLISH_PORTUGUESE","English->Portuguese");
+define("FRENCH_GERMAN","French->German");
+define("FRENCH_ENGLISH","French->English");
+define("SPANISH_ENGLISH","Spanish->English");
+define("PORTUGUESE_ENGLISH","Portuguese->English");
 
 /*
 textos das mensagens de erro
@@ -540,6 +574,7 @@ rótulos tela Article References
 */
 
 define("ARTICLE_REFERENCES","Referencias del artículo");
+define("ARTICLE_TRANSLATION","Traducción automática utilizando el servicio Windows Live Translator ");
 define('NO_DATA_FOR_GRAPHIC','Gráfico no disponible, datos en procesamiento.');
 
 /*
@@ -655,6 +690,23 @@ define("START_YEAR", "De:");
 define("LAST_YEAR", "Hasta:");
 define("BUTTON_REFRESH", "Actualizar gráfico");
 define("GRAFIC_STATS_FALSE", "No hay datos estadísticos para el periodo elegido");
+
+define("ENGLISH_GERMAN","Inglés->Alemán");
+define("ENGLISH_ARABIC","Inglés->Árabe");
+define("ENGLISH_CHINESE_S","Inglés->Chino simplificado");
+define("ENGLISH_CHINESE_T","Inglés->Chino tradicional");
+define("ENGLISH_KOREAN","Inglés->Coreano");
+define("ENGLISH_SPANISH","Inglés->Español");
+define("ENGLISH_FRENCH","Inglés->Francés");
+define("ENGLISH_DUTCH","Inglés->Neerlandés");
+define("ENGLISH_ITALIAN","Inglés->Italiano");
+define("ENGLISH_JAPANESE","Inglés->Japonés");
+define("ENGLISH_PORTUGUESE","Inglés->Portugués");
+define("FRENCH_GERMAN","Francés->Alemán");
+define("FRENCH_ENGLISH","Francés->Inglés");
+define("SPANISH_ENGLISH","Español->Inglés");
+define("PORTUGUESE_ENGLISH","Portugués->Inglés");
+
 /*
 textos das mensagens de erro
 */

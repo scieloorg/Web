@@ -120,6 +120,7 @@ google_last_process=20070201
 show_article_references=1
 show_comments=0
 show_scimago=1
+show_article_wltranslation=1
 
 [FULLTEXT_SERVICES]
 access="http://www.scielo.br/applications/scielo-org/pages/services/articleRequestGraphicPage.php?pid=PARAM_PID&caller=PARAM_SERVER"
@@ -131,6 +132,7 @@ related_Google="http://scholar.google.com/scholar?q=related:CURRENT_URL"
 related="http://www.scielo.br/scieloOrg/php/related.php?pid=PARAM_PID"
 related_service="http://trigramas.bireme.br/cgi-bin/mxlind/cgi=@related?pid=PARAM_PID"
 send_mail="http://www.scielo.br/applications/scielo-org/pages/services/sendMail.php?pid=PARAM_PID&caller=PARAM_SERVER"
+windows_live_translator="http://www.windowslivetranslator.com"
 
 [mimetex]
 mimetex=/cgi-bin/mimetex.cgi
