@@ -12,18 +12,10 @@
 11 0 mpl,if v706='c' then 'MDL=',v880,'=',v701/, fi,
 12 0 mpl,if v706='h' and v11>'' then ('AU=',v11^*|, |,v11^d/) fi,
 13 0 mpl,if v706='i' then 'Y',v35,v65*0.4,s(f(val(s(v36*4.3))+10000,2,0))*1.4/, fi,
-60 0 mpl,if v706='i' then v91/, fi,    /* webservices - new_issues - SciELO.org */
 14 0 mpl,if v706='p' and p(v704^l) then 'TLN=',v880,v704^l fi,
 15 0 mpl,if v706='h' then 'DTH=',v65*0.4, if v65*4.2 = '00' then, '01', else v65*4.2, fi, '01=',v35,s(f(val(v936^o)+10000,1,0))*1.4,s(f(val(v121)+10000,1,0))*1.4 fi,
 16 0 mpl,if v706='c' then 'R=',v880/, fi,
 20 0 mpl,if v706='p' and p(v888) then 'RP=',v880 fi,
 50 0 mpl,if v706='i' and v32='ahead' then 'AHEAD=',v35 fi
 50 0 mpl,if v706='i' and v32='review' then 'REVIEW=',v35 fi
-70 0 mpl,if v706='h' and p(v268) and p(v265) then 'SM_D=',v265/, fi,
-71 0 mpl,if v706='h' and p(v268) and p(v265) then 'SM_R=',s(f(val(v268)+100000,6,0))*1.5,v265/, fi,
-72 0 mpl,if v706='h' and p(v268) and p(v265) then 'SM_RJ=',s(f(val(v268)+100000,6,0))*1.5,v35,v265/, fi,
-73 0 mpl,if v706='h' and p(v268) and p(v265) then 'SM_J=',v35,v265/, fi,
-74 0 mpl,if v706='h' and p(v268) and p(v265) then 'REP=',s(f(val(v268)+100000,6,0))*1.5/, fi,
-75 0 mpl,if v706='c' and p(v268) then 'C_REP=',s(f(val(v268)+100000,6,0))*1.5/, fi,
-
-
+60 0 mpl,if v706='i' then 'IDT',v91/, fi 				/* webservices - new_issues - SciELO.org */
