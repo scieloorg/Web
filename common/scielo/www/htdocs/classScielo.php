@@ -133,7 +133,9 @@ class Scielo extends ScieloBase
 				//path para o script de logout
 				"logoutURL" => "logout_url",
 				//Exibe ou nï¿½o a opï¿½ï¿½o de Login
-				"show_login" => "show_login",
+				"show_login" => "show_login",				
+				//Exibe a servico de tradução windows live translations
+				"show_article_wltranslation" => "show_article_wltranslation",				
 				//Exibe ou nï¿½o a opï¿½ï¿½o de Envio de Artigo por email
 				"show_send_by_email" => "show_send_by_email",
 				//Exibe ou nï¿½o a opï¿½ï¿½o de Citados Em Scielo
