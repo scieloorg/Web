@@ -31,6 +31,9 @@ call batch/InformaLog.bat $0 dh ===Inicio===
 
 call batch/CriaDiretorio.bat temp/transf2medline
 
+call batch/GeraIso.bat $1/bases/issue/issue temp/transf2medline/issue.iso
+call batch/GeraIso.bat $1/bases/title/title temp/transf2medline/title.iso
+call batch/GeraIsoBool.bat $1/bases/artigo/artigo TP=i temp/transf2medline/issues.iso
 call batch/GeraIsoBool.bat $1/bases/artigo/artigo TP=h temp/transf2medline/artigo.iso
 call batch/GeraIsoBool.bat $1/bases/artigo/artigo TP=c temp/transf2medline/bib4cit.iso prc/bib4cit.prc
 
