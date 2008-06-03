@@ -1027,11 +1027,23 @@
 			
 				
 			<field action="define" tag="1001">Isis_Item</field>
-			<loop>								
-				<call name="FieldDir"><pft>if val(v1001) > 0 then '^m'v1001 fi</pft></call>				
-				<field action="delete" tag="1001">All</field>
-				<export>Now</export>			
-			</loop>	
+                        <loop>
+                                <field action="import" tag="list">6212,5021</field>
+                                <!-- caso seja lista de selecionados executa PROC somente na funcao fielddir -->
+                                <flow action="jump"><pft>if val(v1001) > 0 then 'PASS_PROC' fi</pft></flow>
+                                <!-- ordena tags para exportacao do iso-->
+                                <proc>s</proc>
+                                <display><pft><pft>cat('PROC.PFT'),','</pft></pft></display>
+
+                                <label>PASS_PROC</label>
+                                <call name="FieldDir"><pft>if val(v1001) > 0 then '^m'v1001,'^i'v1000 fi</pft></call>                         
+
+                                <label>EXPORT_ISO</label>
+                                <field action="delete" tag="list">1000,1001,6212</field>
+                                <export>Now</export>
+                                <flow action="skip">Next</flow>
+
+                        </loop>
 		</do>
 		<flow action="jump">DONE</flow>
 		
