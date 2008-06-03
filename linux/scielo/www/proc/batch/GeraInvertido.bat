@@ -16,20 +16,25 @@ call batch/InformaLog.bat $0 x Gera invertido: $INVBASE
 echo $1> temp/GeraInvertido.in
 echo gizmo=gizmo/Accent>> temp/GeraInvertido.in
 echo fst=@$2>> temp/GeraInvertido.in
-echo convert=ansi>> temp/GeraInvertido.in
-echo ln1=$INVBASE.ln1>> temp/GeraInvertido.in
-echo ln2=$INVBASE.ln2>> temp/GeraInvertido.in
-echo +fix>> temp/GeraInvertido.in
-echo now>> temp/GeraInvertido.in
-echo -all>> temp/GeraInvertido.in
+#echo convert=ansi>> temp/GeraInvertido.in
+#echo ln1=$INVBASE.ln1>> temp/GeraInvertido.in
+#echo ln2=$INVBASE.ln2>> temp/GeraInvertido.in
+#echo +fix>> temp/GeraInvertido.in
+#echo now>> temp/GeraInvertido.in
+#echo -all>> temp/GeraInvertido.in
+echo fullinv=$INVBASE>> temp/GeraInvertido.in
+echo actab=tab/acans.tab>> temp/GeraInvertido.in
+echo uctab=tab/ucans.tab>> temp/GeraInvertido.in
+echo tell=10000>> temp/GeraInvertido.in
 $CISIS_DIR/mx in=temp/GeraInvertido.in
-batch/ifErrorLevel.bat $? batch/AchouErro.bat $0 extracao de chaves fst:@$2
+batch/ifErrorLevel.bat $? batch/AchouErro.bat $0 inversao com fst:@$2
 
-batch/sortT.bat $INVBASE.lk1 $INVBASE.ln1
-batch/sortT.bat $INVBASE.lk2 $INVBASE.ln2
+#batch/sortT.bat $INVBASE.lk1 $INVBASE.ln1
+#batch/sortT.bat $INVBASE.lk2 $INVBASE.ln2
 
-$CISIS_DIR/ifload $INVBASE $INVBASE.lk1 $INVBASE.lk2 +fix -reset
-batch/ifErrorLevel.bat $? batch/AchouErro.bat $0 carga das chaves
+### ==>> $CISIS_DIR/ifload $INVBASE $INVBASE.lk1 $INVBASE.lk2 +fix -reset
+#$CISIS_DIR/ifload $INVBASE $INVBASE.lk1 $INVBASE.lk2  master=$1 +fix/m
+#batch/ifErrorLevel.bat $? batch/AchouErro.bat $0 carga das chaves
 
 call batch/DeletaArquivo.bat $INVBASE.ln1
 call batch/DeletaArquivo.bat $INVBASE.ln2
