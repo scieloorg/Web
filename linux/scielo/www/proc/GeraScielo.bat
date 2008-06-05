@@ -62,6 +62,13 @@ call batch/Seq2Master.bat scilista.lst space temp/scilista
 call batch/TabulaMaster.bat temp/scilista temp/listatb 10 pft/TabLista.pft
 call batch/GeraInvIAH.bat $1 temp/listatb
 
+rem REPOSITORIO INICIO
+if [ -f repo/repo.seq ]
+then
+        call repo/RepoGenerateIndex.bat $1
+fi
+rem REPOSITORIO FIM
+
 call batch/ManutencaoOn.bat ../bases
 call batch/CopiaWork2Teste.bat ../bases-work ../bases
 call batch/ManutencaoOff.bat ../bases
