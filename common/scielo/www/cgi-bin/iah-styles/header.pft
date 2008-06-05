@@ -218,7 +218,7 @@ limit nem sempre é igual ao valor do issn. limit é a expressão de busca usada pa
     ,'<TABLE CELLSPACING=0 BORDER=0 CELLPADDING=7 WIDTH="600">',
     ,'<TR><TD WIDTH="26%" VALIGN="TOP" ALIGN="CENTER">',
     ,'<a href="http://',v7990,v7991,'sci_home',v7998,'lng=',v7021,'&nrm=',v5009.3'">',
-	,'<IMG SRC="http://',v7990,v7004,'fbpelogp.gif" border=0 alt="',v9010,'"></a><BR>',
+	,'<IMG SRC="http://',v7990,v7004,v7021,'/fbpelogp.gif" border=0 alt="',v9010,'"></a><BR>',
     ,'</TD>',
     ,'<TD WIDTH="74%" VALIGN="TOP">',
         ,'<table><tr><td nowrap>',
