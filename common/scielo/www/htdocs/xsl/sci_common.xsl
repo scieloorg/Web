@@ -942,7 +942,7 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 		<xsl:variable name="CONTROLINFO" select="//CONTROLINFO"/>
 		<xsl:variable name="LANGUAGE" select="$CONTROLINFO/LANGUAGE"/>
 		<xsl:variable name="INFOPAGE">http://<xsl:value-of select="$CONTROLINFO/SCIELO_INFO/SERVER"/>
-			<xsl:value-of select="$CONTROLINFO/SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_isoref&amp;pid=<xsl:value-of select="$CONTROLINFO/PAGE_PID"/>&amp;lng=<xsl:value-of select="$LANGUAGE"/>
+			<xsl:value-of select="$CONTROLINFO/SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_isoref&amp;pid=<xsl:value-of select="$CONTROLINFO/PAGE_PID"/>&amp;lng=<xsl:value-of select="$LANGUAGE"/><xsl:if test="//CONTROLINFO[PAGE_NAME='sci_arttext']">&amp;tlng=<xsl:value-of select="//ARTICLE/@TEXTLANG"/></xsl:if>
 		</xsl:variable>
 		<td valign="middle">
 			<a href="javascript:void(0);" onmouseout="status='';" class="nomodel" style="text-decoration: none;">
