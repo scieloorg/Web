@@ -137,7 +137,6 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 		<xsl:param name="file"/>
 		<xsl:param name="date"/>
 		<xsl:param name="page"/>
-
 		<xsl:choose>
 			<xsl:when test="$script = 'sci_pdf' ">
 				<xsl:attribute name="href">javascript: void(0); </xsl:attribute>
@@ -941,8 +940,22 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 		<xsl:variable name="PATH_GENIMG" select="//CONTROLINFO/SCIELO_INFO/PATH_GENIMG"/>
 		<xsl:variable name="CONTROLINFO" select="//CONTROLINFO"/>
 		<xsl:variable name="LANGUAGE" select="$CONTROLINFO/LANGUAGE"/>
+		<xsl:variable name="textLang">
+			<xsl:choose>
+				<xsl:when test="//CONTROLINFO[PAGE_NAME='sci_arttext']">
+					<xsl:value-of select="//ARTICLE/@TEXTLANG"/>
+				</xsl:when>
+				<xsl:when test="//CONTROLINFO[PAGE_NAME='sci_abstract']">
+					<xsl:variable name="abstractLang" select=".//ABSTRACT/@xml:lang"/>
+					<xsl:value-of select="//*[(name()='ART_TEXT_LANGS' or name()='PDF_LANGS') and LANG=$abstractLang]/LANG"/>
+				</xsl:when>
+				<xsl:otherwise></xsl:otherwise>				
+			</xsl:choose>
+		</xsl:variable>
+		<xsl:variable name="tlng"><xsl:value-of select="normalize-space($textLang)"/></xsl:variable>
+
 		<xsl:variable name="INFOPAGE">http://<xsl:value-of select="$CONTROLINFO/SCIELO_INFO/SERVER"/>
-			<xsl:value-of select="$CONTROLINFO/SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_isoref&amp;pid=<xsl:value-of select="$CONTROLINFO/PAGE_PID"/>&amp;lng=<xsl:value-of select="$LANGUAGE"/><xsl:if test="//CONTROLINFO[PAGE_NAME='sci_arttext']">&amp;tlng=<xsl:value-of select="//ARTICLE/@TEXTLANG"/></xsl:if>
+			<xsl:value-of select="$CONTROLINFO/SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_isoref&amp;pid=<xsl:value-of select="$CONTROLINFO/PAGE_PID"/>&amp;lng=<xsl:value-of select="$LANGUAGE"/><xsl:if test="string-length($tlng)&gt;0">&amp;tlng=<xsl:value-of select="$tlng"/></xsl:if>
 		</xsl:variable>
 		<td valign="middle">
 			<a href="javascript:void(0);" onmouseout="status='';" class="nomodel" style="text-decoration: none;">
@@ -999,5 +1012,4 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
 			<xsl:with-param name="LANG" select="$lang"/>
 		</xsl:call-template>
 	</xsl:template>
-	
 </xsl:stylesheet>
