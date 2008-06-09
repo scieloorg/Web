@@ -2,6 +2,66 @@
 
 	<include>ScieloXML/sci_common.xis</include>
 
+	<function name="CreateArticleTitleForReference" action="replace" tag="4000">
+		<!--
+		Prints article title if present. Otherwise section name.
+		v4000 - mfn 
+		-->
+
+		<do task="mfnrange">
+			<parm name="db">ARTIGO</parm>	
+			<parm name="from"><pft>v4000</pft></parm>
+			<parm name="count">1</parm>
+
+			<loop>
+				<display><pft>@PROC_SPLIT_MST.PFT,</pft></display>
+				<field action="import"	tag="list">3100</field>
+
+				<field action="replace"	tag="1000">
+					<pft>if instr(v702,'.xml')=0 then '^i<![CDATA[^f]]>' fi</pft>
+				</field>
+
+				<field action="replace"	tag="9040">
+					<pft>v40</pft>
+				</field>
+				<field action="replace"	tag="9000">
+					<pft>(if v9040[1]=v12^l then v12^* fi)</pft>
+				</field>
+				<field action="replace"	tag="9001">
+					<pft>(if v9040[1]=v12^l then v12^s fi)</pft>
+				</field>
+				<display>
+					<pft>
+						'  <TITLE>',v1000^i,v9000,v1000^f,'</TITLE>'/#
+						if p(v9001) then '  <SUBTITLE>',v1000^i,v9001,v1000^f,'</SUBTITLE>'/# fi
+					</pft>
+				</display>		
+
+				<field action="replace"	tag="9040">
+					<pft>v3100</pft>
+				</field>
+				<flow action="jump"><pft>if v40=v9040 then 'NO_TRANSLATION' fi</pft></flow>
+
+				<field action="replace"	tag="9000">
+					<pft>(if v9040[1]=v12^l then v12^* fi)</pft>
+				</field>
+				<field action="replace"	tag="9001">
+					<pft>(if v9040[1]=v12^l then v12^s fi)</pft>
+				</field>
+
+				<display>
+					<pft>
+						'  <TRANS-TITLE>',v1000^i,v9000,v1000^f,'</TRANS-TITLE>'/#
+						if p(v9001) then '  <TRANS-SUBTITLE>',v1000^i,v9001,v1000^f,'</TRANS-SUBTITLE>'/# fi
+					</pft>
+				</display>		
+				<label>NO_TRANSLATION</label>
+			</loop>
+		</do>
+	</function>
+	
+	
+
 	<function name="StandardXML" action="replace" tag="4001">
 		<field action="replace" tag="1" split="occ"><pft>'iso-e'/,'nbr6023-e'/,</pft></field>
 		<field action="replace" tag="2" split="occ"><pft>'Electronic Document Format (ISO)'/,'Electronic Document Format (ABNT)'/,</pft></field>
@@ -45,6 +105,7 @@
 	</function>
 
 	<section>
+	<field action="cgi" tag="3100">tlng</field>
 	<field action="cgi" tag="3000">lng</field>
 	<field action="cgi" tag="3001">nrm</field>
 	<field action="cgi" tag="3002">pid</field>	
@@ -106,7 +167,7 @@
 	
             <display><pft>@PROC_SPLIT_MST.PFT,</pft></display>
 			<field action="import" tag="list">3000/3012,7009/7050</field> <!-- fixed -->
-       
+       <field action="import"	tag="list">3100</field>
             <display>
                 <pft>
                     ' <ARTICLE'
@@ -123,7 +184,8 @@
 			<call name="getDOI"><pft>v880</pft></call>
 
 			<display><pft>'>',/#</pft></display>
-			<call name="CreateArticleTitleOrSectionXML"><pft>mfn</pft></call>
+			<!--call name="CreateArticleTitleOrSectionXML"><pft>mfn</pft></call-->
+			<call name="CreateArticleTitleForReference"><pft>mfn</pft></call>
 
 			<call name="CreateArtIssueInfoXML"><pft>v3005,'^l'v3000'^i'v3003'</pft></call>
 			
