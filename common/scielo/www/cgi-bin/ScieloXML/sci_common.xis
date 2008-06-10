@@ -598,9 +598,8 @@
 <!--	    'ABS' navigation in the articles (Abstract)                           -->
 <!-- ============================================================================ -->
 <function name="CreateControlInfoXML" action="replace" tag="4900">
-	<field action="import" tag="list">7009/7050</field> <!-- fixed -->
+	<field action="import" tag="list">7000/7050</field> <!-- fixed -->
 	<field action="import" tag="list">3311</field> 
-
 	<call name="checkNewHome"><pft>if p(v7047) and p(v3311) then '^u'v7047,'^r',v3311,'^l',v4900^l fi</pft></call>
 	<field action="replace" tag="7047">
 		<pft>if instr(v7047,'REPLACE_PARAM_')>0 then
@@ -610,7 +609,6 @@
 	<field action="delete" tag="7047">
 		<pft>if instr(v7047,v7009)>0 and instr(v7047,'sci_home')>0 then 'yes' fi</pft>
 	</field>
-<!--trace>On</trace-->
 	<display><pft>
 		' <CONTROLINFO>'/,
 		'  <DATETIME>',date,'</DATETIME>'/
@@ -692,8 +690,10 @@
 			fi
 		</pft>
 	</call>
-
 	<display><pft>' </CONTROLINFO>'/#</pft></display>
+	
+
+	<call name="getCreativeCommonsInfo"><pft>'^f',v4900^l,'_',v4900^f,|^p|v4900^p,'^s',v7009</pft></call>
 </function>
 
 <!-- ============================================================================ -->
@@ -3297,4 +3297,65 @@
 		<field action="export" tag="list">7047</field>
 	</do>
 <return action="replace" tag="7047"><pft>v7047</pft></return>
+</function>
+
+
+<function name="getIssueLicense" action="replace" tag="4000">
+	<field action="import" tag="list">4010</field>
+
+	<call name="GetCurrentIssue"><pft>if size(v4000)=9 then v4000 fi</pft></call>
+	<field action="replace" tag="4000"><pft>if size(v4000)=9 then v7090 fi</pft></field>
+	<field action="replace" tag="4000"><pft>if v4000*0.1='S' then v4000*1.17 else v4000*0.17 fi</pft></field>
+	<field action="replace" split="occ" tag="300" ><pft>ref( ['NEWISSUE'] l(['NEWISSUE'], 'Y',v4000), (v300/))</pft></field>
+	<field action="replace" tag="9300"><pft>(if v300^l=v4010^l[1] then v300^t/ fi)</pft></field>
+
+	<return action="replace" tag="9300"><pft>v9300</pft></return>
+</function>
+
+
+<function name="getCreativeCommonsInfo" action="replace" tag="4000">
+	<field action="import" tag="4010">4900</field>
+
+
+	<call name="getIssueLicense"><pft>v4000^p</pft></call>
+	<field action="replace" tag="4001"><pft>v9300</pft></field>
+	<field action="replace" tag="4003"><pft>'spec'</pft></field>
+	<field action="replace" tag="4004"><pft>v4000^f</pft></field>
+	<flow action="jump"><pft>if p(v4001) then 'license' fi</pft></flow>
+
+	<call name="existeFile"><pft>'^p../bases/license/^f',v4000^f</pft></call>
+	<call name="existeFile"><pft>if a(v7999) then '^p../bases/license/^f',v4010^l,'_general.txt' fi</pft></call>
+	<flow action="jump"><pft>if a(v7999) then 'no' fi</pft></flow>
+
+	<do task="import">
+	    <parm name="file"><pft>|../bases/license/|v7999</pft></parm>
+		<parm name="type">RLine</parm>
+    	<loop>
+			<field action="import" tag="list">4001</field>
+			<field action="add" tag="4001"><pft>v1,"|"v2,"|"v3,"|"v4,"|"v5,"|"v6,"|"v7,"|"v8,"|"v9/</pft></field>
+			<field action="export" tag="list">4001</field>
+   		</loop>
+		<field action="replace" tag="4001"><pft>(v4001/)</pft></field>
+		<field action="replace" tag="4003"><pft>'general'</pft></field>
+		<field action="replace" tag="4004"><pft>|../bases/license/|v7999</pft></field>
+	</do>
+
+	<label>license</label>
+	<display>
+		<pft>
+			'<PERMISSIONS type="',v4003,'" source="',v4004,'">'/
+			'<permissions>'/
+			/* 
+			<!-- copyright-statement>Copyright &amp;#x00A9; 1999, British Medical Journal</copyright-statement -->
+			<!-- copyright-year>1999</copyright-year -->
+			<!-- copyright-holder>British Medical Journal</copyright-holder -->
+
+			*/
+			'<license license-type="open-access"><p>',replace(v4001,'%SITE_NAME%',v4000^s),'</p></license>'
+			'</permissions>'/
+			'</PERMISSIONS>'/
+		</pft>
+	</display>
+
+	<label>no</label>
 </function>
