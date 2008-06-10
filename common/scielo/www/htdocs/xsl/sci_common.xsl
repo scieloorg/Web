@@ -168,6 +168,7 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 	</xsl:template>
 	<!-- Shows copyright information -->
 	<xsl:template match="COPYRIGHT">
+		<xsl:apply-templates select="../." mode="license"/>
 		<font class="normal">&#169;&#160;</font>
 		<FONT color="#000080" class="negrito">
 			<I>
@@ -486,6 +487,7 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 		</img>
 	</xsl:template>
 	<xsl:template name="COPYRIGHTSCIELO">
+		<xsl:apply-templates select="." mode="license"/>
 		<center>
 		&#169;&#160;<xsl:value-of select="@YEAR"/>&#160;
 		<i>
@@ -947,7 +949,7 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 				</xsl:when>
 				<xsl:when test="//CONTROLINFO[PAGE_NAME='sci_abstract']">
 					<xsl:variable name="abstractLang" select=".//ABSTRACT/@xml:lang"/>
-					<xsl:value-of select="//*[(name()='ART_TEXT_LANGS' or name()='PDF_LANGS') and LANG=$abstractLang]/LANG"/>
+					<xsl:if test="//ART_TEXT_LANGS[LANG=$abstractLang] or //PDF_LANGS[LANG=$abstractLang]"><xsl:value-of select="$abstractLang"/></xsl:if>
 				</xsl:when>
 				<xsl:otherwise></xsl:otherwise>				
 			</xsl:choose>
@@ -1011,5 +1013,30 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
 			<xsl:with-param name="DATEISO" select="."/>
 			<xsl:with-param name="LANG" select="$lang"/>
 		</xsl:call-template>
+	</xsl:template>
+	<xsl:template match="*" mode="license">
+		<xsl:choose>
+			<xsl:when test=".//article-meta/permissions">
+				<xsl:apply-templates select=".//article-meta/permissions"/>
+			</xsl:when>
+			<xsl:when test=".//PERMISSIONS">
+				<xsl:apply-templates select=".//PERMISSIONS/permissions" />
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:apply-templates select="..//PERMISSIONS/permissions" />
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+	<xsl:template match="permissions"  >
+		<div class="license">
+			<xsl:copy-of select=".//license/*"/>
+		</div>
+	</xsl:template>
+	<xsl:template match="*" mode="footer-journal">
+		
+		<div class="footer">
+			<xsl:apply-templates select=".//COPYRIGHT"/>
+			<xsl:apply-templates select=".//CONTACT"/>
+		</div>
 	</xsl:template>
 </xsl:stylesheet>

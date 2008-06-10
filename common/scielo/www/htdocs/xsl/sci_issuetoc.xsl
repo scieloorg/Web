@@ -55,12 +55,10 @@
 					</FONT>
 				</CENTER>
 				<br/>
+				<div class="content">
 				<xsl:apply-templates select="//ISSUE"/>
-				<HR/>
-				<P align="center">
-					<xsl:apply-templates select="//COPYRIGHT"/>
-					<xsl:apply-templates select="//CONTACT"/>
-				</P>
+				</div>
+				<xsl:apply-templates select="." mode="footer-journal"/>
 			</BODY>
 		</HTML>
 	</xsl:template>

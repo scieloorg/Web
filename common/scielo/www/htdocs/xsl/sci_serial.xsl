@@ -46,18 +46,17 @@
 					</xsl:with-param>
 					<xsl:with-param name="scope" select="TITLEGROUP/SIGLUM"/>
 				</xsl:call-template>
+				
+				<div class="content">
+
 				<xsl:apply-templates select="CONTROLINFO">
 					<xsl:with-param name="YEAR" select="substring(@LASTUPDT,1,4)"/>
 					<xsl:with-param name="MONTH" select="substring(@LASTUPDT,5,2)"/>
 					<xsl:with-param name="DAY" select="substring(@LASTUPDT,7,2)"/>
 				</xsl:apply-templates>
 				<br/>
-				
-				<hr/>					
-				<p align="center">
-					<xsl:apply-templates select="/SERIAL/COPYRIGHT"/>
-					<xsl:apply-templates select="/SERIAL/CONTACT"/>
-				</p>
+				</div>
+				<xsl:apply-templates select="." mode="footer-journal"/>
 				</xsl:if>
 
 			</body>

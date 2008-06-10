@@ -80,11 +80,7 @@
 			<td width="10%">&#160;</td>
 			</tr>
 			</table>
-			<hr/>
-			<p align="center">	
-				<xsl:apply-templates select="/SERIAL/COPYRIGHT" />
-				<xsl:apply-templates select="/SERIAL/CONTACT" />
-			</p>
+			<xsl:apply-templates select="." mode="footer-journal"/>
 			
 		</body>
 	</html>

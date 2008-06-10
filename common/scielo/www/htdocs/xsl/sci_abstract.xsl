@@ -78,10 +78,7 @@
 						<!--/div-->
 						<div class="spacer">&#160;</div>
 					</div>
-					<div class="footer">
-						<xsl:apply-templates select="COPYRIGHT"/>
-						<xsl:apply-templates select="CONTACT"/>
-					</div>
+					<xsl:apply-templates select="." mode="footer-journal"/>
 				</div>
 			</body>
 		</html>
