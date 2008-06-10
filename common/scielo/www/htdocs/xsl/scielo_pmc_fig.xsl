@@ -30,7 +30,16 @@
 		<xsl:variable name="id" select="."/>
 		<xsl:choose>
 			<xsl:when test="$var_IMAGES_INFO"><xsl:value-of select="$var_IMAGES_INFO//image[@id=$id]"/></xsl:when>
-			<xsl:otherwise><xsl:value-of select="$var_IMAGE_PATH"/><xsl:value-of select="."/>.jpg</xsl:otherwise>
+			<xsl:otherwise><xsl:value-of select="$var_IMAGE_PATH"/><xsl:apply-templates select="." mode="check-extension"/></xsl:otherwise>
 		</xsl:choose>
+		</xsl:template>	
+<xsl:template match="graphic/@xlink:href| inline-graphic/@xlink:href" mode="check-extension"><xsl:value-of select="."/>
+
+		<!--xsl:choose>
+			<xsl:when test="contains(.,'.jpg') or contains(.,'.jpeg')"><xsl:value-of select="."/></xsl:when>
+			<xsl:otherwise><xsl:value-of select="substring-before(.,'.tif')"/>.jpg</xsl:otherwise>
+		</xsl:choose-->
+
+
 		</xsl:template>	
 </xsl:transform>

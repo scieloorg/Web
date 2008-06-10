@@ -80,4 +80,6 @@
 				<xsl:when test=".//year &gt;= 1997">1997-2007</xsl:when>
 			</xsl:choose>
 		</xsl:variable>http://bases.bireme.br/cgi-bin/wxislind.exe/iah/online/?IsisScript=iah/iah.xis&amp;nextAction=lnk&amp;base=MEDLINE_<xsl:value-of select="$year-range"/>&amp;exprSearch=<xsl:value-of select=".//pub-id[@pub-id-type='pmid']"/>&amp;indexSearch=UI&amp;lang=i</xsl:template>
+
 </xsl:transform>
+

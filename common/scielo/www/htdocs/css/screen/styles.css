@@ -146,7 +146,6 @@ HTML>BODY .content H4 {
 	font-weight: bold;
 	color: #000080;
 }
-
 .email {
 	font-weight: normal;
 	color: #000080;
@@ -184,3 +183,13 @@ HTML>BODY .content H4 {
 	color: black;
 }
 .invisible {display: none}
+
+.license P, .license  A, .license  SPAN{
+	text-align: center;
+	font-size: 8pt;
+	color: black
+}
+
+.license img {
+	
+}

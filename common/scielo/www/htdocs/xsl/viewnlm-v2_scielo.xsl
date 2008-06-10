@@ -935,6 +935,7 @@
 		<hr class="part-rule"/>
 		<!-- change context node to back -->
 		<xsl:for-each select="back">
+			<xsl:text></xsl:text>
 			<xsl:apply-templates select="title"/>
 			<xsl:if test="preceding-sibling::body//fn-group | .//fn-group">
 				<span class="tl-main-part">Notes</span>
@@ -1005,17 +1006,22 @@
 	<xsl:template match="subj-group">
 		<xsl:if test="not(parent::subj-group)">
 			<span class="gen">
-				<xsl:text>Article Categories:</xsl:text>
+				<xsl:text/>
 			</span>
 		</xsl:if>
-		<ul>
+		<xsl:text/>
+		<span class="">
+		<p align="right">
+			<b>
 			<xsl:apply-templates/>
-		</ul>
+			</b>
+		</p>
+		</span>
 	</xsl:template>
 	<xsl:template match="subject">
-		<li>
+		<p align="right">
 			<xsl:apply-templates/>
-		</li>
+		</p>
 	</xsl:template>
 	<!-- There may be many series-title elements; there
      may be one series-text (description) element. -->
@@ -2423,7 +2429,7 @@
 		<xsl:call-template name="nl-1"/>
 	</xsl:template>
 	<!-- author-notes/fn/label -->
-	<xsl:template match="author-notes/fn/label">
+	<xsl:template match="author-notes/fn/label">		
 		<xsl:apply-templates/>
 	</xsl:template>
 	<!-- author-notes/fn/p[1] -->
@@ -2521,6 +2527,7 @@
 			<hr class="section-rule"/>
 		</xsl:if>
 		<xsl:call-template name="nl-1"/>
+		<xsl:text></xsl:text>
 		<xsl:apply-templates/>
 		<xsl:call-template name="nl-1"/>
 	</xsl:template>
@@ -2530,7 +2537,7 @@
 	<!-- symbol or id is displayed by the first para within the fn     -->
 	<xsl:template match="fn">
 		<div id="{@id}">
-			<xsl:apply-templates/>
+			<!--xsl:apply-templates/-->
 		</div>
 	</xsl:template>
 	<!-- ============================================================= -->
@@ -2655,9 +2662,12 @@
 	<!-- ============================================================= -->
 	<!-- xref for fn, table-fn, or bibr becomes a superior number -->
 	<!-- Displays the @rid, not the element content (if any) -->
-	<xsl:template match="xref[@ref-type='fn']
+	<!--xsl:template match="xref[@ref-type='fn']
                   | xref[@ref-type='table-fn']
-                  | xref[@ref-type='bibr']">
+                  | xref[@ref-type='bibr']"-->
+	<!-- retirado o tipo bibr -->
+	<xsl:template match="xref[@ref-type='fn']
+                  | xref[@ref-type='table-fn']">
 		<span class="xref">
 			<xsl:call-template name="make-id"/>
 			<sup>
@@ -2665,14 +2675,18 @@
            (otherwise assume desired punctuation is in the source).-->
 				<xsl:if test="local-name(preceding-sibling::node()[1])='xref'">
 					<span class="gen">
-						<xsl:text>, </xsl:text>
+						<xsl:text>,</xsl:text>
 					</span>
 				</xsl:if>
 				<a xxtarget="xrefwindow" href="#{@rid}">
+					<xsl:text>,</xsl:text>
 					<xsl:value-of select="@rid"/>
 				</a>
 			</sup>
 		</span>
+	</xsl:template>
+	<xsl:template match="xref[@ref-type='bibr']">
+		<xsl:value-of select="."/>
 	</xsl:template>
 	<xsl:template match="text()[normalize-space(.)='-']">
 		<xsl:choose>
@@ -2800,7 +2814,7 @@
 			<!-- abstract with no title -->
 			<xsl:when test="self::abstract">
 				<span class="gen">
-					<xsl:text>Abstract</xsl:text>
+					<xsl:text>ABSTRACT</xsl:text>
 				</span>
 			</xsl:when>
 			<!-- trans-abstract with no title -->

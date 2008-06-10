@@ -65,6 +65,8 @@ hr.section-rule {
 /* superior numbers which are cross-references */
 .xref {
     color: red;
+    margin-top: 5pt;
+    margin-bottom: 5pt;
     }
     
 /* generated text */     

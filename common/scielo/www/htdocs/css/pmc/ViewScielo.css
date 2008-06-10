@@ -62,16 +62,17 @@ font-family: Verdana, Arial, Helvetica, sans-serif;
   }
 hr.section-rule {
 	display: none;
-    margin-top: 20pt;
-    margin-bottom: 20pt;
+    margin-top: 40pt;
+    margin-bottom: 40pt;
 	font-family: Verdana, Arial, Helvetica, sans-serif;
     }
 /* SciELO */
 .scielo-article-title {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-weight: bold;
-	font-size: 13pt;
+	font-size: 17px;
 	margin: 10;
+	margin-bottom: 80px;
 }
 .scielo-article-other-titles {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
@@ -93,8 +94,8 @@ hr.section-rule {
 	font-family: Verdana,Arial,Helvetica,sans-serif;
 	font-weight: bold;
 	font-size: 10pt;
-	margin-top: 20pt;
-	margin-bottom: 20pt;
+	margin-top: 20px;
+	margin-bottom: 20px;
 }
 .abstractr2l {
 		font-size: 14pt;
@@ -102,7 +103,7 @@ hr.section-rule {
 		font-family: sans-serif
 }
 .fig {
-	text-align: center;
+	text-align: left;
 }
 
 
@@ -110,4 +111,16 @@ hr.section-rule {
 		font-size: 130%;
 		text-align: right;
 		font-family: sans-serif
+}
+
+.fig-file {
+		text-align center;
+}
+
+
+.fig-caption {
+		font-family: Verdana,Arial,Helvetica,sans-serif;
+		font-size: 9pt;
+
+	
 }
