@@ -7,7 +7,7 @@
 		Prints article title if present. Otherwise section name.
 		v4000 - mfn 
 		-->
-
+		<field action="import"	tag="list">3100</field>
 		<do task="mfnrange">
 			<parm name="db">ARTIGO</parm>	
 			<parm name="from"><pft>v4000</pft></parm>
@@ -30,12 +30,13 @@
 				<field action="replace"	tag="9001">
 					<pft>(if v9040[1]=v12^l then v12^s fi)</pft>
 				</field>
+					
 				<display>
 					<pft>
-						'  <TITLE>',v1000^i,v9000,v1000^f,'</TITLE>'/#
-						if p(v9001) then '  <SUBTITLE>',v1000^i,v9001,v1000^f,'</SUBTITLE>'/# fi
+						'  <ORIGINAL-TITLE>',v1000^i,v9000,v1000^f,'</ORIGINAL-TITLE>'/#
+						if p(v9001) then '  <ORIGINAL-SUBTITLE>',v1000^i,v9001,v1000^f,'</ORIGINAL-SUBTITLE>'/# fi
 					</pft>
-				</display>		
+				</display>	
 
 				<field action="replace"	tag="9040">
 					<pft>v3100</pft>
@@ -56,6 +57,14 @@
 					</pft>
 				</display>		
 				<label>NO_TRANSLATION</label>
+
+				<display>
+					<pft>
+						'  <TITLE>',v1000^i,v9000,v1000^f,'</TITLE>'/#
+						if p(v9001) then '  <SUBTITLE>',v1000^i,v9001,v1000^f,'</SUBTITLE>'/# fi
+					</pft>
+				</display>	
+
 			</loop>
 		</do>
 	</function>
