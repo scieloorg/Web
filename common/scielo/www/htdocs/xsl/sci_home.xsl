@@ -7,7 +7,7 @@
 	<xsl:variable name="logout_url" select="//logoutURL"/>
 
 	<xsl:output method="html" indent="no"/>
-	<xsl:include href="sci_common.xsl"/>
+	<xsl:include href="sci_navegation.xsl"/>
 
 <xsl:template match="HOMEPAGE">
 	<html>
