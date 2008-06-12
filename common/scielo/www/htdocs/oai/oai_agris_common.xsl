@@ -156,7 +156,7 @@
 </xsl:template>
 
 <xsl:template match="pub-date" mode="datestamp">
-	<datestamp><xsl:value-of select="year"/>-<xsl:value-of select="month"/>-<xsl:value-of select="day"/></datestamp>
+	<datestamp><xsl:value-of select="year"/>-<xsl:value-of select="month"/>-<xsl:choose><xsl:when test="normalize-space(day) != '00'"><xsl:value-of select="day"/></xsl:when><xsl:otherwise><xsl:text>01</xsl:text></xsl:otherwise></xsl:choose></datestamp>
 </xsl:template>
 
 <xsl:template match="publisher-name" mode="citationTitle">
