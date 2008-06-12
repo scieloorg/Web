@@ -57,7 +57,7 @@
 
 <xsl:template match="abstract" mode="description">
 	<dc:description>
-		<dcterms:abstract xml:lang="{@xml:lang}"><xsl:text disable-output-escaping="yes">&lt;![CDATA[</xsl:text><xsl:value-of select="p"/><xsl:text disable-output-escaping="yes">]]&gt;</xsl:text></dcterms:abstract>
+		<dcterms:abstract xml:lang="{@xml:lang}"><xsl:text disable-output-escaping="yes">&lt;![CDATA[</xsl:text><xsl:value-of select="p" disable-output-escaping="yes"/><xsl:text disable-output-escaping="yes">]]&gt;</xsl:text></dcterms:abstract>
 	</dc:description>
 </xsl:template>
 
