@@ -29,6 +29,9 @@ class Scielo extends ScieloBase
 	function GenerateIsisScriptUrl()
 	{
 
+		$this->_request->getRequestValue ("lng", $lng);
+		$this->_request->getRequestValue ("nrm", $nrm);
+
     	$url  = "http://";
 		$url .= $this->_def->getKeyValue("SERVER_SCIELO");
 		$url .= $this->_def->getKeyValue("PATH_WXIS_SCIELO");
@@ -37,8 +40,8 @@ class Scielo extends ScieloBase
 		$url .= $this->_def->getKeyValue("PATH_SCRIPTS");
 		$url .= "$this->_script.xis";
 		$url .= "&def=$this->_deffile";
-        if ( !$this->_request->getRequestValue ("lng", $lng) ) $url .= "&lng=" . $this->_def->getKeyValue("STANDARD_LANG");
-        if ( !$this->_request->getRequestValue ("nrm", $nrm) ) $url .= "&nrm=iso";
+		if ( !$lng || ($lng=='') ) $url .= "&lng=" . $this->_def->getKeyValue("STANDARD_LANG");
+        if ( !$nrm || ($nrm=='') ) $url .= "&nrm=iso";
         if ( $this->_script == $this->_homepg &&
              !empty ( $this->_param ) &&
              !$this->_request->getQueryString () )
