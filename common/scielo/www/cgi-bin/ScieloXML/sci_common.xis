@@ -3300,13 +3300,24 @@
 </function>
 
 
+<function name="getTitleLicense" action="replace" tag="4000">
+	<field action="import" tag="list">4010</field>
+	<field action="replace" split="occ" tag="300" ><pft>ref( ['TITLE'] l(['TITLE'], 'LOC=',v4000), (v540/))</pft></field>
+	<field action="replace" tag="9300"><pft>(if v300^l=v4010^l[1] then v300^t/ fi)</pft></field>
+	<return action="replace" tag="9300"><pft>v9300</pft></return>
+</function>
+
+
 <function name="getIssueLicense" action="replace" tag="4000">
 	<field action="import" tag="list">4010</field>
 
-	<call name="GetCurrentIssue"><pft>if size(v4000)=9 then v4000 fi</pft></call>
-	<field action="replace" tag="4000"><pft>if size(v4000)=9 then v7090 fi</pft></field>
+	<call name="getTitleLicense"><pft>if v4000*0.1='S' then v4000*1.9 else v4000*0.9 fi</pft></call>
+
+	<!--call name="GetCurrentIssue"><pft>if size(v4000)=9 then v4000 fi</pft></call>
+	<field action="replace" tag="4000"><pft>if size(v4000)=9 then v7090 fi</pft></field-->
+
 	<field action="replace" tag="4000"><pft>if v4000*0.1='S' then v4000*1.17 else v4000*0.17 fi</pft></field>
-	<field action="replace" split="occ" tag="300" ><pft>ref( ['NEWISSUE'] l(['NEWISSUE'], 'Y',v4000), (v300/))</pft></field>
+	<field action="replace" split="occ" tag="300" ><pft>ref( ['NEWISSUE'] l(['NEWISSUE'], 'Y',v4000), (v540/))</pft></field>
 	<field action="replace" tag="9300"><pft>(if v300^l=v4010^l[1] then v300^t/ fi)</pft></field>
 
 	<return action="replace" tag="9300"><pft>v9300</pft></return>
