@@ -47,6 +47,8 @@ class RequestVars
 		print_r($SCRIPT_NAME);		
 		print_r($this->_request);
 		*/
+		if ( strpos("|en|pt|es|",$this->_request['lng'])==0  ) $this->_request['lng'] = "";
+
     }
     
     function getRequestValue ($key, &$value)
@@ -54,6 +56,8 @@ class RequestVars
         if ( !isset ($this->_request[$key]) ) return false;
             
         $value = $this->_request[$key];
+
+		
         return true;
     }
     
