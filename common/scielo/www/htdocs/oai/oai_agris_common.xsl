@@ -62,7 +62,7 @@
 </xsl:template>
 
 <xsl:template match="article-meta" mode="identifier">
-	<dc:identifier scheme="dcterms:URI">http://www.scielo.br/scielo.php?script=sci_arttext&#x0026;pid=<xsl:value-of select="article-id"/></dc:identifier>
+	<dc:identifier scheme="dcterms:URI"><xsl:text disable-output-escaping="yes">&lt;![CDATA[http://www.scielo.br/scielo.php?script=sci_arttext&amp;pid=</xsl:text><xsl:value-of select="article-id"/><xsl:text disable-output-escaping="yes">]]&gt;</xsl:text></dc:identifier>
 	<dc:identifier scheme="ags:DOI">10.1590/<xsl:value-of select="article-id"/></dc:identifier>
 </xsl:template>
 
@@ -116,7 +116,7 @@
 		</header>
 		<metadata>
 			<ags:resources>		
-				<ags:resource ags:ARN="SC{concat(substring(article-meta/article-id,11,4),$spacechar,substring(article-meta/article-id,17,2),substring(article-meta/article-id,22,2) )}">
+				<ags:resource ags:ARN="BE{concat(substring(article-meta/article-id,11,4),$spacechar,substring(article-meta/article-id,17,2),substring(article-meta/article-id,22,2) )}">
 					<xsl:apply-templates select=".//title-group" mode="title"/>
 					<dc:creator>
 						<xsl:apply-templates select=".//contrib-group/contrib" mode="creator"/>
@@ -135,7 +135,7 @@
 						<ags:availabilityNumber>10.1590/<xsl:value-of select=".//article-meta/article-id"/></ags:availabilityNumber> 
 					</agls:availability>
 					<ags:citation>
-				              <xsl:apply-templates select="journal-meta/publisher/publisher-name" mode="citationTitle"/>
+				              <xsl:apply-templates select="journal-meta/journal-title" mode="citationTitle"/>
 			               	 <xsl:apply-templates select="journal-meta/issn" mode="issn"/>
 				              <xsl:apply-templates select="article-meta" mode="volnum"/>
 				              <xsl:apply-templates select="article-meta/pub-date[@pub-type='pub']/year" mode="year"/>
@@ -148,7 +148,7 @@
 
 <xsl:template match="article-id" mode="identifier">
 	<!--identifier>oai:agris.scielo:<xsl:value-of select="normalize-space(.)"/></identifier-->
-	<identifier>oai:agris.scielo:SC<xsl:value-of select="concat(substring(.,11,4),$spacechar,substring(.,17,2),substring(.,22,2) )"/></identifier>
+	<identifier>oai:agris.scielo:BE<xsl:value-of select="concat(substring(.,11,4),$spacechar,substring(.,17,2),substring(.,22,2) )"/></identifier>
 </xsl:template>
 
 <xsl:template match="issn" mode="setSpec">
@@ -159,7 +159,7 @@
 	<datestamp><xsl:value-of select="year"/>-<xsl:value-of select="month"/>-<xsl:choose><xsl:when test="normalize-space(day) != '00'"><xsl:value-of select="day"/></xsl:when><xsl:otherwise><xsl:text>01</xsl:text></xsl:otherwise></xsl:choose></datestamp>
 </xsl:template>
 
-<xsl:template match="publisher-name" mode="citationTitle">
+<xsl:template match="journal-title" mode="citationTitle">
 	<ags:citationTitle><xsl:value-of select="normalize-space(.)"/></ags:citationTitle>
 </xsl:template>
 
