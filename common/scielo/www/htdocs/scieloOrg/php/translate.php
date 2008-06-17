@@ -50,15 +50,19 @@
             <div class="middle">
                 <div id="collection">
                     <h3><span>
-                            <?=ARTICLE_TRANSLATION?>
+                            <?=ARTICLE_TRANSLATION?><br/><span style="font-size:70%; font-weight:normal"><?=ARTICLE_TRANSLATION_WARNING?></span>						
                         </span></h3>
-                    <div class="content">
+						
+						
+                    <div class="content">					
                         <TABLE border="0" cellpadding="0" cellspacing="2" width="760" align="center">
                             <TR>
                                 <TD colspan="2">
-                                    <h3><span style="font-weight:100;font-size: 70%; background:none;">
-                                            <?php
-
+									
+                                    <h3><span style="font-weight:100;font-size: 70%; background:none;">											
+                                            <?php									
+											//print('<p style="font-size:90%">'.ARTICLE_TRANSLATION_WARNING.'</p>');
+											
 											$author = getAutors($article->getAuthorXML());
 											$pos = strrpos($author, ";");
 											$author[$pos] = " ";
