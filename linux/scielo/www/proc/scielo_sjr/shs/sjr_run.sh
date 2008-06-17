@@ -26,6 +26,12 @@ chmod +x downloadTempList.sh
 echo "</SCIMAGOLIST>" >> meuXML.xml
 
 #---------------------------------------------------------------#
+# movendo arquivos para diretorio de bases
+#---------------------------------------------------------------#
+echo "MOVENDO PARA DIRETORIO DE BASES"
+mv meuXML.xml $database_dir/scimago/scimago.xml
+
+#---------------------------------------------------------------#
 # removendo arquivos temporarios.
 #---------------------------------------------------------------#
 echo "REMOVENDO ARQUIVOS TEMPORARIOS"
