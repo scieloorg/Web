@@ -116,7 +116,7 @@
 		</header>
 		<metadata>
 			<ags:resources>		
-				<ags:resource ags:ARN="BE{concat(substring(article-meta/article-id,11,4),$spacechar,substring(article-meta/article-id,17,2),substring(article-meta/article-id,22,2) )}">
+				<ags:resource ags:ARN="XS{concat(substring(article-meta/article-id,11,4),$spacechar,substring(article-meta/article-id,17,2),substring(article-meta/article-id,22,2) )}">
 					<xsl:apply-templates select=".//title-group" mode="title"/>
 					<dc:creator>
 						<xsl:apply-templates select=".//contrib-group/contrib" mode="creator"/>
@@ -148,7 +148,7 @@
 
 <xsl:template match="article-id" mode="identifier">
 	<!--identifier>oai:agris.scielo:<xsl:value-of select="normalize-space(.)"/></identifier-->
-	<identifier>oai:agris.scielo:BE<xsl:value-of select="concat(substring(.,11,4),$spacechar,substring(.,17,2),substring(.,22,2) )"/></identifier>
+	<identifier>oai:agris.scielo:XS<xsl:value-of select="concat(substring(.,11,4),$spacechar,substring(.,17,2),substring(.,22,2) )"/></identifier>
 </xsl:template>
 
 <xsl:template match="issn" mode="setSpec">
