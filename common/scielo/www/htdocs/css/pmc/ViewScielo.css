@@ -10,12 +10,6 @@ html {
 	font-size: 10pt;
 
 }
-table.bm {
-	font-family:arial;
-	font-size: 8pt;
-	background-color: #CCCCCC;
-	
-}
 
 .tl-main-part {
 	display: block;
@@ -70,7 +64,7 @@ hr.section-rule {
 .scielo-article-title {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-weight: bold;
-	font-size: 17px;
+	font-size: 18px;
 	margin: 10;
 	margin-bottom: 80px;
 }
@@ -96,6 +90,7 @@ hr.section-rule {
 	font-size: 10pt;
 	margin-top: 20px;
 	margin-bottom: 20px;
+	text-transform: uppercase
 }
 .abstractr2l {
 		font-size: 14pt;
@@ -103,7 +98,7 @@ hr.section-rule {
 		font-family: sans-serif
 }
 .fig {
-	text-align: left;
+	text-align: center;
 }
 
 
@@ -114,13 +109,52 @@ hr.section-rule {
 }
 
 .fig-file {
-		text-align center;
+		text-align: center;
 }
 
 
-.fig-caption {
-		font-family: Verdana,Arial,Helvetica,sans-serif;
+
+.fig-data {
+			width: 70%;
+			text-align: center;
+}
+
+
+
+.table-label, .fig-label {
+		font-family: Times New Roman;
+		font-size: 9pt;
+		font-weight: bold;
+}
+
+.table-caption, .fig-caption {
+		font-family: Times New Roman;
 		font-size: 9pt;
 
+}
+.table-data {
+			width: 70%;
+			text-align: center;
+}
+.body
+     {
+     font-family : Verdana, Arial, Helvetica, sans-serif;
+     font-size:   10pt;
+     line-height: 1.4;
+     margin-top: 50pt;
+     }
+
+
+.table table  thead tr td {
+	border-top: 3px solid black;
+	border-bottom: 3px solid black;
+}
+.table table {
+		font-family: Times New Roman;
+		font-size: 10pt;
 	
+}
+
+.article-categories {
+	text-align: right;
 }
