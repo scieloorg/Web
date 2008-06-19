@@ -51,6 +51,7 @@ function getCountCommentByPid($PID,$acron){
 
 		$arr = $this->_db->databaseQuery($strsql);
 
+
 			if(!isset($arr[0]["comment_count"])){
 					return '0';
 				}else{
@@ -62,6 +63,10 @@ function getCountCommentByPid($PID,$acron){
 			}
 	}
 
+function fechaConexao(){
+
+	$this->_db->fechaConexao();
+}
 
 
 }

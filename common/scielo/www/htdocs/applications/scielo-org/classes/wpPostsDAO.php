@@ -52,6 +52,8 @@ function addPost($post,$blogId){
 		.$post->getCommentCount().""
 		.")";
 		$result = $this->_db->databaseExecInsert($strsql);
+
+		$this->_db->fechaConexao();
 		return $result;
 		
 
@@ -61,6 +63,8 @@ function addPost($post,$blogId){
 		$strsql = "SELECT comment_author,comment_content from wp_".$blogID."_comments where comment_ID=".$commentID;
 
 		$arr = $this->_db->databaseQuery($strsql);
+
+		$this->_db->fechaConexao();
 
 		return $arr;
 
