@@ -100,7 +100,7 @@ function DBClass(){
 
 	function fechaConexao(){
 		mysql_close($this->_connScielo);
-		echo "fechou";
+
 		
 	}
 
