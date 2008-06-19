@@ -3,21 +3,35 @@
 	<xsl:template match="*" mode="make-front">
 		<!-- FIXME nao tem article-categories no XML -->
 		<xsl:apply-templates select=".//article-categories"/>
-		<xsl:apply-templates select="TITLE" mode="format"/>
+		<xsl:apply-templates select=".//title-group/article-title" mode="format"/>
 		<xsl:apply-templates select=".//trans-title" mode="format"/>
-		<xsl:apply-templates select="AUTHORS" mode="format"/>
-		<xsl:apply-templates select="AFFILIATIONS" mode="format"/>
+		<xsl:choose>
+			<xsl:when test=".//contrib-group">
+				<!--xsl:apply-templates select=".//contrib"/-->
+				<xsl:apply-templates select="AUTHORS" mode="format"/>
+
+				<xsl:if test=".//contrib-group//aff">
+				<p>
+				<xsl:apply-templates select=".//aff" mode="format"/>
+				</p>
+				</xsl:if>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:apply-templates select="AUTHORS" mode="format"/>
+				<xsl:apply-templates select="AFFILIATIONS" mode="format"/>
+			</xsl:otherwise>
+		</xsl:choose>
 		<xsl:apply-templates select="//author-notes" mode="format"/>
 		<hr/>
 		<xsl:apply-templates select="//fulltext//abstract" mode="format"/>
 		<hr/>
 	</xsl:template>
-	<xsl:template match="TITLE" mode="format">
+	<xsl:template match="TITLE | article-title" mode="format">
 		<a name="top">&#160;</a>
 		<p class="scielo-article-title">
 			<!--xsl:value-of select="." disable-output-escaping="yes"/-->
 			<xsl:apply-templates/>
-			<xsl:apply-templates select="../SUBTITLE" mode="format"/>
+			<xsl:apply-templates select="../SUBTITLE | ../subtitle" mode="format"/>
 		</p>
 	</xsl:template>
 	<xsl:template match="AUTHORS" mode="format">
@@ -36,7 +50,7 @@
 			<xsl:apply-templates select="@xref" mode="format"/>
 		</sup>
 	</xsl:template>
-	<xsl:template match="AFF/@xref|AFFILIATION/@ID" mode="format">
+	<xsl:template match="AFF/@xref|AFFILIATION/@ID | aff/@id" mode="format">
 		<xsl:variable name="xref" select="substring-after(.,'aff')"/>
 		<xsl:choose>
 			<xsl:when test="$xref='1'">I</xsl:when>
@@ -55,25 +69,20 @@
 		</xsl:choose>
 	</xsl:template>
 	<xsl:template match="AFFILIATIONS" mode="format">
-		<xsl:apply-templates select=".//AFFILIATION" mode="format"/>
 		<p>
-			<br/>
-		</p>
-		<p>
-			<br/>
+			<xsl:apply-templates select=".//AFFILIATION" mode="format"/>
 		</p>
 	</xsl:template>
 	<xsl:template match="AFFILIATION" mode="format">
-		<br>
-			<xsl:call-template name="make-id"/>
-			<sup>
-				<xsl:apply-templates select="@ID" mode="format"/>
-			</sup>
-			<xsl:apply-templates select="ORGNAME | ORGDIV"/>
-			<xsl:apply-templates select="." mode="addr"/>
-		</br>
+		<xsl:call-template name="make-id"/>
+		<sup>
+			<xsl:apply-templates select="@ID" mode="format"/>
+		</sup>
+		<xsl:apply-templates select="ORGNAME | ORGDIV"/>
+		<xsl:apply-templates select="." mode="addr"/>
+		<br/>
 	</xsl:template>
-	<xsl:template match="ORGDIV">,<xsl:value-of select="."/>
+	<xsl:template match="ORGDIV[.!='']">,<xsl:value-of select="."/>
 	</xsl:template>
 	<xsl:template match="AFFILIATION" mode="addr">
 		<xsl:if test="CITY">, 
@@ -89,6 +98,20 @@
 		</xsl:if>
 		<xsl:apply-templates select="EMAIL"/>
 	</xsl:template>
+	
+	
+	<xsl:template match="aff" mode="format">
+		
+		<sup>
+			<xsl:apply-templates select="@id" mode="format"/>
+		</sup>
+		<xsl:apply-templates select="*[name()!='label']" mode="format"/>
+		<br/>
+	</xsl:template>
+	<xsl:template match="aff/*" mode="format"><xsl:apply-templates/><xsl:if test="position()!=last()">, </xsl:if>
+	</xsl:template>
+	
+	
 	<xsl:template match="EMAIL">
 		<a href="mailto:{.}">
 			<xsl:value-of select="."/>
@@ -96,10 +119,12 @@
 	</xsl:template>
 	<xsl:template match="author-notes" mode="format">
 		<xsl:variable name="xref" select="corresp/@id"/>
-		<a>
-			<xsl:attribute name="href">#<xsl:value-of select="$xref"/></xsl:attribute>
-			<xsl:text>Send correspondence to</xsl:text>
-		</a>
+		<p>
+			<a>
+				<xsl:attribute name="href">#<xsl:value-of select="$xref"/></xsl:attribute>
+				<xsl:apply-templates select="." mode="translate"/>
+			</a>
+		</p>
 		<p>
 			<br/>
 		</p>
@@ -108,9 +133,11 @@
 		</p>
 	</xsl:template>
 	<xsl:template match="kwd-group">
-		<p><span class="scielo-authors">
-			<xsl:call-template name="make-id"/>
-			<xsl:text>Key words: </xsl:text></span>
+		<p>
+			<span class="scielo-authors">
+				<xsl:call-template name="make-id"/>
+				<xsl:text>Key words: </xsl:text>
+			</span>
 			<xsl:apply-templates/>
 		</p>
 	</xsl:template>

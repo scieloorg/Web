@@ -47,7 +47,7 @@
 		<xsl:param name="pos"/>
 		<xsl:param name="pub-id"/>
 		<xsl:variable name="position" select="concat(substring('00000',1,5 - string-length($pos)),$pos)"/>
-		&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;[&#160;<a>
+		&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;[&#32;<a>
 			<xsl:attribute name="href">javascript:void(0);</xsl:attribute>
 			<xsl:attribute name="onclick">javascript: window.open('/scielo.php?pid=<xsl:value-of select="$pid"/><xsl:value-of select="$position"/>&amp;lng=<xsl:value-of select="$LANGUAGE"/>&amp;script=sci_reflinks<xsl:apply-templates select="$pub-id" mode="param"/>','','width=640,height=500,resizable=yes,scrollbars=1,menubar=yes,');</xsl:attribute>
 		Links</a>&#160;]
@@ -80,6 +80,6 @@
 				<xsl:when test=".//year &gt;= 1997">1997-2007</xsl:when>
 			</xsl:choose>
 		</xsl:variable>http://bases.bireme.br/cgi-bin/wxislind.exe/iah/online/?IsisScript=iah/iah.xis&amp;nextAction=lnk&amp;base=MEDLINE_<xsl:value-of select="$year-range"/>&amp;exprSearch=<xsl:value-of select=".//pub-id[@pub-id-type='pmid']"/>&amp;indexSearch=UI&amp;lang=i</xsl:template>
-
+	<xsl:include href="scielo_pmc_references_gmb.xsl"/>
 </xsl:transform>
 

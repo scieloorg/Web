@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!-- ============================================================= -->
 <!--  MODULE:    HTML View of NLM Journal Article                  -->
 <!--  VERSION:   0.2                                               -->
@@ -2773,6 +2773,7 @@
 	<!-- main or top-level divisions -->
 	<xsl:template match="abstract/title | body/sec/title
                    | back/title | app-group/title | app/title
+                   | back/sec/title
                    | glossary/title | def-list/title | ack/title
                    | ref-list/title | back/notes/title">
 		<xsl:call-template name="nl-1"/>
@@ -3871,7 +3872,7 @@
 				</xsl:if>
 				<xsl:text>. </xsl:text>
 			</xsl:when>
-			<xsl:when test="../volume | ../fpage">
+			<xsl:when test="../volume or ../fpage">
 				<xsl:if test="../edition">
 					<xsl:text> (</xsl:text>
 					<xsl:apply-templates select="../edition" mode="plain"/>
@@ -3954,7 +3955,7 @@
 						&#160;<xsl:text/>
 						<xsl:apply-templates/>
 						<xsl:if test="$hermano='lpage'">
-							<xsl:text>&#8211;</xsl:text>
+							<xsl:text>-</xsl:text>
 							<xsl:apply-templates select="following-sibling::lpage[1]"/>
 						</xsl:if>
 						<xsl:text>,</xsl:text>
@@ -3963,7 +3964,7 @@
 						&#160;<xsl:text/>
 						<xsl:apply-templates/>
 						<xsl:if test="$hermano='lpage'">
-							<xsl:text>&#8211;</xsl:text>
+							<xsl:text>-</xsl:text>
 							<xsl:apply-templates select="following-sibling::lpage[1]"/>
 						</xsl:if>
 						<xsl:text>.</xsl:text>
@@ -3975,7 +3976,7 @@
 				<xsl:apply-templates/>
 				<xsl:choose>
 					<xsl:when test="$hermano='lpage'">
-						<xsl:text>&#8211;</xsl:text>
+						<xsl:text>-</xsl:text>
 						<xsl:apply-templates select="following-sibling::lpage[1]"/>
 						<xsl:text>.</xsl:text>
 					</xsl:when>

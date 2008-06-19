@@ -11,35 +11,37 @@
 		</span>
 	</xsl:template>
 	<xsl:template match="fig">
-		<a name="{@id}"/>
-		<div class="fig">
-			<div class="fig-id">
-				<span class="gen">
-					<xsl:call-template name="make-id"/>
-				</span>
+		<p>
+			<a name="{@id}"/>
+			<xsl:apply-templates select="." mode="back"/>
+			
+			<div class="fig">
+				<div class="fig-file">
+					<xsl:apply-templates select="graphic"/>
+				</div>
+				<div class="fig-data">
+					<xsl:apply-templates select="child::*[not(self::graphic)]"/>
+				</div>
 			</div>
-			<div class="fig-data">
-				<xsl:apply-templates select="child::*[not(self::graphic)]"/>
-			</div>
-			<div class="fig-file">
-				<xsl:apply-templates select="graphic"/>
-			</div>
-		</div>
+		</p>
 	</xsl:template>
 	<xsl:template match="graphic/@xlink:href| inline-graphic/@xlink:href">
 		<xsl:variable name="id" select="."/>
 		<xsl:choose>
-			<xsl:when test="$var_IMAGES_INFO"><xsl:value-of select="$var_IMAGES_INFO//image[@id=$id]"/></xsl:when>
-			<xsl:otherwise><xsl:value-of select="$var_IMAGE_PATH"/><xsl:apply-templates select="." mode="check-extension"/></xsl:otherwise>
+			<xsl:when test="$var_IMAGES_INFO">
+				<xsl:value-of select="$var_IMAGES_INFO//image[@id=$id]"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="$var_IMAGE_PATH"/>
+				<xsl:apply-templates select="." mode="check-extension"/>
+			</xsl:otherwise>
 		</xsl:choose>
-		</xsl:template>	
-<xsl:template match="graphic/@xlink:href| inline-graphic/@xlink:href" mode="check-extension"><xsl:value-of select="."/>
-
+	</xsl:template>
+	<xsl:template match="graphic/@xlink:href| inline-graphic/@xlink:href" mode="check-extension">
+		<xsl:value-of select="."/>
 		<!--xsl:choose>
 			<xsl:when test="contains(.,'.jpg') or contains(.,'.jpeg')"><xsl:value-of select="."/></xsl:when>
 			<xsl:otherwise><xsl:value-of select="substring-before(.,'.tif')"/>.jpg</xsl:otherwise>
 		</xsl:choose-->
-
-
-		</xsl:template>	
+	</xsl:template>
 </xsl:transform>

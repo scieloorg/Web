@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="utf-8"?>
 <xsl:transform version="1.0" id="ViewNLM-v2-04_scielo.xsl" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:util="http://dtd.nlm.nih.gov/xsl/util" xmlns:doc="http://www.dcarlisle.demon.co.uk/xsldoc" xmlns:ie5="http://www.w3.org/TR/WD-xsl" xmlns:msxsl="urn:schemas-microsoft-com:xslt" xmlns:fns="http://www.w3.org/2002/Math/preference" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:pref="http://www.w3.org/2002/Math/preference" pref:renderer="mathplayer" exclude-result-prefixes="util xsl">
 	<xsl:template match="*" mode="make-a-piece">
 		<!-- variable to be used in div id's to keep them unique -->
@@ -98,9 +98,7 @@
 		<xsl:text>.</xsl:text>
 	</xsl:template>
 	<xsl:template match="date" mode="text">
-		
-			<xsl:if test="position()!=1">; </xsl:if>	
-		
+		<xsl:if test="position()!=1">; </xsl:if>
 		<xsl:variable name="the-type">
 			<xsl:choose>
 				<xsl:when test="@date-type='accepted'">Accepted: </xsl:when>
@@ -115,7 +113,6 @@
 			<xsl:text/>
 			<!--/span-->
 		</xsl:if>
-		
 		<xsl:variable name="the-month">
 			<xsl:choose>
 				<xsl:when test="month='01'">January</xsl:when>
@@ -132,13 +129,11 @@
 				<xsl:when test="month='12'">December</xsl:when>
 			</xsl:choose>
 		</xsl:variable>
-		
 		<xsl:value-of select="$the-month"/>
 		<xsl:text> </xsl:text>
 		<xsl:value-of select="day"/>
 		<xsl:text>, </xsl:text>
 		<xsl:value-of select="year"/>
-		
 	</xsl:template>
 	<xsl:template match="fn-group" mode="text">
 		<p>
@@ -200,6 +195,15 @@
 			<xsl:apply-templates/>
 		</a>
 	</xsl:template>
-	
-
+	<xsl:template match="author-notes" mode="translate">
+		<xsl:param name="lang" select="../../../../..//ARTICLE/@TEXTLANG"/>
+		<xsl:choose>
+			<xsl:when test="$lang='pt' ">Correspondência</xsl:when>
+			<xsl:when test="$lang='es' ">Correspondencia</xsl:when>
+			<xsl:when test="$lang='en' ">Send correspondence to</xsl:when>
+		</xsl:choose>
+	</xsl:template>
+	<xsl:template match="*" mode="back">
+	<a href="javascript: back()">_</a>
+	</xsl:template>
 </xsl:transform>
