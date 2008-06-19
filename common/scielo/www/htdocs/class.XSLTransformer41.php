@@ -104,6 +104,9 @@ class XSLTransformer {
 	/* transform method */
     function transform()
     {
+		$this->xml = str_replace("&#","MY_ENT_",$this->xml);
+		//$this->xml = xmlspecialchars  ($this->xml);
+
 		$err = "";
 		$result = "";
 		$tryByPHP = false;
@@ -125,6 +128,8 @@ class XSLTransformer {
 					$tryByPHP = false;
 					$tryRedirect = false;
 					$this->byJava ='true';
+					$result = str_replace("MY_ENT_","&#",$result);
+
 					$this->setOutput ($result."<!--transformed by JAVA ".date("h:m:s d-m-Y")."-->");
 					break;
 			}
@@ -139,6 +144,7 @@ class XSLTransformer {
 			$result = xslt_process ($this->processor, 'arg:/_xml', 'arg:/_xsl', NULL, $args);
 			if ($result) {
 		        $this->byJava = 'false';
+				$result = str_replace("MY_ENT_","&#",$result);
 				$this->setOutput ($result."<!--transformed by PHP ".date("h:m:s d-m-Y")."-->");
 	        } else {
         	    $err = "Error: " . xslt_error ($this->processor) . " Errorcode: " . xslt_errno ($this->processor);
@@ -152,44 +158,7 @@ class XSLTransformer {
 		}		
     }
     
-	/* transform method */
-    function old_transform()
-    {
-		$err = "";
-        if (getenv("ENV_SOCKET")=="true"){
-            $result = $this->socket->transform($this->xsl, $this->xml);
-			if (strlen($result)<3){
-
-	                $args = array ( '/_xml' => $this->xml, '/_xsl' => $this->xsl );
-        	        $result = xslt_process ($this->processor, 'arg:/_xml', 'arg:/_xsl', NULL, $args);
-                	if ($result) {
-			    $this->byJava = 'false';
-	                    $this->setOutput ($result."<!--transformed by PHP-->");
-	                } else {
-        	            $err = "Error: " . xslt_error ($this->processor) . " Errorcode: " . xslt_errno ($this->processor);
-                	    $this->setError ($err);
-	                }
-			} else {
-				$this->byJava ='true';
-				$this->setOutput ($result."<!--transformed by JAVA ".date("h:m:s d-m-Y")."-->");
-			}
-        } else {
-        	$args = array ( '/_xml' => $this->xml, '/_xsl' => $this->xsl );
-			$result = xslt_process ($this->processor, 'arg:/_xml', 'arg:/_xsl', NULL, $args);
-			if ($result) {
-		        	$this->byJava = 'false';
-				$this->setOutput ($result."<!--transformed by PHP ".date("h:m:s d-m-Y")."-->");
-	        } else {
-        	    	$err = "Error: " . xslt_error ($this->processor) . " Errorcode: " . xslt_errno ($this->processor);
-	                $this->setError ($err);
-        	}
-        }
-		if ($err){
-			var_dump($err);
-			var_dump($this->xsl);
-			var_dump($this->xml);
-		}
-    }
+	
 	/* Error Handling */ 
 	function setError ($string) { 
 		$this->error = $string; 
@@ -277,4 +246,39 @@ class docReader {
 	} 
 } 
 
+function xmlspecialchars($s){
+//echo microtime ();
+$s = utf8_decode($s);
+	$s = str_replace("<", "NO_CHANGE_LT", $s);
+	$s = str_replace(">", "NO_CHANGE_GT", $s);
+	$s = str_replace('"', "NO_CHANGE_QUOTE", $s);
+	$s = htmlentities($s);
+	$s = entityname2number($s);
+	$s = str_replace("NO_CHANGE_LT", "<", $s);
+	$s = str_replace("NO_CHANGE_GT", ">", $s);
+	$s = str_replace("NO_CHANGE_QUOTE", '"', $s);
+//echo microtime ();
+	return $s;
+}
+function entityname2number($s){
+	//$t = parse_ini_file("/home/scielo/www/bases/gizmo/entname2number.ini", false);
+
+	$f = file_get_contents("../bases/gizmo/entname2number.ini");
+
+	$a = explode("\r\n",$f);
+	foreach ($a as  $valor){
+		$x = explode("=", $valor);
+		$t1[] = $x[0];
+		$t2[] = $x[1];
+	}
+	/*
+	var_dump($t1);
+	var_dump($t2);
+	var_dump($s);
+*/
+	$s = str_replace($t1, $t2, $s);
+//	var_dump($s);
+
+	return $s;
+}
 ?>
