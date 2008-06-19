@@ -73,7 +73,7 @@ class Scielo extends ScieloBase
 		if( $_REQUEST['script']=='sci_serial'){
 			$issn = $_REQUEST['pid'];
 			$issn = str_replace("-","",$issn);
-			
+
 			$url = "http://www.scimagojr.com/journalsearch.php?q=".$issn."&amp;tip=iss&amp;exact=yes";
 
 			$handle = fopen($url,'r');
@@ -90,10 +90,25 @@ class Scielo extends ScieloBase
 
 		$show_comments = $this->_def->getKeyValue("show_comments");
 
+		$xml_comments = file_get_contents("xml/allow_comment.xml");
 		
-		if(isset($pid) && isset($strResultSiglum) && $show_comments!=0){
-		$BlogDAO = new wpBlogDAO();
-		$commentCount = $BlogDAO->getCountCommentByPid($pid,$strResultSiglum);
+		preg_match_all("/\<ISSN\>(.*?)\<\/ISSN\>/s", $xmlFromIsisScript, $issn_comments);
+		
+		preg_match_all("/\<ISSN\>(.*?)\<\/ISSN\>/s", $xml_comments, $pid_comments);
+
+		$flag = 0;
+		for($i=0;$i<count($pid_comments[1]);$i++){			
+			if($pid_comments[1][$i] == $issn_comments[1][0]){				
+				$flag = 1;
+			}
+		}
+
+		if($flag == 1){			
+			if($this->_script == 'sci_arttext' || $this->_script == 'sci_abstract'){	
+				$BlogDAO = new wpBlogDAO();
+				$commentCount = $BlogDAO->getCountCommentByPid($pid,$strResultSiglum);
+				$BlogDAO->fechaConexao();
+			}
 		}
 
 		if ($this->_script == 'sci_arttext' || $this->_script == 'sci_abstract' ){
