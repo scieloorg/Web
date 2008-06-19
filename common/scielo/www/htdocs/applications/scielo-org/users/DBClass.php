@@ -60,7 +60,7 @@ function DBClass(){
      $this->_user = $fileDef["DB_USER_SCIELO"];
      $this->_host = $fileDef["DB_HOST_SCIELO"];
 
-               $this->_connScielo = mysql_connect($this->_host, $this->_user, $this->_password) or die("Não foi possível conectar: " . mysql_error());
+               $this->_connScielo = mysql_pconnect($this->_host, $this->_user, $this->_password) or die("Não foi possível conectar: " . mysql_error());
 
                 mysql_select_db($this->_db) or die("Não pude selecinar o banco de dados");
         }
@@ -99,8 +99,8 @@ function DBClass(){
 	}
 
 	function fechaConexao(){
-		
 		mysql_close($this->_connScielo);
+		echo "fechou";
 		
 	}
 

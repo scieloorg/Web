@@ -59,7 +59,7 @@ function DBClassBlog(){
      $this->_host = $fileDef["DB_HOST_BLOG"];
 
 
-		$this->_conn = mysql_connect($this->_host, $this->_user, $this->_password) or die("Não foi possível conectar: " . mysql_error());
+		$this->_conn = mysql_pconnect($this->_host, $this->_user, $this->_password) or die("Não foi possível conectar: " . mysql_error());
 		
 		mysql_select_db($this->_db) or die("Não pude selecinar o banco de dados");
 	}
@@ -85,8 +85,8 @@ function DBClassBlog(){
 	}
 
 	function databaseQuery($query){
-		$result = mysql_query($query,$this->_conn) or die("A consulta falhou : " . mysql_error() . $query);
 		
+		$result = mysql_query($query,$this->_conn) or die("A consulta falhou : " . mysql_error() . $query);
 		$recordSet = array();
 		
 		while ($row = mysql_fetch_assoc($result)) {
@@ -99,7 +99,7 @@ function DBClassBlog(){
 	function fechaConexao(){
 
 	mysql_close($this->_conn);
-	
+
 	}
 
 
