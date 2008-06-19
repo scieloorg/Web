@@ -194,32 +194,19 @@
    <!--call name="CreateAuthorsGroupXML"><pft>v880</pft></call-->   
    <call name="CreateLattesGroupXML"><pft>v880</pft></call>   
 	<call name="isXML"><pft>v702</pft></call>
+	
 	<flow action="jump"><pft>if v8000<>'.xml' then 'yes' fi</pft></flow>
+
+	<display><pft>'<standard>',
+	if ref(['TITLE']l(['TITLE'],'LOC=',v880*1.9),v117)='other' then
+		,ref(['TITLE']l(['TITLE'],'LOC=',v880*1.9),v68),
+	else
+		,ref(['TITLE']l(['TITLE'],'LOC=',v880*1.9),v117),
+	fi
+	,'</standard>'/</pft></display>
 
 	<call name="CreateAuthorsGroupXML"><pft>v880</pft></call>   
 	<call name="CreateAuthorsAffXML"><pft>v880</pft></call>   
-
-	 
-	 <!--display><pft>(if v12^l<>v4001^t[1] then '  <translated-title xml:lang="',v12^l,'">'v12^*'</translated-title>'/ fi)</pft></display-->
-	 <display><pft>ref(mfn+1,(`  <abstract xml:lang="`,v83^l,`">`,v83^a,`</abstract>`/))</pft></display>
-
-	<list action="load" type="freq"><pft>ref(mfn+1,(v85^l/))</pft></list>
-	<do task="list">
-	     <field action="define" tag="4903">Isis_Current</field>
-	     <field action="define" tag="4922">Isis_Item</field>
-    	<loop>
-			<field action="import" tag="list">85</field>
-			<display>
-				<pft>
-					,'<kwd-group xml:lang="',v4922,'">'/,
-					,(if v85^l=v4922[1] then
-						,'<kwd>',v85^k,' 'v85^s,'</kwd>'/
-					,fi),
-					,'</kwd-group>'/
-				</pft>
-			</display>
-		</loop>
-	</do>
 	
 	<label>yes</label>
 
@@ -237,6 +224,7 @@
 			xmlns:msxsl="urn:schemas-microsoft-com:xslt" 
 			xmlns:fns="http://www.w3.org/2002/Math/preference" 
 			xmlns:mml="http://www.w3.org/1998/Math/MathML"  >'/,
+			
 		 else
 			'<BODY><![CDATA[ '
 		fi
@@ -287,7 +275,8 @@
 				if v704^*:'http:' and not v704^*:'http://' then
 					replace(v704^*,'http:','')/,
 				else
-					v704^*,
+					/* replace(v704^*,'&#956;','&#xB5;'), */
+					,v704^*,
 				fi</pft></display>
 	   <flow action="jump">CONTINUE</flow>
 	   
