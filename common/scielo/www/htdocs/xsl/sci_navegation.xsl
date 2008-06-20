@@ -110,7 +110,7 @@
 									<xsl:variable name="sci_serial">
 										<xsl:apply-templates select="." mode="sci_serial"/>
 									</xsl:variable>
-									<xsl:if test="//PAGE_NAME = '{$sci_serial}' or //PAGE_NAME = '{$issuetoc}'">
+									<xsl:if test="//PAGE_NAME = $sci_serial or //PAGE_NAME = $issuetoc">
 										<TD valign="bottom">
 											<xsl:element name="a">
 												<xsl:attribute name="href"><xsl:value-of select="concat('http://',CONTROLINFO/SCIELO_INFO/SERVER,'/rss.php?pid=',//PAGE_PID,'&amp;lang=',//LANGUAGE)"/></xsl:attribute>
