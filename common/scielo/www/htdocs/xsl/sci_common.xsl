@@ -137,7 +137,6 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 		<xsl:param name="file"/>
 		<xsl:param name="date"/>
 		<xsl:param name="page"/>
-
 		<xsl:choose>
 			<xsl:when test="$script = 'sci_pdf' ">
 				<xsl:attribute name="href">javascript: void(0); </xsl:attribute>
@@ -169,6 +168,7 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 	</xsl:template>
 	<!-- Shows copyright information -->
 	<xsl:template match="COPYRIGHT">
+		<xsl:apply-templates select="../." mode="license"/>
 		<font class="normal">&#169;&#160;</font>
 		<FONT color="#000080" class="negrito">
 			<I>
@@ -469,7 +469,7 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 		</xsl:if>
 		<!-- to use Google Analytics -->
 		<xsl:if test="//CONTROLINFO/SCIELO_INFO/GOOGLE_CODE != ''">
-				<script type="text/javascript">
+			<script type="text/javascript">
 				var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
 				document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
 				</script>
@@ -490,6 +490,7 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 		</img>
 	</xsl:template>
 	<xsl:template name="COPYRIGHTSCIELO">
+		<xsl:apply-templates select="." mode="license"/>
 		<center>
 		&#169;&#160;<xsl:value-of select="@YEAR"/>&#160;
 		<i>
@@ -944,8 +945,22 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 		<xsl:variable name="PATH_GENIMG" select="//CONTROLINFO/SCIELO_INFO/PATH_GENIMG"/>
 		<xsl:variable name="CONTROLINFO" select="//CONTROLINFO"/>
 		<xsl:variable name="LANGUAGE" select="$CONTROLINFO/LANGUAGE"/>
+		<xsl:variable name="textLang">
+			<xsl:choose>
+				<xsl:when test="//CONTROLINFO[PAGE_NAME='sci_arttext']">
+					<xsl:value-of select="//ARTICLE/@TEXTLANG"/>
+				</xsl:when>
+				<xsl:when test="//CONTROLINFO[PAGE_NAME='sci_abstract']">
+					<xsl:variable name="abstractLang" select=".//ABSTRACT/@xml:lang"/>
+					<xsl:if test="//ART_TEXT_LANGS[LANG=$abstractLang] or //PDF_LANGS[LANG=$abstractLang]"><xsl:value-of select="$abstractLang"/></xsl:if>
+				</xsl:when>
+				<xsl:otherwise></xsl:otherwise>				
+			</xsl:choose>
+		</xsl:variable>
+		<xsl:variable name="tlng"><xsl:value-of select="normalize-space($textLang)"/></xsl:variable>
+
 		<xsl:variable name="INFOPAGE">http://<xsl:value-of select="$CONTROLINFO/SCIELO_INFO/SERVER"/>
-			<xsl:value-of select="$CONTROLINFO/SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_isoref&amp;pid=<xsl:value-of select="$CONTROLINFO/PAGE_PID"/>&amp;lng=<xsl:value-of select="$LANGUAGE"/>
+			<xsl:value-of select="$CONTROLINFO/SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_isoref&amp;pid=<xsl:value-of select="$CONTROLINFO/PAGE_PID"/>&amp;lng=<xsl:value-of select="$LANGUAGE"/><xsl:if test="string-length($tlng)&gt;0">&amp;tlng=<xsl:value-of select="$tlng"/></xsl:if>
 		</xsl:variable>
 		<td valign="middle">
 			<a href="javascript:void(0);" onmouseout="status='';" class="nomodel" style="text-decoration: none;">
@@ -1002,5 +1017,29 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
 			<xsl:with-param name="LANG" select="$lang"/>
 		</xsl:call-template>
 	</xsl:template>
-	
+	<xsl:template match="*" mode="license">
+		<xsl:choose>
+			<xsl:when test=".//article-meta/permissions">
+				<xsl:apply-templates select=".//article-meta/permissions"/>
+			</xsl:when>
+			<xsl:when test=".//PERMISSIONS">
+				<xsl:apply-templates select=".//PERMISSIONS/permissions" />
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:apply-templates select="..//PERMISSIONS/permissions" />
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+	<xsl:template match="permissions"  >
+		<div class="license">
+			<xsl:copy-of select=".//license/*"/>
+		</div>
+	</xsl:template>
+	<xsl:template match="*" mode="footer-journal">
+		
+		<div class="footer">
+			<xsl:apply-templates select=".//COPYRIGHT"/>
+			<xsl:apply-templates select=".//CONTACT"/>
+		</div>
+	</xsl:template>
 </xsl:stylesheet>
