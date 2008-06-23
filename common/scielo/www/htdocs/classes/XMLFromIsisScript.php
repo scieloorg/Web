@@ -19,6 +19,9 @@ class XMLFromIsisScript {
 		return $xsl;
 	}
 	function fixUtfEntities($s){
+		$s = str_replace(chr(32).chr(150).chr(32), '&#32;&#150;&#32;', $s);
+		$s = str_replace('–', '&#150;', $s);		
+		
 		$s = str_replace('', '', $s);		
 		$s = str_replace('&#x2028;', '<p/>', $s);
 		$s = str_replace('&#710;', '^', $s);
