@@ -29,7 +29,26 @@ class ScieloXMLTransformer extends XSLTransformer
 		} 
     }
     
-    function SetXsl($uri)
+	 function SetXsl($uri)
+    {
+		if ($this->isXmlContent($uri)) {
+			if (getenv("ENV_SOCKET")=="true"){  //socket
+				// vai falhar a transformacao via java
+				die("XSL deve ser uma chave no arquivo xslts.ini e não o conteúdo da XSL");
+			}
+			else
+			{
+				// serve apenas para transformação PHP
+				$this->xslFileContent = $uri;
+			}
+			return true;
+		} else {
+			$this->setXslFile($uri);
+			return true; 
+		} 
+    }
+    
+    function velhoSetXsl($uri)
     {
 		if ($this->isXmlContent($uri)) {
 			if (getenv("ENV_SOCKET")=="true"){  //socket

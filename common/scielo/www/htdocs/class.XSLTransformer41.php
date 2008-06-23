@@ -43,7 +43,7 @@ class XSLTransformer {
 	}
 
 	function getOutput() {
-		return $this->xml_utf8_decode($this->output);
+		return $this->xml_utf8_decode($this->output)."<!-- class.XSLTranformer41.php - 2 -->";
 	}
 
 	/* set methods */
@@ -65,9 +65,66 @@ class XSLTransformer {
  		}
  	}
 
+	function setXslFile($xslFile) {
+		$this->xslFile = $xslFile;
+ 	}
+
+	function returnXslKey(){
+		if ($this->xslFile){
+			$pos_ini = strrpos($this->xslFile,"/")+1;
+			$pos_ini = strrpos($this->xslFile,"/")+1;
+			$pos_len = strrpos($this->xslFile,".")-$pos_ini;
+			$r = strtoupper(substr($this->xslFile,$pos_ini,$pos_len));
+		} else {
+			if (strpos($this->xsl,".xsl")==0 && strpos(" ".$this->xsl,"/")==0){
+				$r = $this->xsl;
+			}
+		}
+		return $r;
+	}
+
+	function returnXslContent(){		
+		if ($this->xslFile){
+			$r = file_get_contents($this->xslFile);
+		} else {
+			if (strpos("x".$this->xsl," ")>0){
+				$r = $this->xsl;
+			}
+		}
+		return $r;
+	}
+	
+	function getXsl($type) {
+/*
+var_dump($type);
+var_dump($this->xsl);
+var_dump($this->xslKey);
+var_dump($this->xslFile);
+var_dump($this->xslFileContent);
+*/
+		switch ($type){
+			case "key":
+				$r = $this->returnXslKey();
+				break;
+			case "filecontent":
+				$r = $this->returnXslContent();							
+				break;						
+		}
+		if (!$r){
+			die('Anteriormente, para a transformação java, era feito $this->xsl = o apelido da XSL. Atualmente, dev usar o metodo $this->setXslFile passando o caminho completo do arquivo XSL. Essa mudança tem o objetivo de padronizar o ato de instanciar a XSL, servindo tanto para transformação java, quanto php. Pois caso o java não esteja operando, a transformação php pode ser usada.');
+		}
+/*
+var_dump($r);
+var_dump($this->xsl);
+var_dump($this->xslKey);
+var_dump($this->xslFile);
+var_dump($this->xslFileContent);
+*/
+	return $r;
+	}
+
 	function setXsl($uri) {
 		$this->xsl	= $uri;
-
 		/*if ( $doc = new docReader ($uri) ) {
 			$this->xsl	= $doc->getString();
 			return true;
@@ -112,7 +169,7 @@ class XSLTransformer {
 		$tryByPHP = false;
 		$tryRedirect = false;
 		if ($this->socket->checkSocketOpen()) {
-			$result = $this->socket->transform($this->xsl, $this->xml);
+			$result = $this->socket->transform($this->getXsl("key"), $this->xml);
 			switch ($result){
 				case "INVALID_XML":
 					include_once (dirname(__FILE__)."/mail_msg.php");
@@ -136,16 +193,19 @@ class XSLTransformer {
         } else {
 			/* try again, redirecting or try by PHP */			
 			$tryByPHP = true;
+			$this->transformedBy = "PHP";
 			//$tryRedirect = true;
 		}
 
 		if ($tryByPHP){
-        	$args = array ( '/_xml' => $this->xml, '/_xsl' => $this->xsl );
+        	$args = array ( '/_xml' => $this->xml, '/_xsl' =>  $this->getXsl("filecontent") );
 			$result = xslt_process ($this->processor, 'arg:/_xml', 'arg:/_xsl', NULL, $args);
 			if ($result) {
 		        $this->byJava = 'false';
 				$result = str_replace("MY_ENT_","&#",$result);
 				$this->setOutput ($result."<!--transformed by PHP ".date("h:m:s d-m-Y")."-->");
+							$this->transformedBy = "PHP";
+
 	        } else {
         	    $err = "Error: " . xslt_error ($this->processor) . " Errorcode: " . xslt_errno ($this->processor);
 	            $this->setError ($err);

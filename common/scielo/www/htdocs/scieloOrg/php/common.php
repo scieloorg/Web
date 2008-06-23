@@ -60,26 +60,22 @@
 	$xml .= '<service_log>'.$flagLog.'</service_log>';
 	$xml .= str_replace('<?xml version="1.0" encoding="ISO-8859-1" ?>','',$xmlh);
 	$xml .= '</root>';
-	if (getenv("ENV_SOCKET") == "true"){  //socket
-		$xslFile = strtoupper($xslName);
-		//die("socket = false");
-	} else {
-		$xslFile = file_get_contents($defFile->getKeyValue("PATH_XSL").$xslName.".xsl");
-	}
-	$xsl = $xslFile;
+	$xsl = $defFile->getKeyValue("PATH_XSL").$xslName.".xsl";
 	if(isset($_REQUEST['debug']))
 	{
 		echo '<textarea cols="80" rows="10">';
 		echo $xml;
 		echo '</textarea>';
 		echo '<textarea cols="80" rows="10">';
-		echo file_get_contents($xslFile);
+		echo file_get_contents($xsl);
 		echo '</textarea>';
 	}
 	$transformer->setXslBaseUri($defFile->getKeyValue("PATH_XSL"));
 	//$transformer->setXml(utf8_encode($xml));
 	$transformer->setXml($xml);
-	$transformer->setXsl($xsl);
+
+
+	$transformer->setXslFile($xsl);
 	$transformer->transform();
 
 	$result = $transformer->getOutput();

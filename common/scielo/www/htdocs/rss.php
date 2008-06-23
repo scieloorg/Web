@@ -84,15 +84,8 @@ if(strlen($pid) == 9){
 	}
 
 	$t = new XSLTransformer();
-
-	if (getenv("ENV_SOCKET")!="true"){  //socket
-		$xsl = file_get_contents($xsl);
-	} else {
-		$xsl = 'CREATERSS';
-	}
-
 	$t->setXml($xml);
-	$t->setXsl($xsl);
+	$t->setXslFile($xsl);
 	$t->transform();
 	$result = $t->getOutput();
 

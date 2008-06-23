@@ -98,18 +98,9 @@
 											$xsl = $defFile["PATH_XSL"]."reference.xsl";
 
 											$transformer = new XSLTransformer();
-
-											if (getenv("ENV_SOCKET")!="true"){  //socket
-												$xsl = file_get_contents($xsl);
-												//die("socket = false");
-											} else {
-												$xsl = 'REFERENCE';
-											}
-											//die("socket = true");
-
 											$transformer->setXslBaseUri($defFile["PATH_XSL"]);
-											$transformer->setXML($xml);
-											$transformer->setXSL($xsl);
+											$transformer->setXml($xml);
+											$transformer->setXslFile($xsl);
 											$transformer->transform();
 											$output = $transformer->getOutput();
 											$output = str_replace('&amp;','&',$output);

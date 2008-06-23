@@ -218,17 +218,9 @@
         if ( !$debug )
         {
 //die($response);
-			$transform = new XSLTransformerOAI();
-			if (getenv("ENV_SOCKET")!="true"){  //socket
-//				$xsl = file_get_contents($defFile["PATH_OAI"].$xsl);
-				$xsl = file_get_contents($xsl);				
-			} else {
-				$xsl = str_replace('.XSL','',strtoupper($xsl));
-			}
-
-			
+			$transform = new XSLTransformerOAI();			
 	    	$transform->setXslBaseUri($defFile["PATH_OAI"]);	
-    	    $transform->setXsl ( $xsl );			
+    	    $transform->setXslFile ( $xsl );			
 	        $transform->setXml ( $response );
 	        $transform->transform();
             if ( $transform->getError() )

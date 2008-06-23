@@ -43,22 +43,17 @@
 	}
 	$xsl = $pathHtdocs."/xsl/getReferencebyId.xsl";
 	$transformer = new XSLTransformer();
-	if (getenv("ENV_SOCKET")!="true"){  //socket
-		$xsl = file_get_contents($xsl);
-			//die("socket = false");
-	} else {
-		$xsl = 'GETREFERENCEBYID';
-	}
+
 	//die("socket = true");
 	$transformer->setXslBaseUri(dirname(__FILE__));
-	$transformer->setXML($xml);
-	$transformer->setXSL($xsl);
+	$transformer->setXml($xml);
+	$transformer->setXslFile($xsl);
 	$transformer->transform();
 	$output = $transformer->getOutput();
 	// Pegamos o título completo da referência do artigo
 	$fullTitle = $output;
 
-	if(getenv("ENV_SOCKET")!="true"){
+	if($transformer->transformedBy == "PHP"){
 		//PHP
 		$fullTitle = utf8_decode($fullTitle);
 	}
@@ -77,20 +72,15 @@
 	// Transformação Final, página de links de referencia
 	$transformerFinal = new XSLTransformer();
 	$xslFinal = $pathHtdocs."xsl/sci_reflinks.xsl";
-	if (getenv("ENV_SOCKET")!="true"){  //socket
-		$xslFinal = file_get_contents($xslFinal);
-		//die("socket = false");
-	} else {
-		$xslFinal = 'SCI_REFLINKS';
-	}
+	
 	//die("socket = true");
 	$transformerFinal->setXslBaseUri($pathHtdocs."xsl");
-	$transformerFinal->setXML($xmlFinal);
-	$transformerFinal->setXSL($xslFinal);
+	$transformerFinal->setXml($xmlFinal);
+	$transformerFinal->setXslFile($xslFinal);
 	$transformerFinal->transform();
 	$output = $transformerFinal->getOutput();
 
-	if(getenv("ENV_SOCKET")!="true"){
+	if($transformer->transformedBy == "PHP"){
 		//PHP
 		$output = utf8_decode($output);
 	}

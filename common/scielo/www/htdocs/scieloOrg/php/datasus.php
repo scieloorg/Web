@@ -117,19 +117,10 @@
 												if($_REQUEST['debug'] == 'xml'){
 													die($xml);
 												}
-												$transformer = new XSLTransformer();
-
-												if (getenv("ENV_SOCKET") == "true"){  //socket
-													$xslFile = strtoupper('datasus');
-												} else {
-													//die($defFile["PATH_XSL"]."datasus.xsl");
-													$xslFile = file_get_contents($defFile["PATH_XSL"]."datasus.xsl");
-												}
-												$xsl = $xslFile;
-
+												$transformer = new XSLTransformer();								
 												$transformer->setXslBaseUri($defFile["PATH_XSL"]);
-												$transformer->setXML($xml);
-												$transformer->setXSL($xsl);
+												$transformer->setXml($xml);
+												$transformer->setXslFile($defFile["PATH_XSL"]."datasus.xsl");
 												$transformer->transform();
 												$output = $transformer->getOutput();
 												$output = str_replace('&amp;','&',$output);

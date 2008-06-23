@@ -74,17 +74,11 @@ if($_REQUEST['getXML'] == "true"){
 			$xsl = dirname(__FILE__)."/report.xsl";
 			$transformer = new XSLTransformer();
 
-			if (getenv("ENV_SOCKET")!="true"){  //socket
-				$xsl = file_get_contents($xsl);
-				//die("socket = false");
-			} else {
-				$xsl = 'REPORT';
-			}
+			
 			//die("socket = true");
-
 			$transformer->setXslBaseUri(dirname(__FILE__));
-			$transformer->setXML($xml);
-			$transformer->setXSL($xsl);
+			$transformer->setXml($xml);
+			$transformer->setXslFile($xsl);
 			$transformer->transform();
 			$output = $transformer->getOutput();
 			echo $output;
