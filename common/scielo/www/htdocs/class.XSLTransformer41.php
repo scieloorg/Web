@@ -1,40 +1,52 @@
 <?php
-/*
-XSLTranformer -- Class to transform XML files using XSL with the Sablotron libraries.
-Justin Grant (2000-07-30)
-Thanks to Bill Humphries for the original examples on using the Sablotron module.
-*/
-/*
-ini_set("display_errors","1");
-error_reporting(E_ALL);
-*/
-include_once (dirname(__FILE__)."/class.XSLTransformSocket.php"); //socket
+
+include_once (dirname(__FILE__)."/classes/class_xml_check/class_xml_check.php"); //classe para verificacao de XML
+include_once (dirname(__FILE__)."/class.XSLTransformerJava.php");
+include_once (dirname(__FILE__)."/class.XSLTransformerPHP41.php"); 
+
+	function xml_utf8_decode($xml){
+		$xml = utf8_decode($xml);
+		$xml = str_replace('utf-8','iso-8859-1',$xml);
+		$xml = str_replace('UTF-8','iso-8859-1',$xml);
+		return $xml;
+	}
+	
+
+
 class XSLTransformer {
-        var $xsl, $xml, $output, $error, $errorcode, $processor, $uri, $host, $port, $byJava;   //socket
 
 	/* Constructor  */	 
 	function XSLTransformer() {
-	    $defFile = parse_ini_file(dirname(__FILE__)."/scielo.def.php",true);
-	    $this->processor = xslt_create(); 
-	    $this->host = $_SERVER["SERVER_ADDR"];
-        $this->port = $defFile["SOCKET"]["SOCK_PORT"];
-        $this->socket = new XSLTransformerSocket($this->host,$this->port);
-	   /* retirado por Roberta 
-	   if (!$this->socket){
-        	die("socket creation error!");
-		}
-		*/
+	    $this->defFile = parse_ini_file(dirname(__FILE__)."/scielo.def.php",true);
+	    $this->tPHP = new XSLTransformerPHP41();
+        $this->tJava = new XSLTransformerJava($_SERVER["SERVER_ADDR"],$this->defFile["SOCKET"]["SOCK_PORT"]);
+
+		$this->socket_log_file = $this->defFile['SOCKET']['ACCESS_LOG_FILE'];
+		$this->enable_socket_log = $this->defFile['SOCKET']['ENABLE_ACCESS_LOG'];
+		
+		$this->redirectURL = $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+
+		//$this->serverAdd = $_SERVER["SERVER_ADDR"];
+		//$this->serverName = $_SERVER["SERVER_NAME"];
+		//$this->requestURI = $_SERVER["REQUEST_URI"];
 	} 
-	function setXslBaseUri($uri){	
-		if ($uri != ""){			
-			if (strpos(' '.$uri,'file://')==0) $uri = 'file://'.$uri; // eh obrigatorio file:// para Windows 
-			xslt_set_base($this->processor, $uri);
-		}	
-		return true;
+
+	function validateXML($xml){
+		$validXML = true;
+		if ($this->defFile['XML_ERROR']['ENABLED_XML_ERROR'] == '1'){
+			$xmlCheck = new XML_check();
+			$xml1 = $xml;
+			$validXML = $xmlCheck->check_string($xml1); // verifica se o XML é bem formado
+		}
+		return $validXML;
+	}
+
+	function setXslBaseUri($uri){			
+		return $this->tPHP->setXslBaseUri($uri);;
 	}
  	/* Destructor */ 
 	function destroy() { 
-		xslt_free ($this->processor); 
+		$this->tPHP->destroy(); 
 	} 
 
 	/* output methods */
@@ -43,7 +55,7 @@ class XSLTransformer {
 	}
 
 	function getOutput() {
-		return $this->xml_utf8_decode($this->output)."<!-- class.XSLTranformer41.php - 2 -->";
+		return $this->output;
 	}
 
 	/* set methods */
@@ -146,76 +158,61 @@ var_dump($this->xslFileContent);
 		}
 	}
 	
-	function xml_utf8_decode($xml){
-		$xml = utf8_decode($xml);
-		$xml = str_replace('utf-8','iso-8859-1',$xml);
-		$xml = str_replace('UTF-8','iso-8859-1',$xml);
-		return $xml;
-	}
-	function xml_utf8_encode($xml){
-		$xml = utf8_encode($xml);
-		$xml = str_replace('iso-8859-1','utf-8',$xml);
-		$xml = str_replace('ISO-8859-1','utf-8',$xml);
-		return $xml;
-	}
 	/* transform method */
     function transform()
     {
-		$this->xml = str_replace("&#","MY_ENT_",$this->xml);
-		//$this->xml = xmlspecialchars  ($this->xml);
-
 		$err = "";
 		$result = "";
 		$tryByPHP = false;
 		$tryRedirect = false;
-		if ($this->socket->checkSocketOpen()) {
-			$result = $this->socket->transform($this->getXsl("key"), $this->xml);
-			switch ($result){
-				case "INVALID_XML":
-					include_once (dirname(__FILE__)."/mail_msg.php");
-					$url = "http://".$_SERVER['SERVER_NAME']."/php/xmlError.php?lang=".$_REQUEST['lng'];
-					exit('<META http-equiv="refresh" content="0;URL='.$url.'">');
-					break;
-				case "NO_SOCKET":
-					/* try again, redirecting or try by PHP */
-					//$tryByPHP = true;
-					$tryRedirect = true;
-					break;
-				default:
-					$tryByPHP = false;
-					$tryRedirect = false;
-					$this->byJava ='true';
-					$result = str_replace("MY_ENT_","&#",$result);
 
-					$this->setOutput ($result."<!--transformed by JAVA ".date("h:m:s d-m-Y")."-->");
-					break;
+		$this->xml = str_replace("&#","MY_ENT_",$this->xml);
+		//$this->xml = xmlspecialchars  ($this->xml);
+		
+		if ($this->validateXML($this->xml)){
+			if ($this->tJava->checkSocketOpen()) {
+				$result = $this->tJava->transform($this->getXsl("key"), $this->xml);
+				switch ($result){
+					case "NO_SOCKET":
+						$tryPHP = true;
+						$this->setError($result);
+						break;
+					case "ERROR_1":
+						$tryPHP = true;
+						$this->setError($result);
+						break;
+					case "ERROR_2":
+						$tryPHP = true;
+						$this->setError($result);
+						break;
+					default:
+						$this->transformedBy = "JAVA";
+						break;
+				}
+			} else {
+				$tryPHP = true;	
 			}
-        } else {
-			/* try again, redirecting or try by PHP */			
-			$tryByPHP = true;
-			$this->transformedBy = "PHP";
-			//$tryRedirect = true;
-		}
-
-		if ($tryByPHP){
-        	$args = array ( '/_xml' => $this->xml, '/_xsl' =>  $this->getXsl("filecontent") );
-			$result = xslt_process ($this->processor, 'arg:/_xml', 'arg:/_xsl', NULL, $args);
-			if ($result) {
-		        $this->byJava = 'false';
+			if ($tryPHP){
+				$result = $this->tPHP->transform($this->xml, $this->getXsl("filecontent"), $error);
+				if ($error){
+					$this->setError($error);
+					$result = "ERROR_PHP";
+					$tryRedirect = true;
+				} else {
+					$this->transformedBy = "PHP";
+				}
+			}
+			if ($tryRedirect){
+				header('Location: http://'.$this->redirectURL);
+			} else {
 				$result = str_replace("MY_ENT_","&#",$result);
-				$this->setOutput ($result."<!--transformed by PHP ".date("h:m:s d-m-Y")."-->");
-							$this->transformedBy = "PHP";
-
-	        } else {
-        	    $err = "Error: " . xslt_error ($this->processor) . " Errorcode: " . xslt_errno ($this->processor);
-	            $this->setError ($err);
-				var_dump($err);
-				var_dump($this->xsl);
-				var_dump($this->xml);
-        	}
-        } elseif ($tryRedirect) {
-			header('Location: http://'.$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"]);
-		}		
+				$this->setOutput ($result."<!--transformed by $transformedBy ".date("h:m:s d-m-Y")."-->");
+				$this->writeLog ($this->redirectURL." ".$transformedBy);
+			}
+		} else {
+			include_once (dirname(__FILE__)."/mail_msg.php");
+			$url = "http://".$_SERVER['SERVER_NAME']."/php/xmlError.php?lang=".$_REQUEST['lng'];
+		}
     }
     
 	
@@ -227,6 +224,27 @@ var_dump($this->xslFileContent);
  	function getError() { 
 		return $this->error; 
 	} 
+
+	function writeLog($transformedBy){
+		if ($this->enable_socket_log){
+			$this->writeFile($_SERVER["SERVER_ADDR"]." $transformedBy \n",$this->socket_log_file);
+		}
+	}
+	function writeFile($content,$filename){
+		$content = date("h:m:s d-m-Y")." ".$content;
+      	if (!$handle = fopen($filename, 'x+')) {
+			if (!$handle = fopen($filename, 'a+')) {
+				exit;
+			}
+		} 
+		if ($handle){
+			chmod($filename, 0766);
+			if (fwrite($handle, $content) === FALSE) {
+				exit;
+			}
+			fclose($handle);
+		}
+	}
 }
 
 /* docReader -- read a file or URL as a string */ 
@@ -307,7 +325,7 @@ class docReader {
 } 
 
 function xmlspecialchars($s){
-//echo microtime ();
+//echo "  " . microtime ();
 $s = utf8_decode($s);
 	$s = str_replace("<", "NO_CHANGE_LT", $s);
 	$s = str_replace(">", "NO_CHANGE_GT", $s);
@@ -317,7 +335,7 @@ $s = utf8_decode($s);
 	$s = str_replace("NO_CHANGE_LT", "<", $s);
 	$s = str_replace("NO_CHANGE_GT", ">", $s);
 	$s = str_replace("NO_CHANGE_QUOTE", '"', $s);
-//echo microtime ();
+//echo "  " . microtime ();
 	return $s;
 }
 function entityname2number($s){
@@ -341,4 +359,5 @@ function entityname2number($s){
 
 	return $s;
 }
+
 ?>
