@@ -206,8 +206,8 @@ var_dump($this->xslFileContent);
 				header('Location: http://'.$this->redirectURL);
 			} else {
 				$result = str_replace("MY_ENT_","&#",$result);
-				$this->setOutput ($result."<!--transformed by $transformedBy ".date("h:m:s d-m-Y")."-->");
-				$this->writeLog ($this->redirectURL." ".$transformedBy);
+				$this->setOutput ($result."<!--transformed by $this->transformedBy ".date("h:m:s d-m-Y")."-->");
+				$this->writeLog ();
 			}
 		} else {
 			include_once (dirname(__FILE__)."/mail_msg.php");
@@ -225,9 +225,9 @@ var_dump($this->xslFileContent);
 		return $this->error; 
 	} 
 
-	function writeLog($transformedBy){
+	function writeLog(){
 		if ($this->enable_socket_log){
-			$this->writeFile($_SERVER["SERVER_ADDR"]." $transformedBy \n",$this->socket_log_file);
+			$this->writeFile($_SERVER["SERVER_ADDR"]." ".$this->redirectURL." $this->transformedBy \n",$this->socket_log_file);
 		}
 	}
 	function writeFile($content,$filename){
