@@ -67,7 +67,7 @@ class XSLTransformerJava {
 		} else {
 			$message = 'NO_SOCKET';
 		}
-	 	return $message;
+	 	return  xml_utf8_decode($message);
 	}
 	
     function recebeResultado() {
