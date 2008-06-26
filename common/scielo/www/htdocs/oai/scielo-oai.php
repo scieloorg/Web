@@ -220,7 +220,7 @@
 //die($response);
 			$transform = new XSLTransformerOAI();			
 	    	$transform->setXslBaseUri($defFile["PATH_OAI"]);	
-    	    $transform->setXslFile ( $xsl );			
+    	    $transform->setXslFile ( $defFile["PATH_OAI"].$xsl );			
 	        $transform->setXml ( $response );
 	        $transform->transform();
             if ( $transform->getError() )
