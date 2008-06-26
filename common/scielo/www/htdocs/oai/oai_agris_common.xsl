@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"  xmlns:ags="http://purl.org/agmes/1.1/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:agls="http://www.naa.gov.au/recordkeeping/gov_online/agls/1.2" xmlns:dcterms="http://purl.org/dc/terms/">
 
-<!--xsl:output method="xml"/-->
-<xsl:output method="xml" omit-xml-declaration="no"/>
+<xsl:output method="xml"/>
 <xsl:variable name="spacechar">00</xsl:variable>
 
 <xsl:template match="/">
@@ -116,7 +115,16 @@
 			<xsl:apply-templates select="journal-meta/issn" mode="setSpec" />
 		</header>
 		<metadata>
-		<ags:resources><xsl:attribute name="xmlns:xsl">http://www.w3.org/1999/XSL/Transform</xsl:attribute><xsl:attribute name="xmlns:ags">http://purl.org/agmes/1.1/</xsl:attribute><xsl:attribute name="xmlns:dc">http://purl.org/dc/elements/1.1/</xsl:attribute><xsl:attribute name="xmlns:agls">http://www.naa.gov.au/recordkeeping/gov_online/agls/1.2</xsl:attribute><xsl:attribute name="xmlns:dcterms">http://purl.org/dc/terms/</xsl:attribute>
+		
+		<xsl:variable name="xsl">xmlns:xsl="http://www.w3.org/1999/XSL/Transform"</xsl:variable>		
+		<xsl:variable name="ags">xmlns:ags="http://purl.org/agmes/1.1/"</xsl:variable>		
+		<xsl:variable name="dc">xmlns:dc="http://purl.org/dc/elements/1.1/"</xsl:variable>		
+		<xsl:variable name="agls">xmlns:agls="http://www.naa.gov.au/recordkeeping/gov_online/agls/1.2"</xsl:variable>
+		<xsl:variable name="dcterms">xmlns:dcterms="http://purl.org/dc/terms/"</xsl:variable>
+
+		<xsl:value-of select=" concat( '&lt;ags:resources ', $xsl, ' ', $ags, ' ', $dc, ' ', $agls, ' ', $dcterms,'&gt;' )" disable-output-escaping="yes" />		
+		
+		<!--ags:resources><xsl:attribute name="xmlns:xsl">http://www.w3.org/1999/XSL/Transform</xsl:attribute><xsl:attribute name="xmlns:ags">http://purl.org/agmes/1.1/</xsl:attribute><xsl:attribute name="xmlns:dc">http://purl.org/dc/elements/1.1/</xsl:attribute><xsl:attribute name="xmlns:agls">http://www.naa.gov.au/recordkeeping/gov_online/agls/1.2</xsl:attribute><xsl:attribute name="xmlns:dcterms">http://purl.org/dc/terms/</xsl:attribute-->
 				<ags:resource ags:ARN="XS{concat(substring(article-meta/article-id,11,4),$spacechar,substring(article-meta/article-id,17,2),substring(article-meta/article-id,22,2) )}">
 					<xsl:apply-templates select=".//title-group" mode="title"/>
 					<dc:creator>
@@ -142,7 +150,8 @@
 				              <xsl:apply-templates select="article-meta/pub-date[@pub-type='pub']/year" mode="year"/>
 					</ags:citation>			
 				</ags:resource>
-			</ags:resources>
+			<!--/ags:resources-->
+			<xsl:value-of select=" '&lt;/ags:resources&gt;' " disable-output-escaping="yes" />
 		</metadata>
 	</record>
 </xsl:template>
