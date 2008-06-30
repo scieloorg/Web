@@ -1,5 +1,4 @@
 <?php
-
 include("classScieloBase.php");
 require_once("classes/XML_XSL/XML_XSL.inc.php"); // 200603
 require_once("applications/scielo-org/classes/wpBlogDAO.php");//200801
@@ -91,16 +90,10 @@ class Scielo extends ScieloBase
 		$show_comments = $this->_def->getKeyValue("show_comments");
 
 		$xml_comments = file_get_contents("xml/allow_comment.xml");
-		
-		preg_match_all("/\<ISSN\>(.*?)\<\/ISSN\>/s", $xmlFromIsisScript, $issn_comments);
-		
-		preg_match_all("/\<ISSN\>(.*?)\<\/ISSN\>/s", $xml_comments, $pid_comments);
-
-		$flag = 0;
-		for($i=0;$i<count($pid_comments[1]);$i++){			
-			if($pid_comments[1][$i] == $issn_comments[1][0]){				
-				$flag = 1;
-			}
+		$issn_comments = substr($_REQUEST["pid"],1,9);
+		$flag=0;
+		if (strpos($xml_comments,$issn_comments)){
+			$flag = 1;
 		}
 
 		if($flag == 1){			
