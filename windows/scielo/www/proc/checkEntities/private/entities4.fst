@@ -1,0 +1,17 @@
+10 4,if v706='h' then (if instr(v10^s ,'&#')>0  then replace(replace(v10^s,'&#',' &#'),';','; ') fi) fi
+10 4,if v706='h' then (if instr(v10^n ,'&#')>0  then replace(replace(v10^n,'&#',' &#'),';','; ') fi) fi
+10 4,if v706='h' then (if instr(v11^*,'&#')>0  then replace(replace(v11^*,'&#',' &#'),';','; ') fi) fi
+10 4,if v706='h' then (if instr(v11^d,'&#')>0  then replace(replace(v11^d,'&#',' &#'),';','; ') fi) fi
+12 4,if v706='h' then (if instr(v12^t,'&#')>0  then replace(replace(v12^t,'&#',' &#'),';','; ') fi) fi
+12 4,if v706='h' then (if   instr(v12^s,'&#')>0  then replace(replace(v12^s,'&#',' &#'),';','; ') fi) fi
+83 4,if v706='h' then (if   instr(v83^a,'&#')>0  then replace(replace(v83^a,'&#',' &#'),';','; ') fi) fi
+85 4,if v706='h' then (if   instr(v85^k,'&#')>0  then replace(replace(v85^k,'&#',' &#'),';','; ') fi) fi
+85 4,if v706='h' then (if   instr(v85^s,'&#')>0  then replace(replace(v85^s,'&#',' &#'),';','; ') fi) fi
+70 4,if v706='h' then (if   instr(v70^*,'&#')>0  then replace(replace(v70^*,'&#',' &#'),';','; ') fi) fi
+70 4,if v706='h' then (if   instr(v70^1,'&#')>0  then replace(replace(v70^1,'&#',' &#'),';','; ') fi) fi
+70 4,if v706='h' then (if   instr(v70^2,'&#')>0  then replace(replace(v70^2,'&#',' &#'),';','; ') fi) fi
+70 4,if v706='h' then (if   instr(v70^3,'&#')>0  then replace(replace(v70^3,'&#',' &#'),';','; ') fi) fi
+70 4,if v706='h' then (if   instr(v70^d,'&#')>0  then replace(replace(v70^d,'&#',' &#'),';','; ') fi) fi
+70 5,if v706='h' then (if   instr(v70^p,'&#')>0  then replace(replace(v70^p,'&#',' &#'),';','; ') fi) fi
+70 5,if v706='h' then (if   instr(v70^c,'&#')>0  then replace(replace(v70^c,'&#',' &#'),';','; ') fi) fi
+70 5,if v706='h' then (if   instr(v70^s,'&#')>0  then replace(replace(v70^s,'&#',' &#'),';','; ') fi) fi
