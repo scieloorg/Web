@@ -117,7 +117,7 @@
     <A class="issue">
      <xsl:call-template name="AddScieloLink">
        <xsl:with-param name="seq" select="@SEQ"/>
-       <xsl:with-param name="script"><xsl:apply-templates select="." mode="issuetoc"/></xsl:with-param>
+       <xsl:with-param name="script">sci_issuetoc</xsl:with-param>
      </xsl:call-template>    
      <xsl:call-template name="SHOWSTRIP">
       <xsl:with-param name="VOL" select="@VOL" />
