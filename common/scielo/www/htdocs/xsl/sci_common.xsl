@@ -1042,4 +1042,6 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
 			<xsl:apply-templates select=".//CONTACT"/>
 		</div>
 	</xsl:template>
+		<xsl:template match="*" mode="repo_url_param_scielo"/>	
+
 </xsl:stylesheet>
