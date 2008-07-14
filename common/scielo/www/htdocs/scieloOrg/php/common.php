@@ -1,4 +1,30 @@
-<?
+<?php
+
+	require_once(dirname(__FILE__)."/../../classes/StringXML.php");
+
+	function upperCaseAuthors($xml){
+		$stringXML = new StringXML();
+
+		do {
+			$aut = $stringXML->getContent('author', $xml);
+
+			if (strlen($aut)>0){
+				$names = explode(',',$aut);
+				$upperCaseAuthorsXML = '<AUTHOR key="'.$aut.'" SEARCH="'.strtoupper(removeAccent(str_replace(' ','+',$aut))).'"><NAME>'.$names[1].'</NAME><SURNAME>'.$names[0].'</SURNAME><UPP_NAME>'.strtoupper($names[1]).'</UPP_NAME><UPP_SURNAME>'.strtoupper($names[0]).'</UPP_SURNAME></AUTHOR>';
+
+				$xml = str_replace('<author>'.$aut.'</author>', $upperCaseAuthorsXML, $xml);
+			}
+		} while (strlen($aut)>0);
+
+		return $xml;
+	}
+	function removeAccent($s){
+		$a = array("á","à","ã","â","ä","é","è","ê","ë","ó","ò","õ","ô","ö","í","ì","î","ï","ú","ù","û","ü","ñ","ç");
+		$b = array("a","a","a","a","a","e","e","e","e","o","o","o","o","o","i","i","i","i","u","u","u","u","n","c");
+
+		return str_replace($a, $b, $s);
+	}
+
 	$lang = isset($_REQUEST['lang'])?($_REQUEST['lang']):"";
 	$pid = isset($_REQUEST['pid'])?($_REQUEST['pid']):"";
 	$text = isset($_REQUEST['text'])?($_REQUEST['text']):"";
@@ -30,8 +56,12 @@
 	{
 		$xmlh = str_replace(chr($chr),"",$xmlh);
 	}
-
+	
 	$xmlh = str_replace(chr(146),"",$xmlh);
+
+	$xmlh = upperCaseAuthors($xmlh);
+
+
 	$xml = '<?xml version="1.0" encoding="ISO-8859-1" ?>'."\n";
 	$xml .= '<root>';
 	$xml .= '<CONTROLINFO>';
@@ -84,5 +114,6 @@
 		echo $transformer->getError();
 	}
 	echo $result;
+
 
 ?>

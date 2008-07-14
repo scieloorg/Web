@@ -184,18 +184,11 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD
 	<TR>
 		<TD colspan="2">
 			<h3><span style="font-weight:100;font-size: 70%; background:none;">
-					<?php
-					$author = getAutors($article->getAuthorXML());
-					$pos = strrpos($author, ";");
-					$author[$pos] = " ";
-					echo $author;
-					echo '<i><b>';
-					echo (getTitle($article->getTitle(), $lang).". ");
-					echo ('</b></i>');
-					echo ($article->getSerial(). ', '.$article->getYear().', vol.'.$article->getVolume());
-					echo (', n. '.$article->getNumber().', ISSN '.substr($article->getPID(),1,9).'.<br/><br/>'."\n");
+				<?php
+					include(dirname(__FILE__)."/displayReference.php");
+				?>
+					<br/><br/>
 
-					?>
 			</span></h3>
 		</TD>
 	</TR>

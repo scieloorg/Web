@@ -93,7 +93,8 @@
 		</h4>
 		<p>
 			<xsl:call-template name="PrintAbstractHeaderInformation">
-				<xsl:with-param name="NORM" select="$NORM"/>
+				<xsl:with-param name="FORMAT" select="'short'"/>
+				<xsl:with-param name="NORM" select="'iso-e'"/>
 				<xsl:with-param name="LANG" select="$LANG"/>
 				<xsl:with-param name="AUTHLINK">1</xsl:with-param>
 			</xsl:call-template>

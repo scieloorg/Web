@@ -97,7 +97,9 @@
 			<call name="CreateArtIssueInfoXML"><pft>v3005,'^l'v3000'^i'v3003'</pft></call>
 			
 			<!-- call name="CreateArticleTitleXML"><pft>(v12/)</pft></call-->
-			<call name="CreateArticleTitleOrSectionXML"><pft>mfn</pft></call>
+			<!-- call name="CreateArticleTitleOrSectionXML"><pft>mfn</pft></call-->
+			<field action="replace" tag="3100"><pft>v3012</pft></field>
+   			<call name="CreateArticleTitleForReference"><pft>mfn</pft></call>
 
 			<call name="CreateAuthorsGroupXML">
 				<pft>mpu,v3002,mpl</pft>

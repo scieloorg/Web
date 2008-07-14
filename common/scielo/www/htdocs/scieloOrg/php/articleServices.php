@@ -1,11 +1,15 @@
 <?php
 	ini_set("display_errors","1");
-	error_reporting(E_ALL);
+	error_reporting(E_ALL ^E_NOTICE);
+	$tlang = isset($_REQUEST['tlang'])?($_REQUEST['tlang']):"";
 	$lang = isset($_REQUEST['lang'])?($_REQUEST['lang']):"";
 	$pid = isset($_REQUEST['pid'])?($_REQUEST['pid']):"";
 	$text = isset($_REQUEST['text'])?($_REQUEST['text']):"";
 
-	require_once(dirname(__FILE__)."/../../applications/scielo-org/users/langs.php");	
+	require_once(dirname(__FILE__)."/../../applications/scielo-org/users/langs.php");
+	//require_once(dirname(__FILE__)."/../../classDefFile.php");
+
+	//$transformer = new XSLTransformer();
 	$defFile = parse_ini_file(dirname(__FILE__)."/../../scielo.def.php");
 
 ?>
@@ -17,29 +21,12 @@
 			<head>
 				<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
 				<link rel="stylesheet" href="/applications/scielo-org/css/public/style-<?=$lang?>.css" type="text/css" media="screen"/>
-				<style>
-					.articleList TH {
-						text-align: left;
-						border-bottom: 2px solid #AAA;
-						padding: 2px 0px;
-					}
-					.articleList TD {
-						padding-bottom: 6px;
-							
-					}
-					.articleList TD TD {
-						border-bottom: 1px solid #AAA;
-					}
-					.articleList TD TD TD {
-						border-bottom: 1px solid #DEDEDE;
-					}
-					.region {
-						padding-top: 12px;
-					}
-					.state {
-						margin-top: 12px;
-					}
-				</style>
+				<?php
+				/* Adicionado script para passa a utilizar o serviço de log comentado por Jamil Atta Junior (jamil.atta@bireme.org) */
+				if ($service == 'related') { 
+					echo '<script language="javascript" src="/../../applications/scielo-org/js/httpAjaxHandler.js"></script>';
+				}
+				?>
 			</head>
 			<body>
 				<div class="container">
@@ -62,7 +49,13 @@
 							<div id="collection">
 								<h3>
 									<span>
-										<?=DATASUS?>
+										<?php 
+											switch($service){
+												case 'related': echo SIMILARYS_IN; break;
+												case 'cited': echo CITED_BY; break;
+											}
+										?>
+										<?=" SciELO"?>
 									</span>
 								</h3>
 								<div class="content">
@@ -76,50 +69,22 @@
 											<br/><br/>
 											</span></h3>
 										</TD>
-									</TR>									
+									</TR>
 									<TR>
 										<TD colspan="2">
-											<div class="articleList">
-											<?php
-												$serviceUrl = "http://trigramas.bireme.br/cgi-bin/mxlind/cgi=@areasgeo?pid=".$pid;
-												$xmlFile = file_get_contents($serviceUrl);
-												$xml = '<?xml version="1.0" encoding="ISO-8859-1"?>';
-												$xml .='<root>';
-												$xml .='<vars>
-															<lang>'.$lang.'</lang>
-															<applserver>'. $applServer .'</applserver>
-														</vars>';
-												$xml .= str_replace('<?xml version="1.0" encoding="ISO-8859-1" ?>','',$xmlFile);
-												$xml .='</root>';
-												if($_REQUEST['debug'] == 'xml'){
-													die($xml);
-												}
-												$transformer = new XSLTransformer();								
-												$transformer->setXslBaseUri($defFile["PATH_XSL"]);
-												$transformer->setXml($xml);
-												$transformer->setXslFile($defFile["PATH_XSL"]."datasus.xsl");
-												$transformer->transform();
-												$output = $transformer->getOutput();
-												$output = str_replace('&amp;','&',$output);
-												$output = str_replace('&lt;','<',$output);
-												$output = str_replace('&gt;','>',$output);
-												$output = str_replace('&quot;','"',$output);
-												$output = str_replace('<p>',' ',$output);
-												$output = str_replace('</p>',' ',$output);
-
-												echo $output;
-												
-												?>
-											</div>
+										<?php
+											
+											include_once("common.php");
+										?>
 										</TD>
 									</TR>
 								</TABLE>
-								
+
 						</div>
 				</div>
 			</div>
 		</div>
-			<? 
+			<?
 				if($defFile['LOG']['ACTIVATE_LOG'] == '1') {
 			?>
 				<script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>

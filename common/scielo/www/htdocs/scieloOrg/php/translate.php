@@ -1,14 +1,13 @@
 <?php
 	ini_set("display_errors","1");
 	error_reporting(E_ALL ^E_NOTICE);
+	$tlang = isset($_REQUEST['tlang'])?($_REQUEST['tlang']):"";
 	$lang = isset($_REQUEST['lang'])?($_REQUEST['lang']):"";
 	$pid = isset($_REQUEST['pid'])?($_REQUEST['pid']):"";
 	$text = isset($_REQUEST['text'])?($_REQUEST['text']):"";
 
-	require_once(dirname(__FILE__)."/../../applications/scielo-org/users/functions.php");
 	require_once(dirname(__FILE__)."/../../applications/scielo-org/users/langs.php");
 	require_once(dirname(__FILE__)."/../../classDefFile.php");
-	require_once(dirname(__FILE__)."/../../applications/scielo-org/classes/services/ArticleServices.php");
 	//require_once(dirname(__FILE__)."/../../class.XSLTransformer.php");
 
 	//$transformer = new XSLTransformer();
@@ -20,9 +19,6 @@
 	//Adicionado para flag de log comentado por Jamil Atta Junior (jamil.atta@bireme.org)
 	$flagLog = $defFile['ENABLE_SERVICES_LOG'];
 	//geting metadatas from PID
-	$articleService = new ArticleService($applServer);
-	$articleService->setParams($pid);
-	$article = $articleService->getArticle();
 	$tlang = $_REQUEST['tlang'];
 ?>
  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -60,20 +56,10 @@
                                 <TD colspan="2">
 									
                                     <h3><span style="font-weight:100;font-size: 70%; background:none;">											
-                                            <?php									
-											//print('<p style="font-size:90%">'.ARTICLE_TRANSLATION_WARNING.'</p>');
-											
-											$author = getAutors($article->getAuthorXML());
-											$pos = strrpos($author, ";");
-											$author[$pos] = " ";
-
-											echo $author;
-											echo '<i><b>';
-											echo (getTitle($article->getTitle(), $lang).". ");
-											echo ('</b></i>');
-											echo ($article->getSerial(). ', '.$article->getYear().', vol.'.$article->getVolume());
-											echo (', n. '.$article->getNumber().', ISSN '.substr($article->getPID(),1,9).'.<br/><br/>'."\n");
+											<?php
+												include(dirname(__FILE__)."/displayReference.php");
 											?>
+											<br/><br/>
                                         </span></h3>
                                 </TD>
                             </TR>

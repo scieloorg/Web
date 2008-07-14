@@ -2,76 +2,10 @@
 
 	<include>ScieloXML/sci_common.xis</include>
 
-	<function name="CreateArticleTitleForReference" action="replace" tag="4000">
-		<!--
-		Prints article title if present. Otherwise section name.
-		v4000 - mfn 
-		-->
-		<field action="import"	tag="list">3100</field>
-		<do task="mfnrange">
-			<parm name="db">ARTIGO</parm>	
-			<parm name="from"><pft>v4000</pft></parm>
-			<parm name="count">1</parm>
-
-			<loop>
-				<display><pft>@PROC_SPLIT_MST.PFT,</pft></display>
-				<field action="import"	tag="list">3100</field>
-
-				<field action="replace"	tag="1000">
-					<pft>if instr(v702,'.xml')=0 then '^i<![CDATA[^f]]>' fi</pft>
-				</field>
-
-				<field action="replace"	tag="9040">
-					<pft>v40</pft>
-				</field>
-				<field action="replace"	tag="9000">
-					<pft>(if v9040[1]=v12^l then v12^* fi)</pft>
-				</field>
-				<field action="replace"	tag="9001">
-					<pft>(if v9040[1]=v12^l then v12^s fi)</pft>
-				</field>
-					
-				<display>
-					<pft>
-						'  <ORIGINAL-TITLE>',v1000^i,v9000,v1000^f,'</ORIGINAL-TITLE>'/#
-						if p(v9001) then '  <ORIGINAL-SUBTITLE>',v1000^i,v9001,v1000^f,'</ORIGINAL-SUBTITLE>'/# fi
-					</pft>
-				</display>	
-
-				<field action="replace"	tag="9040">
-					<pft>v3100</pft>
-				</field>
-				<flow action="jump"><pft>if v40=v9040 then 'NO_TRANSLATION' fi</pft></flow>
-
-				<field action="replace"	tag="9000">
-					<pft>(if v9040[1]=v12^l then v12^* fi)</pft>
-				</field>
-				<field action="replace"	tag="9001">
-					<pft>(if v9040[1]=v12^l then v12^s fi)</pft>
-				</field>
-
-				<display>
-					<pft>
-						'  <TRANS-TITLE>',v1000^i,v9000,v1000^f,'</TRANS-TITLE>'/#
-						if p(v9001) then '  <TRANS-SUBTITLE>',v1000^i,v9001,v1000^f,'</TRANS-SUBTITLE>'/# fi
-					</pft>
-				</display>		
-				<label>NO_TRANSLATION</label>
-
-				<display>
-					<pft>
-						'  <TITLE>',v1000^i,v9000,v1000^f,'</TITLE>'/#
-						if p(v9001) then '  <SUBTITLE>',v1000^i,v9001,v1000^f,'</SUBTITLE>'/# fi
-					</pft>
-				</display>	
-
-			</loop>
-		</do>
-	</function>
-	
-	
 
 	<function name="StandardXML" action="replace" tag="4001">
+		<field action="import" tag="3020"><pft>v3020</pft></field>
+	
 		<field action="replace" tag="1" split="occ"><pft>'iso-e'/,'nbr6023-e'/,</pft></field>
 		<field action="replace" tag="2" split="occ"><pft>'Electronic Document Format (ISO)'/,'Electronic Document Format (ABNT)'/,</pft></field>
 		<field action="replace" tag="3" split="occ"><pft>'Formato Documento Electrónico (ISO)'/,'Formato Documento Electrónico (ABNT)'/,</pft></field>
@@ -95,6 +29,10 @@
 		<field action="add" tag="2"><pft>if p(v999) then 'Electronic Document Format (Vancouver)'/, fi</pft></field>
 		<field action="add" tag="3"><pft>if p(v999) then 'Formato Documento Electrónico (Vancouver)'/ fi</pft></field>
 		<field action="add" tag="4"><pft>if p(v999) then 'Formato Documento Eletrônico (Vancouver)'/, fi</pft></field>
+
+		
+
+		<label>STANDARDS</label>
 		<display>
 			<pft>
 				(
@@ -121,6 +59,10 @@
 	<field action="cgi" tag="3003">sln</field>
 	<field action="cgi" tag="3010">debug</field>
 	<field action="cgi" tag="3011">def</field>
+	<field action="cgi" tag="3020">presentation</field>
+	<field action="cgi" tag="3021">format</field>
+	<field action="cgi" tag="3022">standard</field>
+	<field action="cgi" tag="3023">textlink</field>
 
 	<field action="replace" tag="3011"><pft>if a(v3011) then 'scielo.def.php' fi</pft></field>
 
@@ -153,6 +95,11 @@
     <display>
         <pft>
             '<ARTICLE_INFO>',/#
+        </pft>
+    </display>
+    <display>
+        <pft>
+            if v3020='onlyref' then '<PRESENTS-ONLY-REF format="',v3021,'" standard="',v3022,if a(v3022) then 'iso-e' fi,'" textlink="',if p(v3023) and v3023='true' then '1' fi,'"/>',/# fi
         </pft>
     </display>
 
