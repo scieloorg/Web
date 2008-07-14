@@ -66,7 +66,7 @@ if($xsl != dirname(__FILE__)."/xsl/")
 	$t = new XSLTransformer();
 	$t->setXml($xml);
 //	$t->setXsl(file_get_contents($xsl));
-	$t->setXsl($xsl);
+	$t->setXslFile($xsl);
 	$t->transform();
 	$result = $t->getOutput();
 }
