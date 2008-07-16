@@ -49,16 +49,21 @@ if (!$isaRobot){
 		*/
 		if(!isset($_SESSION['checkedLogin']))
 		{
-			$self_url = "http://".$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
-			$inicio = strpos($self_url,"userID") -1 ;
+				/**
+				*Adicionado para não redirecionar no serviço de tradução
+				**/
+				if(!isset($_REQUEST['skpa'])=="on"){
+					$self_url = "http://".$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+					$inicio = strpos($self_url,"userID") -1 ;
 	
-			if($inicio > 0){
-			   $self_url = substr($self_url, 0, $inicio);
-			}
-			$_SESSION['checkedLogin'] = "true";
-			session_write_close();
-			$self_url = '?origem='.str_replace('?','&',$self_url);
-			header("Location: ".$loginURL.$self_url);
+					if($inicio > 0){
+					   $self_url = substr($self_url, 0, $inicio);
+					}
+					$_SESSION['checkedLogin'] = "true";
+					session_write_close();
+					$self_url = '?origem='.str_replace('?','&',$self_url);
+					header("Location: ".$loginURL.$self_url);
+				}
 		}
 	}
 }
