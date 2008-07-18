@@ -9,7 +9,7 @@ call batch\VerifPresencaParametro.bat %0 @%2 path bases para gravar bases conver
 call batch\ConverteCriaDir.bat %2
 
 echo '' > temp\GeraTitle.prc
-if not "@%3"=="@" echo if mid(v691,%3,1) = '0' then 'd*' fi >> temp\GeraTitle.prc
+if not "@%3"=="@" echo if mid(v691,%3,1) = '1' then  else 'd*' fi >> temp\GeraTitle.prc
 call batch\GeraMaster.bat ..\bases\title\title temp\title temp\GeraTitle.prc
 
 call batch\ConverteMaster.bat temp\title %2\title\title
