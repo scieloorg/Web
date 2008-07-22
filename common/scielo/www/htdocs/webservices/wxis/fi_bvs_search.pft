@@ -1,0 +1,17 @@
+'<resource
+  xmlns="http://example.org/myapp/"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:dc="http://purl.org/dc/elements/1.1/">',#
+	(|<dc:title xml:lang="|v12^l|"><![CDATA[|v12^*|]]></dc:title>|),#
+	(|<dc:creator><![CDATA[|v10^s|,|v10^n|]]></dc:creator>|),#
+	(|<dc:subject xml:lang="|v85^l|"><![CDATA[|v85^k|]]></dc:subject>|),#
+	(|<dc:description xml:lang="|v83^l|"><![CDATA[|v83^a|]]></dc:description>|),#
+	(|<dc:publisher><![CDATA[|v62|]]></dc:publisher>|),#
+	(|<dc:contributor><![CDATA[|v10^s|]]></dc:contributor>|),#
+	,'<dc:date>',mid(v65,1,4),'-',mid(v65,5,2),'-',mid(v65,7,2),'</dc:date>',#
+	,'<dc:type>Text</dc:type>',#
+	,'<dc:format>text/xml</dc:format>',#
+	,'<dc:identifier>http://www.scielo.br/scielo.php?script=sci_arttext&amp;pid=',v880,'&amp;lng=en&amp;nrm=iso&amp;tlng=',v40,'</dc:identifier>',#
+	(|<dc:source>|v30^f|,|v30^l|</dc:source>|),#
+	(|<dc:language>|v40|</dc:language>|),#
+ '</resource>',#
