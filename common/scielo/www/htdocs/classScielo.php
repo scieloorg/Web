@@ -88,19 +88,22 @@ class Scielo extends ScieloBase
 		*/
 
 		$show_comments = $this->_def->getKeyValue("show_comments");
+		
+		if($show_comments != 0){
+			$xml_comments = file_get_contents("xml/allow_comment.xml");
+			$issn_comments = substr($_REQUEST["pid"],1,9);
+			$flag=0;
+			if (strpos($xml_comments,$issn_comments)){
+				$flag = 1;
+			}
 
-		$xml_comments = file_get_contents("xml/allow_comment.xml");
-		$issn_comments = substr($_REQUEST["pid"],1,9);
-		$flag=0;
-		if (strpos($xml_comments,$issn_comments)){
-			$flag = 1;
-		}
-
-		if($flag == 1){			
-			if($this->_script == 'sci_arttext' || $this->_script == 'sci_abstract'){	
-				$BlogDAO = new wpBlogDAO();
-				$commentCount = $BlogDAO->getCountCommentByPid($pid,$strResultSiglum);
-				$BlogDAO->fechaConexao();
+			if($flag == 1){			
+				if($this->_script == 'sci_arttext' || $this->_script == 'sci_abstract'){
+					
+					$BlogDAO = new wpBlogDAO();
+					$commentCount = $BlogDAO->getCountCommentByPid($pid,$strResultSiglum);
+					$BlogDAO->fechaConexao();
+				}
 			}
 		}
 
