@@ -8,7 +8,7 @@ if(!isset($_REQUEST['service'])){
 
 $service = $_REQUEST['service'];
 
-$clientesoap = new soapclient('http://teste.scielo.br/webservices/indexBVS.php');
+$clientesoap = new soapclient('http://'.$_SERVER["HTTP_HOST"].'/webservices/indexBVS.php');
 
 switch($service){
 	case "search":

@@ -81,7 +81,7 @@ function search($expression, $from, $count){
 	$count= ($count != "" ? $count : "10");
 	
 	//" . $applServer . "
-	$serviceUrl = "http://teste.scielo.br/cgi-bin/wxis.exe/?IsisScript=ScieloXML/fi_bvs_search.xis&database=search&search=".$expression."&from=".$from."&count=".$count;
+	$serviceUrl = "http://".$_SERVER["HTTP_HOST"]."/cgi-bin/wxis.exe/?IsisScript=ScieloXML/fi_bvs_search.xis&database=search&search=".$expression."&from=".$from."&count=".$count;
 	$response = file_get_contents($serviceUrl);
 	
 	return $response;
@@ -96,7 +96,7 @@ function advancedSearch($index, $expression, $from, $count){
 	$expression = str_replace(" "," and ".$index,$expression);
 	
 	//" . $applServer . "
-	$serviceUrl = "http://teste.scielo.br/cgi-bin/wxis.exe/?IsisScript=ScieloXML/fi_bvs_search.xis&database=searchp&search=".$index.$expression."&from=".$from."&count=".$count;
+	$serviceUrl = "http://".$_SERVER["HTTP_HOST"]."/cgi-bin/wxis.exe/?IsisScript=ScieloXML/fi_bvs_search.xis&database=searchp&search=".$index.$expression."&from=".$from."&count=".$count;
 	$response = file_get_contents($serviceUrl);
 	
 	return $response;
@@ -109,7 +109,7 @@ function listRecords($from, $count){
 	$count= ($count != "" ? $count : "10");
 	
 	//" . $applServer . "
-	$serviceUrl = "http://teste.scielo.br/cgi-bin/wxis.exe/?IsisScript=ScieloXML/fi_bvs_search.xis&database=search&search=$&from=".$from."&count=".$count;
+	$serviceUrl = "http://".$_SERVER["HTTP_HOST"]."/cgi-bin/wxis.exe/?IsisScript=ScieloXML/fi_bvs_search.xis&database=search&search=$&from=".$from."&count=".$count;
 	$response = file_get_contents($serviceUrl);
 	
 	return $response;
@@ -121,7 +121,7 @@ function lastRecords($count){
 	$count= ($count != "" ? $count : "10");
 	
 	//" . $applServer . "
-	$serviceUrl = "http://teste.scielo.br/cgi-bin/wxis.exe/?IsisScript=ScieloXML/fi_bvs_search.xis&database=search&search=$&count=".$count."&reverse=on";
+	$serviceUrl = "http://".$_SERVER["HTTP_HOST"]."/cgi-bin/wxis.exe/?IsisScript=ScieloXML/fi_bvs_search.xis&database=search&search=$&count=".$count."&reverse=on";
 
 	$response = file_get_contents($serviceUrl);
 	
