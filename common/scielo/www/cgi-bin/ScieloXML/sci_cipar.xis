@@ -53,6 +53,9 @@ PATH_DATA:     tag 7014
             'search.*=',v7011,'iah/library/search.*',/
             'search.mst=',v7011,'artigo/artigo.mst',/
             'search.xrf=',v7011,'artigo/artigo.xrf',/
+	    'searchp.*=',v7011,'iah/library/searchp.*',/
+      	    'searchp.mst=',v7011,'artigo/artigo.mst',/
+	    'searchp.xrf=',v7011,'artigo/artigo.xrf',/
         'artigob1.*=', v7011, 'artigo/artigob1.*',/
         'artigob2.*=', v7011, 'artigo/artigob2.*',/
 	'artigo.*=', v7011, 'artigo/artigo.*',/
