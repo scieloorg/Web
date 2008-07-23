@@ -92,6 +92,7 @@ PATH_DATA:     tag 7014
 		'PROC_SPLIT_MST.PFT=', v8034, 'pfts/proc_split_mst.pft',/
 		'PROC_XML_PMC.PFT=',v8034, 'pfts/proc_xml_pmc.pft',/
 		'PROC_XML_AGRIS.PFT=',v8034, 'pfts/proc_xml_agris.pft',/
+		'FI_BVS_SEARCH.PFT=',v8034, 'webservices/wxis/fi_bvs_search.pft',/
 		'PROC_XML_SCOPUS_CITED_BY_COUNT.PFT=',v8034, 'pfts/proc_xml_scopus_cited_by_count.pft',/
 		'PROC_XML_CRS.PFT=',v8034, 'pfts/proc_xml_crs.pft',/
 		'GIZMO_XML_REF.*=', v8034, 'webservices/wxis/gizmo/gizmoXML.*',/
