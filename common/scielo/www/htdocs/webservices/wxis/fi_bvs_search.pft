@@ -1,5 +1,4 @@
 '<resource
-  xmlns="http://example.org/myapp/"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns:dc="http://purl.org/dc/elements/1.1/">',#
 	(|<dc:title xml:lang="|v12^l|"><![CDATA[|v12^*|]]></dc:title>|),#
