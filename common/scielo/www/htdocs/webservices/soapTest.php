@@ -41,10 +41,13 @@ switch($service){
 		$resultado = $clientesoap->call('advancedSearch',$param);
 		break;
 	case "listRecords":
+		if(!isset($_REQUEST['from'])){
+			die("missing parameter <i>from</i>");
+		}
 		if(!isset($_REQUEST['count'])){
 			die("missing parameter <i>count</i>");
 		}
-		$param = array('count' => $_REQUEST['count']);
+		$param = array('from' => $_REQUEST['from'],'count' => $_REQUEST['count']);
 		$resultado = $clientesoap->call('listRecords',$param); // Alterar o nome do serviço. 
 		break;
 	case "lastRecords":		
