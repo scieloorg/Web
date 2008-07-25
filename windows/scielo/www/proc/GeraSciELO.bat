@@ -65,7 +65,7 @@ call batch\TabulaMaster.bat temp\scilista temp\listatb 10 pft\TabLista.pft
 call batch\GeraInvIAH.bat %1 temp\listatb
 
 rem REPOSITORIO INICIO
-if not exist repo\repo.seq call repo\RepoGenerateIndex.bat %1
+if exist repo\repo.seq call repo\RepoGenerateIndex.bat %1
 rem REPOSITORIO FIM
 
 call batch\ManutencaoOn.bat ..\bases
