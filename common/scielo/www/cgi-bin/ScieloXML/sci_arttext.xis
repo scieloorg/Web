@@ -232,6 +232,7 @@
 </display>
 
  <call name="GetContentTranslationFileName"><pft>v7999[1]</pft></call> 
+ <flow action="jump"><pft>v7999^x[2]</pft></flow>
 
  <!-- identifica o primeiro e o último registro parágrafo que contenha referência -->
  <call name="getRange"><pft>'RP=',v4001^p</pft></call> 
@@ -244,7 +245,7 @@
  <call name="GetLanguageIAH"><pft>v4001^l</pft></call>
 
  <!-- Extract full text -->
- <flow action="jump"><pft>if a(v9901) or a(v9902) then 'NOT_FOUND_BODY' fi</pft></flow>
+ <flow action="jump"><pft>if a(v9901) or a(v9902) then 'CLOSE_BODY' fi</pft></flow>
  <do task="mfnrange">
  	<parm name="db">ARTIGO</parm>
 	<parm name="from"><pft>v9901</pft></parm>
@@ -310,6 +311,8 @@
 
 		<display>
 			<pft>
+
+'<!-- ref -->'
 				,if val(v705)>0 then mid(v704^*,1,val(v705)-1) else v704^* fi,
 	'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&#160;<a href="javascript:void(0);" onclick="javascript: window.open(',v9999*0.1,'/scieloOrg/php/reflinks.php?refpid=',v3330,'&pid=',v880,'&lng=',v4001^l,'',v9999*0.1,','v9999*0.1,v9999*0.1',',v9999*0.1,'width=640,height=500,resizable=yes,scrollbars=1,menubar=yes,',v9999*0.1,');">',
 	 select s(v4001^l)	
@@ -317,7 +320,7 @@
 	    case 'en': 'Links'
 	    case 'pt': 'Links'
 	endsel
-	,'</a>&#160;]',
+	,'</a>&#160;]','<!-- end-ref -->'
 			</pft>
 		</display>
 
@@ -329,9 +332,8 @@
  </do>
  
 <!-- fixed 20040614 -->
- <label>NOT_FOUND_BODY</label>
- <label>body_file_fim</label>
- <call name="GetContentTranslationFileName"><pft>v7999[2]</pft></call> 
+ <label>CLOSE_BODY</label>
+ <call name="GetContentTranslationFileName"><pft>v7999^*[2]</pft></call> 
 
 
  <display>

@@ -2209,6 +2209,8 @@
 	<field action="add" tag="8000"><pft>v7999</pft></field>
 	<call name="GetTranslationFileName"><pft>v4901^p/,'^l',v4901^l/,'^d',v4901^d/,'^ab'</pft></call>
 	<field action="add" tag="8000"><pft>v7999</pft></field>
+	<call name="GetTranslationFileName"><pft>v4901^p/,'^l',v4901^l/,'^d',v4901^d/,'^ax'</pft></call>
+	<field action="add" tag="8000"><pft>v7999|^xCLOSE_BODY|</pft></field>
 	<field action="export" tag="7999">8000</field>
 	
 	<label>end</label>	
@@ -2348,7 +2350,7 @@
 
 <function name="GetContentTranslationFileName" action="replace" tag="4901" split="occ">
 <!-- fixed 20040122 - corrige problema de leitura com cat() por causa do tamanho do arquivo -->
-	<display><pft>'[replace-this-by-content]',v4901,'[/replace-this-by-content]'</pft></display>
+	<display><pft>'[replace-this-by-content]',if v4901^x='CLOSE_BODY' then v4901^* else v4901 fi,'[/replace-this-by-content]'</pft></display>
 </function>
 
 <function name="CreateScieloCopyInfoXML" action="replace" tag="4900">
