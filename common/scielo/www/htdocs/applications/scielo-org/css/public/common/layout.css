@@ -97,6 +97,8 @@
 .firstColumn DIV, .secondColumn .centerLeftColumn DIV, .secondColumn .centerRightColumn DIV, .thirdColumn DIV, #search, #searchConcepts, .level2 .middle DIV {
 	padding-bottom: 10px;
 	margin-bottom: .3em;
+	/*here*/
+	width: 80%;
 }
 
 .firstColumn DIV H3, .secondColumn DIV H3, .thirdColumn DIV H3, #search H3, #searchConcepts H3, .level2 .middle DIV H3 {
