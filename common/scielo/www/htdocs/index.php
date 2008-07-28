@@ -1,7 +1,7 @@
 <?php
-	$redirect = "./scielo.php?script=sci_alphabetic&lng=en&nrm=iso";
+	$redirect = "./php/index.php";
 	if ($_REQUEST['lang'])
-		$redirect = "./scielo.php?script=sci_alphabetic&lng=".$_REQUEST['lang']."&nrm=iso"; 
+		$redirect .= "?lang=" . $_REQUEST['lang']; 
 	
 	header("Location: " . $redirect);
 ?>
