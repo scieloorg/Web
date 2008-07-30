@@ -1,0 +1,46 @@
+<IsisScript name="xml_scielo">
+
+<section>
+	<trace>xOn</trace>
+	<field action="cgi" tag="1001">sci_lista</field>
+	<field action="cgi" tag="1004">journals</field>
+	<field action="cgi" tag="1005">path_db</field>
+	<field action="cgi" tag="1006">fst</field>
+
+	<field action="export" tag="list">1001,1004,1005,1006</field>
+	<do task="import">
+		 <field action="import" tag="list">1001,1004,1005,1006</field>
+	  	 <parm name=file><pft>v1001</pft></parm>
+	     <parm name=type><pft>'RLine'</pft></parm>
+		 <parm name="delimiter"><pft>x1</pft></parm>
+		 <loop>
+		 	<field action="import" tag="list">1001,1004,1005,1006</field>
+		 	<field action="replace" tag="2001"><pft>v1</pft></field>
+		 	<field action="replace" tag="2002"><pft>v2</pft></field>
+		 	<field action="replace" tag="2003"><pft>v3</pft></field>
+			<field action="export" tag="list">1001,1004,1005,1006,2001,v2002</field>
+			
+			<do task="search">
+				<field action="import" tag="list">1001,1004,1005,1006,2001,2002</field>
+				<parm name="db"><pft>v1004</pft></parm>
+				<parm name="expression"><pft>v2001</pft></parm>
+				<field action="define" tag="6969">Isis_Total</field>
+				<field action="export" tag="list">1001,1004,1005,1006,2001,v2002</field>
+				<loop>
+				</loop>
+				<field action="import" tag="list">1001,1004,1005,1006,2001,2002</field>
+				<flow action="skip"><pft>if val(v6969) = 0 then 'Quit' fi</pft></flow>
+				<!--display><pft>'call batch\Envia.bat ',v2001,' ',v2002,' ',v2003,' ',v1005,' ',v1006#</pft></display-->
+		<!-- FIXED 20040504 
+			Roberta Mayumi Takenaka
+			Solicitado por Solange email: 20040429
+			Não gerar arquivo xml de rule
+			Solução: Alteração dos parametros passados ao batch/Envia para não enviar o arquivo rule
+			-->		
+
+				<display><pft>'call batch\Envia.bat ',v2001,' ',v2002,' ',v2003#</pft></display>
+			</do>
+		 </loop>
+	</do>
+</section>
+</IsisScript>

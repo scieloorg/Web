@@ -1,0 +1,96 @@
+VERSION 1.0 CLASS
+BEGIN
+  MultiUse = -1  'True
+END
+Attribute VB_Name = "clsIssue"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = False
+
+Public primaryKey As String
+Public stitle As String
+Public volid As String
+Public supplvol As String
+Public issueno As String
+Public supplno As String
+Public dateiso As String
+Public issn As String
+Public status As String
+Private secList As New Collection
+'---alteracao
+'---alteracao para a RSP
+Public scheme As New Collection
+Public standard As New Collection
+'------------
+'--------------------------------
+Private mErr As New clsErrList
+Const errIDObj As String = "212"
+
+Public Sub InsertSec(s As clsValue)
+  Const errIDMet As String = "01"
+  '-----------------------------
+  On Error GoTo errLOG
+  
+  'ha' casos que existe mais de uma seccode com o mesmo nome e valor
+  'decisao tomada: chave composta => valor por extenso da sec + posicao na lista
+  'secList.Add s, s.extValue
+  secList.Add s
+  Exit Sub
+errLOG:
+  Dim Conf As New clsConfig
+  With mErr
+    Conf.LoadPublicValues
+    .LoadErr Conf
+    .BuildLog errIDObj & errIDMet, Conf
+  End With
+  Set Conf = Nothing
+End Sub
+
+Public Function ReturnSec(k As String) As clsValue
+  On Error Resume Next
+  If val(Trim$(k)) = 0 Then
+    Set ReturnSec = secList.Item(k)
+    If err.Number <> 0 Then
+      ReturnSec = Nothing
+    End If
+  Else
+    Set ReturnSec = secList.Item(val(Trim$(k)))
+  End If
+End Function
+
+Public Function ReturnCount() As Integer
+  Const errIDMet As String = "02"
+  '-----------------------------
+  On Error GoTo errLOG
+  
+  ReturnCount = secList.Count
+  Exit Function
+errLOG:
+  Dim Conf As New clsConfig
+  With mErr
+    Conf.LoadPublicValues
+    .LoadErr Conf
+    .BuildLog errIDObj & errIDMet, Conf
+  End With
+  Set Conf = Nothing
+End Function
+
+Public Function GetExtSec(AbbrVal As String) As String
+    Dim ExtVal As String
+    Dim found As Boolean
+    Dim i As Long
+    
+    found = False
+    i = 0
+    While (i < ReturnCount) And (Not found)
+        i = i + 1
+        If (StrComp(secList(i).abbrValue, AbbrVal) = 0) Then
+            found = True
+            ExtVal = secList(i).extValue
+        End If
+    Wend
+    GetExtSec = ExtVal
+End Function
+
+

@@ -1,0 +1,19 @@
+,if v706='h' then 	
+	,proc('d880a880{',
+		,'S',v35,mid(v65,1,4),
+		s(f(val( ref(1,mid(v36,5,size(v36)))) +10000,2,0))*1.4,
+		s(f(val(v121)+100000,4,0))*1.5,
+	,'{'),
+	,if l(['bases\aheadOfPrint'],'aop=',v880)> 0 then
+		/* já existe registro na base */
+		/* gera proc para atualizar a base */
+		,if p(v222) then
+			/* tem novo pid, adicionar novo pid */
+			,'%CISIS_DIR%\mx bases\aheadOfPrint btell=0 "bool=aop=',v880,'" "proc=`d2a2{',v222,'{`" ',
+			,'copy=bases\aheadOfPrint now -all'/
+		,fi
+	,else
+		/* não existe registro na base */
+		/* não faz nada */
+	,fi,
+,fi,

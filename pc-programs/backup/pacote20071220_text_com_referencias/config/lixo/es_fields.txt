@@ -1,0 +1,84 @@
+Volume|Volumen|
+VolSuppl|Supl Vol|
+Issueno|Fascículo|
+IssueSuppl|Supl Fasc|
+SequentialNumber|Num Seq|*
+Issue_status|Status|*
+Issue_IssTitle|Título del fascículo|
+Issue_IssPublisher|Editor del fascículo|
+Issue_Cover|Portada|
+Issue_DateISO|Fecha ISO|*
+Issue_Sponsor|Sponsor|
+Issue_Part|Part|
+Issue_NumberofDocuments|Cantidad de documentos|*
+Issue_Standard|Norma|*
+Issue_Scheme|Vocabulario Controlado|*
+Issue_MkpDone|Marcación fué hecha|*
+Issue_Place|Ciudad|*
+Issue_month|Mes|
+Issue_year|Año|*
+Issue_Header|Tabla de Contenido|*
+Sec_SectionCode|Código de las secciones|
+Sec_SectionTitle|Título de las secciones|
+Sec_Idiom|Idioma de las secciones|
+ser1_issn|ISSN|*
+ser1_Title|Título|*
+ser1_ShortTitle|Título Corto|*
+ser1_ISOStitle|Título ISO Corto |*
+ser1_ParallelTitles|Títulos Paralelos|
+ser1_Subtitle|Subtítulo|
+ser1_SectionTitle|Sección|
+ser1_OtherTitles|Otros títulos|
+ser1_OldTitle|Título antiguo|
+ser1_NewTitle|Título nuevo|
+ser1_IsSuppl|Es suplemento de|
+ser1_HasSuppl|Tiene suplemento|
+ser2_Mission|Misión|*
+ser2_Subject|Asunto/Descriptores |*
+ser2_StudyArea|Area del conocimiento|*
+ser2_LiterType|Tipo de Literatura|*
+ser2_TreatLevel|Nivel de Tratamiento|*
+ser2_PubLevel|Nivel de publicación|*
+ser3_InitDate|Fecha Inicial |*
+ser3_InitVol|Volumen Inicial|
+ser3_InitNo|Número Inicial |
+ser3_TermDate|Fecha Final|
+ser3_FinVol|Volumen Final|
+ser3_FinNo|Número Final |
+ser3_Freq|Frecuencia|*
+ser3_PubStatus|Status de la Publicación |*
+ser3_Alphabet|Alfabeto |*
+ser3_TxtIdiom|Idioma del Texto|*
+ser3_AbstIdiom|Idioma del Resumen|*
+ser3_NationalCode|Código Nacional |
+ser3_Classif|Clasificación|
+ser3_Publisher|Casa Publicadora |*
+ser3_PubCountry|Pais de la Casa Publicadora|*
+ser3_PubState|Estado de la Casa Publicadora|
+ser3_PubCity|Ciudad de la Casa Publicadora|*
+ser4_Address|Dirección|*
+ser4_Phone|Número del Teléfono|
+ser4_Fax|Número del Fax|
+ser4_email|Correo Electronico|*
+ser4_cprightDate|Derechos autorales - Fecha|
+ser4_cprighter|Detenedor de los derechos autorales|*
+ser4_sponsor|Financiador|
+ser4_secs|Código SECS  |
+ser4_medline|Código MEDLINE|
+ser4_MedlineStitle|Título Corto MEDLINE|
+ser4_idxRange|Cobertura de la Indización|
+ser5_notes|Notas |
+ser5_siglum|Sigla |*
+ser5_PubId|Identif de la Publicación|*
+ser5_Sep|Linea Separadora|*
+ser5_SiteLocation|Dirección del sitio|
+ser5_FTP|FTP |*
+ser5_UserSubscription|Suscripción del usuario |*
+ser5_SciELONet|Red SciELO|*
+ser5_CCode|Código del Centro|*
+ser5_IdNumber|Número de Identificación|
+ser5_DocCreation|Documentalista (Creación)|*
+ser5_CreatDate|Fecha de Creación  |*
+ser5_DocUpdate|Documentalista (Actualización) |*
+ser5_UpdateDate|Fecha de Actualización|*
+

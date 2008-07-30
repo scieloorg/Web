@@ -1,0 +1,22 @@
+,if v706='f' then
+	,'<Article>'/,
+	,'<Journal>'/,
+	,ref(1,
+		,|<PublisherName>|v480|</PublisherName>|/,
+		,|<JournalTitle>|v421|</JournalTitle>|/,
+		,|<Issn>|v35|</Issn>|/,
+		,if p(v131) then
+			,|<Volume>|v31,| suppl. |v131|</Volume>|/,
+		,else
+			,|<Volume>|v31|</Volume>|/,
+		,fi,
+		,|<Issue>|v32|</Issue>|/,
+		,'<PubDate>'/,
+		,(if v43^l='en' then
+			,'<Year>',v43^a,'</Year>'/,
+			,if size(v43^m)>0 then '<Month>',v43^m,'</Month>'/ fi, 
+		,fi),
+		,'</PubDate>'/,
+	,),
+	,'</Journal>'/,
+,fi,

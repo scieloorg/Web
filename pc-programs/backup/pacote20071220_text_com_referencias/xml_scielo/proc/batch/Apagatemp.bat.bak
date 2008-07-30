@@ -1,0 +1,7 @@
+@echo off
+cd temp
+for %%i in (*.*) do del %%i
+cd..
+cd PubMed
+for %%i in (*.*) do del %%i
+cd..

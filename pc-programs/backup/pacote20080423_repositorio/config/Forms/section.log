@@ -1,0 +1,43 @@
+Line 127: Class Threed.SSCommand of control CmdSobe was not a loaded control class.
+Line 149: Class Threed.SSCommand of control CmdDesce was not a loaded control class.
+Line 344: Class Threed.SSCommand of control CmdSecDel was not a loaded control class.
+Line 366: Class Threed.SSCommand of control CmdSugere was not a loaded control class.
+Line 388: Class Threed.SSCommand of control CmdSecAdd was not a loaded control class.
+Line 411: Class Threed.SSCommand of control CmdExclui was not a loaded control class.
+Line 434: Class Threed.SSCommand of control CmdSugHeader was not a loaded control class.
+Line 134: The property name _Version in CmdSobe is invalid.
+Line 135: The property name _ExtentX in CmdSobe is invalid.
+Line 136: The property name _ExtentY in CmdSobe is invalid.
+Line 137: The property name _StockProps in CmdSobe is invalid.
+Line 127: Property Picture in CmdSobe could not be set.
+Line 156: The property name _Version in CmdDesce is invalid.
+Line 157: The property name _ExtentX in CmdDesce is invalid.
+Line 158: The property name _ExtentY in CmdDesce is invalid.
+Line 159: The property name _StockProps in CmdDesce is invalid.
+Line 149: Property Picture in CmdDesce could not be set.
+Line 351: The property name _Version in CmdSecDel is invalid.
+Line 352: The property name _ExtentX in CmdSecDel is invalid.
+Line 353: The property name _ExtentY in CmdSecDel is invalid.
+Line 354: The property name _StockProps in CmdSecDel is invalid.
+Line 344: Property Picture in CmdSecDel could not be set.
+Line 373: The property name _Version in CmdSugere is invalid.
+Line 374: The property name _ExtentX in CmdSugere is invalid.
+Line 375: The property name _ExtentY in CmdSugere is invalid.
+Line 376: The property name _StockProps in CmdSugere is invalid.
+Line 366: Property Picture in CmdSugere could not be set.
+Line 395: The property name _Version in CmdSecAdd is invalid.
+Line 396: The property name _ExtentX in CmdSecAdd is invalid.
+Line 397: The property name _ExtentY in CmdSecAdd is invalid.
+Line 398: The property name _StockProps in CmdSecAdd is invalid.
+Line 388: Property Picture in CmdSecAdd could not be set.
+Line 388: Property MouseIcon in CmdSecAdd could not be set.
+Line 418: The property name _Version in CmdExclui is invalid.
+Line 419: The property name _ExtentX in CmdExclui is invalid.
+Line 420: The property name _ExtentY in CmdExclui is invalid.
+Line 421: The property name _StockProps in CmdExclui is invalid.
+Line 411: Property Picture in CmdExclui could not be set.
+Line 441: The property name _Version in CmdSugHeader is invalid.
+Line 442: The property name _ExtentX in CmdSugHeader is invalid.
+Line 443: The property name _ExtentY in CmdSugHeader is invalid.
+Line 444: The property name _StockProps in CmdSugHeader is invalid.
+Line 434: Property Picture in CmdSugHeader could not be set.

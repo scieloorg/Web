@@ -1,0 +1,5 @@
+,if v706='r' then
+	,if ref(mfn+1,v706)<>'r' then 
+		,'</Article>'/,
+	,fi,
+,fi,

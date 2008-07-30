@@ -1,0 +1,439 @@
+<IsisScript name="xml_scielo">
+
+	<function name="parameter">
+		<display>
+			<!--pft>
+				'[proc=<proc_file>] [i2x=<i2x_table>] [id=<provid>]'/
+			</pft-->	
+		</display>
+	</function>
+
+	<function name="fixEntities">
+		<field action="import" tag="70">70</field>
+		<!-- PARA SOLUCIONAR PROBLEMA DE ENTIDADES NÃO SEREM PRESERVADAS DEPOIS DE APLICAR XSL 
+		-->
+		<!-- affiliation -->
+		<!--field action="replace" tag="70" split="occ">
+			<pft>
+				(
+					if instr(v70^*,'&')>0 then
+						,'<![CDATA[',v70^*,']]>'
+						,replace( mid(v70,instr(v70,'^'),size(v70)),' & ',' &amp; ')
+					else 						
+						if instr(v70,'&')>0 then
+							,replace(v70,' & ',' &amp; '),
+						else 						
+							,v70,
+						fi
+					fi/
+				)
+			</pft>
+		</field-->
+		<field action="replace" tag="70" split="occ">
+			<pft>
+				(
+					if instr(v70,'&')>0 then
+						if instr(v70,'^')=1 then
+							if instr(v70^1,' & ')>0 then
+								,'<![CDATA[',replace(v70^1,' & ',' &amp; '),']]>'
+							else
+								,v70^1
+							fi
+						else
+							if instr(v70^*,'&')>0 then
+								,'<![CDATA[',replace(v70^*,' & ',' &amp; '),']]>'
+							else
+								,v70^*
+							fi
+							,|^1|v70^1,
+
+						fi
+						|^2|v70^2,
+						|^3|v70^3,
+						|^s|v70^s,
+						|^c|v70^c,
+						|^p|v70^p,
+						|^e|v70^e,
+						|^z|v70^z,
+						|^i|v70^i,
+					else
+						v70
+					fi/
+				)
+			</pft>
+		</field>
+			
+		<field action="export" tag="list">70</field>
+
+		<field action="import" tag="list">10</field>
+		<field action="replace" tag="10" split="occ">
+			<pft>
+				(
+					if instr(v10,'&')>0 then
+						,replace( v10,' & ',' &amp; ')
+					else
+						v10
+					fi/
+				)
+			</pft>
+		</field>
+		<field action="export" tag="list">10</field>
+	</function>
+
+	<function name="getAffEmails">
+		<!-- FIXED 20040504 
+			Roberta Mayumi Takenaka
+			Solicitado por Solange email: 20040429
+			Inclusão de e-mail no arquivo XML.			
+			Função criada para extrair as tags html do campo v70^e
+			-->		
+		<field action="replace" tag="9071" split="occ">
+			<pft>
+				(
+					if instr(v70^e,'mailto:')>0 then
+						,mid(v70^e,instr(v70^e,'mailto:')+ size('mailto:'),size(v70^e))
+					else 
+						,v70^e
+					fi/
+				)
+			</pft>
+		</field>
+		<field action="replace" tag="9072" split="occ">
+			<pft>
+				(
+				if instr(v9071,'&#34;')>0 then
+					,mid(v9071,1,instr(v9071,'&#34;')-1)
+				else 
+					,v9071
+				fi/
+				)
+			</pft>
+		</field>
+		
+		
+		<field action="export" tag="list">9071/9072</field>
+	</function>
+
+<section>
+	<trace>xOn</trace>
+	<field action="cgi" tag="1001">sci_lista</field>
+	<field action="cgi" tag="1002">config</field>
+	<field action="cgi" tag="1004">journals</field>
+	<field action="cgi" tag="1003">path_db</field>
+	<field action="cgi" tag="1005">proc</field>
+	<field action="cgi" tag="1006">i2x</field>
+	<field action="cgi" tag="1007">id</field>
+	<field action="cgi" tag="1008">fst</field>
+	<field action="cgi" tag="1009">xsl</field>
+	<field action="cgi" tag="1010">xsl_link</field>
+	<field action="cgi" tag="1012">doi_conf</field>
+	<field action="cgi" tag="1013">cipar</field>
+
+	<call name="parameter"><pft>"*"n1,"*"n2,"*"n6,"*"n7</pft></call>
+
+	<!-- LE O ARQUIVO DOI CONFIGURATION -->
+	<do task="import">
+		<parm name="file"><pft>v1012</pft></parm>
+		<parm name="type">RLine</parm>
+		<parm name="delimiter"><pft>x1</pft></parm>
+		<loop>
+<!--display><pft>ALL</pft></display-->		 
+			<field action="replace" tag="7001"><pft>v1</pft></field>
+			<field action="replace" tag="7002"><pft>v2</pft></field>
+			<field action="replace" tag="7003"><pft>v3</pft></field>
+			<field action="export" tag="list">7001/7003</field>
+<!--display><pft>ALL</pft></display-->		 
+		</loop>
+		<field action="export" tag="list">7001/7003</field>
+		
+	</do>
+	<do task="import">
+<!--display><pft>ALL</pft></display-->		 
+	  	 <parm name=file><pft>v1001</pft></parm>
+	     <parm name=type><pft>'RLine'</pft></parm>
+		 <parm name="delimiter"><pft>x1</pft></parm>
+
+		 <loop>
+			
+			<field action="import" tag="list">7001/7003,1001/1014</field>
+
+			<field action="replace" tag="2001"><pft>v1</pft></field>
+		 	<field action="replace" tag="2002"><pft>v2</pft></field>
+		 	<field action="replace" tag="2000"><pft>v3</pft></field>
+		 	<field action="replace" tag="2004"><pft>v4</pft></field>
+
+			<field action="replace" tag="6969"><pft>ref([v1004]l([v1004]v2001),v1)</pft></field>
+		 	<flow action="skip"><pft>if v6969 = '' then 'Next' fi</pft></flow>
+
+		<!-- FIXED 20040504 
+			Roberta Mayumi Takenaka
+			Solicitado por Solange email: 20040429
+			Falta o ano de início de encvio dos dados		
+			foi acrescentado mais uma coluna no arquivo journals.seq 
+			que corresponde ao valor do ano de início de envio dos dados (v2)
+			-->		
+			<field action="replace" tag="6970"><pft>ref([v1004]l([v1004]v2001),v2)</pft></field>
+			<field action="replace" tag="6971"><pft>ref([v1004]l([v1004]v2001),v3)</pft></field>
+			<field action="replace" tag="6972"><pft>ref([v1004]l([v1004]v2001),v4)</pft></field>
+			
+
+			<!--field action="replace" tag="7003"><pft>v6973</pft></field-->
+<!--					
+rem FIXED 20040504 
+rem	Roberta Mayumi Takenaka
+rem Solicitado por Solange email: 20040429
+rem Não gerar sempre o arquivo xml rule
+rem Solução: alterar a scilista.lst incluindo YES para gerar o arquivo rule
+-->			
+<!--
+rem FIXED 20040504 
+rem	Roberta Mayumi Takenaka
+rem Substituição do uxt por php, alteração na passagem de parametros para o batch
+-->
+			<display><pft>'call batch\GeraXSL.bat ',v2001,' ',v2002,' ',v1009,
+					if v2000='YES' then
+						' 'v1010,
+					,else
+						' NONE'
+					fi,
+					if p(v2004) then
+						' 'v2004,'_',mid(date,1,8)
+					fi,
+					,#</pft></display>
+			
+			<file action="create" type="output"><pft>'temp\',v1,v2002'.xml'</pft></file>
+
+			<field action="replace" tag="5858"><pft>cat(v1013)</pft></field>
+			<parm name="cipar"><pft>v5858</pft></parm>
+
+
+			<display><pft>
+			
+				'<?xml version="1.0" encoding="UTF-8"?>'/
+				'<xml_scielo>'/,
+				'<xml_scielo_title>'/,
+				'<pubmed-control>'/,
+				'<provider-id>',v1007,'</provider-id>'/,
+				'<start-date>',v6970,'</start-date>'/,
+				'<scielo-url>',v6971,'</scielo-url>'/,
+				
+				'<replace-issn>',v6972,if v6972='' then ref(['TITLE']l(['TEMP_TITLE'],'acron='v2001),v400), fi,'</replace-issn>'/
+
+				'</pubmed-control>'/,
+				'</xml_scielo_title>'/,
+				
+				'<doi-configuration>'/,
+				'<depositor>'/,
+				'<name>',v7001,'</name>'/,
+				'<email_address>',v7002,'</email_address>'/,
+				'<doi-prefix>',v7003,'</doi-prefix>'/,
+
+				'</depositor>'/,
+				'</doi-configuration>'/,
+			</pft></display>
+
+			<flow action="jump"><pft>if v2002='NONE' then 'DO_ONLY_JOURNAL' fi</pft></flow>
+			<!--field action="export" tag="list">1001/1011,2000/2002,6970/6973,7001/7003</field-->
+			<!-- lendo o config - inicio -->
+			<do task="search">
+				<!--field action="import" tag="list">1001/1011,2000/2002,6970/6973,7001/7003</field-->
+				<parm name="db"><pft>v1002</pft></parm>
+				<parm name="expression"><pft>v2001</pft></parm>
+
+				<field action="define" tag="6969">Isis_Total</field>
+				<loop>
+					<field action="import" tag="list">2003</field>
+					<field action="add" tag="2003"><pft>v2</pft></field>
+					<field action="export" tag="list">2003</field>
+				</loop>
+				<field action="replace" tag="2003"><pft>(| and not secao=|v2003)</pft></field>
+				<field action="export" tag="list">2003</field>
+			</do>
+			<file action="close" type="database"><pft>v1002</pft></file>
+
+			<!-- lendo o config - fim -->
+
+			<field action="import" tag="list">8000</field>
+			<field action="replace" tag="8100"><pft>if instr(s(' ',v8000),v1)=0 and v2002<>'nahead' then v1003,v2001,'\nahead\base\nahead' fi</pft></field>
+
+			<field action="replace" tag="8000"><pft>v8000,v1/</pft></field>
+			<field action="export" tag="list">8000</field>
+			
+			<field action="statusdb" tag="1091"><pft>v8100</pft></field>
+
+			<flow action="jump"><pft>if v1091^s : 'm' then else 'jump_fullinvertion' fi</pft></flow>
+
+
+			<!-- nahead inversion - inicio -->
+			<field action="replace" tag="8001"><pft>v8100</pft></field>
+			<do task="fullinvertion">
+				<parm name="db"><pft>v8001</pft></parm>
+				<parm name="fst"><pft>'1 0,if v706=`h` and p(v222) then `new-pid=`,`S`,v35,mid(v65,1,4),s(f(val( ref(1,mid(v36,5,size(v36)))) +10000,2,0))*1.4,s(f(val(v121)+100000,4,0))*1.5/ fi'/,cat(v8001|.fst|)</pft></parm>
+				<field action="define" tag="1300">Isis_Status</field>
+
+				<loop></loop>
+			</do>
+			<file action="close" type="database"><pft>v8001</pft></file>
+			<label>jump_fullinvertion</label>
+			<!-- nahead inversion - fim -->
+
+			<field action="replace" tag="5858"><pft>
+				 'CORRIGE.PROC=',v1005/
+				 'BASE.mst=',v1003,v2001,'\',v2002,'\base\',v2002,'.mst'/
+				 'BASE.xrf=',v1003,v2001,'\',v2002,'\base\',v2002,'.xrf'/
+				 'BASE.cnt=temp\',v2001,v2002,'.cnt'/
+				 'BASE.n01=temp\',v2001,v2002,'.n01'/	
+				 'BASE.n02=temp\',v2001,v2002,'.n02'/	
+				 'BASE.l01=temp\',v2001,v2002,'.l01'/	
+				 'BASE.l02=temp\',v2001,v2002,'.l02'/	
+				 'BASE.ifp=temp\',v2001,v2002,'.ifp'/
+			     'CORRIGE.PROC=',v1005/
+				 ,cat(v1013),
+					</pft>
+			</field>
+			<parm name="cipar"><pft>v5858</pft></parm>
+
+			<!-- trecho (abaixo) seria desnecessario, mas sem isso nao funciona, da erro no gizmo -->
+			<do task="mfnrange">
+				<parm name="db">gizmo\ans2utf</parm>
+				<parm name="from">1</parm>
+				<parm name="count">2</parm>
+
+				<loop>
+					
+				</loop>
+			</do>
+			<!-- trecho (acima) seria desnecessario, mas sem isso nao funciona, da erro no gizmo -->
+
+
+
+
+			<do task="mfnrange">
+				<parm name="db">BASE</parm>
+				<parm name="from">1</parm>
+				<parm name="count">1</parm>
+
+				<loop>
+					<field action="replace" tag="480" split="occ"><pft>(v480/)</pft></field>
+					<field action="replace" tag="933" split="occ"><pft>(v930/)</pft></field>
+					<field action="export" tag="list">480,933</field>
+				</loop>
+					<field action="export" tag="list">480,933</field>
+			</do>
+
+			<do task="search">
+				<parm name="db">BASE</parm>
+				<parm name="expression"><pft>'tipo=h',v2003</pft></parm>
+
+<!-- FIXED 20040504 
+			Roberta Mayumi Takenaka
+			trocado gizmo/gizmoXML por gizmo/ans2utf
+			para não haver necessidade de usar o batch que converte os acentos em entidades
+						
+			-->						
+				<!--parm name="gizmo">gizmo\ans2utf,1/12,13/82,83,84,85,70,10,86/999</parm-->
+				<parm name="gizmo">gizmo\ans2utf,1/12,13/82,83,84,85,70,10,86/999</parm>
+				<parm name="isisxml table">
+					<pft>
+						cat(v1006),
+					</pft>
+				</parm>
+				
+
+
+				<loop>
+					<!-- INICIO AHEAD OF PRINT -->
+					<flow action="skip"><pft>if p(v222) then 'Next' fi</pft></flow>
+
+					<field action="import" tag="list">1007,8001,5858,480,933</field>
+
+					<field action="add" tag="880">
+						<pft>
+						,'S',v35,mid(v65,1,4),s(f(val( ref(1,mid(v36,5,size(v36)))) +10000,2,0))*1.4,s(f(val(v121)+100000,4,0))*1.5
+						</pft>
+					</field>
+					<field action="replace" tag="8002">
+						<pft>
+						if p(v8001) then f(l([v8001],'new-pid='v880),1,0) fi
+						</pft>
+					</field>
+					<field action="replace" tag="881">
+						<pft>
+						if a(v881) and val(v8002)>0 then ,ref([v8001]val(v8002),'S',v35,mid(v65,1,4),s(f(val( ref(1,mid(v36,5,size(v36)))) +10000,2,0))*1.4,s(f(val(v121)+100000,4,0))*1.5), fi
+						</pft>
+					</field>
+					<field action="replace" tag="6789">
+						<pft>if p(v8001) and p(v8002) then f(val(v8002) - 1,1,0) fi
+						</pft>
+					</field>
+					<field action="replace" tag="223">
+						<pft>
+						if a(v223) then
+							,if v32='ahead' then
+								,ref(mfn-1,v91),
+							,else 
+								,if p(v881) then
+									,'ERROR: missing ahead of print date',
+								,else 
+									,if p(v8002) and val(v8002)>0 then
+										,if ref([v8001]val(v8002),v223)<>'' then 
+											,ref([v8001]val(v8002),v223),
+										,else 
+											,if val(v6789)>0 then
+												,if ref([v8001]val(v6789),v91)<>'' then
+													,ref([v8001]val(v6789),v91),
+												,else
+													,'ERROR: missing ahead of print date',
+												,fi,
+											,else 
+												,'ERROR: missing ahead of print date',
+											,fi
+										,fi
+									,fi,
+								,fi,
+							,fi
+						,fi
+						</pft>
+					</field>
+					<field action="replace" tag="223">
+						<pft>
+						if p(v223) and v223*6.2='00' then
+							v223*0.6,'01'
+						else 
+							,if instr(v223, 'ERROR') > 0 then
+								,'00000000',
+							,fi
+						fi
+						</pft>
+					</field>
+					<field action="import" tag="list">2004</field>
+					<!-- skip se o ahpdate for inferior aa data dada por v2004 -->
+					<flow action="skip"><pft>if v32='ahead' and p(v223) and p(v2004) then if val(v223) < val(v2004) then 'Next' fi, fi</pft></flow>
+
+
+					<field action="import" tag="9">1007</field>
+					<!-- FIXED 20040504 
+					Roberta Mayumi Takenaka
+					Solicitado por Solange email: 20040429
+					Inclusão de e-mail no arquivo XML.			
+					-->							
+					<!--call name="fixEntities"><pft>(v10/),(v70/)</pft></call-->
+					<call name="getAffEmails"><pft>(v70/)</pft></call>
+
+					<proc><pft>@CORRIGE.PROC</pft></proc>
+					
+					<display><isisxml>*</isisxml></display>
+				
+				</loop>
+				<file action="close" type="database">BASE</file>
+				<file action="close" type="database">gizmo\ans2utf</file>
+				
+			</do>
+			<!-- do - task search BASE -->
+			<label>DO_ONLY_JOURNAL</label>
+			<display><pft>'</xml_scielo>'</pft></display>
+			<file action="close" type="output">*</file>
+	    </loop>
+	</do> <!-- do - task import - leitura do scilista -->
+</section>
+</IsisScript>
