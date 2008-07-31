@@ -1,0 +1,84 @@
+Volume,Volume,
+VolSuppl,Vol Suppl,
+Issueno,Issue,
+IssueSuppl,Issue Suppl,
+SequentialNumber,Seq Num,*
+Issue_status,Status,*
+Issue_IssTitle,Issue Title,
+Issue_IssPublisher,Issue Publisher,
+Issue_Cover,Cover,
+Issue_DateISO,Date ISO,*
+Issue_Sponsor,Sponsor,
+Issue_Part,Part,
+Issue_NumberofDocuments,Number of documents,*
+Issue_Standard,Standard,*
+Issue_Scheme,Controled Vocabulary,*
+Issue_MkpDone,Markup done,*
+Issue_Place,City/Place,*
+Issue_month,Month,
+Issue_year,Year,*
+Issue_Header,Table of Contents,*
+Sec_SectionCode,Section Code,
+Sec_SectionTitle,Section Title,
+Sec_Idiom,Section Idiom,
+ser1_issn,ISSN,*
+ser1_Title,Publication Title,*
+ser1_ShortTitle,Short Title,*
+ser1_ISOStitle,ISO Short Title,*
+ser1_ParallelTitles,Parallel Titles,
+ser1_Subtitle,Subtitle,
+ser1_SectionTitle,Section,
+ser1_OtherTitles,Other Titles,
+ser1_OldTitle,Old Title,
+ser1_NewTitle,New Title,
+ser1_IsSuppl,Is Supplement,
+ser1_HasSuppl,Has Supplement,
+ser2_Mission,Mission,*
+ser2_Subject,Subject/Descriptors ,*
+ser2_StudyArea,Study Area ,*
+ser2_LiterType,Type of Literature,*
+ser2_TreatLevel,Treatment Level ,*
+ser2_PubLevel,Level of publication,*
+ser3_InitDate,Initial Date ,*
+ser3_InitVol,Initial Volume,
+ser3_InitNo,Initial Number ,
+ser3_TermDate,Terminate Date ,
+ser3_FinVol,Final Volume,
+ser3_FinNo,Final Number,
+ser3_Freq,Frequency,*
+ser3_PubStatus,Publication Status ,*
+ser3_Alphabet,Alphabet ,*
+ser3_TxtIdiom,Text Idiom ,*
+ser3_AbstIdiom,Abstract Idiom ,*
+ser3_NationalCode,National Code ,
+ser3_Classif,Classification,
+ser3_Publisher,Publisher ,*
+ser3_PubCountry,Publisher's Country ,*
+ser3_PubState,Publisher's State ,
+ser3_PubCity,Publisher's City ,*
+ser4_Address,Address ,*
+ser4_Phone,Phone Number,
+ser4_Fax,Fax Number,
+ser4_email,Electronic Address,*
+ser4_cprightDate,Copyright Date ,
+ser4_cprighter,Copyrighter ,*
+ser4_sponsor,Sponsor ,
+ser4_secs,SECS Code ,
+ser4_medline,MEDLINE Code,
+ser4_MedlineStitle,MEDLINE Short Title ,
+ser4_idxRange,Indexation Range,
+ser5_notes,Notes ,
+ser5_siglum,Siglum ,*
+ser5_PubId,Publication Identifier,*
+ser5_Sep,Separator line,*
+ser5_SiteLocation,Site Location ,
+ser5_FTP,FTP ,*
+ser5_UserSubscription,User Subscription ,*
+ser5_SciELONet,SciELO Net,*
+ser5_CCode,Center Code ,*
+ser5_IdNumber,Identification Number ,
+ser5_DocCreation,Documentalist (Creation),*
+ser5_CreatDate,Creation Date ,*
+ser5_DocUpdate,Documentalist (Update) ,*
+ser5_UpdateDate,Update Date ,*
+

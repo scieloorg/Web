@@ -1,0 +1,49 @@
+,if v706='f' then
+	
+	,if p(v911) then
+
+		,('<Author>'/,
+
+		,|<FirstName>|v911^n|</FirstName>|/,
+		,if instr(v911^s,'JR')>0 then
+			,'<LastName>',mid(v911^s,1,instr(v911^s,'JR')-2),'</LastName>'/,
+			,'<Suffix>Jr</Suffix>'/,
+		,else
+		,if instr(v911^s,'J&uacute;nior')>0 then
+			,'<LastName>',mid(v911^s,1,instr(v911^s,'J&uacute;nior')-2),'</LastName>'/,
+			,'<Suffix>Jr</Suffix>'/,
+		,else
+		,if instr(v911^s,'J&Uacute;NIOR')>0 then
+			,'<LastName>',mid(v911^s,1,instr(v911^s,'J&Uacute;NIOR')-2),'</LastName>'/,
+			,'<Suffix>Jr</Suffix>'/,
+		,else
+		,if instr(v911^s,'JUNIOR')>0 then
+			,'<LastName>',mid(v911^s,1,instr(v911^s,'JUNIOR')-2),'</LastName>'/,
+			,'<Suffix>Jr</Suffix>'/,
+		,else
+		   ,if size(v911^s)>0 then 	
+			,'<LastName>',v911^s,'</LastName>'/,
+		   ,fi,
+		,fi,
+		,fi,
+		,fi,
+		,fi,
+		,if instr(v970[1],s(|^i|v911^1*0.3))>0 then
+			,'<Affiliation>',
+			,mid(v970[1],instr(v970[1],s(|^i|v911^1*0.3))+7,instr(v970[1],s(|^x|v911^1*0.3))-instr(v970[1],s(|^i|v911^1*0.3))-7),
+	    		,'</Affiliation>'/,
+		,fi,
+
+		,'</Author>'/),
+
+	,else
+/*
+	,if p(v11) then
+		,'<AuthorList>'/,
+		,(|<Author><CollectiveName>|v11|</CollectiveName></Author>|/),
+		,'</AuthorList>'/,
+	,fi,
+*/
+	,fi,
+
+,fi,

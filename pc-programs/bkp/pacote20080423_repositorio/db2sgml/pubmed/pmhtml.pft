@@ -1,0 +1,180 @@
+,if v706='i' then
+,proc('d999a999{',
+	,(|^i|v49^l,v49^c,
+	,|^t|v49^t,
+	,|^f|v49^l,v49^c),
+	,'{'),
+
+		,|<FONT COLOR="#0000FF">&lt;PublisherName&gt;</FONT>|v480|<FONT COLOR="#0000FF">&lt;/PublisherName&gt;</FONT><br>|/,
+		,|<FONT COLOR="#0000FF">&lt;JournalTitle&gt;</FONT>|v421|<FONT COLOR="#0000FF">&lt;/JournalTitle&gt;</FONT><br>|/,
+		,|<FONT COLOR="#0000FF">&lt;Issn&gt;</FONT>|v35|<FONT COLOR="#0000FF">&lt;/Issn&gt;</FONT><br>|/,
+		,|<FONT COLOR="#0000FF">&lt;Volume&gt;</FONT>|v31|<FONT COLOR="#0000FF">&lt;/Volume&gt;</FONT><br>|/,
+		,|<FONT COLOR="#0000FF">&lt;Issue&gt;</FONT>|v32|<FONT COLOR="#0000FF">&lt;/Issue&gt;</FONT><br>|/,
+		,'<FONT COLOR="#FF00FF">&lt;PubDate&gt;</FONT><br>'/,
+		,(if v43^l='en' then
+			,'<FONT COLOR="#FF00FF">&lt;Year&gt;</FONT>',v43^a,'<FONT COLOR="#FF00FF">&lt;/Year&gt;</FONT><br>'/,
+			,'<FONT COLOR="#FF00FF">&lt;Month&gt;</FONT>',v43^m,'<FONT COLOR="#FF00FF">&lt;/Month&gt;</FONT><br>'/,
+		,fi),
+		,'<FONT COLOR="#FF00FF">&lt;/PubDate&gt;</FONT><br><br>'/,
+
+,fi,
+
+,if v706='f' then
+	,proc('d900a900~',
+	,'<FONT COLOR="#FF00FF">',v2,'</FONT><br>'/,
+
+	,(if s(v12^l)=s(v40[1]) then
+		,if s(v40[1])='en' then
+			,'<FONT COLOR="#008000">&lt;ArticleTitle&gt;</FONT>',v12^*,'<FONT COLOR="#008000">&lt;/ArticleTitle&gt;</FONT><br>'/,
+		,else
+			,'<FONT COLOR="#008000">&lt;VernacularTitle&gt;</FONT>',v12^*,'<FONT COLOR="#008000">&lt;/VernacularTitle&gt;</FONT><br>'/,			
+		,fi,
+	,fi),
+	,if s(v14^f)<>'nd' and s(v14^l)<>'nd' then 
+		,'<FONT COLOR="#FF0000">&lt;FirstPage&gt;</FONT>',v14^f,'<FONT COLOR="#FF0000">&lt;/FirstPage&gt;</FONT><br>'/,
+		,'<FONT COLOR="#FF0000">&lt;LastPage&gt;</FONT>',v14^l,'<FONT COLOR="#FF0000">&lt;/LastPage&gt;</FONT><br>'/,
+	,fi,
+
+	,if p(v40) then
+		,'<FONT COLOR="#800000">&lt;Language&gt;</FONT>',mpu,v40,mpl,'<FONT COLOR="#800000">&lt;/Language&gt;</FONT><br>'/,
+	,fi,
+	,'~'),
+
+	,if p(v70) then
+		,proc('d976a976~',
+		,(if p(v70^z) or p(v70^e) then 			
+			,|^o|v70^*,
+			,|, |v70^c,
+			,|, |v70^s,
+			,|, |v70^z,
+			,|, |v70^p,
+			,|. |v70^e,
+			,|^x|v70^*,			
+		,fi),
+		,(if p(v70^p) then 			
+			,|^o|v70^*,
+			,|, |v70^c,
+			,|, |v70^s,
+			,|, |v70^z,
+			,|, |v70^p,
+			,|. |v70^e,
+			,|^x|v70^*,			
+		,fi),
+		,(if p(v70^c) or p(v70^s) then 			
+			,|^o|v70^*,
+			,|, |v70^c,
+			,|, |v70^s,
+			,|, |v70^z,
+			,|, |v70^p,
+			,|. |v70^e,
+			,|^x|v70^*,			
+		,fi),
+		,(,			
+			,|^o|v70^*,
+			,|, |v70^c,
+			,|, |v70^s,
+			,|, |v70^z,
+			,|, |v70^p,
+			,|. |v70^e,
+			,|^x|v70^*,			
+		,),
+		,'~'),
+		,proc('d976d977a977~',(v976),'~'),
+		,proc('d970a970~',
+		,(if s(v70.1)<>'^' then 			
+			,|^i|v70^i,
+			,'^o',v70^d|, |,v70^*,
+
+			,if instr(v977[1],s(|^o|v70^*))>0 then			
+				,mid(v977[1],instr(v977[1],s(|^o|v70^*))+size(v70^*)+2,instr(v977[1],s(|^x|v70^*))-instr(v977[1],s(|^o|v70^*))-size(v70^*)-2),	
+			,fi,
+			,|^x|v70^i,
+		,fi),
+		,'~'),				
+		,proc('d977d70'),	
+	,fi,
+
+	,proc('a900~',
+	,if p(v10) then
+		,'<FONT COLOR="#000080">&lt;AuthorList&gt;</FONT><br>'/,
+
+		,('<FONT COLOR="#000080">&lt;Author&gt;</FONT><br>'/,
+
+		,|   <FONT COLOR="#0000FF">&lt;FirstName&gt;</FONT>|v10^n|<FONT COLOR="#0000FF">&lt;/FirstName&gt;</FONT><br>|/,
+		,if instr(v10^s,'JR')>0 then
+			,'<FONT COLOR="#0000FF">&lt;LastName&gt;</FONT>',mid(v10^s,1,instr(v10^s,'JR')-2),'<FONT COLOR="#0000FF">&lt;/LastName&gt;</FONT><br>'/,
+			,'<FONT COLOR="#0000FF">&lt;Suffix&gt;</FONT>Jr<FONT COLOR="#0000FF">&lt;/Suffix&gt;</FONT><br>'/,
+		,else
+		   ,if size(v10^s)>0 then 	
+			,'<FONT COLOR="#0000FF">&lt;LastName&gt;</FONT>',v10^s,'<FONT COLOR="#0000FF">&lt;/LastName&gt;</FONT><br>'/,
+		   ,fi,
+		,fi,
+		,if instr(v970[1],s(|^i|v10^1*0.3))>0 then
+			,'<FONT COLOR="#FF00FF">&lt;Affiliation&gt;</FONT>',
+			,mid(v970[1],instr(v970[1],s(|^i|v10^1*0.3))+7,instr(v970[1],s(|^x|v10^1*0.3))-instr(v970[1],s(|^i|v10^1*0.3))-7),
+	    		,'<FONT COLOR="#FF00FF">&lt;/Affiliation&gt;</FONT><br>'/,
+		,fi,
+
+		,'<FONT COLOR="#000080">&lt;/Author&gt;</FONT><br>'/),
+		,'<FONT COLOR="#000080">&lt;/AuthorList&gt;</FONT><br>'/,
+	,else
+/*
+	,if p(v11) then
+		,'<FONT COLOR="#800000">&lt;AuthorList&gt;</FONT><br>'/,
+		,(|<FONT COLOR="#800000">&lt;Author&gt;</FONT><FONT COLOR="#800000">&lt;CollectiveName&gt;</FONT>|v11|<FONT COLOR="#800000">&lt;/CollectiveName&gt;</FONT><FONT COLOR="#800000">&lt;/Author&gt;</FONT><br>|/),
+		,'<FONT COLOR="#800000">&lt;/AuthorList&gt;</FONT><br>'/,
+	,fi,
+*/
+	,fi,
+
+
+	,if v71='le' then
+		,'<FONT COLOR="#FF0000">&lt;PublicationType&gt;</FONT>LETTER<FONT COLOR="#FF0000">&lt;/PublicationType&gt;</FONT><br>'/,
+	,else
+	,if v71='ed' then
+		,'<FONT COLOR="#FF0000">&lt;PublicationType&gt;</FONT>EDITORIAL<FONT COLOR="#FF0000">&lt;/PublicationType&gt;</FONT><br>'/,
+	,else
+	,if v71='??' then
+		,'<FONT COLOR="#FF0000">&lt;PublicationType&gt;</FONT>NEWS<FONT COLOR="#FF0000">&lt;/PublicationType&gt;</FONT><br>'/,
+	,fi,
+	,fi,
+	,fi,
+	,'~'),
+	,proc('d902a902{',v705,v35,'(',mid(v65,3,2),')',s(f(val(v31)+1000,4,0))*1.3,s(f(val(v32)+1000,4,0))*1.3,v121,'{'),
+
+
+	,proc('a900~',
+	,if size(v902)>0 then
+		,'<FONT COLOR="#008000">&lt;FullTextURL&gt;</FONT>',
+		,'http://www.scielo.br/cgi-bin/fbpe/fbtext?pid=',v902,	
+		,'<FONT COLOR="#008000">&lt;/FullTextURL&gt;</FONT><br>'/,
+
+		,if p(v83) then
+		,'<FONT COLOR="#800000">&lt;SummaryURL&gt;</FONT>',
+		,'http://www.scielo.br/cgi-bin/fbpe/fbabs?pid=',v902,
+		,'<FONT COLOR="#800000">&lt;/SummaryURL&gt;</FONT><br>'/,
+		,fi,
+
+		,'<FONT COLOR="#000080">&lt;PublisherId&gt;</FONT>',v902,'<FONT COLOR="#000080">&lt;/PublisherId&gt;</FONT><br>'/,
+	,fi,
+	
+	,(if s(v83^l)='en' then
+		,'<FONT COLOR="#FF00FF">&lt;Abstract&gt;</FONT>',v83^a,'<FONT COLOR="#FF00FF">&lt;/Abstract&gt;</FONT><br>'/,
+	,fi),
+	,if p(v85^k) then
+		,proc('d985',
+                ,(if s(v85^l)='en' then 
+			,'a985{',v85^k,|, |v85^s,'{',
+		,fi),
+		,),
+		,'<FONT COLOR="#0000FF">&lt;Keywords&gt;</FONT>',
+		,(v985^*+|; |),
+		,'<FONT COLOR="#0000FF">&lt;/Keywords&gt;</FONT><br>'/,
+	
+	,fi,
+
+	,'<br><br>'/,
+	,'~'),
+
+	,(v900),
+,fi,

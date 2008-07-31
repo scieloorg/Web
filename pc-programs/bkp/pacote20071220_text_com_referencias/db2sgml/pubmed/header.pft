@@ -1,0 +1,17 @@
+,if v706='f' then
+	,(if s(v12^l)='en' then
+		,|<ArticleTitle>|v12^*|</ArticleTitle>|/,
+	,fi),
+	,(if v40[1]=v12^l and v40[1]<>'en' then
+		,|<VernacularTitle>|v12^*|</VernacularTitle>|/,			
+	,fi),
+				
+	,if s(v14^f)<>'nd' and s(v14^l)<>'nd' then 
+		,|<FirstPage>|v14^f|</FirstPage>|/,
+		,|<LastPage>|v14^l|</LastPage>|/,
+	,fi,
+
+	,if p(v40) then
+		,'<Language>',mpu,v40,mpl,'</Language>'/,
+	,fi,
+,fi,

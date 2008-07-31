@@ -1,0 +1,113 @@
+ 
+ <!-- $Id: LinksFormat.dtd,v 1.3 2000/12/07 17:22:33 wdowling Exp $ 
+      $Source: /work/cvs/cvsroot/Links/doc/LinksFormat.dtd,v $ 
+   --> 
+ 
+ <!-- This is a DTD for data acceptable for processing by the ISI 
+      Links system.  The top level element is ArticleSet.  Note that 
+      the following data is obligatory for all items, both source 
+      items and reference items: 
+      Last name of first author 
+      Volume number 
+      First page 
+      Publication year 
+      Journal Title 
+      The character set is 7 bit ascii, with non-roman and accented 
+      characters normalized to ascii. ISO Latin 1 entities, as would be 
+      found through 
+      <!ENTITY % ISOlat1  PUBLIC "ISO 8879-1986//ENTITIES Added 
+      Latin 1//EN"> 
+      are acceptable. 
+   --> 
+ 
+ <!ELEMENT ArticleSet     - - (Article+)> 
+ <!ELEMENT Article        - - (PublisherId, ArticleId, Journal, ArticleTitle, 
+                               FirstPage, LastPage, AuthorList,                         					 ReferenceList? )> 
+ 
+ <!ELEMENT Journal        - - (PublisherName, JournalTitle, Issn?, 
+                            Volume, Issue?, PubDate )> 
+ <!ELEMENT PublisherId    - - (#PCDATA)> 
+ <!ELEMENT ArticleId      - - (#PCDATA)> 
+ <!-- -------------------------------------------------------- 
+                Conditions on the ArticleId element 
+ 
+ 1) For outbound (from ISI) links: the ArticleId must contain sufficient 
+    information so that a URL to the target of the links can be 
+    generated, given a base URL and URL pattern.  For example, if the 
+    base URL is http://domain.com/cgi-bin/linkserv.pl  and the URL 
+    pattern is  issn=<issn>&vol=<vol>&iss=<issue>&page=<bp> then an 
+    ArticleId like this is acceptable: 1234-5678_v21_i003_123; the 
+    corresponding generated URL is 
+ 
+ http://domain.com/cgi-bin/linkserv.pl?issn=1234-5678&vol=v23&iss=i003&pa 
+ ge=123 
+    Subfields in the ArticleId are separated by "_" characters; not all 
+    subfields in the ArticleId need be present in the URL 
+    pattern. Static pages can also be accomodated thus: 
+         http://domain.com/1234-5678/v21/i003/123.html 
+    with a pattern like <issn>/<vol>/<issue>/<bp>.html. 
+    Alternatively, a monolithic ArticleId without underscores like 
+    123abc456def789 is acceptible, if it can be plugged into one spot in 
+    the URL pattern, e.g. 
+         http://domain.com/cgi-bin/axs.pl?type=link&id=123abc456def789 
+ 
+ 2) For inbound (to ISI) links: The format is arbitrary.  The ArticleId 
+    is used for communication with the data supplier.  For simple 
+    inbound links, ISI supplies a list of ArticleIds, of the "hot" 
+    (i.e. present in the ISI databases) articles.  For inbound links 
+    with additional content (e.g. "times cited") additional information 
+    is supplied with the ArticleId. DOI, SICI, or other types of 
+    identifier are commonly used. 
+ 
+ 3) A data supplier may desire both inbound and outbound links; the 
+    format/use requirements of 1) must be met. 
+ 
+ 4) Article identifiers must be unique for a given data supplier, across 
+    the database.  The data supplier must check this; ISI will not, and 
+    if more than one record is given with the same ArticleId, only one 
+    (indeterminate) will be used by ISI. 
+ 
+  -------------------------------------------------------- --> 
+ 
+ 
+ <!ELEMENT PublisherName  - - (#PCDATA)> 
+ <!ELEMENT JournalTitle   - - (#PCDATA)> 
+ <!ELEMENT Issn           - - (#PCDATA)> 
+ <!ELEMENT Volume         - - (#PCDATA)> 
+ <!ELEMENT Issue          - - (#PCDATA)> 
+ <!ELEMENT PubDate        - - (Year, Month?, Day?)> 
+ <!ELEMENT Year           - - (#PCDATA)> 
+ <!ELEMENT Month          - - (#PCDATA)> 
+ <!ELEMENT Day            - - (#PCDATA)> 
+ 
+ <!ELEMENT ArticleTitle   - - (#PCDATA)> 
+ <!ELEMENT FirstPage      - - (#PCDATA)> 
+ <!ELEMENT LastPage       - - (#PCDATA)> 
+ <!ELEMENT AuthorList     - - (Author+)> 
+ <!ELEMENT Author         - - (FirstName?, MiddleName?, LastName, 
+ Suffix?)> 
+ <!ELEMENT FirstName      - - (#PCDATA)> 
+ <!ELEMENT MiddleName     - - (#PCDATA)> 
+ <!ELEMENT LastName       - - (#PCDATA)> 
+ <!ELEMENT Suffix         - - (#PCDATA)> 
+ 
+ <!ELEMENT ReferenceList         - - (Reference+)> 
+ <!ELEMENT Reference             - - (ReferenceJournal, ReferenceYear, 
+                                   ReferenceVolume, 
+ ReferenceFirstPage, 
+                                   ReferenceAuthor,  ReferenceId)> 
+ <!ELEMENT ReferenceJournal      - - (#PCDATA)> 
+ <!ELEMENT ReferenceYear         - - (#PCDATA)> 
+ <!ELEMENT ReferenceVolume       - - (#PCDATA)> 
+ <!ELEMENT ReferenceFirstPage    - - (#PCDATA)> 
+ <!-- A previous version of this DTD allowed arbitrary #PCDATA in 
+      a ReferenceAuthor element.  Since this was ambiguous, it has been 
+      replaced with a parsed out Authorlist element (which also allows 
+      multiple authors. --> 
+ <!ELEMENT ReferenceAuthor       - - (AuthorList)> 
+ <!ELEMENT ReferenceId           - - (#PCDATA)> 
+ 
+ <!-- these elements are deprecated, and will not be used 
+    <!ELEMENT FullTextURL     - - (#PCDATA)> 
+    <!ELEMENT SummaryURL      - - (#PCDATA)> 
+   --> 

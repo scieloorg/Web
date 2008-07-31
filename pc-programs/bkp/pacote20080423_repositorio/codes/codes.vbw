@@ -1,0 +1,13 @@
+FrmCodes = 44, 44, 450, 364, Z, 22, 22, 428, 342, C
+ClIsisDll = 110, 110, 516, 430, 
+ClLabels = 88, 88, 494, 408, 
+ClCodes = 66, 66, 472, 386, C
+ISIS32 = 22, 22, 186, 342, C
+ISIS001 = 0, 0, 0, 0, C
+Geral = 154, 154, 560, 474, 
+ClMsg = 0, 0, 0, 0, C
+ModCodes = 0, 0, 406, 320, 
+ColIdiom = 22, 22, 428, 342, 
+ClIdiom = 44, 44, 450, 364, C
+ColFileInfo = 0, 0, 0, 0, C
+ClFileInfo = 0, 0, 0, 0, C

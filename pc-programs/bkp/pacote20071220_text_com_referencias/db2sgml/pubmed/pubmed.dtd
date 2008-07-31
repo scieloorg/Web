@@ -1,0 +1,96 @@
+<!-- ncbi.dtd; NCBI PubMed DTD Version 1.5, September 29, 1997 -->
+<!-- revised 4/28/99 -->
+
+
+
+<!ENTITY % ISOlat1  PUBLIC "ISO 8879-1986//ENTITIES Added Latin 1//EN" "ISOlat1.sgm">
+%ISOlat1;
+<!ENTITY % ISOlat2  PUBLIC "ISO 8879-1986//ENTITIES Added Latin 2//EN" "ISOlat2.sgm">
+%ISOlat2;
+<!ENTITY % ISOnum   PUBLIC "ISO 8879-1986//ENTITIES Numeric and Special Graphic//EN" "ISOnum.sgm">
+%ISOnum;
+<!ENTITY % ISOpub   PUBLIC "ISO 8879-1986//ENTITIES Publishing//EN" "ISOpub.sgm">
+%ISOpub;
+<!ENTITY % ISOgrk1  PUBLIC "ISO 8879-1986//ENTITIES Greek Letters//EN" "ISOgrk1.sgm">
+%ISOgrk1;
+<!ENTITY % ISOgrk2  PUBLIC "ISO 8879-1986//ENTITIES Monotoniko Greek//EN" "ISOgrk2.sgm">
+%ISOgrk2;
+<!ENTITY % ISOgrk3  PUBLIC "ISO 8879-1986//ENTITIES Greek Symbols//EN" "ISOgrk3.sgm">
+%ISOgrk3;
+<!ENTITY % ISOtech  PUBLIC "ISO 8879-1986//ENTITIES General Technical//EN" "ISOtech.sgm">
+%ISOtech;
+<!ENTITY % ISOdia   PUBLIC "ISO 8879-1986//ENTITIES Diacritical Marks//EN" "ISOdia.sgm">
+%ISOdia;
+<!ENTITY % ISOamso  PUBLIC "ISO 8879-1986//ENTITIES Added Math Symbols: Ordinary//EN" "ISOamso.sgm">
+%ISOamso;
+<!ENTITY % ISOamsb  PUBLIC "ISO 8879-1986//ENTITIES Added Math Symbols: Binary Operators//EN" "ISOamsb.sgm">
+%ISOamsb;
+<!ENTITY % ISOamsr  PUBLIC "ISO 8879-1986//ENTITIES Added Math Symbols: Relations//EN" "ISOamsr.sgm">
+%ISOamsr;
+<!ENTITY % ISOamsn  PUBLIC "ISO 8879-1986//ENTITIES Added Math Symbols: Negated Relations//EN" "ISOamsn.sgm">
+%ISOamsn;
+<!ENTITY % ISOamsa  PUBLIC "ISO 8879-1986//ENTITIES Added Math Symbols: Arrow Relations//EN" "ISOamsa.sgm">
+%ISOamsa;
+<!ENTITY % ISOamsc  PUBLIC "ISO 8879-1986//ENTITIES Added Math Symbols: Delimiters//EN" "ISOamsc.sgm">
+%ISOamsc;
+<!ENTITY % ISObox   PUBLIC "ISO 8879-1986//ENTITIES Box and Line Drawing//EN" "ISObox.sgm">
+%ISObox;
+<!ENTITY % ISOcyr1  PUBLIC "ISO 8879-1986//ENTITIES Russian Cyrillic//EN" "ISOcyr1.sgm">
+%ISOcyr1;
+<!ENTITY % ISOcyr2  PUBLIC "ISO 8879-1986//ENTITIES Non-Russian Cyrillic//EN" "ISOcyr2.sgm">
+%ISOcyr2;
+
+<!ENTITY % data         "(#PCDATA | sup | inf)*">
+
+<!-- This is the top level element -->
+<!ELEMENT ArticleSet     - - (Article+)>
+<!ELEMENT Article        - - (Journal, Replaces?, ArticleTitle?, VernacularTitle?,
+                               FirstPage, LastPage, Language*, AuthorList?,
+                               PublicationType?, FullTextURL?, SummaryURL?,
+                               DOI?, PublisherId?, Abstract?, Keywords? )>
+
+<!ELEMENT Journal        - - (PublisherName, JournalTitle, Issn, Volume, Issue?, PubDate, HoldDate? )>
+<!ELEMENT PublisherName  - - (#PCDATA)>
+<!ELEMENT JournalTitle   - - (#PCDATA)>
+<!ELEMENT Issn           - - (#PCDATA)>
+<!ELEMENT Volume         - - (#PCDATA)>
+<!ELEMENT Issue          - - (#PCDATA)>
+<!ELEMENT PubDate        - - (Year, Month?, Day?, Season?)>
+<!ELEMENT Year           - - (#PCDATA)>
+<!ELEMENT Month          - - (#PCDATA)>
+<!ELEMENT Day            - - (#PCDATA)>
+<!ELEMENT Season         - - (#PCDATA)>
+<!-- End of PubDate group -->
+<!ELEMENT HoldDate       - - (Year, Month, Day )>
+<!-- End of Journal group -->
+<!ELEMENT Replaces       - - (#PCDATA)>
+<!ELEMENT ArticleTitle   - - (#PCDATA)>
+<!ELEMENT VernacularTitle - - (#PCDATA)>
+<!ELEMENT FirstPage      - - (#PCDATA)>
+<!ELEMENT LastPage       - - (#PCDATA)>
+<!ELEMENT Language       - - (#PCDATA)>
+<!ELEMENT AuthorList     - - (Author+)>
+<!ELEMENT Author         - - (((FirstName, MiddleName?, LastName, Suffix?)| 
+                                CollectiveName),Affiliation?)>
+<!ELEMENT FirstName      - - (#PCDATA)>
+<!ELEMENT MiddleName     - - (#PCDATA)>
+<!ELEMENT LastName       - - (#PCDATA)>
+<!ELEMENT CollectiveName - - (#PCDATA)>
+<!ELEMENT Suffix         - - (#PCDATA)>
+<!ELEMENT Affiliation    - - (#PCDATA)>
+<!-- End of Author group -->
+<!-- End of AuthorList group -->
+<!ELEMENT PublicationType - - (#PCDATA)>
+<!ELEMENT FullTextURL     - - (#PCDATA)>
+<!ELEMENT SummaryURL      - - (#PCDATA)>
+<!ELEMENT DOI             - - (#PCDATA)>
+<!ELEMENT PublisherId     - - (#PCDATA)>
+<!ELEMENT Abstract         - - (%data;)+>
+<!ELEMENT Keywords         - - (%data;)+>
+<!-- End of Article group -->
+
+<!-- End of ArticleSet group -->
+
+<!ELEMENT  sup          - - (%data;)*>
+<!ELEMENT  inf          - - (%data;)*>
+

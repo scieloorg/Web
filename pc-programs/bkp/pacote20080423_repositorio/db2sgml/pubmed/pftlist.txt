@@ -1,0 +1,7 @@
+section.pft
+journal.pft
+header.pft
+author5.pft
+author4.pft
+pubid.pft
+abstkeyw.pft

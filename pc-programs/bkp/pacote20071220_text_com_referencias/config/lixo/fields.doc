@@ -1,0 +1,416 @@
+Volume
+Volumen
+Volume
+Volume
+
+VolSuppl
+Supl Vol
+Vol Suppl
+SuplVol
+
+Issueno
+Fascículo
+Issue
+Número
+
+IssueSuppl
+Supl Fasc
+Issue Suppl
+SuplNum
+
+SequentialNumber
+Num Seq
+Seq Num
+Num Seq
+*
+Issue_status
+Status
+Status
+Status
+*
+Issue_IssTitle
+Título del fascículo
+Issue Title
+Título do fascículo
+
+Issue_IssPublisher
+Editor del fascículo
+Issue Publisher
+Editor do fascículo
+
+Issue_Cover
+Portada
+Cover
+Capa
+
+Issue_DateISO
+Fecha ISO
+Date ISO
+Data ISO
+*
+Issue_Sponsor
+Sponsor
+Sponsor
+Financiador
+
+Issue_Part
+Part
+Part
+Parte
+
+Issue_NumberofDocuments
+Cantidad de documentos
+Number of documents
+Número de documentos
+*
+Issue_Standard
+Norma
+Standard
+Norma
+*
+Issue_Scheme
+Vocabulario Controlado
+Controled Vocabulary
+Vocabulário Controlado
+*
+Issue_MkpDone
+Marcación fué hecha
+Markup done
+Marcação feita
+*
+Issue_Place
+Ciudad
+City/Place
+Cidade
+*
+Issue_month
+Mes
+Month
+Mês
+
+Issue_year
+Año
+Year
+Ano
+*
+Issue_Header
+Tabla de Contenido
+Table of Contents
+Sumário
+*
+Sec_SectionCode
+Código de las secciones
+Section Code
+Código das seções
+
+Sec_SectionTitle
+Título de las secciones
+Section Title
+Título das seções
+
+Sec_Idiom
+Idioma de las secciones
+Section Idiom
+Idioma das seções
+
+ser1_issn
+ISSN
+ISSN
+ISSN
+*
+ser1_Title
+Título
+Publication Title
+Título
+*
+ser1_ShortTitle
+Título Corto
+Short Title
+Título Abreviado
+*
+ser1_ISOStitle
+Título ISO Corto 
+ISO Short Title
+Título ISO Abreviado
+*
+ser1_ParallelTitles
+Títulos Paralelos
+Parallel Titles
+Títulos Alternativos
+
+ser1_Subtitle
+Subtítulo
+Subtitle
+Subtítulo
+
+ser1_SectionTitle
+Sección
+Section
+Seção
+
+ser1_OtherTitles
+Otros títulos
+Other Titles
+Outros títulos
+
+ser1_OldTitle
+Título antiguo
+Old Title
+Título antigo
+
+ser1_NewTitle
+Título nuevo
+New Title
+Título novo
+
+ser1_IsSuppl
+Es suplemento de
+Is Supplement
+É suplemento de
+
+ser1_HasSuppl
+Tiene suplemento
+Has Supplement
+Tem suplemento
+
+ser2_Mission
+Misión
+Mission
+Missão
+*
+ser2_Subject
+Asunto/Descriptores 
+Subject/Descriptors 
+Assunto/Descritores 
+*
+ser2_StudyArea
+Area del conocimiento
+Study Area 
+Assunto
+*
+ser2_LiterType
+Tipo de Literatura
+Type of Literature
+Tipo de Literatura
+*
+ser2_TreatLevel
+Nivel de Tratamiento
+Treatment Level 
+Nível de Tratamento 
+*
+ser2_PubLevel
+Nivel de publicación
+Level of publication
+Nível de publicação
+*
+ser3_InitDate
+Fecha Inicial 
+Initial Date 
+Data Inicial 
+*
+ser3_InitVol
+Volumen Inicial
+Initial Volume
+Volume Inicial
+
+ser3_InitNo
+Número Inicial 
+Initial Number 
+Número Inicial 
+
+ser3_TermDate
+Fecha Final
+Terminate Date 
+Data Final
+
+ser3_FinVol
+Volumen Final
+Final Volume
+Volume Final
+
+ser3_FinNo
+Número Final 
+Final Number
+Número Final 
+
+ser3_Freq
+Frecuencia
+Frequency
+Frequência
+*
+ser3_PubStatus
+Status de la Publicación 
+Publication Status 
+Status da Publicação 
+*
+ser3_Alphabet
+Alfabeto 
+Alphabet 
+Alfabeto 
+*
+ser3_TxtIdiom
+Idioma del Texto
+Text Idiom 
+Idioma do Texto
+*
+ser3_AbstIdiom
+Idioma del Resumen
+Abstract Idiom 
+Idioma do Resumo
+*
+ser3_NationalCode
+Código Nacional 
+National Code 
+Código Nacional 
+
+ser3_Classif
+Clasificación
+Classification
+Classificação
+
+ser3_Publisher
+Casa Publicadora 
+Publisher 
+Editora 
+*
+ser3_PubCountry
+Pais de la Casa Publicadora
+Publisher's Country 
+País da Publicação
+*
+ser3_PubState
+Estado de la Casa Publicadora
+Publisher's State 
+Estado da Publicação
+
+ser3_PubCity
+Ciudad de la Casa Publicadora
+Publisher's City 
+Cidade da Publicação
+*
+ser4_Address
+Dirección
+Address 
+Endereço 
+*
+ser4_Phone
+Número del Teléfono
+Phone Number
+Telefone
+
+ser4_Fax
+Número del Fax
+Fax Number
+Fax
+
+ser4_email
+Correo Electronico
+Electronic Address
+Endereço Eletrônico
+*
+ser4_cprightDate
+Derechos autorales - Fecha
+Copyright Date 
+Copyright (Data)
+
+ser4_cprighter
+Detenedor de los derechos autorales
+Copyrighter 
+Detentor dos direitos autorais 
+*
+ser4_sponsor
+Financiador
+Sponsor 
+Financiador
+
+ser4_secs
+Código SECS  
+SECS Code 
+Código SECS  
+
+ser4_medline
+Código MEDLINE
+MEDLINE Code
+Código MEDLINE
+
+ser4_MedlineStitle
+Título Corto MEDLINE
+MEDLINE Short Title 
+Título Abreviado MEDLINE
+
+ser4_idxRange
+Cobertura de la Indización
+Indexation Range
+Cobertura de Indexação
+
+ser5_notes
+Notas 
+Notes 
+Notas 
+
+ser5_siglum
+Sigla 
+Siglum 
+Sigla 
+*
+ser5_PubId
+Identif de la Publicación
+Publication Identifier
+Identif da Publicação
+*
+ser5_Sep
+Linea Separadora
+Separator line
+Linha Separadora
+*
+ser5_SiteLocation
+Dirección del sitio
+Site Location 
+Endereço do site
+
+ser5_FTP
+FTP 
+FTP 
+FTP 
+*
+ser5_UserSubscription
+Suscripción del usuario 
+User Subscription 
+Assinatura do usuário 
+*
+ser5_SciELONet
+Red SciELO
+SciELO Net
+Rede SciELO
+*
+ser5_CCode
+Código del Centro
+Center Code 
+Código do Centro
+*
+ser5_IdNumber
+Número de Identificación
+Identification Number 
+Número de Identificação
+
+ser5_DocCreation
+Documentalista (Creación)
+Documentalist (Creation)
+Documentalista (Criação)
+*
+ser5_CreatDate
+Fecha de Creación  
+Creation Date 
+Data de Criação  
+*
+ser5_DocUpdate
+Documentalista (Actualización) 
+Documentalist (Update) 
+Documentalista (Atualização) 
+*
+ser5_UpdateDate
+Fecha de Actualización
+Update Date 
+Data de Atualização
+*
+

@@ -1,0 +1,157 @@
+,if v706='i' then
+	,proc('d999a999{',
+	,(|^i|v49^l,v49^c,
+	,|^t|v49^t,
+	,|^f|v49^l,v49^c),
+	,'{'),
+
+,fi,
+
+,if v706='f' then
+	,'<Article>'/,
+	,'<Journal>'/,
+	,ref(1,
+		,|<PublisherName>|v480|</PublisherName>|/,
+		,|<JournalTitle>|v421|</JournalTitle>|/,
+		,|<Issn>|v35|</Issn>|/,
+		,|<Volume>|v31|</Volume>|/,
+		,|<Issue>|v32|</Issue>|/,
+		,'<PubDate>'/,
+		,(if v43^l='en' then
+			,'<Year>',v43^a,'</Year>'/,
+			,'<Month>',v43^m,'</Month>'/,
+		,fi),
+		,'</PubDate>'/,
+	,),
+	,'</Journal>'/,
+
+	,if p(v12) then
+		,(if s(v12^l)='en' then
+			,if s(v40[1])='en' then
+				,|<ArticleTitle>|v12^*|</ArticleTitle>|/,
+			,fi,
+		,else
+			,if s(v12^l)=s(v40[1]) then
+				,|<VernacularTitle>|v12^*|</VernacularTitle>|/,			
+			,fi,
+		,fi),
+	,else
+		,proc('d999a999{','^i',v40,v49,'^t{'),
+		,proc('d998a998{','^f',v40,v49,'{'),
+		,proc('d997a997{','^ien',v49,'^t{'),
+		,proc('d996a996{','^fen',v49,'{'),
+		,proc('d995a995{',ref(1,v999),'{'),
+
+		,if instr(v995,v999)>0 then
+			,if s(v40)='en' then
+				,'<ArticleTitle>',
+				,mid(v995,instr(v995,v999)+size(v999),instr(v995,v998)-instr(v995,v999)-size(v999)),
+
+				'</ArticleTitle>'/,
+			,else
+				,if instr(v995,v997)>0 then
+					,'<ArticleTitle>',
+					,mid(v995,instr(v995,v997)+size(v997),instr(v995,v996)-instr(v995,v997)-size(v997)),
+					'</ArticleTitle>'/,
+				,fi,
+
+				,'<VernacularTitle>',			,mid(v995,instr(v995,v999)+size(v999),instr(v995,v998)-instr(v995,v999)-size(v999)),
+				'</VernacularTitle>'/,
+			,fi,
+		,fi,
+
+	,fi,
+		
+	,if s(v14^f)<>'nd' and s(v14^l)<>'nd' then 
+		,|<FirstPage>|v14^f|</FirstPage>|/,
+		,|<LastPage>|v14^l|</LastPage>|/,
+	,fi,
+
+	,if p(v40) then
+		,'<Language>',mpu,v40,mpl,'</Language>'/,
+	,fi,
+
+	,if p(v70) then
+		,proc('d976a976~',
+		,(if p(v70^c) and p(v70^s) and p(v70^z) and p(v70^p) and p(v70^e) then 			
+			,|^o|v70^*,
+			,|, |v70^c,
+			,|, |v70^s,
+			,|, |v70^z,
+			,|, |v70^p,
+			,|. |v70^e,
+			,|^x|v70^*,			
+		,fi),
+		,(if p(v70^c) and p(v70^s) and p(v70^z) and p(v70^p) then 			
+			,|^o|v70^*,
+			,|, |v70^c,
+			,|, |v70^s,
+			,|, |v70^z,
+			,|, |v70^p,
+			,|. |v70^e,
+			,|^x|v70^*,			
+		,fi),
+		,(if p(v70^c) and p(v70^p) then 			
+			,|^o|v70^*,
+			,|, |v70^c,
+			,|, |v70^s,
+			,|, |v70^z,
+			,|, |v70^p,
+			,|. |v70^e,
+			,|^x|v70^*,			
+		,fi),
+		,(,			
+			,|^o|v70^*,
+			,|, |v70^c,
+			,|, |v70^s,
+			,|, |v70^z,
+			,|, |v70^p,
+			,|. |v70^e,
+			,|^x|v70^*,			
+		,),
+		,'~'),
+		,proc('d970a970~',
+		,(if s(v70.1)<>'^' then 			
+			,|^i|v70^i,
+			,'^o',v70^d|, |,v70^*,
+
+			,if instr(v976[1],s(|^o|v70^*))>0 then			
+				,mid(v976[1],instr(v976[1],s(|^o|v70^*))+size(v70^*)+2,instr(v976[1],s(|^x|v70^*))-instr(v976[1],s(|^o|v70^*))-size(v70^*)-2),	
+			,fi,
+			,|^x|v70^i,
+		,fi),
+		,'~'),					
+	,fi,
+
+	,if p(v10) then
+		,'<AuthorList>'/,
+
+		,('<Author>'/,
+
+		,|<FirstName>|v10^n|</FirstName>|/,
+		,if instr(v10^s,'JR')>0 then
+			,'<LastName>',mid(v10^s,1,instr(v10^s,'JR')-2),'</LastName>'/,
+			,'<Suffix>Jr</Suffix>'/,
+		,else
+		   ,if size(v10^s)>0 then 	
+			,'<LastName>',v10^s,'</LastName>'/,
+		   ,fi,
+		,fi,
+		,if instr(v970[1],s(|^i|v10^1*0.3))>0 then
+			,'<Affiliation>',
+			,mid(v970[1],instr(v970[1],s(|^i|v10^1*0.3))+7,instr(v970[1],s(|^x|v10^1*0.3))-instr(v970[1],s(|^i|v10^1*0.3))-7),
+	    		,'</Affiliation>'/,
+		,fi,
+
+		,'</Author>'/),
+		,'</AuthorList>'/,
+	,else
+/*
+	,if p(v11) then
+		,'<AuthorList>'/,
+		,(|<Author><CollectiveName>|v11|</CollectiveName></Author>|/),
+		,'</AuthorList>'/,
+	,fi,
+*/
+	,fi,
+,fi,

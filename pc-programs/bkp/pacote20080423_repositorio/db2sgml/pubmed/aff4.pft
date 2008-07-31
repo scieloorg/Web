@@ -1,0 +1,16 @@
+,if v706='f' then
+	,'d10',
+	,(if iocc>11 then
+		,'a910{',v10,'{',
+
+	,else
+	,if iocc>6 then
+		,'a911{',v10,'{',
+
+	,else
+		,'a10{',v10,'{',
+	,fi,
+	,fi,
+	,),
+
+,fi,

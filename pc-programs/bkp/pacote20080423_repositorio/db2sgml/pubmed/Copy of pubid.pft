@@ -1,0 +1,31 @@
+,if v706='f' and v421<>'0' then
+
+	,if v71='le' then
+		,'<PublicationType>LETTER</PublicationType>'/,
+	,else
+	,if v71='ed' then
+		,'<PublicationType>EDITORIAL</PublicationType>'/,
+	,else
+	,if v71='??' then
+		,'<PublicationType>NEWS</PublicationType>'/,
+	,fi,
+	,fi,
+	,fi,
+
+/*	,proc('d902a902{',v705,v35,'(',mid(v65,3,2),')',s(f(val(v31)+1000,4,0))*1.3,s(f(val(v32)+1000,4,0))*1.3,v121,'{'),
+*/
+,proc('d902a902{',v705,v35,v65*0.4,s(f(10000+val(ref(1,v36*4.3)),2,0))*1.4,s(f(100000+val(v121),2,0))*1.5,'{'),
+	,if size(v902)>0 then
+		,'<FullTextURL>',
+		,'http://www.scielo.br/cgi-bin/fbpe/fbtext?pid=',v902,	
+		,'</FullTextURL>'/,
+
+		,if p(v83) then
+		,'<SummaryURL>',
+		,'http://www.scielo.br/cgi-bin/fbpe/fbabs?pid=',v902,
+		,'</SummaryURL>'/,
+		,fi,
+
+		,'<PublisherId>',v902,'</PublisherId>'/,
+	,fi,
+,fi,

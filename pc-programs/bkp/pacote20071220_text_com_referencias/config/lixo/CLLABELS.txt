@@ -1,0 +1,80 @@
+ButtonOpen|Abrir|Open|Abrir
+ButtonReplace|Reemplazar|Replace|Substituir
+ButtonDelete|Remover|Delete|Remover
+ButtonClose|Cerrar|Close|Fechar
+ButtonOK|Acceptar|OK|Aceitar
+ButtonCancel|Cancelar|Cancel|Cancelar
+ButtonBack|Anterior|Previous|Anterior
+ButtonNext|Próximo|Next|Próximo
+ButtonSave|Guardar|Save|Gravar
+ButtonRemove|Remover|Remove|Remover
+mnFile|Archivo|File|Arquivo
+mnEdit|Edición|Edit|Edição
+mnOptions|Opciones|Options|Opções
+mnHelp|Ayuda|Help|Ajuda
+mnSerialTitles|Títulos de revistas|Serial Titles|Títulos de Periódicos
+mnSerialSections|Secciones de las revistas|Serial Sections|Seções dos Periódicos
+mnSerialIssues|Números de las revistas|Serial Issues|Fascículos
+mnCreateSerial|Crear revista|Create Serial|Criar periódico
+mnOpenExistingSerial|Abrir revista|Open Existing Serial|Abrir periódico
+mnRemoveSerial|Remover revista|Remove Serial|Remover periódico
+mnConfiguration|Configuración|Configuration|Configuração
+mnContents|Contenido|Contents|Conteúdo
+mnAbout|Acerca|About|Sobre
+mnExit|Salir|Exit|Sair
+NewSerial|Nuevo Título|New Title|Título novo
+ExistingSerial|Títulos existentes|Existing Titles|Títulos existentes
+Select_to_Open|Seleccione un título para abrir|Select one title to open|Selecione um título
+Select_to_Remove|Seleccione un título para remover|Select one title to remove|Selecione um título para remover
+Issue_Replace|Reemplazar número de la revista|Replace issue|Substituir número da revista
+Issue_Current|Número Actual|Current issue|Número atual
+Issue_Changeto|Reemplazar para |Change to|Substituir para
+Issue_General|General|General|Geral
+Issue_BibliographicStrip|Tira Bibliográfica|Bibliographic Strip|Legenda Bibliográfica
+Issue_Tableofcontents|Tabla de contenidos|Table of contents|Sumário
+Issue_InvalidNumDoc|Valor inválido para la cantidad de documentos|Invalid value for number of documents|Valor inválido para o número de documentos
+Issue_InvalidDateBibStrip|Asegure que la fecha de la tira bibliográfica esté correcta|Check the date of the bibliographic strip |Verifique a data da legenda bibliográfica
+Issue_SelectSections|Escoja las secciones de |Select the sections that are present in |Selecione as seções de  
+Issue_Sectionsof|Secciones de |Sections of |Seções de  
+Issue_CreateSection|Crear sección|Create section|Criar seção
+IseqNo_MsgIseqNo|El número secuencial o la identificación del facículo (volumen, número, suplemento) está incorrecto. ¿Usted qué quiere hacer?|The sequential number or the identification of the issue is wrong. What do you want to do?|O número sequencial ou a identificação do fascículo (volume, número, suplemento) está incorreto. O que você deseja fazer?
+ISEQNO_OPENEXISTINGISSUE|Quiero abrir este número|I want to open this issue|Quero abrir este número
+ISEQNO_CHANGEISEQNO|Quiero corregir su número secuencial|I want to correct its sequential number|Quero corrigir seu número sequencial
+ISEQNO_CHANGEISSUEID|Quiero corregir la identificación del facículo (volumen, número, suplemento)|I want to correct its identification (volume, number, supplement)|Quero corrigir a identificação do fascículo (volume, número, suplemento)
+Sec_FrameSectionEdition|Edición de las secciones|Edit Section|Entrada de novas seções
+Sec_FrameFilledSections|Secciones llenadas|Filled Sections|Seções preenchidas
+Sec_FrameRemSection|Remover las secciónes de la base de datos|Remove a section from the database|Remover as seções da base de dados
+Sec_CmdADD|Edite|Edit|Edita
+Sec_CmdRem|Remove|Delete|Remove
+Sec_InvalidSecCode|Formato inválido del código de la sección|Invalid format of section code|Formato inválido do código da seção
+Sec_InvalidSecTit|Título inválido de la sección|Invalid format of section title|Título inválido de seção
+Sec_QMsgReplaceSection|Este código de sección ya tiene título. ¿Usted desea cambiar el título de esta sección?|This section code already has a title. Do you want to change the title of this section?|Este código de seção já tem título. Você deseja alterar o título desta seção?
+ser1_FrameTitle|Información acerca de los títulos de la revista|Information about the title's journal |Informação sobre os títulos do periódico 
+ser2_LiterTypeDefVal|S|S|S
+ser2_TreatLevelDefVal|c|c|c
+ser3_FormalInfo|Información Formal|Formal Information|Informação Formal
+ser3_FrameInfoPubJournal|Información sobre la casa publicadora y la revista|Information About the Publisher and the Journal|Informação sobre a editora e o periódico
+ser4_FrameInfoPubJournal_2|Información acerca de la casa publicadora y de la revista (Parte 2)|Information About the Publisher and the Journal (Part 2)|Informação sobre a editora e o periódico (Parte 2)
+ser4_FrameInfoHealth|Información para el Area de Salud|Information for the Health Area|Informação para a área da Saúde
+ser5_FrameSciELOControl|Informaciones de controle para SciELO|SciELO's control information|Informações de controle para SciELO
+ser5_FrameCenterControl|Información de Controle del Centro Cooperante|Center's control information|Informação de Controle do Centro Cooperante
+Config_WebBrowserPath|Programa Web Browser|Web Browser Program|Web Browser
+Config_FindPath|Busca|Find|Procura
+Config_InterfaceIdiom|Idioma de la interface|Interface Idiom|Idioma da interface
+MsgMandatoryContent|Campo obligatorio|Mandatory field|Preenchimento obrigatório
+MsgMissingIssueId|No está identificado el número de la revista. Es necesario identificarlo (volumen, número, suplemento).|Missing the issue identification. Enter the issue identification (volume, number, suppl).|Falta identificar o número da revista. Entre com a identificação do número (volume, número, suplemento).
+MsgSaveChanges|¿Usted desea guardar los cambios hechos?|Do you want to save changes?|Deseja salvar as modificações feitas?
+MsgExit|¿Usted desea salir?|Do you want to exit?|Deseja sair?
+MsgClosebyCancelorClose|Cierre utilizando el butón de Cancelar o de Cerrar|Close using the Cancel or Close button|Feche usando o Botão Cancelar ou Fechar
+MsgRemoveSerial|¿Usted desea remover|Do you really want to remove |Deseja remover 
+MsgUnchangeableCode|No es permitible editar estes datos.|Permission deny to change data|Permissão negada para edição dos dados
+MsgInvalidFormatSeqNumber|Número secuencial Inválido. Es formado por el año y el número que identifica el orden del número en el año. Ejemplo: 19991. (primer número del año de 1999).|Invalid sequential number. Its format is year(YYYY) and the sequential number in the year. Example: 19991. (first issue number in 1999)|Número sequencial inválido. É formado por ano (AAAA) e número que representa sua ordem no ano. Exemplo: 19991. (primeiro número do ano de 1999)
+MsgInvalidSeqNumber|Número secuencial pertenece a otro número|Sequential number belongs to another issue.|Número sequencial pertence a outro número
+MsgInvalidDATEISO|DATEISO inválida|Invalid DATEISO.|DATEISO inválida
+MsgReplaceIssue|El número actual será borrado de la base y reemplazado por el número abajo especificado.|Current issue are going to be delete and replaced by the specified issue below|O número atual será apagado da base e substituído pelo número abaixo especificado
+MSGISSUENOEXIST|Este número no existe.|This issue does not exist|Este número não existe.
+MsgReplaceIssueAlreadyExists|Usted no puede reemplazar para un número ya existente. Usted probablemente está inseriendo el mismo número nuevamente.|You can not change to an issue that already exists. You are probably inserting the same issue again.|Você não pode alterar para um número já existente. Você provavelmente está inserindo o mesmo número novamente.
+MsgDeleteIssue|¿Usted tiene seguridad que quiere borrar este número?|Are you sure do you want to delete this issue?|Você tem certeza que quer apagar este número?
+MsgInvalidYear|El año en el número secuencial, en las tiras bibliográficas y en la fecha ISO debe ser igual, pero está diferente. Si el número secuencial está incorrecto, cierre la ventana y cambie el número secuencial, si no mire la fecha ISO y la fecha de las tiras bibliográficas.|The year in sequential number, in bibliographic strip and in dateiso must be equal, but it is not. If the year of the sequential number is incorrect, close this form and correct the sequential number. If the year of dateiso and/or the year of the bibliographic strip are incorrect, correct its year.|O ano utilizado no número sequencial, nas legendas bibliográficas e na dateiso da publicação deve ser o mesmo, mas está diferente. Se é o ano do número sequencial que está errado, feche esta janela e mude o número sequencial, senão verifique o ano da data ISO e das legendas bibliográficas
+msgCanNotClose|Llene los campos obligatorios antes de cerrar.|Fill the mandatory fields before closing.|Complete os campos obrigatórios antes de fechar.
+
