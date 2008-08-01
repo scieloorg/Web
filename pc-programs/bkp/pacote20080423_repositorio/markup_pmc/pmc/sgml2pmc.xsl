@@ -6,6 +6,9 @@
 			<xsl:apply-templates select="*|@*|text()"/>
 		</xsl:copy>
 	</xsl:template>
+	<xsl:template match="@*">
+		<xsl:attribute name="{name()}"><xsl:apply-templates/></xsl:attribute>
+	</xsl:template>
 	<xsl:template match="article|text">
 		<article>
 			<xsl:apply-templates select="@doctopic" mode="type"/>
@@ -50,7 +53,6 @@
 			</article-id>
 			<xsl:apply-templates select="." mode="article-title"/>
 			<xsl:apply-templates select=".//authgrp" mode="front"/>
-			<xsl:apply-templates select=".//aff"/>
 			<pub-date pub-type="pub">
 				<month>
 					<xsl:value-of select="substring(@dateiso,5,2)"/>
@@ -85,31 +87,39 @@
 	<xsl:template match="authgrp" mode="front">
 		<contrib-group>
 			<xsl:apply-templates select="author|corpauth" mode="front"/>
+			<xsl:apply-templates select="..//aff"/>
 		</contrib-group>
 	</xsl:template>
 	<xsl:template match="author" mode="front">
 		<contrib contrib-type="author">
-			<name>
-				<surname>
-					<xsl:value-of select="surname"/>
-				</surname>
-				<given-names>
-					<xsl:value-of select="fname"/>
-				</given-names>
-			</name>
-			<xref ref-type="aff" rid="{@rid}"/>
+			<xsl:apply-templates select="."/>
+			<xref ref-type="aff" rid="aff{substring(@rid,3)}"/>
 		</contrib>
 	</xsl:template>
 	<xsl:template match="corpauth" mode="front">
 		<contrib contrib-type="author">
-			<collab>
-				<xsl:value-of select="orgdiv"/>, <xsl:value-of select="orgname"/>
-			</collab>
-			<xref ref-type="aff" rid="{@rid}"/>
+			<xsl:apply-templates select="."/>
+			<xref ref-type="aff" rid="aff{substring(@rid,3)}"/>
 		</contrib>
 	</xsl:template>
+	<xsl:template match="*[contains(name(),'author')]">
+		<name>
+			<surname>
+				<xsl:value-of select="surname"/>
+			</surname>
+			<given-names>
+				<xsl:value-of select="fname"/>
+			</given-names>
+		</name>
+	</xsl:template>
+	<xsl:template match="*[contains(name(),'corpaut')]">
+		<collab>
+			<xsl:value-of select="orgdiv"/>, <xsl:value-of select="orgname"/>
+		</collab>
+	</xsl:template>
 	<xsl:template match="aff">
-		<aff id="{@id}">
+		<aff id="aff{substring(@id,3)}">
+			<xsl:apply-templates select="@*"/>
 			<xsl:if test="@orgdiv2">
 				<xsl:value-of select="@orgdiv2"/>,
 			</xsl:if>
@@ -123,6 +133,17 @@
 			<xsl:value-of select="country"/>
 		</aff>
 	</xsl:template>
+	<xsl:template match="aff/@*">
+		<xsl:attribute name="{name()}"><xsl:value-of select="."/></xsl:attribute>
+	</xsl:template>
+	<xsl:template match="aff/@orgname">
+		<institution>
+			<xsl:value-of select="."/>
+		</institution>
+	</xsl:template>
+	<xsl:template match="aff/*">
+		<xsl:copy><xsl:value-of select="."/></xsl:copy>
+	</xsl:template>	
 	<xsl:template match="@volid | volid">
 		<volume>
 			<xsl:value-of select="."/>
@@ -228,9 +249,14 @@
 			<xsl:apply-templates select="body|xmlbody"/>
 		</body>
 	</xsl:template>
-	<xsl:template match="body"></xsl:template>
+	<xsl:template match="body"/>
 	<xsl:template match="xmlbody">
 		<xsl:apply-templates select="*|text()"/>
+	</xsl:template>
+	<xsl:template match="xmlbody//*">
+	<xsl:copy>
+		<xsl:apply-templates select="@*|*|text()"/>
+		</xsl:copy>
 	</xsl:template>
 	<xsl:template match="subsec | sec">
 		<sec>
@@ -247,7 +273,7 @@
 			<xsl:apply-templates select="@*|*|text()"/>
 		</fig>
 	</xsl:template>
-	<xsl:template match="graphic/@href">
+	<xsl:template match="*/@href">
 		<xsl:attribute name="xlink:href"><xsl:value-of select="."/></xsl:attribute>
 	</xsl:template>
 	<xsl:template match="*" mode="back">
@@ -265,8 +291,8 @@
 			<xsl:apply-templates select="no"/>
 			<xsl:variable name="type">
 				<xsl:choose>
-					<xsl:when test="viserial">journal</xsl:when>
-					<xsl:when test="vmonog">book</xsl:when>
+					<xsl:when test="viserial or aiserial or oiserial or iiserial">journal</xsl:when>
+					<xsl:when test="vmonog or amonog or omonog or imonog">book</xsl:when>
 					<xsl:when test=".//confgrp">confproc</xsl:when>
 					<xsl:when test=".//degree">thesis</xsl:when>
 					<xsl:when test=".//patgrp">patent</xsl:when>
@@ -297,7 +323,9 @@
 	</xsl:template>
 	<xsl:template match="back//*[contains(name(),'corpaut')]">
 		<collab>
-			<xsl:value-of select="orgdiv"/>, <xsl:value-of select="orgname"/>
+			<xsl:value-of select="orgdiv"/>
+			<xsl:if test="orgdiv">, </xsl:if>
+			<xsl:value-of select="orgname"/>
 		</collab>
 	</xsl:template>
 	<xsl:template match="back//title">
@@ -337,5 +365,22 @@
 		<publisher-loc>
 			<xsl:value-of select="."/>
 		</publisher-loc>
+	</xsl:template>
+	<xsl:template match="@role">
+		<xsl:attribute name="contrib-type"><xsl:choose><xsl:when test=".='nd'">author</xsl:when><xsl:when test=".='ed'">editor</xsl:when><xsl:when test=".='tr'">translator</xsl:when><xsl:when test=".='rev'">rev</xsl:when></xsl:choose></xsl:attribute>
+	</xsl:template>
+	<xsl:template match="*[contains(name(),'contrib')]">
+		<person-group person-group-type="author">
+			<xsl:apply-templates select="*[contains(name(),'aut')] | *[contains(name(),'corpaut')]"/>
+		</person-group>
+		<xsl:apply-templates select="title"/>
+	</xsl:template>
+	<xsl:template match="*[contains(name(),'serial')]">
+		<xsl:apply-templates/>
+	</xsl:template>
+	<xsl:template match="*[contains(name(),'serial')]/sertitle">
+		<source>
+			<xsl:apply-templates/>
+		</source>
 	</xsl:template>
 </xsl:stylesheet>
