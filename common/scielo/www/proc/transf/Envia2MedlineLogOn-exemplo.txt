@@ -1,12 +1,15 @@
-open servidor
-user user-id password
+open ftp.scielo.br
+user user_id user_passwd
 
 ascii
+
 lcd temp/transf2medline
-cd /base3/lnk.000/art.scl
+cd /
+
+put title.iso
+put issues.iso
 put artigo.iso
-cd /base3/lnk.000/b4c.scl
 put bib4cit.iso
 
+close
 bye
-
