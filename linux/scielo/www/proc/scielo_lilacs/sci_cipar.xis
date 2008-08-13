@@ -1,0 +1,46 @@
+<!-- 
+PATH_DATABASE: tag 7011
+PATH_CGI-BIN:  tag 7013
+PATH_DATA:     tag 7014
+-->
+<field action="cgi" tag="8035">PATH_TRANSLATED</field>
+<field action="replace" tag="8034"><pft>getenv('PATH_TRANSLATED')</pft></field>
+<field action="replace" tag="8034"><pft>if a(v8034) then v8035 fi</pft></field>
+
+
+<field action="replace" tag="8034">
+    <pft>
+		replace(v8034,'scielo.php','')
+    </pft>
+</field>
+
+<field action="replace" tag="8034">
+    <pft>
+		replace(v8034,'index.php','')
+    </pft>
+</field>
+
+<field action="replace" tag="8034">
+    <pft>
+        if right(v8034,1) <> '/' and right(v8034,1) <> '\' then,
+            if v8034 : '/' then,
+                v8034,'/',
+            else,
+                v8034,'\',
+            fi,
+        fi
+    </pft>
+</field>
+
+<!--call name="getDefine"><pft>v8034,v3011</pft></call-->	
+<!--call name="getDefine"><pft>'C:\httpd\htdocs\ScieloXML\scielo.def.php'</pft></call-->
+
+<parm name="cipar">
+	<pft>
+	'IMPORT.FST=',     v7011,'auxiliar/IMPORT.FST',/
+	'GIZIDIOMA.*=',     v7011, 'auxiliar/gizmoa.*',/
+	'LILTITLE.*=',     v7011, 'auxiliar/liltitle.*',/
+	'SCIELOTP.*=',   v7011, 'auxiliar/scielotp.*',/
+	</pft>
+</parm>
+
