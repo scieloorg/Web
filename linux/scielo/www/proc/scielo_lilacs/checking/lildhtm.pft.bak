@@ -1,0 +1,210 @@
+
+
+         proc('d9001d9002d9003',           
+
+			  'a9001|[Id]|','a9002|Id:|','a9003|',v2,/,'|',
+
+              if p(v10) then
+                  'a9001|[Au]|','a9002|Autor:|','a9003|'(v10^*,| (|v10^r|)|, if iocc < nocc(v10) then '; ' else '.' fi),'|',
+              fi,
+              
+              if p(v11^p) then,
+                  'a9001|[Au]|','a9002|Autor:|','a9003|'(v11^*+|; |"*."),/,'|',
+              fi,
+
+              if p(v12^*) then              
+                  'a9001|[Ti]|','a9002|Título:|','a9003|'(v12^*),if size(v13)<3 then else ' / 'v13 fi,'.',/,'|',
+              fi,
+
+              if v06 = 'as' then
+                 if p(v30) then,
+					if v113='u' then
+                        'a9001|[Fo]|','a9002|Fonte:|','a9003|'v30|;|,v31,|(|v32|)|,|: |v14^f|-|v14^l|, |,if a(v14^f) or a(v14^l) then |: |v14^*|, | fi,v64|. |,v38^b+|, |,if a(v38^b) then v38^*+|, | fi,". - SEPARATA",n13,/,'|',
+					else
+                        'a9001|[Fo]|','a9002|Fonte:|','a9003|'v30|;|,v31,|(|v32|)|,|: |v14^f|-|v14^l|, |,if a(v14^f) or a(v14^l) then |: |v14^*|, | fi,v64|. |,v38^b+|, |,if a(v38^b) then v38^*+|, | fi,".",n13,/,'|',
+					fi,
+                 fi,
+              fi,
+
+              if v06 : 'am' then,
+                 if p(v16^*) then,
+                    'a9001|[Fo]|','a9002|Fonte:|','a9003|In: '(v16^*+|; |". "),
+                 fi,
+                 if p(v17) then
+                    'a9001|[Fo]|','a9002|Fonte:|','a9003|In: '(v17^*+|; |"*. "),
+                 fi,
+                 if p(v16) or p(v17) then
+                    v18^*|. |,v66|, |,v62|, |,v63|, |,v64|. |,if p(v14) then if p(v14^f) then 'p.'(v14^f'-'v14^l+|, |'. ') else 'p.'(v14^*+|, |'. ') fi,fi,if p(v38) then if p(v38^b) then (v38^b+|, |'. ') else (v38^*+|, |'. ') fi,fi,/,|(|v30,|, |v31,|, |v32, if p(v30) then ').' fi, | (|v68|)|,/,'|',
+                 fi,
+              fi,
+
+              if v06*0.1 = 'm' then
+
+                if p(v16^*) then
+                   'a9001|[Au]|','a9002|Autor:|','a9003|'(v16^*,| (|v16^r|)|, if iocc < nocc(v16) then '; ' else '.' fi/),/,'|',
+                fi,
+
+                if p(v17^*) then
+                   'a9001|[Au]|','a9002|Autor:|','a9003|'(v17^*+|; |'*.'),/,'|',
+           		fi,
+
+                if p(v18^*) then
+                   'a9001|[Ti]|','a9002|Título:|','a9003|'v18^*,if size(v19)<3 then else ' / 'v19, fi'.',"-"v21,/,'|',
+                fi,
+
+                if p(v66) then
+                   'a9001|[Fo]|','a9002|Fonte:|','a9003|'v66,'; 'v62,'; 'v63,'; 'v64,'. 'v20| p. |,v38^b|, |".",/,|(|v30,   |, |v31,   |, |v32, if p(v30) then ').' fi,| (|v68|).|,/,'|',
+                fi,
+
+                if p(v30) then
+                   'a9001| |a9002| |a9003|'|(|v30,   |, |v31,   |, |v32,  ').'|(|v68|).|,/,'|',
+                fi,
+
+              fi,
+
+              if v06 = 'c' then
+
+                 if p(v23^*) then
+                    'a9001|[Au]|','a9002|Autor:|','a9003|'(v23^*+|;|),/,'|',
+                 fi,
+
+                 if p(v24^p) then
+                    'a9001|[Au]|','a9002|Autor:|','a9003|'(v24^p+|; |),/,'|',
+                 else
+                    if p(v24^*) then
+                       'a9001|[Au]|','a9002|Autor:|','a9003|'(v24^*+|; |),/,'|',
+                    fi,
+                 fi,
+
+                 if p(v25^*) then
+                    'a9001|[Ti]|','a9002|Título:|','a9003|'(v25^*),|. |v27| vol.|,/,'|',
+                 fi,
+
+                 if p(v66) then
+                    'a9001|[Fo]|','a9002|Fonte:|','a9003|'v66'; ',v62'; ',v63'; 'v64'. ',v20| p. |,v38'.',/,'|',
+                 fi,
+
+              fi,
+
+              if p(v40) then
+                 'a9001|[Id]|','a9002|Idioma:|','a9003|'(v40^*+|; |"."),'|',
+              fi,
+
+              if p(v50) then
+                'a9001|[Te]|','a9002|Tese:|','a9003|',|Apresentada a |,v50| para obtenção do grau de |,v51|.|,/,'|',
+              fi,
+
+              if p(v53) then
+                 'a9001|[Co]|','a9002|Conferência:|','a9003|',|Apresentado em: |,v53|, |,v56|, |,v54|.|,/,'|',
+              fi,
+
+              if p(v58) then
+                'a9001|[Pr]|','a9002|Projeto|','a9003|',(v58+|; |,'. '),v59|. |,v60|. |,/,'|',
+              fi,
+
+              if p(v68) then
+                'a9001|[Si]|','a9002|Símbolo:|','a9003|'v68".",/,'|',
+              fi,
+
+              if p(v83) then
+	             if p(v83^i) then
+					'a9001|[Ab]|','a9002|Resumo(s):|','a9003|'(v83^*,| - |v83^i+|<br><br> |),".",/,'|',
+				 else
+		            if p(v41) then
+				 	   'a9001|[Ab]|','a9002|Resumo:|','a9003|'(if p(v83^*) then v83^*,| - |v41+|<br><br> |, fi)".",/,'|',
+	        		fi,
+        		 fi,
+              fi,
+        
+              if p(v87^d) then,                 
+                   'a9001|[Mh]|','a9002|Descritores:|','a9003|'(v87^d,|/|v87^s'<br>'),'|',	              
+              else                 
+                   'a9001|[Mh]|','a9002|Descritores:|','a9003|'(v87^*,|/|v87^s'<br>'),'|',                 
+              fi,
+
+              if p(v88) then
+                 if p(v88^d) then               
+                    'a9001| |','a9002| |', 'a9003|-'(|&nbsp;|+v88^d,|/|v88^s'<br>'),'|',                 
+        	     else
+                    'a9001| |', 'a9002| |', 'a9003|-'(|&nbsp;|+v88^*,|/|v88^s'<br>'),'|',
+				 fi,
+              fi,
+
+              if v76*0.1='^' then
+                 if p(v76^p) then
+                    'a9001|[Li]|','a9002|Limites:|','a9003|'(v76^p'<br>'),'|',
+                 fi,
+              else
+                 if p(v76^*) then
+                    'a9001|[Li]|','a9002|Limites:|','a9003|'(v76^*'<br>'),'|',
+                 fi,
+              fi,
+
+             if p(v71) then
+                    'a9001|[Tp]|','a9002|Tipo de Publicação:|','a9003|'(v71^*'<br>'),'|',
+              fi,
+
+             if p(v72) and v6:'as' then
+                    'a9001|[Nr]|','a9002|Referências:|','a9003|'(v72^*'<br>'),'|',
+             fi,
+
+             if p(v700) then
+	             if a(v700^u) then
+                    'a9001|[Ct]|','a9002|Nome do Registro<br> de Ensaio Clínico:|','a9003|'(v700^*|; |v700^a'<br>'),'|',
+				 else
+                    'a9001|[Ct]|','a9002|Nome do Registro<br> de Ensaio Clínico:|','a9003|'('<a href='if not s(v700^u):'http' then 'http://', v700^u, else  ,v700^u, fi' target=_blank>',v700^*|; |v700^a'</a><br>'),'|',
+	              fi,
+              fi,
+
+              if p(v653) then
+                    'a9001|[Dl]|','a9002|Descritores Locais:|','a9003|'(v653^*'<br>'),'|',
+              fi,
+
+              if p(v85) then
+                    'a9001|[Pc]|','a9002|Palavras-chave<br> do Autor:|','a9003|<br>'(v85^*,|/|v85^s,| - |v85^i'<br>'),'|',
+              fi,
+
+	          if p(v3) or p(v1) then
+    	        'a9001|[Lo]|','a9002|Localização:|','a9003|',mhl,if a(v3) then v1 else (v3+|; |) fi,mpl,'|',
+         	  fi,
+
+              if p(v724) then
+                    'a9001|[Do]|','a9002|DOI:|','a9003|'(v724^*'<br>'),'|',
+              fi,
+
+ 			  if p(v8) then
+				  if p(v8^u) then
+        	        'a9001|[Ee]|','a9002|Endereço Eletrônico:|','a9003|',('<a href="'v8^u'" target="_blank">'v8^u '</a> - 'v8^i'. ',if p(v8^z) then v8^z fi/)'|',
+				  else
+					if s(mpu,v08^*,mpl):'INTERNET' then
+			       		'a9001|[Ee]|','a9002|Endereço Eletrônico:|','a9003|',(,if s(v8^*.1)='I' then '<a href="'v8^i'" target="_blank">'v8^i'</a>'/ ,fi,)'|',
+	       			fi,
+	              fi,
+              fi,
+			  
+              if p(v49) then
+                 'a9001|[Or]|','a9002|Orientador:|','a9003|',(v49^*+|; |)'|',
+              fi,
+
+              if p(v500) then
+                 'a9001|[No]|','a9002|Nota Geral:|','a9003|',(v500+|; |)'|',
+              fi,
+
+              if p(v505) then
+                 'a9001|[No]|','a9002|Nota Formatada<br> de Conteúdo:|','a9003|<br>',(v505+|; |)'|',
+              fi,
+
+              if p(v530) then
+                 'a9001|[No]|','a9002|Nota de Disponibilidade<br> de Forma Física Adicional:|','a9003|<br>',(v530+|; |)'|',
+              fi,
+
+              if p(v533) then
+                 'a9001|[No]|','a9002|Nota de Reprodução:|','a9003|',(v533+|; |)'|',
+              fi,
+
+              if p(v534) then
+                 'a9001|[No]|','a9002|Nota de Versão Original:|','a9003|',(v534+|; |)'|',
+              fi,
+             ),
+
+		,(v9002,v9003/),

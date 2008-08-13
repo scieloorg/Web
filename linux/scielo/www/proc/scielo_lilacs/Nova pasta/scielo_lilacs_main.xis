@@ -1,0 +1,54 @@
+<IsisScript>
+
+<!-- Common functions -->
+
+<section>
+	<field action="cgi" tag="4010">debug</field>
+	<trace><pft>v4010</pft></trace>
+
+	<!-- Get CGI Parameters -->
+	<field action="cgi" tag="4000">dbsource</field>
+	<field action="cgi" tag="4001">dbdestination</field>
+	<field action="cgi" tag="4002">dbcontrol</field>
+	<field action="cgi" tag="4003">from</field>
+	<field action="cgi" tag="4004">count</field>
+	<field action="cgi" tag="7011">proc_path</field>
+
+	<include>scielo_lilacs/sci_cipar.xis</include>
+
+
+	<field action="statusfile" tag="1091"><pft>v4001'.mst'</pft></field>
+	<file action="create" type="database"><pft>if v1091^s : 'e' then else v4001 fi</pft></file>
+
+	<field action="statusfile" tag="1091"><pft>v4002'.mst'</pft></field>
+	<file action="create" type="database"><pft>if v1091^s : 'e' then else v4002 fi</pft></file>
+
+	<do task="mfnrange">		
+		<parm name="db"><pft>v4000</pft></parm>
+		<parm name="from"><pft>v4003</pft></parm>
+		<parm name="count"><pft>v4004</pft></parm>
+
+		<loop>			
+			<field action="import" tag="list">4001/4002,5000</field>
+			<field action="replace" tag="5000"><pft>if a(v5000) or v5000='' then '1' else f(val(v5000)+1,1,0)  fi</pft></field>
+			<display><pft>v5000/</pft></display>
+			<include>scielo_lilacs/scielo_lilacs.xis</include>
+			<field action="export" tag="list">5000</field>
+			<do task="update">
+				<parm name="db"><pft>v4002</pft></parm>
+				<parm name="mfn">New</parm>
+				<field action="define" tag="1101">Isis_Lock</field>
+				<parm name="lockid">xxx</parm>
+				<field action="define" tag="1102">Isis_Status</field>
+
+				<update>
+					<field action="import" tag="list">v880</field>
+					<field action="replace" tag="91"><pft>date</pft></field>
+					<write>Unlock</write>
+				</update>
+			</do>
+		</loop>
+	</do>
+</section>
+
+</IsisScript>

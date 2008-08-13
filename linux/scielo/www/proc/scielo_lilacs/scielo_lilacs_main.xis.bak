@@ -1,0 +1,38 @@
+<IsisScript>
+
+<!-- Common functions -->
+<include>sci_cipar.xis</include>
+
+<section>
+	<!-- Get CGI Parameters -->
+	<field action="cgi" tag="4000">dbsource</field>
+	<field action="cgi" tag="4001">dbdestination</field>
+	<field action="cgi" tag="4002">dbcontrol</field>
+	<field action="cgi" tag="4003">debug</field>
+
+	<do task="mfnrange">		
+		<parm name="db"><pft>v4000</pft></parm>
+
+		<loop>			
+			<field action="import" tag="list">4001/4002,5000</field>
+			<field action="replace" tag="5000"><pft>if a(v5000) or v5000='' then '1' else f(val(v5000)+1,1,0)  fi</pft></field>
+			<include>scielo_lilacs.xis</include>
+			<field action="export" tag="list">5000</field>
+			<do task="update">
+				<parm name="db"><pft>v4002</pft></parm>
+				<parm name="mfn">New</parm>
+				<field action="define" tag="1101">Isis_Lock</field>
+				<parm name="lockid">xxx</parm>
+				<field action="define" tag="1102">Isis_Status</field>
+
+				<update>
+					<field action="import" tag="list">v880</field>
+					<field action="replace" tag="91"><pft>date</pft></field>
+					<write>Unlock</write>
+				</update>
+			</do>
+		</loop>
+	</do>
+</section>
+
+</IsisScript>

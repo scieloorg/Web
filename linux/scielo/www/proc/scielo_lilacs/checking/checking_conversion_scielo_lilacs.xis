@@ -1,0 +1,95 @@
+<IsisScript>
+
+<section>
+	<field action="cgi" tag="4010">debug</field>
+	<trace><pft>v4010</pft></trace>
+
+	<!-- Get CGI Parameters -->
+	<field action="cgi" tag="4000">dbsource</field>
+	<field action="cgi" tag="4001">dbdestination</field>
+	<field action="cgi" tag="4002">result</field>
+	<field action="cgi" tag="4003">from</field>
+	<field action="cgi" tag="4004">count</field>
+	<field action="cgi" tag="7011">proc_path</field>
+
+	<include>scielo_lilacs/config/sci_cipar.xis</include>
+	
+	<file action="create" type="output"><pft>v4002</pft></file>
+	<display><pft>
+	'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+		<html xmlns="http://www.w3.org/1999/xhtml">
+		 <head>
+			<title>Relatório de Controle de Qualidade de Conversão SciELO para LILACS</title>
+			<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+			<style type="text/css">
+			body {
+				font-family : Verdana, Arial, Helvetica, sans-serif;
+				font-size : 10pt;
+			}
+			.good { background-color: gray; font-color: white }
+			.bad { background-color: yellow; font-color: red }
+			</style>
+		 </head>
+		 <body>',
+			'<h1>Relatório de Controle de Qualidade de Conversão SciELO para LILACS</h1>'/
+			'<h2>no. ',date,'</h2>
+			
+			<table>'/
+
+	</pft></display>
+
+	<do task="mfnrange">		
+		<parm name="db"><pft>v4000</pft></parm>
+		<parm name="from"><pft>v4003</pft></parm>
+		<parm name="count"><pft>v4004</pft></parm>
+
+		<loop>			
+			<field action="import" tag="list">4001/4002,5000</field>
+			<field action="replace" tag="5000"><pft>if a(v5000) or v5000='' then '1' else f(val(v5000)+1,1,0)  fi</pft></field>
+
+			<!--display><pft>@displayDataFromSciELO.pft</pft></display-->
+
+			<field action="replace" tag="5100" split="occ"><pft>@displayDataFromSciELO.pft</pft></field>
+			<do task="search">
+				<parm name="db"><pft>v4001</pft></parm>
+				<parm name="expression"><pft>v880</pft></parm>
+				<parm name="count">1</parm>
+				<loop>
+					
+			<!--display><pft>@lildhtm.pft</pft></display-->
+					<field action="replace" tag="5101" split="occ"><pft>@lildhtm.pft</pft></field>
+					<field action="export" tag="5101">5101</field>
+				</loop>
+			</do>
+
+
+			<!-- comparasion -->
+			
+			<display><pft>,'<tr><th colspan="2">',v702,'</th></tr>'/
+				(
+				'<tr class="',
+					if v5101<>v5100 then
+						'bad'
+					else
+						'good'
+					fi					
+				,'">',
+						'<td>',v5100,'</td>'
+						'<td>',v5101,'</td>'
+				'</tr>'
+				)
+			</pft></display>
+
+
+		</loop>
+	</do>
+
+	<display><pft>
+		 '</table></body>
+		</html>'
+	</pft></display>
+	<file action="close" type="output">*</file>
+
+</section>
+
+</IsisScript>
