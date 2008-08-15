@@ -47,6 +47,7 @@ if (!$isaRobot){
 		/*
 		se nao verificou no Regional o Login do usuario vai verificar
 		*/
+/*
 		if(!isset($_SESSION['checkedLogin']))
 		{
 				/**
@@ -65,6 +66,8 @@ if (!$isaRobot){
 					header("Location: ".$loginURL.$self_url);
 				}
 		}
+*/
+
 	}
 }
 ?>
