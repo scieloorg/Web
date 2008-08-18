@@ -3,7 +3,7 @@
 	<xsl:template match="article | citing">
 		<xsl:param name="s"/>
 		<xsl:param name="pos"/>
-		<xsl:variable name="country" select="@country"/>
+		<xsl:variable name="country" select="concat(@country,@code)"/>
 		<xsl:variable name="nameCountry" select="$texts/text[find=$country]/replace"/>
 		<xsl:variable name="domainCountry" select="$texts/text[find=$country]/url"/>
 		<xsl:variable name="url" select="concat($domainCountry,'/scielo.php?script=sci_arttext&amp;pid=',@pid,'&amp;nrm=iso&amp;lng=',$lang)"/>
