@@ -50,7 +50,7 @@
 	$xmlh = file_get_contents(str_replace(' ','%20',utf8_decode(urldecode($related_Service))));
 	$xmlh = str_replace("&lt;","<",$xmlh);
 	$xmlh = str_replace("&gt;",">",$xmlh);
-	$xmlh = str_replace("&amp;","&",$xmlh);
+	//$xmlh = str_replace("&amp;","&",$xmlh);
 	$xmlh = str_replace("&quot;","\"",$xmlh);
 	for($chr = 0; $chr < 32 ;$chr++)
 	{
