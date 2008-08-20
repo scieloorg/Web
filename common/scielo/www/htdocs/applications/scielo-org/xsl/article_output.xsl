@@ -3,7 +3,7 @@
 	<xsl:template match="article | citing">
 		<xsl:param name="s"/>
 		<xsl:param name="pos"/>
-		<xsl:variable name="country" select="@country"/>
+		<xsl:variable name="country" select="concat(@country,@code)"/>
 		<xsl:variable name="nameCountry" select="$texts/text[find=$country]/replace"/>
 		<xsl:variable name="domainCountry" select="$texts/text[find=$country]/url"/>
 		<xsl:variable name="url" select="concat($domainCountry,'/scielo.php?script=sci_arttext&amp;pid=',@pid,'&amp;nrm=iso&amp;lng=',$lang)"/>
@@ -19,7 +19,7 @@
 					</div>
 				</div>
 				<div style="clear: both; height: 1px; margin: 0px; padding: 0px;"/>
-				<!--xsl:apply-templates select="." mode="old"/-->
+				<!--xsl:apply-templates select="." mode="old"><xsl:with-param name="url" select="$url"/></xsl:apply-templates-->
 				<xsl:apply-templates select="." mode="standardized-reference"><xsl:with-param name="domain" select="$domainCountry"/><xsl:with-param name="LANG" select="$lang"/><xsl:with-param name="log" select="$service_log"/></xsl:apply-templates>
 				<xsl:if test="$s != ''">
 					<br/>
@@ -62,6 +62,7 @@
 		ISSN <xsl:value-of select="substring(.,2,9)"/>.
 	</xsl:template>
 	<xsl:template match="*" mode="old">
+		<xsl:param name="url"/>
 		<xsl:apply-templates select="authors/author">
 			<xsl:with-param name="total" select="count(authors/author)"/>
 		</xsl:apply-templates>
