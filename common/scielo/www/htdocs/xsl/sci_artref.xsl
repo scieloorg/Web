@@ -3,11 +3,10 @@
 	<!-- Get Vol. No. Suppl. Strip
       Parameter:
         Element - Name of Element   -->
-		<xsl:variable name="SERVER" select="//SERVER"/>
-		<xsl:variable name="PATH_WXIS" select="//PATH_WXIS"/>
-		<xsl:variable name="PATH_DATA_IAH" select="//PATH_DATA_IAH"/>
-		<xsl:variable name="PATH_CGI_IAH" select="//PATH_CGI_IAH"/>
-
+	<xsl:variable name="SERVER" select="//SERVER"/>
+	<xsl:variable name="PATH_WXIS" select="//PATH_WXIS"/>
+	<xsl:variable name="PATH_DATA_IAH" select="//PATH_DATA_IAH"/>
+	<xsl:variable name="PATH_CGI_IAH" select="//PATH_CGI_IAH"/>
 	<xsl:template name="GetStrip">
 		<xsl:param name="vol"/>
 		<xsl:param name="num"/>
@@ -178,27 +177,39 @@
 		<xsl:param name="ABREV"/>
 		<xsl:choose>
 			<xsl:when test=" $LANG = 'en' ">
-				<xsl:call-template name="GET_MONTH_NAME">
-					<xsl:with-param name="LANG" select="$LANG"/>
-					<xsl:with-param name="MONTH" select="substring($DATEISO,5,2)"/>
-					<xsl:with-param name="ABREV" select="$ABREV"/>
-				</xsl:call-template>
-				<xsl:text>&#160;</xsl:text>
-				<xsl:value-of select=" substring($DATEISO,7,2) "/>, <xsl:value-of select=" substring($DATEISO,1,4) "/>
+				<xsl:if test="substring($DATEISO,5,2)!='00'">
+					<xsl:call-template name="GET_MONTH_NAME">
+						<xsl:with-param name="LANG" select="$LANG"/>
+						<xsl:with-param name="MONTH" select="substring($DATEISO,5,2)"/>
+						<xsl:with-param name="ABREV" select="$ABREV"/>
+					</xsl:call-template>
+					<xsl:text>&#160;</xsl:text>
+				</xsl:if>
+				<xsl:if test="substring($DATEISO,7,2)!='00'">
+					<xsl:value-of select=" substring($DATEISO,7,2) "/>, </xsl:if>
+				<xsl:value-of select=" substring($DATEISO,1,4) "/>
 			</xsl:when>
 			<xsl:when test=" $LANG != 'en' and $ABREV">
-				<xsl:value-of select=" substring($DATEISO,7,2) "/>-<xsl:call-template name="GET_MONTH_NAME">
-					<xsl:with-param name="LANG" select="$LANG"/>
-					<xsl:with-param name="MONTH" select="substring($DATEISO,5,2)"/>
-					<xsl:with-param name="ABREV" select="$ABREV"/>
-				</xsl:call-template>-<xsl:value-of select=" substring($DATEISO,1,4) "/>
+				<xsl:if test="substring($DATEISO,7,2)!='00'">
+					<xsl:value-of select=" substring($DATEISO,7,2) "/>-</xsl:if>
+				<xsl:if test="substring($DATEISO,5,2)!='00'">
+					<xsl:call-template name="GET_MONTH_NAME">
+						<xsl:with-param name="LANG" select="$LANG"/>
+						<xsl:with-param name="MONTH" select="substring($DATEISO,5,2)"/>
+						<xsl:with-param name="ABREV" select="$ABREV"/>
+					</xsl:call-template>-</xsl:if>
+				<xsl:value-of select=" substring($DATEISO,1,4) "/>
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:value-of select=" substring($DATEISO,7,2) "/> de <xsl:call-template name="GET_MONTH_NAME">
-					<xsl:with-param name="LANG" select="$LANG"/>
-					<xsl:with-param name="MONTH" select="substring($DATEISO,5,2)"/>
-					<xsl:with-param name="ABREV" select="$ABREV"/>
-				</xsl:call-template> de <xsl:value-of select=" substring($DATEISO,1,4)"/>
+				<xsl:if test="substring($DATEISO,7,2)!='00'">
+					<xsl:value-of select=" substring($DATEISO,7,2) "/> de </xsl:if>
+				<xsl:if test="substring($DATEISO,5,2)!='00'">
+					<xsl:call-template name="GET_MONTH_NAME">
+						<xsl:with-param name="LANG" select="$LANG"/>
+						<xsl:with-param name="MONTH" select="substring($DATEISO,5,2)"/>
+						<xsl:with-param name="ABREV" select="$ABREV"/>
+					</xsl:call-template> de </xsl:if>
+				<xsl:value-of select=" substring($DATEISO,1,4)"/>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
@@ -267,7 +278,7 @@
 					<xsl:with-param name="VOL" select="ISSUEINFO/@VOL"/>
 					<xsl:with-param name="NUM" select="ISSUEINFO/@NUM"/>
 					<xsl:with-param name="SUPPL" select="ISSUEINFO/@SUPPL"/>
-					<xsl:with-param name="MONTH" select="ISSUEINFO/STRIP/MONTH"/>
+					<xsl:with-param name="MONTH" select="ISSUEINFO/@MONTH"/>
 					<xsl:with-param name="YEAR" select="ISSUEINFO/STRIP/YEAR"/>
 					<xsl:with-param name="CURR_DATE" select="@CURR_DATE"/>
 					<xsl:with-param name="PID" select="../CONTROLINFO/PAGE_PID"/>
@@ -488,16 +499,16 @@
 		<xsl:param name="FPAGE"/>
 		<xsl:param name="LPAGE"/>
 		<xsl:param name="SHORTTITLE" select="//TITLEGROUP/TITLE"/>
-		
-		
-		
 		<xsl:variable name="url">
 			<xsl:value-of select="$domain"/>/scielo.php?script=sci_arttext&amp;pid=<xsl:value-of select="$PID"/>&amp;lng=<xsl:value-of select="$LANG"/>&amp;nrm=iso</xsl:variable>
 		<xsl:call-template name="PrintAuthorsISOElectronic">
 			<xsl:with-param name="AUTHORS" select="$AUTHORS"/>
 			<xsl:with-param name="LANG" select="$LANG"/>
 			<xsl:with-param name="AUTHLINK" select="$AUTHLINK"/>
-			<xsl:with-param name="iah"><xsl:if test="not(//SERVER)"><xsl:value-of select="$domain"/>/cgi-bin/wxis.exe/iah/?IsisScript=iah/iah.xis</xsl:if></xsl:with-param>
+			<xsl:with-param name="iah">
+				<xsl:if test="not(//SERVER)">
+					<xsl:value-of select="$domain"/>/cgi-bin/wxis.exe/iah/?IsisScript=iah/iah.xis</xsl:if>
+			</xsl:with-param>
 		</xsl:call-template>
 		<xsl:if test="$ARTTITLE != '' ">
 			<xsl:choose>
@@ -1420,11 +1431,12 @@ Parameters:
 						<xsl:otherwise>n. <xsl:value-of select="$NUM"/>,&#160;</xsl:otherwise>
 					</xsl:choose>
 				</xsl:if>
-				<xsl:call-template name="GET_MONTH_NAME">
+				<xsl:call-template name="GET_MONTH_NAME_ABNT">
 					<xsl:with-param name="LANG" select="$LANG"/>
 					<xsl:with-param name="ABREV" select="1"/>
 					<xsl:with-param name="MONTH" select="$MONTH"/>
-				</xsl:call-template>
+				</xsl:call-template>&#160;
+
 				<xsl:value-of select="$YEAR"/>
 			</xsl:when>
 			<xsl:otherwise>
@@ -1456,7 +1468,7 @@ Parameters:
 			</xsl:choose-->
 				<xsl:value-of select="substring($CURR_DATE,7,2)"/>
 			</xsl:if>&#160;
-			<xsl:call-template name="GET_MONTH_NAME">
+			<xsl:call-template name="GET_MONTH_NAME_ABNT">
 				<xsl:with-param name="LANG" select="$LANG"/>
 				<xsl:with-param name="ABREV" select="1"/>
 				<xsl:with-param name="MONTH" select="substring($CURR_DATE,5,2)"/>
@@ -1648,6 +1660,13 @@ Parameters:
 				</xsl:call-template>
 			</xsl:when>
 		</xsl:choose>
+	</xsl:template>
+	<xsl:template name="GET_MONTH_NAME_ABNT">
+		<xsl:param name="LANG"/>
+		<xsl:param name="MONTH"/>
+		<xsl:variable name="m" select="document(concat('../xml/',$LANG,'/month_according_biblio_standard.xml'))//standard[@id='nbr6023']"/>
+		
+		<xsl:apply-templates select="$m//month[@id=$MONTH]"/>
 	</xsl:template>
 	<!-- Auxiliary function - Gets the month name in english. See GET_MONTH_NAME function -->
 	<xsl:template name="MONTH_NAME_EN">
