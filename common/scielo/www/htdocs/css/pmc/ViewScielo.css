@@ -5,11 +5,31 @@ html {
 	margin-left:  8%;
     margin-right: 8%;
     }
-.bm {
-	font-family:Verdana,courier new;
-	font-size: 10pt;
+/* front-matter */
+.fm  {
+     font-size:   9pt;
+     line-height: 1.5;
+	width: 100%;
+ 	
+     }
+     
+.body
+     {
+     font-family : Verdana, Arial, Helvetica, sans-serif;
+     font-size:   10pt;
+     line-height: 1.4;
+     margin-top: 50pt;
+	width: 100%;
+     }
 
-}
+
+/* back-matter */
+.bm  {
+ margin-top: 50pt;
+     font-size:   9pt;
+     line-height: 1.5;
+	width: 100%;
+     }
 
 .tl-main-part {
 	display: block;
@@ -50,10 +70,7 @@ html {
    margin-top: 5pt;
   }
 
-xbody{
-font-family: Verdana, Arial, Helvetica, sans-serif;
-   font-size: 10pt;
-  }
+
 hr.section-rule {
 	display: none;
     margin-top: 40pt;
@@ -90,71 +107,119 @@ hr.section-rule {
 	font-size: 10pt;
 	margin-top: 20px;
 	margin-bottom: 20px;
-	text-transform: uppercase
+	text-transform: uppercase;
 }
 .abstractr2l {
 		font-size: 14pt;
 		text-align: right;
 		font-family: sans-serif
 }
-.fig {
-	text-align: center;
-}
-
-
 .r2l {
 		font-size: 130%;
 		text-align: right;
 		font-family: sans-serif
 }
 
+.fig {
+	text-align: justify;
+margin-top: 40pt;
+margin-bottom: 50pt;
+margin-left: 40pt;
+margin-right: 40pt;
+}
+.table {
+	text-align: justify;
+margin-bottom: 50pt;
+margin-left: 40pt;
+margin-right: 40pt;
+}
 .fig-file {
 		text-align: center;
+	margin-top: 30pt;
+	margin-bottom: 50pt;
+	margin-left: 0pt;
+	margin-right: 20pt;
 }
-
-
-
 .fig-data {
-			width: 70%;
-			text-align: center;
+	margin-top: 30pt;
+	margin-bottom: 50pt;
+	margin-left: 0pt;
+	margin-right: 20pt;
 }
-
-
-
+.table-data {
+font-family : courier, serif;
+		margin-bottom: 0
+}
 .table-label, .fig-label {
-		font-family: Times New Roman;
-		font-size: 9pt;
+		font-family : Times New Roman;
+		font-size: 11pt;
 		font-weight: bold;
+text-align: justify;
 }
 
 .table-caption, .fig-caption {
-		font-family: Times New Roman;
-		font-size: 9pt;
-
+		font-family : Times New Roman;
+		font-size: 10pt;
+	text-align: justify;
 }
-.table-data {
-			width: 70%;
-			text-align: center;
+
+.table-content {
+	margin-top: 0
 }
-.body
-     {
-     font-family : Verdana, Arial, Helvetica, sans-serif;
-     font-size:   10pt;
-     line-height: 1.4;
-     margin-top: 50pt;
-     }
-
-
 .table table  thead tr td {
 	border-top: 3px solid black;
 	border-bottom: 3px solid black;
 }
 .table table {
-		font-family: Times New Roman;
+		font-family : courier, serif;
 		font-size: 10pt;
-	
+	border-spacing: 10px
+	border-top: 1px solid black;
+	border-bottom: 1px solid black;
+	border: 1px solid gray;
+}
+.table table td {
+		
+	border: 1px solid gray;
 }
 
 .article-categories {
 	text-align: right;
+}
+.element {
+	color: red;
+}
+.warning {
+	color: red;
+	background-color: yellow;
+}
+.error {
+	background-color: red;
+	color: yellow;
+}
+.limiter {
+	color: blue;
+}
+.xml {
+	background-color: #DDDDDD;
+	margin-bottom: 50pt;
+}
+.destaque{
+	background-color: #FFFFFF;
+	color: #DDDDDD;
+}
+
+.bm div div, .bm div {
+	width: 100%;	
+}
+.subject {
+	text-transform: uppercase;
+}
+.foot {
+ font-family : Verdana, Arial, Helvetica, sans-serif;
+     font-size:   8pt;	
+}
+
+a  {
+	text-decoration: none;
 }

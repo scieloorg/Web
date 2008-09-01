@@ -29,48 +29,29 @@
 		<!-- retrieval metadata, at end -->
 		<xsl:call-template name="nl-2"/>
 	</xsl:template>
-	<xsl:template match="abstract" mode="format">
-		<xsl:variable name="lang" select="@xml:lang"/>
-		<span class="abstract-title">
-			<!-- if there's no title, create one -->
-			<xsl:apply-templates select="." mode="words-for-abstract-title"/>
-		</span>
-		<div class="abstract{$languages//language[@id=$lang]/@view}">
-			<xsl:apply-templates select="*[not(self::title)]|text()"/>
-		</div>
-		<xsl:apply-templates select="..//kwd-group[@xml:lang=$lang or not(@*)]"/>
-		<xsl:if test="position()!=last()">
-			<hr/>
-		</xsl:if>
-	</xsl:template>
-	<xsl:template match="*" mode="words-for-abstract-title">
-		<xsl:choose>
-			<!-- if there's a title, use it -->
-			<xsl:when test="title">
-				<xsl:apply-templates select="title"/>
-			</xsl:when>
-			<!-- abstract with no title -->
-			<xsl:when test="self::abstract">
-				<xsl:text>Abstract</xsl:text>
-			</xsl:when>
-			<!-- trans-abstract with no title -->
-			<xsl:when test="self::trans-abstract">
-				<span class="gen">
-					<xsl:text>Abstract, Translated</xsl:text>
-				</span>
-			</xsl:when>
-			<!-- there is no logical otherwise -->
-		</xsl:choose>
-	</xsl:template>
+	
 	<xsl:template match="*" mode="make-body">
 		<xsl:apply-templates select=".//body/*"/>
 	</xsl:template>
 	<xsl:template match="*" mode="make-back">
-		<xsl:apply-templates select=".//back"/>
+		<xsl:comment>*, make-back</xsl:comment>
+		<xsl:variable name="layout" select="'float'"/>
+		<xsl:choose>
+			<xsl:when test="$layout = 'float'">
+				<xsl:apply-templates select="." mode="figures-and-tables"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:apply-templates select=".//back/*[.//table-wrap]"/>
+			</xsl:otherwise>
+		</xsl:choose>
 		<xsl:apply-templates select=".//back/ref-list"/>
-		<xsl:apply-templates select="//author-notes" mode="text"/>
-		<xsl:apply-templates select="//history" mode="text"/>
-		<xsl:apply-templates select="//fn-group" mode="text"/>
+		<div>
+			<xsl:apply-templates select=".//back/*[name()!='ref-list'  and name()!='fn-group' and not(.//table-wrap)]"/>
+			<xsl:apply-templates select="//author-notes" mode="text"/>
+			<xsl:apply-templates select="//history" mode="text"/>
+			<xsl:apply-templates select="//fn-group" mode="text"/>
+			<xsl:apply-templates select="//permissions"/>
+		</div>
 	</xsl:template>
 	<xsl:template match="author-notes" mode="text">
 		<p>
@@ -89,7 +70,7 @@
 		</a>
 	</xsl:template>
 	<xsl:template match="//corresp" mode="copyValue">
-		<xsl:copy-of select="."/>
+		<xsl:apply-templates select="*|text()"/>
 	</xsl:template>
 	<!-- ScELO -->
 	<xsl:template match="history" mode="text">
@@ -150,15 +131,6 @@
 	<xsl:template match="fn" mode="text">
 		
 	</xsl:template>
-	<xsl:template match="back">
-		<xsl:apply-templates select="*[not(self::title) and not(self::fn-group) and not(self::ref-list)]"/>
-		<xsl:apply-templates select="title"/>
-		<xsl:if test="preceding-sibling::body//fn-group | .//fn-group">
-			<xsl:apply-templates select="preceding-sibling::body//fn-group | .//fn-group"/>
-			<xsl:call-template name="nl-1"/>
-		</xsl:if>
-		<xsl:call-template name="nl-1"/>
-	</xsl:template>
 	<xsl:template match="*" mode="make-end-metadata">
 		<xsl:apply-templates select=".//article-meta"/>
 	</xsl:template>
@@ -196,7 +168,16 @@
 		</a>
 	</xsl:template>
 	<xsl:template match="author-notes" mode="translate">
-		<xsl:param name="lang" select="../../../../..//ARTICLE/@TEXTLANG"/>
+		<xsl:param name="lang">
+			<xsl:choose>
+				<xsl:when test="../../../../..//ARTICLE/@TEXTLANG">
+					<xsl:value-of select="../../../../..//ARTICLE/@TEXTLANG"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="../../../..//@xml:lang"/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:param>
 		<xsl:choose>
 			<xsl:when test="$lang='pt' ">Correspondência</xsl:when>
 			<xsl:when test="$lang='es' ">Correspondencia</xsl:when>
@@ -204,6 +185,29 @@
 		</xsl:choose>
 	</xsl:template>
 	<xsl:template match="*" mode="back">
-	<a href="javascript: back()">_</a>
+		<!--a href="javascript: back()">_</a-->
+	</xsl:template>
+	<xsl:template match="title[normalize-space(text())='']">
+		<xsl:comment>xxx</xsl:comment>
+	</xsl:template>
+	<xsl:template match="back/*">
+		<div>
+			<xsl:attribute name="id"><xsl:value-of select="name()"/>
+			</xsl:attribute>
+				<xsl:apply-templates/>
+		</div>
+	</xsl:template>
+	<xsl:template match="back/*[.//table-wrap]">
+		<div id="tables">
+				<xsl:apply-templates/>
+			</div>
+	</xsl:template>
+	<xsl:template match="permissions"	>
+		<p>
+			<xsl:value-of select="copyright-year"/> <xsl:value-of select="copyright-statement"/>
+			<xsl:apply-templates select="license"></xsl:apply-templates>
+		</p>
+		
+		
 	</xsl:template>
 </xsl:transform>

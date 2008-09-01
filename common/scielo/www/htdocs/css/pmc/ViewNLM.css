@@ -28,6 +28,7 @@ html {
 .fm  {
      font-size:   9pt;
      line-height: 1.5;
+
      }
      
 /* article body */
@@ -36,7 +37,7 @@ html {
      font-family: times new roman;
      font-size:   12pt;
      line-height: 1.4;
-     
+
      }
 
 /* back-matter */
@@ -69,12 +70,12 @@ hr.section-rule {
     margin-bottom: 5pt;
     }
     
-/* generated text */     
+/* generated text   
 .gen {
     color: gray;
     }
 
-
+ */  
 /* --------------- Titling levels -------------------- */
 
 

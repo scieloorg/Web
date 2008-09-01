@@ -1,21 +1,21 @@
 <?xml version="1.0"?>
 <xsl:transform version="1.0" id="ViewNLM-v2-04_scielo.xsl" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:util="http://dtd.nlm.nih.gov/xsl/util" xmlns:mml="http://www.w3.org/1998/Math/MathML" exclude-result-prefixes="util xsl">
 	<xsl:variable name="pid" select="//ARTICLE/@PID"/>
+	
 	<xsl:template match="ref-list">
-		<hr class="section-rule"/>
-		<span class="tl-main-part">
-			<xsl:choose>
-				<xsl:when test="title">
-					<xsl:value-of select="title"/>
-				</xsl:when>
-				<xsl:otherwise>
+			<span class="tl-main-part">
+				<xsl:choose>
+					<xsl:when test="title">
+						<xsl:value-of select="title"/>
+					</xsl:when>
+					<xsl:otherwise>
 			References			
 			</xsl:otherwise>
-			</xsl:choose>
-		</span>
-		<xsl:call-template name="nl-1"/>
-		<xsl:apply-templates select="ref"/>
-		<xsl:call-template name="nl-1"/>
+				</xsl:choose>
+			</span>
+			<xsl:call-template name="nl-1"/>
+			<xsl:apply-templates select="ref"/>
+			<xsl:call-template name="nl-1"/>
 	</xsl:template>
 	<xsl:template match="ref">
 		<p id="{@id}">
@@ -52,7 +52,8 @@
 			<xsl:attribute name="onclick">javascript: window.open('/scielo.php?pid=<xsl:value-of select="$pid"/><xsl:value-of select="$position"/>&amp;lng=<xsl:value-of select="$LANGUAGE"/>&amp;script=sci_reflinks<xsl:apply-templates select="$pub-id" mode="param"/>','','width=640,height=500,resizable=yes,scrollbars=1,menubar=yes,');</xsl:attribute>
 		Links</a>&#160;]
 	</xsl:template>
-	<xsl:template match="pub-id" mode="param">&amp;<xsl:value-of select="@pub-id-type"/>=<xsl:value-of select="."/><xsl:if test="@pub-id-type='pmid'">&amp;medline_db=MEDLINE_<xsl:choose>
+	<xsl:template match="pub-id" mode="param">&amp;<xsl:value-of select="@pub-id-type"/>=<xsl:value-of select="."/>
+		<xsl:if test="@pub-id-type='pmid'">&amp;medline_db=MEDLINE_<xsl:choose>
 				<xsl:when test="..//year &lt; 1997">1966-1996</xsl:when>
 				<xsl:when test="..//year &gt;= 1997">1997-2007</xsl:when>
 			</xsl:choose>
@@ -81,5 +82,7 @@
 			</xsl:choose>
 		</xsl:variable>http://bases.bireme.br/cgi-bin/wxislind.exe/iah/online/?IsisScript=iah/iah.xis&amp;nextAction=lnk&amp;base=MEDLINE_<xsl:value-of select="$year-range"/>&amp;exprSearch=<xsl:value-of select=".//pub-id[@pub-id-type='pmid']"/>&amp;indexSearch=UI&amp;lang=i</xsl:template>
 	<xsl:include href="scielo_pmc_references_gmb.xsl"/>
+	<xsl:template match="lpage[not(../fpage) and (../../*[@citation-type='book' or @citaton-type='thesis'])] | *[@citation-type]/page-count/@count" mode="none">
+		<xsl:value-of select="."/> pp.
+	</xsl:template>
 </xsl:transform>
-

@@ -691,7 +691,7 @@
 						<xsl:when test="../lpage">
 							<xsl:text>pp. </xsl:text>
 							<xsl:value-of select="/article/front/article-meta/fpage"/>
-							<xsl:text>-</xsl:text>
+							<xsl:text>&#150;</xsl:text>
 							<xsl:value-of select="/article/front/article-meta/lpage"/>
 						</xsl:when>
 						<xsl:otherwise>
@@ -1133,6 +1133,7 @@
 	<!-- The first p in a footnote displays the fn symbol or,
      if no symbol, the fn ID -->
 	<xsl:template match="fn/p[1]">
+	<xsl:comment>fn/p[1]</xsl:comment>
 		<p>
 			<xsl:call-template name="make-id"/>
 			<xsl:if test="../@symbol | ../@id">
@@ -1188,6 +1189,7 @@
 	</xsl:template>
 	<!-- no other level of sec puts out a rule -->
 	<xsl:template match="sec">
+		<xsl:comment>sec</xsl:comment>
 		<div>
 			<xsl:call-template name="make-id"/>
 			<xsl:apply-templates/>
@@ -2522,14 +2524,18 @@
 	<!--  40. BACK-MATTER: FOOTNOTE-GROUP and FN                       -->
 	<!-- ============================================================= -->
 	<xsl:template match="fn-group">
+	<xsl:comment>fn-group - i</xsl:comment>
 		<xsl:call-template name="nl-1"/>
 		<xsl:if test="position()>1">
 			<hr class="section-rule"/>
 		</xsl:if>
 		<xsl:call-template name="nl-1"/>
 		<xsl:text></xsl:text>
+	<xsl:comment>fn-group - a</xsl:comment>
 		<xsl:apply-templates/>
+	<xsl:comment>fn-group - b</xsl:comment>
 		<xsl:call-template name="nl-1"/>
+	<xsl:comment>fn-group - e</xsl:comment>
 	</xsl:template>
 	<!-- ============================================================= -->
 	<!--  Footnote                                                     -->
@@ -2695,10 +2701,10 @@
          it's expressing a range, and we superscript it -->
 			<xsl:when test="local-name(following-sibling::node()[1])='xref'
                 and local-name(preceding-sibling::node()[1])='xref'">
-				<sup>-</sup>
+				<sup>&#150;</sup>
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:text>-</xsl:text>
+				<xsl:text>&#150;</xsl:text>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
@@ -3670,7 +3676,7 @@
 	<xsl:template match="fpage" mode="nscitation">
 		<xsl:apply-templates/>
 		<xsl:if test="../lpage">
-			<xsl:text>-</xsl:text>
+			<xsl:text>&#150;</xsl:text>
 			<xsl:value-of select="../lpage"/>
 		</xsl:if>
 		&#160;<xsl:text/>
@@ -3685,7 +3691,7 @@
 	<xsl:template match="lpage" mode="book">
 		<xsl:choose>
 			<xsl:when test="../fpage">
-				<xsl:text>-</xsl:text>
+				<xsl:text>&#150;</xsl:text>
 				<xsl:apply-templates/>
 				<xsl:text>.</xsl:text>
 			</xsl:when>
@@ -3955,7 +3961,7 @@
 						&#160;<xsl:text/>
 						<xsl:apply-templates/>
 						<xsl:if test="$hermano='lpage'">
-							<xsl:text>-</xsl:text>
+							<xsl:text>&#150;</xsl:text>
 							<xsl:apply-templates select="following-sibling::lpage[1]"/>
 						</xsl:if>
 						<xsl:text>,</xsl:text>
@@ -3964,7 +3970,7 @@
 						&#160;<xsl:text/>
 						<xsl:apply-templates/>
 						<xsl:if test="$hermano='lpage'">
-							<xsl:text>-</xsl:text>
+							<xsl:text>&#150;</xsl:text>
 							<xsl:apply-templates select="following-sibling::lpage[1]"/>
 						</xsl:if>
 						<xsl:text>.</xsl:text>
@@ -3976,7 +3982,7 @@
 				<xsl:apply-templates/>
 				<xsl:choose>
 					<xsl:when test="$hermano='lpage'">
-						<xsl:text>-</xsl:text>
+						<xsl:text>&#150;</xsl:text>
 						<xsl:apply-templates select="following-sibling::lpage[1]"/>
 						<xsl:text>.</xsl:text>
 					</xsl:when>
