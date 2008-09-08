@@ -44,7 +44,7 @@ if($_REQUEST['return'] == 'soap'){
 	echo '<h2>Debug</h2><pre>' . htmlspecialchars($clientesoap->debug_str, ENT_QUOTES) . '</pre>';
 }else{
 	if(!validateXML($xml)){
-		die('Erro! Tente novamente mais tarde.');
+		include_once(dirname(__FILE__)."/conf/".$widgetConf['error_file']);
 	}
 
 	/* Transformação XSLT */
@@ -60,11 +60,7 @@ if($_REQUEST['return'] == 'soap'){
 		$procResult = xslt_process($transformer,'arg:/_xml', 'arg:/_xsl', NULL, $arguments);
 
 		/* Imprime resultado */
-		if(validateXML($procResult)){
-			echo $procResult;
-		}else{
-			echo "Erro no XML!";
-		}
+		echo $procResult;
 	}
 }
 ?>
