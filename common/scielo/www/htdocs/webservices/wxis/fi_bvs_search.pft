@@ -27,7 +27,7 @@ if p(v121) then,
 						fi,
 						,'<dc:type>Text</dc:type>',#
 						,'<dc:format>text/xml</dc:format>',#
-						,'<dc:identifier>http://www.scielo.br/scielo.php?script=sci_arttext&amp;pid=',v880^*,'&amp;lng=en&amp;nrm=iso&amp;tlng=',v40,'</dc:identifier>',#
+						,'<dc:identifier>http://',v7009,'/scielo.php?script=sci_arttext&amp;pid=',v880^*,'&amp;lng=en&amp;nrm=iso&amp;tlng=',v40,'</dc:identifier>',#
 						if p(v30) then,
 							(|<dc:source><![CDATA[|v30|]]></dc:source>|),#
 						fi,

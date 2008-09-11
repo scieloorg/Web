@@ -88,6 +88,7 @@
 		<flow action="jump"><pft>if p(v2051) then 'EXTRACT' fi</pft></flow>
 
 		<loop>
+			<field action="import" tag="7009">7009</field>
 			<field action="import" tag="list">2007</field>
 			<flow action="jump"><pft>if val(v32701^m) > 0 then 'proc_split' fi</pft></flow>
 			<display><pft>@FI_BVS_SEARCH.PFT</pft></display>
@@ -110,7 +111,8 @@
 					</pft>
 				</parm>
 		
-				<loop>
+				<loop>	
+					<field action="import" tag="7009">7009</field>
 					<field action="import" tag="32701">32701</field>
 					<display><pft>@FI_BVS_SEARCH.PFT</pft></display>
 					<!--display><isisxml>*</isisxml></display-->
