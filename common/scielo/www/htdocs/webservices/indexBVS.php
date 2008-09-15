@@ -79,6 +79,8 @@ function search($expression, $from, $count){
 
 	$from = ($from  != "" ? $from  : "1");
 	$count= ($count != "" ? $count : "10");
+
+	$expression = str_replace(" ","%20or%20".$index,trim($expression));
 	
 	//" . $applServer . "
 	$serviceUrl = "http://".$_SERVER["HTTP_HOST"]."/cgi-bin/wxis.exe/?IsisScript=ScieloXML/fi_bvs_search.xis&database=search&search=".$expression."&from=".$from."&count=".$count;
@@ -93,7 +95,7 @@ function advancedSearch($index, $expression, $from, $count){
 	$from = ($from  != "" ? $from  : "1");
 	$count= ($count != "" ? $count : "10");
 	
-	$expression = str_replace(" "," and ".$index,$expression);
+	$expression = str_replace(" ","%20or%20".$index,trim($expression));
 	
 	//" . $applServer . "
 	$serviceUrl = "http://".$_SERVER["HTTP_HOST"]."/cgi-bin/wxis.exe/?IsisScript=ScieloXML/fi_bvs_search.xis&database=searchp&search=".$index.$expression."&from=".$from."&count=".$count;
