@@ -34,6 +34,7 @@
 					$url .= "&" . $key . "=" . trim ( $value );
 				}
 			}
+			$url .= "&ws=true"; // Parametro que impede erros para registros que nao possuem abstract
 
 			@$fd = fopen ( $url,"r" );
 
