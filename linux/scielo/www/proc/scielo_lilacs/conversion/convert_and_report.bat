@@ -8,6 +8,10 @@ export reportQuantity=$5
 export reportErrorsTxt=$6
 export reportErrors=$7
 
+if [ ! -d `dirname $report` ]
+then
+        mkdir -p `dirname $report`
+fi
 cat scielo_lilacs/tools/config.bat > temp/convert_and_report.bat
 cat scielo_lilacs/config/config.bat >> temp/convert_and_report.bat
 cat scielo_lilacs/conversion/convert_and_report_aux.bat >> temp/convert_and_report.bat

@@ -19,5 +19,6 @@ echo put $ctrl_issue >> $ftp_instructions_file
 echo get $ctrl_issue $done >> $ftp_instructions_file
 echo bye >> $ftp_instructions_file
 
-ftp -n < $ftp_config
+ftp -i -v -n < $ftp_config > log/trf_SciELO_Lilacs.log
+
 

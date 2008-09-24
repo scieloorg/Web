@@ -1,6 +1,11 @@
 
 export idate=`date +%d_%m_%Y_%k_%M_%s`
-mkdir $exportPath
+
+
+if [ ! -d $exportPath ]
+then
+        mkdir -p $exportPath
+fi
 
 export exportdbname=scielo-lilacs_$idate
 export exportdb=$exportPath/$exportdbname
