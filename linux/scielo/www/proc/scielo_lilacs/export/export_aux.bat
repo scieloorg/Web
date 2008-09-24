@@ -12,6 +12,7 @@ $mx $ctrl_issue fst=@scielo_lilacs/conversion/fst/ctrl_issue.fst fullinv=$ctrl_i
 
 
 echo gera base lilacs express 
+$mx $ctrl_issue btell=0 "bool=STATUS=DONE" lw=9999 "proc='d80a80{$exportdbname.iso{'" copy=$ctrl_issue now -all
 $mx $ctrl_issue btell=0 "bool=STATUS=DONE" lw=9999 "proc='d9001d9002d9003a9001{$mx{a9002{$basePreLILACSEXPRESS{a9003{$exportdb{'" "pft=@scielo_lilacs/export/export.pft" now > temp/export_aux.bat
 chmod 775 temp/export_aux.bat
 temp/export_aux.bat
@@ -29,7 +30,7 @@ scielo_lilacs/export/filesTransfer.bat $mx $ftp_config $exportdbname.iso control
 
 if [ -f $foi ]
 then 
-	$mx $ctrl_issue btell=0 "bool=STATUS=DONE" lw=9999 "proc='d90d80a90{EXPORTED{a80{$exportdbname.iso{'" copy=$ctrl_issue now -all
+	$mx $ctrl_issue btell=0 "bool=STATUS=DONE" lw=9999 "proc='d90a90{EXPORTED{'" copy=$ctrl_issue now -all
 else
 	rm -rf $exportdb.*
 fi
