@@ -1,8 +1,0 @@
-1 0 "ID="v1,"-"v2/
-2 0 'LK='if a(v98) then 'FONTE' else v98 fi/
-3 0 "LKE="v101/
-4 0 "LKP="v102/
-5 0 "LKT="v103/
-6 0 "UI=",v2/
-18 0 v18[1]/
-30 0 v30[1]/
