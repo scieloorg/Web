@@ -1,0 +1,43 @@
+<IsisScript>
+
+
+<section>
+	<field action="cgi" tag="4010">debug</field>
+	<trace><pft>v4010</pft></trace>
+
+	<!-- Get CGI Parameters -->
+
+	<field action="cgi" tag="7011">proc_path</field>
+	<field action="cgi" tag="4015">cip</field>
+
+	<parm name="buffersize">1024000</parm>
+	<include>scielo_lilacs/tools/xis/sci_cipar.xis</include>
+	
+	<field action="replace" tag="4007">CTRL_ISSUE</field>
+	<field action="replace" tag="4013">PRE_LILACS_EXPRESS</field>
+	<field action="replace" tag="4014">CTRL_CONVERSION</field>
+
+	<do task="search">
+		 <parm name="db"><pft>v4007</pft></parm>
+		 <parm name="expression"><pft>'STATUS=QUALIFIED OR STATUS=PARTIALY_DONE'</pft></parm>
+
+		 <loop>
+			<field action="import" tag="list">4014</field>
+			<display><pft>
+			v1,' ',v2,' ',v9,' ',v125,'/',v122,' ',v126,'/',v122/,
+			(
+				if v92^s='BAD_CONVERSION' then
+						,v92^p,' ',v92^e,' errors',
+						,#,
+						,ref([v4014[1]]l([v4014[1]]|PID=|v92^p),(v590,#,v591,#,#))
+				fi
+			)
+			</pft></display>
+		</loop>
+	</do>
+
+<!--display><pft>'apos loop',#,(v9898/)</pft></display-->
+	<file action="close" type="database"><pft>v4011</pft></file>
+</section>
+
+</IsisScript>

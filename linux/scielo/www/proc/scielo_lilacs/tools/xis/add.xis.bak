@@ -1,0 +1,56 @@
+<!-- Common functions -->
+<function name="add8" action="replace" tag="3880">
+	<field action="import" tag="list">8,880,40</field>
+	<!--display><pft>'amtes: ',(v8/)</pft></display-->
+	<field action="replace" tag="8"><pft>replace(v8,'cgi-bin/fbpe/fbtext?','scielo.php?script=sci_arttext&'),'&tlng='v40,'^l',v40,</pft></field>
+
+	<field action="replace" tag="3068"><pft>if l(['TITLE']'LOC='v880*1.9)>0 then ref(['TITLE']l(['TITLE']'LOC='v880*1.9),v68) fi</pft></field>
+
+	<field action="replace" tag="3000"><pft>|../bases-work/|v3068|/lang|</pft></field>
+
+	<field action="statusfile" tag="1091"><pft>v3000|.mst|</pft></field>
+	<flow action="jump"><pft>if v1091^s : 'e' then else 'END' fi</pft></flow>
+
+	<label>CHECK_LANGS</label>
+	<do task="search">
+		<parm name="db"><pft>v3000</pft></parm>
+		<parm name="expression"><pft>v880</pft></parm>
+
+		<loop>
+			<field action="import" tag="list">8</field>
+
+			<field action="replace" tag="3008"><pft>v8^i</pft></field>
+			<field action="replace" tag="3008"><pft>mid(v3008,8,size(v3008))</pft></field>
+			<field action="replace" tag="3008"><pft>if p(v3008) then 'http://',mid(v3008,1,instr(v3008,'/')) fi</pft></field>
+			
+			<field action="replace" tag="8" split="occ"><pft>v8/,
+				if p(v601) then
+				('Internet^i',v3008[1],v601^f,'^l',v601^l/),
+				fi
+				/*
+				if p(v602) then
+				('Internet^i',v3008[1],v602^f/),
+				fi
+				*/
+				</pft>
+
+			</field>
+			
+			<field action="export" tag="list">8</field>
+		</loop>
+	</do>
+
+	<label>END</label>
+	<!--display><pft>'depois:',(v8/)</pft></display-->
+	<field action="export" tag="list">8</field>
+
+</function>
+
+<function name="add274" action="replace" tag="3880">
+	<field action="import" tag="list">880,881,31/32,131/132</field>
+	<field action="replace" tag="7011">../bases-work/</field>
+	<field action="replace" tag="7012"><pft>|v|v31,|s|v131,|n|v32,|s|v132</pft></field>
+	
+	<call name="returnDOI"><pft>if p(v881) then v881 else v880 fi</pft></call>
+	<field action="replace" tag="274">900</field>
+</function>
