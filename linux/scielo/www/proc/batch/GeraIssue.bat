@@ -48,3 +48,5 @@ if [ ! "$4" == "del" ]
 then
    call batch/GeraIso.bat $1/serial/$2/$3/base/$3 $1/serial/$2/$3/base/$2$3.iso
 fi
+call batch/InformaLog.bat $0 x Re-inverte issue: $2 $3
+call batch/GeraInvertido.bat $REVISTA fst/Fasciculo.fst $REVISTA
