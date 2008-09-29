@@ -1,5 +1,5 @@
-CTRL_ISSUE.*=/bases/scielo-lilacs/bases-work/scielo_lilacs/ctrl_issue.*
-PRE_LILACS_EXPRESS.*=/bases/scielo-lilacs/bases-work/scielo_lilacs/preLILACSEXPRESS.*
-CTRL_CONVERSION.*=/bases/scielo-lilacs/bases-work/scielo_lilacs/ctrl_conversion.*
-artigo.*=/bases/scielo-lilacs/bases-work/artigo/artigo.*
-TITLE.*=/bases/scielo-lilacs/bases-work/scielo_lilacs/title/title.*
+CTRL_ISSUE.*=\home\scielo\www\bases-work\scielo-lilacs\ctrl_issue.*
+PRE_LILACS_EXPRESS.*=\home\scielo\www\bases-work\scielo-lilacs\preLILACSEXPRESS.*
+CTRL_CONVERSION.*=\home\scielo\www\bases-work\scielo-lilacs\ctrl_conversion.*
+artigo.*=\home\scielo\www\bases\artigo\artigo.*
+TITLE.*=\home\scielo\www\bases\title\title.*
