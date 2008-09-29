@@ -1,0 +1,5 @@
+CTRL_ISSUE.*=/bases/scielo-lilacs/bases-work/scielo_lilacs/ctrl_issue.*
+PRE_LILACS_EXPRESS.*=/bases/scielo-lilacs/bases-work/scielo_lilacs/preLILACSEXPRESS.*
+CTRL_CONVERSION.*=/bases/scielo-lilacs/bases-work/scielo_lilacs/ctrl_conversion.*
+artigo.*=/bases/scielo-lilacs/bases-work/artigo/artigo.*
+TITLE.*=/bases/scielo-lilacs/bases-work/scielo_lilacs/title/title.*
