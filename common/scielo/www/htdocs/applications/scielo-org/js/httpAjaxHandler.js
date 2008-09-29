@@ -2,17 +2,17 @@ var xmlHttp = false;
 var metaengine = "";
 var rateResult = "";
 
-function httpInit() 
+function httpInit()
 {
-	if (window.XMLHttpRequest) 
+	if (window.XMLHttpRequest)
 	{ // Mozilla, Safari,...
 		xmlHttp = new XMLHttpRequest();
-	    
-		if (xmlHttp.overrideMimeType) 
+
+		if (xmlHttp.overrideMimeType)
 		{
-            	xmlHttp.overrideMimeType('text/xml');                
+            	xmlHttp.overrideMimeType('text/xml');
         }
-     	}else if (window.ActiveXObject) 
+     	}else if (window.ActiveXObject)
 		{ // IE
 			try {
            		xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");
@@ -32,7 +32,7 @@ function httpInit()
 
 
 /**
- * Pega todas as informações possíveis sobre o visitante, alem de incrementar 
+ * Pega todas as informações possíveis sobre o visitante, alem de incrementar
  * o log de acesso de serviços
  *
  * @author Deivid Martins
@@ -40,13 +40,13 @@ function httpInit()
  *
  */
 function callUpdateArticleLog( serviceName )
-{	
+{
 	// Informações sobre o visitante
-	var browserV = navigator.appName + " ..#.. " + navigator.appCodeName + 
+	var browserV = navigator.appName + " ..#.. " + navigator.appCodeName +
 		" ..#.. " + navigator.appVersion + " ..#.. " + navigator.userAgent;
-	var idiomaV;					
+	var idiomaV;
 	var resolucaoV = screen.width +"X"+ screen.height+" "+ screen.colorDepth +" bits";
-	var SOV = navigator.platform;	// Sistema Operacional 
+	var SOV = navigator.platform;	// Sistema Operacional
 	var suporteV = "";				// Mime-types suportados pelo cliente
 	var tituloV = document.title;	// Titulo do Documento
 	var urlV = document.URL;		// URL do Documento
@@ -60,7 +60,7 @@ function callUpdateArticleLog( serviceName )
 		idiomaV = navigator.language;
 	else
 		idiomaV = navigator.systemLanguage;
-	
+
 	serviceName = serviceName.toString();
 
 	// Personalizando nome dos serviços
@@ -86,49 +86,46 @@ function callUpdateArticleLog( serviceName )
 			suporteV += navigator.mimeTypes[i].type + " ..#.. ";
 		suporteV += navigator.mimeTypes[i].type;
 	}
-	// OBS: Implementar na proxima versão detector de mimetypes para o IE 
+	// OBS: Implementar na proxima versão detector de mimetypes para o IE
 
-	dados = (String)("servico=" + serviceName + "&browser=" + browserV.replace(/;/g, " ") 
-		+ "&idioma=" + idiomaV.replace(/;/g, " ") + "&resolucao=" + resolucaoV.replace(/;/g, " ") 
-		+ "&SO=" + SOV.replace(/;/g, " ") + "&suporte=" + suporteV.replace(/;/g, " ") 
+	dados = (String)("servico=" + serviceName + "&browser=" + browserV.replace(/;/g, " ")
+		+ "&idioma=" + idiomaV.replace(/;/g, " ") + "&resolucao=" + resolucaoV.replace(/;/g, " ")
+		+ "&SO=" + SOV.replace(/;/g, " ") + "&suporte=" + suporteV.replace(/;/g, " ")
 		+ "&url=" + escape(urlV.replace(/;/g, " ")) + "&titulo=" + escape(tituloV.replace(/;/g, " ")) );
 
 	// inicializa a XMLHttpRequest
 	httpInit();
-	
+
 	xmlHttp.open("POST", url, true);
-	xmlHttp.onreadystatechange = UpdateRate;  
+	xmlHttp.onreadystatechange = UpdateRate;
 
 	// Definimos os Headers para usarmos o método POST
-	xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
+	xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	xmlHttp.setRequestHeader("Content-Length",dados.length);
 	xmlHttp.setRequestHeader("Cache-Control","no-store, no-cache, must-revalidate");
 	xmlHttp.setRequestHeader("Cache-Control","post-check=0, pre-check=0");
 	xmlHttp.setRequestHeader("Pragma", "no-cache");
-	
+
 	// Enviamos os dados via POST
-    xmlHttp.send(dados);	
+    xmlHttp.send(dados);
 }
 
 function UpdateRate(){
     //var resultPortlet = document.getElementById("searchResult");
     //var result = document.getElementById("result");
     //var buffer = "";
-    //resultPortlet.style.display="block"; 
+    //resultPortlet.style.display="block";
 
     //result.innerHTML = "<div align='center'><img src='../image/common/loading.gif' border='0'></div>";
 
     if (xmlHttp.readyState == 4) {
 
-        if (xmlHttp.status == 200) {		
+        if (xmlHttp.status == 200) {
       	    //var responseXml = xmlHttp.responseXML;
-   			var responseText = xmlHttp.responseText; 
+   			var responseText = xmlHttp.responseText;
 			rateResult = responseText;  //descomentado
 
         }
-		else {
-			alert(xmlHttp.status);
-		}
     }
 }
 
