@@ -1,5 +1,0 @@
-,'%CISIS_DIR%\mx ',
-	,'..\..\serial\',
-	,replace(v1,' ','\'),'\base\',mid(v1,instr(v1,' ')+1,size(v1)),
-	,' lw=9999',
-	,' pft=@pft\selectArticle.pft now -all'/

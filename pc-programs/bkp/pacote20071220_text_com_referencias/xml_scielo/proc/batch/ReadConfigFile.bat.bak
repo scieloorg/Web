@@ -1,5 +1,0 @@
-
-%CISIS_DIR%\mx "seq=..\..\bin\scielo_paths.ini," lw=9999 "pft=if instr(v1,'=')>0 then 'set ',replace(v1,' ','_')/ fi" now>temp\setParameters.bat
-
-call temp\setParameters.bat
-

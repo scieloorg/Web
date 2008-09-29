@@ -1,9 +1,0 @@
-
-,if v706='f' then
-	,ref(1,v100),' | ',mid(v65,1,4),' | ',v31,' | ',v131,' | ',v32,' | ',v132,' | ',v121,' | ',v14^f,' | ',v14^l,' | ',v10^s[1],' ',v10^n[1],' | ',v705,v35,'(',mid(v65,3,2),')',s(f(val(v31)+1000,4,0))*1.3,s(f(val(v32)+1000,4,0))*1.3,v121,' | ',mfn,
-,else
-	,if v706='i' then
-		,'Number of files=',v122/,
-		,'export | Title | Year | volume | suppl vol | issue | suppl issue | order | first page | last page | first author | SciELO id | mfn '/,
-	,fi,
-,fi,

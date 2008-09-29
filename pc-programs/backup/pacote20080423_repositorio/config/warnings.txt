@@ -1,6 +1,0 @@
-19/07/99 09:48:08 Failure updating inverted file tit_issn
-19/07/99 10:15:39 Failure updating inverted file tit_issn
-19/07/99 10:18:44 Failure updating inverted file tit_issn
-05/08/99 14:12:38 Failure updating Mfn=0
-05/08/99 14:12:56 Failure updating Mfn=0
-25/10/99 18:23:45 Failure updating Mfn=0

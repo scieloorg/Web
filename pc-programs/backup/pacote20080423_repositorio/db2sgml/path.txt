@@ -1,1 +1,0 @@
-scielo_serial=c:\scielo\serial

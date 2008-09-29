@@ -1,5 +1,0 @@
-journal.pft
-header.pft
-author.pft
-referenc.pft
-end.pft

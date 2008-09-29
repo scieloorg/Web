@@ -1,7 +1,0 @@
-,if v706='f' then
-	
-	,if p(v10) then
-		,'</AuthorList>'/,
-	,fi,
-
-,fi,
