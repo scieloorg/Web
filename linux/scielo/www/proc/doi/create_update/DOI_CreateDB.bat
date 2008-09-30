@@ -59,6 +59,7 @@ then
 	if [ -f "$2.xrf" ]
 	then
 		echo do nothing
+		call batch/CriaMaster.bat $2
 	else
 		   echo "creating/reseting base doi: $2"
 		   call batch/CriaMaster.bat $2
