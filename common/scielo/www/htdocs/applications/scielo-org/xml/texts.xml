@@ -368,7 +368,7 @@
 	<language id="en">
 		<text>
 			<find>doesnt_comment</find>
-			<replace>This article was not commentated</replace>
+			<replace>This article was not commented yet</replace>
 		</text>
 		<text>
 			<find>doiNotFound</find>
@@ -436,7 +436,7 @@
 		</text>
 		<text>
 			<find>wasnt_cited</find>
-			<replace>This article was not cited</replace>
+			<replace>This article was not cited yet</replace>
 		</text>
 		<text>
 			<find>related_to</find>
