@@ -368,7 +368,7 @@
 	<language id="en">
 		<text>
 			<find>doesnt_comment</find>
-			<replace>This articles wasn't comment yet</replace>
+			<replace>This article was not commentated</replace>
 		</text>
 		<text>
 			<find>doiNotFound</find>
@@ -380,7 +380,7 @@
 		</text>
 		<text>
 			<find>dataFound</find>
-			<replace>Data not Found</replace>
+			<replace>Data not found</replace>
 		</text>
 		<text>
 			<find>scieloNetwork</find>
@@ -420,7 +420,7 @@
 		</text>
 		<text>
 			<find>results_founded</find>
-			<replace>results founded</replace>
+			<replace>results found</replace>
 		</text>
 		<text>
 			<find>cited_by</find>
@@ -436,7 +436,7 @@
 		</text>
 		<text>
 			<find>wasnt_cited</find>
-			<replace>this articles wasn't cited yet</replace>
+			<replace>This article was not cited</replace>
 		</text>
 		<text>
 			<find>related_to</find>
@@ -444,7 +444,7 @@
 		</text>
 		<text>
 			<find>doesnt_related</find>
-			<replace>this articles doesn't have a related to article</replace>
+			<replace>there is no article similiar to this</replace>
 		</text>
 		<text>
 			<find>arg</find>
