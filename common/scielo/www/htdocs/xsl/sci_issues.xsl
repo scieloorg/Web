@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 	<xsl:include href="sci_navegation.xsl"/>
+	<xsl:include href="journalStatus.xsl"/>
 	<xsl:include href="sci_error.xsl"/>
 	<xsl:output method="html" indent="no"/>
 	<xsl:variable name="spaceYear" select="'12%'"/>
 	<xsl:variable name="spaceVol" select="'7%'"/>
 	<xsl:variable name="spaceIssue" select="'5%'"/>
 	<xsl:variable name="spaceIssues" select="'70%'"/>
-
-	
 	<xsl:variable name="columns" select="//COLUMNS"/>
-	<xsl:variable name="colnumber"><xsl:choose>
-		<xsl:when test="$columns='' or not($columns)">14</xsl:when>
-		<xsl:when test="$columns &lt; 14">12</xsl:when>
-		<xsl:otherwise><xsl:value-of select="$columns"/></xsl:otherwise>
-	</xsl:choose></xsl:variable>
-	
-	
+	<xsl:variable name="colnumber">
+		<xsl:choose>
+			<xsl:when test="$columns='' or not($columns)">14</xsl:when>
+			<xsl:when test="$columns &lt; 14">12</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="$columns"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
 	<xsl:template match="SERIAL">
 		<HTML>
 			<HEAD>
@@ -49,7 +50,19 @@
 				</CENTER>
 				<br/>
 				<div class="content">
-				<xsl:apply-templates select="//AVAILISSUES"/>
+					<TABLE width="100%" border="0">
+						<TBODY>
+							<tr>
+								<td>&#160;</td>
+
+								<td width="95%">
+									<xsl:apply-templates select="." mode="journal-info"/>
+								</td>
+							</tr>
+						</TBODY>
+					</TABLE>
+					<br/>
+					<xsl:apply-templates select="//AVAILISSUES"/>
 				</div>
 				
 				<xsl:apply-templates select="." mode="footer-journal"/>
@@ -121,16 +134,6 @@
 								<xsl:apply-templates select="YEARISSUE">
 									<xsl:sort select="@YEAR" order="descending" data-type="number"/>
 								</xsl:apply-templates>
-								<xsl:if test="//CHANGESINFO">
-									<TR>
-										<TD colspan="{$colnumber}">
-											<BR/>
-											<xsl:apply-templates select="//CHANGESINFO">
-												<xsl:with-param name="LANG" select="//CONTROLINFO/LANGUAGE"/>
-											</xsl:apply-templates>
-										</TD>
-									</TR>
-								</xsl:if>
 							</TBODY>
 						</TABLE>
 					</TD>
@@ -246,7 +249,7 @@
 	<xsl:template name="AddBlankCells">
 		<xsl:param name="ncells"/>
 		<xsl:if test="$ncells>0">
-			<TD align="middle" width="{$spaceIssue}" height="35" >&#160;</TD>
+			<TD align="middle" width="{$spaceIssue}" height="35">&#160;</TD>
 			<xsl:call-template name="AddBlankCells">
 				<xsl:with-param name="ncells" select="$ncells - 1"/>
 			</xsl:call-template>

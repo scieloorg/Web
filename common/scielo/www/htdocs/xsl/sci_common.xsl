@@ -169,10 +169,13 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 	<!-- Shows copyright information -->
 	<xsl:template match="COPYRIGHT">
 		<xsl:apply-templates select="../." mode="license"/>
-		<font class="normal">&#169;&#160;</font>
+		<!--font class="normal">&#169;&#160;</font-->
+		<span>
+			<img src="http://creativecommons.org/images/public/somerights20.png"/>&#160;
+		</span>
 		<FONT color="#000080" class="negrito">
 			<I>
-				<xsl:value-of select="@YEAR"/>&#160;
+				<!--xsl:value-of select="@YEAR"/-->&#160;
     <xsl:value-of select="." disable-output-escaping="yes"/>
 				<br/>
 			</I>
@@ -285,6 +288,7 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 			<font color="#000080">
 				<em>
 					<xsl:apply-templates select="NEWTITLE"/>
+					<br/>
 				</em>
 			</font>
 		</xsl:if>
@@ -327,7 +331,6 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 				<xsl:value-of select="normalize-space(TITLE)" disable-output-escaping="yes"/>
 			</xsl:otherwise>
 		</xsl:choose>
-		<br/>
 	</xsl:template>
 	<!-- Prints the issn and its type
          Parameters:
@@ -952,15 +955,20 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 				</xsl:when>
 				<xsl:when test="//CONTROLINFO[PAGE_NAME='sci_abstract']">
 					<xsl:variable name="abstractLang" select=".//ABSTRACT/@xml:lang"/>
-					<xsl:if test="//ART_TEXT_LANGS[LANG=$abstractLang] or //PDF_LANGS[LANG=$abstractLang]"><xsl:value-of select="$abstractLang"/></xsl:if>
+					<xsl:if test="//ART_TEXT_LANGS[LANG=$abstractLang] or //PDF_LANGS[LANG=$abstractLang]">
+						<xsl:value-of select="$abstractLang"/>
+					</xsl:if>
 				</xsl:when>
-				<xsl:otherwise></xsl:otherwise>				
+				<xsl:otherwise/>
 			</xsl:choose>
 		</xsl:variable>
-		<xsl:variable name="tlng"><xsl:value-of select="normalize-space($textLang)"/></xsl:variable>
-
+		<xsl:variable name="tlng">
+			<xsl:value-of select="normalize-space($textLang)"/>
+		</xsl:variable>
 		<xsl:variable name="INFOPAGE">http://<xsl:value-of select="$CONTROLINFO/SCIELO_INFO/SERVER"/>
-			<xsl:value-of select="$CONTROLINFO/SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_isoref&amp;pid=<xsl:value-of select="$CONTROLINFO/PAGE_PID"/>&amp;lng=<xsl:value-of select="$LANGUAGE"/><xsl:if test="string-length($tlng)&gt;0">&amp;tlng=<xsl:value-of select="$tlng"/></xsl:if>
+			<xsl:value-of select="$CONTROLINFO/SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_isoref&amp;pid=<xsl:value-of select="$CONTROLINFO/PAGE_PID"/>&amp;lng=<xsl:value-of select="$LANGUAGE"/>
+			<xsl:if test="string-length($tlng)&gt;0">&amp;tlng=<xsl:value-of select="$tlng"/>
+			</xsl:if>
 		</xsl:variable>
 		<td valign="middle">
 			<a href="javascript:void(0);" onmouseout="status='';" class="nomodel" style="text-decoration: none;">
@@ -1023,25 +1031,78 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
 				<xsl:apply-templates select=".//article-meta/permissions"/>
 			</xsl:when>
 			<xsl:when test=".//PERMISSIONS">
-				<xsl:apply-templates select=".//PERMISSIONS/permissions" />
+				<xsl:apply-templates select=".//PERMISSIONS/permissions"/>
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:apply-templates select="..//PERMISSIONS/permissions" />
+				<xsl:apply-templates select="..//PERMISSIONS/permissions"/>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
-	<xsl:template match="permissions"  >
+	<xsl:template match="permissions">
 		<div class="license">
 			<xsl:copy-of select=".//license/*"/>
 		</div>
 	</xsl:template>
 	<xsl:template match="*" mode="footer-journal">
-		
 		<div class="footer">
 			<xsl:apply-templates select=".//COPYRIGHT"/>
 			<xsl:apply-templates select=".//CONTACT"/>
 		</div>
 	</xsl:template>
-		<xsl:template match="*" mode="repo_url_param_scielo"/>	
-
+	<xsl:template match="*" mode="repo_url_param_scielo"/>
+	<xsl:template match="*" mode="issuetoc">sci_issuetoc<xsl:value-of select="//NAVEGATION_TYPE"/>
+	</xsl:template>
+	<xsl:template match="*" mode="issues">sci_issues<xsl:value-of select="//NAVEGATION_TYPE"/>
+	</xsl:template>
+	<xsl:template match="*" mode="sci_serial">
+		<xsl:choose>
+			<xsl:when test="//CONTROLINFO/NO_SCI_SERIAL='yes'">sci_artlist</xsl:when>
+			<xsl:otherwise>sci_serial</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+	<xsl:template match="*" mode="repo_database">
+		<xsl:param name="scope"/>
+		<xsl:choose>
+			<xsl:when test="//PAGINATION">
+				<xsl:apply-templates select="//PAGINATION/@rep" mode="rep3"/>
+				<xsl:if test="//PAGINATION/@journal=//ISSN">
+					<xsl:value-of select="$scope"/>
+				</xsl:if>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="$scope"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+	<xsl:template match="@rep" mode="rep3">r<xsl:value-of select="substring(.,4)"/>
+	</xsl:template>
+	<xsl:template match="*" mode="repo_limit">
+		<xsl:choose>
+			<xsl:when test="//PAGINATION">
+				<xsl:choose>
+					<xsl:when test="//PAGINATION/@rep and //PAGINATION/@journal">
+						<xsl:value-of select="//PAGINATION/@journal"/> and rep=<xsl:value-of select="//PAGINATION/@rep"/>
+					</xsl:when>
+					<xsl:when test="//PAGINATION/@rep">rep=<xsl:value-of select="//PAGINATION/@rep"/>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="//PAGINATION/@journal"/>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="//ISSN"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+	<xsl:template match="*" mode="repo_url_param">
+		<xsl:apply-templates select="//PAGINATION/@rep" mode="repo_url_param"/>
+	</xsl:template>
+	<xsl:template match="@rep" mode="repo_url_param">&amp;rep=<xsl:value-of select="."/>
+	</xsl:template>
+	<xsl:template match="*" mode="repo_url_param_scielo">
+		<xsl:apply-templates select="//PAGINATION/@*" mode="repo_url_param_scielo"/>
+	</xsl:template>
+	<xsl:template match="@*" mode="repo_url_param_scielo">&amp;<xsl:value-of select="name()"/>=<xsl:value-of select="."/>
+	</xsl:template>
 </xsl:stylesheet>

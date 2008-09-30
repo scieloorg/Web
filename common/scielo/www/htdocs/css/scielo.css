@@ -148,3 +148,10 @@ A.rss {
 	font-weight: normal;
 	text-decoration: none;
 }
+.status-info-alphabetic-list {
+	font-size: 80%;
+	font-style: italic;
+}
+.status-info-alphabetic-list a {
+	font-style: italic;
+}

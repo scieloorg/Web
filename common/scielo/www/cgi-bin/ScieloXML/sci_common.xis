@@ -1,6 +1,6 @@
 <!-- Common Functions (SciELO Interface)-->
 <include>ScieloXML/sci_getdefine.xis</include>
-<!--include>ScieloXML/sci_journal.xis</include-->
+<include>ScieloXML/sci_journal.xis</include>
 <!-- ============================================================================ -->
 <!--  function GetCurrentIssue                                                       -->
 <!--                                                                              -->
@@ -1329,7 +1329,7 @@
 			),
 		' </TITLEGROUP>'/#</pft>
   </display>
-  <!--call name="getXMLJournalStatusHistory"><pft>ref(['TITLE']val(v4001),v400)</pft></call-->
+  <call name="displayXMLJournalStatusHistory"><pft>ref(['TITLE']val(v4001),v400)</pft></call>
 </function>
 
 <function name="CreateChangesInfoXML" action="replace" tag=4001>
@@ -1347,6 +1347,16 @@
 
 
 <function name="PrintTitleISSNList" action="replace" tag=4001>
+	<call name="getTitleISSNList"><pft>v4001</pft></call>
+	<display>
+		<pft>
+			'   <TITLE',| ISSN="|v400|"|,'><![CDATA[',v4001,']]></TITLE>'/
+		</pft>
+	</display>
+</function>
+
+
+<function name="getTitleISSNList" action="replace" tag=4001>
 <!-- Generate Title+ISSN List -->
   
   <field action="replace" tag="4000" split="occ"><pft>(v4001/)</pft></field>
@@ -1390,16 +1400,22 @@
 	   <flow action="skip"><pft>'Quit'</pft></flow>
 	   <label>CONTINUE</label>
       </loop>
+
+<field action="export" tag="list">50,400</field>
 	 </do> 
 	 
-	 <display>
-	 	<pft>
-			'   <TITLE',if v50='C' then ' ISSN="'v400'"' fi,'><![CDATA['v9000']]></TITLE>'/
-		</pft>
-	</display>
 	 
+<field action="export" tag="list">50,400</field>
     </loop>	
+
+<field action="export" tag="list">50,400</field>
   </do> 
+ 
+	  <return action="replace" tag="400">
+	 	<pft>
+			if v50='C' then v400 fi
+		</pft>
+	</return>
 </function>
 
 <function name="CreateFormerTitleXML" action="replace" tag=4001>

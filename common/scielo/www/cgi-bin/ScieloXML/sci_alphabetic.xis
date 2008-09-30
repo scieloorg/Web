@@ -55,6 +55,8 @@
 			**  tulo, desde que haja algum issue para este titulo.                           **
 			******************************************************************************* -->
 
+			<call name="getXMLJournalStatusHistory"><pft>ref(['TITLE']val(v1000^m),v400)</pft></call>
+
 			<display><pft>
 				/* Obtem o issn da revista */
 				proc('d6000a6000~', ref(['TITLE']val(v1000^m),v400), '~'),
@@ -67,6 +69,9 @@
 					'   <TITLE ISSN="', v6000, '">',/
 						ref(['TITLE']val(v1000^m),"    <![CDATA["v100," - "v110,"]]>"d100)/
 					'   </TITLE>',/
+
+					,v5151,
+
 					'  </SERIAL>',/#
 				fi
 			</pft></display>
