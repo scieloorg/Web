@@ -14,3 +14,4 @@ export ctrl_conversion=/bases/scielo-lilacs/bases-work/scielo_lilacs/ctrl_conver
 
 echo Environment SciELO_LILACS
 export exportPath=/bases/scielo-lilacs/bases-work/scielo_lilacs/exportation
+

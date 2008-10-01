@@ -9,7 +9,7 @@ if not exist %scilista% goto FAILURE
 	%mx% %title% lw=9999 "pft=if instr(v450,'LILACS')>0 or l(['%liltitle%']v400)>0 then ' ',v400,' ',v68 fi" now> %allowed%
 
 	echo Titulos LILACS > %report%
-	%mx% %title% lw=9999 "pft=if instr(v450,'LILACS')>0 or l(['%liltitle%']v400)>0 then v400,' ',v100\ fi" now>> %report%
+	%mx% %title% lw=9999 "pft=if instr(v450,'LILACS')>0 or l(['%liltitle%']v400)>0 then v400,' ',v100/ fi" now>> %report%
 	
 	%mx% null count=0 create=%myissue% now -all
 	%mx% $issue lw=9999 "proc=if l(['%liltitle%']v35)>0 and instr(v32,'ahead')=0 and instr(v32,'review')=0 then 'a91{',date,'{' else 'd*' fi" append=%myissue% now -all

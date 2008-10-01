@@ -11,8 +11,8 @@ call scielo_lilacs\report\report.bat generateProblemReport %reportErrorsTxt% %de
 
 call scielo_lilacs\report\report.bat generateErrorsReport %reportErrors% %debug%
 
-cat %reportQuantity% >> %report%
-cat %reportErrorsTxt% >> %report%
+more %reportQuantity% >> %report%
+more %reportErrorsTxt% >> %report%
 echo Read %reportErrors% >> %report%
 
 notepad %report%

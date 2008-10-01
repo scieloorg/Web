@@ -14,3 +14,4 @@ set ctrl_conversion=..\bases-work\scielo-lilacs\ctrl_conversion
 
 echo Environment SciELO_LILACS
 set exportPath=..\bases-work\scielo-lilacs\exportation
+
