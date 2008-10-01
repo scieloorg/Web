@@ -1,0 +1,1 @@
+cisis\mx ..\bases-work\title\title lw=9000 "pft=if v50='C' then v68,x1,'$'/ fi/" now > %1

@@ -1,0 +1,432 @@
+<IsisScript name="process_languages">
+	<!--include>ScieloXML/sci_common.xis</include-->	
+
+	<function name="getCommonData" action="replace" tag="4000" split="occ">
+		<!-- 4000 = 'yes' -->
+		<field action="import" tag="list">880</field> 
+
+		<field action="replace" tag="350" split="occ"><pft>ref(['TITLE']l(['TITLE'],'LOC=',v880*1.9),(v350/))</pft></field>
+
+		<!-- Get the lowercase siglum of the serial -->
+		<field action="replace" tag="68">
+			<pft>
+			ref(['TITLE']l(['TITLE'],'LOC=',mpu,v880*1.9,mpl),v68),			
+			</pft>
+		</field>
+
+		<!-- Gets the volumn number, issue number and supplement number -->
+		<field action="replace" tag="4003">
+			<pft>
+				ref( ['NEWISSUE'] l( ['NEWISSUE'],'Y',v880*1.17) ,
+					"v"v31,"n"v32,"s"v131,"s"v132 )
+			</pft>
+		</field>
+		<field action="replace" tag="4001">
+			<pft>
+				v68|/|,
+				v4003|/|
+			</pft>
+		</field>
+
+		<field action="export" tag="list">350,4001</field>
+		
+	</function>
+	
+	<function name="getFilePathAndName" action="replace" tag="4000" split="occ">
+	<!--
+		 4000^d - directory	 
+		 4000^t - pdf ou tr (translation)	 
+		 -->
+		 <!--display><pft>ALL</pft></display-->	
+		<field action="import" tag="list">4001,4799</field> 
+
+		<field action="replace" tag="4002"><pft>v4000^t</pft></field>
+		<field action="replace" tag="4005"><pft>if v4000^t='pdf' then v4000^t fi</pft></field>
+	   
+		<field action="replace" tag="4500">
+			<pft>
+				'^d'v4000^d,'^s',v4001
+			</pft>
+		</field>
+
+		<field action="replace" tag="4799">
+			<pft>
+				if v4005<>'' then
+					mid(v4799,1,instr(v4799,'.')),
+					,v4005
+				else 
+					v4799,
+				fi
+			</pft>
+		</field>
+
+		<field action="export" tag="list">4799,4500</field>
+		
+	</function>
+	
+	<function name="checkTextLang" action="replace" tag="4001" split="occ">
+		<!--
+		 4001^d - directory	
+		 4001^s - subdir
+		 4001^f - file
+		 4001^l - lang which can not be part of file name (optional)
+		 -->
+		 
+		<field action="import" tag="list">350,40</field>
+
+		<!-- Verify the presence of the files. The full path is compounded by the 
+			base path and relative path.
+		-->
+		<list action="load" type="freq"><pft>(v350/)</pft></list>
+		<do task="list">
+			 <field action="define" tag="5001">Isis_Current</field>
+			 <field action="define" tag="5002">Isis_Item</field>>
+			
+			<loop>
+				<field action="import" tag="list">4001,4100,40</field>
+				<flow action="skip"><pft>if v4001^l=v5002 then 'Next' fi</pft></flow>
+				<field action="replace" tag="5010">
+					<pft>
+					
+						 if p(v4001^d) and p(v4001^s) and p(v4001^f) then 
+							'^d',v4001^d,
+							,'^f',v4001^s,
+							if v5002<>v40 then
+								v5002|_|,
+							fi,
+							v4001^f,
+							'^l',v5002
+						 fi 
+					
+					</pft>
+				</field>
+				
+				<field action="statusfile" tag="5003">
+					<pft>
+						if p(v5010) then
+							if instr(v4001, '\') > 0 then 
+								replace(s(v4001^d,v5010^f),'/','\')
+							else
+								s(v4001^d,v5010^f)
+							fi
+						fi
+					</pft>
+				</field>
+				<field action="add" tag="4100"><pft>if v5003^s : 'e' then v5010 fi</pft></field>
+				<field action="export" tag="list">4001,4100</field>
+			</loop>
+		</do>
+		<list action="delete">now</list>
+		<field action="export" tag="7999">4100</field>
+		
+	</function>
+	
+	<function name="update" action="replace" tag="4000" split="occ">
+		<field action="import" tag="list">880,40,83,601,602,</field> 
+
+		<field action="replace" tag="3000"><pft>f(l([v4000],v880),1,0)</pft></field> 
+		<do task="update">
+			<parm name="db"><pft>v4000</pft></parm>
+			<parm name="mfn"><pft>if val(v3000)>0 then v3000 else 'New' fi</pft></parm>
+			<!--parm name="fst"><pft>cat(v4000|.fst|)</pft></parm-->
+			<parm name="lockid"><pft>if val(v3000)>0 then '1' fi</pft></parm>
+
+			<field action="define" tag="1102">Isis_Status</field>
+			<field action="define" tag="1103">Isis_Lock</field>
+
+			<update>
+				<field action="import" tag="list">880,40,83,601,602,</field> 
+				<field action="replace" tag="91"><pft>date</pft></field>
+				<write>Unlock</write>
+			</update>
+		</do>
+	</function>
+	
+	<function name="create_database" action="replace" tag="4000" split="occ">
+		<field action="import" tag="list">8005,8009</field>
+
+		<field action="statusdb" tag="1091"><pft>v4000</pft></field>
+		<flow action="jump">
+			<pft>if v1091^s : 'm' then 'create_database_end' fi</pft>
+		</flow>
+		<field action="import" tag="list">9001/9002</pft></field>
+	
+		<field action="replace" tag="4002"><pft>|mkdir |v8009/,|mkdir |v9001/,|mkdir |v9002/</pft></field>
+		<field action="replace" tag="4002"><pft>if v8005:'win' then replace(replace(v4002,'/','\'),'mkdir','md') fi</pft></field>
+
+		<display><pft>system(v4002)</pft></display>
+		<file action="create" type="database"><pft>v4000</pft></file>
+		<call name="update"><pft>v4000</pft></call>
+
+		<label>create_database_end</label>
+		<field action="statusdb" tag="1091"><pft>v4000</pft></field>
+		<field action="replace" tag="5000">
+			<pft>if v1091^s : 'm' then 'true' else 'false' fi</pft>
+		</field>
+
+		<flow action="jump">
+			<pft>if v1091^s : 'm' then  else 'end' fi</pft>
+		</flow>
+
+		<field action="statusfile" tag="1091"><pft>v4000|.fst|</pft></field>
+		<flow action="jump">
+			<pft>if v1091^s : 'e' then 'end' fi</pft>
+		</flow>
+		<file action="create" type="output"><pft>v4000|.fst|</pft></file>
+		<display><pft>'880 0 mpl,v880/'</pft></display>
+		<display><pft>#</pft></display>
+		<file action="close" type="output"><pft>v4000|.fst|</pft></file>
+
+		<label>end</label>
+		<field action="export" tag="5000">5000</field>
+	</function>
+	
+	<function name="get_database_name" action="replace" tag="4000" split="occ">
+		<field action="replace" tag="9001">
+			<pft>				
+				if instr(v4000^r,'acron')>0 then
+					v4000^d,v4000^a|/|,
+				else
+					if v4000^r:'issue' then
+
+					else
+						v4000^d,'lang/'
+					fi
+				fi
+			</pft>
+		</field>
+		<field action="replace" tag="9002">
+			<pft>				
+				if instr(v4000^r,'issue')>0 then
+					v4000^d,v4000^a|/|,v4000^i|/|
+				fi
+			</pft>
+		</field>
+		<field action="replace" tag="9000">
+			<pft>
+				v4000^d,
+				if instr(v4000^r,'acron')>0 then
+					v4000^a|/|
+				else
+					if v4000^r:'issue' then
+
+					else
+						'lang/'
+					fi
+				fi
+				if instr(v4000^r,'issue')>0 then
+					v4000^i|/|
+				fi
+				'lang'
+			</pft>
+		</field>
+		<field action="export" tag="list">9000/9002</field>
+	</function>
+	
+	<section>
+		<field action="cgi" tag="7001">acron</field>
+		<field action="cgi" tag="7002">issue</field>
+		<field action="cgi" tag="8100">reinvert</field>
+
+		<field action="cgi" tag="3010">debug</field>
+		<field action="cgi" tag="3011">def</field>
+		<trace><pft>if p(v3010) then 'On' fi</pft></trace>
+
+		<flow action="jump">
+			<pft>
+				if a(v7001) then 
+					,'error_missing_parameters', 
+				fi 
+				if a(v3011) then 'error_missing_parameters' fi
+			</pft>
+		</flow>
+
+
+		<field action="replace" tag="8000" split="occ"><pft>cat(v3011)</pft></field>
+		<proc>
+		<pft>
+			'd8001d8002d8003d8004d8005d8006d8007d8008d8009'
+			(
+				if instr(v8000,'=') > 0 then
+
+					select left(v8000, instr(v8000, '=') - 1)
+						case 'TITLE'      : 'a8001{',mid(v8000,instr(v8000, '=')+1,size(v8000)),'{',
+						case 'NEWISSUE'   : 'a8002{',mid(v8000,instr(v8000, '=')+1,size(v8000)),'{',
+						case 'PDF_PATH'        : 'a8003{',mid(v8000,instr(v8000, '=')+1,size(v8000)),'{',
+						case 'TRANSLATION_PATH': 'a8004{',mid(v8000,instr(v8000, '=')+1,size(v8000)),'{',
+						case 'SO': 'a8005{',mid(v8000,instr(v8000, '=')+1,size(v8000)),'{',
+						case 'BASES-WORK_PATH': 'a8006{',mid(v8000,instr(v8000, '=')+1,size(v8000)),'{',
+						case 'LANG_DB_NAME_FORMAT': 'a8007{',mid(v8000,instr(v8000, '=')+1,size(v8000)),'{',
+						case 'CONTROL_DB': 'a8008{',mid(v8000,instr(v8000, '=')+1,size(v8000)),'{',
+						case 'LANG_DATABASE_PATH': 'a8009{',mid(v8000,instr(v8000, '=')+1,size(v8000)),'{',
+					endsel
+				fi
+			)
+		</pft>
+		</proc>
+
+		<flow action="jump"><pft>if a(v8001) or a(v8002) or a(v8003) or a(v8004) or a(v8005) or a(v8006) or a(v8007) or a(v8008) or a(v8009) then 'error_in_def_file' fi</pft></flow>
+
+
+		<field action="replace" tag="3001"><pft>v8006,v7001|/|,v7001</pft></field>
+
+		<field action="statusdb" tag="1091"><pft>v3001</pft></field>
+		<flow action="jump">
+			<pft>if v1091^s : 'm' then else 'error_missing_database' fi</pft>
+		</flow>
+
+		<field action="replace" tag="3002"><pft>'h=',if a(v7002) then '$' else v7002 fi</pft></field>
+		<field action="replace" tag="3005"><pft>'^d'v8009,'^a'v7001,'^i'v7002,'^r'v8007</pft></field>
+
+		<parm name="cipar">
+			<pft>
+				'TITLE.*=',     v8001,'.*',/
+				'NEWISSUE.*=',  v8002,'.*',/
+			</pft>
+		</parm>
+
+
+		<display><pft>'Creating the lang database for ',v3001,' ',v3002/</pft></display>
+		<call name="get_database_name"><pft>v3005</pft></call>
+		<display><pft>'get_database_name=',v9000/</pft></display>
+
+		<call name="create_database"><pft>v9000</pft></call>
+		<display><pft>'create_database=',v5000/</pft></display>
+		<flow action="jump">
+			<pft>if v5000 : 'false' then 'error_missing_database' fi</pft>
+		</flow>
+
+
+		<field action="replace" tag="8200"><pft>f(l([v8008],'id=',replace(v9000,'/','-')),1,0)</pft></field> 
+
+		<do task="update">
+			<parm name="db"><pft>v8008</pft></parm>
+			<parm name="mfn"><pft>if val(v8200)>0 then v8200 else 'New' fi</pft></parm>
+			<parm name="fst"><pft>cat('proc_langs/control.fst')</pft></parm>
+			<parm name="lockid"><pft>if  val(v8200)>0 then '1' fi</pft></parm>
+
+			<field action="define" tag="1102">Isis_Status</field>
+			<field action="define" tag="1103">Isis_Lock</field>
+				
+
+			<update>
+				<field action="import" tag="list">9000</field> 
+				<field action="import" tag="2">8009</field> 
+				<field action="replace" tag="1"><pft>mid(v9000,size(v2)+1,size(v9000))</pft></field> 
+				<field action="replace" tag="91"><pft>date</pft></field>
+				<field action="delete" tag="list">9000</field> 
+				<write>Unlock</write>
+			</update>
+		</do>
+
+		<field action="replace" tag="8010"><pft>cat('proc_langs/mkiy0_instructions.xxx')</pft></field>
+		<field action="replace" tag="8011"><pft>if v8005:'win' then '[win]' else '[linux]' fi</pft></field>
+		<field action="replace" tag="8010"><pft>mid(v8010,instr(v8010,v8011)+size(v8011),size(v8010))</pft></field>
+		<field action="replace" tag="8010"><pft>mid(v8010,1,instr(v8010,replace(v8011,'[','[/'))-1)</pft></field>
+		<field action="replace" tag="8010"><pft>replace(v8010,'MY_BASE_LANG',v9000)</pft></field>
+		<field action="replace" tag="8010"><pft>if v8005:'win' then replace(v8010,'/','\') fi</pft></field>
+
+		<display><pft>system(v8010)</pft></display>
+
+		<do task="search">
+			<parm name="db"><pft>v3001</pft></parm>
+			<parm name="expression"><pft>v3002</pft></parm>
+
+			<loop>
+				<field action="import" tag="list">350,4001,3001,8003/8004,9000,9004</field> 
+				<do task="mfnrange">
+					<parm name="db"><pft>v3001</pft></parm>
+					<parm name="from"><pft>mfn</pft></parm>
+					<parm name="count">1</parm>
+
+					<loop>
+						<field action="import" tag="list">350,4001,8003/8004,9000</field> 
+						<flow action="skip"><pft>if p(v222) then 'Next' fi</pft></flow>
+						<call name="getCommonData"><pft>if v4<>v9004 then 'yes' fi</pft></call>
+						<field action="replace" tag="9004"><pft>if v4<>v9004 then v4 fi</pft></field>
+
+						<field action="replace" tag="83" split="occ"><pft>(v83^l/)</pft></field>
+						<field action="replace" tag="40"><pft>v40</pft></field>
+						<field action="replace" tag="4799">
+							<pft>
+								replace(replace(ref(mfn-1,v799),'.HTML','.html'),'.HTM','.htm')
+							</pft>
+						</field>
+				<!--call name="getCommonData">1</call-->
+
+						<call name="getFilePathAndName"><pft>'^d'v8004,'^ttr'</pft></call>
+						<call name="checkTextLang"><pft>v4500,'^f',v4799,'^l'v40</pft></call>
+						<field action="replace" tag="601" split="occ"><pft>(v7999/)</pft></field>
+
+						<call name="getFilePathAndName"><pft>'^d'v8003,'^tpdf'</pft></call>
+						<call name="checkTextLang"><pft>v4500,'^f',v4799,</pft></call>
+						<field action="replace" tag="602" split="occ"><pft>(v7999/)</pft></field>
+
+						<call name="update"><pft>v9000</pft></call>
+
+						<field action="export" tag="list">9000/9002</field>
+					</loop>
+				</do>	
+				<field action="export" tag="list">4001,9000/9002,9004</field>
+			</loop>
+		</do>		
+		<file action="close" type="database"><pft>v9000</pft></file>
+
+		<!--do task="fullinvertion">
+			 <parm name="db"><pft>v9000</pft></parm>
+			 <parm name="fst"><pft>cat(v9000|.fst|)</pft></parm>
+			 <field action="define" tag="1102">Isis_Status</field>
+			 <display><pft>'Full invertion: ',v9000/</pft></display>
+			 <loop></loop>
+			 <display><pft>'Finished.'/</pft></display>
+			 <display><pft>'Lock status = 'v1102/</pft></display>
+		</do-->		
+		<display><pft>system(v8010)</pft></display>
+		<flow action="jump">end</flow>
+
+
+		<label>error_missing_database</label>
+		<display><pft>'Error: database ',if p(v9000) then v9000' could not be created. Check permissions.' else v3001' does not exist.' fi/</pft></display>
+		<flow action="jump">end</flow>
+
+		<label>error_missing_parameters</label>
+		<display><pft>'Example:'/</pft></display>
+		<display><pft>'../cgi-bin/wxis.exe IsisScript=proc_langs/process_texts.xis def=proc_langs/text-langs.def acron=$1 issue=$2 debug=$3'/</pft></display>
+		<display><pft>if a(v7001) then 'Missing parameter: acron'/ fi</pft></display>
+		<display><pft>if a(v3011) then
+					'Inform the def file which contains the paths information'/
+				fi</pft></display>
+
+		<flow action="jump">end</flow>
+
+		<label>error_in_def_file</label>
+		<display><pft>'Error in proc/proc_langs/text-langs.def:'/</pft></display>
+		
+		<display><pft>if a(v8001) then 'Missing TITLE. Ex.: TITLE=/home/scielo/www/bases-work/title/title'/ fi</pft></display>
+		<display><pft>if a(v8002) then 'Missing NEWISSUE. Ex.: NEWISSUE=/home/scielo/www/bases-work/newissue/newissue'/ fi</pft></display>
+		<display><pft>if a(v8003) then 'Missing PDF_PATH. Ex.: PDF_PATH=/home/scielo/www/bases/pdf/'/ fi</pft></display>
+		<display><pft>if a(v8004) then 'Missing TRANSLATION_PATH. Ex.: TRANSLATION_PATH=/home/scielo/www/bases/translation/'/ fi</pft></display>
+		<display><pft>if a(v8005) then 'Missing SO. Ex.: SO=windows'/ fi</pft></display>
+		<display><pft>if a(v8006) then 'Missing BASES-WORK_PATH. Ex.: BASES-WORK_PATH=/home/scielo/www/bases-work/'/ fi</pft></display>
+		<display><pft>if a(v8007)  or (v8007<>'lang' and v8007<>'acron/lang' and v8007<>'acron/issue/lang') then 
+		'Missing LANG_DB_NAME_FORMAT or invalid values.'/,
+		'Values accepted for rule: lang or acron/lang or acron/issue/lang'/,
+					'lang to create a database named as lang'/
+					'acron/lang to create a database named as <acron>/lang'/
+					'acron/issue/lang to create a database named as <acron>/<issue>/lang'/
+					fi</pft></display>
+		<display><pft>if a(v8008) then 
+		'Missing CONTROL_DB. Ex: /home/scielo/www/bases-work/lang/control'/,
+					fi</pft></display>
+		<display><pft>if a(v8009) then 
+		'Missing LANG_DATABASE_PATH. Ex: /home/scielo/www/bases-work/'/,
+					fi</pft></display>
+
+
+		
+		<flow action="jump">end</flow>
+
+		<label>end</label>
+	</section>
+	
+</IsisScript>

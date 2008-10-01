@@ -1,0 +1,9 @@
+SO=linux
+TITLE=/bases/scl.000/bases-work/title/title
+NEWISSUE=/bases/scl.000/bases-work/newissue/newissue
+PDF_PATH=/bases/scl.000/bases/pdf/
+TRANSLATION_PATH=/bases/scl.000/bases/translation/
+BASES-WORK_PATH=/bases/scl.000/bases-work/
+CONTROL_DB=/bases/scl.000/bases-work/lang/control
+LANG_DB_NAME_FORMAT=acron/lang
+LANG_DATABASE_PATH=/bases/scl.000/bases-work/

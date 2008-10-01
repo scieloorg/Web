@@ -1,0 +1,1 @@
+,if v50='C' then ,'./proc_langs/p/call_report_count_translation_for_journal.bat ',v9001,' ',v9003,' ',v9004,' ',v68,/, fi,
