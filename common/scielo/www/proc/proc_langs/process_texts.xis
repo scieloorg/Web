@@ -4,8 +4,9 @@
 
 	<function name="invert" action="replace" tag="9000">
 		<field action="import" tag="list">8010</field> 
+		<field action="statusfile" tag="5003"><pft>v9000|.iy0|</pft></field>
 
-		<file action="delete" type="file"><pft>v9000|.iy0|</pft></field>
+		<file action="delete" type="file"><pft>if v5003^s : 'e' then v9000|.iy0| fi</pft></file>
 		<display><pft>system(v8010[2])</pft></display>
 
 		<do task="search">
@@ -17,16 +18,15 @@
 				<field action="import" tag="list">8010</field> 
 				<display><pft>system(v8010[3])</pft></display>
 				<display><pft>system(v8010[4])</pft></display>
-			<loop>
+			</loop>
 		</do>
-		<display><pft>system(v8010[2])</pft></display>
 
 
 	</function>
 	<function name="getCommonData" action="replace" tag="4000" split="occ">
 		<field action="import" tag="list">880</field> 
-		<call name="getTitleData">1</field>
-		<call name="getIssueData">1</field>
+		<call name="getTitleData">1</call>
+		<call name="getIssueData">1</call>
 		<field action="export" tag="list">350,4001</field>
 		
 	</function>
@@ -190,7 +190,7 @@
 		<flow action="jump">
 			<pft>if v1091^s : 'm' then 'create_database_end' fi</pft>
 		</flow>
-		<field action="import" tag="list">9001/9002</pft></field>
+		<field action="import" tag="list">9001/9002</field>
 	
 		<field action="replace" tag="4002"><pft>|mkdir |v8009/,|mkdir |v9001/,|mkdir |v9002/</pft></field>
 		<field action="replace" tag="4002"><pft>if v8005:'win' then replace(replace(v4002,'/','\'),'mkdir','md') fi</pft></field>
@@ -369,7 +369,7 @@
 
 
 
-		<call name="getTitleData">1</field>
+		<call name="getTitleData">1</call>
 
 		<do task="search">
 			<parm name="db"><pft>v3001</pft></parm>
@@ -391,7 +391,7 @@
 						<field action="import" tag="list">9880</field> 
 						<field action="import" tag="list">8003/8004,9000</field> 
 
-						<call name="getIssueData"><pft>if v9880<>v880*1.17 then '1' fi</pft></field>
+						<call name="getIssueData"><pft>if v9880<>v880*1.17 then '1' fi</pft></call>
 						<field action="replace" tag="9880"><pft>if v9880<>v880*1.17 then v880*1.17 fi</pft></field>
 
 						<field action="replace" tag="83" split="occ"><pft>(v83^l/)</pft></field>
@@ -428,7 +428,7 @@
 			 <display><pft>'Finished.'/</pft></display>
 			 <display><pft>'Lock status = 'v1102/</pft></display>
 		</do-->		
-		<call name="invert"><pft>v9000</pft></field>
+		<call name="invert"><pft>v9000</pft></call>
 		<flow action="jump">end</flow>
 
 
