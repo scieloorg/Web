@@ -23,5 +23,3 @@ more proc_langs/temp_GeraIfmerge.bat
 echo end
 call proc_langs/temp_GeraIfmerge.bat
 
-
-

@@ -1,7 +1,37 @@
+
 <IsisScript name="process_languages">
 	<!--include>ScieloXML/sci_common.xis</include-->	
 
+	<function name="invert" action="replace" tag="9000">
+		<field action="import" tag="list">8010</field> 
+
+		<file action="delete" type="file"><pft>v9000|.iy0|</pft></field>
+		<display><pft>system(v8010[2])</pft></display>
+
+		<do task="search">
+			<parm name="db"><pft>v9000</pft></parm>
+			<parm name="expression">$</parm>
+			<parm name="count">1</parm>
+
+			<loop>
+				<field action="import" tag="list">8010</field> 
+				<display><pft>system(v8010[3])</pft></display>
+				<display><pft>system(v8010[4])</pft></display>
+			<loop>
+		</do>
+		<display><pft>system(v8010[2])</pft></display>
+
+
+	</function>
 	<function name="getCommonData" action="replace" tag="4000" split="occ">
+		<field action="import" tag="list">880</field> 
+		<call name="getTitleData">1</field>
+		<call name="getIssueData">1</field>
+		<field action="export" tag="list">350,4001</field>
+		
+	</function>
+	
+	<function name="getTitleData" action="replace" tag="4000" split="occ">
 		<!-- 4000 = 'yes' -->
 		<field action="import" tag="list">880</field> 
 
@@ -14,6 +44,16 @@
 			</pft>
 		</field>
 
+
+		<field action="export" tag="list">68,350</field>
+		
+	</function>
+	
+	<function name="getIssueData" action="replace" tag="4000" split="occ">
+		<!-- 4000 = 'yes' -->
+		<field action="import" tag="list">68,880</field> 
+
+		
 		<!-- Gets the volumn number, issue number and supplement number -->
 		<field action="replace" tag="4003">
 			<pft>
@@ -28,7 +68,7 @@
 			</pft>
 		</field>
 
-		<field action="export" tag="list">350,4001</field>
+		<field action="export" tag="list">4001,4003</field>
 		
 	</function>
 	
@@ -140,6 +180,7 @@
 				<write>Unlock</write>
 			</update>
 		</do>
+		<file action="close" type="database"><pft>v4000</pft></file>
 	</function>
 	
 	<function name="create_database" action="replace" tag="4000" split="occ">
@@ -230,7 +271,7 @@
 
 		<field action="cgi" tag="3010">debug</field>
 		<field action="cgi" tag="3011">def</field>
-		<trace><pft>if p(v3010) then 'On' fi</pft></trace>
+		<trace><pft>v3010</pft></trace>
 
 		<flow action="jump">
 			<pft>
@@ -257,7 +298,7 @@
 						case 'SO': 'a8005{',mid(v8000,instr(v8000, '=')+1,size(v8000)),'{',
 						case 'BASES-WORK_PATH': 'a8006{',mid(v8000,instr(v8000, '=')+1,size(v8000)),'{',
 						case 'LANG_DB_NAME_FORMAT': 'a8007{',mid(v8000,instr(v8000, '=')+1,size(v8000)),'{',
-						case 'CONTROL_DB': 'a8008{',mid(v8000,instr(v8000, '=')+1,size(v8000)),'{',
+						case 'CTRL': 'a8008{',mid(v8000,instr(v8000, '=')+1,size(v8000)),'{',
 						case 'LANG_DATABASE_PATH': 'a8009{',mid(v8000,instr(v8000, '=')+1,size(v8000)),'{',
 					endsel
 				fi
@@ -326,34 +367,40 @@
 		<field action="replace" tag="8010"><pft>replace(v8010,'MY_BASE_LANG',v9000)</pft></field>
 		<field action="replace" tag="8010"><pft>if v8005:'win' then replace(v8010,'/','\') fi</pft></field>
 
-		<display><pft>system(v8010)</pft></display>
+
+
+		<call name="getTitleData">1</field>
 
 		<do task="search">
 			<parm name="db"><pft>v3001</pft></parm>
 			<parm name="expression"><pft>v3002</pft></parm>
 
 			<loop>
-				<field action="import" tag="list">350,4001,3001,8003/8004,9000,9004</field> 
+				<field action="import" tag="list">68,350</field> 
+				<field action="import" tag="list">3001,8003/8004,9000</field> 
+
 				<do task="mfnrange">
 					<parm name="db"><pft>v3001</pft></parm>
 					<parm name="from"><pft>mfn</pft></parm>
 					<parm name="count">1</parm>
 
 					<loop>
-						<field action="import" tag="list">350,4001,8003/8004,9000</field> 
 						<flow action="skip"><pft>if p(v222) then 'Next' fi</pft></flow>
-						<call name="getCommonData"><pft>if v4<>v9004 then 'yes' fi</pft></call>
-						<field action="replace" tag="9004"><pft>if v4<>v9004 then v4 fi</pft></field>
+
+						<field action="import" tag="list">350</field> 
+						<field action="import" tag="list">9880</field> 
+						<field action="import" tag="list">8003/8004,9000</field> 
+
+						<call name="getIssueData"><pft>if v9880<>v880*1.17 then '1' fi</pft></field>
+						<field action="replace" tag="9880"><pft>if v9880<>v880*1.17 then v880*1.17 fi</pft></field>
 
 						<field action="replace" tag="83" split="occ"><pft>(v83^l/)</pft></field>
-						<field action="replace" tag="40"><pft>v40</pft></field>
 						<field action="replace" tag="4799">
 							<pft>
 								replace(replace(ref(mfn-1,v799),'.HTML','.html'),'.HTM','.htm')
 							</pft>
 						</field>
 				<!--call name="getCommonData">1</call-->
-
 						<call name="getFilePathAndName"><pft>'^d'v8004,'^ttr'</pft></call>
 						<call name="checkTextLang"><pft>v4500,'^f',v4799,'^l'v40</pft></call>
 						<field action="replace" tag="601" split="occ"><pft>(v7999/)</pft></field>
@@ -364,13 +411,13 @@
 
 						<call name="update"><pft>v9000</pft></call>
 
-						<field action="export" tag="list">9000/9002</field>
+						<field action="export" tag="list">9880</field>
 					</loop>
 				</do>	
-				<field action="export" tag="list">4001,9000/9002,9004</field>
+				
 			</loop>
 		</do>		
-		<file action="close" type="database"><pft>v9000</pft></file>
+		
 
 		<!--do task="fullinvertion">
 			 <parm name="db"><pft>v9000</pft></parm>
@@ -381,7 +428,7 @@
 			 <display><pft>'Finished.'/</pft></display>
 			 <display><pft>'Lock status = 'v1102/</pft></display>
 		</do-->		
-		<display><pft>system(v8010)</pft></display>
+		<call name="invert"><pft>v9000</pft></field>
 		<flow action="jump">end</flow>
 
 

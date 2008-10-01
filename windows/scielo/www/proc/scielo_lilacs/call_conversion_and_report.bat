@@ -1,1 +1,1 @@
-scielo_lilacs\conversion\convert_and_report.bat v:\scielo\serial\scilista.lst 20080100 log\scielo_lilacs.log On log\scielo_lilacs_quantity.txt log\scielo_lilacs_errors.txt ..\htdocs\scielo_lilacs_errors.htm
+call scielo_lilacs\conversion\convert_and_report.bat v:\scielo\serial\scilista.lst 20080100 log\scielo_lilacs.log On log\scielo_lilacs_quantity.txt log\scielo_lilacs_errors.txt ..\htdocs\scielo_lilacs_errors.htm
