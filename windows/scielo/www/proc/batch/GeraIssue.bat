@@ -43,3 +43,4 @@ if "%4" == "del" goto NADA_PARA_APPENDAR
 :NADA_PARA_APPENDAR
 
 call batch\GeraIso.bat %1\serial\%2\%3\base\%3 %1\serial\%2\%3\base\%2%3.iso
+call batch\GeraInvertido.bat %REVISTA% fst\Fasciculo.fst %REVISTA%
