@@ -257,7 +257,7 @@
 <!--  returns nothing.                                                            -->
 <!-- ============================================================================ -->
 <function name="GetNextIssue" action="replace" tag="4900">
-	<field action="import" tag="list">7049/7050</field>
+	<field action="import" tag="list">7049/7060</field>
 	<!--display><pft>'v4900 = ',v4900,'<br>'</pft></display-->
 	<!--display><pft>ALL</pft></display-->
 	<field action="import" tag="3900">3900</field>
@@ -598,7 +598,7 @@
 <!--	    'ABS' navigation in the articles (Abstract)                           -->
 <!-- ============================================================================ -->
 <function name="CreateControlInfoXML" action="replace" tag="4900">
-	<field action="import" tag="list">7000/7050</field> <!-- fixed -->
+	<field action="import" tag="list">7000/7051</field> <!-- fixed -->
 	<field action="import" tag="list">3311</field> 
 	<call name="checkNewHome"><pft>if p(v7047) and p(v3311) then '^u'v7047,'^r',v3311,'^l',v4900^l fi</pft></call>
 	<field action="replace" tag="7047">
@@ -629,7 +629,7 @@
 					,v7047, 
 		'</NEW_HOME>'/,
 		fi
-		
+		|<LICENSE>|v7051|</LICENSE>|
 	</pft></display>
 	
 	<call name="CreatePathControlInfoXML">Now</call>
@@ -693,7 +693,7 @@
 	<display><pft>' </CONTROLINFO>'/#</pft></display>
 	
 
-	<call name="getCreativeCommonsInfo"><pft>'^f',v4900^l,'_',v4900^f,|^p|v4900^p,'^s',v7009</pft></call>
+	<call name="getCreativeCommonsInfo"><pft>if v7051='cc' then '^f',v4900^l,'_',v4900^f,|^p|v4900^p,'^s',v7009 fi</pft></call>
 </function>
 
 <!-- ============================================================================ -->
@@ -762,7 +762,7 @@
 <!-- ============================================================================ -->
 <function name="CreatePreviousNextIssue" action="replace" tag="4900">
 	<field action="delete" tag="list">7085,7090,7095</field>
-	<field action="import" tag="list">7049/7050</field>
+	<field action="import" tag="list">7049/7060</field>
 
 	<call name="GetNotPrintedIssues"><pft>mid(v4900,1,9)</pft></call>
 
@@ -956,7 +956,7 @@
 <!--  returns nothing.                                                            -->
 <!-- ============================================================================ -->
 <function name="GetNextYEAR" action="replace" tag="4900">
-	<field action="import" tag="list">7049/7050</field>
+	<field action="import" tag="list">7049/7060</field>
 	<!--display><pft>'v4900 = ',v4900,'<br>'</pft></display-->
 	<!--display><pft>ALL</pft></display-->
 	<field action="import" tag="3900">3900</field>
@@ -1062,7 +1062,7 @@
 <!-- ============================================================================ -->
 <function name="CreatePreviousNextYear" action="replace" tag="4900">
 	<field action="delete" tag="list">7085,7090,7095</field>
-	<field action="import" tag="list">7049/7050</field>
+	<field action="import" tag="list">7049/7060</field>
 
 	<call name="GetNotPrintedIssues"><pft>mid(v4900,1,9)</pft></call>
 
@@ -1284,7 +1284,7 @@
 </function>
 
 <function name="CreatePathControlInfoXML" action="replace" tag="4900">
-	<field action="import" tag="list">7009/7050</field> <!-- fixed -->
+	<field action="import" tag="list">7009/7060</field> <!-- fixed -->
 
 	<display>
 		<pft>
@@ -1919,7 +1919,7 @@
 	 <!-- Try to get the information needed to assemble the url (host name, domain, 
 	 	  path, ...) -->
   <!-- fixed 20041118 -->
-	<field action="import" tag="list">4040,7009/7050</field> <!-- fixed -->
+	<field action="import" tag="list">4040,7009/7060</field> <!-- fixed -->
 
 	 <!-- Try to get the information needed to assemble the url (host name, domain, 
 	 	  path, ...) -->
@@ -2043,7 +2043,7 @@
 <function name="TestPDFPresence" action="replace" tag="4900">
 <!-- If there is a pdf then generate the attribute pdf="1"
      4900 - pid -->
-	<field action="import" tag="list">40,7009/7050</field>
+	<field action="import" tag="list">40,7009/7060</field>
 
 	<!-- Get the url of the pdf file -->
 	<!-- fixed 20040622 -->
@@ -2097,7 +2097,7 @@
    <flow action="jump"><pft>if p(v966) then 'DO_NOT_CHECK_FILE_SYSTEM' fi</pft></flow>
    <!-- Try to get the information needed to assemble the url (host name, domain, 
 	 	  path, ...) -->
-	<field action="import" tag="list">7009/7050</field>
+	<field action="import" tag="list">7009/7060</field>
 	
 	<!-- Get the lowercase siglum of the serial -->
 	<field action="replace" tag="9000">
@@ -2246,7 +2246,7 @@
    <field action="replace" tag="4900"><pft>v4901[1]</pft></field>
    <!-- Try to get the information needed to assemble the url (host name, domain, 
 	 	  path, ...) -->
-	<field action="import" tag="list">7009/7050</field>
+	<field action="import" tag="list">7009/7060</field>
 	
 	<!-- Get the lowercase siglum of the serial -->
 	<field action="replace" tag="9000">
@@ -2587,7 +2587,7 @@
 	 ^l - Interface Language 
 	 ^p - Parameters -->
 
-  <field action="import" tag="list">7008/7050</field> <!-- fixed -->
+  <field action="import" tag="list">7008/7060</field> <!-- fixed -->
 
   <display>
    <pft>
@@ -2875,7 +2875,7 @@
 	4001^i - International Language 
     4001^t - txt language-->
 
-  <field action="import" tag="list">7009/7050</field>  <!--fixed-->
+  <field action="import" tag="list">7009/7060</field>  <!--fixed-->
 	<!-- fixed 20040910 todo o trechp inserindo a funcao PROC_SPLIT_MST_range e substituindo os ref e lookups -->
 
   <field action="replace" tag="264" split="occ"><pft>ref(['ARTIGO']val(v4001^m),@PROC_SPLIT_MST.PFT,v264)</pft></field>

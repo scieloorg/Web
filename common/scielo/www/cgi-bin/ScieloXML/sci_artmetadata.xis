@@ -72,7 +72,7 @@
 		<parm name="count">1</parm>
 			
 		<loop>
-            <field action="import" tag="list">7009/7050</field>
+            <field action="import" tag="list">7009/7060</field>
             <field action="replace" tag="3006"><pft>f(mfn,1,0)</pft></field>
             <display><pft>@PROC_SPLIT_MST.PFT,</pft></display>
 			<call name="showText"><pft>v264</pft></call>

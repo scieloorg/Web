@@ -182,6 +182,50 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 		</FONT>
 		<br/>
 	</xsl:template>
+	<xsl:template match="COPYRIGHT">
+		<font class="normal">&#169;&#160;</font>
+		<!--span>
+			<img src="http://creativecommons.org/images/public/somerights20.png"/>&#160;
+		</span-->
+		<FONT color="#000080" class="negrito">
+			<I>
+				<xsl:value-of select="@YEAR"/>&#160;
+    <xsl:value-of select="." disable-output-escaping="yes"/>
+				<br/>
+			</I>
+		</FONT>
+		<br/>
+	</xsl:template>
+	<xsl:template match="COPYRIGHT">
+		<xsl:choose>
+			<xsl:when test="../..//LICENSE='cc'">
+				<xsl:apply-templates select="../." mode="license"/>
+				<span>
+					<img src="http://creativecommons.org/images/public/somerights20.png"/>&#160;
+				</span>
+				<FONT color="#000080" class="negrito">
+					<I>
+						&#160;
+    						<xsl:value-of select="." disable-output-escaping="yes"/>
+						<br/>
+					</I>
+				</FONT>
+				<br/>
+
+			</xsl:when>
+			<xsl:otherwise>
+				<font class="normal">&#169;&#160;</font>
+				<FONT color="#000080" class="negrito">
+					<I>
+						<xsl:value-of select="@YEAR"/>&#160;
+    						<xsl:value-of select="." disable-output-escaping="yes"/>
+						<br/>
+					</I>
+				</FONT>
+				<br/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
 	<!-- Shows contact information -->
 	<xsl:template match="CONTACT">
 		<xsl:apply-templates select="LINES"/>

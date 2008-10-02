@@ -71,6 +71,7 @@
 						 case 'NAVEGATION_TYPE'                  : 'h17048',
                         case 'BEFOREPRINT_ISSUES'                  : 'h17049',
                         case 'BEFOREPRINT_ISSUETOC'                  : 'h17050',
+                        case 'LICENSE'                  : 'h17051',
 						
 						elsecase 'h4903'
 					endsel

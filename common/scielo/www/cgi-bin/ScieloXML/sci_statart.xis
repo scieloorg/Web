@@ -12,7 +12,7 @@
 	 4001^l - Interface Language 
 	 4001^i - Default Interface Language --> 
 
- <field action="import" tag="list">7009/7050</field> <!-- fixed -->
+ <field action="import" tag="list">7009/7060</field> <!-- fixed -->
  <display><pft>'<ARTICLE_LIST>'/</pft></display>
  
  <flow action="jump"><pft> if a(v4001^r) then 'NO_REQUESTS' fi</pft></flow>

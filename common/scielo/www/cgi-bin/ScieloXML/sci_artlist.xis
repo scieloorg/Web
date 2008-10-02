@@ -17,7 +17,7 @@
 	 4001^i - International Language 
 	 4001^s - Issue MFN -->
   <display><pft>'<!-- aqui comeca -->'</pft></display>
-  <field action="import" tag="list">7009/7050</field> <!--fixed-->
+  <field action="import" tag="list">7009/7060</field> <!--fixed-->
 
   <field action="replace" tag="5000"><pft>'SM_',
 		if p(v4001^r) then
@@ -184,7 +184,7 @@
 	 4001^i - International Language 
 	 4001^s - Issue MFN -->
   <display><pft>'<!-- aqui comeca -->'</pft></display>
-  <field action="import" tag="list">7009/7050</field> <!--fixed-->
+  <field action="import" tag="list">7009/7060</field> <!--fixed-->
 
   <field action="replace" tag="5000"><pft>'SM_',
 		if p(v4001^r) then

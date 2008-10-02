@@ -16,7 +16,7 @@
 	 4001^i - International Language 
 	 4001^s - Issue MFN -->
 <display><pft>'<!-- aqui comeca -->'</pft></display>
-  <field action="import" tag="list">7009/7050</field> <!--fixed-->
+  <field action="import" tag="list">7009/7060</field> <!--fixed-->
   <call name="translateSectionName"><pft>if p(v4001^x) then '^l',v4001^l,'^s',v4001^x fi</pft></call>
   <do task="keyrange">
    <parm name="db">ARTIGO</parm>
@@ -33,7 +33,7 @@
   
    <loop>
    <!-- 2000 - Section Code -->
-    <field action="import" tag="list">2000,4001,7009/7050</field> <!--fixed-->
+    <field action="import" tag="list">2000,4001,7009/7060</field> <!--fixed-->
     <field action="import" tag="list">5010</field> <!--fixed-->
 	<field action="replace" tag="1005"><pft>f(val(v1003^m)+1,1,0)</pft></field>
 	<flow action="skip">
@@ -138,7 +138,7 @@
 	 4001^l - Interface Language 
 	 4001^i - International Language 
 	 4001^s - Issue MFN --> 
- <field action="import" tag="list">7009/7050</field> <!--fixed-->
+ <field action="import" tag="list">7009/7060</field> <!--fixed-->
 
  <call name="GetNotPrintedIssues"><pft>v4001^p*0.9</pft></call>
  <field action="replace" tag="5001" split="occ"><pft>(if p(v3900^f) then v3900/ fi)</pft></field>

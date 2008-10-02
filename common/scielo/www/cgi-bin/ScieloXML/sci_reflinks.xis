@@ -64,7 +64,7 @@ IsisScript que gera o XML Para a tela de links da referencia bibliografica
 		<!-- fim - importa dados do pubmed -->
 
 		<flow action="skip"><pft>if a(v2) and a(v3) and a(v4) and a(v350) and a(v881)  and a(v999) then 'Quit' fi</pft></flow>
- 	 <field action="import" tag="list">3002,3000,7009/7050</field>
+ 	 <field action="import" tag="list">3002,3000,7009/7060</field>
 
 		<field action="add" tag="9999" split="occ"><pft>
           (if v999^u<>'' then '<a href="',v999^u,'">',v999^l,'</a>'/ fi)
