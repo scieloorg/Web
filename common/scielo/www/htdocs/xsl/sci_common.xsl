@@ -167,35 +167,7 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 		</CENTER>
 	</xsl:template>
 	<!-- Shows copyright information -->
-	<xsl:template match="COPYRIGHT">
-		<xsl:apply-templates select="../." mode="license"/>
-		<!--font class="normal">&#169;&#160;</font-->
-		<span>
-			<img src="http://creativecommons.org/images/public/somerights20.png"/>&#160;
-		</span>
-		<FONT color="#000080" class="negrito">
-			<I>
-				<!--xsl:value-of select="@YEAR"/-->&#160;
-    <xsl:value-of select="." disable-output-escaping="yes"/>
-				<br/>
-			</I>
-		</FONT>
-		<br/>
-	</xsl:template>
-	<xsl:template match="COPYRIGHT">
-		<font class="normal">&#169;&#160;</font>
-		<!--span>
-			<img src="http://creativecommons.org/images/public/somerights20.png"/>&#160;
-		</span-->
-		<FONT color="#000080" class="negrito">
-			<I>
-				<xsl:value-of select="@YEAR"/>&#160;
-    <xsl:value-of select="." disable-output-escaping="yes"/>
-				<br/>
-			</I>
-		</FONT>
-		<br/>
-	</xsl:template>
+	
 	<xsl:template match="COPYRIGHT">
 		<xsl:choose>
 			<xsl:when test="../..//LICENSE='cc'">
