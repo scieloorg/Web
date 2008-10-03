@@ -50,14 +50,27 @@
 						<xsl:if test="$show_toolbox = 1">
 							<xsl:call-template name="tool_box"/>
 						</xsl:if>
-						<h2>
-							<xsl:value-of select="TITLEGROUP/TITLE" disable-output-escaping="yes"/>
-						</h2>
-						<h2 id="printISSN">
-							<xsl:apply-templates select=".//ISSN">
-								<xsl:with-param name="LANG" select="normalize-space(CONTROLINFO/LANGUAGE)"/>
-							</xsl:apply-templates>
-						</h2>
+						<xsl:choose>
+							<xsl:when test="//NO_SCI_SERIAL='yes'">
+								<h2 id="printISSN">
+									<xsl:choose>
+										<xsl:when test="//CONTROLINFO/LANGUAGE='pt'">versão original publicada em</xsl:when>
+										<xsl:when test="//CONTROLINFO/LANGUAGE='en'">original version published in</xsl:when>
+										<xsl:when test="//CONTROLINFO/LANGUAGE='es'">versión original publicada en</xsl:when>
+									</xsl:choose>
+								</h2>
+							</xsl:when>
+							<xsl:otherwise>
+								<h2>
+									<xsl:value-of select="TITLEGROUP/TITLE" disable-output-escaping="yes"/>
+								</h2>
+								<h2 id="printISSN">
+									<xsl:apply-templates select=".//ISSN">
+										<xsl:with-param name="LANG" select="normalize-space(CONTROLINFO/LANGUAGE)"/>
+									</xsl:apply-templates>
+								</h2>
+							</xsl:otherwise>
+						</xsl:choose>
 						<h3>
 							<xsl:if test="TITLEGROUP/SIGLUM != 'bjmbr' ">
 								<xsl:apply-templates select="ISSUE/STRIP"/>
