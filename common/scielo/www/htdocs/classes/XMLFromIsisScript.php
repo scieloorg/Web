@@ -14,13 +14,23 @@ class XMLFromIsisScript {
 	function getXml(){
 		$this->_xml = $this->fixUtfEntities($this->_xml); // 200603
 		$this->_xml= $this->replaceThisByContent($this->_xml); // 200603
+
+		$p = strpos($this->_xml,'<BODY>');
+		$p2 = strpos($this->_xml,'</BODY>');
+
+		$body = substr($this->_xml,$p,$p2-$p+1);
+		$xbody = $body;
 		if (count($this->_labels)>0 && strlen($this->_pdfLink)>0 ){
 			foreach ($this->_labels as $l){
                 if (count($this->_labels)>0 && strlen($this->_pdfLink)>0 ){
 					$expr = str_replace(' ','[ ]+',$l);
-					$this->_xml = ereg_replace($expr, '<a href="'.$this->_pdfLink.'">'.$l.'</a>', $this->_xml);
+					$expr = str_replace('disponível','[a-z&;]+',$expr);
+					$xbody = ereg_replace($expr, '<a href="'.$this->_pdfLink.'">'.$l.'</a>', $xbody);
 				}
 			}
+		}
+		if ($xbody!=$body){
+			$this->_xml = substr($this->_xml,0,$p).$xbody.substr($this->_xml,$p2+1);
 		}
 		return $this->_xml;
 	}
