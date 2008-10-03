@@ -2,12 +2,26 @@
 
 class XMLFromIsisScript {
 	var $_xml;
+	
+
 	function XMLFromIsisScript($xml){
 		$this->_xml = $xml;
+	}
+	function setPdfLink($pdfLink, $label){
+		$this->_pdfLink = $pdfLink;
+		$this->_labels = explode(';',$label);
 	}
 	function getXml(){
 		$this->_xml = $this->fixUtfEntities($this->_xml); // 200603
 		$this->_xml= $this->replaceThisByContent($this->_xml); // 200603
+		if (count($this->_labels)>0 && strlen($this->_pdfLink)>0 ){
+			foreach ($this->_labels as $l){
+                if (count($this->_labels)>0 && strlen($this->_pdfLink)>0 ){
+					$expr = str_replace(' ','[ ]+',$l);
+					$this->_xml = ereg_replace($expr, '<a href="'.$this->_pdfLink.'">'.$l.'</a>', $this->_xml);
+				}
+			}
+		}
 		return $this->_xml;
 	}
 	function getSpecialXSL(){

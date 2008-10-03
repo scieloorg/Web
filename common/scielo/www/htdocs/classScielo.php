@@ -124,6 +124,9 @@ class Scielo extends ScieloBase
 
 			require_once("classes/XMLFromIsisScript.php");
 			$xmlIsisScript = new XMLFromIsisScript($xmlFromIsisScript);
+			if ($this->_script == 'sci_arttext'  && strlen($this->_def->getKeyValue("REPLACE_TEXT_BY_PDF_LINK"))>0){
+				$xmlIsisScript->setPdfLink(str_replace('sci_arttext','sci_pdf',"http://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']),$this->_def->getKeyValue("REPLACE_TEXT_BY_PDF_LINK"));
+			}
 			$xmlFromIsisScript = $xmlIsisScript->getXml();
 			$this->_special_xsl = $xmlIsisScript->getSpecialXSL();
 		}
