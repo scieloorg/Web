@@ -1,4 +1,4 @@
-i<?
+<?
 //consulta a instancia para pegar o COOKIE se jah logado
 //ini_set("display_errors","1");
 //error_reporting(E_ALL);
