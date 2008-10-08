@@ -121,6 +121,7 @@ show_article_references=1
 show_comments=0
 show_scimago=1
 show_article_wltranslation=1
+show_semantic_hl=0
 
 [FULLTEXT_SERVICES]
 access="http://www.scielo.br/applications/scielo-org/pages/services/articleRequestGraphicPage.php?pid=PARAM_PID&caller=PARAM_SERVER"

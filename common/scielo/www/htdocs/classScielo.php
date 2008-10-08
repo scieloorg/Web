@@ -124,9 +124,6 @@ class Scielo extends ScieloBase
 
 			require_once("classes/XMLFromIsisScript.php");
 			$xmlIsisScript = new XMLFromIsisScript($xmlFromIsisScript);
-			if ($this->_script == 'sci_arttext'  && strlen($this->_def->getKeyValue("REPLACE_TEXT_BY_PDF_LINK"))>0){
-				$xmlIsisScript->setPdfLink(str_replace('sci_arttext','sci_pdf',"http://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']),$this->_def->getKeyValue("REPLACE_TEXT_BY_PDF_LINK"));
-			}
 			$xmlFromIsisScript = $xmlIsisScript->getXml();
 			$this->_special_xsl = $xmlIsisScript->getSpecialXSL();
 		}
@@ -174,7 +171,9 @@ class Scielo extends ScieloBase
 				"SCRIPT_ARTICLES_PER_MONTH" => "SCRIPT_ARTICLES_PER_MONTH",
 				//Habilita ou n�o o log dos servicos
 				"services_log" => "ENABLE_SERVICES_LOG",
-				"show_scimago" => "show_scimago"
+				"show_scimago" => "show_scimago",
+                                "show_semantic_hl" => "show_semantic_hl"
+
 			);
 				//die($commentCount);
 
