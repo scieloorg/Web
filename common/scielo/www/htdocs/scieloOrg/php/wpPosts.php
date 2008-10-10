@@ -135,7 +135,7 @@
 PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
 		<script language="javascript" src="../js/validate.js"></script>
 		<link rel="stylesheet" href="/applications/scielo-org/css/public/style-<?=$lang?>.css" type="text/css" media="screen"/>
 	</head>
@@ -199,7 +199,7 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD
 
 							$serviceUrl =  $guidUrl."feed/";
 							$xmlFile = file_get_contents($serviceUrl);
-							$xml = '<?xml version="1.0" encoding="utf-8"?>';
+							$xml = '<?xml version="1.0" encoding="UTF-8"?>';
 							$xml .='<root>';
 							$xml .='<vars><lang>'.$lang.'</lang><applserver>'. $wordpress .'</applserver><service_log>'.$flagLog.'</service_log></vars>';
 							$xml .= str_replace('<?xml version="1.0" encoding="UTF-8"?><!-- generator="wordpress/2.3.1" -->','',$xmlFile);
