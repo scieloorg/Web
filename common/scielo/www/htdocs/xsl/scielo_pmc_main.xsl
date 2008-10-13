@@ -14,6 +14,7 @@
 				<xsl:value-of select="//PATH_SERIMG"/>
 				<xsl:value-of select="//SIGLUM"/>/<xsl:if test="//ISSUE/@VOL">v<xsl:value-of select="//ISSUE/@VOL"/>
 				</xsl:if>
+				<xsl:if test="//ISSUE/@NUM='AHEAD' or //ISSUE/@NUM='ahead'"><xsl:value-of select="substring(//ISSUE/@PUBDATE,1,4)"/></xsl:if>
 				<xsl:if test="//ISSUE/@NUM">n<xsl:value-of select="//ISSUE/@NUM"/>
 				</xsl:if>
 				<xsl:if test="//ISSUE/@SUPPL">s<xsl:value-of select="//ISSUE/@SUPPL"/>
