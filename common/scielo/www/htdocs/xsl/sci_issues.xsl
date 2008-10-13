@@ -48,9 +48,11 @@
 						</xsl:apply-templates>
 					</FONT>
 				</CENTER>
-				<br/>
+				<!--br/-->
 				<div class="content">
-					<TABLE width="100%" border="0">
+				<xsl:apply-templates select="." mode="journal-info"/>
+
+					<!--TABLE width="100%" border="0">
 						<TBODY>
 							<tr>
 								<td>&#160;</td>
@@ -60,7 +62,7 @@
 								</td>
 							</tr>
 						</TBODY>
-					</TABLE>
+					</TABLE-->
 					<br/>
 					<xsl:apply-templates select="//AVAILISSUES"/>
 				</div>
