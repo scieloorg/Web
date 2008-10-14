@@ -41,7 +41,7 @@
          <field action="replace" tag="64"><pft>if p(v64) then replace(v64^m,'/','-')," "v64^a fi</pft></field>
 
          <field action="replace" tag="52" split="occ"><pft>(v52^*,|. |v52^d/)</pft></field>
-         <field action="replace" tag="53" split="occ"><pft>(v53^*,", "v53^n/)</pft></field>
+         <field action="replace" tag="53" split="occ"><pft>(v53^*,|, |v53^n/)</pft></field>
          <field action="replace" tag="54" split="occ"><pft>(v54^*/)</pft></field>
          <field action="replace" tag="55" split="occ"><pft>(v55^*/)</pft></field>
          <field action="replace" tag="56" split="occ"><pft>(if v56.1<>'^' then v56^*/ fi)</pft></field>
@@ -83,12 +83,12 @@
 			 
              <field action="replace" tag="100">
                <pft>
-				if p(v10^1) then
+				if p(v10^1[1]) then
 				   (if s(v70^i)=s(if v10^1[1]:' ' then left(v10^1[1],size(v10^1[1])-(size(v10^1[1])-instr(v10^1[1],' '))-1) else v10^1[1] fi)  
                        then v10^s[1],|, |v10^n[1],|^1|v70^1,|^2|v70^2,|^3|v70^3,|^c|v70^c,|^p|v70^p  break 
                    fi)					
 				else
-					if p(v10) then v10^s,|, |v10^n,'^1s.af' fi
+					if p(v10[1]) then v10^s[1],|, |v10^n[1],'^1s.af' fi
 				fi
                </pft>
              </field>

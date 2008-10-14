@@ -9,7 +9,7 @@ proc('d9040d70d9012d10',
 proc(
 'd882d936d1d2d4d5d6d8d50d51',
 	'd10d12',
-	'd32d38'
+	'd30d32d38'
 	'd40d42d44d45d46d47',
 	'd49',
 	'd52d53d54d55d56d57d58d59',
@@ -20,7 +20,7 @@ proc(
 	'd262d264d265d268',
 	'd700d701d702d703d704d705d706d707d708d709d770',
 
-	,'a1{',if v1='br1.1' then 'BR1.1' fi,'{',
+	,'a1{',if v1='br1.1' or v1='bjmbr' then 'BR1.1' fi,'{',
 	,'a2{',v880,'{',
 	,'a4{LILACS{',
 	,'a4{LILACSEXPRESS{',
@@ -63,7 +63,7 @@ proc(
 	else
 		('a10{',v10,'{')
 	fi
-
+	,'a30{',ref(['LILTITLE']l(['LILTITLE']v35),v150),'{',
 	,('a38{',if p(v38) then '^b' fi,if instr(v38,'graf')=0 then replace(v38,'gra','graf') else v38 fi,'{'),
 	,('a40{',mpu,v8^l*0.1,mpl,v8^l*1,'{'),
 	
@@ -86,7 +86,7 @@ proc(
 		,fi
 	,fi
 
-	,'a64{',replace(v64^m,'/','-'),' 'v64^a,'{',
+	if p(v64) then ,'a64{',replace(v64^m,'/','-'),' 'v64^a,'{', fi
 
 	
 

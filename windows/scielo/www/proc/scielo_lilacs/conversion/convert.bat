@@ -12,14 +12,14 @@ if not exist %scilista% goto FAILURE
 	%mx% %title% lw=9999 "pft=if instr(v450,'LILACS')>0 or l(['%liltitle%']v400)>0 then v400,' ',v100/ fi" now>> %report%
 	
 	%mx% null count=0 create=%myissue% now -all
-	%mx% $issue lw=9999 "proc=if l(['%liltitle%']v35)>0 and instr(v32,'ahead')=0 and instr(v32,'review')=0 then 'a91{',date,'{' else 'd*' fi" append=%myissue% now -all
+	%mx% %issue% lw=9999 "proc=if l(['%liltitle%']v35)>0 and instr(v32,'ahead')=0 and instr(v32,'review')=0 then 'a91{',date,'{' else 'd*' fi" append=%myissue% now -all
 	%mx% %myissue% "fst=@scielo_lilacs\conversion\fst\myissue.fst" fullinv=%myissue%
 
 
-	scielo_lilacs\tools\createDB.bat %ctrl_issue% scielo_lilacs\conversion\fst\ctrl_issue.fst 
-	scielo_lilacs\tools\createDB.bat %ctrl_conversion% scielo_lilacs\conversion\fst\ctrl_conversion.fst 
-	scielo_lilacs\tools\createDB.bat %basePreLILACSEXPRESS% scielo_lilacs\conversion\fst\PreLILACSEXPRESS.fst   
-	scielo_lilacs\tools\createDB.bat %templilxp% scielo_lilacs\conversion\fst\PreLILACSEXPRESS.fst reset 
+	call scielo_lilacs\tools\createDB.bat %ctrl_issue% scielo_lilacs\conversion\fst\ctrl_issue.fst 
+	call scielo_lilacs\tools\createDB.bat %ctrl_conversion% scielo_lilacs\conversion\fst\ctrl_conversion.fst 
+	call scielo_lilacs\tools\createDB.bat %basePreLILACSEXPRESS% scielo_lilacs\conversion\fst\PreLILACSEXPRESS.fst   
+	call scielo_lilacs\tools\createDB.bat %templilxp% scielo_lilacs\conversion\fst\PreLILACSEXPRESS.fst reset 
 
 	
 	echo exporting...

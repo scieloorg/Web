@@ -12,8 +12,8 @@ if [ ! -d `dirname $report` ]
 then
         mkdir -p `dirname $report`
 fi
-cat scielo_lilacs/tools/config.bat > temp/convert_and_report.bat
-cat scielo_lilacs/config/config.bat >> temp/convert_and_report.bat
+cat scielo_lilacs/config/config.bat > temp/convert_and_report.bat
+cat scielo_lilacs/tools/config.bat >> temp/convert_and_report.bat
 cat scielo_lilacs/conversion/convert_and_report_aux.bat >> temp/convert_and_report.bat
 
 chmod 775 temp/convert_and_report.bat
