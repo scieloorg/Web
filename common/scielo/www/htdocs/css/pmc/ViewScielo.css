@@ -166,22 +166,27 @@ text-align: justify;
 .table-content {
 	margin-top: 0
 }
-.table table  thead tr td {
-	border-top: 3px solid black;
-	border-bottom: 3px solid black;
+
+.table table  thead tr td, .table table  thead th td,  {
+	border-top: 1px solid black;
+	border-bottom: 1px solid black;
 }
+
 .table table {
-		font-family : courier, serif;
-		font-size: 10pt;
+	font-family : courier, serif;
+	font-size: 10pt;
+/*
 	border-spacing: 10px
 	border-top: 1px solid black;
 	border-bottom: 1px solid black;
 	border: 1px solid gray;
+*/
 }
+/*
 .table table td {
 		
 	border: 1px solid gray;
-}
+}*/
 
 .article-categories {
 	text-align: right;
