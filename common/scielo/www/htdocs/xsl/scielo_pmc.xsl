@@ -44,9 +44,12 @@
 				<xsl:apply-templates select=".//back/*[.//table-wrap]"/>
 			</xsl:otherwise>
 		</xsl:choose>
+		<div>
+			<xsl:apply-templates select="//ack"/>
+		</div>
 		<xsl:apply-templates select=".//back/ref-list"/>
 		<div>
-			<xsl:apply-templates select=".//back/*[name()!='ref-list'  and name()!='fn-group' and not(.//table-wrap)]"/>
+			<xsl:apply-templates select=".//back/*[name()!='ref-list'  and name()!='ack' and name()!='fn-group' and not(.//table-wrap)]"/>
 			<xsl:apply-templates select="//author-notes" mode="text"/>
 			<xsl:apply-templates select="//history" mode="text"/>
 			<xsl:apply-templates select="//fn-group" mode="text"/>

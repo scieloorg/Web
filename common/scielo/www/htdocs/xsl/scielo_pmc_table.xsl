@@ -36,4 +36,8 @@
 	<xsl:template match="table-wrap//fn">
 			<xsl:apply-templates/>
 	</xsl:template>
+	<xsl:template match="table-wrap/table">
+		<xsl:copy-of select="."/>
+	
+	</xsl:template>
 </xsl:transform>

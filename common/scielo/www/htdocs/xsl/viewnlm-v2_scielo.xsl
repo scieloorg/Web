@@ -3542,6 +3542,7 @@
 		</i>
 	</xsl:template>
 	<xsl:template match="source" mode="book">
+	<xsl:comment>source, book</xsl:comment>
 		<xsl:choose>
 			<xsl:when test="../trans-source">
 				<xsl:apply-templates/>
@@ -3574,6 +3575,7 @@
 		<xsl:apply-templates/>
 	</xsl:template>
 	<xsl:template match="volume | edition" mode="book">
+	<xsl:comment>edition,book</xsl:comment>
 		<xsl:apply-templates/>
 		<xsl:if test="@collab-type='compilers'">
 			<xsl:text>, </xsl:text>
@@ -3798,7 +3800,7 @@
 	<xsl:template match="volume" mode="none">
 		<xsl:apply-templates/>
 	</xsl:template>
-	<xsl:template match="edition" mode="none">
+	<xsl:template match="edition" mode="none"><xsl:comment>edition,none</xsl:comment>
 		<xsl:apply-templates/>
 		<xsl:text>. </xsl:text>
 	</xsl:template>
@@ -3867,6 +3869,7 @@
 		</xsl:choose>
 	</xsl:template>
 	<xsl:template match="source" mode="none">
+	<xsl:comment>source,none</xsl:comment>
 		<xsl:text>&#160;</xsl:text>
 		<xsl:apply-templates/>
 		<xsl:choose>

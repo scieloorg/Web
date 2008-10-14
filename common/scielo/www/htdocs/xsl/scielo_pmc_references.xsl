@@ -85,4 +85,5 @@
 	<xsl:template match="lpage[not(../fpage) and (../../*[@citation-type='book' or @citaton-type='thesis'])] | *[@citation-type]/page-count/@count" mode="none">
 		<xsl:value-of select="."/> pp.
 	</xsl:template>
+	<xsl:template match="source" mode="none">&#160;<xsl:apply-templates/><xsl:if test="../..//@citation-type!='journal'">.</xsl:if>&#160;</xsl:template>
 </xsl:transform>
