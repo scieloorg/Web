@@ -6,7 +6,7 @@
 
 	<field action="replace" tag="3068"><pft>if l(['TITLE']'LOC='v880*1.9)>0 then ref(['TITLE']l(['TITLE']'LOC='v880*1.9),v68) fi</pft></field>
 
-	<field action="replace" tag="3000"><pft>|../bases-work/|v3068|/lang|</pft></field>
+	<field action="replace" tag="3000"><pft>|../bases-work/lang/lang|</pft></field>
 
 	<field action="statusfile" tag="1091"><pft>v3000|.mst|</pft></field>
 	<flow action="jump"><pft>if v1091^s : 'e' then else 'END' fi</pft></flow>
