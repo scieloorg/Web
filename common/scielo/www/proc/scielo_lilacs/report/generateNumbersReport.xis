@@ -1,0 +1,163 @@
+<IsisScript>
+
+
+<section>
+	<field action="cgi" tag="4010">debug</field>
+	<trace><pft>v4010</pft></trace>
+
+	<!-- Get CGI Parameters -->
+	<field action="cgi" tag="7011">proc_path</field>
+
+	<parm name="buffersize">64000</parm>
+	<field action="cgi" tag="4015">cip</field>
+	<include>scielo_lilacs/tools/xis/sci_cipar.xis</include>
+
+	<field action="replace" tag="4007">CTRL_ISSUE</field>
+	<field action="replace" tag="4013">PRE_LILACS_EXPRESS</field>
+	<field action="replace" tag="4014">CTRL_CONVERSION</field>
+
+	<field action="replace" tag="5000">0</field>
+	<field action="replace" tag="5001">0</field>
+	<field action="replace" tag="5002">0</field>
+	<field action="replace" tag="5003">0</field>
+	<field action="replace" tag="5004">0</field>
+	<field action="replace" tag="5005">0</field>
+	<field action="replace" tag="5006">0</field>
+	<field action="replace" tag="5007">0</field>
+	<do task="search">
+		 <parm name="db"><pft>v4007</pft></parm>
+		 <parm name="expression"><pft>'STATUS=QUALIFIED'</pft></parm>
+		 <field action="define" tag="8100">Isis_Total</field>
+
+		 <loop>
+			<field action="import" tag="list">8103</field>
+			<field action="replace" tag="8103"><pft>f(val(v8103)+val(v122),1,0)</pft></field>
+			<field action="export" tag="list">8103</field>
+		</loop>
+	</do>
+	<do task="search">
+		 <parm name="db"><pft>v4007</pft></parm>
+		 <parm name="expression"><pft>'STATUS=PARTIALY_DONE'</pft></parm>
+		 <field action="define" tag="8200">Isis_Total</field>
+
+		 <loop>
+			<field action="import" tag="list">8203</field>
+			<field action="replace" tag="8203"><pft>f(val(v8203)+val(v122),1,0)</pft></field>
+			<field action="export" tag="list">8203</field>
+
+			<field action="import" tag="list">8204</field>
+			<field action="replace" tag="8204"><pft>f(val(v8204)+val(v125),1,0)</pft></field>
+			<field action="export" tag="list">8204</field>
+
+			<field action="import" tag="list">8205</field>
+			<field action="replace" tag="8205"><pft>f(val(v8205)+val(v126),1,0)</pft></field>
+			<field action="export" tag="list">8205</field>
+		</loop>
+	</do>
+	<do task="search">
+		 <parm name="db"><pft>v4007</pft></parm>
+		 <parm name="expression"><pft>'STATUS=DONE'</pft></parm>
+		 <field action="define" tag="8400">Isis_Total</field>
+
+		 <loop>
+			<field action="import" tag="list">8403</field>
+			<field action="replace" tag="8403"><pft>f(val(v8403)+val(v122),1,0)</pft></field>
+			<field action="export" tag="list">8403</field>
+
+			<field action="import" tag="list">8404</field>
+			<field action="replace" tag="8404"><pft>f(val(v8404)+val(v125),1,0)</pft></field>
+			<field action="export" tag="list">8404</field>
+
+			<field action="import" tag="list">8405</field>
+			<field action="replace" tag="8405"><pft>f(val(v8405)+val(v126),1,0)</pft></field>
+			<field action="export" tag="list">8405</field>
+		</loop>
+	</do>
+	<do task="search">
+		 <parm name="db"><pft>v4007</pft></parm>
+		 <parm name="expression"><pft>'STATUS=EXPORTED'</pft></parm>
+		 <field action="define" tag="8500">Isis_Total</field>
+
+		 <loop>
+			<field action="import" tag="list">8503</field>
+			<field action="replace" tag="8503"><pft>f(val(v8503)+val(v122),1,0)</pft></field>
+			<field action="export" tag="list">8503</field>
+
+			<field action="import" tag="list">8504</field>
+			<field action="replace" tag="8504"><pft>f(val(v8504)+val(v125),1,0)</pft></field>
+			<field action="export" tag="list">8504</field>
+
+			<field action="import" tag="list">8505</field>
+			<field action="replace" tag="8505"><pft>f(val(v8505)+val(v126),1,0)</pft></field>
+			<field action="export" tag="list">8505</field>
+		</loop>
+	</do>
+	
+	<do task="search">
+		 <parm name="db"><pft>v4013</pft></parm>
+		 <parm name="expression">$</parm>
+		 <parm name="count">1</parm>
+
+		<field action="define" tag="8800">Isis_Total</field>
+		 <loop>
+			
+		</loop>
+	</do>
+	<do task="search">
+		 <parm name="db"><pft>v4014</pft></parm>
+		 <parm name="expression">$</parm>
+		 <parm name="count">1</parm>
+
+		<field action="define" tag="8700">Isis_Total</field>
+		 <loop>
+			
+		</loop>
+	</do>
+	<do task="search">
+		 <parm name="db"><pft>v4014</pft></parm>
+		 <parm name="expression">S=CONVERSION_DONE</parm>
+		 <parm name="count">1</parm>
+
+		<field action="define" tag="8704">Isis_Total</field>
+		 <loop>
+			
+		</loop>
+	</do>
+
+	<display><pft>##
+	,'    CHECKING NUMBERS  '/,
+	,'-----------------|--issues--|-articles-|-art conv-|-art saved-|'/,
+	
+	,'QUALIFIED        |',f(val(v8100),10,0),'|',f(val(v8103),10,0),'|',f(0,10,0)/
+	,'PARTIALY DONE    |',f(val(v8200),10,0),'|',f(val(v8203),10,0),'|',f(val(v8204),10,0)/
+	,'COMPLETELY DONE  |',f(val(v8400),10,0),'|',f(val(v8403),10,0),'|',f(val(v8404),10,0),'|',f(val(v8405),10,0)/
+	,'EXPORTED         |',f(val(v8500),10,0),'|',f(val(v8503),10,0),'|',f(val(v8504),10,0),'|',f(val(v8505),10,0)/
+#
+	'articles processed    : ',f(val(v8503)+val(v8403)+val(v8203)+val(v8103),10,0)/
+	'articles converted OK : ',f(val(v8504)+val(v8404)+val(v8204),10,0)/
+	'articles saved OK     : ',f(val(v8505)+val(v8405),10,0)/
+	'articles exported     : ',f(val(v8505),10,0)/
+#
+#
+	'TOTAL OF ARTICLES processed: ',
+	if val(v8103)+val(v8203)+val(v8403)+val(v8503)=val(v8700) then
+		'OK'/
+	else
+		'WRONG: ',f(val(v8103)+val(v8203)+val(v8403)+val(v8503),1,0),' x ',f(val(v8700),1,0),/
+	fi
+	'TOTAL OF ARTICLES converted: ',
+	if val(v8504)+val(v8404)=val(v8704) then
+		'OK'/
+	else
+		'WRONG: ',f(val(v8504)+val(v8404),1,0),' x ',f(val(v8704),1,0),/
+	fi,##
+	'TOTAL OF ARTICLES converted and saved: ',
+	if val(v8505)+val(v8405)=val(v8800) then
+		'OK'/
+	else
+		'WRONG: ',f(val(v8505)+val(v8405),1,0),' x ',f(val(v8800),1,0),/
+	fi,##
+	</pft></display>
+</section>
+
+</IsisScript>
