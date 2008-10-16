@@ -1,0 +1,1 @@
+call proc_langs\win\GeraScilistaCompleta.bat scilista.proc_langs.txt cisis\mx

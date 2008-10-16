@@ -1,0 +1,1 @@
+call proc_langs\win\GeraTextLangsDBfromScilista.bat scilista.proc_langs.txt cisis\mx xOn

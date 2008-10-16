@@ -3,7 +3,7 @@ rem FIXME
 set DB_CONTROL=..\bases-work\lang\control
 set PROC_DIR=\home\scielo\www\proc\
 
-cisis\mx seq=proc_langs\text-langs.def "pft=if v1:'LANG_DATABASE_PATH' then 'set LANG_DATABASE_PATH_SO=',replace(mid(v1,instr(v1,'=')+1,size(v1)),'/','\')/,'set LANG_DATABASE_PATH=',replace(mid(v1,instr(v1,'=')+1,size(v1)),'/','-')/, fi" now > temp\GeraIfmerge.bat
+cisis\mx seq=proc_langs\config\app.def "pft=if v1:'LANG_DATABASE_PATH' then 'set LANG_DATABASE_PATH_SO=',replace(mid(v1,instr(v1,'=')+1,size(v1)),'/','\')/,'set LANG_DATABASE_PATH=',replace(mid(v1,instr(v1,'=')+1,size(v1)),'/','-')/, fi" now > temp\GeraIfmerge.bat
 call temp\GeraIfmerge.bat
 
 echo cd %LANG_DATABASE_PATH_SO% >> temp\GeraIfmerge.bat
