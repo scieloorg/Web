@@ -11,6 +11,8 @@ echo Environment SciELO_LILACS
 set ctrl_issue=..\bases-work\scielo-lilacs\ctrl_issue
 set basePreLILACSEXPRESS=..\bases-work\scielo-lilacs\preLILACSEXPRESS
 set ctrl_conversion=..\bases-work\scielo-lilacs\ctrl_conversion
+set LILACS_TITLES=..\bases-work\scielo-lilacs\lilacstitles.txt
+set TRACING=..\bases-work\scielo-lilacs\tracing.txt
 
 echo Environment SciELO_LILACS
 set exportPath=..\bases-work\scielo-lilacs\exportation

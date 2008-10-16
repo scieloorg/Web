@@ -1,22 +1,31 @@
 
-echo > %report% 
-echo > %reportErrorsTxt% 
-echo > %reportErrors%
-echo > %reportQuantity%
+echo > %REPORT_LOG% 
+echo > %REPORT_DIFF_IN_TXT% 
+echo > %REPORT_DIFF_IN_HTML%
+echo > %REPORT_NUMBERS%
+echo > %PROCESSING_RESULT%
 
-call scielo_lilacs\conversion\convert.bat %scilista% %initial_date% %report% %debug%
+call scielo_lilacs\conversion\convert.bat %scilista% %initial_date% %PROCESSING_RESULT% %debug%
 
-call scielo_lilacs\report\report.bat generateNumbersReport %reportQuantity% %debug% 
-call scielo_lilacs\report\report.bat generateProblemReport %reportErrorsTxt% %debug%
+call scielo_lilacs\report\report.bat generateNumbersReport %REPORT_NUMBERS% %debug% 
+call scielo_lilacs\report\report.bat generateDiffReport_TextFormat %REPORT_DIFF_IN_TXT% %debug%
 
-call scielo_lilacs\report\report.bat generateErrorsReport %reportErrors% %debug%
+more %LILACS_TITLES% > %REPORT_LOG%
+more %PROCESSING_RESULT% >> %REPORT_LOG%
+more %REPORT_NUMBERS% >> %REPORT_LOG%
+more %REPORT_DIFF_IN_TXT% >> %REPORT_LOG%
 
-more %reportQuantity% >> %report%
-more %reportErrorsTxt% >> %report%
-echo Read %reportErrors% >> %report%
+echo %LILACS_TITLES% > temp\scielo_lilacs_report_files.txt
+echo %PROCESSING_RESULT% >> temp\scielo_lilacs_report_files.txt
+echo %REPORT_NUMBERS% >> temp\scielo_lilacs_report_files.txt
+echo %REPORT_DIFF_IN_TXT% >> temp\scielo_lilacs_report_files.txt
 
-notepad %report%
+call scielo_lilacs\report\report.bat generateDiffReport %REPORT_DIFF_IN_HTML% %debug% temp\scielo_lilacs_report_files.txt
 
-echo Report in %report%
-echo Errors Report in %reportErrors%
+echo Read report in %REPORT_DIFF_IN_HTML%
+echo Read processing log in %REPORT_LOG%
+
+
+
+
 
