@@ -11,6 +11,8 @@ echo Environment SciELO_LILACS
 export ctrl_issue=/bases/scielo-lilacs/bases-work/scielo_lilacs/ctrl_issue
 export basePreLILACSEXPRESS=/bases/scielo-lilacs/bases-work/scielo_lilacs/preLILACSEXPRESS
 export ctrl_conversion=/bases/scielo-lilacs/bases-work/scielo_lilacs/ctrl_conversion
+export LILACS_TITLES=/bases/scielo-lilacs/bases-work/scielo_lilacs/lilacstitles.txt
+export TRACING=/bases/scielo-lilacs/bases-work/scielo_lilacs/lilacstitles.txt
 
 echo Environment SciELO_LILACS
 export exportPath=/bases/scielo-lilacs/bases-work/scielo_lilacs/exportation

@@ -1,15 +1,16 @@
 export scilista=$1
 export initial_date=$2
-export report=$3
+export output=$3
 export debug=$4
 
-echo Executing $0 scilista=$1 initial_date=$2 report=$3 debug=$4
+echo Executing $0 scilista=$1 initial_date=$2 output=$3 debug=$4
 if [ -f $scilista ]
 then
 	$mx $title lw=9999 "pft=if instr(v450,'LILACS')>0 or l(['$liltitle']v400)>0 then ' ',v400,' ',v68 fi" now> $allowed
 
-	echo Titulos LILACS > $report
-	$mx $title lw=9999 "pft=if instr(v450,'LILACS')>0 or l(['$liltitle']v400)>0 then v400,' ',v100/ fi" now>> $report
+	echo Titulos LILACS > $LILACS_TITLES
+	$mx $title lw=9999 "pft=if instr(v450,'LILACS')>0 or l(['$liltitle']v400)>0 then v400,' ',v100/ fi" now>> $LILACS_TITLES
+	
 	
 	$mx null count=0 create=$myissue now -all
 	$mx $issue lw=9999 "proc=if l(['$liltitle']v35)>0 and instr(v32,'ahead')=0 and instr(v32,'review')=0 then 'a91{',date,'{' else 'd*' fi" append=$myissue now -all
@@ -23,7 +24,7 @@ then
 
 	
 	echo exporting...
-	$wxis IsisScript=scielo_lilacs/conversion/generatePreLILACSEXPRESS.xis scilista=$scilista myissue=$myissue allowed=$allowed initial_date=$initial_date tempLILACSEXPRESS=$templilxp proc_path=$proc_path debug=$debug  cip=$cip >> $report
+	$wxis IsisScript=scielo_lilacs/conversion/generatePreLILACSEXPRESS.xis scilista=$scilista myissue=$myissue allowed=$allowed initial_date=$initial_date tempLILACSEXPRESS=$templilxp proc_path=$proc_path debug=$debug  cip=$cip > $output
 	
 	echo Indexing $ctrl_issue
 	$mx $ctrl_issue "fst=@scielo_lilacs/conversion/fst/ctrl_issue.fst" fullinv=$ctrl_issue

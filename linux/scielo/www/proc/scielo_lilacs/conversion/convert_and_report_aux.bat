@@ -1,22 +1,23 @@
 
-rm -rf $report $reportErrorsTxt $reportErrors $reportQuantity
+rm -rf $REPORT_LOG $REPORT_DIFF_IN_TXT $REPORT_DIFF_IN_HTML $REPORT_NUMBERS $PROCESSING_RESULT
 
-scielo_lilacs/conversion/convert.bat $scilista $initial_date $report $debug
+scielo_lilacs/conversion/convert.bat $scilista $initial_date $PROCESSING_RESULT $debug
 
-scielo_lilacs/report/report.bat generateNumbersReport $reportQuantity $debug 
-scielo_lilacs/report/report.bat generateProblemReport $reportErrorsTxt $debug
+scielo_lilacs/report/report.bat generateNumbersReport $REPORT_NUMBERS $debug 
+scielo_lilacs/report/report.bat generateDiffReport_TextFormat $REPORT_DIFF_IN_TXT $debug
 
-scielo_lilacs/report/report.bat generateErrorsReport $reportErrors $debug
+more $LILACS_TITLES > $REPORT_LOG
+more $PROCESSING_RESULT >> $REPORT_LOG
+more $REPORT_NUMBERS >> $REPORT_LOG
+more $REPORT_DIFF_IN_TXT >> $REPORT_LOG
 
-cat $reportQuantity >> $report
-cat $reportErrorsTxt >> $report
-echo Read $reportErrors >> $report
+echo $LILACS_TITLES > temp/scielo_lilacs_report_files.txt
+echo $PROCESSING_RESULT >> temp/scielo_lilacs_report_files.txt
+echo $REPORT_NUMBERS >> temp/scielo_lilacs_report_files.txt
+echo $REPORT_DIFF_IN_TXT >> temp/scielo_lilacs_report_files.txt
 
-echo $idate `date`  >> $report
+scielo_lilacs/report/report.bat generateDiffReport $REPORT_DIFF_IN_HTML $debug temp/scielo_lilacs_report_files.txt
 
-vi $report
 
-echo Report in $report
-echo Errors Report in $reportErrors
-
-echo $idate `date`
+echo Read report in $REPORT_DIFF_IN_HTML
+echo Read processing log in $REPORT_LOG
