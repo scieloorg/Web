@@ -82,8 +82,8 @@
 			</xsl:choose>
 		</xsl:variable>http://bases.bireme.br/cgi-bin/wxislind.exe/iah/online/?IsisScript=iah/iah.xis&amp;nextAction=lnk&amp;base=MEDLINE_<xsl:value-of select="$year-range"/>&amp;exprSearch=<xsl:value-of select=".//pub-id[@pub-id-type='pmid']"/>&amp;indexSearch=UI&amp;lang=i</xsl:template>
 	<xsl:include href="scielo_pmc_references_gmb.xsl"/>
-	<xsl:template match="lpage[not(../fpage) and (../../*[@citation-type='book' or @citaton-type='thesis'])] | *[@citation-type]/page-count/@count" mode="none">
-		<xsl:value-of select="."/> pp.
+	<xsl:template match="lpage[not(../fpage) and (../../*[@citation-type='book' or @citaton-type='thesis'])] | *[@citation-type]/page-count" mode="none">
+		<xsl:apply-templates select="@*|*|text()"/> pp.
 	</xsl:template>
 	<xsl:template match="source" mode="none">&#160;<xsl:apply-templates/><xsl:if test="../..//@citation-type!='journal'">.</xsl:if>&#160;</xsl:template>
 </xsl:transform>
