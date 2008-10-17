@@ -133,12 +133,15 @@
 	,'COMPLETELY DONE  |',f(val(v8400),10,0),'|',f(val(v8403),10,0),'|',f(val(v8404),10,0),'|',f(val(v8405),10,0)/
 	,'EXPORTED         |',f(val(v8500),10,0),'|',f(val(v8503),10,0),'|',f(val(v8504),10,0),'|',f(val(v8505),10,0)/
 #
-	'articles processed    : ',f(val(v8503)+val(v8403)+val(v8203)+val(v8103),10,0)/
-	'articles converted OK : ',f(val(v8504)+val(v8404)+val(v8204),10,0)/
-	'articles saved OK     : ',f(val(v8505)+val(v8405),10,0)/
-	'articles exported     : ',f(val(v8505),10,0)/
+	'articles processed (1)    : ',f(val(v8503)+val(v8403)+val(v8203)+val(v8103),10,0)/
+	'articles converted (2) OK : ',f(val(v8504)+val(v8404)+val(v8204),10,0)/
+	'articles saved (3) OK     : ',f(val(v8505)+val(v8405),10,0)/
+	'articles exported (4)     : ',f(val(v8505),10,0)/
+	' -----------------------------------------------------------------'/
 #
 #
+	#
+	' -----------------------------------------------------------------'/
 	'TOTAL OF ARTICLES processed: ',
 	if val(v8103)+val(v8203)+val(v8403)+val(v8503)=val(v8700) then
 		'OK'/
@@ -146,10 +149,10 @@
 		'WRONG: ',f(val(v8103)+val(v8203)+val(v8403)+val(v8503),1,0),' x ',f(val(v8700),1,0),/
 	fi
 	'TOTAL OF ARTICLES converted: ',
-	if val(v8504)+val(v8404)=val(v8704) then
+	if val(v8504)+val(v8404)+val(v8204)=val(v8704) then
 		'OK'/
 	else
-		'WRONG: ',f(val(v8504)+val(v8404),1,0),' x ',f(val(v8704),1,0),/
+		'WRONG: ',f(val(v8504)+val(v8404)+val(v8204),1,0),' x ',f(val(v8704),1,0),/
 	fi,##
 	'TOTAL OF ARTICLES converted and saved: ',
 	if val(v8505)+val(v8405)=val(v8800) then
@@ -157,6 +160,13 @@
 	else
 		'WRONG: ',f(val(v8505)+val(v8405),1,0),' x ',f(val(v8800),1,0),/
 	fi,##
+	#
+	' -----------------------------------------------------------------'/
+	'(1) articles processed = articles which are qualified to be LILACS and were processed.'/
+	'(2) articles converted = articles which were successfully converted to LILACS.'/
+	'(3) articles saved = ONLY the articles whose issue was completely converted.'/
+	'(4) articles exported = articles whose LILACS record was sent to LILACS.'/
+
 	</pft></display>
 </section>
 

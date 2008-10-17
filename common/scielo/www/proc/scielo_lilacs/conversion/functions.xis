@@ -2,6 +2,7 @@
 	<field action="import" tag="list">4009/4014</field>
 	<field action="import" tag="list">880</field>
 	<field action="import" tag="list">1/999</field>
+	<field action="import" tag="list">7011</field>
 
 	<call name="convert_article_list">1</call>
 	<flow action="jump"><pft>if v5002=v122 then else 'END_OF_ISSUE' fi</pft></flow>
@@ -17,6 +18,7 @@
 	<field action="import" tag="list">4009/4015</field>
 	<field action="import" tag="list">880</field>
 	<field action="import" tag="list">1/999</field>
+	<field action="import" tag="list">7777</field>
 
 	<label>CONVERT_ISSUE</label>
 	<field action="replace" tag="5450"><pft>
@@ -34,6 +36,8 @@
 			<field action="import" tag="list">4011/4014</field>
 			<field action="import" tag="list">5450</field>
 			<field action="import" tag="list">5002,9898</field>
+			<field action="import" tag="list">7777</field>
+
 			
 			<field action="delete" tag="9899">1</field>							
 			<field action="replace" tag="7001">0</field>
@@ -59,6 +63,7 @@
 	<field action="import" tag="list">4009/4014</field>
 	<field action="import" tag="list">5450</field>
 	<field action="import" tag="list">6000</field>
+	<field action="import" tag="list">7777</field>
 
 	<field action="import" tag="list">5002</field>
 	<field action="import" tag="list">5200,9898</field>
@@ -71,6 +76,7 @@
 		<loop>
 			<flow action="skip"><pft>if v706<>'l' then 'Next' fi</pft></flow>
 
+			<field action="import" tag="list">7777</field>
 			<field action="import" tag="list">4011/4014</field>
 			<field action="import" tag="list">5450</field>
 
@@ -469,7 +475,7 @@
 	<field action="replace" tag="9010"><pft>(v10^1| |)</pft></field>
 	<field action="add" tag="3333" split="occ"><pft>(if v9010[1]:v70^i then else 'Markup error: aff ',v70^i,' has no authors.'/ fi)</pft></field>
 	<field action="add" tag="3333" split="occ"><pft>if p(v70) and not v9010:'A' then 'Markup error: authors without affiliation.'/ fi,</pft></field>
-	<field action="add" tag="3333" split="occ"><pft>if p(v3333) then (v10^s,|, |v10^n,| |v10^1/),(v70^i,' ',v70^1,|, |v70^2,|, |v70^3/)</pft></field>
+	<field action="add" tag="3333" split="occ"><pft>if p(v3333) then (v10^s,|, |v10^n,| |v10^1/),(v70^i,' ',v70^1,|, |v70^2,|, |v70^3/) fi</pft></field>
 
 	
 	<field action="export" tag="list">3333</field>

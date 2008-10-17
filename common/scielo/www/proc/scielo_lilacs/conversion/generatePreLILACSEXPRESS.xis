@@ -22,6 +22,10 @@
 	
 	<include>scielo_lilacs/tools/xis/sci_cipar.xis</include>
 
+	<field action="replace" tag="7777"><pft>mid(cat(v4015),instr(v4015,'PATH_BASE_DOI=')+size('PATH_BASE_DOI='),size(v4015))</pft></field>
+	<field action="replace" tag="7777"><pft>if instr(v7777,s(#))>0 then  mid(v7777,1,instr(v7777,s(#))-1) fi</pft></field>
+
+
 	<field action="replace" tag="4007">CTRL_ISSUE</field>
 	<field action="replace" tag="4009">PRE_LILACS_EXPRESS</field>
 	<field action="replace" tag="4014">CTRL_CONVERSION</field>
@@ -40,6 +44,7 @@
 			<flow action="skip"><pft>if a(v1) then 'Quit' fi</pft></flow>
 			
 			<field action="import" tag="list">5,4005/4014,5200</field>
+			<field action="import" tag="list">7777</field>
 
 			<field action="replace" tag="3"><pft>v1,v2</pft></field>
 			

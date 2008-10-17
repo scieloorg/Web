@@ -6,7 +6,7 @@
 
 	<field action="replace" tag="3068"><pft>if l(['TITLE']'LOC='v880*1.9)>0 then ref(['TITLE']l(['TITLE']'LOC='v880*1.9),v68) fi</pft></field>
 
-	<field action="replace" tag="3000"><pft>|../bases-work/lang/lang|</pft></field>
+	<field action="replace" tag="3000">BASE_LANG</field>
 
 	<field action="statusfile" tag="1091"><pft>v3000|.mst|</pft></field>
 	<flow action="jump"><pft>if v1091^s : 'e' then else 'END' fi</pft></flow>
@@ -47,8 +47,9 @@
 </function>
 
 <function name="add274" action="replace" tag="3880">
-	<field action="import" tag="list">880,881,31/32,131/132</field>
-	<field action="replace" tag="7011">../bases-work/</field>
+	<field action="import" tag="list">880,881,31/32,131/132,7777</field>
+
+	<field action="replace" tag="7011"><pft>v7777</pft></field>
 	<field action="replace" tag="7012"><pft>|v|v31,|s|v131,|n|v32,|s|v132</pft></field>
 	
 	<call name="returnDOI"><pft>if p(v881) then v881 else v880 fi</pft></call>
