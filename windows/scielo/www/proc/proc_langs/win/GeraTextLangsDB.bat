@@ -1,3 +1,4 @@
+@echo off
 
 set LANG_DB=%LANG_DATABASE_PATH%\lang\lang
 set LANG_DB_OLD=%LANG_DATABASE_PATH%\lang\replaced_lang
