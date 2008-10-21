@@ -228,3 +228,22 @@ text-align: justify;
 a  {
 	text-decoration: none;
 }
+
+.history {
+	margin-top: 60pt;
+}
+
+.license {
+	margin-top: 60pt;
+}
+
+
+.license P, .license  A, .license  SPAN{
+	text-align: center;
+	font-size: 8pt;
+	color: black
+}
+
+.license img {
+	
+}

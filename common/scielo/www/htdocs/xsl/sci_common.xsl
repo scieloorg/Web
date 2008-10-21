@@ -1043,9 +1043,9 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
 	</xsl:template>
 	<xsl:template match="*" mode="license">
 		<xsl:choose>
-			<xsl:when test=".//article-meta/permissions">
+			<!--xsl:when test=".//article-meta/permissions">
 				<xsl:apply-templates select=".//article-meta/permissions"/>
-			</xsl:when>
+			</xsl:when-->
 			<xsl:when test=".//PERMISSIONS">
 				<xsl:apply-templates select=".//PERMISSIONS/permissions"/>
 			</xsl:when>

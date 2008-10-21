@@ -77,9 +77,11 @@
 	</xsl:template>
 	<!-- ScELO -->
 	<xsl:template match="history" mode="text">
-		<p>	</p>
+		
+		<div class="history">
 		<xsl:apply-templates select="date" mode="text"/>
 		<xsl:text>.</xsl:text>
+		</div>
 	</xsl:template>
 	<xsl:template match="date" mode="text">
 		<xsl:if test="position()!=1">; </xsl:if>

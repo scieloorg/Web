@@ -33,7 +33,7 @@
 	</xsl:template>
 	<xsl:template match="name" mode="front">
 		<xsl:apply-templates select="given-names" mode="front"/>&#160;<xsl:apply-templates select="surname" mode="front"/>
-		<xsl:apply-templates select="xref" mode="front"/>
+		<xsl:apply-templates select="../xref" mode="front"/>
 		<xsl:if test="position()!=last()">; </xsl:if>
 
 	</xsl:template>
@@ -44,11 +44,12 @@
 			</sup>
 		</xsl:if>
 	</xsl:template>
-	<xsl:template match="xref" mode="front">
+	<!-- xsl:template match="xref" mode="front">
 		<xsl:apply-templates select="@rid" mode="front"/>
 	</xsl:template>
 	<xsl:template match="xref[@ref-type='aff']/@rid | aff/@id">
 		<xsl:variable name="xref" select="substring-after(.,'aff')"/>
+		
 		<xsl:choose>
 			<xsl:when test="$xref='1'">I</xsl:when>
 			<xsl:when test="$xref='2'">II</xsl:when>
@@ -64,16 +65,32 @@
 				<xsl:value-of select="$xref"/>
 			</xsl:otherwise>
 		</xsl:choose>
-	</xsl:template>
+	</xsl:template>	
+	
 	<xsl:template match="aff" mode="front">
 		<xsl:apply-templates select="@id" mode="front"/>
 		<xsl:apply-templates select="*[name()!='label']" mode="front"/>
 		<br/>
+	</xsl:template-->
+		
+	<xsl:template match="xref" mode="front">
+		<xsl:apply-templates/>
 	</xsl:template>
+	<xsl:template match="xref[@ref-type='aff']/@rid | aff/@id">
+	</xsl:template>
+	<xsl:template match="aff" mode="front">
+		<xsl:apply-templates  mode="front"/>
+		<br/>
+	</xsl:template>
+
 	<xsl:template match="aff/*" mode="front">
 		<xsl:apply-templates/>
 		<xsl:if test="position()!=last()">, </xsl:if>
 	</xsl:template>
+	<xsl:template match="aff/label" mode="front">
+		<sup><xsl:apply-templates/></sup>
+	</xsl:template>
+
 	<xsl:template match="author-notes" mode="format">
 		<xsl:variable name="xref" select="corresp/@id"/>
 		<p>
