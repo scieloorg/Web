@@ -13,12 +13,12 @@
 		<xsl:variable name="show_datasus" select="//varScieloOrg/show_datasus" />
 		<xsl:variable name="services_comments" select="//varScieloOrg/services_comments" />
 		<xsl:variable name="show_article_wltranslation" select="//varScieloOrg/show_article_wltranslation" />
-                <xsl:variable name="show_semantic_hl" select="//varScieloOrg/show_semantic_hl" />
 		<xsl:variable name="acron" select="//SIGLUM" />
 		<xsl:variable name="commentCount" select="//commentCount" />
 		<!--xsl:variable name="current_issn" select="//ARTICLE/ISSUEINFO/ISSN"/-->
 		<xsl:variable name="current_issn" select="//SERIAL/ISSN"/>
 		<xsl:variable name="allow_comments" select="document('../xml/allow_comment.xml')/COMMENT/ISSN[text() = $current_issn ]"/>
+		<xsl:variable name="show_fapesp_projects" select="//varScieloOrg/show_fapesp_projects" />
 				
 		<div id="toolBox">
 			<h2 id="toolsSection">
@@ -206,7 +206,33 @@
 						<xsl:apply-templates select="ISSUE/ARTICLE/LATTES"/>
 					</li>
 				</xsl:if>
-				
+		<!-- Projetos FAPESP entra aqui!-->
+				<xsl:if test="$show_fapesp_projects = 1 and (//ARTICLE/@PROJFAPESP != 0 and //ARTICLE/@PROJFAPESP != '')">
+                                <li>
+                                        <a>
+					<xsl:choose>
+					<xsl:when test="normalize-space(//ARTICLE/@PROJFAPESP) != normalize-space(1)">
+						<xsl:attribute name="href">javascript:void(0);</xsl:attribute>
+                                                <xsl:attribute name="onClick">javascript: window.open('http://<xsl:value-of select="concat(//SERVER,'/scieloOrg/php/projfapesp.php?pid=',//ARTICLE/@PID,'&amp;lang=',$LANGUAGE)"/>','','width=640,height=480,resizable=yes,scrollbars=1,menubar=yes');</xsl:attribute>
+						<xsl:attribute name="rel">nofollow</xsl:attribute>
+					</xsl:when>
+					
+					<xsl:when test="normalize-space(//ARTICLE/@PROJFAPESP) = normalize-space(1)">
+						<xsl:attribute name="href"><xsl:value-of select="//FAPESP/PROJETO/url"/></xsl:attribute>
+                                                <xsl:attribute name="target">_blank</xsl:attribute>
+                                        </xsl:when>
+					</xsl:choose>
+
+                                                <img src="/img/{$LANGUAGE}/iconDATASUS.gif"/>
+                                                <xsl:choose>
+                                                        <xsl:when test="$LANGUAGE='en' ">FAPESP Projects</xsl:when>
+                                                        <xsl:when test="$LANGUAGE='pt' ">Projetos FAPESP</xsl:when>
+                                                        <xsl:when test="$LANGUAGE='es' ">Proyectos FAPESP</xsl:when>
+                                                </xsl:choose>
+                                        </a>
+                                </li>
+                                </xsl:if>
+		<!-- FAPESP termina aqui! -->
 				<li>
 				<!-- How to cite this article -->
 					<xsl:call-template name="PrintArticleInformationLink"/>
@@ -261,24 +287,6 @@
 						</a>
 					</li>
 				</xsl:if>
-
-                                <xsl:if test="($show_semantic_hl = 1)">
-                                        <li>
-<xsl:if test="normalize-space(//ARTICLE/ABSTRACT/@xml:lang)='pt'">
-        <script
-                type="text/javascript"
-                src="http://69.64.173.229/linker_portugese/wikibutton.js?id=BS">
-        </script>
-</xsl:if>
-<xsl:if test="normalize-space(//ARTICLE/ABSTRACT/@xml:lang)='en'">
-        <script
-                type="text/javascript"
-                src="http://conceptweblinker.wikiprofessional-staging.org/wikibutton.js?id=BS">
-        </script>
-</xsl:if>
-					</li>
-                                </xsl:if>
-
 				
 				<xsl:if test="$show_send_by_email = 1">
 					<li>
@@ -325,7 +333,7 @@
                 	<xsl:if test="@id='cited_Google' or @id='related_Google'">,menubar=1,location=1,toolbar=1,status=1,scrollbars=1,directories=1</xsl:if>
         	</xsl:variable>
 		<xsl:choose>
-                <xsl:when test="//ARTICLE/@RELATED != 0">
+                <xsl:when test="ARTICLE/@RELATED != '' and //ARTICLE/@RELATED != 0">
 	                <a href="javascript:void(0);" >
                 	        <xsl:attribute name="onclick">window.open('<xsl:value-of select="concat(url,'&amp;lang=',$LANGUAGE)"/>','','width=640,height=480,resizable=yes,scrollbars=1,menubar=yes,<xsl:value-of select="$params"/>');<xsl:if test="$service_log = 1">callUpdateArticleLog('<xsl:value-of select="@id"/>');</xsl:if></xsl:attribute>
 <xsl:attribute name="rel">nofollow</xsl:attribute>
@@ -344,7 +352,7 @@
                         <xsl:if test="@id='cited_Google' or @id='related_Google'">,menubar=1,location=1,toolbar=1,status=1,scrollbars=1,directories=1</xsl:if>
                 </xsl:variable>
                 <xsl:choose>
-                <xsl:when test="//ARTICLE/@CITED != 0">
+                <xsl:when test="ARTICLE/@CITED != '' and //ARTICLE/@CITED != 0">
                         <a href="javascript:void(0);" >
                                 <xsl:attribute name="onclick">window.open('<xsl:value-of select="concat(url,'&amp;lang=',$LANGUAGE)"/>','','width=640,height=480,resizable=yes,scrollbars=1,menubar=yes,<xsl:value-of select="$params"/>');<xsl:if test="$service_log = 1">callUpdateArticleLog('<xsl:value-of select="@id"/>');</xsl:if></xsl:attribute>
 <xsl:attribute name="rel">nofollow</xsl:attribute>

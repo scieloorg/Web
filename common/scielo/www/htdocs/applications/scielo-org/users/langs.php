@@ -21,6 +21,11 @@ if($lang == "pt")
 /*
 rótulos tela DATASUS
 */
+define("PROJFAPESP","Projetos FAPESP");
+
+/*
+rótulos tela DATASUS
+*/
 define("DATASUS","Indicadores de Saúde");
 
 /*
@@ -291,6 +296,10 @@ define("FULL_TEXT","texto completo");
 
 if ($lang=="en")
 {
+/*
+rótulos tela DATASUS
+*/
+define("PROJFAPESP","FAPESP Projects");
 
 /*
 rótulos tela DATASUS
@@ -565,6 +574,10 @@ define("FULL_TEXT","full text");
 
 if ($lang=="es")
 {
+/*
+rótulos tela DATASUS
+*/
+define("PROJFAPESP","Proyectos FAPESP");
 
 /*
 rótulos tela DATASUS

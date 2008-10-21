@@ -3095,6 +3095,18 @@
 	<label>EXIT_LATTES</label>
 </function>
 
+<function name="CreateProjetoFAPESP" action="replace" tag="4001">
+   <field action="statusdb" tag="2001">PROJFAPESP</field>
+
+        <field action="replace" tag="10" split="occ"><pft>,ref(['PROJFAPESP']l(['PROJFAPESP'],'SCI=',v4001),('<PROJETO><title>',v88^n,'</title><url>',v88^u,'</url></PROJETO>',/))</pft></field>
+
+        <flow action="jump"><pft>if a(v10) then 'EXIT_FAPESP' fi</pft></flow>
+
+	<display><pft>'<FAPESP>'/,replace(v10,'&','&amp;'),'</FAPESP>'/</pft></display>
+
+        <label>EXIT_FAPESP</label>
+</function>
+
 <function name="PROC_SPLIT_MST" action="replace" tag="4001">
 <!-- fixed 20040122 - corrige problema de leitura da base ao executar a proc PROC_SPLIT_MST. A solução usada foi criar uma função que faz o mesmo que a proc -->
 <!-- fixed 20040910 - melhorado -->
