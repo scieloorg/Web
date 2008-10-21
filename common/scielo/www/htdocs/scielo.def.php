@@ -25,7 +25,7 @@ PATH_CGI_BIN_IAH_MEDLINE=iah/
 PATH_DATA_IAH_MEDLINE=/iah/online/
 
 [SCIELO]
-SERVER_SCIELO=www.scielo.br
+SERVER_SCIELO=vm.scielo.br
 PATH_WXIS_SCIELO=/cgi-bin/wxis.exe
 PATH_CGI_BIN_IAH_SCIELO=iah/
 PATH_DATA_IAH_SCIELO=/iah/
@@ -121,18 +121,18 @@ show_article_references=1
 show_comments=0
 show_scimago=1
 show_article_wltranslation=1
-show_semantic_hl=0
+show_fapesp_projects=1
 
 [FULLTEXT_SERVICES]
-access="http://www.scielo.br/applications/scielo-org/pages/services/articleRequestGraphicPage.php?pid=PARAM_PID&caller=PARAM_SERVER"
-cited_SciELO="http://www.scielo.br/scieloOrg/php/citedScielo.php?pid=PARAM_PID"
+access="http://vm.scielo.br/applications/scielo-org/pages/services/articleRequestGraphicPage.php?pid=PARAM_PID&caller=PARAM_SERVER"
+cited_SciELO="http://vm.scielo.br/scieloOrg/php/citedScielo.php?pid=PARAM_PID"
 cited_SciELO_service="http://trigramas.bireme.br/cgi-bin/mxlind/cgi=@cited?pid=PARAM_PID"
 similar_SciELO_service="http://trigramas.bireme.br/cgi-bin/mx/cgi=@1?xml&collection=SciELO.org.TiKwAb&minsim=0.30&maxrel=30&show=scielo1&text=PARAM_TEXT"
 cited_Google="http://scholar.google.com/scholar?q=link:CURRENT_URL"
 related_Google="http://scholar.google.com/scholar?q=related:CURRENT_URL"
-related="http://www.scielo.br/scieloOrg/php/related.php?pid=PARAM_PID"
+related="http://vm.scielo.br/scieloOrg/php/related.php?pid=PARAM_PID"
 related_service="http://trigramas.bireme.br/cgi-bin/mxlind/cgi=@related?pid=PARAM_PID"
-send_mail="http://www.scielo.br/applications/scielo-org/pages/services/sendMail.php?pid=PARAM_PID&caller=PARAM_SERVER"
+send_mail="http://vm.scielo.br/applications/scielo-org/pages/services/sendMail.php?pid=PARAM_PID&caller=PARAM_SERVER"
 windows_live_translator="http://www.windowslivetranslator.com"
 
 [mimetex]
