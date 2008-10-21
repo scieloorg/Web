@@ -86,4 +86,6 @@
 		<xsl:apply-templates select="@*|*|text()"/> pp.
 	</xsl:template>
 	<xsl:template match="source" mode="none">&#160;<xsl:apply-templates/><xsl:if test="../..//@citation-type!='journal'">.</xsl:if>&#160;</xsl:template>
+	<xsl:template match="article-title[contains(text(),'?')] | source[contains(text(),'?')] " mode="none"><xsl:value-of select="."/>
+	</xsl:template>
 </xsl:transform>
