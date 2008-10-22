@@ -13,6 +13,7 @@
 		<xsl:variable name="show_datasus" select="//varScieloOrg/show_datasus" />
 		<xsl:variable name="services_comments" select="//varScieloOrg/services_comments" />
 		<xsl:variable name="show_article_wltranslation" select="//varScieloOrg/show_article_wltranslation" />
+                <xsl:variable name="show_semantic_hl" select="//varScieloOrg/show_semantic_hl" />
 		<xsl:variable name="acron" select="//SIGLUM" />
 		<xsl:variable name="commentCount" select="//commentCount" />
 		<!--xsl:variable name="current_issn" select="//ARTICLE/ISSUEINFO/ISSN"/-->
@@ -287,6 +288,15 @@
 						</a>
 					</li>
 				</xsl:if>
+
+                                <xsl:if test="($show_semantic_hl = 1)">
+                                        <xsl:if test="$title_subjects = 'HEALTH SCIENCES' or $title_subjects = 'BIOLOGICAL SCIENCES'">
+                                        <li>
+                                                <xsl:apply-templates select="//fulltext-service[@id='semantic_highlights']" mode="semanticHighlights"/>
+                                        </li>
+                                        </xsl:if>
+                                </xsl:if>
+
 				
 				<xsl:if test="$show_send_by_email = 1">
 					<li>
@@ -307,6 +317,31 @@
 			<xsl:apply-templates select="." mode="label"/>
 		</a>
 	</xsl:template>
+
+        <xsl:template match="fulltext-service" mode="semanticHighlights">
+                <xsl:variable name="show">
+                        <xsl:choose>
+                                <xsl:when test=" $LANGUAGE = 'en' ">Show semantic highlights</xsl:when>
+                                <xsl:when test=" $LANGUAGE = 'pt' ">Mostar destaques semanticos</xsl:when>
+                                <xsl:when test=" $LANGUAGE = 'es' ">Mirar destaques semanticos</xsl:when>
+                        </xsl:choose>
+                </xsl:variable>
+
+                <xsl:variable name="hide">
+                        <xsl:choose>
+                                <xsl:when test=" $LANGUAGE = 'en' ">Hide semantic highlights</xsl:when>
+                                <xsl:when test=" $LANGUAGE = 'pt' ">Fechar destaques semanticos</xsl:when>
+                                <xsl:when test=" $LANGUAGE = 'es' ">Cerrar destaques semanticos</xsl:when>
+                        </xsl:choose>
+                </xsl:variable>
+
+                <xsl:variable name="serviceUrl">
+                      <xsl:value-of select="url" />&amp;showlabel=<xsl:value-of select="$show"/>&amp;hidelabel=<xsl:value-of select="$hide"/>
+                </xsl:variable>
+                <script src="{$serviceUrl}"></script>
+                <img id='wikifier-conceptweblinker-image' src="/img/btknewco.gif" align="absmiddle" onclick="WikiProfClick();"/>
+                <a id='wikifier-conceptweblinker-button' onclick='WikiProfClick();' href='#' title="Knewco's ConceptWeb Linker Button"><xsl:value-of select="$show"/></a>
+        </xsl:template>
 
         <xsl:template match="fulltext-service" mode="linkGoogle">
 		<xsl:param name="google_last_process"/>
