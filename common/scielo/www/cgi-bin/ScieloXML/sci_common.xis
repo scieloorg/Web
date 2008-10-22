@@ -1326,6 +1326,7 @@
 			"  <SHORTTITLE><![CDATA["v150"]]></SHORTTITLE>"/,
 			"  <SHORTTITLE-MEDLINE><![CDATA["v421"]]></SHORTTITLE-MEDLINE>"/,
 			"  <SIGLUM>"v68"</SIGLUM>"/,
+			('<SUBJECT><![CDATA[',mpu,v441,']]></SUBJECT>'/,)
 			),
 		' </TITLEGROUP>'/#</pft>
   </display>
