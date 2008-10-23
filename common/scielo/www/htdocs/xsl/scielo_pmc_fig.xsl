@@ -1,7 +1,6 @@
 <?xml version="1.0"?>
 <xsl:transform version="1.0" id="ViewNLM-v2-04_scielo.xsl" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:util="http://dtd.nlm.nih.gov/xsl/util" xmlns:mml="http://www.w3.org/1998/Math/MathML" exclude-result-prefixes="util xsl">
 	<xsl:template match="fig/*[name()!='graphic']">
-	
 		<div class="fig-text">
 			<xsl:apply-templates/>
 		</div>
@@ -19,15 +18,16 @@
 	<xsl:template match="fig[graphic[not(@alt-version) and not(@alternate-form-of)]]" mode="display">
 		<p>
 			<a name="{@id}">
-			<xsl:apply-templates select="." mode="back"/>
-			<div class="fig">
-				<div class="fig-file">
-					<xsl:apply-templates select="graphic"/>
+				<xsl:apply-templates select="." mode="back"/>
+				<div class="fig">
+					<div class="fig-file">
+						<xsl:apply-templates select="graphic"/>
+					</div>
+					<div class="fig-data">
+						<xsl:apply-templates select="child::*[not(self::graphic)]"/>
+					</div>
 				</div>
-				<div class="fig-data">
-					<xsl:apply-templates select="child::*[not(self::graphic)]"/>
-				</div>
-			</div></a>
+			</a>
 		</p>
 	</xsl:template>
 	<xsl:template match="graphic/@xlink:href| inline-graphic/@xlink:href">
@@ -58,18 +58,15 @@
 		</div>
 	</xsl:template>
 	<xsl:template match="*[graphic[@alt-version]]" mode="display">
-		<p>
+		<div class="fig">
 			<table>
 				<tbody>
-					<tr>
-						<th/>
-					</tr>
 					<tr>
 						<td>
 							<div class="fig-file">
 								<a target="_{graphic[@alternate-form-of]/@id}">
 									<xsl:attribute name="href"><xsl:apply-templates select="graphic[@alternate-form-of]/@xlink:href"/></xsl:attribute>
-								<xsl:apply-templates select="graphic[@alt-version]"/>
+									<xsl:apply-templates select="graphic[@alt-version]"/>
 								</a>
 							</div>
 						</td>
@@ -80,8 +77,16 @@
 							</div>
 						</td>
 					</tr>
+					<!--tr>
+						<td colspan="2">
+						[View larger version of this figure, clicking on the thumbnail]
+						</td>
+					</tr-->
 				</tbody>
 			</table>
-		</p>
+			<p>
+			[View larger version of this figure, clicking on the thumbnail]
+</p>
+		</div>
 	</xsl:template>
 </xsl:transform>

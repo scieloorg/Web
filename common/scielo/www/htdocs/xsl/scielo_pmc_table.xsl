@@ -6,20 +6,20 @@
 		</xsl:if-->
 	</xsl:template>
 	<xsl:template match="table-wrap[not(graphic)]" mode="display">
-		<p>
-			<a name="{@id}">
-			<xsl:apply-templates select="." mode="back"/>
-			<div class="table">
-				<div class="table-data">
-					<xsl:apply-templates select="caption|label"/>
-				</div>
-				<div class="table-content">
-					<xsl:apply-templates select="graphic |  table"/>
-				</div>
-				<xsl:apply-templates select="table-wrap-foot"/>
-			</div>
-			</a>
-		</p>
+		<div class="table">
+			<p>
+				<a name="{@id}">
+					<xsl:apply-templates select="." mode="back"/>
+					<div class="table-data">
+						<xsl:apply-templates select="caption|label"/>
+					</div>
+					<div class="table-content">
+						<xsl:apply-templates select="graphic |  table"/>
+					</div>
+					<xsl:apply-templates select="table-wrap-foot"/>
+				</a>
+			</p>
+		</div>
 	</xsl:template>
 	<xsl:template match="tfoot | table-wrap-foot">
 		<div class="foot">
@@ -34,10 +34,9 @@
 		</span>
 	</xsl:template>
 	<xsl:template match="table-wrap//fn">
-			<xsl:apply-templates/>
+		<xsl:apply-templates/>
 	</xsl:template>
 	<xsl:template match="table-wrap/table">
 		<xsl:copy-of select="."/>
-	
 	</xsl:template>
 </xsl:transform>

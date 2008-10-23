@@ -5,14 +5,15 @@ html {
 	margin-left:  8%;
     margin-right: 8%;
     }
-/* front-matter */
+
+ 
 .fm  {
      font-size:   9pt;
      line-height: 1.5;
-	width: 100%;
+	
  	
      }
-     
+
 .body
      {
      font-family : Verdana, Arial, Helvetica, sans-serif;
@@ -23,13 +24,14 @@ html {
      }
 
 
-/* back-matter */
-.bm  {
+.bm {
  margin-top: 50pt;
      font-size:   9pt;
      line-height: 1.5;
 	width: 100%;
-     }
+	font-family:Verdana,courier new;
+
+}
 
 .tl-main-part {
 	display: block;
@@ -121,29 +123,24 @@ hr.section-rule {
 }
 
 .fig {
-	text-align: justify;
+	text-align: left;
 margin-top: 40pt;
-margin-bottom: 50pt;
-margin-left: 40pt;
-margin-right: 40pt;
+margin-bottom: 40pt;
+
 }
 .table {
 	text-align: justify;
 margin-bottom: 50pt;
-margin-left: 40pt;
-margin-right: 40pt;
 }
+
+
 .fig-file {
-		text-align: center;
-	margin-top: 30pt;
-	margin-bottom: 50pt;
+	text-align: left;
 	margin-left: 0pt;
 	margin-right: 20pt;
 }
 .fig-data {
-	margin-top: 30pt;
-	margin-bottom: 50pt;
-	margin-left: 0pt;
+	margin-left: 10pt;
 	margin-right: 20pt;
 }
 .table-data {
@@ -154,12 +151,12 @@ font-family : courier, serif;
 		font-family : Times New Roman;
 		font-size: 11pt;
 		font-weight: bold;
-text-align: justify;
+		text-align: justify;
 }
 
 .table-caption, .fig-caption {
 		font-family : Times New Roman;
-		font-size: 10pt;
+		font-size: 11pt;
 	text-align: justify;
 }
 
@@ -233,10 +230,6 @@ a  {
 	margin-top: 60pt;
 }
 
-.license {
-	margin-top: 60pt;
-}
-
 
 .license P, .license  A, .license  SPAN{
 	text-align: center;
@@ -245,5 +238,10 @@ a  {
 }
 
 .license img {
+	
+}
+
+.license  {
+margin-top: 60pt;
 	
 }
