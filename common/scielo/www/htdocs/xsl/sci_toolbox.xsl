@@ -19,6 +19,7 @@
 		<!--xsl:variable name="current_issn" select="//ARTICLE/ISSUEINFO/ISSN"/-->
 		<xsl:variable name="current_issn" select="//SERIAL/ISSN"/>
 		<xsl:variable name="allow_comments" select="document('../xml/allow_comment.xml')/COMMENT/ISSN[text() = $current_issn ]"/>
+		<xsl:variable name="title_subjects" select="//TITLEGROUP/SUBJECT"/>
 		<xsl:variable name="show_fapesp_projects" select="//varScieloOrg/show_fapesp_projects" />
 				
 		<div id="toolBox">
