@@ -172,8 +172,8 @@ class Scielo extends ScieloBase
 				//Habilita ou n�o o log dos servicos
 				"services_log" => "ENABLE_SERVICES_LOG",
 				"show_scimago" => "show_scimago",
-                                "show_semantic_hl" => "show_semantic_hl"
-
+                "show_semantic_hl" => "show_semantic_hl",
+				"show_fapesp_projects" => "show_fapesp_projects"
 			);
 				//die($commentCount);
 
