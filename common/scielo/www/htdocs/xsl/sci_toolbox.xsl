@@ -323,16 +323,16 @@
                 <xsl:variable name="show">
                         <xsl:choose>
                                 <xsl:when test=" $LANGUAGE = 'en' ">Show semantic highlights</xsl:when>
-                                <xsl:when test=" $LANGUAGE = 'pt' ">Mostar destaques semanticos</xsl:when>
-                                <xsl:when test=" $LANGUAGE = 'es' ">Mirar destaques semanticos</xsl:when>
+                                <xsl:when test=" $LANGUAGE = 'pt' ">Mostar destaques semânticos</xsl:when>
+                                <xsl:when test=" $LANGUAGE = 'es' ">Mirar destaques semánticos</xsl:when>
                         </xsl:choose>
                 </xsl:variable>
 
                 <xsl:variable name="hide">
                         <xsl:choose>
                                 <xsl:when test=" $LANGUAGE = 'en' ">Hide semantic highlights</xsl:when>
-                                <xsl:when test=" $LANGUAGE = 'pt' ">Fechar destaques semanticos</xsl:when>
-                                <xsl:when test=" $LANGUAGE = 'es' ">Cerrar destaques semanticos</xsl:when>
+                                <xsl:when test=" $LANGUAGE = 'pt' ">Fechar destaques semânticos</xsl:when>
+                                <xsl:when test=" $LANGUAGE = 'es' ">Cerrar destaques semánticos</xsl:when>
                         </xsl:choose>
                 </xsl:variable>
 
