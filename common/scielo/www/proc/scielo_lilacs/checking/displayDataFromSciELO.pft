@@ -1,7 +1,7 @@
 proc('d9040d70d9012d10',
 	'a9040{',mpu,v40,(v8^l),mpl,'{'
 	'a9012{',if p(v71) then '[',if s(mpu,v40[1]mpl)='PT' then ref(['SCIELOTP']l(['SCIELOTP']v71),v4) else,if s(mpu,v40[1]mpl)='ES' then ref(['SCIELOTP']l(['SCIELOTP']v71),v3) else ref(['SCIELOTP']l(['SCIELOTP']v71),v2) fi,fi']','^i'v40[1] fi,'{',
-	,'a70{', ('[',v70^i,']',|^1|v70^1,|^2|v70^2,|^3|v70^3,|^c|v70^c,|^p|v70^p,'[/',v70^i,']'),'{',
+	,'a70{', ('[',v70^i,']',v70^*,|^1|v70^1,|^2|v70^2,|^3|v70^3,|^c|v70^c,|^p|v70^p,'[/',v70^i,']'),'{',
 	,('a10{',v10^s,|, |v10^n,|^a|v10^1*0.3,if p(v10) and  a(v10^1) then	,'^1s.af', fi,'{',)
 	
 ,),
