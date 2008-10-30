@@ -72,6 +72,7 @@
                         case 'BEFOREPRINT_ISSUES'                  : 'h17049',
                         case 'BEFOREPRINT_ISSUETOC'                  : 'h17050',
                         case 'LICENSE'                  : 'h17051',
+			case 'show_fapesp_projects'     : 'h17052',
 						
 						elsecase 'h4903'
 					endsel

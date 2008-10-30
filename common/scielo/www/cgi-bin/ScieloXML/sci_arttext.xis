@@ -167,7 +167,9 @@
 	fi
 	,' RELATED="',ref(['related']l(['related']v880),f(nocc(v88),2,0)),'"',
         ,' CITED="',ref(['cited']l(['cited']v880),f(nocc(v88),2,0)),'"',
-	,' PROJFAPESP="',ref(['PROJFAPESP']l(['PROJFAPESP'],'SCI=',v880),f(nocc(v88),2,0)),'"',
+	if v7052 = '1' then
+		,' PROJFAPESP="',ref(['PROJFAPESP']l(['PROJFAPESP'],'SCI=',v880),f(nocc(v88),2,0)),'"',
+	fi
         ,' AREASGEO="',ref(['areasgeo']l(['areasgeo']v880),f(nocc(v880),2,0)),'"',
         ,' PROCESSDATE="',ref(l('OU=',v880),proc(if val(v32701^m) > 0 then,'R../bases/artigo/',v32701^*,',',v32701^m , fi),v91),'"',
 	 ,' CURR_DATE="',mid(date,1,8),'"'
@@ -194,7 +196,11 @@
    <call name="CreateArticleTitle1XML"><pft>'^r'v4001^a'^l'v4001^l'^i'v4001^i'^h1'</pft></call>
    <!--call name="CreateAuthorsGroupXML"><pft>v880</pft></call-->   
    <call name="CreateLattesGroupXML"><pft>v880</pft></call>
-   <call name="CreateProjetoFAPESP"><pft>v880</pft></call>
+	<pft>
+	if v7052 = '1' then   
+		<call name="CreateProjetoFAPESP">v880</call>
+	fi
+	</pft>
 	<call name="isXML"><pft>v702</pft></call>
 	
 	<flow action="jump"><pft>if v8000<>'.xml' then 'yes' fi</pft></flow>
