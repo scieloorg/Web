@@ -1597,7 +1597,7 @@ Parameters:
 					<xsl:if test="$service_log = 1">
 						<xsl:attribute name="onclick"><xsl:value-of select="$services//service[name='curriculumScienTI']/call"/></xsl:attribute>
 					</xsl:if>
-					<img border="0" align="middle" src="{$PATH_GENIMG}{$LANGUAGE}/lattescv-button.gif"/> Curriculum ScienTI
+					<img border="0" align="middle" src="{$PATH_GENIMG}{$LANGUAGE}/lattescv-button.gif"/>Curriculum ScienTI
 				</a>
 			</xsl:when>
 			<xsl:when test=" count(AUTHOR) > 1 ">
@@ -1623,7 +1623,7 @@ Parameters:
 								</xsl:when><xsl:when test=" $LANGUAGE = 'es' ">
 									status='Lista de Autores'; return true;
 								</xsl:when></xsl:choose></xsl:attribute>
-					<img border="0" align="middle" src="{$PATH_GENIMG}{$LANGUAGE}/lattescv-button.gif"/> Curriculum ScienTI
+					<img border="0" align="middle" src="{$PATH_GENIMG}{$LANGUAGE}/lattescv-button.gif"/>Curriculum ScienTI
 						</a>
 			</xsl:when>
 			<xsl:otherwise>
