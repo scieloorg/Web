@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-	<xsl:template match="article | citing">
+	<xsl:template match="article | citing | related">
 		<xsl:param name="s"/>
 		<xsl:param name="pos"/>
 		<xsl:variable name="country" select="concat(@country,@code)"/>

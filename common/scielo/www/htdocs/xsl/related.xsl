@@ -11,7 +11,7 @@
 	<xsl:variable name="metaSearchInstances" select="document(concat('../applications/scielo-org/xml/',$lang,'/metaSearchInstances.xml'))"/>
 	
 	<xsl:variable name="links" select="//ARTICLE"/>
-	<xsl:variable name="total" select="count(//related/relatedlist/article)"/>
+	<xsl:variable name="total" select="count(//relatedlist/related)"/>
 	<xsl:template match="/">
 
 	<div class="content">
@@ -19,7 +19,7 @@
 			<xsl:choose>
 				<xsl:when test="$total &gt; 0">
 					<ul>
-					<xsl:apply-templates select="//related/relatedlist/article" mode="pre">
+					<xsl:apply-templates select="//relatedlist/related" mode="pre">
 					</xsl:apply-templates>
 					</ul>
 				</xsl:when>
@@ -32,7 +32,7 @@
 
 	
 	</xsl:template>
-		<xsl:template match="article" mode="pre">
+		<xsl:template match="related" mode="pre">
 					<xsl:apply-templates select="." >
 							<xsl:with-param name="s" select="@s"/>
 							<xsl:with-param name="pos" select="position()"/>

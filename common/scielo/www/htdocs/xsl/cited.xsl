@@ -19,7 +19,7 @@
 		<xsl:choose>
 			<xsl:when test="$total &gt; 0">
 				<ul>
-					<xsl:apply-templates select="//cited/citinglist" mode="pre"/>
+					<xsl:apply-templates select="//scielo/citinglist" mode="pre"/>
 				</ul>
 			</xsl:when>
 			<xsl:otherwise>
