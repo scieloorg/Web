@@ -53,11 +53,11 @@ PATH_HTDOCS=/home/scielo/www/htdocs/
 PATH_OAI=/home/scielo/www/htdocs/oai/
 
 [LOG]
-ACTIVATE_LOG=1
-ENABLE_STATISTICS_LINK=1
-ENABLE_CITATION_REPORTS_LINK=1
-ENABLE_SERVICES_LOG=1
-ENABLE_AUTH_USERS_LOG=1
+ACTIVATE_LOG=0
+ENABLE_STATISTICS_LINK=0
+ENABLE_CITATION_REPORTS_LINK=0
+ENABLE_SERVICES_LOG=0
+ENABLE_AUTH_USERS_LOG=0
 SERVICES_LOG_DIRECTORY=/home/scielo/www/logs/services
 AUTH_USERS_LOG_FILENAME=auth_users_log
 SERVICES_LOG_ERROR_MAIL_ALERT=0
@@ -65,12 +65,10 @@ SERVER_LOG=scielo-log.bireme.br
 SCRIPT_LOG_NAME=scielolog/updateLog02.php
 SCRIPT_LOG_RUN=scielolog/scielolog03B2.php
 ACTIVATE_GOOGLE=1
-GOOGLE_CODE=UA-604844-1
+GOOGLE_CODE=
 PATH_LOG_CACHE=/home/scielo/www/bases/pages/sci_stat/
 SCRIPT_TOP_TEN="http://scielo-log.bireme.br/scielolog/ofigraph20.php?app=scielo"
 SCRIPT_ARTICLES_PER_MONTH="http://scielo-log.bireme.br/scielolog/ofigraph21.php?app=scielo"
-MYSQL_USER=logserver
-MYSQL_PASSWORD=20log01
 
 [LOG_DATABASE_INFO]
 DB_NAME = log
@@ -107,10 +105,10 @@ check_login_url=/applications/scielo-org/sso/checkLogin.php
 [services]
 sci_artlangs="http://trigramas.bireme.br/cgi-bin/wxis.exe/?IsisScript=ScieloXML/sci_artlangs.xis&def=scielo.def&pid=PARAM_PID"
 show_toolbox=1
-show_datasus=1
+show_datasus=0
 show_reference=1
-show_requests=1
-show_login=1
+show_requests=0
+show_login=0
 show_send_by_email=1
 show_cited_scielo=1
 show_cited_google=0
@@ -119,9 +117,9 @@ show_similar_in_google=0
 google_last_process=20070201
 show_article_references=1
 show_comments=0
-show_scimago=1
+show_scimago=0
 show_article_wltranslation=1
-show_fapesp_projects=1
+show_fapesp_projects=0
 
 [FULLTEXT_SERVICES]
 access="http://vm.scielo.br/applications/scielo-org/pages/services/articleRequestGraphicPage.php?pid=PARAM_PID&caller=PARAM_SERVER"
@@ -148,7 +146,7 @@ xDOI_PREFIX=10.1590
 ENABLED_XML_ERROR=0
 ENABLED_MAIL_ALERT=0
 ENABLED_LOG_XML_ERROR=0
-MAILTO_XML_ERROR=suportescielo@bireme.br
+MAILTO_XML_ERROR=
 NAMETO_XML_ERROR=SciELO
 LOG_XML_ERROR_FILENAME=/home/scielo/www/logs/xml_error_log.txt
 
@@ -163,13 +161,13 @@ xBEFOREPRINT_ISSUETOC=together
 NO_SCI_SERIAL=no
 
 [DATABASES]
-DB_WORDPRESS=scielo-blog.scielo.br
-DB_SCIELO=scieloorgusers
-DB_BLOG=scielo_blog
-DB_USER_SCIELO=scielodatabases
-DB_USER_BLOG=scielodatabases
-DB_USER_SCIELO_PASSWORD=Sci32eLo
-DB_USER_BLOG_PASSWORD=Sci32eLo
+DB_WORDPRESS=
+DB_SCIELO=
+DB_BLOG=
+DB_USER_SCIELO=
+DB_USER_BLOG=
+DB_USER_SCIELO_PASSWORD=
+DB_USER_BLOG_PASSWORD=
 DB_HOST_BLOG =
-DB_HOST_SCIELO = localhost
+DB_HOST_SCIELO =
 ?>
