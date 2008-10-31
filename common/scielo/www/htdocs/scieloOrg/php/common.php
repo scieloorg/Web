@@ -59,6 +59,13 @@
 	
 	$xmlh = str_replace(chr(146),"",$xmlh);
 
+	//Trecho de gambiarra
+        $xmlh = str_replace("<surname>","",$xmlh);
+        $xmlh = str_replace("</surname>",",",$xmlh);
+        $xmlh = str_replace("<name>","",$xmlh);
+        $xmlh = str_replace("</name>","",$xmlh);
+	//Fim da gambiarra
+
 	$xmlh = upperCaseAuthors($xmlh);
 
 
@@ -103,7 +110,6 @@
 	$transformer->setXslBaseUri($defFile->getKeyValue("PATH_XSL"));
 	//$transformer->setXml(utf8_encode($xml));
 	$transformer->setXml($xml);
-
 
 	$transformer->setXslFile($xsl);
 	$transformer->transform();
