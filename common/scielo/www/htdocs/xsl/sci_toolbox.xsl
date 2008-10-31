@@ -225,7 +225,7 @@
                                         </xsl:when>
 					</xsl:choose>
 
-                                                <img src="/img/{$LANGUAGE}/iconDATASUS.gif"/>
+                                                <img src="/img/{$LANGUAGE}/iconProjFapesp.gif"/>
                                                 <xsl:choose>
                                                         <xsl:when test="$LANGUAGE='en' ">FAPESP Projects</xsl:when>
                                                         <xsl:when test="$LANGUAGE='pt' ">Projetos FAPESP</xsl:when>
