@@ -114,6 +114,7 @@ show_cited_scielo=1
 show_cited_google=0
 show_similar_in_scielo=1
 show_similar_in_google=0
+show_semantic_hl=1
 google_last_process=20070201
 show_article_references=1
 show_comments=0
