@@ -261,7 +261,7 @@
 					<xsl:with-param name="file">prev.gif</xsl:with-param>
 					<xsl:with-param name="alttext">
 						<xsl:choose>
-							<xsl:when test="//ABSTRACT or //BODY">
+							<xsl:when test="//ABSTRACT or //BODY or //fulltext">
 								<xsl:value-of select="normalize-space(//PREVIOUS)" disable-output-escaping="yes"/>
 							</xsl:when>
 							<xsl:otherwise>
@@ -278,7 +278,7 @@
 					<xsl:with-param name="script">
 						<xsl:choose>
 							<xsl:when test="//ABSTRACT">sci_abstract</xsl:when>
-							<xsl:when test="//BODY">sci_arttext</xsl:when>
+							<xsl:when test="//BODY or //fulltext">sci_arttext</xsl:when>
 							<xsl:otherwise>
 								<xsl:apply-templates select="." mode="issuetoc"/>
 							</xsl:otherwise>

@@ -65,7 +65,7 @@
 		</p>
 		<a>
 			<xsl:attribute name="href">#top</xsl:attribute>
-			<img src="/img/seta.gif" alt="" border="0" align="middle"/>
+			<img src="{$var_IMAGE_PATH}/seta.gif" alt="" border="0" align="middle"/>
 		</a>
 		<xsl:text> </xsl:text>
 		<a name="{corresp/@id}">

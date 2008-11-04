@@ -15,7 +15,10 @@
 				<xsl:value-of select="//SIGLUM"/>/<xsl:if test="//ISSUE/@VOL">v<xsl:value-of select="//ISSUE/@VOL"/>
 				</xsl:if>
 				<xsl:if test="//ISSUE/@NUM='AHEAD' or //ISSUE/@NUM='ahead'"><xsl:value-of select="substring(//ISSUE/@PUBDATE,1,4)"/></xsl:if>
-				<xsl:if test="//ISSUE/@NUM">n<xsl:value-of select="//ISSUE/@NUM"/>
+				<xsl:if test="//ISSUE/@NUM">n<xsl:choose>
+					<xsl:when test="//ISSUE/@NUM='AHEAD'">ahead</xsl:when>
+					<xsl:otherwise><xsl:value-of select="//ISSUE/@NUM"/></xsl:otherwise>
+				</xsl:choose>
 				</xsl:if>
 				<xsl:if test="//ISSUE/@SUPPL">s<xsl:value-of select="//ISSUE/@SUPPL"/>
 				</xsl:if>/</xsl:when>
@@ -52,7 +55,7 @@
 	
 	-->
 	<xsl:template match="*" mode="css">
-		<link rel="stylesheet" type="text/css" href="/css/common.css"/>
+		<!--link rel="stylesheet" type="text/css" href="/css/common.css"/-->
 		<link rel="stylesheet" type="text/css" href="/css/pmc/ViewNLM.css"/>
 		<link rel="stylesheet" type="text/css" href="/css/pmc/ViewScielo.css"/>
 	</xsl:template>
