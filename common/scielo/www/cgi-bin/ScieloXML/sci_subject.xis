@@ -83,7 +83,7 @@
 
 			<!-- Carrega cada titulo e issn em uma lista -->
 			<list action="load" type="freq"><pft>
-				proc ('d9999a9999~',ref (['TITLE']val(v1000^m), v100," - "v110, '^i', v400),'~')
+				proc ('d9999a9999~',ref (['TITLE']val(v1000^m), v100," - "v110, '^i', v400,'^x',v51^d[1],if a(v51^d[1]) then v51^b[1] fi,'^w',v51^c[1],if a(v51^c[1]) then v51^a[1] fi),'~')
 				
 				if l(['FACCOUNT'], v9999^i) > 0 then 
 					v9999,
@@ -112,6 +112,7 @@
 <display><pft>'<!-- '</pft></display>
 <display><pft>ALL</pft></display>
 <display><pft>' -->'</pft></display>
+
 					<display><pft>					
 						if v1005 = '1' and val(v1004) > 0 then
 							'  <SUBJECT NAME="', v1001,'">',/#
@@ -122,6 +123,11 @@
 						'    <TITLE ISSN="', v1003^i, '">',/
 						"     <![CDATA["v1003^*"]]>"/
 						'    </TITLE>',/
+
+		,'	<journal-status-history>'/,
+		,'		<current-status date="',v1003^w,'" status="',v1003^x,'"/>'/,
+		'	</journal-status-history>'/
+
 						'   </SERIAL>',/#
 					</pft></display>
 				</loop>

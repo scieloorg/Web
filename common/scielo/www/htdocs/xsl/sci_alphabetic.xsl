@@ -91,7 +91,7 @@
 	</xsl:template>
 	<xsl:template match="*" mode="display-list">
 		<xsl:choose>
-			<xsl:when test="SERIAL[.//current-status/@status]">
+			<xsl:when test="count(SERIAL[.//current-status/@status!=''])&gt;0">
 				<xsl:apply-templates select="." mode="classified"/>
 			</xsl:when>
 			<xsl:otherwise>
@@ -140,12 +140,22 @@
 						</xsl:when>
 					</xsl:choose>
 				</xsl:if>
-				<xsl:apply-templates select="." mode="display-status-info"/>				
-				<xsl:if test=".//current-status/@status='C'">
-				<xsl:if test="not(starts-with(normalize-space(following-sibling::node()/TITLE), substring(normalize-space(TITLE), 1, 1)))">
-								<br/></xsl:if>
-								</xsl:if>
-				
+				<xsl:choose>
+					<xsl:when test=".//current-status/@status=''">
+						<xsl:if test="not(starts-with(normalize-space(following-sibling::node()/TITLE), substring(normalize-space(TITLE), 1, 1)))">
+							<br/>
+						</xsl:if>
+					</xsl:when>
+					<xsl:when test=".//current-status/@status='C'">
+						<xsl:apply-templates select="." mode="display-status-info"/>
+						<xsl:if test="not(starts-with(normalize-space(following-sibling::node()/TITLE), substring(normalize-space(TITLE), 1, 1)))">
+							<br/>
+						</xsl:if>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:apply-templates select="." mode="display-status-info"/>
+					</xsl:otherwise>
+				</xsl:choose>
 			</font>
 			<br/>
 		</li>

@@ -13,7 +13,8 @@
 	<return action="replace" tag="5151">
 	<pft>
 		,'	<journal-status-history>'/,
-		,'		<current-status date="',v9051^c,if a(v9051^c) then v9051^a fi,'" status="',v9051^d,if a(v9051^d) then v9051^b fi,'"/>'/,
+/*		,'		<current-status date="',v9051^c,if a(v9051^c) then v9051^a fi,'" status="',v9051^d,if a(v9051^d) then v9051^b fi,'"/>'/, */
+		,'		<current-status date="',v9051^c,if a(v9051^c) then v9051^a fi,'" status=""/>'/,
 
 		,if p(v710) then
 			'   <CHANGESINFO><NEWTITLE><TITLE',| ISSN="|v400|"|,'><![CDATA[',v710,']]></TITLE></NEWTITLE></CHANGESINFO>'/
