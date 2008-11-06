@@ -31,7 +31,7 @@ class XSLTransformerJava {
 	}
 	function prepareXML($xml){
 			$aspas = array(chr(147),chr(148));
-			$menos = array(chr(150));
+			$menos = array(chr(150),chr(151));
 			/* 
 				o transformador via socket usa xml com encoding iso,
 				assim, se o xml vier em utf, necessário executar o utf8_decode
@@ -40,6 +40,8 @@ class XSLTransformerJava {
 				$xml = xml_utf8_decode($xml);
 				$utf = true;
 			} 
+			
+			$xml = str_replace(chr(133),"...",$xml);
 			$xml = str_replace($aspas,"&quot;",$xml);
 			$xml = str_replace($menos,"-",$xml);
 			$xml = str_replace("\n","",$xml);
