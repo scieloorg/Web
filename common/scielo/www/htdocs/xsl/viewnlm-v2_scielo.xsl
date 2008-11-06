@@ -2673,7 +2673,7 @@
                   | xref[@ref-type='bibr']"-->
 	<!-- retirado o tipo bibr -->
 	<xsl:template match="xref[@ref-type='fn']
-                  | xref[@ref-type='table-fn']">
+                  | xref[@ref-type='table-fn'] | xref[@ref-type='bibr']">
 		<span class="xref">
 			<xsl:call-template name="make-id"/>
 			<sup>
@@ -2692,8 +2692,19 @@
 		</span>
 	</xsl:template>
 	<xsl:template match="xref[@ref-type='bibr']">
-		<xsl:value-of select="."/>
+		<span class="xref">
+				<!-- if immediately-preceding sibling was an xref, punctuate
+           (otherwise assume desired punctuation is in the source).-->
+				<a href="#{@rid}">
+					<xsl:value-of select="@rid"/>
+				</a>
+				
+		</span>
 	</xsl:template>
+
+	<!--xsl:template match="xref[@ref-type='bibr']">
+		<xsl:value-of select="."/>
+	</xsl:template-->
 	<xsl:template match="text()[normalize-space(.)='-']">
 		<xsl:choose>
 			<!-- if a hyphen is the only thing in a text node
