@@ -691,7 +691,7 @@
 						<xsl:when test="../lpage">
 							<xsl:text>pp. </xsl:text>
 							<xsl:value-of select="/article/front/article-meta/fpage"/>
-							<xsl:text>&#150;</xsl:text>
+							<xsl:text>-</xsl:text>
 							<xsl:value-of select="/article/front/article-meta/lpage"/>
 						</xsl:when>
 						<xsl:otherwise>
@@ -2712,10 +2712,10 @@
          it's expressing a range, and we superscript it -->
 			<xsl:when test="local-name(following-sibling::node()[1])='xref'
                 and local-name(preceding-sibling::node()[1])='xref'">
-				<sup>&#150;</sup>
+				<sup>-</sup>
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:text>&#150;</xsl:text>
+				<xsl:text>-</xsl:text>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
@@ -3689,7 +3689,7 @@
 	<xsl:template match="fpage" mode="nscitation">
 		<xsl:apply-templates/>
 		<xsl:if test="../lpage">
-			<xsl:text>&#150;</xsl:text>
+			<xsl:text>-</xsl:text>
 			<xsl:value-of select="../lpage"/>
 		</xsl:if>
 		&#160;<xsl:text/>
@@ -3704,7 +3704,7 @@
 	<xsl:template match="lpage" mode="book">
 		<xsl:choose>
 			<xsl:when test="../fpage">
-				<xsl:text>&#150;</xsl:text>
+				<xsl:text>-</xsl:text>
 				<xsl:apply-templates/>
 				<xsl:text>.</xsl:text>
 			</xsl:when>
@@ -3975,7 +3975,7 @@
 						&#160;<xsl:text/>
 						<xsl:apply-templates/>
 						<xsl:if test="$hermano='lpage'">
-							<xsl:text>&#150;</xsl:text>
+							<xsl:text>-</xsl:text>
 							<xsl:apply-templates select="following-sibling::lpage[1]"/>
 						</xsl:if>
 						<xsl:text>,</xsl:text>
@@ -3984,7 +3984,7 @@
 						&#160;<xsl:text/>
 						<xsl:apply-templates/>
 						<xsl:if test="$hermano='lpage'">
-							<xsl:text>&#150;</xsl:text>
+							<xsl:text>-</xsl:text>
 							<xsl:apply-templates select="following-sibling::lpage[1]"/>
 						</xsl:if>
 						<xsl:text>.</xsl:text>
@@ -3996,7 +3996,7 @@
 				<xsl:apply-templates/>
 				<xsl:choose>
 					<xsl:when test="$hermano='lpage'">
-						<xsl:text>&#150;</xsl:text>
+						<xsl:text>-</xsl:text>
 						<xsl:apply-templates select="following-sibling::lpage[1]"/>
 						<xsl:text>.</xsl:text>
 					</xsl:when>
