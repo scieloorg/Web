@@ -810,7 +810,6 @@
 				</xsl:call-template>
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:variable name="length" select="normalize-space(string-length(NAME))"/>
 				<xsl:value-of select="normalize-space(UPP_ORGNAME)" disable-output-escaping="yes"/>
 				<xsl:if test="ORGNAME and ORGDIV">. </xsl:if>
 				<xsl:value-of select="normalize-space(ORGDIV)" disable-output-escaping="yes"/>
