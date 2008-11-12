@@ -29,7 +29,6 @@
 		<!-- retrieval metadata, at end -->
 		<xsl:call-template name="nl-2"/>
 	</xsl:template>
-	
 	<xsl:template match="*" mode="make-body">
 		<xsl:apply-templates select=".//body/*"/>
 	</xsl:template>
@@ -56,7 +55,11 @@
 			<xsl:apply-templates select="//permissions"/>
 		</div>
 	</xsl:template>
+	
 	<xsl:template match="author-notes" mode="text">
+		<xsl:apply-templates select="*" mode="text"/>
+	</xsl:template>
+	<xsl:template match="author-notes/corresp" mode="text">
 		<p>
 			<br/>
 		</p>
@@ -68,19 +71,21 @@
 			<img src="{$var_IMAGE_PATH}/seta.gif" alt="" border="0" align="middle"/>
 		</a>
 		<xsl:text> </xsl:text>
-		<a name="{corresp/@id}">
-			<xsl:apply-templates select="//corresp" mode="copyValue"/>
+		<a name="{@id}">
+			<xsl:apply-templates select="*|text()"/>
 		</a>
 	</xsl:template>
-	<xsl:template match="//corresp" mode="copyValue">
+	<!--xsl:template match="author-notes/fn" mode="text">
+		
+	</xsl:template-->
+	<xsl:template match="corresp" mode="copyValue">
 		<xsl:apply-templates select="*|text()"/>
 	</xsl:template>
 	<!-- ScELO -->
 	<xsl:template match="history" mode="text">
-		
 		<div class="history">
-		<xsl:apply-templates select="date" mode="text"/>
-		<xsl:text>.</xsl:text>
+			<xsl:apply-templates select="date" mode="text"/>
+			<xsl:text>.</xsl:text>
 		</div>
 	</xsl:template>
 	<xsl:template match="date" mode="text">
@@ -134,7 +139,9 @@
 		<xsl:value-of select="fn"/>
 	</xsl:template>
 	<xsl:template match="fn" mode="text">
-		
+		<p>
+		<xsl:apply-templates/>
+		</p>
 	</xsl:template>
 	<xsl:template match="*" mode="make-end-metadata">
 		<xsl:apply-templates select=".//article-meta"/>
@@ -197,22 +204,20 @@
 	</xsl:template>
 	<xsl:template match="back/*">
 		<div>
-			<xsl:attribute name="id"><xsl:value-of select="name()"/>
-			</xsl:attribute>
-				<xsl:apply-templates/>
+			<xsl:attribute name="id"><xsl:value-of select="name()"/></xsl:attribute>
+			<xsl:apply-templates/>
 		</div>
 	</xsl:template>
 	<xsl:template match="back/*[.//table-wrap]">
 		<div id="tables">
-				<xsl:apply-templates/>
-			</div>
+			<xsl:apply-templates/>
+		</div>
 	</xsl:template>
-	<xsl:template match="permissions"	>
+	<xsl:template match="permissions">
 		<p>
-			<xsl:value-of select="copyright-year"/> <xsl:value-of select="copyright-statement"/>
-			<xsl:apply-templates select="license"></xsl:apply-templates>
+			<xsl:value-of select="copyright-year"/>
+			<xsl:value-of select="copyright-statement"/>
+			<xsl:apply-templates select="license"/>
 		</p>
-		
-		
 	</xsl:template>
 </xsl:transform>

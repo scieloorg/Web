@@ -935,7 +935,7 @@
 		<hr class="part-rule"/>
 		<!-- change context node to back -->
 		<xsl:for-each select="back">
-			<xsl:text></xsl:text>
+			<xsl:text/>
 			<xsl:apply-templates select="title"/>
 			<xsl:if test="preceding-sibling::body//fn-group | .//fn-group">
 				<span class="tl-main-part">Notes</span>
@@ -1011,11 +1011,11 @@
 		</xsl:if>
 		<xsl:text/>
 		<span class="">
-		<p align="right">
-			<b>
-			<xsl:apply-templates/>
-			</b>
-		</p>
+			<p align="right">
+				<b>
+					<xsl:apply-templates/>
+				</b>
+			</p>
 		</span>
 	</xsl:template>
 	<xsl:template match="subject">
@@ -1133,7 +1133,7 @@
 	<!-- The first p in a footnote displays the fn symbol or,
      if no symbol, the fn ID -->
 	<xsl:template match="fn/p[1]">
-	<xsl:comment>fn/p[1]</xsl:comment>
+		<xsl:comment>fn/p[1]</xsl:comment>
 		<p>
 			<xsl:call-template name="make-id"/>
 			<xsl:if test="../@symbol | ../@id">
@@ -2431,7 +2431,7 @@
 		<xsl:call-template name="nl-1"/>
 	</xsl:template>
 	<!-- author-notes/fn/label -->
-	<xsl:template match="author-notes/fn/label">		
+	<xsl:template match="author-notes/fn/label">
 		<xsl:apply-templates/>
 	</xsl:template>
 	<!-- author-notes/fn/p[1] -->
@@ -2472,10 +2472,12 @@
 					&#160;<xsl:text/>
 				</xsl:when>
 				<xsl:otherwise>
-					<span class="gen">
-						<xsl:text>*</xsl:text>
-					</span>
+					<xsl:if test="not (contains(.,'*'))">
+						<span class="gen">
+							<xsl:text>*</xsl:text>
+						</span>
 					&#160;<xsl:text/>
+					</xsl:if>
 				</xsl:otherwise>
 			</xsl:choose>
 			<xsl:apply-templates/>
@@ -2524,18 +2526,18 @@
 	<!--  40. BACK-MATTER: FOOTNOTE-GROUP and FN                       -->
 	<!-- ============================================================= -->
 	<xsl:template match="fn-group">
-	<xsl:comment>fn-group - i</xsl:comment>
+		<xsl:comment>fn-group - i</xsl:comment>
 		<xsl:call-template name="nl-1"/>
 		<xsl:if test="position()>1">
 			<hr class="section-rule"/>
 		</xsl:if>
 		<xsl:call-template name="nl-1"/>
-		<xsl:text></xsl:text>
-	<xsl:comment>fn-group - a</xsl:comment>
+		<xsl:text/>
+		<xsl:comment>fn-group - a</xsl:comment>
 		<xsl:apply-templates/>
-	<xsl:comment>fn-group - b</xsl:comment>
+		<xsl:comment>fn-group - b</xsl:comment>
 		<xsl:call-template name="nl-1"/>
-	<xsl:comment>fn-group - e</xsl:comment>
+		<xsl:comment>fn-group - e</xsl:comment>
 	</xsl:template>
 	<!-- ============================================================= -->
 	<!--  Footnote                                                     -->
@@ -2693,15 +2695,13 @@
 	</xsl:template>
 	<xsl:template match="xref[@ref-type='bibr']">
 		<span class="xref">
-				<!-- if immediately-preceding sibling was an xref, punctuate
+			<!-- if immediately-preceding sibling was an xref, punctuate
            (otherwise assume desired punctuation is in the source).-->
-				<a href="#{@rid}">
-					<xsl:value-of select="@rid"/>
-				</a>
-				
+			<a href="#{@rid}">
+				<xsl:value-of select="@rid"/>
+			</a>
 		</span>
 	</xsl:template>
-
 	<!--xsl:template match="xref[@ref-type='bibr']">
 		<xsl:value-of select="."/>
 	</xsl:template-->
@@ -2757,6 +2757,7 @@
 		<xsl:choose>
 			<xsl:when test="@xlink:href">
 				<a>
+					<xsl:attribute name="target">_blank</xsl:attribute>
 					<xsl:call-template name="make-href"/>
 					<xsl:call-template name="make-id"/>
 					<xsl:apply-templates/>
@@ -3553,7 +3554,7 @@
 		</i>
 	</xsl:template>
 	<xsl:template match="source" mode="book">
-	<xsl:comment>source, book</xsl:comment>
+		<xsl:comment>source, book</xsl:comment>
 		<xsl:choose>
 			<xsl:when test="../trans-source">
 				<xsl:apply-templates/>
@@ -3586,7 +3587,7 @@
 		<xsl:apply-templates/>
 	</xsl:template>
 	<xsl:template match="volume | edition" mode="book">
-	<xsl:comment>edition,book</xsl:comment>
+		<xsl:comment>edition,book</xsl:comment>
 		<xsl:apply-templates/>
 		<xsl:if test="@collab-type='compilers'">
 			<xsl:text>, </xsl:text>
@@ -3811,7 +3812,8 @@
 	<xsl:template match="volume" mode="none">
 		<xsl:apply-templates/>
 	</xsl:template>
-	<xsl:template match="edition" mode="none"><xsl:comment>edition,none</xsl:comment>
+	<xsl:template match="edition" mode="none">
+		<xsl:comment>edition,none</xsl:comment>
 		<xsl:apply-templates/>
 		<xsl:text>. </xsl:text>
 	</xsl:template>
@@ -3880,7 +3882,7 @@
 		</xsl:choose>
 	</xsl:template>
 	<xsl:template match="source" mode="none">
-	<xsl:comment>source,none</xsl:comment>
+		<xsl:comment>source,none</xsl:comment>
 		<xsl:text>&#160;</xsl:text>
 		<xsl:apply-templates/>
 		<xsl:choose>
