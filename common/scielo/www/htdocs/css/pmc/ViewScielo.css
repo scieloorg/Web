@@ -124,13 +124,11 @@ hr.section-rule {
 
 .fig {
 	text-align: left;
-margin-top: 40pt;
-margin-bottom: 40pt;
-
+	margin-top: 40pt;
+	margin-bottom: 40pt;
 }
-.table {
-	text-align: justify;
-margin-bottom: 50pt;
+.table {	
+	margin-bottom: 50pt;
 }
 
 
@@ -143,10 +141,7 @@ margin-bottom: 50pt;
 	margin-left: 10pt;
 	margin-right: 20pt;
 }
-.table-data {
-font-family : courier, serif;
-		margin-bottom: 0
-}
+
 .table-label, .fig-label {
 		font-family : Times New Roman;
 		font-size: 11pt;
@@ -163,22 +158,28 @@ font-family : courier, serif;
 .table-content {
 	margin-top: 0
 }
-
-.table table  thead tr td, .table table  thead th td,  {
-	border-top: 1px solid black;
-	border-bottom: 1px solid black;
-}
-
 .table table {
-	font-family : courier, serif;
-	font-size: 10pt;
-/*
-	border-spacing: 10px
-	border-top: 1px solid black;
-	border-bottom: 1px solid black;
-	border: 1px solid gray;
-*/
+empty-cells: show ;
+	border-style: dotted  dotted dotted dotted;
+	 font-family : Verdana, Arial, Helvetica, sans-serif;
+
+	table-layout: automatic;
 }
+
+.table table  thead   {
+    font-size : 9pt;
+	background: #aabbcc;
+}
+
+
+.table table  td {
+    font-size : 8pt;
+	border-bottom: 1px solid black;
+	
+border-spacing: 20pt;
+}
+
+
 /*
 .table table td {
 		
@@ -222,7 +223,7 @@ font-family : courier, serif;
      font-size:   8pt;	
 }
 
-.fig-file a  {
+a  {
 	text-decoration: none;
 }
 
