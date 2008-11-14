@@ -55,63 +55,49 @@
 		base para a ordenacao dos titulos dentro do assunto, carrego a lista que e
 		ordenada em memoria.
 		-->
+		<field action="replace" tag="3000"><pft>
+				if v3000 = 'en' then '1' fi
+				if v3000 = 'es' then '2' fi
+				if v3000 = 'pt' then '3' fi
+			</pft></field>
         <loop>
-<field action="import" tag="list">3000</field>
-<field action="replace" tag="3000"><pft>
-	if v3000 = 'en' then '1' fi
-	if v3000 = 'es' then '2' fi
-	if v3000 = 'pt' then '3' fi
-</pft></field>
-<flow action="jump"><pft>
-<!--
-	if v1000^t <>  v3000 then 'PULA_OUTRO_IDIOMA' fi
--->
-</pft></flow>
-<display><pft>'<!-- '</pft></display>
-<display><pft>ALL</pft></display>
-<display>
-			<pft>
-				proc ('d9999a9999~',ref (['TITLE']val(v1000^m), v100," - "v110, '^i', v400),'~')
-				
-				if l(['FACCOUNT'], v9999^i) > 0 then 
-					v9999,
-					ref (['FACCOUNT']l(['FACCOUNT'], v9999^i), '^q',v999)
-				fi
-			</pft>
-</display>
-<display><pft>' -->'</pft></display>
+			<field action="import" tag="list">3000</field>
+			
+			<flow action="jump"><pft>
+			<!--
+				if v1000^t <>  v3000 then 'PULA_OUTRO_IDIOMA' fi
+			-->
+			</pft></flow>
+			
+			
+			<field action="replace" tag="9999" split="occ"><pft>ref (['TITLE']val(v1000^m), v100," - "v110, '^i', v400,'^x',v51^d[1],if a(v51^d[1]) then v51^b[1] fi,'^w',v51^c[1],if a(v51^c[1]) then v51^a[1] fi)</pft></field>
+			<call name="getXMLJournalStatusHistory"><pft>v9999^i</pft></call>
+			<field action="replace" tag="5151"><pft>replace(v5151,s(#),'')</pft></field>
 
 			<!-- Carrega cada titulo e issn em uma lista -->
 			<list action="load" type="freq"><pft>
-				proc ('d9999a9999~',ref (['TITLE']val(v1000^m), v100," - "v110, '^i', v400,'^x',v51^d[1],if a(v51^d[1]) then v51^b[1] fi,'^w',v51^c[1],if a(v51^c[1]) then v51^a[1] fi),'~')
 				
 				if l(['FACCOUNT'], v9999^i) > 0 then 
 					v9999,
 					ref (['FACCOUNT']l(['FACCOUNT'], v9999^i), '^q',v999)
+					,'^z',v5151
 				fi
+				
 			</pft></list>
 		
 			<!-- O indice do posting e igual ao total de postings, entao temos uma quebra -->
-<display><pft>'<!-- [1]  -->'</pft></display>
-<label>PULA_OUTRO_IDIOMA</label>
+			<label>PULA_OUTRO_IDIOMA</label>
 			<flow action="skip"><pft>if v1000^i <> v1002 then 'Next' fi</pft></flow>
-<display><pft>'<!-- [2]  -->'</pft></display>
 			
 			<!-- Percorre a lista gerada -->
 			<do task="list">
 	        	<field action="define" tag="1003">Isis_Item</field>
 				<field action="define" tag="1004">Isis_Itens</field>
 				<field action="define" tag="1005">Isis_Current</field>
-<display><pft>'<!-- [3]  -->'</pft></display>
 				
 				<loop>
-<display><pft>'<!-- [4]  -->'</pft></display>
 					<field action="import" tag="list">1001</field>
 					<field action="import" tag="list">1002</field>
-
-<display><pft>'<!-- '</pft></display>
-<display><pft>ALL</pft></display>
-<display><pft>' -->'</pft></display>
 
 					<display><pft>					
 						if v1005 = '1' and val(v1004) > 0 then
@@ -124,10 +110,7 @@
 						"     <![CDATA["v1003^*"]]>"/
 						'    </TITLE>',/
 
-		,'	<journal-status-history>'/,
-		,'		<current-status date="',v1003^w,'" status="',v1003^x,'"/>'/,
-		'	</journal-status-history>'/
-
+						v1003^z
 						'   </SERIAL>',/#
 					</pft></display>
 				</loop>

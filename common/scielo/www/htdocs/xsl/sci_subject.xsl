@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 	<xsl:include href="sci_navegation.xsl"/>
+	<xsl:include href="journalStatus.xsl"/>
 	<xsl:include href="sci_error.xsl"/>
-	
 	<xsl:output method="html" indent="no"/>
 	<xsl:variable name="forceType" select="//CONTROLINFO/ENABLE_FORCETYPE"/>
+	
+	<xsl:variable name="padrao">
+		<xsl:if test="not(//SERIAL[journal-status-history]) or (count(//SERIAL[journal-status-history/current-status/@status!=''])=0 )">true</xsl:if>
+	</xsl:variable>
+	<xsl:variable name="text_issues">&#160;
+		<xsl:choose>
+			<xsl:when test="//CONTROLINFO[normalize-space(LANGUAGE)='en']">issue</xsl:when>
+			<xsl:otherwise>número</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
 	<xsl:template match="/">
 		<html>
 			<head>
@@ -103,34 +113,27 @@
 			</font>
 			<br/>
 			<xsl:choose>
-				<xsl:when test="not(//SERIAL[journal-status-history]) or (count(//SERIAL[journal-status-history/current-status/@status!=''])=0 ) ">
-				<br/>
+				<xsl:when test="$padrao='true'">
+					<br/>
 					<xsl:comment>padrao</xsl:comment>
 					<xsl:apply-templates select="SERIAL"/>
 				</xsl:when>
 				<xsl:otherwise>
 					<xsl:if test="SERIAL[journal-status-history/current-status/@status='C']">
-					<p>&#160;&#160;&#160;&#160;
-
-							<xsl:choose>
-							<xsl:when test="$interfaceLang='pt'">Títulos correntes</xsl:when>
-							<xsl:when test="$interfaceLang='es'">Títulos vigentes</xsl:when>
-							<xsl:when test="$interfaceLang='en'">Current titles</xsl:when>
-						</xsl:choose>
-					</p>
-					<xsl:apply-templates select="SERIAL[journal-status-history/current-status/@status='C']"/>
+						<p>&#160;&#160;&#160;&#160;
+							<xsl:value-of select="$translations-j//term[@code='current-titles']"/>
+						</p>
+						<p>
+							<xsl:apply-templates select="SERIAL[journal-status-history/current-status/@status='C']"/>
+						</p>
 					</xsl:if>
 					<br/>
-					
 					<xsl:if test="SERIAL[journal-status-history/current-status/@status!='C']">
-					<p>&#160;&#160;&#160;&#160;
-<xsl:choose>
-							<xsl:when test="$interfaceLang='pt'">Títulos não correntes</xsl:when>
-							<xsl:when test="$interfaceLang='es'">Títulos no vigentes</xsl:when>
-							<xsl:when test="$interfaceLang='en'">Not current titles</xsl:when>
-						</xsl:choose>
-					</p>
-					<xsl:apply-templates select="SERIAL[journal-status-history/current-status/@status!='C']"/>
+						<p>&#160;&#160;&#160;&#160;							<xsl:value-of select="$translations-j//term[@code='not-current-titles']"/>
+						</p>
+						<p>
+							<xsl:apply-templates select="SERIAL[journal-status-history/current-status/@status!='C']"/>
+						</p>
 					</xsl:if>
 				</xsl:otherwise>
 			</xsl:choose>
@@ -138,34 +141,21 @@
 		<p>&#160;</p>
 	</xsl:template>
 	<xsl:template match="SERIAL">
-	&#160;&#160;&#160;&#160;&#160;
-	<font class="linkado" color="#000080">
-			<xsl:choose>
-				<xsl:when test="$forceType=0">
-					<a>
-						<xsl:attribute name="href">http://<xsl:value-of select="//SERVER"/><xsl:value-of select="//PATH_DATA"/>scielo.php?script=<xsl:apply-templates select="." mode="sci_serial"/>&amp;pid=<xsl:value-of select="TITLE/@ISSN"/>&amp;lng=<xsl:value-of select="normalize-space(//CONTROLINFO/LANGUAGE)"/>&amp;nrm=<xsl:value-of select="normalize-space(//CONTROLINFO/STANDARD)"/></xsl:attribute>
-						<xsl:value-of select="TITLE" disable-output-escaping="yes"/>
-					</a>
-				</xsl:when>
-				<xsl:otherwise>
-					<a>
-						<xsl:attribute name="href">http://<xsl:value-of select="//SERVER"/><xsl:value-of select="//PATH_DATA"/>scielo.php?script=<xsl:apply-templates select="." mode="sci_serial"/>&amp;pid=<xsl:value-of select="TITLE/@ISSN"/>&amp;lng=<xsl:value-of select="normalize-space(//CONTROLINFO/LANGUAGE)"/>&amp;nrm=<xsl:value-of select="normalize-space(//CONTROLINFO/STANDARD)"/></xsl:attribute>
-						<xsl:value-of select="TITLE" disable-output-escaping="yes"/>
-					</a>
-				</xsl:otherwise>
-			</xsl:choose>
-			 - <xsl:value-of select="@QTYISS"/>
-			<xsl:choose>
-				<xsl:when test="/SUBJECTLIST/CONTROLINFO[normalize-space(LANGUAGE)='en']"> 
-				 issues
-			</xsl:when>
-				<xsl:when test="/SUBJECTLIST/CONTROLINFO[normalize-space(LANGUAGE)='pt']"> 
-				números
-			</xsl:when>
-				<xsl:when test="/SUBJECTLIST/CONTROLINFO[normalize-space(LANGUAGE)='es']"> 
-				números
-			</xsl:when>
-			</xsl:choose>
+		&#160;&#160;&#160;&#160;&#160;
+
+			<font class="linkado">
+			<a>
+				<xsl:attribute name="href">http://<xsl:value-of select="//SERVER"/><xsl:value-of select="//PATH_DATA"/>scielo.php?script=<xsl:apply-templates select="." mode="sci_serial"/>&amp;pid=<xsl:value-of select="TITLE/@ISSN"/>&amp;lng=<xsl:value-of select="normalize-space(//CONTROLINFO/LANGUAGE)"/>&amp;nrm=<xsl:value-of select="normalize-space(//CONTROLINFO/STANDARD)"/><xsl:apply-templates select="." mode="repo_url_param"/></xsl:attribute>
+				<xsl:value-of select="TITLE" disable-output-escaping="yes"/>
+			</a>
+			<xsl:if test="not(//NO_SCI_SERIAL='yes')">
+			- <xsl:value-of select="@QTYISS"/>
+				<xsl:value-of select="$text_issues"/>
+				<xsl:if test="@QTYISS > 1">s</xsl:if>
+			</xsl:if>
+			<xsl:if test=".//current-status/@status!='' and .//current-status/@status!='C' ">
+				<xsl:apply-templates select="." mode="display-status-info"/>
+			</xsl:if>
 		</font>
 		<br/>
 	</xsl:template>
