@@ -3298,16 +3298,22 @@
 </function>
 
 <function name="showText" action="replace"  tag="264">
+	<field action="replace" tag="264"><pft>mpu,v264,mpl</pft></field>
 	<return action="replace" tag="8264">
 		<pft>if p(v264) then 
-				if val(v264)>val(s(date)*0.8) then 
-					,'no', 
-				,else
-					,'yes'
+				if v264='ND' then
+					,'no',
+				else
+					if val(v264)>val(s(date)*0.8) then 
+						,'no', 
+					,else
+						,'yes'
+					fi
 				fi
 			else
 				,'yes',
 			fi
+
 		</pft>
 	</return>
 </function>
