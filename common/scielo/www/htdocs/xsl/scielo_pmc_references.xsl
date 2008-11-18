@@ -85,7 +85,9 @@
 	<xsl:template match="lpage[not(../fpage) and (../../*[@citation-type='book' or @citaton-type='thesis'])] | *[@citation-type]/page-count" mode="none">
 		<xsl:apply-templates select="@*|*|text()"/> pp.
 	</xsl:template>
-	<xsl:template match="source" mode="none">&#160;<xsl:apply-templates/><xsl:if test="../..//@citation-type!='journal'">.</xsl:if>&#160;</xsl:template>
-	<xsl:template match="article-title[contains(text(),'?')] | source[contains(text(),'?')] " mode="none"><xsl:value-of select="."/>
-	</xsl:template>
+	<xsl:template match="source" mode="none">&#160;<xsl:apply-templates/><xsl:if test="../..//@citation-type!='journal'"><xsl:apply-templates select="." mode="dot"/></xsl:if>&#160;</xsl:template>
+	
+	<xsl:template match="*" mode="dot">
+		<xsl:variable name="x" select="normalize-space(.)"/>
+		<xsl:if test="not(contains('?.!',substring($x,string-length($x),1)))">.</xsl:if></xsl:template>
 </xsl:transform>
