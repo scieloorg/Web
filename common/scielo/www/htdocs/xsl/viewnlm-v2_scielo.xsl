@@ -2698,7 +2698,7 @@
 			<!-- if immediately-preceding sibling was an xref, punctuate
            (otherwise assume desired punctuation is in the source).-->
 			<a href="#{@rid}">
-				<xsl:value-of select="@rid"/>
+				<xsl:value-of select="."/>
 			</a>
 		</span>
 	</xsl:template>
