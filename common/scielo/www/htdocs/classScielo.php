@@ -23,6 +23,22 @@ class Scielo extends ScieloBase
 				case "sci_abstract": $oldscript = "fbabs"; break;
 			}
 			header('Location: /cgi-bin/fbpe/'.$oldscript.'?pid='.$pid);
+		} else {
+				$this->_request->getRequestValue("script", $script);
+				switch ($script){
+					case "sci_arttext": 
+					case "sci_abstract":
+						require_once("classes/ArticleData/FixPID.php");
+						$fixPid = new FixPid("../bases/artigo/fixpid.txt");
+						
+						$fixedPid = $fixPid->getFixedPid($pid); 
+						if ($fixedPid){
+							$newUrl = str_replace('pid='.$pid,'pid='.$fixedPid,$_SERVER["REQUEST_URI"]);
+							header('Location: '.$newUrl);
+						}
+						
+					break;
+				}
 		}
 	}
 	function GenerateIsisScriptUrl()
