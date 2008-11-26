@@ -1,0 +1,140 @@
+<IsisScript>
+
+<!--include>scielo_lilacs/tools/doi/doi.xis</include>
+<include>scielo_lilacs/tools/xis/add.xis</include>
+<include>scielo_lilacs/conversion/functions.xis</include-->
+<include>lilacs_scielo/conversion/functions.xis</include>
+
+<section>
+	<field action="cgi" tag="4010">debug</field>
+	<trace><pft>v4010</pft></trace>
+
+	<!-- Get CGI Parameters -->
+	<field action="cgi" tag="1">acron</field>
+	<field action="cgi" tag="2">issueid</field>
+	<field action="cgi" tag="4012">url</field>
+	<field action="cgi" tag="4013">serial_path</field>
+	<field action="cgi" tag="4111">reprocess</field>
+	<field action="cgi" tag="9001">center</field>
+	
+
+	<field action="cgi" tag="7011">proc_path</field>
+	<field action="cgi" tag="4015">cip</field>
+
+	
+	<include>lilacs_scielo/tools/sci_cipar.xis</include>
+
+	<field action="replace" tag="7777"><pft>mid(cat(v4015),instr(v4015,'PATH_BASE_DOI=')+size('PATH_BASE_DOI='),size(v4015))</pft></field>
+	<field action="replace" tag="7777"><pft>if instr(v7777,s(#))>0 then  mid(v7777,1,instr(v7777,s(#))-1) fi</pft></field>
+
+
+	<field action="replace" tag="4011">LILACS</field>
+
+	<field action="replace" tag="4007">CTRL_ISSUE</field>
+	<field action="replace" tag="4014">CTRL_CONVERSION</field>
+
+	
+	<!-- para cada linha da scilista -->
+	<flow action="jump"><pft>if a(v1) then 'END' fi</pft></flow>
+	
+	<field action="replace" tag="3"><pft>v1,v2</pft></field>
+	
+	<label>CHECK_ISSUE_HAS_BEEN_ALREADY_DONE</label>			
+	<field action="replace" tag="9990"><pft>			
+		if l([v4007]v3)>0 then 
+			,s(ref([v4007]l([v4007]v3),v90)),				
+		fi
+	</pft></field>
+	<field action="replace" tag="9990"><pft>			
+		if v9990='DONE' and v4111='reprocess' then 'QUALIFIED'		
+		fi
+	</pft></field>
+	<field action="replace" tag="9991"><pft>			
+		if v9990='DONE' then ' PREVIOUSLY ',s(ref([v4007]l([v4007]v3),v91[last])) fi
+		if v9990='EXPORTED' then v9990,' ',s(ref([v4007]l([v4007]v3),v91[last])) fi
+	</pft></field>
+	<flow action="jump"><pft>if v9990='DONE' or v9990='EXPORTED' then 'REPORT' fi</pft></flow>
+
+	<field action="replace" tag="9990">QUALIFIED</field>
+	
+				
+	<flow action="jump"><pft>if v9990='QUALIFIED' then else 'CONTROL_ISSUE_STATUS' fi</pft></flow>
+
+	<label>CREATE_ISSUE_ARTICLES_DATABASE</label>
+	<!-- v5002 = contador de artigos ok por número -->
+	<!-- v5003 = resultado de cd artigo por número -->
+	<!-- v5200 = resultado do número -->
+
+	<field action="replace" tag="5002">0</field>
+	<field action="delete" tag="5003">1</field>
+	<field action="replace" tag="5005">0</field>
+
+	<field action="replace" tag="5000"><pft>v2</pft></field>
+	<field action="replace" tag="5001"><pft>v4013,'/',v1,'/',v2,'/base/',v2</pft></field>
+
+	<call name="convert_article_list"><pft>v2</pft></call>
+
+	<!-- v5002: convertido com sucesso -->
+	<!-- v5005: convertido com sucesso e na base LILACSXP -->
+	<field action="replace" tag="125"><pft>if p(v5002) then v5002 else '0' fi</pft></field>
+	<field action="replace" tag="126"><pft>v5005</pft></field>
+	<field action="replace" tag="9990"><pft>
+		if (v122=v125) and (val(v122) * 4 + 1 = val(v126)) then 
+			,'DONE'
+		else
+			,if val(v125)>0 then
+				,'PARTIALY_DONE'
+			fi
+		fi
+	</pft></field>
+	<field action="replace" tag="9991"><pft>
+		if (val(v122) * 4 + 1 = val(v126)) then 
+			,' NOW'
+		fi
+	</pft></field>
+
+	<field action="add" tag="5200"><pft>if v9990='QUALIFIED' or v9990='PARTIALY_DONE' then v1,' ',v2,' ',v9990,' documents:',v125,'/',v122,' records:',v126,'/',f(val(v122) * 4 + 1,1,0)/, /* (v5003/) */ fi</pft></field>
+
+	<label>CONTROL_ISSUE_STATUS</label>
+	<do task="update">
+		<parm name="db"><pft>v4007</pft></parm>
+		<parm name="mfn"><pft>if l([v4007]v3)>0 then f(l([v4007]v3),1,0) else 'New' fi</pft></parm>
+		<field action="define" tag="1101">Isis_Lock</field>
+		<parm name="lockid">xxx</parm>
+		<field action="define" tag="1102">Isis_Status</field>
+
+		<update>
+			<field action="import" tag="list">880,1,2,9990,65,122,125,126</field>
+			<field action="import" tag="92">9898</field>
+			<field action="replace" tag="90"><pft>v9990</pft></field>
+			<field action="add" tag="91"><pft>date</pft></field>
+			<write>Unlock</write>
+		</update>
+	</do>
+	<file action="close" type="database"><pft>v4007</pft></file>
+
+	<label>REPORT</label>
+	<display><pft>v1,' ',v2,' ',			
+	,v9990,		
+	,if v9990='DONE' OR v9990='EXPORTED' then
+		,| |v9991,
+		,| |v9999^d,
+		,| records=|,v125 
+	,else
+		if v9990='NOT_QUALIFIED_BY_DATE' then
+			,' ',v65, 
+		else
+			if v9990='QUALIFIED' or v9990='PARTIALY_DONE' then
+				,' ',v125,'/',v122 
+			fi
+		fi,				
+	fi/,
+	/* (v5003/) */
+	</pft></display>
+	
+<display><pft>#,if p(v5200) then 'FAILURE: REPROCESS:'/,(v5200/) else 'SUCCESS'/ fi</pft></display>
+<label>END</label>
+
+</section>
+
+</IsisScript>

@@ -1,0 +1,86 @@
+<IsisScript>
+
+
+
+<section>
+	<field action="cgi" tag="4010">debug</field>
+	<trace><pft>v4010</pft></trace>
+
+	<!-- Get CGI Parameters -->
+	<field action="cgi" tag="4002">report</field>
+	<field action="cgi" tag="4015">cip</field>
+
+	<parm name="buffersize">1000000</parm>
+	<include>lilacs_scielo/tools/sci_cipar.xis</include>
+
+	<field action="replace" tag="4007">CTRL_CONVERSION</field>
+
+
+	<field action="replace" tag="4002"><pft>replace(v4002,'\','/')</pft></field>
+
+	
+
+	<file action="create" type="output"><pft>v4002</pft></file>
+	<display><pft>
+	'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+		<html xmlns="http://www.w3.org/1999/xhtml">
+		 <head>
+			<title>Report of conversion of data from LILACS to SciELO</title>
+			<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+			<style type="text/css">
+			body {
+				font-family : Verdana, Arial, Helvetica, sans-serif;
+				font-size : 10pt;
+			}
+			.good { background-color: gray; font-color: white }
+			.bad { background-color: yellow; font-color: red }
+			</style>
+		 </head>
+		 <body>',
+			'<h1>Report of conversion of data from LILACS to SciELO </h1>'/
+			'<h2>n. ',date,'</h2>'/
+
+	</pft></display>
+
+
+	<display><pft>
+		
+		,'<table>'/
+		,'<tr><th>LILACS</th><th>SciELO</th></tr>'/
+	</pft></display>
+
+	<field action="replace" tag="6000">0</field>
+	<field action="replace" tag="6001">0</field>
+	<field action="replace" tag="6002">0</field>
+	<field action="replace" tag="6003">0</field>
+
+
+
+	<do task="search">
+		 <parm name="db"><pft>v4007</pft></parm>
+		 <parm name="expression"><pft>'S=bad$'</pft></parm>
+		 <field action="define" tag="5011">Isis_Total</field>
+
+		 <loop>
+			
+			<display><pft>,'<tr><th>',v91[last],'<br/> ',v702,'</th><th>',v880,'</th></tr>'/
+				(
+				'<tr class="bad">',
+						'<td>',v590,'</td>'
+						'<td>',v591,'</td>'
+				'</tr>'
+				)
+			</pft></display>
+		</loop>
+		<display><pft>if v5011='0' then '<tr><td>No differences</td></tr>' fi</pft></display>
+	</do>
+
+	<display><pft>
+		 '</table></body>
+		</html>'
+	</pft></display>
+	<file action="close" type="output">*</file>
+
+</section>
+
+</IsisScript>

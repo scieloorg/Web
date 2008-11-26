@@ -1,0 +1,897 @@
+<!--function name="convert_issue" action="replace" tag="5000">
+	<field action="import" tag="list">4009/4014</field>
+	<field action="import" tag="list">880</field>
+	<field action="import" tag="list">1/999</field>
+	<field action="import" tag="list">7011</field>
+
+	<call name="convert_article_list">1</call>
+	<flow action="jump"><pft>if v5002=v122 then else 'END_OF_ISSUE' fi</pft></flow>
+	
+	<call name="save_issue_LILACSXP">1</call>
+
+	<label>END_OF_ISSUE</label>
+	<field action="export" tag="list">5002,5005,9898</field>
+
+</function-->
+
+
+<function name="fix_issue_id" action="replace" tag="5000">
+	<field action="import" tag="list">31,32</field>
+
+	<field action="replace" tag="32"><pft>if instr(v32,' ')=0 then v32 else mid(v32,1,instr(v32,' ')-1),'^s',mid(v32,instr(v32,' ')+1,size(v32)) fi</pft></field>
+	<field action="replace" tag="132"><pft>v32^s</pft></field>
+	<field action="replace" tag="32"><pft>v32^*</pft></field>
+	<field action="export" tag="list">31,32,131,132</field>
+</function>
+
+
+<function name="get_doctopic" action="replace" tag="5000">
+	<!-- v2 = lista de doctopic -->
+	<field action="import" tag="list">12,13</field>
+	<field action="replace" tag="12">v12,v13</field>
+
+	<list action="load" type="list"><pft>cat('DOCTOPIC.TXT')</pft></list>
+	<do task="list">
+		<field action="define" tag="1001">Isis_Current</field>
+		<field action="define" tag="1002">Isis_Items</field>
+		<field action="define" tag="1003">Isis_Item</field>
+
+		<loop>
+			<field action="import" tag="list">12</field>
+			
+			<field action="replace" tag="71"><pft>if s(mpu,v12):s(mpu,v1003^v) then v1003^c fi</pft></field>
+			<field action="export" tag="list">71</field>
+			<flow action="skip"><pft>if p(v71) then 'Quit' fi</pft></flow>
+			
+		</loop>
+	</do>
+	<list action="delete">now</list>
+	<field action="replace" tag="71"><pft>if a(v71) then 'oa' fi</pft></field>
+	<field action="export" tag="list">71</field>
+
+</function>
+
+<function name="get_month" action="replace" tag="5000">
+	<field action="replace" tag="9064"><pft>'FIXME',
+		,select s(v5000)
+            case '01': ,'jan',
+            case '02': ,'fev',
+            case '03': ,'mar',
+            case '04': ,'abr',
+            case '05': ,'maio',
+            case '06': ,'jun',
+            case '07': ,'fev',
+            case '08': ,'mar',
+            case '09': ,'abr',
+            case '10': ,'maio',
+            case '11': ,'jan',
+            case '12': ,'fev',
+        ,endsel,
+	</pft></field>
+	<field action="export" tag="list">9064</field>
+</function>
+
+
+<function name="getRecordCtrlData" action="replace" tag="9706">
+	<field action="import" tag="list">9091,9092</field>
+	<!-- igual para o tipo de registro -->
+	<!-- tipo de registro: o,h,f,l -->
+	<!-- Tipo de literatura -->
+	<field action="replace" tag="705"><pft>if v9706<>'i' then 'S' fi</pft></field>
+	<field action="replace" tag="706"><pft>v9706</pft></field>
+	<!-- contador do tipo de registro por artigo -->
+	<field action="replace" tag="701">1</field>
+	<!-- total do tipo de registro por artigo -->
+	<field action="replace" tag="708"><pft>if v9706<>'i' then '1' fi</pft></field>
+	
+	<!-- contador de registros por artigo -->
+	<field action="replace" tag="700"><pft>
+	select s(v9706)
+	case 'i': ,'0',
+	case 'o': ,'1',
+	case 'h': ,'2',
+	case 'f': ,'3',
+	case 'l': ,'4',
+	endsel</pft></field>
+	<!-- data/hora -->
+	<field action="replace" tag="91"><pft>if v9706='o' or v9706='i' then s(date)*0.8 fi</pft></field>
+	<field action="replace" tag="92"><pft>if v9706='o' then s(date)*9.6 fi</pft></field>
+	<field action="replace" tag="703"><pft>if v9706='o' then '4' fi</pft></field>
+
+	<field action="export" tag="list">706,700,703,91,92,705,701,708</field>
+</function>
+
+<function name="getArticleCtrlData" action="replace" tag="5000">
+	<field action="import" tag="list">9702,9002,72</field>
+	<!-- caminho completo do arquivo -->
+	<field action="replace" tag="2"><pft>v9002</pft></field>
+	<!-- caminho completo do arquivo -->
+	<field action="replace" tag="702"><pft>v9702,'/',v2</pft></field>
+	<!-- tipo de documento: article or text -->
+	<field action="replace" tag="709"><pft>if p(v72) then if val(v72)>0 then 'article' else 'text' fi else 'text' fi</pft></field>
+	<field action="export" tag="list">702,709,2</field>
+</function>
+
+
+
+<function name="getTitleData" action="replace" tag="5000">
+
+	<do task="search">
+		<parm name="db">MY_TITLE</parm>
+		<parm name="expression"><pft>v5000</pft></parm>
+		<parm name="count">1</parm>
+
+		<field action="define" tag="122">Isis_Total</field>
+		
+		<loop>			
+			<field action="replace" tag="130"><pft>v100</pft></field>
+			<field action="export" tag="list">130,421,151,230,480,930,117,85</field>
+		</loop>		
+		
+	</do>
+	<field action="export" tag="list">130,421,151,230,480,930,117,85</field>
+</function>
+
+
+<function name="convert_article_list" action="replace" tag="5000">
+	<!-- 
+		v4011 = base LILACS
+		v5000 = chave para encontrar artigos do issue
+		v5001,v3000 = base de artigos do issue
+	-->
+	<field action="import" tag="list">1,4009/4015,5001</field>
+
+	<!-- full name of the database of the articles of the issue -->
+	<field action="replace" tag="3000"><pft>v5001</pft></field>
+
+	<!-- data from ... -->
+	<field action="import" tag="list">9001/9999</field>
+	<field action="replace" tag="9702"><pft>replace(v5001,'/base/','/markup/')</pft></field>
+
+
+	<!-- data from TITLE -->
+	<call name="getTitleData"><pft>v1</pft></call>
+	<field action="delete" tag="list">1</field>
+	<field action="replace" tag="9030"><pft>v151</pft></field>
+	<field action="replace" tag="9117"><pft>v117</pft></field>
+
+	<!-- ISSUE DATA -->	
+	<field action="replace" tag="30"><pft>v9030</pft></field>
+	<field action="replace" tag="33"><pft>v9033</pft></field>
+
+	<!--
+		record i
+	-->
+	<!-- CONSTANT DATA FOR i RECORD TYPE-->	
+	<field action="replace" tag="991">1</field>
+	<field action="replace" tag="42">1</field>	
+	<field action="replace" tag="200">1</field>
+	<field action="replace" tag="48" split="occ"><pft>'^les^hSumario'/,'^lpt^hSumário'/,'^len^hTable of Contents'/</pft></field>
+
+	<!-- i RECORD TYPE -->
+	<call name="getRecordCtrlData">i</call>
+
+	<!-- ISSUE DATA FROM LILACS RECORD -->	
+	<do task="search">
+		<parm name="db"><pft>v4011</pft></parm>
+		<parm name="expression"><pft>v5000</pft></parm>
+		<parm name="count">1</parm>
+
+		<field action="define" tag="122">Isis_Total</field>
+		
+		<loop>			
+			<field action="export" tag="list">31,32,35</field>
+			<field action="export" tag="list">64,65,66</field>
+		</loop>		
+		<field action="export" tag="list">122</field>
+	</do>
+	
+	<!-- 31,32,131,132 -->
+	<call name="fix_issue_id">1</call>
+	<!-- nome da base de artigos do issue -->
+	<field action="replace" tag="9004"><pft>|v|v31,|n|v32,|s|v131,|s|v132,</pft></field>
+
+
+	<!-- MES DA LEGENDA -->
+	<call name="get_month"><pft>v65*4.2</pft></call>
+	<field action="replace" tag="64"><pft>replace(replace(v64,' ','^a'),'-','/')</pft></field>
+
+	<!-- LEGENDA -->
+	<field action="replace" tag="43" split="occ"><pft>
+		'^les^t',v9030,|^vv.|v31,,|^wsupl.|v131,|^nn.|v32,|^ssupl.|v132,|^c|v66,|^m|v64^*,|^a|v65*0.4/
+		'^lpt^t',v9030,|^vv.|v31,,|^wsupl.|v131,|^nn.|v32,|^ssupl.|v132,|^c|v66,|^m|v64^*,|^a|v65*0.4/
+		'^len^t',v9030,|^vvol.|v31,|^wsuppl.|v131,|^nno.|v32,|^ssuppl.|v132,|^c|v66,|^m|v9064^i,|^a|v65*0.4/
+		</pft>
+	</field>
+
+	<!-- save issue record, in issue -->
+	<call name="getIssueKey">1</call>
+
+
+
+	<call name="getIssueOrder">1</call>
+
+
+	<field action="replace" tag="3131">ISSUE_DB</field>
+	<call name="save">ISSUE_DB</call>
+	<field action="delete" tag="1313">1</field>
+
+	<!-- save first record: i -->
+	<field action="replace" tag="3131"><pft>v3000</pft></field>
+	<call name="save"><pft>v3000</pft></call>
+	<field action="replace" tag="5005"><pft>if val(v7001)>0 then f(val(v5005)+1,1,0) fi</pft></field>
+
+
+	
+	<!-- records: o,h,f,l -->
+
+	<do task="keyrange">
+		<parm name="db"><pft>v4011</pft></parm>
+		<parm name="from"><pft>v5000,'_'</pft></parm>
+		<parm name="to"><pft>v5000,'_9999'</pft></parm>
+		<parm name="posting"><pft>'ALL'</pft></parm>
+
+		<field action="define" tag="1000">Isis_Current</field>
+		<field action="define" tag="6001">Isis_Key</field>
+		<field action="define" tag="1003">Isis_Posting</field>
+		<field action="define" tag="1004">Isis_Postings</field>
+		
+		<loop>
+
+			<field action="import" tag="list">3000,5002,5005,4011/4014</field>
+			
+			<field action="import" tag="list">9001/9999</field>
+
+			<field action="import" tag="list">701,705,708,31,32,131,132,36</field>
+
+			<do task="mfnrange">
+				<parm name="db"><pft>v4011</pft></parm>
+				<parm name="from"><pft>v1003^m</pft></parm>
+				<parm name="count">1</parm>
+
+				<loop>
+					<field action="import" tag="list">9001/9999</field>
+					<field action="replace" tag="5555"><pft>'^a',v2,'^b',v778</pft></field>
+					<field action="replace" tag="9770" split="occ"><pft>(v770/)</pft></field>
+					<field action="replace" tag="9002"><pft>replace(replace(v8,'.pdf','.htm'),'.PDF','.htm')</pft></field>
+
+					<call name="getLILACSContent">1</call>
+
+
+					<field action="import" tag="list">6001,1000,1002/1004</field>
+					<field action="import" tag="list">3000,5002,5005,4014,4012</field>					
+					<field action="import" tag="list">701,705,708,31,32,131,132,36</field>
+
+					<call name="getArticleCtrlData">1</call>
+
+					<!-- O -->
+					<call name="generateRecord_o">o</call>
+					<field action="replace" tag="5005"><pft>if val(v7001)>0 then f(val(v5005)+1,1,0) fi</pft></field>
+
+					<!-- H,F -->
+					<field action="delete" tag="list">3002</field>
+<display><pft>'a 1001:',v6001/</pft></display>
+					<call name="convert_article">1</call>
+					<field action="replace" tag="5005"><pft>if val(v3005)>0 then f(val(v5005)+val(v3005),1,0) fi</pft></field>
+					<field action="replace" tag="5002"><pft>if size(v3002)=0 then f(val(v5002)+1,1,0) fi</pft></field>
+
+					<!-- L -->
+					<field action="replace" tag="880"><pft>'S',v35,v65*0.4,s(f(10000+val(v36*4),5,0))*1.4,v9121</pft></field>
+
+					<field action="add" tag="8"><pft>'Internet^ihttp://',v4012,'/scielo.php?script=sci_pdf&definition=h&pid='v880</pft></field>
+					<field action="add" tag="8"><pft>'Internet^ihttp://',v4012,'/scielo.php?script=sci_pdf&definition=l&pid='v880</pft></field>
+
+					<field action="replace" tag="2"><pft>v5555^a</pft></field>
+					<field action="replace" tag="778"><pft>v5555^b</pft></field>
+					<call name="getRecordCtrlData">l</call>
+					<call name="save"><pft>v3000</pft></call>
+					<field action="replace" tag="5005"><pft>if val(v7001)>0 then f(val(v5005)+1,1,0) fi</pft></field>
+
+					<field action="export" tag="list">5002,5005</field>
+				</loop>		
+			</do>
+			<field action="export" tag="list">5002,5005</field>
+		</loop>
+
+	</do>
+	<file action="close" type="database"><pft>v4011</pft></file>
+
+	<!-- v5002: convertido com sucesso -->
+	<!-- v5005: salvos na base -->
+	<field action="export" tag="list">122,5002,5005</field>
+
+</function>
+
+<function name="generateRecord_o" action="replace" tag="5000">
+	<!--
+	v5000 = tipo do registro
+	-->
+	<field action="import" tag="list">2,9004,91,92,700/703,705/706,708/709,3000</field>
+	<call name="getRecordCtrlData">o</call>
+	<field action="replace" tag="4"><pft>v9004</pft></field>
+	<call name="save"><pft>v3000</pft></call>
+	<field action="export" tag="list">7001</field>
+</function>
+
+<function name="getLILACSContent" action="replace" tag="5000">
+	<field action="import" tag="list">1/999,9001/9999</field>
+<!--display><pft>ALL</pft></display-->
+	<field action="replace" tag="8590" split="occ"><pft>@fixlilacs.pft,@lildhtm.pft</pft></field>
+	<field action="export" tag="list">8590</field>
+</function>
+
+<function name="convert_article" action="replace" tag="5000">
+
+	<parm name="buffersize">2024000</parm>
+
+	<field action="import" tag="list">4014</field>
+	<field action="import" tag="list">3000</field>
+	<field action="import" tag="list">1000,6001</field>
+	<field action="import" tag="list">1/999</field>
+	<field action="import" tag="list">9001/9999</field>
+	<field action="import" tag="list">8590</field>
+
+	<field action="replace" tag="3005">0</pft></field>
+
+
+<display><pft>'b 1001:',v6001/</pft></display>
+
+	<!-- content of the record content before converting -->
+	<field action="replace" tag="42">1</field>
+
+	<!-- versão de DTD -->
+	<field action="replace" tag="120">3.1</field>
+	 
+	<!-- secao -->
+	<field action="replace" tag="49">nd</field>
+
+	<!-- ??? - sponsor -->
+	<field action="replace" tag="158">nd</field>
+
+	<field action="replace" tag="9121"><pft>s(f(val(v1000)+100,3,0))*1.2</pft></field>
+
+	
+	<!-- convert -->
+	<include>lilacs_scielo/conversion/lilacs2scielo.xis</include>					
+	<!-- content of the record content after converting -->
+
+	<call name="get_doctopic">1</call>
+
+
+	<!-- save -->
+	<call name="getRecordCtrlData">h</call>
+	<call name="save"><pft>v3000</pft></call>
+	<field action="replace" tag="3005"><pft>if val(v7001)>0 then f(val(v3005)+1,1,0) fi</pft></field>
+
+	<call name="getRecordCtrlData">f</call>
+	<call name="save"><pft>v3000</pft></call>
+	<field action="replace" tag="3005"><pft>if val(v7001)>0 then f(val(v3005)+1,1,0) fi</pft></field>
+
+<!--display><pft>ALL</pft></display-->
+
+	<field action="replace" tag="591" split="occ"><pft>@displayDataFromSciELO.pft,@lildhtm.pft</pft></field>
+
+	<field action="delete" tag="list">1/13,15/29,33/64,66/130,133/590,592/701,703/879,881/999,9000/9999</field>
+<!--display><pft>'a'/,(v591/)</pft></display-->
+
+	<!-- register diff -->
+	<call name="checkDiff"><pft>(v591/),#</pft></call>
+	<call name="registerDiff"><pft>(v3002/),#</pft></call>
+
+
+	<field action="export" tag="list">3002,3005,9121</field>
+</function>
+
+<function name="checkDiff" action="replace" tag="591" split="occ">
+	<field action="import" tag="list">8590</field>
+	<parm name="buffersize">2024000</parm>
+
+<!--display><pft>'b'/,(v591/)</pft></display-->
+
+	<flow action="jump"><pft>if v8590=v591 then 'EQUAL' fi</pft></flow>
+
+	<flow action="jump"><pft>if size(v8590)>5000 then 'LARGE' fi</pft></flow>
+	<field action="replace" tag="3002" split="occ"><pft>(if v8590<>v591 then v8590/ fi)</pft></field>
+	<field action="replace" tag="591" split="occ"><pft>(if v8590<>v591 then v591/ fi)</pft></field>
+	<flow action="jump">END</flow>
+	
+
+	<label>LARGE</label>
+
+	<call name="saveLargeContent"><pft>(v8590/)</pft></call>
+	<trace>On</trace>
+	<field action="delete" tag="list">8590</field>
+
+	<list action="load" type="list"><pft>(v591/)</pft></list>
+	<field action="delete" tag="list">591</field>	
+	<do task="list">
+		<field action="define" tag="1001">Isis_Current</field>
+		<field action="define" tag="1002">Isis_Items</field>
+		<field action="define" tag="1003">Isis_Item</field>		
+
+		<loop>
+			<field action="import" tag="list">7100,3002,591</field>
+
+			<field action="replace" tag="1111"><pft>f(val(v7100) - 1 + val(v1001),1,0)</pft></field>	
+
+			<field action="add" tag="3002"><pft>if val(v1111)>0 then if ref(['TEMP_DB']val(v1111),v590)<>v1003 then ref(['TEMP_DB']val(v1111),v590) fi fi</pft></field>	
+			<field action="add" tag="591"><pft>if val(v1111)>0 then if ref(['TEMP_DB']val(v1111),v590)<>v1003 then v1003 fi fi</pft></field>	
+
+			<field action="export" tag="list">3002,591</field>
+		</loop>
+	</do>
+	<trace>On</trace>
+
+	<list action="delete">now</list>	
+	<flow action="jump">END</flow>
+
+	<label>EQUAL</label>
+	<field action="replace" tag="591">#</field>	
+	<field action="replace" tag="3002">#</field>	
+	<flow action="jump">END</flow>
+
+	<label>END</label>
+	<field action="export" tag="list">3002,591</field>
+</function>
+
+<function name="saveLargeContent" action="replace" tag="5000" split="occ">
+	<!--
+		v5000 = 
+		1/999 = os campos da base de artigo
+		v7001 = mfn do registro gravado, 
+			serve para identificar se a gravação foi bem sucedida
+	-->
+	<trace>xOn</trace>
+
+	<parm name="buffersize">2024000</parm>
+	<field action="replace" tag="7001">0</field>
+	
+	<list action="load" type="list"><pft>(v5000/)</pft></list>
+	<field action="replace" tag="5000"><pft>f(nocc(v5000),1,0)</pft></field>
+
+	<do task="list">
+		<field action="define" tag="1001">Isis_Current</field>
+		<field action="define" tag="1002">Isis_Items</field>
+		<field action="define" tag="1003">Isis_Item</field>
+
+		<loop>
+			<do task="update">
+				<parm name="db">TEMP_DB</parm>
+				<parm name="mfn">New</parm>
+
+				<field action="define" tag="1101">Isis_Lock</field>
+				<parm name="lockid">xxx</parm>
+				<field action="define" tag="1102">Isis_Status</field>
+
+				<update>
+					<field action="import" tag="list">1003</field>
+					<field action="replace" tag="590"><pft>v1003</pft></field>
+					<field action="delete" tag="list">1003</field>
+
+					<write>Unlock</write>
+					<field action="replace" tag="7100"><pft>mfn</pft></field>
+					<field action="export" tag="list">7100</field>
+				</update>
+				<field action="export" tag="list">7100</field>
+			</do>
+			<file action="close" type="database">TEMP_DB</file>
+
+			<field action="export" tag="list">7100</field>
+		</loop>
+	</do>
+	<list action="delete">now</list>
+	<field action="replace" tag="7100"><pft>f(val(v7100)-val(v5000)+1,1,0)</pft></field>
+
+	<trace>On</trace>
+<display><pft>'endsave',v7100/</pft></display>
+	<field action="export" tag="list">7100</field>
+</function>
+
+
+<function name="save" action="replace" tag="5000">
+	<!--
+		v5000 = nome da base dos artigos de um issue SciELO
+		1/999 = os campos da base de artigo
+		v7001 = mfn do registro gravado, 
+			serve para identificar se a gravação foi bem sucedida
+	-->
+	<field action="import" tag="list">1/999</field>
+	<field action="import" tag="list">1313</field>
+	<field action="import" tag="list">3131</field>
+	<field action="replace" tag="7001">0</field>
+
+	<field action="replace" tag="5000"><pft>v3131</pft></field>
+
+	
+	<parm name="buffersize">2024000</parm>
+	<do task="update">
+		<parm name="db"><pft>v5000^*</pft></parm>
+		<parm name="mfn"><pft>
+			if p(v1313) then
+				if l([v5000^*]v1313)>0 then 				 
+					ref([v5000^*]l([v5000^*]v1313),mfn) 
+				else
+					'New'
+				fi
+			else
+				'New'
+			fi</pft></parm>
+		<field action="define" tag="1101">Isis_Lock</field>
+		<parm name="lockid">xxx</parm>
+		<field action="define" tag="1102">Isis_Status</field>
+
+		<update>
+			<field action="import" tag="list">5000</field>
+			<field action="import" tag="list"><pft>if p(v5000^a) then v5000^a else '1/999' fi,</pft></field>
+			<field action="delete" tag="list">5000</field>
+			<write>Unlock</write>
+
+			<field action="add" tag="7001"><pft>mfn</pft></field>
+			<field action="export" tag="list">7001</field>			
+		</update>
+	</do>
+	<file action="close" type="database"><pft>v5000^*</pft></file>
+	<field action="export" tag="list">7001</field>
+</function>
+
+<function name="registerDiff" action="replace" split="occ" tag="590">
+	<field action="import" tag="list">591,6001</field>
+	<field action="import" tag="list">702,880,30,31,32,131,132,35,65,14</field>
+	<field action="import" tag="list">4009/4014</field>
+	<field action="import" tag="list">8100,8101</field>
+	<field action="import" tag="list">3333</field>
+<display><pft>'c 1001:',v6001/</pft></display>
+
+	<field action="replace" tag="880"><pft>if a(v880) then v6001 fi</pft></field>
+
+	<label>GENERATE_CONTROL</label>
+
+	<field action="replace" tag="7002">0</field>
+	<do task="update">
+		<parm name="db"><pft>v4014</pft></parm>
+		<parm name="mfn"><pft>if l([v4014]|PID=|v880)>0 then f(l([v4014]|PID=|v880),1,0) else 'New' fi</pft></parm>
+		<field action="define" tag="1101">Isis_Lock</field>
+		<parm name="lockid">xxx</parm>
+		<field action="define" tag="1102">Isis_Status</field>
+
+		<update>
+			<field action="import" tag="list">702,880,30,31,32,131,132,35,65,14,7090,3333,590,591,8100,8101</field>
+			<field action="import" tag="list">4009/4014</field>
+<display><pft>ALL</pft></display>
+			
+			<field action="replace" tag="90"><pft>if v590<>v591 then 'BAD_CONVERSION^e',f(nocc(v590),1,0) else 'CONVERSION_DONE'  fi</pft></field>
+			<field action="add" tag="91"><pft>date</pft></field>
+
+			<write>Unlock</write>
+			<field action="add" tag="7002"><pft>mfn</pft></field>
+			<field action="replace" tag="7090"><pft>v90</pft></field>
+			<field action="export" tag="list">7002,7090</field>
+		</update>
+		<field action="export" tag="list">7002,7090</field>
+	</do>
+	<file action="close" type="database"><pft>v4014</pft></file>
+
+	<field action="export" tag="list">7002,7090</field>
+
+</function>
+
+<function name="getIssueOrder" action="replace" tag="5000">
+	<field action="import" tag="list">1313</field>
+
+	<field action="replace" tag="36"><pft>ref(['ISSUE_ORDER']l(['ISSUE_ORDER']v1313),v36)</pft></field>
+	<field action="export" tag="list">36</field>
+</function>
+
+
+<function name="getIssueKey" action="replace" tag="5000">
+	<field action="import" tag="list">65,31,32,131,132</field>
+	<field action="replace" tag="1313"><pft>v65*0.4,s(f(val(v31)+10000,5,0))*1.4,if v132='0' then '____' else s(f(val(v132)+10000,5,0))*1.4 fi, s(f(val(s('0',v32))+10000,5,0))*1.4,</pft></field>
+
+	<field action="export" tag="list">1313</field>
+</function>
+
+
+
+<!--function name="generate5100" action="replace" tag="5000">
+	<field action="import" tag="list">1/999,5450</field>
+	<field action="import" tag="list">4009/4013</field>
+
+	<label>GET_5100</label>							
+
+	<field action="import" tag="list">1/999,5450</field>
+	<field action="import" tag="list">4013</field>
+	
+
+	<field action="add" tag="4"><pft>v5450</pft></field>
+
+	<field action="replace" tag="5100" split="occ"><pft>@displayDataFromSciELO.pft,@lildhtm.pft</pft></field>
+	
+	<field action="delete" tag="list">1/999</field>
+	<field action="export" tag="list">5100</field>
+
+</function>
+
+<function name="get5100" action="replace" tag="5000">
+	<field action="import" tag="list">8100</field>
+	<field action="import" tag="list">4013</field>
+
+	<field action="replace" tag="5100" split="occ"><pft>ref([v4013]val(v8100),(v5100/))</pft></field>
+	<field action="export" tag="list">5100</field>
+</function>
+
+<function name="save5100_in_a_record" action="replace" tag="5000">
+	<field action="import" tag="list">5100,8100</field>
+	<field action="import" tag="list">4009/4013</field>
+
+	<label>SAVE_5100</label>							
+	<do task="update">
+		<parm name="db"><pft>v4013</pft></parm>
+		<parm name="mfn">New</parm>
+		<field action="define" tag="1101">Isis_Lock</field>
+		<parm name="lockid">xxx</parm>
+		<field action="define" tag="1102">Isis_Status</field>
+
+		<update>
+			<field action="import" tag="list">5100</field>
+			
+			<write>Unlock</write>
+			<field action="replace" tag="8100"><pft>mfn</pft></field>
+			<field action="export" tag="list">8100</field>
+		</update>
+		<field action="export" tag="list">8100</field>
+	</do>
+	<file action="close" type="database"><pft>v4013</pft></file>
+	<field action="export" tag="list">8100</field>
+</function>
+
+<function name="save5100_in_several_records" action="replace" tag="5000">
+	<field action="import" tag="list">5100,8100</field>
+	<field action="import" tag="list">4009/4013</field>
+
+	<label>SAVE_5100</label>							
+
+	<list action="load" type="list"><pft>if p(v5100) then (v5100/) else ref([v4013]val(v8100),(v5100/)) fi</pft></list>
+	<do task="list">
+		<field action="define" tag="1001">Isis_Current</field>
+		<field action="define" tag="1002">Isis_Items</field>
+		<field action="define" tag="1003">Isis_Item</field>
+
+		<loop>
+			<field action="import" tag="list">4013</field>
+			<field action="import" tag="list">8101</field>
+			<do task="update">
+				<parm name="db"><pft>v4013</pft></parm>
+				<parm name="mfn">New</parm>
+				<field action="define" tag="1101">Isis_Lock</field>
+				<parm name="lockid">xxx</parm>
+				<field action="define" tag="1102">Isis_Status</field>
+
+				<update>
+					<field action="import" tag="list">1003</field>
+					<field action="replace" tag="590"><pft>v1003</pft></field>
+					<field action="delete" tag="list">1003</field>
+
+					<write>Unlock</write>
+					<field action="replace" tag="7100"><pft>mfn</pft></field>
+					<field action="export" tag="list">7100</field>
+				</update>
+				<field action="export" tag="list">7100</field>
+			</do>
+			<file action="close" type="database"><pft>v4013</pft></file>
+
+			<field action="replace" tag="8101"><pft>if a(v8101) then v7100 fi</pft></field>
+			<field action="export" tag="list">7100,8101</field>
+		</loop>
+		<field action="export" tag="list">7100,8101</field>
+	</do>
+
+	<list action="delete">now</list>
+	
+	<field action="export" tag="list">7100,8101</field>
+</function-->
+<!--function name="control_conversion" action="replace" tag="5000">
+	<field action="import" tag="list">4009/4014</field>
+	<field action="import" tag="list">8100,8101</field>
+	<field action="import" tag="list">5100,5101</field>
+	<field action="import" tag="list">702,880,30,31,32,131,132,35,65,14</field>
+	<field action="import" tag="list">3333</field>
+
+	<label>GENERATE_CONTROL_SCIELO_LILACS</label>
+
+	<field action="replace" tag="7002">0</field>
+	<do task="update">
+		<parm name="db"><pft>v4014</pft></parm>
+		<parm name="mfn"><pft>if l([v4014]|PID=|v880)>0 then f(l([v4014]|PID=|v880),1,0) else 'New' fi</pft></parm>
+		<field action="define" tag="1101">Isis_Lock</field>
+		<parm name="lockid">xxx</parm>
+		<field action="define" tag="1102">Isis_Status</field>
+
+		<update>
+			<field action="import" tag="list">702,880,30,31,32,131,132,35,65,14,7090,3333,5100,5101,8100,8101</field>
+			<field action="import" tag="list">4009/4014</field>
+
+			<call name="getDiff">1</call>
+
+			<field action="delete" tag="list">590,591</field>
+
+			<field action="replace" tag="590" split="occ"><pft>(v3333/),(v5100/)</pft></field>
+			<field action="replace" tag="591" split="occ"><pft>(if v3333<>'' then # fi),(v5101/)</pft></field>
+			<field action="delete" tag="list">5100,5101</field>
+			
+			<field action="replace" tag="90"><pft>if p(v590) then 'BAD_CONVERSION^e',f(nocc(v590),1,0) else 'CONVERSION_DONE'  fi</pft></field>
+			<field action="add" tag="91"><pft>date</pft></field>
+
+			<write>Unlock</write>
+			<field action="add" tag="7002"><pft>mfn</pft></field>
+			<field action="replace" tag="7090"><pft>v90</pft></field>
+			<field action="export" tag="list">7002,7090</field>
+		</update>
+		<field action="export" tag="list">7002,7090</field>
+	</do>
+	<file action="close" type="database"><pft>v4014</pft></file>
+
+	<field action="export" tag="list">7002,7090</field>
+
+</function>
+<function name="getDiff" action="replace" tag="5000">
+	<field action="import" tag="list">4009/4013</field>
+	<field action="import" tag="list">8100,7100</field>
+	<field action="import" tag="list">7001,5100,5101</field>
+
+	<field action="replace" tag="1111"><pft>if ref([v4013]val(v8100),(v5100))=(v5101) or v5100=v5101 then 'END_COMPARE' fi</pft></field>
+
+	<field action="delete" tag="list"><pft>if v1111='END_COMPARE' then '5100/5101' fi</pft></field>	
+	<flow action="jump"><pft>v1111</pft></flow>
+
+	<call name="getDiff_large"><pft>if size(v5101)>6000 then '1' fi</pft></call>
+	<call name="getDiff_regular"><pft>if size(v5101)>6000 then else '1' fi</pft></call>
+
+	<label>END_COMPARE</label>
+	<field action="export" tag="list">5100,5101</field>
+</function>
+
+<function name="getDiff_regular" action="replace" tag="5000">
+	<field action="import" tag="list">4009/4013</field>
+	<field action="import" tag="list">8100,7100</field>
+	<field action="import" tag="list">7001,5100,5101</field>
+
+	<field action="replace" tag="9100" split="occ"><pft>(
+		if v5100<>v5101 then
+			,v5100,#
+		fi
+	)</pft></field>
+	<field action="replace" tag="5101" split="occ"><pft>(
+		if v5100<>v5101 then
+			,v5101,#
+		fi
+	)</pft></field>
+	<field action="replace" tag="5100" split="occ"><pft>(v9100/)</pft></field>
+
+	<field action="export" tag="list">5100,5101</field>
+</function>
+
+<function name="getDiff_large" action="replace" tag="5000">
+	<field action="import" tag="list">4009/4013</field>
+	<field action="import" tag="list">8100,7100</field>
+	<field action="import" tag="list">7001,5100,5101</field>
+
+	<call name="save5100_in_several_records">1</call>
+
+	<list action="load" type="list"><pft>(v5101/)</pft></list>
+	<field action="delete" tag="list">5100,5101</field>	
+
+	<do task="list">
+		<field action="define" tag="1001">Isis_Current</field>
+		<field action="define" tag="1002">Isis_Items</field>
+		<field action="define" tag="1003">Isis_Item</field>
+		
+
+		<loop>
+			<field action="import" tag="list">4013,8101,7100</field>
+
+			<field action="import" tag="list">5100,5101</field>
+			
+
+			<field action="replace" tag="1111"><pft>f(val(v8101) - 1 + val(v1001),1,0)</pft></field>	
+
+			<field action="add" tag="5100"><pft>if val(v1111)>0 then if ref([v4013]val(v1111),v590)<>v1003 then ref([v4013]val(v1111),v590) fi fi</pft></field>	
+			<field action="add" tag="5101"><pft>if val(v1111)>0 then if ref([v4013]val(v1111),v590)<>v1003 then v1003 fi fi</pft></field>	
+
+			<field action="export" tag="list">5100,5101</field>
+		</loop>
+		<field action="export" tag="list">5100,5101</field>
+	</do>
+	<list action="delete">now</list>
+
+
+	<field action="export" tag="list">5100,5101</field>
+</function>
+<function name="save_issue_LILACSXP" action="replace" tag="5000">
+	<field action="import" tag="list">4009/4014</field>
+	<field action="import" tag="list">9898</field>
+
+	<label>SAVE_LILACSEXPRESS</label>
+	<list action="load" type="list"><pft>(v9898/)</pft></list>
+
+	<do task="list">
+		 <field action="define" tag="1001">Isis_Current</field>
+		 <field action="define" tag="1002">Isis_Items</field>
+		 <field action="define" tag="1003">Isis_Item</field>
+
+		 <loop>
+			<field action="import" tag="list">4009/4013,5005</field>
+			<do task="mfnrange">
+				<parm name="db"><pft>v4013</pft></parm>
+				<parm name="from"><pft>v1003^b</pft></parm>
+				<parm name="count">1</parm>
+
+				<loop>
+					<field action="import" tag="list">4009,5005,5004</field>
+					<field action="replace" tag="7003">0</field>
+
+					<do task="update">
+						<parm name="db"><pft>v4009</pft></parm>
+						<parm name="mfn">New</parm>
+
+						<field action="define" tag="1101">Isis_Lock</field>
+						<parm name="lockid">xxx</parm>
+						<field action="define" tag="1102">Isis_Status</field>
+						<parm name="gizmo"><pft>'GIZIDIOMA,40'/</pft></parm>
+
+						<update>
+							<field action="import" tag="list">1/999</field>
+							<proc><pft>'s'</pft></proc>
+							<write>Unlock</write>
+							<field action="add" tag="7003"><pft>mfn</pft></field>
+							<field action="export" tag="list">7003</field>
+						</update>
+						<field action="export" tag="list">7003</field>
+					</do>
+					<field action="replace" tag="5004"><pft>if a(v5004) then v7003 fi</pft></field>
+					<field action="replace" tag="5005"><pft>if val(v7003)>0 then f(val(v5005)+1,1,0) fi</pft></field>
+					<field action="export" tag="list">5004,5005</field>
+				</loop>
+				<file action="close" type="database"><pft>v4009</pft></file>
+				<field action="export" tag="list">5004,5005</field>
+			</do>
+			<file action="close" type="database"><pft>v4013</pft></file>
+			<field action="export" tag="list">5004,5005</field>
+		</loop>
+		<field action="export" tag="list">5004,5005</field>
+	</do>
+	<list action="delete">now</list>
+
+	
+
+	
+	<field action="export" tag="list">5005</field>
+</function>
+
+
+<function name="warning10" action="replace" tag="3880">
+	<field action="import" tag="list">10,70</field>
+
+	<field action="replace" tag="9010"><pft>(v10^1| |)</pft></field>
+	<field action="add" tag="3333" split="occ"><pft>(if v9010[1]:v70^i then else 'Markup error: aff ',v70^i,' has no authors.'/ fi)</pft></field>
+	<field action="add" tag="3333" split="occ"><pft>if p(v70) and not v9010:'A' then 'Markup error: authors without affiliation.'/ fi,</pft></field>
+	<field action="add" tag="3333" split="occ"><pft>if p(v3333) then (v10^s,|, |v10^n,| |v10^1/),(v70^i,' ',v70^1,|, |v70^2,|, |v70^3/) fi</pft></field>
+
+	
+	<field action="export" tag="list">3333</field>
+</function>
+<function name="warning12" action="replace" tag="3880">
+	<field action="import" tag="list">12,40</field>
+
+	<field action="replace" tag="3333" split="occ">
+		<pft>if p(v12) then
+		if v12^l[1]<>v40 then 
+			(
+				if iocc=1 then 
+					'Markup error: text language(',v40,') and title language(',v12^l[1],') have to be the same.',
+				fi
+			)
+		fi fi</pft></field>
+			
+	<field action="export" tag="list">3333</field>
+
+</function-->
