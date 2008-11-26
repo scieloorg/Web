@@ -626,7 +626,7 @@
 		"  <NO_SCI_SERIAL>"v7046"</NO_SCI_SERIAL>"/,
 		if p(v7047) then
 		'  <NEW_HOME>',
-					,v7047, 
+					,replace(replace(v7047,'"',''),'&','&amp;') 
 		'</NEW_HOME>'/,
 		fi
 		|<LICENSE>|v7051|</LICENSE>|
