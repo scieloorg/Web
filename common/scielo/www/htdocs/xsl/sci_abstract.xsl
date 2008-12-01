@@ -68,10 +68,12 @@
 								<xsl:with-param name="LANG" select="normalize-space(CONTROLINFO/LANGUAGE)"/>
 							</xsl:apply-templates>
 						</h2>
+                                                <div class="index,{ARTICLE/@TEXTLANG}">
 						<xsl:apply-templates select="ARTICLE">
 							<xsl:with-param name="NORM" select="normalize-space(CONTROLINFO/STANDARD)"/>
 							<xsl:with-param name="LANG" select="normalize-space(CONTROLINFO/LANGUAGE)"/>
 						</xsl:apply-templates>
+						</div>
 						<div align="left"/>
 						<!--/div>
 						<div class="contentRight"-->
