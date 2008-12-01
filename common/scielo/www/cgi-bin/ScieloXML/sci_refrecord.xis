@@ -71,8 +71,10 @@
 		 ,' ahpdate="',v223,'"'
          ,' entrdate="',v265,'"'
          ,' RELATED="',ref(['related']l(['related']v880),f(nocc(v88),2,0)),'"',
-
 		 ,' CITED="',ref(['cited']l(['cited']v880),f(nocc(v88),2,0)),'"'
+         if v7052 = '1' then
+		    ,' PROJFAPESP="',ref(['PROJFAPESP']l(['PROJFAPESP'],'SCI=',v880),f(nocc(v88),2,0)),'"',
+	     fi
 		 ,' AREASGEO="',ref(['areasgeo']l(['areasgeo']v880),f(nocc(v880),2,0)),'"'
 		 ,' PROCESSDATE="',ref(l('OU=',v880),proc(if val(v32701^m) > 0 then,'R../bases/artigo/',v32701^*,',',v32701^m , fi),v91),'"',
                 </pft>
@@ -89,8 +91,10 @@
                 <pft>
                     if v4001^f <> 'sta' then v880 fi
                 </pft>
-            </call>   
-            
+            </call>
+
+            <call name="CreateProjetoFAPESP"><pft>if v7052 = '1' then v880 fi</pft></call>
+           
             <call name="CreateLanguageXML">
                 <pft>
                     '^l'v3000'^i'v3003'^m',mfn,"^t"v3012,
