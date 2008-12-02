@@ -22,9 +22,7 @@ function httpInit()
         		try {
         			xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
         		}catch (e) {
-					alert('fodeo1');
 				}
-				alert('fodeo2');
         	}
      	}
 		if (!xmlHttp) {
