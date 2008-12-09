@@ -122,7 +122,7 @@
 		<xsl:choose>
 			<xsl:when test="contains($NUM,'ahead')">
 				<xsl:choose>
-					<xsl:when test="../ARTICLE/BODY">, <xsl:choose>
+					<xsl:when test="../ARTICLE/BODY or ../ARTICLE/fulltext">, <xsl:choose>
 							<xsl:when test="//ARTICLE/@ahpdate=''">
 								<xsl:value-of select="substring(//ARTICLE/@CURR_DATE,1,4)"/>
 							</xsl:when>
@@ -135,7 +135,22 @@
 						<xsl:if test="$CITY">&#160;<xsl:value-of select="normalize-space($CITY)"/>
 						</xsl:if>
 					</xsl:otherwise>
-				</xsl:choose> ahead of print
+				</xsl:choose> ahead of print Epub <xsl:if test="../ARTICLE/BODY or ../ARTICLE/fulltext">
+					<xsl:call-template name="ShowDate">
+						<xsl:with-param name="DATEISO">
+							<xsl:choose>
+								<xsl:when test="//ARTICLE/@ahpdate=''">
+									<xsl:value-of select="//ARTICLE/@CURR_DATE"/>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:value-of select="//ARTICLE/@ahpdate"/>
+								</xsl:otherwise>
+							</xsl:choose>
+						</xsl:with-param>
+						<xsl:with-param name="LANG" select="//CONTROLINFO/LANGUAGE"/>
+						<xsl:with-param name="ABREV" select="1"/>
+					</xsl:call-template>
+				</xsl:if>
 			</xsl:when>
 			<xsl:when test="contains($NUM,'review')">&#160;
 				<xsl:choose>
@@ -175,8 +190,15 @@
 		<xsl:param name="DATEISO"/>
 		<xsl:param name="LANG"/>
 		<xsl:param name="ABREV"/>
+		<xsl:param name="PREPOSITION"/>
 		<xsl:choose>
 			<xsl:when test=" $LANG = 'en' ">
+				<xsl:if test="$PREPOSITION=1">
+					<xsl:choose>
+						<xsl:when test="substring($DATEISO,5,2)!='00' ">on </xsl:when>
+						<xsl:otherwise>in </xsl:otherwise>
+					</xsl:choose>
+				</xsl:if>
 				<xsl:if test="substring($DATEISO,5,2)!='00'">
 					<xsl:call-template name="GET_MONTH_NAME">
 						<xsl:with-param name="LANG" select="$LANG"/>
@@ -190,6 +212,12 @@
 				<xsl:value-of select=" substring($DATEISO,1,4) "/>
 			</xsl:when>
 			<xsl:when test=" $LANG != 'en' and $ABREV">
+				<xsl:if test="$PREPOSITION=1">
+					<xsl:choose>
+						<xsl:when test="$LANG='pt'">em </xsl:when>
+						<xsl:when test="$LANG='es'">en </xsl:when>
+					</xsl:choose>
+				</xsl:if>
 				<xsl:if test="substring($DATEISO,7,2)!='00'">
 					<xsl:value-of select=" substring($DATEISO,7,2) "/>-</xsl:if>
 				<xsl:if test="substring($DATEISO,5,2)!='00'">
@@ -538,42 +566,65 @@
 			<xsl:value-of select="concat(' ', $SHORTTITLE)" disable-output-escaping="yes"/>
 		</i> [online].
 		
-		<xsl:if test="($NUM!='ahead' and $NUM!='review' and $NUM!='beforeprint') or $VOL">
-			<xsl:variable name="prevVOL">
-				<xsl:choose>
-					<xsl:when test="$LANG='en' ">v. </xsl:when>
-					<xsl:otherwise>vol. </xsl:otherwise>
-				</xsl:choose>
-			</xsl:variable>
-			<xsl:variable name="prevNUM">
-				<xsl:choose>
-					<xsl:when test="$LANG='en' ">n. </xsl:when>
-					<xsl:otherwise>no. </xsl:otherwise>
-				</xsl:choose>
-			</xsl:variable>
-			<xsl:value-of select="concat(' ', $YEAR)"/>,
-			<xsl:if test="$VOL">
-				<xsl:value-of select="concat(' ',$prevVOL, $VOL)"/>
-			</xsl:if>
-			<xsl:if test="$NUM">
-				<xsl:choose>
-					<xsl:when test="$NUM='SE' or $NUM='se'">Selected Edition</xsl:when>
-					<xsl:otherwise>
-						<xsl:if test="$VOL">, </xsl:if>
-						<xsl:value-of select="concat($prevNUM,$NUM)"/>
-					</xsl:otherwise>
-				</xsl:choose>
-			</xsl:if>
-			<xsl:if test="$SUPPL">,
-				<xsl:choose>
-					<xsl:when test=" $LANG='en' "> suppl. </xsl:when>
-					<xsl:otherwise> supl. </xsl:otherwise>
-				</xsl:choose>
-				<xsl:if test="$SUPPL>0">
-					<xsl:value-of select="$SUPPL"/>
+		<xsl:choose>
+			<xsl:when test="($NUM!='ahead' and $NUM!='review' and $NUM!='beforeprint') or $VOL">
+				<xsl:variable name="prevVOL">
+					<xsl:choose>
+						<xsl:when test="$LANG='en' ">v. </xsl:when>
+						<xsl:otherwise>vol. </xsl:otherwise>
+					</xsl:choose>
+				</xsl:variable>
+				<xsl:variable name="prevNUM">
+					<xsl:choose>
+						<xsl:when test="$LANG='en' ">n. </xsl:when>
+						<xsl:otherwise>no. </xsl:otherwise>
+					</xsl:choose>
+				</xsl:variable>
+				<xsl:value-of select="concat(' ', $YEAR)"/>,
+				<xsl:if test="$VOL">
+					<xsl:value-of select="concat(' ',$prevVOL, $VOL)"/>
 				</xsl:if>
-			</xsl:if>
-		</xsl:if>
+				<xsl:if test="$NUM">
+					<xsl:choose>
+						<xsl:when test="$NUM='SE' or $NUM='se'">Selected Edition</xsl:when>
+						<xsl:otherwise>
+							<xsl:if test="$VOL">, </xsl:if>
+							<xsl:value-of select="concat($prevNUM,$NUM)"/>
+						</xsl:otherwise>
+					</xsl:choose>
+				</xsl:if>
+				<xsl:if test="$SUPPL">,
+				<xsl:choose>
+						<xsl:when test=" $LANG='en' "> suppl. </xsl:when>
+						<xsl:otherwise> supl. </xsl:otherwise>
+					</xsl:choose>
+					<xsl:if test="$SUPPL>0">
+						<xsl:value-of select="$SUPPL"/>
+					</xsl:if>
+				</xsl:if>
+				<xsl:if test="$FPAGE!=0 and $LPAGE!=0 and $FPAGE!='' and $LPAGE!=''">
+					<xsl:value-of select="concat(', pp. ', $FPAGE, '-', $LPAGE)"/>.
+				</xsl:if>
+			</xsl:when>
+			<xsl:when test="$NUM='ahead'">
+				<xsl:if test="../ARTICLE/BODY or ../ARTICLE/fulltext">
+					<xsl:call-template name="ShowDate">
+						<xsl:with-param name="DATEISO">
+							<xsl:choose>
+								<xsl:when test="//ARTICLE/@ahpdate=''">
+									<xsl:value-of select="//ARTICLE/@CURR_DATE"/>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:value-of select="//ARTICLE/@ahpdate"/>
+								</xsl:otherwise>
+							</xsl:choose>
+						</xsl:with-param>
+						<xsl:with-param name="LANG" select="$LANG"/>
+						<xsl:with-param name="ABREV" select="1"/>
+					</xsl:call-template>
+				</xsl:if>.
+			</xsl:when>
+		</xsl:choose>
 		<xsl:if test="$FORMAT!='short'">
 			<xsl:if test="$CURR_DATE">
 				<xsl:choose>
@@ -582,40 +633,14 @@
 					<xsl:when test=" $LANG = 'es' "> [citado </xsl:when>
 				</xsl:choose>
 				<xsl:value-of select="substring($CURR_DATE,1,4)"/>-<xsl:value-of select="substring($CURR_DATE,5,2)"/>-<xsl:value-of select="substring($CURR_DATE,7,2)"/>]</xsl:if>
-		</xsl:if>
-		<!-- fixed_scielo_social_sciences_20051027 -->
-		<xsl:if test="$FPAGE!=0 and $LPAGE!=0 and $FPAGE!='' and $LPAGE!=''">
-			<xsl:value-of select="concat(', pp. ', $FPAGE, '-', $LPAGE)"/>
-		</xsl:if>.
-		<!--xsl:choose>
-			<xsl:when test=" $LANG = 'en' "> Available from World Wide Web: </xsl:when>
-			<xsl:when test=" $LANG = 'pt' "> Disponível na  World Wide Web: </xsl:when>
-			<xsl:when test=" $LANG = 'es' "> Disponible en la World Wide Web: </xsl:when>
-		</xsl:choose-->
-		<xsl:if test="$FORMAT!='short'">
 			<xsl:choose>
 				<xsl:when test=" $LANG = 'en' "> Available from: </xsl:when>
 				<xsl:when test=" $LANG = 'pt' "> Disponível em: </xsl:when>
 				<xsl:when test=" $LANG = 'es' "> Disponible en: </xsl:when>
 			</xsl:choose>
-  
-  &lt;<!--a>	<xsl:call-template name="AddScieloLink" >
-  	 <xsl:with-param name="seq" select="$PID" />
-  	 <xsl:with-param name="script">sci_arttext</xsl:with-param>
-  	</xsl:call-template-->
-			<xsl:value-of select="$url"/>
-			<!--/a-->&gt;.</xsl:if>
+  			  &lt;<xsl:value-of select="$url"/>&gt;.
+  		</xsl:if>
 		<xsl:value-of select="concat(' ISSN ', $ISSN, '.')"/>
-		<xsl:if test="$NUM='ahead'"> In press 
-		<xsl:choose>
-				<xsl:when test="//ARTICLE/@ahpdate=''">
-					<xsl:value-of select="substring(//ARTICLE/@CURR_DATE,1,4)"/>
-				</xsl:when>
-				<xsl:otherwise>
-					<xsl:value-of select="substring(//ARTICLE/@ahpdate,1,4)"/>
-				</xsl:otherwise>
-			</xsl:choose>.
-		</xsl:if>
 		<xsl:apply-templates select="@DOI" mode="ref"/>
 	</xsl:template>
 	<!-- Prints Authors list  in ISO Format: SURNAME1, Name1, SURNAME2, Name2, SURNAME3, Name3 et al.   
@@ -1664,7 +1689,6 @@ Parameters:
 		<xsl:param name="LANG"/>
 		<xsl:param name="MONTH"/>
 		<xsl:variable name="m" select="document(concat('../xml/',$LANG,'/month_according_biblio_standard.xml'))//standard[@id='nbr6023']"/>
-		
 		<xsl:apply-templates select="$m//month[@id=$MONTH]"/>
 	</xsl:template>
 	<!-- Auxiliary function - Gets the month name in english. See GET_MONTH_NAME function -->
