@@ -291,11 +291,13 @@
 				</xsl:if>
 
                                 <xsl:if test="($show_semantic_hl = 1)">
-                                        <xsl:if test="$title_subjects = 'HEALTH SCIENCES' or $title_subjects = 'BIOLOGICAL SCIENCES'">
-                                        <li>
-                                                <xsl:apply-templates select="//fulltext-service[@id='semantic_highlights']" mode="semanticHighlights"/>
-                                        </li>
-                                        </xsl:if>
+					<xsl:if test="//ARTICLE/@TEXTLANG='en' or //ABSTRACT/@xml:lang='en'">
+						<xsl:if test="$title_subjects = 'HEALTH SCIENCES' or $title_subjects = 'BIOLOGICAL SCIENCES'">
+							<li>
+				                                <xsl:apply-templates select="//fulltext-service[@id='semantic_highlights']" mode="semanticHighlights"/>
+			                                </li>
+	                                        </xsl:if>
+					</xsl:if>
                                 </xsl:if>
 
 				
