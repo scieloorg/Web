@@ -71,8 +71,8 @@
 				</xsl:if>
 			</xsl:when>
 			<xsl:when test="starts-with($num,'beforeprint')"/>
-			<xsl:when test="starts-with($num,'REVIEW')"/>
-			<xsl:when test="starts-with($num,'AHEAD')"/>
+			<xsl:when test="starts-with($num,'REVIEW') or starts-with($num,'review')"/>
+			<xsl:when test="starts-with($num,'AHEAD') or starts-with($num,'ahead')"/>
 			<xsl:when test="starts-with($num,'MON')">
 				<xsl:choose>
 					<xsl:when test="$lang='en'">monograph<xsl:if test="$strip">&#160;issue</xsl:if>
@@ -121,22 +121,12 @@
 		</xsl:if>
 		<xsl:choose>
 			<xsl:when test="contains($NUM,'ahead')">
-				<xsl:choose>
-					<xsl:when test="../ARTICLE/BODY or ../ARTICLE/fulltext">, <xsl:choose>
-							<xsl:when test="//ARTICLE/@ahpdate=''">
-								<xsl:value-of select="substring(//ARTICLE/@CURR_DATE,1,4)"/>
-							</xsl:when>
-							<xsl:otherwise>
-								<xsl:value-of select="substring(//ARTICLE/@ahpdate,1,4)"/>
-							</xsl:otherwise>
-						</xsl:choose>
-					</xsl:when>
-					<xsl:otherwise>
-						<xsl:if test="$CITY">&#160;<xsl:value-of select="normalize-space($CITY)"/>
-						</xsl:if>
-					</xsl:otherwise>
-				</xsl:choose> ahead of print Epub <xsl:if test="../ARTICLE/BODY or ../ARTICLE/fulltext">
-					<xsl:call-template name="ShowDate">
+				<xsl:if test="$CITY">&#160;<xsl:value-of select="normalize-space($CITY)"/>
+				</xsl:if>
+						ahead of print 
+				<xsl:if test="../ARTICLE/BODY or ../ARTICLE/fulltext">, 
+					 Epub 
+							<xsl:call-template name="ShowDate">
 						<xsl:with-param name="DATEISO">
 							<xsl:choose>
 								<xsl:when test="//ARTICLE/@ahpdate=''">
