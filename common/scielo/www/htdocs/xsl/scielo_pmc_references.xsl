@@ -19,8 +19,10 @@
 	</xsl:template>
 	<xsl:template match="ref">
 		<p id="{@id}">
+			<span id="x{@id}">
 			<xsl:apply-templates select="label"/>
 			<xsl:apply-templates select="citation|nlm-citation"/>
+			</span>
 			<!--xsl:apply-templates select="citation/pub-id|nlm-citation/pub-id" mode="link"/-->
 			<xsl:apply-templates select="citation|nlm-citation" mode="link">
 				<xsl:with-param name="pos" select="position()"/>
@@ -49,7 +51,10 @@
 		<xsl:variable name="position" select="concat(substring('00000',1,5 - string-length($pos)),$pos)"/>
 		&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;[&#32;<a>
 			<xsl:attribute name="href">javascript:void(0);</xsl:attribute>
-			<xsl:attribute name="onclick">javascript: window.open('/scielo.php?pid=<xsl:value-of select="$pid"/><xsl:value-of select="$position"/>&amp;lng=<xsl:value-of select="$LANGUAGE"/>&amp;script=sci_reflinks<xsl:apply-templates select="$pub-id" mode="param"/>','','width=640,height=500,resizable=yes,scrollbars=1,menubar=yes,');</xsl:attribute>
+			<xsl:attribute name="onclick">javascript: window.open('/scieloOrg/php/reflinks.php?refpid=<xsl:value-of select="$pid"/><xsl:value-of select="$position"/>&amp;pid=<xsl:value-of select="$pid"/>&amp;lng=<xsl:value-of select="$LANGUAGE"/>&amp;script=sci_reflinks&amp;refid=<xsl:value-of select="../@id"/><xsl:apply-templates select="$pub-id" mode="param"/>','','width=640,height=500,resizable=yes,scrollbars=1,menubar=yes,');</xsl:attribute>
+
+			
+			<!--xsl:attribute name="onclick">javascript: window.open('/scielo.php?pid=<xsl:value-of select="$pid"/><xsl:value-of select="$position"/>&amp;lng=<xsl:value-of select="$LANGUAGE"/>&amp;script=sci_reflinks<xsl:apply-templates select="$pub-id" mode="param"/>','','width=640,height=500,resizable=yes,scrollbars=1,menubar=yes,');</xsl:attribute-->
 		Links</a>&#160;]
 	</xsl:template>
 	<xsl:template match="pub-id" mode="param">&amp;<xsl:value-of select="@pub-id-type"/>=<xsl:value-of select="."/>
