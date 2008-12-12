@@ -342,10 +342,10 @@
                       <xsl:value-of select="url" />&amp;showlabel=<xsl:value-of select="$show"/>&amp;hidelabel=<xsl:value-of select="$hide"/>
                 </xsl:variable>
                 <script src="{$serviceUrl}"></script>
-		<span id="wikifier-conceptweblinker-button-place">
+		<!--span id="wikifier-conceptweblinker-button-place"-->
 			<img id="wikifier-conceptweblinker-image" src="/img/btknewco.gif" onclick="WikiProfClick();" align="absmiddle"/>
 			<a id="wikifier-conceptweblinker-button" href="#" title="Knewco's ConceptWeb Linker Button">Show semantic highlights</a>
-		</span>
+		<!--/span-->
         </xsl:template>
 
         <xsl:template match="fulltext-service" mode="linkGoogle">
