@@ -344,7 +344,7 @@
                 <script src="{$serviceUrl}"></script>
 		<!--span id="wikifier-conceptweblinker-button-place"-->
 			<img id="wikifier-conceptweblinker-image" src="/img/btknewco.gif" onclick="WikiProfClick();" align="absmiddle"/>
-			<a id="wikifier-conceptweblinker-button" href="#" title="Knewco's ConceptWeb Linker Button">Show semantic highlights</a>
+			<a id="wikifier-conceptweblinker-button" href="#" title="Knewco's ConceptWeb Linker Button"><xsl:value-of select="$show"/></a>
 		<!--/span-->
         </xsl:template>
 
