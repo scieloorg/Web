@@ -1,6 +1,0 @@
-proc('d2a2{',v9002,'{')
-proc('d4a4{',v9004,'{')
-proc('d12',('a12{',v12^*,'^i',v12^i,'{'))
-proc('d8d36d64d76d84d87d88d91d92d93d98d94d440d778d701')
-
-proc('d38',('a38{^b',mpu,if v38^b='GRAF' or v38^b='graf' then 'gra' else v38^b fi,mpl,'{'))
