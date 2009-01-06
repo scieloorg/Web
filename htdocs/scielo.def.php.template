@@ -133,6 +133,7 @@ related="http://vm.scielo.br/scieloOrg/php/related.php?pid=PARAM_PID"
 related_service="http://trigramas.bireme.br/cgi-bin/mxlind/cgi=@related?pid=PARAM_PID"
 send_mail="http://vm.scielo.br/applications/scielo-org/pages/services/sendMail.php?pid=PARAM_PID&caller=PARAM_SERVER"
 windows_live_translator="http://www.windowslivetranslator.com"
+semantic_highlights="http://conceptweblinker.wikiprofessional.org/wikibutton.js?id=BS"
 
 [mimetex]
 mimetex=/cgi-bin/mimetex.cgi
