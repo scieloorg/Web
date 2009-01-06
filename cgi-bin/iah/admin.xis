@@ -1,0 +1,346 @@
+<IsisScript name="admin.xis">
+
+<function name="LoadInitialFiles">
+	<field action="import" tag="list">5000,5021,5013,7099</field>	
+	<field action="replace" tag="9991"><pft>getenv('PATH_INFO')</pft></field>	
+	<field action="replace" tag="7011"><pft>getenv('PATH_TRANSLATED')</pft></field>	
+	
+	<!-- Open autentication file -->
+	<field action="replace" tag="4901" split="occ"><pft>cat(left(v7099,instr(v7099,'/')),'admin.aut')</pft></field>
+	<call name="FatalError"><pft>if a(v4901) then '^1autentication file in cgi directory^2',v9991*1,'admin.aut^3Check the instalation process.' fi</pft></call>
+	<field action="replace" tag="7000">
+		<pft>
+			if v5013 <> 'BIREME' then
+				(if v4901 : 'username=' then '^u',mid(v4901,instr(v4901,'=')+1,size(v4901)),break, fi)
+				(if v4901 : 'password=' then '^p',mid(v4901,instr(v4901,'=')+1,size(v4901)),break, fi)
+			else
+				'^u',v5013,'^p',replace(getenv('REMOTE_ADDR'),'.','')
+			fi	
+		</pft>
+	</field>	
+
+	<!-- open  iah.def -->
+	<field action="replace" tag="4902" split="occ"><pft>cat(v7011,'iah.def')</pft></field>
+	<call name="FatalError"><pft>if a(v4902) then '^1aplication definition file^2',v7011,'iah.def^3Check the instalation process.' fi</pft></call>
+	
+	<proc>
+		<pft>
+			'd4901d4902'
+			(
+				if instr(v4902,'=') > 0 then
+
+					select left(v4902,instr(v4902,'=')-1)
+
+					case 'PATH_DATA'		: 'h7001',
+					case 'PATH_CGI-BIN'	: 'h7002',
+					case 'PATH_DATABASE'	: 'h7003',					
+
+					case 'BODY BACKGROUND COLOR'	: 'h7031',
+					case 'BODY TEXT COLOR'			: 'h7032',
+					case 'BODY LINK COLOR'			: 'h7033',
+					case 'BODY VLINK COLOR'			: 'h7034',
+					case 'BAR BACKGROUND COLOR'	: 'h7035',
+					case 'BAR TEXT COLOR'			: 'h7036',
+					case 'WARNING TEXT COLOR'		: 'h7044',
+					case 'ERROR TEXT COLOR'			: 'h7045',
+
+					case 'LOGO IMAGE'					: 'h7081',
+					case 'LOGO TEXT COLOR'			: 'h7082',
+					case 'LOGO BACKGROUND COLOR'	: 'h7083',
+					case 'LOGO URL'					: 'h7084',
+					case 'LOGO TEXT'					: 'h7085',
+					case 'HEADER IMAGE'				: 'h7091',
+					case 'HEADER TEXT COLOR'		: 'h7092',
+					case 'HEADER BACKGROUND'		: 'h7093',
+					case 'HEADER URL'					: 'h7094',
+					case 'HEADER TEXT'				: 'h7095',
+
+					case 'MANAGER E-MAIL'			: 'h7096',
+					case 'REVERSE MODE'				: 'h7097',
+					case 'MULTI-LANGUAGE'			: 'h7098',
+
+				    elsecase 'h4903'
+
+					endsel
+
+					x1,f(size(mid(v4902,instr(v4902,'=')+1,size(v4902))),1,0),
+					x1,mid(v4902,instr(v4902,'=')+1,size(v4902))
+				fi
+			)
+		</pft>
+	</proc>	
+	<field action="delete" tag="list">4903,9991</field>
+	<field action=replace tag=32099 split=flddir type="list">All</field>
+	<return action="replace" tag="list"><pft>v32099</pft></return>
+
+</function>
+
+<function name="LoadDatabaseDef" action="replace" tag="1">
+	<field action="import" tag="list">7011</field>
+	<!-- open  database.def -->
+	<field action="replace" tag="4902" split="occ"><pft>cat(v7011,v1'.def')</pft></field>
+	
+	<flow action="skip"><pft>if a(v4902) then 'Quit' fi</pft></flow>
+	<field action="replace" tag="8001" split="occ"><pft>,( if left(v4902,instr(v4902,'=')-1) : 'FILE '   then v4902/ fi ),</pft></field>
+	<field action="replace" tag="8002" split="occ"><pft>,( if left(v4902,instr(v4902,'=')-1) : 'INDEX '  then v4902/ fi ),</pft></field>
+	<field action="replace" tag="8003" split="occ"><pft>,( if left(v4902,instr(v4902,'=')-1) : 'GIZMO'  then v4902/ fi ),</pft></field>
+	<field action="replace" tag="8004" split="occ"><pft>,( if left(v4902,instr(v4902,'=')-1) : 'FORMAT ' then v4902/ fi ),</pft></field>
+	<field action="replace" tag="8005" split="occ"><pft>,( if left(v4902,instr(v4902,'=')-1) : 'HELP '   then v4902/ fi ),</pft></field>
+	<field action="add" tag="8005" split="occ"><pft>,( if left(v4902,instr(v4902,'=')-1) : 'NOTE '   	then v4902/ fi ),</pft></field>	
+	<field action="replace" tag="8006"><pft>,( if left(v4902,instr(v4902,'=')-1) : 'AVAILABLE FORMS' 	then mid(v4902,instr(v4902,'=')+1,size(v4902)) fi ),</pft></field>
+	<field action="replace" tag="8007"><pft>,( if left(v4902,instr(v4902,'=')-1) : 'SEND RESULT BY EMAIL'	then mid(v4902,instr(v4902,'=')+1,size(v4902)) fi ),</pft></field>
+	<field action="replace" tag="8008"><pft>,( if left(v4902,instr(v4902,'=')-1) : 'NAVIGATION BAR' 	then mid(v4902,instr(v4902,'=')+1,size(v4902)) fi ),</pft></field>
+	<field action="replace" tag="8009"><pft>,( if left(v4902,instr(v4902,'=')-1) : 'DOCUMENTS PER PAGE'	then mid(v4902,instr(v4902,'=')+1,size(v4902)) fi ),</pft></field>
+	
+	<return action="replace" tag="list">8001/8009</return>
+</function>
+
+<function name="FatalError" action="replace" tag="1">	
+	<display><pft>
+		'Content-type: text/html'/#
+		'<font face="verdana" size="2"><b>iAH error | unable to open ',v1^1,' | 'v1^2,'<p>',v1^3,'</b></font>'
+	</pft></display>	
+	<flow action="exit">0</flow>	
+</function>
+
+<function name="Done" action="replace" tag="1">		
+	<display><htmlpft><pft>cat('DONE.HTM')</pft></htmlpft></display>
+
+</function>
+
+<function name="UpdateListaDef" action="replace" tag="1">
+	<field action="import" tag="list">7011</field>
+
+	<field action="replace" tag="2"><pft>s(v7011,'defs.adm')</pft></field>
+	<field action="replace" tag="8001" split="occ"><pft>cat(v2)</pft></field>
+	<list action="load" type="sort">
+		<pft>
+			if v1^* = 'DEL' and nocc(v8001) = 1 then '*none*' fi			 			
+			(if s(mpu,v8001,mpl) <> s(mpu,v1^f[1],mpl) then v8001/ fi)			
+			if v1^* = 'ADD' then v1^f/ fi				
+		</pft>	
+	</list>	
+	
+	<file action="create" type="output"><pft>v2</pft></file>
+		<do task="list">
+			<field action="define" tag="9">Isis_Item</field>
+			<loop>
+				<display><pft>v9/</pft></display>
+			</loop>		
+		</do>		
+	<file action="close" type="output"><pft>v2</pft></file>	
+
+</function>
+
+<!------------------------------- Section ---------------------------------->
+
+<section>
+	<display><pft>'Content-type: text/html',/#</pft></display>
+
+	<trace>#On</trace>	
+	<field action="cgi" tag="5001">systemOption</field>
+	<field action="cgi" tag="5013">user</field>
+	<field action="cgi" tag="5014">pass</field>
+	<field action="cgi" tag="5021">lang</field>
+	<field action="cgi" tag="7099">IsisScript</field>	
+	
+	<call name="LoadInitialFiles">now</call>	
+	<parm name="cipar">
+		<pft>
+			,'MENU.HTM=',v7002,v5021,'/admmenu.htm'/
+			,'FOOT.HTM=',v7002,v5021,'/admfoot.htm'/
+			,'INFO.HTM=',v7002,v5021,'/adminfo.htm'/
+			,'CONF.HTM=',v7002,v5021,'/admconf.htm'/
+			,'DONE.HTM=',v7002,v5021,'/admdone.htm'/
+			,'BASESELECT.HTM=',v7002,v5021,'/admdbselect.htm'/
+			,'BASEEDIT.HTM=',v7002,v5021,'/admdbedit.htm'/
+			,'FILEEDIT.HTM=',v7002,v5021,'/admfileedit.htm'/
+			,'SAVEDEF.PFT=',v7002,v5021,'/admsavedef.pft'/
+		</pft>
+	</parm>
+
+	<flow action="jump"><pft>if p(v5001^w) then s(mpu,v5001^w,mpl) fi</pft></flow>
+	<flow action="jump"><pft>if p(v5001) then 'MENU' else fi</pft></flow>	
+	<flow action="jump"><pft>if s(mpu,v5013,mpl) <> s(mpu,v7000^u,mpl) or s(mpu,v5014,mpl) <> s(mpu,v7000^p,mpl)  then 'ERRO_LOGIN' fi</pft></flow>
+		
+	<label>MENU</label>				
+		<field action="replace" tag="7999" split="occ"><pft>cat('MENU.HTM')</pft></field>
+		<call name="FatalError"><pft>if a(v7999) then '^1files from admin system^2',v7002,v5021,'/^3Check the [PATH] section in system definition file iah.def.' fi</pft></call>		
+		<display><htmlpft><pft>(v7999/)</pft></htmlpft></display>		
+		<field action="delete" tag="7999">now</field>
+		<flow action="jump"><pft>s(mpu,v5001,mpl)</pft></flow>
+		
+	<label>INFO</label>			
+		<display><htmlpft><pft>cat('INFO.HTM')</pft></htmlpft></display>		
+		<flow action="jump">FIM</flow>
+		
+	<label>SYSTEM CONFIGURATION</label>	
+		<display><htmlpft><pft>cat('CONF.HTM')</pft></htmlpft></display>		
+		<flow action="jump">FIM</flow>
+		
+	<label>DATABASE CONFIGURATION</label>	
+		<field action="replace" tag="8001" split="occ"><pft>cat(s(v7011,'defs.adm'))</pft></field>
+		<display><htmlpft><pft>cat('BASESELECT.HTM')</pft></htmlpft></display>		
+		<flow action="jump">FIM</flow>
+
+	<label>EDIT DATABASE DEF</label>			
+		<field action="cgi" tag="9001">nome_def</field>		
+		<call name="LoadDatabaseDef"><pft>v9001</pft></call>		
+		<display><htmlpft><pft>cat('BASEEDIT.HTM')</pft></htmlpft></display>
+		<flow action="jump">FIM</flow>
+
+	<label>DELETE DATABASE DEF</label>
+		
+		<field action="cgi" tag="9001">nome_def</field>	
+		<field action="statusfile" tag="9011"><pft>s(v7011,v9001,'.def')</pft></field>
+		<flow action="jump"><pft>if a(v9011^s) then 'DELETE ERROR' fi</pft></flow>
+		
+		<file action="delete"><pft>s(v7011,v9001,'.def')</pft></file>
+		<call name="UpdateListaDef"><pft>'DEL^f'v9001</pft></call>
+		<call name="Done"><pft>'2^f',v9001,'.def'</pft></call>
+		<flow action="jump">DATABASE CONFIGURATION</flow>
+		
+		<label>DELETE ERROR</label>
+			<call name="Done"><pft>'3^f',s(v7011,v9001,'.def')</pft></call>			
+			<flow action="jump">DATABASE CONFIGURATION</flow>	
+
+	<label>COPY DATABASE DEF</label>
+				
+		<field action="cgi" tag="9001">nome_def</field>
+		<field action="cgi" tag="9002">target_def</field>		
+		<file action="copy" type="file"><pft>s(v7011,v9001,'.def')/,s(v7011,v9002,'.def')/,</pft></file>
+		<call name="UpdateListaDef"><pft>'ADD^f'v9002</pft></call>
+		<call name="Done"><pft>'4^f',v9001</pft></call>			
+		<flow action="jump">DATABASE CONFIGURATION</flow>
+		
+	<label>SAVE SYSTEM DEF</label>
+		<field action="delete" tag="list">7001/7098</field>	
+		<field action="replace" tag="9991">
+			<pft>
+			'7001 path_data'/
+			'7002 path_cgi-bin'/
+			'7003 path_database'/
+			
+			'7031 body_background_color'/
+			'7032 body_text_color'/
+			'7033 body_link_color'/
+			'7034 body_vlink_color'/
+			'7035 bar_background_color'/
+			'7036 bar_text_color'/			
+
+			'7081 logo_image'/
+			'7084 logo_url'/			
+			'7091 header_image'/
+			'7094 header_url'/
+			
+			'7096 manager_e-mail'/
+			'7097 reverse_mode'/
+			'7098 multi-language'/
+			</pft>
+		</field>
+		<cgitable><pft>(v9991/)</pft></cgitable>
+							
+		<!-- nome e path do iah.def -->
+		<field action="replace" tag="1"><pft>s(getenv('PATH_TRANSLATED'),'iah.def')</pft></field>
+		<!-- copia de seguranca -->
+		<file action="copy" type="file"><pft>v1/,v1'.bkp'/,</pft></file>
+
+		<file action="create" type="output"><pft>v1</pft></file>
+		<display><pft>@SAVEDEF.PFT</pft></display>
+		<file action="close" type="output"><pft>v1</pft></file>
+		
+		<call name="Done">1^fIAH.DEF</call>		
+		<flow action="jump">FIM</flow>
+
+	<label>SAVE DATABASE DEF</label>
+		<field action="cgi" tag="9001">nome_def</field>	
+			
+		<field action="delete" tag="list">8001/8009</field>	
+		<field action="replace" tag="9991">
+			<pft>
+			'8001 file_location'/
+			'8002 index_definition'/
+			'8003 apply_gizmo'/
+			'8004 format_name'/
+			'8041 format_default'/			
+			'8005 help_form'/
+			'8006 avaible_forms'/
+			'8007 send_email'/						
+			'8008 navigation_bar'/
+			'8009 hits_page'/
+			</pft>
+		</field>
+		<cgitable><pft>(v9991/)</pft></cgitable>
+
+		<field action="replace" tag="8001" split="occ"><pft>(v8001/)</pft></field>
+		<field action="replace" tag="8002" split="occ"><pft>(v8002/)</pft></field>
+		<field action="replace" tag="8003" split="occ"><pft>(v8003/)</pft></field>
+		<field action="replace" tag="8004" split="occ"><pft>(v8004/)</pft></field>
+		<field action="replace" tag="8005" split="occ"><pft>(v8005/)</pft></field>
+
+		<field action="replace" tag="1"><pft>s(v7011,v9001,'.def')</pft></field>
+			
+		<field action="statusfile" tag="9011"><pft>v1</pft></field>
+		<!-- caso arquivo novo atualiza lista de defs -->
+		<call name="UpdateListaDef"><pft>if a(v9011^s) then 'ADD^f'v9001 fi</pft></call>		
+		<file action="copy" type="file"><pft>if p(v9011^s) then v1/,v1'.bkp'/ fi</pft></file>
+				
+		<file action="create" type="output"><pft>v1</pft></file>
+		<display><pft>@SAVEDEF.PFT</pft></display>
+		<file action="close" type="output"><pft>v1</pft></file>
+		
+		<call name="Done"><pft>'1^f',v1</pft></call>		
+		<flow action="jump">FIM</flow>
+
+	<label>FILE EDIT</label>
+		<field action="cgi" tag="1">file</field>
+		<field action="replace" tag="2" split="occ"><pft>cat(v7011,v1)</pft></field>
+		<display><htmlpft type="reload"><pft>cat('FILEEDIT.HTM')</pft></htmlpft></display>
+		<flow action="exit">0</flow>
+			
+	<label>FILE SAVE</label>
+		<field action="cgi" tag="1">file</field>
+		<field action="cgi" tag="2">content</field>
+		<field action="replace" tag="2" split="occ"><pft>(v2/)</pft></field>
+				
+		<file action="create" type="output"><pft>v7011,v1</pft></file>
+		<display><pft>(v2/)</pft></display>
+		<file action="close" type="output"><pft>v7011,v1</pft></file>
+		<display>
+			<pft>'<script language="javascript">
+					window.close()
+				</script>'</pft>
+		</display>
+		<flow action="exit">0</flow>
+		
+	<label>ERRO_LOGIN</label>		 
+		<display>
+		<pft>
+			'<html>
+			<head><title>iAH Admin</title></head>
+			<body bgcolor="#E0EBEB" link="#000000">
+			<center><p>
+				<font face="verdana" size="4" color="black">'
+				if v5021 = 'P' then 'Usuário e/ou senha inválidos' fi
+				if v5021 = 'E' then 'Usuario y/o contraseña inválidos' fi
+				if v5021 = 'I' then 'Invalid user or password' fi
+				'</font><br><br>
+				<font face="arial" size="2">
+				[ <a href="javascript:history.back()">Back</a> ]
+				</font>
+			</center>
+			'#########################################################################'		
+			<!-- ',getenv('REMOTE_ADDR'),' -->
+			</body>
+			</html>'	
+		 </pft>	    
+		</display>
+		<flow action="exit">0</flow>		
+		
+	<label>CANCEL</label>	
+	<label>FIM</label>
+		<display><pft>cat('FOOT.HTM')</pft></display>
+		
+</section>		
+
+</IsisScript>

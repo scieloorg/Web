@@ -1,0 +1,13 @@
+URI: start; vary="type,language"
+
+URI: error404_en.php
+Content-type: text/html
+Content-language: en
+
+URI: error404_es.html
+Content-type: text/html
+Content-language: es
+
+URI: error404_pt.html
+Content-type: text/html
+Content-language: pt

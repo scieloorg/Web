@@ -1,0 +1,11 @@
+SO=linux
+TITLE=/bases/scl.000/bases-work/title/title
+NEWISSUE=/bases/scl.000/bases-work/newissue/newissue
+PDF_PATH=/bases/scl.000/bases/pdf/
+TRANSLATION_PATH=/bases/scl.000/bases/translation/
+BASES-WORK_PATH=/bases/scl.000/bases-work/
+CTRL=/bases/scl.000/bases-work/lang/control
+CTRL_PATH=/bases/scl.000/bases-work/lang/
+LANG_DATABASE_PATH=/bases/scl.000/bases-work/
+MX=cisis/mx
+WXIS=../cgi-bin/wxis.exe

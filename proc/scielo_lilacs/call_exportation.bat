@@ -1,0 +1,1 @@
+scielo_lilacs/export/export.bat 

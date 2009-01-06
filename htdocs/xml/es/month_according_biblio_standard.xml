@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<months>
+	<standard id="nbr6023">
+		<month id="01">enero</month>
+		<month id="02">feb.</month>
+		<month id="03">marzo</month>
+		<month id="04">abr.</month>
+		<month id="05">mayo</month>
+		<month id="06">jun.</month>
+		<month id="07">jul.</month>
+		<month id="08">agosto</month>
+		<month id="09">sept.</month>
+		<month id="10">oct.</month>
+		<month id="11">nov.</month>
+		<month id="12">dic.</month>
+	</standard>
+</months>

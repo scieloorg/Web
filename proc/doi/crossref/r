@@ -1,0 +1,44 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<doi_batch version = "0.3">
+	<head>
+		<doi_batch_id>Crossref::Resolver_06-Feb-2006@07:47:29</doi_batch_id>
+		<timestamp>06-Feb-2006@07:47:29</timestamp>
+		<depositor>
+			<name/>
+			<email_address/>
+		</depositor>
+		<registrant/>
+	</head>
+	<body>
+
+		<doi_record type = "full_text" key="S0102-8650200200020000600012">
+			<doi_data>
+				<doi>10.1159/000051481</doi>
+				<url/>
+			</doi_data>
+			<journal_article_metadata>
+				<article>
+					<author sequence = "first">
+						<given_name/>
+						<surname>Dorta</surname>
+					</author>
+					<date type = "print">
+						<year>1999</year>
+					</date>
+					<enumeration>
+						<volume>60</volume>
+						<issue>suppl. 2</issue>
+						<first_page>53</first_page>
+					</enumeration>
+				</article>
+				<journal>
+					<full_title>Digestion</full_title>
+					<issn type="print">00122823</issn>
+					<issn type="electronic">14219867</issn>
+				</journal>
+			</journal_article_metadata>
+		</doi_record>
+
+	</body>
+</doi_batch>
+

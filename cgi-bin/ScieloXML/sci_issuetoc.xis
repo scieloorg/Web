@@ -1,0 +1,254 @@
+<IsisScript>
+<!-- Genenerate XML for Issue Number -->
+
+<!-- Common functions -->
+<include>ScieloXML/sci_common.xis</include>
+
+<function name="translateSectionName" action="replace" tag="4001">
+  <return action="replace" tag="5010">
+	<pft>replace(replace(v4001^s,'REVIEW','Review in progress'),'AHEAD','Ahead of print')</pft>
+   </return>
+</function>
+<function name="CreateArticleListXML" action="replace" tag=4001>
+<!-- Create Article List
+     4001^p - PID 
+	 4001^l - Interface Language 
+	 4001^i - International Language 
+	 4001^s - Issue MFN -->
+<display><pft>'<!-- aqui comeca -->'</pft></display>
+  <field action="import" tag="list">7009/7060</field> <!--fixed-->
+  <call name="translateSectionName"><pft>if p(v4001^x) then '^l',v4001^l,'^s',v4001^x fi</pft></call>
+  <do task="keyrange">
+   <parm name="db">ARTIGO</parm>
+   <parm name="from"><pft>'SM='v4001^p</pft></parm>
+   <parm name="to"><pft>'SM='v4001^p'9'</pft></parm>
+   <parm name="posting"><pft>'ALL'</pft></parm>
+
+   <field action="define" tag=1001>Isis_Current</field>
+   <field action="define" tag=1002>Isis_Key</field>
+   <field action="define" tag="1003">Isis_Posting</field>
+   <field action="define" tag="1004">Isis_Postings</field>
+   
+   <field action="replace" tag="2000"><pft>'-'</pft></field>
+  
+   <loop>
+   <!-- 2000 - Section Code -->
+    <field action="import" tag="list">2000,4001,7009/7060</field> <!--fixed-->
+    <field action="import" tag="list">5010</field> <!--fixed-->
+	<field action="replace" tag="1005"><pft>f(val(v1003^m)+1,1,0)</pft></field>
+	<flow action="skip">
+                <pft>
+        ref(['ARTIGO']val(v1003^m),@PROC_SPLIT_MST.PFT,if p(v222) then 'Next' fi)
+                </pft>
+    </flow>
+	<field action="replace" tag="40" split="occ">
+                <pft>
+        ref(['ARTIGO']val(v1003^m),@PROC_SPLIT_MST.PFT,(v40/))
+                </pft>
+    </field>
+	<field action="replace" tag="12" split="occ">
+                <pft>
+        ref(['ARTIGO']val(v1005),@PROC_SPLIT_MST.PFT,(v12/))
+                </pft>
+    </field>
+	<field action="replace" tag="880" split="occ">
+                <pft>
+        ref(['ARTIGO']val(v1003^m),@PROC_SPLIT_MST.PFT,v880)
+                </pft>
+    </field>
+	<field action="replace" tag="123" split="occ">
+                <pft>
+		ref(['ARTIGO']val(v1003^m),@PROC_SPLIT_MST.PFT,(if a(v123) then '0' else v123 fi))
+		</pft>
+    </field>
+	<field action="replace" tag="49" split="occ">
+                <pft>
+        ref(['ARTIGO']val(v1003^m),@PROC_SPLIT_MST.PFT,(v49/))
+                </pft>
+    </field>
+<!--display><pft>ALL</pft></display-->
+	<!-- Check for section : 999-Current Section Code -->
+	<field action="replace" tag="999">
+     <pft>s(mpu,v49,mpl)</pft>
+	</field>
+	
+	<!-- 4010 - GetSectionName Output -->
+	<field action="delete" tag=4010>ALL</field>
+		
+	<flow action="jump">
+	 <pft>if a(v999) then if a(v2000) then 'SAME_SECTION' else 'NO_SECTION_NAME' fi
+	       else
+	       if v2000=v999 then 'SAME_SECTION'
+	        else 
+		     if v999='ND' or v999='nd' then 'NO_SECTION_NAME' fi
+		   fi
+		  fi</pft>
+	</flow>
+
+	<call name="GetSectionName">
+	 <pft>'^l'v4001^l'^c'v999'^s'v4001^s'^i'v4001^i,'^p'v4001^p*0.17</pft>
+	</call>
+	
+	<label>NO_SECTION_NAME</label>
+	<display>
+	 <pft>if s(v2000)<>'-' then '</SECTION>'/ fi,'<SECTION>'/,|<NAME><![CDATA[|v4010|]]></NAME>|/,|<NAME><![CDATA[|v5010|]]></NAME>|/,</pft>
+	</display>
+
+	
+	<field action="delete" tag=2000>ALL</field>
+	<field action="replace" tag=2000><pft>v999</pft></field>	
+	
+	<label>SAME_SECTION</label>	
+    <display><pft>'<ARTICLE ',|PID="|v880|"|,| TEXT_LANG="|v40|"|
+		 ,ref(['ARTIGO']val(v1003^m),@PROC_SPLIT_MST.PFT,,' entrdate="',v265,'"'),
+         
+
+	</pft></display>
+    <display><pft>'>'/</pft></display>
+
+	<field action="replace" tag="264"><pft>ref(['ARTIGO']val(v1003^m),@PROC_SPLIT_MST.PFT,v264)</pft></field> 
+	<call name="showText"><pft>v264</pft></call>
+	<display><pft>if p(v264) then '<EMBARGO date="',v264,'" text="',v8264,'"/>'/ fi</pft></display>
+
+	<field action="replace" tag="4040" split="occ"><pft>(v12^l/), if a(v12) then v40 fi</pft></field> 
+    
+    <call name="CreateLanguageXML"><pft>'^l'v4001^l'^i'v4001^i'^m'v1003^m'^ssci_issuetoc'</pft></call>
+	
+    <!-- The title is present but is not going to be shown? -->
+	<flow action="jump"><pft>if v123='2' then 'END' fi</pft></flow> 
+
+    <display><pft>'<test>','^r'v1003^m'^l'v4001^l'^i'v4001^i,'</test>'</pft></display>
+    <call name="CreateArticleTitle1XML"><pft>'^r'v1005'^l'v4001^l'^i'v4001^i</pft></call>
+	<call name="CreateAuthorsGroupXML"><pft>v880,'^nNOUPPER'</pft></call>
+	
+	<label>END</label>
+    <display><pft>'</ARTICLE>'/</pft></display>
+	
+	<field action="export" tag="list">2000,4001</field>
+   </loop>
+  </do> 
+  
+  <display><pft>if s(v2000)<>'-' then '</SECTION>'  fi</pft></display> 
+  <display><pft>'<!-- aqui termina -->'</pft></display>
+
+</function>
+	 
+<function name="CreateIssueXML" action="replace" tag=4001>
+<!-- Get Issue Information From DB and Generate XML 
+     4001^p - PID 
+	 4001^l - Interface Language 
+	 4001^i - International Language 
+	 4001^s - Issue MFN --> 
+ <field action="import" tag="list">7009/7060</field> <!--fixed-->
+
+ <call name="GetNotPrintedIssues"><pft>v4001^p*0.9</pft></call>
+ <field action="replace" tag="5001" split="occ"><pft>(if p(v3900^f) then v3900/ fi)</pft></field>
+ 
+ <!-- check the issue is a not printed issue -->
+ <field action="replace" tag="5100"><pft>(if instr(v5001,v4001^p[1])>0 then v5001, break fi)</pft></field>
+
+ <!-- create a list with the pid of the issues which compose the toc
+	  case 1: all ahead and all review are presented together
+	  case 2: all ahead or all review issues
+	  case 3: only the selected issue
+ -->
+ <field action="replace" tag="5101" split="occ">
+	<pft>
+		,if p(v5100) then 
+			,if v7050='together' then
+				(v5001,'^x',v5001^t,' ',mid(v5001^*,10,4)/) 
+			,else
+				(if v5100^t[1]=v5001^t then v5001,'^x',mid(v5001^*,10,4)/ fi) 
+			,fi
+		,else
+			,v4001^p,
+		,fi
+	</pft>
+</field>
+
+
+ <call name="CreateIssueInfoXML"><pft>v4001^s</pft></call>
+ <call name="CreateIssueTitleXML"><pft>'^r'v4001^s'^l'v4001^l'^i'v4001^i</pft></call>
+ <call name="CreateIssueStripXML"><pft>'^r'v4001^s'^l'v4001^l'^i'v4001^i</pft></call>  	
+
+ <display><pft>'<!-- '/,(v5101/),' -->'/</pft></display>
+ <display><pft>'<!-- '/,v4001/,' -->'/</pft></display>
+	<!-- OBS.: tentei usar do task list e não funcionou, talvez problema de memória -->
+  <call name="CreateArticleListXML"><pft>if nocc(v5101)>0 then replace(v4001,v4001^p,v5101[1]^*) fi</pft></call>
+  <call name="CreateArticleListXML"><pft>if nocc(v5101)>1 then replace(v4001,v4001^p,v5101[2]^*) fi</pft></call>
+  <call name="CreateArticleListXML"><pft>if nocc(v5101)>2 then replace(v4001,v4001^p,v5101[3]^*) fi</pft></call>
+  <call name="CreateArticleListXML"><pft>if nocc(v5101)>3 then replace(v4001,v4001^p,v5101[4]^*) fi</pft></call>
+
+  <display><pft>'</ISSUE>'/</pft></display>
+</function>
+
+<function name="CreateDebugInfoXML" action="replace" tag="4000">
+	<display>
+		<pft>
+			if v4000 = 'VERIFICA' then
+				' <DEBUG VERIFY="1" />'/#
+			fi
+		</pft>
+	</display>
+</function>
+ 
+<section>
+  <!-- Get CGI Parameters -->
+  <field action="cgi" tag="1">pid</field>
+  <field action="cgi" tag="2">lng</field>
+  <field action="cgi" tag="3">nrm</field>
+  <field action="cgi" tag="4">sln</field>
+  <field action="cgi" tag="10">debug</field>
+  <field action="cgi" tag="3011">def</field>
+	
+  <field action="replace" tag="3011"><pft>if a(v3011) then 'scielo.def.php' fi</pft></field>
+
+  <call name="DebugMode"><pft>if a(v10) then 'OFF' else mpu,v10,mpl fi</pft></call>
+  
+  <include>ScieloXML/sci_cipar.xis</include>  
+    
+  <!-- 5 - Title MFN, 6 - Issue MFN, 7 - Article MFN -->  
+  <field action="replace" tag="5"><pft>f(l(['TITLE']'LOC='mid(v1,1,9)),1,0)</pft></field>
+  <field action="replace" tag="6"><pft>f(l(['NEWISSUE']'Y'v1),1,0)</pft></field>
+  <call name="issueHasArticles"><pft>v1</pft></call>
+  <field action="replace" tag="7"><pft>if v1=v9036 then '1' else '0' fi</pft></field>
+  
+  <call name="CreateErrorXML">
+   <pft>
+     if val(v5)<=0 or val(v6)<=0 or val(v7)<=0 then
+      '^l'v2,'^p'v1'^c',   
+      if val(v5)<=0 then '0001'
+       else 
+	    if val(v6)<=0 then '0002' 
+		 else if val(v7)<=0 then '0006' fi
+		fi
+	  fi
+	 fi
+   </pft>
+  </call>
+  
+  <!-- Create XML heading -->
+  <display>
+   <pft>
+		'<SERIAL>'/</pft>
+  </display>
+  
+  <call name="CreateControlInfoXML"><pft>'^l'v2'^s'v3'^p'v1'^tISS^i',v4,'^fsci_issuetoc'</pft></call>
+  
+  <!-- Get Title Information from TITLE DB -->
+  <call name="CreateTitleGroupXML"><pft>v5</pft></call>
+  <call name="CreateChangesInfoXML"><pft>v5</pft></call>
+  <call name="CreateISSNXML"><pft>v5</pft></call>            
+  <call name="CreateCopyrightXML"><pft>v5</pft></call>
+  <call name="CreateContactXML"><pft>v5</pft></call>
+  
+  <call name="CreateDebugInfoXML"><pft>mpu,v10,mpl</pft></call>
+  
+  <!-- Create XML for Issue -->	    	
+  <call name="CreateIssueXML"><pft>'^s'v6'^p'v1'^l'v2'^i'v4</pft></call>
+  
+  <!-- Close SERIAL -->
+  <display><pft>'</SERIAL>'</pft></display>
+</section>
+
+</IsisScript>

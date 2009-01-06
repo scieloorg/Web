@@ -1,0 +1,69 @@
+#
+'pwd'/
+'cd htdocs/img/revistas'/
+'mkdir',x1,v1/
+'mkdir',x1,v1,'/',v2/
+'pwd'/
+'cd',x1,v1,'/',v2/
+'lcd .'/
+'lcd htdocs/img/revistas/',v1,'/',v2/
+'bin'/
+'mput *.g??'/
+'mput *.G??'/
+'mput *.j??'/
+'mput *.J??'/
+'mkdir html'/
+'pwd'/
+'cd html'/
+'lcd .'/
+'lcd html'/
+'ascii'/
+'mput *.h??'/
+'mput *.H??'/
+
+/* img/revistas/bjmbr/v30n4/html */
+'lcd .'/
+'lcd ..'/
+/* img/revistas/bjmbr/v30n4 */
+'lcd .'/
+'lcd ..'/
+/* img/revistas/bjmbr */
+'lcd .'/
+'lcd ..'/
+/* img/revistas */
+'lcd .'/
+'lcd ..'/
+/* img */
+'lcd .'/
+'lcd ..'/
+/* htdocs */
+'lcd .'/
+'lcd ..'/
+
+'pwd'/
+'cd ../../../../../../bases/pdf'/
+'mkdir',x1,v1/
+'mkdir',x1,v1,'/',v2/
+'pwd'/
+'cd',x1,v1,'/',v2/
+'lcd .'/
+'lcd bases/pdf/',v1,'/',v2/
+'bin'/
+'mput *.p??'/
+'mput *.P??'/
+'pwd'/
+'cd ../../../../'/
+
+/* pdf/bjmbr/v30n4 */
+'lcd .'/
+'lcd ..'/
+/* pdf/bjmbr */
+'lcd .'/
+'lcd ..'/
+/* pdf */
+'lcd .'/
+'lcd ..'/
+/* bases */
+'lcd .'/
+'lcd ..'/
+
