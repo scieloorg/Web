@@ -1,0 +1,258 @@
+/*
+	This file describes all the components boxes styles, 
+	like "about this site", "search box", and etc.
+	
+	List of Replaced HTML itens:
+
+		H3 = box title area
+		H3 SPAN = box title text
+		H4 = box sub-title area
+		H4 SPAN = box sub-title text
+		UL = box list area
+		LI = box list item
+		A = box link
+*/
+
+/* Search Box Cascading Styles */
+
+#search {
+	background: #ECECEC;
+}
+
+.level2 #search {
+	background: none;
+}
+
+.level2 .expression {
+	width: 300px !important;
+}
+
+#search H3 {
+	border-color: #91BFD9;
+}
+
+#search H3 SPAN  {
+	border-color: #6188A0;
+}
+
+#search .expression { 	/* = input to write a search expression */
+
+}
+
+#search .searchItens LABEL {
+	font-size: 95%;
+}
+
+#search #indexes {
+	font-size: 90%;
+}
+
+#searchResult {
+	background: #E4EDED;
+	margin-bottom: .3em;
+}
+
+#searchResult #result {
+	padding: 10px;
+}
+
+#searchResult .portletTools {
+  float: right;
+  padding: 6px 4px;
+  margin-top: 1px;
+  color: #666;
+  font: bold 8pt Arial;
+  cursor: pointer;
+}
+
+#searchResult .portletTools IMG {
+  border-left: 1px solid #666;
+  padding: 0px 3px;
+  cursor: pointer;
+}
+
+#searchResult #result LI {    
+	list-style: none;
+	font-size: 98%;
+	font-weight: bold;
+}
+
+#searchResult #result LI LI {    
+	font-weight: normal;
+	font-size: 100%;
+}
+
+
+#searchResult #result UL {
+	margin-bottom: 7px;
+	padding: 0px;
+}
+
+#searchResult #result UL UL {
+	margin: 0px 0px 5px 5px;
+}
+
+
+#about H4 {
+	display: none;
+}
+
+/* Warning Box Styles */
+#warnings H3 {
+	border-color: #E59696;
+}
+
+#warnings H3 SPAN {
+	border-color: red;
+}
+
+#warnings UL {
+	padding: 0px;
+	margin: 5px 10px 10px 15px;
+}
+
+#warnings LI {
+	list-style: none;
+}
+
+/* Related Portals Box Styles */
+
+.network UL {
+	padding: 0px !important;
+	margin: 0px 0px 0px 5px !important;
+}
+
+.network UL UL {
+	margin: 3px 0px 5px 15px;
+}
+
+.network UL UL UL {
+	margin: 0px 0px 0px 10px;
+}
+
+.network LI {
+	list-style: none;
+	font-weight: bold;
+	margin: 5px 0px 7px 0px;
+}
+
+.network LI LI {
+	font-size: 97%;
+	margin-bottom: 3px;
+	font-weight: normal;
+}
+
+.network LI A {
+	text-decoration: none;
+}
+
+.network LI A:hover {
+	text-decoration: underline;
+}
+
+.network LI IMG {
+	margin-right: 4px !important;
+}
+
+.level2 H3 .lengthData {
+	font-size: 70% !important;
+	display: inline !important;
+	font-weight: normal !important;
+}
+
+.letters A {
+	font-family: Lucida Console, Courier New, Courier;
+	padding: 0px 5px 0px 5px;
+	border-bottom: none;
+}
+
+.letters A:hover {
+	background: #DDD;
+	border-bottom: none;
+}
+
+.level2 .letters {
+	margin-left: 18px;
+}
+
+.journals LI {
+	list-style: none;
+}
+
+.journals LI LI A {
+	text-decoration: underline;
+}
+
+.journals LI UL {
+	margin-left: 0px;
+}
+
+.journals .expression {
+	width: 80px;
+}
+
+.login TD {
+	padding: 2px;
+}
+
+.login .expression {
+	width: 70px;
+}
+
+.login SPAN {
+	font-size: 87%;
+}
+
+.userInfo {
+	font-size: 85%;
+	margin: 10px 0px 0px 0px;
+}
+
+.userInfo SPAN {
+	background: url(../../../../../image/public/skins/classic/common/user.gif) no-repeat;
+	padding: 3px 0px 3px 17px;
+	font-weight: normal !important;
+}
+
+.userInfo A {
+	text-decoration: underline;
+}
+
+.webServices #updates UL {
+	margin: 12px 0px 0px 5px !important;
+	padding: 0px;
+}
+
+.webServices #updates UL UL {
+	margin: 0px !important;
+	padding: 0px;
+}
+
+.webServices #updates UL UL LI {
+	margin: 0px;
+	padding: 0px;
+}
+
+.firstColumn DIV UL, .secondColumn DIV UL, .thirdColumn DIV UL {
+	margin-top: 0px !important;
+	padding-top: 0px !important;
+}
+
+#indicators {
+	margin-top: 0px !important;
+	padding-top: 5px !important;
+	border-top: 1px solid #CCC;
+}
+
+.messages {
+	color: red;
+}
+
+
+.articleList LI B A {
+	font-size: 110%;
+}
+
+.articleList LI I {
+	font-size: 95%;
+}

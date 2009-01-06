@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module>
+<ModulePrefs title="SciELO List Records" description="SciELO List Records Prototype" height="50">
+	<Require feature="dynamic-height" />
+ </ModulePrefs>
+<UserPref name="from" datatype="string" default_value="1" display_name="From :" />
+<UserPref name="count" datatype="string" default_value="5" display_name="Count :" />
+<Content type="html"><![CDATA[
+<div id="mydiv"></div>
+<script type="text/javascript">
+
+      var pref=new _IG_Prefs(__MODULE_ID__);
+	  var from = pref.getString("from");
+      var count = pref.getString("count");
+
+      function treatFile(objResponse){
+         var mydiv = _gel("mydiv");
+         mydiv.innerHTML = objResponse;
+		 _IG_AdjustIFrameHeight();
+      }
+
+	  var url = 'http://www.scielo.br/widgets/wg_listRecords.php?from='+from+'&count='+count;
+	  _IG_FetchContent(url,treatFile);
+
+   </script>
+]]>
+</Content>
+</Module>

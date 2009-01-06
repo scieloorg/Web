@@ -1,0 +1,5 @@
+,lw(9000),
+if p(v1) and v3 <> 'del' then
+  'call batch\CriaDiretorio.bat ',v401,'\bases\translation\',v1/
+  'call batch\CriaDiretorio.bat ',v401,'\bases\translation\',v1,'\',v2/
+fi

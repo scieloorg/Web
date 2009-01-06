@@ -1,0 +1,115 @@
+Para manutencao regular, por exemplo, apos cada processamento deve-se executar
+
+toolDesintoxicaGeralBasesWork.sh
+
+que ira decartar diretorios tmeporarios dos issues processados
+Esta ferramenta utiliza toolDesintoxicaRevistasBasesWork.sh que pede como
+parametro o acronimo do titulo a ser limpo.
+
+
+=====================================================================================================================
+Para converter de 10/30 para lind, deve-se utilizar a seguintes sequencia
+de ferramentas:
+
+
+toolGeraReinversaoGeral.sh - gera indices em padrao lind para todo o bases-work (menos iah)
+toolGeraReinversaoiAHGeral.sh - gera indices em padrao lind para bases-work/iah
+tollDesintoxicaGeralBasesWork.sh - que promove uma limpeza dos temporarios
+
+Antes disso devem ser verificadas as seguintes condicoes:
+
+1- CISIS
+ disponibilidade do pacote CISIS versao lind no diretorio [Raiz_SciELO]/proc/cisis
+ prover um link simbolico para ifload / iflind (sitaxe do comando: ln -s [EXISTENTE] [DESEJADO])
+2- Processos
+ disponibilidade do geraSubjectList.sh em [Raiz_SciELO]/proc
+ garantir que existe a chamada ao geraSubjectList.sh, apos a linha que refere serarea no BATCH GeraScielo.bat
+ disponibilidade do conjunto de ferramentas tool*.sh em [Raiz_SciELO]/proc
+3- Sistema
+ garantir permissao de execucao dos BATCHs e SHELLes e CISIS, nos diretorios devidos
+   [RAIZ_SciELO]/proc [RAIZ_SciELO]/proc/batch [RAIZ_SciELO]/proc/cisis
+ garantir existencia do diretorio lista em [RAIZ_SciELO]/proc ([RAIZ_SciELO]/proc/lista)
+ garantir que se necessario foi efetuada a conversao dos2unix (FEDORA) ou 'tr -d "\012"' (DEBIAN) para os arquivos:
+	*.bat
+	*.sh
+	call
+	rem
+ todos em [RAIZ_SciELO]/proc e [RAIZ_SciELO]/proc/batch
+4- Componentes
+ garantir existencia de:
+	ReparaPIDcitacao.prc em [RAIZ_SciELO]/proc/prc
+	fsts atualizadas em [RAIZ_SciELO]/proc/fst
+		artigo.fst
+		author.fst
+		auxcria799.fst
+		codigoRevista.fst
+		doi.fst
+		faccount.fst
+		facic.fst
+		Fasciculo.fst
+		GeraCodigoRev.fst
+		issue_ed.fst
+		issue.fst
+		logo.fst
+		newcode.fst
+		newissue.fst
+		NovasDatas.fst
+		sa.fst
+		search.fst
+		searchp1.fst
+		searchp2.fst
+		searchp3.fst
+		searchp.fst
+		serarea3000.fst
+		serarea.fst
+		temp_title.fst
+		titlec.fst
+		title.fst
+		titsrc.fst
+		titsrcp.fst
+	tabelas atualizadas em [RAIZ_SciELO]/proc/tab
+		acans.tab
+		ucans.tab
+		lcans.tab
+		ansiac.tab
+		ansiuc.tab
+	gizmos atualizados em [RAIZ_SciELO]/proc/gizmo
+		Accent.mst
+		Accent.xrf
+		gchartrob.mst
+		gchartrob.xrf
+		gensymb.mst
+		gensymb.xrf
+		gessymb.mst
+		gessymb.xrf
+		gizmoHTML.mst
+		gizmoHTML.xrf
+		gptsymb.mst
+		gptsymb.xrf
+		gtdoc_en.mst
+		gtdoc_en.xrf
+		gtdoc_es.mst
+		gtdoc_es.xrf
+		gtdoc_pt.mst
+		gtdoc_pt.xrf
+		rangemdl.mst
+		rangemdl.xrf
+	do arquivos mestre (mst e xrf) da base title em [RAIZ_SciELO]/bases/title
+
+Apos a operacao de conversao, falta efetuar a geracao de indices lind de cinco bases auxiliares como segue:
+
+1- lattes
+2- nlinks (medline)
+3- areageo
+4- cited
+5- related
+
+Todas podem ser geradas indo ao diretorio devido e utuilizado o comando abaixo:
+
+../../proc/cisis/mx <base> "fst=@" fullinv=<base>
+
+Depois disso, caso haja disponibilidade de uma nova versao de cited e related, elas devem ser atualizadas
+Verifica-se no ftp onde se colocam os ISOs artigo.iso, bib4cit.iso, issues.iso e title.iso. Os arquivos 
+chamam-se:  cited.mst, cited.xrf, cited.iy0, related.mst, related.xrf, e related.iy0
+
+

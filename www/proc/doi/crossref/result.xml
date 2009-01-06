@@ -1,0 +1,61 @@
+off
+
+
+
+<!--
+
+
+
+
+-->
+
+
+
+
+<HTML>
+
+<HEAD>
+<TITLE>Service access error.</TITLE>
+</HEAD>
+
+<body bgcolor="#FFFFFF">
+<link rel="shortcut icon" href="/favicon.ico">
+<table border="0" cellpadding="0" cellspacing="0" COLS="2" width="200">
+<tr>
+<td>
+<a href="/servlet/useragent?func=showHome"><img src="/images/cr_banner.jpg" border=0 ALT="CROSSREF by ATYPON" USEMAP="#imgmap"></a>
+<map name="imgmap">
+<area shape=RECT COORDS="0,0,250,90" href="/servlet/useragent?func=showHome">
+<area shape=RECT COORDS="0,0,800,90" href="http://www.atypon.com">
+</map>
+</td>
+</tr>
+</table>
+<br>
+
+<BODY>
+
+
+
+<h3>Your service access request for the following service :</h3>
+service name: query
+<h3>Was denied because of the following reason: </h3><br> 
+
+
+An internal error occured while fullfilling your request.
+
+<br>
+<br>
+
+<!-- 
+<a href="http://doi.crossref.org:80/servlet/useragent?func=showHome" target="_top">Home</a>
+-->
+
+<br>
+<hr SIZE="1" WIDTH="480" align="left">
+&copy;&nbsp;2000-2005 PILA, Inc.
+<br>Software based on the Literatum<sup>TM</sup> platform from <a href="http://www.atypon.com">Atypon systems</a>
+</BODY>
+</HTML>
+ 
+

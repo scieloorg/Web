@@ -1,0 +1,341 @@
+[pft]if v5001^s = 'FORM' then @AHHEAD.PFT fi[/pft]
+
+<script>
+function changeForm(valor)
+{
+	document.forms[0].form.value=valor;
+	document.forms[0].nextAction.value="CHANGE FORM";
+	document.forms[0].submit();
+}
+</script>
+
+[pft]if v5001^s = 'FORM' then[/pft]
+
+	<form action="[pft]getenv('SCRIPT_NAME')v5000^d[/pft]" method="POST">
+	[pft]@AHHIDD.PFT[/pft]
+	<input type="hidden" name="nextAction" value="search">	
+	
+[pft]fi[/pft]
+
+[pft]if v6000 = 'F' then[/pft]
+	<!-- FORMULARIO FREE -->
+	<center>
+    <table border="0" width="600" cellspacing="0" cellpadding="0"  bgcolor="[pft]v5006^b[/pft]">
+	<tr>
+		<td width="80">&nbsp;
+			[pft]
+				if p(v5011^h) then
+					'<a href="'v5011^h'"><img src="'v5002'help.gif" alt="help" border="0"></a>'
+				fi
+			[/pft]									
+		</td>		
+		<td><font face="verdana" size="1">Base de datos : <b>
+			[pft]
+				
+				,if p(v5004) then,					
+					'<select name="base" size="1">'
+					/* agrega informacao ^nNew para executar LoadBaseDef */
+						('<option value="'v5004,if v5004 <> v5003[1] then '^nNew"' else '" selected' fi,'>'v5004^*)						
+					'</select>'
+				,else,
+					'<input type="hidden" name="base" value="'v5003'">'v5003^*
+				,fi,	
+			[/pft]</b></font>
+		</td>		
+		<td align="right"><font face="verdana" size="1"><b>Formulario libre</b></font>&nbsp;&nbsp;&nbsp;</td>		
+	</tr>
+	</table>
+	</center>
+	
+	[pft]if size(v5014) > 2 then[/pft]
+		<center>
+	    <table border="0" width="600" cellspacing="0" cellpadding="0">
+        <tr>
+        	<td align="right"><font face="verdana" size="2"><small>
+				Buscar por :
+		   		[pft]if v5014 : 'B' then[/pft]
+					<a href="javascript:void(changeForm('B'))">Formulario básico</a>&nbsp;&nbsp;&nbsp;					
+				[pft]fi[/pft]
+				[pft]if v5014 : 'A' then[/pft]
+					<a href="javascript:void(changeForm('A'))">Formulario avanzado</a>			  		
+				[pft]fi[/pft]
+				</font>
+			</td>
+        </tr>
+	    </table>
+		</center>
+	[pft]fi[/pft]
+	<center>
+	<table border="0" width="600" cellspacing="0" cellpadding="0">
+	<tr><td colspan="5">&nbsp;</td></tr>
+	<tr>
+		<td width="50">&nbsp;</td>
+		<td width="550"><em><font face="verdana" size="2">Ingrese una o más palabras</font></em></td>
+	</tr>
+	<tr>
+		<td width="50">&nbsp;</td>
+		<td width="500"><input type="text" size="50" maxlength="2048" name="exprSearch" value=[pft]`'`(replace(v6002,'"','&quot;'))`'`[/pft]>&nbsp;&nbsp;</td>
+	</tr>
+	<tr>
+		<td width="50">&nbsp;</td>
+		<td width="500"><font face="Verdana" size="1">
+			<input type="radio" name="conectSearch" value="and" [pft]if s(mpu,v6001[1],mpl) = 'AND' or a(v6001) then 'checked' fi [/pft]>Todas las palabras <b>(AND)</b>&nbsp;&nbsp;&nbsp;
+			<input type="radio" name="conectSearch" value="or"  [pft]if s(mpu,v6001[1],mpl) = 'OR' then 'checked' fi [/pft]>Cualquier palabra <b>(OR)</b>
+	    	</font>
+		</td>
+	</tr>
+	[pft]
+		/* especifica o indexSearch caso exista um indice default usando o search por tag */
+		if p(v6099^d) then, 
+			(if p(v6099^d) and p(v6099^s) then '<input type="hidden" name="indexSearch" value="',v6099,'">' fi)
+		fi,
+	[/pft]	
+	
+	<tr><td colspan="2">&nbsp;</td></tr>
+	<tr>
+		<td colspan="2" align="center">
+			<input type="image" name="config" src="[pft]v5002[/pft]config.gif" border="0" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<input src="[pft]v5002[/pft]pesq.gif" border="0" type="image">
+		</td>
+	</tr>
+	</table>	
+	</center>
+
+[pft]fi[/pft]
+
+[pft]if v6000 = 'B' then [/pft]
+	<!-- FORMULARIO BASICO -->
+	<center>
+	<table border="0" width="600" cellspacing="0" cellpadding="0" bgcolor="[pft]v5006^b[/pft]">
+	<tr>
+		<td width="80">&nbsp;
+			[pft]
+				if p(v5011^h) then
+					'<a href="'v5011^h'"><img src="'v5002'help.gif" alt="help" border="0"></a>'
+				fi
+			[/pft]									
+		</td>		
+		<td><font face="verdana" size="1">Base de datos : <b>
+		[pft]
+				,if p(v5004) then,					
+					'<select name="base" size="1">'
+					/* agrega informacao ^nNew para executar LoadBaseDef */
+						('<option value="'v5004,if v5004 <> v5003[1] then '^nNew"' else '" selected' fi,'>'v5004^*)			
+					'</select>'
+				,else,
+					'<input type="hidden" name="base" value="'v5003'">'v5003^*					
+				,fi,	
+			[/pft]</b></font>		
+		</td>
+		<td align="right"><font face="verdana" size="1"><b>Formulario básico</b></font>&nbsp;&nbsp;&nbsp;</td>		
+	</tr>
+	</table>
+	</center>
+	
+	[pft]if size(v5014) > 2 then[/pft]
+ 	 <center>
+	 <table border="0" width="600" cellspacing="0" align="center" cellpadding="0">
+        <tr>
+        	<td align="right"><font face="verdana" size="2"><small>
+				Buscar por :
+		   		[pft]if v5014 : 'F' then[/pft]
+					<a href="javascript:void(changeForm('F'))">Formulario libre</a>&nbsp;&nbsp;&nbsp;		      		
+				[pft]fi[/pft]
+				[pft]if v5014 : 'A' then[/pft]
+					<a href="javascript:void(changeForm('A'))">Formulario avanzado</a>			  		
+				[pft]fi[/pft]
+				</font>
+			</td>
+        </tr>
+	    </table>
+		</center>
+	[pft]fi[/pft]
+
+	<br><center>
+	<table border="0" width="600" align="center" cellspacing="0" cellpadding="0">		
+	<tr>
+		<td width="30">&nbsp;</td>
+		<td width="80">&nbsp;</td>
+		<td width="270"><i><font face="verdana" size="2">Buscar</font></i></td>
+		<td width="235"><font face="verdana" size="2"><i>en el campo</i></font></td>
+		<td width="62">&nbsp;</td>
+	</tr>
+			
+	[pft]@LIST6003.PFT[/pft] 
+	[pft],(,[/pft]
+		[pft]if iocc <= 3 then[/pft]
+    			<tr>
+          		<td width="30"><font face="Verdana" size="2"><b>[pft]f(iocc,1,0)[/pft]</b></font></td>
+				<td width="80">
+					[pft],if iocc > 1 then,[/pft]
+         				<select name="conectSearch" size=1>
+	    	   				<option value="and" [pft]if s(mpu,v6001,mpl) ='AND' then 'selected' fi[/pft]>and
+							<option value="or"  [pft]if s(mpu,v6001,mpl) ='OR' then 'selected' fi[/pft]>or
+							<option value="and not" [pft]if s(mpu,v6001,mpl) ='AND NOT' then 'selected' fi [/pft]>and not
+						</select>
+					[pft]else[/pft]
+        		   		<input type=hidden name="conectSearch" value="init">&nbsp;
+				    [pft]fi[/pft]
+	      		</td>
+		        <td width="270" align="left">				
+					[pft]
+						`<input type="text" size="32" maxlength="2048" name="exprSearch" value='`
+						,if iocc = val(v6100^l[1]) then,
+			           		,if p(v6002) then,
+				              ,`( `,replace(v6002,'"','&quot;'),` ) or `,
+				           	,fi,
+							,v6102[1],
+		    		    ,else,
+		        		    ,replace(v6002,'&quot;','"'),
+			        	,fi,
+						`'>`
+					[/pft]  
+		   	  	</td>		                
+        		<td width="235">					
+					<select name="indexSearch" size="1">[pft]v6099[/pft]</select>
+				</td>
+          		<td width="62" align="left"><input type="image" src="[pft]v5002[1][/pft]indice.gif" name="index[pft]f(iocc,1,0)[/pft]" border="0"></td>
+            </tr>
+      [pft]fi[/pft]
+    [pft],),[/pft]
+	<tr>
+		<td colspan="6">&nbsp;</td>
+	</tr>                  
+	<tr>
+		<td colspan="6" align="center">
+				<input type="image" name="config" src="[pft]v5002[/pft]config.gif" border="0" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="image" name="new search" src="[pft]v5002[/pft]limpa.gif" border="0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="image" src="[pft]v5002[/pft]pesq.gif" border="0">
+		</td> 
+	</tr>   
+	</table>
+	</center>
+[pft]fi[/pft]
+
+
+[pft]if v6000 = 'A' then [/pft]
+
+	<!-- FORMULARIO AVANCADO -->
+	<center>
+    <table border="0" width="600" cellspacing="0" cellpadding="0" align="center" bgcolor="[pft]v5006^b[/pft]">
+	<tr>
+		<td width="80">&nbsp;
+			[pft]
+				if p(v5011^h) then
+					'<a href="'v5011^h'"><img src="'v5002'help.gif" alt="help" border="0"></a>'
+				fi
+			[/pft]									
+		</td>		
+		<td><font face="verdana" size="1">Base de datos : <b>
+			[pft]
+				,if p(v5004) then,					
+					'<select name="base" size="1">'
+					/* agrega informacao ^nNew para executar LoadBaseDef */
+						('<option value="'v5004,if v5004 <> v5003[1] then '^nNew"' else '" selected' fi,'>'v5004^*)					
+					'</select>'
+				,else,
+					'<input type="hidden" name="base" value="'v5003'">'v5003^*
+				,fi,	
+			[/pft]</b></font>		
+		</td>
+		<td align="right"><font face="verdana" size="1"><b>Formulario avanzado</b></font>&nbsp;&nbsp;&nbsp;</td>		
+	</tr>
+	</table>
+	</center>
+	
+	[pft]if size(v5014) > 2 then[/pft]
+		<center>
+	    <table border="0" width="600" cellspacing="0" align="center" cellpadding="0">
+        <tr>
+        	<td align="right"><font face="verdana" size="2"><small>
+				Buscar por :
+		   		[pft]if v5014 : 'F' then[/pft]
+					<a href="javascript:void(changeForm('F'))">Formulario libre</a>&nbsp;&nbsp;&nbsp;		      		
+				[pft]fi[/pft]
+				[pft]if v5014 : 'B' then[/pft]
+					<a href="javascript:void(changeForm('B'))">Formulario básico</a>			  		
+				[pft]fi[/pft]
+				</font>
+			</td>
+        </tr>
+	    </table>
+		</center>
+	[pft]fi[/pft]
+
+	
+	<br><center>
+	<table border="0" width="600" align="center" cellspacing="0" cellpadding="0">		
+	<tr>
+		<td width="30">&nbsp;</td>
+		<td width="80">&nbsp;</td>
+		<td width="270"><i><font face="verdana" size="2">Buscar</font></i></td>
+		<td width="235"><font face="verdana" size="2"><i>en el campo</i></font></td>
+		<td width="62">&nbsp;</td>
+	</tr>
+			
+	[pft]@LIST6003.PFT[/pft] 
+	[pft],(,[/pft]
+		[pft]if iocc <= 3 then[/pft]
+    			<tr>
+          		<td width="30"><font face="Verdana" size="2"><b>[pft]f(iocc,1,0)[/pft]</b></font></td>
+				<td width="80">
+					[pft],if iocc > 1 then,[/pft]
+         				<select name="conectSearch" size=1>
+	    	   				<option value="and" [pft]if s(mpu,v6001,mpl) ='AND' then 'selected' fi[/pft]>and
+							<option value="or"  [pft]if s(mpu,v6001,mpl) ='OR' then 'selected' fi[/pft]>or
+							<option value="and not" [pft]if s(mpu,v6001,mpl) ='AND NOT' then 'selected' fi [/pft]>and not
+						</select>
+					[pft]else[/pft]
+        		   		<input type=hidden name="conectSearch" value="init">&nbsp;
+				    [pft]fi[/pft]
+	      		</td>
+		        <td width="270" align="left">				
+					[pft]
+						`<input type="text" size="32" maxlength="2048" name="exprSearch" value='`
+						,if iocc = val(v6100^l[1]) then,
+			           		,if p(v6002) then,
+				              ,`( `,replace(v6002,'"','&quot;'),` ) or `,
+				           	,fi,
+							,v6102[1],
+		    		    ,else,
+		        		    ,replace(v6002,'&quot;','"'),
+			        	,fi,
+						`'>`
+					[/pft]  
+		   	  	</td>		         
+				<td width="235">					
+					<select name="indexSearch" size="1">[pft]v6099[/pft]</select>
+				</td>
+          		<td width="62" align="left"><input type="image" src="[pft]v5002[1][/pft]indice.gif" name="index[pft]f(iocc,1,0)[/pft]" border="0"></td>
+            </tr>
+      [pft]fi[/pft]
+    [pft],),[/pft]
+	<tr>
+		<td colspan="6">&nbsp;</td>
+	</tr>                  
+	<tr>
+		<td colspan="6" align="center">
+				<input type="image" name="config" src="[pft]v5002[/pft]config.gif" border="0" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="image" name="new search" src="[pft]v5002[/pft]limpa.gif" border="0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="image" src="[pft]v5002[/pft]pesq.gif" border="0" >
+		</td> 
+	</tr>   
+	</table>
+	</center>
+[pft]fi[/pft]
+
+
+<br><br>
+</form>
+[pft]if p(v5011^n) then[/pft]
+	<center>
+	<table border="0" width="600" cellspacing="0" cellpadding="0">
+		<tr><td>[pft]cat(v5011^n)[/pft]</td></tr>
+	</table>
+	</center>
+[pft]fi[/pft]	
+
+[pft]@AHFOOT.PFT[/pft]
+
+</body>
+</html>

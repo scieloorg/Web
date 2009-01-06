@@ -1,0 +1,10 @@
+open servidor
+user user-id password
+
+ascii
+lcd temp/transf2lattes
+cd /scielo
+put SciELO.txt.gz
+
+bye
+

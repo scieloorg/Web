@@ -1,0 +1,1 @@
+proc_langs/linux/GeraScilistaCompleta.bat scilista.proc_langs.txt cisis/mx

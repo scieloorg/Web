@@ -1,0 +1,46 @@
+/*
+,v9000,'|',
+,v880,'|',
+,v40,'|',
+,(v83|;|/),'|',
+,(v601^l|;|/),'|',
+,(v602^l|;|/),'|',
+,proc('a9000{',(if v601^l=v40[1] then 'yes' fi),'{'),
+,if v9000='yes' then
+	,f(nocc(v601) - 1,1,0),
+else
+	,f(nocc(v601),1,0),
+,fi,
+,#,
+*/
+,if p(v880) then
+	,if v9001='original' then
+		,v880,'|',v40/,
+	,fi
+	,if v9001='at_least_one_translation' then
+		,if p(v601) then,
+			,proc('a9090{',(if v601^l<>v40[1] then 'yes',break, else 'no' fi),'{'),
+			,if instr(v9090,'yes')>0 then
+				 ,v880,'|',(if v601^l<>v40[1] then v601^l| | fi),/
+			,fi,
+		,fi,
+	,fi,
+	,if v9001='no_translation' then
+		,if a(v601) then,
+			,v880,'|',v40/,
+		,fi,
+	,fi,
+	,if v9001='only_translations' then
+		,if p(v601) then,
+			,proc('a9090{',(if v601^l<>v40[1] then 'yes',break, else 'no' fi),'{'),
+			,if instr(v9090,'yes')>0 then
+				 ,(if v601^l<>v40[1] then ,v880[1],'|',v601^l/ fi),
+			,fi,
+		,fi,
+	,fi,
+	,if v9001='all' then
+		,if p(v601) then,
+			,(v880[1],'|',v601^l/),			
+		,fi,
+	,fi,
+,fi,

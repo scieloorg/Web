@@ -1,0 +1,381 @@
+<!DOCTYPE html
+PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+	<title>OAI Scielo Harvesting Interface</title>
+	<link rel="stylesheet" type="text/css" href="layout.css">	
+</head>
+<script Language="JavaScript">
+
+	function MM_findObj(n, d) 
+	{
+				 var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+				  d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);
+				 }
+				 if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+				 for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+				 if(!x && document.getElementById) x=document.getElementById(n); return x;
+	}
+	
+	function MM_showhideLayers() 
+	{
+				 var i,p,v,obj,args=MM_showhideLayers.arguments; 
+				 for (i=0; i<(args.length-2); i+=3) if ((obj=MM_findObj(args[i]))!=null) {
+				  v=args[i+2]; z=args[i+3]; 
+				  if (!z) {
+				   if (obj.style) { obj=obj.style; v=(v=='show')?'block':(v=='hide')?'none':v; } 
+				   obj.display=v; 
+				  } else {
+				   if (obj.style) { obj=obj.style; v=(v=='show')?z:(v=='hide')?'none':v; } 
+				   obj.display=v; 
+				  }
+				 }
+	} 
+	
+	function showVerb(verb)
+	{
+		MM_showhideLayers('Identify','','hide');
+		MM_showhideLayers('ListMetadataFormats','','hide');
+		MM_showhideLayers('ListIdentifiers','','hide');
+		MM_showhideLayers('ListSets','','hide');
+		MM_showhideLayers('ListRecords','','hide');
+		MM_showhideLayers('GetRecord','','hide');
+
+		MM_showhideLayers(verb,'','show');		
+	}
+
+	function submitForm()
+	{
+		URL = document.sendQuery.oaiURL.value;
+		verb = document.sendQuery.verb.value;
+		MetadataPrefix = document.sendQuery.MetadataPrefix.value;
+		from = document.sendQuery.from.value;
+		until = document.sendQuery.until.value;
+		set = document.sendQuery.set.value;
+		identifier = document.sendQuery.identifier.value;
+		resumptionToken = document.sendQuery.resumptionToken.value;
+		formStatus = true;
+		if (!URL)
+		{
+			alert("É necessário preencher o campo URL");
+			formStatus = false;
+		}
+		if (verb == "Identify")
+		{
+			URL = URL+"?verb="+verb;
+		}
+		else if (verb == "ListMetadataFormats")
+		{
+			URL = URL+"?verb="+verb;
+		}
+		else if (verb == "ListIdentifiers")
+		{
+			URL = URL+"?verb="+verb;
+			if (MetadataPrefix) 
+			{URL = URL+"&metadataPrefix="+MetadataPrefix;}
+			else 
+			{ 
+			alert("parâmetro metadataPrefix obrigatório");
+			formStatus = false;
+			}
+			if (from) URL = URL+"&from="+from;
+			if (until) URL = URL+"&until="+until;
+			if (set) URL = URL+"&set="+set;
+			if (resumptionToken) URL = URL+"&resumptionToken="+resumptionToken;
+		}
+		else if (verb == "ListSets")
+		{
+			URL = URL+"?verb="+verb;
+			if (resumptionToken) URL = URL+"&resumptionToken="+resumptionToken;			
+		}
+		else if (verb == "ListRecords")
+		{
+			URL = URL+"?verb="+verb;
+			if (MetadataPrefix) 
+			{
+				if(MetadataPrefix == 'oai_dc_agris'){
+					if(!set){
+						alert("parâmetro set obrigatório");
+						formStatus = false;
+					} 
+				}
+				URL = URL+"&metadataPrefix="+MetadataPrefix;}
+			else 
+			{ 
+			alert("parâmetro matadataPrefix obrigatório");
+			formStatus = false;
+			}
+			if (from) URL = URL+"&from="+from;
+			if (until) URL = URL+"&until="+until;
+			if (set) URL = URL+"&set="+set;			
+			if (resumptionToken) URL = URL+"&resumptionToken="+resumptionToken;	
+		}
+		else if (verb == "GetRecord")
+		{
+			URL = URL+"?verb="+verb;
+			if (MetadataPrefix) 
+			{URL = URL+"&metadataPrefix="+MetadataPrefix;}
+			else 
+			{ 
+			alert("parâmetro matadataPrefix obrigatório");
+			formStatus = false;
+			}
+			if (identifier) 
+			{URL = URL+"&identifier="+identifier;}
+			else 
+			{ 
+			alert("parâmetro identifier obrigatório");
+			formStatus = false;
+			}						
+		}
+		else
+		{
+			alert("parâmetro verb obrigatório");
+			formStatus = false;
+		}
+		if (formStatus)
+		{
+			document.sendQuery.outputURL.value = URL;
+			window.open(URL,'oai_output');
+		}
+	}
+	function setForm(verb)
+	{
+		for (i=0 ; i<document.sendQuery.elements.length ; i++)
+		{	
+			if (document.sendQuery.elements[i].name != "oaiURL")
+				document.sendQuery.elements[i].disabled = true;
+		}
+		
+		if (verb == "Identify")
+		{
+			document.sendQuery.verb.value = "Identify";
+		}
+		else if (verb == "ListMetadataFormats")
+		{
+			document.sendQuery.verb.value = "ListMetadataFormats";
+		}
+		else if (verb == "ListIdentifiers")
+		{
+			document.sendQuery.verb.value = "ListIdentifiers";
+			document.sendQuery.MetadataPrefix.disabled = false;
+			document.sendQuery.from.disabled = false;
+			document.sendQuery.until.disabled = false;
+			document.sendQuery.set.disabled = false;
+			document.sendQuery.resumptionToken.disabled = false;										
+		}
+		else if (verb == "ListSets")
+		{
+			document.sendQuery.verb.value = "ListSets";
+			document.sendQuery.resumptionToken.disabled = false;		
+		}
+		else if (verb == "ListRecords")
+		{
+			document.sendQuery.verb.value = "ListRecords";
+			document.sendQuery.MetadataPrefix.disabled = false;
+			document.sendQuery.from.disabled = false;
+			document.sendQuery.until.disabled = false;
+			document.sendQuery.set.disabled = false;
+			document.sendQuery.resumptionToken.disabled = false;
+		}
+		else if (verb == "GetRecord")
+		{
+			document.sendQuery.verb.value = "GetRecord";
+			document.sendQuery.MetadataPrefix.disabled = false;			
+			document.sendQuery.identifier.disabled = false;			
+		}		
+	}
+</script>
+<body marginheight="0" topmargin="0" leftmargin="0">
+<div id="header">
+	<div id="title">
+		Interface de Coleta de Metadados do OAI Scielo
+	</div>
+	<div id="language">
+		<a href="index.html">en</a> - <a href="index_es.html">es</a>
+	</div>
+</div>
+<FORM name="sendQuery" method="post" action="#">
+<div id="main_group">
+	<div id="group_title">URL do OAI</div>
+	<div id="group_content">URL: <input type="text" name="oaiURL" size="50" maxlength="50"/> &nbsp; &nbsp; http://www.scielo.br/oai/scielo-oai.php</div>			
+</div>	
+<div>
+	<table width="100%" cellpadding="0" cellspacing="0">
+		<tr>
+			<td width="30%" valign="top">
+			<div id="left">			
+				<div id="group">
+					<div id="group_title">verbs</div>
+					<div id="group_content">
+						<div id="menu_item"><a href="javascript: setForm('Identify'); showVerb('Identify');">Identify</a></div>
+						<div id="menu_item"><a href="javascript: setForm('ListMetadataFormats'); showVerb('ListMetadataFormats');">ListMetadataFormats</a></div>
+						<div id="menu_item"><a href="javascript: setForm('ListIdentifiers'); showVerb('ListIdentifiers');">ListIdentifiers</a></div>
+						<div id="menu_item"><a href="javascript: setForm('ListSets'); showVerb('ListSets');">ListSets</a></div>
+						<div id="menu_item"><a href="javascript: setForm('ListRecords'); showVerb('ListRecords');">ListRecords</a></div>
+						<div id="menu_item"><a href="javascript: setForm('GetRecord'); showVerb('GetRecord');">GetRecord</a></div>																								
+					</div>			
+				</div>
+				<div id="group">
+					<div id="group_title">descrição do verb</div>
+					<div id="group_content">
+						<div id="Identify" name="Identify" style="display: none;">
+							<p>Este verb retorna as informações principais do protocolo.</p>
+							<p>
+							<b>Parâmetros Obrigatórios</b>
+							<ul><li>verb</li></ul>
+							</p>
+						</div>
+						<div id="ListMetadataFormats" name="ListMetadataFormats" style="display: none;">
+							<p>Lista quais são os formatos de metadados utilizados no protocolo, no caso da SciELO o único utilizado é oai_dc.</p>
+							<p>
+							<b>Parâmetros Obrigatórios</b>
+							<ul>
+								<li>verb</li>
+								</ul>
+							</p>							
+						</div>
+						<div id="ListIdentifiers" name="ListIdentifiers" style="display: none;">
+							<p>Recupera uma lista com o identificador único de cada artigo publicado.</p>
+							<p>
+							<b>Parâmetros Obrigatórios</b>
+							<ul>
+								<li>verb</li>
+								<li>metadataPrefix</li>								
+							</ul>
+							</p>
+							<p>
+							<b>Parâmetros Opcionais</b>
+							<ul>
+								<li>from</li>
+								<li>until</li>
+								<li>set</li>								
+							</ul>
+							<p>
+							<b>Parâmetros Exclusivos</b>
+							<ul>
+								<li>resumptionToken</li>
+							</ul>
+							</p>									
+						</div>
+						<div id="ListSets" name="ListSets" style="display: none;">
+							<p>Recupera um lista com todas revistas publicadas na SciELO, informando o título e o setSpec (issn) de cada uma.</p>
+							<p>
+							<b>Parâmetros Obrigatórios</b>
+							<ul>
+								<li>verb</li>
+							</ul>
+							</p>	
+							<p>
+							<b>Parâmetros Exclusivos</b>
+							<ul>
+								<li>resumptionToken</li>
+							</ul>
+							</p>									
+													
+						</div>
+						<div id="ListRecords" name="ListRecords" style="display: none;">
+							<p>Recupera o resumo dos artigos da SciELO.</p>
+							<p>
+							<b>Parâmetros Obrigatórios</b>
+							<ul>
+								<li>verb</li>
+								<li>metadataPrefix</li>								
+							</ul>
+							</p>
+							<p>
+							<b>Parâmetros Opcionais</b>
+							<ul>
+								<li>from</li>
+								<li>until</li>
+								<li>set</li>								
+							</ul>
+							<p>
+							<b>Parâmetros Exclusivos</b>
+							<ul>
+								<li>resumptionToken</li>
+							</ul>
+							</p>															
+						</div>
+						<div id="GetRecord" name="GetRecord" style="display: none;">
+							<p>Recupera o texto completo dos artigos da SciELO.</p>
+							<p>
+							<b>Parâmetros Obrigatórios</b>
+							<ul>
+								<li>verb</li>
+								<li>metadataPrefix</li>						
+								<li>identifier</li>								
+							</ul>
+							</p>							
+						</div>																														
+					</div>			
+				</div>		
+			</div>
+			</td>
+			<td width="70%" valign="top">
+			<div id="right">
+				<div id="group">
+					<div id="group_title">configuração dos parâmetros</div>
+					<div id="group_content">
+							<table>
+								<tr>
+									<td>verb</td>
+									<td><input type="text" name="verb" disabled="disabled"/></td>
+									<td></td>
+								</tr>							
+								<tr>
+									<td>MetadataPrefix</td>
+									<td><input type="text" name="MetadataPrefix" maxlength="15"/></td>
+									<td>oai_dc | oai_dc_agris</td>
+								</tr>
+								<tr>
+									<td>set</td>
+									<td><input type="text" name="set" size="9" maxlength="9"/></td>
+									<td>ISSN</td>
+								</tr>	
+								<tr>
+									<td>identifier</td>
+									<td><input type="text" name="identifier" size="34" maxlength="34"/></td>
+									<td></td>
+								</tr>	
+								<tr>
+									<td>from</td>
+									<td><input type="text" name="from" size="10" maxlength="10"/></td>
+									<td>YYYY-MM-DD</td>
+								</tr>		
+								<tr>
+									<td>until</td>
+									<td><input type="text" name="until" size="10" maxlength="10"/></td>
+									<td>YYYY-MM-DD</td>									
+								</tr>	
+								<tr>
+									<td>resumptionToken</td>
+									<td><input type="text" name="resumptionToken" size="34"/></td>
+									<td></td>									
+								</tr>	
+							</table>
+							<p align="right">
+							<a href="javascript: submitForm();">fazer pesquisa</a>
+							</p>		
+					</div>			
+				</div>
+				<div id="group">
+					<div id="group_title">saída</div>
+					<div id="group_content">
+						<div id="output">
+							URL Pesquisada:</br>
+							<input type="text" name="outputURL" size="100"/></br>
+							Resultado:</br>
+							<iframe name="oai_output" width="99%"/>
+						</div>
+					</div>			
+				</div>	
+			</div>
+			</td>
+		</tr>
+	</table>	
+</div>
+</FORM>
+</body>
+</html>

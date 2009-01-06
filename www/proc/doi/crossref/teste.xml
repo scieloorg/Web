@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<query_batch version="2.0" xmlns="http://www.crossref.org/qschema/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+<email_address>roberta@bireme.br</email_address>
+<doi_batch_id>scielo_20060130163439</doi_batch_id>
+</head>
+<body>
+<query key="S0102-8650200200020000600012" enable-multiple-hits="false" forward-match="true" list-components="true" expanded-results="true">
+	<issn match="optional">0012-2823</issn>
+		<journal_title match="optional fuzzy">Digestion</journal_title>
+			<author match="fuzzy">G Dorta</author>
+				<volume match="fuzzy">60</volume>
+					<issue match="fuzzy">2</issue>
+					<first_page match="optional">53</first_page>
+						<year match="optional">1999</year>
+							<article_title match="fuzzy">Role of octreotide and somatostatin in the treatment of intestinal fistulae</article_title>
+							</query></body>
+							</query_batch>
+
