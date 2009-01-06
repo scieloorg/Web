@@ -1,1 +1,0 @@
-proc_langs/linux/GeraTextLangsDBfromScilista.bat scilista.proc_langs.txt cisis/mx xOn

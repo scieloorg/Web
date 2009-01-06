@@ -1,3 +1,0 @@
-if val(v92^c[1])>0 and val(v92^c[last])>0 then 
-v9001,' ',v9002,' from=',v92^c[1],' to=',v92^c[last],' append=',v9003,' now -all'/
-fi

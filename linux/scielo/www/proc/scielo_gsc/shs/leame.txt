@@ -1,1 +1,0 @@
-rodar: ./googleSchoolar_run.sh
