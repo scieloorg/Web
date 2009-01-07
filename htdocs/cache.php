@@ -1,5 +1,5 @@
 <?php
-
+// testando patch
 	function getFromCache($key){
 		$ini = parse_ini_file('scielo.def.php',true);
 		$memcache = new Memcache;

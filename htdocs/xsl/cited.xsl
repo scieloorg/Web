@@ -5,7 +5,8 @@
 
 	<xsl:include href="../applications/scielo-org/xsl/article_output.xsl"/>
 	<xsl:include href="sci_common.xsl"/>
-
+		
+		<!-- testando patch -->
 
 	<xsl:variable name="lang" select="//vars/lang"/>
 	<xsl:variable name="texts" select="document('../applications/scielo-org/xml/texts.xml')/texts/language[@id = $lang]"/>
