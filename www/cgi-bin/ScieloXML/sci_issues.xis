@@ -44,18 +44,17 @@
 	<field action="replace" tag="9123"><pft>if val(v9122) > val(v9123) then v9122 fi</pft></field>
    	<field action="export" tag="list">9122,9123</field>
 
+	<flow action="skip"><pft>if instr(v5000,v1002*1)>0 then 'Next' fi</pft></flow>
+
+	<field action="replace" tag="2003"><pft>v1002*1</pft></field>
+	<call name="issueHasArticles"><pft>v2003</pft></call>
+	<flow action="skip"><pft>if v9036<>v2003 then 'Next' fi </pft></flow>	 	
+
 	<field action="replace" tag="9065"><pft>ref(['ARTIGO']val(v1003^m),@PROC_SPLIT_MST.PFT,,mid(v65,1,4))</pft></field>	
 	<field action="replace" tag="9031"><pft>ref(['ARTIGO']val(v1003^m),@PROC_SPLIT_MST.PFT,,if p(v31) then v31 else 's/v' fi)</pft></field>	
     
 	<field action="export" tag="list">9065,9031</field>
 
-	<flow action="skip"><pft>if instr(v5000,v1002*1)>0 then 'Next' fi</pft></flow>
-	
-	<field action="replace" tag="2003"><pft>v1002*1</pft></field>
-	<call name="issueHasArticles"><pft>v2003</pft></call>
-	<flow action="skip"><pft>if v9036<>v2003 then 'Next' fi </pft></flow>	 	
-
-	
 	<flow action="jump">
 	 <pft>if s(v2000)=v9065 then 'NEXT_VOL' fi</pft>
 	</flow>
@@ -119,16 +118,35 @@
 
 	</pft>
 </field>	
+
+<field action="replace" tag="6001" split="occ">
+	<pft>if v7049='together' then
+			if p(v5000^f) then 
+				s(v5001^*)*9.4/
+			,fi
+		,else
+			(if v5001^t='AHEAD' then s(v5001^*)*9.4/ , break,fi),
+			(if v5001^t='REVIEW' then s(v5001^*)*9.4/, break,fi),
+		,fi,
+
+	</pft>
+</field>	
 	<display>
 		<pft>
-			if p(v6000) then
-				 ,if s(v2000)='-' then '  <YEARISSUE YEAR="',v9065,'">'/ fi,
-				 ,if s(v2001)='-' then '   <VOLISSUE VOL="'v9031'">'/ fi,
+		(
+			,if v6001=v9065[1] then
 				 ,v6000
-				 ,if s(v2001)='-' then '   </VOLISSUE>'/ fi,
-                 ,if s(v2000)='-' then '  </YEARISSUE>'/ fi,
-
-			fi
+			,fi
+		)	
+		(
+			,if val(v6001)>val(v9065[1]) then
+				 '   </VOLISSUE>'/
+                 '  </YEARISSUE>'/
+				 '  <YEARISSUE YEAR="',v6001,'">'/,
+				 '   <VOLISSUE VOL="s/v">'/,
+				 ,v6000
+			,fi
+		)	
 		</pft>
 	</display>
 
