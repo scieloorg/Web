@@ -149,7 +149,15 @@
 		)	
 		</pft>
 	</display>
+<field action="replace" tag="6006" split="occ">
+	<pft>(
+			,if val(v6001)>val(v9065[1]) then
+				 '1'/
+			,fi
+		)	
 
+	</pft>
+</field>	
 
  <label>CLOSE_VOLUME</label>
  <display><pft>if s(v2001)<>'-' then '   </VOLISSUE>'/ fi,
@@ -157,7 +165,7 @@
 
 				
                ' </AVAILISSUES>'/</pft></display>
-<display><pft>if p(v9123) then '<COLUMNS>',f(val(v9123)+nocc(v6000),1,0),'</COLUMNS>'/ fi</pft></display>
+<display><pft>if p(v9123) then '<COLUMNS>',f(val(v9123)+nocc(v6000)-nocc(v6006),1,0),'</COLUMNS>'/ fi</pft></display>
 </function>
  
 <section>
