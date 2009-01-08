@@ -3273,25 +3273,30 @@
 <!--  article which pid has the last 5 digits equal to '00001'					 -->
 <!-- ============================================================================ -->
 <function name="issueHasArticles" action="replace" tag="4901">
-	<do task="search">
-	   <parm name="db">ARTIGO</parm>
-	   <parm name="expression"><pft>'SM='v4901,'$'</pft></parm>
-	   <parm name="count">1</parm>
+        <field action="replace" tag="9036"><pft>if l(['ARTIGO']'sm=',v4901,'-001')>0 then v4901 fi</pft></field>
+        <flow action="jump"><pft>if p(v9036) then 'EXIST' fi</pft></flow>
+        <do task="search">
+           <parm name="db">ARTIGO</parm>
+           <parm name="expression"><pft>'SM='v4901,'$'</pft></parm>
+           <parm name="count">1</parm>
 
-	   <loop>
-			<display><pft>@PROC_SPLIT_MST.PFT</pft></display>
-			<field action="replace" tag="4902"><pft>v121</pft></field>
-			<field action="export" tag="4902">4902</field>
-		</loop>	
-	</do>	
-	<return action="replace" tag="9036">
-		<pft>
-			if p(v4902) then
-				v4901,
-			fi,
-		</pft>
-	</return>
+           <loop>
+                        <display><pft>@PROC_SPLIT_MST.PFT</pft></display>
+                        <field action="replace" tag="4902"><pft>v121</pft></field>
+                        <field action="export" tag="4902">4902</field>
+                </loop>
+        </do>
+
+        <field action="replace" tag="9036"><pft>if p(v4902) then v4901, fi,</pft></field>
+
+        <label>EXIST</label>
+        <return action="replace" tag="9036">
+<pft>
+,v9036,
+                </pft>
+        </return>
 </function>
+
 
 <function name="isXML" action="replace" tag="702">
 	<return action="replace" tag="8000"><pft>replace(mid(v702,size(v702)-3,4),'.XML','.xml')</pft></return> 
