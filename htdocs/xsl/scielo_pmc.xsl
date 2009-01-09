@@ -1,5 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:transform version="1.0" id="ViewNLM-v2-04_scielo.xsl" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:util="http://dtd.nlm.nih.gov/xsl/util" xmlns:doc="http://www.dcarlisle.demon.co.uk/xsldoc" xmlns:ie5="http://www.w3.org/TR/WD-xsl" xmlns:msxsl="urn:schemas-microsoft-com:xslt" xmlns:fns="http://www.w3.org/2002/Math/preference" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:pref="http://www.w3.org/2002/Math/preference" pref:renderer="mathplayer" exclude-result-prefixes="util xsl">
+        <xsl:variable name="var_SUPPLMAT_PATH">
+                <xsl:choose>
+                        <xsl:when test="//SIGLUM and //ISSUE">/pdf/<xsl:value-of select="//SIGLUM"/>/<xsl:if test="//ISSUE/@VOL">v<xsl:value-of select="//ISSUE/@VOL"/></xsl:if>
+                                <xsl:if test="//ISSUE/@NUM='AHEAD' or //ISSUE/@NUM='ahead'"><xsl:value-of select="substring(//ISSUE/@PUBDATE,1,4)"/></xsl:if>
+                                <xsl:if test="//ISSUE/@NUM">n<xsl:choose>
+                                        <xsl:when test="//ISSUE/@NUM='AHEAD'">ahead</xsl:when>
+                                        <xsl:otherwise><xsl:value-of select="//ISSUE/@NUM"/></xsl:otherwise>
+                                </xsl:choose>
+                                </xsl:if>
+                                <xsl:if test="//ISSUE/@SUPPL">s<xsl:value-of select="//ISSUE/@SUPPL"/>
+                                </xsl:if>/</xsl:when>
+                        <xsl:otherwise>/</xsl:otherwise>
+                </xsl:choose>
+        </xsl:variable>
+
+
 	<xsl:template match="*" mode="make-a-piece">
 		<!-- variable to be used in div id's to keep them unique -->
 		<xsl:variable name="which-piece">
@@ -55,7 +71,6 @@
 			<xsl:apply-templates select="//permissions"/>
 		</div>
 	</xsl:template>
-	
 	<xsl:template match="author-notes" mode="text">
 		<xsl:apply-templates select="*" mode="text"/>
 	</xsl:template>
@@ -68,12 +83,12 @@
 		</p>
 		<a>
 			<xsl:attribute name="href">#top</xsl:attribute>
-			<img src="{$var_IMAGE_PATH}/seta.gif" alt="" border="0" align="middle"/>
+			<img src="/img/seta.gif" alt="" border="0" align="middle"/>
 		</a>
 		<xsl:text> </xsl:text>
-		<a name="{@id}">
-			<xsl:apply-templates select="*|text()"/>
+		<a name="{@id}">&#160;
 		</a>
+		<xsl:apply-templates select="*|text()"/>
 	</xsl:template>
 	<!--xsl:template match="author-notes/fn" mode="text">
 		
@@ -140,7 +155,7 @@
 	</xsl:template>
 	<xsl:template match="fn" mode="text">
 		<p>
-		<xsl:apply-templates/>
+			<xsl:apply-templates select="@*|*|text()"/>
 		</p>
 	</xsl:template>
 	<xsl:template match="*" mode="make-end-metadata">
@@ -219,5 +234,36 @@
 			<xsl:value-of select="copyright-statement"/>
 			<xsl:apply-templates select="license"/>
 		</p>
+	</xsl:template>
+	<xsl:template match="fn/@id">
+		<a name="{.}">&#160;</a>
+	</xsl:template>
+	<xsl:template match="ext-link | uri">
+		<xsl:choose>
+			<xsl:when test="@xlink:href">
+				<a>
+					<xsl:attribute name="target">_blank</xsl:attribute>
+					<xsl:choose>
+						<xsl:when test="contains(@xlink:href,':')">
+							<xsl:call-template name="make-href"/>
+						</xsl:when>
+						<xsl:when test="contains(@xlink:href,'.pdf')">
+							<xsl:attribute name="href"><xsl:value-of select="concat($var_SUPPLMAT_PATH,@xlink:href)"/></xsl:attribute>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:call-template name="make-href"/>
+						</xsl:otherwise>
+					</xsl:choose>
+					<xsl:call-template name="make-id"/>
+					<xsl:apply-templates/>
+				</a>
+			</xsl:when>
+			<xsl:otherwise>
+				<span class="capture-id">
+					<xsl:call-template name="make-id"/>
+					<xsl:apply-templates/>
+				</span>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 </xsl:transform>
