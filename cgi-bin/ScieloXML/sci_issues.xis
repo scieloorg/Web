@@ -134,7 +134,7 @@
 	<display>
 		<pft>
 		(
-			,if v6001=v9065[1] then
+			,if v6001<=v9065[1] then
 				 ,v6000
 			,fi
 		)	
