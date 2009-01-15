@@ -238,7 +238,9 @@
 	<xsl:template match="fn/@id">
 		<a name="{.}">&#160;</a>
 	</xsl:template>
-	<xsl:template match="ext-link | uri">
+	<xsl:template match="supplementary-material/caption">
+	</xsl:template>
+	<xsl:template match="supplementary-material | ext-link | uri">
 		<xsl:choose>
 			<xsl:when test="@xlink:href">
 				<a>
