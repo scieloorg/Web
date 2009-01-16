@@ -1021,6 +1021,16 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 	<xsl:template match="@DOI">
 	doi: <xsl:value-of select="."/>
 	</xsl:template>
+	<xsl:template match="ARTICLE[@displayDOILink]/@DOI">
+		<xsl:if test="@displayDOILink!=@DOI">
+			doi: <xsl:value-of select="."/><br/>
+		</xsl:if>
+		<xsl:apply-templates select="../@displayDOILink"/>
+	</xsl:template>
+
+	<xsl:template match="ARTICLE/@displayDOILink">
+	<a href="http://dx.doi.org/{normalize-space(.)}" target="_blank">doi: <xsl:value-of select="."/></a>
+	</xsl:template>
 	<!--
 
 tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
