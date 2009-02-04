@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 	<xsl:variable name="interfaceLang" select="//CONTROLINFO/LANGUAGE"/>
+        <xsl:variable name="translations" select="document(concat('../xml/',$interfaceLang,'/translation.xml'))/translations" />
 	<xsl:include href="sci_artref.xsl"/>
 	<xsl:template name="AddRssHeaderLink">
 		<xsl:param name="pid"/>
