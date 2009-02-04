@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+	<xslid id="sci_toolbox">
+		<text find="services">serviços</text>
+                <text find="add_to_my_collection">adicionar a minha coleção</text>
+                <text find="alert_me_when_cited">alerte-me quando for citado</text>
+                <text find="send_me_access_statistics">envie-me estatísticas de acessos</text>
+                <text find="custom_services">serviços customizados</text>
+                <text find="comments">comentários</text>
+                <text find="article_in_pdf_format">Artigo em PDF</text>
+                <text find="article_in_xml_format">Artigo em XML</text>
+                <text find="article_references">Referências do Artigo</text>
+                <text find="health_indicators">Indicadores de Saúde</text>
+                <text find="fapesp_projects">Projetos FAPESP</text>
+                <text find="automatic_translation">Tradução Automática</text>
+                <text find="show_semantic_highlights">Mostrar Destaques Sem#266;nticos</text>
+                <text find="hide_semantic_highlights">Fechar Destaques Sem#266;nticos</text>
+                <text find="access">Acessos</text>
+                <text find="article">Artigo</text>
+                <text find="have_no_cited_article">Não possue artigos citados</text>
+                <text find="cited_by">Citado por</text>
+                <text find="indexed_by_google">Indexado pelo Google</text>
+                <text find="on_index_process">Em processo de indexação</text>
+                <text find="similars_in">Similares em</text>
+                <text find="have_no_similar_article">Não possue artigos similares</text>
+                <text find="send_this_article_by_email">Enviar este artigo por email</text>
+                <text find="login">login</text>
+        </xslid>
+</translations>
