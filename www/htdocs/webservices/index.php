@@ -21,7 +21,6 @@ $applServer = $defFile->getKeyValue("SERVER_SCIELO");
 $regionalScielo = $defFile->getKeyValue("SCIELO_REGIONAL_DOMAIN");
 $collection = $defFile->getKeyValue("SHORT_NAME");
 $country = $defFile->getKeyValue("COUNTRY");
-
 $databasePath = $defFile->getKeyValue("PATH_DATABASE");
 
 //$output = 'xml';
@@ -86,6 +85,16 @@ if ($output == "soap") {
 		'Return titles from title database [de acordo com o tipo e parametro]'		// documentation
 	);
 
+        $server->register('get_title_indicators',                                 // method name
+                array('return' => 'xsd:anyType'),               // output parameters
+                'urn:SciELOService',                                    // namespace
+                'urn:SciELOService#get_titles',                         // soapaction
+                'SOAP-ENC:Array',                                                                       // style
+                'encoded',                                                              // use
+                'Return titles from title database [de acordo com o tipo e parametro]'          // documentation
+        );
+
+
 	// Use the request to (try to) invoke the service
 	$server->service($HTTP_RAW_POST_DATA);
 }else{
@@ -103,6 +112,10 @@ if ($output == "soap") {
            case "get_titles":
                  $response = get_titles($_REQUEST["type"], $_REQUEST["rep"]);
 				 break;
+           case "get_title_indicators":
+                 $response = get_title_indicators($_REQUEST["type"], $_REQUEST["rep"],$_REQUEST["issn"]);
+                                 break;
+
 	}
 	print($response);
 
@@ -211,4 +224,35 @@ $xslName = '';
         }
 	return $serviceXML;
 }
+
+function get_title_indicators($type, $rep, $issn)
+{
+global $country, $applServer, $output, $transformer, $serviceRoot, $databasePath;
+global $colname;
+$xslName = '';
+
+	$serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/webservices/wxis/?IsisScript=search.xis&database=".$databasePath."/title/title&search=LOC=".$issn."$&gizmo=GIZMO_XML&count=1";
+        if ($rep){
+                $serviceUrl .= "&rep=".$rep;
+        }
+        $XML = readData($serviceUrl,true);
+
+        $serviceXML .= '<collection name="'.$colname.'" uri="http://'.$applServer.'">';
+        $serviceXML .= '<journalIndicators>';
+        $serviceXML .= '<articleTotal>'.getIndicators("journalArticleTotal",$issn).'</articleTotal>';
+	$serviceXML .= '<issueTotal>'.getIndicators("journalIssueTotal",$issn).'</issueTotal>';
+	$serviceXML .= '<citationTotal>'.getIndicators("journalCitationTotal",$issn).'</citationTotal>';
+        $serviceXML .= '</journalIndicators>';
+        $serviceXML .= $XML;
+        $serviceXML .= '</collection>';
+
+        if ($output == "xml"){
+                header("Content-type: text/xml");
+                return envelopeXml($serviceXML, $serviceRoot);
+        }else{
+                return $serviceXML;
+        }
+        return $serviceXML;
+}
+
 ?>
