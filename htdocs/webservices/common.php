@@ -16,7 +16,7 @@ function getElementValue ($xml, $element, $attributes = '')
 }
 
 //=============================================================================================
-function getIndicators($indicator)
+function getIndicators($indicator,$issn)
 {
 global $applServer,$databasePath ;
 $result="";
@@ -41,6 +41,22 @@ $result="";
                         $XML = readData($serviceUrl,true);
                         $result=getElementValue(getElementValue(str_replace("<hr>","<hr />",$XML) , "Isis_Total"),"occ");
                         break;
+                case "journalArticleTotal":
+                        $serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/webservices/wxis/?IsisScript=search.xis&database=".$databasePath ."artigo/artigo&search=HR=S".$issn."$&count=1";
+                        $XML = readData($serviceUrl,true);
+                        $result=getElementValue(getElementValue(str_replace("<hr>","<hr />",$XML) , "Isis_Total"),"occ");
+                        break;
+                case "journalIssueTotal":
+                        $serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/webservices/wxis/?IsisScript=search.xis&database=".$databasePath ."issue/issue&search=Y".$issn."$&count=1";
+                        $XML = readData($serviceUrl,true);
+                        $result=getElementValue(getElementValue(str_replace("<hr>","<hr />",$XML) , "Isis_Total"),"occ");
+                        break;
+                case "journalCitationTotal":
+                        $serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/webservices/wxis/?IsisScript=search.xis&database=".$databasePath ."artigo/artigo&search=R=S".$issn."$&count=1";
+                        $XML = readData($serviceUrl,true);
+                        $result=getElementValue(getElementValue(str_replace("<hr>","<hr />",$XML) , "Isis_Total"),"occ");
+                        break;
+
         }
         return $result;
 }
