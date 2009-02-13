@@ -152,11 +152,8 @@ Fabio Batalha: Este formato utiliza o indice R encontrado apenas no servidor de 
 		'</ref>',#
 		fi
 
-		if (v706='c') then
-			if (ref(mfn+1,v706) <> 'c') then
-				'</ref-list>',#
-				'</back>',#				
-				'</article>',#	
-			fi
-		fi
-	
+        if (v706='c' and (ref(mfn+1,v706) <> 'c')) then
+                '</ref-list>',#
+                '</back>',#
+                '</article>',#
+        fi
