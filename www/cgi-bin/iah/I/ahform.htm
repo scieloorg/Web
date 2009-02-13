@@ -13,8 +13,8 @@ function changeForm(valor)
 
 	<form action="[pft]getenv('SCRIPT_NAME')v5000^d[/pft]" method="POST">
 	[pft]@AHHIDD.PFT[/pft]
-	<input type="hidden" name="nextAction" value="search">	
-	
+	<input type="hidden" name="nextAction" value="search">
+
 [pft]fi[/pft]
 
 [pft]if v6000 = 'F' then[/pft]
@@ -27,26 +27,26 @@ function changeForm(valor)
 				if p(v5011^h) then
 					'<a href="'v5011^h'"><img src="'v5002'help.gif" alt="help" border="0"></a>'
 				fi
-			[/pft]									
-		</td>		
+			[/pft]
+		</td>
 		<td><font face="verdana" size="1">Database : <b>
 			[pft]
-				
-				,if p(v5004) then,					
+
+				,if p(v5004) then,
 					'<select name="base" size="1">'
 					/* agrega informacao ^nNew para executar LoadBaseDef */
-						('<option value="'v5004,if v5004 <> v5003[1] then '^nNew"' else '" selected' fi,'>'v5004^*)						
+						('<option value="'v5004,if v5004 <> v5003[1] then '^nNew"' else '" selected' fi,'>'v5004^*)
 					'</select>'
 				,else,
 					'<input type="hidden" name="base" value="'v5003'">'v5003^*
-				,fi,	
+				,fi,
 			[/pft]</b></font>
-		</td>		
-		<td align="right"><font face="verdana" size="1"><b>Free form</b></font>&nbsp;&nbsp;&nbsp;</td>		
+		</td>
+		<td align="right"><font face="verdana" size="1"><b>Free form</b></font>&nbsp;&nbsp;&nbsp;</td>
 	</tr>
 	</table>
 	</center>
-	
+
 	[pft]if size(v5014) > 2 then[/pft]
 		<center>
 	    <table border="0" width="600" cellspacing="0" cellpadding="0">
@@ -54,10 +54,10 @@ function changeForm(valor)
         	<td align="right"><font face="verdana" size="2"><small>
 				Search for :
 		   		[pft]if v5014 : 'B' then[/pft]
-					<a href="javascript:void(changeForm('B'))">Basic form</a>&nbsp;&nbsp;&nbsp;					
+					<a href="javascript:void(changeForm('B'))">Basic form</a>&nbsp;&nbsp;&nbsp;
 				[pft]fi[/pft]
 				[pft]if v5014 : 'A' then[/pft]
-					<a href="javascript:void(changeForm('A'))">Advanced form</a>			  		
+					<a href="javascript:void(changeForm('A'))">Advanced form</a>
 				[pft]fi[/pft]
 				</font>
 			</td>
@@ -86,11 +86,11 @@ function changeForm(valor)
 	</tr>
 	[pft]
 		/* especifica o indexSearch caso exista um indice default usando o search por tag */
-		if p(v6099^d) then, 
+		if p(v6099^d) then,
 			(if p(v6099^d) and p(v6099^s) then '<input type="hidden" name="indexSearch" value="',v6099,'">' fi)
 		fi,
-	[/pft]	
-	
+	[/pft]
+
 	<tr><td colspan="2">&nbsp;</td></tr>
 	<tr>
 		<td colspan="2" align="center">
@@ -98,7 +98,7 @@ function changeForm(valor)
 			<input src="[pft]v5002[/pft]pesq.gif" border="0" type="image">
 		</td>
 	</tr>
-	</table>	
+	</table>
 	</center>
 
 [pft]fi[/pft]
@@ -113,25 +113,25 @@ function changeForm(valor)
 				if p(v5011^h) then
 					'<a href="'v5011^h'"><img src="'v5002'help.gif" alt="help" border="0"></a>'
 				fi
-			[/pft]									
-		</td>		
+			[/pft]
+		</td>
 		<td><font face="verdana" size="1">Database : <b>
 		[pft]
-				,if p(v5004) then,					
+				,if p(v5004) then,
 					'<select name="base" size="1">'
 					/* agrega informacao ^nNew para executar LoadBaseDef */
-						('<option value="'v5004,if v5004 <> v5003[1] then '^nNew"' else '" selected' fi,'>'v5004^*)			
+						('<option value="'v5004,if v5004 <> v5003[1] then '^nNew"' else '" selected' fi,'>'v5004^*)
 					'</select>'
 				,else,
-					'<input type="hidden" name="base" value="'v5003'">'v5003^*					
-				,fi,	
-			[/pft]</b></font>		
+					'<input type="hidden" name="base" value="'v5003'">'v5003^*
+				,fi,
+			[/pft]</b></font>
 		</td>
-		<td align="right"><font face="verdana" size="1"><b>Basic form</b></font>&nbsp;&nbsp;&nbsp;</td>		
+		<td align="right"><font face="verdana" size="1"><b>Basic form</b></font>&nbsp;&nbsp;&nbsp;</td>
 	</tr>
 	</table>
 	</center>
-	
+
 	[pft]if size(v5014) > 2 then[/pft]
  	 <center>
 	 <table border="0" width="600" cellspacing="0" align="center" cellpadding="0">
@@ -139,10 +139,10 @@ function changeForm(valor)
         	<td align="right"><font face="verdana" size="2"><small>
 				Search for :
 		   		[pft]if v5014 : 'F' then[/pft]
-					<a href="javascript:void(changeForm('F'))">Free form</a>&nbsp;&nbsp;&nbsp;		      		
+					<a href="javascript:void(changeForm('F'))">Free form</a>&nbsp;&nbsp;&nbsp;
 				[pft]fi[/pft]
 				[pft]if v5014 : 'A' then[/pft]
-					<a href="javascript:void(changeForm('A'))">Advanced form</a>			  		
+					<a href="javascript:void(changeForm('A'))">Advanced form</a>
 				[pft]fi[/pft]
 				</font>
 			</td>
@@ -152,7 +152,7 @@ function changeForm(valor)
 	[pft]fi[/pft]
 
 	<br><center>
-	<table border="0" width="600" align="center" cellspacing="0" cellpadding="0">		
+	<table border="0" width="600" align="center" cellspacing="0" cellpadding="0">
 	<tr>
 		<td width="30">&nbsp;</td>
 		<td width="80">&nbsp;</td>
@@ -160,8 +160,8 @@ function changeForm(valor)
 		<td width="235"><font face="verdana" size="2"><i>in field</i></font></td>
 		<td width="62">&nbsp;</td>
 	</tr>
-			
-	[pft]@LIST6003.PFT[/pft] 
+
+	[pft]@LIST6003.PFT[/pft]
 	[pft],(,[/pft]
 		[pft]if iocc <= 3 then[/pft]
     			<tr>
@@ -177,21 +177,21 @@ function changeForm(valor)
         		   		<input type=hidden name="conectSearch" value="init">&nbsp;
 				    [pft]fi[/pft]
 	      		</td>
-		        <td width="270" align="left">				
+		        <td width="270" align="left">
 					[pft]
 						`<input type="text" size="32" maxlength="2048" name="exprSearch" value='`
 						,if iocc = val(v6100^l[1]) then,
 			           		,if p(v6002) then,
 				              ,`( `,replace(v6002,'"','&quot;'),` ) or `,
 				           	,fi,
-							,v6102[1],
+							,replace(replace(v6102[1],`'`,'&rsquo;'),'&quot;','"'),
 		    		    ,else,
-		        		    ,replace(v6002,'&quot;','"'),
+		        		    ,replace(replace(v6002,`'`,'&rsquo;'),'&quot;','"'),
 			        	,fi,
 						`'>`
-					[/pft]  
-		   	  	</td>		                
-        		<td width="235">					
+					[/pft]
+		   	  	</td>
+        		<td width="235">
 					<select name="indexSearch" size="1">[pft]v6099[/pft]</select>
 				</td>
           		<td width="62" align="left"><input type="image" src="[pft]v5002[1][/pft]indice.gif" name="index[pft]f(iocc,1,0)[/pft]" border="0"></td>
@@ -200,14 +200,14 @@ function changeForm(valor)
     [pft],),[/pft]
 	<tr>
 		<td colspan="6">&nbsp;</td>
-	</tr>                  
+	</tr>
 	<tr>
 		<td colspan="6" align="center">
 				<input type="image" name="config" src="[pft]v5002[/pft]config.gif" border="0" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<input type="image" name="new search" src="[pft]v5002[/pft]limpa.gif" border="0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<input type="image" src="[pft]v5002[/pft]pesq.gif" border="0">
-		</td> 
-	</tr>   
+		</td>
+	</tr>
 	</table>
 	</center>
 [pft]fi[/pft]
@@ -224,25 +224,25 @@ function changeForm(valor)
 				if p(v5011^h) then
 					'<a href="'v5011^h'"><img src="'v5002'help.gif" alt="help" border="0"></a>'
 				fi
-			[/pft]									
-		</td>		
+			[/pft]
+		</td>
 		<td><font face="verdana" size="1">Database : <b>
 			[pft]
-				,if p(v5004) then,					
+				,if p(v5004) then,
 					'<select name="base" size="1">'
 					/* agrega informacao ^nNew para executar LoadBaseDef */
-						('<option value="'v5004,if v5004 <> v5003[1] then '^nNew"' else '" selected' fi,'>'v5004^*)					
+						('<option value="'v5004,if v5004 <> v5003[1] then '^nNew"' else '" selected' fi,'>'v5004^*)
 					'</select>'
 				,else,
 					'<input type="hidden" name="base" value="'v5003'">'v5003^*
-				,fi,	
-			[/pft]</b></font>		
+				,fi,
+			[/pft]</b></font>
 		</td>
-		<td align="right"><font face="verdana" size="1"><b>Advanced form</b></font>&nbsp;&nbsp;&nbsp;</td>		
+		<td align="right"><font face="verdana" size="1"><b>Advanced form</b></font>&nbsp;&nbsp;&nbsp;</td>
 	</tr>
 	</table>
 	</center>
-	
+
 	[pft]if size(v5014) > 2 then[/pft]
 		<center>
 	    <table border="0" width="600" cellspacing="0" align="center" cellpadding="0">
@@ -250,10 +250,10 @@ function changeForm(valor)
         	<td align="right"><font face="verdana" size="2"><small>
 				Search for :
 		   		[pft]if v5014 : 'F' then[/pft]
-					<a href="javascript:void(changeForm('F'))">Free form</a>&nbsp;&nbsp;&nbsp;		      		
+					<a href="javascript:void(changeForm('F'))">Free form</a>&nbsp;&nbsp;&nbsp;
 				[pft]fi[/pft]
 				[pft]if v5014 : 'B' then[/pft]
-					<a href="javascript:void(changeForm('B'))">Basic form</a>			  		
+					<a href="javascript:void(changeForm('B'))">Basic form</a>
 				[pft]fi[/pft]
 				</font>
 			</td>
@@ -262,9 +262,9 @@ function changeForm(valor)
 		</center>
 	[pft]fi[/pft]
 
-	
+
 	<br><center>
-	<table border="0" width="600" align="center" cellspacing="0" cellpadding="0">		
+	<table border="0" width="600" align="center" cellspacing="0" cellpadding="0">
 	<tr>
 		<td width="30">&nbsp;</td>
 		<td width="80">&nbsp;</td>
@@ -272,8 +272,8 @@ function changeForm(valor)
 		<td width="235"><font face="verdana" size="2"><i>in field</i></font></td>
 		<td width="62">&nbsp;</td>
 	</tr>
-			
-	[pft]@LIST6003.PFT[/pft] 
+
+	[pft]@LIST6003.PFT[/pft]
 	[pft],(,[/pft]
 		[pft]if iocc <= 3 then[/pft]
     			<tr>
@@ -289,21 +289,21 @@ function changeForm(valor)
         		   		<input type=hidden name="conectSearch" value="init">&nbsp;
 				    [pft]fi[/pft]
 	      		</td>
-		        <td width="270" align="left">				
+		        <td width="270" align="left">
 					[pft]
 						`<input type="text" size="32" maxlength="2048" name="exprSearch" value='`
 						,if iocc = val(v6100^l[1]) then,
 			           		,if p(v6002) then,
 				              ,`( `,replace(v6002,'"','&quot;'),` ) or `,
 				           	,fi,
-							,v6102[1],
+                            ,replace(replace(v6102[1],`'`,'&rsquo;'),'&quot;','"'),
 		    		    ,else,
-		        		    ,replace(v6002,'&quot;','"'),
+		        		    ,replace(replace(v6002,`'`,'&rsquo;'),'&quot;','"'),
 			        	,fi,
 						`'>`
-					[/pft]  
-		   	  	</td>		         
-				<td width="235">					
+					[/pft]
+		   	  	</td>
+				<td width="235">
 					<select name="indexSearch" size="1">[pft]v6099[/pft]</select>
 				</td>
           		<td width="62" align="left"><input type="image" src="[pft]v5002[1][/pft]indice.gif" name="index[pft]f(iocc,1,0)[/pft]" border="0"></td>
@@ -312,14 +312,14 @@ function changeForm(valor)
     [pft],),[/pft]
 	<tr>
 		<td colspan="6">&nbsp;</td>
-	</tr>                  
+	</tr>
 	<tr>
 		<td colspan="6" align="center">
 				<input type="image" name="config" src="[pft]v5002[/pft]config.gif" border="0" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<input type="image" name="new search" src="[pft]v5002[/pft]limpa.gif" border="0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<input type="image" src="[pft]v5002[/pft]pesq.gif" border="0" >
-		</td> 
-	</tr>   
+		</td>
+	</tr>
 	</table>
 	</center>
 [pft]fi[/pft]
@@ -333,7 +333,7 @@ function changeForm(valor)
 		<tr><td>[pft]cat(v5011^n)[/pft]</td></tr>
 	</table>
 	</center>
-[pft]fi[/pft]	
+[pft]fi[/pft]
 
 [pft]@AHFOOT.PFT[/pft]
 
