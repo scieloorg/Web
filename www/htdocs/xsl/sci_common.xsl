@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+	<xsl:variable name="HOME_URL">http://<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/SERVER"/>
+		<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_DATA"/>scielo.php</xsl:variable>
 	<xsl:variable name="interfaceLang" select="//CONTROLINFO/LANGUAGE"/>
-        <xsl:variable name="translations" select="document(concat('../xml/',$interfaceLang,'/translation.xml'))/translations" />
+	<xsl:variable name="translations" select="document(concat('../xml/',$interfaceLang,'/translation.xml'))/translations"/>
 	<xsl:include href="sci_artref.xsl"/>
 	<xsl:template name="AddRssHeaderLink">
 		<xsl:param name="pid"/>
@@ -144,9 +146,35 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 				<xsl:attribute name="onClick">setTimeout("window.open('http://<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/SERVER"/><xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_DATA"/>scielo.php?script=<xsl:value-of select="$script"/>&amp;<xsl:if test="$seq">pid=<xsl:value-of select="$seq"/>&amp;</xsl:if>lng=<xsl:value-of select="normalize-space(//CONTROLINFO/LANGUAGE)"/>&amp;nrm=<xsl:value-of select="normalize-space(//CONTROLINFO/STANDARD)"/><xsl:if test="$txtlang">&amp;tlng=<xsl:value-of select="normalize-space($txtlang)"/></xsl:if><xsl:if test="$file">&amp;file=<xsl:value-of select="$file"/></xsl:if> ','_self')", 3000);</xsl:attribute>
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:attribute name="href">http://<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/SERVER"/><xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_DATA"/>scielo.php?script=<xsl:value-of select="$script"/>&amp;<xsl:if test="$seq">pid=<xsl:value-of select="$seq"/>&amp;</xsl:if>lng=<xsl:value-of select="normalize-space(//CONTROLINFO/LANGUAGE)"/>&amp;nrm=<xsl:value-of select="normalize-space(//CONTROLINFO/STANDARD)"/><xsl:if test="$txtlang">&amp;tlng=<xsl:value-of select="normalize-space($txtlang)"/></xsl:if><xsl:if test="$file">&amp;file=<xsl:value-of select="$file"/></xsl:if><xsl:apply-templates select="." mode="repo_url_param_scielo"/><xsl:if test="$date!=''">&amp;date=<xsl:value-of select="$date"/></xsl:if><xsl:if test="$page!=''">&amp;page=<xsl:value-of select="$page"/></xsl:if></xsl:attribute>
+				<xsl:attribute name="href">
+				<xsl:call-template name="getScieloLink">
+					<xsl:with-param name="seq" select="$seq"/>
+					<xsl:with-param name="script" select="$script"/>
+					<xsl:with-param name="txtlang" select="$txtlang"/>
+					<xsl:with-param name="file" select="$file"/>
+					<xsl:with-param name="date" select="$date"/>
+					<xsl:with-param name="page" select="$page"/>
+				</xsl:call-template></xsl:attribute>
 			</xsl:otherwise>
 		</xsl:choose>
+	</xsl:template>
+	<xsl:template name="getScieloLink">
+		<xsl:param name="seq"/>
+		<xsl:param name="script"/>
+		<xsl:param name="txtlang"/>
+		<xsl:param name="file"/>
+		<xsl:param name="date"/>
+		<xsl:param name="page"/>
+		<xsl:value-of select="$HOME_URL"/>?script=<xsl:value-of select="$script"/>&amp;<xsl:if test="$seq">pid=<xsl:value-of select="$seq"/>&amp;</xsl:if>lng=<xsl:value-of select="normalize-space($interfaceLang)"/>&amp;nrm=<xsl:value-of select="normalize-space(//CONTROLINFO/STANDARD)"/>
+		<xsl:if test="$txtlang">&amp;tlng=<xsl:value-of select="normalize-space($txtlang)"/>
+		</xsl:if>
+		<xsl:if test="$file">&amp;file=<xsl:value-of select="$file"/>
+		</xsl:if>
+		<xsl:apply-templates select="." mode="repo_url_param_scielo"/>
+		<xsl:if test="$date!=''">&amp;date=<xsl:value-of select="$date"/>
+		</xsl:if>
+		<xsl:if test="$page!=''">&amp;page=<xsl:value-of select="$page"/>
+		</xsl:if>
 	</xsl:template>
 	<!-- Adds a LINK to the IAH search interface
         Parameters:
@@ -156,6 +184,7 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 		<xsl:param name="index"/>
 		<xsl:param name="scope"/>
 		<xsl:param name="base">article</xsl:param>
+		<!-- DIFF REPO X PADRAO -->
 		<xsl:attribute name="href">http://<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/SERVER"/><xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_WXIS"/><xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_DATA_IAH"/>?IsisScript=<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_CGI_IAH"/>iah.xis&amp;base=<xsl:value-of select="$base"/><xsl:if test="$scope">^d<xsl:apply-templates select="." mode="repo_database"><xsl:with-param name="scope" select="$scope"/></xsl:apply-templates></xsl:if>&amp;<xsl:if test="$index">index=<xsl:value-of select="$index"/>&amp;</xsl:if>format=<xsl:value-of select="//CONTROLINFO/STANDARD"/>.pft&amp;lang=<xsl:choose><xsl:when test="//CONTROLINFO/LANGUAGE='en'">i</xsl:when><xsl:when test="//CONTROLINFO/LANGUAGE='es'">e</xsl:when><xsl:when test="//CONTROLINFO/LANGUAGE='pt'">p</xsl:when></xsl:choose><xsl:if test="$scope and $scope!='library'">&amp;limit=<xsl:apply-templates select="." mode="repo_limit"/></xsl:if></xsl:attribute>
 	</xsl:template>
 	<!-- Shows Title Group -->
@@ -168,8 +197,10 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 		</CENTER>
 	</xsl:template>
 	<!-- Shows copyright information -->
-	
 	<xsl:template match="COPYRIGHT">
+		<xsl:comment>
+			<xsl:value-of select="../..//LICENSE"/>
+		</xsl:comment>
 		<xsl:choose>
 			<xsl:when test="../..//LICENSE='cc'">
 				<xsl:apply-templates select="../." mode="license"/>
@@ -184,7 +215,34 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 					</I>
 				</FONT>
 				<br/>
+			</xsl:when>
+			<xsl:when test="../..//LICENSE='site'">
+				<xsl:call-template name="COPYRIGHTSCIELO"/>
+			</xsl:when>
+			<xsl:when test="../..//LICENSE='none'">
+				<font class="normal">&#169;&#160;</font>
+				<FONT color="#000080" class="negrito">
+					<I>
+						<xsl:value-of select="@YEAR"/>&#160;     
 
+						<br/>
+					</I>
+				</FONT>
+				<br/>
+			</xsl:when>
+			<xsl:when test="../..//LICENSE='embargo' and ../..//EMBARGO/@text='yes'">
+				<xsl:call-template name="COPYRIGHTSCIELO"/>
+			</xsl:when>
+			<xsl:when test="../..//LICENSE='embargo' and ../..//EMBARGO/@text='no'">
+				<font class="normal">&#169;&#160;</font>
+				<FONT color="#000080" class="negrito">
+					<I>
+						<xsl:value-of select="@YEAR"/>&#160;     
+						<xsl:value-of select="." disable-output-escaping="yes"/>
+						<br/>
+					</I>
+				</FONT>
+				<br/>
 			</xsl:when>
 			<xsl:otherwise>
 				<font class="normal">&#169;&#160;</font>
@@ -421,61 +479,72 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 		<xsl:param name="PID"/>
 		<xsl:param name="FIRST_LABEL">0</xsl:param>
 		<xsl:param name="file"/>
-		<!-- xsl:if test=" $TYPE !='abstract' ">
-   <font face="Symbol" color="#000080">&#183; </font>
-  </xsl:if -->
-		<a>
+		<xsl:variable name="script">
 			<xsl:choose>
-				<xsl:when test=" $TYPE='abstract' ">
-					<xsl:call-template name="AddScieloLink">
-						<xsl:with-param name="seq" select="$PID"/>
-						<xsl:with-param name="script">sci_abstract</xsl:with-param>
-						<xsl:with-param name="txtlang" select="$TXTLANG"/>
-					</xsl:call-template>
-					<xsl:if test="$FIRST_LABEL='1'">
-						<xsl:choose>
-							<xsl:when test=" $INTLANG = 'en' ">abstract in</xsl:when>
-							<xsl:when test=" $INTLANG = 'pt' ">resumo em</xsl:when>
-							<xsl:when test=" $INTLANG = 'es' ">resumen en</xsl:when>
-						</xsl:choose>
-					</xsl:if>
-				</xsl:when>
-				<xsl:when test=" $TYPE='full' ">
-					<xsl:call-template name="AddScieloLink">
-						<xsl:with-param name="seq" select="$PID"/>
-						<xsl:with-param name="script">sci_arttext</xsl:with-param>
-						<xsl:with-param name="txtlang" select="$TXTLANG"/>
-						<xsl:with-param name="file" select="$file"/>
-					</xsl:call-template>
-					<xsl:if test="$FIRST_LABEL='1'">
-						<xsl:choose>
-							<xsl:when test=" $INTLANG = 'en' ">text in</xsl:when>
-							<xsl:when test=" $INTLANG = 'pt' ">texto em</xsl:when>
-							<xsl:when test=" $INTLANG = 'es' ">texto en</xsl:when>
-						</xsl:choose>
-					</xsl:if>
-				</xsl:when>
-				<xsl:when test=" $TYPE='pdf' ">
-					<xsl:call-template name="AddScieloLink">
-						<xsl:with-param name="seq" select="$PID"/>
-						<xsl:with-param name="script">sci_pdf</xsl:with-param>
-						<xsl:with-param name="txtlang" select="$TXTLANG"/>
-					</xsl:call-template>
-					<xsl:if test="$FIRST_LABEL='1'">
-						<xsl:choose>
-							<xsl:when test=" $INTLANG = 'en' ">pdf in</xsl:when>
-							<xsl:when test=" $INTLANG = 'pt' ">pdf em</xsl:when>
-							<xsl:when test=" $INTLANG = 'es' ">pdf en</xsl:when>
-						</xsl:choose>
-					</xsl:if>
-				</xsl:when>
+				<xsl:when test=" $TYPE='abstract' ">sci_abstract</xsl:when>
+				<xsl:when test=" $TYPE='full'">sci_arttext</xsl:when>
+				<xsl:when test=" $TYPE='pr'">sci_arttext_pr</xsl:when>
+				<xsl:when test=" $TYPE='pdf' ">sci_pdf</xsl:when>
 			</xsl:choose>
+		</xsl:variable>
+		<xsl:variable name="label">
+			<xsl:if test="$FIRST_LABEL='1'">
+				<xsl:value-of select="$translations//xslid[@id='sci_issuetoc']//text[@find=$TYPE]"/>
+			</xsl:if>
 			<xsl:variable name="languages" select="document(concat('../xml/',$INTLANG,'/language.xml'))//language"/>
 			<xsl:text> </xsl:text>
 			<xsl:value-of select="translate(substring($languages[@id=$TXTLANG],1,1),'ABCDEFGHJIKLMNOPQRSTUVWXYZ','abcdefghjiklmnopqrstuvwxyz')"/>
 			<xsl:value-of select="substring($languages[@id=$TXTLANG],2)"/>
-		</a>
+		</xsl:variable>
+		<xsl:choose>
+			<xsl:when test="$TYPE='pr'">
+				<xsl:variable name="url">
+					<xsl:call-template name="getScieloLink">
+						<xsl:with-param name="seq" select="$PID"/>
+						<xsl:with-param name="script" select="$script"/>
+						<xsl:with-param name="txtlang" select="$TXTLANG"/>
+						<xsl:with-param name="file" select="$file"/>
+					</xsl:call-template>
+				</xsl:variable>
+				<xsl:call-template name="CREATE_ARTICLE_SERVICE_LINK">
+					<xsl:with-param name="URL" select="$url"/>
+					<xsl:with-param name="LABEL" select="$label"/>
+					
+				</xsl:call-template>
+			</xsl:when>
+			<xsl:otherwise>
+				<a>
+					<xsl:call-template name="AddScieloLink">
+						<xsl:with-param name="seq" select="$PID"/>
+						<xsl:with-param name="script" select="$script"/>
+						<xsl:with-param name="txtlang" select="$TXTLANG"/>
+						<xsl:with-param name="file" select="$file"/>
+					</xsl:call-template>
+					<!-- o texto do link é o idioma do texto como no sumário -->
+					<xsl:value-of select="$label"/>
+				</a>
+			</xsl:otherwise>
+		</xsl:choose>
 		<!-- &#160;&#160;&#160; -->
+	</xsl:template>
+	<!-- Invisible Image To Update Log File -->
+	<xsl:template name="CREATE_ARTICLE_SERVICE_LINK">
+		<xsl:param name="SERVICE_ID" select="''"/>
+		<xsl:param name="LABEL"/>
+		<xsl:param name="IMG"/>
+		<xsl:param name="URL"/>
+		<xsl:if test="$IMG">
+			<a href="javascript:void(0);" class="nomodel" style="text-decoration: none;" rel="nofollow" onmouseout="status='';" onmouseover="status='{$LABEL}'; return true;">
+				<xsl:attribute name="onclick">OpenArticleInfoWindow (  850, 500, '<xsl:value-of select="$URL"/>');<xsl:if test="$SERVICE_ID!=''">callUpdateArticleLog('<xsl:value-of select="$SERVICE_ID"/>');</xsl:if></xsl:attribute>
+				<img border="0" align="middle" src="{$IMG}"/>
+			</a>
+		</xsl:if>
+		<xsl:if test="$LABEL">
+			<a href="javascript:void(0);" class="nomodel" style="text-decoration: none;" rel="nofollow" onmouseout="status='';" onmouseover="status='{$LABEL}'; return true;">
+				<xsl:attribute name="onclick">OpenArticleInfoWindow ( 850, 500,  '<xsl:value-of select="$URL"/>');<xsl:if test="$SERVICE_ID!=''">callUpdateArticleLog('<xsl:value-of select="$SERVICE_ID"/>');</xsl:if></xsl:attribute>
+				<xsl:value-of select="$LABEL"/>
+			</a>
+		</xsl:if>
 	</xsl:template>
 	<!-- Invisible Image To Update Log File -->
 	<xsl:template name="UpdateLog">
@@ -515,7 +584,14 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 		&#169;&#160;<xsl:value-of select="@YEAR"/>&#160;
 		<i>
 				<font color="#000080">
-					<xsl:value-of select="OWNER"/>
+					<xsl:choose>
+						<xsl:when test="OWNER-FULLNAME">
+							<xsl:value-of select="OWNER-FULLNAME"/>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:value-of select="OWNER"/>
+						</xsl:otherwise>
+					</xsl:choose>
 				</font>
 				<br/>
 			</i>
@@ -673,20 +749,18 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 	     <td width="7%">&#160;</td>
            <td width="93%"> -->
            &#160;&#160;&#160;
-            <xsl:apply-templates select="ABSTRACT_LANGS">
+            <xsl:apply-templates select="*[LANG]">
 				<xsl:with-param name="LANG" select="$LANG"/>
 				<xsl:with-param name="PID" select="$PID"/>
 			</xsl:apply-templates>
-			<!-- tr -->
-			<!-- td -->
-			<xsl:apply-templates select="ART_TEXT_LANGS">
+			<!--xsl:apply-templates select="ART_TEXT_LANGS">
 				<xsl:with-param name="LANG" select="$LANG"/>
 				<xsl:with-param name="PID" select="$PID"/>
 			</xsl:apply-templates>
 			<xsl:apply-templates select="PDF_LANGS">
 				<xsl:with-param name="LANG" select="$LANG"/>
 				<xsl:with-param name="PID" select="$PID"/>
-			</xsl:apply-templates>
+			</xsl:apply-templates-->
 			<xsl:if test="$VERIFY">
                         &#160;&#160;&#160;&#160;
                         <xsl:call-template name="CREATE_VERIFY_LINK">
@@ -704,116 +778,52 @@ Exibe caixa para exportação da citacao para "Reference Managers"
         </table> -->
 		</div>
 	</xsl:template>
-	<xsl:template match="ABSTRACT_LANGS">
+	<xsl:template match="LANGUAGES/*">
 		<xsl:param name="LANG"/>
 		<xsl:param name="PID"/>
-		<!--       <tr>
-           <td>             -->
- 
-               &#160;&#160;&#160;&#160;<font face="Symbol" color="#000080">&#183; </font>
-		<!-- fixed 20040122 - ordem dos idiomas, primeiro o idioma da interface, seguido pelos outros idiomas -->
-		<xsl:apply-templates select="LANG[.=$LANG]" mode="abstract">
-			<xsl:with-param name="LANG" select="$LANG"/>
-			<xsl:with-param name="PID" select="$PID"/>
-		</xsl:apply-templates>
-		<xsl:apply-templates select="LANG[.!=$LANG]" mode="abstract">
-			<xsl:with-param name="LANG" select="$LANG"/>
-			<xsl:with-param name="PID" select="$PID"/>
-			<xsl:with-param name="CONTINUATION" select="(LANG[.=$LANG]!='')"/>
-		</xsl:apply-templates>
-		<!-- /td -->
-		<!-- /tr -->
-	</xsl:template>
-	<xsl:template match="ART_TEXT_LANGS">
-		<xsl:param name="LANG"/>
-		<xsl:param name="PID"/>
-
-           &#160;&#160;&#160;&#160;<font face="Symbol" color="#000080">&#183; </font>
-		<!-- <xsl:choose>
-           <xsl:when test=" $LANG = 'en' "> text in </xsl:when>
-           <xsl:when test=" $LANG = 'es' "> texto en </xsl:when>
-           <xsl:when test=" $LANG = 'pt' "> texto em </xsl:when>
-       </xsl:choose> -->
-		<!-- fixed 20040122 - ordem dos idiomas, primeiro o idioma da interface, seguido pelos outros idiomas -->
-		<xsl:apply-templates select="LANG[.=$LANG]" mode="text">
-			<xsl:with-param name="LANG" select="$LANG"/>
-			<xsl:with-param name="PID" select="$PID"/>
-		</xsl:apply-templates>
-		<xsl:apply-templates select="LANG[.!=$LANG]" mode="text">
-			<xsl:with-param name="LANG" select="$LANG"/>
-			<xsl:with-param name="PID" select="$PID"/>
-			<xsl:with-param name="CONTINUATION" select="(LANG[.=$LANG]!='')"/>
-		</xsl:apply-templates>
-		<!--xsl:variable name="SPOS">
-           <xsl:for-each select="LANG">
-               <xsl:if test=" text() = $LANG ">
-                   <xsl:value-of select="position()" />
-               </xsl:if>
-           </xsl:for-each>
-       </xsl:variable>
-
-       <xsl:choose>
-           <xsl:when test=" $SPOS > 0">
-               <xsl:apply-templates select="LANG[ position() = $SPOS ]" mode="text">
-                    <xsl:with-param name="LANG" select="$LANG" />
-                    <xsl:with-param name="PID" select="$PID"/>
-               </xsl:apply-templates>
-           </xsl:when>
-           <xsl:otherwise>
-               <xsl:apply-templates select="LANG[ position() = 1 ]" mode="text">
-                    <xsl:with-param name="LANG" select="$LANG" />
-                    <xsl:with-param name="PID" select="$PID"/>
-               </xsl:apply-templates>
-           </xsl:otherwise>
-       </xsl:choose-->
-	</xsl:template>
-	<xsl:template match="PDF_LANGS">
-		<xsl:param name="LANG"/>
-		<xsl:param name="PID"/>
-
+		<xsl:variable name="type">
+			<xsl:choose>
+				<xsl:when test="contains(name(),'ABSTRACT')">abstract</xsl:when>
+				<xsl:when test="contains(name(),'ART_TEXT')">full</xsl:when>
+				<xsl:when test="contains(name(),'PDF')">pdf</xsl:when>
+				<xsl:when test="contains(name(),'PRESS')">pr</xsl:when>
+			</xsl:choose>
+		</xsl:variable>
        &#160;&#160;&#160;&#160;<font face="Symbol" color="#000080">&#183; </font>
 		<!-- fixed 20040122 - ordem dos idiomas, primeiro o idioma da interface, seguido pelos outros idiomas -->
-		<xsl:apply-templates select="LANG[.=$LANG]" mode="pdf">
+		<xsl:apply-templates select="LANG[.=$LANG]" mode="issuetoc">
 			<xsl:with-param name="LANG" select="$LANG"/>
 			<xsl:with-param name="PID" select="$PID"/>
+			<xsl:with-param name="type" select="$type"/>
 		</xsl:apply-templates>
-		<xsl:apply-templates select="LANG[.!=$LANG]" mode="pdf">
+		<xsl:apply-templates select="LANG[.!=$LANG]" mode="issuetoc">
 			<xsl:with-param name="LANG" select="$LANG"/>
 			<xsl:with-param name="PID" select="$PID"/>
+			<xsl:with-param name="type" select="$type"/>
 			<xsl:with-param name="CONTINUATION" select="(LANG[.=$LANG]!='')"/>
 		</xsl:apply-templates>
 	</xsl:template>
-	<xsl:template match="LANG" mode="abstract">
+	<xsl:template match="LANG" mode="issuetoc">
 		<xsl:param name="LANG"/>
 		<xsl:param name="PID"/>
-		<xsl:param name="CONTINUATION"/>
+		<xsl:param name="type"/>
 		<!-- fixed 20040122 - ordem dos idiomas, primeiro o idioma da interface, seguido pelos outros idiomas -->
+		<xsl:param name="CONTINUATION"/>
 		<xsl:if test="$CONTINUATION or (not($CONTINUATION) and position()>1)"> |</xsl:if>
 		<xsl:call-template name="CREATE_ARTICLE_LINK">
-			<xsl:with-param name="TYPE">abstract</xsl:with-param>
+			<xsl:with-param name="TYPE" select="$type"/>
 			<xsl:with-param name="INTLANG" select="$LANG"/>
 			<xsl:with-param name="TXTLANG" select="text()"/>
-			<xsl:with-param name="PID" select="$PID"/>
-			<xsl:with-param name="FIRST_LABEL">
+			<xsl:with-param name="PID">
 				<xsl:choose>
-					<xsl:when test="$CONTINUATION">0</xsl:when>
-					<xsl:when test="not($CONTINUATION) and position()>1">0</xsl:when>
-					<xsl:otherwise>1</xsl:otherwise>
+					<xsl:when test="@pid">
+						<xsl:value-of select="@pid"/>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="$PID"/>
+					</xsl:otherwise>
 				</xsl:choose>
 			</xsl:with-param>
-		</xsl:call-template>
-	</xsl:template>
-	<xsl:template match="LANG" mode="text">
-		<xsl:param name="LANG"/>
-		<xsl:param name="PID"/>
-		<!-- fixed 20040122 - ordem dos idiomas, primeiro o idioma da interface, seguido pelos outros idiomas -->
-		<xsl:param name="CONTINUATION"/>
-		<xsl:if test="$CONTINUATION or (not($CONTINUATION) and position()>1)"> |</xsl:if>
-		<xsl:call-template name="CREATE_ARTICLE_LINK">
-			<xsl:with-param name="TYPE">full</xsl:with-param>
-			<xsl:with-param name="INTLANG" select="$LANG"/>
-			<xsl:with-param name="TXTLANG" select="text()"/>
-			<xsl:with-param name="PID" select="$PID"/>
 			<xsl:with-param name="FIRST_LABEL">
 				<xsl:choose>
 					<xsl:when test="$CONTINUATION">0</xsl:when>
@@ -824,114 +834,6 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 			<xsl:with-param name="file" select="@xml"/>
 		</xsl:call-template>
 	</xsl:template>
-	<xsl:template match="LANG" mode="pdf">
-		<xsl:param name="LANG"/>
-		<xsl:param name="PID"/>
-		<!-- fixed 20040122 - ordem dos idiomas, primeiro o idioma da interface, seguido pelos outros idiomas -->
-		<xsl:param name="CONTINUATION"/>
-		<xsl:if test="$CONTINUATION or (not($CONTINUATION) and position()>1)"> |</xsl:if>
-		<xsl:call-template name="CREATE_ARTICLE_LINK">
-			<xsl:with-param name="TYPE">pdf</xsl:with-param>
-			<xsl:with-param name="INTLANG" select="$LANG"/>
-			<xsl:with-param name="TXTLANG" select="text()"/>
-			<xsl:with-param name="PID" select="$PID"/>
-			<xsl:with-param name="FIRST_LABEL">
-				<xsl:choose>
-					<xsl:when test="$CONTINUATION">0</xsl:when>
-					<xsl:when test="not($CONTINUATION) and position()>1">0</xsl:when>
-					<xsl:otherwise>1</xsl:otherwise>
-				</xsl:choose>
-			</xsl:with-param>
-		</xsl:call-template>
-	</xsl:template>
-	<!-- Original version. It is commented to avoid mind change troubles
-
-<xsl:template  match="LANGUAGES">
-    <xsl:param name="PID" />
-    <xsl:param name="VERIFY" />
-
-    <table align="center">
-        <xsl:attribute name="width"><xsl:if test="count(*) > 1">480</xsl:if></xsl:attribute>
-        <xsl:call-template name="PrintLanguagesLinks">
-            <xsl:with-param name="counter" select="1" />
-            <xsl:with-param name="maxlines" select="@MAXLINES" />
-            <xsl:with-param name="pid" select="$PID" />
-            <xsl:with-param name="verify" select="$VERIFY" />
-        </xsl:call-template>
-    </table>
-</xsl:template>
-
-<xsl:template name="PrintLanguagesLinks">
-    <xsl:param name="counter" />
-    <xsl:param name="maxlines" />
-    <xsl:param name="pid" />
-    <xsl:param name="verify" />
-	
-    <xsl:choose>
-        <xsl:when test="$counter > $maxlines"></xsl:when>
-        <xsl:otherwise>
-            <tr>
-                <xsl:apply-templates select="ABSTRACT_LANGS">
-                    <xsl:with-param name="type">abstract</xsl:with-param>
-                    <xsl:with-param name="counter" select="$counter" />
-                    <xsl:with-param name="pid" select="$pid" />
-                </xsl:apply-templates>
-
-                <xsl:apply-templates select="ART_TEXT_LANGS">
-                    <xsl:with-param name="type">full</xsl:with-param>
-                    <xsl:with-param name="counter" select="$counter" />
-                    <xsl:with-param name="pid" select="$pid" />
-                </xsl:apply-templates>
-
-                <xsl:apply-templates select="PDF_LANGS">
-                    <xsl:with-param name="type">pdf</xsl:with-param>
-                    <xsl:with-param name="counter" select="$counter" />
-                    <xsl:with-param name="pid" select="$pid" />
-                </xsl:apply-templates>
-
-                <xsl:if test="$verify">
-                    <td valign="top" align="left">
-                        <xsl:choose>
-			        <xsl:when test="$counter = 1">
-                                <xsl:call-template name="CREATE_VERIFY_LINK">
-                                    <xsl:with-param name="PID" select="$pid"/>
-                                </xsl:call-template>
-                            </xsl:when>
-                            <xsl:otherwise>&#160;</xsl:otherwise>
-                        </xsl:choose>
-                    </td>
-                </xsl:if>
-            </tr>
-
-            <xsl:call-template name="PrintLanguagesLinks">
-                <xsl:with-param name="counter" select="$counter+1"></xsl:with-param>
-                <xsl:with-param name="maxlines" select="$maxlines"></xsl:with-param>
-                <xsl:with-param name="pid" select="$pid"></xsl:with-param>
-            </xsl:call-template>
-        </xsl:otherwise>
-    </xsl:choose>	
-</xsl:template>
-
-<xsl:template match="ABSTRACT_LANGS | ART_TEXT_LANGS | PDF_LANGS">
-    <xsl:param name="type" />
-    <xsl:param name="counter" />
-    <xsl:param name="pid" />
-
-    <td valign="top" align="left">
-        <xsl:choose>
-            <xsl:when test="LANG[$counter]">
-                <xsl:call-template name="CREATE_ARTICLE_LINK">
-                    <xsl:with-param name="TYPE" select="$type" />
-                    <xsl:with-param name="INTLANG" select="//CONTROLINFO/LANGUAGE"/>
-                    <xsl:with-param name="TXTLANG" select="LANG[$counter]"/>
-                    <xsl:with-param name="PID" select="$pid"/>
-                </xsl:call-template>					
-            </xsl:when>
-            <xsl:otherwise>&#160;</xsl:otherwise>
-        </xsl:choose>
-    </td>
-</xsl:template>
--->
 	<xsl:template name="CREATE_VERIFY_LINK">
 		<xsl:param name="PID"/>
 		<font face="Symbol" color="#800000">Ñ </font>
@@ -1024,13 +926,13 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 	</xsl:template>
 	<xsl:template match="ARTICLE[@displayDOILink]/@DOI">
 		<xsl:if test="@displayDOILink!=@DOI">
-			doi: <xsl:value-of select="."/><br/>
+			doi: <xsl:value-of select="."/>
+			<br/>
 		</xsl:if>
-		<xsl:apply-templates select="../@displayDOILink"/>
 	</xsl:template>
-
 	<xsl:template match="ARTICLE/@displayDOILink">
-	<a href="http://dx.doi.org/{normalize-space(.)}" target="_blank">doi: <xsl:value-of select="."/></a>
+		<a href="http://dx.doi.org/{normalize-space(.)}" target="_blank">doi: <xsl:value-of select="."/>
+		</a>
 	</xsl:template>
 	<!--
 
@@ -1073,7 +975,20 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
 	<xsl:template match="*" mode="footer-journal">
 		<div class="footer">
 			<xsl:apply-templates select=".//COPYRIGHT"/>
-			<xsl:apply-templates select=".//CONTACT"/>
+			<xsl:comment>
+				<xsl:value-of select="../..//LICENSE"/>
+			</xsl:comment>
+			<xsl:choose>
+				<xsl:when test="../..//LICENSE='site'">		
+			</xsl:when>
+				<xsl:when test="../..//LICENSE='none'">		
+			</xsl:when>
+				<xsl:when test="../..//LICENSE='embargo' and ../..//EMBARGO/@text='yes'">
+			</xsl:when>
+				<xsl:otherwise>
+					<xsl:apply-templates select=".//CONTACT"/>
+				</xsl:otherwise>
+			</xsl:choose>
 		</div>
 	</xsl:template>
 	<xsl:template match="*" mode="repo_url_param_scielo"/>
