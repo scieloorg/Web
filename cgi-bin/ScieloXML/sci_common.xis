@@ -1455,10 +1455,31 @@
 <function name="CreateCopyrightXML" action="replace" tag=4001>
 <!-- Generate XML for Copyright
 	 4001 - Title MFN in the TITLE DB -->
+	<field action="import" tag="list">1,7051,7000/7022</field>
+	<field action="replace" tag="3000"><pft>
+		if v7051='site' then
+			'site'
+		else
+			if v7051='embargo' then
 
+			else 
+				'journal' 
+			fi 
+		fi</pft></field>
+	<call name="showText"><pft>if a(v3000) then ref(['ARTIGO']l(['ARTIGO']v1),v264) fi</pft></call>
+	<field action="replace" tag="3000"><pft>
+	if p(v8264) then
+		if v8264='no' then
+			,'journal',
+		else
+			,'site',
+		fi 
+	fi</pft></field>
   <display>
-   <pft>ref(['TITLE']val(v4001),' <COPYRIGHT YEAR="'mid(date,1,4)'"><![CDATA['v62']]></COPYRIGHT>'/#)</pft>
+   <pft>if v3000='journal' then  ref(['TITLE']val(v4001),' <COPYRIGHT YEAR="'mid(date,1,4)'"><![CDATA['v62']]></COPYRIGHT>'/#) fi</pft>
   </display>
+  <call name="CreateScieloCopyInfoXML"><pft>if v3000='site' then 'Now' fi</pft></call>
+
 </function>
 
 <function name="CreateContactXML" action="replace" tag=4001>
@@ -1554,7 +1575,8 @@
 		<pft>(if s(mpu,v12^l)=s(mpu,v4010[1]) then mpl,v12^s,break fi)</pft>
 	</field>
 	<field action="replace"	tag="1000">
-		<pft>if v8000<>'.xml' then '^i<![CDATA[^f]]>' fi</pft>
+		<!--pft>if v8000='BODY' then '^i<![CDATA[^f]]>' fi</pft-->
+		<pft>'^i<![CDATA[^f]]>'</pft>
 	</field>
 
 
@@ -1564,7 +1586,7 @@
 			'  <SUBTITLE>',v1000^i,v9001,v1000^f,'</SUBTITLE>'/#
 		</pft>
 	</display>
-	<display><pft>if v8000='.xml' then  (if v12^l<>v4010[1]  then '  <trans-title xml:lang="',v12^l,'">'v12^*'</trans-title>'/ fi) fi</pft></display>
+	<display><pft>if v8000='XML' then  (if v12^l<>v4010[1]  then '  <trans-title xml:lang="',v12^l,'">'v12^*'</trans-title>'/ fi) fi</pft></display>
 	
 </function>
 
@@ -1580,8 +1602,9 @@
     <field action="replace" tag="4001">
    		<pft>(if s(mpu,v4001^l)=s(mpu,v4010[1]) then mpl,v4001^a,break fi)</pft>
     </field>
+
 	<field action="replace"	tag="1000">
-		<pft>if v8000<>'.xml' then '^i<![CDATA[^f]]>' fi</pft>
+		<pft>if v8000='BODY' or a(v8000) then '^i<![CDATA[^f]]>' fi</pft>
 	</field>
 	
 	<display>
@@ -1961,6 +1984,16 @@
 		</pft>
 	</field>
 
+	<field action="replace" tag="7900">
+				<pft>if p(v7060) then
+					if ref(['ARTIGO']l(['ARTIGO'],'HR=',mpu,v4900,mpl),@PROC_SPLIT_MST.PFT,v761)='1' or instr(v9002,'.pdf')>0 then
+					,replace(v7060,'REPLACE_VOLUME',ref(['ARTIGO']l(['ARTIGO'],'HR=',mpu,v4900,mpl),@PROC_SPLIT_MST.PFT,v31)),'/',v9002,
+					fi,
+fi
+				</pft>
+			</field>
+
+	<flow action="jump"><pft>if p(v7900) then 'GOTTEN_PDF' fi</pft></flow>
 	<!--display><pft>' name: ',v9002</pft></display-->
 
 	<!-- Gets the html file name. The pdf file has the same name as the html file,
@@ -1977,6 +2010,7 @@
 	     <loop>
 		 	<field action="import" tag="list">40,7009,7022,9000/9003</field>
 		 	<field action="import" tag="list">7900</field>
+		 	
 	 
 			<field action="replace" tag="9003" split="occ">
 				<pft>				
@@ -2021,6 +2055,7 @@
 	  <list action="delete">now</list>
 <!--display><pft>('URL='v7900/)</pft></display-->
 
+	<label>GOTTEN_PDF</label>
 	<field action="export" tag="7999">7900</field>
 
 </function>
@@ -2078,13 +2113,33 @@
  	 4901^e - pdf ou tr (translation)	 
 	 -->
 	 <!--display><pft>ALL</pft></display-->	
-	<field action="import" tag="list">966</field>
+	<field action="import" tag="list">966,7060</field>
 
    <field action="replace" tag="4901" split="occ"><pft>(v4901/)</pft></field> 
    <field action="replace" tag="4902" split="occ"><pft>(v4901^l/)</pft></field> 
    <field action="replace" tag="4904" split="occ"><pft>(v4901^d/)</pft></field> 
    <field action="replace" tag="4905" split="occ"><pft>(v4901^e/)</pft></field>
    
+
+    <!-- INICIO TRECHO QUE TRATA DE PDF EXTERNO: V7060 -->
+	<field action="replace" tag="9005" split="occ">
+		<pft>if p(v7060) and v4905='pdf' then
+				ref(['ARTIGO']l(['ARTIGO'],'HR=',mpu,v4901^*[1],mpl),@PROC_SPLIT_MST.PFT,if v761='1' then v761 else '0' fi/,v31/)
+			fi
+		</pft>
+	</field>
+	<field action="replace" tag="9005">
+		<pft>if v9005[1]='1' then
+			'<LANG TRANSLATION="',replace(v7060,'REPLACE_VOLUME',v9005[2]),'/',ref(['ARTIGO']l(['ARTIGO'],'OU=',mpu,v4901^*[1],mpl),@PROC_SPLIT_MST.PFT,v799),'">',v4902,'</LANG>'/
+				
+			fi
+		</pft>
+	</field>	
+	<flow action="jump"><pft>if p(v9005) then 'NO_TRANSLATION' fi</pft></flow>
+    <!-- FIM TRECHO QUE TRATA DE PDF EXTERNO -->
+	
+
+
    <!-- fixed 20070119 - inserção de mais idiomas no texto completo e pdf -->
    <call name="getAvailableTextLanguages"><pft>if v4905='pdf' then mid(v4901,2,9) fi</pft></call>
    <field action="replace" tag="4902" split="occ"><pft>if v4905='pdf' then (v9350/),v4901^o/  fi</pft></field> 	
@@ -2115,7 +2170,30 @@
 				"v"v31,"n"v32,"s"v131,"s"v132 )
 		</pft>
 	</field>
-
+	<field action="replace" tag="9001">
+		<pft>
+			if a(v9001) then ref( ['NEWISSUE'] l( ['NEWISSUE'],'P',mid(v4900,2,size(v4900)-5-1) ),
+,if (v32='ahead' or v32='review') and val(v65*0.4) > 2007 then ,v65*0.4, fi,
+				"v"v31,"n"v32,"s"v131,"s"v132,v41 )
+				fi
+		</pft>
+	</field>
+	<field action="replace" tag="9001">
+		<pft>
+			if a(v9001) then ref( ['NEWISSUE'] l( ['NEWISSUE'],'A',mid(v4900,2,size(v4900)-5-1) ),
+,if (v32='ahead' or v32='review') and val(v65*0.4) > 2007 then ,v65*0.4, fi,
+				"v"v31,"n"v32,"s"v131,"s"v132 )
+				fi
+		</pft>
+	</field>
+	<field action="replace" tag="9001">
+		<pft>
+			if a(v9001) then ref( ['NEWISSUE'] l( ['NEWISSUE'],'R',mid(v4900,2,size(v4900)-5-1) ),
+,if (v32='ahead' or v32='review') and val(v65*0.4) > 2007 then ,v65*0.4, fi,
+				"v"v31,"n"v32,"s"v131,"s"v132 )
+				fi
+		</pft>
+	</field>
 	<!--display><pft>' vxxnxxsxx: ',v9001</pft></display-->
 
 	<!-- Gets the html file name. The traslation file has the same name as the html file, 
@@ -2123,11 +2201,7 @@
 		 The only exception is the bjmbr serial.
 	     In this case, the pdf file name is one character shorter.
 	 -->
-	<field action="replace" tag="9002">
-		<pft>
-    	ref(['ARTIGO']l(['ARTIGO'],'OU=',mpu,v4900,mpl),@PROC_SPLIT_MST.PFT,v799)
-		</pft>
-	</field>
+	<field action="replace" tag="9002"><pft>ref(['ARTIGO']l(['ARTIGO'],'OU=',mpu,v4900,mpl),@PROC_SPLIT_MST.PFT,v799)</pft></field>
 	<field action="replace" tag="9002">
 		<pft>
 			if v4905<>'' then
@@ -2384,6 +2458,7 @@
 		<pft>
 			' <COPYRIGHT YEAR="',left(date,4),'">',/
 			'  <OWNER>',v7001,'</OWNER>',/
+			'  <OWNER-FULLNAME>',v7000,'</OWNER-FULLNAME>',/
 			'  <CONTACT>',v7008,'</CONTACT>',/
 			' </COPYRIGHT>',/#
 		</pft>
@@ -2879,6 +2954,8 @@
   <field action="import" tag="list">7009/7060</field>  <!--fixed-->
 	<!-- fixed 20040910 todo o trechp inserindo a funcao PROC_SPLIT_MST_range e substituindo os ref e lookups -->
 
+  <field action="replace" tag="41" split="occ"><pft>ref(['ARTIGO']val(v4001^m),@PROC_SPLIT_MST.PFT,(v41/))</pft></field>
+  <field action="replace" tag="241" split="occ"><pft>ref(['ARTIGO']val(v4001^m),@PROC_SPLIT_MST.PFT,(v241/))</pft></field>
   <field action="replace" tag="264" split="occ"><pft>ref(['ARTIGO']val(v4001^m),@PROC_SPLIT_MST.PFT,v264)</pft></field>
 
   <field action="replace" tag="4010" split="occ"><pft>ref(['ARTIGO']val(v4001^m),@PROC_SPLIT_MST.PFT,(v83^l/))</pft></field>
@@ -2987,11 +3064,15 @@
 	
   <!-- fixed -->
   <display>
-   <pft>
+   <pft>if v41='pr' then
+
+   ,else
+
     '  <ART_TEXT_LANGS>'/,
     (|   <LANG>|v9999|</LANG>|/)
 	v7999	
     '  </ART_TEXT_LANGS>'/
+	,fi
    </pft>
   </display>
 
@@ -3010,8 +3091,10 @@
     fi
    </pft>
   </display>
+
         
   <label>NO_TEXT_AVAILABLE</label>
+  <call name="PressReleaseLanguages"><pft>(if v241^t='pr' then v241^i,'^o',v40,'^d'v7041[1]/ fi),(if v41='pr' then '^i',v880,'^o',v40 fi)</pft></call>
   <display>
    <pft>
     ' </LANGUAGES>'/    
@@ -3309,7 +3392,18 @@
 
 
 <function name="isXML" action="replace" tag="702">
-	<return action="replace" tag="8000"><pft>replace(mid(v702,size(v702)-3,4),'.XML','.xml')</pft></return> 
+	<field action="replace" tag="8000"><pft>replace(mid(v702,size(v702)-3,4),'.XML','.xml')</pft></field> 
+	<return action="replace" tag="8000"><pft>
+		if v8000='.xml' then 
+			,'XML',  
+		else
+			if v8000='.PDF' or v8000='.pdf' then
+				,'XML',
+			else
+				,'BODY',
+			fi
+		fi
+	</pft></return> 
 </function>
 
 <function name="showText" action="replace"  tag="264">
@@ -3437,9 +3531,9 @@
 			<loop>
 				<display><pft>@PROC_SPLIT_MST.PFT,</pft></display>
 				<field action="import"	tag="list">3100</field>
-
+				<call name="isXML"><pft>v702</pft></call>
 				<field action="replace"	tag="1000">
-					<pft>if instr(v702,'.xml')=0 then '^i<![CDATA[^f]]>' fi</pft>
+					<pft>if v8000<>'XML' then '^i<![CDATA[^f]]>' fi</pft>
 				</field>
 
 				<field action="replace"	tag="9040">
