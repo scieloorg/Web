@@ -3,7 +3,7 @@
 class XMLFromIsisScript {
 	var $_xml;
 	
-
+ 
 	function XMLFromIsisScript($xml){
 		$this->_xml = $xml;
 	}
