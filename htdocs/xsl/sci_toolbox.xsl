@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+	<xsl:include href="related_documents.xsl"/>
 	<xsl:template name="tool_box">
 		<xsl:variable name="show_requests" select="//varScieloOrg/requests" />
 		<xsl:variable name="show_login" select="//varScieloOrg/show_login" />
@@ -306,6 +307,7 @@
 						<xsl:apply-templates select="//fulltext-service[@id='send_mail']" mode="link"/>
 					</li>	
 				</xsl:if>
+				<xsl:apply-templates select=".//ARTICLE" mode="related-documents"/>
 			</ul>
 		</div>
 	</xsl:template>
