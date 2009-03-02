@@ -18,14 +18,19 @@ class XMLFromIsisScript {
 		$p = strpos($this->_xml,'<BODY>');
 		$p2 = strpos($this->_xml,'</BODY>');
 
+		if (!$p){
+		$p = strpos($this->_xml,'<body>');
+		$p2 = strpos($this->_xml,'</body>');
+		}
+
 		$body = substr($this->_xml,$p,$p2-$p+1);
 		$xbody = $body;
 		if (count($this->_labels)>0 && strlen($this->_pdfLink)>0 ){
 			foreach ($this->_labels as $l){
                 if (count($this->_labels)>0 && strlen($this->_pdfLink)>0 ){
 					$expr = str_replace(' ','[ ]+',$l);
-					$expr = str_replace('disponível','[a-z&;]+',$expr);
-					$xbody = ereg_replace($expr, '<a href="'.$this->_pdfLink.'">'.$l.'</a>', $xbody);
+					$expr = str_replace('dispon','[a-z&íÃ;]+',$expr);
+					$xbody = ereg_replace($expr, '<a href="'.str_replace('&','&amp;',$this->_pdfLink).'">'.$l.'</a>', $xbody);
 				}
 			}
 		}
