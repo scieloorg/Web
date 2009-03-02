@@ -2,6 +2,8 @@
 
 <!-- Common functions -->
 <include>ScieloXML/sci_common.xis</include>
+<include>ScieloXML/pressrelease.xis</include>
+<include>ScieloXML/sci_refrecord.xis</include>
 
 <function name="getRange" action="replace" tag=4001>
 	<do task="search">
@@ -11,7 +13,7 @@
 
 	  <loop>
 			<field action="replace" tag="9901"><pft>mfn</pft></field>
-			<field action="export" tag="9901">9901</field>
+			<field action="export" tag="list">9901</field>
 	  </loop>
 	 </do> 
 	 <do task="search">
@@ -21,8 +23,8 @@
 	  <parm name="reverse">On</parm>
 
 	  <loop>
-			<field action="replace" tag="9901"><pft>mfn</pft></field>
-			<field action="export" tag="9902">9901</field>
+			<field action="replace" tag="9902"><pft>mfn</pft></field>
+			<field action="export" tag="list">9902</field>
 	  </loop>
 
 	 </do> 
@@ -175,8 +177,10 @@
 	 ,' CURR_DATE="',mid(date,1,8),'"'
 	 ,' ahpdate="',v223,'"'
 
+		,| is="|v41|"| 
     </pft>
    </display>
+    <field action="delete" tag="list">237</field>
    	<call name="getDOI"><pft>v880</pft></call> 
 	<!-- fixed 20040622 -->
 	<field action="replace" tag="4040" split="occ"><pft>v4001^t</pft></field> 
@@ -185,21 +189,25 @@
    
 	<display><pft>'>'/</pft></display>
 	<display><pft>if p(v264) then '<EMBARGO date="',v264,'" text="',v8264,'"/>'/ fi</pft></display>
-
-            <call name="CreateLanguageXML">
-                <pft>
-                    '^l'v3000'^i'v3003'^m',mfn,"^t"v3012,
-                    if v4001^f = 'abs' then '^ssci_abstract' fi
-                </pft>
-            </call>
+	
+	<call name="insertElementRelatedToDocument"><pft>if p(v241) or p(v41) then  (v880[1],|^x|v41[1],v241,|^v|v31[1],|^w|v131[1],|^n|v32[1],|^y|v132[1],|^d|v65[1]*0.4/) fi</pft></call>
+	
+	<call name="CreateLanguageXML">
+		<pft>
+			'^l'v3000'^i'v3003'^m',mfn,"^t"v3012,
+			if v4001^f = 'abs' then '^ssci_abstract' fi
+		</pft>
+	</call>
 
    <call name="CreateArticleTitle1XML"><pft>'^r'v4001^a'^l'v4001^l'^i'v4001^i'^h1'</pft></call>
+
+
    <!--call name="CreateAuthorsGroupXML"><pft>v880</pft></call-->   
    <call name="CreateLattesGroupXML"><pft>v880</pft></call>	   
    <call name="CreateProjetoFAPESP"><pft>if v7052 = '1' then v880 fi</pft></call>
 	<call name="isXML"><pft>v702</pft></call>
 	
-	<flow action="jump"><pft>if v8000<>'.xml' then 'yes' fi</pft></flow>
+	<flow action="jump"><pft>if v8000='BODY' then 'yes' fi</pft></flow>
 
 	<display><pft>'<standard>',
 	if ref(['TITLE']l(['TITLE'],'LOC=',v880*1.9),v117)='other' then
@@ -221,7 +229,7 @@
  <flow action="jump"><pft>if v8264='no' then 'NO_TEXT_AVAILABLE' fi</pft></flow>
  <display>
 	<pft>
-		if v8000='.xml' then 
+		if v8000='XML' then 
 			'<fulltext  xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:util="http://dtd.nlm.nih.gov/xsl/util" 
 			xmlns:doc="http://www.dcarlisle.demon.co.uk/xsldoc" 
 			xmlns:ie5="http://www.w3.org/TR/WD-xsl" 
@@ -341,7 +349,7 @@
 
 
  <display>
-  <pft>if  v8000<>'.xml' then ' ]]></BODY>'/ else '</fulltext>' fi</pft>
+  <pft>if  v8000='BODY' then ' ]]></BODY>'/ else '</fulltext>' fi</pft>
  </display>
  <label>NO_TEXT_AVAILABLE</label>
 
@@ -368,10 +376,11 @@
   
   <!-- verifica se artigo era um ahead of print, então troca o pid pelo novo pid -->
   <field action="replace" tag="1"><pft>ref(['ARTIGO']l(['ARTIGO']'HR='v1),@PROC_SPLIT_MST.PFT,if p(v222) then v222 else v880 fi)</pft></field>
+  <field action="replace" tag="3331"><pft>ref(['ARTIGO']l(['ARTIGO']'HR='v1),@PROC_SPLIT_MST.PFT,if p(v41) then 'P' else 'Y' fi)</pft></field>
 
   <!-- 5 - Title MFN, 6 - Issue MFN, 7 - Article MFN -->  
   <field action="replace" tag="5"><pft>f(l(['TITLE']'LOC='mid(v1,2,9)),1,0)</pft></field>
-  <field action="replace" tag="6"><pft>f(l(['NEWISSUE']'Y'mid(v1,2,17)),1,0)</pft></field>
+  <field action="replace" tag="6"><pft>f(l(['NEWISSUE']v3331,mid(v1,2,17)),1,0)</pft></field>
   <field action="replace" tag="7"><pft>f(l(['ARTIGO']'HR='v1),1,0)</pft></field>
 
   <!-- Article text language -->
