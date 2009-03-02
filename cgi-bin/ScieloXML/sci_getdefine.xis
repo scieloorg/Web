@@ -61,8 +61,8 @@
 						case 'ENABLE_STATISTICS_LINK'	    : 'h17039',
 						case 'ENABLE_CITATION_REPORTS_LINK' : 'h17040',
 						case 'PATH_TRANSLATION'             : 'h17041',
-                                                case 'ACTIVATE_GOOGLE'              : 'h17042',
-                                                case 'GOOGLE_CODE'                  : 'h17043',
+                        case 'ACTIVATE_GOOGLE'              : 'h17042',
+                        case 'GOOGLE_CODE'                  : 'h17043',
 						case 'PATH_HTDOCS'                  : 'h17044',
 						case 'STAT_SERVER'                  : 'h17045',
 						/* fixed */
@@ -72,7 +72,10 @@
                         case 'BEFOREPRINT_ISSUES'                  : 'h17049',
                         case 'BEFOREPRINT_ISSUETOC'                  : 'h17050',
                         case 'LICENSE'                  : 'h17051',
-			case 'show_fapesp_projects'     : 'h17052',
+						case 'show_fapesp_projects'     : 'h17052',
+case 'ISSUE_TOC_NUMBER_OF_ARTICLES_PER_PAGE'     : 'h17053',
+						
+						case 'ALT_PDF_URL'     : 'h17060',
 						
 						elsecase 'h4903'
 					endsel
