@@ -2,28 +2,40 @@
 <translations>
 	<xslid id="sci_toolbox">
 		<text find="services">services</text>
-                <text find="add_to_my_collection">add to my collection</text>
-                <text find="alert_me_when_cited">alert me when cited</text>
-                <text find="send_me_access_statistics">send me access statistics</text>
-                <text find="custom_services">custom services</text>
-                <text find="comments">comments</text>
-                <text find="article_in_pdf_format">article in pdf format</text>
-                <text find="article_in_xml_format">article in xml format</text>
-                <text find="article_references">article references</text>
-                <text find="health_indicators">health indicators</text>
-                <text find="fapesp_projects">FAPESP projects</text>
-                <text find="automatic_translation">automatic translation</text>
-                <text find="show_semantic_highlights">show semantic highlights</text>
-                <text find="hide_semantic_highlights">hide semantic highlights</text>
-                <text find="access">access</text>
-                <text find="article">article</text>
-                <text find="have_no_cited_article">have no cited articles</text>
-                <text find="cited_by">cited by</text>
-                <text find="indexed_by_google">indexed by Google</text>
-                <text find="on_index_process">on index process</text>
-                <text find="similars_in">similars in</text>
-                <text find="have_no_similar_article">have no similar articles</text>
+		<text find="add_to_my_collection">add to my collection</text>
+		<text find="alert_me_when_cited">alert me when cited</text>
+		<text find="send_me_access_statistics">send me access statistics</text>
+		<text find="custom_services">custom services</text>
+		<text find="comments">comments</text>
+		<text find="article_in_pdf_format">article in pdf format</text>
+		<text find="article_in_xml_format">article in xml format</text>
+		<text find="article_references">article references</text>
+		<text find="health_indicators">health indicators</text>
+		<text find="fapesp_projects">FAPESP projects</text>
+		<text find="automatic_translation">automatic translation</text>
+		<text find="show_semantic_highlights">show semantic highlights</text>
+		<text find="hide_semantic_highlights">hide semantic highlights</text>
+		<text find="access">access</text>
+		<text find="article">article</text>
+		<text find="have_no_cited_article">have no cited articles</text>
+		<text find="cited_by">cited by</text>
+		<text find="indexed_by_google">indexed by Google</text>
+		<text find="on_index_process">on index process</text>
+		<text find="similars_in">similars in</text>
+		<text find="have_no_similar_article">have no similar articles</text>
 		<text find="send_this_article_by_email">send this article by e-mail</text>
-                <text find="login">login</text>
-        </xslid>
+		<text find="login">login</text>
+		<text find="art">Read the article</text>
+		<text find="pr">press release</text>
+		<text find="issue">See the issue</text>
+	</xslid>
+	<xslid id="sci_issuetoc">
+		<text find="abstract">abstract in </text>
+		<text find="full">text in </text>
+		<text find="pdf">pdf in </text>
+		<text find="pr">press release in </text>
+		<text find="page">page</text>
+		<text find="of">of</text>
+		<text find="gotopage">go to page</text>
+	</xslid>
 </translations>
