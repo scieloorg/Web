@@ -264,7 +264,7 @@
 					<xsl:with-param name="YEAR" select="ISSUEINFO/STRIP/YEAR"/>
 					<xsl:with-param name="CURR_DATE" select="@CURR_DATE"/>
 					<xsl:with-param name="PID" select="../CONTROLINFO/PAGE_PID"/>
-					<xsl:with-param name="ISSN" select="../ISSN"/>
+					<xsl:with-param name="ISSN" select=".//ISSN"/>
 					<xsl:with-param name="FPAGE" select="@FPAGE"/>
 					<xsl:with-param name="LPAGE" select="@LPAGE"/>
 					<xsl:with-param name="SHORTTITLE" select="ISSUEINFO/STRIP/SHORTTITLE"/>
@@ -1815,6 +1815,6 @@ Parameters:
 			<xsl:with-param name="domain" select="$domain"/>
 		</xsl:call-template>
 	</xsl:template>
-	<xsl:template match="@DOI" mode="ref">
-		doi: <xsl:value-of select="."/>.</xsl:template>
+	<xsl:template match="@DOI" mode="ref">&#160;
+		<xsl:apply-templates select="."/>.</xsl:template>
 </xsl:stylesheet>
