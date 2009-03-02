@@ -25,5 +25,20 @@
                 <text find="have_no_similar_article">Não possue artigos similares</text>
                 <text find="send_this_article_by_email">Enviar este artigo por email</text>
                 <text find="login">login</text>
+                <text find="art">Lea el artículo</text>
+                <text find="pr">press release</text>
+<text find="issue">Vea el número</text>
         </xslid>
+        <xslid id="sci_issuetoc">
+		<text find="abstract">resumen en </text>
+		<text find="full">texto en </text>
+		<text find="pdf">pdf en </text>
+		<text find="pr">press release en </text>
+		<text find="page">página</text>
+		<text find="of">de</text>
+		<text find="gotopage">ir a la página</text>
+
+	</xslid>
+
+
 </translations>
