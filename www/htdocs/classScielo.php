@@ -12,7 +12,7 @@ class Scielo extends ScieloBase
 		$this->ScieloBase ($host);
 		$this->_special_xsl = '';
 	}
-
+ 
 	function loadPreviousUrlWhichContainsOldPid(){
 		$this->_request->getRequestValue("pid", $pid);
 		if (strpos($pid,'(')>0){
