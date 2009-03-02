@@ -154,12 +154,12 @@
     	if ( wInfo && !wInfo.closed )
     	{
     		wInfo.focus();
-    		return;
+    		/* return; */
     	}
                             
         wInfo = OpenWindow ( "_Info", 0, 0, wWidth, wHeight, url );
     }
-        
+    
     /*****************************************************************************************************************
     function CloseArticleInfoWindow ()
     Closes the Article's Info Window.
