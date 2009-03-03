@@ -21,6 +21,7 @@ more temp/lang$ACRON.seq  >> $PROCLANG_LOG
 
 echo Executing $0 for $ACRON $ISSUEID 
 echo Executing $0 for $ACRON $ISSUEID  >> $PROCLANG_LOG
+$MX $DBACRON lw=9999 h=$ISSUEID count=1 now >> $PROCLANG_LOG
 
 $MX $DBACRON lw=9999 btell=0 h=$ISSUEID "pft=#,'$BATCHES_PATH/doForArticle.bat $ACRON $ISSUEID ',if instr(s(ref(mfn-1,v799)),'.htm')>0 then  ,ref(mfn-1,mid(v799,1,instr(v799,'.htm')-1),' ',mid(v799,instr(v799,'.htm')+1,size(v799))) , else ref(mfn-1,mid(v799,1,size(v799)-4),' ', mid(v799,size(v799)-3,size(v799)) ), fi,' ',v40,' temp/lang$ACRON.seq ',v880,' $DBACRON',/" now> temp/procLangsDoForArticle.bat
 
