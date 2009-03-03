@@ -1,0 +1,10 @@
+CTRL_ISSUE.*=/home/scielo/www/bases-aux/scielo-lilacs/ctrl/ctrl_issue.*
+CTRL_CONVERSION.*=/home/scielo/www/bases-aux/scielo-lilacs/ctrl/ctrl_conversion.*
+
+TITLES.*=/home/scielo/www/bases-aux/scielo-lilacs/input/titles.*
+LILTITLES.*=/home/scielo/www/bases-aux/scielo-lilacs/input/liltitle.*
+COLLECTIONS.*=/home/scielo/www/bases-aux/scielo-lilacs/input/collections.*
+GIZIDIOMA.*=/home/scielo/www/bases-aux/scielo-lilacs/input/gizmoa.*
+SCIELOTP.*=/home/scielo/www/bases-aux/scielo-lilacs/input/scielotp.*
+LILTITLE.*=/home/scielo/www/bases-aux/scielo-lilacs/input/liltitle.*
+
