@@ -131,7 +131,7 @@
 			<flow action="skip"><pft>if p(v241) then 'Quit' fi</pft></flow>
 		</loop>	
 	</do>
-
+	<flow action="jump"><pft>if a(v241) then 'DONE' fi</pft></flow>
 	<!-- consulta os artigos press release do numero press release e descobre se tem artigo relacionado ao numero como um todo -->
 	<do task="keyrange">
 		<parm name="db">ARTIGO</parm>
@@ -216,6 +216,7 @@
 		</loop>	
 		<display><pft>if p(v1111) then '</SECTION>'  fi</pft></display> 
 	</do>
+	<label>DONE</label>
 	
 </function>
 
