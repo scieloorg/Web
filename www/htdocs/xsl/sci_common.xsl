@@ -925,7 +925,7 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 	doi: <xsl:value-of select="."/>
 	</xsl:template>
 	<xsl:template match="ARTICLE[@displayDOILink]/@DOI">
-		<xsl:if test="@displayDOILink!=@DOI">
+		<xsl:if test="../@displayDOILink!=.">
 			doi: <xsl:value-of select="."/>
 			<br/>
 		</xsl:if>
