@@ -6,7 +6,7 @@ export MX=$MX
 export PROCLANG_LOG=$PROCLANG_LOG
 export DBLANG=$DBLANG
 export DOCPATHS=$PROCLANG_PATH/config/docpaths.seq
-export CIPAR=$PROCLANG_PATH/config/mycipar.cip
+export CIPARFILE=$PROCLANG_PATH/config/mycipar.cip
 
 
 export ACRON=$1

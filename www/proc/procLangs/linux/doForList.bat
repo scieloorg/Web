@@ -7,7 +7,7 @@ export BASESWORK=$3
 export DBLANG=$4
 export PROCLANG_LOG=$5
 export DOCPATHS=$PROCLANG_PATH/config/docpaths.seq
-export CIPAR=$PROCLANG_PATH/config/mycipar.cip
+export CIPARFILE=$PROCLANG_PATH/config/mycipar.cip
 
 if [ ! -f $PROCLANG_PATH/config/docpaths.mst ]
 then
