@@ -13,10 +13,6 @@ export debug=$9
 
 if [ -f "$SCILIL_LIST_VALID_LIST" ]
 then
-	scielo2lilacs/linux/iso2mst.bat $SCILIL_LIST_SRCDB $SCILIL_MX scielo2lilacs/fst/src.fst
-	scielo2lilacs/linux/iso2mst.bat $SCILIL_GBL_SCIELOTP $SCILIL_MX scielo2lilacs/fst/scielotp.fst
-	scielo2lilacs/linux/iso2mst.bat $SCILIL_GBL_GIZMOA $SCILIL_MX
-	scielo2lilacs/linux/iso2mst.bat $SCILIL_GBL_LILTITLE $SCILIL_MX scielo2lilacs/fst/titles.fst
 
 	if [ -f "$SCILIL_GBL_SCIELOTP.mst" ]
 	then
@@ -49,9 +45,11 @@ then
 						fi
 						scielo2lilacs/linux/invert.bat $SCILIL_MX $SCILIL_LIST_CTRL_CONVERSION scielo2lilacs/fst/ctrl_conversion.fst
 						chmod -R 774 $SCILIL_LIST_CTRL_CONVERSION.* $SCILIL_LIST_CTRL_ISSUE.*
+
+
 						if [ -f $SCILIL_LIST_DBRESULT.mst ] 
 						then
-							$SCILIL_MX seq=$SCILIL_LIST_VALID_LIST lw=9999 "pft=if p(v1)  then 'scielo2lilacs/linux/deleteRecordsDBResult.bat $SCILIL_MX $SCILIL_LIST_DBRESULT ',v1,' '/ fi" now> temp/scielo2lilacs_deleteRecordsDBResult.bat
+							$SCILIL_MX "seq=$SCILIL_LIST_VALID_LIST " lw=9999 "pft=if p(v1)  then 'scielo2lilacs/linux/deleteRecordsDBResult.bat $SCILIL_MX $SCILIL_LIST_DBRESULT ',v3,' '/ fi" now> temp/scielo2lilacs_deleteRecordsDBResult.bat
 							chmod 775 temp/scielo2lilacs_deleteRecordsDBResult.bat
 
 							echo Executara 
@@ -66,7 +64,7 @@ then
 						fi
 						scielo2lilacs/linux/invert.bat $SCILIL_MX $SCILIL_LIST_DBRESULT scielo2lilacs/fst/dbresult.fst
 											
-						$SCILIL_MX seq=$SCILIL_LIST_VALID_LIST lw=9999 "pft=if p(v1) then 'scielo2lilacs/linux/doForIssue.bat $SCILIL_LIST_SRCDB $SCILIL_LIST_DBRESULT ',v1,' $SCILIL_LIST_DBLANG $SCILIL_LIST_CF $SCILIL_LIST_CTRL_CONVERSION  $SCILIL_LIST_WXISLOG'/ fi" now> temp/scielo2lilacs_DoForIssue.bat
+						$SCILIL_MX "seq=$SCILIL_LIST_VALID_LIST " lw=9999 "pft=if p(v3) then 'scielo2lilacs/linux/doForIssue.bat $SCILIL_LIST_SRCDB $SCILIL_LIST_DBRESULT ',v3,' ',v1,' ',v5,' $SCILIL_LIST_WXISLOG $SCILIL_LIST_CF $SCILIL_LIST_CTRL_CONVERSION '/ fi" now> temp/scielo2lilacs_DoForIssue.bat
 
 						chmod 775 temp/scielo2lilacs_DoForIssue.bat
 	echo Executing temp/scielo2lilacs_DoForIssue.bat

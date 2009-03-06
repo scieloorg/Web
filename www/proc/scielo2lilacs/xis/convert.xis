@@ -314,12 +314,12 @@
 	<field action="cgi" tag="4002">dest</field>
 	<field action="cgi" tag="4003">mfn</field>
 	<field action="cgi" tag="4004">check</field>
-	<field action="cgi" tag="4005">dblang</field>
 	<!--field action="cgi" tag="4005">colname</field>
 	<field action="cgi" tag="4006">colurl</field>
 	<field action="cgi" tag="4007">ccode</field-->
 	
 	<include>scielo2lilacs/xis/cipar.xis</include>
+	<field action="replace" tag="4005">DBLANG</field>
 
 	<call name="convert">1</call>
 	<call name="check"><pft>if v4004='yes' then '^s',v4001,'^d',v4002,'^m',v4003,'^i',v7001 fi</pft></call>

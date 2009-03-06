@@ -1,7 +1,7 @@
  
 
  <display><pft>ALL</pft></display>
-         <field action="replace" tag="1">BR1.1</field>
+         <field action="replace" tag="1"><pft>ref(['COLLECTIONS']l(['COLLECTIONS']v35),v3)</pft></field>
          <field action="replace" tag="2"><pft>v880</pft></field>
 		 <field action="replace" tag="4" split="occ"><pft>'LILACS'/'LILACSEXPRESS',
 		 if l(['LILTITLE']v35)>0 then 
