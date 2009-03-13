@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-	<xsl:output method="html" omit-xml-declaration="yes" indent="no"/>
-	<xsl:include href="sci_navegation.xsl"/>
-	<xsl:include href="sci_error.xsl"/>
-	<xsl:variable name="issuetoc_controlInfo" select="//CONTROLINFO"/>
-	<xsl:template match="SERIAL">
-		<HTML>
-			<HEAD>
+<xsl:output method="html" omit-xml-declaration="yes" indent="no" />
+
+<xsl:include href="sci_navegation.xsl"/>
+<xsl:include href="sci_error.xsl"/>
+
+<xsl:template match="SERIAL">
+ <HTML>
+  <HEAD>
 				<TITLE>
 					<xsl:value-of select="//TITLEGROUP/SHORTTITLE" disable-output-escaping="yes"/> - <xsl:call-template name="GetStrip">
 						<xsl:with-param name="vol" select="//ISSUE/@VOL"/>
@@ -17,28 +18,22 @@
 				</TITLE>
 				<LINK href="/css/scielo.css" type="text/css" rel="STYLESHEET"/>
 				<style type="text/css">
-#pagination { font-size: 8pt; border-bottom: 1px solid #808080; padding: 5px; margin: 20px 0; align: justified; width: 80%; left:20%}
-#xpagination { padding: 5px;  margin: 20px 0;}
-#pagination a {font-size: 8pt;  margin: 0 4px; padding: 0 2px; font-color: #000; text-decoration: none}
-#pageNav {text-align: right; position: absolute;
-right: 20%}
-#pageOf {text-align: left;}
-   </style>
-				<style type="text/css">
 	a { text-decoration: none; }
    </style>
-				<script language="javascript" src="article.js"/>
-				<META http-equiv="Pragma" content="no-cache"/>
-				<META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT"/>
-				<!-- link pro RSS aparecer automaticamente no Browser -->
-				<xsl:call-template name="AddRssHeaderLink">
-					<xsl:with-param name="pid" select="//CURRENT/@PID"/>
-					<xsl:with-param name="lang" select="//LANGUAGE"/>
-					<xsl:with-param name="server" select="CONTROLINFO/SCIELO_INFO/SERVER"/>
-					<xsl:with-param name="script">rss.php</xsl:with-param>
-				</xsl:call-template>
-			</HEAD>
+   <META http-equiv="Pragma" content="no-cache" />
+   <META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT" />
+   			<!-- link pro RSS aparecer automaticamente no Browser -->
+	
+			<xsl:call-template name="AddRssHeaderLink">
+				<xsl:with-param name="pid">//CURRENT/@PID</xsl:with-param>
+				<xsl:with-param name="lang">//LANGUAGE</xsl:with-param>
+				<xsl:with-param name="server">CONTROLINFO/SCIELO_INFO/SERVER</xsl:with-param>
+				<xsl:with-param name="script">rss.php</xsl:with-param>
+			</xsl:call-template>
+		</HEAD>
+
 			<BODY vLink="#800080" bgColor="#ffffff">
+
 				<xsl:call-template name="NAVBAR">
 					<xsl:with-param name="bar1">issues</xsl:with-param>
 					<xsl:with-param name="bar2">articlesiah</xsl:with-param>
@@ -61,7 +56,7 @@ right: 20%}
 				</CENTER>
 				<br/>
 				<div class="content">
-					<xsl:apply-templates select="//ISSUE"/>
+				<xsl:apply-templates select="//ISSUE"/>
 				</div>
 				<xsl:apply-templates select="." mode="footer-journal"/>
 			</BODY>
@@ -77,13 +72,11 @@ right: 20%}
 							<xsl:apply-templates select="TITLE"/>
 							<xsl:apply-templates select="STRIP"/>
 						</P>
-						<xsl:apply-templates select="PAGES"/>
 						<table border="0">
 							<tbody>
 								<xsl:apply-templates select="SECTION"/>
 							</tbody>
 						</table>
-						<xsl:apply-templates select="PAGES"/>
 					</TD>
 				</TR>
 			</TBODY>
@@ -190,45 +183,5 @@ right: 20%}
 				</tr>
 			</td>
 		</tr>
-	</xsl:template>
-	<xsl:template match="PAGES">
-		<div id="pagination">
-			<span id="pageOf">
-				<xsl:value-of select="$translations//xslid[@id='sci_issuetoc']//text[@find='page']"/>&#160;
-				<xsl:value-of select="PAGE[@selected]/@number"/>&#160;
-				<xsl:value-of select="$translations//xslid[@id='sci_issuetoc']//text[@find='of']"/>&#160;
-				<xsl:value-of select="PAGE[position()=last()]/@number"/>
-			</span>
-			<span id="pageNav">
-				<xsl:value-of select="$translations//xslid[@id='sci_issuetoc']//text[@find='gotopage']"/>&#160;<xsl:apply-templates select="PAGE" mode="look"/>
-			</span>
-		</div>
-	</xsl:template>
-	<xsl:template match="PAGE" mode="look">
-		<xsl:if test="@number != '1'"></xsl:if>
-		<span class="page">
-			<xsl:apply-templates select="."/>
-		</span>
-	</xsl:template>
-	<xsl:template match="PAGE/@number">
-		<xsl:value-of select="."/>
-	</xsl:template>
-	<xsl:template match="PAGE[@selected]/@number">
-		<strong>
-
-&#160;<xsl:value-of select="."/>&#160;
-
-		</strong>
-	</xsl:template>
-	<xsl:template match="PAGE">
-		<a>
-			<xsl:attribute name="href"><xsl:call-template name="getScieloLink"><xsl:with-param name="seq" select="$issuetoc_controlInfo/PAGE_PID"/><xsl:with-param name="script" select="'sci_issuetoc'"/></xsl:call-template>&amp;page=<xsl:value-of select="@number"/></xsl:attribute>
-			<xsl:apply-templates select="@number"/>
-		</a>
-	</xsl:template>
-	<xsl:template match="PAGE[@selected='true']">
-		<xsl:apply-templates select="@number"/>
-	</xsl:template>
-	<xsl:template match="PAGE/@selected">
 	</xsl:template>
 </xsl:stylesheet>
