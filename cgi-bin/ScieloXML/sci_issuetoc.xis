@@ -3,9 +3,6 @@
 
 <!-- Common functions -->
 <include>ScieloXML/sci_common.xis</include>
-<include>ScieloXML/pressrelease.xis</include>
-<include>ScieloXML/sci_refrecord.xis</include>
-<include>ScieloXML/sci_issuetoc_ahead_paged.xis</include>
 
 <function name="translateSectionName" action="replace" tag="4001">
   <return action="replace" tag="5010">
@@ -17,81 +14,18 @@
      4001^p - PID 
 	 4001^l - Interface Language 
 	 4001^i - International Language 
-	 4001^s - Issue MFN 
-	 4001^f - page
-	 
-	 -->
-	<display><pft>'<!-- aqui comeca -->'</pft></display>
+	 4001^s - Issue MFN -->
+<display><pft>'<!-- aqui comeca -->'</pft></display>
   <field action="import" tag="list">7009/7060</field> <!--fixed-->
   <call name="translateSectionName"><pft>if p(v4001^x) then '^l',v4001^l,'^s',v4001^x fi</pft></call>
-
-  <!--field action="replace" tag="2003"><pft>ref(['NEWISSUE']val(v4001^s),@PROC_SPLIT_MST.PFT,if v32='ahead' or v32='review' then 'On' fi)</pft></field--> <!-- colocaria em ordem inversa quando ahead of print, deixando desabilitado por enquanto -->
-  <flow action="jump"><pft>if a(v7053) then 'LISTA' fi</pft></flow>
-
-  <do task="search">
-	<parm name="db">ARTIGO</parm>
-	<parm name="expression"><pft>'SM='v4001^p'$'</pft></parm>
-	<parm name="count">1</parm>
-	<field action="define" tag="1001">Isis_Total</field>
-	<loop>
-		<field action="export" tag="list">1001</field>
-   
-	</loop>
-  </do>
-<display><pft>'<!--',v1001,'-->'</pft></display>
-
-<flow action="jump"><pft>if val(v1001)<= val(v7053) then 'LISTA' fi</pft></flow>
-
-
-<display><pft>'<PAGES>'</pft></display>
-
-<do task="keyrange">
-   <parm name="db">ARTIGO</parm>
-
-   <parm name="from"><pft>'SM='v4001^p, if v2003='On' then '9' fi</pft></parm>
-   <parm name="to"><pft>'SM='v4001^p, if v2003<>'On' then '9' fi</pft></parm>
-   <parm name="reverse"><pft>v2003</pft></parm>
-
-   
-   <parm name="posting"><pft>'ALL'</pft></parm>
-
-   <field action="define" tag="1001">Isis_Current</field>
-   <field action="define" tag="1002">Isis_Key</field>
-   <field action="define" tag="1003">Isis_Posting</field>
-   <field action="define" tag="1004">Isis_Postings</field>
-   
-   <field action="replace" tag="1000">0</field>
-   <field action="replace" tag="2000">0</field>
-   <loop>
-		<field action="import" tag="list">1000,2000,4001,7053</field>
-<display><pft>
-'<!--'/
-'v2000:',v2000/
-'v4001^f:',v2000/
-'-->'/
-</pft></display>
-
-		<field action="replace" tag="1000"><pft>if val(v1000)< val(v7053) then f(val(v1000)+1,1,0) else '1' fi</pft></field>
-		<field action="replace" tag="2000"><pft>if v1000='1' then f(val(v2000)+1,1,0) fi</pft></field>
-		<display><pft>if v1000='1' then '<PAGE number="',v2000,'" ',
-		,if v2000=v4001^f or (a(v4001^f) and v2000='1') then ' selected="true"' fi
-		,'/>' fi</pft></display>
-		<field action="replace" tag="2001"><pft>if v1000='1' then  if v2000=v4001^f or (a(v4001^f) and v2000='1')  then v1002 fi fi</pft></field>
-	   <field action="export" tag="list">1000,2000,2001</field>
-   </loop>
-  </do>
-<display><pft>'</PAGES>'</pft></display>
-<label>LISTA</label>
   <do task="keyrange">
    <parm name="db">ARTIGO</parm>
-   <parm name="from"><pft>if p(v2001) then v2001 else 'SM='v4001^p, if v2003='On' then '9' fi fi </pft></parm>
-   <parm name="to"><pft>'SM='v4001^p, if v2003<>'On' then '9' fi</pft></parm>
-   <parm name="count"><pft>v7053</pft></parm>
+   <parm name="from"><pft>'SM='v4001^p</pft></parm>
+   <parm name="to"><pft>'SM='v4001^p'9'</pft></parm>
    <parm name="posting"><pft>'ALL'</pft></parm>
-   <parm name="reverse"><pft>v2003</pft></parm>
 
-   <field action="define" tag="1001">Isis_Current</field>
-   <field action="define" tag="1002">Isis_Key</field>
+   <field action="define" tag=1001>Isis_Current</field>
+   <field action="define" tag=1002>Isis_Key</field>
    <field action="define" tag="1003">Isis_Posting</field>
    <field action="define" tag="1004">Isis_Postings</field>
    
@@ -176,8 +110,6 @@
 	<call name="showText"><pft>v264</pft></call>
 	<display><pft>if p(v264) then '<EMBARGO date="',v264,'" text="',v8264,'"/>'/ fi</pft></display>
 
-
-	<call name="insertElementRelatedToDocument"><pft>ref(['ARTIGO']val(v1003^m),@PROC_SPLIT_MST.PFT,if p(v241) or p(v41) then  ,(v880[1],|^a|v241,|^x|v41/) fi)</pft></call>
 	<field action="replace" tag="4040" split="occ"><pft>(v12^l/), if a(v12) then v40 fi</pft></field> 
     
     <call name="CreateLanguageXML"><pft>'^l'v4001^l'^i'v4001^i'^m'v1003^m'^ssci_issuetoc'</pft></call>
@@ -200,16 +132,13 @@
   <display><pft>'<!-- aqui termina -->'</pft></display>
 
 </function>
-
+	 
 <function name="CreateIssueXML" action="replace" tag=4001>
 <!-- Get Issue Information From DB and Generate XML 
      4001^p - PID 
 	 4001^l - Interface Language 
 	 4001^i - International Language 
-	 4001^s - Issue MFN 
-	 4001^f - page 
-	 
-	 --> 
+	 4001^s - Issue MFN --> 
  <field action="import" tag="list">7009/7060</field> <!--fixed-->
 
  <call name="GetNotPrintedIssues"><pft>v4001^p*0.9</pft></call>
@@ -245,36 +174,11 @@
  <display><pft>'<!-- '/,(v5101/),' -->'/</pft></display>
  <display><pft>'<!-- '/,v4001/,' -->'/</pft></display>
 	<!-- OBS.: tentei usar do task list e não funcionou, talvez problema de memória -->
+  <call name="CreateArticleListXML"><pft>if nocc(v5101)>0 then replace(v4001,v4001^p,v5101[1]^*) fi</pft></call>
+  <call name="CreateArticleListXML"><pft>if nocc(v5101)>1 then replace(v4001,v4001^p,v5101[2]^*) fi</pft></call>
+  <call name="CreateArticleListXML"><pft>if nocc(v5101)>2 then replace(v4001,v4001^p,v5101[3]^*) fi</pft></call>
+  <call name="CreateArticleListXML"><pft>if nocc(v5101)>3 then replace(v4001,v4001^p,v5101[4]^*) fi</pft></call>
 
-  <call name="displayPressReleasesRelatedToIssue"><pft>if v4001^f='1' or a(v4001^f) then v4001,ref(['NEWISSUE']l(['NEWISSUE']'Y'v4001^p),|^d|v36*0.4,|^v|v31,|^n|v32,|^w|v131,|^y|v132) fi</pft></call>
-	<!--
-		v880
-		v4001^v
-		v4001^n
-		v4001^y
-		v4001^w
-	-->
-
-	<!-- Create Article List
-	 4001^* - PID DO issue regular
-     4001^p - PID 
-	 4001^l - Interface Language 
-	 4001^i - International Language 
-	 4001^s - Issue MFN -->
-
-
-
-  <flow action="jump"><pft>if nocc(v5101)>1 and p(v7053) then 'AHEAD_PAGINADO' fi</pft></flow>
-  <call name="CreateArticleListXML"><pft>if  nocc(v5101)>0 then replace(v4001,v4001^p,v5101[1]^*) fi</pft></call>
-  <call name="CreateArticleListXML"><pft>if  nocc(v5101)>1 then replace(v4001,v4001^p,v5101[2]^*) fi</pft></call>
-  <call name="CreateArticleListXML"><pft>if  nocc(v5101)>2 then replace(v4001,v4001^p,v5101[3]^*) fi</pft></call>
-  <call name="CreateArticleListXML"><pft>if  nocc(v5101)>3 then replace(v4001,v4001^p,v5101[4]^*) fi</pft></call>
-  <flow action="jump">CLOSE_ISSUE</flow>
-
-  <label>AHEAD_PAGINADO</label>
-  <call name="CreateArticleListXMLAheadPaginada"><pft>v4001</pft></call>
-
-  <label>CLOSE_ISSUE</label>
   <display><pft>'</ISSUE>'/</pft></display>
 </function>
 
@@ -295,7 +199,6 @@
   <field action="cgi" tag="3">nrm</field>
   <field action="cgi" tag="4">sln</field>
   <field action="cgi" tag="10">debug</field>
-  <field action="cgi" tag="15">page</field>
   <field action="cgi" tag="3011">def</field>
 	
   <field action="replace" tag="3011"><pft>if a(v3011) then 'scielo.def.php' fi</pft></field>
@@ -342,7 +245,7 @@
   <call name="CreateDebugInfoXML"><pft>mpu,v10,mpl</pft></call>
   
   <!-- Create XML for Issue -->	    	
-  <call name="CreateIssueXML"><pft>'^s'v6'^p'v1'^l'v2'^i'v4,|^f|v15</pft></call>
+  <call name="CreateIssueXML"><pft>'^s'v6'^p'v1'^l'v2'^i'v4</pft></call>
   
   <!-- Close SERIAL -->
   <display><pft>'</SERIAL>'</pft></display>
