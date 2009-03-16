@@ -93,11 +93,7 @@
 	</xsl:template>
 	<xsl:template match="STRIP">
 		<FONT class="nomodel" color="#800000">
-			<xsl:choose>
-				<xsl:when test="//CONTROLINFO[LANGUAGE='en']">Table of contents</xsl:when>
-				<xsl:when test="//CONTROLINFO[LANGUAGE='es']">Tabla de contenido</xsl:when>
-				<xsl:when test="//CONTROLINFO[LANGUAGE='pt']">Sumário</xsl:when>
-			</xsl:choose>
+            <xsl:value-of select="$translations//xslid[@id='sci_issuetoc']//text[@find='table_of_contents']"/>
 		</FONT>
 		<BR/>
 		<font color="#800000">
