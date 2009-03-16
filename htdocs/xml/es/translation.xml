@@ -1,44 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <translations>
+	<xslid id="sci_home">
+		<text find="journal_evaluation">servicios</text>
+        <text find="portuguese">português</text>
+        <text find="spanish">español</text>
+        <text find="english">english</text>
+        <text find="help">Ayuda</text>
+        <text find="about_this_site">acerca de este sitio</text>
+        <text find="scielo_news">SciELO news</text>
+        <text find="scielo_team">equipo SciELO</text>
+        <text find="serial_browsing">seriadas</text>
+        <text find="alphabetic_list">lista alfabética</text>
+        <text find="subject_list">lista por materia</text>
+        <text find="search_form">búsqueda de títulos</text>
+        <text find="article_browsing">búsqueda de artículos</text>
+        <text find="author_index">índice de autores</text>
+        <text find="subject_index">índice de materias</text>
+        <text find="reports">informes</text>
+        <text find="site_usage">uso del sitio</text>
+        <text find="journal_citation">citas de revistas</text>
+        <text find="co_authors">co-autoria</text>
+        <text find="text_1">La Scientific Electronic Library Online - SciELO es una biblioteca electrónica que abarca una colección seleccionada de revistas científicas Brasileñas. <br/><br/>La biblioteca es resultado de un proyecto de investigación de la <a href="http://www.fapesp.br">FAPESP</a> - Fundação de Amparo à Pesquisa do Estado de São Paulo, en colaboración con <a href="http://www.bireme.br/bvs/E/ehome.htm">BIREME</a> - Centro Latinoamericano y del Caribe de Información en Ciencias de la Salud. A partir de 2002, el Proyecto conta con el apoyo del <a href="http://www.cnpq.br">CNPq</a> - Conselho Nacional de Desenvolvimento Científico e Tecnológico.<br/><br/>El proyecto contempla el desarrollo de una metodología común para la preparación, almacenamiento, diseminación y evaluación de literatura científica en formato electrónico.<br/><br/>Con el desarrollo del proyecto, nuevos títulos son añadidos a la colección de la biblioteca.</text>
+        <text find="text_2">Esta es la home page del Sitio SciELO Brasil.<br/><br/>El objetivo del sitio es implementar una biblioteca electrónica, que proporcione acceso completo a una colección de revistas, una colección de números de revistas individuales, así como al texto completo de los artículos. El acceso tanto a las revistas como a los artículos se puede realizar usando índices y formularios de búsqueda.<br/><br/>El sitio de SciELO es una parte del Proyecto FAPESP/BIREME/CNPq y es una aplicación de la metodología que el proyecto está desarrollando, en particular, el módulo de Interfaz en Internet.<br/><br/>El sitio será constantemente actualizado tanto en forma como en contenido, en la medida en que el proyecto avance.</text>
+        <text find="text_3">La interfaz SciELO proporciona acceso a su colección de revistas mediante una <i>lista alfabética</i> de títulos, una <i>lista por materia</i>, o una <i>búsqueda de títulos</i> de los periódicos, por palabra del título, materia, nombres de publicadores y ciudad de publicación.<br/><br/>La interfaz también proporciona acceso al texto completo de los artículos por medio de un <i>índice de autores</i>, un <i>índice de materia</i> o un formulario de <i>búsqueda de artículos</i> por sus elementos, como nombres de autores, palabras del título, materias, palabras del texto completo y año de publicación.<br/><br/>Clique un enlace hipertexto en el <a href="#top">topo</a> de la página para llamar la correspondiente página de acceso.</text>
+        <text find="phone">Tel.</text>
+        <text find="fax">Fax</text>
+        <text find="register_free">Se Registre Gratuitamente</text>
+        <text find="welcome">Bien Venido</text>
+        <text find="logout">Salir</text>
+    </xslid>
 	<xslid id="sci_toolbox">
 		<text find="services">serviços</text>
-                <text find="add_to_my_collection">adicionar a minha coleção</text>
-                <text find="alert_me_when_cited">alerte-me quando for citado</text>
-                <text find="send_me_access_statistics">envie-me estatísticas de acessos</text>
-                <text find="custom_services">serviços customizados</text>
-                <text find="comments">comentários</text>
-                <text find="article_in_pdf_format">Artigo em PDF</text>
-                <text find="article_in_xml_format">Artigo em XML</text>
-                <text find="article_references">Referências do Artigo</text>
-                <text find="health_indicators">Indicadores de Saúde</text>
-                <text find="fapesp_projects">Projetos FAPESP</text>
-                <text find="automatic_translation">Tradução Automática</text>
-                <text find="show_semantic_highlights">Mostrar Destaques Sem#266;nticos</text>
-                <text find="hide_semantic_highlights">Fechar Destaques Sem#266;nticos</text>
-                <text find="access">Acessos</text>
-                <text find="article">Artigo</text>
-                <text find="have_no_cited_article">Não possue artigos citados</text>
-                <text find="cited_by">Citado por</text>
-                <text find="indexed_by_google">Indexado pelo Google</text>
-                <text find="on_index_process">Em processo de indexação</text>
-                <text find="similars_in">Similares em</text>
-                <text find="have_no_similar_article">Não possue artigos similares</text>
-                <text find="send_this_article_by_email">Enviar este artigo por email</text>
-                <text find="login">login</text>
-                <text find="art">Lea el artículo</text>
-                <text find="pr">press release</text>
-<text find="issue">Vea el número</text>
-        </xslid>
-        <xslid id="sci_issuetoc">
-		<text find="abstract">resumen en </text>
-		<text find="full">texto en </text>
-		<text find="pdf">pdf en </text>
-		<text find="pr">press release en </text>
-		<text find="page">página</text>
-		<text find="of">de</text>
-		<text find="gotopage">ir a la página</text>
-
+		<text find="article">artículo</text>
+        <text find="add_to_my_collection">adicionar a minha coleção</text>
+        <text find="alert_me_when_cited">alerte-me quando for citado</text>
+        <text find="send_me_access_statistics">envie-me estatísticas de acessos</text>
+        <text find="custom_services">serviços customizados</text>
+        <text find="comments">comentários</text>
+        <text find="article_in_pdf_format">Artigo em PDF</text>
+        <text find="article_in_xml_format">Artigo em XML</text>
+        <text find="article_references">Referências do Artigo</text>
+        <text find="health_indicators">Indicadores de Saúde</text>
+        <text find="fapesp_projects">Projetos FAPESP</text>
+        <text find="automatic_translation">Tradução Automática</text>
+        <text find="show_semantic_highlights">Mostrar Destaques Sem#266;nticos</text>
+        <text find="hide_semantic_highlights">Fechar Destaques Sem#266;nticos</text>
+        <text find="access">Acessos</text>
+        <text find="article">Artigo</text>
+        <text find="have_no_cited_article">Não possue artigos citados</text>
+        <text find="cited_by">Citado por</text>
+        <text find="indexed_by_google">Indexado pelo Google</text>
+        <text find="on_index_process">Em processo de indexação</text>
+        <text find="similars_in">Similares em</text>
+        <text find="have_no_similar_article">Não possue artigos similares</text>
+        <text find="send_this_article_by_email">Enviar este artigo por email</text>
+        <text find="login">login</text>
+		<text find="forget_password">me olbide de la contraseña</text>
+		<text find="related_links">links relacionados</text>
+		<text find="indicators">indicadores</text>
+		<text find="personal_services">Servicios Personalizados</text>
+		<text find="my_scielo">Mi SciELO</text>
+        <text find="art">Lea el artículo</text>
+        <text find="pr">press release</text>
+        <text find="issue">Vea el número</text>
+    </xslid>
+    <xslid id="sci_issuetoc">
+        <text find="abstract">resumen en </text>
+        <text find="full">texto en </text>
+        <text find="pdf">pdf en </text>
+        <text find="pr">press release en </text>
+        <text find="page">página</text>
+        <text find="of">de</text>
+        <text find="gotopage">ir a la página</text>
+        <text find="table_of_contents">Tabla de contenido</text>
 	</xslid>
-
-
 </translations>

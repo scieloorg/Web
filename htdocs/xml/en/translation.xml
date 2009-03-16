@@ -1,7 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <translations>
+	<xslid id="sci_home">
+		<text find="journal_evaluation">services</text>
+        <text find="portuguese">portuguese</text>
+        <text find="spanish">spanish</text>
+        <text find="english">english</text>
+        <text find="help">help</text>
+        <text find="about_this_site">about this site</text>
+        <text find="scielo_news">scielo news</text>
+        <text find="scielo_team">scielo team</text>
+        <text find="serial_browsing">serial browsing</text>
+        <text find="alphabetic_list">alphabetic list</text>
+        <text find="subject_list">subject list</text>
+        <text find="search_form">search form</text>
+        <text find="article_browsing">article browsing</text>
+        <text find="author_index">author index</text>
+        <text find="subject_index">subject index</text>
+        <text find="reports">reports</text>
+        <text find="site_usage">site usage</text>
+        <text find="journal_citation">journal citation</text>
+        <text find="co_authors">co-authors</text>
+        <text find="text_1">The Scientific Electronic Library Online - SciELO is an electronic library covering a selected collection of Brazilian scientific journals.<br/><br/>The library is an integral part of a project being developed by <a href="http://www.fapesp.br">FAPESP</a> - Fundação de Amparo à Pesquisa do Estado de São Paulo, in partnership with <a href="http://www.bireme.br/bvs/I/ihome.htm">BIREME</a> - the Latin American and Caribbean Center on Health Sciences Information. Since 2002, the Project is also supported by <a href="http://www.cnpq.br">CNPq</a> - Conselho Nacional de Desenvolvimento Científico e Tecnológico.<br/><br/>The Project envisages the development of a common methodology for the preparation, storage, dissemination and evaluation of scientific literature in electronic format.<br/><br/>As the project develops, new journal titles are being added in the library collection.</text>
+        <text find="text_2">This is the home page of SciELO Brasil Site.<br/><br/>The objective of the site is to implement an electronic virtual library, providing full access to a collection of serial titles, a collection of issues from individual serial titles, as well as to the full text of articles. The access to both serial titles and articles is available via indexes and search forms.<br/><br/>SciELO site is an integral part of the FAPESP/BIREME/CNPq Project and it is an application of the methodology being developed by the project, particularly the Internet Interface module.<br/><br/>The site will be constantly updated both in form and content, according to the project's advancements.</text>
+        <text find="text_3">SciELO interface provides access to its serials collection via an <i>alphabetic list</i> of titles or a <i>subject list</i> or a <i>search form</i> by word of serial titles, publisher names, city of publication and subject.<br/><br/>The interface also provides access to the full text of articles via <i>author index</i> or <i>subject index</i>, or by a <i>search form</i> on article elements such as author names, words from title, subject, words from the full text and publication year.<br/><br/>Click an hypertext link at the <a href="#top">top</a> to call the corresponding access page.</text>
+        <text find="phone">Phone</text>
+        <text find="fax">Fax</text>
+        <text find="register_free">Free sign up</text>
+        <text find="welcome">welcome</text>
+        <text find="logout">logout</text>
+    </xslid>
 	<xslid id="sci_toolbox">
 		<text find="services">services</text>
+		<text find="article">article</text>
 		<text find="add_to_my_collection">add to my collection</text>
 		<text find="alert_me_when_cited">alert me when cited</text>
 		<text find="send_me_access_statistics">send me access statistics</text>
@@ -25,6 +55,11 @@
 		<text find="have_no_similar_article">have no similar articles</text>
 		<text find="send_this_article_by_email">send this article by e-mail</text>
 		<text find="login">login</text>
+		<text find="forget_password">I forgot my password</text>
+		<text find="related_links">related links</text>
+		<text find="indicators">indicators</text>
+		<text find="personal_services">Services on Demand</text>
+		<text find="my_scielo">My SciELO</text>
 		<text find="art">Read the article</text>
 		<text find="pr">press release</text>
 		<text find="issue">See the issue</text>
@@ -37,5 +72,6 @@
 		<text find="page">page</text>
 		<text find="of">of</text>
 		<text find="gotopage">go to page</text>
+        <text find="table_of_contents">Table of contents</text>
 	</xslid>
 </translations>
