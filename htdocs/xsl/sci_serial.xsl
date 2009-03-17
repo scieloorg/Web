@@ -8,11 +8,10 @@
 	<xsl:variable name="scimago_status" select="//scimago_status"/>
 	<xsl:output method="html" indent="no"/>
 	<xsl:template match="SERIAL">	
-	
 		<html>
 			<head>
 				<title>
-				<xsl:value-of select="TITLEGROUP/TITLE" disable-output-escaping="yes"/> - Home page</title>
+				<xsl:value-of select="TITLEGROUP/TITLE" disable-output-escaping="yes"/> - <xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='home_page']"/></title>
 				<meta http-equiv="Pragma" content="no-cache"/>
 				<meta http-equiv="Expires" content="Mon, 06 Jan 1990 00:00:01 GMT"/>
 				<xsl:if test="//NO_SCI_SERIAL='yes'">
@@ -78,45 +77,30 @@
 		links dos idiomas da interface
 	-->	
 	<xsl:template match="CONTROLINFO" mode="change-language">
-		<xsl:choose>
-			<xsl:when test="normalize-space(LANGUAGE)='en'">
-				<a>
-					<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_DATA"/>scielo.php?script=<xsl:apply-templates select="." mode="sci_serial"/>&amp;lng=pt&amp;pid=<xsl:value-of select="/SERIAL/ISSN"/>&amp;nrm=<xsl:value-of select="normalize-space(STANDARD)"/></xsl:attribute>
-					<font class="linkado" size="-2">português</font>
-				</a>
-				<br/>
-				<a>
-					<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_DATA"/>scielo.php?script=<xsl:apply-templates select="." mode="sci_serial"/>&amp;lng=es&amp;pid=<xsl:value-of select="/SERIAL/ISSN"/>&amp;nrm=<xsl:value-of select="normalize-space(STANDARD)"/></xsl:attribute>
-					<font class="linkado" size="-2">español</font>
-				</a>
-				<br/>
-			</xsl:when>
-			<xsl:when test="normalize-space(LANGUAGE)='pt'">
-				<a>
-					<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_DATA"/>scielo.php?script=<xsl:apply-templates select="." mode="sci_serial"/>&amp;lng=en&amp;pid=<xsl:value-of select="/SERIAL/ISSN"/>&amp;nrm=<xsl:value-of select="normalize-space(STANDARD)"/></xsl:attribute>
-					<font class="linkado" size="-2">english</font>
-				</a>
-				<br/>
-				<a>
-					<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_DATA"/>scielo.php?script=<xsl:apply-templates select="." mode="sci_serial"/>&amp;lng=es&amp;pid=<xsl:value-of select="/SERIAL/ISSN"/>&amp;nrm=<xsl:value-of select="normalize-space(STANDARD)"/></xsl:attribute>
-					<font class="linkado" size="-2">español</font>
-				</a>
-				<br/>
-			</xsl:when>
-			<xsl:when test="normalize-space(LANGUAGE)='es'">
-				<a>
-					<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_DATA"/>scielo.php?script=<xsl:apply-templates select="." mode="sci_serial"/>&amp;lng=en&amp;pid=<xsl:value-of select="/SERIAL/ISSN"/>&amp;nrm=<xsl:value-of select="normalize-space(STANDARD)"/></xsl:attribute>
-					<font class="linkado" size="-2">english</font>
-				</a>
-				<br/>
-				<a>
-					<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_DATA"/>scielo.php?script=<xsl:apply-templates select="." mode="sci_serial"/>&amp;lng=pt&amp;pid=<xsl:value-of select="/SERIAL/ISSN"/>&amp;nrm=<xsl:value-of select="normalize-space(STANDARD)"/></xsl:attribute>
-					<font class="linkado" size="-2">português</font>
-				</a>
-				<br/>
-			</xsl:when>
-		</xsl:choose>
-	</xsl:template>
+        <xsl:if test="//CONTROLINFO/LANGUAGE != 'pt'">
+		<a>
+			<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of 
+				select="SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_home&amp;lng=pt&amp;nrm=iso</xsl:attribute>
+			<font class="linkado" size="-1"><xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='portuguese']"/></font>
+		</a><br/>
+        </xsl:if>
+        <xsl:if test="//CONTROLINFO/LANGUAGE != 'en'">
+		<a>
+			<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of
+				select="SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_home&amp;lng=en&amp;nrm=iso</xsl:attribute>
+			<font class="linkado" size="-1"><xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='english']"/></font>
+		</a><br/>
+        </xsl:if>
+        <xsl:if test="//CONTROLINFO/LANGUAGE != 'es'">
+		<a>
+			<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of 
+				select="SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_home&amp;lng=es&amp;nrm=iso</xsl:attribute>
+
+			<font class="linkado" size="-1"><xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='spanish']"/></font>
+		</a><br/>
+        </xsl:if>
+        <br/>
+    </xsl:template>
 	<!--
 		formacao do link de página secundária
 	-->	
@@ -173,13 +157,13 @@
 			<xsl:variable name="graphMago" select="document('../../bases/scimago/scimago.xml')/SCIMAGOLIST/title[@ISSN = $ISSN]/@SCIMAGO_ID"/>
 		<xsl:if test="$show_scimago!=0 and normalize-space($scimago_status) = normalize-space('online')" >				
 			<xsl:if test="$graphMago">
-			<div>Indicadores SCImago</div>
+			<div><xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='indicators_scimago']"/></div>
 			<a>
 			<xsl:attribute name="href">http://www.scimagojr.com/journalsearch.php?q=<xsl:value-of select="$ISSN"/>&amp;tip=iss&amp;exact=yes></xsl:attribute>
 				<xsl:attribute name="target">_blank</xsl:attribute>
 				<img>
 					<xsl:attribute name="src">http://www.scimagojr.com/journal_img.php?id=<xsl:value-of select="$graphMago"/>&amp;title=false</xsl:attribute>
-					<xsl:attribute name="alt">SCImago Journal &amp; Country Rank</xsl:attribute>
+					<xsl:attribute name="alt"><xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='scimago_journal_country_rank']"/></xsl:attribute>
 					<xsl:attribute name="border">0</xsl:attribute>
 				</img>
 			</a>
@@ -201,66 +185,27 @@
 		textos traduzidos
 	-->				
 	<xsl:template match="CONTROLINFO" mode="text-mission">
-		<xsl:choose>
-			<xsl:when test="LANGUAGE='en'">Mission</xsl:when>
-			<xsl:when test="LANGUAGE='es'">Misión</xsl:when>
-			<xsl:when test="LANGUAGE='pt'">Missão</xsl:when>
-		</xsl:choose>
+        <xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='mission']"/>
 	</xsl:template>
 	<xsl:template match="CONTROLINFO" mode="text-publication-of">
-		<xsl:choose>
-			<xsl:when test="LANGUAGE='en'">Publication of</xsl:when>
-			<xsl:when test="LANGUAGE='es'">Publicación de</xsl:when>
-			<xsl:when test="LANGUAGE='pt'">Publicação de</xsl:when>
-		</xsl:choose>
+        <xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='publication_of']"/>
 	</xsl:template>
 	<xsl:template match="CONTROLINFO" mode="update-date">
-		<xsl:choose>
-			<xsl:when test="LANGUAGE='en'">Update on</xsl:when>
-			<xsl:when test="LANGUAGE='es'">Actualizado em</xsl:when>
-			<xsl:when test="LANGUAGE='pt'">Atualizado em</xsl:when>
-		</xsl:choose>
+        <xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='updated_on']"/>
 	</xsl:template>
-	<xsl:template match="CONTROLINFO[LANGUAGE='en']" mode="link-text">
+	<xsl:template match="CONTROLINFO" mode="link-text">
 		<xsl:param name="type"/>
 		<span>
 			<xsl:choose>
-				<xsl:when test="$type='aboutj'">about the journal</xsl:when>
-				<xsl:when test="$type='edboard'">editorial board</xsl:when>
-				<xsl:when test="$type='instruc'">instructions to authors</xsl:when>
-				<xsl:when test="$type='subscri'">subscription</xsl:when>
-				<xsl:when test="$type='statistic'">statistics</xsl:when>
-				<xsl:when test="$type='subm'">online submission</xsl:when>
+				<xsl:when test="$type='aboutj'"><xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='about_the_journal']"/></xsl:when>
+				<xsl:when test="$type='edboard'"><xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='editorial_board']"/></xsl:when>
+				<xsl:when test="$type='instruc'"><xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='instructions_to_authors']"/></xsl:when>
+				<xsl:when test="$type='subscri'"><xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='subscription']"/></xsl:when>
+				<xsl:when test="$type='statistic'"><xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='statistics']"/></xsl:when>
+				<xsl:when test="$type='subm'"><xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='online_submission']"/></xsl:when>
 			</xsl:choose>
 		</span>
 	</xsl:template>
-	<xsl:template match="CONTROLINFO[LANGUAGE='es']" mode="link-text">
-		<xsl:param name="type"/>
-		<span>
-			<xsl:choose>
-				<xsl:when test="$type='aboutj'">sobre nosotros</xsl:when>
-				<xsl:when test="$type='edboard'">cuerpo editorial</xsl:when>
-				<xsl:when test="$type='instruc'">instrucciones a los autores</xsl:when>
-				<xsl:when test="$type='subscri'">subscripción</xsl:when>
-				<xsl:when test="$type='statistic'">estadísticas</xsl:when>
-				<xsl:when test="$type='subm'">sumisión en línea</xsl:when>
-			</xsl:choose>
-		</span>
-	</xsl:template>
-	<xsl:template match="CONTROLINFO[LANGUAGE='pt']" mode="link-text">
-		<xsl:param name="type"/>
-		<span>
-			<xsl:choose>
-				<xsl:when test="$type='aboutj'">sobre nós</xsl:when>
-				<xsl:when test="$type='edboard'">corpo editorial</xsl:when>
-				<xsl:when test="$type='instruc'">instruções aos autores</xsl:when>
-				<xsl:when test="$type='subscri'">assinaturas</xsl:when>
-				<xsl:when test="$type='statistic'">estatísticas</xsl:when>
-				<xsl:when test="$type='subm'">submissão online</xsl:when>
-			</xsl:choose>
-		</span>
-	</xsl:template>
-	
 	<!-- 
 	CONTROLINFO
 	-->

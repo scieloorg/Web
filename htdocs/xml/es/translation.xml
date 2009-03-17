@@ -1,5 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <translations>
+	<xslid id="sci_serial">
+		<text find="home_page">Home Page</text>
+        <text find="portuguese">português</text>
+        <text find="spanish">español</text>
+        <text find="english">english</text>
+        <text find="indicators_scimago">SCImago Indicators</text>
+        <text find="scimago_journal_country_rank">SCImago Journal and Country Rank</text>
+        <text find="mission">Misión</text>
+        <text find="publication_of">Publicación de</text>
+        <text find="updated_on">Actualizado en</text>
+        <text find="about_the_journal">sobre nosotros</text>
+        <text find="editorial_board">cuerpo editorial</text>
+        <text find="instructions_to_authors">instrucciones a los autores</text>
+        <text find="subscription">subscripción</text>
+        <text find="statistics">estadísticas</text>
+        <text find="online_submission">sumisión en línea</text>
+        <text find=""></text>
+        <text find=""></text>
+        <text find=""></text>
+        <text find=""></text>
+        <text find=""></text>
+        <text find=""></text>
+        <text find=""></text>
+        <text find=""></text>
+        <text find=""></text>
+        <text find=""></text>
+        <text find=""></text>
+    </xslid>
 	<xslid id="sci_alphabetic">
 		<text find="alphabetic_list">Lista alfabética</text>
         <text find="library_collection">Colección de la biblioteca</text>
