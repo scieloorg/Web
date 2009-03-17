@@ -21,6 +21,9 @@
     <xslid id="cited">
         <text find="doesnt_cited">este artigo não possui citações</text>
     </xslid>
+    <xslid id="related">
+        <text find="doesnt_related">não existe artigo similar a este</text>
+    </xslid>
     <xslid id="sci_arttext_pr">
         <text find="press_release">PRESS RELEASE</text>
     </xslid>
