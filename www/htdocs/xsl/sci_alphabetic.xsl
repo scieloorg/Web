@@ -10,17 +10,7 @@
 		<html>
 			<head>
 				<title>
-					<xsl:choose>
-						<xsl:when test="//SERIALLIST/CONTROLINFO[normalize-space(LANGUAGE)='en']">
-					Alphabetic list
-				</xsl:when>
-						<xsl:when test="//SERIALLIST/CONTROLINFO[normalize-space(LANGUAGE)='pt']">
-					Lista alfabética
-				</xsl:when>
-						<xsl:when test="//SERIALLIST/CONTROLINFO[normalize-space(LANGUAGE)='es']">
-					Lista alfabética
-				</xsl:when>
-					</xsl:choose>
+                    <xsl:value-of select="$translations/xslid[@id='sci_home']/text[@find='alphabetic_list']"/>
 				</title>
 				<meta http-equiv="Pragma" content="no-cache"/>
 				<meta http-equiv="Expires" content="Mon, 06 Jan 1990 00:00:01 GMT"/>
@@ -37,17 +27,7 @@
 						<td width="26%">&#160;</td>
 						<td width="74%">
 							<font class="nomodel" size="+1" color="#000080">
-								<xsl:choose>
-									<xsl:when test="//SERIALLIST/CONTROLINFO[normalize-space(LANGUAGE)='en']">
-				Library Collection
-			</xsl:when>
-									<xsl:when test="//SERIALLIST/CONTROLINFO[normalize-space(LANGUAGE)='pt']">
-				Coleção da biblioteca
-			</xsl:when>
-									<xsl:when test="//SERIALLIST/CONTROLINFO[normalize-space(LANGUAGE)='es']">
-				Colección de la biblioteca
-			</xsl:when>
-								</xsl:choose>
+                                <xsl:value-of select="$translations/xslid[@id='sci_alphabetic']/text[@find='library_collection']"/>
 							</font>
 						</td>
 					</tr>
@@ -67,17 +47,8 @@
 				<td width="82%">
 					<p align="LEFT">
 						<font class="nomodel" color="#800000">
-							<xsl:choose>
-								<xsl:when test="//SERIALLIST/CONTROLINFO[normalize-space(LANGUAGE)='en']">
-				Alphabetic list - <xsl:value-of select="count(SERIAL)"/> serials listed
-			</xsl:when>
-								<xsl:when test="//SERIALLIST/CONTROLINFO[normalize-space(LANGUAGE)='pt']">
-				Lista alfabética - <xsl:value-of select="count(SERIAL)"/> periódicos listados				</xsl:when>
-								<xsl:when test="//SERIALLIST/CONTROLINFO[normalize-space(LANGUAGE)='es']">
-				Lista alfabética - <xsl:value-of select="count(SERIAL)"/> seriadas listadas
-			</xsl:when>
-							</xsl:choose>
-						</font>
+                            <xsl:value-of select="$translations/xslid[@id='sci_alphabetic']/text[@find='alphabetic_list']"/> - <xsl:value-of select="count(SERIAL)"/>&#160;<xsl:value-of select="$translations/xslid[@id='sci_alphabetic']/text[@find='serials_listed']"/>
+                        </font>
 					</p>
 					<xsl:apply-templates select="." mode="display-list"/>
 					<font class="divisoria">&#160;<br/>
@@ -128,17 +99,7 @@
 				</a>
 				<xsl:if test="not(//NO_SCI_SERIAL='yes')">
 			- <xsl:value-of select="@QTYISS"/>
-					<xsl:choose>
-						<xsl:when test="//SERIALLIST/CONTROLINFO[normalize-space(LANGUAGE)='en']">
-					 issue<xsl:if test="@QTYISS > 1">s</xsl:if>
-						</xsl:when>
-						<xsl:when test="//SERIALLIST/CONTROLINFO[normalize-space(LANGUAGE)='pt']"> 
-					número<xsl:if test="@QTYISS > 1">s</xsl:if>
-						</xsl:when>
-						<xsl:when test="//SERIALLIST/CONTROLINFO[normalize-space(LANGUAGE)='es']"> 
-					número<xsl:if test="@QTYISS > 1">s</xsl:if>
-						</xsl:when>
-					</xsl:choose>
+                    &#160;<xsl:value-of select="$translations/xslid[@id='sci_alphabetic']/text[@find='issue']"/> <xsl:if test="@QTYISS > 1">s</xsl:if>
 				</xsl:if>
 				<xsl:choose>
 					<xsl:when test=".//current-status/@status=''">
