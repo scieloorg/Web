@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <translations>
-	<xslid id="sci_alphabetic">
+	<xslid id="sci_serial">
+		<text find="home_page">Home Page</text>
+        <text find="portuguese">português</text>
+        <text find="spanish">español</text>
+        <text find="english">english</text>
+        <text find="indicators_scimago">SCImago Indicators</text>
+        <text find="scimago_journal_country_rank">SCImago Journal and Country Rank</text>
+        <text find="mission">Mission</text>
+        <text find="publication_of">Publication of</text>
+        <text find="updated_on">Updated on</text>
+        <text find="about_the_journal">about the journal</text>
+        <text find="editorial_board">editorial board</text>
+        <text find="instructions_to_authors">instructions to authors</text>
+        <text find="subscription">subscription</text>
+        <text find="statistics">statistics</text>
+        <text find="online_submission">online submission</text>
+        <text find=""></text>
+        <text find=""></text>
+        <text find=""></text>
+        <text find=""></text>
+        <text find=""></text>
+    </xslid>
+    <xslid id="sci_alphabetic">
 		<text find="alphabetic_list">Alphabetic list</text>
         <text find="library_collection">Library Collection</text>
         <text find="serials_listed">serials listed</text>
@@ -8,8 +30,8 @@
     </xslid>
 	<xslid id="sci_home">
 		<text find="journal_evaluation">services</text>
-        <text find="portuguese">portuguese</text>
-        <text find="spanish">spanish</text>
+        <text find="portuguese">português</text>
+        <text find="spanish">español</text>
         <text find="english">english</text>
         <text find="help">help</text>
         <text find="about_this_site">about this site</text>
