@@ -53,11 +53,7 @@
 						<xsl:choose>
 							<xsl:when test="//NO_SCI_SERIAL='yes'">
 								<h2 id="printISSN">
-									<xsl:choose>
-										<xsl:when test="//CONTROLINFO/LANGUAGE='pt'">versão original publicada em</xsl:when>
-										<xsl:when test="//CONTROLINFO/LANGUAGE='en'">original version published in</xsl:when>
-										<xsl:when test="//CONTROLINFO/LANGUAGE='es'">versión original publicada en</xsl:when>
-									</xsl:choose>
+                                    <xsl:value-of select="$translations/xslid[@id='sci_arttext']/text[@find='original_version_published_in']"/>
 								</h2>
 							</xsl:when>
 							<xsl:otherwise>
