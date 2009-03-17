@@ -5,7 +5,7 @@
 	<xsl:variable name="lang" select="/root/vars/lang"/>
 	<xsl:variable name="applserver" select="/root/vars/applserver"/>
 	<xsl:variable name="processCode" select="/root/vars/processCode"/>
-	<xsl:variable name="texts" select="document('../applications/scielo-org/xml/texts.xml')/texts/language[@id = $lang]"/>
+    <xsl:variable name="translations" select="document(concat('../xml/',$lang,'/translation.xml'))/translations"/>
 
 
 
@@ -14,10 +14,10 @@
 			<xsl:when test="count(root/areasgeo/areasgeo/arealist) &gt; 0">
 				<table cellpadding="0" cellspacing="0" width="500px">
 					<tr>
-						<th width="15%">País</th>
-						<th width="15%">Região</th>
-						<th width="35%">Estado</th>
-						<th width="35%">Município</th>
+						<th width="15%"><xsl:value-of select="$translations/xslid[@id='datasus']/text[@find = 'country']"/></th>
+						<th width="15%"><xsl:value-of select="$translations/xslid[@id='datasus']/text[@find = 'region']"/></th>
+						<th width="35%"><xsl:value-of select="$translations/xslid[@id='datasus']/text[@find = 'state']"/></th>
+						<th width="35%"><xsl:value-of select="$translations/xslid[@id='datasus']/text[@find = 'city']"/></th>
 					</tr>
 					<tr>
 						<xsl:apply-templates select="root/areasgeo/areasgeo[position() = 1]/arealist/country"/>
@@ -25,7 +25,7 @@
 				</table>
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:value-of select="$texts/text[find='dataFound']/replace"/>
+                <xsl:value-of select="$translations/xslid[@id='datasus']/text[@find = 'notfound']"/>
 			</xsl:otherwise>
 		</xsl:choose>
 
