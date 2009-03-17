@@ -53,7 +53,7 @@
 						<div class="middle">
 							<div id="collection">
 								<h3>
-									<span>PRESS RELEASE</span>
+									<span><xsl:value-of select="$translations/xslid[@id='sci_arttext_pr']/text[@find='press_release']"/></span>
 								</h3>
 								<div class="content">
 									<TABLE border="0" cellpadding="0" cellspacing="2" width="760" align="center">
