@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <translations>
+	<xslid id="sci_alphabetic">
+		<text find="alphabetic_list">Lista alfabética</text>
+        <text find="library_collection">Colección de la biblioteca</text>
+        <text find="serials_listed">seriadas listadas</text>
+        <text find="issue">número</text>
+    </xslid>
 	<xslid id="sci_home">
 		<text find="journal_evaluation">servicios</text>
         <text find="portuguese">português</text>
@@ -30,38 +36,37 @@
         <text find="logout">Salir</text>
     </xslid>
 	<xslid id="sci_toolbox">
-		<text find="services">serviços</text>
-		<text find="article">artículo</text>
-        <text find="add_to_my_collection">adicionar a minha coleção</text>
-        <text find="alert_me_when_cited">alerte-me quando for citado</text>
-        <text find="send_me_access_statistics">envie-me estatísticas de acessos</text>
-        <text find="custom_services">serviços customizados</text>
-        <text find="comments">comentários</text>
-        <text find="article_in_pdf_format">Artigo em PDF</text>
-        <text find="article_in_xml_format">Artigo em XML</text>
-        <text find="article_references">Referências do Artigo</text>
-        <text find="health_indicators">Indicadores de Saúde</text>
-        <text find="fapesp_projects">Projetos FAPESP</text>
+		<text find="services">Servicios</text>
+		<text find="article">Articulo</text>
+        <text find="add_to_my_collection">Añadir a minha coleção</text>
+        <text find="alert_me_when_cited">Me alerte cuando citado</text>
+        <text find="send_me_access_statistics">Me envie estadísticas de accesos</text>
+        <text find="custom_services">Servicios customizados</text>
+        <text find="comments">Comentários</text>
+        <text find="article_in_pdf_format">Articulo en PDF</text>
+        <text find="article_in_xml_format">Articulo en XML</text>
+        <text find="article_references">Referencias del Artigo</text>
+        <text find="health_indicators">Indicadores de Salud</text>
+        <text find="fapesp_projects">Proyectos FAPESP</text>
         <text find="automatic_translation">Tradução Automática</text>
         <text find="show_semantic_highlights">Mostrar Destaques Sem#266;nticos</text>
         <text find="hide_semantic_highlights">Fechar Destaques Sem#266;nticos</text>
-        <text find="access">Acessos</text>
-        <text find="article">Artigo</text>
-        <text find="have_no_cited_article">Não possue artigos citados</text>
+        <text find="access">Acesos</text>
+        <text find="have_no_cited_article">No hay articulos citados</text>
         <text find="cited_by">Citado por</text>
-        <text find="indexed_by_google">Indexado pelo Google</text>
-        <text find="on_index_process">Em processo de indexação</text>
-        <text find="similars_in">Similares em</text>
-        <text find="have_no_similar_article">Não possue artigos similares</text>
-        <text find="send_this_article_by_email">Enviar este artigo por email</text>
-        <text find="login">login</text>
-		<text find="forget_password">me olbide de la contraseña</text>
-		<text find="related_links">links relacionados</text>
-		<text find="indicators">indicadores</text>
+        <text find="indexed_by_google">Indizado por Google</text>
+        <text find="on_index_process">En proceso de indezación</text>
+        <text find="similars_in">Similares en</text>
+        <text find="have_no_similar_article">No hay articulos similares</text>
+        <text find="send_this_article_by_email">Enviar articulo por email</text>
+        <text find="login">Login</text>
+		<text find="forget_password">Me olbide de la contraseña</text>
+		<text find="related_links">Links relacionados</text>
+		<text find="indicators">Indicadores</text>
 		<text find="personal_services">Servicios Personalizados</text>
 		<text find="my_scielo">Mi SciELO</text>
         <text find="art">Lea el artículo</text>
-        <text find="pr">press release</text>
+        <text find="pr">Press release</text>
         <text find="issue">Vea el número</text>
     </xslid>
     <xslid id="sci_issuetoc">
