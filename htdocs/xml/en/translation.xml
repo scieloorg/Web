@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <translations>
+    <xslid id="article_output">
+        <text find="similarity">Similarity:</text>
+        <text find="full_text">full text</text>
+        <text find=""></text>
+        <text find=""></text>
+    </xslid>
+    <xslid id="cited">
+        <text find="doesnt_cited">this article have no citations</text>
+    </xslid>
     <xslid id="sci_arttext_pr">
         <text find="press_release">PRESS RELEASE</text>
-        <text find=""></text>
-        <text find=""></text>
-        <text find=""></text>
-        <text find=""></text>
     </xslid>
     <xslid id="sci_arttext">
         <text find="original_version_published_in">original version published in</text>
