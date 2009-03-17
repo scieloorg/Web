@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <translations>
+    <xslid id="sci_arttext_pr">
+        <text find="press_release">PRESS RELEASE</text>
+        <text find=""></text>
+        <text find=""></text>
+        <text find=""></text>
+        <text find=""></text>
+    </xslid>
     <xslid id="sci_arttext">
         <text find="original_version_published_in">versión original publicada en</text>
-        <text find="keywords">Keywords</text>
-        <text find=""></text>
-        <text find=""></text>
-        <text find=""></text>
-        <text find=""></text>
     </xslid>
     <xslid id="sci_abstract">
         <text find="abstract">Resumen</text>
