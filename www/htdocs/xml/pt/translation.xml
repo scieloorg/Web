@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <translations>
+    <xslid id="datasus">
+        <text find="country">país</text>
+        <text find="region">região</text>
+        <text find="state">estado</text>
+        <text find="city">cidade</text>
+        <text find="not_found">não existem indicadores de saúde para este artigo</text>
+    </xslid>
     <xslid id="comments">
         <text find="doesnt_comment">Este artigo ainda não foi comentado</text>
-        <text find=""></text>
-        <text find=""></text>
     </xslid>
     <xslid id="article_output">
         <text find="similarity">Similaridade:</text>
