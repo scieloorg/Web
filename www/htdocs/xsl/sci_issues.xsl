@@ -22,7 +22,7 @@
 		<HTML>
 			<HEAD>
 				<TITLE>
-					<xsl:value-of select="//TITLEGROUP/SHORTTITLE " disable-output-escaping="yes"/> - Available issues</TITLE>
+					<xsl:value-of select="//TITLEGROUP/SHORTTITLE " disable-output-escaping="yes"/> - <xsl:value-of select="$translations/xslid[@id='sci_issues']/text[@find='available_issues']"/></TITLE>
 				<LINK href="/css/scielo.css" type="text/css" rel="STYLESHEET"/>
 				<META http-equiv="Pragma" content="no-cache"/>
 				<META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT"/>
@@ -82,11 +82,7 @@
 					<TD width="95%">
 						<P align="left">
 							<FONT class="nomodel" color="#800000">
-								<xsl:choose>
-									<xsl:when test="//CONTROLINFO[LANGUAGE='en']">Available issues</xsl:when>
-									<xsl:when test="//CONTROLINFO[LANGUAGE='es']">Números disponibles</xsl:when>
-									<xsl:when test="//CONTROLINFO[LANGUAGE='pt']">Números disponíveis</xsl:when>
-								</xsl:choose>
+                                <xsl:value-of select="$translations/xslid[@id='sci_issues']/text[@find='available_issues']"/>
 							</FONT>
 						</P>
 						<TABLE borderColor="#c0c0c0" cellSpacing="3" cellPadding="3" width="100%" border="0">
@@ -96,11 +92,7 @@
 										<P align="center">
 											<FONT color="#000080">
 												<B>
-													<xsl:choose>
-														<xsl:when test="//CONTROLINFO[LANGUAGE='en']">Year</xsl:when>
-														<xsl:when test="//CONTROLINFO[LANGUAGE='es']">Año</xsl:when>
-														<xsl:when test="//CONTROLINFO[LANGUAGE='pt']">Ano</xsl:when>
-													</xsl:choose>
+                                                    <xsl:value-of select="$translations/xslid[@id='sci_issues']/text[@find='year']"/>
 												</B>
 											</FONT>
 										</P>
@@ -112,7 +104,7 @@
 									<xsl:if test="$test_vol != ''">
 										<TD align="middle" width="{$spaceVol}" bgColor="#e1e6e6" height="35">
 											<FONT class="normal" color="#000080">
-												<B>Vol.</B>
+												<B><xsl:value-of select="$translations/xslid[@id='sci_issues']/text[@find='vol.']"/></B>
 											</FONT>
 										</TD>
 									</xsl:if>
@@ -121,10 +113,7 @@
            &#160;&#160;
           <FONT class="normal" color="000080">
 												<B>
-													<xsl:choose>
-														<xsl:when test="//CONTROLINFO[LANGUAGE='en']">Issue</xsl:when>
-														<xsl:otherwise>Número</xsl:otherwise>
-													</xsl:choose>
+                                                 <xsl:value-of select="$translations/xslid[@id='sci_issues']/text[@find='number']"/>
 												</B>
 											</FONT>
 										</TD>
@@ -227,19 +216,13 @@
 							<xsl:with-param name="lang" select="//CONTROLINFO/LANGUAGE"/>
 						</xsl:call-template>
 						<xsl:if test="@NUM='beforeprint'">
-							<xsl:choose>
-								<xsl:when test="//CONTROLINFO/LANGUAGE='es'">no impresos</xsl:when>
-								<xsl:when test="//CONTROLINFO/LANGUAGE='pt'">não impressos</xsl:when>
-								<xsl:otherwise>not printed</xsl:otherwise>
-							</xsl:choose>
+                            <xsl:value-of select="$translations/xslid[@id='sci_issues']/text[@find='not_printed']"/>
 						</xsl:if>
-						<xsl:if test="@NUM='AHEAD'">ahead of print</xsl:if>
+						<xsl:if test="@NUM='AHEAD'">
+                            <xsl:value-of select="$translations/xslid[@id='sci_issues']/text[@find='ahead_of_print']"/>
+                        </xsl:if>
 						<xsl:if test="@NUM='REVIEW'">
-							<xsl:choose>
-								<xsl:when test="//CONTROLINFO/LANGUAGE='es'">en revisión</xsl:when>
-								<xsl:when test="//CONTROLINFO/LANGUAGE='pt'">em revisão</xsl:when>
-								<xsl:otherwise>review in progress</xsl:otherwise>
-							</xsl:choose>
+                            <xsl:value-of select="$translations/xslid[@id='sci_issues']/text[@find='review_in_progress']"/>
 						</xsl:if>
 					</A>
 				</FONT>
