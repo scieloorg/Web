@@ -85,7 +85,7 @@ class Scielo extends ScieloBase
 		 * Validando o site do scimago
 		 */
 		
-		if( $_REQUEST['script']=='sci_serial'){
+		if(($_REQUEST['script']=='sci_serial') and ($this->_def->getKeyValue("show_scimago") == 1)){
 			$issn = $_REQUEST['pid'];
 			$issn = str_replace("-","",$issn);
 
@@ -167,7 +167,7 @@ class Scielo extends ScieloBase
 				"logoutURL" => "logout_url",
 				//Exibe ou nï¿½o a opï¿½ï¿½o de Login
 				"show_login" => "show_login",				
-				//Exibe a servico de tradução windows live translations
+				//Exibe a servico de traduï¿½ï¿½o windows live translations
 				"show_article_wltranslation" => "show_article_wltranslation",				
 				//Exibe ou nï¿½o a opï¿½ï¿½o de Envio de Artigo por email
 				"show_send_by_email" => "show_send_by_email",
