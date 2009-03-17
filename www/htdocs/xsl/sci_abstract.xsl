@@ -146,22 +146,13 @@
 		<xsl:value-of select="."/>
 	</xsl:template>
 	<xsl:template name="ABSTR-TR">
-		<xsl:param name="LANG"/>
-		<xsl:choose>
-			<xsl:when test=" $LANG = 'en' ">Abstract</xsl:when>
-			<xsl:when test=" $LANG = 'pt' ">Resumo</xsl:when>
-			<xsl:when test=" $LANG = 'es' ">Resumen</xsl:when>
-		</xsl:choose>
+        <xsl:value-of select="$translations/xslid[@id='sci_abstract']/text[@find='abstract']"/>
 	</xsl:template>
 	<xsl:template match="KEYWORDS">
 		<xsl:param name="LANG"/>
 		<p>
 			<strong>
-				<xsl:choose>
-					<xsl:when test="$LANG='en'">Keywords</xsl:when>
-					<xsl:when test="$LANG='pt'">Palavras-chave</xsl:when>
-					<xsl:when test="$LANG='es'">Palabras llave</xsl:when>
-				</xsl:choose>
+                <xsl:value-of select="$translations/xslid[@id='sci_abstract']/text[@find='keywords']"/>
 		:
 		</strong>
 			<xsl:apply-templates select="KEYWORD"/>.
