@@ -7,13 +7,12 @@
 	<html>
 		<head>
 			<title>
-				<xsl:value-of select="TITLEGROUP/TITLE" disable-output-escaping="yes"/> - <xsl:value-of select="normalize-space(ISSUE/ARTICLE/TITLE)" disable-output-escaping="yes" />				</title>
+				<xsl:value-of select="TITLEGROUP/TITLE" disable-output-escaping="yes"/> - <xsl:value-of select="normalize-space(ISSUE/ARTICLE/TITLE)" disable-output-escaping="yes" /></title>
 			<meta http-equiv="Pragma" content="no-cache" />
 			<meta http-equiv="Expires" content="Mon, 06 Jan 1990 00:00:01 GMT" />
 			<link rel="STYLESHEET" TYPE="text/css" href="/css/scielo2.css" />
 			<script language="javascript" src="article.js"></script>
 		</head>		
-		<!--body bgcolor="#FFFFFF" link="#000080" vlink="#800080" onload="OpenWindow();" onunload="CloseWindow();"-->
 		<body bgcolor="#FFFFFF" link="#000080" vlink="#800080" onunload="CloseLattesWindow();">
 
 			<xsl:call-template name="NAVBAR">
@@ -39,8 +38,7 @@
 				</font>
 				</span>
 			</center><br/>
-		
-				
+						
 			<table border="0" width="100%">
 			<tr>
 			<td width="3%">&#160;</td>
@@ -63,13 +61,9 @@
 									<xsl:with-param name="script">sci_pdf</xsl:with-param>				 									<xsl:with-param name="txtlang"><xsl:value-of select="ISSUE/ARTICLE/@TRANSLATION"/></xsl:with-param>
 		
 								</xsl:call-template>
-<font class="nomodel" size="2" style="text-decoration: none;">
-								<xsl:choose>
-									<xsl:when test=" CONTROLINFO/LANGUAGE='en' ">download article in PDF format</xsl:when>
-									<xsl:when test=" CONTROLINFO/LANGUAGE='pt' ">carregue o artigo em formato PDF</xsl:when>
-									<xsl:when test=" CONTROLINFO/LANGUAGE='es' ">download el artículo en el formato PDF</xsl:when>
-								</xsl:choose>
-</font>
+                                <font class="nomodel" size="2" style="text-decoration: none;">
+                                    <xsl:value-of select="$translations/xslid[@id='sci_arttext-text']/text[@find = 'download_article_in_pdf_format']"/>
+                                </font>
 							</a>							
 						</xsl:if>
 					</p>
@@ -107,74 +101,5 @@
 	</xsl:call-template>
    </font>
 </xsl:template>
-
-<!--xsl:template match="LATTES">
-	<xsl:choose>
-		<xsl:when test=" count(AUTHOR) = 1 ">
-			<a>
-				<xsl:attribute name="href"><xsl:value-of select="AUTHOR/@HREF" /></xsl:attribute>
-				<xsl:attribute name="onmouseover">status = '<xsl:value-of select="AUTHOR/@HREF" />'; return true;</xsl:attribute>
-				<xsl:attribute name="onmouseout">status = '';</xsl:attribute>
-			<img>
-				<xsl:attribute name="border">0</xsl:attribute>
-				<xsl:attribute name="src"><xsl:value-of 
-					select="//CONTROLINFO/SCIELO_INFO/PATH_GENIMG"/><xsl:value-of 
-					select="//CONTROLINFO/LANGUAGE"/>/lattescv.gif</xsl:attribute>
-			</img><br/>
-			<xsl:value-of select="normalize-space(AUTHOR)" />
-			</a>
-		</xsl:when>
-		
-		<xsl:when test=" count(AUTHOR) > 1 ">
-			
-			<xsl:call-template name="JavascriptText" />
-			
-			<a>
-				<xsl:attribute name="href">javascript:void(0);</xsl:attribute>
-				<xsl:attribute name="onclick">OpenWindow();</xsl:attribute>
-				<xsl:attribute name="onmouseover">status='<xsl:call-template name="PrintListLabel" />'; return true;</xsl:attribute>
-				<xsl:attribute name="onmouseout">status='';</xsl:attribute>
-			<img>
-				<xsl:attribute name="border">0</xsl:attribute>
-				<xsl:attribute name="src"><xsl:value-of 
-					select="//CONTROLINFO/SCIELO_INFO/PATH_GENIMG"/><xsl:value-of 
-					select="//CONTROLINFO/LANGUAGE"/>/lattescv.gif</xsl:attribute>
-			</img><br/>
-			<xsl:call-template name="PrintListLabel" />
-			</a>
-		</xsl:when>
-		
-		<xsl:otherwise>&#160;</xsl:otherwise>
-	</xsl:choose>
-</xsl:template>
-
-<xsl:template name="JavascriptText">
-	<script language="javascript">
-	<xsl:comment>
-		CreateWindowHeader ( "<xsl:call-template name="PrintListLabel" />",
-                                                    "<xsl:value-of 
-                                                           select="//CONTROLINFO/SCIELO_INFO/PATH_GENIMG"/><xsl:value-of 
-                                                           select="//CONTROLINFO/LANGUAGE"/>/lattescv.gif",
-                                                    "<xsl:value-of select=" //CONTROLINFO/LANGUAGE" />"
-                                                  );
-			
-			<xsl:apply-templates select="AUTHOR" />
-
-    		CreateWindowFooter();
-	// </xsl:comment>
-	</script>
-</xsl:template>
-
-<xsl:template match="AUTHOR">
-	InsertAuthor("<xsl:value-of select="." />", "<xsl:value-of select="@HREF" />");
-</xsl:template>
-
-<xsl:template name="PrintListLabel">
-	<xsl:choose>
-		<xsl:when test=" //CONTROLINFO/LANGUAGE = 'en' ">Authors List</xsl:when>
-		<xsl:when test=" //CONTROLINFO/LANGUAGE = 'pt' ">Lista de Autores</xsl:when>
-		<xsl:when test=" //CONTROLINFO/LANGUAGE = 'es' ">Lista de Autores</xsl:when>
-	</xsl:choose>
-</xsl:template-->
 
 </xsl:stylesheet>
