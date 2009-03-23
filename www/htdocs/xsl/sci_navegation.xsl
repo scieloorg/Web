@@ -82,11 +82,7 @@
 													<xsl:call-template name="ShowNavBarButton">
 														<xsl:with-param name="file">all.gif</xsl:with-param>
 														<xsl:with-param name="alttext">
-															<xsl:choose>
-																<xsl:when test="//CONTROLINFO/LANGUAGE='en'">articles</xsl:when>
-																<xsl:when test="//CONTROLINFO/LANGUAGE='es'">artículos</xsl:when>
-																<xsl:when test="//CONTROLINFO/LANGUAGE='pt'">artigos</xsl:when>
-															</xsl:choose>
+                                                            <xsl:value-of select="$translations/xslid[@id='sci_navegation']/text[@find = 'articles']"/>
 														</xsl:with-param>
 														<xsl:with-param name="pid" select="//ISSN"/>
 														<xsl:with-param name="script">sci_artlist</xsl:with-param>
@@ -239,11 +235,7 @@
 				<xsl:call-template name="ShowNavBarButton">
 					<xsl:with-param name="file">all.gif</xsl:with-param>
 					<xsl:with-param name="alttext">
-						<xsl:choose>
-							<xsl:when test="//CONTROLINFO/LANGUAGE='en'">available issues</xsl:when>
-							<xsl:when test="//CONTROLINFO/LANGUAGE='es'">números disponibles</xsl:when>
-							<xsl:when test="//CONTROLINFO/LANGUAGE='pt'">números disponíveis</xsl:when>
-						</xsl:choose>
+                        <xsl:value-of select="$translations/xslid[@id='sci_navegation']/text[@find = 'available_issues']"/>
 					</xsl:with-param>
 					<xsl:with-param name="pid" select="//ISSN"/>
 					<xsl:with-param name="script">
@@ -369,7 +361,7 @@
 					<IMG>
 						<xsl:attribute name="src"><xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_GENIMG"/><xsl:apply-templates select="." mode="logoImg"/></xsl:attribute>
 						<xsl:attribute name="border">0</xsl:attribute>
-						<xsl:attribute name="alt">Scientific Electronic Library Online</xsl:attribute>
+						<xsl:attribute name="alt"><xsl:value-of select="$translations/xslid[@id='sci_navegation']/text[@find = 'scientific_electronic_library_online']"/></xsl:attribute>
 					</IMG>
 				</A>
 				<BR/>
@@ -457,11 +449,7 @@
 		<xsl:call-template name="ShowNavBarButtonIAH">
 			<xsl:with-param name="file">author.gif</xsl:with-param>
 			<xsl:with-param name="alttext">
-				<xsl:choose>
-					<xsl:when test="//CONTROLINFO/LANGUAGE='en'">author index</xsl:when>
-					<xsl:when test="//CONTROLINFO/LANGUAGE='es'">índice de autores</xsl:when>
-					<xsl:when test="//CONTROLINFO/LANGUAGE='pt'">índice de autores</xsl:when>
-				</xsl:choose>
+                <xsl:value-of select="$translations/xslid[@id='sci_navegation']/text[@find = 'author_index']"/>
 			</xsl:with-param>
 			<xsl:with-param name="index">AU</xsl:with-param>
 			<xsl:with-param name="scope" select="$scope"/>
@@ -473,11 +461,7 @@
 		<xsl:call-template name="ShowNavBarButtonIAH">
 			<xsl:with-param name="file">subject.gif</xsl:with-param>
 			<xsl:with-param name="alttext">
-				<xsl:choose>
-					<xsl:when test="//CONTROLINFO/LANGUAGE='en'">subject index</xsl:when>
-					<xsl:when test="//CONTROLINFO/LANGUAGE='es'">índice de materia</xsl:when>
-					<xsl:when test="//CONTROLINFO/LANGUAGE='pt'">índice de assuntos</xsl:when>
-				</xsl:choose>
+                <xsl:value-of select="$translations/xslid[@id='sci_navegation']/text[@find = 'subject_index']"/>
 			</xsl:with-param>
 			<xsl:with-param name="index">KW</xsl:with-param>
 			<xsl:with-param name="scope">
@@ -491,11 +475,7 @@
 		<xsl:call-template name="ShowNavBarButtonIAH">
 			<xsl:with-param name="file">search.gif</xsl:with-param>
 			<xsl:with-param name="alttext">
-				<xsl:choose>
-					<xsl:when test="//CONTROLINFO/LANGUAGE='en'">search form</xsl:when>
-					<xsl:when test="//CONTROLINFO/LANGUAGE='es'">búsqueda de artículos</xsl:when>
-					<xsl:when test="//CONTROLINFO/LANGUAGE='pt'">pesquisa de artigos</xsl:when>
-				</xsl:choose>
+                <xsl:value-of select="$translations/xslid[@id='sci_navegation']/text[@find = 'search_form']"/>
 			</xsl:with-param>
 			<xsl:with-param name="scope" select="$scope"/>
 		</xsl:call-template>
@@ -525,11 +505,7 @@
 				<xsl:call-template name="ShowNavBarButton">
 					<xsl:with-param name="file">alpha.gif</xsl:with-param>
 					<xsl:with-param name="alttext">
-						<xsl:choose>
-							<xsl:when test="//CONTROLINFO/LANGUAGE='en'">alphabetic serial listing</xsl:when>
-							<xsl:when test="//CONTROLINFO/LANGUAGE='es'">lista alfabética de seriadas</xsl:when>
-							<xsl:when test="//CONTROLINFO/LANGUAGE='pt'">lista alfabética de periódicos</xsl:when>
-						</xsl:choose>
+                        <xsl:value-of select="$translations/xslid[@id='sci_navegation']/text[@find = 'alphabetic_serial_listing']"/>
 					</xsl:with-param>
 					<xsl:with-param name="script">sci_alphabetic</xsl:with-param>
 				</xsl:call-template>
@@ -566,11 +542,7 @@
 				<xsl:call-template name="ShowNavBarButton">
 					<xsl:with-param name="file">subject.gif</xsl:with-param>
 					<xsl:with-param name="alttext">
-						<xsl:choose>
-							<xsl:when test="//CONTROLINFO/LANGUAGE='en'">subject list of serials</xsl:when>
-							<xsl:when test="//CONTROLINFO/LANGUAGE='es'">lista por mateira</xsl:when>
-							<xsl:when test="//CONTROLINFO/LANGUAGE='pt'">lista por assunto</xsl:when>
-						</xsl:choose>
+                        <xsl:value-of select="$translations/xslid[@id='sci_navegation']/text[@find = 'subject_list_of_serials']"/>
 					</xsl:with-param>
 					<xsl:with-param name="script">sci_subject</xsl:with-param>
 				</xsl:call-template>
@@ -582,11 +554,7 @@
 		<xsl:call-template name="ShowNavBarButtonIAH">
 			<xsl:with-param name="file">search.gif</xsl:with-param>
 			<xsl:with-param name="alttext">
-				<xsl:choose>
-					<xsl:when test="//CONTROLINFO/LANGUAGE='en'">serials search</xsl:when>
-					<xsl:when test="//CONTROLINFO/LANGUAGE='es'">búsqueda de títulos</xsl:when>
-					<xsl:when test="//CONTROLINFO/LANGUAGE='pt'">pesquisa de títulos</xsl:when>
-				</xsl:choose>
+                <xsl:value-of select="$translations/xslid[@id='sci_navegation']/text[@find = 'serials_search']"/>
 			</xsl:with-param>
 			<xsl:with-param name="base">title</xsl:with-param>
 		</xsl:call-template>
