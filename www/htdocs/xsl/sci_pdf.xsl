@@ -5,12 +5,11 @@
 
 <xsl:output method="html" indent="no" />
 
-
 <xsl:template match="SERIAL">
 	<html>
 		<head>
 			<title>
-				<xsl:value-of select="TITLEGROUP/SHORTTITLE" disable-output-escaping="yes"/> - PDF Download - Art. ID <xsl:value-of select="ARTICLE/@PID" />
+				<xsl:value-of select="TITLEGROUP/SHORTTITLE" disable-output-escaping="yes"/> <xsl:value-of select="$translations/xslid[@id='sci_pdf']/text[@find = '-pdf_download-']"/>  <xsl:value-of select="ARTICLE/@PID" />
 			</title>
 			<meta http-equiv="Pragma" content="no-cache" />
 			<meta http-equiv="Expires" content="Mon, 06 Jan 1990 00:00:01 GMT" />
@@ -39,7 +38,7 @@
 						<img>
 							<xsl:attribute name="src"><xsl:value-of select="CONTROLINFO/SCIELO_INFO/PATH_GENIMG" />fbpelogp.gif</xsl:attribute>
 							<xsl:attribute name="border">0</xsl:attribute>
-							<xsl:attribute name="alt">Scientific Electronic Library Online</xsl:attribute>
+							<xsl:attribute name="alt"><xsl:value-of select="$translations/xslid[@id='sci_pdf']/text[@find = 'scientific_electronic_library_online']"/></xsl:attribute>
 						</img>
 					</a><br/>
 				</p>
@@ -56,7 +55,7 @@
 					
 				</p>
 				<p align="LEFT">
-					<font size="3" color="#800000"><b>PDF Download</b></font>
+					<font size="3" color="#800000"><b><xsl:value-of select="$translations/xslid[@id='sci_pdf']/text[@find = 'pdf_download']"/></b></font>
 				</p>
 			</td>
 			</tr>
@@ -66,7 +65,7 @@
 			<td width="10%">&#160;</td>
 			<td width="80%">
 				<p align="LEFT">
-					<font size="3" color="#000080"><b>Initiating download of PDF file in 10 seconds. Please wait!</b></font>
+					<font size="3" color="#000080"><b><xsl:value-of select="$translations/xslid[@id='sci_pdf']/text[@find = 'sentence_1']"/></b></font>
 				</p>
 				
 				<xsl:apply-templates select="ARTICLE">

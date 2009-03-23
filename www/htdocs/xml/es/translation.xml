@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <translations>
+    <xslid id="sci_pdf">
+        <text find="-pdf_download-">- PDF Download - Art. ID</text>
+        <text find="scientific_electronic_library_online">SciELO - Scientific Electronic Library Online</text>
+        <text find="pdf_download">PDF Download</text>
+        <text find="sentence_1">Iniciando download de archivo PDF en 10 segundos. Por favor Aguarde!</text>
+    </xslid>
     <xslid id="sci_navegation">
         <text find="articles">artículos</text>
         <text find="available_issues">números disponíveis</text>
