@@ -4,7 +4,6 @@
 	<xsl:output method="html" omit-xml-declaration="yes" indent="no" doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 	<xsl:include href="scielo_pmc_main.xsl"/>
 	<xsl:include href="sci_navegation.xsl"/>
-	<xsl:include href="sci_error.xsl"/>
 	<xsl:include href="sci_toolbox.xsl"/>
 	<xsl:variable name="LANGUAGE" select="//LANGUAGE"/>
 	<xsl:variable name="SCIELO_REGIONAL_DOMAIN" select="//SCIELO_REGIONAL_DOMAIN"/>
