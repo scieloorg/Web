@@ -49,7 +49,7 @@
 					<div class="level2">
 						<div class="top">
 							<div id="parent">
-								<img src="/img/en/scielobre.gif" alt="SciELO - Scientific Electronic Library Online"/>
+    								<img src="/img/en/scielobre.gif" alt="{$translations/xslid[@id='sci_isoref']/text[@find = 'scientific_electronic_library_online']}"/>
 							</div>
 						</div>
 						<div class="middle">
@@ -84,28 +84,13 @@
 					</ul>
 				</div>
 			</div>
-			<!-- a href="#" onClick="window.close();">
-				<xsl:choose>
-					<xsl:when test=" $LANG = 'en' ">Close</xsl:when>
-					<xsl:when test=" $LANG = 'es' ">Cerrar</xsl:when>
-					<xsl:when test=" $LANG = 'pt' ">Fechar</xsl:when>
-				</xsl:choose>
-			</a -->
 		</div>
 	</xsl:template>
 	<xsl:template name="PrintPageTitle">
-		<xsl:choose>
-			<xsl:when test=" $LANG = 'en' ">How to cite </xsl:when>
-			<xsl:when test=" $LANG = 'es' ">Como citar</xsl:when>
-			<xsl:when test=" $LANG = 'pt' ">Como citar</xsl:when>
-		</xsl:choose>
+        <xsl:value-of select="$translations/xslid[@id='sci_isoref']/text[@find = 'how_to_cite']"/>
 	</xsl:template>
 	<xsl:template name="Formats">
-		<xsl:choose>
-			<xsl:when test=" $LANG = 'en' ">Bibliographical Formats </xsl:when>
-			<xsl:when test=" $LANG = 'es' ">Formatos Bibliográficos</xsl:when>
-			<xsl:when test=" $LANG = 'pt' ">Formatos Bibliográficos</xsl:when>
-		</xsl:choose>
+        <xsl:value-of select="$translations/xslid[@id='sci_isoref']/text[@find = 'bibliographical_formats']"/>
 	</xsl:template>
 	<xsl:template match="standard">
 		<xsl:param name="data"/>
@@ -125,12 +110,4 @@
 			</xsl:if>
 		</li>
 	</xsl:template>
-	<!--xsl:template match="*" mode="print-ref">
-		<xsl:param name="NORM"/>
-			<xsl:call-template name="PrintAbstractHeaderInformation">
-				<xsl:with-param name="LANG" select="$LANG"/>
-				<xsl:with-param name="AUTHLINK">0</xsl:with-param>
-				<xsl:with-param name="NORM" select="$NORM"/>
-			</xsl:call-template>
-	</xsl:template-->
 </xsl:stylesheet>
