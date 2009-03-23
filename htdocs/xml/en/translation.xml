@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <translations>
+    <xslid id="sci_navegation">
+        <text find="scientific_electronic_library_online">SciELO - Scientific Electronic Library Online</text>
+        <text find="browse_scielo">Browse SciELO</text>
+        <text find="scielo_library_error_detector">SciELO Library Error Detector</text>
+        <text find="sentence_1">An unexpected error occurred in SciELO servers.<br/><br/>Click on the SciELO logo to browse the SciELO Library or use the browser "BACK" button to return to the previous page.<br/><br/>Please feel free to email us your questions, comments or concerns using the link below.</text>
+    </xslid>
     <xslid id="reference">
         <text find="not_found">this article doesn't have references</text>
         <text find="findReferenceOnLine">Links</text>
