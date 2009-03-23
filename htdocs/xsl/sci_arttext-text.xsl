@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format">
 
-<!--xsl:include href="file:///httpd/htdocs/teste/sci_navegation.xsl" />
-<xsl:include href="file:///httpd/htdocs/teste/sci_error.xsl" /-->
-
 <xsl:include href="sci_navegation.xsl"/>
 <xsl:include href="sci_error.xsl" />
 
