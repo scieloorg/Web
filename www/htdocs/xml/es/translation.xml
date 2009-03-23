@@ -24,6 +24,11 @@
     <xslid id="related">
         <text find="doesnt_related">no hay artículos similares</text>
     </xslid>
+    <xslid id="similar">
+        <text find="doesnt_related">no hay artículos similares</text>
+        <text find="related_to">Similars</text>
+        <text find="scientific_electronic_library_online">SciELO - Scientific Electronic Library Online</text>
+    </xslid>
     <xslid id="sci_arttext_pr">
         <text find="press_release">PRESS RELEASE</text>
     </xslid>
