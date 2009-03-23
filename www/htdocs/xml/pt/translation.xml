@@ -22,6 +22,9 @@
         <text find="serial_on_the_internet">periódico na Internet</text>
         <text find="access_on">acessos em</text>
         <text find="pre_print">pre-publicacição</text>
+        <text find="authors_list">List de Autores</text>
+        <text find="online">online</text>
+
     </xslid>
     <xslid id="sci_isoref">
         <text find="scientific_electronic_library_online">SciELO - Scientific Electronic Library Online</text>
