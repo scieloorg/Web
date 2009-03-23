@@ -110,4 +110,12 @@
 			</xsl:if>
 		</li>
 	</xsl:template>
+	<!--xsl:template match="*" mode="print-ref">
+		<xsl:param name="NORM"/>
+			<xsl:call-template name="PrintAbstractHeaderInformation">
+				<xsl:with-param name="LANG" select="$LANG"/>
+				<xsl:with-param name="AUTHLINK">0</xsl:with-param>
+				<xsl:with-param name="NORM" select="$NORM"/>
+			</xsl:call-template>
+	</xsl:template-->
 </xsl:stylesheet>

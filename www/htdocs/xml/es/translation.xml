@@ -2,8 +2,8 @@
 <translations>
     <xslid id="sci_isoref">
         <text find="scientific_electronic_library_online">SciELO - Scientific Electronic Library Online</text>
-        <text find="how_to_cite">How to cite</text>
-        <text find="bibliographical_formats">Bibliographical Formats</text>
+        <text find="how_to_cite">Como citar</text>
+        <text find="bibliographical_formats">Formatos Bibliográficos</text>
     </xslid>
     <xslid id="sci_pdf">
         <text find="-pdf_download-">- PDF Download - Art. ID</text>
