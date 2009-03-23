@@ -1,5 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <translations>
+    <xslid id="sci_artref">
+        <text find="ahead_of_print">ahead of print</text>
+        <text find="review_in_progress">en revisión</text>
+        <text find="not_printed">no impresso</text>
+        <text find="special_issue">número especial</text>
+        <text find="special_edition">edición especial</text>
+        <text find="monograph_number">número monográfico</text>
+        <text find="issue">número</text>
+        <text find="supl.">suppl.</text> <!--supplement abreviation-->
+        <text find="vol.">vol.</text> <!--volume abbreviation-->
+        <text find="ahead_of_print_epub">ahead of print Epub</text>
+        <text find="in_press">Publicado</text>
+        <text find="n.">n.</text> <!--number abbreviation-->
+        <text find="selected_edition">Selected edition</text>
+        <text find="cited">citado</text>
+        <text find="available_from">Disponible en</text>
+        <text find="translated_by">Traducido por</text>
+        <text find="and">y</text>
+        <text find="lang_iah">e</text>
+        <text find="serial_on_the_internet">periódico na Internet</text>
+        <text find="access_on">accesos en</text>
+        <text find="pre_print">pre-publicación</text>
+    </xslid>
     <xslid id="sci_isoref">
         <text find="scientific_electronic_library_online">SciELO - Scientific Electronic Library Online</text>
         <text find="how_to_cite">Como citar</text>

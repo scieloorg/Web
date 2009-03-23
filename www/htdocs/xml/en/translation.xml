@@ -1,5 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <translations>
+    <xslid id="sci_artref">
+        <text find="ahead_of_print">ahead of print</text>
+        <text find="review_in_progress">review in progress</text>
+        <text find="not_printed">not printed</text>
+        <text find="special_issue">special issue</text>
+        <text find="special_edition">special edition</text>
+        <text find="monograph_number">monograph issue</text>
+        <text find="issue">issue</text>
+        <text find="suppl.">suppl.</text> <!--supplement abbreviation-->
+        <text find="vol.">vol.</text> <!--volume abbreviation-->
+        <text find="ahead_of_print_epub">ahead of print Epub</text>
+        <text find="in_press">In press</text>
+        <text find="n.">n.</text> <!--number abbreviation-->
+        <text find="selected_edition">Selected edition</text>
+        <text find="cited">cited</text>
+        <text find="available_from">Available from</text>
+        <text find="translated_by">Translated by</text>
+        <text find="and">and</text>
+        <text find="lang_iah">i</text>
+        <text find="serial_on_the_internet">serial on the Internet</text>
+        <text find="access_on">access on</text>
+        <text find="pre_print">pre-print</text>
+        <text find="curriculum_scienti">Curriculum ScienTI</text>
+        <text find="authors_list">Authors List</text>
+        <text find="online">online</text>
+    </xslid>
     <xslid id="sci_isoref">
         <text find="scientific_electronic_library_online">SciELO - Scientific Electronic Library Online</text>
         <text find="how_to_cite">How to cite</text>
