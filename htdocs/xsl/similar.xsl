@@ -20,7 +20,7 @@
 		<html>
 			<head>
 				<link rel="stylesheet" href="/applications/scielo-org/css/public/style-{$lang}.css" type="text/css" media="screen"/>
-			<title>SciELO.org - Scientific Electronic Library Online</title>
+			<title><xsl:value-of select="$translations/xslid[@id='similar']/text[@find = 'scientific_electronic_library_online']"/></title>
 			</head>
 			<body>
 				<div class="container">
@@ -29,12 +29,12 @@
 						</div>
 						<div class="top">
 							<div id="parent">
-								<img src="{concat('/img/',$lang,'/scielobre.gif')}" alt="SciELO - Scientific Electronic Librery Online"/>
+								<img src="{concat('/img/',$lang,'/scielobre.gif')}" alt="{$translations/xslid[@id='similar']/text[@find = 'scientific_electronic_library_online']}"/>
 							</div>
 							<div id="identification">
 								<h1>
 									<span>
-										<xsl:value-of select="$texts/text[find='scielo.org']/replace"/>
+										<xsl:value-of select="$translations/xslid[@id='similar']/text[@find = 'scientific_electronic_library_online']"/>
 									</span>
 								</h1>
 							</div>
@@ -43,7 +43,7 @@
 							<div id="collection">
 								<h3>
 									<span>
-										<xsl:value-of select="$texts/text[find='related_to']/replace"/>
+                                        <xsl:value-of select="$translations/xslid[@id='similar']/text[@find = 'related_to']"/>
 										<xsl:value-of select="concat(' ',$total)"/>
 									</span>
 								</h3>
@@ -56,7 +56,7 @@
 												</ul>
 											</xsl:when>
 											<xsl:otherwise>
-												<xsl:value-of select="$texts/text[find='doesnt_related']/replace"/>
+												<xsl:value-of select="$translations/xslid[@id='similar']/text[@find = 'doesnt_related']"/>
 											</xsl:otherwise>
 										</xsl:choose>
 									</div>
