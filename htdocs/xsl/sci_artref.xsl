@@ -110,9 +110,8 @@
 						</xsl:call-template>
 					</xsl:when>
 					<xsl:otherwise>
-						<xsl:if test="$CITY">&#160;<xsl:value-of select="normalize-space($CITY)"/>
-						</xsl:if>
-						<xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'ahead_of_print']"/>
+						<xsl:if test="$CITY">&#160;<xsl:value-of select="normalize-space($CITY)"/></xsl:if>
+						&#160;<xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'ahead_of_print']"/>
 					</xsl:otherwise>
 				</xsl:choose>
 			</xsl:when>
