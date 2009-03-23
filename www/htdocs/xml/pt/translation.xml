@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <translations>
+    <xslid id="sci_subject">
+        <text find="issue">número</text>
+        <text find="subject_list_of_serials">Lista de periódicos por assunto</text>
+        <text find="library_collection">Coleção da biblioteca</text>
+        <text find="subjects">Assuntos</text>
+    </xslid>
     <xslid id="sci_arttext-text">
         <text find="download_article_in_pdf_format">copia do artigo em formato PDF</text>
     </xslid>
