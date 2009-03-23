@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <translations>
     <xslid id="sci_navegation">
+        <text find="articles">articles</text>
+        <text find="available_issues">available issues</text>
         <text find="scientific_electronic_library_online">SciELO - Scientific Electronic Library Online</text>
+        <text find="author_index">author index</text>
+        <text find="subject_index">subject index</text>
+        <text find="search_form">search form</text>
+        <text find="alphabetic_serial_listing">alphabetic serial listing</text>
+        <text find="subject_list_of_serials">subject list of serials</text>
+        <text find="serials_search">serials search</text>
         <text find="browse_scielo">Browse SciELO</text>
         <text find="scielo_library_error_detector">SciELO Library Error Detector</text>
         <text find="sentence_1">An unexpected error occurred in SciELO servers.<br/><br/>Click on the SciELO logo to browse the SciELO Library or use the browser "BACK" button to return to the previous page.<br/><br/>Please feel free to email us your questions, comments or concerns using the link below.</text>
