@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <translations>
+    <xslid id="sci_artlist">
+        <text find="table_of_contents">Sumário</text>
+        <text find="anterior">Anterior</text>
+        <text find="next">Próxima</text>
+        <text find="published_on">Publicado em</text>
+    </xslid>
     <xslid id="sci_artref">
         <text find="ahead_of_print">ahead of print</text>
         <text find="review_in_progress">em revisão</text>

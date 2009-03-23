@@ -147,11 +147,7 @@ ol li.current * { color: #000; text-decoration: none; background: none; cursor: 
 	</xsl:template>
 	<xsl:template match="STRIP">
 		<FONT class="nomodel" color="#800000">
-			<xsl:choose>
-				<xsl:when test="//CONTROLINFO[LANGUAGE='en']">Table of contents</xsl:when>
-				<xsl:when test="//CONTROLINFO[LANGUAGE='es']">Tabla de contenido</xsl:when>
-				<xsl:when test="//CONTROLINFO[LANGUAGE='pt']">Sumário</xsl:when>
-			</xsl:choose>
+            <xsl:value-of select="$translations/xslid[@id='sci_artlist']/text[@find = 'table_of_contents']"/>
 		</FONT>
 		<BR/>
 		<font color="#800000">
@@ -286,12 +282,7 @@ ol li.current * { color: #000; text-decoration: none; background: none; cursor: 
 				<a>
 					<xsl:apply-templates select="." mode="link2list">
 						<xsl:with-param name="page" select="//PAGE[@selected]/@NUM - 1"/>
-					</xsl:apply-templates>&lt;
-
-					<xsl:choose>			<xsl:when test="$interfaceLang='pt'">Anterior </xsl:when>
-			<xsl:when test="$interfaceLang='es'">Anterior </xsl:when>
-			<xsl:when test="$interfaceLang='en'">Previous </xsl:when>
-		</xsl:choose>
+					</xsl:apply-templates>&lt;&#160;<xsl:value-of select="$translations/xslid[@id='sci_artlist']/text[@find = 'anterior']"/>
 				</a>
 			</xsl:if>
 			<xsl:apply-templates select=".//PAGE"/>
@@ -301,11 +292,7 @@ ol li.current * { color: #000; text-decoration: none; background: none; cursor: 
 					<xsl:apply-templates select="." mode="link2list">
 						<xsl:with-param name="page" select="//PAGE[@selected]/@NUM + 1"/>
 					</xsl:apply-templates>
-					<xsl:choose> 
-			<xsl:when test="$interfaceLang='pt'">Próxima </xsl:when>
-			<xsl:when test="$interfaceLang='es'">Próxima </xsl:when>
-			<xsl:when test="$interfaceLang='en'">Next </xsl:when>
-		</xsl:choose> &gt;
+                    <xsl:value-of select="$translations/xslid[@id='sci_artlist']/text[@find = 'next']"/>&#160;&gt;
 				</a>
 			</xsl:if>
 		</div>
@@ -326,11 +313,7 @@ ol li.current * { color: #000; text-decoration: none; background: none; cursor: 
 		</strong>
 	</xsl:template>
 	<xsl:template match="@entrdate">
-		<xsl:choose>
-			<xsl:when test="$interfaceLang='pt'">Publicado em </xsl:when>
-			<xsl:when test="$interfaceLang='es'">Publicado en </xsl:when>
-			<xsl:when test="$interfaceLang='en'">Published </xsl:when>
-		</xsl:choose>
+        <xsl:value-of select="$translations/xslid[@id='sci_artlist']/text[@find = 'published_on']"/>
 		<xsl:call-template name="ShowDate">
 			<xsl:with-param name="DATEISO" select="."/>
 			<xsl:with-param name="LANG" select="$interfaceLang"/>
