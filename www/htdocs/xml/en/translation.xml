@@ -5,11 +5,6 @@
         <text find="subject_list_of_serials">Subject list of serials</text>
         <text find="library_collection">Library Collection</text>
         <text find="subjects">Subjects</text>
-        <text find=""></text>
-        <text find=""></text>
-        <text find=""></text>
-        <text find=""></text>
-        <text find=""></text>
     </xslid>
     <xslid id="sci_arttext-text">
         <text find="download_article_in_pdf_format">download article in PDF format</text>
