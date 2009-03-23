@@ -9,26 +9,13 @@
 		<xsl:if test="not(//SERIAL[journal-status-history]) or (count(//SERIAL[journal-status-history/current-status/@status!=''])=0 )">true</xsl:if>
 	</xsl:variable>
 	<xsl:variable name="text_issues">&#160;
-		<xsl:choose>
-			<xsl:when test="//CONTROLINFO[normalize-space(LANGUAGE)='en']">issue</xsl:when>
-			<xsl:otherwise>número</xsl:otherwise>
-		</xsl:choose>
+        <xsl:value-of select="$translations/xslid[@id='sci_subject']/text[@find = 'issue']"/>
 	</xsl:variable>
 	<xsl:template match="/">
 		<html>
 			<head>
 				<title>
-					<xsl:choose>
-						<xsl:when test="/SUBJECTLIST/CONTROLINFO[normalize-space(LANGUAGE)='en']">
-					Subject list of serials
-				</xsl:when>
-						<xsl:when test="/SUBJECTLIST/CONTROLINFO[normalize-space(LANGUAGE)='pt']">
-					Lista de periódicos por assunto
-				</xsl:when>
-						<xsl:when test="/SUBJECTLIST/CONTROLINFO[normalize-space(LANGUAGE)='es']">
-					Lista de seriadas por materia
-				</xsl:when>
-					</xsl:choose>
+                    <xsl:value-of select="$translations/xslid[@id='sci_subject']/text[@find = 'subject_list_of_serials']"/>
 				</title>
 				<meta http-equiv="Pragma" content="no-cache"/>
 				<meta http-equiv="Expires" content="Mon, 06 Jan 1990 00:00:01 GMT"/>
@@ -45,17 +32,7 @@
 						<td width="26%">&#160;</td>
 						<td width="74%">
 							<font class="nomodel" size="+1" color="#000080">
-								<xsl:choose>
-									<xsl:when test="/SUBJECTLIST/CONTROLINFO[normalize-space(LANGUAGE)='en']">
-				Library Collection
-			</xsl:when>
-									<xsl:when test="/SUBJECTLIST/CONTROLINFO[normalize-space(LANGUAGE)='pt']">
-				Coleção da biblioteca
-			</xsl:when>
-									<xsl:when test="/SUBJECTLIST/CONTROLINFO[normalize-space(LANGUAGE)='es']">
-				Colección de la biblioteca
-			</xsl:when>
-								</xsl:choose>
+                                <xsl:value-of select="$translations/xslid[@id='sci_subject']/text[@find = 'library_collection']"/>
 							</font>
 						</td>
 					</tr>
@@ -75,17 +52,7 @@
 					<xsl:call-template name="Subjects"/>
 					<p align="LEFT">
 						<font class="nomodel" color="#800000">
-							<xsl:choose>
-								<xsl:when test="/SUBJECTLIST/CONTROLINFO[normalize-space(LANGUAGE)='en']">
-				Subject list of serials
-			</xsl:when>
-								<xsl:when test="/SUBJECTLIST/CONTROLINFO[normalize-space(LANGUAGE)='pt']">
-				Lista de periódicos por assunto
-			</xsl:when>
-								<xsl:when test="/SUBJECTLIST/CONTROLINFO[normalize-space(LANGUAGE)='es']">
-				Lista de seriadas por materia
-			</xsl:when>
-							</xsl:choose>
+                            <xsl:value-of select="$translations/xslid[@id='sci_subject']/text[@find = 'subject_list_of_serials']"/>
 						</font>
 					</p>
 					<xsl:apply-templates select="SUBJECT"/>
@@ -114,7 +81,6 @@
 			<xsl:choose>
 				<xsl:when test="$padrao='true'">
 					<br/>
-					<xsl:comment>padrao</xsl:comment>
 					<xsl:apply-templates select="SERIAL"/>
 				</xsl:when>
 				<xsl:otherwise>
@@ -164,17 +130,7 @@
 	<xsl:template name="Subjects">
 		<p align="LEFT">
 			<font class="nomodel" color="#800000">
-				<xsl:choose>
-					<xsl:when test="/SUBJECTLIST/CONTROLINFO[normalize-space(LANGUAGE)='en']">
-			Subjects
-		</xsl:when>
-					<xsl:when test="/SUBJECTLIST/CONTROLINFO[normalize-space(LANGUAGE)='pt']">
-			Assuntos
-		</xsl:when>
-					<xsl:when test="/SUBJECTLIST/CONTROLINFO[normalize-space(LANGUAGE)='es']">
-			Materias
-		</xsl:when>
-				</xsl:choose>
+                <xsl:value-of select="$translations/xslid[@id='sci_subject']/text[@find = 'subjects']"/>
 			</font>
 		</p>
 		<table width="100%">
