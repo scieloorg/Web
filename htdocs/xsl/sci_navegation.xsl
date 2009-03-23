@@ -592,4 +592,61 @@
 		</xsl:call-template>
 	</xsl:template>
 
+<xsl:template match="ERROR">
+	<html>
+	<head>
+		<meta http-equiv="Pragma" content="no-cache"/>
+		<meta http-equiv="Expires" content="Mon, 06 Jan 1990 00:00:01 GMT" />
+		<style type="text/css">
+			a {  text-decoration: none}
+		</style>
+		<title>SciELO Error</title>
+	</head>
+	<body>
+		<table cellspacing="0" border="0" cellpadding="7" width="600" align="center">
+		<tr>
+		<td valign="top" width="20%">
+			<a>
+				<xsl:attribute name="href">http://<xsl:value-of select="CONTROLINFO/SCIELO_INFO/SERVER"/><xsl:value-of
+					select="CONTROLINFO/SCIELO_INFO/PATH_DATA"/>scielo.php?lng=<xsl:value-of
+					select="CONTROLINFO/LANGUAGE" /></xsl:attribute>
+
+					<img>
+						<xsl:attribute name="src"><xsl:value-of
+							select="CONTROLINFO/SCIELO_INFO/PATH_GENIMG" /><xsl:value-of
+							select="CONTROLINFO/LANGUAGE" />/fbpelogp.gif</xsl:attribute>
+						<xsl:attribute name="border">0</xsl:attribute>
+						<xsl:attribute name="alt"><xsl:value-of select="$translations/xslid[@id='sci_navegation']/text[@find = 'scientific_electronic_library_online']"/></xsl:attribute>
+					</img><br/>
+
+				<font size="1"><xsl:value-of select="$translations/xslid[@id='sci_navegation']/text[@find = 'browse_scielo']"/></font>
+			</a>
+		</td>
+		<td width="80%">
+			<font face="VERDANA" size="3" color="blue">
+				<b><xsl:value-of select="$translations/xslid[@id='sci_navegation']/text[@find = 'scielo_library_error_detector']"/></b>
+			</font><br/><br/>
+			<font face="verdana" size="2" color="#800000">
+				<xsl:copy-of select="$translations/xslid[@id='sci_navegation']/text[@find = 'sentence_1']"/>
+			</font>
+		</td>
+		</tr>
+		</table><br/>
+		<center>
+		<a>
+			<xsl:attribute name="href">mailto:<xsl:value-of select="EMAIL" /></xsl:attribute>
+			<img>
+				<xsl:attribute name="src"><xsl:value-of
+					select="CONTROLINFO/SCIELO_INFO/PATH_GENIMG" /><xsl:value-of
+					select="CONTROLINFO/LANGUAGE" />/e-mailt.gif</xsl:attribute>
+				<xsl:attribute name="border">0</xsl:attribute>
+				<xsl:attribute name="alt"><xsl:value-of select="EMAIL" /></xsl:attribute>
+			</img>
+		</a>
+		</center>
+</body>
+</html>
+
+</xsl:template>
+
 </xsl:stylesheet>

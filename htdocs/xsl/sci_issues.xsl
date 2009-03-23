@@ -2,7 +2,6 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 	<xsl:include href="sci_navegation.xsl"/>
 	<xsl:include href="journalStatus.xsl"/>
-	<xsl:include href="sci_error.xsl"/>
 	<xsl:output method="html" indent="no"/>
 	<xsl:variable name="spaceYear" select="'12%'"/>
 	<xsl:variable name="spaceVol" select="'7%'"/>

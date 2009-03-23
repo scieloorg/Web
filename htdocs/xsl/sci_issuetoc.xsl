@@ -3,7 +3,6 @@
 <xsl:output method="html" omit-xml-declaration="yes" indent="no" />
 
 <xsl:include href="sci_navegation.xsl"/>
-<xsl:include href="sci_error.xsl"/>
 
 <xsl:template match="SERIAL">
  <HTML>

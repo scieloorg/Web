@@ -2,7 +2,6 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format">
 	<xsl:include href="sci_navegation.xsl"/>
 	<xsl:include href="journalStatus.xsl"/>
-	<xsl:include href="sci_error.xsl"/>
 	<xsl:output encoding="utf-8"/>
 	<xsl:template match="/">
 		<html>
