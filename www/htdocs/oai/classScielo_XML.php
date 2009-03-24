@@ -58,7 +58,7 @@
 
     		fclose ( $fd );
 			//die($buffer);
-			return utf8_encode($buffer);
+			return $buffer;
 		}
 
 		function getError ()
