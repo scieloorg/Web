@@ -19,9 +19,6 @@
         <text find="there_are_no_statistics_forthat_period">There are no statistics for that period</text>
         <text find="how_to_cite_this_article">How to cite this article</text>
         <text find="text_available_after">text available after</text>
-        <text find=""></text>
-        <text find=""></text>
-        <text find=""></text>
     </xslid>
     <xslid id="sci_subject">
         <text find="issue">issue</text>
