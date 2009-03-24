@@ -19,7 +19,7 @@
         <text find="there_are_no_statistics_forthat_period">Não existem estatísticas nesse período</text>
         <text find="how_to_cite_this_article">Como citar este artigo</text>
         <text find="text_available_after">texto disponível após</text>
-    <xslid>
+    </xslid>
     <xslid id="sci_subject">
         <text find="issue">número</text>
         <text find="subject_list_of_serials">Lista de periódicos por assunto</text>
