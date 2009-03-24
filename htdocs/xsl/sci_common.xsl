@@ -57,11 +57,7 @@
 			</services>
 		</xsl:if>
 	</xsl:variable>
-	<!--
-
-Exibe caixa para exportação da citacao para "Reference Managers"
-
--->
+	<!--Exibe caixa para exportação da citacao para "Reference Managers"-->
 	<xsl:template name="PrintExportCitationForRefecenceManagers">
 		<xsl:param name="LANGUAGE"/>
 		<xsl:param name="pid"/>
@@ -73,57 +69,33 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 				</form>
 				<h3>
 					<span>
-						<xsl:choose>
-							<xsl:when test=" $LANGUAGE = 'en' ">Reference Managers</xsl:when>
-							<xsl:when test=" $LANGUAGE = 'pt' ">Gerenciadores de referências</xsl:when>
-							<xsl:when test=" $LANGUAGE = 'es' ">Gerenciadores de citas</xsl:when>
-						</xsl:choose>
+                        <xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'reference_manager']"/>
 					</span>
 				</h3>
 				<ul>
 					<li>
 						<a href="?download&amp;format=BibTex&amp;pid={$pid}">
-							<xsl:choose>
-								<xsl:when test=" $LANGUAGE = 'en' ">Export to BibTex</xsl:when>
-								<xsl:when test=" $LANGUAGE = 'pt' ">Exportar para BibTex</xsl:when>
-								<xsl:when test=" $LANGUAGE = 'es' ">Exportar para BibTeX</xsl:when>
-							</xsl:choose>
+                            <xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'export_to_bibtex']"/>
 						</a>
 					</li>
 					<li>
 						<a href="?download&amp;format=RefMan&amp;pid={$pid}">
-							<xsl:choose>
-								<xsl:when test=" $LANGUAGE = 'en' ">Export to Reference Manager</xsl:when>
-								<xsl:when test=" $LANGUAGE = 'pt' ">Exportar para Reference Manager</xsl:when>
-								<xsl:when test=" $LANGUAGE = 'es' ">Exportar para Reference Manager</xsl:when>
-							</xsl:choose>
+                            <xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'export_to_reference_manager']"/>
 						</a>
 					</li>
 					<li>
 						<a href="?download&amp;format=ProCite&amp;pid={$pid}">
-							<xsl:choose>
-								<xsl:when test=" $LANGUAGE = 'en' ">Export to Pro Cite</xsl:when>
-								<xsl:when test=" $LANGUAGE = 'pt' ">Exportar para Pro Cite</xsl:when>
-								<xsl:when test=" $LANGUAGE = 'es' ">Exportar para Pro Cite</xsl:when>
-							</xsl:choose>
+                            <xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'export_to_procite']"/>
 						</a>
 					</li>
 					<li>
 						<a href="?download&amp;format=EndNote&amp;pid={$pid}">
-							<xsl:choose>
-								<xsl:when test=" $LANGUAGE = 'en' ">Export to End Note</xsl:when>
-								<xsl:when test=" $LANGUAGE = 'pt' ">Exportar para End Note</xsl:when>
-								<xsl:when test=" $LANGUAGE = 'es' ">Exportar para End Note</xsl:when>
-							</xsl:choose>
+                            <xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'export_to_endnote']"/>
 						</a>
 					</li>
 					<li>
 						<a href="javascript:void(0)" onclick="javascript:w =  window.open('','download', '');document.exportCitation.format.value='RefWorks';document.exportCitation.submit();">
-							<xsl:choose>
-								<xsl:when test=" $LANGUAGE = 'en' ">Export to Refworks</xsl:when>
-								<xsl:when test=" $LANGUAGE = 'pt' ">Exportar para Refworks</xsl:when>
-								<xsl:when test=" $LANGUAGE = 'es' ">Exportar para Refworks</xsl:when>
-							</xsl:choose>
+                            <xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'export_to_refworks']"/>
 						</a>
 					</li>
 				</ul>
@@ -298,36 +270,14 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 	<xsl:template name="GET_ISSN_TYPE">
 		<xsl:param name="TYPE"/>
 		<xsl:param name="LANG"/>
-		<xsl:choose>
-			<xsl:when test=" $LANG = 'en' ">
-				<xsl:choose>
-					<xsl:when test=" $TYPE = 'PRINT' ">Print</xsl:when>
-					<xsl:when test=" $TYPE = 'CDROM' ">CDROM</xsl:when>
-					<xsl:when test=" $TYPE = 'DISKE' ">Diskette</xsl:when>
-					<xsl:when test=" $TYPE = 'ONLIN' ">On-line</xsl:when>
-				</xsl:choose>
-			</xsl:when>
-			<xsl:when test=" $LANG = 'pt' ">
-				<em>versão
-     <xsl:choose>
-						<xsl:when test=" $TYPE = 'PRINT' "> impressa</xsl:when>
-						<xsl:when test=" $TYPE = 'CDROM' "> em CDROM</xsl:when>
-						<xsl:when test=" $TYPE = 'DISKE' "> em disquete</xsl:when>
-						<xsl:when test=" $TYPE = 'ONLIN' "> on-line</xsl:when>
-					</xsl:choose>
-				</em>
-			</xsl:when>
-			<xsl:when test=" $LANG = 'es' ">
-				<em>versión
-     <xsl:choose>
-						<xsl:when test=" $TYPE = 'PRINT' "> impresa</xsl:when>
-						<xsl:when test=" $TYPE = 'CDROM' "> en CDROM</xsl:when>
-						<xsl:when test=" $TYPE = 'DISKE' "> en disquete</xsl:when>
-						<xsl:when test=" $TYPE = 'ONLIN' "> on-line</xsl:when>
-					</xsl:choose>
-				</em>
-			</xsl:when>
-		</xsl:choose>
+        <em><xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'version']"/>
+            <xsl:choose>
+                <xsl:when test=" $TYPE = 'PRINT' "><xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'print']"/></xsl:when>
+                <xsl:when test=" $TYPE = 'CDROM' "><xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'cdrom']"/></xsl:when>
+                <xsl:when test=" $TYPE = 'DISKE' "><xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'diskette']"/></xsl:when>
+                <xsl:when test=" $TYPE = 'ONLIN' "><xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'online']"/></xsl:when>
+            </xsl:choose>
+        </em>
 	</xsl:template>
 	<!-- Displays former title and new title
          Parameter:
@@ -337,11 +287,7 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 		<xsl:if test="FORMERTITLE/TITLE">
 			<br/>
 			<font color="#000000">
-				<xsl:choose>
-					<xsl:when test="$LANG='en'">Former Title:</xsl:when>
-					<xsl:when test="$LANG='pt'">Título anterior:</xsl:when>
-					<xsl:when test="$LANG='es'">Título anterior:</xsl:when>
-				</xsl:choose>
+                <xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'former_title']"/>:
 			</font>
 			<br/>
 			<font color="#000080">
@@ -353,11 +299,7 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 		<xsl:if test="NEWTITLE/TITLE">
 			<br/>
 			<font color="#000000">
-				<xsl:choose>
-					<xsl:when test="$LANG='en'">New title:</xsl:when>
-					<xsl:when test="$LANG='pt'">Título novo:</xsl:when>
-					<xsl:when test="$LANG='es'">Título nuevo:</xsl:when>
-				</xsl:choose>
+                <xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'new_title']"/>:
 			</font>
 			<br/>
 			<font color="#000080">
@@ -629,29 +571,11 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 -->
 	<xsl:template name="PrintLogStartDate">
 		<xsl:param name="date"/>
-		<xsl:choose>
-			<xsl:when test=" //CONTROLINFO/LANGUAGE = 'en' ">
-            * &#160;Count started in 
-            <xsl:call-template name="ShowDate">
-					<xsl:with-param name="DATEISO" select="$date"/>
-					<xsl:with-param name="LANG">en</xsl:with-param>
-				</xsl:call-template>
-			</xsl:when>
-			<xsl:when test=" //CONTROLINFO/LANGUAGE = 'pt' ">
-            * &#160;A contagem iniciou-se em 
-            <xsl:call-template name="ShowDate">
-					<xsl:with-param name="DATEISO" select="$date"/>
-					<xsl:with-param name="LANG">pt</xsl:with-param>
-				</xsl:call-template>
-			</xsl:when>
-			<xsl:when test=" //CONTROLINFO/LANGUAGE = 'es' ">
-            * &#160;La cuenta se empezo el 
-            <xsl:call-template name="ShowDate">
-					<xsl:with-param name="DATEISO" select="$date"/>
-					<xsl:with-param name="LANG">es</xsl:with-param>
-				</xsl:call-template>
-			</xsl:when>
-		</xsl:choose>
+        * &#160;<xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'count_started_in']"/>:
+        <xsl:call-template name="ShowDate">
+            <xsl:with-param name="DATEISO" select="$date"/>
+            <xsl:with-param name="LANG"><xsl:value-of select="//CONTROLINFO/LANGUAGE"/></xsl:with-param>
+        </xsl:call-template>
 	</xsl:template>
 	<!-- Inserts javascript code in header
 -->
@@ -711,17 +635,7 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 	<!-- Prints the submit button (reload button)
 -->
 	<xsl:template name="PutSubmitButton">
-		<xsl:choose>
-			<xsl:when test=" //CONTROLINFO/LANGUAGE = 'en' ">
-				<input type="submit" value="Reload"/>
-			</xsl:when>
-			<xsl:when test=" //CONTROLINFO/LANGUAGE = 'pt' ">
-				<input type="submit" value="Recarregar"/>
-			</xsl:when>
-			<xsl:when test=" //CONTROLINFO/LANGUAGE = 'es' ">
-				<input type="submit" value="Recargar"/>
-			</xsl:when>
-		</xsl:choose>
+		<input type="submit" value="{$translations/xslid[@id='sci_common']/text[@find = 'reload']}"/>
 	</xsl:template>
 	<!-- Shows empty query message -->
 	<xsl:template name="ShowEmptyQueryResult">
@@ -729,11 +643,7 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 		<p>
 			<center>
 				<font color="blue">
-					<xsl:choose>
-						<xsl:when test=" //CONTROLINFO/LANGUAGE = 'en' ">There are no statistics for that period.</xsl:when>
-						<xsl:when test=" //CONTROLINFO/LANGUAGE = 'pt' ">Não existem estatísticas nesse período.</xsl:when>
-						<xsl:when test=" //CONTROLINFO/LANGUAGE = 'es' ">No existen estadísticas para ese período.</xsl:when>
-					</xsl:choose>
+                    <xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'there_are_no_statistics_forthat_period']"/>
 				</font>
 			</center>
 		</p>
@@ -744,23 +654,11 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 		<xsl:param name="PID"/>
 		<xsl:param name="VERIFY"/>
 		<div align="left">
-			<!--    <table align="left" width="100%">
-       <tr>
-	     <td width="7%">&#160;</td>
-           <td width="93%"> -->
            &#160;&#160;&#160;
             <xsl:apply-templates select="*[LANG]">
 				<xsl:with-param name="LANG" select="$LANG"/>
 				<xsl:with-param name="PID" select="$PID"/>
 			</xsl:apply-templates>
-			<!--xsl:apply-templates select="ART_TEXT_LANGS">
-				<xsl:with-param name="LANG" select="$LANG"/>
-				<xsl:with-param name="PID" select="$PID"/>
-			</xsl:apply-templates>
-			<xsl:apply-templates select="PDF_LANGS">
-				<xsl:with-param name="LANG" select="$LANG"/>
-				<xsl:with-param name="PID" select="$PID"/>
-			</xsl:apply-templates-->
 			<xsl:if test="$VERIFY">
                         &#160;&#160;&#160;&#160;
                         <xsl:call-template name="CREATE_VERIFY_LINK">
@@ -915,11 +813,7 @@ Exibe caixa para exportação da citacao para "Reference Managers"
 	</xsl:template>
 	<xsl:template name="PrintArticleInformationLabel">
 		<xsl:param name="LANGUAGE"/>
-		<xsl:choose>
-			<xsl:when test=" $LANGUAGE = 'en' ">How to cite this article</xsl:when>
-			<xsl:when test=" $LANGUAGE = 'pt' ">Como citar este artigo</xsl:when>
-			<xsl:when test=" $LANGUAGE = 'es' ">Como citar este artículo</xsl:when>
-		</xsl:choose>
+        <xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'how_to_cite_this_article']"/>
 	</xsl:template>
 	<xsl:template match="@DOI">
 	doi: <xsl:value-of select="."/>
@@ -944,11 +838,7 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
 	<xsl:template match="fulltext-service-list"/>
 	<xsl:template match="EMBARGO/@date">
 		<xsl:param name="lang"/>
-		<xsl:choose>
-			<xsl:when test="$lang='pt'">texto disponível após </xsl:when>
-			<xsl:when test="$lang='es'">texto disponible después de </xsl:when>
-			<xsl:when test="$lang='en'">text available after </xsl:when>
-		</xsl:choose>
+        <xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'text_available_after']"/>&#160;
 		<xsl:call-template name="ShowDate">
 			<xsl:with-param name="DATEISO" select="."/>
 			<xsl:with-param name="LANG" select="$lang"/>
