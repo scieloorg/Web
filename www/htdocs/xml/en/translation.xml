@@ -1,5 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <translations>
+    <xslid id="sci_common">
+        <text find="reference_manager">Reference Managers</text>
+        <text find="export_to_bibtex">Export to BibTex</text>
+        <text find="export_to_reference_manager">Export to Reference Manager</text>
+        <text find="export_to_procite">Export to Pro Cite</text>
+        <text find="export_to_endnote">Export to End Note</text>
+        <text find="export_to_refworks">Export to Refworks</text>
+        <text find="version">version</text>
+        <text find="print">Print</text>
+        <text find="cdrom">CDROM</text>
+        <text find="diskette">Diskette</text>
+        <text find="online">On-line</text>
+        <text find="former_title">Former Title</text>
+        <text find="new_title">New Title</text>
+        <text find="count_started_in">Count started in</text>
+        <text find="reload">Reload</text>
+        <text find="there_are_no_statistics_forthat_period">There are no statistics for that period</text>
+        <text find="how_to_cite_this_article">How to cite this article</text>
+        <text find="text_available_after">text available after</text>
+        <text find=""></text>
+        <text find=""></text>
+        <text find=""></text>
+    </xslid>
     <xslid id="sci_subject">
         <text find="issue">issue</text>
         <text find="subject_list_of_serials">Subject list of serials</text>

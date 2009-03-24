@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <translations>
+    <xslid id="sci_common">
+        <text find="reference_manager">Gerenciadores de citas</text>
+        <text find="export_to_bibtex">Exportar para BibTex</text>
+        <text find="export_to_reference_manager">Exportar para Reference Manager</text>
+        <text find="export_to_procite">Exportar para Pro Cite</text>
+        <text find="export_to_endnote">Exportar para End Note</text>
+        <text find="export_to_refworks">Exportar para Refworks</text>
+        <text find="version">versión</text>
+        <text find="print">impresa</text>
+        <text find="cdrom">en CDROM</text>
+        <text find="diskette">en Disquete</text>
+        <text find="online">On-line</text>
+        <text find="former_title">Título Anterior</text>
+        <text find="new_title">Título Nuevo</text>
+        <text find="count_started_in">La cuenta se empezo el</text>
+        <text find="reload">Recargar</text>
+        <text find="there_are_no_statistics_forthat_period">No existen estadísticas para ese período</text>
+        <text find="how_to_cite_this_article">Como citar este artículo</text>
+        <text find="text_available_after">texto disponible después de</text>
+    <xslid>
     <xslid id="sci_subject">
         <text find="issue">número</text>
         <text find="subject_list_of_serials">Lista de seriadas por materia</text>
