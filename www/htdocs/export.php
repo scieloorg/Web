@@ -3,11 +3,14 @@
 * cria o arquivo de texto com a citacao exportada para
 * o formato selecionado
 */
-
-ini_set("display_errors","On");
-
-$pid = $_REQUEST['pid'];
+$pid = $_REQUEST['PID'];
 $format = $_REQUEST['format'];
+
+if(!isset($pid) || $pid == '' || !isset($format) || $format == ''){
+    //header('Location: / ');
+    print('Error: RefWorks exportation tool.<br/>');
+    exit;
+}
 
 $url = "http://".$_SERVER['HTTP_HOST']."/cgi-bin/wxis.exe/?IsisScript=ScieloXML/sci_artmetadata.xis&def=scielo.def.php&pid=".$pid."&";
 
