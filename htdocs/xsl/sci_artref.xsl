@@ -565,15 +565,15 @@
 		<xsl:choose>
 			<xsl:when test="$FORMAT!='short'">
 				<xsl:if test="$CURR_DATE">
-                    [<xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'cited']"/>
+                    [<xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'cited']"/>&#160;
 					<xsl:value-of select="substring($CURR_DATE,1,4)"/>-<xsl:value-of select="substring($CURR_DATE,5,2)"/>-<xsl:value-of select="substring($CURR_DATE,7,2)"/>]</xsl:if>
-				<xsl:if test="$FPAGE!=0 and $LPAGE!=0 and $FPAGE!='' and $LPAGE!=''">
+				<xsl:if test="$FPAGE!='' and $LPAGE!=''">
 					<xsl:value-of select="concat(', pp. ', $FPAGE, '-', $LPAGE)"/>
 				</xsl:if>
                 . <xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'available_from']"/>:
   			  &lt;<xsl:value-of select="$url"/>&gt;.</xsl:when>
 			<xsl:otherwise>
-				<xsl:if test="$FPAGE!=0 and $LPAGE!=0 and $FPAGE!='' and $LPAGE!=''">
+				<xsl:if test="$FPAGE!='' and $LPAGE!=''">
 					<xsl:value-of select="concat(', pp. ', $FPAGE, '-', $LPAGE)"/>.
 				</xsl:if>
 			</xsl:otherwise>
@@ -1234,7 +1234,7 @@ Parameters:
 		</xsl:if>
 		<xsl:if test="$FORMAT!='short'">
 			<xsl:if test="$CURR_DATE">
-                [<xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'cited']"/>
+                [<xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'cited']"/>&#160;
 				<xsl:value-of select="substring($CURR_DATE,1,4)"/>&#160;
 
 			<xsl:call-template name="GET_MONTH_NAME">
