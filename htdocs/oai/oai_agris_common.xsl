@@ -5,7 +5,7 @@
 <xsl:variable name="spacechar">00</xsl:variable>
 
 <xsl:template match="/">
-	<ListRecords>
+	<ListRecords xsl:exclude-result-prefixes="ags dc agls dcterms">
 		<xsl:apply-templates select="//article/front"/>	
 		<xsl:apply-templates select="//RESUME"/>
 	</ListRecords>		
