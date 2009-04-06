@@ -62,7 +62,7 @@
 	<!--
 	
 	-->
-	<xsl:template match="ARTICLE[fulltext]">
+	<xsl:template match="ARTICLE[fulltext] | article">
 		<xsl:apply-templates select="." mode="make-a-piece"/>
 	</xsl:template>
 </xsl:stylesheet>
