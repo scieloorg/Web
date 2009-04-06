@@ -514,6 +514,22 @@
 	</xsl:template>
 	<!-- Show Table of Contents Button -->
 	<xsl:template name="TOC">
+		<xsl:choose>
+			<xsl:when test="//CONTROLINFO/NO_SCI_SERIAL='yes'">
+				<xsl:call-template name="ShowNavBarButton">
+					<xsl:with-param name="file">toc.gif</xsl:with-param>
+					<xsl:with-param name="alttext">
+						<xsl:call-template name="GetStrip">
+							<xsl:with-param name="vol" select="//CONTROLINFO/CURRENTISSUE/@VOL"/>
+							<xsl:with-param name="num" select="//CONTROLINFO/CURRENTISSUE/@NUM"/>
+							<xsl:with-param name="suppl" select="//CONTROLINFO/CURRENTISSUE/@SUPPL"/>
+							<xsl:with-param name="lang" select="//CONTROLINFO/LANGUAGE"/>
+						</xsl:call-template>
+					</xsl:with-param>					
+					<xsl:with-param name="script">sci_artlist</xsl:with-param>
+				</xsl:call-template>
+			</xsl:when>
+			<xsl:otherwise>
 		<xsl:call-template name="ShowNavBarButton">
 			<xsl:with-param name="file">toc.gif</xsl:with-param>
 			<xsl:with-param name="alttext">
@@ -525,10 +541,10 @@
 				</xsl:call-template>
 			</xsl:with-param>
 			<xsl:with-param name="pid" select="//CONTROLINFO/CURRENTISSUE/@PID"/>
-			<xsl:with-param name="script">
-				<xsl:apply-templates select="." mode="issuetoc"/>
-			</xsl:with-param>
+					<xsl:with-param name="script">sci_issuetoc</xsl:with-param>
 		</xsl:call-template>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 	<!-- Show Subject List Button -->
 	<xsl:template name="SUBJECTLIST">
