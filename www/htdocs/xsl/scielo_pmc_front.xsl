@@ -76,6 +76,11 @@
 	<xsl:template match="xref" mode="front">
 		<xsl:apply-templates/>
 	</xsl:template>
+	<xsl:template match="xref[@ref-type='author-notes']" mode="front">
+		<a href="#{@rid}">
+			<xsl:apply-templates/>
+		</a>
+	</xsl:template>
 	<xsl:template match="xref[@ref-type='aff']/@rid | aff/@id">
 	</xsl:template>
 	<xsl:template match="aff" mode="front">
