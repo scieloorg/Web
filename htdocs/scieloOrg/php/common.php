@@ -10,7 +10,7 @@
 
 			if (strlen($aut)>0){
 				$names = explode(',',$aut);
-				$upperCaseAuthorsXML = '<AUTHOR key="'.$aut.'" SEARCH="'.strtoupper(removeAccent(str_replace(' ','+',$aut))).'"><NAME>'.$names[1].'</NAME><SURNAME>'.$names[0].'</SURNAME><UPP_NAME>'.strtoupper($names[1]).'</UPP_NAME><UPP_SURNAME>'.strtoupper($names[0]).'</UPP_SURNAME></AUTHOR>';
+				$upperCaseAuthorsXML = '<AUTHOR key="'.$aut.'" SEARCH="'.str_replace(',',',+',strtoupper(removeAccent(str_replace(' ','+',$aut)))).'"><NAME>'.$names[1].'</NAME><SURNAME>'.$names[0].'</SURNAME><UPP_NAME>'.strtoupper($names[1]).'</UPP_NAME><UPP_SURNAME>'.strtoupper($names[0]).'</UPP_SURNAME></AUTHOR>';
 
 				$xml = str_replace('<author>'.$aut.'</author>', $upperCaseAuthorsXML, $xml);
 			}
