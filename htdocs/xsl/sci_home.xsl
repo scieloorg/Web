@@ -36,7 +36,7 @@
 </xsl:template>
 <xsl:template match="CONTROLINFO">
 	<p align="center">
-		<a href="http://www.scielo.org/php/index.php?lang=en">
+		<a href="http://www.scielo.org/php/index.php?lang={LANGUAGE}">
 			<img>
 				<xsl:attribute name="alt">Scientific Electronic Library Online</xsl:attribute>
 				<xsl:attribute name="border">0</xsl:attribute>
@@ -58,16 +58,16 @@
 		<td width="205" valign="top" rowspan="2">
         <xsl:if test="$show_login = 1">
             <xsl:apply-templates select="//USERINFO" mode="box">
-                <xsl:with-param name="lang" select="'en'"/>
+                <xsl:with-param name="lang" select="LANGUAGE"/>
             </xsl:apply-templates>
         </xsl:if>
-		<a href="http://www.scielo.org/php/index.php?lang=en">
+		<a href="http://www.scielo.org/php/index.php?lang={LANGUAGE}">
 			<font class="linkado" size="-1">SciELO.org</font>
 		</a><br/>
 
         <a>
 			<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of 
-				select="SCIELO_INFO/PATH_DATA"/>avaliacao/avaliacao_en.htm</xsl:attribute>		
+				select="SCIELO_INFO/PATH_DATA"/>avaliacao/avaliacao_<xsl:value-of select="LANGUAGE"/>.htm</xsl:attribute>		
 			<font class="linkado" size="-1"><xsl:value-of select="$translations/xslid[@id='sci_home']/text[@find='journals_evaluation']"/></font>
 		</a><br/>
         <xsl:if test="//CONTROLINFO/LANGUAGE != 'pt'">
@@ -120,14 +120,14 @@
 
 		<a>
 			<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of 
-				select="SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_alphabetic&amp;lng=en&amp;nrm=iso</xsl:attribute>
+				select="SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_alphabetic&amp;lng=<xsl:value-of select="LANGUAGE"/>&amp;nrm=iso</xsl:attribute>
 
 			<font class="linkado" size="-1"><xsl:value-of select="$translations/xslid[@id='sci_home']/text[@find='alphabetic_list']"/></font>
 		</a><br/>
 
 		<a>
 			<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of 
-				select="SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_subject&amp;lng=en&amp;nrm=iso</xsl:attribute>
+				select="SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_subject&amp;lng=<xsl:value-of select="LANGUAGE"/>&amp;nrm=iso</xsl:attribute>
 
 			<font class="linkado" size="-1"><xsl:value-of select="$translations/xslid[@id='sci_home']/text[@find='subject_list']"/></font>
 		</a><br/>
