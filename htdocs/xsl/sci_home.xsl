@@ -108,7 +108,7 @@
 
 		<a> 
 			<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of 
-				select="SCIELO_INFO/PATH_DATA"/>equipe/equipe_i.htm</xsl:attribute>
+				select="SCIELO_INFO/PATH_DATA"/>equipe/equipe_<xsl:value-of select="$translations/xslid[@id='sci_home']/text[@find=$interfaceLang]"/>.htm</xsl:attribute>
 
 			<font class="linkado" size="-1"><xsl:value-of select="$translations/xslid[@id='sci_home']/text[@find='scielo_team']"/></font>
 		</a><br/>
@@ -136,7 +136,7 @@
 			<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of 
 				select="SCIELO_INFO/PATH_WXIS"/><xsl:value-of 
 				select="SCIELO_INFO/PATH_DATA_IAH"/>?IsisScript=<xsl:value-of 
-				select="SCIELO_INFO/PATH_CGI_IAH"/>iah.xis&amp;base=title&amp;fmt=iso.pft&amp;lang=i</xsl:attribute>
+				select="SCIELO_INFO/PATH_CGI_IAH"/>iah.xis&amp;base=title&amp;fmt=iso.pft&amp;lang=<xsl:value-of select="$translations/xslid[@id='sci_home']/text[@find=$interfaceLang]"/></xsl:attribute>
 
 			<font class="linkado" size="-1"><xsl:value-of select="$translations/xslid[@id='sci_home']/text[@find='search_form']"/></font>
 		</a><br/>
@@ -149,7 +149,7 @@
 			<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of 
 				select="SCIELO_INFO/PATH_WXIS"/><xsl:value-of 
 				select="SCIELO_INFO/PATH_DATA_IAH"/>?IsisScript=<xsl:value-of 
-				select="SCIELO_INFO/PATH_CGI_IAH"/>iah.xis&amp;base=article^dlibrary&amp;index=AU&amp;fmt=iso.pft&amp;lang=i</xsl:attribute>
+				select="SCIELO_INFO/PATH_CGI_IAH"/>iah.xis&amp;base=article^dlibrary&amp;index=AU&amp;fmt=iso.pft&amp;lang=<xsl:value-of select="$translations/xslid[@id='sci_home']/text[@find=$interfaceLang]"/></xsl:attribute>
 
 			<font class="linkado" size="-1"><xsl:value-of select="$translations/xslid[@id='sci_home']/text[@find='author_index']"/></font>
 		</a><br/>
@@ -158,7 +158,7 @@
 			<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of 
 				select="SCIELO_INFO/PATH_WXIS"/><xsl:value-of 
 				select="SCIELO_INFO/PATH_DATA_IAH"/>?IsisScript=<xsl:value-of 
-				select="SCIELO_INFO/PATH_CGI_IAH"/>iah.xis&amp;base=article^dlibrary&amp;index=KW&amp;fmt=iso.pft&amp;lang=i</xsl:attribute>
+				select="SCIELO_INFO/PATH_CGI_IAH"/>iah.xis&amp;base=article^dlibrary&amp;index=KW&amp;fmt=iso.pft&amp;lang=<xsl:value-of select="$translations/xslid[@id='sci_home']/text[@find=$interfaceLang]"/></xsl:attribute>
 
 			<font class="linkado" size="-1"><xsl:value-of select="$translations/xslid[@id='sci_home']/text[@find='subject_index']"/></font>
 		</a><br/>
@@ -167,7 +167,7 @@
 			<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of 
 				select="SCIELO_INFO/PATH_WXIS"/><xsl:value-of 
 				select="SCIELO_INFO/PATH_DATA_IAH"/>?IsisScript=<xsl:value-of 
-				select="SCIELO_INFO/PATH_CGI_IAH"/>iah.xis&amp;base=article^dlibrary&amp;fmt=iso.pft&amp;lang=i</xsl:attribute>
+				select="SCIELO_INFO/PATH_CGI_IAH"/>iah.xis&amp;base=article^dlibrary&amp;fmt=iso.pft&amp;lang=<xsl:value-of select="$translations/xslid[@id='sci_home']/text[@find=$interfaceLang]"/></xsl:attribute>
 
 			<font class="linkado" size="-1"><xsl:value-of select="$translations/xslid[@id='sci_home']/text[@find='search_form']"/></font>
 		</a><br/>
