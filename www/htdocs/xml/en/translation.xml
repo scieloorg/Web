@@ -189,6 +189,10 @@
         <text find="register_free">Free sign up</text>
         <text find="welcome">welcome</text>
         <text find="logout">logout</text>
+		<text find="en">i</text>
+		<text find="es">e</text>
+		<text find="pt">p</text>
+
     </xslid>
 	<xslid id="sci_toolbox">
 		<text find="services">services</text>
@@ -234,4 +238,5 @@
 		<text find="gotopage">go to page</text>
         <text find="table_of_contents">Table of contents</text>
 	</xslid>
+	
 </translations>

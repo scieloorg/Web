@@ -185,6 +185,10 @@
         <text find="register_free">Se Registre Gratuitamente</text>
         <text find="welcome">Bien Venido</text>
         <text find="logout">Salir</text>
+        		<text find="en">i</text>
+		<text find="es">e</text>
+		<text find="pt">p</text>
+
     </xslid>
 	<xslid id="sci_toolbox">
 		<text find="services">Servicios</text>
