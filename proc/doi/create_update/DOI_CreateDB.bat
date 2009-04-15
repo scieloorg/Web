@@ -56,17 +56,7 @@ export PREFIXO=$1
 if [  -f "$3.xrf" ]
 then
 
-	if [ -f "$2.xrf" ]
-	then
-		echo do nothing
-		call batch/CriaMaster.bat $2
-	else
-		   echo "creating/reseting base doi: $2"
-		   call batch/CriaMaster.bat $2
-	fi
 	
-	cisis/mx $2 fst=@doi/fst/doi.fst fullinv=$2
-
 	if [ "$5" == "no_query" ] 
 	then
 		rem $3 pode ser qualquer base desde que tenha v880 e seja pid de artigo

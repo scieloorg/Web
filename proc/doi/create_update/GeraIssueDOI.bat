@@ -2,7 +2,7 @@ rem export PATH=$PATH:.
 rem GeraIssueDOI
 rem Parametro 1: sigla da revista
 rem Parametro 2: volume-numero do issue
-rem Parametro 3: create or update
+rem Parametro 3: reset or update
 rem Parametro 4: art ou ref
 rem Parametro 5: pacote ou individual ou no_query
 rem Parametro 6: intervalo de pid ou user
@@ -58,10 +58,16 @@ else
 	cisis/mx ../bases-work/doi/controler btell=0 "bool=$1_$2" "proc='d3d4a3{',date,'{'" copy=../bases-work/doi/controler now -all    
 fi
 
-if [ "$3" == "reset" ]
+if [ ! -f "$ISSUE_DOI.xrf" ]
 then
-	rm $ISSUE_DOI.*
+	cisis/mx null count=0 create=$ISSUE_DOI now -all
 fi
+if [ "@$3" == "@reset" ]
+then
+	cisis/mx null count=0 create=$ISSUE_DOI now -all
+fi
+cisis/mx $ISSUE_DOI fst=@doi/fst/doi.fst fullinv=$ISSUE_DOI
+
 if [ "$4" == "art" ]
 then
 	if [ "$5" == "no_query" ]
