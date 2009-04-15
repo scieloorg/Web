@@ -69,7 +69,9 @@
 			<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of 
 				select="SCIELO_INFO/PATH_DATA"/>avaliacao/avaliacao_<xsl:value-of select="LANGUAGE"/>.htm</xsl:attribute>		
 			<font class="linkado" size="-1"><xsl:value-of select="$translations/xslid[@id='sci_home']/text[@find='journal_evaluation']"/></font>
-		</a><br/>
+		</a>
+        <br/>
+        <br/>
         <xsl:if test="//CONTROLINFO/LANGUAGE != 'pt'">
 		<a>
 			<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of 
