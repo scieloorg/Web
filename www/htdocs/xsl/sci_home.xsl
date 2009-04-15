@@ -68,7 +68,7 @@
         <a>
 			<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of 
 				select="SCIELO_INFO/PATH_DATA"/>avaliacao/avaliacao_<xsl:value-of select="LANGUAGE"/>.htm</xsl:attribute>		
-			<font class="linkado" size="-1"><xsl:value-of select="$translations/xslid[@id='sci_home']/text[@find='journals_evaluation']"/></font>
+			<font class="linkado" size="-1"><xsl:value-of select="$translations/xslid[@id='sci_home']/text[@find='journal_evaluation']"/></font>
 		</a><br/>
         <xsl:if test="//CONTROLINFO/LANGUAGE != 'pt'">
 		<a>
@@ -169,7 +169,7 @@
 				select="SCIELO_INFO/PATH_DATA_IAH"/>?IsisScript=<xsl:value-of 
 				select="SCIELO_INFO/PATH_CGI_IAH"/>iah.xis&amp;base=article^dlibrary&amp;fmt=iso.pft&amp;lang=<xsl:value-of select="$translations/xslid[@id='sci_home']/text[@find=$interfaceLang]"/></xsl:attribute>
 
-			<font class="linkado" size="-1"><xsl:value-of select="$translations/xslid[@id='sci_home']/text[@find='search_form']"/></font>
+			<font class="linkado" size="-1"><xsl:value-of select="$translations/xslid[@id='sci_home']/text[@find='article_search']"/></font>
 		</a><br/>
 	</td>    
 

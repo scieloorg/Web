@@ -170,6 +170,7 @@
         <text find="alphabetic_list">lista alfabética</text>
         <text find="subject_list">lista por assunto</text>
         <text find="search_form">pesquisa de títulos</text>
+        <text find="article_search">pesquisa de artigos</text>
         <text find="article_browsing">artigos</text>
         <text find="author_index">índice de autores</text>
         <text find="subject_index">índice de assuntos</text>
