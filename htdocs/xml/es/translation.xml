@@ -158,7 +158,7 @@
         <text find="issue">número</text>
     </xslid>
 	<xslid id="sci_home">
-		<text find="journal_evaluation">servicios</text>
+		<text find="journal_evaluation">evaluación de periodicos</text>
         <text find="portuguese">português</text>
         <text find="spanish">español</text>
         <text find="english">english</text>
@@ -170,6 +170,7 @@
         <text find="alphabetic_list">lista alfabética</text>
         <text find="subject_list">lista por materia</text>
         <text find="search_form">búsqueda de títulos</text>
+        <text find="article_search">búsqueda de artículos</text>
         <text find="article_browsing">búsqueda de artículos</text>
         <text find="author_index">índice de autores</text>
         <text find="subject_index">índice de materias</text>
@@ -185,10 +186,9 @@
         <text find="register_free">Se Registre Gratuitamente</text>
         <text find="welcome">Bien Venido</text>
         <text find="logout">Salir</text>
-        		<text find="en">i</text>
+        <text find="en">i</text>
 		<text find="es">e</text>
 		<text find="pt">p</text>
-
     </xslid>
 	<xslid id="sci_toolbox">
 		<text find="services">Servicios</text>
