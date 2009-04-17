@@ -204,8 +204,8 @@
 		<text find="health_indicators">Indicadores de saúde</text>
 		<text find="fapesp_projects">Projetos FAPESP</text>
 		<text find="automatic_translation">Tradução automática</text>
-		<text find="show_semantic_highlights">Mostrar destaques sem#266;nticos</text>
-		<text find="hide_semantic_highlights">Fechar destaques sem#266;nticos</text>
+		<text find="show_semantic_highlights">Mostrar destaques sem&#226;nticos</text>
+		<text find="hide_semantic_highlights">Fechar destaques sem&#226;nticos</text>
 		<text find="access">Acessos</text>
 		<text find="have_no_cited_article">Não possue artigos citados</text>
 		<text find="cited_by">Citado por</text>
