@@ -5,7 +5,11 @@
 4 0 mpl,'PII=',v880,'=',v700/
 5 0 mpl,if v706='o' then 'OU=',v880 fi,
 6 0 mpl,if v706='f' then 'SF=',v880/, fi,
-6 0 mpl,if v706='h' then 'HR=',v880/,|HR=|v881/,|HR=|v891/,if v35='0102-7638' then replace(s('HR=',v880),'0102-7638','1678-9741')/, fi, fi,
+6 0 mpl,if v706='h' then 'HR=',v880/,|HR=|v881/,|HR=|v891/, fi,
+6 0 mpl,if v706='h' and v35='0102-7638' then replace(s('HR=',v880),'0102-7638','1678-9741')/, fi, 
+6 0 mpl,if v706='h' and v35='1807-0302' then replace(s('HR=',v880),'1807-0302','0101-8205')/, fi, 
+6 0 mpl,if v706='h' and v35='1806-1117' then replace(s('HR=',v880),'1806-1117','0102-4744')/, fi, 
+6 0 mpl,if v706='h' and v35='1678-4510' then replace(s('HR=',v880),'1678-4510','0100-879X')/, fi, 
 7 0 mpl,if v706='p' then 'ART=',v880 fi,
 8 0 mpl,if v706='h' then 'TT=',v35/ fi,
 10 0 mpl,if v706='h' and v10>'' then ('AU=',v10^s|, |,v10^n/) fi,
