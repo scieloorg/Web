@@ -194,6 +194,9 @@ class Scielo extends ScieloBase
                 "show_semantic_hl" => "show_semantic_hl",
 				"show_fapesp_projects" => "show_fapesp_projects",
                 "show_home_journal_evaluation" => "show_home_journal_evaluation",
+                "show_home_scieloorg" => "show_home_scieloorg",
+                "show_home_help" => "show_home_help",
+                "show_home_about" => "show_home_about",
                 "show_home_scielo_news" => "show_home_scielo_news",
                 "show_home_scielo_team" => "show_home_scielo_team"
 			);
