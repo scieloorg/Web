@@ -6,6 +6,9 @@
 	<xsl:variable name="login_url" select="//loginURL"/>
 	<xsl:variable name="logout_url" select="//logoutURL"/>
     <xsl:variable name="show_home_journal_evaluation" select="//show_home_journal_evaluation"/>
+    <xsl:variable name="show_home_scieloorg" select="//show_home_scieloorg"/>
+    <xsl:variable name="show_home_help" select="//show_home_help"/>
+    <xsl:variable name="show_home_about" select="//show_home_about"/>
     <xsl:variable name="show_home_scielo_news" select="//show_home_scielo_news"/>
     <xsl:variable name="show_home_scielo_team" select="//show_home_scielo_team"/>
 
@@ -63,10 +66,12 @@
             <xsl:apply-templates select="//USERINFO" mode="box">
                 <xsl:with-param name="lang" select="LANGUAGE"/>
             </xsl:apply-templates>
+        </xsl:if>    
+        <xsl:if test="$show_home_scieloorg = 1">
+            <a href="http://www.scielo.org/php/index.php?lang={LANGUAGE}">
+                <font class="linkado" size="-1">SciELO.org</font>
+            </a><br/>
         </xsl:if>
-		<a href="http://www.scielo.org/php/index.php?lang={LANGUAGE}">
-			<font class="linkado" size="-1">SciELO.org</font>
-		</a><br/>
         <xsl:if test="$show_home_journal_evaluation = 1">
             <a>
                 <xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of
@@ -99,14 +104,16 @@
 		</a><br/>
         </xsl:if>
         <br/>
-
-		<a href="#help">
-			<font class="linkado" size="1"><xsl:value-of select="$translations/xslid[@id='sci_home']/text[@find='help']"/></font>
-		</a><br/>
-
-		<a href="#about">
-			<font class="linkado" size="-1"><xsl:value-of select="$translations/xslid[@id='sci_home']/text[@find='about_this_site']"/></font>
-		</a><br/>
+        <xsl:if test="$show_home_help = 1">
+            <a href="#help">
+                <font class="linkado" size="1"><xsl:value-of select="$translations/xslid[@id='sci_home']/text[@find='help']"/></font>
+            </a><br/>
+        </xsl:if>
+        <xsl:if test="$show_home_about = 1">
+            <a href="#about">
+                <font class="linkado" size="-1"><xsl:value-of select="$translations/xslid[@id='sci_home']/text[@find='about_this_site']"/></font>
+            </a><br/>
+        </xsl:if>
         <xsl:if test="$show_home_scielo_news = 1">
             <a href="http://listas.bireme.br/mailman/listinfo/scieloi-l">
                 <font class="linkado" size="1"><xsl:value-of select="$translations/xslid[@id='sci_home']/text[@find='scielo_news']"/></font>

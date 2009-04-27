@@ -103,7 +103,10 @@ logout_url=/applications/scielo-org/sso/logoutScielo.php
 check_login_url=/applications/scielo-org/sso/checkLogin.php
 
 [LINKS]
+show_home_scieloorg=1
 show_home_journal_evaluation=1
+show_home_help=1
+show_home_about=1
 show_home_scielo_news=1
 show_home_scielo_team=1
 
