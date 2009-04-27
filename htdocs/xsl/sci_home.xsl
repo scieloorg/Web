@@ -5,6 +5,9 @@
 	<xsl:variable name="show_login" select="//show_login"/>
 	<xsl:variable name="login_url" select="//loginURL"/>
 	<xsl:variable name="logout_url" select="//logoutURL"/>
+    <xsl:variable name="show_home_journal_evaluation" select="//show_home_journal_evaluation"/>
+    <xsl:variable name="show_home_scielo_news" select="//show_home_scielo_news"/>
+    <xsl:variable name="show_home_scielo_team" select="//show_home_scielo_team"/>
 
 	<xsl:output method="html" indent="no"/>
 	<xsl:include href="sci_navegation.xsl"/>
@@ -64,13 +67,14 @@
 		<a href="http://www.scielo.org/php/index.php?lang={LANGUAGE}">
 			<font class="linkado" size="-1">SciELO.org</font>
 		</a><br/>
-
-        <a>
-			<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of 
-				select="SCIELO_INFO/PATH_DATA"/>avaliacao/avaliacao_<xsl:value-of select="LANGUAGE"/>.htm</xsl:attribute>		
-			<font class="linkado" size="-1"><xsl:value-of select="$translations/xslid[@id='sci_home']/text[@find='journal_evaluation']"/></font>
-		</a>
-        <br/>
+        <xsl:if test="$show_home_journal_evaluation = 1">
+            <a>
+                <xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of
+                    select="SCIELO_INFO/PATH_DATA"/>avaliacao/avaliacao_<xsl:value-of select="LANGUAGE"/>.htm</xsl:attribute>
+                <font class="linkado" size="-1"><xsl:value-of select="$translations/xslid[@id='sci_home']/text[@find='journal_evaluation']"/></font>
+            </a>
+            <br/>
+        </xsl:if>
         <br/>
         <xsl:if test="//CONTROLINFO/LANGUAGE != 'pt'">
 		<a>
@@ -103,17 +107,18 @@
 		<a href="#about">
 			<font class="linkado" size="-1"><xsl:value-of select="$translations/xslid[@id='sci_home']/text[@find='about_this_site']"/></font>
 		</a><br/>
-
-		<a href="http://listas.bireme.br/mailman/listinfo/scieloi-l">
-			<font class="linkado" size="1"><xsl:value-of select="$translations/xslid[@id='sci_home']/text[@find='scielo_news']"/></font>
-		</a><br/>
-
-		<a> 
-			<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of 
-				select="SCIELO_INFO/PATH_DATA"/>equipe/equipe_<xsl:value-of select="$translations/xslid[@id='sci_home']/text[@find=$interfaceLang]"/>.htm</xsl:attribute>
-
-			<font class="linkado" size="-1"><xsl:value-of select="$translations/xslid[@id='sci_home']/text[@find='scielo_team']"/></font>
-		</a><br/>
+        <xsl:if test="$show_home_scielo_news = 1">
+            <a href="http://listas.bireme.br/mailman/listinfo/scieloi-l">
+                <font class="linkado" size="1"><xsl:value-of select="$translations/xslid[@id='sci_home']/text[@find='scielo_news']"/></font>
+            </a><br/>
+        </xsl:if>
+        <xsl:if test="$show_home_scielo_team = 1">
+            <a>
+                <xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of
+                    select="SCIELO_INFO/PATH_DATA"/>equipe/equipe_<xsl:value-of select="$translations/xslid[@id='sci_home']/text[@find=$interfaceLang]"/>.htm</xsl:attribute>
+                <font class="linkado" size="-1"><xsl:value-of select="$translations/xslid[@id='sci_home']/text[@find='scielo_team']"/></font>
+            </a><br/>
+        </xsl:if>
 
 	</td>
 

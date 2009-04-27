@@ -192,7 +192,10 @@ class Scielo extends ScieloBase
 				"services_log" => "ENABLE_SERVICES_LOG",
 				"show_scimago" => "show_scimago",
                 "show_semantic_hl" => "show_semantic_hl",
-				"show_fapesp_projects" => "show_fapesp_projects"
+				"show_fapesp_projects" => "show_fapesp_projects",
+                "show_home_journal_evaluation" => "show_home_journal_evaluation",
+                "show_home_scielo_news" => "show_home_scielo_news",
+                "show_home_scielo_team" => "show_home_scielo_team"
 			);
 				//die($commentCount);
 
