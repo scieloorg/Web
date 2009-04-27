@@ -102,6 +102,11 @@ login_url=/applications/scielo-org/sso/loginScielo.php
 logout_url=/applications/scielo-org/sso/logoutScielo.php
 check_login_url=/applications/scielo-org/sso/checkLogin.php
 
+[LINKS]
+show_home_journal_evaluation=1
+show_home_scielo_news=1
+show_home_scielo_team=1
+
 [services]
 sci_artlangs="http://trigramas.bireme.br/cgi-bin/wxis.exe/?IsisScript=ScieloXML/sci_artlangs.xis&def=scielo.def&pid=PARAM_PID"
 show_toolbox=1
