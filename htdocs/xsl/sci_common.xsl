@@ -137,7 +137,7 @@
 		<xsl:param name="file"/>
 		<xsl:param name="date"/>
 		<xsl:param name="page"/>
-		<xsl:value-of select="$HOME_URL"/>?script=<xsl:value-of select="$script"/>&amp;<xsl:if test="$seq">pid=<xsl:value-of select="$seq"/>&amp;</xsl:if>lng=<xsl:value-of select="normalize-space($interfaceLang)"/>&amp;nrm=<xsl:value-of select="normalize-space(//CONTROLINFO/STANDARD)"/>
+		<xsl:value-of select="$HOME_URL"/>?script=<xsl:value-of select="$script"/>&amp;<xsl:if test="$seq">pid=<xsl:value-of select="$seq"/>&amp;</xsl:if>lng=<xsl:value-of select="normalize-space($interfaceLang)"/>&amp;xxlng=<xsl:value-of select="normalize-space($interfaceLang)"/>&amp;nrm=<xsl:value-of select="normalize-space(//CONTROLINFO/STANDARD)"/>
 		<xsl:if test="$txtlang">&amp;tlng=<xsl:value-of select="normalize-space($txtlang)"/>
 		</xsl:if>
 		<xsl:if test="$file">&amp;file=<xsl:value-of select="$file"/>
@@ -270,14 +270,30 @@
 	<xsl:template name="GET_ISSN_TYPE">
 		<xsl:param name="TYPE"/>
 		<xsl:param name="LANG"/>
-        <em><xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'version']"/>
-            <xsl:choose>
-                <xsl:when test=" $TYPE = 'PRINT' "><xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'print']"/></xsl:when>
-                <xsl:when test=" $TYPE = 'CDROM' "><xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'cdrom']"/></xsl:when>
-                <xsl:when test=" $TYPE = 'DISKE' "><xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'diskette']"/></xsl:when>
-                <xsl:when test=" $TYPE = 'ONLIN' "><xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'online']"/></xsl:when>
-            </xsl:choose>
-        </em>
+
+		<xsl:choose>
+			<xsl:when test="($LANG = 'pt') or ($LANG = 'es')">
+				<em><xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'version']"/>
+					<xsl:choose>
+                				<xsl:when test=" $TYPE = 'PRINT' ">&#160;<xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'print']"/></xsl:when>
+                				<xsl:when test=" $TYPE = 'CDROM' ">&#160;<xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'cdrom']"/></xsl:when>
+                				<xsl:when test=" $TYPE = 'DISKE' ">&#160;<xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'diskette']"/></xsl:when>
+                				<xsl:when test=" $TYPE = 'ONLIN' ">&#160;<xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'online']"/></xsl:when>
+            				</xsl:choose>
+        			</em>
+			</xsl:when>
+			<xsl:when test="$LANG = 'en'">
+				<em>
+					<xsl:choose>
+                                        	<xsl:when test=" $TYPE = 'PRINT' "><xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'print']"/>&#160;</xsl:when>
+                                        	<xsl:when test=" $TYPE = 'CDROM' "><xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'cdrom']"/>&#160;</xsl:when>
+                                        	<xsl:when test=" $TYPE = 'DISKE' "><xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'diskette']"/>&#160;</xsl:when>
+                                		<xsl:when test=" $TYPE = 'ONLIN' "><xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'online']"/>&#160;</xsl:when>
+                                	</xsl:choose>
+					<xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'version']"/>
+				</em>
+                        </xsl:when>
+		</xsl:choose>		
 	</xsl:template>
 	<!-- Displays former title and new title
          Parameter:
