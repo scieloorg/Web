@@ -136,7 +136,7 @@
         <text find="number">Number</text>
         <text find="not_printed">not printed</text>
         <text find="ahead_of_print">ahead of print</text>
-        <text find="review_in_progress">en revisión</text>
+        <text find="review_in_progress">review</text>
     </xslid>
 	<xslid id="sci_serial">
 		<text find="home_page">Home Page</text>
