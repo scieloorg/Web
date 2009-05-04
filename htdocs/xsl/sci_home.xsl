@@ -11,6 +11,7 @@
     <xsl:variable name="show_home_about" select="//show_home_about"/>
     <xsl:variable name="show_home_scielo_news" select="//show_home_scielo_news"/>
     <xsl:variable name="show_home_scielo_team" select="//show_home_scielo_team"/>
+    <xsl:variable name="show_home_scielo_signature" select="//show_home_scielo_signature"/>
 
 	<xsl:output method="html" indent="no"/>
 	<xsl:include href="sci_navegation.xsl"/>
@@ -51,12 +52,14 @@
 				select="LANGUAGE" />/scielobre.gif</xsl:attribute>
 			</img>
 		</a><br/>
-		<img>
-			<xsl:attribute name="src"><xsl:value-of 
-				select="SCIELO_INFO/PATH_GENIMG" /><!--xsl:value-of 
-				select="LANGUAGE" /-->assinat.gif</xsl:attribute>
-			<xsl:attribute name="border">0</xsl:attribute>
-		</img>
+        <xsl:if test="$show_home_scielo_signature = 1">
+            <img>
+                <xsl:attribute name="src"><xsl:value-of
+                    select="SCIELO_INFO/PATH_GENIMG" /><!--xsl:value-of
+                    select="LANGUAGE" /-->assinat.gif</xsl:attribute>
+                <xsl:attribute name="border">0</xsl:attribute>
+            </img>
+        </xsl:if>
 	</p>
 	
 	<table border="0">
@@ -220,7 +223,7 @@
 		<tr>
 		<td valign="top" align="right" nowrap="nowrap"  width="20%">
 			<a name="explain">&#160;</a>
-			<font class="negrito" size="-1">SciELO&#160;&#160;&#160;</font>
+			<font class="negrito" size="-1"><xsl:value-of select="$translations/xslid[@id='sci_home']/text[@find='app_name']"/>&#160;&#160;&#160;</font>
 		</td>
 
 		<td width="70%">

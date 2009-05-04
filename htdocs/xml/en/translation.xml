@@ -167,6 +167,7 @@
         <text find="spanish">español</text>
         <text find="english">english</text>
         <text find="help">help</text>
+        <text find="app_name">SciELO</text>
         <text find="about_this_site">about this site</text>
         <text find="scielo_news">SciELO news</text>
         <text find="scielo_team">SciELO team</text>

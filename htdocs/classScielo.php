@@ -198,7 +198,8 @@ class Scielo extends ScieloBase
                 "show_home_help" => "show_home_help",
                 "show_home_about" => "show_home_about",
                 "show_home_scielo_news" => "show_home_scielo_news",
-                "show_home_scielo_team" => "show_home_scielo_team"
+                "show_home_scielo_team" => "show_home_scielo_team",
+                "show_home_scielo_signature" => "show_home_scielo_signature"
 			);
 				//die($commentCount);
 
