@@ -79,21 +79,21 @@
         <xsl:if test="//CONTROLINFO/LANGUAGE != 'pt'">
 		<a>
 			<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of 
-				select="SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_home&amp;lng=pt&amp;nrm=iso</xsl:attribute>
+				select="SCIELO_INFO/PATH_DATA"/>scielo.php?script=<xsl:value-of select="//PAGE_NAME"/>&amp;pid=<xsl:value-of select="//PAGE_PID"/>&amp;lng=pt&amp;nrm=iso</xsl:attribute>
 			<font class="linkado" size="-1"><xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='portuguese']"/></font>
 		</a><br/>
         </xsl:if>
         <xsl:if test="//CONTROLINFO/LANGUAGE != 'en'">
 		<a>
 			<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of
-				select="SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_home&amp;lng=en&amp;nrm=iso</xsl:attribute>
+				select="SCIELO_INFO/PATH_DATA"/>scielo.php?script=<xsl:value-of select="//PAGE_NAME"/>&amp;pid=<xsl:value-of select="//PAGE_PID"/>&amp;lng=en&amp;nrm=iso</xsl:attribute>
 			<font class="linkado" size="-1"><xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='english']"/></font>
 		</a><br/>
         </xsl:if>
         <xsl:if test="//CONTROLINFO/LANGUAGE != 'es'">
 		<a>
 			<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of 
-				select="SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_home&amp;lng=es&amp;nrm=iso</xsl:attribute>
+				select="SCIELO_INFO/PATH_DATA"/>scielo.php?script=<xsl:value-of select="//PAGE_NAME"/>&amp;pid=<xsl:value-of select="//PAGE_PID"/>&amp;lng=es&amp;nrm=iso</xsl:attribute>
 
 			<font class="linkado" size="-1"><xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='spanish']"/></font>
 		</a><br/>
