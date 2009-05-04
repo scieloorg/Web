@@ -43,7 +43,7 @@
         <text find="special_edition">edição especial</text>
         <text find="monograph_number">número monográfico</text>
         <text find="issue">número</text>
-        <text find="supl.">suppl.</text> <!--supplement abreviation-->
+        <text find="suppl.">suppl.</text> <!--supplement abreviation-->
         <text find="vol.">vol.</text> <!--volume abbreviation-->
         <text find="ahead_of_print_epub">ahead of print Epub</text>
         <text find="in_press">Publicado</text>
