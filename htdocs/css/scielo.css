@@ -134,7 +134,7 @@ A.rss {
 				background: url(pointer.gif) left no-repeat;
 			}
 .optionsSubMenu {
-	margin-left: 10px;
+	margin: 4px 0px 0px 10px;
 }
 
 .optionsSubMenu DIV {
