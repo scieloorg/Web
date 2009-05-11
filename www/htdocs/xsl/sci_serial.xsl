@@ -371,7 +371,7 @@ press release do artigo
 
             <div class="search">
                 <h2 class="sectionHeading"><xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='search']"/></h2>
-                <form name="searchForm" action="http://www.scielo.br/cgi-bin/wxis.exe/iah/" method="post">
+                <form name="searchForm" action="http://{//SCIELO_INFO/SERVER}/cgi-bin/wxis.exe/iah/" method="post">
                     <input type="hidden" value="iah/iah.xis" name="IsisScript"/>
                     <input type="hidden" value="p" name="lang"/>
                     <input type="hidden" value="article^dlibrary" name="base"/>
