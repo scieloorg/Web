@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 	<xsl:include href="sci_navegation.xsl"/>
 	<xsl:variable name="forceType" select="//CONTROLINFO/ENABLE_FORCETYPE"/>
@@ -266,12 +266,14 @@ press release do artigo
                 <xsl:with-param name="itemName2" select="'subscrp'"/>
             </xsl:apply-templates>
             <xsl:if test=" ENABLE_STAT_LINK = 1 or ENABLE_CIT_REP_LINK = 1 ">
-                <a class="optionsMenu" href="{SCIELO_INFO/STAT_SERVER}stat_biblio/index.php?lang={LANGUAGE}&amp;issn={/SERIAL/ISSN}">
+                <li>
+                    <a href="{SCIELO_INFO/STAT_SERVER}stat_biblio/index.php?lang={LANGUAGE}&amp;issn={/SERIAL/ISSN}">
                     <xsl:apply-templates select="." mode="link-text">
                         <xsl:with-param name="type" select="'statistic'"/>
                     </xsl:apply-templates>
                     <br/>
-                </a>
+                    </a>
+                </li>
             </xsl:if>
         </ul>        
     </xsl:template>
