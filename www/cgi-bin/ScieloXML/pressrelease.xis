@@ -100,6 +100,74 @@
 </function>
 
 
+<function name="getPressReleaseRelatedToJournal" action="replace" tag="5000" split="occ">
+
+	<!-- importar count do scielo.def.php -->
+	<field action="import" tag="list">3000,8888</field>
+	<field action="replace" tag="8888"><pft>if a(v8888) then '10' fi</pft></field>
+
+	<display><pft>'<PRESSRELEASE>'</pft></display>
+
+	<!-- busca press release de artigos -->
+	<!-- navega pelo press release de artigos e numeros, dado issn -->	
+	<do task="keyrange">
+
+		<parm name="db">ARTIGO</parm>
+		<parm name="from"><pft>'PR_HR=S',v5000</pft></parm>
+		<parm name="to"><pft>'PR_HR=S',v5000,'9999999999'</pft></parm>
+		<parm name="count"><pft>v8888</pft></parm>
+		<parm name="posting"><pft>'ALL'</pft></parm>
+
+		<field action="define" tag=1001>Isis_Current</field>
+		<field action="define" tag=1002>Isis_Key</field>
+		<field action="define" tag="1003">Isis_Posting</field>
+		<field action="define" tag="1004">Isis_Postings</field>
+
+		<loop>
+			<field action="import" tag="list">3000</field>
+			<do task="mfnrange">
+				<parm name="db">ARTIGO</parm>
+				<parm name="from"><pft>v1003^m</pft></parm>
+				<parm name="count">1</parm>
+				<loop>
+					<field action="import" tag="list">3000</field>
+					<!-- <display><pft>v880</pft></display> -->
+					<do task="search">
+						<parm name="db">ARTIGO</parm>
+						<parm name="expression"><pft>'PR_LK=',v880</pft></parm>
+						
+						<loop>
+							<field action="import" tag="list">3000</field>
+							<display><pft>
+								proc('a9241{',(if v241^t='pr' then v241^i,break fi),'{')
+								proc('a9242{',(if v12^l=v3000 then v12,break fi),'{')
+								,if v9242='' then ,proc('a9242{',v12[1],'{'), fi
+								if v9242<>'' then
+
+								'<article data="',v65,'" vol="',v882^v,'" num="',v882^n,'" sup="',v882^s,'" pid="',v880,'" prpid="',v9241,'">','<title lang="',v9242^l,'">',v9242^*,'</title>','</article>'/ fi
+							</pft></display>
+
+							<field action="replace" tag="9249"><pft>v880</pft></field>
+							<field action="export" tag="list">9249</field>
+						</loop>
+					</do>
+					<display><pft>
+
+					if a(v9249) then
+						,proc('a9242{',(if v12^l=v3000 then v12,break fi),'{'),
+					,if v9242='' then ,proc('a9242{',v12[1],'{'), fi
+					,if v9242<>'' then
+						'<issue data="',v65,'" vol="',v882^v,'" num="',v882^n,'" sup="',v882^s,'" pid="',v880,'" lang="',v9242^l,'"></issue>'/ fi
+					,fi
+					</pft></display>
+				</loop>
+			</do>
+		</loop>
+	</do>
+	<display><pft>'</PRESSRELEASE>'</pft></display>
+</function>
+
+
 <function name="displayPressReleasesRelatedToIssue" action="replace" tag="4001">
 
 	<!--

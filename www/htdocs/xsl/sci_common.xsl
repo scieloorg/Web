@@ -178,70 +178,50 @@
 				<xsl:apply-templates select="../." mode="license"/>
 				<span>
 					<img src="http://creativecommons.org/images/public/somerights20.png"/>&#160;
-				</span>
-				<FONT color="#000080" class="negrito">
-					<I>
+				</span>				
+					<i>
 						&#160;
     						<xsl:value-of select="." disable-output-escaping="yes"/>
 						<br/>
-					</I>
-				</FONT>
+					</i>
 				<br/>
 			</xsl:when>
 			<xsl:when test="../..//LICENSE='site'">
 				<xsl:call-template name="COPYRIGHTSCIELO"/>
 			</xsl:when>
 			<xsl:when test="../..//LICENSE='none'">
-				<font class="normal">&#169;&#160;</font>
-				<FONT color="#000080" class="negrito">
-					<I>
-						<xsl:value-of select="@YEAR"/>&#160;     
-
-						<br/>
-					</I>
-				</FONT>
-				<br/>
+				&#169;&#160;				
+                <i>
+                    <xsl:value-of select="@YEAR"/>&#160;
+                </i><br/>
 			</xsl:when>
 			<xsl:when test="../..//LICENSE='embargo' and ../..//EMBARGO/@text='yes'">
 				<xsl:call-template name="COPYRIGHTSCIELO"/>
 			</xsl:when>
 			<xsl:when test="../..//LICENSE='embargo' and ../..//EMBARGO/@text='no'">
-				<font class="normal">&#169;&#160;</font>
-				<FONT color="#000080" class="negrito">
-					<I>
-						<xsl:value-of select="@YEAR"/>&#160;     
-						<xsl:value-of select="." disable-output-escaping="yes"/>
-						<br/>
-					</I>
-				</FONT>
-				<br/>
+				&#169;&#160;				
+                <i>
+                    <xsl:value-of select="@YEAR"/>&#160;
+                    <xsl:value-of select="." disable-output-escaping="yes"/>
+                </i><br/>
 			</xsl:when>
 			<xsl:otherwise>
-				<font class="normal">&#169;&#160;</font>
-				<FONT color="#000080" class="negrito">
-					<I>
-						<xsl:value-of select="@YEAR"/>&#160;
-    						<xsl:value-of select="." disable-output-escaping="yes"/>
-						<br/>
-					</I>
-				</FONT>
-				<br/>
+				&#169;&#160;				
+                <i>
+                    <xsl:value-of select="@YEAR"/>&#160;
+                    <xsl:value-of select="." disable-output-escaping="yes"/>
+                </i><br/>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
 	<!-- Shows contact information -->
 	<xsl:template match="CONTACT">
-		<xsl:apply-templates select="LINES"/>
-		<br/>
-		<br/>
-		<xsl:apply-templates select="EMAILS"/>
+		<xsl:apply-templates select="LINES"/>		
 		<xsl:call-template name="UpdateLog"/>
 	</xsl:template>
 	<!-- Shows lines from contact information -->
-	<xsl:template match="LINES">
-		<FONT color="#000080" class="negrito">
+	<xsl:template match="LINES">		
 			<xsl:apply-templates select="LINE"/>
-		</FONT>
 	</xsl:template>
 	<xsl:template match="LINE">
 		<xsl:value-of select="." disable-output-escaping="yes"/>
@@ -880,21 +860,23 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
 	</xsl:template>
 	<xsl:template match="*" mode="footer-journal">
 		<div class="footer">
-			<xsl:apply-templates select=".//COPYRIGHT"/>
-			<xsl:comment>
-				<xsl:value-of select="../..//LICENSE"/>
-			</xsl:comment>
-			<xsl:choose>
-				<xsl:when test="../..//LICENSE='site'">		
-			</xsl:when>
-				<xsl:when test="../..//LICENSE='none'">		
-			</xsl:when>
-				<xsl:when test="../..//LICENSE='embargo' and ../..//EMBARGO/@text='yes'">
-			</xsl:when>
-				<xsl:otherwise>
+            <p>
+                <xsl:apply-templates select=".//COPYRIGHT"/>
+                <xsl:comment>
+                    <xsl:value-of select="../..//LICENSE"/>
+                </xsl:comment>
+                <xsl:choose>
+                    <xsl:when test="../..//LICENSE='site'">
+                </xsl:when>
+                    <xsl:when test="../..//LICENSE='none'">
+                </xsl:when>
+                    <xsl:when test="../..//LICENSE='embargo' and ../..//EMBARGO/@text='yes'">
+                </xsl:when>
+                    <xsl:otherwise>
 					<xsl:apply-templates select=".//CONTACT"/>
-				</xsl:otherwise>
-			</xsl:choose>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </p>
 		</div>
 	</xsl:template>
 	<xsl:template match="*" mode="repo_url_param_scielo"/>

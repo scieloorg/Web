@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <translations>
     <xslid id="sci_common">
         <text find="reference_manager">Reference Managers</text>
@@ -154,6 +154,17 @@
         <text find="subscription">subscription</text>
         <text find="statistics">statistics</text>
         <text find="online_submission">online submission</text>
+        <text find="press_releases">Press Releases</text>
+        <text find="numbers">Issues</text>
+        <text find="articles">Articles</text>
+        <text find="search">Search</text>
+        <text find="all_indexes">All indexes</text>
+		<text find="title">Title</text>
+		<text find="author">Author</text>
+		<text find="subject">Subject</text>
+		<text find="this_journal">This Journal</text>
+		<text find="scielo_brazil">SciELO Brazil</text>
+		<text find="enter_search_term">Enter one or more words</text>
     </xslid>
     <xslid id="sci_alphabetic">
 		<text find="alphabetic_list">Alphabetic list</text>

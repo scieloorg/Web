@@ -130,6 +130,7 @@ show_comments=0
 show_scimago=0
 show_article_wltranslation=1
 show_fapesp_projects=0
+show_press_releases=0
 
 [FULLTEXT_SERVICES]
 access="http://vm.scielo.br/applications/scielo-org/pages/services/articleRequestGraphicPage.php?pid=PARAM_PID&caller=PARAM_SERVER"

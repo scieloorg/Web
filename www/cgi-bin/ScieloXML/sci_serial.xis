@@ -3,6 +3,7 @@
 	<!-- Inclui definicao de funcao que le parametros de configuracao contidos em arquivo -->
 	<!-- No caso do scielo, apenas os paths da base, do cgi e data importam -->
 	<include>ScieloXML/sci_common.xis</include>
+	<include>ScieloXML/pressrelease.xis</include>
 
 	<section>
 
@@ -61,10 +62,14 @@
 			<call name="CreateMissionXML"><pft>(v901/)</pft></call>
 
 			<call name="CreateCopyrightXML"><pft>mfn</pft></call>
-			
+	
 			<call name="CreateContactXML"><pft>mfn</pft></call>
 			<display><pft>if p(v692) then '<link type="online-submission">',v692,'</link>' fi/#</pft></display>
 	<display><pft>if p(v3311) then '<PAGINATION rep="',v3311,'" journal="',v3002,'"/>',/# fi</pft></display>
+
+
+			<call name="getPressReleaseRelatedToJournal"><pft>if v7054 = '1' then v3002 fi</pft></call>
+
 
 			<display><pft>'</SERIAL>'/#</pft></display>
 		</loop>		
