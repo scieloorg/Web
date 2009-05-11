@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <translations>
     <xslid id="sci_common">
         <text find="reference_manager">Gerenciadores de citas</text>
@@ -201,6 +201,7 @@
         <text find="en">i</text>
 		<text find="es">e</text>
 		<text find="pt">p</text>
+        <text find="img_alt">Scientific Electronic Library Online</text>
     </xslid>
 	<xslid id="sci_toolbox">
 		<text find="services">Servicios</text>

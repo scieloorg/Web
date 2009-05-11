@@ -45,7 +45,7 @@
 	<p align="center">
 		<a href="http://www.scielo.org/php/index.php?lang={LANGUAGE}">
 			<img>
-				<xsl:attribute name="alt">Scientific Electronic Library Online</xsl:attribute>
+				<xsl:attribute name="alt"><xsl:value-of select="$translations/xslid[@id='sci_home']/text[@find='img_alt']"/></xsl:attribute>
 				<xsl:attribute name="border">0</xsl:attribute>
 				<xsl:attribute name="src"><xsl:value-of
 					select="SCIELO_INFO/PATH_GENIMG" /><xsl:value-of 
