@@ -377,7 +377,7 @@ press release do artigo
                     <input type="hidden" value="article^dlibrary" name="base"/>
                     <input type="hidden" value="extSearch" name="nextAction"/>                    
 
-                    <input id="textEntry1" name="exprSearch" class="expression midium defaultValue" value="{$translations/xslid[@id='sci_serial']/text[@find='enter_search_term']}" onfocus="clearDefault('textEntry1', 'expression midium'); this.value= (this.value=='Entre uma ou mais palavras')? '' : this.value" onblur="clearDefault('textEntry1', 'expression midium defaultValue'); this.value= (this.value=='')? 'Entre uma ou mais palavras' : this.value" type="text" />
+                    <input id="textEntry1" name="exprSearch" class="expression midium defaultValue" value="{$translations/xslid[@id='sci_serial']/text[@find='enter_search_term']}" onfocus="clearDefault('textEntry1', 'expression midium'); this.value= (this.value=='{$translations/xslid[@id='sci_serial']/text[@find='enter_search_term']}')? '' : this.value" onblur="clearDefault('textEntry1', 'expression midium defaultValue'); this.value= (this.value=='')? '{$translations/xslid[@id='sci_serial']/text[@find='enter_search_term']}' : this.value" type="text" />
                    
                     <select class="inputText mini" name="indexSearch">
                         <option selected="true" value="^nTo^pTodos os índices^eTodos los indices^iAll indexes^d*^xTO ^yFULINV"><xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='all_indexes']"/></option>
