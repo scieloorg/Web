@@ -8,7 +8,7 @@ $hojeMin=date("i");
 $ip = getenv("REMOTE_ADDR"); 
 
 $defFile = parse_ini_file(dirname(__FILE__)."/../scielo.def.php","true");
-$base=$defFile["LOG"]["ACCESSSTAT_LOG_DIRECTORY"]."/log".$hojeAno.$hojeMes.$hojeDia;
+$base="$TRAB/log".$hojeAno.$hojeMes.$hojeDia;
 $filename=$defFile["LOG"]["ACCESSSTAT_LOG_DIRECTORY"]."/program_log".$hojeAno.$hojeMes.$hojeDia.".txt";
    
 // Split PID into ISSN and ORD
