@@ -7,11 +7,7 @@
 	<html>
 	<head>
 		<title>
-			<xsl:choose>
-				<xsl:when test=" CONTROLINFO/LANGUAGE = 'en' ">Journal articles requests by month and year</xsl:when>
-				<xsl:when test=" CONTROLINFO/LANGUAGE = 'pt' ">Acessos a artigos de revistas por mês e por ano</xsl:when>
-				<xsl:when test=" CONTROLINFO/LANGUAGE = 'es' ">Accesos a artículos de revistas por mes y por año</xsl:when>                        
-			</xsl:choose>
+           <xsl:value-of select="$translations/xslid[@id='sci_artmonthyearstat']/text[@find='journal_articles_requests_by_month_and_year']"/>
 		</title>
 
 		<meta http-equiv="Pragma" content="no-cache" />
@@ -54,11 +50,7 @@
 			<blockquote>
 					<p align="left">
 						<font face="Arial" color="#800000" size="4">
-							<xsl:choose>
-								<xsl:when test=" CONTROLINFO/LANGUAGE = 'en' ">Library Collection</xsl:when>
-								<xsl:when test=" CONTROLINFO/LANGUAGE = 'pt' ">Coleção da biblioteca</xsl:when>
-								<xsl:when test=" CONTROLINFO/LANGUAGE = 'es' ">Colección de la biblioteca</xsl:when>
-							</xsl:choose>
+                            <xsl:value-of select="$translations/xslid[@id='sci_artmonthyearstat']/text[@find='library_collection']"/>
 						</font>
 					</p>
 			</blockquote>
@@ -70,11 +62,7 @@
 			<blockquote>
 				<p>
 				<font face="Verdana" color="#000080" size="2">
-					<xsl:choose>
-						<xsl:when test=" CONTROLINFO/LANGUAGE = 'en' ">Article Requests Sumary by Month and Year</xsl:when>
-						<xsl:when test=" CONTROLINFO/LANGUAGE = 'pt' ">Resumo de acessos a artigos por mês e ano</xsl:when>
-						<xsl:when test=" CONTROLINFO/LANGUAGE = 'es' ">Resumen de accesos a los artículos por mes y año</xsl:when>
-					</xsl:choose>                            
+                    <xsl:value-of select="$translations/xslid[@id='sci_artmonthyearstat']/text[@find='journal_articles_requests_by_month_and_year']"/>
 				</font>
 				</p>
 			</blockquote>			
@@ -88,32 +76,19 @@
         <tr>
             <td width="30%" bgColor="#e1e6e6" rowspan="2">
 			<b>
-				<xsl:choose>
-					<xsl:when test="CONTROLINFO/LANGUAGE = 'en' ">Journal</xsl:when>
-					<xsl:when test="CONTROLINFO/LANGUAGE = 'es' ">Revista </xsl:when>
-					<xsl:when test="CONTROLINFO/LANGUAGE = 'pt' ">Revista </xsl:when>
-				</xsl:choose>
+                <xsl:value-of select="$translations/xslid[@id='sci_artmonthyearstat']/text[@find='journal']"/>
 			</b>
 	     </td>
             <td width="70%" align="center" bgColor="#e1e6e6" colspan="14">
 			<b>
-				<xsl:choose>
-					<xsl:when test="CONTROLINFO/LANGUAGE = 'en' ">Article requests by month and year</xsl:when>
-					<xsl:when test="CONTROLINFO/LANGUAGE = 'es' ">Accesos a artículos de revistas por mes y por año</xsl:when>
-					<xsl:when test="CONTROLINFO/LANGUAGE = 'pt' ">Acessos a artigos por mês e por ano</xsl:when>
-				</xsl:choose>				
+                <xsl:value-of select="$translations/xslid[@id='sci_artmonthyearstat']/text[@find='journal_articles_requests_by_month_and_year']"/>
 			</b>
 	     </td>
         </tr>
         <tr>
             <td width="5%" align="center" bgColor="#e1e6e6">
 			<b>
-				<xsl:choose>
-					<xsl:when test="CONTROLINFO/LANGUAGE = 'en' ">Year</xsl:when>
-					<xsl:when test="CONTROLINFO/LANGUAGE = 'es' ">Año</xsl:when>
-					<xsl:when test="CONTROLINFO/LANGUAGE = 'pt' ">Ano</xsl:when>
-				</xsl:choose>				
-			
+                <xsl:value-of select="$translations/xslid[@id='sci_artmonthyearstat']/text[@find='year']"/>
 			</b>
 	     </td>
             <td width="5%" align="center" bgColor="#e1e6e6">
@@ -241,7 +216,7 @@
 			<b>
 				<xsl:choose>
 					<xsl:when test="@NAME"><xsl:value-of select="@NAME" /></xsl:when>
-					<xsl:otherwise>TOTAL</xsl:otherwise>
+					<xsl:otherwise><xsl:value-of select="$translations/xslid[@id='sci_artmonthyearstat']/text[@find='total']"/></xsl:otherwise>
 				</xsl:choose>
 			</b>
 		</td>
@@ -251,11 +226,7 @@
 		<td width="5%" bgColor="#edecee">
 			<font color="maroon">
 				<b>
-					<xsl:choose>
-						<xsl:when test=" //CONTROLINFO/LANGUAGE = 'en' ">All</xsl:when>
-						<xsl:when test=" //CONTROLINFO/LANGUAGE = 'es' ">Todos</xsl:when>
-						<xsl:when test=" //CONTROLINFO/LANGUAGE = 'pt' ">Todos</xsl:when>
-					</xsl:choose>
+                    <xsl:value-of select="$translations/xslid[@id='sci_artmonthyearstat']/text[@find='all']"/>
 				</b>
 			</font>
 		</td>
