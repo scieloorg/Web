@@ -51,6 +51,7 @@ PATH_PDF=/home/scielo/www/bases/pdf/
 PATH_TRANSLATION=/home/scielo/www/bases/translation/
 PATH_HTDOCS=/home/scielo/www/htdocs/
 PATH_OAI=/home/scielo/www/htdocs/oai/
+PATH_PROC=/home/scielo/www/proc/
 
 [LOG]
 ACTIVATE_LOG=0
