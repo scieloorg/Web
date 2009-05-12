@@ -1,5 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <translations>
+    <xslid id="sci_journalstat">
+        <text find="journal_title">journal title</text>
+        <text find="sets_the_order_to_title">Seleciona a ordenação por título</text>
+        <text find="start_date">data inicial</text>
+        <text find="sets_the_order_to_home">Seleciona a ordenação por home</text>
+        <text find="toc">sumário</text>
+        <text find="sets_the_order_to_toc">Seleciona a ordenação por sumário</text>
+        <text find="articles">artigos</text>
+        <text find="sets_the_order_to_articles">Seleciona a ordenação por artigos</text>
+        <text find="other">outro</text>
+        <text find="sets_the_order_to_other">Seleciona a ordenação por outros</text>
+        <text find="number_of_requests">número de acessos</text>
+        <text find="click_to_select_column_order">clique para selecionar a coluna de ordenação</text>
+        <text find="indicates_current_order">indica a ordem corrente</text>
+        <text find="as_of"> datado de</text>
+        <text find="journal_requests_summary">Resumo de acessos às revistas</text>
+        <text find="site_usage_reports">Relatórios de utilização do site</text>
+        <text find="library_collection">Coleção da biblioteca<</text>
+        <text find="journal_requests_summary">Resumo de acessos às revistas</text>
+        <text find=""></text>
+        <text find=""></text>
+        <text find=""></text>
+    </xslid>
     <xslid id="sci_stat">
         <text find="library_collection">Coleção da biblioteca</text>
         <text find="journal_requests">Acessos às revistas</text>
@@ -7,13 +30,6 @@
         <text find="top_ten_titles">10 títulos mais visitados</text>
         <text find="articles_per_month">Artigos visitados por mês</text>
         <text find="library_site_usage_reports">Relatórios de utilização do site</text>
-        <text find=""></text>
-        <text find=""></text>
-        <text find=""></text>
-        <text find=""></text>
-        <text find=""></text>
-        <text find=""></text>
-        <text find=""></text>
     </xslid>
     <xslid id="sci_common">
         <text find="reference_manager">Gerenciadores de referências</text>

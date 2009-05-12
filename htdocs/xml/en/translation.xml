@@ -1,5 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <translations>
+    <xslid id="sci_journalstat">
+        <text find="journal_title">journal title</text>
+        <text find="sets_the_order_to_title">Sets the order to title</text>
+        <text find="start_date">start date</text>
+        <text find="sets_the_order_to_home">Sets the order to home</text>
+        <text find="toc">toc</text>
+        <text find="sets_the_order_to_toc">Sets the order to toc</text>
+        <text find="articles">articles</text>
+        <text find="sets_the_order_to_articles">Sets the order to articles</text>
+        <text find="other">other</text>
+        <text find="sets_the_order_to_other">Sets the order to other</text>
+        <text find="number_of_requests">number of requests</text>
+        <text find="click_to_select_column_order">click to select column order</text>
+        <text find="indicates_current_order">indicates current order</text>
+        <text find="as_of"> as of</text>
+        <text find="journal_requests_summary">Journal requests summary</text>
+        <text find="site_usage_reports">Site usage reports</text>
+        <text find="library_collection">Library Collection</text>
+        <text find="journal_requests_summary">Journal requests summary</text>
+        <text find=""></text>
+        <text find=""></text>
+        <text find=""></text>
+    </xslid>
     <xslid id="sci_stat">
         <text find="library_collection">Library Collection</text>
         <text find="journal_requests">Journal requests</text>
@@ -7,13 +30,6 @@
         <text find="top_ten_titles">Top ten titles</text>
         <text find="articles_per_month">Articles per month</text>
         <text find="library_site_usage_reports">Library site usage reports</text>
-        <text find=""></text>
-        <text find=""></text>
-        <text find=""></text>
-        <text find=""></text>
-        <text find=""></text>
-        <text find=""></text>
-        <text find=""></text>
     </xslid>
     <xslid id="sci_common">
         <text find="reference_manager">Reference Managers</text>
