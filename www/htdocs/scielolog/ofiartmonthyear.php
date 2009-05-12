@@ -1,7 +1,14 @@
 <?php 
 //	error_reporting(E_ALL);	
-	include_once ("include_grafico.php");
-	include_once ("include.php");
+	require_once("include_grafico.php");
+	require_once("include.php");
+        require_once("../class.XSLTransformer.php");
+
+	$lng = $_REQUEST["lng"];
+	$pid = $_REQUEST["pid"];
+        
+// Create new Scielo object
+        $host = $_SERVER['HTTP_HOST'];
 	
         if ($pid!='') {	
 		for ($j=0;$j < count($pid);++$j) {
@@ -14,7 +21,6 @@
 	$db_tmp_tab=$defFile["PATH"]["PATH_DATABASE"]."/tmp/".$ui.$pid2.".tab_anomes";
 	$db_tmp_tab02=$defFile["PATH"]["PATH_DATABASE"]."/tmp/".$ui.$pid2.".tab_anomes02";
 	$db_title=$defFile["PATH"]["PATH_DATABASE"]."/accesslog/log_scielo/trab/title/title";
-
 	$utl=$defFile["PATH"]["PATH_PROC"]."/cisis";
 	
 // ***********************************************************
@@ -53,7 +59,7 @@
     $output=$output."<PATH_DATA>/</PATH_DATA>\n";
     $output=$output."<PATH_SCRIPTS>ScieloXML/</PATH_SCRIPTS>\n";
     $output=$output."<PATH_SERIAL_HTML>/revistas/</PATH_SERIAL_HTML>\n";
-    $output=$output."<PATH_XSL>".$defFile["PATH"]["PATH_HTDOCS"]."/htdocs/xsl/</PATH_XSL>\n";
+    $output=$output."<PATH_XSL>".$defFile["PATH"]["PATH_XSL"]."</PATH_XSL>\n";
     $output=$output."<PATH_GENIMG>/img/</PATH_GENIMG>\n";
     $output=$output."<PATH_SERIMG>/img/revistas/</PATH_SERIMG>\n";
     $output=$output."<PATH_DATA_IAH>/iah/test/</PATH_DATA_IAH>\n";
@@ -117,17 +123,30 @@
 // **********  Aplica XSl no arquivo gerado pelo programa *************
 // ********************************************************************
 
-	$xsl=$defFile["PATH"]["PATH_HTDOCS"]."/xsl/sciofi_artmonthyearstat.xsl";
 
-	if ($debug=="xsl") {
-		exit($xsl);	
-	}
+	$xsl = $defFile["PATH"]["PATH_XSL"]."/sciofi_artmonthyearstat.xsl";
+
+        if ($debug=="xsl") {
+                echo file_get_contents($xsl);
+        }
+
+        $transformer = new XSLTransformer();
+        $transformer->setXslBaseUri($defFile["PATH"]["PATH_XSL"]);
+	$transformer->setXml($output);
+        $transformer->setXslFile($xsl);
+        $transformer->transform();
+        $output = $transformer->getOutput();
+        $output = str_replace('&amp;','&',$output);
+        $output = str_replace('&lt;','<',$output);
+        $output = str_replace('&gt;','>',$output);
+        $output = str_replace('&quot;','"',$output);
+        $output = str_replace('<p>',' ',$output);
+	$output = str_replace('</p>',' ',$output);
+        echo $output;
 
 	exec('rm -f $db_tmp_tab.*');
 	exec('rm -f $db_tmp_tab02.*');
 	
-	print(xml_xsl($output,$xsl));
-
 ?> 
 <hr>
 
