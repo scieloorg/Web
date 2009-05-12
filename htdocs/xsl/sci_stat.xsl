@@ -73,14 +73,14 @@
 									</li>
 									<xsl:if test="//SCRIPT_TOP_TEN">
 										<li>
-											<a href="{//SCRIPT_TOP_TEN}">
+											<a href="{//SCRIPT_TOP_TEN}&amp;lang={//CONTROLINFO/LANGUAGE}">
                                                 <xsl:value-of select="$translations/xslid[@id='sci_stat']/text[@find='top_ten_titles']"/>
 											</a>
 										</li>
 									</xsl:if>
 									<xsl:if test="//SCRIPT_ARTICLES_PER_MONTH">
 										<li>
-											<a href="{//SCRIPT_ARTICLES_PER_MONTH}">
+											<a href="{//SCRIPT_ARTICLES_PER_MONTH}&amp;lang={//CONTROLINFO/LANGUAGE}">
                                                 <xsl:value-of select="$translations/xslid[@id='sci_stat']/text[@find='articles_per_month']"/>
 											</a>
 										</li>
