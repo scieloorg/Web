@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <translations>
+    <xslid id="sci_artmonthyearstat">
+        <text find="journal_articles_requests_by_month_and_year">Acessos aos artigos dos títulos por mês e ano</text>
+        <text find="library_collection">Coleção da biblioteca</text>
+        <text find="journal">Título</text>
+        <text find="year">Ano</text>
+        <text find="total">Total</text>
+        <text find="all">Todos</text>
+    </xslid>
     <xslid id="sci_statcommon">
         <text find="sentence1">(medido através do acesso ao sumário,<br/> aos resumos e aos artigos em HTML e em PDF</text>
         <text find="most_visited_issue">Fascículo mais visitados</text>
-        <text find="library_collection">Coleção da biblioteca<</text>
+        <text find="library_collection">Coleção da biblioteca</text>
         <text find="issue">fascículo</text>
         <text find="most_visited">mais visitado</text>
         <text find="display_issue_visited">Mostra os fascículos visitados </text>
@@ -36,7 +44,7 @@
         <text find="as_of"> datado de</text>
         <text find="journal_requests_summary">Resumo de acessos às revistas</text>
         <text find="site_usage_reports">Relatórios de utilização do site</text>
-        <text find="library_collection">Coleção da biblioteca<</text>
+        <text find="library_collection">Coleção da biblioteca</text>
         <text find="journal_requests_summary">Resumo de acessos às revistas</text>
     </xslid>
     <xslid id="sci_stat">

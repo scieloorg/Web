@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <translations>
+    <xslid id="sci_artmonthyearstat">
+        <text find="journal_articles_requests_by_month_and_year">Accesos a los artículo del los periódicos por mes y año</text>
+        <text find="library_collection">Colección de la biblioteca</text>
+        <text find="journal">Periódico</text>
+        <text find="year">Año</text>
+        <text find="total">Total</text>
+        <text find="all">Todos</text>
+        <text find=""></text>
+        <text find=""></text>
+        <text find=""></text>
+        <text find=""></text>
+    </xslid>
     <xslid id="sci_statcommon">
         <text find="sentence1">(medido a través del acceso a la tabla de contenido,<br/> a los resúmenes y a los artículos en HTML y en PDF)</text>
         <text find="most_visited_issue">Ejemplar más visitados</text>
