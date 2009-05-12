@@ -13,11 +13,7 @@
 			<xsl:if test=" count(LIST) = 0 ">
 				<xsl:value-of select="JOURNAL/TITLEGROUP/SHORTTITLE" disable-output-escaping="yes" /> - 
 			</xsl:if>
-			<xsl:choose>
-				<xsl:when test=" CONTROLINFO/LANGUAGE = 'en' ">Journal requests summary</xsl:when>
-				<xsl:when test=" CONTROLINFO/LANGUAGE = 'pt' ">Resumo de acessos às revistas</xsl:when>
-				<xsl:when test=" CONTROLINFO/LANGUAGE = 'es' ">Resumen de accesos a las revistas</xsl:when>                        
-			</xsl:choose>
+            <xsl:value-of select="$translations/xslid[@id='sci_journalstat']/text[@find='journal_requests_summary']"/>
 		</title>
 		<meta http-equiv="Pragma" content="no-cache" />
 		<meta http-equiv="Expires" content="Mon, 06 Jan 1990 00:00:01 GMT" />
@@ -182,7 +178,7 @@
 							select="CONTROLINFO/SCIELO_INFO/PATH_DATA" /><xsl:value-of 
 							select="CONTROLINFO/SCIELO_INFO/PATH_GENIMG" /><xsl:value-of
 							select="CONTROLINFO/LANGUAGE" />/fbpelogp.gif</xsl:attribute>
-						<xsl:attribute name="alt">xScientific Electronic Library Online</xsl:attribute>
+						<xsl:attribute name="alt">Scientific Electronic Library Online</xsl:attribute>
 						<xsl:attribute name="border">0</xsl:attribute>
 					</img>
 				</xsl:when>
@@ -198,7 +194,7 @@
 							select="CONTROLINFO/SCIELO_INFO/PATH_DATA" /><xsl:value-of 
 							select="CONTROLINFO/SCIELO_INFO/PATH_SERIMG" /><xsl:value-of
 							select="JOURNAL/TITLEGROUP/SIGLUM" />/plogo.gif</xsl:attribute>
-						<xsl:attribute name="alt">x<xsl:value-of select="JOURNAL/TITLEGROUP/SHORTTITLE"/></xsl:attribute>
+						<xsl:attribute name="alt"><xsl:value-of select="JOURNAL/TITLEGROUP/SHORTTITLE"/></xsl:attribute>
 						<xsl:attribute name="border">0</xsl:attribute>
 					</img>
 				</xsl:otherwise>
@@ -212,11 +208,7 @@
 				<xsl:when test="LIST">
 					<p align="left">
 						<font face="Verdana" color="#000080" size="4">
-							<xsl:choose>
-								<xsl:when test=" CONTROLINFO/LANGUAGE = 'en' ">Library Collection</xsl:when>
-								<xsl:when test=" CONTROLINFO/LANGUAGE = 'pt' ">Coleção da biblioteca</xsl:when>
-								<xsl:when test=" CONTROLINFO/LANGUAGE = 'es' ">Colección de la biblioteca</xsl:when>
-							</xsl:choose>
+                            <xsl:value-of select="$translations/xslid[@id='sci_journalstat']/text[@find='library_collection']"/>
 						</font>
 					</p>
 				</xsl:when>
@@ -240,11 +232,7 @@
 			<p>
 				<blockquote>
 				<font face="Verdana" color="#800000" size="2">
-					<xsl:choose>
-						<xsl:when test=" CONTROLINFO/LANGUAGE = 'en' ">Site usage reports</xsl:when>
-						<xsl:when test=" CONTROLINFO/LANGUAGE = 'pt' ">Relatórios de utilização do site</xsl:when>
-						<xsl:when test=" CONTROLINFO/LANGUAGE = 'es' ">Informes de uso del sítio</xsl:when>
-					</xsl:choose>                            
+                    <xsl:value-of select="$translations/xslid[@id='sci_journalstat']/text[@find='site_usage_reports']"/>
 				</font>
 				</blockquote>
 			</p>
@@ -257,11 +245,7 @@
 		<td align="left" width="70%" colspan="6">
 			<p align="left">
 			<b><font face="Verdana" size="2">
-				<xsl:choose>
-					<xsl:when test=" CONTROLINFO/LANGUAGE = 'en' ">Journal requests summary</xsl:when>
-					<xsl:when test=" CONTROLINFO/LANGUAGE = 'pt' ">Resumo de acessos às revistas</xsl:when>
-					<xsl:when test=" CONTROLINFO/LANGUAGE = 'es' ">Resumen de accesos a las revistas</xsl:when>                        
-				</xsl:choose>
+                <xsl:value-of select="$translations/xslid[@id='sci_journalstat']/text[@find='journal_requests_summary']"/>
 				<xsl:apply-templates select="//STATPARAM/CURRENT_DATE" />
                     </font></b>
                     </p>
@@ -272,12 +256,7 @@
 </xsl:template>
 
 <xsl:template match="CURRENT_DATE">
-	<xsl:choose>
-		<xsl:when test=" //CONTROLINFO/LANGUAGE = 'en' "> - as of </xsl:when>
-		<xsl:when test=" //CONTROLINFO/LANGUAGE = 'pt' "> - datado de </xsl:when>
-		<xsl:when test=" //CONTROLINFO/LANGUAGE = 'es' "> - fecha del </xsl:when>
-	</xsl:choose>
-	
+    - <xsl:value-of select="$translations/xslid[@id='sci_journalstat']/text[@find='as_of']"/> -
 	<xsl:call-template name="ShowDate">
 		<xsl:with-param name="DATEISO" select="." />
 		<xsl:with-param name="LANG" select=" //CONTROLINFO/LANGUAGE" />
@@ -319,18 +298,9 @@
 				<p align="left">
 					<b><font face="Symbol" color="#0000eb" size="2">Ñ</font></b> - 
 			<font face="Verdana" size="2">
-
-					<xsl:choose>
-						<xsl:when test=" CONTROLINFO/LANGUAGE = 'en' ">click to select column order</xsl:when>
-						<xsl:when test=" CONTROLINFO/LANGUAGE = 'pt' ">clique para selecionar a coluna de ordenação</xsl:when>
-						<xsl:when test=" CONTROLINFO/LANGUAGE = 'es' ">clique para seleccionar la columna de ordenamiento</xsl:when>
-					</xsl:choose><br/>
-					<b><font face="Symbol" color="#eb0000" size="2">D</font></b> - 
-					<xsl:choose>
-						<xsl:when test=" CONTROLINFO/LANGUAGE = 'en' ">indicates current order</xsl:when>
-						<xsl:when test=" CONTROLINFO/LANGUAGE = 'pt' ">indica a ordem corrente</xsl:when>
-						<xsl:when test=" CONTROLINFO/LANGUAGE = 'es' ">indica el orden actual</xsl:when>
-					</xsl:choose>
+                    <xsl:value-of select="$translations/xslid[@id='sci_journalstat']/text[@find='click_to_select_column_order']"/><br/>
+					<b><font face="Symbol" color="#eb0000" size="2">D</font></b> -
+                    <xsl:value-of select="$translations/xslid[@id='sci_journalstat']/text[@find='indicates_current_order']"/>
 			</font>
 
 				</p>
@@ -353,12 +323,7 @@
 		<td align="middle" width="48%" colspan="4">
 			<b>
 			<font face="Arial" size="2">
-
-				<xsl:choose>
-					<xsl:when test=" CONTROLINFO/LANGUAGE = 'en' ">number of requests</xsl:when>
-					<xsl:when test=" CONTROLINFO/LANGUAGE = 'pt' ">número de acessos</xsl:when>
-					<xsl:when test=" CONTROLINFO/LANGUAGE = 'es' ">numero de accesos</xsl:when>
-				</xsl:choose>                            
+                <xsl:value-of select="$translations/xslid[@id='sci_journalstat']/text[@find='number_of_requests']"/>                         
 			</font>
 
 			</b>
@@ -372,21 +337,15 @@
 						<xsl:if test=" LIST and //FILTER/ORDER = 1 ">
 							<xsl:attribute name="color">#eb0000</xsl:attribute>
 						</xsl:if>
-						<xsl:choose>
-							<xsl:when test=" CONTROLINFO/LANGUAGE = 'en' ">journal title</xsl:when>
-							<xsl:when test=" CONTROLINFO/LANGUAGE = 'pt' ">título da revista</xsl:when>
-							<xsl:when test=" CONTROLINFO/LANGUAGE = 'es' ">titulo de la revista</xsl:when>
-						</xsl:choose>                            
+                        <xsl:value-of select="$translations/xslid[@id='sci_journalstat']/text[@find='journal_title']"/>
 					</font>
 				</strong>
 				<xsl:if test="LIST">
 					<br/><xsl:call-template name="PutOrderSelector">
 						<xsl:with-param name="ORDER">1</xsl:with-param>
-						<xsl:with-param name="TIP"><xsl:choose>
-							<xsl:when test=" CONTROLINFO/LANGUAGE = 'en' ">Sets the order to title</xsl:when>
-							<xsl:when test=" CONTROLINFO/LANGUAGE = 'pt' ">seleciona a ordenação por título</xsl:when>
-							<xsl:when test=" CONTROLINFO/LANGUAGE = 'es' ">selecciona el orden por titulo</xsl:when>
-						</xsl:choose></xsl:with-param>                        
+						<xsl:with-param name="TIP">
+                            <xsl:value-of select="$translations/xslid[@id='sci_journalstat']/text[@find='sets_the_order_to_title']"/>
+                        </xsl:with-param>
 					</xsl:call-template>
 				</xsl:if>
 			</td>
@@ -396,11 +355,7 @@
 			<p align="center">
 				<strong>
 					<font face="Arial" size="2">
-						<xsl:choose>
-							<xsl:when test=" CONTROLINFO/LANGUAGE = 'en' ">start date</xsl:when>
-							<xsl:when test=" CONTROLINFO/LANGUAGE = 'pt' ">data inicial</xsl:when>
-							<xsl:when test=" CONTROLINFO/LANGUAGE = 'es' ">fecha de inicio</xsl:when>
-						</xsl:choose>
+                        <xsl:value-of select="$translations/xslid[@id='sci_journalstat']/text[@find='start_date']"/>
 						<xsl:if test="LIST"><br/>&#160;</xsl:if>
 					</font>
 				</strong>
@@ -419,11 +374,9 @@
 				<xsl:if test="LIST">
 					<br/><xsl:call-template name="PutOrderSelector">
 						<xsl:with-param name="ORDER">2</xsl:with-param>
-						<xsl:with-param name="TIP"><xsl:choose>
-							<xsl:when test=" CONTROLINFO/LANGUAGE = 'en' ">Sets the order to home</xsl:when>
-							<xsl:when test=" CONTROLINFO/LANGUAGE = 'pt' ">seleciona a ordenação por home</xsl:when>
-							<xsl:when test=" CONTROLINFO/LANGUAGE = 'es' ">selecciona el orden por home</xsl:when>
-						</xsl:choose></xsl:with-param>                        
+						<xsl:with-param name="TIP">
+                            <xsl:value-of select="$translations/xslid[@id='sci_journalstat']/text[@find='sets_the_order_to_home']"/>
+                        </xsl:with-param>
 					</xsl:call-template>
 				</xsl:if>            
 			</p>
@@ -436,23 +389,16 @@
 						<xsl:if test=" LIST and //FILTER/ORDER = 3 ">
 							<xsl:attribute name="color">#eb0000</xsl:attribute>
 						</xsl:if>
-                
-						<xsl:choose>
-							<xsl:when test=" CONTROLINFO/LANGUAGE = 'en' ">toc</xsl:when>
-							<xsl:when test=" CONTROLINFO/LANGUAGE = 'pt' ">sumário</xsl:when>
-							<xsl:when test=" CONTROLINFO/LANGUAGE = 'es' ">toc</xsl:when>
-						</xsl:choose>
+                        <xsl:value-of select="$translations/xslid[@id='sci_journalstat']/text[@find='toc']"/>
 					</font>
 				</strong>
 				
 				<xsl:if test="LIST">
 					<br/><xsl:call-template name="PutOrderSelector">
 						<xsl:with-param name="ORDER">3</xsl:with-param>
-						<xsl:with-param name="TIP"><xsl:choose>
-							<xsl:when test=" CONTROLINFO/LANGUAGE = 'en' ">Sets the order to toc</xsl:when>
-							<xsl:when test=" CONTROLINFO/LANGUAGE = 'pt' ">seleciona a ordenação por sumário</xsl:when>
-							<xsl:when test=" CONTROLINFO/LANGUAGE = 'es' ">selecciona el orden por toc</xsl:when>
-						</xsl:choose></xsl:with-param>                        
+						<xsl:with-param name="TIP">
+                            <xsl:value-of select="$translations/xslid[@id='sci_journalstat']/text[@find='sets_the_order_to_toc']"/>
+                        </xsl:with-param>
 					</xsl:call-template>
 				</xsl:if>            
 			</p>
@@ -465,22 +411,15 @@
 						<xsl:if test=" LIST and //FILTER/ORDER = 4 ">
 							<xsl:attribute name="color">#eb0000</xsl:attribute>
 						</xsl:if>
-                
-						<xsl:choose>
-							<xsl:when test=" CONTROLINFO/LANGUAGE = 'en' ">articles</xsl:when>
-							<xsl:when test=" CONTROLINFO/LANGUAGE = 'pt' ">artigos</xsl:when>
-							<xsl:when test=" CONTROLINFO/LANGUAGE = 'es' ">artículos</xsl:when>
-						</xsl:choose>                        
+                        <xsl:value-of select="$translations/xslid[@id='sci_journalstat']/text[@find='articles']"/>
 					</font>
 				</strong>
 				<xsl:if test="LIST">
 					<br/><xsl:call-template name="PutOrderSelector">
 						<xsl:with-param name="ORDER">4</xsl:with-param>
-						<xsl:with-param name="TIP"><xsl:choose>
-							<xsl:when test=" CONTROLINFO/LANGUAGE = 'en' ">Sets the order to articles</xsl:when>
-							<xsl:when test=" CONTROLINFO/LANGUAGE = 'pt' ">seleciona a ordenação por artigos</xsl:when>
-							<xsl:when test=" CONTROLINFO/LANGUAGE = 'es' ">selecciona el orden por artículos</xsl:when>
-						</xsl:choose></xsl:with-param>                        
+						<xsl:with-param name="TIP">
+                            <xsl:value-of select="$translations/xslid[@id='sci_journalstat']/text[@find='sets_the_order_to_articles']"/>
+                        </xsl:with-param>
 					</xsl:call-template>
 				</xsl:if>            
 			</p>
@@ -493,22 +432,15 @@
 						<xsl:if test=" LIST and //FILTER/ORDER = 5 ">
 							<xsl:attribute name="color">#eb0000</xsl:attribute>
 						</xsl:if>
-                
-						<xsl:choose>
-							<xsl:when test=" CONTROLINFO/LANGUAGE = 'en' ">other</xsl:when>
-							<xsl:when test=" CONTROLINFO/LANGUAGE = 'pt' ">outros</xsl:when>
-							<xsl:when test=" CONTROLINFO/LANGUAGE = 'es' ">otros</xsl:when>
-						</xsl:choose>                        
+                        <xsl:value-of select="$translations/xslid[@id='sci_journalstat']/text[@find='other']"/>
 					</font>
 				</strong>
 				<xsl:if test="LIST">
 					<br/><xsl:call-template name="PutOrderSelector">
 						<xsl:with-param name="ORDER">5</xsl:with-param>
-						<xsl:with-param name="TIP"><xsl:choose>
-							<xsl:when test=" CONTROLINFO/LANGUAGE = 'en' ">Sets the order to other</xsl:when>
-							<xsl:when test=" CONTROLINFO/LANGUAGE = 'pt' ">seleciona a ordenação por outros</xsl:when>
-							<xsl:when test=" CONTROLINFO/LANGUAGE = 'es' ">selecciona el orden por otros</xsl:when>
-						</xsl:choose></xsl:with-param>                        
+						<xsl:with-param name="TIP">
+                            <xsl:value-of select="$translations/xslid[@id='sci_journalstat']/text[@find='sets_the_order_to_other']"/>
+                        </xsl:with-param>
 					</xsl:call-template>
 				</xsl:if>            
 			</p>
