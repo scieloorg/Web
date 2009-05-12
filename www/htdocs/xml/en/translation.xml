@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <translations>
+    <xslid id="sci_stat">
+        <text find="library_collection">Library Collection</text>
+        <text find="journal_requests">Journal requests</text>
+        <text find="issue_requests">Issue requests</text>
+        <text find="top_ten_titles">Top ten titles</text>
+        <text find="articles_per_month">Articles per month</text>
+        <text find="library_site_usage_reports">Library site usage reports</text>
+        <text find=""></text>
+        <text find=""></text>
+        <text find=""></text>
+        <text find=""></text>
+        <text find=""></text>
+        <text find=""></text>
+        <text find=""></text>
+    </xslid>
     <xslid id="sci_common">
         <text find="reference_manager">Reference Managers</text>
         <text find="export_to_bibtex">Export to BibTex</text>
