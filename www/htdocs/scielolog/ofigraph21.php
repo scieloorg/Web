@@ -1,4 +1,5 @@
 <?php
+include_once("../applications/scielo-org/users/langs.php");
 
 	$pid=$_REQUEST['pid'];
 	
@@ -34,7 +35,7 @@ function myWindow(year)
 </a>
 <br><img src="/img/assinat.gif" border="0"></p>
  
-<a name="visartmonth"><h2>El numero de articulos visitados por mes</h2></a>
+<a name="visartmonth"><h2><?=VISITED_ARTICLES_BY_MONTH?></h2></a>
 <?php
 
 //$log = new LogDatabaseQueryTitle(LOGDEF);
@@ -42,12 +43,12 @@ function myWindow(year)
 
 if (!$pid or $pid[0] == "All")
 {
-    echo "<p>Todos los articulos visitados de todas las revistas, agrupado por mes , desde 2006.</p>\n";
+    echo "<p>".OFIGRAPH21_SENTENCE1."</p>\n";
     $flagAll = true;
 }
 else
 {
-    echo "<p>Todos los articulos visitados, de lso siguientes titulos :<br>\n";
+    echo "<p>".OFIGRAPH21_SENTENCE2.":<br>\n";
     echo "<ul>\n";
     
     //$log->setPid ($pid);
@@ -85,9 +86,9 @@ else
 <td rowspan="2" align="right" valign="top">
 <form action="" method="POST" name="months" action="/graphics/index.php">
 
-<b>Elegir revista</b><br/>
+<b><?=OFIGRAPH21_SELECT_JOURNAL?></b><br/>
 <select name="pid[]" multiple="1" size="20">
-	<option value="All">Coleccion de la biblioteca</option>
+	<option value="All"><?=OFIGRAPH21_LIBRARY_COLLECTION?></option>
     <?php
         //$titles = $log->GetTitles (false);
         //$log->destroy();
@@ -112,7 +113,7 @@ else
 
 
 if ($flagAll)
-    echo "<a href=\"/scielolog/ofiartmonthyear.php?lng=es\">Vea los datos</a>\n";
+    echo "<a href=\"/scielolog/ofiartmonthyear.php?lng=es\">".OFIGRAPH21_SEE_THE_DATA."</a>\n";
 else
 {
     echo "<a href=\"/scielolog/ofiartmonthyear.php?lng=es&pid[]=" . $pid[0];
@@ -120,7 +121,7 @@ else
     {
         echo "&pid[]=" . $pid[$i];
     }
-    echo "\">Vea los datos</a>\n";
+    echo "\">".OFIGRAPH21_SEE_THE_DATA."</a>\n";
 }
     
 ?>

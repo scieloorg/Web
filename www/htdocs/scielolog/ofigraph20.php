@@ -1,4 +1,5 @@
 <?php
+include_once("../applications/scielo-org/users/langs.php");
 $defFile = parse_ini_file(dirname(__FILE__)."/../scielo.def.php","true");
 ?>
 <html>
@@ -33,7 +34,7 @@ function myWindow(year)
 <img src="/img/assinat.gif" border="0">
 </p>
       
-<a name="topten"><h2>Ranking de revistas mas visitadas</a>
+<a name="topten"><h2><?=RANKING_MOST_VISITED_JOURNALS?></a>
 <table border="0" align="center" width="600">
 <tr><td width="500">
 <img src="scielograph20.php"/>
