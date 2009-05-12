@@ -7,10 +7,6 @@
         <text find="year">Year</text>
         <text find="total">Total</text>
         <text find="all">All</text>
-        <text find=""></text>
-        <text find=""></text>
-        <text find=""></text>
-        <text find=""></text>
     </xslid>
     <xslid id="sci_statcommon">
         <text find="sentence1">(measured by access to table of contents, abtracts,<br/> html articles and  PDF articles)</text>
