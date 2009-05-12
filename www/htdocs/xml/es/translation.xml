@@ -1,5 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <translations>
+    <xslid id="sci_statcommon">
+        <text find="sentence1">(medido a través del acceso a la tabla de contenido,<br/> a los resúmenes y a los artículos en HTML y en PDF)</text>
+        <text find="most_visited_issue">Ejemplar más visitados</text>
+        <text find="library_collection">Colección de la biblioteca</text>
+        <text find="issue">ejemplar</text>
+        <text find="most_visited">más visitado</text>
+        <text find="display_issue_visited">Muestra los ejemplar visitados </text>
+        <text find="times_or_more"> veces o más</text>
+        <text find="page">Página </text>
+        <text find="of"> de </text>
+        <text find="first">Primera</text>
+        <text find="previous">Anterior</text>
+        <text find="next">Próxima</text>
+        <text find="last">Ultima</text>
+    </xslid>
+    <xslid id="sci_statiss">
+        <text find="issue">ejemplar</text>
+        <text find="nr_of_requests">no. de accesos</text>
+    </xslid>
     <xslid id="sci_journalstat">
         <text find="journal_title">journal title</text>
         <text find="sets_the_order_to_title">Selecciona el orden por titulo</text>
@@ -19,9 +38,6 @@
         <text find="site_usage_reports">Informes de uso del sítio</text>
         <text find="library_collection">Colección de la biblioteca</text>
         <text find="journal_requests_summary">Resumen de accesos a las revistas</text>
-        <text find=""></text>
-        <text find=""></text>
-        <text find=""></text>
     </xslid>
     <xslid id="sci_stat">
         <text find="library_collection">Colección de la biblioteca</text>

@@ -1,5 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <translations>
+    <xslid id="sci_statcommon">
+        <text find="sentence1">(measured by access to table of contents, abtracts,<br/> html articles and  PDF articles)</text>
+        <text find="most_visited_issue">Most visited issue</text>
+        <text find="library_collection">Library Collection</text>
+        <text find="issue">issue</text>
+        <text find="most_visited">most visited</text>
+        <text find="display_issue_visited">Display issue visited </text>
+        <text find="times_or_more"> times or more</text>
+        <text find="page">Page </text>
+        <text find="of"> of </text>
+        <text find="first">First</text>
+        <text find="previous">Previous</text>
+        <text find="next">Next</text>
+        <text find="last">Last</text>
+    </xslid>
+    <xslid id="sci_statiss">
+        <text find="issue">issue</text>
+        <text find="nr_of_requests">nr. of requests</text>
+    </xslid>
     <xslid id="sci_journalstat">
         <text find="journal_title">journal title</text>
         <text find="sets_the_order_to_title">Sets the order to title</text>
@@ -19,9 +38,6 @@
         <text find="site_usage_reports">Site usage reports</text>
         <text find="library_collection">Library Collection</text>
         <text find="journal_requests_summary">Journal requests summary</text>
-        <text find=""></text>
-        <text find=""></text>
-        <text find=""></text>
     </xslid>
     <xslid id="sci_stat">
         <text find="library_collection">Library Collection</text>
