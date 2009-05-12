@@ -129,7 +129,7 @@
 		<xsl:param name="file"/>
 		<xsl:param name="date"/>
 		<xsl:param name="page"/>
-		<xsl:value-of select="$HOME_URL"/>?script=<xsl:value-of select="$script"/>&amp;<xsl:if test="$seq">pid=<xsl:value-of select="$seq"/>&amp;</xsl:if>lng=<xsl:value-of select="normalize-space($interfaceLang)"/>&amp;xxlng=<xsl:value-of select="normalize-space($interfaceLang)"/>&amp;nrm=<xsl:value-of select="normalize-space(//CONTROLINFO/STANDARD)"/>
+		<xsl:value-of select="$HOME_URL"/>?script=<xsl:value-of select="$script"/>&amp;<xsl:if test="$seq">pid=<xsl:value-of select="$seq"/>&amp;</xsl:if>lng=<xsl:value-of select="normalize-space($interfaceLang)"/>&amp;lng=<xsl:value-of select="normalize-space($interfaceLang)"/>&amp;nrm=<xsl:value-of select="normalize-space(//CONTROLINFO/STANDARD)"/>
 		<xsl:if test="$txtlang">&amp;tlng=<xsl:value-of select="normalize-space($txtlang)"/>
 		</xsl:if>
 		<xsl:if test="$file">&amp;file=<xsl:value-of select="$file"/>
