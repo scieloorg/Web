@@ -260,7 +260,7 @@
 			</font>
 		</td>
 		<xsl:call-template name="SUM_MONTHS">
-			<xsl:with-param name="current">1</xsl:with-param>
+			<xsl:with-param name="current">01</xsl:with-param>
 			<xsl:with-param name="final">12</xsl:with-param>
 		</xsl:call-template>
 		<td width="5%" bgColor="#f8f8d5" align="right"><font color="maroon"><xsl:value-of select="sum(YEAR/MONTH)" /></font></td>
@@ -293,7 +293,8 @@
 				<xsl:with-param name="current">01</xsl:with-param>
 				<xsl:with-param name="final">12</xsl:with-param>
 			</xsl:call-template>
-			<td width="5%" bgColor="#f8f8d5" align="right"><font color="maroon"><xsl:value-of select="sum(MONTH)" /></font></td>			
+			<td width="5%" bgColor="#f8f8d5" align="right"><font color="maroon">
+			<xsl:value-of select="sum(MONTH)" /></font></td>			
 		</xsl:when>
 		<xsl:otherwise>
 			<tr>
@@ -302,7 +303,8 @@
 					<xsl:with-param name="current">01</xsl:with-param>
 					<xsl:with-param name="final">12</xsl:with-param>
 				</xsl:call-template>
-				<td width="5%" bgColor="#f8f8d5" align="right"><font color="maroon"><xsl:value-of select="sum(MONTH)" /></font></td>				
+				<td width="5%" bgColor="#f8f8d5" align="right"><font color="maroon">
+				<xsl:value-of select="sum(MONTH)" /></font></td>				
 			</tr>
 		</xsl:otherwise>
 	</xsl:choose>	
@@ -317,9 +319,11 @@
 		<xsl:otherwise>
 			<xsl:choose>
 				<xsl:when test="MONTH[@NUMBER = $current]">
-				  <xsl:apply-templates select="MONTH[@NUMBER = $current]" />
+				   <xsl:apply-templates select="MONTH[@NUMBER = $current]" />
 				</xsl:when>
-				<xsl:otherwise><td width="5%" bgColor="#f5f5eb" align="center">-</td></xsl:otherwise>
+				<xsl:otherwise>
+				   <td width="5%" bgColor="#f5f5eb" align="center">-</td>
+			    </xsl:otherwise>
 			</xsl:choose>
 			<xsl:call-template name="MONTHS">
 				<xsl:with-param name="current" select="$current + 1" />
