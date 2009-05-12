@@ -6,7 +6,6 @@
 
 include_once(dirname(__FILE__)."/../../../php/include.php");
 
-
 $ini = parse_ini_file(dirname(__FILE__)."/../scielo.def.php" , true);
 $url = $ini['scielo_org_urls']['home'];
 
@@ -19,7 +18,19 @@ if(!in_array($lang,$langs)){
 if($lang == "pt")
 {
 /*
-rótulos tela DATASUS
+rótulo tela ofigraph20.php
+*/
+define("RANKING_MOST_VISITED_JOURNALS","Ranking de revistas mas visitadas");
+define("VISITED_ARTICLES_BY_MONTH","Número de artigos visitados por mês");
+define("OFIGRAPH21_SENTENCE1","Artigos visitados em um título, agrupados por mês");
+define("OFIGRAPH21_SENTENCE2","Todos artigos visitados dos seguintes títulos");
+define("OFIGRAPH21_LIBRARY_COLLECTION","Coleção da Biblioteca");
+define("OFIGRAPH21_SELECT_JOURNAL","Selecione um título");
+define("OFIGRAPH21_SEE_THE_DATA","veja os dados");
+
+
+/*
+rótulos tela FAPESP
 */
 define("PROJFAPESP","Projetos FAPESP");
 
@@ -296,6 +307,16 @@ define("FULL_TEXT","texto completo");
 
 if ($lang=="en")
 {
+
+define("RANKING_MOST_VISITED_JOURNALS","Ranking of most visited journals");
+define("VISITED_ARTICLES_BY_MONTH","Number of articles visited by month");
+define("OFIGRAPH21_SENTENCE1","Articles visited in al journals, grouping by month.");
+define("OFIGRAPH21_SENTENCE2","All visited articles of the following journals");
+define("OFIGRAPH21_LIBRARY_COLLECTION","Library Collection");
+define("OFIGRAPH21_SELECT_JOURNAL","Select some Journals");
+define("OFIGRAPH21_SEE_THE_DATA","see the data");
+
+
 /*
 rótulos tela DATASUS
 */
@@ -574,6 +595,15 @@ define("FULL_TEXT","full text");
 
 if ($lang=="es")
 {
+
+define("RANKING_MOST_VISITED_JOURNALS","Ranking de los periódicos mas accesados");
+define("VISITED_ARTICLES_BY_MONTH","El numero de articulos visitados por mes");
+define("OFIGRAPH21_SENTENCE1","los articulos visitados de todas las revistas, agrupado por mes.");
+define("OFIGRAPH21_SENTENCE2","Todos los articulos visitados, de lso siguientes titulos");
+define("OFIGRAPH21_LIBRARY_COLLECTION","Colección de la Biblioteca");
+define("OFIGRAPH21_SELECT_JOURNAL","Elija algunos periódicos");
+define("OFIGRAPH21_SEE_THE_DATA","vea los datos");
+
 /*
 rótulos tela DATASUS
 */
