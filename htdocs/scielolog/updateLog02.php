@@ -26,7 +26,7 @@ $data=date("Y").$hojeMes.$hojeDia.$hojeHora.$hojeMin;
 $hostname = gethostbyaddr($ip);
 $prc="\"proc='<1 0>$app</1><2 0>$page</2><3 0>$issn</3><4 0>$lang</4><5 0>$norm</5>";
 $prc=$prc."<6 0>$data</6><7 0>$ip</7><8 0>$ord</8><9 0>$hostname</9>',\"";
-$OP1="$UTL/mx null count=1 append=$base $prc";
+$OP1="\$UTL/mx null count=1 append=$base $prc";
 
 $handle = fopen($filename, 'a');
 $err=$OP1." \n";  

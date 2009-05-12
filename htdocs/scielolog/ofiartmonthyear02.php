@@ -51,7 +51,7 @@
     $output=$output."<PATH_DATA>/</PATH_DATA>\n";
     $output=$output."<PATH_SCRIPTS>ScieloXML/</PATH_SCRIPTS>\n";
     $output=$output."<PATH_SERIAL_HTML>/revistas/</PATH_SERIAL_HTML>\n";
-    $output=$output."<PATH_XSL>".$defFile["PATH"]["PATH_HTDOCS"]."/xsl/</PATH_XSL>\n";
+    $output=$output."<PATH_XSL>".$defFile["PATH"]["PATH_XSL"]"</PATH_XSL>\n";
     $output=$output."<PATH_GENIMG>/img/</PATH_GENIMG>\n";
     $output=$output."<PATH_SERIMG>/img/revistas/</PATH_SERIMG>\n";
     $output=$output."<PATH_DATA_IAH>/iah/test/</PATH_DATA_IAH>\n";
@@ -113,7 +113,7 @@
 // **********  Aplica XSl no arquivo gerado pelo programa *************
 // ********************************************************************
 
-	$xsl=$defFile["PATH"]["PATH_HTDOCS"]."/xsl/sciofi_artmonthyearstat.xsl";
+	$xsl=$defFile["PATH"]["XSL"]."/sciofi_artmonthyearstat.xsl";
 
 	print(xml_xsl($output,$xsl));
 
