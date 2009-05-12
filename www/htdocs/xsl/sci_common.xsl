@@ -69,33 +69,33 @@
 				</form>
 				<h3>
 					<span>
-                        <xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'reference_manager']"/>
+						<xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'reference_manager']"/>
 					</span>
 				</h3>
 				<ul>
 					<li>
 						<a href="?download&amp;format=BibTex&amp;pid={$pid}">
-                            <xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'export_to_bibtex']"/>
+							<xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'export_to_bibtex']"/>
 						</a>
 					</li>
 					<li>
 						<a href="?download&amp;format=RefMan&amp;pid={$pid}">
-                            <xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'export_to_reference_manager']"/>
+							<xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'export_to_reference_manager']"/>
 						</a>
 					</li>
 					<li>
 						<a href="?download&amp;format=ProCite&amp;pid={$pid}">
-                            <xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'export_to_procite']"/>
+							<xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'export_to_procite']"/>
 						</a>
 					</li>
 					<li>
 						<a href="?download&amp;format=EndNote&amp;pid={$pid}">
-                            <xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'export_to_endnote']"/>
+							<xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'export_to_endnote']"/>
 						</a>
 					</li>
 					<li>
 						<a href="javascript:void(0)" onclick="javascript:w =  window.open('','download', '');document.exportCitation.format.value='RefWorks';document.exportCitation.submit();">
-                            <xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'export_to_refworks']"/>
+							<xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'export_to_refworks']"/>
 						</a>
 					</li>
 				</ul>
@@ -118,15 +118,7 @@
 				<xsl:attribute name="onClick">setTimeout("window.open('http://<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/SERVER"/><xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_DATA"/>scielo.php?script=<xsl:value-of select="$script"/>&amp;<xsl:if test="$seq">pid=<xsl:value-of select="$seq"/>&amp;</xsl:if>lng=<xsl:value-of select="normalize-space(//CONTROLINFO/LANGUAGE)"/>&amp;nrm=<xsl:value-of select="normalize-space(//CONTROLINFO/STANDARD)"/><xsl:if test="$txtlang">&amp;tlng=<xsl:value-of select="normalize-space($txtlang)"/></xsl:if><xsl:if test="$file">&amp;file=<xsl:value-of select="$file"/></xsl:if> ','_self')", 3000);</xsl:attribute>
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:attribute name="href">
-				<xsl:call-template name="getScieloLink">
-					<xsl:with-param name="seq" select="$seq"/>
-					<xsl:with-param name="script" select="$script"/>
-					<xsl:with-param name="txtlang" select="$txtlang"/>
-					<xsl:with-param name="file" select="$file"/>
-					<xsl:with-param name="date" select="$date"/>
-					<xsl:with-param name="page" select="$page"/>
-				</xsl:call-template></xsl:attribute>
+				<xsl:attribute name="href"><xsl:call-template name="getScieloLink"><xsl:with-param name="seq" select="$seq"/><xsl:with-param name="script" select="$script"/><xsl:with-param name="txtlang" select="$txtlang"/><xsl:with-param name="file" select="$file"/><xsl:with-param name="date" select="$date"/><xsl:with-param name="page" select="$page"/></xsl:call-template></xsl:attribute>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
@@ -176,15 +168,12 @@
 		<xsl:choose>
 			<xsl:when test="../..//LICENSE='cc'">
 				<xsl:apply-templates select="../." mode="license"/>
-				<span>
-					<img src="http://creativecommons.org/images/public/somerights20.png"/>&#160;
-				</span>				
+				<p>
 					<i>
 						&#160;
     						<xsl:value-of select="." disable-output-escaping="yes"/>
-						<br/>
 					</i>
-				<br/>
+				</p>
 			</xsl:when>
 			<xsl:when test="../..//LICENSE='site'">
 				<xsl:call-template name="COPYRIGHTSCIELO"/>
@@ -192,8 +181,9 @@
 			<xsl:when test="../..//LICENSE='none'">
 				&#169;&#160;				
                 <i>
-                    <xsl:value-of select="@YEAR"/>&#160;
-                </i><br/>
+					<xsl:value-of select="@YEAR"/>&#160;
+                </i>
+				<br/>
 			</xsl:when>
 			<xsl:when test="../..//LICENSE='embargo' and ../..//EMBARGO/@text='yes'">
 				<xsl:call-template name="COPYRIGHTSCIELO"/>
@@ -201,27 +191,29 @@
 			<xsl:when test="../..//LICENSE='embargo' and ../..//EMBARGO/@text='no'">
 				&#169;&#160;				
                 <i>
-                    <xsl:value-of select="@YEAR"/>&#160;
+					<xsl:value-of select="@YEAR"/>&#160;
                     <xsl:value-of select="." disable-output-escaping="yes"/>
-                </i><br/>
+				</i>
+				<br/>
 			</xsl:when>
 			<xsl:otherwise>
 				&#169;&#160;				
                 <i>
-                    <xsl:value-of select="@YEAR"/>&#160;
+					<xsl:value-of select="@YEAR"/>&#160;
                     <xsl:value-of select="." disable-output-escaping="yes"/>
-                </i><br/>
+				</i>
+				<br/>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
 	<!-- Shows contact information -->
 	<xsl:template match="CONTACT">
-		<xsl:apply-templates select="LINES"/>		
+		<xsl:apply-templates select="LINES"/>
 		<xsl:call-template name="UpdateLog"/>
 	</xsl:template>
 	<!-- Shows lines from contact information -->
-	<xsl:template match="LINES">		
-			<xsl:apply-templates select="LINE"/>
+	<xsl:template match="LINES">
+		<xsl:apply-templates select="LINE"/>
 	</xsl:template>
 	<xsl:template match="LINE">
 		<xsl:value-of select="." disable-output-escaping="yes"/>
@@ -250,30 +242,38 @@
 	<xsl:template name="GET_ISSN_TYPE">
 		<xsl:param name="TYPE"/>
 		<xsl:param name="LANG"/>
-
 		<xsl:choose>
 			<xsl:when test="($LANG = 'pt') or ($LANG = 'es')">
-				<em><xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'version']"/>
+				<em>
+					<xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'version']"/>
 					<xsl:choose>
-                				<xsl:when test=" $TYPE = 'PRINT' ">&#160;<xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'print']"/></xsl:when>
-                				<xsl:when test=" $TYPE = 'CDROM' ">&#160;<xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'cdrom']"/></xsl:when>
-                				<xsl:when test=" $TYPE = 'DISKE' ">&#160;<xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'diskette']"/></xsl:when>
-                				<xsl:when test=" $TYPE = 'ONLIN' ">&#160;<xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'online']"/></xsl:when>
-            				</xsl:choose>
-        			</em>
+						<xsl:when test=" $TYPE = 'PRINT' ">&#160;<xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'print']"/>
+						</xsl:when>
+						<xsl:when test=" $TYPE = 'CDROM' ">&#160;<xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'cdrom']"/>
+						</xsl:when>
+						<xsl:when test=" $TYPE = 'DISKE' ">&#160;<xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'diskette']"/>
+						</xsl:when>
+						<xsl:when test=" $TYPE = 'ONLIN' ">&#160;<xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'online']"/>
+						</xsl:when>
+					</xsl:choose>
+				</em>
 			</xsl:when>
 			<xsl:when test="$LANG = 'en'">
 				<em>
 					<xsl:choose>
-                                        	<xsl:when test=" $TYPE = 'PRINT' "><xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'print']"/>&#160;</xsl:when>
-                                        	<xsl:when test=" $TYPE = 'CDROM' "><xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'cdrom']"/>&#160;</xsl:when>
-                                        	<xsl:when test=" $TYPE = 'DISKE' "><xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'diskette']"/>&#160;</xsl:when>
-                                		<xsl:when test=" $TYPE = 'ONLIN' "><xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'online']"/>&#160;</xsl:when>
-                                	</xsl:choose>
+						<xsl:when test=" $TYPE = 'PRINT' ">
+							<xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'print']"/>&#160;</xsl:when>
+						<xsl:when test=" $TYPE = 'CDROM' ">
+							<xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'cdrom']"/>&#160;</xsl:when>
+						<xsl:when test=" $TYPE = 'DISKE' ">
+							<xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'diskette']"/>&#160;</xsl:when>
+						<xsl:when test=" $TYPE = 'ONLIN' ">
+							<xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'online']"/>&#160;</xsl:when>
+					</xsl:choose>
 					<xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'version']"/>
 				</em>
-                        </xsl:when>
-		</xsl:choose>		
+			</xsl:when>
+		</xsl:choose>
 	</xsl:template>
 	<!-- Displays former title and new title
          Parameter:
@@ -283,7 +283,7 @@
 		<xsl:if test="FORMERTITLE/TITLE">
 			<br/>
 			<font color="#000000">
-                <xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'former_title']"/>:
+				<xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'former_title']"/>:
 			</font>
 			<br/>
 			<font color="#000080">
@@ -295,7 +295,7 @@
 		<xsl:if test="NEWTITLE/TITLE">
 			<br/>
 			<font color="#000000">
-                <xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'new_title']"/>:
+				<xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'new_title']"/>:
 			</font>
 			<br/>
 			<font color="#000080">
@@ -447,7 +447,6 @@
 				<xsl:call-template name="CREATE_ARTICLE_SERVICE_LINK">
 					<xsl:with-param name="URL" select="$url"/>
 					<xsl:with-param name="LABEL" select="$label"/>
-					
 				</xsl:call-template>
 			</xsl:when>
 			<xsl:otherwise>
@@ -569,9 +568,11 @@
 		<xsl:param name="date"/>
         * &#160;<xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'count_started_in']"/>:
         <xsl:call-template name="ShowDate">
-            <xsl:with-param name="DATEISO" select="$date"/>
-            <xsl:with-param name="LANG"><xsl:value-of select="//CONTROLINFO/LANGUAGE"/></xsl:with-param>
-        </xsl:call-template>
+			<xsl:with-param name="DATEISO" select="$date"/>
+			<xsl:with-param name="LANG">
+				<xsl:value-of select="//CONTROLINFO/LANGUAGE"/>
+			</xsl:with-param>
+		</xsl:call-template>
 	</xsl:template>
 	<!-- Inserts javascript code in header
 -->
@@ -639,7 +640,7 @@
 		<p>
 			<center>
 				<font color="blue">
-                    <xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'there_are_no_statistics_forthat_period']"/>
+					<xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'there_are_no_statistics_forthat_period']"/>
 				</font>
 			</center>
 		</p>
@@ -809,7 +810,7 @@
 	</xsl:template>
 	<xsl:template name="PrintArticleInformationLabel">
 		<xsl:param name="LANGUAGE"/>
-        <xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'how_to_cite_this_article']"/>
+		<xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'how_to_cite_this_article']"/>
 	</xsl:template>
 	<xsl:template match="@DOI">
 	doi: <xsl:value-of select="."/>
@@ -834,7 +835,7 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
 	<xsl:template match="fulltext-service-list"/>
 	<xsl:template match="EMBARGO/@date">
 		<xsl:param name="lang"/>
-        <xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'text_available_after']"/>&#160;
+		<xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'text_available_after']"/>&#160;
 		<xsl:call-template name="ShowDate">
 			<xsl:with-param name="DATEISO" select="."/>
 			<xsl:with-param name="LANG" select="$lang"/>
@@ -854,29 +855,27 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
 		</xsl:choose>
 	</xsl:template>
 	<xsl:template match="permissions">
-		<div class="license">
+		<span class="license">
 			<xsl:copy-of select=".//license/*"/>
-		</div>
+		</span>
 	</xsl:template>
 	<xsl:template match="*" mode="footer-journal">
 		<div class="footer">
-            <p>
-                <xsl:apply-templates select=".//COPYRIGHT"/>
-                <xsl:comment>
-                    <xsl:value-of select="../..//LICENSE"/>
-                </xsl:comment>
-                <xsl:choose>
-                    <xsl:when test="../..//LICENSE='site'">
+			<xsl:apply-templates select=".//COPYRIGHT"/>
+			<xsl:comment>
+				<xsl:value-of select="../..//LICENSE"/>
+			</xsl:comment>
+			<xsl:choose>
+				<xsl:when test="../..//LICENSE='site'">
                 </xsl:when>
-                    <xsl:when test="../..//LICENSE='none'">
+				<xsl:when test="../..//LICENSE='none'">
                 </xsl:when>
-                    <xsl:when test="../..//LICENSE='embargo' and ../..//EMBARGO/@text='yes'">
+				<xsl:when test="../..//LICENSE='embargo' and ../..//EMBARGO/@text='yes'">
                 </xsl:when>
-                    <xsl:otherwise>
+				<xsl:otherwise>
 					<xsl:apply-templates select=".//CONTACT"/>
-                    </xsl:otherwise>
-                </xsl:choose>
-            </p>
+				</xsl:otherwise>
+			</xsl:choose>
 		</div>
 	</xsl:template>
 	<xsl:template match="*" mode="repo_url_param_scielo"/>
