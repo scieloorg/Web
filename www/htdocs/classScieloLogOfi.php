@@ -57,7 +57,11 @@ class ScieloLog extends Scielo
   
 
 	$server=$this->_def->getKeyValue("SERVER_SCIELO");
-	$lang=$this->_def->getKeyValue("STANDARD_LANG");
+	if ($lng == ""){
+		$lang=$this->_def->getKeyValue("STANDARD_LANG");
+	}else{
+		$lang=$lng;
+	}
 	$app=$this->_def->getKeyValue("APP_NAME");
 	$server=$this->_def->getKeyValue("SERVER_SCIELO");
 	$path_wxis=$this->_def->getKeyValue("PATH_WXIS_SCIELO");
