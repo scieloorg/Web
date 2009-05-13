@@ -20,7 +20,7 @@
 	$db_acesso=$defFile["PATH"]["PATH_DATABASE"]."/accesslog/log_scielo/trab/acesso";
 	$db_tmp_tab=$defFile["PATH"]["PATH_DATABASE"]."/tmp/".$ui.$pid2.".tab_anomes";
 	$db_tmp_tab02=$defFile["PATH"]["PATH_DATABASE"]."/tmp/".$ui.$pid2.".tab_anomes02";
-	$db_title=$defFile["PATH"]["PATH_DATABASE"]."/accesslog/log_scielo/trab/title/title";
+	$db_title=$defFile["PATH"]["PATH_DATABASE"]."/title/title";
 	$utl=$defFile["PATH"]["PATH_PROC"]."/cisis";
 	
 // ***********************************************************
@@ -114,7 +114,7 @@
 		$result=exec($OP);
 	}
 
-	if ($debug=="xml") {
+	if ($_REQUEST["debug"]=="xml") {
 	   	echo $output;
 		exit();	
 	}
@@ -126,7 +126,7 @@
 
 	$xsl = $defFile["PATH"]["PATH_XSL"]."/sciofi_artmonthyearstat.xsl";
 
-        if ($debug=="xsl") {
+        if ($_REQUEST["debug"]=="xsl") {
                 echo file_get_contents($xsl);
         }
 
