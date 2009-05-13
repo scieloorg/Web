@@ -131,6 +131,7 @@ class ScieloLog extends Scielo
 	$url_xml="http://".$serverlog."/".$execute.$script."&pid=".$pid."&lng=".$lng."&nrm=".$nrm."&order=".$order."&dtf=".$dtf."&dti=".$dti."&access=".$access."&cpage=".$cpage."&nlines=".$nlines;
 //$url_xml="http://".$serverlog."/".$script_log_run."/?script=".$script."&pid=".$pid."&lng=".$lng."&nrm=".$nrm."&order=".$order."&dtf=".$dtf."&dti=".$dti."&access=".$access."&cpage=".$cpage."&nlines=".$nlines;
 	$fp2=fopen($url_xml, "r");
+                stream_set_timeout($fp2,1200);
 		while(!feof($fp2)) {
 	   		$table.=fread ($fp2, $filesize);
 		}
