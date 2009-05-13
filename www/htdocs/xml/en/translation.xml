@@ -100,7 +100,7 @@
         <text find="issue">issue</text>
         <text find="suppl.">suppl.</text> <!--supplement abbreviation-->
         <text find="vol.">vol.</text> <!--volume abbreviation-->
-        <text find="ahead_of_print_epub">ahead of print Epub</text>
+        <text find="ahead_of_print_epub">Epub</text>
         <text find="in_press">In press</text>
         <text find="n.">n.</text> <!--number abbreviation-->
         <text find="selected_edition">Selected edition</text>

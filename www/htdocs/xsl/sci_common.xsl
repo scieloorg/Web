@@ -4,6 +4,9 @@
 		<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_DATA"/>scielo.php</xsl:variable>
 	<xsl:variable name="interfaceLang" select="//CONTROLINFO/LANGUAGE"/>
 	<xsl:variable name="translations" select="document(concat('../xml/',$interfaceLang,'/translation.xml'))/translations"/>
+	<xsl:variable name="ARTICLE_LICENSE" select="//article-meta/permissions"/>
+	<xsl:variable name="GENERAL_LICENSE" select="//PERMISSIONS/permissions"/>
+	
 	<xsl:include href="sci_artref.xsl"/>
 	<xsl:template name="AddRssHeaderLink">
 		<xsl:param name="pid"/>
@@ -129,7 +132,7 @@
 		<xsl:param name="file"/>
 		<xsl:param name="date"/>
 		<xsl:param name="page"/>
-		<xsl:value-of select="$HOME_URL"/>?script=<xsl:value-of select="$script"/>&amp;<xsl:if test="$seq">pid=<xsl:value-of select="$seq"/>&amp;</xsl:if>lng=<xsl:value-of select="normalize-space($interfaceLang)"/>&amp;lng=<xsl:value-of select="normalize-space($interfaceLang)"/>&amp;nrm=<xsl:value-of select="normalize-space(//CONTROLINFO/STANDARD)"/>
+		<xsl:value-of select="$HOME_URL"/>?script=<xsl:value-of select="$script"/>&amp;<xsl:if test="$seq">pid=<xsl:value-of select="$seq"/>&amp;</xsl:if>lng=<xsl:value-of select="normalize-space($interfaceLang)"/>&amp;nrm=<xsl:value-of select="normalize-space(//CONTROLINFO/STANDARD)"/>
 		<xsl:if test="$txtlang">&amp;tlng=<xsl:value-of select="normalize-space($txtlang)"/>
 		</xsl:if>
 		<xsl:if test="$file">&amp;file=<xsl:value-of select="$file"/>
@@ -843,15 +846,12 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
 	</xsl:template>
 	<xsl:template match="*" mode="license">
 		<xsl:choose>
-			<!--xsl:when test=".//article-meta/permissions">
-				<xsl:apply-templates select=".//article-meta/permissions"/>
-			</xsl:when-->
-			<xsl:when test=".//PERMISSIONS">
-				<xsl:apply-templates select=".//PERMISSIONS/permissions"/>
+			<xsl:when test="$ARTICLE_LICENSE">
+			
 			</xsl:when>
-			<xsl:otherwise>
-				<xsl:apply-templates select="..//PERMISSIONS/permissions"/>
-			</xsl:otherwise>
+			<xsl:when test="$GENERAL_LICENSE">
+				<xsl:apply-templates select="$GENERAL_LICENSE"/>
+			</xsl:when>
 		</xsl:choose>
 	</xsl:template>
 	<xsl:template match="permissions">

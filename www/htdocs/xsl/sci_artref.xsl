@@ -12,7 +12,10 @@
 		<xsl:param name="num"/>
 		<xsl:param name="suppl"/>
 		<xsl:param name="lang"/>
-		<xsl:if test="$vol"><xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'vol.']"/><xsl:value-of select="$vol"/></xsl:if>
+		<xsl:if test="$vol">
+			<xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'vol.']"/>
+			<xsl:value-of select="$vol"/>
+		</xsl:if>
 		<xsl:if test="$num">&#160;<xsl:call-template name="GetNumber">
 				<xsl:with-param name="num" select="$num"/>
 				<xsl:with-param name="lang" select="$lang"/>
@@ -26,9 +29,15 @@
 				<xsl:with-param name="strip" select="1"/>
 			</xsl:call-template>
 		</xsl:if>
-		<xsl:if test="contains($num,'ahead')"><xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'ahead_of_print']"/></xsl:if>
-        <xsl:if test="contains($num,'review')"><xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'review_in_progress']"/></xsl:if>
-		<xsl:if test="contains($num,'beforeprint')"><xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'not_printed']"/></xsl:if>
+		<xsl:if test="contains($num,'ahead')">
+			<xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'ahead_of_print']"/>
+		</xsl:if>
+		<xsl:if test="contains($num,'review')">
+			<xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'review_in_progress']"/>
+		</xsl:if>
+		<xsl:if test="contains($num,'beforeprint')">
+			<xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'not_printed']"/>
+		</xsl:if>
 	</xsl:template>
 	<!-- Get Number in specified language -->
 	<xsl:template name="GetNumber">
@@ -37,13 +46,13 @@
 		<xsl:param name="strip"/>
 		<xsl:choose>
 			<xsl:when test="starts-with($num,'SPE')">
-                <xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'special_issue']"/>
+				<xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'special_issue']"/>
 				<xsl:if test="string-length($num) > 3">
 					<xsl:value-of select="concat(' ',substring($num,4))"/>
 				</xsl:if>
 			</xsl:when>
 			<xsl:when test="$num='se' or $num='SE'">
-                <xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'special_edition']"/>
+				<xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'special_edition']"/>
 				<xsl:if test="string-length($num) > 3">
 					<xsl:value-of select="concat(' ',substring($num,4))"/>
 				</xsl:if>
@@ -52,13 +61,15 @@
 			<xsl:when test="starts-with($num,'REVIEW') or starts-with($num,'review')"/>
 			<xsl:when test="starts-with($num,'AHEAD') or starts-with($num,'ahead')"/>
 			<xsl:when test="starts-with($num,'MON')">
-                <xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'monograph_number']"/>
+				<xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'monograph_number']"/>
 				<xsl:if test="string-length($num) > 3">
 					<xsl:value-of select="concat(' ',substring($num,4))"/>
 				</xsl:if>
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:if test="$strip"><xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'issue']"/></xsl:if>
+				<xsl:if test="$strip">
+					<xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'issue']"/>
+				</xsl:if>
 				<xsl:value-of select="$num"/>
 			</xsl:otherwise>
 		</xsl:choose>
@@ -71,7 +82,7 @@
 		<xsl:param name="strip"/>
 		<xsl:if test="$suppl">
 			<xsl:if test="$num">&#160;</xsl:if>
-            <xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'suppl.']"/>
+			<xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'suppl.']"/>
 			<xsl:if test="$suppl!=0">
 				<xsl:value-of select="$suppl"/>
 			</xsl:if>
@@ -93,24 +104,11 @@
 			<xsl:when test="contains($NUM,'ahead')">
 				<xsl:choose>
 					<xsl:when test="../ARTICLE/BODY or ../ARTICLE/fulltext">, 
-                        <xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'ahead_of_print_epub']"/>
-							<xsl:call-template name="ShowDate">
-							<xsl:with-param name="DATEISO">
-								<xsl:choose>
-									<xsl:when test="//ARTICLE/@ahpdate=''">
-										<xsl:value-of select="//ARTICLE/@CURR_DATE"/>
-									</xsl:when>
-									<xsl:otherwise>
-										<xsl:value-of select="//ARTICLE/@ahpdate"/>
-									</xsl:otherwise>
-								</xsl:choose>
-							</xsl:with-param>
-							<xsl:with-param name="LANG" select="//CONTROLINFO/LANGUAGE"/>
-							<xsl:with-param name="ABREV" select="1"/>
-						</xsl:call-template>
+                        <xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'ahead_of_print']"/>
 					</xsl:when>
 					<xsl:otherwise>
-						<xsl:if test="$CITY">&#160;<xsl:value-of select="normalize-space($CITY)"/></xsl:if>
+						<xsl:if test="$CITY">&#160;<xsl:value-of select="normalize-space($CITY)"/>
+						</xsl:if>
 						&#160;<xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'ahead_of_print']"/>
 					</xsl:otherwise>
 				</xsl:choose>
@@ -136,6 +134,9 @@
 				</xsl:if>
 			</xsl:otherwise>
 		</xsl:choose>
+		<xsl:apply-templates select="." mode="Epub">
+			<xsl:with-param name="ahpdate" select="//ARTICLE/@ahpdate"/>
+		</xsl:apply-templates>
 	</xsl:template>
 	<!-- Shows the formatted date
    DATEISO : Date in format yyyymmdd
@@ -417,7 +418,7 @@
 					<xsl:if test="$SUPPL">,</xsl:if>
 				</xsl:if>
 				<xsl:if test="$SUPPL">
-                    <xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'suppl.']"/>
+					<xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'suppl.']"/>
 					<xsl:if test="$SUPPL>0">.<xsl:value-of select="$SUPPL"/>
 					</xsl:if>
 				</xsl:if>
@@ -427,8 +428,9 @@
 			</xsl:otherwise>
 		</xsl:choose>
 		<xsl:value-of select="concat('. ISSN ', $ISSN, '.')"/>
-		<xsl:if test="$NUM='ahead'"> <xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'in_press']"/>
-		<xsl:choose>
+		<xsl:if test="$NUM='ahead'">
+			<xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'in_press']"/>
+			<xsl:choose>
 				<xsl:when test="//ARTICLE/@ahpdate=''">
 					<xsl:value-of select="substring(//ARTICLE/@CURR_DATE,1,4)"/>
 				</xsl:when>
@@ -519,10 +521,10 @@
 		<xsl:choose>
 			<xsl:when test="($NUM!='ahead' and $NUM!='review' and $NUM!='beforeprint') or $VOL">
 				<xsl:variable name="prevVOL">
-                    <xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'vol.']"/>
+					<xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'vol.']"/>
 				</xsl:variable>
 				<xsl:variable name="prevNUM">
-                    <xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'n.']"/>
+					<xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'n.']"/>
 				</xsl:variable>
 				<xsl:value-of select="concat(' ', $YEAR)"/>,
 				<xsl:if test="$VOL">
@@ -530,7 +532,9 @@
 				</xsl:if>
 				<xsl:if test="$NUM">
 					<xsl:choose>
-						<xsl:when test="$NUM='SE' or $NUM='se'"><xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'selected_edition']"/></xsl:when>
+						<xsl:when test="$NUM='SE' or $NUM='se'">
+							<xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'selected_edition']"/>
+						</xsl:when>
 						<xsl:otherwise>
 							<xsl:if test="$VOL">, </xsl:if>
 							<xsl:value-of select="concat($prevNUM,$NUM)"/>
@@ -539,27 +543,13 @@
 				</xsl:if>
 				<xsl:if test="$SUPPL">,
                 <xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'suppl.']"/>
-				<xsl:if test="$SUPPL>0">
-					<xsl:value-of select="$SUPPL"/>
-				</xsl:if>
+					<xsl:if test="$SUPPL>0">
+						<xsl:value-of select="$SUPPL"/>
+					</xsl:if>
 				</xsl:if>
 			</xsl:when>
 			<xsl:when test="$NUM='ahead'">
-					<xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'ahead_of_print_epub']"/>
-					<xsl:call-template name="ShowDate">
-					<xsl:with-param name="DATEISO">
-						<xsl:choose>
-							<xsl:when test="//ARTICLE/@ahpdate=''">
-								<xsl:value-of select="//ARTICLE/@CURR_DATE"/>
-							</xsl:when>
-							<xsl:otherwise>
-								<xsl:value-of select="//ARTICLE/@ahpdate"/>
-							</xsl:otherwise>
-						</xsl:choose>
-					</xsl:with-param>
-					<xsl:with-param name="LANG" select="$LANG"/>
-					<xsl:with-param name="ABREV" select="1"/>
-				</xsl:call-template>.
+				<xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'ahead_of_print']"/>
 			</xsl:when>
 		</xsl:choose>
 		<xsl:choose>
@@ -577,7 +567,9 @@
 					<xsl:value-of select="concat(', pp. ', $FPAGE, '-', $LPAGE)"/>.
 				</xsl:if>
 			</xsl:otherwise>
-		</xsl:choose>
+		</xsl:choose><xsl:apply-templates select="." mode="Epub">
+			<xsl:with-param name="ahpdate" select="//ARTICLE/@ahpdate"/>
+		</xsl:apply-templates>.
 		<xsl:value-of select="concat(' ISSN ', $ISSN, '.')"/>
 		<xsl:apply-templates select="@DOI" mode="ref"/>
 	</xsl:template>
@@ -609,7 +601,7 @@
 		<xsl:param name="TRANSLATORS"/>
 		<xsl:param name="LANG"/>
 		<xsl:if test="$TRANSLATORS">
-            <xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'translated_by']"/>
+			<xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'translated_by']"/>
 			<xsl:apply-templates select="$TRANSLATORS" mode="FULLNAME"/>.
   </xsl:if>
 	</xsl:template>
@@ -791,7 +783,7 @@ Parameters:
 		<xsl:param name="FULLNAME"/>
 		<xsl:param name="iah"/>
 		<xsl:variable name="LANG_IAH">
-            <xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'lang_iah']"/>
+			<xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'lang_iah']"/>
 		</xsl:variable>
 		<xsl:variable name="fullname">
 			<xsl:choose>
@@ -882,7 +874,7 @@ Parameters:
 				</xsl:if>
 				<xsl:if test="$NUM">(<xsl:value-of select="$NUM"/>)</xsl:if>
 				<xsl:if test="$SUPPL">
-                    <xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'suppl.']"/>
+					<xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'suppl.']"/>
 					<xsl:if test="$SUPPL>0">.<xsl:value-of select="$SUPPL"/>
 					</xsl:if>
 				</xsl:if>
@@ -1042,7 +1034,7 @@ Parameters:
 					<xsl:value-of select="concat(' n.', $NUM)"/>
 				</xsl:if>
 				<xsl:if test="$SUPPL">
-                    <xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'suppl.']"/>
+					<xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'suppl.']"/>
 					<xsl:if test="$SUPPL>0">.<xsl:value-of select="$SUPPL"/>
 					</xsl:if>
 				</xsl:if>
@@ -1250,7 +1242,9 @@ Parameters:
 		<xsl:value-of select="$VOL"/>
 			<xsl:if test="$NUM">
 				<xsl:choose>
-					<xsl:when test="$NUM='SE' or $NUM='se'"><xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'selected_name']"/></xsl:when>
+					<xsl:when test="$NUM='SE' or $NUM='se'">
+						<xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'selected_name']"/>
+					</xsl:when>
 					<xsl:otherwise>(<xsl:value-of select="$NUM"/>):
 				</xsl:otherwise>
 				</xsl:choose>
@@ -1261,11 +1255,12 @@ Parameters:
 		</xsl:if>.
 
 		<xsl:if test="$FORMAT!='short'">
-            <xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'available_from']"/>:
+			<xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'available_from']"/>:
   		http://<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/SERVER"/>
 			<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_arttext&amp;pid=<xsl:value-of select="$PID"/>&amp;lng=<xsl:value-of select="$LANG"/>.</xsl:if>
-		<xsl:if test="$NUM='ahead'"> <xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'in_press']"/>
-		<xsl:choose>
+		<xsl:if test="$NUM='ahead'">
+			<xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'in_press']"/>
+			<xsl:choose>
 				<xsl:when test="//ARTICLE/@ahpdate=''">
 					<xsl:value-of select="substring(//ARTICLE/@CURR_DATE,1,4)"/>
 				</xsl:when>
@@ -1273,7 +1268,9 @@ Parameters:
 					<xsl:value-of select="substring(//ARTICLE/@ahpdate,1,4)"/>
 				</xsl:otherwise>
 			</xsl:choose>.
-		</xsl:if>
+		</xsl:if>	<xsl:apply-templates select="." mode="Epub">
+			<xsl:with-param name="ahpdate" select="//ARTICLE/@ahpdate"/>
+		</xsl:apply-templates>.
 		<xsl:apply-templates select="@DOI" mode="ref"/>
 	</xsl:template>
 	<xsl:template name="PrintArticleReferenceElectronicABNT">
@@ -1346,16 +1343,19 @@ Parameters:
   		&lt;http://<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/SERVER"/>
 			<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_arttext&amp;pid=<xsl:value-of select="$PID"/>&amp;lng=<xsl:value-of select="$LANG"/>&amp;nrm=iso&gt;.
 		<xsl:if test="$CURR_DATE">
-            <xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'access_on']"/>
-        	<xsl:value-of select="substring($CURR_DATE,7,2)"/>
-		</xsl:if>&#160;
+				<xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'access_on']"/>
+				<xsl:value-of select="substring($CURR_DATE,7,2)"/>
+			</xsl:if>&#160;
 			<xsl:call-template name="GET_MONTH_NAME_ABNT">
 				<xsl:with-param name="LANG" select="$LANG"/>
 				<xsl:with-param name="ABREV" select="1"/>
 				<xsl:with-param name="MONTH" select="substring($CURR_DATE,5,2)"/>
 			</xsl:call-template>&#160;
 			<xsl:value-of select="substring($CURR_DATE,1,4)"/>.</xsl:if>
-		<xsl:if test="$NUM='ahead'"> &#160; <xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'pre_print']"/>.</xsl:if>
+		<xsl:apply-templates select="." mode="Epub">
+			<xsl:with-param name="ahpdate" select="//ARTICLE/@ahpdate"/>
+		</xsl:apply-templates>.
+
 		<xsl:apply-templates select="@DOI" mode="ref"/>
 	</xsl:template>
 	<xsl:template match="AUTHORS" mode="ref">
@@ -1471,7 +1471,8 @@ Parameters:
 					<xsl:if test="$service_log = 1">
 						<xsl:attribute name="onclick"><xsl:value-of select="$services//service[name='curriculumScienTI']/call"/></xsl:attribute>
 					</xsl:if>
-					<img border="0" align="middle" src="{$PATH_GENIMG}{$LANGUAGE}/lattescv-button.gif"/><xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'curriculum_scienti']"/>
+					<img border="0" align="middle" src="{$PATH_GENIMG}{$LANGUAGE}/lattescv-button.gif"/>
+					<xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'curriculum_scienti']"/>
 				</a>
 			</xsl:when>
 			<xsl:when test=" count(AUTHOR) > 1 ">
@@ -1493,8 +1494,9 @@ Parameters:
 					<xsl:attribute name="onmouseover">
                         status='<xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'authors_list']"/>'; return true;
                      </xsl:attribute>
-					<img border="0" align="middle" src="{$PATH_GENIMG}{$LANGUAGE}/lattescv-button.gif"/><xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'curriculum_scienti']"/>
-						</a>
+					<img border="0" align="middle" src="{$PATH_GENIMG}{$LANGUAGE}/lattescv-button.gif"/>
+					<xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'curriculum_scienti']"/>
+				</a>
 			</xsl:when>
 			<xsl:otherwise>
 				<td colspan="2">&#160;</td>
@@ -1660,4 +1662,11 @@ Parameters:
 	</xsl:template>
 	<xsl:template match="@DOI" mode="ref">&#160;
 		<xsl:apply-templates select="."/>.</xsl:template>
+	<xsl:template match="*" mode="Epub"><xsl:param name="ahpdate"/><xsl:if test="$ahpdate!=''">&#160;<xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'ahead_of_print_epub']"/>&#160;<xsl:call-template name="ShowDate">
+				<xsl:with-param name="DATEISO" select="$ahpdate"/>
+				<xsl:with-param name="LANG" select="//CONTROLINFO/LANGUAGE"/>
+				<xsl:with-param name="ABREV" select="1"/>
+			</xsl:call-template>
+		</xsl:if>		
+	</xsl:template>
 </xsl:stylesheet>
