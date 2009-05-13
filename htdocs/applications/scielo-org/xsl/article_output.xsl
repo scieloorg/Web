@@ -23,12 +23,12 @@
 				<xsl:apply-templates select="." mode="standardized-reference"><xsl:with-param name="domain" select="$domainCountry"/><xsl:with-param name="LANG" select="$lang"/><xsl:with-param name="log" select="$service_log"/></xsl:apply-templates>
 				<xsl:if test="$s != ''">
 					<br/>
-					<xsl:value-of select="$texts/text[find='similarity']/replace"/>
+                    <xsl:value-of select="$translations/xslid[@id='article_output']/text[@find = 'similarity']"/>
 					<xsl:value-of select="$s"/>
 				</xsl:if>
 				<br/>
 				<a href="{$url}" target="_blank">
-					<xsl:value-of select="$texts/text[find='full_text']/replace"/>
+                    <xsl:value-of select="$translations/xslid[@id='article_output']/text[@find = 'full_text']"/>
 				</a>
 			</div>
 		</li>
