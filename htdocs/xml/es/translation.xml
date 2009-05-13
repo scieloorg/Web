@@ -100,7 +100,7 @@
         <text find="issue">número</text>
         <text find="suppl.">suppl.</text> <!--supplement abreviation-->
         <text find="vol.">vol.</text> <!--volume abbreviation-->
-        <text find="ahead_of_print_epub">ahead of print Epub</text>
+        <text find="ahead_of_print_epub">Epub</text>
         <text find="in_press">Publicado</text>
         <text find="n.">n.</text> <!--number abbreviation-->
         <text find="selected_edition">Selected edition</text>
@@ -110,7 +110,7 @@
         <text find="and">y</text>
         <text find="lang_iah">e</text>
         <text find="serial_on_the_internet">periódico na Internet</text>
-        <text find="access_on">accesos en</text>
+        <text find="access_on">accedido en</text>
         <text find="pre_print">pre-publicación</text>
         <text find="curriculum_scienti">Curriculum ScienTI</text>
         <text find="authors_list">List de Autores</text>

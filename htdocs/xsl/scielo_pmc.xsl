@@ -68,7 +68,12 @@
 			<xsl:apply-templates select="//author-notes" mode="text"/>
 			<xsl:apply-templates select="//history" mode="text"/>
 			<xsl:apply-templates select="//fn-group" mode="text"/>
-			<xsl:apply-templates select="//permissions"/>
+			
+			<xsl:choose>
+				<xsl:when test="$ARTICLE_LICENSE">
+					<xsl:apply-templates select="$ARTICLE_LICENSE"/>
+				</xsl:when>
+			</xsl:choose>
 		</div>
 	</xsl:template>
 	<xsl:template match="author-notes" mode="text">
