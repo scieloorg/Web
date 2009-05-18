@@ -17,13 +17,13 @@ SciELO.br=SciELO.scl.TiKwAb
 SciELO.br="http://scielo-log.bireme.br"
 
 [logout_urls]
-SciELO.org="http://vm.scielo.org/applications/scielo-org/sso/logout.php"
+SciELO.org="http://www.scielo.org/applications/scielo-org/sso/logout.php"
 SciELO.br="http://vm.scielo.br/sso/logout.php"
 
 [scielo_org_urls]
-logout="http://vm.scielo.org/applications/scielo-org/sso/logoutScielo.php"
-login="http://vm.scielo.org/applications/scielo-org/sso/loginScielo.php"
-home="http://vm.scielo.org"
+logout="http://www.scielo.org/applications/scielo-org/sso/logoutScielo.php"
+login="http://www.scielo.org/applications/scielo-org/sso/loginScielo.php"
+home="http://www.scielo.org"
 
 [this]
 url="http://vm.scielo.br"
@@ -32,7 +32,7 @@ relpath="/applications/scielo-org"
 name=Brasil
 
 [controler]
-url="http://vm.scielo.org"
+url="http://www.scielo.org"
 
 [sgu]
 enabled=on
