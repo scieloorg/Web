@@ -569,7 +569,7 @@
 			</xsl:otherwise>
 		</xsl:choose><xsl:apply-templates select="." mode="Epub">
 			<xsl:with-param name="ahpdate" select="//ARTICLE/@ahpdate"/>
-		</xsl:apply-templates>.
+		</xsl:apply-templates><xsl:if test="//ARTICLE/@ahpdate">.</xsl:if>
 		<xsl:value-of select="concat(' ISSN ', $ISSN, '.')"/>
 		<xsl:apply-templates select="@DOI" mode="ref"/>
 	</xsl:template>
@@ -1270,7 +1270,8 @@ Parameters:
 			</xsl:choose>.
 		</xsl:if>	<xsl:apply-templates select="." mode="Epub">
 			<xsl:with-param name="ahpdate" select="//ARTICLE/@ahpdate"/>
-		</xsl:apply-templates>.
+		</xsl:apply-templates><xsl:if test="//ARTICLE/@ahpdate">.</xsl:if>
+
 		<xsl:apply-templates select="@DOI" mode="ref"/>
 	</xsl:template>
 	<xsl:template name="PrintArticleReferenceElectronicABNT">
@@ -1354,7 +1355,8 @@ Parameters:
 			<xsl:value-of select="substring($CURR_DATE,1,4)"/>.</xsl:if>
 		<xsl:apply-templates select="." mode="Epub">
 			<xsl:with-param name="ahpdate" select="//ARTICLE/@ahpdate"/>
-		</xsl:apply-templates>.
+		</xsl:apply-templates><xsl:if test="//ARTICLE/@ahpdate">.</xsl:if>
+
 
 		<xsl:apply-templates select="@DOI" mode="ref"/>
 	</xsl:template>
