@@ -1,0 +1,8 @@
+,'<document>'/,
+,'<pid>',v880,'</pid>'/,
+,|<doi>|v1|</doi>|/,
+,|<url>|v999^u|</url>|/,
+,'<status date="',v2^d,'">',v2^*,'</status>'/,
+,'<type>',v3,'</type>'/,
+,'<process-date>',v91,'</process-date>'/,
+,'</document>'/,

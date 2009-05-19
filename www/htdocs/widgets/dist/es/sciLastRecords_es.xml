@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module>
+<ModulePrefs title="SciELO Últimos Registros" description="SciELO Últimos Registros" height="50">
+	<Require feature="dynamic-height" />
+</ModulePrefs>
+<UserPref name="count" datatype="string" default_value="5" display_name="Cantidad :" />
+<Content type="html"><![CDATA[
+<div id="mydiv"></div>
+<script type="text/javascript">
+
+      var pref=new _IG_Prefs(__MODULE_ID__);	
+      var count = pref.getString("count");
+      
+      function treatFile(objResponse){
+         var mydiv = _gel("mydiv");
+         mydiv.innerHTML = objResponse;
+		 _IG_AdjustIFrameHeight();
+      }
+
+      _IG_FetchContent('http://www.scielo.br/widgets/wg_lastRecords.php?count='+count,treatFile);
+
+   </script>
+]]>
+</Content>
+</Module>

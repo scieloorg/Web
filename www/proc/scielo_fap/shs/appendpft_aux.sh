@@ -1,0 +1,1 @@
+$1 $2 from=$3 count=1 "proc='a9000{$6{a9001{$4{'" "proc='d*',@../formats/dbmerge.prc" append=$5 now -all

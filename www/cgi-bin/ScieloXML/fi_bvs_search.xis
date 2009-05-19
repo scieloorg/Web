@@ -1,0 +1,132 @@
+<IsisScript name="search">
+<include>ScieloXML/sci_common.xis</include>
+
+<function name="error" action="replace" tag="1">
+	<parm name="isisxml table">
+		<pft>
+			'record=error'/
+			'style=fixed'/
+			'1 message'/
+		</pft>
+	</parm>
+	<display><isisxml>*</isisxml></display>
+	<display></wxis-modules></display>
+	<flow action="exit">0</flow>
+</function>
+
+<section name="search">
+	<field action="cgi" tag="5">xml_header</field>
+
+	  <field action="cgi" tag="10">debug</field>
+	  <call name="DebugMode"><pft>if a(v10) then 'OFF' else mpu,v10,mpl fi</pft></call>
+
+	<!--display>
+		<pft>
+			if v5 = 'no' then
+				/* 'Content-type:text/plain'## */
+			else
+				/* 'Content-type:text/xml'## */
+				'<?xml version="1.0" encoding="ISO-8859-1"?>'/
+			fi
+		</pft>
+	</display-->
+
+	<field action="replace" tag="1"><pft>getenv('PATH_TRANSLATED')</pft></field>
+	<field action="cgi" tag="2">IsisScript</field>
+        <field action="cgi" tag="3011">def</field>
+	<field action="replace" tag="3011"><pft>'scielo.def.php'</pft></field>
+
+	<include>ScieloXML/sci_cipar.xis</include>
+
+
+	<field action="replace" tag="3"><pft>date</pft></field>
+	<field action="replace" tag="4"><pft>'^d',v3.8,'^t',v3*9.6</pft></field>
+	
+	<display><pft>'<resources>'/</pft></display>
+
+	<do task="search">
+
+		<field action="cgi" tag="2001">database</field>
+		<call name="error"><pft>"missing parameter: database"n2001</pft></call>
+		<parm name="db"><pft>v2001</pft></parm>
+		
+		<field action="cgi" tag="2007">gizmo</field>
+		<field action="replace" tag="2007" split="occ"><pft>(v2007/)</pft></field>
+		<parm name="gizmo"><pft>(v2007)</pft></parm>
+
+		<field action="cgi" tag="2005">search</field>
+		<call name="error"><pft>"missing parameter: expression"n2005</pft></call>
+		<parm name="expression"><pft>v2005</pft></parm>
+
+		<field action="cgi" tag="2002">from</field>
+		<parm name="from"><pft>v2002</pft></parm>
+
+		<field action="cgi" tag="2003">to</field>
+		<parm name="to"><pft>v2003</pft></parm>
+
+		<field action="cgi" tag="2004">count</field>
+		<parm name="count"><pft>v2004,if a(v2004) and a(v2003) then '10' fi</pft></parm>
+
+		<field action="cgi" tag="2006">reverse</field>
+		<parm name="reverse"><pft>v2006</pft></parm>
+
+		<field action="define" tag="1001">Isis_Current</field>
+		<field action="define" tag="1002">Isis_Total</field>
+		<field action="define" tag="1102">Isis_Status</field>
+
+		<parm name="isisxml table">
+			<pft>
+				'1001 Isis_Current'/
+				'1002 Isis_Total'/
+			</pft>
+		</parm>
+
+		<field action="cgi" tag="2038">hlprefix</field>
+		<field action="cgi" tag="2039">hlsuffix</field>
+		<field action="cgi" tag="2051">extract</field>
+		<flow action="jump"><pft>if p(v2038) and p(v2039) then 'HIGHLIGHT' fi</pft></flow>
+		<flow action="jump"><pft>if p(v2051) then 'EXTRACT' fi</pft></flow>
+
+		<loop>
+			<field action="import" tag="7009">7009</field>
+			<field action="import" tag="list">2007</field>
+			<flow action="jump"><pft>if val(v32701^m) > 0 then 'proc_split' fi</pft></flow>
+			<display><pft>@FI_BVS_SEARCH.PFT</pft></display>
+			<flow action="skip">Next</flow>
+			
+			<label>proc_split</label>
+			<do task="mfnrange">
+				<parm name="db"><pft>v32701^*</pft></parm>
+				<parm name="from"><pft>v32701^m</pft></parm>
+				<parm name="count">1</parm>
+				<parm name="gizmo"><pft>(v2007)</pft></parm>
+				<field action="define" tag="1001">Isis_Current</field>
+				<field action="define" tag="1002">Isis_Total</field>
+				<field action="define" tag="1102">Isis_Status</field>
+
+				<parm name="isisxml table">
+					<pft>
+						'1001 Isis_Current'/
+						'1002 Isis_Total'/
+					</pft>
+				</parm>
+		
+				<loop>	
+					<field action="import" tag="7009">7009</field>
+					<field action="import" tag="32701">32701</field>
+					<display><pft>@FI_BVS_SEARCH.PFT</pft></display>
+					<!--display><isisxml>*</isisxml></display-->
+				</loop>
+			</do>
+			
+			
+		</loop>
+
+	</do>
+
+	<display></resources></display>
+
+</section>
+
+</IsisScript>
+

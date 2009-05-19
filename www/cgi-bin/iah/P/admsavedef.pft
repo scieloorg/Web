@@ -1,0 +1,63 @@
+,IF v5001 = 'save system def' THEN,
+
+	'[PATH]'/
+	#
+	'PATH_DATA=',v7001,/	
+	'PATH_CGI-BIN=',v7002,/
+	'PATH_DATABASE=',v7003,/
+	#
+	'[APPEARANCE]'/
+	#	
+	'BODY BACKGROUND COLOR=',v7031,/
+	'BODY TEXT COLOR=',v7032,/		
+	'BODY LINK COLOR=',v7033,/
+	'BODY VLINK COLOR=',v7034,/
+	'BAR BACKGROUND COLOR=',v7035,/
+	'BAR TEXT COLOR=' ,v7036,/
+	#	
+	'[HEADER]'/
+	#	
+	'LOGO IMAGE=',v7081,/
+	'LOGO URL=','^p',v7084[1],'^e'v7084[2],'^i'v7084[3],/
+	'HEADER IMAGE=',v7091,/
+	'HEADER URL=','^p',v7094[1],'^e'v7094[2],'^i'v7094[3],/
+	#
+	'[IAH]'/
+	#
+	'MANAGER E-MAIL=',v7096,/
+	'REVERSE MODE=',v7097,/
+	'MULTI-LANGUAGE=' ,v7098,/
+	
+,ELSE,
+
+	'[FILE_LOCATION]'/
+	#
+	(v8001/)
+	#
+	'[INDEX_DEFINITION]'/
+	#
+	(v8002/)
+	#
+	'[APPLY_GIZMO]'/
+	#
+	(v8003/)
+	#
+	'[FORMAT_NAME]'/
+	#
+	(v8004/)
+	#
+	"FORMAT DEFAULT="v8041/
+	#
+	'[HELP_FORM]'/
+	#
+	(v8005/)
+	#
+	'[PREFERENCES]'/
+	#
+	'AVAILABLE FORMS=',v8006/
+	'SEND RESULT BY EMAIL=',v8007/
+	'NAVIGATION BAR=',v8008/
+	'DOCUMENTS PER PAGE=',v8009/		
+	#
+
+,FI,		
