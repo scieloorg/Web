@@ -1,0 +1,181 @@
+[pft]@AHHEAD.PFT[/pft]
+
+<link rel="stylesheet" href="/estilo.css">
+
+<form action="[pft]replace(getenv('SCRIPT_NAME'),'wxislind','wxis')v5000^d[/pft]" method="POST">
+	[pft]@AHHIDD.PFT[/pft]
+	<input type=hidden name="nextAction" value="access scad">
+	<center>
+
+    <table border="0" width="600" cellspacing="0" cellpadding="0">
+        <tr>
+          <td width="3%">&nbsp;</td>
+          <td width="97%" valign="top"> 
+            <table border="0" width="100%" cellspacing="0" cellpadding="0">
+              <tr> 
+                <td width="100%" align="center"> 
+                  <div align="left">
+				  <img src="[pft]v5002[/pft]logoscad.gif" alt="SCAD" align="bottom">
+				  <font color="#FF0000" face="Arial"> <font color="#000000" face="Arial">
+                    </font><font face="Arial" color="#003366"><small class="titulo">Cooperative 
+                    Service for Accessing Documents<br><br>
+                    </small></font></font> <img src="/bvs/images/pointer.gif" width="8" height="9" border="0"> 
+                    <a href="http://www.bireme.br/bvs/I/icada.htm" class="menubvs">User registration</a><br>
+                    <img src="/bvs/images/pointer.gif" width="8" height="9" border="0"><a href="http://www.bireme.br/bvs/I/inorm.htm" class="menubvs">&nbsp;Rules 
+                    and procedures</a><br>
+                    <img src="/bvs/images/pointer.gif" width="8" height="9" border="0"><a href="http://www.bireme.br/bvs/I/isobre.htm" class="menubvs">&nbsp;About 
+                    SCAD</a><br>
+                    <img src="/bvs/images/pointer.gif" width="8" height="9" border="0"> 
+                    <a href="http://www.bireme.br/bvs/I/ieletron.htm" class="menubvs">Sending by e-mail and 
+                    Ariel</a><br>
+                    <img src="/bvs/images/pointer.gif" width="8" height="9" border="0"><a href="#" class="menubvs">&nbsp;</a><a href="http://www.bireme.br/bvs/I/icusto.htm" class="menubvs">Service 
+                    charges</a><br>
+                    <a href="http://www.bireme.br/bvs/I/newsin.htm" class="menubvs"><img src="/bvs/images/pointer.gif" width="8" height="9" border="0"></a><a href="http://www.bireme.br/bvs/I/newsin.htm" class="menubvs">&nbsp;News</a><font color="#003366" face="Arial"><br>
+                    </font> 
+                    <br>
+                  </div>
+                </td>
+              </tr>
+  			  <tr>
+			  	<td>
+				[pft]
+				if s(v5013) <> 'GUEST' then
+				    '<font face="arial" size="2" color="red">'
+					if p(v5013^b) then							
+						ref(['MSGS_3']l(['MSGS_3']'MENU'),v3[20])  /* usuario bloqueado */
+					else	
+						'<center><b>Code or password invalid</b></center>'
+					fi
+				fi	
+				[/pft] 			
+				</td>		  
+			  </tr>			  
+              <tr> 
+                <td> 
+                    <div align="center"> 
+                      <center>
+                        <div align="left">
+                          <table border="0" style="font-family: Arial" cellspacing="0"      cellpadding="0" width="79%">
+                            <tr> 
+                              <td align="right" style="font-family: Arial" width="23%"><font face="Verdana, Arial, Helvetica, sans-serif" size="2">Code</font><font face="Arial">:</font></td>
+                              <td width="28%"> 
+                                <input type="text" size="17" name="user">
+                              </td>
+                              <td width="49%">&nbsp; </td>
+                            </tr>
+                            <tr> 
+                              <td align="right" style="font-family: Arial" width="23%"><font face="Verdana, Arial, Helvetica, sans-serif" size="2">Password</font><font face="Arial">:</font></td>
+                              <td width="28%"> 
+                               <input type="password" size="17" name="userPassword">
+                              </td>
+                              <td width="49%"> 
+                                <div align="center">
+                                  <input src="/bvs/I/images/ientra.gif" type="image" border="0" value="Entra" width="77" height="22">
+                                </div>
+                              </td>
+                            </tr>
+                            <tr> 
+                              <td align="left" colspan="3"> 
+                                <div align="right"> <br>
+                                </div>
+                              </td>
+                            </tr>
+                          </table>
+                          
+                        </div>
+                      </center>
+                    </div>
+                  </form>
+                </td>
+              </tr>
+              <tr> 
+                <td height="20"><small><span class="corpo"><i>According to <a href="/bvs/P/lei9610.htm">Brazilian 
+                  Copyright Law</a> reproduction and dissemination of articles 
+                  and other documents obtained through a document delivery service 
+                  like SCAD is forbidden.</i></span></small></td>
+              </tr>
+              <tr> 
+                <td rowspan="3"> 
+                  <p align="left">&nbsp; </p>
+                  <p>
+                </td>
+              </tr>
+              <tr> </tr>
+              <tr> </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+	
+	
+<!--	
+	<img src="[pft]v5002[/pft]logoscad.gif" alt="SCAD"><br>
+	<font face="verdana" size="2">
+	<b>Cooperative Service for Accessing Documents</b><br><br>
+	<font color="red">Attention:</font> Before accessing SCAD service please verify the corresponding <a href="http://www.bireme.br/bvs/I/icusto.htm">prices</a> and <a href="http://www.bireme.br/bvs/I/inorm.htm">rules and procedures</a>.
+	</font>	
+	</center>
+	<br>
+	[pft]
+		if s(v5013) <> 'GUEST' then
+			'<table width="630" align="center">'
+			'<tr><td>'
+			    '<font face="arial" size="2" color="red">'
+				if p(v5013^b) then					
+					ref(['MSGS_1']l(['MSGS_1']'MENU'),v3[20])  /* usuario bloqueado */
+				else	
+					'<center><b>Code or password invalid</b></center>'
+				fi
+			'</td></tr>'
+			'</table>'
+		fi	
+	[/pft]
+	
+	<center>
+	<table cellspacing="1" cellpadding="1" border="0">
+		<tr>
+			<td align="left">
+				<font face="verdana" size="2">Code:</font>
+			</td>					
+			<td align="left">
+				<input type="text" size="17" name="user">
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<font face="verdana" size="2">Password:</font>
+			</td>
+			<td>
+				<input type="password" size="17" name="userPassword">
+			</td>
+		</tr>
+	</table>
+	</center>
+	<center><input type="submit" value="Enter"></center>
+	<br><br>
+	<center>
+	<table width="97%" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td colspan="3"><font face="verdana" size="2">
+			<b>If you are NOT registered in SCAD</b> please fill the user registration <a href="http://www.bireme.br/bvs/I/icada.htm">Form</a> or contact us:
+		</font></td>		
+	</tr>
+	<tr>
+		<td width="15%">&nbsp;</td>
+		<td><br><font face="verdana" size="2">
+			Phone: (+55 11) 576-9854 / 576-9839<br>
+			Fax  : (+55 11) 571-1919<br>
+			E-mail: <a href="mailto:scad@bireme.br">scad@bireme.br</a><br><br>
+		</font></td>
+		<td align="right">
+			<a href="http://www.bireme.br/bvs/I/isobre.htm"><img src="[pft]v5002[/pft]scadhlp.gif" border=0></a>
+		</td>
+	</tr>
+	</table>
+	
+-->	
+	</center>
+</form>
+	
+</body>
+</html>

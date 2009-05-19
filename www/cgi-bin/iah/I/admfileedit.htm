@@ -1,0 +1,32 @@
+<html>
+<head>
+<meta http-equiv="Pragma" content="no-cache">
+<title>[pft]v1[/pft]</title>
+
+<script language="javascript">
+function SaveFile(){
+	document.file_edit.submit();		
+	return true;
+}
+
+</script>
+
+</head>
+<body bgcolor="silver" link="blue" vlink="blue">
+<font face="arial" size="2"><b>Edition of the file</b>&nbsp;&nbsp;[pft]v7011,v1[/pft]</font>
+
+<form action="[pft]getenv('SCRIPT_NAME'),v7001[/pft]" method="post" name="file_edit">
+	<input type="hidden" name="IsisScript"    value="[pft]v7099[/pft]">
+	<input type="hidden" name="lang"		  value="[pft]v5021[/pft]">
+	<input type="hidden" name="systemOption"  value="^wfile save">
+	<input type="hidden" name="file"		  value="[pft]v1[/pft]">	
+
+	<textarea cols="62" rows="10" wrap="off" name="content">[pft](v2/)[/pft]</textarea>
+	<p>
+	<center>
+		<input type="button" value="Cancel" onClick="javascript:window.close()">&nbsp;&nbsp;<input type="button" value=" Save " onClick="javascript:SaveFile()">
+	</center>
+
+</form>	
+	
+</html>	

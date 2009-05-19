@@ -1,0 +1,12 @@
+/home/scielo/repositorio/linux/scielo/www/proc/scieloUpdate/cantUpdate.txt
+/home/scielo/repositorio/linux/scielo/www/proc/scieloUpdate/conf.sh
+/home/scielo/repositorio/linux/scielo/www/proc/scieloUpdate/LEIA-ME.txt
+/home/scielo/repositorio/linux/scielo/www/proc/scieloUpdate/subversion.sh
+/home/scielo/repositorio/linux/scielo/www/proc/transform/chama.sh
+/home/scielo/repositorio/linux/scielo/www/proc/transform/xslts.ini
+/home/scielo/repositorio/common/scielo/www/cgi-bin/iah-styles/place-sc.pft
+/home/scielo/repositorio/common/scielo/www/htdocs/scielo.def.php
+/home/scielo/repositorio/common/scielo/www/htdocs/application/scielo-org/scielo.def.php
+/home/scielo/repositorio/common/scielo/www/htdocs/iah/iah.def
+/home/scielo/repositorio/common/scielo/www/htdocs/iah/article.def
+/home/scielo/repositorio/linux/scielo/www/bases

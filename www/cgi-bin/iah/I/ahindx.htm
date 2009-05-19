@@ -1,0 +1,121 @@
+[pft]@AHHEAD.PFT[/pft]
+
+<form action="[pft]getenv('SCRIPT_NAME')v5000^d[/pft]" method="POST" name="index">
+	[pft]@AHHIDD.PFT[/pft]
+
+	<input type=hidden name="nextAction" value="show index">
+
+	<center>
+	<table border="0" width="600" cellspacing="0" cellpadding="0" bgcolor="[pft]v5006^b[/pft]">
+	<tr>
+		<td width="80">&nbsp;
+			[pft]
+				if p(v5011^h) then
+					'<a href="'v5011^h'"><img src="'v5002'help.gif" alt="help" border="0"></a>'
+				fi
+			[/pft]									
+		</td>		
+		<td><font face="verdana" size="1">Database : <b>[pft]v5003^*[/pft]</b></font></td>
+		<td align="right"><font face="verdana" size="1"><b>Index [pft]v6100^i[/pft] </b></font>&nbsp;&nbsp;&nbsp;</td>
+	</tr>
+	</table>
+	</center>
+	<br>
+
+	[pft]if p(v1) then[/pft]			
+		<center>
+		<table border="1" width="600" cellspacing="0" cellpadding="0">		
+		<tr>			
+			<td align="center">
+			<font face="arial" size="1"><b>Select one or more terms of the list below :</b></font><br><br>			
+			<select name="termsFromIndex" size="10" multiple>								
+				[pft]( `<option value="`v1^v`">`,if p(v2) then '['v2'] ' fi,if p(v1^n) then v1^n*0.90 else v1^v*0.90 fi)[/pft]
+		    </select>
+			<br><br>
+	    	[pft]if nocc(v1) = 100 then[/pft]
+		       	<input type="image" name="more terms" src="[pft]v5002[/pft]prox.gif" border="0">&nbsp;
+			[pft]fi[/pft]
+			<input type="image" src="[pft]v5002[/pft]adic.gif" name="add terms" border="0">&nbsp;
+			<input type="image" src="[pft]v5002[/pft]pesq.gif" name="search terms" border="0">&nbsp;
+			
+			[pft]
+				if v5001^s = 'INDEX_KWIC' then,
+					if s(v6100^x.2) = 'MH' then,
+						'<input type="image" src="'v5002'aspect.gif" name="aspects" border="0">&nbsp;'
+					else 
+						'<input type="image" src="'v5002'fascic.gif" name="fascicles" border="0">&nbsp;'
+					fi
+				fi		
+			[/pft]
+			[pft]if p(v2) then '<p align="right"><font face="arial" size="1"><b>* The number among brackets informs the total of references with the term.</b></font>&nbsp;&nbsp;<br>' fi[/pft]
+						
+		</tr>
+		</table>	
+		</center>
+		<br>			
+	[pft]fi[/pft]
+
+	[pft]if s(mpu,v6100^t,mpl) <> 'SHORT' and v5001^s <> 'INDEX_ASPECTS/FASCICLES' then[/pft]
+		<center>
+		<table border="0" width="600" cellspacing="0" cellpadding="0" align="center">		
+		<tr>
+			<td width="10">&nbsp;</td>
+			<td>
+			[pft]if a(v1) and p(v6122) then[/pft]
+					<center><font face="verdana" size="1" color="red"><b>No term was found in the index</b></font></center>
+					<br><br>
+					<font face="verdana" size="1"><b>New search in the index</b></font><br><br>
+			[pft]fi[/pft]		
+
+			[pft]if p(v1) then[/pft]
+				[pft]if p(v6102) then[/pft]
+					<font face="verdana" size="1"><b><sup>Selected terms </sup></b></font>					
+					<textarea name="mostra" wrap="virtual" cols="40" rows="1">[pft](replace(v6102,'"','&quot;')/)[/pft]</textarea><br><br>
+				[pft]fi[/pft]			
+				<font face="verdana" size="1"><b>New search in the index</b></font><br><br>
+			[pft]fi[/pft]	
+
+			<font face="Verdana" size="2">Type word or beginning of the word: <br></font>
+			<input type="text" maxlength="40" size="35" name="indexRoot">&nbsp;&nbsp;&nbsp;<input type="image" src="[pft]v5002[/pft]sindex.gif" border="0" align="absmiddle"><br><br>
+			<font face="Verdana" size="2">or select the initial letter</font>
+			<br><br>		
+			<input type="submit"  value="012..." name="indexRoot">&nbsp;<input type="submit"  value=" A"  name="indexRoot"><input type="submit"  value=" B"  name="indexRoot"><input type="submit"  value=" C"  name="indexRoot"><input type="submit"  value=" D"  name="indexRoot"><input type="submit"  value=" E"  name="indexRoot"><input type="submit"  value=" F"  name="indexRoot"><input type="submit"  value=" G"  name="indexRoot"><input type="submit"  value=" H"  name="indexRoot"><input type="submit"  value=" I"  name="indexRoot"><input type="submit"  value=" J"  name="indexRoot"><input type="submit"  value=" K"  name="indexRoot"><input type="submit"  value=" L"  name="indexRoot"><input type="submit"  value=" M"  name="indexRoot"><input type="submit"  value=" N"  name="indexRoot"><input type="submit"  value=" O"  name="indexRoot"><input type="submit"  value=" P"  name="indexRoot"><input type="submit"  value=" Q"  name="indexRoot"><input type="submit"  value=" R"  name="indexRoot"><input type="submit"  value=" S"  name="indexRoot"><input type="submit"  value=" T"  name="indexRoot"><input type="submit"  value=" U"  name="indexRoot"><input type="submit"  value=" V"  name="indexRoot"><input type="submit"  value=" W"  name="indexRoot"><input type="submit"  value=" X"  name="indexRoot"><input type="submit"  value=" Y"  name="indexRoot"><input type="submit"  value=" Z"  name="indexRoot">
+			<br><br>
+								
+			[pft]if s(mpu,v6100^t,mpl) = 'KWIC' then[/pft]
+			    <br><font face="Verdana" size="2">Access :<input type="radio" name="kwicMode" value="On" [pft]if v6121 = 'On' or a(v6121) then 'checked' fi[/pft]> permuted&nbsp;&nbsp;<input type="radio" name="kwicMode" value="Off" [pft]if v6121 = 'Off' then 'checked' fi[/pft]> alphabetic&nbsp;&nbsp;&nbsp;</font>
+			[pft]fi[/pft]
+		</td>
+		</tr>
+		</table>
+		</center>
+		<input type="hidden" name="indexRoot" value="[pft]if v6121 = 'On' then '^r'v6122^*,'^m'v1^m[LAST] else v1^v[LAST] fi[/pft]">
+		
+	[pft]fi[/pft]	
+	[pft]if a(v1) and v5001^s = 'INDEX_ASPECTS/FASCICLES' then[/pft]
+			<center><font face="verdana" size="1" color="red"><b>
+			[pft]
+				if v6100^x.2 = 'MH' then,
+					'Select at least one descriptor to show the associated aspects'
+				else
+					'Select at least one journal to show the associated fascicles'
+				fi
+			[/pft]	
+			</b><br><br>
+			<a href="#" onClick="history.back()">Back</a>
+			</center></font>
+	[pft]fi[/pft]
+	
+
+</form>
+[pft]if p(v5011^n) then[/pft]
+	<center>
+	<table border="0" width="600" cellspacing="0" cellpadding="0">
+		<tr><td>[pft]cat(v5011^n)[/pft]</td></tr>
+	</table>
+	</center>
+[pft]fi[/pft]	
+
+
+</body>
+</html>

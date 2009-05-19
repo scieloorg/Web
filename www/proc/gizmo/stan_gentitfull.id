@@ -1,0 +1,596 @@
+!ID 0
+!v001!034
+!v002!&quot;
+!v011!asc
+!v050!Quotation mark (aspas)
+!ID 0
+!v001!038
+!v002!&amp;
+!v011!asc
+!v050!Ampersand (e comercial)
+!ID 0
+!v001!060
+!v002!&lt;
+!v011!asc
+!v050!Less than (menor que)
+!ID 0
+!v001!062
+!v002!&gt;
+!v011!asc
+!v050!Greater than (maior que)
+
+!ID 0
+!v001!161
+!v002!&Yuml;
+!v011!asc
+!v050!Exclamacao invertida
+
+!ID 0
+!v001!162
+!v002!&cent;
+!v011!asc
+!v050!cent sign
+
+!ID 0
+!v001!163
+!v002!&pound;
+!v011!asc
+!v050!pound
+
+!ID 0
+!v001!164
+!v002!&curren;
+!v011!asc
+!v050!currency
+
+!ID 0
+!v001!165
+!v002!&yen;
+!v011!asc
+!v050!simbolo yen
+
+!ID 0
+!v001!166
+!v002!&brvbar;
+!v011!asc
+!v050!broken bar
+
+!ID 0
+!v001!167
+!v002!&sect;
+!v011!asc
+!v050!section
+
+!ID 0
+!v001!168
+!v002!&uml;
+!v011!asc
+!v050!diaeresis
+
+!ID 0
+!v001!169
+!v002!&copy;
+!v011!asc
+!v050!copyright
+
+!ID 0
+!v001!170
+!v002!&ordf;
+!v011!asc
+!v050!feminine ordinal idicator
+
+!ID 0
+!v001!171
+!v002!&laquo;
+!v011!asc
+!v050!left angle quote
+
+!ID 0
+!v001!172
+!v002!&not;
+!v011!asc
+!v050!not sign
+
+!ID 0
+!v001!173
+!v002!&shy;
+!v011!asc
+!v050!ifen
+
+!ID 0
+!v001!174
+!v002!&reg;
+!v011!asc
+!v050!registered
+
+!ID 0
+!v001!175
+!v002!&macr;
+!v011!asc
+!v050!Macron
+
+!ID 0
+!v001!176
+!v002!&deg;
+!v011!asc
+!v050!degree
+
+!ID 0
+!v001!177
+!v002!&plusmn;
+!v011!asc
+!v050!plus minus sign
+
+!ID 0
+!v001!178
+!v002!&sup2;
+!v011!asc
+!v050!superscript 2
+
+!ID 0
+!v001!179
+!v002!&sup3;
+!v011!asc
+!v050!superscript 3
+
+!ID 0
+!v001!180
+!v002!&acute;
+!v011!asc
+!v050!acute
+
+!ID 0
+!v001!181
+!v002!&micro;
+!v011!asc
+!v050!micro sign
+
+!ID 0
+!v001!182
+!v002!&para;
+!v011!asc
+!v050!Pilcrow sing (paragraph)
+
+!ID 0
+!v001!183
+!v002!&middot;
+!v011!asc
+!v050!middle dot
+
+!ID 0
+!v001!184
+!v002!&cedil;
+!v011!asc
+!v050!cedilla
+
+!ID 0
+!v001!185
+!v002!&sup1;
+!v011!asc
+!v050!superscript 1
+
+!ID 0
+!v001!186
+!v002!&ordm;
+!v011!asc
+!v050!Masculine ordinal indicator
+
+!ID 0
+!v001!187
+!v002!&raquo;
+!v011!asc
+!v050!right angle cote
+
+!ID 0
+!v001!188
+!v002!&frac14;
+!v011!asc
+!v050!fracao 1/4
+
+!ID 0
+!v001!189
+!v002!&frac12;
+!v011!asc
+!v050!fracao 1/2
+
+!ID 0
+!v001!190
+!v002!&frac34;
+!v011!asc
+!v050!fracao 3/4
+
+!ID 0
+!v001!191
+!v002!&iquest;
+!v011!asc
+!v050!inverted question mark
+
+!ID 0
+!v001!192
+!v002!&Agrave;
+!v011!asc
+!v050!
+
+!ID 0
+!v001!193
+!v002!&Aacute;
+!v011!asc
+!v050!
+
+!ID 0
+!v001!194
+!v002!&Acirc;
+!v011!asc
+!v050!
+
+!ID 0
+!v001!195
+!v002!&Atilde;
+!v011!asc
+!v050!
+
+!ID 0
+!v001!196
+!v002!&Auml;
+!v011!asc
+!v050!
+
+!ID 0
+!v001!197
+!v002!&Aring;
+!v011!asc
+!v050!
+
+!ID 0
+!v001!198
+!v002!&AElig;
+!v011!asc
+!v050!AE ligature
+
+!ID 0
+!v001!199
+!v002!&Ccedil;
+!v011!asc
+!v050!Ç
+
+!ID 0
+!v001!200
+!v002!&Egrave;
+!v011!asc
+!v050!
+
+!ID 0
+!v001!201
+!v002!&Eacute;
+!v011!asc
+!v050!
+
+!ID 0
+!v001!202
+!v002!&Ecirc;
+!v011!asc
+!v050!
+
+!ID 0
+!v001!203
+!v002!&Euml;
+!v011!asc
+!v050!
+
+!ID 0
+!v001!204
+!v002!&Igrave;
+!v011!asc
+!v050!
+
+!ID 0
+!v001!205
+!v002!&Iacute;
+!v011!asc
+!v050!
+
+!ID 0
+!v001!206
+!v002!&Icirc;
+!v011!asc
+!v050!
+
+!ID 0
+!v001!207
+!v002!&Iuml;
+!v011!asc
+!v050!
+
+!ID 0
+!v001!208
+!v002!&ETH;
+!v011!asc
+!v050!ETH
+
+!ID 0
+!v001!209
+!v002!&Ntilde;
+!v011!asc
+!v050!
+
+!ID 0
+!v001!210
+!v002!&Ograve;
+!v011!asc
+!v050!
+
+!ID 0
+!v001!211
+!v002!&Oacute;
+!v011!asc
+!v050!
+
+!ID 0
+!v001!212
+!v002!&Ocirc;
+!v011!asc
+!v050!
+
+!ID 0
+!v001!213
+!v002!&Otilde;
+!v011!asc
+!v050!
+
+!ID 0
+!v001!214
+!v002!&Ouml;
+!v011!asc
+!v050!
+
+!ID 0
+!v001!215
+!v002!&times;
+!v011!asc
+!v050!multiplication sign
+
+!ID 0
+!v001!216
+!v002!&Oslash;
+!v011!asc
+!v050!o slash
+
+!ID 0
+!v001!217
+!v002!&Ugrave;
+!v011!asc
+!v050!
+
+!ID 0
+!v001!218
+!v002!&Uacute;
+!v011!asc
+!v050!
+
+!ID 0
+!v001!219
+!v002!&Ucirc;
+!v011!asc
+!v050!
+
+!ID 
+!v001!220
+!v002!&Uuml;
+!v011!asc
+!v050!
+
+!ID 0
+!v001!221
+!v002!&Yacute;
+!v011!asc
+!v050!
+
+!ID 0
+!v001!222
+!v002!&THORN;
+!v011!asc
+!v050!THORN
+
+!ID 0
+!v001!223
+!v002!&szlig;
+!v011!asc
+!v050!Sz signature
+
+!ID 0
+!v001!224
+!v002!&agrave;
+!v011!asc
+!v050!
+
+!ID 0
+!v001!225
+!v002!&aacute;
+!v011!asc
+!v050!
+
+!ID 0
+!v001!226
+!v002!&acirc;
+!v011!asc
+!v050!
+
+!ID 0
+!v001!227
+!v002!&atilde;
+!v011!asc
+!v050!
+
+!ID 0
+!v001!228
+!v002!&auml;
+!v011!asc
+!v050!
+
+!ID 0
+!v001!229
+!v002!&aring;
+!v011!asc
+!v050!
+
+!ID 0
+!v001!230
+!v002!&aelig;
+!v011!asc
+!v050!
+
+!ID 0
+!v001!231
+!v002!&ccedil;
+!v011!asc
+!v050!
+
+!ID 0
+!v001!232
+!v002!&egrave;
+!v011!asc
+!v050!
+
+!ID 0
+!v001!233
+!v002!&eacute;
+!v011!asc
+!v050!
+
+!ID 0
+!v001!234
+!v002!&ecirc;
+!v011!asc
+!v050!
+
+!ID 0
+!v001!235
+!v002!&euml;
+!v011!asc
+!v050!
+
+!ID 0
+!v001!236
+!v002!&igrave;
+!v011!asc
+!v050!
+
+!ID 0
+!v001!237
+!v002!&iacute;
+!v011!asc
+!v050!
+
+!ID 0
+!v001!238
+!v002!&icirc;
+!v011!asc
+!v050!
+
+!ID 0
+!v001!239
+!v002!&iuml;
+!v011!asc
+!v050!
+
+!ID 0
+!v001!240
+!v002!&eth;
+!v011!asc
+!v050!eth
+
+!ID 0
+!v001!241
+!v002!&ntilde;
+!v011!asc
+!v050!
+
+!ID 0
+!v001!242
+!v002!&ograve;
+!v011!asc
+!v050!
+
+!ID 0
+!v001!243
+!v002!&oacute;
+!v011!asc
+!v050!
+
+!ID 0
+!v001!244
+!v002!&ocirc;
+!v011!asc
+!v050!
+
+!ID 0
+!v001!245
+!v002!&otilde;
+!v011!asc
+!v050!
+
+!ID 0
+!v001!246
+!v002!&ouml;
+!v011!asc
+!v050!
+
+!ID 0
+!v001!247
+!v002!&divide;
+!v011!asc
+!v050!division sign
+
+!ID 0
+!v001!248
+!v002!&oslash;
+!v011!asc
+!v050!o slash
+
+!ID 0
+!v001!249
+!v002!&ugrave;
+!v011!asc
+!v050!
+
+!ID 0
+!v001!250
+!v002!&uacute;
+!v011!asc
+!v050!
+
+!ID 0
+!v001!251
+!v002!&ucirc;
+!v011!asc
+!v050!
+
+!ID 0
+!v001!252
+!v002!&uuml;
+!v011!asc
+!v050!
+
+!ID 0
+!v001!253
+!v002!&yacute;
+!v011!asc
+!v050!
+
+!ID 0
+!v001!254
+!v002!&thorn;
+!v011!asc
+!v050!thorn
+
+!ID 0
+!v001!255
+!v002!&yuml;
+!v011!asc
+!v050!
+
+!ID 0
+!v001!128
+!v002!&euro;
+!v011!asc
+!v050!euro

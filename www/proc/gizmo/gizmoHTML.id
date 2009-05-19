@@ -1,0 +1,18 @@
+!ID 000001
+!v001!<FONT FACE="Symbol"
+!v002!<FONT FACE=Symbol
+!ID 000002
+!v001!<big>
+!v002!<!-- big -->
+!ID 000003
+!v001!</big>
+!v002!<!-- /big -->
+!ID 000004
+!v001!<BIG>
+!v002!<!-- big -->
+!ID 000005
+!v001!</BIG>
+!v002!<!-- /big -->
+!ID 000006
+!v001!<font size="5">
+!v002!<font size=5>

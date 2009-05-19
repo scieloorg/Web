@@ -1,0 +1,108 @@
+[pft]@AHHEAD.PFT[/pft]
+
+<form action="[pft]getenv('SCRIPT_NAME')v5000^d[/pft]" method="POST">
+	[pft]@AHHIDD.PFT[/pft]
+
+	<input type="hidden" name="nextAction" value="[pft]if p(v1002) then 'search' else 'form' fi[/pft]">
+
+<center>
+<table border="0" width="500" cellspacing="0" cellpadding="0">
+<tr>
+	<td colspan="2">
+	[pft]if s(mpu,v5006^m,mpl) = 'ON' then[/pft]
+		<table border="0" width="100%" cellspacing="1" cellpadding="1" bgcolor="[pft]v5006^b[/pft]">
+		<tr>
+			<td><font face=arial size=2><b>Interface language</b></font></td>
+		</tr>
+		</table>
+		<table border="0" width="500" cellspacing="0" cellpadding="0">
+		<tr>
+			<td width="40%">&nbsp;</td>
+			<td>
+			    <font face="Verdana" size="2">
+				<input type="radio" name="lang" value="[pft]if s(mpu,v5021,mpl) = v5021 then 'P' else 'p' fi[/pft]" [pft]if s(mpu,v5021,mpl) = 'P' then 'checked' fi[/pft]>Português<br>
+				<input type="radio" name="lang" value="[pft]if s(mpu,v5021,mpl) = v5021 then 'E' else 'e' fi[/pft]" [pft]if s(mpu,v5021,mpl) = 'E' then 'checked' fi[/pft]>Español<br>
+				<input type="radio" name="lang" value="[pft]if s(mpu,v5021,mpl) = v5021 then 'I' else 'i' fi[/pft]" [pft]if s(mpu,v5021,mpl) = 'I' then 'checked' fi[/pft]>English
+			</td>
+		</tr>
+		</table>
+		<br>
+	[pft]else[/pft]
+	  	<input type=hidden name="lang" value="[pft]v5021[/pft]">
+	[pft]fi[/pft]
+
+	<table border="0" width="100%" cellspacing="1" cellpadding="1" bgcolor="[pft]v5006^b[/pft]">
+	<tr>
+		<td>
+		  <font face=arial size=2><b>Navigation Bar</b></font>
+		</td>
+	</tr>
+	</table>
+  
+	<table border="0" width="500" cellspacing="0" cellpadding="0">
+	<tr>
+		<td width="40%">&nbsp;</td>
+		<td>
+			<font face="Verdana" size="2">
+			<input type="radio" name="navBar" value="ON"  [pft]if s(mpu,v5007,mpl) = 'ON'  then 'checked' fi[/pft]>Yes<br>
+			<input type="radio" name="navBar" value="OFF" [pft]if s(mpu,v5007,mpl) = 'OFF' then 'checked' fi[/pft]>No
+			</font>
+		</td>
+	</tr>
+	</table> 
+	<br>
+[pft]if a(v1002) or nocc(v5005) > 2 then[/pft]
+	<table border="0" width="100%" cellspacing="1" cellpadding="1" bgcolor="[pft]v5006^b[/pft]">
+	<tr>
+		<td><font face="Arial" size="2"><b>Result display</b></font></td>
+	</tr>
+	</table>	 	
+	<table border="0" width="500" cellspacing="0" cellpadding="0">
+	<tr>
+		<td width="25%">&nbsp;</td>
+		<td>
+			<font face="Verdana" size="2">
+			[pft],if a(v1002) then,[/pft]<!-- se nao esta na navegacao do resultado -->				
+				Show up <select name="hits" size="1">
+					<option value="10" [pft]if v5008 = '10' then 'selected' fi[/pft]> 10 
+					<option value="20" [pft]if v5008 = '20' then 'selected' fi[/pft]> 20 
+					<option value="40" [pft]if v5008 = '40' then 'selected' fi[/pft]> 40 
+					<option value="60" [pft]if v5008 = '60' then 'selected' fi[/pft]> 60 
+				</select>references per page&nbsp;&nbsp;<br>
+			[pft]else[/pft]
+				<input type="hidden" name="hits" value="[pft]v5008[/pft]">
+			[pft]fi[/pft]	
+			
+			[pft]if nocc(v5005) > 2 then[/pft]
+				Presentation format&nbsp;&nbsp;<select name="format" size="1">
+	    		[pft],(,[/pft]
+			  		[pft]if v5005^n <> 'DEFAULT' then[/pft]
+						<option value="[pft]v5005^n[/pft]" [pft]if v5009[1] = v5005^n then 'selected' fi'>'v5005^i[/pft]
+					[pft]fi[/pft]
+				[pft],),[/pft]
+				</select>&nbsp;&nbsp;</font><br>
+			[pft]else[/pft]
+					<input type=hidden name="format" value="[pft]v5009[/pft]">
+			[pft]fi[/pft]
+			</font>
+		</td>
+	</tr>
+	</table>
+	<br><br>
+[pft]fi[/pft]
+
+	<table border="0" width="100%" cellspacing="0" cellpadding="0">
+	<tr>
+		<td align="center" bgcolor="[pft]v5006^b[/pft]">
+			<input src="[pft]v5002[/pft]aplica.gif" type="image" border="0">
+		</td>
+	</tr>
+	</table>	
+	</td>
+</tr>
+</table>	
+</center>
+
+</form>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<texts>
+	<text>
+		<find>alphabeticSort</find>
+		<replace>alphabetic sort</replace>
+	</text>
+	<text>
+		<find>collection</find>
+		<replace>collection</replace>
+	</text>
+	<text>
+		<find>home</find>
+		<replace>home</replace>
+	</text>
+	<text>
+		<find>issues</find>
+		<replace>issue (s)</replace>
+	</text>
+	<text>
+		<find>journals</find>
+		<replace>journal(s)</replace>
+	</text>
+	<text>
+		<find>journal</find>
+		<replace>journal</replace>
+	</text>
+	<text>
+		<find>journal-by-subject</find>
+		<replace>Journals by subject</replace>
+	</text>
+	<text>
+		<find>lastIssuesByAlphabetic</find>
+		<replace>Last issues sorted alphabeticaly</replace>
+	</text>
+	<text>
+		<find>lastIssuesByCollection</find>
+		<replace>Last issues by collection</replace>
+	</text>
+	<text>
+		<find>lastIssuesBySubject</find>
+		<replace>Last issues by subject</replace>
+	</text>
+	<text>
+		<find>lastJournalsByAlphabetic</find>
+		<replace>Last titles sorted alphabeticaly</replace>
+	</text>
+	<text>
+		<find>journalsByAlphabetic</find>
+		<replace>Journals sorted alphabetically</replace>
+	</text>
+	<text>
+		<find>journalsByAlphabeticByCollection</find>
+		<replace>Journals by collection</replace>
+	</text>
+	<text>
+		<find>journalsByAlphabeticBySubject</find>
+		<replace>Journals by subject</replace>
+	</text>
+	<text>
+		<find>journalsByAlphabeticByPublisher</find>
+		<replace>Journals by publisher</replace>
+	</text>
+	<text>
+		<find>lastJournalsByCollection</find>
+		<replace>Last journals sorted by collection</replace>
+	</text>
+	<text>
+		<find>lastJournalsBySubject</find>
+		<replace>Last Journals by Subject</replace>
+	</text>
+	<text>
+		<find>previewBy</find>
+		<replace>Preview by:</replace>
+	</text>
+	<text>
+		<find>sortedBy</find>
+		<replace>sorted by:</replace>
+	</text>
+	<text>
+		<find>subject</find>
+		<replace>subject</replace>
+	</text>
+	<text>
+		<find>journalsBySubjectSortedByCollection</find>
+		<replace>Journals REPLACE_SUBJECT by collection</replace>
+	</text>
+	<text>
+		<find>journalsBySubjectSortedByLetter</find>
+		<replace>Journals REPLACE_SUBJECT sorted alphabetically</replace>
+	</text>
+	<text>
+		<find>all</find>
+		<replace>all</replace>
+	</text>
+		<text>
+		<find>allSubjects</find>
+		<replace>all subjects</replace>
+	</text>
+</texts>
