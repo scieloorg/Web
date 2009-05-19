@@ -77,9 +77,9 @@ Fabio Batalha: Este formato utiliza o indice R encontrado apenas no servidor de 
 			|<lpage>|v14^l|</lpage>|/,
 			'<copyright-statement/>',#
 			'<copyright-year/>',#
-			'<self-uri xlink:href="http:/scielo.sld.cu/scielo.php?script=sci_arttext&amp;pid=',v880,'&amp;lng=en&amp;nrm=iso&amp;tlng=en"></self-uri>'
-			'<self-uri xlink:href="http://scielo.sld.cu/scielo.php?script=sci_abstract&amp;pid=',v880,'&amp;lng=en&amp;nrm=iso&amp;tlng=en"></self-uri>'
-			'<self-uri xlink:href="http://scielo.sld.cu/scielo.php?script=sci_pdf&amp;pid=',v880,'&amp;lng=en&amp;nrm=iso"></self-uri>'
+			'<self-uri xlink:href="http:/localhost/scielo.php?script=sci_arttext&amp;pid=',v880,'&amp;lng=en&amp;nrm=iso&amp;tlng=en"></self-uri>'
+			'<self-uri xlink:href="http://localhost/scielo.php?script=sci_abstract&amp;pid=',v880,'&amp;lng=en&amp;nrm=iso&amp;tlng=en"></self-uri>'
+			'<self-uri xlink:href="http://localhost/scielo.php?script=sci_pdf&amp;pid=',v880,'&amp;lng=en&amp;nrm=iso"></self-uri>'
 			,if p(v83) then,
 				(,'<abstract abstract-type="short" xml:lang="',v83^l,'"><p>'v83^a'</p></abstract>',#,)
 			,fi,
