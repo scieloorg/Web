@@ -13,9 +13,9 @@ $ui=date('y').date('z');
 $db_data=$defFile["PATH"]["PATH_DATABASE"]."/accesslog/log_scielo/trab/datemfn";
 $db_acesso=$defFile["PATH"]["PATH_DATABASE"]."/accesslog/log_scielo/trab/acesso";
 $db_tmp_issn=$defFile["PATH"]["PATH_DATABASE"]."/tmp/".$ui.".tab_issn";
-$db_title=$defFile["PATH"]["PATH_DATABASE"]."/accesslog/log_scielo/trab/title/title";
+$db_title=$defFile["PATH"]["PATH_DATABASE"]."/title/title";
 
-$utl="/cisis";
+$utl=$defFile["PATH"]["PATH_PROC"]."/cisis";
 
 //Busca o mfn inicial da data fim
 //Se a data inicial nao foi passada pega a primeira data da base
