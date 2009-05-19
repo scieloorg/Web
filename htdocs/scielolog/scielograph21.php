@@ -13,9 +13,9 @@ $ui=date('y').date('z');
 $db_data=$defFile["PATH"]["PATH_DATABASE"]."/accesslog/log_scielo/trab/datemfn";
 $db_acesso=$defFile["PATH"]["PATH_DATABASE"]."/accesslog/log_scielo/trab/acesso";
 $db_tmp_datatb=$defFile["PATH"]["PATH_DATABASE"]."/tmp/".$ui.".tab_datatb";
-$db_title=$defFile["PATH"]["PATH_DATABASE"]."/accesslog/log_scielo/title/title";
+$db_title=$defFile["PATH"]["PATH_DATABASE"]."/title/title";
 
-$utl="/cisis";
+$utl=$defFile["PATH"]["PATH_PROC"]."/cisis";
 
 for ($j=0;$j < count($pid);++$j) {
 	$pid2.=$pid[$j];
