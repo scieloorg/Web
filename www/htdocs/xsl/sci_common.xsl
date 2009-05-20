@@ -1197,7 +1197,7 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
 </xsl:template>
 
 <xsl:template name="TextPrevious">
-    <xsl:value-of select="$translations/xslid[@id='sci_statcommon']/text[@find='first']"/>
+    <xsl:value-of select="$translations/xslid[@id='sci_statcommon']/text[@find='previous']"/>
 </xsl:template>
 
 <xsl:template name="LinkNext">
