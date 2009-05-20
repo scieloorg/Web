@@ -25,16 +25,15 @@ call batch/VerifPresencaParametro.bat $0 @$7 prefixo doi ou password
 call batch/VerifPresencaParametro.bat $0 @$8 email
 
 
-call batch/CriaDiretorio.bat ../bases-work/doi/
-call batch/CriaDiretorio.bat ../bases-work/doi/$1
 
 
 export REVISTA_DOI=../bases-work/doi/$1/$1
-call batch/CriaDiretorio.bat ../bases-work/doi/$1/$2
 export ISSUE_DOI=../bases-work/doi/$1/$2/$2
 export REVISTA=../bases-work/$1/$1
 PROCESS_DATE=`date +%Y%m%d%H%M%S`
 export BASE_CONTROLE_SUBMISSION=scielo_crs/databases/crossref/crossref_DOIReport
+
+mkdir -p ../bases-work/doi/$1/$2
 
 if [ ! -f "../bases-work/doi/controler.xrf" ]
 then
