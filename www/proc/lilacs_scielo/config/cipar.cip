@@ -1,0 +1,9 @@
+LILACS.*=../bases-aux/lilacs-scielo/input/lilacs.*
+ISSUE_ORDER.*=../bases-aux/lilacs-scielo/input/issues.mioc.*
+CTRL_ISSUE.*=../bases-aux/lilacs-scielo/ctrl/ctrl_issue.*
+CTRL_CONVERSION.*=../bases-aux/lilacs-scielo/ctrl/ctrl_conversion.*
+TITLE.*=../bases/title/title.*
+MY_TITLE.*=../bases-aux/lilacs-scielo/temp/title.*
+TEMP_DB.*=../bases-aux/lilacs-scielo/temp/temp.*
+ISSUE_DB.*=/scielo/serial.lilacs/issue2append.*
+
