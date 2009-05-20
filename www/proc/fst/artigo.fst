@@ -6,6 +6,7 @@
 5 0 mpl,if v706='o' then 'OU=',v880 fi,
 6 0 mpl,if v706='f' then 'SF=',v880/, fi,
 6 0 mpl,if v706='h' then 'HR=',v880/,|HR=|v881/,|HR=|v891/, fi,
+6 0 mpl,if v706='h' and p(v41) then 'PHR=',v880/ fi,
 6 0 mpl,if v706='h' and v35='0102-7638' then replace(s('HR=',v880),'0102-7638','1678-9741')/, fi, 
 6 0 mpl,if v706='h' and v35='1807-0302' then replace(s('HR=',v880),'1807-0302','0101-8205')/, fi, 
 6 0 mpl,if v706='h' and v35='1806-1117' then replace(s('HR=',v880),'1806-1117','0102-4744')/, fi, 
