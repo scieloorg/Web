@@ -56,7 +56,7 @@
 			</blockquote>
 		</td>
 		</tr>
-		<tr>
+		<!--tr>
 		<td width="20%">&#160;</td>
 		<td width="80%">
 			<blockquote>
@@ -67,7 +67,7 @@
 				</p>
 			</blockquote>			
 		</td>
-		</tr>		
+		</tr-->		
 	</table><br/>
 	
 	<xsl:apply-templates select="STATPARAM/START_DATE"	 />
