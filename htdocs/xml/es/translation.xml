@@ -33,6 +33,7 @@
         <text find="start_date">fecha inicio</text>
         <text find="sets_the_order_to_home">Selecciona el orden por home</text>
         <text find="toc">toc</text>
+        <text find="home">home</text>
         <text find="sets_the_order_to_toc">Selecciona el orden por toc</text>
         <text find="articles">artículos</text>
         <text find="sets_the_order_to_articles">Selecciona el orden por artículos</text>
