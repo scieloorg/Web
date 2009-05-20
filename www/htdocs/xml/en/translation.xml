@@ -33,6 +33,7 @@
         <text find="start_date">start date</text>
         <text find="sets_the_order_to_home">Sets the order to home</text>
         <text find="toc">toc</text>
+        <text find="home">home</text>
         <text find="sets_the_order_to_toc">Sets the order to toc</text>
         <text find="articles">articles</text>
         <text find="sets_the_order_to_articles">Sets the order to articles</text>
