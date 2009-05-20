@@ -1,4 +1,8 @@
 <?php
+ini_set("include_path",".");
+ini_set("display_errors","1");
+error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
+
 require_once("../classDefFile.php");
 //require_once("../bvs-lib/common/scripts/php/xslt.php");
 require_once('nusoap/nusoap.php');
