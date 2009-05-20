@@ -11,6 +11,8 @@
 6 0 mpl,if v706='h' and v35='1807-0302' then replace(s('HR=',v880),'1807-0302','0101-8205')/, fi, 
 6 0 mpl,if v706='h' and v35='1806-1117' then replace(s('HR=',v880),'1806-1117','0102-4744')/, fi, 
 6 0 mpl,if v706='h' and v35='1678-4510' then replace(s('HR=',v880),'1678-4510','0100-879X')/, fi, 
+6 0 mpl,if v706='h' and p(v41) then 'PR_HR=',v880/ fi, /* indice do registro h pr */
+6 0 mpl,if v706='h' and p(v241^t) then (if v241^t='pr' then 'AHPR=',v880/,'PR_LK='v241^i/ fi) fi, /* indice de artigo que tem pr e indice indica o id do pr */
 7 0 mpl,if v706='p' then 'ART=',v880 fi,
 8 0 mpl,if v706='h' then 'TT=',v35/ fi,
 10 0 mpl,if v706='h' and v10>'' then ('AU=',v10^s|, |,v10^n/) fi,
