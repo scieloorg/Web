@@ -368,7 +368,8 @@
 					<font face="Arial" size="2">
 						<xsl:if test=" LIST and //FILTER/ORDER = 2 ">
 							<xsl:attribute name="color">#eb0000</xsl:attribute>
-						</xsl:if>home
+						</xsl:if>
+						 <xsl:value-of select="$translations/xslid[@id='sci_journalstat']/text[@find='home']"/>
 					</font>
 				</strong>
 				<xsl:if test="LIST">

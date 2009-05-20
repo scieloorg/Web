@@ -267,7 +267,7 @@ press release do artigo
             </xsl:apply-templates>
             <xsl:if test=" ENABLE_STAT_LINK = 1 or ENABLE_CIT_REP_LINK = 1 ">
                 <li>
-                    <a href="{SCIELO_INFO/STAT_SERVER}stat_biblio/index.php?lang={LANGUAGE}&amp;issn={/SERIAL/ISSN}">
+                    <a href="{SCIELO_INFO/STAT_SERVER}/stat_biblio/index.php?lang={LANGUAGE}&amp;issn={/SERIAL/ISSN}">
                     <xsl:apply-templates select="." mode="link-text">
                         <xsl:with-param name="type" select="'statistic'"/>
                     </xsl:apply-templates>
@@ -393,7 +393,7 @@ press release do artigo
                         <option value=""><xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='scielo_brazil']"/></option>
                     </select>
                     
-                    <input value="Pesquisar" name="submit" class="submit" type="submit"/>
+                    <input value="{$translations/xslid[@id='sci_serial']/text[@find='search']}" name="submit" class="submit" type="submit"/>
                 </form>
             </div>
 
