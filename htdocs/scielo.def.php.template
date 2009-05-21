@@ -137,11 +137,11 @@ show_press_releases=0
 [FULLTEXT_SERVICES]
 access="http://vm.scielo.br/applications/scielo-org/pages/services/articleRequestGraphicPage.php?pid=PARAM_PID&caller=PARAM_SERVER"
 cited_SciELO="http://vm.scielo.br/scieloOrg/php/citedScielo.php?pid=PARAM_PID"
-cited_SciELO_service="http://trigramas.bireme.br/cgi-bin/mxlind/cgi=@cited?pid=PARAM_PID"
+cited_SciELO_service="http://trigramas.bireme.br/cgi-bin/mx/cgi=@scielo/cited?pid=PARAM_PID"
 similar_SciELO_service="http://trigramas.bireme.br/cgi-bin/mx/cgi=@1?xml&collection=SciELO.org.TiKwAb&minsim=0.30&maxrel=30&show=scielo1&text=PARAM_TEXT"
 cited_Google="http://scholar.google.com/scholar?q=link:CURRENT_URL"
 related_Google="http://scholar.google.com/scholar?q=related:CURRENT_URL"
-related="http://vm.scielo.br/scieloOrg/php/related.php?pid=PARAM_PID"
+related="http://trigramas.bireme.br/cgi-bin/mx/cgi=@scielo/related?pid=PARAM_PID"
 related_service="http://trigramas.bireme.br/cgi-bin/mxlind/cgi=@related?pid=PARAM_PID"
 send_mail="http://vm.scielo.br/applications/scielo-org/pages/services/sendMail.php?pid=PARAM_PID&caller=PARAM_SERVER"
 windows_live_translator="http://www.windowslivetranslator.com"
