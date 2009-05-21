@@ -102,7 +102,7 @@ else
     ?>
 </select>
 <br/>
-<input type="submit" value="Ejecuta"/>
+<input type="submit" value="<?=OFIGRAPH21_EJECUTAR?>"/>
 </form>
 <br/>
 </td>

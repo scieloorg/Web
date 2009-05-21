@@ -49,7 +49,7 @@
 					<div class="level2">
 						<div class="top">
 							<div id="parent">
-    								<img src="/img/en/scielobre.gif" alt="{$translations/xslid[@id='sci_isoref']/text[@find = 'scientific_electronic_library_online']}"/>
+    								<img src="/img/{$LANG}/scielobre.gif" alt="{$translations/xslid[@id='sci_isoref']/text[@find = 'scientific_electronic_library_online']}"/>
 							</div>
 						</div>
 						<div class="middle">
