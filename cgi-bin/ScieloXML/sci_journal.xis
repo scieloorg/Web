@@ -11,7 +11,7 @@
 	<call name="getTitleISSNList"><pft>v710</pft></call>
 
 	<return action="replace" tag="5151">
-	<pft>
+	<pft>if p(v9051) and size(v9051)>0 then
 		,'	<journal-status-history>'/,
 		,'		<current-status date="',v9051^c,if a(v9051^c) then v9051^a fi,'" status="',v9051^d,if a(v9051^d) then v9051^b fi,'"/>'/, 
 		,if p(v710) then
@@ -29,6 +29,7 @@
 		,'</periods>'/
 		*/
 		'	</journal-status-history>'/
+		,fi
 	</pft>
 	</return>
 </function>
