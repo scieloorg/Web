@@ -99,7 +99,7 @@
                     &#160;<xsl:value-of select="$translations/xslid[@id='sci_alphabetic']/text[@find='issue']"/> <xsl:if test="@QTYISS > 1">s</xsl:if>
 				</xsl:if>
 				<xsl:choose>
-					<xsl:when test=".//current-status/@status=''">
+					<xsl:when test=".//current-status/@status='' or not(.//current-status)">
 						<xsl:if test="not(starts-with(normalize-space(following-sibling::node()/TITLE), substring(normalize-space(TITLE), 1, 1)))">
 							<br/>
 						</xsl:if>
