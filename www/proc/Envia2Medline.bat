@@ -75,7 +75,7 @@ else
 	call batch/GeraIso.bat temp/transf2medline/$6/title temp/transf2medline/$6/title.iso
 
 	$CISIS_DIR/mx null count=0 create=temp/transf2medline/$6/issue
-	$CISIS_DIR/mx $1/bases/issue/issue "pft=if l(['temp/transf2medline/$6/artigo'],'IS='v35,v36*0.4,s(f(val(v36*4)+10000,2,0))*1.4)>0 then f(mfn,1,0)/ fi" now >>	
+	$CISIS_DIR/mx $1/bases/issue/issue "pft=if l(['temp/transf2medline/$6/artigo'],'IS='v35,v36*0.4,s(f(val(v36*4)+10000,2,0))*1.4)>0 then f(mfn,1,0)/ fi" now >> temp/transf2medline/$6/issue.txt
 	$CISIS_DIR/mx $1/bases/issue/issue "proc=if l(['temp/transf2medline/$6/artigo'],'IS='v35,v36*0.4,s(f(val(v36*4)+10000,2,0))*1.4)>0 then else 'd*' fi" append=temp/transf2medline/$6/issue now -all	
 	call batch/GeraIso.bat temp/transf2medline/$6/issue temp/transf2medline/$6/issues.iso
 	
