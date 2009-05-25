@@ -1,27 +1,27 @@
 # Param 1 issn
 # Param 2 count
 
-# export MX=$MX
+# MX=$MX
 # CPFILE
 #
-export PROCESS_DATE=`date +%Y%m%d`
+PROCESS_DATE=`date +%Y%m%d%H%M%s`
 
-export MX=$3
-export CPFILE=$4
-export ACRON=$6
+MX=$3
+CPFILE=$4
+ACRON=$6
 
-export OUTPUT_PATH=$5
-export REL_OUTPUT_PATH=$7
-export HTML_FILE_OUTPUT=$8
-export JOURNAL_EDBOARD_HTML_PATH=$9
-export J_DIR=$ACRON
-export JournalFileName=journaldata.txt
-export AVALLOG=log/avaliacao_permanencia.log
-export JOURNAL_OUTPUT_PATH=$OUTPUT_PATH/$J_DIR/
+OUTPUT_PATH=$5
+REL_OUTPUT_PATH=$7
+HTML_FILE_OUTPUT=$8
+JOURNAL_EDBOARD_HTML_PATH=$9
+J_DIR=$ACRON
+JournalFileName=journaldata.txt
+AVALLOG=log/avaliacao_permanencia.log
+JOURNAL_OUTPUT_PATH=$OUTPUT_PATH/$J_DIR/
 
 
-export JournalFile=$OUTPUT_PATH/$J_DIR/$JournalFileName
-export JOURNAL_LINK=$REL_OUTPUT_PATH/$J_DIR/$JournalFileName
+JournalFile=$OUTPUT_PATH/$J_DIR/$JournalFileName
+JOURNAL_LINK=$REL_OUTPUT_PATH/$J_DIR/$JournalFileName
 
 if [ -d $OUTPUT_PATH/$ACRON ]
 then 
@@ -29,15 +29,12 @@ then
 fi
 mkdir -p $JOURNAL_OUTPUT_PATH
 
-
+echo journal ...
 echo $ACRON
 $MX cipar=$CPFILE TITLE btell=0 "loc=$1" lw=9999 "pft='<p><a href=\"$J_DIR/$JournalFileName\">',v100,'</a></p>'" now >> $HTML_FILE_OUTPUT
 
 ./avaliacao/permanencia/linux/WriteLog.bat $AVALLOG $ACRON Basic data
 $MX cipar=$CPFILE TITLE btell=0 "loc=$1" lw=9999 gizmo=avaliacao/gizmo/gizmoFreq,340 "pft=@avaliacao/pft/journal.pft" now > $JOURNAL_OUTPUT_PATH/dados_basicos.seq
-
-# echo avaliacao/gizmo/tab
-$MX "seq=$JOURNAL_OUTPUT_PATH/dados_basicos.seq¨" gizmo=avaliacao/gizmo/tab lw=9999 "pft=v1/"  now >> $JOURNAL_OUTPUT_PATH/dados_basicos.txt
 
 
 ./avaliacao/permanencia/linux/WriteLog.bat $AVALLOG $ACRON Authors History Afiliations
@@ -47,26 +44,22 @@ $MX "seq=temp/avaliacao_lastIssues.seq " create=temp/avaliacao_lastIssues now -a
 #rm $JOURNAL_OUTPUT_PATH/authors.*
 #rm $JOURNAL_OUTPUT_PATH/history.*
 
-$MX temp/avaliacao_lastIssues count=$2 lw=9999 "pft='./avaliacao/permanencia/linux/getIssuesInfo.bat ',v1,' $ACRON $MX $CPFILE $JOURNAL_OUTPUT_PATH/authors $JOURNAL_OUTPUT_PATH/history temp/avaliacao_afiliacoes.txt $AVALLOG'/" now >temp/avaliacao_lastIssues.bat
+$MX temp/avaliacao_lastIssues count=$2 lw=9999 "pft='./avaliacao/permanencia/linux/getIssuesInfo.bat ',v1,' $ACRON $MX $CPFILE $JOURNAL_OUTPUT_PATH/authors $JOURNAL_OUTPUT_PATH/history $AVALLOG'/" now >temp/avaliacao_lastIssues.bat
 chmod 775 temp/avaliacao_lastIssues.bat
 ./temp/avaliacao_lastIssues.bat
 
-./avaliacao/permanencia/linux/WriteLog.bat $AVALLOG $ACRON Authors
-$MX "seq=$JOURNAL_OUTPUT_PATH/authors.seq¨" gizmo=avaliacao/gizmo/aff lw=9999 "pft=v1/"  now > $JOURNAL_OUTPUT_PATH/authors_2.seq
-$MX "seq=$JOURNAL_OUTPUT_PATH/authors_2.seq¨" gizmo=avaliacao/gizmo/tab lw=9999 "pft=v1/"  now > $JOURNAL_OUTPUT_PATH/authors.txt
 
+echo $ACRON $PROCESS_DATE >> $JournalFile
 
-
-echo $ACRON $PROCESS_DATE > $JournalFile
 
 echo $ACRON DADOS BASICOS >> $JournalFile
-more $JOURNAL_OUTPUT_PATH/dados_basicos.txt >> $JournalFile
+# echo avaliacao/gizmo/tab
+$MX "seq=$JOURNAL_OUTPUT_PATH/dados_basicos.seq¨" gizmo=avaliacao/gizmo/tab lw=9999 "pft=v1/"  now >> $JournalFile
 
 ./avaliacao/permanencia/linux/getEdBoard.bat $MX $CPFILE $JOURNAL_EDBOARD_HTML_PATH $ACRON $OUTPUT_PATH $REL_OUTPUT_PATH $JournalFile
 
 echo $ACRON AUTORES ARTIGOS >> $JournalFile
-more $JOURNAL_OUTPUT_PATH/authors.txt >> $JournalFile
+$MX "seq=$JOURNAL_OUTPUT_PATH/authors.seq¨" gizmo=avaliacao/gizmo/tab lw=9999  "pft=v1/"  now >> $JournalFile
 
 echo $ACRON RECEBIDOS ACEITOS >> $JournalFile
-more $JOURNAL_OUTPUT_PATH/history.txt >> $JournalFile
-
+$MX "seq=$INPUT_FOR_HISTORY_PROC.seq¨" gizmo=avaliacao/gizmo/tab lw=9999  "pft=v1/"  now >> $JournalFile

@@ -12,13 +12,16 @@ export SCILISTA=temp/avaliacao_permanencia_scilista.lst
 export ISSUEQTD=3
 export HTML_FILE=/home/scielo/www/htdocs/teste/avaliacao/permanencia/data/journals.htm
 export JOURNAL_EDBOARD_HTML_PATH=/home/scielo/www/htdocs/revistas/
+AFFLISTCOMPLETA=avaliacao/gizmo/affcompleta
 
 echo Tabelas de gizmo
 $MX seq=avaliacao/gizmo/gizmoFreq.seq create=avaliacao/gizmo/gizmoFreq now -all
 $MX "seq=avaliacao/gizmo/pipe2tab.seq " create=avaliacao/gizmo/pipe2tab now -all
-$MX "seq=avaliacao/permanencia/linux/tab.seq " create=avaliacao/gizmo/tab now -all
+#$MX "iso=avaliacao/permanencia/linux/tab.iso" create=avaliacao/gizmo/tab now -all
+$MX "seq=avaliacao/permanencia/linux/tab.seq;" create=avaliacao/gizmo/tab now -all
 $MX "seq=avaliacao/permanencia/linux/tab2sep.seq " create=avaliacao/gizmo/tab2sep now -all
 $MX "seq=avaliacao/gizmo/tabEdboard.seq" create=avaliacao/gizmo/tabEdboard now -all
+$MX "seq=avaliacao/gizmo/pattern.seq" create=avaliacao/gizmo/pattern now -all
 
 
 if [ -f temp/avaliacao_afiliacoes.txt ]
@@ -30,16 +33,6 @@ then
 	rm log/avaliacao_permanencia.log
 fi
 
-if [ -f avaliacao/gizmo/newaff.seq ]
-then
-# echo avaliacao/gizmo/tab2sep
-echo gera newaff
-	$MX "seq=avaliacao/gizmo/newaff.seq" gizmo=avaliacao/gizmo/tab2sep create=avaliacao/gizmo/newaff now -all	
-	$MX avaliacao/gizmo/newaff lw=9999 "pft=if l(['avaliacao/gizmo/aff']v1)=0 then v1,'|',v2,'|',v3,'|',v4,'|',v5,'|',v6/ fi" now >> avaliacao/gizmo/aff.seq
-fi
-$MX "seq=avaliacao/gizmo/aff.seq" create=avaliacao/gizmo/aff now -all
-$MX avaliacao/gizmo/aff "fst=1 0 mpl,v1/" fullinv=avaliacao/gizmo/aff 
-
 
 chmod  775 avaliacao/permanencia/linux/*.bat
 
@@ -50,23 +43,38 @@ fi
 
 ./avaliacao/permanencia/linux/generateJournalList.bat $MX $CPFILE $SCILISTA
 
-# vi $SCILISTA
+vi $SCILISTA
 
 more avaliacao/pft/html.00.pft > $HTML_FILE
 
-$MX null count=1 lw=9999 "pft='<p><a href=\"aff_list.txt\">Affiliation list to check</a></p>'" now >> $HTML_FILE
+# $MX null count=1 lw=9999 "pft='<p><a href=\"aff_list.txt\">Affiliation list to check</a></p>'" now >> $HTML_FILE
+
+
+if [ -f temp/v70.seq ]
+then 
+	rm temp/v70.seq
+fi
+
+
+$MX "seq=$SCILISTA" lw=9999 "pft=if p(v3) then './avaliacao/permanencia/linux/getJournalAff.bat ',v2,' $ISSUEQTD $MX $CPFILE temp/v70.seq ',v3/ fi" now  > temp/avaliacao_aff.bat
+chmod 775 temp/avaliacao_aff.bat
+./temp/avaliacao_aff.bat
+$MX seq=temp/v70.seq create=temp/v70 now -all
+$MX temp/v70 fst=@avaliacao/fst/v70.fst fullinv=temp/v70
+
+# gerar um gizmo incompleta (inst-city) para completa
+$MX temp/v70 btell=0 "completa" lw=99999 "pft=@avaliacao/pft/aff_completa.pft" now | sort -u > temp/aff_completa.seq
+$MX seq=temp/aff_completa.seq create=temp/aff_completa now -all
+$MX temp/aff_completa fst=@avaliacao/fst/v70.fst fullinv=temp/aff_completa
+
+$MX temp/v70 btell=0 "parcial" lw=99999 "proc='d970',ref(['temp/aff_completa']l(['temp/aff_completa']v2^*,v2^c,v2^s,v2^p),'a970{',v2,'{')" copy=temp/v70 now -all
+
 
 echo JOurnals
-$MX "seq=$SCILISTA" lw=9999 "pft='./avaliacao/permanencia/linux/getJournalInfo.bat ',v2,' $ISSUEQTD $MX $CPFILE $OUTPUT_PATH ',v3,' $rel $HTML_FILE $JOURNAL_EDBOARD_HTML_PATH'/" now  > temp/avaliacao_call.bat
+$MX "seq=$SCILISTA" lw=9999 "pft=if p(v3) then './avaliacao/permanencia/linux/getJournalInfo.bat ',v2,' $ISSUEQTD $MX $CPFILE $OUTPUT_PATH ',v3,' $rel $HTML_FILE $JOURNAL_EDBOARD_HTML_PATH'/ fi" now  > temp/avaliacao_call.bat
 chmod 775 temp/avaliacao_call.bat
-./temp/avaliacao_call.bat >log/avaliacao_geral.log
-
-
-echo Afiliacoes
-$MX "seq=temp/avaliacao_afiliacoes.txt¨" lw=9999 "pft=if l(['avaliacao/gizmo/aff']v1)=0 then v1,'|',v2,'|',v3,'|',v4,'|',v5,'|',v6/ fi" now > temp/avaliacao_afiliacoes_3.txt
-
-# echo avaliacao/gizmo/pipe2tab
-$MX "seq=temp/avaliacao_afiliacoes_3.txt¨" gizmo=avaliacao/gizmo/pipe2tab lw=9999 "pft=v1/" now > $OUTPUT_PATH/aff_list.txt
+./temp/avaliacao_call.bat 
+# >log/avaliacao_geral.log
 
 
 more avaliacao/pft/html.99.pft >> $HTML_FILE
