@@ -22,7 +22,7 @@
 
 
 	// XML que tem as informações se determinado artigo tem referência no Medline, Lilacs, etc.
-	$xml2 = "http://" . $applServer . "/cgi-bin/wxis.exe/?IsisScript=ScieloXML/sci_reflinks.xis&def=scielo.def.php&lng=en&pid=" . $refPid . "";
+	$xml2 = "http://" . $applServer . "/cgi-bin/wxis.exe/?IsisScript=ScieloXML/sci_reflinks.xis&def=scielo.def.php&lng=".$lang."&pid=" . $refPid . "";
 	$xml2 = file_get_contents($xml2);
 
 	if (! $_REQUEST['refid']){
@@ -34,10 +34,9 @@
 		//Adicionado teg <service_log> 23/10/2007
 		$xml = '<?xml version="1.0" encoding="ISO-8859-1"?>';
 		$xml .='<root>';
-		$xml .='<vars><refId>'.number_format(substr($refPid, 23, 27),0,"","").'</refId><applserver>'. $applServer .'</applserver></vars>';
+		$xml .='<vars><refId>'.number_format(substr($refPid, 23, 27),0,"","").'</refId><applserver>'. $applServer .'</applserver><lang>'.$lang.'</lang></vars>';
 		$xml .= str_replace('<?xml version="1.0" encoding="ISO-8859-1"?>','',$xml1);
 		$xml .='</root>';
-
 		if($_REQUEST['debug1'] == 'on')
 		{
 			die($xml);
@@ -59,6 +58,7 @@
 			$fullTitle = utf8_decode($fullTitle);
 		}
 	}
+
 	// XML Final que contem os dados que precisamos do XML1 e XML2
 	$xmlFinal = '<?xml version="1.0" encoding="ISO-8859-1"?>';
 	$xmlFinal .= substr($xml2, strpos($xml2, "<root>"), strpos($xml2, "<ref_TITLE>") - strpos($xml2, "<root>")).'<vars><refid>'.$_REQUEST['refid'].'</refid><htdocs>'.$pathHtdocs.'</htdocs><service_log>'.$flagLog.'</service_log></vars>';
