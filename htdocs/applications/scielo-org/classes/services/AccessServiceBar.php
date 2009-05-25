@@ -27,15 +27,9 @@ para ter o gráfico "multi-lingüe"
 			$this->setParam('pid', $pid);
 		}
 		function getStats(){
-		//FIXME 
-			$array = $this->ini['collections'];
-			foreach ($array as $name=>$collection){
-			$this->setCall($this->ini['requests_server'][$name].'/scielolog/scielologArticle.php');
-
-				Service::callService(Service::buildCall());
-				$xml[] = Service::getResultInXML();
-			}
-
+			$this->setCall($this->ini['requests_server']['url'].'/scielologArticle.php');
+			Service::callService(Service::buildCall());
+			$xml[] = Service::getResultInXML();
 			$XML_XSL = new XSL_XML();
 			$result = new AccessServiceResult($XML_XSL->concatXML($xml));
 			$requests = $result->getStats();
