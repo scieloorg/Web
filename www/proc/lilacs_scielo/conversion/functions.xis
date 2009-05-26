@@ -233,7 +233,6 @@
 	<!-- MES DA LEGENDA -->
 	<call name="get_month"><pft>v64^*,'^d'v4011,'^m',v5001</pft></call>
 	<field action="replace" tag="64" split="occ"><pft>(replace(replace(v9064,' ','^a'),'-','/')/)</pft></field>
-<display><pft>ALL</pft></display>
 	<!-- LEGENDA -->
 	<field action="replace" tag="43" split="occ"><pft>
 		'^les^t',v9030,|^vv.|v31,,|^wsupl.|v131,|^nn.|v32,|^ssupl.|v132,'^cRio de Janeiro',|^m|v64^*[1],|^a|v65*0.4/
@@ -509,7 +508,7 @@
 	<!-- convert -->
 	<include>lilacs_scielo/conversion/lilacs2scielo.xis</include>					
 	<!-- content of the record content after converting -->
-
+	
 	<field action="replace" tag="4444"><pft>@XML.PFT</pft></field>
 	<field action="export" tag="list">4444</field>
 
@@ -701,9 +700,12 @@
 
 	<field action="replace" tag="5000"><pft>v3131</pft></field>
 
-	
 	<parm name="buffersize">4024000</parm>
+	
+	
 	<display><pft>if p(v1313) then 'Checking issue: ',v1313/ fi</pft></display>
+
+	
 	<do task="update">
 		<parm name="db"><pft>v5000^*</pft></parm>
 		<parm name="mfn"><pft>
@@ -716,13 +718,13 @@
 			else
 				'New'
 			fi</pft></parm>
-		<parm name="fst"><pft>if p(v1313) then cat('lilacs_scielo\conversion\fst\issues.fst') fi</pft></parm>
-		<parm name="gizmo"><pft>if v5000^g='yes' then 'lilacs_scielo\gizmo\xml' fi</pft></parm>
+		<parm name="fst"><pft>if p(v1313) then cat('lilacs_scielo/conversion/fst/issues.fst') fi</pft></parm>
 		<field action="define" tag="1101">Isis_Lock</field>
 		<parm name="lockid">xxx</parm>
 		<field action="define" tag="1102">Isis_Status</field>
 
 		<update>
+		
 			<field action="import" tag="list">5000</field>
 			<field action="import" tag="list"><pft>if p(v5000^a) then v5000^a else '1/999' fi,</pft></field>
 			<field action="delete" tag="list">5000</field>
@@ -733,6 +735,32 @@
 		</update>
 	</do>
 	<file action="close" type="database"><pft>v5000^*</pft></file>
+
+	<flow action="jump"><pft>if v5000^g='yes' then else 'XX' fi</pft></flow>
+	<do task="mfnrange">
+		<parm name="db"><pft>v5000^*</pft></parm>
+		<parm name="from"><pft>v7001</pft></parm>
+		<parm name="count">1</parm>
+		<parm name="gizmo">lilacs_scielo/gizmo/xml</parm>
+		<loop>		
+			<field action="import" tag="list">5000</field>
+			<do task="update">
+				<parm name="db"><pft>v5000^*</pft></parm>
+				<parm name="mfn"><pft>mfn</pft></parm>
+				<field action="define" tag="1101">Isis_Lock</field>
+				<parm name="lockid">xxx</parm>
+				<field action="define" tag="1102">Isis_Status</field>
+				<update>	
+					<field action="import" tag="list">1/999</field>
+					<write>Unlock</write>
+				</update>
+			</do>				
+		</loop>
+	</do>
+
+	<file action="close" type="database"><pft>v5000^*</pft></file>
+
+	<label>XX</label>
 	<field action="export" tag="list">7001</field>
 </function>
 
