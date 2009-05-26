@@ -400,7 +400,7 @@ press release do artigo
             <div class="journalInfo">
                 <small><xsl:apply-templates select="." mode="text-publication-of"/></small>
                 <strong class="journalTitle"><xsl:apply-templates select="/SERIAL/PUBLISHERS/PUBLISHER"/></strong>
-                <span class="issn">ISSN&#160;<xsl:value-of select="/SERIAL/ISSN"/></span>
+                <span class="issn"><xsl:apply-templates select="/SERIAL/ISSN"/></span>
                 <h2 class="sectionHeading"><xsl:apply-templates select="." mode="text-mission"/></h2>
                 <p>
                     <xsl:apply-templates select="/SERIAL/MISSION"/>
