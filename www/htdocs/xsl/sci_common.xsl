@@ -285,9 +285,9 @@
 		<xsl:param name="LANG"/>
 		<xsl:if test="FORMERTITLE/TITLE">
 			<br/>
-			<font color="#000000">
+			<small>
 				<xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'former_title']"/>:
-			</font>
+			</small>
 			<br/>
 			<font color="#000080">
 				<em>
@@ -1062,12 +1062,12 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
 </xsl:template>
 
 <xsl:template match="ISSN">
-  <FONT size="3" color="#0000A0">
+  <FONT color="#0000A0">
     <xsl:call-template name="GET_ISSN_TYPE">
         <xsl:with-param name="TYPE" select="@TYPE" />
         <xsl:with-param name="LANG" select="//CONTROLINFO/LANGUAGE" />
     </xsl:call-template>&#160;ISSN
-   </FONT>&#160;<xsl:value-of select="normalize-space(.)"/>
+   </FONT><xsl:value-of select="normalize-space(.)"/>
 </xsl:template>
 
 <xsl:template match="STATPARAM">
