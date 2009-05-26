@@ -1,4 +1,4 @@
-%mx% iso=%1 "pft='mioc v'v31,if v32*0.1<>'^' then 'n',v32^*,fi,|s|v32^s,/" now>temp\lista.txt
+%mx% iso=%1 "pft='mioc v'v31,if v32*0.1<>'^' then 'n',v32^*,fi,|s|v32^s,/" now | sort /R >temp\lista.txt
 %mx% seq=temp\lista.txt create=temp\lista now -all
 echo 1
 %mx% temp\lista "pft=if mfn=1 then v1/ else if v1<>ref(mfn-1,v1) then v1/ fi fi" now > temp\lista.txt

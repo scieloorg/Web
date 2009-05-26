@@ -30,7 +30,7 @@ if not exist %CTRL_ISSUE%.mst %mx% null count=0 create=%CTRL_ISSUE% now -all
 if not exist %CTRL_CONVERSION%.mst %mx% null count=0 create=%CTRL_CONVERSION% now -all
 %mx% %CTRL_CONVERSION% fst=@lilacs_scielo\conversion\fst\ctrl_conversion.fst fullinv=%CTRL_CONVERSION% 
 
-%mx% seq=%1 "pft='call lilacs_scielo\conversion\call_issue_conversion.bat ',v1,' ',v2,' ',v3/" now > temp\lilacs_scielo_call_issue_conversion.bat
+%mx% seq=%1 lw=9999 "pft='call lilacs_scielo\conversion\call_issue_conversion.bat ',v1,' ',v2,' ',v3/" now > temp\lilacs_scielo_call_issue_conversion.bat
 
 call temp\lilacs_scielo_call_issue_conversion.bat
 
