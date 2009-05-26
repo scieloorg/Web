@@ -63,7 +63,7 @@
         <text find="export_to_procite">Exportar para Pro Cite</text>
         <text find="export_to_endnote">Exportar para End Note</text>
         <text find="export_to_refworks">Exportar para Refworks</text>
-        <text find="version">versión</text>
+        <text find="version">Versión</text>
         <text find="print">impresa</text>
         <text find="cdrom">en CDROM</text>
         <text find="diskette">en Disquete</text>
