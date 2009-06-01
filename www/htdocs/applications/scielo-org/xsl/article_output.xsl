@@ -14,9 +14,6 @@
 					<div class="count">
 						<xsl:value-of select="$pos"/> / <xsl:value-of select="$total"/>
 					</div>
-					<div class="collection">
-				        SciELO <xsl:value-of select="$nameCountry"/>
-					</div>
 				</div>
 				<div style="clear: both; height: 1px; margin: 0px; padding: 0px;"/>
 				<!--xsl:apply-templates select="." mode="old"><xsl:with-param name="url" select="$url"/></xsl:apply-templates-->
@@ -27,9 +24,7 @@
 					<xsl:value-of select="$s"/>
 				</xsl:if>
 				<br/>
-				<a href="{$url}" target="_blank">
-                    <xsl:value-of select="$translations/xslid[@id='article_output']/text[@find = 'full_text']"/>
-				</a>
+                <b><xsl:value-of select="$translations/xslid[@id='article_output']/text[@find='accessat']"/></b>: <xsl:apply-templates select="collections/collection" />
 			</div>
 		</li>
 	</xsl:template>
@@ -94,11 +89,26 @@
 				</xsl:otherwise>
 			</xsl:choose>
 		</xsl:element>, 
-                    <xsl:apply-templates select="serial"/>
+        <xsl:apply-templates select="serial"/>
 		<xsl:apply-templates select="year"/>
 		<xsl:apply-templates select="volume"/>
 		<xsl:apply-templates select="number"/>
 		<xsl:apply-templates select="@pid" mode="issn"/>
+	</xsl:template>
+
+    <xsl:template match="collection">
+		<xsl:variable name="total" select="count(../collection)" />
+		<a>
+            <xsl:attribute name="href">
+                <xsl:value-of select="@url" disable-output-escaping="yes"/>
+            </xsl:attribute>
+            <xsl:attribute name="target">_blank</xsl:attribute>
+            SciELO <xsl:value-of select="@instance" />
+		</a>
+         <xsl:choose>
+             <xsl:when test="position() != $total">, </xsl:when>
+             <xsl:otherwise>. </xsl:otherwise>
+	     </xsl:choose>
 	</xsl:template>
 
 </xsl:stylesheet>

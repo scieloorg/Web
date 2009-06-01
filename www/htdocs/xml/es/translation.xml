@@ -159,6 +159,7 @@
     <xslid id="article_output">
         <text find="similarity">Similaridad:</text>
         <text find="full_text">texto completo</text>
+        <text find="accessat">acceda en</text>
     </xslid>
     <xslid id="cited">
         <text find="doesnt_cited">ese articulo no tiene citaciones</text>
