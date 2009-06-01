@@ -1649,7 +1649,7 @@ Parameters:
 			<xsl:with-param name="FORMAT" select="'short'"/>
 			<xsl:with-param name="LANG" select="$LANG"/>
 			<xsl:with-param name="AUTHLINK" select="'1'"/>
-			<xsl:with-param name="TEXTLINK" select="'1'"/>
+			<xsl:with-param name="TEXTLINK" select="'0'"/>
 			<xsl:with-param name="AUTHORS" select="authors"/>
 			<xsl:with-param name="ARTTITLE" select="titles/title[1]"/>
 			<xsl:with-param name="VOL" select="volume"/>
