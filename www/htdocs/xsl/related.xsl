@@ -12,7 +12,6 @@
 	<xsl:variable name="total" select="count(//relatedlist/related)"/>
 	<xsl:template match="/">
 
-	<div class="content">
 		<div class="articleList">
 			<xsl:choose>
 
@@ -27,8 +26,6 @@
 				</xsl:otherwise>
 			</xsl:choose>
 		</div>
-	</div>
-
 	
 	</xsl:template>
 		<xsl:template match="related" mode="pre">
