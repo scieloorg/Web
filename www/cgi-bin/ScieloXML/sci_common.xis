@@ -1553,7 +1553,7 @@
 	4001 - article's title lines 		
 	-->
 	<!-- imports 3012 which contains the selected language -->
-	<field action="import" tag="list">3000,3003,3012,8000</field>
+	<field action="import" tag="list">3000,3003,3012,8000,9912</field>
 	<field action="replace" tag="12" split="occ"><pft>(v4001/)</pft></field>
 
 	<!-- check if some of the data v12 is in the language v3012 -->
@@ -1586,7 +1586,7 @@
 			'  <SUBTITLE>',v1000^i,v9001,v1000^f,'</SUBTITLE>'/#
 		</pft>
 	</display>
-	<display><pft>if v8000='XML' then  (if v12^l<>v4010[1]  then '  <trans-title xml:lang="',v12^l,'">'v12^*'</trans-title>'/ fi) fi</pft></display>
+	<display><pft>if v8000='XML' then ,proc('a7777{',v12^l[1],'{'), (if v7777[1]<>v12^l then ,'  <trans-title xml:lang="',v12^l,'">'v12^*'</trans-title>'/ fi) fi</pft></display>
 	
 </function>
 
@@ -2514,6 +2514,7 @@ fi
   
   <field action="import" tag="list">880</field>
 
+  <field action="replace" tag="12" split="occ"><pft>ref(['ARTIGO']val(v4001^r),@PROC_SPLIT_MST.PFT,(v12/))</pft></field>
   <field action="replace" tag="12" split="occ"><pft>ref(['ARTIGO']val(v4001^r),@PROC_SPLIT_MST.PFT,(v12/))</pft></field>
   <call name="isXML"><pft>ref(['ARTIGO']val(v4001^r),@PROC_SPLIT_MST.PFT,v702)</pft></call>
 

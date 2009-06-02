@@ -188,12 +188,7 @@
 		</xsl:variable>
 		<img src="{concat(//MIMETEX,'?',$f)}" alt="" border="0" align="middle"/>
 	</xsl:template>
-	<xsl:template match="trans-title" mode="format">
-		<xsl:variable name="lang" select="@xml:lang"/>
-		<p class="scielo-article-other-titles{$languages//language[@id=$lang]/@view}">
-			<xsl:value-of select="."/>
-		</p>
-	</xsl:template>
+	
 	<xsl:template match="email">
 		<a href="mailto:{.}">
 			<xsl:apply-templates/>
