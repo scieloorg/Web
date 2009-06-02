@@ -19,9 +19,9 @@
 	</xsl:variable>
 	<xsl:variable name="pref">
         	<xsl:choose>
-                	<xsl:when test="LANGUAGE='en' ">i</xsl:when>
-                        <xsl:when test="LANGUAGE='es' ">e</xsl:when>
-                        <xsl:when test="LANGUAGE='pt' ">p</xsl:when>
+                	<xsl:when test="//CONTROLINFO/LANGUAGE='en' ">i</xsl:when>
+                    <xsl:when test="//CONTROLINFO/LANGUAGE='es' ">e</xsl:when>
+                    <xsl:when test="//CONTROLINFO/LANGUAGE='pt' ">p</xsl:when>
                 </xsl:choose>
 	</xsl:variable>
 
