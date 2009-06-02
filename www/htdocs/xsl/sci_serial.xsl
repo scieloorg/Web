@@ -446,9 +446,10 @@ press release do artigo
 				<span class="issn">
 					<xsl:apply-templates select="/SERIAL/ISSN"/>
 				</span>
-				<h2 class="sectionHeading">
+                <br/><br/>
+				<small>
 					<xsl:apply-templates select="." mode="text-mission"/>
-				</h2>
+				</small>
 				<p>
 					<xsl:apply-templates select="/SERIAL/MISSION"/>
 					<xsl:apply-templates select="/SERIAL/CHANGESINFO">
