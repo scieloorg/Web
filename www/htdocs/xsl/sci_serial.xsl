@@ -17,6 +17,14 @@
 			<xsl:otherwise>false</xsl:otherwise>
 		</xsl:choose>
 	</xsl:variable>
+	<xsl:variable name="pref">
+        	<xsl:choose>
+                	<xsl:when test="LANGUAGE='en' ">i</xsl:when>
+                        <xsl:when test="LANGUAGE='es' ">e</xsl:when>
+                        <xsl:when test="LANGUAGE='pt' ">p</xsl:when>
+                </xsl:choose>
+	</xsl:variable>
+
 	<xsl:output method="html" indent="no" doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 	<xsl:template match="SERIAL">
 		<html>
@@ -247,13 +255,6 @@ press release do artigo
 	<xsl:template match="CONTROLINFO" mode="link">
 		<xsl:param name="itemName"/>
 		<xsl:param name="itemName2"/>
-		<xsl:variable name="pref">
-			<xsl:choose>
-				<xsl:when test="LANGUAGE='en' ">i</xsl:when>
-				<xsl:when test="LANGUAGE='es' ">e</xsl:when>
-				<xsl:when test="LANGUAGE='pt' ">p</xsl:when>
-			</xsl:choose>
-		</xsl:variable>
 		<li>
 			<a>
 				<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_SERIAL_HTML"/><xsl:value-of select="/SERIAL/TITLEGROUP/SIGLUM"/>/<xsl:value-of select="$pref"/><xsl:if test="$itemName2"><xsl:value-of select="$itemName2"/></xsl:if><xsl:if test="not($itemName2)"><xsl:value-of select="$itemName"/></xsl:if>.htm</xsl:attribute>
@@ -406,7 +407,7 @@ press release do artigo
 				</h2>
 				<form name="searchForm" action="http://{//SCIELO_INFO/SERVER}/cgi-bin/wxis.exe/iah/" method="post">
 					<input type="hidden" value="iah/iah.xis" name="IsisScript"/>
-					<input type="hidden" value="p" name="lang"/>
+					<input type="hidden" value="{$pref}" name="lang"/>
 					<input type="hidden" value="article^dlibrary" name="base"/>
 					<input type="hidden" value="extSearch" name="nextAction"/>
 					<input id="textEntry1" name="exprSearch" class="expression midium defaultValue" value="{$translations/xslid[@id='sci_serial']/text[@find='enter_search_term']}" onfocus="clearDefault('textEntry1', 'expression midium'); this.value= (this.value=='{$translations/xslid[@id='sci_serial']/text[@find='enter_search_term']}')? '' : this.value" onblur="clearDefault('textEntry1', 'expression midium defaultValue'); this.value= (this.value=='')? '{$translations/xslid[@id='sci_serial']/text[@find='enter_search_term']}' : this.value" type="text"/>
