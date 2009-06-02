@@ -6,7 +6,10 @@
 		<!-- FIXME nao tem article-categories no XML -->
 		<xsl:apply-templates select=".//article-categories"/>
 		<xsl:apply-templates select=".//title-group/article-title" mode="format"/>
-		<xsl:apply-templates select=".//trans-title" mode="format"/>
+		<xsl:apply-templates select=".//title-group//trans-title" mode="format"/>
+		<xsl:if test="not(.//title-group//trans-title)">
+			<xsl:apply-templates select="trans-title" mode="format"/>
+		</xsl:if>
 		<xsl:apply-templates select=".//contrib-group" mode="front"/>
 		<xsl:if test=".//contrib-group//aff">
 			<p>
@@ -22,6 +25,13 @@
 		<a name="top">&#160;</a>
 		<p class="scielo-article-title">
 			<!--xsl:value-of select="." disable-output-escaping="yes"/-->
+			<xsl:apply-templates/>
+			<xsl:apply-templates select=" ../subtitle" mode="format"/>
+		</p>
+	</xsl:template>
+	<xsl:template match="trans-title" mode="format">
+		<xsl:variable name="lang" select="@xml:lang"/>
+		<p class="scielo-article-other-titles{$languages//language[@id=$lang]/@view}">
 			<xsl:apply-templates/>
 			<xsl:apply-templates select=" ../subtitle" mode="format"/>
 		</p>
