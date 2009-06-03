@@ -220,6 +220,7 @@ press release do artigo
 		links dos idiomas da interface
 	-->
 	<xsl:template match="CONTROLINFO" mode="change-language">
+        <br/>
 		<xsl:if test="//CONTROLINFO/LANGUAGE != 'pt'">
 			<a>
 				<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_DATA"/>scielo.php?script=<xsl:value-of select="//PAGE_NAME"/>&amp;pid=<xsl:value-of select="//PAGE_PID"/>&amp;lng=pt&amp;nrm=iso</xsl:attribute>
@@ -246,8 +247,7 @@ press release do artigo
 				</font>
 			</a>
 			<br/>
-		</xsl:if>
-		<br/>
+		</xsl:if>		
 	</xsl:template>
 	<!--
 		formacao do link de página secundária
@@ -363,6 +363,7 @@ press release do artigo
 					<xsl:with-param name="MONTH" select="$MONTH"/>
 				</xsl:call-template>&#160;<xsl:value-of select="$DAY"/>,&#160;<xsl:value-of select="$YEAR"/>
 			</span>
+            <xsl:apply-templates select="." mode="change-language"/>
 			<xsl:apply-templates select="." mode="links"/>
 			<!--
                 monta o grafico scimago
