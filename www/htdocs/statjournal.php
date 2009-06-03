@@ -131,7 +131,7 @@
 				<td width="20%">
 					<p align="center">
 						<a href="http://<?echo $LABELS['SITE_USAGE_PAGES_SERVER'];?>/scielo.php?script=sci_serial&pid=<?echo $LABELS['JOURNAL_ISSN'];?>&lng=<?echo $LABELS['LANG'];?>">
-							<img align="bottom" border="0" src="http://<?echo $LABELS['SITE_USAGE_PAGES_SERVER'];?>/img/revistas/<?echo $LABELS['ACRON'];?>/<?echo $LABELS['LANG_1'];?>logo.gif"/>
+							<img align="bottom" border="0" src="http://<?echo $LABELS['SITE_USAGE_PAGES_SERVER'];?>/img/revistas/<?echo $LABELS['ACRON'];?>/plogo.gif"/>
 						</a>	
 					</p>
 				</td>
