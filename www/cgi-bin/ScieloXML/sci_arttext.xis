@@ -291,6 +291,11 @@
 					/* replace(v704^*,'&#956;','&#xB5;'), */
 					,v704^*,
 				fi</pft></display>
+
+		<!-- THERE ARE CASES WHICH PHP CAN NOT TRANSFORM BECAUSE OF THE LARGE BODY, THE SOLUTION IS BREAK THE LARGE BODY IN SEVERAL ONES -->
+		<field action="import" tag="list">8000</field>
+        <display><pft>if v8000<>'XML'  and mid(v701,size(v701),1)='0' then ']]></BODY>'/,'<BODY><![CDATA[' fi</pft></display>
+
 	   <flow action="jump">CONTINUE</flow>
 	   
 	   <label>CREATE_AUTHOR_LINK</label>
