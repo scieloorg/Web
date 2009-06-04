@@ -21,7 +21,8 @@ if not exist %ISSUE_DB%.mst %mx% null count=0 create=%ISSUE_DB%
 %mx% %ISSUE_ORDER% fst=@lilacs_scielo\conversion\fst\issues.fst fullinv=%ISSUE_ORDER% 
 
 %mx% iso=%LILACS%.iso create=%LILACS% now -all
-%mx% %LILACS% "proc=@lilacs_scielo\conversion\fst\pages.prc" copy=%LILACS% now -all
+%mx% %LILACS% "gizmo=lilacs_scielo\gizmo\hifen,32" "proc=@lilacs_scielo\conversion\fst\pages.prc" copy=%LILACS% now -all
+
 %mx% %LILACS% "fst=@lilacs_scielo\conversion\fst\lilacs.fst" fullinv=%LILACS%
 
 if not exist %CTRL_ISSUE%.mst %mx% null count=0 create=%CTRL_ISSUE% now -all

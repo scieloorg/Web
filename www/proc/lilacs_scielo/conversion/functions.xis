@@ -217,6 +217,7 @@
 		<field action="define" tag="122">Isis_Total</field>
 		
 		<loop>			
+			<field action="replace" tag="32"><pft>replace(v32,'/','-')</pft></field>
 			<field action="export" tag="list">31,32,35</field>
 			<field action="export" tag="list">64,65,66</field>
 			<field action="replace" tag="5001"><pft>mfn</pft></field>
@@ -231,7 +232,7 @@
 
 
 	<!-- MES DA LEGENDA -->
-	<call name="get_month"><pft>v64^*,'^d'v4011,'^m',v5001</pft></call>
+	<call name="get_month"><pft>if size(v64^*)>4 then v64^*,'^d'v4011,'^m',v5001 fi</pft></call>
 	<field action="replace" tag="64" split="occ"><pft>(replace(replace(v9064,' ','^a'),'-','/')/)</pft></field>
 	<!-- LEGENDA -->
 	<field action="replace" tag="43" split="occ"><pft>
@@ -344,7 +345,7 @@
 				<parm name="db"><pft>v4011</pft></parm>
 				<parm name="from"><pft>v1003^m</pft></parm>
 				<parm name="count">1</parm>
-				<parm name="gizmo">GIZMO</parm>
+				<!--parm name="gizmo">GIZMO</parm-->
 
 				<loop>
 					<field action="import" tag="list">5001,4011/4014</field>
