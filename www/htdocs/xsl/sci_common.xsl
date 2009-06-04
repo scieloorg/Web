@@ -212,6 +212,7 @@
 	<!-- Shows contact information -->
 	<xsl:template match="CONTACT">
 		<xsl:apply-templates select="LINES"/>
+        <xsl:apply-templates select="EMAILS"/>
 		<xsl:call-template name="UpdateLog"/>
 	</xsl:template>
 	<!-- Shows lines from contact information -->
@@ -1120,12 +1121,6 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
  </xsl:if>
  <xsl:value-of select="$number"/>
  </OPTION>
-</xsl:template>
-
-<xsl:template match="COPYRIGHT">
-   <BR/>
-   <br/>
-   <xsl:call-template name="COPYRIGHTSCIELO"/>
 </xsl:template>
 
 <xsl:template match="QUERY_RESULT_PAGES">
