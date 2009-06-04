@@ -61,16 +61,16 @@ fi),
 
 '	[SCIELOLT]/front[SCIELOGT]'/
 '	[SCIELOLT]body[SCIELOGT]',
-,proc(,'a999{',
-,(
+,proc(
+,(,'a999{',
 ,if v12^l='pt' then 
 	'[SCIELOLT]p[SCIELOGT]Texto completo disponível apenas em PDF.[SCIELOLT]/p[SCIELOGT]',
 ,fi
 ,if v12^l='en' then 
 	'[SCIELOLT]p[SCIELOGT]Full text available only in PDF format.[SCIELOLT]/p[SCIELOGT]',
-,fi,
+,fi,,'{',
 ,),
-,'{',
+
 
 ,),
 

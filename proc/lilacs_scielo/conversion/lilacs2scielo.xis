@@ -90,9 +90,11 @@
 		<field action="replace" tag="12" split="occ"><pft>(if v12^*<>'x'  and v12^*<>'sd' then v12 fi/)</pft></field>
 
 		<!-- author and aff -->
-		<field action="delete" tag="list"><pft>if v10='x' or v10='Anon' then '10' fi</pft></field>
+		<field action="delete" tag="list"><pft>if v10='x' or v10:'Anon' then '10' fi</pft></field>
 		
-		<list action="load" type="list"><pft>(if v10^1<>'s.af' then v10 else replace(v10,'^1s.af','') fi/)</pft></list>
+		<field action="replace" tag="10" split="occ"><pft>(if v10^1<>'s.af' then v10 else replace(v10,'^1s.af','') fi/)</pft></field>
+		<field action="replace" tag="10" split="occ"><pft>(if mid(v10^*,size(v10^*)-1,1)=' ' then ,replace(v10,v10^*,s(v10^*,'.')),  else v10 fi/)</pft></field>
+		<list action="load" type="list"><pft>(v10/)</pft></list>
 		<field action="delete" tag="list">8000,10</field>
 		
 		<do task="list">

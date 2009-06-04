@@ -2,7 +2,7 @@ proc('d761')
 ,proc('d9040d70d9012d10',
 	'a9040{',mpu,v40,(v8^l),mpl,'{'
 	,'a70{', ('[',v70^i,']',v70^*,|^1|v70^1,|^2|v70^2,|^3|v70^3,|^c|v70^c,|^p|v70^p,'[/',v70^i,']'),'{',
-	,('a10{',v10^s,|, |v10^n,|^a|v10^1*0.3,if p(v10) and  a(v10^1) then	,'^1s.af', fi,'{',)
+	,('a10{',v10^s,if mid(v10^n,size(v10^n),1)='.' then ', ',mid(v10^n,1,size(v10^n)-1), else |, |v10^n fi,|^a|v10^1*0.3,if p(v10) and  a(v10^1) then	,'^1s.af', fi,'{',)
 	
 ,),
 proc(
