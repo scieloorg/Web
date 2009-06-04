@@ -166,20 +166,22 @@
 	<!-- Shows copyright information -->
 	<xsl:template match="COPYRIGHT">
 		<xsl:comment>
-			<xsl:value-of select="../..//LICENSE"/>
+			<xsl:value-of select="../..//LICENSE"/>lllll
 		</xsl:comment>
 		<xsl:choose>
-			<xsl:when test="../..//LICENSE='cc'">
+			<xsl:when test="../..//LICENSE='cc'">                
 				<xsl:apply-templates select="../." mode="license"/>
+                <br/>
 				<p>
 					<i>
-						&#160;
-    						<xsl:value-of select="." disable-output-escaping="yes"/>
+						<xsl:value-of select="." disable-output-escaping="yes"/>
 					</i>
 				</p>
+                <br/>
 			</xsl:when>
 			<xsl:when test="../..//LICENSE='site'">
 				<xsl:call-template name="COPYRIGHTSCIELO"/>
+                <br/>
 			</xsl:when>
 			<xsl:when test="../..//LICENSE='none'">
 				&#169;&#160;				
@@ -189,13 +191,13 @@
 				<br/>
 			</xsl:when>
 			<xsl:when test="../..//LICENSE='embargo' and ../..//EMBARGO/@text='yes'">
-				<xsl:call-template name="COPYRIGHTSCIELO"/>
+				<xsl:call-template name="COPYRIGHTSCIELO"/>                
 			</xsl:when>
 			<xsl:when test="../..//LICENSE='embargo' and ../..//EMBARGO/@text='no'">
 				&#169;&#160;				
                 <i>
 					<xsl:value-of select="@YEAR"/>&#160;
-                    <xsl:value-of select="." disable-output-escaping="yes"/>
+                    <xsl:value-of select="." disable-output-escaping="yes"/>aaa
 				</i>
 				<br/>
 			</xsl:when>
@@ -205,7 +207,7 @@
 					<xsl:value-of select="@YEAR"/>&#160;
                     <xsl:value-of select="." disable-output-escaping="yes"/>
 				</i>
-				<br/>
+				<br/><br/>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
