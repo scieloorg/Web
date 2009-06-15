@@ -19,9 +19,12 @@ if not exist %ISSUE_DB%.mst %mx% null count=0 create=%ISSUE_DB%
 %mx% %ISSUE_DB% fst=@lilacs_scielo\conversion\fst\issues.fst fullinv=%ISSUE_DB% 
 
 %mx% %ISSUE_ORDER% fst=@lilacs_scielo\conversion\fst\issues.fst fullinv=%ISSUE_ORDER% 
+%mx% seq=lilacs_scielo\gizmo\hifen.seq create=lilacs_scielo\gizmo\hifen now -all
 
 %mx% iso=%LILACS%.iso create=%LILACS% now -all
-%mx% %LILACS% "gizmo=lilacs_scielo\gizmo\hifen,32" "proc=@lilacs_scielo\conversion\fst\pages.prc" copy=%LILACS% now -all
+%mx% %LILACS% "proc='d8814d9014d9015a9014{',v14,'{a9015{',v14,'{'" copy=%LILACS% now -all
+
+%mx% %LILACS% "gizmo=lilacs_scielo\gizmo\hifen,32,9014" "proc=@lilacs_scielo\conversion\fst\pages.prc"    copy=%LILACS% now -all
 
 %mx% %LILACS% "fst=@lilacs_scielo\conversion\fst\lilacs.fst" fullinv=%LILACS%
 
