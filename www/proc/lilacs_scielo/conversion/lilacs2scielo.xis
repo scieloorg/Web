@@ -49,6 +49,7 @@
 		<!--	CONVERSION  -->
 
 		<display><pft>v40[1]</pft></display>
+		<field action="replace" tag="40"><pft>v40[1]</pft></field>
 		<field action="replace" tag="40"><pft>if v40[1]='Pt' then 'pt' fi</pft></field>
 		<field action="replace" tag="40"><pft>if v40[1]='En' then 'en' fi</pft></field>
 		<field action="replace" tag="40"><pft>if v40[1]='Es' then 'es' fi</pft></field>
@@ -93,7 +94,7 @@
 		<field action="delete" tag="list"><pft>if v10='x' or v10:'Anon' then '10' fi</pft></field>
 		
 		<field action="replace" tag="10" split="occ"><pft>(if v10^1<>'s.af' then v10 else replace(v10,'^1s.af','') fi/)</pft></field>
-		<field action="replace" tag="10" split="occ"><pft>(if mid(v10^*,size(v10^*)-1,1)=' ' then ,replace(v10,v10^*,s(v10^*,'.')),  else v10 fi/)</pft></field>
+		<field action="replace" tag="10" split="occ"><pft>(if mid(v10^*,size(v10^*)-1,1)=' ' and mid(v10^*,size(v10^*),1)<>'e' then ,replace(v10,v10^*,s(v10^*,'.')),  else v10 fi/)</pft></field>
 		<list action="load" type="list"><pft>(v10/)</pft></list>
 		<field action="delete" tag="list">8000,10</field>
 		
