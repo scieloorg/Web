@@ -3,3 +3,5 @@
 svnLocal='svn://reddes.bvsalud.org:33690/scielo-metodologia'
 # Caminho da aplicacao
 caminhoAPL='/home/scielo/'
+# Branches
+branch=
