@@ -234,6 +234,7 @@
 	<!-- MES DA LEGENDA -->
 	<call name="get_month"><pft>if size(v64^*)>4 then v64^*,'^d'v4011,'^m',v5001 fi</pft></call>
 	<field action="replace" tag="64" split="occ"><pft>(replace(replace(v9064,' ','^a'),'-','/')/)</pft></field>
+	<field action="delete" tag="list"><pft>if size(v64^*)<=4 then '64' fi</pft></field>
 	<!-- LEGENDA -->
 	<field action="replace" tag="43" split="occ"><pft>
 		'^les^t',v9030,|^vv.|v31,,|^wsupl.|v131,|^nn.|v32,|^ssupl.|v132,'^cRio de Janeiro',|^m|v64^*[1],|^a|v65*0.4/
