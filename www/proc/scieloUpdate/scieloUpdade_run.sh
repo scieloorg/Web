@@ -8,7 +8,7 @@ svn list $svnLocal"/tags"
 echo Elija una vesion para prepara paquete o deje en blanco para generar paquete del trunk:
 read version
 
-if [ $version == "" ]
+if [ -z $version ]
 then
    export file="trunk"
    export version="/trunk"
@@ -17,14 +17,25 @@ else
    export version="/tags/"$version
 fi
 
-echo "Bajando archivos de la version"$file
+echo "Bajando archivos de la version "$file
 svn export --force $svnLocal$version/www www/
 
-echo "Comprimindo archivos en scieloMetodologia-"$file".tgz"
-tar cfpz scieloMetodologia-$file.tgz www/
+if [ -z $branch ]
+then
+   echo "Ningun branch configurado para actualizacion"
+   $branch='default'
+else
+   echo "Bajando archivo del branch "$branch
+   svn export --force $svnLocal/branches/$branch/www www/
+   branch="${branch/\//_}"
+fi
 
-echo "Compiando archivo scieloMetodologia-"$file".tgz para:"$caminhoAPL
-cp scieloMetodologia-$file.tgz $caminhoAPL
+
+echo "Comprimindo archivos en scieloMetodologia-$branch-$file.tgz"
+tar cfpz scieloMetodologia-$branch-$file.tgz www/
+
+echo "Compiando archivo scieloMetodologia-$branch-$file.tgz para:"$caminhoAPL
+cp scieloMetodologia-$branch-$file.tgz $caminhoAPL
 
 echo "Desea descomprimir el archivo en $caminhoAPL (y/n): " 
 read copying
@@ -35,8 +46,8 @@ then
    echo "Haciendo backup de version actual en $caminhoAPL"
    export backdate=`date '+%Y%m%d%H%M%S'`
    tar cfzp scieloMetodologia-backup-$backdate.tgz www/
-   echo "Descomprimiendo el archivo scieloMetodologia-$file.tgz en $caminhoAPL"
-   tar xfzp scieloMetodologia-$file.tgz
+   echo "Descomprimiendo el archivo scieloMetodologia-$branch-$file.tgz en $caminhoAPL"
+   tar xfzp scieloMetodologia-$branch-$file.tgz
 fi
 
 cd $caminhoAPL"/www/proc/scieloUpdate"
