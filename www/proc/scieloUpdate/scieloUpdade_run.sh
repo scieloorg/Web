@@ -45,7 +45,7 @@ then
    cd $caminhoAPL
    echo "Haciendo backup de version actual en $caminhoAPL"
    export backdate=`date '+%Y%m%d%H%M%S'`
-   tar cfzp scieloMetodologia-backup-$backdate.tgz www/
+   tar cfzp scieloMetodologia-backup-$backdate.tgz www/htdocs www/proc
    echo "Descomprimiendo el archivo scieloMetodologia-$branch-$file.tgz en $caminhoAPL"
    tar xfzp scieloMetodologia-$branch-$file.tgz
 fi
