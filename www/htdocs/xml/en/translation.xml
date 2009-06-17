@@ -218,7 +218,7 @@
 		<text find="author">Author</text>
 		<text find="subject">Subject</text>
 		<text find="this_journal">This Journal</text>
-		<text find="scielo_brazil">SciELO Brazil</text>
+		<text find="scielo_instance">All Collection</text>
 		<text find="enter_search_term">Enter one or more words</text>
     </xslid>
     <xslid id="sci_alphabetic">
