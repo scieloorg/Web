@@ -1,8 +1,7 @@
 <?xml version="1.0"?>
 <xsl:transform version="1.0" id="ViewNLM-v2-04_scielo.xsl" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:util="http://dtd.nlm.nih.gov/xsl/util" xmlns:mml="http://www.w3.org/1998/Math/MathML" exclude-result-prefixes="util xsl">
 	<xsl:variable name="countAFF" select="count(//aff)"/>
-	
-	<xsl:template match="*" mode="make-front">	
+	<xsl:template match="*" mode="make-front">
 		<!-- FIXME nao tem article-categories no XML -->
 		<xsl:apply-templates select=".//article-categories"/>
 		<xsl:apply-templates select=".//title-group/article-title" mode="format"/>
@@ -45,7 +44,6 @@
 		<xsl:apply-templates select="given-names" mode="front"/>&#160;<xsl:apply-templates select="surname" mode="front"/>
 		<xsl:apply-templates select="../xref" mode="front"/>
 		<xsl:if test="position()!=last()">; </xsl:if>
-
 	</xsl:template>
 	<xsl:template match="xref[@ref-type='aff']/@rid | aff/@id" mode="front">
 		<xsl:if test="$countAFF&gt;1">
@@ -82,7 +80,6 @@
 		<xsl:apply-templates select="*[name()!='label']" mode="front"/>
 		<br/>
 	</xsl:template-->
-		
 	<xsl:template match="xref" mode="front">
 		<xsl:apply-templates/>
 	</xsl:template>
@@ -94,18 +91,18 @@
 	<xsl:template match="xref[@ref-type='aff']/@rid | aff/@id">
 	</xsl:template>
 	<xsl:template match="aff" mode="front">
-		<xsl:apply-templates  mode="front"/>
+		<xsl:apply-templates mode="front"/>
 		<br/>
 	</xsl:template>
-
 	<xsl:template match="aff/*" mode="front">
 		<xsl:apply-templates/>
 		<xsl:if test="position()!=last()">, </xsl:if>
 	</xsl:template>
 	<xsl:template match="aff/label" mode="front">
-		<sup><xsl:apply-templates/></sup>
+		<sup>
+			<xsl:apply-templates/>
+		</sup>
 	</xsl:template>
-
 	<xsl:template match="author-notes" mode="format">
 		<xsl:variable name="xref" select="corresp/@id"/>
 		<p>
@@ -121,14 +118,24 @@
 			<br/>
 		</p>
 	</xsl:template>
-	<xsl:template match="subject"><span class="subject"><xsl:value-of select="."/></span>
+	<xsl:template match="subject">
+		<span class="subject">
+			<xsl:value-of select="."/>
+		</span>
 	</xsl:template>
 	<xsl:template match="kwd-group">
 		<p>
 			<span class="scielo-authors">
 				<xsl:call-template name="make-id"/>
-				<xsl:text>Key words: </xsl:text>
-			</span>
+				<xsl:choose>
+					<xsl:when test="@xml:lang">
+						<xsl:value-of select="document(concat('../xml/',@xml:lang,'/translation.xml'))//xslid[@id='sci_abstract']/text[@find='keywords']"/>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="document('../xml/en/translation.xml')//xslid[@id='sci_abstract']/text[@find='keywords']"/>
+					</xsl:otherwise>
+				</xsl:choose>
+			</span>: 
 			<xsl:apply-templates/>
 		</p>
 	</xsl:template>
@@ -154,12 +161,12 @@
 			</xsl:when>
 			<!-- abstract with no title -->
 			<xsl:when test="self::abstract">
-				<xsl:text>Abstract</xsl:text>
+				<xsl:value-of select="document(concat('../xml/',@xml:lang,'/translation.xml'))//xslid[@id='sci_abstract']/text[@find='abstract']"/>
 			</xsl:when>
 			<!-- trans-abstract with no title -->
 			<xsl:when test="self::trans-abstract">
 				<span class="gen">
-					<xsl:text>Abstract, Translated</xsl:text>
+					<xsl:value-of select="document(concat('../xml/',@xml:lang,'/translation.xml'))//xslid[@id='sci_abstract']/text[@find='abstract']"/>
 				</span>
 			</xsl:when>
 			<!-- there is no logical otherwise -->
