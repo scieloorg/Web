@@ -19,6 +19,7 @@ JournalFileName=journaldata.txt
 AVALLOG=log/avaliacao_permanencia.log
 JOURNAL_OUTPUT_PATH=$OUTPUT_PATH/$J_DIR/
 
+INPUT_FOR_HISTORY_PROC=$JOURNAL_OUTPUT_PATH/history
 
 JournalFile=$OUTPUT_PATH/$J_DIR/$JournalFileName
 JOURNAL_LINK=$REL_OUTPUT_PATH/$J_DIR/$JournalFileName
@@ -44,7 +45,7 @@ $MX "seq=temp/avaliacao_lastIssues.seq " create=temp/avaliacao_lastIssues now -a
 #rm $JOURNAL_OUTPUT_PATH/authors.*
 #rm $JOURNAL_OUTPUT_PATH/history.*
 
-$MX temp/avaliacao_lastIssues count=$2 lw=9999 "pft='./avaliacao/permanencia/linux/getIssuesInfo.bat ',v1,' $ACRON $MX $CPFILE $JOURNAL_OUTPUT_PATH/authors $JOURNAL_OUTPUT_PATH/history $AVALLOG'/" now >temp/avaliacao_lastIssues.bat
+$MX temp/avaliacao_lastIssues count=$2 lw=9999 "pft='./avaliacao/permanencia/linux/getIssuesInfo.bat ',v1,' $ACRON $MX $CPFILE $JOURNAL_OUTPUT_PATH/authors $INPUT_FOR_HISTORY_PROC $AVALLOG'/" now >temp/avaliacao_lastIssues.bat
 chmod 775 temp/avaliacao_lastIssues.bat
 ./temp/avaliacao_lastIssues.bat
 
