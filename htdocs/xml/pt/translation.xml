@@ -216,7 +216,7 @@
 		<text find="author">Autor</text>
 		<text find="subject">Assunto</text>
 		<text find="this_journal">Neste Periódico</text>
-		<text find="scielo_brazil">SciELO Brasil</text>
+		<text find="scielo_instance">Toda Coleção</text>
 		<text find="enter_search_term">Entre uma ou mais palavras</text>
 	</xslid>
 	<xslid id="sci_alphabetic">
