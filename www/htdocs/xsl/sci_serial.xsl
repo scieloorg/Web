@@ -431,7 +431,7 @@ press release do artigo
 							<xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='this_journal']"/>
 						</option>
 						<option value="">
-							<xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='scielo_brazil']"/>
+							<xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='scielo_instance']"/>
 						</option>
 					</select>
 					<input value="{$translations/xslid[@id='sci_serial']/text[@find='search']}" name="submit" class="submit" type="submit"/>

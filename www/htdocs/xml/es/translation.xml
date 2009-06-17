@@ -216,7 +216,7 @@
 		<text find="author">Autor</text>
 		<text find="subject">Materia</text>
 		<text find="this_journal">En la Revista</text>
-		<text find="scielo_brazil">SciELO Brasil</text>
+		<text find="scielo_instance">Toda la Colección</text>
 		<text find="enter_search_term">Entre una o más palabras</text>
     </xslid>
 	<xslid id="sci_alphabetic">
