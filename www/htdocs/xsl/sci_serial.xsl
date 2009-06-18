@@ -99,7 +99,9 @@
 										<xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='numbers']"/>
 									</strong>
 									<ul class="pressReleases">
-										<xsl:apply-templates select="//PRESSRELEASE/issue" mode="pr"/>
+										<xsl:apply-templates select="//PRESSRELEASE/issue" mode="pr">
+											<xsl:sort select="@data" order="descending"/>
+										</xsl:apply-templates>
 									</ul>
 								</xsl:if>
 								<xsl:if test="$has_article_pr != 'false'">
@@ -107,7 +109,9 @@
 										<xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='articles']"/>
 									</strong>
 									<ul class="pressReleases">
-										<xsl:apply-templates select="//PRESSRELEASE/article" mode="pr"/>
+										<xsl:apply-templates select="//PRESSRELEASE/article" mode="pr">
+											<xsl:sort select="@data" order="descending"/>
+                                                                                </xsl:apply-templates>
 									</ul>
 								</xsl:if>
 							</div>
