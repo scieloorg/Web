@@ -83,7 +83,7 @@
 				<xsl:with-param name="count" select="$c"/>
 			</xsl:apply-templates>
 			<ul>
-				<xsl:apply-templates select="SERIAL[.//current-status/@status!='C']"/>
+				<xsl:apply-templates select="SERIAL[.//current-status/@status!='C' or not(journal-status-history)]"/>
 			</ul>
 		</xsl:if>
 	</xsl:template>
