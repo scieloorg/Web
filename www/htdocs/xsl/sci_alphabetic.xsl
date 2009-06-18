@@ -71,14 +71,14 @@
 	</xsl:template>
 	<xsl:template match="*" mode="classified">
 		<xsl:variable name="count" select="count(SERIAL[.//current-status/@status='C'])"/>
-		<xsl:variable name="c" select="count(SERIAL[.//current-status/@status!='C'])"/>
+		<xsl:variable name="c" select="count(SERIAL[.//current-status/@status!='C' or not(journal-status-history)])"/>
 		<xsl:apply-templates select="." mode="display-msg-current-list">
 			<xsl:with-param name="count" select="$count"/>
 		</xsl:apply-templates>
 		<ul>
 			<xsl:apply-templates select="SERIAL[.//current-status/@status='C']"/>
 		</ul>
-		<xsl:if test="SERIAL[.//current-status/@status!='C']">
+		<xsl:if test="SERIAL[.//current-status/@status!='C'  or not(journal-status-history)]">
 			<xsl:apply-templates select="." mode="display-msg-not-current-list">
 				<xsl:with-param name="count" select="$c"/>
 			</xsl:apply-templates>
