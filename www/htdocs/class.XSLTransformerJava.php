@@ -40,6 +40,7 @@ class XSLTransformerJava {
 				$xml = xml_utf8_decode($xml);
 				$utf = true;
 			} 
+			$xml = str_replace(chr(153),"&#153;",$xml);
 			
 			$xml = str_replace(chr(133),"...",$xml);
 			$xml = str_replace($aspas,"&quot;",$xml);
