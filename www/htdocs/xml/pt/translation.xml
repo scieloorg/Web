@@ -63,7 +63,7 @@
         <text find="export_to_procite">Exportar para Pro Cite</text>
         <text find="export_to_endnote">Exportar para End Note</text>
         <text find="export_to_refworks">Exportar para Refworks</text>
-        <text find="version">Versão</text>
+        <text find="version">versão</text>
         <text find="print">impressa</text>
         <text find="cdrom">em CDROM</text>
         <text find="diskette">em Disquete</text>
@@ -159,10 +159,9 @@
     <xslid id="article_output">
         <text find="similarity">Similaridade:</text>
         <text find="full_text">texto completo</text>
-        <text find="accessat">acesse em</text>
     </xslid>
     <xslid id="cited">
-        <text find="doesnt_cited">este artigo não possui citações</text>        
+        <text find="doesnt_cited">este artigo não possui citações</text>
     </xslid>
     <xslid id="related">
         <text find="doesnt_related">não existe artigo similar a este</text>
