@@ -45,3 +45,5 @@ SCIOFI_ARTMONTHYEARSTAT /home/scielo/www/htdocs/xsl/sciofi_artmonthyearstat.xsl
 OAI_AGRIS_COMMON /home/scielo/www/htdocs/oai/oai_agris_common.xsl
 LISTRECORDS_AGRIS /home/scielo/www/htdocs/oai/ListRecords_agris.xsl
 GETRECORD_AGRIS /home/scielo/www/htdocs/oai/GetRecord_agris.xsl
+COMMENTS /home/scielo/www/htdocs/xsl/comments.xsl
+SCI_ARTTEXT_PR /home/scielo/www/htdocs/xsl/sci_arttext_pr.xsl
