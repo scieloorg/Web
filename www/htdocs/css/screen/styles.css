@@ -184,11 +184,15 @@ HTML>BODY .content H4 {
 }
 .invisible {display: none}
 
-.license P, .license  A, .license  SPAN{
-	text-align: center;
-	font-size: 8pt;
-	color: black
+.license P, .footer .license P, .license  A {
+        text-align: center;
+        font-size: 7pt;
+        color: gray;
+		font-weight: normal;
+		font-family : Verdana, Arial;
+		text-decoration: underline;
 }
+
 
 .license img {
 	
