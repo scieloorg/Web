@@ -176,7 +176,6 @@ HTML>BODY .content H4 {
 	position: absolute;
 	right: 10px;
 	top: 10px;
-
 }
 
 .popUp .close A {
@@ -184,16 +183,38 @@ HTML>BODY .content H4 {
 }
 .invisible {display: none}
 
-.license P, .footer .license P, .license  A {
-        text-align: center;
-        font-size: 7pt;
-        color: gray;
-		font-weight: normal;
-		font-family : Verdana, Arial;
-		text-decoration: underline;
+.license P {
+	text-align: center;
 }
 
+.footer .license P {
+	color: gray;
+	font-weight: normal;
+	font-size: 90% !important;
+}
 
-.license img {
-	
+.footer .license P A {
+	font-size: 100% !important;
+	color: gray;
+	text-decoration: underline;
+}
+
+.footer .license P IMG {
+	vertical-align: middle;
+}
+.license P {
+	color: gray;
+	font-weight: normal;
+	font-size: 90% !important;
+}
+
+.license P A {
+	font-size: 100% !important;
+	color: gray;
+	text-decoration: underline;
+}
+
+.license P IMG {
+	vertical-align: middle;
+
 }
