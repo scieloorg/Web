@@ -524,7 +524,7 @@
 	<xsl:template name="COPYRIGHTSCIELO">
 		<xsl:apply-templates select="." mode="license"/>
 		<center>
-		&#169;&#160;<xsl:value-of select="@YEAR"/>&#160;
+		
 		<i>
 				<font color="#000080">
 					<xsl:choose>
