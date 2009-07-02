@@ -184,7 +184,23 @@ HTML>BODY .content H4 {
 .invisible {display: none}
 
 .license P {
-	text-align: center;
+        text-align: center;
+}
+.license P {
+        color: gray;
+        font-weight: normal;
+        font-size: 80% !important;
+}
+
+.license P A {
+        font-size: 100% !important;
+        color: gray;
+        text-decoration: underline;
+}
+
+.license P IMG {
+        vertical-align: middle;
+
 }
 
 .footer .license P {
@@ -201,20 +217,4 @@ HTML>BODY .content H4 {
 
 .footer .license P IMG {
 	vertical-align: middle;
-}
-.license P {
-	color: gray;
-	font-weight: normal;
-	font-size: 90% !important;
-}
-
-.license P A {
-	font-size: 100% !important;
-	color: gray;
-	text-decoration: underline;
-}
-
-.license P IMG {
-	vertical-align: middle;
-
 }
