@@ -1,4 +1,4 @@
-. scieloUpdade_config.sh 
+. scieloUpdate_config.sh 
 
 cd $caminhoAPL"/www/proc/scieloUpdate" 
 
@@ -23,7 +23,7 @@ svn export --force $svnLocal$version/www www/
 if [ -z $branch ]
 then
    echo "Ningun branch configurado para actualizacion"
-   $branch='default'
+   branch='default'
 else
    echo "Bajando archivo del branch "$branch
    svn export --force $svnLocal/branches/$branch/www www/
@@ -45,9 +45,13 @@ then
    cd $caminhoAPL
    echo "Haciendo backup de version actual en $caminhoAPL"
    export backdate=`date '+%Y%m%d%H%M%S'`
-   tar cfzp scieloMetodologia-backup-$backdate.tgz www/htdocs www/proc
+   tar cfzp scieloMetodologia-backup-$backdate.tgz --exclude-from=www/proc/scieloUpdate/exclude.txt www/htdocs www/proc www/cgi-bin
    echo "Descomprimiendo el archivo scieloMetodologia-$branch-$file.tgz en $caminhoAPL"
    tar xfzp scieloMetodologia-$branch-$file.tgz
 fi
+
+echo "Atualizando permissões do wxis.exe"
+chmod -R 775 www/cgi-bin/wxis.exe
+chmod -R 775 www/proc/scieloUpdate/*.sh
 
 cd $caminhoAPL"/www/proc/scieloUpdate"
