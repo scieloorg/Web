@@ -1,0 +1,28 @@
+/*
+1  "1"
+  2  "3"
+  3  "20090706"
+  5  "2007"
+  6  "1.2"
+  7  "0.20"
+  4  "2.40"
+121  "000002"
+122  "000030"
+ 10  "33.60"
+
+*/
+'REPORT ',date,#
+'FEE FOR RECENT ARTICLES FROM ',v5,'=$ ',v6/
+'FEE FOR ARTICLES BEFORE ',v5,'=$ ',v7/
+#
+'BUDGET ID=',v1/
+'BUDGET value=$ ',f(val(v2),1,2)/
+'BUDGET DATE=$ ',v3/
+#
+'BUDGET used=$ ',v4/
+'TOTAL OF ARTICLES SENT= ',v121/
+#
+'TOTAL OF ARTICLES= ',v122/
+#
+'NEEDED BUDGET= ',v10/
+#
