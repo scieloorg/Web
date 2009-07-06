@@ -11,8 +11,36 @@ export cisis_dir="$scielo_dir/proc/cisis"
 export JAVA_HOME=/usr/local/jdk1.5.0_06
 
 #variaveis com dados de conexao ao crossref
-export crossrefUserName=
-export crossrefPassword=
+crossrefUserName=xxx
+crossrefPassword=xxx
+depositor_institution=BIREME/PAHO/WHO
+depositor_prefix=10.1590
+depositor_email=bireme.crossref@gmail.com
+depositor_url=www.scielo.br
+
+# 
+MYCIPFILE=$conversor_dir/shs/xref.cip
+MYTEMP=$scielo_proc/temp
+
+#BASES DE DADOS
+XREF_DOI_REPORT=$conversor_dir/databases/crossref/crossref_DOIReport
+XREF_DB_PATH=$conversor_dir/databases/crossref
+DB_BILL=$XREF_DB_PATH/bill
+DB_BG=$XREF_DB_PATH/budget
+
+# BUDGET
+# taxa para artigos recentes
+RECENT_FEE=1
+# primeiro ano considerado de artigos recentes
+# All Current records (2007-2009). So, 2007
+FIRST_YEAR_OF_RECENT_FEE=2007
+# taxa para artigos anteriores a FIRST_YEAR_OF_RECENT_FEE
+BACKFILES_FEE=0,20
+# valor em dolar disponivel
+BUDGET=5
+# contador de BUDGET
+BUDGETID=1,2
+BUDGETDATE=20090706
 
 #SERVERS NAME
 #informar os nomes dos servidores de cada ambiente para que no final 

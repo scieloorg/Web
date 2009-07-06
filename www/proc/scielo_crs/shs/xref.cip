@@ -1,0 +1,6 @@
+BIREME_TABS_GCHARENT.*=/home/scielo/www/proc/scielo_crs/databases/tabs/gcharent.*
+Y.*=/home/scielo/www/bases/title/title.*
+ARTICLE_DB.*=/home/scielo/www/bases/artigo/artigo.*
+ARTIGO_DB.*=/home/scielo/www/bases/artigo/artigo.*
+DB_BILL.*=/home/scielo/www/proc/scielo_crs/databases/crossref/bill.*
+DB_BG.*=/home/scielo/www/proc/scielo_crs/databases/crossref/budget.*
