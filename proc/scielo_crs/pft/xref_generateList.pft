@@ -1,0 +1,32 @@
+,if v32<>'review' then
+
+	,proc('d9041a9041{',
+		,if l(['DB_BILL']v9880)>0 then
+		,ref(['DB_BILL']l(['DB_BILL']v9880),v4),
+		,fi,
+
+	,'{'),
+
+	,proc('d9065a9065{',if p(v223) then v223 ,else v65,fi,'{'),
+	,proc('d9880a9880{',if p(v881) then v881 ,else v880,fi,'{'),
+
+	,if p(v881) then 
+		v223,' ',v881
+	,else 
+		v65,' ',v880 
+	,fi
+	,' ',
+	,if v9041='registered' then
+		,'0',
+	,else
+		,if val(v9065*0.4)>=val(v9001) then
+			/* recentes */
+			,v9002,
+		,else
+			/* antigos */
+			,v9003,
+		,fi
+	,fi
+
+	,#,
+,fi
