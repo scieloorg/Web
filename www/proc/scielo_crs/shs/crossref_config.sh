@@ -27,20 +27,23 @@ XREF_DOI_REPORT=$conversor_dir/databases/crossref/crossref_DOIReport
 XREF_DB_PATH=$conversor_dir/databases/crossref
 DB_BILL=$XREF_DB_PATH/bill
 DB_BG=$XREF_DB_PATH/budget
+ARTIGO_DB=$database_dir/artigo/artigo
+
+DB_PRESUPUESTOS=$XREF_DB_PATH/presupuestos
+DB_BATCH_RUN_BUDGET=$XREF_DB_PATH/batch_run_budget
+DB_BATCH_RUN=$XREF_DB_PATH/batch_run
+DB_CTRL_BG=$XREF_DB_PATH/budgetctrl
+
 
 # BUDGET
 # taxa para artigos recentes
 RECENT_FEE=1.2
 # primeiro ano considerado de artigos recentes
 # All Current records (2007-2009). So, 2007
-FIRST_YEAR_OF_RECENT_FEE=2007
+FIRST_YEAR_OF_RECENT_FEE=2009
 # taxa para artigos anteriores a FIRST_YEAR_OF_RECENT_FEE
 BACKFILES_FEE=0.20
 # valor em dolar disponivel
-BUDGET=3
-# contador de BUDGET
-BUDGETID=1
-BUDGETDATE=20090706
 
 #SERVERS NAME
 #informar os nomes dos servidores de cada ambiente para que no final 
@@ -51,3 +54,4 @@ BUDGETDATE=20090706
 #export scielohomol=scielohm1
 #export scieloprodu=scieloprod
 # ------------------------------------------------------------------------- #
+

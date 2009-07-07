@@ -4,6 +4,7 @@ RETURNEDFILE=$1
 FILEID=$2
 PID=$3
 ANSWER=$4
+DATE=$5
 
 if [ -f $RETURNEDFILE ]
 then
@@ -26,13 +27,13 @@ then
 		STATUS=`$cisis_dir/mx $XREF_DOI_REPORT "btell=0" "HR=$PID" "pft= mfn(0)" -all now`
 
 		if [ $STATUS > 0 ]; then			
-			$cisis_dir/mx $XREF_DOI_REPORT  from=$STATUS count=1  "proc='d10d30a30/$GETANSWER/a930/$RETURNEDFILE/a10/$DATE/'" copy=$XREF_DOI_REPORT -all now
+			$cisis_dir/mx $XREF_DOI_REPORT  from=$STATUS count=1  "proc='d10d30a30/$GETANSWER/a930/$RETURNEDFILE/a10/',date,'/'" copy=$XREF_DOI_REPORT -all now
 		else			
-			$cisis_dir/mx null  count=1 "proc='a30/$GETANSWER/a930/$RETURNEDFILE/a880/$PID/a10/$DATE/'" append=$XREF_DOI_REPORT -all now
+			$cisis_dir/mx null  count=1 "proc='a30/$GETANSWER/a930/$RETURNEDFILE/a880/$PID/a10/',date,'/'" append=$XREF_DOI_REPORT -all now
 		fi
 		if [ -f $XREF_DOI_REPORT.mst ]
 		then
-			$cisis_dir/mx $XREF_DOI_REPORT fst=@$XREF_DOI_REPORT.fst fullinv=$XREF_DOI_REPORT 
+			$cisis_dir/mx $XREF_DOI_REPORT fst=@$conversor_dir/fst/crossref_DOIReport.fst fullinv=$XREF_DOI_REPORT 
 		fi
 
 	fi

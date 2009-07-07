@@ -10,12 +10,16 @@ echo ""
 
 date '+%Y%m%d%H%M' > logDate.txt
 
+
+ISSN_OR_PID=$1
+PROCESS_ONLY_NEW=DO$2
+
 $conversor_dir/shs/xref_prepareEnv.sh
 if [ "$#" -eq "0" ]
 then
-	$conversor_dir/shs/xref_callGenerateAndUploadXML.sh  
+	$conversor_dir/shs/xref_callGenerateAndUploadXML.sh $PROCESS_ONLY_NEW  
 else
-	$conversor_dir/shs/xref_callGenerateAndUploadXML.sh  $1
+	$conversor_dir/shs/xref_callGenerateAndUploadXML.sh $PROCESS_ONLY_NEW $ISSN_OR_PID
 fi
 
 echo "Copying Log files to output directory"
