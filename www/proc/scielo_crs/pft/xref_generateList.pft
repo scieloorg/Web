@@ -1,14 +1,24 @@
-,if v32<>'review' then
+,proc('d9880a9880{',if p(v881) then v881 ,else v880,fi,'{'),
+,proc('d9051a9051{',
+	,if v9055='DOIT' then
+		,'doit', /* forces the reprocess */
+	,else
+		/* process only if error */
+		,if l(['XREF_DOI_REPORT']'hr='v9880)>0 then
+			,ref(['XREF_DOI_REPORT']l(['XREF_DOI_REPORT']'hr='v9880),if v30<>'error' then 'dont' fi),
+		,fi,
+	,fi
+,'{'),
+,if v32<>'review' and a(v41) and v9051<>'dont' then
 
 	,proc('d9041a9041{',
 		,if l(['DB_BILL']v9880)>0 then
 		,ref(['DB_BILL']l(['DB_BILL']v9880),v4),
 		,fi,
-
 	,'{'),
 
 	,proc('d9065a9065{',if p(v223) then v223 ,else v65,fi,'{'),
-	,proc('d9880a9880{',if p(v881) then v881 ,else v880,fi,'{'),
+	
 
 	,if p(v881) then 
 		v223,' ',v881
@@ -17,6 +27,9 @@
 	,fi
 	,' ',
 	,if v9041='registered' then
+		/* fee=0 means the fee was already paid,
+		   but the article is inserted in the list, because it can be reprocessed
+		 */
 		,'0',
 	,else
 		,if val(v9065*0.4)>=val(v9001) then

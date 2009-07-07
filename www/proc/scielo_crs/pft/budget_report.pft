@@ -11,18 +11,22 @@
  10  "33.60"
 
 */
-'REPORT ',date,#
-'FEE FOR RECENT ARTICLES FROM ',v5,'=$ ',v6/
-'FEE FOR ARTICLES BEFORE ',v5,'=$ ',v7/
 #
-'BUDGET ID=',v1/
-'BUDGET value=$ ',f(val(v2),1,2)/
-'BUDGET DATE=$ ',v3/
+'------------  REPORT --------'#
+'REPORT date: ',date,#
+'BUDGET ID=',v1,' BATCH ID=',v100/
 #
-'BUDGET used=$ ',v4/
-'TOTAL OF ARTICLES SENT= ',v121/
+'BUDGET date:       ',ref(['DB_PRESUPUESTOS']l(['DB_PRESUPUESTOS']v1),v3)/
+'BUDGET received: $ ',ref(['DB_PRESUPUESTOS']l(['DB_PRESUPUESTOS']v1),v2)/
+'BUDGET used:     $ ',v2/
+'BUDGET necessary for future submission: $',v10/
 #
-'TOTAL OF ARTICLES= ',v122/
+'FEE FOR ARTICLES   FROM ',v200,' $ ',v201/
+'FEE FOR ARTICLES BEFORE ',v200,' $ ',v202/
 #
-'NEEDED BUDGET= ',v10/
+'TOTAL OF ARTICLES SENT         = ',f(val(v121),1,0)/
+'TOTAL OF ARTICLES OF THIS BATCH= ',if a(v122) then f(val(v121),1,0) else f(val(v122),1,0) fi/
+'TOTAL OF ARTICLES LEFT         = ',if a(v122) then '0' else f(val(v122)-val(v121),1,0) fi/ 
+#
+'------------  END REPORT --------'#
 #
