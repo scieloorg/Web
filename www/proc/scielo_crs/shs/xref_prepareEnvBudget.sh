@@ -2,6 +2,12 @@
 
 . $conversor_dir/shs/xref_prepareEnv.sh
 
+d=`dirname $DB_CTRL_BG.mst`
+if [ ! -d $d ]
+then
+	mkdir -p $d
+fi
+
 BUDGETID=$1
 if [ ! -f $DB_BILL.mst ]
 then
@@ -29,5 +35,5 @@ $cisis_dir/mx $DB_CTRL_BG fst=@$conversor_dir/fst/budget.fst fullinv=$DB_CTRL_BG
 $cisis_dir/mx null count=1 "pft=replace(date,' ','_')" now > temp
 BATCHBGID=`cat temp`
 
-$cisis_dir/mx null count=1 "proc='a1{$BUDGETID{a100{$BATCHBGID{a190{',date,'{a2{',ref(['$DB_CTRL_BG']l(['$DB_CTRL_BG']s('$BUDGETID')),v2),'{a102{',ref(['$DB_CTRL_BG']l(['$DB_CTRL_BG']s('$BUDGETID')),v2),'{'" append=$DB_BATCH_RUN_BUDGET now -all
+$cisis_dir/mx null count=1 "proc='a1{$BUDGETID{a100{$BATCHBGID{a190{',date,'{a2{',ref(['$DB_CTRL_BG']l(['$DB_CTRL_BG']s('$BUDGETID')),v2),'{a102{',ref(['$DB_CTRL_BG']l(['$DB_CTRL_BG']s('$BUDGETID')),v2),'{a200{$FIRST_YEAR_OF_RECENT_FEE{a201{$RECENT_FEE{a202{$BACKFILES_FEE{'" append=$DB_BATCH_RUN_BUDGET now -all
 $cisis_dir/mx $DB_BATCH_RUN_BUDGET fst=@$conversor_dir/fst/budget.fst fullinv=$DB_BATCH_RUN_BUDGET 
