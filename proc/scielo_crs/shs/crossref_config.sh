@@ -25,14 +25,14 @@ MYTEMP=$scielo_proc/temp
 #BASES DE DADOS
 XREF_DOI_REPORT=$conversor_dir/databases/crossref/crossref_DOIReport
 XREF_DB_PATH=$conversor_dir/databases/crossref
-DB_BILL=$XREF_DB_PATH/bill
 DB_BG=$XREF_DB_PATH/budget
 ARTIGO_DB=$database_dir/artigo/artigo
 
-DB_PRESUPUESTOS=$XREF_DB_PATH/presupuestos
-DB_BATCH_RUN_BUDGET=$XREF_DB_PATH/batch_run_budget
-DB_BATCH_RUN=$XREF_DB_PATH/batch_run
-DB_CTRL_BG=$XREF_DB_PATH/budgetctrl
+DB_BILL=$conversor_dir/databases/budget/bill
+DB_PRESUPUESTOS=$conversor_dir/databases/budget/presupuestos
+DB_BATCH_RUN_BUDGET=$conversor_dir/databases/budget/batch_run_budget
+DB_BATCH_RUN=$conversor_dir/databases/budget/batch_run
+DB_CTRL_BG=$conversor_dir/databases/budget/budgetctrl
 
 
 # BUDGET
