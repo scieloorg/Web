@@ -25,8 +25,14 @@ MYTEMP=$scielo_proc/temp
 #BASES DE DADOS
 XREF_DOI_REPORT=$conversor_dir/databases/crossref/crossref_DOIReport
 XREF_DB_PATH=$conversor_dir/databases/crossref
-DB_BILL=$XREF_DB_PATH/bill
 DB_BG=$XREF_DB_PATH/budget
+ARTIGO_DB=$database_dir/artigo/artigo
+
+DB_BILL=$conversor_dir/databases/budget/bill
+DB_PRESUPUESTOS=$conversor_dir/databases/budget/presupuestos
+DB_BATCH_RUN_BUDGET=$conversor_dir/databases/budget/batch_run_budget
+DB_BATCH_RUN=$conversor_dir/databases/budget/batch_run
+DB_CTRL_BG=$conversor_dir/databases/budget/budgetctrl
 
 # BUDGET
 # taxa para artigos recentes
@@ -35,12 +41,8 @@ RECENT_FEE=1
 # All Current records (2007-2009). So, 2007
 FIRST_YEAR_OF_RECENT_FEE=2007
 # taxa para artigos anteriores a FIRST_YEAR_OF_RECENT_FEE
-BACKFILES_FEE=0,20
+BACKFILES_FEE=0.20
 # valor em dolar disponivel
-BUDGET=5
-# contador de BUDGET
-BUDGETID=1,2
-BUDGETDATE=20090706
 
 #SERVERS NAME
 #informar os nomes dos servidores de cada ambiente para que no final 
