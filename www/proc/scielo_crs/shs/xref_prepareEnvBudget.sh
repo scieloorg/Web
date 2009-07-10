@@ -9,14 +9,15 @@ then
 fi
 
 BUDGETID=$1
-if [ ! -f $DB_BILL.mst ]
+if [ -f $DB_BILL.mst ]
 then
-	$cisis_dir/mx null count=0 create=$DB_BILL now -all
-		
-	$cisis_dir/mx cipar=$MYCIPFILE ARTIGO_DB btell=0 "tp=h" "proc='d*a880{',v880,'{',|a881{|v881|{|,|a223{|v223|{|,'a65{',v65,'{'" append=$DB_BILL now -all
-
-	$cisis_dir/mx $DB_BILL fst=@$conversor_dir/fst/bill.fst fullinv=$DB_BILL 
+	$cisis_dir/mx null count=0 create=newbill now -all
+	$cisis_dir/mx $DB_BILL append=newbill now -all
+	$cisis_dir/mx newbill create=$DB_BILL now -all
+else
+	$cisis_dir/mx null count=1 "proc='a95{',date,'{'" create=$DB_BILL now -all
 fi
+$cisis_dir/mx $DB_BILL fst=@$conversor_dir/fst/bill.fst fullinv=$DB_BILL 
 
 $cisis_dir/mx "seq=db_presupuestos.txt " create=$DB_PRESUPUESTOS  now -all
 $cisis_dir/mx $DB_PRESUPUESTOS fst=@$conversor_dir/fst/budget.fst fullinv=$DB_PRESUPUESTOS 
@@ -24,13 +25,12 @@ $cisis_dir/mx $DB_PRESUPUESTOS fst=@$conversor_dir/fst/budget.fst fullinv=$DB_PR
 if [ -f $DB_CTRL_BG.mst ]
 then
 	$cisis_dir/mx null count=0 create=temp  now -all
-	$cisis_dir/mx $DB_PRESUPUESTOS btell=0 "bool=$BUDGETID" "proc='d*a1{',v1,'{a2{0',ref(['$DB_CTRL_BG']l(['$DB_CTRL_BG']v1),v2),'{'" append=temp now -all
+	$cisis_dir/mx $DB_PRESUPUESTOS btell=0 "bool=$BUDGETID" "proc='a333{',ref(['$DB_CTRL_BG']l(['$DB_CTRL_BG']v1),v2),'{'" "proc='d*a1{',v1,'{a2{',if v333='' then '0' else v333 fi,'{'" append=temp now -all
 	$cisis_dir/mx temp create=$DB_CTRL_BG  now -all
 else
 	$cisis_dir/mx $DB_PRESUPUESTOS "proc='d*a1{',v1,'{a2{0{'" append=$DB_CTRL_BG now -all
 fi
 $cisis_dir/mx $DB_CTRL_BG fst=@$conversor_dir/fst/budget.fst fullinv=$DB_CTRL_BG 
-
 
 $cisis_dir/mx null count=1 "pft=replace(date,' ','_')" now > temp
 BATCHBGID=`cat temp`

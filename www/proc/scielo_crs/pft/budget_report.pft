@@ -37,6 +37,6 @@
 '   VALOR POR ARTICULO ANTES DE ',v200,' $ ',v202/
 #
 '   TOTAL DE ARTICULOS DE ESTE PAQUETE         : ',if a(v122) then f(val(v121),1,0) else f(val(v122),1,0) fi/
-'   TOTAL DE ARTICULOS SUMETIDO EN ESTE PAQUETE: ',f(val(v121),1,0)/
-'   TOTAL DE ARTICULOS NO SUMETIDOS EN ESTE PAQ: ',if a(v122) then '0' else f(val(v122)-val(v121),1,0) fi/ 
+'   TOTAL DE ARTICULOS SOMETIDOS EN ESTE PAQUETE: ',f(val(v121),1,0)/
+'   TOTAL DE ARTICULOS NO SOMETIDOS EN ESTE PAQ: ',if a(v122) then '0' else f(val(v122)-val(v121),1,0) fi/ 
 #
