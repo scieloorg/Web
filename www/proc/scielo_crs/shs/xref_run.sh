@@ -27,8 +27,12 @@ if [ ! -d ../output/crossref/log ]; then
 	mkdir ../output/crossref/log
 fi
 if [ -f "*.log" ]; then
-        mv *.log ../output/crossref/log
+	echo moving logs
+    mv *.log ../output/crossref/log
+else
+	mv *.log ../output/crossref/log
 fi
+
 echo "Copying Database to SciELO"
 #cp ../databases/crossref/* $scielo_dir/bases/doi
 # Corrente: scielo_crs/shs
