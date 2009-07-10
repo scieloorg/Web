@@ -12,5 +12,7 @@ then
 		rm -rf ../databases/budget/*
 	fi
 	echo reseted
+else
+	echo not reseted, need the password
 fi
 
