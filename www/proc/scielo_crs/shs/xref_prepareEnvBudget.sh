@@ -19,9 +19,6 @@ else
 fi
 $cisis_dir/mx $DB_BILL fst=@$conversor_dir/fst/bill.fst fullinv=$DB_BILL 
 
-$cisis_dir/mx "seq=db_presupuestos.txt " create=$DB_PRESUPUESTOS  now -all
-$cisis_dir/mx $DB_PRESUPUESTOS fst=@$conversor_dir/fst/budget.fst fullinv=$DB_PRESUPUESTOS 
-
 if [ -f $DB_CTRL_BG.mst ]
 then
 	$cisis_dir/mx null count=0 create=temp  now -all
