@@ -52,7 +52,7 @@ v9051
 		v65,' ',v880 
 	,fi
 	,' ',
-	,if v9041='registered' then
+	,if v9041='requested' then
 		/* fee=0 means the article was already counted, registered as paid,
 		   but the article is inserted in the list, because it can be reprocessed
 		 */
