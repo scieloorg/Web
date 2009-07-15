@@ -172,6 +172,9 @@
 	if v7052 = '1' then
 		,' PROJFAPESP="',ref(['PROJFAPESP']l(['PROJFAPESP'],'SCI=',v880),f(nocc(v88),2,0)),'"',
 	fi
+    if v7055 = '1' then
+        ,' CLINICALTRIALS="',f(nocc(v770),2,0),'"',
+    fi
         ,' AREASGEO="',ref(['areasgeo']l(['areasgeo']v880),f(nocc(v880),2,0)),'"',
         ,' PROCESSDATE="',ref(l('OU=',v880),proc(if val(v32701^m) > 0 then,'R../bases/artigo/',v32701^*,',',v32701^m , fi),v91),'"',
 	 ,' CURR_DATE="',mid(date,1,8),'"'
@@ -205,6 +208,7 @@
    <!--call name="CreateAuthorsGroupXML"><pft>v880</pft></call-->   
    <call name="CreateLattesGroupXML"><pft>v880</pft></call>	   
    <call name="CreateProjetoFAPESP"><pft>if v7052 = '1' then v880 fi</pft></call>
+   <call name="CreateClinicalTrials"><pft>v880</pft></call>
 	<call name="isXML"><pft>v702</pft></call>
 	
 	<flow action="jump"><pft>if v8000='BODY' then 'yes' fi</pft></flow>
