@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <translations>
     <xslid id="sci_artmonthyearstat">
         <text find="journal_articles_requests_by_month_and_year">Journal articles requests by month and year</text>
@@ -296,6 +296,7 @@
 		<text find="art">Read the article</text>
 		<text find="pr">Press release</text>
 		<text find="issue">See the issue</text>
+		<text find="clinical_trial">Clinical trial</text>
 	</xslid>
 	<xslid id="sci_issuetoc">
 		<text find="abstract">abstract in </text>

@@ -35,6 +35,11 @@ rótulos tela FAPESP
 define("PROJFAPESP","Projetos FAPESP");
 
 /*
+rótulos tela CLINICAL TRIAL
+*/
+define("CLINICALTRIALS","Ensaios Clínicos");
+
+/*
 rótulos tela DATASUS
 */
 define("DATASUS","Indicadores de Saúde");
@@ -318,9 +323,14 @@ define("OFIGRAPH21_SEE_THE_DATA","see the data");
 
 
 /*
-rótulos tela DATASUS
+rótulos tela FAPESP
 */
 define("PROJFAPESP","FAPESP Projects");
+
+/*
+rótulo tela CLINICAL TRIALS
+*/
+define("CLINICALTRIALS","Clinical Trials");
 
 /*
 rótulos tela DATASUS
@@ -605,9 +615,14 @@ define("OFIGRAPH21_SELECT_JOURNAL","Elija algunos periódicos");
 define("OFIGRAPH21_SEE_THE_DATA","vea los datos");
 
 /*
-rótulos tela DATASUS
+rótulos tela FAPESP
 */
 define("PROJFAPESP","Proyectos FAPESP");
+
+/*
+rótulo tela CLINICAL TRIALS
+*/
+define("CLINICALTRIALS","Ensayos Clínicos");
 
 /*
 rótulos tela DATASUS
