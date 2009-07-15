@@ -110,7 +110,7 @@ then
 	echo ===========  ATENCION ==================
 	echo Nota
 	echo El cuarto parametro COUNT tambien sirve para filtrar
-	echo Es la cantidad de articulos a serem procesados
+	echo Es la cantidad de articulos que seran procesados
 	echo No es obligatorio pero su ausencia significa que el procesamiento correra a todos los articulos seleccionados 
 	echo  o hasta que el presupuesto sea alcanzado, lo que ocurrir antes
 	echo El tiempo de procesamiento para cada articulo es de por lo menos 1 segundo
