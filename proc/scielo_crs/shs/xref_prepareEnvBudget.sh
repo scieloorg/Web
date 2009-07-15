@@ -23,7 +23,9 @@ if [ -f $DB_CTRL_BG.mst ]
 then
 	$cisis_dir/mx null count=0 create=temp  now -all
 	$cisis_dir/mx $DB_PRESUPUESTOS btell=0 "bool=$BUDGETID" "proc='a333{',ref(['$DB_CTRL_BG']l(['$DB_CTRL_BG']v1),v2),'{'" "proc='d*a1{',v1,'{a2{',if v333='' then '0' else v333 fi,'{'" append=temp now -all
-	$cisis_dir/mx temp create=$DB_CTRL_BG  now -all
+
+	$cisis_dir/mx $DB_CTRL_BG btell=0 "bool=$BUDGETID" "proc='d*'" copy=$DB_CTRL_BG  now -all
+	$cisis_dir/mx temp append=$DB_CTRL_BG  now -all
 else
 	$cisis_dir/mx $DB_PRESUPUESTOS "proc='d*a1{',v1,'{a2{0{'" append=$DB_CTRL_BG now -all
 fi
