@@ -21,8 +21,9 @@
 		<xsl:variable name="current_issn" select="//SERIAL/ISSN"/>
 		<xsl:variable name="allow_comments" select="document('../xml/allow_comment.xml')/COMMENT/ISSN[text() = $current_issn ]"/>
 		<xsl:variable name="title_subjects" select="//TITLEGROUP/SUBJECT"/>
-		<xsl:variable name="show_fapesp_projects" select="//varScieloOrg/show_fapesp_projects" />
-				
+		<xsl:variable name="show_fapesp_projects" select="//varScieloOrg/show_fapesp_projects" />        
+		<xsl:variable name="show_clinical_trials" select="//varScieloOrg/show_clinical_trials"/>
+
 		<div id="toolBox">
 			<h2 id="toolsSection">
                 <xsl:value-of select="$translations/xslid[@id='sci_toolbox']/text[@find='services']"/>
@@ -173,6 +174,28 @@
                     </li>
                 </xsl:if>
 		<!-- FAPESP termina aqui! -->
+        <!-- CLINICAL TRIALS entra aqui!-->
+                <!-- o atributo clinicaltrials aparece apenas quando a funcionalidade esta habilitada -->
+				<xsl:if test="$show_clinical_trials = 1 and (normalize-space(//ARTICLE/@CLINICALTRIALS) != normalize-space(0))">
+                    <li>
+                        <a>
+                        <xsl:choose>
+                            <xsl:when test="normalize-space(//ARTICLE/@CLINICALTRIALS) != normalize-space(1)">
+                                <xsl:attribute name="href">javascript:void(0);</xsl:attribute>
+                                <xsl:attribute name="onClick">javascript: window.open('http://<xsl:value-of select="concat(//SERVER,'/scieloOrg/php/clinicaltrials.php?pid=',//ARTICLE/@PID,'&amp;lang=',$LANGUAGE)"/>','','width=640,height=480,resizable=yes,scrollbars=1,menubar=yes');</xsl:attribute>
+                                <xsl:attribute name="rel">nofollow</xsl:attribute>
+                            </xsl:when>
+                            <xsl:when test="normalize-space(//ARTICLE/@CLINICALTRIALS) = normalize-space(1)">
+                                <xsl:attribute name="href"><xsl:value-of select="//CLINICALTRIALS/trial/@url"/></xsl:attribute>
+                                <xsl:attribute name="target">_blank</xsl:attribute>
+                            </xsl:when>
+                        </xsl:choose>
+                        <img src="/img/{$LANGUAGE}/iconClinicalTrials.gif"/>                        
+                        <xsl:value-of select="$translations/xslid[@id='sci_toolbox']/text[@find='clinical_trial']"/>
+                        </a>
+                    </li>
+                </xsl:if>
+		<!-- CLINICAL TRIALS termina aqui! -->
 				<li>
 				<!-- How to cite this article -->
 					<xsl:call-template name="PrintArticleInformationLink"/>

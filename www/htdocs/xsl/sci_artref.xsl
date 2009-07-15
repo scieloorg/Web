@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 	<!-- Get Vol. No. Suppl. Strip
       Parameter:
@@ -1469,7 +1469,7 @@ Parameters:
 		<xsl:variable name="LANGUAGE" select="//CONTROLINFO/LANGUAGE"/>
 		<xsl:choose>
 			<xsl:when test=" count(AUTHOR) = 1 ">
-				<a href="{AUTHOR/@HREF}" onmouseover="status='{AUTHOR/@HREF}'; return true;" onmouseout="status='';" style="text-decoration: none;" rel="nofollow">
+				<a href="{AUTHOR/@HREF}" onmouseover="status='{AUTHOR/@HREF}'; return true;" onmouseout="status='';" rel="nofollow">
 					<xsl:if test="$service_log = 1">
 						<xsl:attribute name="onclick"><xsl:value-of select="$services//service[name='curriculumScienTI']/call"/></xsl:attribute>
 					</xsl:if>
@@ -1479,7 +1479,7 @@ Parameters:
 			</xsl:when>
 			<xsl:when test=" count(AUTHOR) > 1 ">
 				<xsl:call-template name="JavascriptText"/>
-				<a href="javascript:void(0);" onmouseout="status='';" style="text-decoration: none;">
+				<a href="javascript:void(0);" onmouseout="status='';">
 					<xsl:attribute name="rel">nofollow</xsl:attribute>
 					<xsl:choose>
 						<xsl:when test="$service_log = 1">
