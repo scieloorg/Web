@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 	<xsl:variable name="HOME_URL">http://<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/SERVER"/>
 		<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_DATA"/>scielo.php</xsl:variable>
@@ -791,7 +791,7 @@
 			</xsl:if>
 		</xsl:variable>
 		<td valign="middle">
-			<a href="javascript:void(0);" onmouseout="status='';" class="nomodel" style="text-decoration: none;">
+			<a href="javascript:void(0);" onmouseout="status='';" class="nomodel">
 				<xsl:attribute name="onclick">OpenArticleInfoWindow ( 640, 320,  "<xsl:value-of select="$INFOPAGE"/>");
 				<xsl:if test="$service_log  = 1">callUpdateArticleLog('como_citar_este_artigo');</xsl:if></xsl:attribute>
 				<xsl:attribute name="rel">nofollow</xsl:attribute>
@@ -802,7 +802,7 @@
 			</a>
 		</td>
 		<td>
-			<a href="javascript:void(0);" onmouseout="status='';" class="nomodel" style="text-decoration: none;">
+			<a href="javascript:void(0);" onmouseout="status='';" class="nomodel">
 				<xsl:attribute name="onclick">OpenArticleInfoWindow ( 640, 320,  "<xsl:value-of select="$INFOPAGE"/>");<xsl:if test="$service_log = 1">callUpdateArticleLog('como_citar_este_artigo');</xsl:if></xsl:attribute>
 				<xsl:attribute name="rel">nofollow</xsl:attribute>
 				<xsl:attribute name="onmouseover">

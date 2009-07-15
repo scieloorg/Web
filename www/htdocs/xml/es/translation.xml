@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <translations>
     <xslid id="sci_artmonthyearstat">
         <text find="journal_articles_requests_by_month_and_year">Accesos a los artículos de las revistas por mes y año</text>
@@ -292,6 +292,7 @@
         <text find="art">Lea el artículo</text>
         <text find="pr">Press release</text>
         <text find="issue">Vea el número</text>
+		<text find="clinical_trial">Ensayo clínico</text>
     </xslid>
     <xslid id="sci_issuetoc">
         <text find="abstract">resumen en </text>
