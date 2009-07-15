@@ -112,7 +112,7 @@ then
 	echo El cuarto parametro COUNT tambien sirve para filtrar
 	echo Es la cantidad de articulos a serem procesados
 	echo No es obligatorio pero su ausencia significa que el procesamiento correra a todos los articulos seleccionados 
-	
+	echo  o hasta que el presupuesto sea alcanzado, lo que ocurrir antes
 	echo El tiempo de procesamiento para cada articulo es de por lo menos 1 segundo
 	echo ENTER para seguir o CTRL+C para interrumpir y ingresar el parametro cuatro
 	read
@@ -152,8 +152,7 @@ else
 	#
 
 	if [ "@$ORDER" == "@Descending" ]
-	then
-		
+	then		
 		$cisis_dir/mx cipar=$MYCIPFILE ARTIGO_DB btell=0  "tp=h" "proc='a9001{$FIRST_YEAR_OF_RECENT_FEE{a9002{$RECENT_FEE{a9003{$BACKFILES_FEE{a9005{$BUDGETID{a9055{$SELECTIONTYPE{'" lw=9999 "pft=@$conversor_dir/pft/xref_generateList.pft" now | sort -u -r > $SORTEDLIST.txt
 	else
 		if [ "@$ORDER" == "@Ascending" ]
@@ -173,14 +172,14 @@ else
 	then
 		if [ "@$COUNT" = "@" ]
 		then
-			$cisis_dir/mx cipar=$MYCIPFILE "seq=$SORTEDLIST.txt " lw=99999 "pft='$conversor_dir/shs/xref_run_budget_calculateFee.sh ',v1,' ',v2,' ',v3,' $cisis_dir $MYCIPFILE $BUDGETID ',ref(['DB_PRESUPUESTOS']l(['DB_PRESUPUESTOS']'$BUDGETID'),v2),' ',mfn,' $BATCHBGID'/" now > $MYTEMP/xref_run_budget_calculateFee.sh
+			$cisis_dir/mx cipar=$MYCIPFILE "seq=$SORTEDLIST.txt " lw=99999 "pft='$conversor_dir/shs/xref_run_budget_calculateFee.sh ',v3,' $BUDGETID '/,'WHATTODO=\`cat $MYTEMP/WHATTODO\`'/,'if [ \"\$WHATTODO\" == \"doit\" ]'/,'then'/,'  $conversor_dir/shs/xref_run_budget_doit.sh 'v2,' ',v3,' $BUDGETID $BATCHBGID ',mfn/,'else '/,'  $conversor_dir/shs/xref_run_budget_stop.sh $BATCHBGID ',mfn/,'exit 0'/,'fi'/" now > $MYTEMP/xref_run_budget_calculateFee.sh
 		else
-			$cisis_dir/mx cipar=$MYCIPFILE "seq=$SORTEDLIST.txt " count=$COUNT lw=99999 "pft='$conversor_dir/shs/xref_run_budget_calculateFee.sh ',v1,' ',v2,' ',v3,' $cisis_dir $MYCIPFILE $BUDGETID ',ref(['DB_PRESUPUESTOS']l(['DB_PRESUPUESTOS']'$BUDGETID'),v2),' ',mfn,' $BATCHBGID'/" now > $MYTEMP/xref_run_budget_calculateFee.sh
+			$cisis_dir/mx cipar=$MYCIPFILE "seq=$SORTEDLIST.txt " count=$COUNT lw=99999 "pft='$conversor_dir/shs/xref_run_budget_calculateFee.sh ',v3,' $BUDGETID '/,'WHATTODO=\`cat $MYTEMP/WHATTODO\`'/,'if [ \"\$WHATTODO\" == \"doit\" ]'/,'then'/,'  $conversor_dir/shs/xref_run_budget_doit.sh 'v2,' ',v3,' $BUDGETID $BATCHBGID ',mfn/,'else '/,'  $conversor_dir/shs/xref_run_budget_stop.sh $BATCHBGID ',mfn/,'exit 0'/,'fi'/" now > $MYTEMP/xref_run_budget_calculateFee.sh
 		fi
 		chmod 775 $MYTEMP/xref_run_budget_calculateFee.sh
 		$MYTEMP/xref_run_budget_calculateFee.sh
 		
-		
+	
 		
 		echo #######################
 		echo
