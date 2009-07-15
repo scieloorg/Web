@@ -3192,6 +3192,26 @@ fi
         <label>EXIT_FAPESP</label>
 </function>
 
+<function name="CreateClinicalTrials" action="replace" tag="4001">
+   <do task="search">
+      <parm name="db">ARTIGO</parm>
+      <parm name="expression"><pft>'HR=',v4001</pft></parm>
+      <parm name="count">1</parm>
+
+      <display><pft>'<CLINICALTRIALS>'</pft></display>
+      <loop>
+         <display>
+            <pft>
+               ,if p(v770) then,
+                  ,('<trial provider="',v770^*,'" id="',v770^a,'" url="',v770^u,'"/>'),
+               ,fi,
+            </pft>
+         </display>
+      </loop>
+      <display><pft>'</CLINICALTRIALS>'</pft></display>
+   </do>
+</function>
+
 <function name="PROC_SPLIT_MST" action="replace" tag="4001">
 <!-- fixed 20040122 - corrige problema de leitura da base ao executar a proc PROC_SPLIT_MST. A solução usada foi criar uma função que faz o mesmo que a proc -->
 <!-- fixed 20040910 - melhorado -->
