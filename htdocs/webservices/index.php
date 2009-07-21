@@ -127,23 +127,33 @@ if ($output == "soap") {
 }else{
 
 	switch ($_REQUEST["service"]){
-           case "search":
-                 $response = search($_REQUEST["expression"], $_REQUEST["from"], $_REQUEST["count"],$_REQUEST["lang"]);
-                 break;
-           case "new_titles":
-                 $response = new_titles($_REQUEST["count"], $_REQUEST["rep"]);
-				 break;
-           case "new_issues":
-                 $response = new_issues($_REQUEST["count"]);
-				 break;
-           case "get_titles":
-                 $response = get_titles($_REQUEST["type"], $_REQUEST["rep"]);
-				 break;
-           case "get_title_indicators":
-                 $response = get_title_indicators($_REQUEST["type"], $_REQUEST["rep"],$_REQUEST["issn"]);
-                                 break;
-
+        case "search":
+            $response = search($_REQUEST["expression"], $_REQUEST["from"], $_REQUEST["count"],$_REQUEST["lang"]);
+            break;
+        case "new_titles":
+            $response = new_titles($_REQUEST["count"], $_REQUEST["rep"]);
+            break;
+        case "new_issues":
+            $response = new_issues($_REQUEST["count"]);
+            break;
+        case "get_titles":
+            $response = get_titles($_REQUEST["type"], $_REQUEST["rep"]);
+            break;
+        case "get_title_indicators":
+            $response = get_title_indicators($_REQUEST["type"], $_REQUEST["rep"],$_REQUEST["issn"]);
+            break;
+        case "getDetachedTitles":
+            if(is_string($_REQUEST['issn'])){
+                $issn = explode(',',$_REQUEST['issn']);
+            }else if(is_array($_REQUEST['issn'])){
+                $issn = $_REQUEST['issn'];
+            }else{
+                break;
+            }
+            $response = getDetachedTitles($issn);
+            break;
 	}
+    header('Content-type:text/xml ; charset=iso-8859-1');
 	print($response);
 
 }
@@ -308,6 +318,7 @@ function getDetachedTitles($issn){
     /* get the total num of journals */
     $journalTotal=getElementValue(getElementValue(str_replace("<hr>","<hr />",$XML) , "Isis_Total"),"occ");
 
+    $serviceXML .= '<?xml version="1.0" encoding="ISO-8859-1"?>';
     $serviceXML .= '<collection name="'.$colname.'" uri="http://'.$applServer.'">';
     $serviceXML .= '<indicators>';
     $serviceXML .= '<journalTotal>'.$journalTotal.'</journalTotal>';
@@ -322,7 +333,6 @@ function getDetachedTitles($issn){
 }
 
 function getDetachedNewTitles($issn){
-
     global $country, $applServer, $output, $transformer, $serviceRoot, $databasePath ;
 	global $colname;
 
@@ -358,6 +368,24 @@ function getDetachedNewTitles($issn){
 	return $serviceXML;
 }
 
-function getDetachedNewIssues(){}
+function getDetachedNewIssues($issn){
+    global $country, $applServer, $output, $transformer, $serviceRoot,$databasePath ;
+	global $colname;
+
+	$count= ($count != "" ? $count : "50");
+	$serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/webservices/wxis/?IsisScript=listNewIssues.xis&database=".$databasePath."issue/issue&gizmo=GIZMO_XML&count=" . $count;
+	$XML = readData($serviceUrl,true);
+	$serviceXML .= '<collection name="'.$colname.'" uri="http://'.$applServer.'">';
+	$serviceXML .= $XML;
+        $serviceXML .= '</collection>';
+	if ($output == "xml"){
+                header("Content-type: text/xml");
+                return envelopeXml($serviceXML, $serviceRoot);
+        }else{
+                return $serviceXML;
+        }
+        return $serviceXML;
+
+}
 
 ?>
