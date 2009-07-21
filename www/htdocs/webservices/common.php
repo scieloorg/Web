@@ -27,17 +27,56 @@ $result="";
                         $result=getElementValue(getElementValue(str_replace("<hr>","<hr />",$XML) , "Isis_Total"),"occ");
                         break;
                 case "articleTotal":
+                    if(isset($issn) && is_array($issn)){ /* selective harvesting */
+                        $issnTmp='';
+                        foreach($issn as $key => $value){
+                            if($key > 0){
+                                $issnTmp .= ' or ';
+                            }
+                            $issnTmp .= 'HR=S'.$value.'$';
+                        }
+                        $issn = $issnTmp;
+
+                        $serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/webservices/wxis/?IsisScript=search.xis&database=".$databasePath ."artigo/artigo&search=".$issn."&count=1";
+                    }else{ /* full harvesting */
                         $serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/webservices/wxis/?IsisScript=search.xis&database=".$databasePath ."artigo/artigo&search=tp=o&count=1";
+                    }
                         $XML = readData($serviceUrl,true);
                         $result=getElementValue(getElementValue(str_replace("<hr>","<hr />",$XML) , "Isis_Total"),"occ");
                         break;
                 case "issueTotal":
+                    if(isset($issn) && is_array($issn)){ /* selective harvesting */
+                        $issnTmp='';
+                        foreach($issn as $key => $value){
+                            if($key > 0){
+                                $issnTmp .= ' or ';
+                            }
+                            $issnTmp .= 'seq='.$value.'$';
+                        }
+                        $issn = $issnTmp;
+
+                        $serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/webservices/wxis/?IsisScript=search.xis&database=".$databasePath ."issue/issue&search=".$issn."&count=1";
+                    }else{ /* full harvesting */
                         $serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/webservices/wxis/?IsisScript=search.xis&database=".$databasePath ."artigo/artigo&search=tp=i&count=1";
+                    }
                         $XML = readData($serviceUrl,true);
                         $result=getElementValue(getElementValue(str_replace("<hr>","<hr />",$XML) , "Isis_Total"),"occ");
                         break;
                 case "citationTotal":
+                    if(isset($issn) && is_array($issn)){ /* selective harvesting */
+                        $issnTmp='';
+                        foreach($issn as $key => $value){
+                            if($key > 0){
+                                $issnTmp .= ' or ';
+                            }
+                            $issnTmp .= 'R=S'.$value.'$';
+                        }
+                        $issn = $issnTmp;
+
+                        $serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/webservices/wxis/?IsisScript=search.xis&database=".$databasePath ."artigo/artigo&search=".$issn."&count=1";
+                    }else{ /* full harvesting */
                         $serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/webservices/wxis/?IsisScript=search.xis&database=".$databasePath ."artigo/artigo&search=tp=c&count=1";
+                    }
                         $XML = readData($serviceUrl,true);
                         $result=getElementValue(getElementValue(str_replace("<hr>","<hr />",$XML) , "Isis_Total"),"occ");
                         break;

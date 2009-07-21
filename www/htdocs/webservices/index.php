@@ -47,6 +47,11 @@ if ($output == ""){
 if ($output == "soap") {
 	// Create the server instance
 	$server = new soap_server();
+    $server->register('new_titles');
+    $server->register('new_issues');
+    $server->register('get_titles');
+    $server->register('getDetachedTitles');
+    
 	// Initialize WSDL support
 	$server->configureWSDL('SciELOService', 'urn:SciELOService');
 	// Register the method to expose
@@ -89,14 +94,23 @@ if ($output == "soap") {
 		'Return titles from title database [de acordo com o tipo e parametro]'		// documentation
 	);
 
-        $server->register('get_title_indicators',                                 // method name
-                array('return' => 'xsd:anyType'),               // output parameters
-                'urn:SciELOService',                                    // namespace
-                'urn:SciELOService#get_titles',                         // soapaction
-                'SOAP-ENC:Array',                                                                       // style
-                'encoded',                                                              // use
-                'Return titles from title database [de acordo com o tipo e parametro]'          // documentation
-        );
+    $server->register('get_title_indicators',                                 // method name
+            array('return' => 'xsd:anyType'),               // output parameters
+            'urn:SciELOService',                                    // namespace
+            'urn:SciELOService#get_titles',                         // soapaction
+            'SOAP-ENC:Array',                                                                       // style
+            'encoded',                                                              // use
+            'Return titles from title database [de acordo com o tipo e parametro]'          // documentation
+    );
+
+    $server->register('getDetachedTitles',	//nome do servico
+        array('issn' => 'xsd:string'),	//parametro de entrada
+        array('return' => 'xsd:string'),	//parametro de saida
+        'urn:search.server',	//namespace
+        'urn:search.server#lastRecords',	//soap action
+        'rpc',	//style
+        'encoded',	//use
+        'Retorna XML');	//descricao
 
 
 	// Use the request to (try to) invoke the service
@@ -258,5 +272,47 @@ $xslName = '';
         }
         return $serviceXML;
 }
+
+/**
+ * get all titles contained at the issn array
+ * @param $issn array
+ */
+function getDetachedTitles($issn){
+    global $country, $applServer, $output, $transformer, $serviceRoot, $databasePath ;
+    global $colname;
+
+    if(is_array($issn)){
+        $issnTmp='';
+        foreach($issn as $key => $value){
+            if($key > 0){
+                $issnTmp .= ' or ';
+            }
+            $issnTmp .= 'LOC='.$value;
+        }
+        $issnString = $issnTmp;
+    }else{
+        $issnString = 'LOC='.$issn;
+    }
+
+	$serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/webservices/wxis/?IsisScript=detached.xis&database=".$databasePath."title/title&gizmo=GIZMO_XML&search=".$issnString;
+	$XML = readData($serviceUrl,true);    
+    /* get the total num of journals */
+    $journalTotal=getElementValue(getElementValue(str_replace("<hr>","<hr />",$XML) , "Isis_Total"),"occ");
+
+    $serviceXML .= '<collection name="'.$colname.'" uri="http://'.$applServer.'">';
+    $serviceXML .= '<indicators>';
+    $serviceXML .= '<journalTotal>'.$journalTotal.'</journalTotal>';
+    $serviceXML .= '<articleTotal>'.getIndicators("articleTotal",$issn).'</articleTotal>';
+    $serviceXML .= '<issueTotal>'.getIndicators("issueTotal",$issn).'</issueTotal>';
+    $serviceXML .= '<citationTotal>'.getIndicators("citationTotal",$issn).'</citationTotal>';
+    $serviceXML .= '</indicators>';
+    $serviceXML .= $XML;
+    $serviceXML .= '</collection>';
+	
+	return $serviceXML;
+}
+
+function getDetachedNewTitles(){}
+function getDetachedNewIssues(){}
 
 ?>
