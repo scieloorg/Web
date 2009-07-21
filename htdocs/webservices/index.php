@@ -51,6 +51,7 @@ if ($output == "soap") {
     $server->register('new_issues');
     $server->register('get_titles');
     $server->register('getDetachedTitles');
+    $server->register('getDetachedNewTitles');
     
 	// Initialize WSDL support
 	$server->configureWSDL('SciELOService', 'urn:SciELOService');
@@ -112,6 +113,14 @@ if ($output == "soap") {
         'encoded',	//use
         'Retorna XML');	//descricao
 
+    $server->register('getDetachedNewTitles',	//nome do servico
+        array('issn' => 'xsd:string'),	//parametro de entrada
+        array('return' => 'xsd:string'),	//parametro de saida
+        'urn:search.server',	//namespace
+        'urn:search.server#lastRecords',	//soap action
+        'rpc',	//style
+        'encoded',	//use
+        'Retorna XML');	//descricao
 
 	// Use the request to (try to) invoke the service
 	$server->service($HTTP_RAW_POST_DATA);
@@ -312,7 +321,43 @@ function getDetachedTitles($issn){
 	return $serviceXML;
 }
 
-function getDetachedNewTitles(){}
+function getDetachedNewTitles($issn){
+
+    global $country, $applServer, $output, $transformer, $serviceRoot, $databasePath ;
+	global $colname;
+
+    if(is_array($issn)){
+        $issnTmp='';
+        foreach($issn as $key => $value){
+            if($key > 0){
+                $issnTmp .= ' or ';
+            }
+            $issnTmp .= 'LOC='.$value;
+        }
+        $issnString = $issnTmp;
+    }else{
+        $issnString = 'LOC='.$issn;
+    }
+
+	$count= ($count != "" ? $count : "50");
+	$serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/webservices/wxis/?IsisScript=detached.xis&database=".$databasePath ."title/title&gizmo=GIZMO_XML&count=" . $count ."&search=".$issnString;
+	if ($rep){
+		$serviceUrl .="&rep=".$rep;
+	}
+    
+	$XML = readData($serviceUrl,true);
+	$serviceXML .= '<collection name="'.$colname.'" uri="http://'.$applServer.'">';
+	$serviceXML .= $XML;
+	$serviceXML .= '</collection>';
+        if ($output == "xml"){
+            header("Content-type: text/xml");
+	        return envelopeXml($serviceXML, $serviceRoot);
+        }else{
+            return $serviceXML;
+        }
+	return $serviceXML;
+}
+
 function getDetachedNewIssues(){}
 
 ?>
