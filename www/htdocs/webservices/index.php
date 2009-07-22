@@ -137,20 +137,21 @@ if ($output == "soap") {
             $response = new_issues($_REQUEST["count"]);
             break;
         case "get_titles":
-            $response = get_titles($_REQUEST["type"], $_REQUEST["rep"]);
+	    if(isset($_REQUEST['issn'])){
+	        if(is_string($_REQUEST['issn'])){
+                    $issn = explode(',',$_REQUEST['issn']);
+                }else if(is_array($_REQUEST['issn'])){
+                    $issn = $_REQUEST['issn'];
+                }else{
+                    break;
+                }
+                $response = getDetachedTitles($issn);
+	    }else{
+                $response = get_titles($_REQUEST["type"], $_REQUEST["rep"]);
+	    }
             break;
         case "get_title_indicators":
             $response = get_title_indicators($_REQUEST["type"], $_REQUEST["rep"],$_REQUEST["issn"]);
-            break;
-        case "getDetachedTitles":
-            if(is_string($_REQUEST['issn'])){
-                $issn = explode(',',$_REQUEST['issn']);
-            }else if(is_array($_REQUEST['issn'])){
-                $issn = $_REQUEST['issn'];
-            }else{
-                break;
-            }
-            $response = getDetachedTitles($issn);
             break;
 	}
     header('Content-type:text/xml ; charset=iso-8859-1');
