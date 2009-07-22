@@ -319,6 +319,7 @@ function getDetachedTitles($issn){
     $journalTotal=getElementValue(getElementValue(str_replace("<hr>","<hr />",$XML) , "Isis_Total"),"occ");
 
     $serviceXML .= '<?xml version="1.0" encoding="ISO-8859-1"?>';
+    $serviceXML .= '<SciELOWebService version="1.0">';
     $serviceXML .= '<collection name="'.$colname.'" uri="http://'.$applServer.'">';
     $serviceXML .= '<indicators>';
     $serviceXML .= '<journalTotal>'.$journalTotal.'</journalTotal>';
@@ -328,6 +329,7 @@ function getDetachedTitles($issn){
     $serviceXML .= '</indicators>';
     $serviceXML .= $XML;
     $serviceXML .= '</collection>';
+    $serviceXML .= '</SciELOWebService>';
 	
 	return $serviceXML;
 }
