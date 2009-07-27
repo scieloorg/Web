@@ -64,6 +64,7 @@ ACCESSSTAT_LOG_DIRECTORY=/home/scielo/www/bases/accesstat
 AUTH_USERS_LOG_FILENAME=auth_users_log
 SERVICES_LOG_ERROR_MAIL_ALERT=0
 SERVER_LOG=scielo-log.bireme.br
+SERVER_LOG_PROC=scielo-log.scielo.br/scielolog/
 SCRIPT_LOG_NAME=scielolog/updateLog02.php
 SCRIPT_LOG_RUN=scielolog/scielolog03B2.php
 ACTIVATE_GOOGLE=1
