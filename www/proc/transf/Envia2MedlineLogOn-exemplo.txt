@@ -6,6 +6,7 @@ ascii
 lcd temp/transf2medline
 
 put title.iso
+put issue.iso
 put issues.iso
 put artigo.iso
 put bib4cit.iso
