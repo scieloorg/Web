@@ -74,8 +74,7 @@ class ScieloLog extends Scielo
 	$path_serimg=$this->_def->getKeyValue("PATH_SERIMG");
 	$path_data_iah=$this->_def->getKeyValue("PATH_DATA_IAH_SCIELO");
 	$path_cgi_iah=$this->_def->getKeyValue("PATH_CGI_BIN_IAH_SCIELO");
-	$serverlogproc=$this->_def->getKeyValue("SERVER_LOG_PROC");
-	$serverlog=$this->_def->getKeyValue("SERVER_LOG");
+	$serverlog=$this->_def->getKeyValue("SERVER_LOG_PROC");
 	$scriptlog=$this->_def->getKeyValue("SCRIPT_LOG_NAME");
 	$script_log_run=$this->_def->getKeyValue("SCRIPT_LOG_RUN");
 	$contact=$this->_def->getKeyValue("E_MAIL");
@@ -103,7 +102,6 @@ class ScieloLog extends Scielo
 	$control.="<PATH_DATA_IAH>$path_data_iah</PATH_DATA_IAH>\n";
 	$control.="<PATH_CGI_IAH>$path_cgi_iah</PATH_CGI_IAH>\n";
 	$control.="<SERVER_LOG>$serverlog</SERVER_LOG>\n";
-	$control.="<SERVER_LOG_PROC>$serverlogproc</SERVER_LOG_PROC>\n";
 	$control.="<SCRIPT_LOG_NAME>$scriptlog</SCRIPT_LOG_NAME>\n";
 	$control.="<SCRIPT_LOG_RUN>$script_log_run</SCRIPT_LOG_RUN>\n";
 	$control.="</SCIELO_INFO>\n";
@@ -130,13 +128,12 @@ class ScieloLog extends Scielo
 	} else {
 		$execute = $script_log_run."/?script=";
 	}
-	$url_xml="http://".$serverlogproc."/".$execute.$script."&app=".$app."&pid=".$pid."&lng=".$lng."&nrm=".$nrm."&order=".$order."&dtf=".$dtf."&dti=".$dti."&access=".$access."&cpage=".$cpage."&nlines=".$nlines;
-//$url_xml="http://".$serverlog."/".$script_log_run."/?script=".$script."&pid=".$pid."&lng=".$lng."&nrm=".$nrm."&order=".$order."&dtf=".$dtf."&dti=".$dti."&access=".$access."&cpage=".$cpage."&nlines=".$nlines;
+	$url_xml="http://".$serverlog."/".$execute.$script."&pid=".$pid."&lng=".$lng."&nrm=".$nrm."&order=".$order."&dtf=".$dtf."&dti=".$dti."&access=".$access."&cpage=".$cpage."&nlines=".$nlines;
 	$fp2=fopen($url_xml, "r");
-                stream_set_timeout($fp2,1200);
-		while(!feof($fp2)) {
-	   		$table.=fread ($fp2, $filesize);
-		}
+//  stream_set_timeout($fp2,1200);
+	while(!feof($fp2)) {
+		$table.=fread ($fp2, $filesize);
+	}
 	fclose ($fp2); 
 	
 	$xml.=$control;
