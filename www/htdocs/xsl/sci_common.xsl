@@ -1,11 +1,24 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 	<xsl:variable name="HOME_URL">http://<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/SERVER"/>
-		<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_DATA"/>scielo.php</xsl:variable>
+	<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_DATA"/>scielo.php</xsl:variable>
 	<xsl:variable name="interfaceLang" select="//CONTROLINFO/LANGUAGE"/>
 	<xsl:variable name="translations" select="document(concat('../xml/',$interfaceLang,'/translation.xml'))/translations"/>
 	<xsl:variable name="ARTICLE_LICENSE" select="//article-meta/permissions"/>
 	<xsl:variable name="GENERAL_LICENSE" select="//PERMISSIONS/permissions"/>
+	<xsl:variable name="langtext">
+		<xsl:choose>
+			<xsl:when test="//CONTROLINFO/PAGE_NAME='sci_arttext'">
+				<xsl:value-of select="//ISSUE/ARTICLE/@TEXTLANG"/>
+			</xsl:when>
+			<xsl:when test="//CONTROLINFO/PAGE_NAME='sci_abstract'">
+				<xsl:value-of select="//ARTICLE/ABSTRACT/@xml:lang"/>
+			</xsl:when>
+			<xsl:when test="//CONTROLINFO/PAGE_NAME='sci_pdf'">
+				<xsl:value-of select="//ARTICLE/@PDF_LANG"/>
+			</xsl:when>
+		</xsl:choose>
+	</xsl:variable>
 	
 	<xsl:include href="sci_artref.xsl"/>
 	<xsl:template name="AddRssHeaderLink">
@@ -166,22 +179,20 @@
 	<!-- Shows copyright information -->
 	<xsl:template match="COPYRIGHT">
 		<xsl:comment>
-			<xsl:value-of select="../..//LICENSE"/>lllll
+			<xsl:value-of select="../..//LICENSE"/>
 		</xsl:comment>
 		<xsl:choose>
-			<xsl:when test="../..//LICENSE='cc'">                
+			<xsl:when test="../..//LICENSE='cc'">
 				<xsl:apply-templates select="../." mode="license"/>
-                <br/>
 				<p>
 					<i>
-						<xsl:value-of select="." disable-output-escaping="yes"/>
+						&#160;
+    						<xsl:value-of select="." disable-output-escaping="yes"/>
 					</i>
 				</p>
-                <br/>
 			</xsl:when>
 			<xsl:when test="../..//LICENSE='site'">
 				<xsl:call-template name="COPYRIGHTSCIELO"/>
-                <br/>
 			</xsl:when>
 			<xsl:when test="../..//LICENSE='none'">
 				&#169;&#160;				
@@ -191,13 +202,13 @@
 				<br/>
 			</xsl:when>
 			<xsl:when test="../..//LICENSE='embargo' and ../..//EMBARGO/@text='yes'">
-				<xsl:call-template name="COPYRIGHTSCIELO"/>                
+				<xsl:call-template name="COPYRIGHTSCIELO"/>
 			</xsl:when>
 			<xsl:when test="../..//LICENSE='embargo' and ../..//EMBARGO/@text='no'">
 				&#169;&#160;				
                 <i>
 					<xsl:value-of select="@YEAR"/>&#160;
-                    <xsl:value-of select="." disable-output-escaping="yes"/>aaa
+                    <xsl:value-of select="." disable-output-escaping="yes"/>
 				</i>
 				<br/>
 			</xsl:when>
@@ -207,14 +218,13 @@
 					<xsl:value-of select="@YEAR"/>&#160;
                     <xsl:value-of select="." disable-output-escaping="yes"/>
 				</i>
-				<br/><br/>
+				<br/>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
 	<!-- Shows contact information -->
 	<xsl:template match="CONTACT">
 		<xsl:apply-templates select="LINES"/>
-        <xsl:apply-templates select="EMAILS"/>
 		<xsl:call-template name="UpdateLog"/>
 	</xsl:template>
 	<!-- Shows lines from contact information -->
@@ -493,7 +503,7 @@
 	<xsl:template name="UpdateLog">
 		<xsl:if test="//CONTROLINFO/SCIELO_INFO/SERVER_LOG!=''">
 			<img>
-				<xsl:attribute name="src">http://<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/SERVER_LOG"/>/<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/SCRIPT_LOG_NAME"/>?app=<xsl:value-of select="normalize-space(//CONTROLINFO/APP_NAME)"/>&amp;page=<xsl:value-of select="//CONTROLINFO/PAGE_NAME"/>&amp;<xsl:if test="//CONTROLINFO/PAGE_PID">pid=<xsl:value-of select="//CONTROLINFO/PAGE_PID"/>&amp;</xsl:if>lang=<xsl:value-of select="normalize-space(//CONTROLINFO/LANGUAGE)"/>&amp;norm=<xsl:value-of select="normalize-space(//CONTROLINFO/STANDARD)"/>&amp;doctopic=<xsl:value-of select="//ARTICLE/@DOCTOPIC"/>&amp;doctype=<xsl:value-of select="//ARTICLE/@DOCTYPE"/></xsl:attribute>
+				<xsl:attribute name="src">http://<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/SERVER_LOG"/>/<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/SCRIPT_LOG_NAME"/>?app=<xsl:value-of select="normalize-space(//CONTROLINFO/APP_NAME)"/>&amp;page=<xsl:value-of select="//CONTROLINFO/PAGE_NAME"/>&amp;<xsl:if test="//CONTROLINFO/PAGE_PID">pid=<xsl:value-of select="//CONTROLINFO/PAGE_PID"/>&amp;</xsl:if>lang=<xsl:value-of select="normalize-space(//CONTROLINFO/LANGUAGE)"/>&amp;norm=<xsl:value-of select="normalize-space(//CONTROLINFO/STANDARD)"/>&amp;doctopic=<xsl:value-of select="//ARTICLE/@DOCTOPIC"/>&amp;doctype=<xsl:value-of select="//ARTICLE/@DOCTYPE"/><xsl:if test="$langtext">&amp;tlng=<xsl:value-of select="normalize-space($langtext)"/></xsl:if></xsl:attribute>
 				<xsl:attribute name="border">0</xsl:attribute>
 				<xsl:attribute name="height">1</xsl:attribute>
 				<xsl:attribute name="width">1</xsl:attribute>
@@ -524,7 +534,7 @@
 	<xsl:template name="COPYRIGHTSCIELO">
 		<xsl:apply-templates select="." mode="license"/>
 		<center>
-		
+		&#169;&#160;<xsl:value-of select="@YEAR"/>&#160;
 		<i>
 				<font color="#000080">
 					<xsl:choose>
@@ -791,7 +801,7 @@
 			</xsl:if>
 		</xsl:variable>
 		<td valign="middle">
-			<a href="javascript:void(0);" onmouseout="status='';" class="nomodel">
+			<a href="javascript:void(0);" onmouseout="status='';" class="nomodel" style="text-decoration: none;">
 				<xsl:attribute name="onclick">OpenArticleInfoWindow ( 640, 320,  "<xsl:value-of select="$INFOPAGE"/>");
 				<xsl:if test="$service_log  = 1">callUpdateArticleLog('como_citar_este_artigo');</xsl:if></xsl:attribute>
 				<xsl:attribute name="rel">nofollow</xsl:attribute>
@@ -802,7 +812,7 @@
 			</a>
 		</td>
 		<td>
-			<a href="javascript:void(0);" onmouseout="status='';" class="nomodel">
+			<a href="javascript:void(0);" onmouseout="status='';" class="nomodel" style="text-decoration: none;">
 				<xsl:attribute name="onclick">OpenArticleInfoWindow ( 640, 320,  "<xsl:value-of select="$INFOPAGE"/>");<xsl:if test="$service_log = 1">callUpdateArticleLog('como_citar_este_artigo');</xsl:if></xsl:attribute>
 				<xsl:attribute name="rel">nofollow</xsl:attribute>
 				<xsl:attribute name="onmouseover">
@@ -1123,6 +1133,14 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
  </xsl:if>
  <xsl:value-of select="$number"/>
  </OPTION>
+</xsl:template>
+
+<xsl:template match="COPYRIGHT">
+   <BR/>
+   <br/>
+   <xsl:call-template name="COPYRIGHTSCIELO">
+	   <xsl:with-param name="txtlang"/>
+   </xsl:call-template>
 </xsl:template>
 
 <xsl:template match="QUERY_RESULT_PAGES">
