@@ -9,7 +9,7 @@ echo "<SCIMAGOLIST>" > meuXML.xml
 # efetua a busca na base title para todos titulos tipo Current.
 #---------------------------------------------------------------#
 echo "GERANDO A LISTA DE JOURNALS A SEREM BAIXADOS"
-$cisis_dir/mx $database_dir/title/title LOC=$ tell=0 "pft=@../formats/sjr_format.pft" now > downloadTempList.sh
+$cisis_dir/mx $database_dir/title/title btell=0 LOC=$ tell=0 "pft=@../formats/sjr_format.pft" now > downloadTempList.sh
 
 #---------------------------------------------------------------#
 # retirando os hifens dos issns listados
