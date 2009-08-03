@@ -85,7 +85,7 @@
 			
 			<display>
 				<pft>
-					' <ARTICLE FPAGE="',v14^f,'" LPAGE="',v14^l,'" PID="',v3002,'"',
+					' <ARTICLE PDF_LANG="',v3012,'" FPAGE="',v14^f,'" LPAGE="',v14^l,'" PID="',v3002,'"',
 					 ,' CURR_DATE="',mid(date,1,8),'"'
 					 ,' ahpdate="',v223,'"'
 
