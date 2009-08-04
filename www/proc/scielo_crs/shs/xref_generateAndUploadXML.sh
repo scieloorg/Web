@@ -24,7 +24,7 @@ then
 	mkdir -p $MYXMLPATH
 fi
 
-if [ -f $MYXML -o  "$REPROC" = "DO" -o ! "$PROCESS_ONLY_NEW" = "DO" ]
+if [ ! -f $MYXML -o  "$REPROC" = "DO" -o ! "$PROCESS_ONLY_NEW" = "DO" ]
 then
 
 	$cisis_dir/mx cipar=$MYCIPFILE ARTIGO_DB  "btell=0" "hr=$PID" "proc=('G$conversor_dir/gizmo/crossref')" lw=99999 "proc='a9038{$depositor_prefix{a9037{$depositor_url{a9040{$depositor_institution{a9041{$depositor_email{" pft=@$conversor_dir/pft/xref_requestXML.pft "tell=1000" -all now | iconv --from-code=ISO-8859-1 --to-code=UTF-8 > $MYXML
