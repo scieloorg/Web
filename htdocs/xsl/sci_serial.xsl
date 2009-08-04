@@ -145,7 +145,7 @@ press release do issue
 		<xsl:variable name="currlang" select="//CONTROLINFO/LANGUAGE"/>
 		<li>
 			<a href="javascript:void();" onClick="OpenArticleInfoWindow(850,500,'/scielo.php?script=sci_arttext_pr&amp;pid={@pid}&amp;lng={$currlang}&amp;nrm=iso&amp;tlng={@lang}');">
-				<span>
+				<strong>
 					<xsl:if test="$currlang='pt'">
 						<xsl:value-of select="concat($month,'/',$year)"/>
 					</xsl:if>
@@ -160,7 +160,8 @@ press release do issue
 					<xsl:if test="$numl != 0">n.<xsl:value-of select="@num"/>&#160;</xsl:if>
 					<xsl:if test="$supl != 0">s.<xsl:value-of select="@sup"/>
 					</xsl:if>
-				</span>
+				</strong>
+				<span><xsl:value-of select="@title"/></span>
 			</a>
 		</li>
 	</xsl:template>
@@ -183,7 +184,7 @@ press release do artigo
 		<xsl:variable name="currlang" select="//CONTROLINFO/LANGUAGE"/>
 		<li>
 			<a href="javascript:void();" onClick="OpenArticleInfoWindow(850,500,'/scielo.php?script=sci_arttext_pr&amp;pid={@prpid}&amp;lng={$currlang}&amp;nrm=iso&amp;tlng={title/@lang}');">
-				<span>
+				<strong>
 					<xsl:if test="$currlang='pt'">
 						<xsl:value-of select="concat($month,'/',$year)"/>
 					</xsl:if>
@@ -198,8 +199,8 @@ press release do artigo
 					<xsl:if test="$numl != 0">n.<xsl:value-of select="@num"/>&#160;</xsl:if>
 					<xsl:if test="$supl != 0">s.<xsl:value-of select="@sup"/>
 					</xsl:if>
-				</span>
-				<xsl:value-of select="title"/>
+				</strong>
+				<span><xsl:value-of select="@title"/></span>
 			</a>
 		</li>
 	</xsl:template>
