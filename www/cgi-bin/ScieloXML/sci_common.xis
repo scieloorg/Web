@@ -2141,8 +2141,10 @@ fi
 
 
    <!-- fixed 20070119 - inserção de mais idiomas no texto completo e pdf -->
-   <call name="getAvailableTextLanguages"><pft>if v4905='pdf' then mid(v4901,2,9) fi</pft></call>
-   <field action="replace" tag="4902" split="occ"><pft>if v4905='pdf' then (v9350/),v4901^o/  fi</pft></field> 	
+   <call name="getAvailableTextLanguages"><pft>if v4905='pdf' or a(v4902) or v4902='' then mid(v4901,2,9) fi</pft></call>
+
+   <field action="replace" tag="4902" split="occ"><pft>(v9350/)</pft></field> 	
+   <field action="add" tag="4902"><pft>if v4905='pdf' then v4901^o/  fi</pft></field> 	
    <!-- fixed 20070119 -->
 
    <field action="replace" tag="4906" split="occ"><pft>(v4901^o/)</pft></field> <!-- fixed 20040622 -->
