@@ -157,7 +157,7 @@
 						,proc('a9242{',(if v12^l=v3000 then v12,break fi),'{'),
 					,if v9242='' then ,proc('a9242{',v12[1],'{'), fi
 					,if v9242<>'' then
-						'<issue data="',v65,'" vol="',v882^v,'" num="',v882^n,'" sup="',v882^s,'" pid="',v880,'" lang="',v9242^l,'"></issue>'/ fi
+						'<issue title="',v12^*,'" data="',v65,'" vol="',v882^v,'" num="',v882^n,'" sup="',v882^s,'" pid="',v880,'" lang="',v9242^l,'"></issue>'/ fi
 					,fi
 					</pft></display>
 				</loop>
