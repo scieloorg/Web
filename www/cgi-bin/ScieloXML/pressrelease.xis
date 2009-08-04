@@ -144,7 +144,7 @@
 								,if v9242='' then ,proc('a9242{',v12[1],'{'), fi
 								if v9242<>'' then
 
-								'<article data="',v65,'" vol="',v882^v,'" num="',v882^n,'" sup="',v882^s,'" pid="',v880,'" prpid="',v9241,'">','<title lang="',v9242^l,'">',v9242^*,'</title>','</article>'/ fi
+								'<article title="',v12^*,'" data="',v65,'" vol="',v882^v,'" num="',v882^n,'" sup="',v882^s,'" pid="',v880,'" prpid="',v9241,'">','<title lang="',v9242^l,'">',v9242^*,'</title>','</article>'/ fi
 							</pft></display>
 
 							<field action="replace" tag="9249"><pft>v880</pft></field>
