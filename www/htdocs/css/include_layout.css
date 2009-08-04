@@ -142,8 +142,13 @@
 	margin: 4px 0px;
 }
 
+.middle .rightCol UL.pressReleases {
+	padding: 0px;
+	margin: 0px;
+}
+
 .middle .rightCol UL.pressReleases LI {
-	margin: 4px 0px 12px 8px;
+	margin: 4px 0px 8px 0px;
 }
 
 .middle .rightCol UL.pressReleases LI SPAN {
