@@ -161,7 +161,7 @@ press release do issue
 					<xsl:if test="$supl != 0">s.<xsl:value-of select="@sup"/>
 					</xsl:if>
 				</strong>
-				<span><xsl:value-of select="@title"/></span>
+					<span><xsl:value-of select="title"/></span>
 			</a>
 		</li>
 	</xsl:template>
@@ -187,6 +187,7 @@ press release do artigo
 				<strong>
 					<xsl:if test="$currlang='pt'">
 						<xsl:value-of select="concat($month,'/',$year)"/>
+						
 					</xsl:if>
 					<xsl:if test="$currlang='es'">
 						<xsl:value-of select="concat($month,'/',$year)"/>
@@ -200,7 +201,7 @@ press release do artigo
 					<xsl:if test="$supl != 0">s.<xsl:value-of select="@sup"/>
 					</xsl:if>
 				</strong>
-				<span><xsl:value-of select="@title"/></span>
+                                        <span><xsl:value-of select="title"/></span>
 			</a>
 		</li>
 	</xsl:template>
