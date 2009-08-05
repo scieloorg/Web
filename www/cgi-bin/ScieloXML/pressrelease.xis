@@ -106,7 +106,7 @@
 	<field action="import" tag="list">3000,8888</field>
 	<field action="replace" tag="8888"><pft>if a(v8888) then '10' fi</pft></field>
 
-	<display><pft>'<PRESSRELEASE>'</pft></display>
+	<display><pft>'<PRESSRELEASE>' ,/ </pft></display>
 
 	<!-- busca press release de artigos -->
 	<!-- navega pelo press release de artigos e numeros, dado issn -->	
@@ -125,6 +125,7 @@
 
 		<loop>
 			<field action="import" tag="list">3000</field>
+			<!-- PRESS RELEASE -->
 			<do task="mfnrange">
 				<parm name="db">ARTIGO</parm>
 				<parm name="from"><pft>v1003^m</pft></parm>
@@ -132,6 +133,8 @@
 				<loop>
 					<field action="import" tag="list">3000</field>
 					<!-- <display><pft>v880</pft></display> -->
+
+					<!-- VERIFICA SE EH PRESSRELEASE DE ARTIGO OU NUMERO -->
 					<do task="search">
 						<parm name="db">ARTIGO</parm>
 						<parm name="expression"><pft>'PR_LK=',v880</pft></parm>
@@ -140,27 +143,30 @@
 							<field action="import" tag="list">3000</field>
 							<display><pft>
 								proc('a9241{',(if v241^t='pr' then v241^i,break fi),'{')
-								proc('a9242{',(if v12^l=v3000 then v12,break fi),'{')
+								proc('a9242{',(if v12^l=v3000[1] then v12,break fi),'{')
 								,if v9242='' then ,proc('a9242{',v12[1],'{'), fi
 								if v9242<>'' then
 
-								'<article title="',v12^*,'" data="',v65,'" vol="',v882^v,'" num="',v882^n,'" sup="',v882^s,'" pid="',v880,'" prpid="',v9241,'">','<title lang="',v9242^l,'">',v9242^*,'</title>','</article>'/ fi
+								 '<article data="',v65,'" vol="',v882^v,'" num="',v882^n,'" sup="',v882^s,'" pid="',v880,'" prpid="',v9241,'">',/'<title lang="',v9242^l,'"><![CDATA[',v9242^*,']]></title>','</article>'/ fi
 							</pft></display>
 
 							<field action="replace" tag="9249"><pft>v880</pft></field>
 							<field action="export" tag="list">9249</field>
 						</loop>
 					</do>
-					<display><pft>
 
+					<display><pft>
 					if a(v9249) then
-						,proc('a9242{',(if v12^l=v3000 then v12,break fi),'{'),
-					,if v9242='' then ,proc('a9242{',v12[1],'{'), fi
-					,if v9242<>'' then
-						'<issue title="',v12^*,'" data="',v65,'" vol="',v882^v,'" num="',v882^n,'" sup="',v882^s,'" pid="',v880,'" lang="',v9242^l,'"></issue>'/ fi
+						,proc('a9242{',(if v12^l=v3000[1] then v12,break fi),'{')
+						,if v9242='' then ,proc('a9242{',v12[1],'{'), fi,
+						,if v9242<>'' then
+						'<issue data="',v65,'" vol="',v882^v,'" num="',v882^n,'" sup="',v882^s,'" pid="',v880,'" lang="',v9242^l,'">',/'<title lang="',v9242^l,'"><![CDATA[',v9242^*,']]></title>',/'</issue>'/ 
+						,fi
 					,fi
 					</pft></display>
 				</loop>
+
+
 			</do>
 		</loop>
 	</do>
@@ -169,7 +175,6 @@
 
 
 <function name="displayPressReleasesRelatedToIssue" action="replace" tag="4001">
-	<field action="import" tag="list">7022,7041</field>
 
 	<!--
 		
@@ -219,7 +224,6 @@
 		<loop>
 			<display><pft>'<!-- ',v4901,' -->'/</pft></display>
 			<field action="import" tag="list">4001</field>		
-			<field action="import" tag="list">7022,7041</field>
 
 			<field action="delete" tag="list">9241</field>
 			<!-- verifica se este press release está relacionada a pelo menos um artigo -->
