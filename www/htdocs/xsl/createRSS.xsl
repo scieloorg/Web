@@ -12,13 +12,13 @@
 
 	<xsl:element name="channel">
 		<xsl:element name="generator">Scielo RSS</xsl:element>
-		
+
 		<xsl:element name="title"><xsl:value-of select="SERIAL/TITLEGROUP/TITLE" /></xsl:element>
 		
 		<xsl:element name="link">http://<xsl:value-of select="$server"/>/rss.php?pid=<xsl:value-of select="SERIAL/CONTROLINFO/PAGE_PID"/>&amp;lang=<xsl:value-of select="$lang"/></xsl:element>
 		
-		<xsl:element name="language">
-			<xsl:value-of select="SERIAL/CONTROLINFO/LANGUAGE" />
+		<xsl:element name="description">
+			<xsl:value-of select="concat('vol. ',SERIAL/ISSUE/@VOL,' num. ',SERIAL/ISSUE/@NUM,' lang. ',SERIAL/CONTROLINFO/LANGUAGE)" />
 		</xsl:element>
 		
 		<xsl:element name="image">
