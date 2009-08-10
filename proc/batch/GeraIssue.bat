@@ -40,7 +40,7 @@ batch/ifErrorLevel.bat $? batch/AchouErro.bat $0 mx $REVISTA bool:$3 proc:'d.'
 if [ ! "$4" == "del" ]
 then
    call batch/InformaLog.bat $0 x Adiciona issue na base: $2 $3
-   $CISIS_DIR/mx $ISSUE proc=@prc/criaPID.prc append=$REVISTA now -all
+   $CISIS_DIR/mx $ISSUE  "proc='a9999{$REVISTA{'" proc=@prc/criaPID.prc append=$REVISTA now -all
    batch/ifErrorLevel.bat $? batch/AchouErro.bat $0 mx $ISSUE proc:@prc/criaPID.prc append:$REVISTA
 fi
 
