@@ -28,3 +28,4 @@
 50 0 mpl,if v706='i' and v32='review' then 'REVIEW=',v35 fi
 60 0 mpl,if v706='i' then 'IDT',v91/, fi 				/* webservices - new_issues - SciELO.org */
 241 0 mpl,if v706='h' then (v241^t,v241^i/) fi
+770 0 mpl,if v706='h' and v770>'' then ('EC_',v770^*,v770^a/) fi
