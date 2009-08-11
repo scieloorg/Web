@@ -89,6 +89,7 @@ FILE newissue.*=%path_database%newissue/newissue.*
 INDEX To=^pTodos os índices^eTodos los indices^iAll indexes^d*^xTO ^yFULINV
 INDEX Ti=^pPalavras do título^ePalabras del título^iTitle words^xTI ^yPREINV^uTI_^mTI_
 INDEX Au=^pAutor^eAutor^iAuthor^xAU ^yPREINV^uAU_^mAU_
+INDEX Ec=^pRegistro de Ensaios Clínicos^eRegistros de Ensayos Clínicos^iClinical Trials Registry^xEC ^yPREINV^uEC_^mEC_
 INDEX Kw=^pAssunto^eMateria^iSubject^xKW ^yPREINV^uKW_^mKW_
 INDEX Ab=^pResumo^eResumen^iAbstract^xAB ^yPREINV^uAB_^mAB_
 INDEX Yr=^pAno de publicação^eAño de publicación^iPublication year^xYR ^yPREINV^uYR_^mYR_^tshort
