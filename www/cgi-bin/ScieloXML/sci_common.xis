@@ -2111,6 +2111,7 @@ fi
 	 4901^l - languages
  	 4901^d - directory	 
  	 4901^e - pdf ou tr (translation)	 
+ 	 4901^i - colocar o pid como atributo uso em press release
 	 -->
 	 <!--display><pft>ALL</pft></display-->	
 	<field action="import" tag="list">966,7060</field>
@@ -2119,6 +2120,7 @@ fi
    <field action="replace" tag="4902" split="occ"><pft>(v4901^l/)</pft></field> 
    <field action="replace" tag="4904" split="occ"><pft>(v4901^d/)</pft></field> 
    <field action="replace" tag="4905" split="occ"><pft>(v4901^e/)</pft></field>
+   <field action="replace" tag="3232" split="occ"><pft>(v4901^i/)</pft></field>
    
 
     <!-- INICIO TRECHO QUE TRATA DE PDF EXTERNO: V7060 -->
@@ -2237,7 +2239,7 @@ fi
     	
     	
 		<loop>
-			<field action="import" tag="list">9000/9002,9005,4904/4906</field> <!-- fixed 20040622 -->
+			<field action="import" tag="list">3232,9000/9002,9005,4904/4906</field> <!-- fixed 20040622 -->
 			<!--display><pft>ALL</pft></display-->
 			<field action="replace" tag="9003">
 				<pft>
@@ -2265,7 +2267,7 @@ fi
 					fi
 				</pft>
 			</field>
-			<field action="replace" tag="9005"><pft>v9005,if v9004^s : 'e' then '<LANG TRANSLATION="',v9003^f,'">',v9003^l,'</LANG>'/ fi</pft></field>
+			<field action="replace" tag="9005"><pft>v9005,if v9004^s : 'e' then '<LANG ',| pid="|v3232|" |,'TRANSLATION="',v9003^f,'">',v9003^l,'</LANG>'/ fi</pft></field>
 			<field action="export" tag="list">9000/9002,9005,4904,4905</field>
 			<!--display><pft>ALL</pft></display-->
 
@@ -2338,6 +2340,13 @@ fi
 			ref( ['NEWISSUE'] l( ['NEWISSUE'],'Y',mid(v4900,2,size(v4900)-5-1) ),
 ,if (v32='ahead' or v32='review') and val(v65*0.4) > 2007 then ,v65*0.4, fi,
 				"v"v31,"n"v32,"s"v131,"s"v132 )
+		</pft>
+	</field>
+	<field action="replace" tag="9001">
+		<pft>if a(v9001) then
+			ref( ['NEWISSUE'] l( ['NEWISSUE'],'P',mid(v4900,2,size(v4900)-5-1) ),
+				"v"v31,"n"v32,"s"v131,"s"v132,v41 )
+				fi
 		</pft>
 	</field>
 
@@ -3097,7 +3106,7 @@ fi
 
         
   <label>NO_TEXT_AVAILABLE</label>
-  <call name="PressReleaseLanguages"><pft>(if v241^t='pr' then v241^i,'^o',v40,'^d'v7041[1]/ fi),(if v41='pr' then '^i',v880,'^o',v40 fi)</pft></call>
+  <call name="PressReleaseLanguages"><pft>(if v241^t='pr' then '^i',v241^i,'^d'v7041[1]/ fi),(if v41='pr' then '^i',v880,'^o',v40 fi)</pft></call>
   <display>
    <pft>
     ' </LANGUAGES>'/    

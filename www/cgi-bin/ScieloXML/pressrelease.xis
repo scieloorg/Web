@@ -296,14 +296,14 @@
 
 <function name="PressReleaseLanguages" action="replace" tag="4000">
 
-	<flow action="jump"><pft>if s(v4000^*)*0.1='S' then else 'DISPLAY' fi</pft></flow>
-	<call name="TestTranslationPresence"><pft>v4000^*/,'^o',ref(['ARTIGO']l(['ARTIGO']'hr=',v4000^*),v40),ref(['ARTIGO']l(['ARTIGO']'hr=',v4000^*),(|^l|v12^l/)),'^d'v4000^d/</pft></call> 
+	
+	<call name="TestTranslationPresence"><pft>v4000^i/,'^o',ref(['ARTIGO']l(['ARTIGO']'hr=',v4000^i),v40),ref(['ARTIGO']l(['ARTIGO']'hr=',v4000^i),(|^l|v12^l/)),'^d'v4000^d,'^i',v4000^i/</pft></call> 
 
 	<label>DISPLAY</label>
 	<display>
 	<pft>
 	'  <PRESSRELEASE_LANGS>'/
-		'<LANG pid="',v4000^*,'">',if s(v4000^*)*0.1='S' then ref(['ARTIGO']l(['ARTIGO']'hr=',v4000^*),v40) else v4000^o fi,'</LANG>'/
+		'<LANG pid="',v4000^*,'">',ref(['ARTIGO']l(['ARTIGO']'hr=',v4000^i),v40),'</LANG>'/
 	v7999
 	'  </PRESSRELEASE_LANGS>'/
 	</pft>

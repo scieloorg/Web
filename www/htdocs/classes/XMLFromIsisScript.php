@@ -101,32 +101,7 @@ class XMLFromIsisScript {
 		return $xml;
 	}
 
-	function old_replaceThisByContent($parXML){
-		$xml = $parXML;
-		
-		$p = strpos($xml, '[replace-this-by-content]');
-		if ($p >0) {
-			$pf = strpos($xml, '[/replace-this-by-content]');
-			$expression = substr($xml,$p, $pf-$p).'[/replace-this-by-content]';
-			$filename = str_replace('[replace-this-by-content]', '', str_replace('[/replace-this-by-content]', '', $expression));
-			$body = $this->read($filename);
-
-			$bodyBegin = strpos(strtolower($body), '<body');
-			if ($bodyBegin>0){
-				$body = substr($body, $bodyBegin);
-				$bodyBegin = strpos($body, '>');
-				$body = substr($body, $bodyBegin+1);
-			}
-			$bodyEnd = strpos(strtolower($body), '</body>');
-			if ($bodyEnd >0){
-				$body = substr($body, 0, $bodyEnd);
-			}
-
-			$xml = str_replace($expression, '<!-- inicio arquivo -->'.$body.'<!-- fim arquivo -->', $xml);
-			$xml = $this->replaceThisByContent($xml);
-		} 
-		return $xml;
-	}
+	
 	function read($filename){
 		$s = file_get_contents($filename);
 		return $s;
