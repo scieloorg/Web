@@ -123,7 +123,7 @@ class Scielo extends ScieloBase
 			}
 		}
 
-		if ($this->_script == 'sci_arttext' || $this->_script == 'sci_abstract' ){
+		if ($this->_script == 'sci_arttext_pr' || $this->_script == 'sci_arttext' || $this->_script == 'sci_abstract' ){
 			$server = $this->_def->getKeyValue("SERVER_SCIELO");
 			$services = $this->_def->getSection("FULLTEXT_SERVICES");
 			$services_xml = array();
@@ -144,7 +144,7 @@ class Scielo extends ScieloBase
 				$xmlIsisScript->setPdfLink(str_replace('sci_arttext','sci_pdf',"http://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']),$this->_def->getKeyValue("REPLACE_TEXT_BY_PDF_LINK"));
 			}
 			$xmlFromIsisScript = $xmlIsisScript->getXml();
-			$this->_special_xsl = $xmlIsisScript->getSpecialXSL();
+			if ($this->_script != 'sci_arttext_pr') $this->_special_xsl = $xmlIsisScript->getSpecialXSL();
 		}
 
 		$xmlList[] = $xmlFromIsisScript;
