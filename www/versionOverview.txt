@@ -1,0 +1,19 @@
+Versão: v4.31
+
+Melhorias
+-------------------
+
+Ticket #136 Ajustes em processamento de requisição de DOI para sempre solicitar atualização de metadados para PIDs de Ahead. Uma vez que quando o registro sai de Ahead os metadados devem ser atualizados com as atualizações referentes ao novo número onde o artigo foi publicado
+
+Corriginda apresentação de copyright e email na página da revista.
+
+Ticket #134 Correção para apresentar corretamente tradução de textos do press release.
+
+Ticket #132 Adicionado novo indice na base de artigos referente a ensaios clínicos para apresentação de ensaios clínicos na página do artigo.
+
+Ticket #132 Adicionado indice sobre ensaios clínicos na interface de busca IAH
+
+Novas Configurações
+-------------------
+
+Não existem novas configurações para esta versão
