@@ -14,7 +14,7 @@ server="http://trigramas.bireme.br"
 SciELO.br=SciELO.scl.TiKwAb
 
 [requests_server]
-SciELO.br="http://scielo-log.bireme.br"
+url="http://scielo-log.bireme.br/scielolog"
 
 [logout_urls]
 SciELO.org="http://www.scielo.org/applications/scielo-org/sso/logout.php"
