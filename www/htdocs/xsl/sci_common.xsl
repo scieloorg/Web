@@ -177,7 +177,7 @@
 		</CENTER>
 	</xsl:template>
 	<!-- Shows copyright information -->
-	<xsl:template match="COPYRIGHT">
+	<xsl:template match="COPYRIGHT">        
 		<xsl:comment>
 			<xsl:value-of select="../..//LICENSE"/>
 		</xsl:comment>
@@ -218,13 +218,14 @@
 					<xsl:value-of select="@YEAR"/>&#160;
                     <xsl:value-of select="." disable-output-escaping="yes"/>
 				</i>
-				<br/>
+				<br/><br/>
 			</xsl:otherwise>
-		</xsl:choose>
+		</xsl:choose>        
 	</xsl:template>
 	<!-- Shows contact information -->
 	<xsl:template match="CONTACT">
 		<xsl:apply-templates select="LINES"/>
+        <xsl:apply-templates select="EMAILS"/>
 		<xsl:call-template name="UpdateLog"/>
 	</xsl:template>
 	<!-- Shows lines from contact information -->
@@ -1134,7 +1135,7 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
  <xsl:value-of select="$number"/>
  </OPTION>
 </xsl:template>
-
+<!--
 <xsl:template match="COPYRIGHT">
    <BR/>
    <br/>
@@ -1142,7 +1143,7 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
 	   <xsl:with-param name="txtlang"/>
    </xsl:call-template>
 </xsl:template>
-
+-->
 <xsl:template match="QUERY_RESULT_PAGES">
 <xsl:param name="table_perc" />
 
