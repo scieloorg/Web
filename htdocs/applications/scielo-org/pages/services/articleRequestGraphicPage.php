@@ -13,7 +13,8 @@ error_reporting(1);
 	$DirHtml = $DirNameLocalGraphPage."../html/" .$lang . "/";
 	$site = parse_ini_file($DirNameLocalGraphPage."/../../../../ini/" . $lang . "/bvs.ini", true);
 	$scielodef = parse_ini_file($DirNameLocalGraphPage."/../../scielo.def.php", true);
-	
+  	$scielomaindef = parse_ini_file($DirNameLocalGraphPage."/../../../../scielo.def.php", true);
+
 	$pid = $_REQUEST['pid'];
 	$caller = $_REQUEST["caller"];
 	$startYear = $_REQUEST['startYear'];
@@ -81,7 +82,8 @@ error_reporting(1);
 					<p><b><?=CHOOSE_PERIOD?></b><br/>
 					<?php
 						$accessService = new AccessService();
-						$accessService->setParams($_REQUEST['pid']);
+						$accessService->setParam('pid',$_REQUEST['pid']);
+						$accessService->setParam('app',$scielomaindef["SITE_INFO"][APP_NAME]);
 						$years = array();
 						$years = $accessService->getYears($accessService->getStats());
 					?>
