@@ -1,8 +1,0 @@
-lw(9000), 
-if p(v1) and v3 <> 'del' then
-  'call batch\DelDirVazio.bat ',v401,'\htdocs\img\revistas\',v1,'\',v2,'\html'/
-  'call batch\DelDirVazio.bat ',v401,'\htdocs\img\revistas\',v1,'\',v2/
-  'call batch\DelDirVazio.bat ',v401,'\htdocs\img\revistas\',v1/
-  'call batch\DelDirVazio.bat ',v401,'\bases\pdf\',v1,'\',v2/
-  'call batch\DelDirVazio.bat ',v401,'\bases\pdf\',v1/
-fi
