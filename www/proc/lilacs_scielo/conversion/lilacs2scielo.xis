@@ -1,0 +1,197 @@
+ 
+		<!--
+		CONFIGURACAO artigo
+		v9002 = nome do arquivo
+
+		v9071 = doctopic
+		v9065 = data de publicaçao iso
+		-->
+		
+		<!---
+		campo que precisa para pos-processamento
+		v300 = v2, v778
+		-->
+
+		<!--
+		duvidas de como tratar estes campos
+		v71
+		v8
+		v32
+		teses
+		-->
+		<!-- manter: 3,11,14,31,35,54,55,56,57,65,66,67,68,69,70,72 -->
+
+		<!-- não possui: 5,6,7,9,13,33,34,36,37,39,41,43,61,62,63,76,77,78,79,80,81,82,84,86/110,118,119 -->
+
+		<!-- dúvidas: 44,45,46,47,50,51 -->
+
+
+		
+		<!--	IMPORT  -->
+        <field action="replace" tag="1"><pft>v9001,if a(v9001) then v1 fi</pft></field>
+        <field action="replace" tag="4"><pft>v9004</pft></field>
+		<!-- shortitle -  recuperar do SciELO -->
+		<field action="replace" tag="30"><pft>v9030</pft></field>
+
+		<field action="replace" tag="31"><pft>v31</pft></field>
+		<field action="replace" tag="32"><pft>v32</pft></field>
+		<field action="replace" tag="131"><pft>v131</pft></field>
+		<field action="replace" tag="132"><pft>v132</pft></field>
+		<!-- norma das referencias bibliograficas -->
+		<field action="replace" tag="117"><pft>v9117</pft></field>
+
+
+
+		
+		<!-- doctopic - 71 -->
+		<field action="replace" tag="71"><pft>v9071</pft></field>
+
+		<!--	CONVERSION  -->
+
+		<display><pft>v40[1]</pft></display>
+		<field action="replace" tag="40"><pft>v40[1]</pft></field>
+		<field action="replace" tag="40"><pft>if v40[1]='Pt' then 'pt' fi</pft></field>
+		<field action="replace" tag="40"><pft>if v40[1]='En' then 'en' fi</pft></field>
+		<field action="replace" tag="40"><pft>if v40[1]='Es' then 'es' fi</pft></field>
+
+
+		<field action="replace" tag="38" split="occ"><pft>(replace(v38,'^t','^bt')/)</pft></field>
+		<field action="replace" tag="38" split="occ"><pft>(if p(v38^b) then mpu,replace(v38^b,'graf','gra')/ fi)</pft></field>
+		<field action="replace" tag="38" split="occ"><pft>(mpu,v38/)</pft></field>
+		
+		<!-- ??? - order do artigo no issue -->
+		<field action="replace" tag="121"><pft>v9121</pft></field>
+
+
+		<!-- data de publicação -->
+	    <!--field action="replace" tag="64"><pft>'^m',replace(replace(v64,'-','/'),' ','^a')</pft></field-->
+
+
+		<!-- paginação -->
+	    <field action="replace" tag="14"><pft>if p(v14) then 
+				if p(v14^f) then 
+					v14 
+				else 
+					'^f',replace(v14,'-','^l') 
+				fi
+			else
+				'^f0^l0',
+			fi</pft></field>
+	    <field action="replace" tag="35"><pft>v35</pft></field>
+
+		<field action="replace" tag="74"><pft>|^t|v75,|^f|v74</pft></field>
+		<field action="delete" tag="75">1</field>
+
+
+		<!-- títulos do artigo -->
+		<field action="replace" tag="12" split="occ"><pft>(if v12^*<>'x' and v12^*<>'sd' then v12^*,'^l',v12^i,if a(v12^i) then v40[1] fi ,fi/)</pft></field>
+		<field action="add" tag="12"><pft>if v13<>'x' then  v13|^len| fi</pft></field>
+
+		<field action="replace" tag="12" split="occ"><pft>(if instr(v12,'[')=1 then replace(v12*1,']','') else v12 fi/)</pft></field>
+		<field action="replace" tag="12" split="occ"><pft>(if v12^*<>'x'  and v12^*<>'sd' then v12 fi/)</pft></field>
+
+		<!-- author and aff -->
+		<field action="delete" tag="list"><pft>if v10='x' or v10:'Anon' then '10' fi</pft></field>
+		
+		<field action="replace" tag="10" split="occ"><pft>(if v10^1<>'s.af' then v10 else replace(v10,'^1s.af','') fi/)</pft></field>
+		<field action="replace" tag="10" split="occ"><pft>(if mid(v10^*,size(v10^*)-1,1)=' ' and mid(v10^*,size(v10^*),1)<>'e' then ,replace(v10,v10^*,s(v10^*,'.')),  else v10 fi/)</pft></field>
+		<list action="load" type="list"><pft>(v10/)</pft></list>
+		<field action="delete" tag="list">8000,10</field>
+		
+		<do task="list">
+			<field action="define" tag="1001">Isis_Current</field>
+			<field action="define" tag="1002">Isis_Items</field>
+			<field action="define" tag="9079">Isis_Item</field>
+
+			<loop>
+				<field action="import" tag="list">10,70,9071,8000</field>
+
+				<field action="replace" tag="9070"><pft>v9079^1,|^1|v9079^2,|^2|v9079^3,|^c|v9079^c,|^p|v9079^p</pft></field>
+				
+				<flow action="jump"><pft>if a(v9070) then 'NO_AFF' fi</pft></flow>
+				<flow action="jump"><pft>if instr(v9071,s('=',v9070,'='))>0 then 'EXIST' fi</pft></flow>
+
+
+				<field action="replace" tag="8000"><pft>if a(v8000) then '1' else f(val(v8000)+1,1,0) fi</pft></field>
+
+				<field action="add" tag="70"><pft>v9070,'^iA0',v8000</pft></field>
+				<field action="replace" tag="9071" split="occ"><pft>(v9071/),'=',v9070,'='/</pft></field>
+				<field action="export" tag="list">70,9071,8000</field>
+
+				<label>EXIST</label>
+				<field action="replace" tag="9075"><pft>(if v70^*=v9070^*[1] and v70^1=v9070^1[1] and v70^2=v9070^2[1] and v70^c=v9070^c[1] and v70^s=v9070^s[1]  and v70^p=v9070^p[1] then v70^i,break fi)</pft></field>
+
+				<label>NO_AFF</label>
+				<field action="add" tag="10"><pft>'^rND','^s',replace(v9079^*,', ','^n'),|^1|v9075</pft></field>
+				<field action="export" tag="list">10,70</field>
+			</loop>
+		</do>
+		<list action="delete">now</list>
+
+
+		<!-- abstract -->
+
+
+        <field action="replace" tag="83" split="occ"><pft>if p(v83) then
+		
+		('^a',if instr(v83^*,'(AU)')=size(v83^*)-3 then ,mid(v83^*,1,size(v83^*)-4), else v83^* fi,'^l',v83^i,if a(v83^i) then v40[1] fi/) 
+		
+		fi</pft></field>
+
+		<!-- keywords -->
+		<list action="load" type="list"><pft>(v85/)</pft></list>
+		<field action="delete" tag="list">85,8000</field>
+		<do task="list">
+			<field action="define" tag="1001">Isis_Current</field>
+			<field action="define" tag="1002">Isis_Items</field>
+			<field action="define" tag="9085">Isis_Item</field>
+
+			<loop>
+				<field action="import" tag="list">85,8085,8000</field>
+				
+				<flow action="jump"><pft>if v9085^i=v8085 then 'NEXT' fi</pft></flow>
+				
+				<field action="replace" tag="8000"><pft>if a(v8000) then '1' else f(val(v8000)+1,1,0) fi</pft></field>
+				<field action="add" tag="85"><pft>'^dnd^i',v8000</pft></field>
+				<field action="replace" tag="8085"><pft>v9085^i</pft></field>
+				<field action="export" tag="list">8085,8000</field>
+
+				<label>NEXT</label>
+
+				<field action="add" tag="85"><pft>'^tm',|^l|v9085^i,'^i',v8000,'^k',v9085^*,|^s|v9085^s,</pft></field>
+				<field action="export" tag="list">85</field>
+			</loop>
+		</do>
+		<list action="delete">now</list>
+
+
+		<!-- quantidade das referencias bibliograficas -->
+		<field action="replace" tag="72"><pft>v72</pft></field>
+
+		<!-- Conference -->
+        <!--field action="replace" tag="52" split="occ"><pft>(replace(v52,'. ','^d')/)</pft></field-->
+        <field action="replace" tag="53" split="occ"><pft>(replace(v53,', ','^n')/)</pft></field>
+
+		<!-- Projeto -->
+		<field action="replace" tag="59" split="occ"><pft>if instr(v59,'; ')>0 then (replace(v59,'; ',s(#))/) fi</pft></field>
+
+        <field action="replace" tag="60" split="occ"><pft>if instr(v60,', ')>0 then (replace(v60,', ',s(#))/) fi</pft></field>
+        <field action="replace" tag="60" split="occ"><pft>if instr(v60,'; ')>0 then (replace(v60,'; ',s(#))/) fi</pft></field>
+<display><pft>'######'/,if instr(v60,' and ')>0 or instr(v60,' e ')>0  then ('#'v60/) fi</pft></display>
+		<field action="replace" tag="60" split="occ"><pft>if instr(v60,' and ')>0 then (replace(v60,' and ',s(#))/) fi</pft></field>
+		<field action="replace" tag="60" split="occ"><pft>if instr(v60,' e ')>0 then (replace(v60,' e ',s(#))/) fi</pft></field>
+<display><pft>('#'v60/)</pft></display>
+
+		<!-- history - 111,112,113,114,115,116 -->
+
+
+		<field action="replace" tag="770" split="occ"><pft>(v9770/)</pft></field>
+
+		<label>END</label>
+		<!-- manter: 3,11,14,31,35,54,55,56,57,65,66,67,68,69,70,72 -->
+		<!-- não possui: 5,6,7,9,13,33,34,36,37,39,41,43,61,62,63,76,77,78,79,80,81,82,84,86/110,118,119 -->
+		<field action="delete" tag="list">5,6,7,8,9,13,33,34,36,37,39,41,43,61,62,63,64,76,77,78,79,80,81,82,84,86/110,111/116,,118,119,440,778</field>
+
+		<!-- dúvidas: 44,45,46,47,50,51 -->
+<display><pft>'dentro ',v1/</pft></display>
+<!--display><pft>#,(v10/),#</pft></display-->

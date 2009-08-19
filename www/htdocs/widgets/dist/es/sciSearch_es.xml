@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ <Module>
+  <ModulePrefs title="SciELO Búsqueda Avanzada" description="SciELO Búsqueda Avanzada" height="50">
+	<Require feature="dynamic-height" />
+  </ModulePrefs>
+  <UserPref name="index" datatype="enum" default_value="all" display_name="Índice :" >
+    <EnumValue value="all" display_value="Todos" />
+	<EnumValue value="AB_" display_value="Resumen" />
+    <EnumValue value="TI_" display_value="Título" />
+    <EnumValue value="AU_" display_value="Autor" />
+  </UserPref>
+  <UserPref name="from" datatype="string" default_value="1" display_name="De :" />
+  <UserPref name="count" datatype="string" default_value="5" display_name="Cantidad :" />
+  <Content type="html"><![CDATA[
+<br/>
+<form>
+   <input type="text" id="searchField" value="" size="50" maxlength="200"/>
+   <input type="button" name="searchButton" value="Búsqueda" onClick="doSearch()"/>
+</form>
+<br/>
+<div id="mydiv"></div>
+
+   <script type="text/javascript">
+      var prefs = new _IG_Prefs(__MODULE_ID__);
+
+      function treatFile(objResponse){
+         var mydiv = _gel("mydiv");
+         mydiv.innerHTML = objResponse;
+         _IG_AdjustIFrameHeight();
+      }
+
+      function doSearch(){
+         var searchField = _gel("searchField").value;
+         var index = prefs.getString("index");
+         var from = prefs.getString("from");
+         var count = prefs.getString("count");
+		 var script = 'wg_advancedSearch.php';
+ 		 if(index == 'all'){
+		    script = 'wg_search.php';			
+		 }
+         var url = 'http://www.scielo.br/widgets/'+script+'?index='+index+'&expression='+searchField+'&from='+from+'&count='+count;
+
+         _IG_FetchContent(url,treatFile);
+      }
+
+   </script>
+  ]]>
+  </Content>
+</Module>

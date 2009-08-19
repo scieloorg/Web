@@ -1,0 +1,32 @@
+,if a(v6002) and a(v6102) then,
+	,'$',
+
+,else,
+
+	,'( '				
+	,if p(v6102) then,
+		,if v6100^d <> '*' then '['v6100^x']' fi,
+		,'(',v6102,')',
+	,else,
+		   ,if v6000 = 'F' then,
+		      ,replace(v6002,' ',s(' 'v6001' ')),
+		   ,else,
+	          ,if nocc(v6002) = 3 then,
+      			  /* tratamento para prioridade dos operadores booleanos */
+	             ,'( ',
+      			  ,(if p(v6002) then if iocc>1 then ,| |v6001 fi,
+		              /*,if v6003^d <> '*' then ' ['v6003^x']' fi,' (',v6002,')', */
+					  ,' ['v6003^x'] (',v6002,')',
+           			  ,if iocc=2 then ' )' fi,
+		          ,fi),
+			  ,else,
+				   ,(if p(v6002) then if iocc>1 then ,| |v6001| | fi,
+		          	  /* ,if v6003^d <> '*' then '['v6003^x']' fi,'(',v6002,')', */
+					  ,'['v6003^x'] (',v6002,')', 
+       			  ,fi),
+   		       ,fi,
+		   ,fi,
+	 ,fi,				 
+	 ,' )',/
+	
+,fi,

@@ -1,0 +1,102 @@
+<br>
+[pft]if s(mpu,v5007,mpl) = 'ON' then[/pft]
+   <center>
+   <table border="0" width="600" cellspacing="0" cellpadding="0">
+      <tr>
+	  	<td width="88" bgcolor="[pft]v5006^b[/pft]" align="left">
+			<font face="Verdana" size="1">&nbsp;			
+			[pft]if val(v1001) = val(v1002) or val(v1001) = val(v1032) then[/pft]
+	             <a name="last"></a>
+			[pft]fi[/pft]
+			[pft]if val(v1001) = val(v1031) then[/pft]
+				<a name="first"></a>
+			[pft]fi[/pft]	
+			<a name="[pft]v1001[/pft]"><b>[pft]v1001' / 'v1002[/pft]</b>
+			</font>
+		</td>
+		<td width="100" align="right" bgcolor="[pft]v5006^b[/pft]">
+			<font face="Verdana" size="1">[pft]v5003^*[/pft]</font>
+		</td>
+		<td width="1">&nbsp;</td>
+		<td width="400" bgcolor="[pft]v5006^b[/pft]">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0">
+				<tr> 
+            	  <td width="10%" align="center"> 
+	                <!--img src="[pft]v5002[/pft]help.gif" border="0"-->
+    	          </td>
+        	      <td width="10%">&nbsp;</td>
+	              <td width="10%">&nbsp;</td>
+    	          <td width="10%">&nbsp;</td>
+        	      <td width="10%">&nbsp;</td>
+				  <td width="10%">&nbsp;</td>
+				  <td width="10%">&nbsp;</td>	
+				  <td width="10%">&nbsp;</td>			  
+	              <td width="5%" align="center">
+					[pft]if val(v1001) <> val(v1031) then[/pft]
+						  <a href="#first"><img src="[pft]v5002[/pft]top.gif" border="0" alt="first record"></a>
+					[pft]fi[/pft]  
+				  </td>
+        	      <td width="5%" align="center">
+					[pft]if val(v1001) <> val(v1031) then[/pft]
+			  			<a href="#[pft]f(val(v1001)-1,1,0)[/pft]"><img src="[pft]v5002[/pft]prev.gif" border="0" alt="previous record"></a>
+					[pft]fi[/pft]	
+				  </td>
+        	      <td width="5%" align="center">
+					[pft]if (val(v1001) <> val(v1002)) and (val(v1001) <> val(v1032)) then[/pft]
+					  	<a href="#[pft]f(val(v1001)+1,1,0)[/pft]"><img src="[pft]v5002[/pft]next.gif" border="0" alt="next record"></a>
+					[pft]fi[/pft]	
+				  </td>
+        	      <td width="5%" align="center">
+				    [pft]if (val(v1001) <> val(v1002)) and  (val(v1001) <> val(v1032)) then[/pft]
+			  			<a href="#last"><img src="[pft]v5002[/pft]bott.gif" border="0" alt="last record"></a>
+					[pft]fi[/pft]	
+		  		  </td>
+				</tr>
+			</table>			
+      </td>
+    </tr>
+  </table>
+  </center>
+
+[pft]else[/pft]
+  <center>
+  <table width="600"  border="0" cellpadding="0" cellspacing="0">
+	<tr>
+		<td>
+			<hr width="600">
+			<font face="Verdana" size="1">&nbsp;&nbsp;	
+			<b>[pft]v1001' / 'v1002[/pft]</b>
+			</font>			
+		</td>
+	</tr>
+  </table>			
+  </center>
+
+[pft]fi[/pft]
+
+<center>
+<table width="600"  border="0" cellpadding="0" cellspacing="0">
+	<tr>
+		<td align="left" width="115" valign="top" rowspan="6">
+			<table width="100%" border="0" cellpadding="0" cellspacing="0">       		   			
+			<tr>
+				<td width="28%">
+					<input type="checkbox" name="listChecked" value="[pft]'^m'mfn(1)'^h'v1001[/pft]" [pft](if v6210^m = f(mfn(1),2,0) then 'checked' break fi)[/pft]>
+				</td>	
+				<td width="72%">
+					<font face="verdana" size="1"><i>selecciona</i></font>
+				</td>
+			</tr>
+				<td width="28%">
+					<input type="image" name="toprint^m[pft]mfn(1)[/pft]" src="[pft]v5002[/pft]toprint.gif" border="0">
+				</td>	
+				<td width="72%">
+					<font face="verdana" size="1"><i>para imprimir</i></font>
+				</td>
+			</tr>
+			[pft]@SHORTCUT.IAH[/pft]		   
+			</table>
+		</td>
+		<td width="485">
+
+		<!-- formato de apresentacao da base -->

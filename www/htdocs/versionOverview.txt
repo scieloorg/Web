@@ -1,0 +1,12 @@
+Versão: v4.33
+
+Melhorias
+-------------------
+
+Ticket #130 ajustes na inclusão de parâmetro de instância para serviço de estatísticas de acesso do artigo
+
+
+Novas Configurações
+-------------------
+
+Não existem novas configurações para esta versão

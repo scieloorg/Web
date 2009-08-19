@@ -1,0 +1,138 @@
+[pft]@AHHEAD.PFT[/pft]
+<script language="javascript">
+	
+	function validForm(){				
+		
+		document.Option.action = "[pft]getenv('SCRIPT_NAME')v5000^d[/pft]";
+		
+		if (document.Option.listOption[1].status){ // hit range option
+			var ref0 = parseFloat(document.Option.listHit[0].value);
+			var ref1 = parseFloat(document.Option.listHit[1].value);
+
+			if(document.Option.listHit[0].value.length == 0 || document.Option.listHit[1].value.length == 0 ) {
+				alert("Informe los valores de principio y extremo del rango de impresión");
+				return false;
+			}
+			if((ref0 > ref1) || isNaN(ref0) || isNaN(ref1) || ref0 <= 0 || ref1 <= 0) {
+				alert("Valores del rango de impresión inválidos. Por favor verifique");
+				return false;
+			}
+
+			if(eval(document.Option.listHit[0].value) > [pft]v1002[/pft] || eval(document.Option.listHit[1].value) > [pft]v1002[/pft]) {
+				alert("Valor máximo de referencia para esta opción: [pft]v1002[/pft]");
+				return false;
+			}
+		}
+		if (document.Option.sendOption[1].status){ // save option
+			var ind  = document.Option.saveFileType.selectedIndex;
+			var type = document.Option.saveFileType[ind].value;
+			document.Option.sendOption[1].value = "save-" + type;				
+			
+			document.Option.action += "list.";
+			
+			if (type == "iso" || type == "xml"){									
+				if (document.Option.listOption[0].status){ // list_all 					
+					if ([pft]v1002[/pft] > 1000) {
+						alert("Valor máximo de referencia para esta opción: 1000");
+						return false;
+					}					
+				}	
+				
+				if (document.Option.listOption[1].status){ // list_hits
+					if ((document.Option.listHit[1].value - document.Option.listHit[0].value) > 1000) {
+						alert("Valor máximo de referencia para esta opción: 1000");
+						return false;
+					}			
+				}					
+			 }
+			 if (navigator.appName.indexOf("Microsoft") == -1) { 
+				 // se nao eh browser Microsoft adiciona extensao			
+					document.Option.action += type;	
+			 }				 
+		}
+		if (document.Option.sendOption[2].status){ // email option
+			email = document.Option.sendToEmail.value
+			if (email.length == 0){
+				alert("Informe el e-mail para envio del resultado");
+				return false;
+			}	
+			isGood = (email.indexOf("@")  != "-1") && 
+					 (email.indexOf(".")  != "-1") &&
+					 (email.indexOf("@.") == "-1") &&
+					 (email.indexOf(" ")  == "-1") &&					 
+					 (email.indexOf(";")  == "-1") &&
+					 (email.indexOf(",")  == "-1") &&
+					 (email.indexOf("?")  == "-1") &&
+					 (email.length > 5);
+					 
+			if (!isGood) {
+				alert("La dirección de e-mail es incorrecta. Verifique")
+				return false;
+			}			
+		}		
+	}	
+</script>
+<form action="[pft]getenv('SCRIPT_NAME')v5000^d[/pft]" method="POST" name="Option" onSubmit="return validForm()">
+	[pft]@AHHIDD.PFT[/pft]
+	
+	<input type="hidden" name="nextAction" value="list">
+	<center>
+	<table width="480" border="0" cellspacing="0" cellpadding="5" >
+	<tr><td bgcolor="[pft]v5006^b[/pft]"><font face="verdana" size="1">&nbsp;&nbsp;<b>Enviar resultado</b></font></td></tr>
+	<tr> 
+		<td nowrap>			
+	        <table width="100%" border="1" cellspacing="0" cellpadding="10" bordercolorlight="#808080" bordercolordark="#FFFFFF">
+			<tr>
+				<td valign="top" nowrap><font face="Verdana" size="1">¿Cuáles referencias?</font></td> 
+        	    <td nowrap>				
+					<font face="Arial" size="2">
+					<input type="Radio" name="listOption" value="list_all" [pft]if a(v6210) then 'checked' fi[/pft]>
+					Todas las referencias ([pft]v1002[/pft])<br>
+					<input type="Radio" name="listOption" value="list_hits">				
+					Rango de referencias de: 
+					</font>
+					<input type="text" name="listHit" maxlength="6" size="4" onFocus="document.Option.listOption[1].checked = true">
+					<font face="Arial" size="2">&nbsp;a:&nbsp;</font>
+	                <input type="text" name="listHit" maxlength="6" size="4" onFocus="document.Option.listOption[1].checked = true"><br>
+					[pft]if p(v6210) then[/pft]	
+						<input type="Radio" name="listOption" value="list_selected" checked>
+					[pft]else[/pft]
+						&nbsp;<img src="[pft]v5002[/pft]radio.gif" border="0">	
+					[pft]fi[/pft]
+				
+    	            <font face="Arial" size="2">Referencias seleccionadas [pft]if p(v6210) then '('f(nocc(v6210),1,0)')' fi[/pft]<br></font>
+	            </td>
+			</tr>
+			</table>			
+		</td>
+		<tr>
+			<td nowrap>			
+			<font face="Verdana" size="1">Opciones de envio</font><p>
+			<font face="arial" size="2">
+			&nbsp;&nbsp;&nbsp;&nbsp;<input type="Radio" name="sendOption" value="print" checked>enviar para impresión<p>
+			&nbsp;&nbsp;&nbsp;&nbsp;<input type="Radio" name="sendOption" value="save">enviar para su computadora en el formato
+			<select name="saveFileType" onFocus="document.Option.sendOption[1].checked = true">
+			[pft]if v5018^f : 'XML' then[/pft]
+					<option value="xml">XML</option>
+			[pft]fi[/pft]						
+			<option value="html">HTML</option>
+			<option value="iso">ISO 2709 (MicroIsis)</option>
+				
+			</select><p>
+			
+			[pft]if v5018^e = 'ON' then[/pft]
+				&nbsp;&nbsp;&nbsp;&nbsp;<input type="Radio" name="sendOption" value="e-mail">enviar para el e-mail:&nbsp;&nbsp;</font>
+				<input type="text" name="sendToEmail" size="27" onFocus="document.Option.sendOption[2].checked = true"><p>
+			[pft]fi[/pft]	
+						
+			<div align="center">
+				<a href="javascript:history.back()"><img src="[pft]v5002[/pft]cancel.gif" border="0"></a>&nbsp;
+				<input type="image" src="[pft]v5002[/pft]send.gif" border="0">
+				</div>			
+        </td>
+    </tr>
+  </table>
+  </center>
+</form>
+</body>
+</html>

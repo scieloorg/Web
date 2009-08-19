@@ -1,0 +1,1 @@
+./doaj_geraXML.sh

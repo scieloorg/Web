@@ -1,0 +1,172 @@
+.container {
+	margin: 0 auto;
+	min-width: 760px;
+	max-width: 1004px;
+	width: 1004px;
+}
+
+.top H1 {
+	display: block;
+	float: left;
+	width: 126px;
+	height: 85px;
+	margin: 0px;
+}
+
+.top .bar {
+	float: right;
+}
+
+.top .bar #otherVersions, .top .bar #contact {
+	float: left;
+}
+
+.top .bar #contact {
+	margin-left: 18px;
+	padding-right: 20px;
+}
+
+.top #globalNav {
+	float: left;
+	margin: 20px 0px 0px 90px;
+}
+
+.top #globalNav #issueNav, .top #globalNav #searchArticles, .top #globalNav #alfabeticList {
+	margin-right: 6px;
+}
+
+.top #globalNav #issueNav, .top #globalNav #searchArticles, .top #globalNav #alfabeticList, .top #globalNav #feedSection {
+	float: left;
+}
+
+.top #globalNav #alfabeticList {
+	margin-top: 13px;
+}
+
+.top #globalNav #feedSection {
+	margin: 23px 0px 0px 15px;
+}
+
+.top #globalNav .navlabel {
+	height: 10px;
+	margin-bottom: 2px;
+}
+
+.top #globalNav .navlabel SPAN {
+	margin: -10px 0px 0px 4px;
+	display: inline-block;
+	padding: 0px 2px;
+}
+
+.top #globalNav .navButton {
+	float: left;
+	padding: 2px;
+}
+
+.middle .leftCol, .middle .mainContent, .middle .rightCol {
+	float: left;
+}
+
+.middle .leftCol {
+	width: 21%;
+	clear: left;
+	padding-right: 12px;
+}
+
+.middle .mainContent {
+	width: 55%;
+	padding: 0px 12px;
+}
+
+.middle .rightCol {
+	width: 19%;
+	padding-left: 12px;
+}
+
+.middle .leftCol #lastUpdate {
+	display: block;
+}
+
+.middle .leftCol UL {
+	margin: 20px 0px 0px 0px;
+	padding: 0px;
+}
+
+.middle .leftCol LI {
+	margin: 4px 0px;
+	padding-left: 12px;
+}
+
+.middle .leftCol LI#btn_submission {
+	margin: 12px 0px;
+	padding: 0px;
+}
+
+.middle .leftCol LI#btn_submission A {
+	display: block;
+	width: 98px;
+	height: 34px;
+}
+
+
+.middle .mainContent .journalLogo {
+	text-align: center;
+}
+
+.middle H2 {
+	margin: 20px 0px 4px 0px;
+}
+
+.middle .rightCol H2 {
+	margin: 0px 0px 4px 0px;
+}
+
+.middle .mainContent .search .midium {
+	padding: 2px 4px;
+	width: 33%;
+}
+
+.middle .mainContent .search .mini {
+	width: 24.5%;
+}
+
+.middle .mainContent .journalInfo {
+	margin-top: 40px;
+}
+
+.middle .mainContent .journalInfo .journalTitle {
+	display: block;
+}
+
+.middle .mainContent P {
+	margin: 4px 0px;
+}
+
+.middle .rightCol UL.pressReleases {
+	padding: 0px;
+	margin: 0px;
+}
+
+.middle .rightCol UL.pressReleases LI {
+	margin: 4px 0px 8px 0px;
+}
+
+.middle .rightCol UL.pressReleases LI SPAN {
+	display: block;
+}
+
+.footer {
+	clear: both;
+	margin-top: 20px;
+	padding: 20px;
+}
+
+.footer P {
+	margin: 0px;
+}
+
+.spacer {
+	clear: both;
+}
+
+

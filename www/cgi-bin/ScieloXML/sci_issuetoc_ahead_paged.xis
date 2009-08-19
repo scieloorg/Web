@@ -1,0 +1,280 @@
+	 
+<function name="CreateArticleListXMLAheadPaginada" action="replace" tag=4001>
+<!-- Create Article List
+     4001^p - PID 
+	 4001^l - Interface Language 
+	 4001^i - International Language 
+	 4001^s - Issue MFN 
+	 4001^f - page
+	 
+	 -->
+	<display><pft>'<!-- aqui comeca ahead-->'</pft></display>
+	
+  <field action="import" tag="list">7009/7060</field> <!--fixed-->
+	
+  <field action="import" tag="list">5101</field>
+  <field action="replace" tag="6000" split="occ"><pft>(replace(v4001[1],v4001^p[1],v5101^*)/)</pft></field>
+  <call name="translateSectionName"><pft>if p(v5101^x[1]) then '^l',v4001^l,'^s',v5101^x[1] fi</pft></call>
+
+	<list action="load" type="sort"><pft>(v6000/)</pft></list>
+ <display><pft>'<!--',v6000,'-->'/</pft></display>
+	<field action="delete" tag="list">6000</field>
+	<do task="list">
+	     
+	     <field action="define" tag="1">Isis_Item</field>
+	     <loop>
+			<field action="import" tag="list">6000</field>
+			<field action="add" tag="6000"><pft>v1</pft></field>
+			<field action="export" tag="list">6000</field>
+		</loop>
+	</do>
+	<list action="delete">now</list>
+ <display><pft>'<!--',v6000,'-->'/</pft></display>
+
+	<!-- Verifica a quantidade, necessidade de paginacao -->
+    <flow action="jump"><pft>if a(v7053) then 'LISTA' fi</pft></flow>
+
+	<list action="load" type="list"><pft>(v6000/)</pft></list>
+	<field action="replace" tag="9122">0</field>
+	<do task="list">
+	     <field action="define" tag="1001">Isis_Current</field>
+	     <field action="define" tag="1002">Isis_Items</field>
+	     <field action="define" tag="1">Isis_Item</field>
+	     <loop>
+
+			<field action="import" tag="list">9122</field>
+					 <display><pft>'<!--',v1,'-->'/</pft></display>
+
+			<field action="replace" tag="122">0</field>
+		 	<do task="search">
+				<parm name="db">ARTIGO</parm>
+				<parm name="expression"><pft>'SM='v1^p'$'</pft></parm>
+				<parm name="count">1</parm>
+				<field action="define" tag="122">Isis_Total</field>
+				<loop>
+					<field action="export" tag="list">122</field>
+			   
+				</loop>
+		    </do>
+			<field action="replace" tag="9122"><pft>f(val(v9122)+val(v122),1,0)</pft></field>
+			<field action="export" tag="list">9122</field>
+<display><pft>'<!--',v122/,v9122,'-->'/</pft></display>
+		</loop>
+	</do>
+	<list action="delete">now</list>
+
+	<display><pft>'<!--',v9122,'-->'/</pft></display>
+	
+    <flow action="jump"><pft>if val(v9122)<= val(v7053) then 'LISTA' fi</pft></flow>
+
+	<!-- Criar elemento PAGES -->
+	<list action="load" type="list"><pft>(v6000/)</pft></list>
+	<field action="replace" tag="9122">0</field>
+	<field action="replace" tag="1000">0</field>
+	<field action="replace" tag="2000">0</field>
+
+	<display><pft>'<PAGES>'</pft></display>
+	<do task="list">
+	     <field action="define" tag="3331">Isis_Current</field>
+	     <field action="define" tag="3332">Isis_Items</field>
+	     <field action="define" tag="1">Isis_Item</field>
+	     <loop>
+		 <display><pft>'<!--',v1,'-->'/</pft></display>
+			<field action="import" tag="list">7053</field>
+			<field action="import" tag="list">1000,2000,2001</field>
+			<field action="replace" tag="122">0</field>
+			<do task="keyrange">
+			   <parm name="db">ARTIGO</parm>
+
+			   <parm name="from"><pft>'SM='v1^p</pft></parm>
+			   <parm name="to"><pft>'SM='v1^p'9'</pft></parm>
+			   
+			   <parm name="posting"><pft>'ALL'</pft></parm>
+
+			   <field action="define" tag="1001">Isis_Current</field>
+			   <field action="define" tag="1002">Isis_Key</field>
+			   <field action="define" tag="1003">Isis_Posting</field>
+			   <field action="define" tag="1004">Isis_Postings</field>
+			   
+			   <loop>
+					<field action="import" tag="list">1000,2000,1,7053,2001</field>
+					<display><pft>
+					'<!--'/
+					'v2000:',v2000/
+					'v1^f:',v1^f/,'v2001:',v2001/
+					'-->'/
+					</pft></display>
+
+					<field action="replace" tag="1000"><pft>if val(v1000)< val(v7053) then f(val(v1000)+1,1,0) else '1' fi</pft></field>
+					<field action="replace" tag="2000"><pft>if v1000='1' then f(val(v2000)+1,1,0) fi</pft></field>
+					<display><pft>if v1000='1' then '<PAGE number="',v2000,'" ',
+					,if v2000=v1^f or (a(v1^f) and v2000='1') then ' selected="true"' fi
+					,'/>' fi</pft></display>
+					<field action="replace" tag="2001"><pft>if a(v2001) then if v2000=v1^f or (a(v1^f) and v2000='1')  then v1002 fi fi</pft></field>
+				   <field action="export" tag="list">1000,2000,2001</field>
+				</loop>
+			</do>
+
+			<field action="export" tag="list">9122</field>
+			<field action="export" tag="list">1000,2000,2001</field>
+		</loop>
+	</do>
+	<list action="delete">now</list>
+	<display><pft>'</PAGES>'</pft></display>
+
+	<label>LISTA</label>
+	<!-- LISTA -->
+	
+
+	<field action="replace" tag="5333">0</field>
+
+	<display>
+		 <pft>'<SECTION>'/,</pft>
+		</display>
+
+	<do>
+		<parm name="to"><pft>f(nocc(v6000),1,0)</pft></parm>
+		<field action="define" tag="6001">Isis_Current</field>
+
+        <loop>
+			<field action="import" tag="list">6000</field>
+			<field action="occ" tag="1" from="6000"><pft>v6001</pft></field>
+
+			<field action="import" tag="list">2001,7009/7060,5010,5333</field>
+			<flow action="skip"><pft>if val(v5333)>val(v7053) then 'Quit' fi</pft></flow>
+			<do task="keyrange">
+			   <parm name="db">ARTIGO</parm>
+			   <parm name="from"><pft>if p(v2001) then v2001 else 'SM='v1^p, if v2003='On' then '9' fi fi </pft></parm>
+			   <parm name="to"><pft>'SM='v1^p, if v2003<>'On' then '9' fi</pft></parm>
+			   <parm name="count"><pft>v7053</pft></parm>
+			   <parm name="posting"><pft>'ALL'</pft></parm>
+			   <parm name="reverse"><pft>v2003</pft></parm>
+
+			   <field action="define" tag="1001">Isis_Current</field>
+			   <field action="define" tag="1002">Isis_Key</field>
+			   <field action="define" tag="1003">Isis_Posting</field>
+			   <field action="define" tag="1004">Isis_Postings</field>
+			   
+			   <field action="replace" tag="2000"><pft>'-'</pft></field>
+			  
+			   <loop>
+					<field action="import" tag="list">2000,2001,1,7009/7060,5333</field> <!--fixed-->
+
+					<flow action="skip"><pft>ref(['ARTIGO']val(v1003^m),@PROC_SPLIT_MST.PFT,if p(v222) then 'Next' fi)</pft></flow>
+
+					<field action="replace" tag="5333"><pft>f(val(v5333)+1,1,0)</pft></field>
+					<field action="export" tag="list">5333</field> <!--fixed-->
+					<flow action="skip"><pft>if val(v5333)>val(v7053) then 'Quit' fi</pft></flow>
+
+					<call name="CreateArticleListXMLAheadPaginada2"><pft>v1003</pft></call>
+				<field action="delete" tag="list">2001</field>
+					<field action="export" tag="list">2000,2001</field>
+			   </loop>
+		  </do> 
+  
+		 <field action="export" tag="list">2001</field>
+            <field action="export" tag="list">5333</field>
+		</loop>
+	</do>
+	<list action="delete">now</list>
+		<display>
+		 <pft>'</SECTION>'/,</pft>
+		</display>
+
+  <display><pft>'<!-- aqui termina -->'</pft></display>
+	<label>xxx</label>
+</function>
+<function name="CreateArticleListXMLAheadPaginada2" action="replace" tag="1003">
+<!-- 2000 - Section Code -->
+		<field action="import" tag="list">2000,1</field> <!--fixed-->
+<field action="import" tag="list">7009/7060</field>
+		<field action="import" tag="list">5010</field> <!--fixed-->
+		<field action="replace" tag="1005"><pft>f(val(v1003^m)+1,1,0)</pft></field>
+		
+		<field action="replace" tag="40" split="occ">
+					<pft>
+			ref(['ARTIGO']val(v1003^m),@PROC_SPLIT_MST.PFT,(v40/))
+					</pft>
+		</field>
+		<field action="replace" tag="12" split="occ">
+					<pft>
+			ref(['ARTIGO']val(v1005),@PROC_SPLIT_MST.PFT,(v12/))
+					</pft>
+		</field>
+		<field action="replace" tag="880" split="occ">
+					<pft>
+			ref(['ARTIGO']val(v1003^m),@PROC_SPLIT_MST.PFT,v880)
+					</pft>
+		</field>
+		<field action="replace" tag="123" split="occ">
+					<pft>
+			ref(['ARTIGO']val(v1003^m),@PROC_SPLIT_MST.PFT,(if a(v123) then '0' else v123 fi))
+			</pft>
+		</field>
+		<field action="replace" tag="49" split="occ">
+					<pft>
+			ref(['ARTIGO']val(v1003^m),@PROC_SPLIT_MST.PFT,(v49/))
+					</pft>
+		</field>
+	<!--display><pft>ALL</pft></display-->
+		<!-- Check for section : 999-Current Section Code -->
+		<field action="replace" tag="999">
+		 <pft>s(mpu,v49,mpl)</pft>
+		</field>
+		
+		<!-- 4010 - GetSectionName Output -->
+		<field action="delete" tag="4010">ALL</field>
+			
+		<flow action="jump">
+		 <pft>if a(v999) then if a(v2000) then 'SAME_SECTION' else 'NO_SECTION_NAME' fi
+			   else
+			   if v2000=v999 then 'SAME_SECTION'
+				else 
+				 if v999='ND' or v999='nd' then 'NO_SECTION_NAME' fi
+			   fi
+			  fi</pft>
+		</flow>
+
+		<call name="GetSectionName">
+		 <pft>'^l'v1^l'^c'v999'^s'v1^s'^i'v1^i,'^p'v1^p*0.17</pft>
+		</call>
+		
+		<label>NO_SECTION_NAME</label>
+		<!--display>
+		 <pft>if s(v2000)<>'-' then '</SECTION>'/ fi,'<SECTION>'/,|<NAME><![CDATA[|v4010|]]></NAME>|/,|<NAME><![CDATA[|v5010|]]></NAME>|/,</pft>
+		</display-->
+
+		
+		<field action="delete" tag="2000">ALL</field>
+		<field action="replace" tag="2000"><pft>v999</pft></field>	
+		
+		<label>SAME_SECTION</label>	
+		<display><pft>'<ARTICLE ',|PID="|v880|"|,| TEXT_LANG="|v40|"|
+			 ,ref(['ARTIGO']val(v1003^m),@PROC_SPLIT_MST.PFT,,' entrdate="',v265,'"'),
+			 
+
+		</pft></display>
+		<display><pft>'>'/</pft></display>
+
+		<field action="replace" tag="264"><pft>ref(['ARTIGO']val(v1003^m),@PROC_SPLIT_MST.PFT,v264)</pft></field> 
+		<call name="showText"><pft>v264</pft></call>
+		<display><pft>if p(v264) then '<EMBARGO date="',v264,'" text="',v8264,'"/>'/ fi</pft></display>
+
+
+		<call name="insertElementRelatedToDocument"><pft>ref(['ARTIGO']val(v1003^m),@PROC_SPLIT_MST.PFT,if p(v241) or p(v41) then  ,(v880[1],|^a|v241,|^x|v41/) fi)</pft></call>
+		<field action="replace" tag="4040" split="occ"><pft>(v12^l/), if a(v12) then v40 fi</pft></field> 
+		
+		<call name="CreateLanguageXML"><pft>'^l'v1^l'^i'v1^i'^m'v1003^m'^ssci_issuetoc'</pft></call>
+		
+		<!-- The title is present but is not going to be shown? -->
+		<flow action="jump"><pft>if v123='2' then 'END' fi</pft></flow> 
+
+		<display><pft>'<test>','^r'v1003^m'^l'v1^l'^i'v1^i,'</test>'</pft></display>
+		<call name="CreateArticleTitle1XML"><pft>'^r'v1005'^l'v1^l'^i'v1^i</pft></call>
+		<call name="CreateAuthorsGroupXML"><pft>v880,'^nNOUPPER'</pft></call>
+		
+		<label>END</label>
+		<display><pft>'</ARTICLE>'/</pft></display>
+
+		<field action="export" tag="list">2000</field>
+</function>

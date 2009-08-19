@@ -1,0 +1,154 @@
+<function name="CreateArticleReferenceXML" action="replace" tag=4001>
+<!--
+    v4001^t - mfn title
+    v4001^i - mfn issue
+    v4001^a - mfn article
+    v4001^l - interface language
+    v4001^s - default language
+    v4001^o - (original or translation) text language 
+    v4001^r - number of requests
+    v4001^f - page type: abs - abstract style
+                         sws - scielo web services style
+                         sta - statistics style
+-->
+    <field action="import" tag="list">7009/7060</field> <!-- fixed 20040112 -->
+    
+<!--    <field action="replace" tag="3000"><pft>v4001^l</pft></field>
+    <field action="replace" tag="3003"><pft>v4001^s</pft></field>
+    <field action="replace" tag="3012"><pft>v4001^o</pft></field>
+-->
+	<do task="mfnrange">
+		<parm name="db">ARTIGO</parm>	
+		<parm name="from"><pft>v4001^a</pft></parm>
+		<parm name="count">1</parm>
+			
+		<loop>
+            <display><pft>@PROC_SPLIT_MST.PFT,</pft></display>
+			<field action="import" tag="list">4001,7009/7060</field> <!-- fixed -->
+
+            <field action="replace" tag="3000">
+                <pft>
+                    if v4001^f = 'sws' then
+                        v40
+                    else
+                        v4001^l
+                    fi
+                </pft>
+            </field>
+            
+            <field action="replace" tag="3003">
+                <pft>
+                    if v4001^f = 'sws' then
+                        v40
+                    else
+                        v4001^s
+                    fi
+                </pft>
+            </field>
+            
+            <field action="replace" tag="3012">
+                <pft>
+                    if v4001^f = 'sws' then
+                        v40
+                    else
+                        v4001^o
+                    fi
+                </pft>
+            </field>
+			
+            <display>
+                <pft>
+                    '<ARTICLE',| TEXT_LANG="|v40|"|,| TEXTLANG="|v40|"|,
+                    if p(v14^f) then
+                        ' FPAGE="',v14^f,'"'
+                    fi,
+                    if p(v14^l) then
+                        ' LPAGE="',v14^l,'"'
+                    fi,
+                    | PID="|v880|"|,
+                    | REQUESTS="|v4001^r|"|
+		 ,' CURR_DATE="',mid(date,1,8),'"'
+		 ,' ahpdate="',v223,'"'
+         ,' entrdate="',v265,'"'
+         ,' RELATED="',ref(['related']l(['related']v880),f(nocc(v88),2,0)),'"',
+		 ,' CITED="',ref(['cited']l(['cited']v880),f(nocc(v88),2,0)),'"'
+         if v7052 = '1' then
+		    ,' PROJFAPESP="',ref(['PROJFAPESP']l(['PROJFAPESP'],'SCI=',v880),f(nocc(v88),2,0)),'"',
+	     fi
+		 ,' AREASGEO="',ref(['areasgeo']l(['areasgeo']v880),f(nocc(v880),2,0)),'"'
+		 ,' PROCESSDATE="',ref(l('OU=',v880),proc(if val(v32701^m) > 0 then,'R../bases/artigo/',v32701^*,',',v32701^m , fi),v91),'"',
+                </pft>
+            </display>
+            
+<call name="getDOI"><pft>v880</pft></call>
+<call name="showText"><pft>v264</pft></call>
+
+			<call name="TestPDFPresence"><pft>if v8264<>'no' then v880 fi</pft></call>
+			
+			<display><pft>'>'/#</pft></display>
+			<display><pft>if p(v264) then '<EMBARGO date="',v264,'" text="',v8264,'"/>'/ fi</pft></display>
+
+            <call name="CreateLattesGroupXML">
+                <pft>
+                    if v4001^f <> 'sta' then v880 fi
+                </pft>
+            </call>
+
+            <call name="CreateProjetoFAPESP"><pft>if v7052 = '1' then v880 fi</pft></call>
+           
+            <call name="CreateLanguageXML">
+                <pft>
+                    '^l'v3000'^i'v3003'^m',mfn,"^t"v3012,
+                    if v4001^f = 'abs' then '^ssci_abstract' fi
+                </pft>
+            </call>
+			<call name="CreateTitleGroupXML"><pft>if v4001^f = 'sws' then v4001^t fi</pft></call>
+
+            <!-- FIXME 20040902
+                WORKAROUND: When there is an article record in article database but there isn´t a corresponding issue record in newissue database, 
+                the v4001^i variable is zero. In this case, the CreateArtIssueInfoXML function crashes. To avoid this, I first check the value of
+                v4001^i before passing the parameters to the function. There could be a better aproach...
+            -->
+			<call name="CreateArtIssueInfoXML"><pft>if val(v4001^i) > 0 then v4001^i,'^l',v3000,'^i',v3003 fi </pft></call>
+			
+            <flow action="jump">
+                <pft>
+                    if v4001^f = 'abs' then 'ABSTRACT' fi
+                </pft>
+            </flow>
+
+            <call name="CreateArticleTitle1XML">
+                <pft>
+                    '^r'v4001^a'^l'v3000'^i'v3003,
+                    if v4001^f = 'sws' then '^f1' fi
+                </pft>
+            </call>
+            
+            <flow action="jump">AUTHORS</flow>
+
+            <label>ABSTRACT</label>
+
+			<!--call name="CreateArticleTitleOrSectionXML"><pft>mfn</pft></call-->
+   			<field action="replace" tag="3100"><pft>v4001^o</pft></field>
+   			<call name="CreateArticleTitleForReference"><pft>mfn</pft></call>
+            
+            <label>AUTHORS</label>
+
+			<call name="CreateAuthorsGroupXML"><pft>v880</pft></call>
+
+			<call name="CreateArticleAbstractXML">
+                <pft>
+                    if v4001^f <> 'sta' then (v83/) fi
+                </pft>
+            </call>
+				
+			<call name="CreateKeywordsGroupXML">
+                <pft>
+                    if v4001^f <> 'sta' then (v85/) fi
+                </pft>
+            </call>
+			
+			<display><pft>' </ARTICLE>'/#</pft></display>
+		</loop>
+	</do>
+</function>		

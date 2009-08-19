@@ -1,0 +1,33 @@
+
+,proc('d9001d9002',
+		if v5021 ='p' then 'a9001~pt~a9002~^1ISSN^2versão impressa^3Publicação de~' fi
+		if v5021 ='e' then 'a9001~es~a9002~^1ISSN^2versión impresa^3Publicación del~' fi
+		if v5021 ='i' then 'a9001~en~a9002~^1Print ISSN^2^3Publication of the~' fi
+,),		
+
+,@places.pft,
+'<table width="100%">',
+'<tr><td width="18%">&nbsp;</td>',
+
+,proc('d8851d8856',
+     ,ref(['facic']l(['facic'],'SEQ=',v400,'-001'),
+          ,'a8851{',v1,'{',
+          ,'a8856{',v6,'{',
+         ,),
+     ,),
+
+    ,'<td><font face="arial" size="2">',
+    ,if s(v8856)='001' then
+       ,'<a href="http://',v7990,v7991,'sci_serial','&lng=',v9001,'&pid=',v400,'">',v100,| - |v110,'</a>',
+    ,else
+       ,v100,| - |v110,
+    ,fi,
+	,'<br><br>',
+	,v9002^1,'<font color="#000080">&nbsp;',v400,'</font><br><i>',v9002^2'</i><br><br>'	
+	,v9002^3,'<br><font color="#000080">',v480,'</font><br><br>',
+
+
+	,'</td>',
+	,'</tr>',
+	
+'</table>'

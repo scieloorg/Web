@@ -1,0 +1,550 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by Organização PanAmericana da Saúde Bireme (Organização PanAmericana da Saúde Bireme) -->
+<texts>
+	<language id="pt">
+		<text>
+			<find>doiNotFound</find>
+			<replace>Nenhum registro encontrado</replace>
+		</text>
+		<text>
+			<find>notFound</find>
+			<replace>Referências não encontradas</replace>
+		</text>
+		<text>
+			<find>dataFound</find>
+			<replace>Dados não encontrados</replace>
+		</text>
+		<text>
+			<find>scieloNetwork</find>
+			<replace>Rede Scielo</replace>
+		</text>
+		<text>
+			<find>similarLink</find>
+			<replace>Similares em:</replace>
+		</text>
+		<text>
+			<find>tryLink</find>
+			<replace>Tente links no:</replace>
+		</text>
+		<text>
+			<find>linksTo</find>
+			<replace>Links para:</replace>
+		</text>
+		<text>
+			<find>findReferenceOnLine</find>
+			<replace>Links</replace>
+		</text>
+		<text>
+			<find>cited_by</find>
+			<replace>citado por:</replace>
+		</text>
+		<text>
+			<find>full_text</find>
+			<replace>texto completo</replace>
+		</text>
+		<text>
+			<find>similarity_search</find>
+			<replace>Busca por similaridade</replace>
+		</text>
+		<text>
+			<find>similarity</find>
+			<replace>Similaridade: </replace>
+		</text>
+		<text>
+			<find>results_founded</find>
+			<replace>resultados encontrados</replace>
+		</text>
+		<text>
+			<find>cited_by</find>
+			<replace>citado por:</replace>
+		</text>
+		<text>
+			<find>contact</find>
+			<replace>contato</replace>
+		</text>
+		<text>
+			<find>scielo.org</find>
+			<replace>SciELO.org - Scientific Electronic Library Online</replace>
+		</text>
+		<text>
+			<find>wasnt_cited</find>
+			<replace>Este artigo não possui citações</replace>
+		</text>
+		<text>
+			<find>related_to</find>
+			<replace>similar a</replace>
+		</text>
+		<text>
+			<find>doesnt_related</find>
+			<replace>Não existe artigo similar a este</replace>
+		</text>
+		<text>
+			<find>doesnt_comment</find>
+			<replace>Este artigo ainda não foi comentado.</replace>
+		</text>
+		<text>
+			<find>arg</find>
+			<replace>Argentina</replace>
+			<url>http://www.scielo.org.ar</url>
+		</text>
+		<text>
+			<find>scl</find>
+			<replace>Brasil</replace>
+			<url>http://www.scielo.br</url>
+		</text>
+		<text>
+			<find>chl</find>
+			<replace>Chile</replace>
+			<url>http://www.scielo.cl</url>
+		</text>
+		<text>
+			<find>col</find>
+			<replace>Colômbia</replace>
+			<url>http://www.scielo.org.co</url>
+		</text>
+		<text>
+			<find>cri</find>
+			<replace>Costa Rica</replace>
+			<url>http://www.scielo.sa.cr</url>
+		</text>
+		<text>
+			<find>cub</find>
+			<replace>Cuba</replace>
+			<url>http://www.scielo.sld.cu</url>
+		</text>
+		<text>
+			<find>spa</find>
+			<replace>Saúde Pública</replace>
+			<url>http://www.scielosp.org</url>
+		</text>
+		<text>
+			<find>sss</find>
+			<replace>Social Sciences</replace>
+			<url>http://socialsciences.scielo.org</url>
+		</text>
+		<text>
+			<find>esp</find>
+			<replace>Espanha</replace>
+			<url>http://scielo.isciii.es</url>
+		</text>
+		<text>
+			<find>mex</find>
+			<replace>México</replace>
+			<url>http://www.scielo.org.mx</url>
+		</text>
+		<text>
+			<find>per</find>
+			<replace>Perú</replace>
+			<url>http://www.scielo.org.pe</url>
+		</text>
+		<text>
+			<find>prt</find>
+			<replace>Portugal</replace>
+			<url>http://www.scielo.oces.mctes.pt</url>
+		</text>
+		<text>
+			<find>pry</find>
+			<replace>Paraguay</replace>
+			<url>http://scielo.iics.una.py</url>
+		</text>
+		<text>
+			<find>ury</find>
+			<replace>Uruguai</replace>
+			<url>http://www.scielo.edu.uy</url>
+		</text>
+		<text>
+			<find>wid</find>
+			<replace>West Indian</replace>
+			<url>http://caribbean.scielo.org</url>
+		</text>
+		<text>
+			<find>cec</find>
+			<replace>Ciência e Cultura</replace>
+			<url>http://cienciaecultura.bvs.br/</url>
+		</text>
+		<text>
+			<find>inv</find>
+			<replace>Inovação</replace>
+			<url>http://inovacao.bvs.br/</url>
+		</text>
+		<text>
+			<find>pro</find>
+			<replace>Proceedings</replace>
+			<url>http://www.proceedings.scielo.br</url>
+		</text>
+		<text>
+			<find>the</find>
+			<replace>Thesis</replace>
+			<url>http://portalteses.cict.fiocruz.br/</url>
+		</text>
+		<text>
+			<find>ven</find>
+			<replace>Venezuela</replace>
+			<url>http://www.scielo.org.ve</url>
+		</text>
+	</language>
+	<language id="es">
+		<text>
+			<find>doiNotFound</find>
+			<replace>Registros no encontrados</replace>
+		</text>
+		<text>
+			<find>notFound</find>
+			<replace>Referencias no encontradas</replace>
+		</text>
+		<text>
+			<find>dataFound</find>
+			<replace>Datos no encontrados</replace>
+		</text>
+		<text>
+			<find>doesnt_comment</find>
+			<replace>No comentarios para este artículo.</replace>
+		</text>
+		<text>
+			<find>scieloNetwork</find>
+			<replace>Red Scielo</replace>
+		</text>
+		<text>
+			<find>similarLink</find>
+			<replace>Similares en:</replace>
+		</text>
+		<text>
+			<find>tryLink</find>
+			<replace>Intente links en:</replace>
+		</text>
+		<text>
+			<find>linksTo</find>
+			<replace>Links para:</replace>
+		</text>
+		<text>
+			<find>findReferenceOnLine</find>
+			<replace>Links</replace>
+		</text>
+		<text>
+			<find>cited_by</find>
+			<replace>citado por</replace>
+		</text>
+		<text>
+			<find>full_text</find>
+			<replace>texto completo</replace>
+		</text>
+		<text>
+			<find>similarity_search</find>
+			<replace>Búsqueda por similaridad</replace>
+		</text>
+		<text>
+			<find>similarity</find>
+			<replace>Similaridad: </replace>
+		</text>
+		<text>
+			<find>results_founded</find>
+			<replace>resultados encontrados</replace>
+		</text>
+		<text>
+			<find>cited_by</find>
+			<replace>citado por</replace>
+		</text>
+		<text>
+			<find>contact</find>
+			<replace>contacto</replace>
+		</text>
+		<text>
+			<find>scielo.org</find>
+			<replace>SciELO.org - Scientific Electronic Library Online</replace>
+		</text>
+		<text>
+			<find>wasnt_cited</find>
+			<replace>no hay citación para el artículo</replace>
+		</text>
+		<text>
+			<find>related_to</find>
+			<replace>similar a</replace>
+		</text>
+		<text>
+			<find>doesnt_related</find>
+			<replace>no hay artículos similares</replace>
+		</text>
+		<text>
+			<find>arg</find>
+			<replace>Argentina</replace>
+			<url>http://www.scielo.org.ar</url>
+		</text>
+		<text>
+			<find>scl</find>
+			<replace>Brasil</replace>
+			<url>http://www.scielo.br</url>
+		</text>
+		<text>
+			<find>chl</find>
+			<replace>Chile</replace>
+			<url>http://www.scielo.cl</url>
+		</text>
+		<text>
+			<find>col</find>
+			<replace>Colombia</replace>
+			<url>http://www.scielo.org.co</url>
+		</text>
+		<text>
+			<find>cri</find>
+			<replace>Costa Rica</replace>
+			<url>http://www.scielo.sa.cr</url>
+		</text>
+		<text>
+			<find>cub</find>
+			<replace>Cuba</replace>
+			<url>http://www.scielo.sld.cu</url>
+		</text>
+		<text>
+			<find>spa</find>
+			<replace>Salud Publica</replace>
+			<url>http://www.scielosp.org</url>
+		</text>
+		<text>
+			<find>sss</find>
+			<replace>Social Sciences</replace>
+			<url>http://socialsciences.scielo.org</url>
+		</text>
+		<text>
+			<find>esp</find>
+			<replace>España</replace>
+			<url>http://scielo.isciii.es</url>
+		</text>
+		<text>
+			<find>mex</find>
+			<replace>México</replace>
+			<url>http://www.scielo.org.mx</url>
+		</text>
+		<text>
+			<find>per</find>
+			<replace>Perú</replace>
+			<url>http://www.scielo.org.pe</url>
+		</text>
+		<text>
+			<find>prt</find>
+			<replace>Portugal</replace>
+			<url>http://www.scielo.oces.mctes.pt</url>
+		</text>
+		<text>
+			<find>pry</find>
+			<replace>Paraguay</replace>
+			<url>http://scielo.iics.una.py</url>
+		</text>
+		<text>
+			<find>ury</find>
+			<replace>Uruguai</replace>
+			<url>http://www.scielo.edu.uy</url>
+		</text>
+		<text>
+			<find>wid</find>
+			<replace>West Indian</replace>
+			<url>http://caribbean.scielo.org</url>
+		</text>
+		<text>
+			<find>cec</find>
+			<replace>Ciencia e Cultura</replace>
+			<url>http://cienciaecultura.bvs.br/</url>
+		</text>
+		<text>
+			<find>inv</find>
+			<replace>Inovación</replace>
+			<url>http://inovacao.bvs.br/</url>
+		</text>
+		<text>
+			<find>pro</find>
+			<replace>Proceedings</replace>
+			<url>http://www.proceedings.scielo.br</url>
+		</text>
+		<text>
+			<find>the</find>
+			<replace>Thesis</replace>
+			<url>http://portalteses.cict.fiocruz.br/</url>
+		</text>
+		<text>
+			<find>ven</find>
+			<replace>Venezuela</replace>
+			<url>http://www.scielo.org.ve</url>
+		</text>
+	</language>
+	<language id="en">
+		<text>
+			<find>doesnt_comment</find>
+			<replace>This article was not commented yet</replace>
+		</text>
+		<text>
+			<find>doiNotFound</find>
+			<replace>Records not found</replace>
+		</text>
+		<text>
+			<find>notFound</find>
+			<replace>References not found</replace>
+		</text>
+		<text>
+			<find>dataFound</find>
+			<replace>Data not found</replace>
+		</text>
+		<text>
+			<find>scieloNetwork</find>
+			<replace>Scielo Network</replace>
+		</text>
+		<text>
+			<find>similarLink</find>
+			<replace>Similars in:</replace>
+		</text>
+		<text>
+			<find>tryLink</find>
+			<replace>Try link to:</replace>
+		</text>
+		<text>
+			<find>linksTo</find>
+			<replace>Links to:</replace>
+		</text>
+		<text>
+			<find>findReferenceOnLine</find>
+			<replace>Links</replace>
+		</text>
+		<text>
+			<find>cited_by</find>
+			<replace>cited by</replace>
+		</text>
+		<text>
+			<find>full_text</find>
+			<replace>full text</replace>
+		</text>
+		<text>
+			<find>similarity_search</find>
+			<replace>Similarity search</replace>
+		</text>
+		<text>
+			<find>similarity</find>
+			<replace>Similarity: </replace>
+		</text>
+		<text>
+			<find>results_founded</find>
+			<replace>results found</replace>
+		</text>
+		<text>
+			<find>cited_by</find>
+			<replace>cited by</replace>
+		</text>
+		<text>
+			<find>contact</find>
+			<replace>contact</replace>
+		</text>
+		<text>
+			<find>scielo.org</find>
+			<replace>SciELO.org - Scientific Electronic Library Online</replace>
+		</text>
+		<text>
+			<find>wasnt_cited</find>
+			<replace>This article was not cited yet</replace>
+		</text>
+		<text>
+			<find>related_to</find>
+			<replace>related to</replace>
+		</text>
+		<text>
+			<find>doesnt_related</find>
+			<replace>there is no article similiar to this</replace>
+		</text>
+		<text>
+			<find>arg</find>
+			<replace>Argentina</replace>
+			<url>http://www.scielo.org.ar</url>
+		</text>
+		<text>
+			<find>scl</find>
+			<replace>Brazil</replace>
+			<url>http://www.scielo.br</url>
+		</text>
+		<text>
+			<find>chl</find>
+			<replace>Chile</replace>
+			<url>http://www.scielo.cl</url>
+		</text>
+		<text>
+			<find>col</find>
+			<replace>Colombia</replace>
+			<url>http://www.scielo.org.co</url>
+		</text>
+		<text>
+			<find>cri</find>
+			<replace>Costa Rica</replace>
+			<url>http://www.scielo.sa.cr</url>
+		</text>
+		<text>
+			<find>cub</find>
+			<replace>Cuba</replace>
+			<url>http://www.scielo.sld.cu</url>
+		</text>
+		<text>
+			<find>spa</find>
+			<replace>Public Health</replace>
+			<url>http://www.scielosp.org</url>
+		</text>
+		<text>
+			<find>sss</find>
+			<replace>Social Sciences</replace>
+			<url>http://socialsciences.scielo.org</url>
+		</text>
+		<text>
+			<find>esp</find>
+			<replace>Spain</replace>
+			<url>http://scielo.isciii.es</url>
+		</text>
+		<text>
+			<find>mex</find>
+			<replace>Mexico</replace>
+			<url>http://www.scielo.org.mx</url>
+		</text>
+		<text>
+			<find>per</find>
+			<replace>Peru</replace>
+			<url>http://www.scielo.org.pe</url>
+		</text>
+		<text>
+			<find>prt</find>
+			<replace>Portugal</replace>
+			<url>http://www.scielo.oces.mctes.pt</url>
+		</text>
+		<text>
+			<find>pry</find>
+			<replace>Paraguay</replace>
+			<url>http://scielo.iics.una.py</url>
+		</text>
+		<text>
+			<find>ury</find>
+			<replace>Uruguay</replace>
+			<url>http://www.scielo.edu.uy</url>
+		</text>
+		<text>
+			<find>wid</find>
+			<replace>West Indian</replace>
+			<url>http://caribbean.scielo.org</url>
+		</text>
+		<text>
+			<find>cec</find>
+			<replace>Culture &amp; Science</replace>
+			<url>http://cienciaecultura.bvs.br/</url>
+		</text>
+		<text>
+			<find>inv</find>
+			<replace>Inovação</replace>
+			<url>http://inovacao.bvs.br/</url>
+		</text>
+		<text>
+			<find>pro</find>
+			<replace>Proceedings</replace>
+			<url>http://www.proceedings.scielo.br</url>
+		</text>
+		<text>
+			<find>the</find>
+			<replace>Thesis</replace>
+			<url>http://portalteses.cict.fiocruz.br/</url>
+		</text>
+		<text>
+			<find>ven</find>
+			<replace>Venezuela</replace>
+			<url>http://www.scielo.org.ve</url>
+		</text>
+	</language>
+</texts>
