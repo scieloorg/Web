@@ -12,7 +12,8 @@ error_reporting(1);
 
 	require_once(dirname(__FILE__)."/../../classes/services/AccessServiceBar.php");
 	$accessService = new AccessService();
-	$accessService->setParams($_REQUEST['pid']);
+    $accessService->setParam('pid',$_REQUEST['pid']);
+    $accessService->setParam('app',$scielomaindef["SITE_INFO"][APP_NAME]);
 	$startYear = $_REQUEST['startYear'];
 	$lastYear = $_REQUEST['lastYear'];
 	
