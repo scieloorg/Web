@@ -32,7 +32,7 @@ function get_titulo($pid) {
 function monta_proc($access) {
   	if ($access=='') { $access=0; }
   	$proc_access="\"proc=if val(v999) < val('$access') then 'd*' fi\"";
-  	return $proc_access;  
+  	return $proc_access;
 }
 
 function total_registros($result) {
@@ -41,9 +41,9 @@ function total_registros($result) {
 	   if ($array_regs[$i]!='') {
 	       $regs=$array_regs[$i]-1;
 	   	   $i=count($array_regs);
-	   }  
+	   }
 	}
-  return $regs;	
+  return $regs;
 }
 
 function primeira_data($db_data) {
@@ -62,7 +62,7 @@ function ultima_data($db_data) {
   	$OP=$defFile["PATH"]["PATH_PROC"]."/cisis/mx $db_data from=$regs count=\"1\" \"pft=v1\" now";
   	$result=exec($OP);
   	$dtf=$result;
-  	return $dtf;	
+  	return $dtf;
 }
 
 function busca_mfnini($dti,$db_data) {
@@ -73,8 +73,8 @@ function busca_mfnini($dti,$db_data) {
   	$mfn_ini=$array_mfn[0];
   	if ($mfn_ini=="Hits=0") {
 		$mfn_ini = 0;
-  	} 
-  	return $mfn_ini;	
+  	}
+  	return $mfn_ini;
 }
 
 function busca_mfnfim($dtf,$db_data) {
@@ -87,15 +87,15 @@ function busca_mfnfim($dtf,$db_data) {
     		$mfn_fim='99999999';
  		}
 	return $mfn_fim;
-}	
+}
 
 function arredonda($var1) {
-	$len=strlen($var1)-1; 
+	$len=strlen($var1)-1;
 	$int=substr($var1, 0, 1);
 	for($i;$i<$len;$i++) {
 	   $int=$int."0";
 	}
-	return $int; 
+	return $int;
 }
 
 function calcula_list_box($val) {
@@ -126,11 +126,11 @@ function calcula_list_box_XML($val) {
 }
 
 function calcula_from($cpage,$nlines) {
-  if ($cpage==1) { 
+  if ($cpage==1) {
      $from=1;  }
   else {
      $from=(($cpage-1)*$nlines)+1; }
- 
+
   return $from;
 }
 
@@ -160,7 +160,7 @@ function monta_bool_array($pid,$str) {
       for ($j=0;$j < count($pid);++$j) {
 	  	$issn=$issn.$pid[$j];
 		if (count($pid)!="1" && $j!=(count($pid)-1)) {
-		  $issn=$issn." or ";		
+		  $issn=$issn." or ";
 		}
 	  }
 	  $issn=$issn.")";
