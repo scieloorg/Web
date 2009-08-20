@@ -6,7 +6,6 @@ include_once("../applications/scielo-org/users/langs.php");
 	include_once ("include_grafico.php");
      
     
-
 ?>
 <html>
 <head>
@@ -92,8 +91,7 @@ else
     <?php
         //$titles = $log->GetTitles (false);
         //$log->destroy();
-	    $titles=lista_titulos(); 
-	
+	$titles=lista_titulos();
         for ($i = 0; $i < count($titles); $i++)
         {
             echo "<option value=\"" . $titles[$i]["issn"] . "\">" . $titles[$i]["title"] . "</option>\n";
