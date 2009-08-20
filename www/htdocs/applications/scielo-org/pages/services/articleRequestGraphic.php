@@ -9,13 +9,14 @@
 <?php 
 ini_set('display_errors', '1');
 error_reporting(1);
-
+        $DirNameLocalGraphPage=dirname(__FILE__).'/';
+        $scielomaindef = parse_ini_file($DirNameLocalGraphPage."/../../../../scielo.def.php", true);
 	require_once(dirname(__FILE__)."/../../classes/services/AccessServiceBar.php");
 	$accessService = new AccessService();
-	$accessService->setParams($_REQUEST['pid']);
+        $accessService->setParam('pid',$_REQUEST['pid']);
+        $accessService->setParam('app',$scielomaindef["SITE_INFO"][APP_NAME]);
 	$startYear = $_REQUEST['startYear'];
 	$lastYear = $_REQUEST['lastYear'];
-	
 	if($startYear !="" && $lastYear!="")
 	{
 		$mensagem = $accessService->buildGraphicByYearFlash($accessService->getStats(), $startYear, $lastYear);
