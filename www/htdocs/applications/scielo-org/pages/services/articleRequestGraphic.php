@@ -10,10 +10,13 @@
 ini_set('display_errors', '1');
 error_reporting(1);
 
-	require_once(dirname(__FILE__)."/../../classes/services/AccessServiceBar.php");
+        $DirNameLocalGraphPage=dirname(__FILE__).'/';
+ 	require_once(dirname(__FILE__)."/../../classes/services/AccessServiceBar.php");
+        $scielomaindef = parse_ini_file($DirNameLocalGraphPage."/../../../../scielo.def.php", true);
+
 	$accessService = new AccessService();
-    $accessService->setParam('pid',$_REQUEST['pid']);
-    $accessService->setParam('app',$scielomaindef["SITE_INFO"][APP_NAME]);
+        $accessService->setParam('pid',$_REQUEST['pid']);
+        $accessService->setParam('app',$scielomaindef["SITE_INFO"][APP_NAME]);
 	$startYear = $_REQUEST['startYear'];
 	$lastYear = $_REQUEST['lastYear'];
 	
