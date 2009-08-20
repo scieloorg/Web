@@ -8,7 +8,7 @@ $defFile = parse_ini_file(dirname(__FILE__)."/../scielo.def.php","true");
 function lista_titulos() {
 	global $defFile;
 	$db_issn=$defFile["PATH"]["PATH_DATABASE"]."/accesslog/log_scielo/trab/issn";
-	$result=exec($defFile["PATH"]["PATH_PROC"]."/cisis/mx $db_issn \"pft=v1,':'v150,'<fim>',\" now");
+	$result=exec($defFile["PATH"]["PATH_PROC"]."/cisis/mx $db_issn lw=0 \"pft=v1,':'v150,'<fim>',\" now");
 	$array_linha=split("<fim>",$result);
 	for ($i=0;$i < count($array_linha);++$i) {
   	if ($array_linha[$i]!='') {
@@ -23,7 +23,7 @@ function get_titulo($pid) {
 	global $defFile;
 	$db_issn=$defFile["PATH"]["PATH_DATABASE"]."/accesslog/log_scielo/trab/issn";
 	for ($i=0;$i < count($pid);$i++) {
-		$result=exec("/cisis/mx $db_issn \"$pid[$i]\" \"pft=v150/\" now");
+		$result=exec($defFile["PATH"]["PATH_PROC"]."/cisis/mx $db_issn \"$pid[$i]\" lw=0 \"pft=v150/\" now");
 		$lista[]["title"]=$result;
 	}
 	return $lista;
