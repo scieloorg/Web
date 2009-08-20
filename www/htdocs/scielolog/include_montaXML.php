@@ -37,7 +37,7 @@ function monta_pft_journalstat($pid,$script,$db_tmp_home,$db_tmp_sumario,$db_tmp
 		$pft_show.="'<OTHERS>',ref(['$db_tmp_outros']l(['$db_tmp_outros'],s(v1,'@outros')),v999),'</OTHERS><line>'";
 		$pft_show.="'</JOURNAL><line>'\"";
 	}
-	
+
 	return $pft_show;
 }
 
@@ -45,7 +45,7 @@ function monta_pft_statiss($pid,$lng,$db_issn) {
 
 	if ($pid=='') {
   	    $pft_show="\"pft='<ISSUE REQUESTS=<aspas>'v999'<aspas> '";
-		$pft_show.="'SEQ=<aspas>',replace(v1,',',''),'<aspas> '";	
+		$pft_show.="'SEQ=<aspas>',replace(v1,',',''),'<aspas> '";
 		$pft_show.="'VOL=<aspas>',(if v43^l='$lng' then v43^v fi),'<aspas> '";
 		$pft_show.="' NUM=<aspas>',(if v43^l='$lng' then v43^n,' ',v43^s fi),'<aspas> '";
 		$pft_show.="' MONTH=<aspas>',(if v43^l='$lng' then v43^m fi),'<aspas> '";
@@ -60,9 +60,9 @@ function monta_pft_statiss($pid,$lng,$db_issn) {
     	$pft_show.="'<SHORTTITLE><![CDATA[ ',ref(['$db_issn']l(['$db_issn'],left(v1,instr(v1,',')-1)),v150),' ]]></SHORTTITLE><line>'";
 		$pft_show.="'<SIGLUM>',ref(['$db_issn']l(['$db_issn'],left(v1,instr(v1,',')-1)),v68),'</SIGLUM><line>'";
 		$pft_show.="'</TITLEGROUP><line>'";
-		$pft_show.="'<ISSN TYPE=<aspas>PRINT<aspas>>$pid</ISSN><line>'";		
+		$pft_show.="'<ISSN TYPE=<aspas>PRINT<aspas>>$pid</ISSN><line>'";
 		$pft_show.="'<ISSUE REQUESTS=<aspas>'v999'<aspas> '";
-		$pft_show.="'SEQ=<aspas>',replace(v1,',',''),'<aspas> '";	
+		$pft_show.="'SEQ=<aspas>',replace(v1,',',''),'<aspas> '";
 		$pft_show.="'VOL=<aspas>',(if v43^l='$lng' then v43^v fi),'<aspas> '";
 		$pft_show.="' NUM=<aspas>',(if v43^l='$lng' then v43^n,' ',v43^s fi),'<aspas> '";
 		$pft_show.="' MONTH=<aspas>',(if v43^l='$lng' then v43^m fi),'<aspas> '";
