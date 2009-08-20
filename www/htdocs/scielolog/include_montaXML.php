@@ -107,4 +107,14 @@ function monta_pft_statart($pid,$lng,$db_issn) {
 	return $pft_show;
 }
 
+
+
+function monta_pft_statart02($pid,$lng,$db_issn) {
+
+        $pft_show.="\"pft='<ARTICLE TEXT_LANG=<aspas>',v40,'<aspas> ANO=<aspas>',v1[1]*0.4,'<aspas> MES=<aspas>',v1[1]*4.2,'<aspas> PID=<aspas>',v880,'<aspas> REQUESTS=<aspas>',v999,'<aspas>><line> '";
+        $pft_show.="'</ARTICLE><line>'\"";
+        return $pft_show;
+}
+
+
 ?>
