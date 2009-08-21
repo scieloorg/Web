@@ -1,4 +1,4 @@
-<?php
+<?php 
 include_once ("include_grafico.php");
 include_once ("include_montaXML.php");
 // Constantes
@@ -46,11 +46,11 @@ $db_tmp_article02=$Temp.$ui.".tab_article02";
 
 
 // Seta variaveis que não foram enviadas pelo request
-
-if ($lng=='') {
+  
+if ($lng=='') { 
   	$lng="en";
   };
-
+ 
 //Busca o mfn inicial da data fim
 //Se a data inicial nao foi passada pega a primeira data da base
 
@@ -86,7 +86,7 @@ $mfn_fim_art=busca_mfnfim($dtf,$db_data_art);
 	exec("$utl/mx $db_tmp_article \"join=$db_artigonp=s('HR=S',v1*7)\" copy=$db_tmp_article -all now");
 
         exec("$utl/msrt $db_tmp_article \"30\" \"v1*0.6\"");
-
+	
 // ***************************************************************
 // ********  Camada de Apresentação dos dados             ********
 // ********  Exibe os dados em formato XML para posterior ********
@@ -94,7 +94,7 @@ $mfn_fim_art=busca_mfnfim($dtf,$db_data_art);
 // ***************************************************************
 
 	$pft_show=monta_pft_statart02($pid,$lng,$db_issn);
-
+	
 	$result=exec("$utl/mx $db_tmp_article btell=0 lw=99999 gizmo=$gizmo $pft_show +hits now");
 	$result=str_replace('<aspas>','"',$result);
 	$result=str_replace('\n','',$result);
@@ -113,17 +113,17 @@ $mfn_fim_art=busca_mfnfim($dtf,$db_data_art);
  	$xml.="</STATPARAM>\n";
 	$xml.="<ISSN TYPE=\"PRINT\">$issn</ISSN>\n";
 	$xml.="<ARTICLE_LIST>\n";
-
+	
 	for ($i=0; $i<count($arr); $i++) {
 		$xml.= $arr[$i];
 		$xml.="\n";
-	}
-
+	} 
+	
 	$xml.="</ARTICLE_LIST>\n";
 	$xml.="</ROOT>";
 
 echo $xml;
 
 exec("rm -f $db_tmp_article.* $db_tmp_article02.*");
-?>
+?> 
 
