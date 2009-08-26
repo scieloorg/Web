@@ -38,7 +38,7 @@
 		exec("$utl/mx $db_tmp_tab \"join=$db_title,150=s(v1*0.9)\" $proc02 append=$db_tmp_tab02 -all now");
 		exec("$utl/msrt $db_tmp_tab02 \"256\" \"v150,v1/\"");
 	}
-	$result=exec("$utl/mx $db_tmp_tab02 \"pft=v150'<ano>'v1*10'<per>'v999'<fim>'\" now");
+	$result=exec("$utl/mx $db_tmp_tab02 lw=999 \"pft=v150'<ano>'v1*10'<per>'v999'<fim>'\" now");
 	$array_linha=split("<fim>",$result);
 	$chv_tit=$chv_ano="";
 	
