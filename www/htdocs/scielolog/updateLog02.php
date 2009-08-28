@@ -15,6 +15,11 @@ $tlng=$_REQUEST['tlng'];
 $doctopic=$_REQUEST['doctopic'];
 $doctype=$_REQUEST['doctype'];
 
+if ($tlng!='es' and $tlng!='pt' and $tlng!='en' and $tlng!='fr') {
+    $tlng='';
+}
+
+
 $ip = getenv("REMOTE_ADDR");
 
 $defFile = parse_ini_file(dirname(__FILE__)."/../scielo.def.php","true");
