@@ -2171,7 +2171,7 @@ fi
 		<pft>
 			ref( ['NEWISSUE'] l( ['NEWISSUE'],'Y',mid(v4900,2,size(v4900)-5-1) ),
 ,if (v32='ahead' or v32='review') and val(v65*0.4) > 2007 then ,v65*0.4, fi,
-				"v"v31,"n"v32,"s"v131,"s"v132 )
+				"v"v31,"n"v32,"s"v131,"s"v132,v41  )
 		</pft>
 	</field>
 	<field action="replace" tag="9001">
@@ -2186,7 +2186,7 @@ fi
 		<pft>
 			if a(v9001) then ref( ['NEWISSUE'] l( ['NEWISSUE'],'A',mid(v4900,2,size(v4900)-5-1) ),
 ,if (v32='ahead' or v32='review') and val(v65*0.4) > 2007 then ,v65*0.4, fi,
-				"v"v31,"n"v32,"s"v131,"s"v132 )
+				"v"v31,"n"v32,"s"v131,"s"v132,v41  )
 				fi
 		</pft>
 	</field>
@@ -2194,7 +2194,7 @@ fi
 		<pft>
 			if a(v9001) then ref( ['NEWISSUE'] l( ['NEWISSUE'],'R',mid(v4900,2,size(v4900)-5-1) ),
 ,if (v32='ahead' or v32='review') and val(v65*0.4) > 2007 then ,v65*0.4, fi,
-				"v"v31,"n"v32,"s"v131,"s"v132 )
+				"v"v31,"n"v32,"s"v131,"s"v132,v41  )
 				fi
 		</pft>
 	</field>
@@ -3478,24 +3478,25 @@ fi
 </function>
 
 
-<function name="getTitleLicense" action="replace" tag="4000">
+<!--function name="getTitleLicense" action="replace" tag="4000">
 	<field action="import" tag="list">4010</field>
 	<field action="replace" split="occ" tag="300" ><pft>ref( ['TITLE'] l(['TITLE'], 'LOC=',v4000), (v540/))</pft></field>
 	<field action="replace" tag="9300"><pft>(if v300^l=v4010^l[1] then v300^t/ fi)</pft></field>
 	<return action="replace" tag="9300"><pft>v9300</pft></return>
-</function>
+</function-->
 
 
 <function name="getIssueLicense" action="replace" tag="4000">
 	<field action="import" tag="list">4010</field>
 
-	<call name="getTitleLicense"><pft>if v4000*0.1='S' then v4000*1.9 else v4000*0.9 fi</pft></call>
+	<field action="replace" tag="4880"><pft>if v4000*0.1='S' then v4000*1 else v4000 fi</pft></field>
+	<field action="replace" tag="880"><pft>if size(v4880)>9 then v4880*0.17 else v4880 fi</pft></field>
 
-	<!--call name="GetCurrentIssue"><pft>if size(v4000)=9 then v4000 fi</pft></call>
-	<field action="replace" tag="4000"><pft>if size(v4000)=9 then v7090 fi</pft></field-->
 
-	<field action="replace" tag="4000"><pft>if v4000*0.1='S' then v4000*1.17 else v4000*0.17 fi</pft></field>
-	<field action="replace" split="occ" tag="300" ><pft>ref( ['NEWISSUE'] l(['NEWISSUE'], 'Y',v4000), (v540/))</pft></field>
+	<field action="replace" split="occ" tag="300" ><pft>ref( ['NEWISSUE'] l(['NEWISSUE'], 'Y',v880), (v540/))</pft></field>
+	<field action="replace" split="occ" tag="300" ><pft>if a(v300) then ref( ['TITLE'] l(['TITLE'], 'LOC=',v880), (v540/)) fi</pft></field>
+
+
 	<field action="replace" tag="9300"><pft>(if v300^l=v4010^l[1] then v300^t/ fi)</pft></field>
 
 	<return action="replace" tag="9300"><pft>v9300</pft></return>
