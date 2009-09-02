@@ -1,12 +1,32 @@
-Vers„o: v4.33
+Vers√£o: v4.34
 
 Melhorias
 -------------------
+#### Melhorias na ferramenta de atualiza√ß√£o do SciELO Metodologia.
 
-Ticket #130 ajustes na inclus„o de par‚metro de inst‚ncia para serviÁo de estatÌsticas de acesso do artigo
+#153 Press release de aop
+     Creative commons - otimizacao - consulta primeiro a issue e depois a title
 
+#151 Melhorias no m√≥dulo de estat√≠sticas de acesso.
 
-Novas ConfiguraÁıes
+#6   Inclus√£o de Metadado DOI em estat√≠sticas de acesso.
+
+#147 Unificado servi√ßo XML de log de acesso.
+
+#26  Implementando exporta√ß√£o de metadados para DOAJ.
+
+#### Parametrizando chamada de servi√ßo de estat√≠sticas de acesso, incluindo
+     parametro para indicar aplica√ß√£o que ser√° consultada.
+
+Novas Configura√ß√µes
 -------------------
+1. Modificar path configurado no arquivo proc/scieloUpdate/scieloUpdate_config.sh
+   caminhoAPL='/home/app/scielo/www/'
 
-N„o existem novas configuraÁıes para esta vers„o
+   Este path deve apontar para o diret√≥rio pai de htdocs/ proc/ cgi-bin/
+
+2. Incluir no arquivo htdocs/scielo.def.php parametro SERVER_LOG_PROC no grupo [LOG]
+   [LOG]
+   ...
+   SERVER_LOG_PROC=scielo-log.scielo.br/scielolog/
+   ...
