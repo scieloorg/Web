@@ -1,6 +1,6 @@
 . scieloUpdate_config.sh 
 
-cd $caminhoAPL"/www/proc/scieloUpdate" 
+cd $caminhoAPL"/proc/scieloUpdate" 
 
 rm -rf www/
 
@@ -32,8 +32,9 @@ fi
 
 
 echo "Comprimindo archivos en scieloMetodologia-$branch-$file.tgz"
-tar cfpz scieloMetodologia-$branch-$file.tgz www/
-
+cd www/
+tar cfpz ../scieloMetodologia-$branch-$file.tgz htdocs cgi-bin proc
+cd ../
 echo "Compiando archivo scieloMetodologia-$branch-$file.tgz para:"$caminhoAPL
 cp scieloMetodologia-$branch-$file.tgz $caminhoAPL
 
@@ -45,13 +46,13 @@ then
    cd $caminhoAPL
    echo "Haciendo backup de version actual en $caminhoAPL"
    export backdate=`date '+%Y%m%d%H%M%S'`
-   tar cfzp scieloMetodologia-backup-$backdate.tgz --exclude-from=www/proc/scieloUpdate/exclude.txt www/htdocs www/proc www/cgi-bin
+   tar cfzp scieloMetodologia-backup-$backdate.tgz --exclude-from=proc/scieloUpdate/exclude.txt htdocs proc cgi-bin
    echo "Descomprimiendo el archivo scieloMetodologia-$branch-$file.tgz en $caminhoAPL"
    tar xfzp scieloMetodologia-$branch-$file.tgz
 fi
 
 echo "Atualizando permissões do wxis.exe"
-chmod -R 775 www/cgi-bin/wxis.exe
-chmod -R 775 www/proc/*.sh
+chmod -R 775 cgi-bin/wxis.exe
+chmod -R 775 proc/*.sh
 
-cd $caminhoAPL"/www/proc/scieloUpdate"
+cd $caminhoAPL"/proc/scieloUpdate"
