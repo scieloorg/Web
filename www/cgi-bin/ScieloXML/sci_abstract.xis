@@ -5,6 +5,7 @@
 	<!--include>ScieloXML/getdefine.xis</include>
 	<include>ScieloXML/GetPIDs.xis</include-->
 	<include>ScieloXML/sci_common.xis</include>
+	<include>ScieloXML/pressrelease.xis</include>
 	<include>ScieloXML/sci_refrecord.xis</include>
 
 	<section>
