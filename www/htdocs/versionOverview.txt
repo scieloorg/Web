@@ -1,32 +1,12 @@
-Versão: v4.34
+Versão: v4.36
 
 Melhorias
 -------------------
 #### Melhorias na ferramenta de atualização do SciELO Metodologia.
 
-#153 Press release de aop
-     Creative commons - otimizacao - consulta primeiro a issue e depois a title
-
-#151 Melhorias no módulo de estatísticas de acesso.
-
-#6   Inclusão de Metadado DOI em estatísticas de acesso.
-
-#147 Unificado serviço XML de log de acesso.
-
-#26  Implementando exportação de metadados para DOAJ.
-
-#### Parametrizando chamada de serviço de estatísticas de acesso, incluindo
-     parametro para indicar aplicação que será consultada.
+#159 Ajustes na apresentação dos indicadores SCIMAGO nas páginas das revistas.
 
 Novas Configurações
 -------------------
-1. Modificar path configurado no arquivo proc/scieloUpdate/scieloUpdate_config.sh
-   caminhoAPL='/home/app/scielo/www/'
-
-   Este path deve apontar para o diretório pai de htdocs/ proc/ cgi-bin/
-
-2. Incluir no arquivo htdocs/scielo.def.php parametro SERVER_LOG_PROC no grupo [LOG]
-   [LOG]
-   ...
-   SERVER_LOG_PROC=scielo-log.scielo.br/scielolog/
-   ...
+1. Incluir link ou alias em htdocs/img/
+   criar link ou alias htdocs/img/scimago apontado para <diretório da aplicação>/bases/scimago/images
