@@ -54,5 +54,7 @@ fi
 echo "Atualizando permissões do wxis.exe"
 chmod -R 775 cgi-bin/wxis.exe
 chmod -R 775 proc/*.sh
-chmod -R 777 proc/cisis/
+chmod -R 775 proc/cisis/
+chmod -R 775 cgi-bin/fbpe/
+
 cd $caminhoAPL"/proc/scieloUpdate"
