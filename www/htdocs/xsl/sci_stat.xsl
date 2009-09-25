@@ -59,6 +59,7 @@
 										<a>
 											<xsl:call-template name="AddScieloLogLink">
 												<xsl:with-param name="script">sci_journalstat</xsl:with-param>
+												<xsl:with-param name="app" select="//CONTROLINFO/APP_NAME"/>
 											</xsl:call-template>
                                             <xsl:value-of select="$translations/xslid[@id='sci_stat']/text[@find='journal_requests']"/>
 										</a>
@@ -67,6 +68,7 @@
 										<a>
 											<xsl:call-template name="AddScieloLogLink">
 												<xsl:with-param name="script">sci_statiss</xsl:with-param>
+												<xsl:with-param name="app" select="//CONTROLINFO/APP_NAME"/>
 											</xsl:call-template>
                                             <xsl:value-of select="$translations/xslid[@id='sci_stat']/text[@find='issue_requests']"/>
 										</a>
