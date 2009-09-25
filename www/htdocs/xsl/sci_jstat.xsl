@@ -25,7 +25,7 @@
 					<a>
 						<xsl:call-template name="AddScieloLink">
 							<xsl:with-param name="script"><xsl:apply-templates select="." mode="sci_serial"/></xsl:with-param>
-							<xsl:with-param name="seq" select="ISSN" />
+							<xsl:with-param name="seq" select="ISSN_AS_ID" />
 						</xsl:call-template>
 
 						<img>
@@ -43,7 +43,7 @@
 			<td align="center" width="65%">
 				<blockquote>      
 					<p align="left">
-						<FONT class="nomodel" color="#000080" size="+1"><xsl:value-of select="TITLEGROUP/TITLE" disable-output-escaping="yes" /></FONT><br/>							<xsl:apply-templates select="ISSN">
+						<FONT class="nomodel" color="#000080" size="+1"><xsl:value-of select="TITLEGROUP/TITLE" disable-output-escaping="yes" /></FONT><br/>							<xsl:apply-templates select="TITLE_ISSN">
 							<xsl:with-param name="LANG" select="CONTROLINFO/LANGUAGE" />
 						</xsl:apply-templates>
 					</p>    
@@ -70,7 +70,7 @@
 						<a>
 							<xsl:call-template name="AddScieloLogLink">
 								<xsl:with-param name="script">sci_journalstat</xsl:with-param>
-								<xsl:with-param name="pid" select="ISSN" />
+								<xsl:with-param name="pid" select="ISSN_AS_ID" />
 							</xsl:call-template><xsl:choose>
 								<xsl:when test=" CONTROLINFO/LANGUAGE='en' ">Journal requests</xsl:when>
 								<xsl:when test=" CONTROLINFO/LANGUAGE='pt' ">Acessos às revistas</xsl:when>
@@ -82,7 +82,7 @@
 						<a>
 							<xsl:call-template name="AddScieloLogLink">
 								<xsl:with-param name="script">sci_statiss</xsl:with-param>
-								<xsl:with-param name="pid" select="ISSN" />
+								<xsl:with-param name="pid" select="ISSN_AS_ID" />
 							</xsl:call-template><xsl:choose>
 								<xsl:when test=" CONTROLINFO/LANGUAGE='en' ">Issue requests</xsl:when>
 								<xsl:when test=" CONTROLINFO/LANGUAGE='pt' ">Acessos aos fascículos</xsl:when>
@@ -94,7 +94,7 @@
 						<a>
 							<xsl:call-template name="AddScieloLogLink">
 								<xsl:with-param name="script">sci_statart</xsl:with-param>
-								<xsl:with-param name="pid" select="ISSN" />
+								<xsl:with-param name="pid" select="ISSN_AS_ID" />
 							</xsl:call-template><xsl:choose>
 								<xsl:when test=" CONTROLINFO/LANGUAGE='en' ">Article requests</xsl:when>
 								<xsl:when test=" CONTROLINFO/LANGUAGE='pt' ">Acessos aos artigos</xsl:when>
@@ -201,7 +201,7 @@
 		<xsl:when test=" //CONTROLINFO/LANGUAGE='en' ">Source Data Listing
 			<br/> - <a>
 				<xsl:call-template name="CreateBibLink">
-					<xsl:with-param name="pid" select="/STATISTICS_BY_JOURNAL/ISSN" />
+					<xsl:with-param name="pid" select="/STATISTICS_BY_JOURNAL/ISSN_AS_ID" />
 					<xsl:with-param name="script">bibjcrsdl2</xsl:with-param>
 					<xsl:with-param name="wh1">1997</xsl:with-param>
 					<xsl:with-param name="wh2">1998</xsl:with-param>
@@ -211,7 +211,7 @@
 		<xsl:when test=" //CONTROLINFO/LANGUAGE='pt' ">Lista de dados fonte
 			<br/> - <a>
 				<xsl:call-template name="CreateBibLink">
-					<xsl:with-param name="pid" select="/STATISTICS_BY_JOURNAL/ISSN" />
+					<xsl:with-param name="pid" select="/STATISTICS_BY_JOURNAL/ISSN_AS_ID" />
 					<xsl:with-param name="script">bibjcrsdl2</xsl:with-param>
 					<xsl:with-param name="wh1">1997</xsl:with-param>
 					<xsl:with-param name="wh2">1998</xsl:with-param>
@@ -221,7 +221,7 @@
 		<xsl:when test=" //CONTROLINFO/LANGUAGE='es' ">Lista de datos fuente
 			<br/> - <a>
 				<xsl:call-template name="CreateBibLink">
-					<xsl:with-param name="pid" select="/STATISTICS_BY_JOURNAL/ISSN" />
+					<xsl:with-param name="pid" select="/STATISTICS_BY_JOURNAL/ISSN_AS_ID" />
 					<xsl:with-param name="script">bibjcrsdl2</xsl:with-param>
 					<xsl:with-param name="wh1">1997</xsl:with-param>
 					<xsl:with-param name="wh2">1998</xsl:with-param>
@@ -279,7 +279,7 @@
 	
 	<xsl:if test="position() != 1">, </xsl:if><a>
 		<xsl:call-template name="CreateBibLink">
-			<xsl:with-param name="pid" select="/STATISTICS_BY_JOURNAL/ISSN" />
+			<xsl:with-param name="pid" select="/STATISTICS_BY_JOURNAL/ISSN_AS_ID" />
 			<xsl:with-param name="script"><xsl:value-of select="$script" /></xsl:with-param>
 			<xsl:with-param name="wh1"><xsl:value-of select="." /></xsl:with-param>
 			<xsl:with-param name="wh2">0</xsl:with-param>

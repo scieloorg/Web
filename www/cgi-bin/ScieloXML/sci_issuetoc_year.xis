@@ -200,6 +200,7 @@
   <field action="cgi" tag="10">debug</field>
   <field action="cgi" tag="3011">def</field>
 	
+  <field action="replace" tag="3002"><pft>v1</pft></field>
   <field action="replace" tag="1"><pft>mid(v1,1,13)</pft></field>
 
   <field action="replace" tag="3011"><pft>if a(v3011) then 'scielo.def.php' fi</pft></field>
@@ -240,7 +241,8 @@
   <!-- Get Title Information from TITLE DB -->
   <call name="CreateTitleGroupXML"><pft>v5</pft></call>
   <call name="CreateChangesInfoXML"><pft>v5</pft></call>
-  <call name="CreateISSNXML"><pft>v5</pft></call>            
+  <call name="CreateISSN4IDXML"><pft>v5</pft></call>
+  <call name="CreateISSN4ISSUEXML"><pft>v5,'^i',f(l(['NEWISSUE'],'Y',v3002),1,0)</pft></call>
   <call name="CreateCopyrightXML"><pft>v5</pft></call>
   <call name="CreateContactXML"><pft>v5</pft></call>
   

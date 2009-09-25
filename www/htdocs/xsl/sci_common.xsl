@@ -367,7 +367,7 @@
            LANG: language code
            SERIAL: 1 - serial home page style (Optional)
                          otherwise - all other pages style        -->
-	<xsl:template match="ISSN">
+	<xsl:template match="TITLE_ISSN | ISSUE_ISSN">
 		<xsl:param name="LANG"/>
 		<xsl:param name="SERIAL"/>
 		<font class="nomodel" color="#000080">
@@ -576,7 +576,8 @@
 		<xsl:param name="nlines"/>
 		<xsl:param name="tpages"/>
 		<xsl:param name="maccess"/>
-		<xsl:attribute name="href">http://<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/SERVER"/><xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_DATA"/>scielolog.php?script=<xsl:value-of select="$script"/>&amp;lng=<xsl:value-of select="normalize-space(//CONTROLINFO/LANGUAGE)"/>&amp;nrm=<xsl:value-of select="normalize-space(//CONTROLINFO/STANDARD)"/><xsl:if test="$pid">&amp;pid=<xsl:value-of select="$pid"/></xsl:if><xsl:if test="$order">&amp;order=<xsl:value-of select="$order"/></xsl:if><xsl:if test="$dti">&amp;dti=<xsl:value-of select="$dti"/></xsl:if><xsl:if test="$dtf">&amp;dtf=<xsl:value-of select="$dtf"/></xsl:if><xsl:if test="$access">&amp;access=<xsl:value-of select="$access"/></xsl:if><xsl:if test="$cpage">&amp;cpage=<xsl:value-of select="$cpage"/></xsl:if><xsl:if test="$nlines">&amp;nlines=<xsl:value-of select="$nlines"/></xsl:if><xsl:if test="$tpages">&amp;tpages=<xsl:value-of select="$tpages"/></xsl:if><xsl:if test="$maccess">&amp;maccess=<xsl:value-of select="$maccess"/></xsl:if></xsl:attribute>
+		<xsl:param name="app"/>
+		<xsl:attribute name="href">http://<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/SERVER_LOG_PROC"/>/<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/SERVER_LOG_PROC_PATH"/>/scielolog.php?script=<xsl:value-of select="$script"/>&amp;lng=<xsl:value-of select="normalize-space(//CONTROLINFO/LANGUAGE)"/>&amp;nrm=<xsl:value-of select="normalize-space(//CONTROLINFO/STANDARD)"/><xsl:if test="$pid">&amp;pid=<xsl:value-of select="$pid"/></xsl:if><xsl:if test="$order">&amp;order=<xsl:value-of select="$order"/></xsl:if><xsl:if test="$dti">&amp;dti=<xsl:value-of select="$dti"/></xsl:if><xsl:if test="$dtf">&amp;dtf=<xsl:value-of select="$dtf"/></xsl:if><xsl:if test="$access">&amp;access=<xsl:value-of select="$access"/></xsl:if><xsl:if test="$cpage">&amp;cpage=<xsl:value-of select="$cpage"/></xsl:if><xsl:if test="$nlines">&amp;nlines=<xsl:value-of select="$nlines"/></xsl:if><xsl:if test="$tpages">&amp;tpages=<xsl:value-of select="$tpages"/></xsl:if><xsl:if test="$maccess">&amp;maccess=<xsl:value-of select="$maccess"/></xsl:if><xsl:if test="$app">&amp;app=<xsl:value-of select="$app"/></xsl:if></xsl:attribute>
 	</xsl:template>
 	<!-- Prints message with the log start date (count started at..) 
      Parameters: date - log start date
@@ -908,7 +909,7 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
 		<xsl:choose>
 			<xsl:when test="//PAGINATION">
 				<xsl:apply-templates select="//PAGINATION/@rep" mode="rep3"/>
-				<xsl:if test="//PAGINATION/@journal=//ISSN">
+				<xsl:if test="//PAGINATION/@journal=//ISSN_AS_ID">
 					<xsl:value-of select="$scope"/>
 				</xsl:if>
 			</xsl:when>
@@ -934,7 +935,7 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
 				</xsl:choose>
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:value-of select="//ISSN"/>
+				<xsl:value-of select="//ISSN_AS_ID"/>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
@@ -985,7 +986,7 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
     <xsl:choose>
         <xsl:when test="//TITLEGROUP">
         <xsl:call-template name="AddScieloLink">
-          <xsl:with-param name="seq" select="ISSN"/>
+          <xsl:with-param name="seq" select="ISSN_AS_ID"/>
           <xsl:with-param name="script">sci_serial</xsl:with-param>
         </xsl:call-template>
         </xsl:when>
@@ -1026,7 +1027,7 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
        </xsl:choose>
       </xsl:with-param>
     </xsl:call-template>
-    <xsl:apply-templates select="ISSN"/>
+    <xsl:apply-templates select="TITLE_ISSN"/><xsl:comment>AQUI ISSN</xsl:comment>
    </P>
    </BLOCKQUOTE>
   </TD>
@@ -1075,7 +1076,7 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
   <FONT face="Verdana" size="4" color="#000080"><xsl:value-of select="$text" /></FONT><BR/>
 </xsl:template>
 
-<xsl:template match="ISSN">
+<xsl:template match="ISSN  | ISSUE_ISSN | TITLE_ISSN">
   <FONT color="#0000A0">
     <xsl:call-template name="GET_ISSN_TYPE">
         <xsl:with-param name="TYPE" select="@TYPE" />
@@ -1102,7 +1103,7 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
  <FORM>
   <xsl:call-template name="GenerateLogForm">
    <xsl:with-param name="script" select="//CONTROLINFO/PAGE_NAME" />
-   <xsl:with-param name="pid" select="ISSN" />
+   <xsl:with-param name="pid" select="ISSN_AS_ID" />
   </xsl:call-template>
   <xsl:apply-templates select="POSSIBLE_NO_ACCESS" />
   &#160;&#160;&#160;
@@ -1253,7 +1254,8 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
        <xsl:with-param name="nlines" select="@NLINES"/>
        <xsl:with-param name="tpages" select="@TOTAL"/>
        <xsl:with-param name="maccess" select="//POSSIBLE_NO_ACCESS/@MAX"/>
-       <xsl:with-param name="pid" select="/STATISTICS/ISSN"/>
+       <xsl:with-param name="pid" select="/STATISTICS/ISSN_AS_ID"/>
+	   <xsl:with-param name="app" select="//CONTROLINFO/APP_NAME"/>
     </xsl:call-template>
 </xsl:template>
 

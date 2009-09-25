@@ -96,7 +96,7 @@
 		<xsl:otherwise>
 			<a>
 				<xsl:call-template name="AddScieloLogLink">
-					<xsl:with-param name="pid" select="//JOURNAL/ISSN" />
+					<xsl:with-param name="pid" select="//JOURNAL/ISSN_AS_ID" />
 					<xsl:with-param name="script">sci_journalstat</xsl:with-param>
 					<xsl:with-param name="order" select="$ORDER" />
 					<xsl:with-param name="dti" select="//STATPARAM/FILTER/INITIAL_DATE" />
@@ -184,7 +184,7 @@
 				</xsl:when>
 				<xsl:otherwise>
 					<xsl:call-template name="AddScieloLink">
-						<xsl:with-param name="seq" select="JOURNAL/ISSN" />
+						<xsl:with-param name="seq" select="JOURNAL/ISSN_AS_ID" />
 						<xsl:with-param name="script"><xsl:apply-templates select="." mode="sci_serial"/></xsl:with-param>
 					</xsl:call-template>
     
@@ -217,7 +217,7 @@
 						<xsl:value-of select="JOURNAL/TITLEGROUP/TITLE" disable-output-escaping="yes" />
 					</font><br/>
 					<font class="nomodel" color="#000080">
-						<xsl:apply-templates select="JOURNAL/ISSN">
+						<xsl:apply-templates select="JOURNAL/TITLE_ISSN">
 							<xsl:with-param name="LANG" select="normalize-space(CONTROLINFO/LANGUAGE)" />
 						</xsl:apply-templates>
 					</font>
@@ -288,7 +288,7 @@
 			<form>
 				<xsl:call-template name="GenerateLogForm">
 					<xsl:with-param name="script">sci_journalstat</xsl:with-param>
-					<xsl:with-param name="pid"><xsl:value-of select="normalize-space(//ISSN)" /></xsl:with-param>            
+					<xsl:with-param name="pid"><xsl:value-of select="normalize-space(//ISSN_AS_ID)" /></xsl:with-param>            
 				</xsl:call-template>
 								
 				<xsl:call-template name="PutSubmitButton" />

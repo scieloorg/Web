@@ -598,7 +598,7 @@
 <!--	    'ABS' navigation in the articles (Abstract)                           -->
 <!-- ============================================================================ -->
 <function name="CreateControlInfoXML" action="replace" tag="4900">
-	<field action="import" tag="list">7000/7051</field> <!-- fixed -->
+	<field action="import" tag="list">7000/7060</field> <!-- fixed -->
 	<field action="import" tag="list">3311</field> 
 	<call name="checkNewHome"><pft>if p(v7047) and p(v3311) then '^u'v7047,'^r',v3311,'^l',v4900^l fi</pft></call>
 	<field action="replace" tag="7047">
@@ -1305,6 +1305,9 @@
 		if v7035 = '1' then,
 		'   <SERVER_LOG>', v7036, '</SERVER_LOG>'/,
 		'   <SCRIPT_LOG_NAME>', v7037, '</SCRIPT_LOG_NAME>'/,
+		'   <SERVER_LOG_PROC>', v7056, '</SERVER_LOG_PROC>'/,
+		'   <SERVER_LOG_PROC_PATH>', v7057, '</SERVER_LOG_PROC_PATH>'/,
+
 		fi,
                 if v7042 = '1' then,
                 '   <GOOGLE_CODE>', v7043, '</GOOGLE_CODE>'/,
@@ -1444,14 +1447,41 @@
 </function>
 
 <function name="CreateISSNXML" action="replace" tag=4001>
-<!-- Generate XML for ISSN 
+<!-- Generate XML for ISSN
      4001 - Title MFN in the TITLE DB -->
 
   <display>
-   <pft>ref(['TITLE']val(v4001),' <ISSN',| TYPE="|v35|"|,'>'v400'</ISSN>'/#)</pft>
+   <pft>ref(['TITLE']val(v4001),' <ISSN>'v400'</ISSN>'/#)</pft>
   </display>
 </function>
+<function name="CreateISSN4IDXML" action="replace" tag=4001>
+<!-- Generate XML for ISSN
+     4001 - Title MFN in the TITLE DB -->
 
+  <display>
+   <pft>ref(['TITLE']val(v4001),' <ISSN_AS_ID>'v400'</ISSN_AS_ID>'/#)</pft>
+  </display>
+<display>
+   <pft>ref(['TITLE']val(v4001),' <ISSN>'v400'</ISSN>'/#)</pft>
+  </display>
+</function>
+<function name="CreateISSN4TITLEXML" action="replace" tag=4001>
+<!-- Generate XML for ISSN
+     4001 - Title MFN in the TITLE DB -->
+
+  <display>
+   <pft>ref(['TITLE']val(v4001),' <TITLE_ISSN',| TYPE="|v35|"|,'>',if p(v935) then v935 else v400 fi,'</TITLE_ISSN>'/#)</pft>
+  </display>
+</function>
+<function name="CreateISSN4ISSUEXML" action="replace" tag=4001>
+<!-- Generate XML for ISSN
+     4001 - Issue MFN in the Issue DB -->
+  <field action="replace" tag="935"><pft>ref(['NEWISSUE']val(v4001^i),v935)</pft></field>
+  <field action="replace" tag="935"><pft>if a(v935) then ref(['TITLE']val(v4001^*),if p(v935) then v935 else v400 fi,|^t|v35) fi</pft></field>
+  <display>
+   <pft>' <ISSUE_ISSN',| TYPE="|v935^t|"|,'>'v935^*'</ISSUE_ISSN>'/</pft>
+  </display>
+</function>
 <function name="CreateCopyrightXML" action="replace" tag=4001>
 <!-- Generate XML for Copyright
 	 4001 - Title MFN in the TITLE DB -->

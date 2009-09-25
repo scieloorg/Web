@@ -117,8 +117,9 @@
                     
                     <label>TITLEGROUP</label>
                     <call name="CreateTitleGroupXML"><pft>mfn</pft></call>
-                    <call name="CreateISSNXML"><pft>mfn</pft></call>
-                    
+                    <call name="CreateISSN4IDXML"><pft>mfn</pft></call>
+                    <call name="CreateISSN4TITLEXML"><pft>mfn</pft></call>
+
                     <label>HITS</label>
                                         
                     <display>

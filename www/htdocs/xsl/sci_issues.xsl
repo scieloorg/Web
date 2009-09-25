@@ -42,7 +42,7 @@
 				<xsl:apply-templates select="//TITLEGROUP"/>
 				<CENTER>
 					<FONT color="#000080">
-						<xsl:apply-templates select="//ISSN">
+						<xsl:apply-templates select="//TITLE_ISSN">
 							<xsl:with-param name="LANG" select="//CONTROLINFO/LANGUAGE"/>
 						</xsl:apply-templates>
 					</FONT>
