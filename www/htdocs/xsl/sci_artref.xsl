@@ -210,6 +210,7 @@
 		<xsl:param name="FORMAT"/>
 		<xsl:param name="AUTHLINK">0</xsl:param>
 		<xsl:param name="TEXTLINK">0</xsl:param>
+
 		<xsl:choose>
 			<xsl:when test="$NORM='iso-e'">
 				<xsl:call-template name="PrintArticleReferenceElectronicISO">
@@ -226,7 +227,7 @@
 					<xsl:with-param name="YEAR" select="ISSUEINFO/STRIP/YEAR"/>
 					<xsl:with-param name="CURR_DATE" select="@CURR_DATE"/>
 					<xsl:with-param name="PID" select="../CONTROLINFO/PAGE_PID"/>
-					<xsl:with-param name="ISSN" select="..//ISSUE_ISSN"/>
+					<xsl:with-param name="ISSN" select="../../../..//ISSUE_ISSN"/>
 					<xsl:with-param name="FPAGE" select="@FPAGE"/>
 					<xsl:with-param name="LPAGE" select="@LPAGE"/>
 					<xsl:with-param name="SHORTTITLE" select="ISSUEINFO/STRIP/SHORTTITLE"/>
@@ -571,8 +572,8 @@
 				</xsl:if>
 			</xsl:otherwise>
 		</xsl:choose><xsl:apply-templates select="." mode="Epub">
-			<xsl:with-param name="ahpdate" select="//ARTICLE/@ahpdate"/><xsl:with-param name="rvpdate" select="//ARTICLE/@rvpdate"/>
-		</xsl:apply-templates><xsl:if test="//ARTICLE/@ahpdate and //ARTICLE/@ahpdate!=''">.</xsl:if>
+			<xsl:with-param name="ahpdate" select="..//ARTICLE/@ahpdate"/><xsl:with-param name="rvpdate" select="..//ARTICLE/@rvpdate"/>
+		</xsl:apply-templates><xsl:if test="..//ARTICLE/@ahpdate and //ARTICLE/@ahpdate!=''">.</xsl:if>
 		<xsl:value-of select="concat(' ISSN ', $ISSN, '.')"/>
 		<xsl:apply-templates select="@DOI" mode="ref"/>
 	</xsl:template>
