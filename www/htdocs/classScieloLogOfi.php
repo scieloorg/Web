@@ -128,9 +128,9 @@ class ScieloLog extends Scielo
 	} else {
 		$execute = $script_log_run."/?script=";
 	}
-	$url_xml="http://".$serverlog."/".$execute.$script."&pid=".$pid."&app=".$app."&lng=".$lng."&nrm=".$nrm."&order=".$order."&dtf=".$dtf."&dti=".$dti."&access=".$access."&cpage=".$cpage."&nlines=".$nlines;
+	$url_xml="http://".$execute.$script."&pid=".$pid."&app=".$app."&lng=".$lng."&nrm=".$nrm."&order=".$order."&dtf=".$dtf."&dti=".$dti."&access=".$access."&cpage=".$cpage."&nlines=".$nlines;
 	$fp2=fopen($url_xml, "r");
-//  stream_set_timeout($fp2,1200);
+
 	while(!feof($fp2)) {
 		$table.=fread ($fp2, $filesize);
 	}

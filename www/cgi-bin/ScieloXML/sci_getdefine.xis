@@ -73,9 +73,11 @@
                         case 'BEFOREPRINT_ISSUETOC'                  : 'h17050',
                         case 'LICENSE'                  : 'h17051',
 						case 'show_fapesp_projects'     : 'h17052',                        
-case 'ISSUE_TOC_NUMBER_OF_ARTICLES_PER_PAGE'     : 'h17053',
+                        case 'ISSUE_TOC_NUMBER_OF_ARTICLES_PER_PAGE'     : 'h17053',
 						case 'show_press_releases'     : 'h17054',
                         case 'show_clinical_trials'     : 'h17055',
+                        case 'SERVER_LOG_PROC'                   : 'h17056',
+						case 'SERVER_LOG_PROC_PATH'           : 'h17057',
 						case 'ALT_PDF_URL'     : 'h17060',
 						
 						elsecase 'h4903'
