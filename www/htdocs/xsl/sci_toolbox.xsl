@@ -18,7 +18,7 @@
 		<xsl:variable name="acron" select="//SIGLUM" />
 		<xsl:variable name="commentCount" select="//commentCount" />
 		<!--xsl:variable name="current_issn" select="//ARTICLE/ISSUEINFO/ISSN"/-->
-		<xsl:variable name="current_issn" select="//SERIAL/ISSN"/>
+		<xsl:variable name="current_issn" select="//SERIAL/ISSN_AS_ID"/>
 		<xsl:variable name="allow_comments" select="document('../xml/allow_comment.xml')/COMMENT/ISSN[text() = $current_issn ]"/>
 		<xsl:variable name="title_subjects" select="//TITLEGROUP/SUBJECT"/>
 		<xsl:variable name="show_fapesp_projects" select="//varScieloOrg/show_fapesp_projects" />        
@@ -75,7 +75,8 @@
 					</xsl:choose>
 				</xsl:if>
 				<xsl:if test="$services_comments != 0">
-					<xsl:if test="string-length($allow_comments) !=  '0' ">					
+					<!--xsl:if test="string-length($allow_comments) !=  '0' and //ARTICLE/@hcomment='1'"-->					
+					<xsl:if test="(//ARTICLE/@hcomment and //ARTICLE/@hcomment='1') or (not(/ARTICLE/@hcomment ) and string-length($allow_comments) !=  '0' )">					
 					<li>
 						<a>
                             <xsl:attribute name="href">javascript: void(0);</xsl:attribute>
