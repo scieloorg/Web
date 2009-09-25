@@ -156,6 +156,7 @@
 					</do>
 
 					<display><pft>
+                    if v32<>'ahead' and v32<>'review' then
 					if a(v9249) then
 						,proc('a9242{',(if v12^l=v3000[1] then v12,break fi),'{')
 						,if v9242='' then ,proc('a9242{',v12[1],'{'), fi,
@@ -163,6 +164,7 @@
 						'<issue data="',v65,'" vol="',v882^v,'" num="',v882^n,'" sup="',v882^s,'" pid="',v880,'" lang="',v9242^l,'">',/'<title lang="',v9242^l,'"><![CDATA[',v9242^*,']]></title>',/'</issue>'/ 
 						,fi
 					,fi
+,fi
 					</pft></display>
 				</loop>
 
@@ -189,8 +191,8 @@
 	 4001^l - Interface Language 
 	 4001^i - International Language 
 	 4001^s - Issue MFN -->
-
-
+     <display><pft>'<!-- ',v4001,' -->'/</pft></display>
+     <flow action="jump"><pft>if v4001^n='ahead' or v4001^n='review' then 'DONE' fi</pft></flow>
 	<!-- Encontra o pid do issue press release, dado o pid de um issue regular -->
 	<do task="search">
 		<parm name="db">ARTIGO</parm>
