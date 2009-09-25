@@ -59,7 +59,7 @@
 									<xsl:value-of select="TITLEGROUP/TITLE" disable-output-escaping="yes"/>
 								</h2>
 								<h2 id="printISSN">
-									<xsl:apply-templates select=".//ISSN">
+									<xsl:apply-templates select=".//ISSUE_ISSN">
 										<xsl:with-param name="LANG" select="normalize-space(CONTROLINFO/LANGUAGE)"/>
 									</xsl:apply-templates>
 								</h2>

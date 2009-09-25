@@ -69,6 +69,10 @@
                     | REQUESTS="|v4001^r|"|
 		 ,' CURR_DATE="',mid(date,1,8),'"'
 		 ,' ahpdate="',v223,'"'
+         ,| rvpdate="|v224|"|
+         ,if v250='1' and v32='review' then
+            ' enable-comment="1"'
+         ,fi
          ,' entrdate="',v265,'"'
          ,' RELATED="',ref(['related']l(['related']v880),f(nocc(v88),2,0)),'"',
 		 ,' CITED="',ref(['cited']l(['cited']v880),f(nocc(v88),2,0)),'"'

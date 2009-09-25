@@ -49,7 +49,7 @@
 					<font size="4" color="#000080"><b><xsl:value-of select="TITLEGROUP/TITLE" disable-output-escaping="yes" /></b></font><br/>
 					
 					<font size="2" color="#000080">
-						<xsl:apply-templates select="ISSN">
+						<xsl:apply-templates select="ISSUE_ISSN">
 							<xsl:with-param name="LANG" select="normalize-space(CONTROLINFO/LANGUAGE)" />											</xsl:apply-templates>
 					</font>
 					

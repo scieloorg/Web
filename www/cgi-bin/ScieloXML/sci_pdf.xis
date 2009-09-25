@@ -77,7 +77,8 @@
 	
 			<call name="CreateTitleGroupXML"><pft>v3004</pft></call>
 			
-			<call name="CreateISSNXML"><pft>v3004</pft></call>
+            <call name="CreateISSN4IDXML"><pft>v3004</pft></call>
+            <call name="CreateISSN4ISSUEXML"><pft>v3004,'^i'v3005</pft></call>
 		
 			<call name="CreateCopyrightXML"><pft>v3004</pft></call>
 		
