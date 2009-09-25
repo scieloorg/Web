@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 	<!-- Get Vol. No. Suppl. Strip
       Parameter:
@@ -135,7 +135,7 @@
 			</xsl:otherwise>
 		</xsl:choose>
 		<xsl:apply-templates select="." mode="Epub">
-			<xsl:with-param name="ahpdate" select="//ARTICLE/@ahpdate"/>
+			<xsl:with-param name="ahpdate" select="//ARTICLE/@ahpdate"/><xsl:with-param name="rvpdate" select="//ARTICLE/@rvpdate"/>
 		</xsl:apply-templates>
 	</xsl:template>
 	<!-- Shows the formatted date
@@ -226,7 +226,7 @@
 					<xsl:with-param name="YEAR" select="ISSUEINFO/STRIP/YEAR"/>
 					<xsl:with-param name="CURR_DATE" select="@CURR_DATE"/>
 					<xsl:with-param name="PID" select="../CONTROLINFO/PAGE_PID"/>
-					<xsl:with-param name="ISSN" select=".//ISSN"/>
+					<xsl:with-param name="ISSN" select="..//ISSUE_ISSN"/>
 					<xsl:with-param name="FPAGE" select="@FPAGE"/>
 					<xsl:with-param name="LPAGE" select="@LPAGE"/>
 					<xsl:with-param name="SHORTTITLE" select="ISSUEINFO/STRIP/SHORTTITLE"/>
@@ -246,7 +246,7 @@
 					<xsl:with-param name="YEAR" select="ISSUEINFO/STRIP/YEAR"/>
 					<xsl:with-param name="CURR_DATE" select="@CURR_DATE"/>
 					<xsl:with-param name="PID" select="../CONTROLINFO/PAGE_PID"/>
-					<xsl:with-param name="ISSN" select="../ISSN"/>
+					<xsl:with-param name="ISSN" select="../..//ISSUE_ISSN"/>
 					<xsl:with-param name="FPAGE" select="@FPAGE"/>
 					<xsl:with-param name="LPAGE" select="@LPAGE"/>
 					<xsl:with-param name="SHORTTITLE" select="ISSUEINFO/STRIP/SHORTTITLE"/>
@@ -266,7 +266,7 @@
 					<xsl:with-param name="YEAR" select="ISSUEINFO/STRIP/YEAR"/>
 					<xsl:with-param name="CURR_DATE" select="@CURR_DATE"/>
 					<xsl:with-param name="PID" select="../CONTROLINFO/PAGE_PID"/>
-					<xsl:with-param name="ISSN" select="../ISSN"/>
+					<xsl:with-param name="ISSN" select="../..//ISSUE_ISSN"/>
 					<xsl:with-param name="FPAGE" select="@FPAGE"/>
 					<xsl:with-param name="LPAGE" select="@LPAGE"/>
 					<xsl:with-param name="SHORTTITLE" select="ISSUEINFO/STRIP/SHORTTITLE"/>
@@ -284,7 +284,7 @@
 					<xsl:with-param name="SUPPL" select="ISSUEINFO/@SUPPL"/>
 					<xsl:with-param name="MONTH" select="ISSUEINFO/STRIP/MONTH"/>
 					<xsl:with-param name="YEAR" select="ISSUEINFO/STRIP/YEAR"/>
-					<xsl:with-param name="ISSN" select="ISSUEINFO/ISSN"/>
+					<xsl:with-param name="ISSN" select="ISSUEINFO/ISSUE_ISSN"/>
 					<xsl:with-param name="FPAGE" select="@FPAGE"/>
 					<xsl:with-param name="LPAGE" select="@LPAGE"/>
 					<xsl:with-param name="SHORTTITLE" select="ISSUEINFO/STRIP/SHORTTITLE"/>
@@ -307,7 +307,7 @@
 						</xsl:call-template>
 					</xsl:with-param>
 					<xsl:with-param name="YEAR" select="ISSUEINFO/@YEAR"/>
-					<xsl:with-param name="ISSN" select="ISSUEINFO/ISSN"/>
+					<xsl:with-param name="ISSN" select="ISSUEINFO/ISSUE_ISSN"/>
 					<xsl:with-param name="SHORTTITLE" select="ISSUEINFO/STRIP/SHORTTITLE"/>
 				</xsl:call-template>
 			</xsl:when>
@@ -329,7 +329,7 @@
 					</xsl:with-param>
 					<xsl:with-param name="YEAR" select="ISSUEINFO/@YEAR"/>
 					<xsl:with-param name="CITY" select="ISSUEINFO/STRIP/CITY"/>
-					<xsl:with-param name="ISSN" select="ISSUEINFO/ISSN"/>
+					<xsl:with-param name="ISSN" select="ISSUEINFO/ISSUE_ISSN"/>
 					<xsl:with-param name="SHORTTITLE" select="ISSUEINFO/STRIP/SHORTTITLE"/>
 				</xsl:call-template>
 			</xsl:when>
@@ -551,6 +551,9 @@
 			<xsl:when test="$NUM='ahead'">
 				<xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'ahead_of_print']"/>
 			</xsl:when>
+			<xsl:when test="$NUM='review'">
+				<xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'provisional']"/>
+			</xsl:when>
 		</xsl:choose>
 		<xsl:choose>
 			<xsl:when test="$FORMAT!='short'">
@@ -568,7 +571,7 @@
 				</xsl:if>
 			</xsl:otherwise>
 		</xsl:choose><xsl:apply-templates select="." mode="Epub">
-			<xsl:with-param name="ahpdate" select="//ARTICLE/@ahpdate"/>
+			<xsl:with-param name="ahpdate" select="//ARTICLE/@ahpdate"/><xsl:with-param name="rvpdate" select="//ARTICLE/@rvpdate"/>
 		</xsl:apply-templates><xsl:if test="//ARTICLE/@ahpdate and //ARTICLE/@ahpdate!=''">.</xsl:if>
 		<xsl:value-of select="concat(' ISSN ', $ISSN, '.')"/>
 		<xsl:apply-templates select="@DOI" mode="ref"/>
@@ -1258,8 +1261,8 @@ Parameters:
 			<xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'available_from']"/>:
   		http://<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/SERVER"/>
 			<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_arttext&amp;pid=<xsl:value-of select="$PID"/>&amp;lng=<xsl:value-of select="$LANG"/>.</xsl:if>
-		<xsl:if test="$NUM='ahead'">
-			<xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'in_press']"/>
+		<xsl:if test="$NUM='ahead'">&#160;
+			<xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'in_press']"/>&#160;
 			<xsl:choose>
 				<xsl:when test="//ARTICLE/@ahpdate=''">
 					<xsl:value-of select="substring(//ARTICLE/@CURR_DATE,1,4)"/>
@@ -1269,7 +1272,8 @@ Parameters:
 				</xsl:otherwise>
 			</xsl:choose>.
 		</xsl:if>	<xsl:apply-templates select="." mode="Epub">
-			<xsl:with-param name="ahpdate" select="//ARTICLE/@ahpdate"/>
+			<xsl:with-param name="ahpdate" select="//ARTICLE/@ahpdate"/><xsl:with-param name="rvpdate" select="//ARTICLE/@rvpdate"/>
+
 		</xsl:apply-templates><xsl:if test="//ARTICLE/@ahpdate and //ARTICLE/@ahpdate!=''">.</xsl:if>
 
 		<xsl:apply-templates select="@DOI" mode="ref"/>
@@ -1344,7 +1348,8 @@ Parameters:
   		&lt;http://<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/SERVER"/>
 			<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_arttext&amp;pid=<xsl:value-of select="$PID"/>&amp;lng=<xsl:value-of select="$LANG"/>&amp;nrm=iso&gt;.
 		<xsl:if test="$CURR_DATE">
-				<xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'access_on']"/>
+				<xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'access_on']"/>&#160;
+
 				<xsl:value-of select="substring($CURR_DATE,7,2)"/>
 			</xsl:if>&#160;
 			<xsl:call-template name="GET_MONTH_NAME_ABNT">
@@ -1354,7 +1359,8 @@ Parameters:
 			</xsl:call-template>&#160;
 			<xsl:value-of select="substring($CURR_DATE,1,4)"/>.</xsl:if>
 		<xsl:apply-templates select="." mode="Epub">
-			<xsl:with-param name="ahpdate" select="//ARTICLE/@ahpdate"/>
+			<xsl:with-param name="ahpdate" select="//ARTICLE/@ahpdate"/><xsl:with-param name="rvpdate" select="//ARTICLE/@rvpdate"/>
+
 		</xsl:apply-templates><xsl:if test="//ARTICLE/@ahpdate and //ARTICLE/@ahpdate!=''">.</xsl:if>
 
 
@@ -1664,8 +1670,11 @@ Parameters:
 	</xsl:template>
 	<xsl:template match="@DOI" mode="ref">&#160;
 		<xsl:apply-templates select="."/>.</xsl:template>
-	<xsl:template match="*" mode="Epub"><xsl:param name="ahpdate"/><xsl:if test="$ahpdate!=''">&#160;<xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'ahead_of_print_epub']"/>&#160;<xsl:call-template name="ShowDate">
-				<xsl:with-param name="DATEISO" select="$ahpdate"/>
+	<xsl:template match="*" mode="Epub"><xsl:param name="ahpdate"/><xsl:param name="rvpdate"/><xsl:if test="$ahpdate!='' or $rvpdate!=''">&#160;<xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'ahead_of_print_epub']"/>&#160;<xsl:call-template name="ShowDate">
+				<xsl:with-param name="DATEISO"><xsl:choose>
+					<xsl:when test="$ahpdate!=''"><xsl:value-of select="$ahpdate"/></xsl:when>
+					<xsl:when test="$rvpdate!=''"><xsl:value-of select="$rvpdate"/></xsl:when>
+				</xsl:choose></xsl:with-param>
 				<xsl:with-param name="LANG" select="//CONTROLINFO/LANGUAGE"/>
 				<xsl:with-param name="ABREV" select="1"/>
 			</xsl:call-template>
