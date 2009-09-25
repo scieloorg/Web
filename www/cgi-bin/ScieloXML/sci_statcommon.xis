@@ -81,7 +81,8 @@
   
   <!-- Get Title Information from TITLE DB -->
   <call name="CreateTitleGroupXML"><pft>v7</pft></call>
-  <call name="CreateISSNXML"><pft>v7</pft></call>  
+  <call name="CreateISSN4IDXML"><pft>v7</pft></call>
+  <call name="CreateISSN4TITLEXML"><pft>v7</pft></call>
 
   <label>NO_ISSN</label>              
   <call name="CreateScieloCopyInfoXML"><pft>'1'</pft></call>

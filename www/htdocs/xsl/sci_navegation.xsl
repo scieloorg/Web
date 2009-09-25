@@ -84,7 +84,7 @@
 														<xsl:with-param name="alttext">
                                                             <xsl:value-of select="$translations/xslid[@id='sci_navegation']/text[@find = 'articles']"/>
 														</xsl:with-param>
-														<xsl:with-param name="pid" select="//ISSN"/>
+														<xsl:with-param name="pid" select="//ISSN_AS_ID"/>
 														<xsl:with-param name="script">sci_artlist</xsl:with-param>
 													</xsl:call-template>
 												</xsl:if>
@@ -237,7 +237,7 @@
 					<xsl:with-param name="alttext">
                         <xsl:value-of select="$translations/xslid[@id='sci_navegation']/text[@find = 'available_issues']"/>
 					</xsl:with-param>
-					<xsl:with-param name="pid" select="//ISSN"/>
+					<xsl:with-param name="pid" select="//ISSN_AS_ID"/>
 					<xsl:with-param name="script">
 						<xsl:apply-templates select="." mode="issues"/>
 					</xsl:with-param>
@@ -486,7 +486,7 @@
 			<xsl:call-template name="ShowNavBarButton">
 				<xsl:with-param name="file">home.gif</xsl:with-param>
 				<xsl:with-param name="alttext">Home Page</xsl:with-param>
-				<xsl:with-param name="pid" select="//ISSN"/>
+				<xsl:with-param name="pid" select="//ISSN_AS_ID"/>
 				<xsl:with-param name="script">
 					<xsl:apply-templates select="." mode="sci_serial"/>
 				</xsl:with-param>

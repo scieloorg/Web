@@ -2,7 +2,7 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 	<xsl:include href="sci_navegation.xsl"/>
 	<xsl:variable name="forceType" select="//CONTROLINFO/ENABLE_FORCETYPE"/>
-	<xsl:variable name="ISSN" select="concat(substring-before(/SERIAL/ISSN,'-'),substring-after(/SERIAL/ISSN,'-'))"/>
+	<xsl:variable name="ISSN_AS_ID" select="concat(substring-before(/SERIAL/ISSN_AS_ID,'-'),substring-after(/SERIAL/ISSN_AS_ID,'-'))"/>
 	<xsl:variable name="show_scimago" select="//show_scimago"/>
 	<xsl:variable name="scimago_status" select="//scimago_status"/>
 	<xsl:variable name="has_article_pr">
@@ -294,7 +294,7 @@ press release do artigo
 			</xsl:apply-templates>
 			<xsl:if test=" ENABLE_STAT_LINK = 1 or ENABLE_CIT_REP_LINK = 1 ">
 				<li>
-					<a href="{SCIELO_INFO/SERVER_SCIELO}/statjournal.php?lang={LANGUAGE}&amp;issn={/SERIAL/ISSN}">
+					<a href="{SCIELO_INFO/SERVER_SCIELO}/statjournal.php?lang={LANGUAGE}&amp;issn={/SERIAL/ISSN_AS_ID}">
 						<xsl:apply-templates select="." mode="link-text">
 							<xsl:with-param name="type" select="'statistic'"/>
 						</xsl:apply-templates>
@@ -373,14 +373,14 @@ press release do artigo
 			<xsl:apply-templates select="." mode="links"/>
 			<!-- monta o grafico scimago -->
                     <div class="optionsSubMenu">
-                        <xsl:variable name="graphMago" select="document('../../bases/scimago/scimago.xml')/SCIMAGOLIST/title[@ISSN = $ISSN]/@SCIMAGO_ID"/>
+                        <xsl:variable name="graphMago" select="document('../../bases/scimago/scimago.xml')/SCIMAGOLIST/title[@ISSN = $ISSN_AS_ID]/@SCIMAGO_ID"/>
                         <xsl:if test="$show_scimago!=0 and normalize-space($scimago_status) = normalize-space('online')">
                             <xsl:if test="$graphMago">
                                 <a>
-                                    <xsl:attribute name="href">http://www.scimagojr.com/journalsearch.php?q=<xsl:value-of select="$ISSN"/>&amp;tip=iss&amp;exact=yes></xsl:attribute>
+                                    <xsl:attribute name="href">http://www.scimagojr.com/journalsearch.php?q=<xsl:value-of select="$ISSN_AS_ID"/>&amp;tip=iss&amp;exact=yes></xsl:attribute>
                                     <xsl:attribute name="target">_blank</xsl:attribute>
                                     <img>
-                                        <xsl:attribute name="src">/img/scimago/<xsl:value-of select="$ISSN"/>.gif</xsl:attribute>
+                                        <xsl:attribute name="src">/img/scimago/<xsl:value-of select="$ISSN_AS_ID"/>.gif</xsl:attribute>
                                         <xsl:attribute name="alt"><xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='scimago_journal_country_rank']"/></xsl:attribute>
                                         <xsl:attribute name="border">0</xsl:attribute>
                                     </img>
@@ -428,7 +428,7 @@ press release do artigo
 						</option>
 					</select>
 					<select class="inputText mini" name="limit">
-						<option value="{/SERIAL/ISSN}">
+						<option value="{/SERIAL/ISSN_AS_ID}">
 							<xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='this_journal']"/>
 						</option>
 						<option value="">
@@ -446,7 +446,7 @@ press release do artigo
 					<xsl:apply-templates select="/SERIAL/PUBLISHERS/PUBLISHER"/>
 				</strong>
 				<span class="issn">
-					<xsl:apply-templates select="/SERIAL/ISSN"/>
+					<xsl:apply-templates select="/SERIAL/TITLE_ISSN"/>
 				</span>
                 <br/><br/>
 				<small>

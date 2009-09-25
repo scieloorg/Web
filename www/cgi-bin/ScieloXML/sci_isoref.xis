@@ -111,8 +111,9 @@
 
     <call name="CreateTitleGroupXML"><pft>v3004</pft></call>
     
-    <call name="CreateISSNXML"><pft>v3004</pft></call>
-    
+    <call name="CreateISSN4IDXML"><pft>v3004</pft></call>
+    <call name="CreateISSN4ISSUEXML"><pft>v3004,'^i',f(l(['NEWISSUE'],'Y',mid(v3002,2,17)),1,0)</pft></call>
+
 	<do task="mfnrange">
 		<parm name="db">ARTIGO</parm>	
 		<!--parm name="expression"><pft>mpu,'SF=',v3002,mpl</pft></parm-->
@@ -123,7 +124,7 @@
 	
             <display><pft>@PROC_SPLIT_MST.PFT,</pft></display>
 			<field action="import" tag="list">3000/3012,7009/7060</field> <!-- fixed -->
-       <field action="import"	tag="list">3100</field>
+            <field action="import"	tag="list">3100</field>
             <display>
                 <pft>
                     ' <ARTICLE'
