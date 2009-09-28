@@ -1303,7 +1303,7 @@
 		'   <PATH_CGI_IAH>',     v7021, '</PATH_CGI_IAH>'/,
                 '   <PATH_HTDOCS>',      v7044, '</PATH_HTDOCS>'/,
                 |   <STAT_SERVER_CITATION>|v7045|</STAT_SERVER_CITATION>|/,
-                |   <STAT_SERVER_COAUTH>|v7048|</STAT_SERVER_COAUTH>|/,
+                |   <STAT_SERVER_COAUTH>|v7058|</STAT_SERVER_COAUTH>|/,
 		if v7035 = '1' then,
 		'   <SERVER_LOG>', v7036, '</SERVER_LOG>'/,
 		'   <SCRIPT_LOG_NAME>', v7037, '</SCRIPT_LOG_NAME>'/,
