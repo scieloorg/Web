@@ -233,7 +233,7 @@
 						<br/>
 					</xsl:if>
 					<xsl:if test="ENABLE_COAUTH_REPORTS_LINK  = '1'">
-						<a href="{SCIELO_INFO/STAT_SERVER_COAUTH}stat_biblio/index.php?xml={SCIELO_INFO/STAT_SERVER_COAUTH}stat_biblio/xml/16.xml&amp;lang={LANGUAGE}&amp;state=16">
+						<a href="{SCIELO_INFO/STAT_SERVER_COAUTH}stat_biblio/index.php?xml={SCIELO_INFO/STAT_SERVER}stat_biblio/xml/16.xml&amp;lang={LANGUAGE}&amp;state=16">
 							<font class="linkado" size="-1">
 								<xsl:value-of select="$translations/xslid[@id='sci_home']/text[@find='co_authors']"/>
 							</font>
