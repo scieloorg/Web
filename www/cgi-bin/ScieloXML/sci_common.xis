@@ -621,6 +621,7 @@
 		'  <APP_NAME>',v7038,'</APP_NAME>'/,
 		"  <ENABLE_STAT_LINK>"v7039"</ENABLE_STAT_LINK>"/,
 		"  <ENABLE_CIT_REP_LINK>"v7040"</ENABLE_CIT_REP_LINK>"/,
+		"  <ENABLE_COAUTH_REPORTS_LINK>"v7059"</ENABLE_COAUTH_REPORTS_LINK>"/,
 		"  <NAVEGATION_TYPE>"v7048"</NAVEGATION_TYPE>"/,
 		
 		"  <NO_SCI_SERIAL>"v7046"</NO_SCI_SERIAL>"/,
@@ -1301,7 +1302,8 @@
 		'   <PATH_DATA_IAH>',    v7020, '</PATH_DATA_IAH>'/,
 		'   <PATH_CGI_IAH>',     v7021, '</PATH_CGI_IAH>'/,
                 '   <PATH_HTDOCS>',      v7044, '</PATH_HTDOCS>'/,
-                '   <STAT_SERVER>',      v7045, '</STAT_SERVER>'/,
+                |   <STAT_SERVER_CITATION>|v7045|</STAT_SERVER_CITATION>|/,
+                |   <STAT_SERVER_COAUTH>|v7048|</STAT_SERVER_COAUTH>|/,
 		if v7035 = '1' then,
 		'   <SERVER_LOG>', v7036, '</SERVER_LOG>'/,
 		'   <SCRIPT_LOG_NAME>', v7037, '</SCRIPT_LOG_NAME>'/,
