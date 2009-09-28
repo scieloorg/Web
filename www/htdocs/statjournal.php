@@ -60,8 +60,8 @@
 							'GRANTED_CITATIONS' => 'Granted citations',
 							'SITE_USAGE_PAGES_SERVER' => $DEF['LOG']['SERVER_LOG_PROC'],
 							'SITE_USAGE_PAGES_SERVER_PATH' => $DEF['LOG']['SERVER_LOG_PROC_PATH'],
-							'COAUTHORS_SERVER' => $DEF['SCIELO']['STAT_SERVER'],
-							'JOURNAL_CITATION_SERVER' => $DEF['SCIELO']['STAT_SERVER'],
+							'COAUTHORS_SERVER' => $DEF['SCIELO']['STAT_SERVER_COAUTH'],
+							'JOURNAL_CITATION_SERVER' => $DEF['SCIELO']['STAT_SERVER_CITATION'],
 							'xml'=> $xml,
 							'APP_NAME'=>$DEF['SITE_INFO']['APP_NAME']);
 			break;
@@ -87,8 +87,8 @@
 							'GRANTED_CITATIONS' => 'Citas concedidas',
 							'SITE_USAGE_PAGES_SERVER' => $DEF['LOG']['SERVER_LOG_PROC'],
 							'SITE_USAGE_PAGES_SERVER_PATH' => $DEF['LOG']['SERVER_LOG_PROC_PATH'],
-							'COAUTHORS_SERVER' => $DEF['SCIELO']['STAT_SERVER'],
-							'JOURNAL_CITATION_SERVER' => $DEF['SCIELO']['STAT_SERVER'],
+							'COAUTHORS_SERVER' => $DEF['SCIELO']['STAT_SERVER_COAUTH'],
+							'JOURNAL_CITATION_SERVER' => $DEF['SCIELO']['STAT_SERVER_CITATION'],
 							'xml'=> $xml,
 							'APP_NAME'=>$DEF['SITE_INFO']['APP_NAME']);
 			break;
@@ -114,8 +114,8 @@
 							'GRANTED_CITATIONS' => 'Citações concedidas',
 							'SITE_USAGE_PAGES_SERVER' => $DEF['LOG']['SERVER_LOG_PROC'],
 							'SITE_USAGE_PAGES_SERVER_PATH' => $DEF['LOG']['SERVER_LOG_PROC_PATH'],
-							'COAUTHORS_SERVER' => $DEF['SCIELO']['STAT_SERVER'],
-							'JOURNAL_CITATION_SERVER' => $DEF['SCIELO']['STAT_SERVER'],
+							'COAUTHORS_SERVER' => $DEF['SCIELO']['STAT_SERVER_COAUTH'],
+							'JOURNAL_CITATION_SERVER' => $DEF['SCIELO']['STAT_SERVER_CITATION'],
 							'xml'=> $xml,
 							'APP_NAME'=>$DEF['SITE_INFO']['APP_NAME']);
 			break;
@@ -135,8 +135,8 @@
 			<tr>
 				<td width="20%">
 					<p align="center">
-						<a href="http://<?echo $LABELS['SITE_USAGE_PAGES_SERVER'];?>/scielo.php?script=sci_serial&pid=<?echo $LABELS['JOURNAL_ISSN'];?>&lng=<?echo $LABELS['LANG'];?>">
-							<img align="bottom" border="0" src="http://<?echo $LABELS['SITE_USAGE_PAGES_SERVER'];?>/img/revistas/<?echo $LABELS['ACRON'];?>/plogo.gif"/>
+						<a href="http://<?echo $DEF['SCIELO']['SERVER_SCIELO'];?>/scielo.php?script=sci_serial&pid=<?echo $LABELS['JOURNAL_ISSN'];?>&lng=<?echo $LABELS['LANG'];?>">
+							<img align="bottom" border="0" src="http://<?echo $DEF['SCIELO']['SERVER_SCIELO'];?>/img/revistas/<?echo $LABELS['ACRON'];?>/plogo.gif"/>
 						</a>	
 					</p>
 				</td>
@@ -190,7 +190,7 @@
 				</div>
 				<div
 					<?php
-						if ($DEF['LOG']['ENABLE_CITATION_REPORTS_LINK']=='0'){
+						if ($DEF['LOG']['ENABLE_COAUTH_REPORTS_LINK']=='0'){
 							echo 'style="display: none;"' ;
 
 						}
@@ -209,9 +209,20 @@
 							</li>
 						</ul>
 					</blockquote>
+                    </div>
+				<div
+					<?php
+						if ($DEF['LOG']['ENABLE_CITATION_REPORTS_LINK']=='0'){
+							echo 'style="display: none;"' ;
+
+						}
+					?>
+
+				>
 					<blockquote>	
 						<p><font class="nomodel" color="#0000A0"><b><?php echo $LABELS['JOURNAL_CITATION_REPORTS']; ?></b></font></p>
 					</blockquote>
+
 					<blockquote>
 						<ul>
 							<li>
@@ -237,7 +248,7 @@
 		<p align="center"><font color="#0000A0" size="2"><i><?echo $DEF['SITE_INFO']['SITE_NAME'];?></i></font>
 		<br>
 		<a href="mailto:<?echo $DEF['SITE_INFO']['E_MAIL'];?>">
-		<img align="bottom" border="0" src="http://<?echo $LABELS['SITE_USAGE_PAGES_SERVER'];?>/img/<?echo $LABELS['LANG'];?>/e-mailt.gif"><br>
+		<img align="bottom" border="0" src="http://<?echo $DEF['SCIELO']['SERVER_SCIELO'];?>/img/<?echo $LABELS['LANG'];?>/e-mailt.gif"><br>
 		<font size="2" color="#0000A0"><?echo $DEF['SITE_INFO']['E_MAIL'];?></font></a></p>
 	</body>
 </html>
