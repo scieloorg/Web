@@ -201,7 +201,7 @@
 					<br/>
 				</td>
 				<td valign="top" width="205">
-					<xsl:if test="ENABLE_STAT_LINK = 1 or ENABLE_CIT_REP_LINK = 1 ">
+					<xsl:if test="ENABLE_STAT_LINK = '1' or ENABLE_CIT_REP_LINK = '1' or ENABLE_COAUTH_REPORTS_LINK = '1' ">
 						<font class="nomodel" color="#800000" size="-1">
 							<xsl:value-of select="$translations/xslid[@id='sci_home']/text[@find='reports']"/>
 						</font>
@@ -219,19 +219,21 @@
 						</a>
 						<br/>
 					</xsl:if>
-					<xsl:if test="ENABLE_CIT_REP_LINK = 1">
+					<xsl:if test="ENABLE_CIT_REP_LINK= '1'">
 						<!--a>
 			<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER" /><xsl:value-of
 				 select="SCIELO_INFO/PATH_DATA" />bib2jcr.htm</xsl:attribute>
 			<font class="linkado" size="-1">journal citation</font>
 		</a-->
-						<a href="{SCIELO_INFO/STAT_SERVER}stat_biblio/index.php?lang={LANGUAGE}">
+						<a href="{SCIELO_INFO/STAT_SERVER_CITATION}stat_biblio/index.php?lang={LANGUAGE}">
 							<font class="linkado" size="-1">
 								<xsl:value-of select="$translations/xslid[@id='sci_home']/text[@find='journal_citation']"/>
 							</font>
 						</a>
 						<br/>
-						<a href="{SCIELO_INFO/STAT_SERVER}stat_biblio/index.php?xml={SCIELO_INFO/STAT_SERVER}stat_biblio/xml/16.xml&amp;lang={LANGUAGE}&amp;state=16">
+					</xsl:if>
+					<xsl:if test="ENABLE_COAUTH_REPORTS_LINK  = '1'">
+						<a href="{SCIELO_INFO/STAT_SERVER_COAUTH}stat_biblio/index.php?xml={SCIELO_INFO/STAT_SERVER}stat_biblio/xml/16.xml&amp;lang={LANGUAGE}&amp;state=16">
 							<font class="linkado" size="-1">
 								<xsl:value-of select="$translations/xslid[@id='sci_home']/text[@find='co_authors']"/>
 							</font>
