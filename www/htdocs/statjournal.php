@@ -171,17 +171,17 @@
 					<blockquote>
 						<ul>
 							<li>
-								<a href="http://<?echo $LABELS['SITE_USAGE_PAGES_SERVER'];?>/<?echo $LABELS['SITE_USAGE_PAGES_SERVER_PATH'];?>/scielolog.php?script=sci_journalstat&lng=<?echo $LABELS['LANG'];?>&pid=<?echo $LABELS['JOURNAL_ISSN'];?>&app=<?echo $LABELS['APP_NAME'];?>">
+								<a href="http://<?echo $LABELS['SITE_USAGE_PAGES_SERVER'];?>/<?echo $LABELS['SITE_USAGE_PAGES_SERVER_PATH'];?>/scielolog.php?script=sci_journalstat&lng=<?echo $LABELS['LANG'];?>&pid=<?echo $LABELS['JOURNAL_ISSN'];?>&app=<?echo $LABELS['APP_NAME'];?>&server=<?echo $DEF['SCIELO']['SERVER_SCIELO'];?>">
 									<?php echo $LABELS['REPORT_JOURNAL_REQUESTS']; ?>
 								</a>
 							</li>
 							<li>
-								<a href="http://<?echo $LABELS['SITE_USAGE_PAGES_SERVER'];?>/<?echo $LABELS['SITE_USAGE_PAGES_SERVER_PATH'];?>/scielolog.php?script=sci_statiss&lng=<?echo $LABELS['LANG'];?>&pid=<?echo $LABELS['JOURNAL_ISSN'];?>&app=<?echo $LABELS['APP_NAME'];?>">
+								<a href="http://<?echo $LABELS['SITE_USAGE_PAGES_SERVER'];?>/<?echo $LABELS['SITE_USAGE_PAGES_SERVER_PATH'];?>/scielolog.php?script=sci_statiss&lng=<?echo $LABELS['LANG'];?>&pid=<?echo $LABELS['JOURNAL_ISSN'];?>&app=<?echo $LABELS['APP_NAME'];?>&server=<?echo $DEF['SCIELO']['SERVER_SCIELO'];?>">
 									<?php echo $LABELS['REPORT_ISSUES_REQUESTS']; ?>
 								</a>
 							</li>
 							<li>
-								<a href="http://<?echo $LABELS['SITE_USAGE_PAGES_SERVER'];?>/<?echo $LABELS['SITE_USAGE_PAGES_SERVER_PATH'];?>/scielolog.php?script=sci_statart&lng=<?echo $LABELS['LANG'];?>&pid=<?echo $LABELS['JOURNAL_ISSN'];?>&app=<?echo $LABELS['APP_NAME'];?>&dti=20040101">
+								<a href="http://<?echo $LABELS['SITE_USAGE_PAGES_SERVER'];?>/<?echo $LABELS['SITE_USAGE_PAGES_SERVER_PATH'];?>/scielolog.php?script=sci_statart&lng=<?echo $LABELS['LANG'];?>&pid=<?echo $LABELS['JOURNAL_ISSN'];?>&app=<?echo $LABELS['APP_NAME'];?>&server=<?echo $DEF['SCIELO']['SERVER_SCIELO'];?>&dti=20040101">
 									<?php echo $LABELS['REPORT_ARTICLES_REQUESTS']; ?>
 								</a>
 							</li>
