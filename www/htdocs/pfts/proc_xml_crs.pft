@@ -1,46 +1,49 @@
-'<doi_batch xmlns="http://www.crossref.org/schema/4.1.0" version="4.1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">',#
+'<?xml version="1.0" encoding="UTF-8"?>'/
+'<doi_batch version="4.3.0" xmlns="http://www.crossref.org/schema/4.3.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.crossref.org/schema/4.3.0 http://www.crossref.org/schema/deposit/crossref4.3.0.xsd">',#
 	'<head>',#
-		,if p(v881) then,
+   if p(v881) then
         	        '<doi_batch_id>',v881,'</doi_batch_id>',#
-		,else,
+   else
 	                '<doi_batch_id>',v880,'</doi_batch_id>',#
-		,fi,
+   fi
                 '<timestamp>',mid(replace(date,' ',''),0,14),'</timestamp>',#
                 '<depositor>',#
-                        '<name>BIREME/PAHO/WHO</name>',#
-                        '<email_address>bireme.crossref@gmail.com</email_address>',#
+                        '<name>',v9040,'</name>',#
+                        '<email_address>',v9041,'</email_address>',#
                 '</depositor>',#
-                '<registrant>10.1590</registrant>',#
+                '<registrant>',v9038,'</registrant>',#
         '</head>',#
         '<body>',#
                 '<journal>',#
                         '<journal_metadata language="en">',#
-                                /* '<full_title>',ref(l(s('TITLE',v35,v65*0.4,'$')),v130),'</full_title>',# */
-                                '<full_title>',ref(['TITLE']l(['TITLE']'LOC='v35),v100),'</full_title>',#
+                                '<full_title>',ref(['TITLE']l(['TITLE']'LOC='v35),proc('GBIREME_TABS_GCHARENT,100')v100),'</full_title>',#
                                 '<abbrev_title>',v30,'</abbrev_title>',#
                                 '<issn media_type="electronic">',v35,'</issn>',#
-                                '<coden>',ref(['TITLE']l(['TITLE']'LOC='v35),v930),'</coden>',#
+                                '<coden>',ref(['TITLE']l(['TITLE']'LOC='v35),v930*0.6),'</coden>',#
                         '</journal_metadata>',#
                         '<journal_issue>',#
                                 '<publication_date media_type="online">',#
                                         '<year>',v65*0.4,'</year>',#
                                 '</publication_date>',#
-                                |<journal_volume><volume>|v31|</volume></journal_volume>|/,
-                                '<issue>',v32,'</issue>',#
+       |<journal_volume><volume>|v31|</volume></journal_volume>|,/
+       |<issue>|v32|</issue>|,/
                         '</journal_issue>',#
                         '<journal_article publication_type="full_text">',#
-                                '<titles>',#
-					,if p(v12) then,
-        	                                (if s(mpu,v12^l,mpl)='EN' then ,'<title>',v12^*,'</title>',#, fi )
-					,else,
-	                                        (if s(mpu,v18^l,mpl)='EN' then ,'<title>',v18^*,'</title>',#, fi )
-					,fi,
-                                '</titles>',#
-                                ,if p(v10) then,
+                                if v12>'' or v18>'' then
+                                  '<titles>',#
+           if p(v12) then
+        	                                '<title>',proc('GBIREME_TABS_GCHARENT,12'),v12[1]^*,'</title>',#
+					else
+	                                        if p(v18) then                                      '<title>',proc('GBIREME_TABS_GCHARENT,18'),v18[1]^*,'</title>',# fi
+					 fi
+                                  '</titles>',#
+                                fi
+                                if p(v10) then
                                 '<contributors>',#
-                                        (,'<person_name sequence="',if iocc = 1 then ,'first',else, 'additional' fi,'" contributor_role="author">',#
-                                                |<given_name>|v10^n|</given_name>|/,
-                                                |<surname>|v10^s|</surname>|/,
+                                        (
+'<person_name sequence="',if iocc = 1 then ,'first',else, 'additional' fi,'" contributor_role="author">',#
+                                                |<given_name>|v10^n.35|</given_name>|/,
+                                                |<surname>|v10^s.35|</surname>|/,
                                         '</person_name>',#,)
                                 '</contributors>',#
                                 ,fi,
@@ -54,18 +57,22 @@
                                         '<identifier id_type="pii">',v881,'</identifier>',#
 					else
                                         '<identifier id_type="pii">',v880,'</identifier>',#
-					fi
-                                '</publisher_item>',#
-                                '<doi_data>',#
+					fi,
+                                '</publisher_item>',#,
+                                '<doi_data>',#,
 					if p(v881) then,
-                                        '<doi>10.1590/',v881,'</doi>',#
+                                        '<doi>',v9038,'/',v881,'</doi>',#,
                                         else
-                                        '<doi>10.1590/',v880,'</doi>',#
-                                        fi
-                                        '<resource>http://www.scielo.br/scielo.php?script=sci_arttext&amp;pid=',if p(v881) then v881 else v880 fi,'&amp;lng=en&amp;nrm=iso&amp;tlng=en</resource>',#
-                                '</doi_data>',#
-                        '</journal_article>',#
-                '</journal>',#
-        '</body>',#
-
-'</doi_batch>'
+                                        '<doi>',v9038,'/',v880,'</doi>',#,
+                                        fi,
+                                        if p(v881) then,
+                                                '<resource>http://',v9037,'/scielo.php?script=sci_arttext&amp;pid=',v881,'&amp;lng=en&amp;nrm=iso&amp;tlng=en</resource>',#
+                                        else
+                                                '<resource>http://',v9037,'/scielo.php?script=sci_arttext&amp;pid=',v880,'&amp;lng=en&amp;nrm=iso&amp;tlng=en</resource>',#
+                                        fi,
+                                '</doi_data>',#,
+                        '</journal_article>',#,
+                '</journal>',#,
+        '</body>',#,
+,
+'</doi_batch>',
