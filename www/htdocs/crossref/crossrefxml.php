@@ -10,9 +10,10 @@ $applServer = $defFile["SERVER_SCIELO"];
 $databasePath = $defFile["PATH_DATABASE"];
 
 
-$xml = "http://".$applServer."/cgi-bin/wxis.exe/?IsisScript=ScieloXML/";
-$xml .= "sci_xmlcrossrefoutput.xis&def=scielo.def&database=ARTIGO&search=HR=".$_REQUEST['pid'];
-$xml = file_get_contents($xml);
+$xml = "http://".$applServer."/cgi-bin/wxis.exe/?IsisScript=ScieloXML/sci_xmlcrossrefoutput.xis&def=scielo.def&database=ARTIGO&search=HR=".$_REQUEST['pid'].
+        "&prefix=".$defFile["DOI_PREFIX"]."&depname=".$defFile["DEPOSITOR_NAME"].
+        "&depmail=".$defFile["DEPOSITOR_MAIL"]."&depdomain=".$defFile["DEPOSITOR_DOMAIN"];
+$xml = utf8_encode(file_get_contents($xml));
 
 echo ($xml);	
 ?>
