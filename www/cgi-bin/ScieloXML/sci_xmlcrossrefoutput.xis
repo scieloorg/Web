@@ -22,7 +22,6 @@
 				'Content-type:text/plain'##
 			else
 				'Content-type:text/xml'##
-				'<?xml version="1.0" encoding="ISO-8859-1"?>'/
 			fi
 		</pft>
 	</display>
@@ -70,6 +69,15 @@
 		<field action="define" tag="1002">Isis_Total</field>
 		<field action="define" tag="1102">Isis_Status</field>
 
+		<field action="cgi" tag="9037">depdomain</field>
+		<parm name="reverse"><pft>v9037</pft></parm>
+		<field action="cgi" tag="9038">prefix</field>
+		<parm name="reverse"><pft>v9038</pft></parm>
+		<field action="cgi" tag="9040">depname</field>
+		<parm name="reverse"><pft>v9040</pft></parm>
+		<field action="cgi" tag="9041">depmail</field>
+		<parm name="reverse"><pft>v9041</pft></parm>
+
 		<parm name="isisxml table">
 			<pft>
 				'1001 Isis_Current'/
@@ -85,6 +93,8 @@
 
 		<loop>
 			<field action="import" tag="list">2007</field>
+                        <field action="import" tag="list">9037/9041</field>
+                        
 			<flow action="jump"><pft>if val(v32701^m) > 0 then 'proc_split' fi</pft></flow>
 			<display><pft>@PROC_XML_CRS.PFT</pft></display>
 			<flow action="skip">Next</flow>
