@@ -24,6 +24,7 @@
 						<xsl:with-param name="num" select="CONTROLINFO/CURRENTISSUE/@NUM"/>
 						<xsl:with-param name="suppl" select="CONTROLINFO/CURRENTISSUE/@SUPPL"/>
 						<xsl:with-param name="lang" select="normalize-space(CONTROLINFO/LANGUAGE)"/>
+						<xsl:with-param name="reviewType"><xsl:if test=".//ARTICLE/@hcomment!='1' or not(.//ARTICLE/@hcomment)">provisional</xsl:if></xsl:with-param>
 					</xsl:call-template>;
 				
 					<xsl:call-template name="ABSTR-TR">
@@ -98,6 +99,7 @@
 				<xsl:with-param name="NORM" select="'iso-e'"/>
 				<xsl:with-param name="LANG" select="$LANG"/>
 				<xsl:with-param name="AUTHLINK">1</xsl:with-param>
+			<xsl:with-param name="reviewType"><xsl:if test="@hcomment!='1' or not(@hcomment)">provisional</xsl:if></xsl:with-param>
 			</xsl:call-template>
 		</p>
 		<p>
