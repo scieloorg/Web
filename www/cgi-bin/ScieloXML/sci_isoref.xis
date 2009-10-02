@@ -136,6 +136,10 @@
                     fi
                     ' CURR_DATE="',mid(date,1,8),'"'
                     ' ahpdate="',v223,'"'
+                    ,| rvpdate="|v224|"|
+                    ,if v250='1' and v32='review' then
+                        ' enable-comment="1"'
+                    ,fi
                 </pft>
             </display>
 			<call name="getDOI"><pft>v880</pft></call>

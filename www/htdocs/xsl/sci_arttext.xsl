@@ -69,6 +69,13 @@
 							<xsl:if test="TITLEGROUP/SIGLUM != 'bjmbr' ">
 								<xsl:apply-templates select="ISSUE/STRIP"/>
 							</xsl:if>
+							<xsl:if test="TITLEGROUP/SIGLUM = 'bjmbr' ">
+								<xsl:apply-templates select="ISSUE/STRIP"/>
+<!--xsl:apply-templates select="ISSUE/ARTICLE" mode="Epub">
+									<xsl:with-param name="ahpdate" select="ISSUE/ARTICLE/@ahpdate"/>
+									<xsl:with-param name="rvpdate" select="ISSUE/ARTICLE/@rvpdate"/>
+								</xsl:apply-templates-->
+							</xsl:if>
 						</h3>
 						<h4 id="doi">
 							<xsl:apply-templates select="ISSUE/ARTICLE/@DOI"/>&#160;
@@ -107,6 +114,7 @@
 			<xsl:with-param name="CITY" select="CITY"/>
 			<xsl:with-param name="MONTH" select="MONTH"/>
 			<xsl:with-param name="YEAR" select="YEAR"/>
+			<xsl:with-param name="reviewType"><xsl:if test="../ARTICLE/@hcomment!='1' or not(../ARTICLE/@hcomment)">provisional</xsl:if></xsl:with-param>
 		</xsl:call-template>
 	</xsl:template>
 </xsl:stylesheet>
