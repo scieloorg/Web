@@ -7,11 +7,13 @@
 	<xsl:variable name="PATH_WXIS" select="//PATH_WXIS"/>
 	<xsl:variable name="PATH_DATA_IAH" select="//PATH_DATA_IAH"/>
 	<xsl:variable name="PATH_CGI_IAH" select="//PATH_CGI_IAH"/>
+	<xsl:variable name="ISSUE_ISSN" select="//ISSUE_ISSN"/>
 	<xsl:template name="GetStrip">
 		<xsl:param name="vol"/>
 		<xsl:param name="num"/>
 		<xsl:param name="suppl"/>
 		<xsl:param name="lang"/>
+		<xsl:param name="reviewType"/>
 		<xsl:if test="$vol">
 			<xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'vol.']"/>
 			<xsl:value-of select="$vol"/>
@@ -33,7 +35,14 @@
 			<xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'ahead_of_print']"/>
 		</xsl:if>
 		<xsl:if test="contains($num,'review')">
-			<xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'review_in_progress']"/>
+			<xsl:choose>
+				<xsl:when test="$reviewType='provisional'">
+					<xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'provisional']"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'review_in_progress']"/>
+				</xsl:otherwise>
+			</xsl:choose>
 		</xsl:if>
 		<xsl:if test="contains($num,'beforeprint')">
 			<xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'not_printed']"/>
@@ -97,6 +106,7 @@
 		<xsl:param name="CITY"/>
 		<xsl:param name="MONTH"/>
 		<xsl:param name="YEAR"/>
+		<xsl:param name="reviewType"/>
 		<xsl:if test="$SHORTTITLE">
 			<xsl:value-of select="normalize-space($SHORTTITLE)" disable-output-escaping="yes"/>
 		</xsl:if>
@@ -114,7 +124,14 @@
 				</xsl:choose>
 			</xsl:when>
 			<xsl:when test="contains($NUM,'review')">&#160;
-                <xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'review_in_progress']"/>
+				<xsl:choose>
+					<xsl:when test="$reviewType='provisional'">
+						<xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'provisional']"/>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'review_in_progress']"/>
+					</xsl:otherwise>
+				</xsl:choose>
 			</xsl:when>
 			<xsl:when test="contains($NUM,'beforeprint')">&#160;
                 <xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'not_printed']"/>
@@ -135,7 +152,8 @@
 			</xsl:otherwise>
 		</xsl:choose>
 		<xsl:apply-templates select="." mode="Epub">
-			<xsl:with-param name="ahpdate" select="//ARTICLE/@ahpdate"/><xsl:with-param name="rvpdate" select="//ARTICLE/@rvpdate"/>
+			<xsl:with-param name="ahpdate" select="//ARTICLE/@ahpdate"/>
+			<xsl:with-param name="rvpdate" select="//ARTICLE/@rvpdate"/>
 		</xsl:apply-templates>
 	</xsl:template>
 	<!-- Shows the formatted date
@@ -210,7 +228,7 @@
 		<xsl:param name="FORMAT"/>
 		<xsl:param name="AUTHLINK">0</xsl:param>
 		<xsl:param name="TEXTLINK">0</xsl:param>
-
+		<xsl:param name="reviewType"/>
 		<xsl:choose>
 			<xsl:when test="$NORM='iso-e'">
 				<xsl:call-template name="PrintArticleReferenceElectronicISO">
@@ -227,10 +245,11 @@
 					<xsl:with-param name="YEAR" select="ISSUEINFO/STRIP/YEAR"/>
 					<xsl:with-param name="CURR_DATE" select="@CURR_DATE"/>
 					<xsl:with-param name="PID" select="../CONTROLINFO/PAGE_PID"/>
-					<xsl:with-param name="ISSN" select="../../../..//ISSUE_ISSN"/>
+					<xsl:with-param name="ISSN" select="$ISSUE_ISSN"/>
 					<xsl:with-param name="FPAGE" select="@FPAGE"/>
 					<xsl:with-param name="LPAGE" select="@LPAGE"/>
 					<xsl:with-param name="SHORTTITLE" select="ISSUEINFO/STRIP/SHORTTITLE"/>
+					<xsl:with-param name="reviewType" select="$reviewType"/>
 				</xsl:call-template>
 			</xsl:when>
 			<xsl:when test="$NORM='vancouv-e'">
@@ -481,6 +500,7 @@
 		<xsl:param name="FPAGE"/>
 		<xsl:param name="LPAGE"/>
 		<xsl:param name="SHORTTITLE" select="//TITLEGROUP/TITLE"/>
+		<xsl:param name="reviewType"/>
 		<xsl:variable name="url">
 			<xsl:value-of select="$domain"/>/scielo.php?script=sci_arttext&amp;pid=<xsl:value-of select="$PID"/>&amp;lng=<xsl:value-of select="$LANG"/>&amp;nrm=iso</xsl:variable>
 		<xsl:call-template name="PrintAuthorsISOElectronic">
@@ -553,7 +573,14 @@
 				<xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'ahead_of_print']"/>
 			</xsl:when>
 			<xsl:when test="$NUM='review'">
-				<xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'provisional']"/>
+				<xsl:choose>
+					<xsl:when test="$reviewType='provisional'">
+						<xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'provisional']"/>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'review_in_progress']"/>
+					</xsl:otherwise>
+				</xsl:choose>
 			</xsl:when>
 		</xsl:choose>
 		<xsl:choose>
@@ -571,9 +598,12 @@
 					<xsl:value-of select="concat(', pp. ', $FPAGE, '-', $LPAGE)"/>.
 				</xsl:if>
 			</xsl:otherwise>
-		</xsl:choose><xsl:apply-templates select="." mode="Epub">
-			<xsl:with-param name="ahpdate" select="..//ARTICLE/@ahpdate"/><xsl:with-param name="rvpdate" select="..//ARTICLE/@rvpdate"/>
-		</xsl:apply-templates><xsl:if test="..//ARTICLE/@ahpdate and //ARTICLE/@ahpdate!=''">.</xsl:if>
+		</xsl:choose>
+		<xsl:apply-templates select="." mode="Epub">
+			<xsl:with-param name="ahpdate" select="..//ARTICLE/@ahpdate"/>
+			<xsl:with-param name="rvpdate" select="..//ARTICLE/@rvpdate"/>
+		</xsl:apply-templates>
+		<xsl:if test="..//ARTICLE/@ahpdate and //ARTICLE/@ahpdate!=''">.</xsl:if>
 		<xsl:value-of select="concat(' ISSN ', $ISSN, '.')"/>
 		<xsl:apply-templates select="@DOI" mode="ref"/>
 	</xsl:template>
@@ -1272,11 +1302,12 @@ Parameters:
 					<xsl:value-of select="substring(//ARTICLE/@ahpdate,1,4)"/>
 				</xsl:otherwise>
 			</xsl:choose>.
-		</xsl:if>	<xsl:apply-templates select="." mode="Epub">
-			<xsl:with-param name="ahpdate" select="//ARTICLE/@ahpdate"/><xsl:with-param name="rvpdate" select="//ARTICLE/@rvpdate"/>
-
-		</xsl:apply-templates><xsl:if test="//ARTICLE/@ahpdate and //ARTICLE/@ahpdate!=''">.</xsl:if>
-
+		</xsl:if>
+		<xsl:apply-templates select="." mode="Epub">
+			<xsl:with-param name="ahpdate" select="//ARTICLE/@ahpdate"/>
+			<xsl:with-param name="rvpdate" select="//ARTICLE/@rvpdate"/>
+		</xsl:apply-templates>
+		<xsl:if test="//ARTICLE/@ahpdate and //ARTICLE/@ahpdate!=''">.</xsl:if>
 		<xsl:apply-templates select="@DOI" mode="ref"/>
 	</xsl:template>
 	<xsl:template name="PrintArticleReferenceElectronicABNT">
@@ -1360,11 +1391,10 @@ Parameters:
 			</xsl:call-template>&#160;
 			<xsl:value-of select="substring($CURR_DATE,1,4)"/>.</xsl:if>
 		<xsl:apply-templates select="." mode="Epub">
-			<xsl:with-param name="ahpdate" select="//ARTICLE/@ahpdate"/><xsl:with-param name="rvpdate" select="//ARTICLE/@rvpdate"/>
-
-		</xsl:apply-templates><xsl:if test="//ARTICLE/@ahpdate and //ARTICLE/@ahpdate!=''">.</xsl:if>
-
-
+			<xsl:with-param name="ahpdate" select="//ARTICLE/@ahpdate"/>
+			<xsl:with-param name="rvpdate" select="//ARTICLE/@rvpdate"/>
+		</xsl:apply-templates>
+		<xsl:if test="//ARTICLE/@ahpdate and //ARTICLE/@ahpdate!=''">.</xsl:if>
 		<xsl:apply-templates select="@DOI" mode="ref"/>
 	</xsl:template>
 	<xsl:template match="AUTHORS" mode="ref">
@@ -1640,11 +1670,13 @@ Parameters:
 		<xsl:param name="NORM"/>
 		<xsl:param name="LANG"/>
 		<xsl:param name="FORMAT" select="'full'"/>
+		<xsl:param name="reviewType"/>
 		<xsl:call-template name="PrintAbstractHeaderInformation">
 			<xsl:with-param name="LANG" select="$LANG"/>
 			<xsl:with-param name="AUTHLINK">0</xsl:with-param>
 			<xsl:with-param name="NORM" select="$NORM"/>
 			<xsl:with-param name="FORMAT" select="$FORMAT"/>
+			<xsl:with-param name="reviewType" select="$reviewType"/>
 		</xsl:call-template>
 	</xsl:template>
 	<xsl:template match="*" mode="standardized-reference">
@@ -1671,14 +1703,23 @@ Parameters:
 	</xsl:template>
 	<xsl:template match="@DOI" mode="ref">&#160;
 		<xsl:apply-templates select="."/>.</xsl:template>
-	<xsl:template match="*" mode="Epub"><xsl:param name="ahpdate"/><xsl:param name="rvpdate"/><xsl:if test="$ahpdate!='' or $rvpdate!=''">&#160;<xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'ahead_of_print_epub']"/>&#160;<xsl:call-template name="ShowDate">
-				<xsl:with-param name="DATEISO"><xsl:choose>
-					<xsl:when test="$ahpdate!=''"><xsl:value-of select="$ahpdate"/></xsl:when>
-					<xsl:when test="$rvpdate!=''"><xsl:value-of select="$rvpdate"/></xsl:when>
-				</xsl:choose></xsl:with-param>
+	<xsl:template match="*" mode="Epub">
+		<xsl:param name="ahpdate"/>
+		<xsl:param name="rvpdate"/>
+		<xsl:if test="$ahpdate!='' or $rvpdate!=''">&#160;<xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find = 'ahead_of_print_epub']"/>&#160;<xsl:call-template name="ShowDate">
+				<xsl:with-param name="DATEISO">
+					<xsl:choose>
+						<xsl:when test="$rvpdate!=''">
+							<xsl:value-of select="$rvpdate"/>
+						</xsl:when>
+						<xsl:when test="$ahpdate!=''">
+							<xsl:value-of select="$ahpdate"/>
+						</xsl:when>
+					</xsl:choose>
+				</xsl:with-param>
 				<xsl:with-param name="LANG" select="//CONTROLINFO/LANGUAGE"/>
 				<xsl:with-param name="ABREV" select="1"/>
 			</xsl:call-template>
-		</xsl:if>		
+		</xsl:if>
 	</xsl:template>
 </xsl:stylesheet>

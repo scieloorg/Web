@@ -8,7 +8,8 @@
 	</xsl:variable>
 	<xsl:template match="/">
 		<xsl:choose>
-			<xsl:when test=".//PRESENTS-ONLY-REF"><xsl:comment>..</xsl:comment>
+			<xsl:when test=".//PRESENTS-ONLY-REF">
+				<xsl:comment>..</xsl:comment>
 				<xsl:apply-templates select="." mode="reference"/>
 			</xsl:when>
 			<xsl:otherwise>
@@ -22,6 +23,7 @@
 			<xsl:with-param name="FORMAT" select="..//PRESENTS-ONLY-REF/@format"/>
 			<xsl:with-param name="NORM" select=".//PRESENTS-ONLY-REF/@standard"/>
 			<xsl:with-param name="LANG" select="$LANG"/>
+			<xsl:with-param name="reviewType"><xsl:if test=".//ARTICLE/@hcomment!='1' or not(.//ARTICLE/@hcomment)">provisional</xsl:if></xsl:with-param>
 		</xsl:apply-templates>
 	</xsl:template>
 	<xsl:template match="*" mode="how-to-cite">
@@ -35,6 +37,9 @@
 						<xsl:with-param name="num" select=".//ARTICLE/ISSUEINFO/@NUM"/>
 						<xsl:with-param name="suppl" select=".//ARTICLE/ISSUEINFO/@SUPPL"/>
 						<xsl:with-param name="lang" select="$LANG"/>
+						<xsl:with-param name="reviewType">
+							<xsl:if test=".//ARTICLE/@hcomment!='1' or not(.//ARTICLE/@hcomment)">provisional</xsl:if>
+						</xsl:with-param>
 					</xsl:call-template>;
 				
 					<xsl:value-of select=".//CONTROLINFO/PAGE_PID"/>
@@ -49,7 +54,7 @@
 					<div class="level2">
 						<div class="top">
 							<div id="parent">
-    								<img src="/img/{$LANG}/scielobre.gif" alt="{$translations/xslid[@id='sci_isoref']/text[@find = 'scientific_electronic_library_online']}"/>
+								<img src="/img/{$LANG}/scielobre.gif" alt="{$translations/xslid[@id='sci_isoref']/text[@find = 'scientific_electronic_library_online']}"/>
 							</div>
 						</div>
 						<div class="middle">
@@ -87,10 +92,10 @@
 		</div>
 	</xsl:template>
 	<xsl:template name="PrintPageTitle">
-        <xsl:value-of select="$translations/xslid[@id='sci_isoref']/text[@find = 'how_to_cite']"/>
+		<xsl:value-of select="$translations/xslid[@id='sci_isoref']/text[@find = 'how_to_cite']"/>
 	</xsl:template>
 	<xsl:template name="Formats">
-        <xsl:value-of select="$translations/xslid[@id='sci_isoref']/text[@find = 'bibliographical_formats']"/>
+		<xsl:value-of select="$translations/xslid[@id='sci_isoref']/text[@find = 'bibliographical_formats']"/>
 	</xsl:template>
 	<xsl:template match="standard">
 		<xsl:param name="data"/>
@@ -104,6 +109,8 @@
 			<xsl:apply-templates select="$data" mode="print-ref">
 				<xsl:with-param name="NORM" select="@id"/>
 				<xsl:with-param name="LANG" select="$LANG"/>
+				<xsl:with-param name="reviewType"><xsl:if test="$data/@hcomment!='1' or not($data/@hcomment)">provisional</xsl:if></xsl:with-param>
+
 			</xsl:apply-templates>
 			<xsl:if test="../PRESENTS-ONLY-REF">
 				<xsl:comment>fim-MY-REFERENCE</xsl:comment>
