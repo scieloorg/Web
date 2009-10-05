@@ -40,9 +40,18 @@ then
 	call batch/GeraIso.bat $1/bases/issue/issue temp/transf2medline/issue.iso
 	call batch/GeraIso.bat $1/bases/title/title temp/transf2medline/title.iso
 	call batch/GeraIsoBool.bat $1/bases/artigo/artigo TP=i temp/transf2medline/issues.iso
-
-	call batch/GeraIsoBool.bat $1/bases/artigo/artigo TP=h temp/transf2medline/artigo.iso
+    call batch/GeraIsoBool.bat $1/bases/artigo/artigo TP=h temp/transf2medline/artigo.iso
+	call batch/GeraIsoBool.bat $1/bases/artigo/artigo TP=l temp/transf2medline/regL.iso
+    if [ -f $1/bases/lang/lang.mst ]
+    then
+        call batch/GeraIsoBool.bat $1/bases/lang/lang temp/transf2medline/lang.iso
+    fi
 	call batch/GeraIsoBool.bat $1/bases/artigo/artigo TP=c temp/transf2medline/bib4cit.iso prc/bib4cit.prc
+
+    if [ -d $1/bases/accesslog/log_scielo/ ]
+    then
+        cp $1/bases/accesslog/log_scielo/*.txt temp/transf2medline/
+    fi
 
 	rem REPOSITORIO INICIO
 	if [ -f repo/Envia2MedlineRepositorio.bat ]
@@ -82,7 +91,18 @@ else
 fi
 
 call batch/InformaLog.bat $0 x FTP artigo e bib4cit
-ftp -n <$2 >> $INFORMALOG
+
+$CISIS_DIR/mx seq=$2 "pft=if v1:'close' or v1:'bye' then else v1/ fi" now > temp/ENVIA2MEDLINEFTP.txt
+echo put regL.iso>> temp/ENVIA2MEDLINEFTP.txt
+if [ -f temp/transf2medline/lang.iso ]
+then
+    echo put lang.iso>> temp/ENVIA2MEDLINEFTP.txt
+fi
+echo mput *.txt>> temp/ENVIA2MEDLINEFTP.txt
+echo close>> temp/ENVIA2MEDLINEFTP.txt
+echo bye>> temp/ENVIA2MEDLINEFTP.txt
+
+ftp -n <temp/ENVIA2MEDLINEFTP.txt >> $INFORMALOG
 batch/ifErrorLevel.bat $? batch/AchouErro.bat $0 ftp: $2
 
 call batch/InformaLog.bat $0 dh ===Fim=== LOG gravado em: $INFORMALOG
