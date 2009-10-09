@@ -246,7 +246,7 @@ class Scielo extends ScieloBase
 
 	function userInfo()
 	{
-		if(isset($_COOKIE['userID']) && (intval($_COOKIE['userID']) > 0))
+		if(isset($_COOKIE['userID']))
 		{
 			$userStatus = "login";
 			$name = trim($_COOKIE['firstName']." ".$_COOKIE['lastName']);
