@@ -4,7 +4,6 @@
 	<xsl:variable name="show_toolbox" select="//toolbox"/>
 	<xsl:variable name="show_login" select="//show_login"/>
 	<xsl:variable name="login_url" select="//loginURL"/>
-	<xsl:variable name="logout_url" select="//logoutURL"/>
 	<xsl:variable name="show_home_journal_evaluation" select="//show_home_journal_evaluation"/>
 	<xsl:variable name="show_home_scieloorg" select="//show_home_scieloorg"/>
 	<xsl:variable name="show_home_help" select="//show_home_help"/>
@@ -344,13 +343,6 @@
 		<xsl:if test="$STATUS = 'login'">
 			<p>
 				<xsl:value-of select="$translations/xslid[@id='sci_home']/text[@find='welcome']"/>: <xsl:value-of select="."/>
-			</p>
-			<p>
-				<a href="http://{$SCIELO_REGIONAL_DOMAIN}/{$logout_url}">
-					<span>
-						<xsl:value-of select="$translations/xslid[@id='sci_home']/text[@find='logout']"/>
-					</span>
-				</a>
 			</p>
 		</xsl:if>
 	</xsl:template>
