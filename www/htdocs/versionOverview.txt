@@ -1,10 +1,11 @@
-﻿Versão: v4.39
+﻿Versão: v4.40
 
 Melhorias
 -------------------
 #170 Apresentação de artigos provisional
 #171 Rotina de envia dados de acesso para o processo centralizado de estatística de acessos
-
+#178 Mudanças em validações de id de usuário para nova plataforma de serviços da BVS/SciELO
+#178 Remoção de link do logout, logout de usuário será controlado pela sessão do browser
 
 Correções
 -------------------
