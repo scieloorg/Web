@@ -185,7 +185,7 @@
 		v4001^y
 		v4001^w
 	-->
-
+<field action="import" tag="list">7009/7060</field>
 	<!-- Create Article List
      4001^p - PID do issue regular
 	 4001^l - Interface Language 
@@ -226,7 +226,7 @@
 		<loop>
 			<display><pft>'<!-- ',v4901,' -->'/</pft></display>
 			<field action="import" tag="list">4001</field>		
-
+            <field action="import" tag="list">7009/7060</field>
 			<field action="delete" tag="list">9241</field>
 			<!-- verifica se este press release está relacionada a pelo menos um artigo -->
 			<do task="search">
