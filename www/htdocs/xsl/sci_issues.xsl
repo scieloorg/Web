@@ -221,7 +221,7 @@
                             <xsl:value-of select="$translations/xslid[@id='sci_issues']/text[@find='ahead_of_print']"/>
                         </xsl:if>
 						<xsl:if test="@NUM='REVIEW'">
-                            <xsl:value-of select="$translations/xslid[@id='sci_issues']/text[@find='review_in_progress']"/>
+                            <xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find='provisional']"/>
 						</xsl:if>
 					</A>
 				</FONT>
