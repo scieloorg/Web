@@ -113,6 +113,7 @@ right: 20%}
 				<xsl:with-param name="CITY" select="CITY"/>
 				<xsl:with-param name="MONTH" select="MONTH"/>
 				<xsl:with-param name="YEAR" select="YEAR"/>
+				<xsl:with-param name="reviewType"><xsl:if test="contains(NUM,'review')">provisional</xsl:if></xsl:with-param>
 			</xsl:call-template>
 		</font>
 	</xsl:template>
