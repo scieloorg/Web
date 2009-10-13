@@ -1,23 +1,13 @@
-﻿Versão: v4.38
+﻿Versão: v4.39
 
 Melhorias
 -------------------
-#### Melhorias na ferramenta de atualização do SciELO Metodologia.
-
-#167 Desvincular os links journal_citation e co-authors
+#170 Apresentação de artigos provisional
+#171 Rotina de envia dados de acesso para o processo centralizado de estatística de acessos
 
 
 Correções
 -------------------
-#147 Endereços da parte de LOG de acesso
+#177 Problema na apresentação dos links das traduções de um press release de um número
 
 
-Novas Configurações
--------------------
-Para #167
-
-ENABLE_COAUTH_REPORTS_LINK=0
-ENABLE_CITATION_REPORTS_LINK=0
-
-STAT_SERVER_CITATION=http://statbiblio.scielo.br/
-STAT_SERVER_COAUTH=http://statbiblio.scielo.br/
