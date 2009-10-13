@@ -3139,7 +3139,7 @@ fi
 
         
   <label>NO_TEXT_AVAILABLE</label>
-  <call name="PressReleaseLanguages"><pft>(if v241^t='pr' then '^i',v241^i,'^d'v7041[1]/ fi),(if v41='pr' then '^i',v880,'^o',v40 fi)</pft></call>
+  <call name="PressReleaseLanguages"><pft>(if v241^t='pr' then '^i',v241^i,'^d'v7041[1]/ fi),(if v41='pr' then '^i',v880,'^o',v40,'^d'v7041 fi)</pft></call>
   <display>
    <pft>
     ' </LANGUAGES>'/    
