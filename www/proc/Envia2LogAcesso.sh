@@ -57,11 +57,8 @@ if [ -d $1/bases/accesslog/log_scielo/ ]
 
 	ftp -i -v -n < temp/ENVIA2ACESSOFTP.txt >> $INFORMALOG
  
- 	if [ ! -d $WRK ]
- 	 then 	
-		mkdir $WRK 
-	fi	
-	mkdir $WRK/$ano$mes$dia$hora$min
+ 	call batch/CriaDiretorio.bat $WRK/$ano$mes$dia$hora$min
+ 	
 	mv temp/transf2logacesso/*.txt $WRK/$ano$mes$dia$hora$min	
 
 	batch/ifErrorLevel.bat $? batch/AchouErro.bat $0 ftp: $2
