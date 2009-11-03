@@ -4,57 +4,38 @@ SCILISTA=$1
 
 . langs/config/config.inc
 
-echo Executing $0 $1 $2 $3 $4 $5 >> $PROCLANG_LOG
+./$PROCLANG_PATH/config/umount.bat
+
+chmod 775 langs/linux/*.bat
+
+echo [TIME-STAMP] `date '+%Y.%m.%d %H:%M:%S'` Executing $0 $1 $2 $3 $4 $5 > $PROCLANG_LOG
 ./$BATCHES_PATH/genLangsVsPaths.bat $FILE_CONFIG
 
-if [ ! -f $PROCLANG_PATH/config/docpaths.mst ]
+
+if [ ! -d $PATH_DBLANG ]
 then
-	$MX seq=$DOCPATHS create=$PROCLANG_PATH/config/docpaths now -all
-	echo created $PROCLANG_PATH/config/docpaths
+	mkdir -p $PATH_DBLANG
 fi
-
-
 ######################################
 # PREPARA UMA SCILISTA COM PID DE ISSUE
 #
+echo PREPARA UMA SCILISTA COM PID DE ISSUE   >> $PROCLANG_LOG
+
 echo > $NEW_SCILISTA
 if [ "@$SCILISTA" == "@" ]
 then
     # processamento completo
-	$MX null count=1 create=$DBLANG now -all
-	$MX $DBLANG fst=@$PROCLANG_PATH/fst/lang.fst fullinv=$DBLANG
-	echo created $DBLANG
+	echo [TIME-STAMP] `date '+%Y.%m.%d %H:%M:%S'` Executa full   >> $PROCLANG_LOG
     echo S > $NEW_SCILISTA
 else
     # processamento parcial, baseado na scilista
     # prepara
-    if [ -f $TEMP_DBLANG.mst ]
-    then
-        rm $TEMP_DBLANG.*
-    fi
+    echo [TIME-STAMP] `date '+%Y.%m.%d %H:%M:%S'` Executa parcial    >> $PROCLANG_LOG
+    
     # gerar uma nova scilista com ISSUE PID
-    if [ -f $DBLANG.mst ]
-    then
-        # existe DBLANG, entao os registros a atualizar devem ser apagados antes
-    	$MX $DBLANG create=$TEMP_DBLANG now -all
-        $MX $TEMP_DBLANG fst=@$PROCLANG_PATH/fst/lang.fst fullinv=$TEMP_DBLANG
-
-        $MX cipar=$FILE_CIPAR seq=$SCILISTA lw=9999 "pft=if p(v1) and size(v1)>0 then '$BATCHES_PATH/getIssuePID.bat $1 $NEW_SCILISTA ',v1/,'$BATCHES_PATH/deleteRecordsDBLang.bat $1 ',v1/ fi" now> temp/langs_getIssuePID.bat
-    else
-        $MX cipar=$FILE_CIPAR seq=$SCILISTA lw=9999 "pft=if p(v1) and size(v1)>0 then '$BATCHES_PATH/getIssuePID.bat $1 $NEW_SCILISTA ',v1/, fi" now> temp/langs_getIssuePID.bat
-    fi
+    $MX cipar=$FILE_CIPAR seq=$SCILISTA lw=9999 "pft=if p(v1) and size(v1)>0 then '$BATCHES_PATH/getIssuePID.bat $FILE_CONFIG $NEW_SCILISTA ',v1/, fi" now> temp/langs_getIssuePID.bat
     chmod 775 temp/langs_getIssuePID.bat
-    temp/langs_getIssuePID.bat
-
-    # existe TEMP_DBLANG, entao os registros a atualizar FORAM apagados
-    # e recriar a base DBLANG sem os registros apagados
-    if [ -f $TEMP_DBLANG.mst ]
-    then
-    	$MX null count=0 create=$DBLANG now -all
-        $MX $TEMP_DBLANG append=$DBLANG now -all
-        $MX $DBLANG fst=@$PROCLANG_PATH/fst/lang.fst fullinv=$DBLANG
-        rm $TEMP_DBLANG.*
-    fi
+    ./temp/langs_getIssuePID.bat
 fi
 
 ######################################
@@ -62,18 +43,18 @@ fi
 #
 if [ ! -f $DBLANG.mst ]
 then
-	$MX null count=1 create=$DBLANG now -all
+	$MX null count=1 "proc='a777{',date,'{'" create=$DBLANG now -all
 	$MX $DBLANG fst=@$PROCLANG_PATH/fst/lang.fst fullinv=$DBLANG
-	echo created $DBLANG
+	echo No DBLANG. Then create $DBLANG   >> $PROCLANG_LOG
 fi
 
 ######################################
 
-
-$MX seq=$NEW_SCILISTA lw=9999 "pft=if p(v1) then '$BATCHES_PATH/doForIssue.bat $1 ',v1,/ fi" now> temp/langs_DoForIssue.bat
+echo >> $NEW_SCILISTA
+$MX seq=$NEW_SCILISTA lw=9999 "pft=if p(v1) then '$BATCHES_PATH/doForIssue.bat $FILE_CONFIG ',v1,/ fi" now> temp/langs_DoForIssue.bat
 chmod 775 temp/langs_DoForIssue.bat
-temp/langs_DoForIssue.bat
-
+./temp/langs_DoForIssue.bat
+    
 $MX $DBLANG fst=@$PROCLANG_PATH/fst/lang.fst fullinv=$DBLANG
+./$PROCLANG_PATH/config/umount.bat
 
-echo Executed $0 $1 $2 $3 $4 $5 >> $PROCLANG_LOG
