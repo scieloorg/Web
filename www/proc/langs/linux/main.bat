@@ -6,7 +6,7 @@ SCILISTA=$1
 
 ./$PROCLANG_PATH/config/umount.bat
 
-chmod 775 langs/linux/*.bat
+chmod 775 langs/*/*.bat
 
 echo [TIME-STAMP] `date '+%Y.%m.%d %H:%M:%S'` Executing $0 $1 $2 $3 $4 $5 > $PROCLANG_LOG
 ./$BATCHES_PATH/genLangsVsPaths.bat $FILE_CONFIG
@@ -56,5 +56,9 @@ chmod 775 temp/langs_DoForIssue.bat
 ./temp/langs_DoForIssue.bat
     
 $MX $DBLANG fst=@$PROCLANG_PATH/fst/lang.fst fullinv=$DBLANG
+
+#chmod 775 ./$BATCHES_PATH/reports/common/generateDB4Tab.bat
+#./$BATCHES_PATH/reports/common/generateDB4Tab.bat $FILE_CONFIG
+
 ./$PROCLANG_PATH/config/umount.bat
 
