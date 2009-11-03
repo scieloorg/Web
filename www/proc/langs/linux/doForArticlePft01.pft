@@ -1,0 +1,12 @@
+ '`d*'
+ 'a880{',v880,'{'
+ 'a71{',v71,'{'
+
+ /* valor antes de markup */
+ proc('d4000a4000{',f(instr(s(mpu,v702,mpl),'\MARKUP\'),1,0),'{')
+ proc('d4001a4001{',f(instr(s(mpu,v702,mpl),'\SERIAL\')+size('\serial\'),1,0),'{')
+ /* valor entre serial e markup ou seja acronimo e issueid  */
+ 'a900{',replace(mid(v702,val(v4001),val(v4000)-val(v4001)),'\',''),'{'
+ 'a40{',v40,'{'
+ ('a83{',v83^l,'{')
+ 'a91{',date,'{` '
