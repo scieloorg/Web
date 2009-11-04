@@ -9,7 +9,7 @@ SCILISTA=$1
 chmod 775 langs/*/*.bat
 
 echo [TIME-STAMP] `date '+%Y.%m.%d %H:%M:%S'` Executing $0 $1 $2 $3 $4 $5 > $PROCLANG_LOG
-./$BATCHES_PATH/genLangsVsPaths.bat $FILE_CONFIG
+./$BATCHES_PATH/genDBLang/genLangsVsPaths.bat $FILE_CONFIG
 
 
 if [ ! -d $PATH_DBLANG ]
@@ -33,7 +33,7 @@ else
     echo [TIME-STAMP] `date '+%Y.%m.%d %H:%M:%S'` Executa parcial    >> $PROCLANG_LOG
     
     # gerar uma nova scilista com ISSUE PID
-    $MX cipar=$FILE_CIPAR seq=$SCILISTA lw=9999 "pft=if p(v1) and size(v1)>0 then '$BATCHES_PATH/getIssuePID.bat $FILE_CONFIG $NEW_SCILISTA ',v1/, fi" now> temp/langs_getIssuePID.bat
+    $MX cipar=$FILE_CIPAR seq=$SCILISTA lw=9999 "pft=if p(v1) and size(v1)>0 then '$BATCHES_PATH/genDBLang/getIssuePID.bat $FILE_CONFIG $NEW_SCILISTA ',v1/, fi" now> temp/langs_getIssuePID.bat
     chmod 775 temp/langs_getIssuePID.bat
     ./temp/langs_getIssuePID.bat
 fi
@@ -51,14 +51,12 @@ fi
 ######################################
 
 echo >> $NEW_SCILISTA
-$MX seq=$NEW_SCILISTA lw=9999 "pft=if p(v1) then '$BATCHES_PATH/doForIssue.bat $FILE_CONFIG ',v1,/ fi" now> temp/langs_DoForIssue.bat
+$MX seq=$NEW_SCILISTA lw=9999 "pft=if p(v1) then '$BATCHES_PATH/genDBLang/doForIssue.bat $FILE_CONFIG ',v1,/ fi" now> temp/langs_DoForIssue.bat
 chmod 775 temp/langs_DoForIssue.bat
 ./temp/langs_DoForIssue.bat
     
 $MX $DBLANG fst=@$PROCLANG_PATH/fst/lang.fst fullinv=$DBLANG
 
-#chmod 775 ./$BATCHES_PATH/reports/common/generateDB4Tab.bat
-#./$BATCHES_PATH/reports/common/generateDB4Tab.bat $FILE_CONFIG
 
 ./$PROCLANG_PATH/config/umount.bat
 

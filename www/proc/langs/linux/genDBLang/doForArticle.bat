@@ -4,8 +4,8 @@ MFN=$2
 echo [TIME-STAMP] `date '+%Y.%m.%d %H:%M:%S'` Executing $0 $1 $2 $3 $4 $5    >> $PROCLANG_LOG
 
 #echo `date '+%Y.%m.%d %H:%M:%S'` Executing article
-$MX cipar=$FILE_CIPAR ARTIGO from=$MFN count=1 "pft=@$BATCHES_PATH/doForArticlePft01.pft" now > temp/langs_proc.prc
-$MX cipar=$FILE_CIPAR ARTIGO from=$MFN count=1 "proc=@$BATCHES_PATH/doForArticlePft02.prc" lw=99999 "pft=if size(v4001)>0 then './$BATCHES_PATH/get601and602.bat $1 ',v4000,' ',v4001,' ',v40,' temp/langs_proc.prc'/ fi" now > temp/langs_get601and602.bat
+$MX cipar=$FILE_CIPAR ARTIGO from=$MFN count=1 "pft=@$BATCHES_PATH/genDBLang/doForArticlePft01.pft" now > temp/langs_proc.prc
+$MX cipar=$FILE_CIPAR ARTIGO from=$MFN count=1 "proc=@$BATCHES_PATH/genDBLang/doForArticlePft02.prc" lw=99999 "pft=if size(v4001)>0 then './$BATCHES_PATH/genDBLang/get601and602.bat $1 ',v4000,' ',v4001,' ',v40,' temp/langs_proc.prc'/ fi" now > temp/langs_get601and602.bat
 chmod 775 temp/langs_get601and602.bat
 
 #echo `date '+%Y.%m.%d %H:%M:%S'` Executing article testing

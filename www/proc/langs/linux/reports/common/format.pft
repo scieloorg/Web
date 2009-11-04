@@ -1,12 +1,15 @@
+'/* ... */'
 ,if p(v1) and v1:'YES' then
-    `v1*1.9,'|'`
+    `v1,'|'`
 ,fi
 
 ,if p(v2)  and v2:'YES' then
-    `v1*10.4,'|'`
+    `v5,'|'`
 ,fi
 
 ,if p(v3)  and v3:'YES'  then
     `v2,'|'`
 ,fi
+ `v3,'|'`
+ `v4,'|'`
 #
