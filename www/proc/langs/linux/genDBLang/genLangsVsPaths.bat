@@ -8,7 +8,7 @@ if [ -f $PROCLANG_PATH/tables/lang_paths.seq ]
 then
     rm $PROCLANG_PATH/tables/lang_paths.seq
 fi
-$MX seq=$PROCLANG_PATH/tables/langs_title.seq "pft='./$BATCHES_PATH/genLangsVsPathsAux.bat $1 ',v1/" now > temp/langs_genLangPath.bat
+$MX seq=$PROCLANG_PATH/tables/langs_title.seq "pft='./$BATCHES_PATH/genDBLang/genLangsVsPathsAux.bat $1 ',v1/" now > temp/langs_genLangPath.bat
 chmod 775 temp/langs_genLangPath.bat
 ./temp/langs_genLangPath.bat
 
