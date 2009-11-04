@@ -8,6 +8,7 @@ DBLANG=../bases-work/lang/lang
 DBLANGTAB=../bases-work/lang/langtab
 
 PROCLANG_LOG=log/langs.log
+PROCLANG_REPORT_LOG=log/langs_report.log
 FILE_CIPAR=$PROCLANG_PATH/config/cipar.cip
 FILE_CONFIG=$PROCLANG_PATH/config/config.inc
 
@@ -24,3 +25,6 @@ GZM_ISSN=temp/langs_gzm_issn
 GZM_DOCTOPIC=temp/langs_gzm_doctopic
 GZM_OT=temp/langs_gzm_ot
 GZM_LANG=temp/langs_gzm_lang
+GZM_TAB=temp/langs_gzm_tab
+
+REPORTS_PATH=../bases-work/lang/report
