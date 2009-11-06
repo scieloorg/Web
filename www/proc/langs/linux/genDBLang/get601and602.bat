@@ -6,10 +6,10 @@ FILENAME_NOEXT=$2
 DIR_ACRON_ISSUE=$3
 OLANG=$4
 procFile=$5
+OEXT=$6
+FILE_PATH_AND_LANG=$7
 
-#more $PROCLANG_PATH/tables/lang_paths.seq
-
-$MX cipar=$FILE_CIPAR seq=$PROCLANG_PATH/tables/lang_paths.seq lw=9999 "pft='./$BATCHES_PATH/genDBLang/get601or602.bat $1 ',v1,' $PATH_FILES/',v2,' ',v3,' ',v4,' $FILENAME_NOEXT $DIR_ACRON_ISSUE $OLANG $procFile'/" now > temp/langs_testFiles.bat
+$MX cipar=$FILE_CIPAR seq=$FILE_PATH_AND_LANG lw=9999 "pft=if v1='601' and '$OLANG'=v4 then else './$BATCHES_PATH/genDBLang/get601or602.bat $1 ',v1,' $PATH_FILES/',v2,' ',if v1='601' then '$OEXT' else v3 fi,' ',v4,' \"',if v4<>'$OLANG' then v4,'_' fi,'$FILENAME_NOEXT\" $DIR_ACRON_ISSUE $OLANG $procFile'/ fi" now > temp/langs_testFiles.bat
 
 
 chmod 775 temp/langs_testFiles.bat
