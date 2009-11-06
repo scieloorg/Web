@@ -1,6 +1,7 @@
  '`d*'
  'a880{',v880,'{'
  'a71{',v71,'{'
+ 'a702{',v702,'{'
 
  /* valor antes de markup */
  proc('d4000a4000{',f(instr(s(mpu,v702,mpl),'\MARKUP\'),1,0),'{')

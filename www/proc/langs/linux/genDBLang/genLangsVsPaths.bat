@@ -1,15 +1,16 @@
 . $1
 
+ISSN=$2
+F=temp/langs_TITLE_LANGS_$ISSN.seq
+
 echo [TIME-STAMP] `date '+%Y.%m.%d %H:%M:%S'` Executing $0 $1 $2 $3 $4 $5   >> $PROCLANG_LOG
-
-$MX $TITLE "pft=(v350/)" now | sort -u > $PROCLANG_PATH/tables/langs_title.seq
-
-if [ -f $PROCLANG_PATH/tables/lang_paths.seq ]
-then
-    rm $PROCLANG_PATH/tables/lang_paths.seq
+if [ -f temp/langs_TITLE_LANGS_*.seq ]
+then 
+  rm temp/langs_TITLE_LANGS_*.seq
 fi
-$MX seq=$PROCLANG_PATH/tables/langs_title.seq "pft='./$BATCHES_PATH/genDBLang/genLangsVsPathsAux.bat $1 ',v1/" now > temp/langs_genLangPath.bat
-chmod 775 temp/langs_genLangPath.bat
-./temp/langs_genLangPath.bat
+
+$MX $TITLE lw=9999 "pft=('./$BATCHES_PATH/genDBLang/genLangsVsPathsAux.bat $1 ',v350,' temp/langs_TITLE_LANGS_',v400[1],'.seq',/)" now > temp/langs_genLangsVsPathsAux.bat
+chmod 775 temp/langs_genLangsVsPathsAux.bat
+./temp/langs_genLangsVsPathsAux.bat
 
 echo      [TIME-STAMP] `date '+%Y.%m.%d %H:%M:%S'` Executed $0 $1 $2 $3 $4 $5   >> $PROCLANG_LOG
