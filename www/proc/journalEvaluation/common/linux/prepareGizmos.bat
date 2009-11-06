@@ -9,3 +9,7 @@ $MX "seq=$PATH_GZM/pattern.seq" create=$PATH_GZM/pattern now -all
 #$MX "iso=$PATH_GZM/tab.iso" create=$PATH_GZM/tab now -all
 $MX "seq=$PATH_GZM/tab.seq;" create=$PATH_GZM/tab now -all
 $MX "seq=$PATH_GZM/tab2sep.seq " create=$PATH_GZM/tab2sep now -all
+$MX "seq=$PATH_GZM/country.seq " create=$PATH_GZM/gizmoCountry now -all
+$MX "seq=$PATH_GZM/pipe2tab.seq " create=$PATH_GZM/pipe2tab now -all
+
+./$PATH_COMMON/linux/generateGizmos.bat $1
