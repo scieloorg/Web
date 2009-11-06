@@ -44,10 +44,9 @@ fi
 if [ ! -f $DBLANG.mst ]
 then
 	$MX null count=1 "proc='a777{',date,'{'" create=$DBLANG now -all
-	$MX $DBLANG fst=@$PROCLANG_PATH/fst/lang.fst fullinv=$DBLANG
 	echo No DBLANG. Then create $DBLANG   >> $PROCLANG_LOG
 fi
-
+$MX $DBLANG fst=@$PROCLANG_PATH/fst/lang.fst fullinv=$DBLANG
 ######################################
 
 echo >> $NEW_SCILISTA
