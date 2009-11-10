@@ -17,7 +17,7 @@ echo [TIME-STAMP] `date '+%Y.%m.%d %H:%M:%S'` Executing $0 $1 $2 $3 $4 $5   >> $
 
 echo Testing $path/$acron_issueid/$fileName.$extension  >> $PROCLANG_LOG
 
-
+echo Testing $path/$acron_issueid/$fileName.$extension
 if [ -f "$path/$acron_issueid/$fileName.$extension" ]
 then
     echo ",\`a$tag{^d$path^f$acron_issueid/$fileName.$extension^l$lang{\`," >> $procFile
