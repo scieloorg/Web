@@ -3,9 +3,14 @@ SEQ=$2
 MST=$3
 SPACE=$4
 
-if [ "$SPACE" == "" ]
+if [ ! -f $SEQ ]
 then
-  $MX seq=$SEQ create=$MST now -all
+    echo Missing $SEQ $0 $1 $2 $3 $4
 else
-   $MX "seq=$SEQ " create=$MST now -all
+    if [ "$SPACE" == "" ]
+    then
+      $MX seq=$SEQ create=$MST now -all
+    else
+       $MX "seq=$SEQ " create=$MST now -all
+    fi
 fi
