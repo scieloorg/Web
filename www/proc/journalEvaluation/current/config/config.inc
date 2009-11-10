@@ -6,14 +6,19 @@ PARAM_SELECT_BY_RECENT=
 CPFILE=journalEvaluation/current/config/avaliacao.cip
 FILE_CONFIG=journalEvaluation/current/config/config.inc
 AVALLOG=log/avaliacao_permanencia.log
-FILE_SELECTED_ISSUES=temp/journalEvaluation_selected_issues.txt
-SCILISTA=temp/avaliacao_permanencia_scilista.lst
+
+FILE_SELECTED_ISSUES=temp/je_selected_issues
+
+SCILISTA=temp/je_permanencia_scilista.lst
 
 MX=lindG4/mx
 
+PATH_CURRENT_SHELLS=journalEvaluation/current/linux
+
 PATH_TEMPLATE=journalEvaluation/current/template/$TEMPLATE
 PATH_GZM=journalEvaluation/common/gizmo
-PATH_SHELL=journalEvaluation/current/linux
+
+PATH_COMMON_SHELLS=journalEvaluation/common/linux
 PATH_COMMON=journalEvaluation/common
 PATH_LANG_REPORTS=temp
 
@@ -26,10 +31,10 @@ JournalFileName=journaldata.txt
 HTML_FILE_OUTPUT=$OUTPUT_PATH/journals.htm
 JOURNAL_EDBOARD_HTML_PATH=/home/scielo/www/htdocs/revistas/
 
-AFFLISTCOMPLETA=journalEvaluation/common/gizmo/affcompleta
-AFFSEQ=temp/v70.seq
-
-SEQFILEALLISSUESELECTED=temp/allissuesselected.txt
+#AFFLISTCOMPLETA=journalEvaluation/common/gizmo/affcompleta
+DB_v70_completa=journalEvaluation/common/gizmo/v70_completa
+DB_v70=journalEvaluation/common/gizmo/v70
+SEQ_DB_v70=$DB_v70.seq
 
 PATH_DOCTOPIC_SHELLS=journalEvaluation/common/linux
 TITLE=../bases/title/title
@@ -39,5 +44,6 @@ GZM_DOCTOPIC=temp/je_gzm_doctopic
 GZM_OT=temp/je_gzm_ot
 GZM_LANG=temp/je_gzm_lang
 GZM_TAB=temp/je_gzm_tab
+GZM_2TAB=temp/je_gzm_tab
 
 DB_DATES=$PATH_COMMON/tables/dates

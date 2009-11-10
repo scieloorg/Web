@@ -1,15 +1,12 @@
 . $1
 
 echo Tabelas de gizmo
-$MX seq=$PATH_GZM/gizmoFreq.seq create=$PATH_GZM/gizmoFreq now -all
-$MX "seq=$PATH_GZM/pipe2tab.seq " create=$PATH_GZM/pipe2tab now -all
-$MX "seq=$PATH_GZM/tabEdboard.seq" create=$PATH_GZM/tabEdboard now -all
-$MX "seq=$PATH_GZM/pattern.seq" create=$PATH_GZM/pattern now -all
 
-#$MX "iso=$PATH_GZM/tab.iso" create=$PATH_GZM/tab now -all
-$MX "seq=$PATH_GZM/tab.seq;" create=$PATH_GZM/tab now -all
-$MX "seq=$PATH_GZM/tab2sep.seq " create=$PATH_GZM/tab2sep now -all
-$MX "seq=$PATH_GZM/country.seq " create=$PATH_GZM/gizmoCountry now -all
-$MX "seq=$PATH_GZM/pipe2tab.seq " create=$PATH_GZM/pipe2tab now -all
+./$PATH_COMMON_SHELLS/seq2mst.bat $1 $PATH_GZM/gizmoFreq.seq $PATH_GZM/gizmoFreq
+./$PATH_COMMON_SHELLS/seq2mst.bat $1 $PATH_GZM/pipe2tab.seq $PATH_GZM/pipe2tab SPACE
+./$PATH_COMMON_SHELLS/seq2mst.bat $1 $PATH_GZM/tabEdboard.seq $PATH_GZM/tabEdboard
+./$PATH_COMMON_SHELLS/seq2mst.bat $1 $PATH_GZM/pipe2tab.seq $GZM_2TAB SPACE
+./$PATH_COMMON_SHELLS/seq2mst.bat $1 $PATH_GZM/country.seq $PATH_GZM/gizmoCountry SPACE
 
-./$PATH_COMMON/linux/generateGizmos.bat $1
+
+./$PATH_COMMON_SHELLS/generateGizmos.bat $1
