@@ -9,7 +9,7 @@
 cd ..
 # listar issn's validos	
 
-cisis/mx $database_issue "proc='s'" "pft=@formats/googleSchoolar_genListIssue.pft" now > shs/issue.sh
+$cisis_dir/mx $database_issue "proc='s'" "pft=@formats/googleSchoolar_genListIssue.pft" now > shs/issue.sh
 
 # Previne inexistencia do diretorio dos resultados
 if [ ! -d "output" ]
@@ -22,7 +22,7 @@ rm output/googleSchoolar/*
 echo "<HTML>" > output/googleSchoolar/index.htm
 echo "<BODY>" >> output/googleSchoolar/index.htm
 
-cisis/mx $database_issue "proc='s'" "pft=@formats/googleSchoolar_genHTML.pft" now >> output/googleSchoolar/index.htm
+$cisis_dir/mx $database_issue "proc='s'" "pft=@formats/googleSchoolar_genHTML.pft" now >> output/googleSchoolar/index.htm
 
 echo "</BODY>" >> output/googleSchoolar/index.htm
 echo "</HTML>" >> output/googleSchoolar/index.htm
