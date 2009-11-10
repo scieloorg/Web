@@ -1,0 +1,2 @@
+open ftp.scielo.br
+user <login> <password>
