@@ -1,10 +1,17 @@
+,proc('d9880a9880{',
+    if p(v891) then
+        v891
+    else
+        if p(v881) then
+        	v881
+        else
+	       v880
+        fi
+   fi
+,'{'),
  '<doi_batch xmlns="http://www.crossref.org/schema/4.1.0" version="4.1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">',#
  '<head>',#
-   if p(v881) then
-        	        '<doi_batch_id>',v881,'</doi_batch_id>',#
-   else
-	                '<doi_batch_id>',v880,'</doi_batch_id>',#
-   fi
+         '<doi_batch_id>',v9880,'</doi_batch_id>',#
    '<timestamp>',mid(replace(date,' ',''),0,14),'</timestamp>',#
    '<depositor>',#
      '<name>BIREME/PAHO/WHO</name>',#
@@ -53,23 +60,12 @@
          if (mid(v65,1,4)<>'' and mid(v65,1,4)<>'00') then,'<year>',mid(v65,1,4),'</year>',# fi
        '</publication_date>',#
        '<publisher_item>',#
-         if p(v881) then
-           '<identifier id_type="pii">',v881,'</identifier>'
-         else
-           '<identifier id_type="pii">',v880,'</identifier>'
-         fi,#
+           '<identifier id_type="pii">',v9880,'</identifier>'
        '</publisher_item>',#
        '<doi_data>',#
-         if p(v881) then
-           '<doi>10.1590/',v881,'</doi>'
-         else
-           '<doi>10.1590/',v880,'</doi>'
-         fi,#
-         if p(v801) then
-           '<resource>http://www.scielo.br/scielo.php?script=sci_arttext&amp;pid=',v881,'&amp;lng=',v40,'&amp;nrm=iso&amp;tlng=',v40,'</resource>',#
-         else
-           '<resource>http://www.scielo.br/scielo.php?script=sci_arttext&amp;pid=',v880,'&amp;lng=',v40,'&amp;nrm=iso&amp;tlng=',v40,'</resource>',#
-         fi
+         '<doi>10.1590/',v9880,'</doi>'
+         '<resource>http://www.scielo.br/scielo.php?script=sci_arttext&amp;pid=',v880,'&amp;lng=',v40,'&amp;nrm=iso&amp;tlng=',v40,'</resource>',#
+         
        '</doi_data>',#
      '</journal_article>',#
    '</journal>',#
