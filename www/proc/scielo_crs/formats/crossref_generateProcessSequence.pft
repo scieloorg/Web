@@ -1,17 +1,24 @@
- if s(mpu,v32,mpl)<>'REVIEW' then
-  if p(v881) then,
-		/* FORCAR A ATUALIZAR DO XML DE AHEAD PORQUE ELE PODE VIR A SER UM IMPRESSO */
-		'echo "S',v35,right(s('00000',v881*10.4),4),right(s('0000',v881*14.4),4),right(s('00000',v881*19.5),5),'" >> toDoList.txt',#
-		'mkdir -p $conversor_dir/output/crossref/',v35,'/',right(s('00000',v881*10.4),4),'/',right(s('00000',v881*14.4),4),'/',right(s('00000',v881*19.5),5),#
-		'echo "$JAVA_HOME/bin/java -Dfile.encoding=ISO-8859-1 -cp .:$conversor_dir/java/crossrefSubmit.jar:$conversor_dir/java/lib/HTTPClient.jar org.crossref.doUpload $crossrefUserName $crossrefPassword $conversor_dir/output/crossref/',v35,'/',right(s('00000',v881*10.4),4),'/',right(s('00000',v881*14.4),4),'/',right(s('00000',v881*19.5),5),'/requestDOIXML_',right(s('00000',v881*19.5),5),'.xml ',v881,' $logDate" >> crossref_UploadXML.sh',#
+,proc('d9880a9880{',
+    if p(v891) then
+        v891
+    else
+        if p(v881) then
+        	v881
+        else
+	       v9880
+        fi
+   fi
+,'{'),
 
-  else
+ /* SEMPRE ATUALIZAR O XML PARA OS EX-AHEAD E EX-REVIEW */
+ if p(v891) or p(v881) then
+	'if [ ! -f ../output/crossref/',v35,'/',right(s('00000',v9880*10.4),4),'/',right(s('00000',v9880*14.4),4),'/',right(s('00000',v121),5),'/requestDOIXML_',right(s('00000',v121),5),'.xml ]; then',#
+ fi
 
-	'if [ ! -f ../output/crossref/',v35,'/',right(s('00000',v880*10.4),4),'/',right(s('00000',v880*14.4),4),'/',right(s('00000',v121),5),'/requestDOIXML_',right(s('00000',v121),5),'.xml ]; then',#
-        	'echo "S',v35,right(s('00000',v880*10.4),4),right(s('0000',v880*14.4),4),right(s('0000',v121),5),'" >> toDoList.txt',#
-        	'mkdir -p $conversor_dir/output/crossref/',v35,'/',right(s('00000',v880*10.4),4),'/',right(s('00000',v880*14.4),4),'/',right(s('00000',v121),5),#
-        	'echo "$JAVA_HOME/bin/java -Dfile.encoding=ISO-8859-1 -cp .:$conversor_dir/java/crossrefSubmit.jar:$conversor_dir/java/lib/HTTPClient.jar org.crossref.doUpload $crossrefUserName $crossrefPassword $conversor_dir/output/crossref/',v35,'/',right(s('00000',v880*10.4),4),'/',right(s('00000',v880*14.4),4),'/',right(s('00000',v121),5),'/requestDOIXML_',right(s('00000',v121),5),'.xml ',v880,' $logDate" >> crossref_UploadXML.sh',#
-'fi',#
+ 'echo "S',v35,right(s('00000',v9880*10.4),4),right(s('0000',v9880*14.4),4),right(s('0000',v121),5),'" >> toDoList.txt',#
+ 'mkdir -p $conversor_dir/output/crossref/',v35,'/',right(s('00000',v9880*10.4),4),'/',right(s('00000',v9880*14.4),4),'/',right(s('00000',v121),5),#
+ 'echo "$JAVA_HOME/bin/java -Dfile.encoding=ISO-8859-1 -cp .:$conversor_dir/java/crossrefSubmit.jar:$conversor_dir/java/lib/HTTPClient.jar org.crossref.doUpload $crossrefUserName $crossrefPassword $conversor_dir/output/crossref/',v35,'/',right(s('00000',v9880*10.4),4),'/',right(s('00000',v9880*14.4),4),'/',right(s('00000',v121),5),'/requestDOIXML_',right(s('00000',v121),5),'.xml ',v9880,' $logDate" >> crossref_UploadXML.sh',#
 
-  fi
+ if p(v891) or p(v881) then
+        'fi',#
  fi
