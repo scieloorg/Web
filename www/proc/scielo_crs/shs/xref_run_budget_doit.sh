@@ -30,7 +30,7 @@ PRIOR=$5
 		if [ ! "$BILLSTATUS" = "requested" ]			
 		then
 			$cisis_dir/mx cipar=$MYCIPFILE DB_BILL btell=0 "bool=$PID" count=1 "proc='d*'" copy=DB_BILL now -all
-			$cisis_dir/mx cipar=$MYCIPFILE null count=1 "proc=ref(['ARTIGO_DB']l(['ARTIGO_DB']'hr=$PID'),'a880{',v880,'{',|a881{|v881|{|,|a223{|v223|{|,'a65{',v65,'{'),'a4{requested{a2{$FEE{a3{',date,'{a1{$BUDGETID{a121{$PRIOR{a100{$BATCHBGID{a30{',ref(['XREF_DOI_REPORT']l(['XREF_DOI_REPORT']'hr=$PID'),v30,|^x|v930),'{'" append=DB_BILL now -all
+			$cisis_dir/mx cipar=$MYCIPFILE null count=1 "proc=ref(['ARTIGO_DB']l(['ARTIGO_DB']'hr=$PID'),'a880{',v880,'{',|a881{|v881|{|,|a891{|v891|{|,|a223{|v223|{|,'a65{',v65,'{'),'a4{requested{a2{$FEE{a3{',date,'{a1{$BUDGETID{a121{$PRIOR{a100{$BATCHBGID{a30{',ref(['XREF_DOI_REPORT']l(['XREF_DOI_REPORT']'hr=$PID'),v30,|^x|v930),'{'" append=DB_BILL now -all
 			$cisis_dir/mx $DB_BILL fst=@$conversor_dir/fst/bill.fst fullinv=$DB_BILL now -all
 		fi
 
