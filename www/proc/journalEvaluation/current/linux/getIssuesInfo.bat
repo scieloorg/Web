@@ -12,7 +12,7 @@ FILE_RESULT_DIFF=temp/je_result_diff.txt
 echo Issue $ISSUEPID
 echo Authors
 ./$PATH_COMMON_SHELLS/WriteLog.bat $AVALLOG $ACRON $ISSN  Authors
-$MX cipar=$CPFILE ARTIGO btell=0 "HR=S$ISSUEPID$" lw=9999 "pft=if p(v83) then (v31[1],'|',v32[1],'|',s(v65[1])*0.4,'|',v14^f[1],'|',v12^t[1],'|',,v10^n,| |v10^s,,'|',if p(v10^1) then ,ref(['$DB_v70']l(['$DB_v70']v880[1],v10^1*0.3),if p(v970) then v970 else v3 fi), fi,/) ,fi" now >> $INPUT_FOR_ENDOGENIA_PROC.seq
+$MX cipar=$CPFILE ARTIGO btell=0 "HR=S$ISSUEPID$" lw=9999 "pft=if p(v83) then (v31[1],'|',v32[1],'|',s(v65[1])*0.4,'|',v14^f[1],'|',v12^t[1],'|',,v10^n,| |v10^s,,'|',if p(v10^1) then ,ref(['$DB_v70']l(['$DB_v70']v880[1],v10^1*0.3),v2^*,'|',|, |v3^1,|, |v3^2,'|',v2^c,'|',v2^s,'|',v2^p), fi,/) ,fi" now >> $INPUT_FOR_ENDOGENIA_PROC.seq
 
 echo History
 ./$PATH_COMMON_SHELLS/WriteLog.bat $AVALLOG $ACRON $ISSN  History
