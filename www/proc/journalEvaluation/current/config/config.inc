@@ -3,32 +3,40 @@ TEMPLATE=200910
 PARAM_SELECT_BY_YEAR=2008
 PARAM_SELECT_BY_RECENT=
 
-CPFILE=journalEvaluation/current/config/avaliacao.cip
+MX=lindG4/mx
+MXTB=lindG4/mxtb
+
 FILE_CONFIG=journalEvaluation/current/config/config.inc
-AVALLOG=log/avaliacao_permanencia.log
+FILE_CIPAR=journalEvaluation/current/config/avaliacao.cip
+FILE_LOG=log/je_permanencia.log
 
 FILE_SELECTED_ISSUES=temp/je_selected_issues
 
-SCILISTA=temp/je_permanencia_scilista.lst
+TITLELIST=temp/je_permanencia_scilista.lst
 
-MX=lindG4/mx
+PATH_OUTPUT=/home/scielo/www/htdocs/teste/journalEvaluation/current/data/$TEMPLATE
+
+PATHL_LIST_MODULE=journalEvaluation/common/list
+PATH_AFF_MODULE=journalEvaluation/common/aff
 
 PATH_CURRENT_SHELLS=journalEvaluation/current/linux
+PATH_CURRENT=journalEvaluation/current
 
 PATH_TEMPLATE=journalEvaluation/current/template/$TEMPLATE
 PATH_GZM=journalEvaluation/common/gizmo
 
 PATH_COMMON_SHELLS=journalEvaluation/common/linux
 PATH_COMMON=journalEvaluation/common
-PATH_LANG_REPORTS=temp
+PATH_LANG_REPORTS=../bases-work/lang/report
+PATH_DATE_DIFF=journalEvaluation/common/calculateDateDiff
+
 
 DOCTOPIC=journalEvaluation/common/gizmo/doctopic.seq
 
-OUTPUT_PATH=/home/scielo/www/htdocs/teste/journalEvaluation/current/data/$TEMPLATE
-REL_OUTPUT_PATH=/teste/journalEvaluation/current/data/$TEMPLATE
-JournalFileName=journaldata.txt
+REL_PATH_OUTPUT=/teste/journalEvaluation/current/data/$TEMPLATE
+JournalFileName=journaldata.xls
 
-HTML_FILE_OUTPUT=$OUTPUT_PATH/journals.htm
+HTML_FILE_OUTPUT=$PATH_OUTPUT/journals.htm
 JOURNAL_EDBOARD_HTML_PATH=/home/scielo/www/htdocs/revistas/
 
 #AFFLISTCOMPLETA=journalEvaluation/common/gizmo/affcompleta
@@ -43,7 +51,7 @@ GZM_ISSN=temp/je_gzm_issn
 GZM_DOCTOPIC=temp/je_gzm_doctopic
 GZM_OT=temp/je_gzm_ot
 GZM_LANG=temp/je_gzm_lang
-GZM_TAB=temp/je_gzm_tab
-GZM_2TAB=temp/je_gzm_tab
+GZM_TAB2PIPE=temp/je_gzm_tab2pipe
+GZM_PIPE2TAB=temp/je_gzm_pipe2tab
 
-DB_DATES=$PATH_COMMON/tables/dates
+DB_DATES=temp/je_dates

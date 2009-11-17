@@ -6,6 +6,11 @@ echo `date '+%Y.%m.%d %H:%M:%S'` Executing $0 $1 $2 $3 $4 $5
 # v1 = v880 + v70^i (id da aff)
 # v2 = v70^*,|^c|v70^c,|^s|v70^s,|^p|v70^p
 # v3 = |^1|v70^1,|^2|v70^2
+
+if [ -f $SEQ_DB_v70 ]
+then
+rm $SEQ_DB_v70
+fi
 $MX "seq=$FILE_SELECTED_ISSUES.txt " lw=9999 "pft=if size(v1)>0 then './$PATH_CURRENT_SHELLS/getIssuesAff.bat $1 ',v1/ fi" now > temp/je_allissuesselectedaff.bat
 chmod 775 temp/je_allissuesselectedaff.bat
 ./temp/je_allissuesselectedaff.bat

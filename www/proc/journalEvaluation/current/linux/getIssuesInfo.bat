@@ -5,43 +5,48 @@ ISSUEPID=$2
 ISSN=$3
 ACRON=$4
 INPUT_FOR_ENDOGENIA_PROC=$5
-INPUT_FOR_HISTORY_PROC=$6
+FILE_DATES=$6
+FILE_NUMBERS=$7
 
-FILE_RESULT_DIFF=temp/je_result_diff.txt
-
-echo Issue $ISSUEPID
-echo Authors
-./$PATH_COMMON_SHELLS/WriteLog.bat $AVALLOG $ACRON $ISSN  Authors
-$MX cipar=$CPFILE ARTIGO btell=0 "HR=S$ISSUEPID$" lw=9999 "pft=if p(v83) then (v31[1],'|',v32[1],'|',s(v65[1])*0.4,'|',v14^f[1],'|',v12^t[1],'|',,v10^n,| |v10^s,,'|',if p(v10^1) then ,ref(['$DB_v70']l(['$DB_v70']v880[1],v10^1*0.3),v2^*,'|',|, |v3^1,|, |v3^2,'|',v2^c,'|',v2^s,'|',v2^p), fi,/) ,fi" now >> $INPUT_FOR_ENDOGENIA_PROC.seq
-
-echo History
-./$PATH_COMMON_SHELLS/WriteLog.bat $AVALLOG $ACRON $ISSN  History
-
-$MX cipar=$CPFILE ARTIGO btell=0 "HR=S$ISSUEPID$" lw=9999 "pft=if size(s(v112,v114))=16 and p(v112) and p(v114) then v114,'|',v112/ fi" now > temp/je_date_range_list.txt
-./$PATH_COMMON/linux/calculateDateDiff.bat $1 $FILE_RESULT_DIFF $INPUT_FOR_HISTORY_PROC.seq
+FILE_TEMP_NUMBERS=temp/je_numbers
 
 
-echo Doctopic
+echo Issue $ISSUEPID autores
+
+./$PATH_COMMON_SHELLS/WriteLog.bat $FILE_LOG $ACRON $ISSN  Authors
+$MX cipar=$FILE_CIPAR ARTIGO btell=0 "HR=S$ISSUEPID$" lw=9999 "pft=if p(v83) then (v31[1],'|',v32[1],'|',s(v65[1])*0.4,'|',v14^f[1],'|',v12^t[1],'|',,v10^n,| |v10^s,,'|',if p(v10^1) then ,ref(['$DB_v70']l(['$DB_v70']v880[1],v10^1*0.3),v2^*,'|',v3^1,|, |v3^2,'|',v2^c,'|',v2^s,'|',v2^p), fi,/) ,fi" now >> $INPUT_FOR_ENDOGENIA_PROC.seq
+
+echo Issue $ISSUEPID  History
+./$PATH_COMMON_SHELLS/WriteLog.bat $FILE_LOG $ACRON $ISSN  History
+
+$MX cipar=$FILE_CIPAR ARTIGO btell=0 "HR=S$ISSUEPID$" lw=9999 "pft=if size(s(v112,v114))=16 and p(v112) and p(v114) then v114,'|',v112/ fi" now >> $FILE_DATES
+
 if [ "@$PARAM_SELECT_BY_YEAR" == "@" ]
 then
-    $MX cipar=$CPFILE ARTIGO btell=0 "HR=S$ISSUEPID$" COUNT=1 lw=9999 "pft=v65*0.4" now > temp/je_YEAR
-    YEAR=`cat temp/je_YEAR`
-  ./$PATH_DOCTOPIC_SHELLS/doctopic_call_genLangReport.bat $FILE_CONFIG $ISSN temp/je_replang.txt $PATH_LANG_REPORTS/report_$ISSN\_year_doctopic.xls $YEAR
-else
-  ./$PATH_DOCTOPIC_SHELLS/doctopic_call_genLangReport.bat $FILE_CONFIG $ISSN temp/je_replang.txt $PATH_LANG_REPORTS/report_$ISSN\_year_doctopic.xls $PARAM_SELECT_BY_YEAR
+    $MX cipar=$FILE_CIPAR ARTIGO btell=0 "HR=S$ISSUEPID$" count=1 lw=9999 "pft=v65*0.4" now > temp/je_YEAR
 fi
-more temp/je_replang.txt >> $JournalFile
 
-$MX cipar=$CPFILE ISSUE btell=0 "$ISSN$PARAM_SELECT_BY_YEAR$"  "tab=if v32<>'ahead' and v32<>'review' and a(v41) then v35 fi" now > temp/je_numbers
-$MX cipar=$CPFILE ARTIGO btell=0 "HR=S$ISSUEPID$" "tab=if v32<>'ahead' and v32<>'review' and a(v41) then v880 fi" now >> temp/je_numbers
+echo Issue $ISSUEPID Numbers
+$MX cipar=$FILE_CIPAR ISSUE btell=0 "$ISSUEPID$"  "tab=if v32<>'ahead' and v32<>'review' and a(v41) then v35 fi" now > $FILE_TEMP_NUMBERS.seq
+$MX cipar=$FILE_CIPAR ARTIGO btell=0 "HR=S$ISSUEPID$" "tab=if v32<>'ahead' and v32<>'review' and a(v41) then 'artigos' fi" now >> $FILE_TEMP_NUMBERS.seq
 
-$MX cipar=$CPFILE ISSUE btell=0 "$ISSN$PARAM_SELECT_BY_YEAR$" "pft=if v32<>'ahead' and v32<>'review' and a(v41) then v35,v36*0.4,s(f(10000+val(v36*4),1,0))*1,s(f(100000+val(v122),1,0))*1 fi" now | sort -r > temp/je_issues
-$MX seq=temp/je_issues count=1 "pft=v1/" now > temp/je_lastissue
-f = "000100001"
-l = `cat temp/je_lastissue`
-$MX cipar=$CPFILE ARTIGO btell=0 "bool=hr=s$ISSN$PARAM_SELECT_BY_YEAR$f" lw=9999 "pft=if p(v14^f) then s(f(10000000+val(v14^f),1,0))*1 fi,'|',if p(v14^l) then s(f(10000000+val(v14^l),1,0))*1 fi/" now > temp/je_pages.txt
-$MX cipar=$CPFILE ARTIGO btell=0 "bool=hr=s$l" lw=9999 "pft=if p(v14^f) then s(f(10000000+val(v14^f),1,0))*1 fi,'|',if p(v14^l) then s(f(10000000+val(v14^l),1,0))*1 fi/" now >> temp/je_pages.txt
-$MX seq=temp/je_pages.txt create=temp/je_pages now -all
-$MX temp/je_pages "pft=f(val(ref(2,v1))-val(v1),1,0)" now >> temp/je_numbers
+$MX cipar=$FILE_CIPAR ARTIGO btell=0 "bool=hr=s$ISSUEPID$" lw=9999 "pft=if p(v14^f) then s(f(10000000+val(v14^f),1,0))*1 fi,'|',if p(v14^l) then s(f(10000000+val(v14^l),1,0))*1 fi/" now  >>  $FILE_TEMP_NUMBERS.seq
+ echo >>  $FILE_TEMP_NUMBERS.seq
 
-more temp/je_numbers >> $JournalFile
+if [ -f "$FILE_NUMBERS.mst" ]
+then
+
+    $MX seq=$FILE_TEMP_NUMBERS.seq create=$FILE_TEMP_NUMBERS now -all
+echo numbers_temp
+    $MX $FILE_TEMP_NUMBERS count=2 now
+echo numbers
+    $MX $FILE_NUMBERS count=2 now
+
+    $MX $FILE_NUMBERS from=1 count=2 "proc='d2a2{',f(val(v2)+val(ref(['$FILE_TEMP_NUMBERS']mfn,v2)),1,0),'{'" copy=$FILE_NUMBERS now -all
+    $MX $FILE_TEMP_NUMBERS from=3 append=$FILE_NUMBERS now -all
+echo numbers
+    $MX $FILE_NUMBERS count=2 now
+else
+    more $FILE_TEMP_NUMBERS.seq
+    $MX seq=$FILE_TEMP_NUMBERS.seq create=$FILE_NUMBERS now -all
+fi
