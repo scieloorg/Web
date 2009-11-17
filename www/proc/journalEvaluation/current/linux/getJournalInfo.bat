@@ -9,52 +9,108 @@ ACRON=$3
 
 PROCESS_DATE=`date +%Y%m%d%H%M%s`
 J_DIR=$ACRON
-JOURNAL_OUTPUT_PATH=$OUTPUT_PATH/$J_DIR/
-JournalFile=$OUTPUT_PATH/$J_DIR/$JournalFileName
-JOURNAL_LINK=$REL_OUTPUT_PATH/$J_DIR/$JournalFileName
+JOURNAL_PATH_OUTPUT=$PATH_OUTPUT/$J_DIR/
+JOURNAL_LINK=$REL_PATH_OUTPUT/$J_DIR/$JournalFileName
 
-INPUT_FOR_HISTORY_PROC=$JOURNAL_OUTPUT_PATH/history
-FILE_AUTHORS=$JOURNAL_OUTPUT_PATH/authors
-OUTPUT_EDBOARD=$JOURNAL_OUTPUT_PATH/edBoard
+JournalFile=$JOURNAL_PATH_OUTPUT/$JournalFileName
 
-if [ -d $OUTPUT_PATH/$ACRON ]
+LOC_FILE_BASICDATA=$JOURNAL_PATH_OUTPUT/dados_basicos.seq
+LOC_FILE_EDBOARD=$JOURNAL_PATH_OUTPUT/edBoard
+LOC_FILE_AUTHORS=$JOURNAL_PATH_OUTPUT/authors
+LOC_FILE_DOCTOPIC=temp/je_replang.txt
+LOC_FILE_DOCTOPIC_SRC=$PATH_LANG_REPORTS/report_$ISSN\_year_doctopic.xls
+LOC_FILE_DOCTOPIC_INPUT=$JOURNAL_PATH_OUTPUT/doctopic.xls
+LOC_FILE_NUMBERS=$JOURNAL_PATH_OUTPUT/numbers
+LOC_FILE_DATES=$JOURNAL_PATH_OUTPUT/history_dates
+LOC_FILE_HISTORY=$JOURNAL_PATH_OUTPUT/history
+
+LOC_FILE_JOURNAL=$JournalFile
+
+$LOC_FILE_DOCTOPIC
+
+if [ -d $JOURNAL_PATH_OUTPUT ]
 then 
-	rm -rf $JOURNAL_OUTPUT_PATH
+	rm -rf $JOURNAL_PATH_OUTPUT
 fi
-mkdir -p $JOURNAL_OUTPUT_PATH
+mkdir -p $JOURNAL_PATH_OUTPUT
 
 echo journal $ACRON
-$MX cipar=$CPFILE TITLE btell=0 "loc=$ISSN" lw=9999 "pft='<p><a href=\"$J_DIR/$JournalFileName\">',v100,'</a></p>'" now >> $HTML_FILE_OUTPUT
+$MX cipar=$FILE_CIPAR TITLE btell=0 "loc=$ISSN" lw=9999 "pft='<p><a href=\"$J_DIR/$JournalFileName\">',v100,'</a></p>'" now >> $HTML_FILE_OUTPUT
 
-./$PATH_COMMON_SHELLS/WriteLog.bat $AVALLOG $ACRON Basic data
-$MX cipar=$CPFILE TITLE btell=0 "loc=$ISSN" lw=9999 gizmo=$PATH_GZM/gizmoFreq,340 gizmo=$PATH_GZM/gizmoCountry,310 "pft=@$PATH_TEMPLATE/journal.pft" now > $JOURNAL_OUTPUT_PATH/dados_basicos.seq
+####################################
+# DADOS BASICOS DE TITLE
+####################################
+./$PATH_COMMON_SHELLS/WriteLog.bat $FILE_LOG $ACRON Basic data
+$MX cipar=$FILE_CIPAR TITLE btell=0 "loc=$ISSN" lw=9999 gizmo=$PATH_GZM/gizmoFreq,340 gizmo=$PATH_GZM/gizmoCountry,310 "pft=@$PATH_TEMPLATE/journal.pft" now > $LOC_FILE_BASICDATA
 
-
-./$PATH_COMMON_SHELLS/WriteLog.bat $AVALLOG $ACRON Authors History Afiliations
-$MX seq=$FILE_SELECTED_ISSUES$ACRON.txt lw=9999 "pft='./$PATH_CURRENT_SHELLS/getIssuesInfo.bat $1 ',v1,' $ISSN $ACRON $FILE_AUTHORS $INPUT_FOR_HISTORY_PROC'/" now >temp/je_lastIssues.bat
-chmod 775 temp/je_lastIssues.bat
-./temp/je_lastIssues.bat
-
-
-echo $ACRON $PROCESS_DATE >> $JournalFile
-
-echo $ACRON DADOS BASICOS >> $JournalFile
-# echo $GZM_2TAB
-$MX "seq=$JOURNAL_OUTPUT_PATH/dados_basicos.seq¨" gizmo=$GZM_2TAB lw=9999 "pft=v1/"  now >> $JournalFile
-
-if [ -f $OUTPUT_EDBOARD ]
+####################################
+# EDITORIAL BOARD
+####################################
+if [ -f $LOC_FILE_EDBOARD ]
 then
-    rm $OUTPUT_EDBOARD
+    rm $LOC_FILE_EDBOARD
 fi
-./$PATH_CURRENT_SHELLS/getEdBoard.bat $ISSN $ACRON $OUTPUT_EDBOARD
+./$PATH_CURRENT_SHELLS/getEdBoard.bat $1 $ACRON $LOC_FILE_EDBOARD
 
-echo $ACRON CORPO EDITORIAL >> $JournalFile
-more $OUTPUT_EDBOARD >> $JournalFile
+####################################
+# DADOS DOS FASCICULOS
+####################################
+./$PATH_COMMON_SHELLS/WriteLog.bat $FILE_LOG $ACRON Authors History Afiliations
+if [ -f "$LOC_FILE_DATES" ]
+then
+    rm $LOC_FILE_DATES
+fi
+if [ -f "$LOC_FILE_NUMBERS.mst" ]
+then
+    rm $LOC_FILE_NUMBERS.*
+fi
+$MX seq=$FILE_SELECTED_ISSUES$ACRON.seq lw=9999 "pft=if size(v1)>0 then './$PATH_CURRENT_SHELLS/getIssuesInfo.bat $1 ',v1,' $ISSN $ACRON $LOC_FILE_AUTHORS $LOC_FILE_DATES $LOC_FILE_NUMBERS'/ fi" now > temp/je_getIssuesInfo.bat
+chmod 775 temp/je_getIssuesInfo.bat
+./temp/je_getIssuesInfo.bat
 
-echo $ACRON AUTORES ARTIGOS >> $JournalFile
-$MX "seq=$FILE_AUTHORS.seq¨" gizmo=$GZM_2TAB lw=9999 "pft=v1/"  now >> $JournalFile
+####################################
+# DOCTOPIC LANGUAGES
+####################################
+cp $LOC_FILE_DOCTOPIC_SRC $LOC_FILE_DOCTOPIC_INPUT
+if [ "@$PARAM_SELECT_BY_YEAR" == "@" ]
+then
+    YEAR=`cat temp/je_YEAR`
+  ./$PATH_DOCTOPIC_SHELLS/doctopic_call_genLangReport.bat $FILE_CONFIG $ISSN $LOC_FILE_DOCTOPIC $LOC_FILE_DOCTOPIC_INPUT $YEAR
+else
+  ./$PATH_DOCTOPIC_SHELLS/doctopic_call_genLangReport.bat $FILE_CONFIG $ISSN $LOC_FILE_DOCTOPIC $LOC_FILE_DOCTOPIC_INPUT $PARAM_SELECT_BY_YEAR
+fi
 
-echo $ACRON DOCTOPIC >> $JournalFile
+####################################
+# DADOS DOS FASCICULOS - NUMEROS DE FASCICULOS, ARTIGOS, PAGINAS
+####################################
+$MX $LOC_FILE_NUMBERS count=1 "pft='Fascículos|',v2/" now > temp/je_xnumbers
+$MX $LOC_FILE_NUMBERS from=2 count=1 "pft='Artigos|',v2/" now >> temp/je_xnumbers
+$MX $LOC_FILE_NUMBERS from=3  "pft=v1/" now | sort > temp/je_pages.seq
+$MX seq=temp/je_pages.seq count=1 "pft=v1/" now > temp/je_pages.txt
+$MX $LOC_FILE_NUMBERS from=3  "pft=v2/" now | sort -r > temp/je_pages.seq
+$MX seq=temp/je_pages.seq count=1 "pft=v1/" now >> temp/je_pages.txt
+$MX seq=temp/je_pages.txt create=temp/je_pages now -all
+$MX temp/je_pages count=1 "pft='Páginas|',f(val(ref(2,v1))-val(v1),1,0)/" now >> temp/je_xnumbers
 
-echo $ACRON RECEBIDOS ACEITOS >> $JournalFile
-#$MX "seq=$INPUT_FOR_HISTORY_PROC.seq¨" gizmo=$GZM_2TAB lw=9999  "pft=v1/"  now >> $JournalFile
+####################################
+# DADOS DOS FASCICULOS - HISTORICO ACEITO/RECEBIDO
+####################################
+./$PATH_DATE_DIFF/linux/calculateDateDiff.bat $1 $LOC_FILE_DATES $LOC_FILE_HISTORY.seq
+
+####################################
+# ESCREVE O RELATORIO DO TITULO
+####################################
+echo $ACRON $PROCESS_DATE > $LOC_FILE_JOURNAL
+echo $ACRON DADOS BASICOS >> $LOC_FILE_JOURNAL
+$MX "seq=$LOC_FILE_BASICDATA¨" gizmo=$GZM_PIPE2TAB lw=9999 "pft=v1/"  now >> $LOC_FILE_JOURNAL
+echo $ACRON CORPO EDITORIAL >> $LOC_FILE_JOURNAL
+more $LOC_FILE_EDBOARD >> $LOC_FILE_JOURNAL
+echo $ACRON AUTORES ARTIGOS >> $LOC_FILE_JOURNAL
+$MX "seq=$LOC_FILE_AUTHORS.seq¨" gizmo=$GZM_PIPE2TAB lw=9999 "pft=v1/"  now >> $LOC_FILE_JOURNAL
+echo $ACRON DOCTOPIC >> $LOC_FILE_JOURNAL
+$MX "seq=$LOC_FILE_DOCTOPIC¨" gizmo=$GZM_PIPE2TAB  lw=9999 "pft=v1/"  now >> $LOC_FILE_JOURNAL
+echo $ACRON NUMBERS >> $LOC_FILE_JOURNAL
+$MX "seq=temp/je_xnumbers¨" gizmo=$GZM_PIPE2TAB lw=9999 "pft=v1/"  now >> $LOC_FILE_JOURNAL
+echo $ACRON RECEBIDOS ACEITOS >> $LOC_FILE_JOURNAL
+$MX "seq=$LOC_FILE_HISTORY.seq¨" gizmo=$GZM_PIPE2TAB lw=9999 "pft=v1/"  now >> $LOC_FILE_JOURNAL
+
