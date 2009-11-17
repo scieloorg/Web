@@ -17,16 +17,16 @@ JournalFile=$JOURNAL_PATH_OUTPUT/$JournalFileName
 LOC_FILE_BASICDATA=$JOURNAL_PATH_OUTPUT/dados_basicos.seq
 LOC_FILE_EDBOARD=$JOURNAL_PATH_OUTPUT/edBoard
 LOC_FILE_AUTHORS=$JOURNAL_PATH_OUTPUT/authors
-LOC_FILE_DOCTOPIC=temp/je_replang.txt
+LOC_FILE_DOCTOPIC=$JOURNAL_PATH_OUTPUT/doctopic.txt
 LOC_FILE_DOCTOPIC_SRC=$PATH_LANG_REPORTS/report_$ISSN\_year_doctopic.xls
-LOC_FILE_DOCTOPIC_INPUT=$JOURNAL_PATH_OUTPUT/doctopic.xls
+LOC_FILE_DOCTOPIC_INPUT=$JOURNAL_PATH_OUTPUT/doctopic_src.xls
 LOC_FILE_NUMBERS=$JOURNAL_PATH_OUTPUT/numbers
 LOC_FILE_DATES=$JOURNAL_PATH_OUTPUT/history_dates
 LOC_FILE_HISTORY=$JOURNAL_PATH_OUTPUT/history
 
 LOC_FILE_JOURNAL=$JournalFile
 
-$LOC_FILE_DOCTOPIC
+
 
 if [ -d $JOURNAL_PATH_OUTPUT ]
 then 
@@ -85,9 +85,10 @@ fi
 ####################################
 $MX $LOC_FILE_NUMBERS count=1 "pft='Fascículos|',v2/" now > temp/je_xnumbers
 $MX $LOC_FILE_NUMBERS from=2 count=1 "pft='Artigos|',v2/" now >> temp/je_xnumbers
-$MX $LOC_FILE_NUMBERS from=3  "pft=v1/" now | sort > temp/je_pages.seq
+$MX $LOC_FILE_NUMBERS from=3 count=1 "pft='Artigos e textos|',v2/" now >> temp/je_xnumbers
+$MX $LOC_FILE_NUMBERS from=4  "pft=v1/" now | sort > temp/je_pages.seq
 $MX seq=temp/je_pages.seq count=1 "pft=v1/" now > temp/je_pages.txt
-$MX $LOC_FILE_NUMBERS from=3  "pft=v2/" now | sort -r > temp/je_pages.seq
+$MX $LOC_FILE_NUMBERS from=4  "pft=v2/" now | sort -r > temp/je_pages.seq
 $MX seq=temp/je_pages.seq count=1 "pft=v1/" now >> temp/je_pages.txt
 $MX seq=temp/je_pages.txt create=temp/je_pages now -all
 $MX temp/je_pages count=1 "pft='Páginas|',f(val(ref(2,v1))-val(v1),1,0)/" now >> temp/je_xnumbers
@@ -101,16 +102,36 @@ $MX temp/je_pages count=1 "pft='Páginas|',f(val(ref(2,v1))-val(v1),1,0)/" now >>
 # ESCREVE O RELATORIO DO TITULO
 ####################################
 echo $ACRON $PROCESS_DATE > $LOC_FILE_JOURNAL
+echo "====================" >> $LOC_FILE_JOURNAL
 echo $ACRON DADOS BASICOS >> $LOC_FILE_JOURNAL
+echo "====================" >> $LOC_FILE_JOURNAL
 $MX "seq=$LOC_FILE_BASICDATA¨" gizmo=$GZM_PIPE2TAB lw=9999 "pft=v1/"  now >> $LOC_FILE_JOURNAL
-echo $ACRON CORPO EDITORIAL >> $LOC_FILE_JOURNAL
-more $LOC_FILE_EDBOARD >> $LOC_FILE_JOURNAL
+
+echo "====================" >> $LOC_FILE_JOURNAL
 echo $ACRON AUTORES ARTIGOS >> $LOC_FILE_JOURNAL
+echo "====================" >> $LOC_FILE_JOURNAL
 $MX "seq=$LOC_FILE_AUTHORS.seq¨" gizmo=$GZM_PIPE2TAB lw=9999 "pft=v1/"  now >> $LOC_FILE_JOURNAL
+
+echo "====================" >> $LOC_FILE_JOURNAL
 echo $ACRON DOCTOPIC >> $LOC_FILE_JOURNAL
-$MX "seq=$LOC_FILE_DOCTOPIC¨" gizmo=$GZM_PIPE2TAB  lw=9999 "pft=v1/"  now >> $LOC_FILE_JOURNAL
+echo "====================" >> $LOC_FILE_JOURNAL
+$MX "seq=$LOC_FILE_DOCTOPIC¨" gizmo=$GZM_DOCTOPIC gizmo=$GZM_PIPE2TAB lw=9999 "pft=v1/"  now >> $LOC_FILE_JOURNAL
+
+echo "====================" >> $LOC_FILE_JOURNAL
 echo $ACRON NUMBERS >> $LOC_FILE_JOURNAL
+echo "====================" >> $LOC_FILE_JOURNAL
 $MX "seq=temp/je_xnumbers¨" gizmo=$GZM_PIPE2TAB lw=9999 "pft=v1/"  now >> $LOC_FILE_JOURNAL
-echo $ACRON RECEBIDOS ACEITOS >> $LOC_FILE_JOURNAL
+
+echo "====================" >> $LOC_FILE_JOURNAL
+echo $ACRON TEMPO ENTRE RECEBIDO E ACEITO >> $LOC_FILE_JOURNAL
+echo "====================" >> $LOC_FILE_JOURNAL
 $MX "seq=$LOC_FILE_HISTORY.seq¨" gizmo=$GZM_PIPE2TAB lw=9999 "pft=v1/"  now >> $LOC_FILE_JOURNAL
 
+echo "====================" >> $LOC_FILE_JOURNAL
+echo $ACRON CORPO EDITORIAL >> $LOC_FILE_JOURNAL
+echo "====================" >> $LOC_FILE_JOURNAL
+more $LOC_FILE_EDBOARD >> $LOC_FILE_JOURNAL
+
+echo +++++++++++++++
+echo $LOC_FILE_JOURNAL
+echo +++++++++++++++
