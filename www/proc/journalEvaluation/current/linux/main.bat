@@ -5,16 +5,18 @@ TITLELISTOPCIONAL=$1
 
 echo `date '+%Y.%m.%d %H:%M:%S'` Executing $0 $1 $2 $3 $4 $5
 
-chmod  775 journalEvaluation/*/linux/*.bat
-. journalEvaluation/current/config/config.inc
+chmod  775 journalEval/*/*.bat
+chmod  775 journalEval/*/*/*.bat
+chmod  775 journalEval/*/*/*/*.bat
+. journalEval/current/config/config.inc
 
 echo `date '+%Y.%m.%d %H:%M:%S'` Prepare gizmos
 ./$PATH_COMMON_SHELLS/prepareGizmos.bat $FILE_CONFIG
 
 echo `date '+%Y.%m.%d %H:%M:%S'` Apaga/cria arquivos e diretorios
-if [ -f temp/je_* ]
+if [ -f "temp/je_*" ]
 then
-	rm temp/je_*
+	rm "temp/je_*"
 fi
 if [ -f $FILE_LOG ]
 then
@@ -41,6 +43,7 @@ chmod 775 temp/je_getJournalSelectedIssues.bat
 
 echo Cria uma lista/base de aff mais completa
 ./$PATH_AFF_MODULE/improveAff.bat $FILE_CONFIG $FILE_SELECTED_ISSUES.txt $SEQ_DB_v70 $DB_v70 $DB_v70_completa
+
 
 echo inicia a pagina de relatorio
 more $PATH_COMMON/pft/html.00.pft > $HTML_FILE_OUTPUT
