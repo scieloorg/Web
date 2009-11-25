@@ -55,6 +55,7 @@
 		<text find="top_ten_titles">10 títulos mais visitados</text>
 		<text find="articles_per_month">Artigos visitados por mês</text>
 		<text find="library_site_usage_reports">Relatórios de utilização do site</text>
+		<text find="article_requests_lang">Acesso aos artigos por idioma</text>
 	</xslid>
 	<xslid id="sci_common">
 		<text find="reference_manager">Gerenciadores de referências</text>

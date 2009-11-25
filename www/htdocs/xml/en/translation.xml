@@ -55,6 +55,7 @@
 		<text find="top_ten_titles">Top ten titles</text>
 		<text find="articles_per_month">Articles per month</text>
 		<text find="library_site_usage_reports">Library site usage reports</text>
+		<text find="article_requests_lang">Articles requests by language</text>
 	</xslid>
 	<xslid id="sci_common">
 		<text find="reference_manager">Reference Managers</text>
@@ -94,7 +95,6 @@
 	<xslid id="sci_artref">
 		<text find="ahead_of_print">ahead of print</text>
 		<text find="provisional">provisional</text>
-
 		<text find="review_in_progress">review in progress</text>
 		<text find="not_printed">not printed</text>
 		<text find="special_issue">special issue</text>

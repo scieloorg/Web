@@ -75,6 +75,7 @@ GOOGLE_CODE=
 PATH_LOG_CACHE=/home/scielo/www/bases/pages/sci_stat/
 SCRIPT_TOP_TEN="http://scielo-log.bireme.br/scielolog/ofigraph20.php?app=scielo"
 SCRIPT_ARTICLES_PER_MONTH="http://scielo-log.bireme.br/scielolog/ofigraph21.php?app=scielo"
+ENABLE_ARTICLE_LANG_LINK=0
 
 [LOG_DATABASE_INFO]
 DB_NAME = log
