@@ -81,6 +81,7 @@
 						case 'STAT_SERVER_COAUTH'                  : 'h17058',
 						case 'ENABLE_COAUTH_REPORTS_LINK'                  : 'h17059',
 						case 'ALT_PDF_URL'     : 'h17060',
+						case 'ENABLE_ARTICLE_LANG_LINK'     : 'h17061',
 						
 						elsecase 'h4903'
 					endsel

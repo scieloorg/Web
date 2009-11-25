@@ -55,6 +55,7 @@
 		<text find="top_ten_titles">10 títulos más visitados</text>
 		<text find="articles_per_month">Artículos visitados por mes</text>
 		<text find="library_site_usage_reports">Informes de uso del sítio</text>
+		<text find="article_requests_lang">Acesso a los artículos por idioma</text>
 	</xslid>
 	<xslid id="sci_common">
 		<text find="reference_manager">Gestores Bibliográficos</text>
@@ -94,7 +95,6 @@
 	<xslid id="sci_artref">
 		<text find="ahead_of_print">ahead of print</text>
 		<text find="provisional">provisorio</text>
-
 		<text find="review_in_progress">en revisión</text>
 		<text find="not_printed">no impresso</text>
 		<text find="special_issue">número especial</text>
