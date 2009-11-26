@@ -47,6 +47,7 @@
 							'JOURNAL_ISSN' => $_GET['issn'],
 							'REPORTS_SITE_USAGE_GROUP_LABEL' => 'Site usage reports',
 							'REPORT_JOURNAL_REQUESTS' => 'Journal requests',
+							'REPORT_JOURNAL_REQUESTS_LANG' => 'Journal requests by lang',
 							'REPORT_ISSUES_REQUESTS' => 'Issue requests',
 							'REPORT_ARTICLES_REQUESTS' => 'Article requests',
 							'COAUTHORS_GROUP' => 'Co-authors report',
@@ -74,6 +75,7 @@
 							'JOURNAL_ISSN' => $_GET['issn'],
 							'REPORTS_SITE_USAGE_GROUP_LABEL' => 'Informes de uso del sitio',
 							'REPORT_JOURNAL_REQUESTS' => 'Acceso a las revistas',
+							'REPORT_JOURNAL_REQUESTS_LANG' => 'Acceso a las revistas por idioma',
 							'REPORT_ISSUES_REQUESTS' => 'Acceso a los números',
 							'REPORT_ARTICLES_REQUESTS' => 'Acceso a los artículos',
 							'COAUTHORS_GROUP' => 'Informes de coautoría',
@@ -101,6 +103,7 @@
 							'JOURNAL_ISSN' => $_GET['issn'],
 							'REPORTS_SITE_USAGE_GROUP_LABEL' => 'Relatórios de uso do site',
 							'REPORT_JOURNAL_REQUESTS' => 'Acessos ao periódicos',
+							'REPORT_JOURNAL_REQUESTS_LANG' => 'Acessos ao periódicos por idioma',
 							'REPORT_ISSUES_REQUESTS' => 'Acessos aos fascículos',
 							'REPORT_ARTICLES_REQUESTS' => 'Acessos aos artigos',
 							'COAUTHORS_GROUP' => 'Relatório de co-autoria',
@@ -175,6 +178,17 @@
 									<?php echo $LABELS['REPORT_JOURNAL_REQUESTS']; ?>
 								</a>
 							</li>
+							<?php
+							if ($DEF['LOG']['ENABLE_STATISTICS_LINK']=='1'){
+								echo('<li>');
+							?>	
+								<a href="http://<?echo $LABELS['SITE_USAGE_PAGES_SERVER'];?>/<?echo $LABELS['SITE_USAGE_PAGES_SERVER_PATH'];?>/scielolog.php?script=sci_journalstatlang&lng=<?echo $LABELS['LANG'];?>&pid=<?echo $LABELS['JOURNAL_ISSN'];?>&app=<?echo $LABELS['APP_NAME'];?>&server=<?echo $DEF['SCIELO']['SERVER_SCIELO'];?>">
+									<?php echo $LABELS['REPORT_JOURNAL_REQUESTS_LANG']; ?>
+								</a>
+							<?php	
+								echo('</li>');
+							}
+							?>
 							<li>
 								<a href="http://<?echo $LABELS['SITE_USAGE_PAGES_SERVER'];?>/<?echo $LABELS['SITE_USAGE_PAGES_SERVER_PATH'];?>/scielolog.php?script=sci_statiss&lng=<?echo $LABELS['LANG'];?>&pid=<?echo $LABELS['JOURNAL_ISSN'];?>&app=<?echo $LABELS['APP_NAME'];?>&server=<?echo $DEF['SCIELO']['SERVER_SCIELO'];?>">
 									<?php echo $LABELS['REPORT_ISSUES_REQUESTS']; ?>
