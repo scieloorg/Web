@@ -179,14 +179,15 @@
 								</a>
 							</li>
 							<?php
-							if ($DEF['LOG']['ENABLE_STATISTICS_LINK']=='1'){
-								echo('<li>');
-							?>	
-								<a href="http://<?echo $LABELS['SITE_USAGE_PAGES_SERVER'];?>/<?echo $LABELS['SITE_USAGE_PAGES_SERVER_PATH'];?>/scielolog.php?script=sci_journalstatlang&lng=<?echo $LABELS['LANG'];?>&pid=<?echo $LABELS['JOURNAL_ISSN'];?>&app=<?echo $LABELS['APP_NAME'];?>&server=<?echo $DEF['SCIELO']['SERVER_SCIELO'];?>">
-									<?php echo $LABELS['REPORT_JOURNAL_REQUESTS_LANG']; ?>
-								</a>
-							<?php	
-								echo('</li>');
+							if ($DEF['LOG']['ENABLE_ARTICLE_LANG_LINK']=='1') {
+								echo("<li>");							
+								echo("<a href=\"http://");
+								echo($LABELS['SITE_USAGE_PAGES_SERVER']);
+								echo($LABELS['SITE_USAGE_PAGES_SERVER_PATH']);
+								echo("/scielolog.php?script=sci_journalstatlang&lng=".$LABELS['LANG']."&pid=".$LABELS['JOURNAL_ISSN']."&app=".$LABELS['APP_NAME']."&server=".$DEF['SCIELO']['SERVER_SCIELO']."\">");
+								echo($LABELS['REPORT_JOURNAL_REQUESTS_LANG']);
+								echo("</a>");							
+								echo("</li>");
 							}
 							?>
 							<li>
