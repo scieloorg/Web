@@ -1,13 +1,8 @@
-﻿Versão: v4.39
+﻿Versão: v4.41
 
 Melhorias
 -------------------
-#170 Apresentação de artigos provisional
-#171 Rotina de envia dados de acesso para o processo centralizado de estatística de acessos
-
-
-Correções
--------------------
-#177 Problema na apresentação dos links das traduções de um press release de um número
-
+#184 Ajustes para parametrizar apresentação de link de estatísticas de acesso de artigos por idioma.
+# Processamento de avaliacao de periodicos de permanencia
+# Processamento de Traduções 
 
