@@ -182,7 +182,7 @@
 							if ($DEF['LOG']['ENABLE_ARTICLE_LANG_LINK']=='1') {
 								echo("<li>");							
 								echo("<a href=\"http://");
-								echo($LABELS['SITE_USAGE_PAGES_SERVER']);
+								echo($LABELS['SITE_USAGE_PAGES_SERVER']."/");
 								echo($LABELS['SITE_USAGE_PAGES_SERVER_PATH']);
 								echo("/scielolog.php?script=sci_journalstatlang&lng=".$LABELS['LANG']."&pid=".$LABELS['JOURNAL_ISSN']."&app=".$LABELS['APP_NAME']."&server=".$DEF['SCIELO']['SERVER_SCIELO']."\">");
 								echo($LABELS['REPORT_JOURNAL_REQUESTS_LANG']);
