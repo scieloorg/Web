@@ -7,7 +7,7 @@
 	<xsl:variable name="spaceVol" select="'7%'"/>
 	<xsl:variable name="spaceIssue" select="'5%'"/>
 	<xsl:variable name="spaceIssues" select="'70%'"/>
-	<xsl:variable name="columns" select="//COLUMNS"/>
+	<!--xsl:variable name="columns" select="//COLUMNS"/>
 	<xsl:variable name="colnumber">
 		<xsl:choose>
 			<xsl:when test="$columns='' or not($columns)">14</xsl:when>
@@ -16,17 +16,25 @@
 				<xsl:value-of select="$columns"/>
 			</xsl:otherwise>
 		</xsl:choose>
-	</xsl:variable>
+	</xsl:variable-->
+	<xsl:variable name="colnumber"><xsl:choose>
+		<xsl:when test=".//YEARISSUE[count(.//ISSUE)&gt;12]">14</xsl:when>
+		<xsl:otherwise>12</xsl:otherwise>
+	</xsl:choose></xsl:variable>
+	
 	<xsl:template match="SERIAL">
 		<HTML>
 			<HEAD>
 				<TITLE>
-					<xsl:value-of select="//TITLEGROUP/SHORTTITLE " disable-output-escaping="yes"/> - <xsl:value-of select="$translations/xslid[@id='sci_issues']/text[@find='available_issues']"/></TITLE>
+					<xsl:value-of select="//TITLEGROUP/SHORTTITLE " disable-output-escaping="yes"/> - <xsl:value-of select="$translations/xslid[@id='sci_issues']/text[@find='available_issues']"/>
+				</TITLE>
 				<LINK href="/css/scielo.css" type="text/css" rel="STYLESHEET"/>
 				<META http-equiv="Pragma" content="no-cache"/>
 				<META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT"/>
 			</HEAD>
 			<BODY vLink="#800080" bgColor="#ffffff">
+
+			<xsl:value-of select="$moreColumns"/>
 				<xsl:call-template name="NAVBAR">
 					<xsl:with-param name="bar1">issues</xsl:with-param>
 					<xsl:with-param name="bar2">articlesiah</xsl:with-param>
@@ -49,8 +57,7 @@
 				</CENTER>
 				<!--br/-->
 				<div class="content">
-				<xsl:apply-templates select="." mode="journal-info"/>
-
+					<xsl:apply-templates select="." mode="journal-info"/>
 					<!--TABLE width="100%" border="0">
 						<TBODY>
 							<tr>
@@ -65,7 +72,6 @@
 					<br/>
 					<xsl:apply-templates select="//AVAILISSUES"/>
 				</div>
-				
 				<xsl:apply-templates select="." mode="footer-journal"/>
 			</BODY>
 		</HTML>
@@ -81,7 +87,7 @@
 					<TD width="95%">
 						<P align="left">
 							<FONT class="nomodel" color="#800000">
-                                <xsl:value-of select="$translations/xslid[@id='sci_issues']/text[@find='available_issues']"/>
+								<xsl:value-of select="$translations/xslid[@id='sci_issues']/text[@find='available_issues']"/>
 							</FONT>
 						</P>
 						<TABLE borderColor="#c0c0c0" cellSpacing="3" cellPadding="3" width="100%" border="0">
@@ -91,7 +97,7 @@
 										<P align="center">
 											<FONT color="#000080">
 												<B>
-                                                    <xsl:value-of select="$translations/xslid[@id='sci_issues']/text[@find='year']"/>
+													<xsl:value-of select="$translations/xslid[@id='sci_issues']/text[@find='year']"/>
 												</B>
 											</FONT>
 										</P>
@@ -103,7 +109,9 @@
 									<xsl:if test="$test_vol != ''">
 										<TD align="middle" width="{$spaceVol}" bgColor="#e1e6e6" height="35">
 											<FONT class="normal" color="#000080">
-												<B><xsl:value-of select="$translations/xslid[@id='sci_issues']/text[@find='vol.']"/></B>
+												<B>
+													<xsl:value-of select="$translations/xslid[@id='sci_issues']/text[@find='vol.']"/>
+												</B>
 											</FONT>
 										</TD>
 									</xsl:if>
@@ -112,7 +120,7 @@
            &#160;&#160;
           <FONT class="normal" color="000080">
 												<B>
-                                                 <xsl:value-of select="$translations/xslid[@id='sci_issues']/text[@find='number']"/>
+													<xsl:value-of select="$translations/xslid[@id='sci_issues']/text[@find='number']"/>
 												</B>
 											</FONT>
 										</TD>
@@ -215,13 +223,13 @@
 							<xsl:with-param name="lang" select="//CONTROLINFO/LANGUAGE"/>
 						</xsl:call-template>
 						<xsl:if test="@NUM='beforeprint'">
-                            <xsl:value-of select="$translations/xslid[@id='sci_issues']/text[@find='not_printed']"/>
+							<xsl:value-of select="$translations/xslid[@id='sci_issues']/text[@find='not_printed']"/>
 						</xsl:if>
 						<xsl:if test="@NUM='AHEAD'">
-                            <xsl:value-of select="$translations/xslid[@id='sci_issues']/text[@find='ahead_of_print']"/>
-                        </xsl:if>
+							<xsl:value-of select="$translations/xslid[@id='sci_issues']/text[@find='ahead_of_print']"/>
+						</xsl:if>
 						<xsl:if test="@NUM='REVIEW'">
-                            <xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find='provisional']"/>
+							<xsl:value-of select="$translations/xslid[@id='sci_artref']/text[@find='provisional']"/>
 						</xsl:if>
 					</A>
 				</FONT>
