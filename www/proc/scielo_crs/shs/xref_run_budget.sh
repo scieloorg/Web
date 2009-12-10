@@ -167,8 +167,8 @@ else
 
 echo
 echo ATENCION
-echo Se abrirá con vi el listado $SORTEDLIST.txt de lo que va a procesar
-echo Se puede editar para retirar líneas o cerrar sin cambios
+echo Se abrira con vi el listado $SORTEDLIST.txt de lo que va a procesar
+echo Se puede editar para retirar lineas o cerrar sin cambios
 echo ENTER para seguir CTRL C para interrumpir
 read
 vi $SORTEDLIST.txt
