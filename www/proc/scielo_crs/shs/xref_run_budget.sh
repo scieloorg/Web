@@ -114,7 +114,7 @@ then
 	echo No es obligatorio pero su ausencia significa que el procesamiento correra a todos los articulos seleccionados 
 	echo  o hasta que el presupuesto sea alcanzado, lo que ocurrir antes
 	echo El tiempo de procesamiento para cada articulo es de por lo menos 1 segundo
-	echo ENTER para seguir o CTRL+C para interrumpir y ingresar el parametro cuatro
+	echo ENTER para seguir o CTRL+C para interrumpir e ingresar el parametro cuatro
 	read
 fi
 ###################
@@ -137,8 +137,7 @@ else
 	echo Batch id $BATCHBGID
 
 	echo Estando correcta la configuracion ENTER para seguir
-	echo Estando incorrecta CTRL+C para interrumpir
-	echo  editar el crossref_config.sh para corregir la configuracion
+	echo Estando incorrecta CTRL+C para interrumpir y corregir el crossref_config.sh
 
 	read
 
@@ -150,6 +149,8 @@ else
 	###################
 	# GENERATE THE SORTED LIST
 	#
+    # Formato da lista 19881200 S0074-02761988000400023 0.20
+    echo Generando el listado, aguarde...
 
 	if [ "@$ORDER" == "@Descending" ]
 	then		
@@ -163,6 +164,17 @@ else
 			$cisis_dir/mx cipar=$MYCIPFILE ARTIGO_DB btell=0  "tp=h" "proc='a9001{$FIRST_YEAR_OF_RECENT_FEE{a9002{$RECENT_FEE{a9003{$BACKFILES_FEE{a9005{$BUDGETID{a9055{$SELECTIONTYPE{'" lw=9999 "pft=@$conversor_dir/pft/xref_generateList.pft" now | sort -u -r > $SORTEDLIST.txt
 		fi
 	fi
+
+echo
+echo ATENCION
+echo Se abrirá con vi el listado $SORTEDLIST.txt de lo que va a procesar
+echo Se puede editar para retirar líneas o cerrar sin cambios
+echo ENTER para seguir CTRL C para interrumpir
+read
+vi $SORTEDLIST.txt
+echo
+echo ENTER para seguir CTRL C para interrumpir
+read
 
 
 	###################
