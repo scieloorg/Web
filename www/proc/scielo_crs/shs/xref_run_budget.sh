@@ -14,6 +14,7 @@ ORDER=$2
 # SELECTIONTYPE must be ALL or ONLY_NEVER_PROCESSED or ONLY_NEVER_SUBMITTED
 SELECTIONTYPE=$3
 COUNT=$4
+ISSNYEAR=$5
 
 $cisis_dir/mx "seq=db_presupuestos.txt " create=$DB_PRESUPUESTOS  now -all
 $cisis_dir/mx $DB_PRESUPUESTOS fst=@$conversor_dir/fst/budget.fst fullinv=$DB_PRESUPUESTOS 
@@ -153,15 +154,29 @@ else
     echo Generando el listado, aguarde...
 
 	if [ "@$ORDER" == "@Descending" ]
-	then		
-		$cisis_dir/mx cipar=$MYCIPFILE ARTIGO_DB btell=0  "tp=h" "proc='a9001{$FIRST_YEAR_OF_RECENT_FEE{a9002{$RECENT_FEE{a9003{$BACKFILES_FEE{a9005{$BUDGETID{a9055{$SELECTIONTYPE{'" lw=9999 "pft=@$conversor_dir/pft/xref_generateList.pft" now | sort -u -r > $SORTEDLIST.txt
+	then
+        if [ "@$ISSNYEAR" == "@" ]
+        then
+            $cisis_dir/mx cipar=$MYCIPFILE ARTIGO_DB btell=0  "tp=h" "proc='a9001{$FIRST_YEAR_OF_RECENT_FEE{a9002{$RECENT_FEE{a9003{$BACKFILES_FEE{a9005{$BUDGETID{a9055{$SELECTIONTYPE{'" lw=9999 "pft=@$conversor_dir/pft/xref_generateList.pft" now | sort -u -r > $SORTEDLIST.txt
+        else
+            $cisis_dir/mx cipar=$MYCIPFILE ARTIGO_DB btell=0  "hr=S$ISSNYEAR$" "proc='a9001{$FIRST_YEAR_OF_RECENT_FEE{a9002{$RECENT_FEE{a9003{$BACKFILES_FEE{a9005{$BUDGETID{a9055{$SELECTIONTYPE{'" lw=9999 "pft=@$conversor_dir/pft/xref_generateList.pft" now | sort -u -r > $SORTEDLIST.txt
+        fi
 	else
 		if [ "@$ORDER" == "@Ascending" ]
-		then
-			
-			$cisis_dir/mx cipar=$MYCIPFILE ARTIGO_DB btell=0  "tp=h" "proc='a9001{$FIRST_YEAR_OF_RECENT_FEE{a9002{$RECENT_FEE{a9003{$BACKFILES_FEE{a9005{$BUDGETID{a9055{$SELECTIONTYPE{'" lw=9999 "pft=@$conversor_dir/pft/xref_generateList.pft" now | sort -u > $SORTEDLIST.txt
+		then			
+            if [ "@$ISSNYEAR" == "@" ]
+            then
+                $cisis_dir/mx cipar=$MYCIPFILE ARTIGO_DB btell=0  "tp=h" "proc='a9001{$FIRST_YEAR_OF_RECENT_FEE{a9002{$RECENT_FEE{a9003{$BACKFILES_FEE{a9005{$BUDGETID{a9055{$SELECTIONTYPE{'" lw=9999 "pft=@$conversor_dir/pft/xref_generateList.pft" now | sort -u > $SORTEDLIST.txt
+            else
+                $cisis_dir/mx cipar=$MYCIPFILE ARTIGO_DB btell=0  "hr=S$ISSNYEAR$" "proc='a9001{$FIRST_YEAR_OF_RECENT_FEE{a9002{$RECENT_FEE{a9003{$BACKFILES_FEE{a9005{$BUDGETID{a9055{$SELECTIONTYPE{'" lw=9999 "pft=@$conversor_dir/pft/xref_generateList.pft" now | sort -u > $SORTEDLIST.txt
+            fi
 		else
-			$cisis_dir/mx cipar=$MYCIPFILE ARTIGO_DB btell=0  "tp=h" "proc='a9001{$FIRST_YEAR_OF_RECENT_FEE{a9002{$RECENT_FEE{a9003{$BACKFILES_FEE{a9005{$BUDGETID{a9055{$SELECTIONTYPE{'" lw=9999 "pft=@$conversor_dir/pft/xref_generateList.pft" now | sort -u -r > $SORTEDLIST.txt
+            if [ "@$ISSNYEAR" == "@" ]
+            then
+    			$cisis_dir/mx cipar=$MYCIPFILE ARTIGO_DB btell=0  "tp=h" "proc='a9001{$FIRST_YEAR_OF_RECENT_FEE{a9002{$RECENT_FEE{a9003{$BACKFILES_FEE{a9005{$BUDGETID{a9055{$SELECTIONTYPE{'" lw=9999 "pft=@$conversor_dir/pft/xref_generateList.pft" now | sort -u -r > $SORTEDLIST.txt
+            else
+                $cisis_dir/mx cipar=$MYCIPFILE ARTIGO_DB btell=0  "hr=S$ISSNYEAR$" "proc='a9001{$FIRST_YEAR_OF_RECENT_FEE{a9002{$RECENT_FEE{a9003{$BACKFILES_FEE{a9005{$BUDGETID{a9055{$SELECTIONTYPE{'" lw=9999 "pft=@$conversor_dir/pft/xref_generateList.pft" now | sort -u -r > $SORTEDLIST.txt
+            fi
 		fi
 	fi
 
@@ -182,7 +197,7 @@ read
 	#
 	if [ -f $SORTEDLIST.txt ]
 	then
-		if [ "@$COUNT" = "@" ]
+		if [ "@$COUNT" = "@" -o "@$COUNT" = "@ALL"]
 		then
 			$cisis_dir/mx cipar=$MYCIPFILE "seq=$SORTEDLIST.txt " lw=99999 "pft='$conversor_dir/shs/xref_run_budget_calculateFee.sh ',v3,' $BUDGETID '/,'WHATTODO=\`cat $MYTEMP/WHATTODO\`'/,'if [ \"\$WHATTODO\" == \"doit\" ]'/,'then'/,'  $conversor_dir/shs/xref_run_budget_doit.sh 'v2,' ',v3,' $BUDGETID $BATCHBGID ',mfn/,'else '/,'  $conversor_dir/shs/xref_run_budget_stop.sh $BATCHBGID ',mfn/,'exit 0'/,'fi'/" now > $MYTEMP/xref_run_budget_calculateFee.sh
 		else
