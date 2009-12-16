@@ -197,7 +197,7 @@ read
 	#
 	if [ -f $SORTEDLIST.txt ]
 	then
-		if [ "@$COUNT" = "@" -o "@$COUNT" = "@ALL"]
+		if [ "@$COUNT" = "@" -o "@$COUNT" = "@ALL" ]
 		then
 			$cisis_dir/mx cipar=$MYCIPFILE "seq=$SORTEDLIST.txt " lw=99999 "pft='$conversor_dir/shs/xref_run_budget_calculateFee.sh ',v3,' $BUDGETID '/,'WHATTODO=\`cat $MYTEMP/WHATTODO\`'/,'if [ \"\$WHATTODO\" == \"doit\" ]'/,'then'/,'  $conversor_dir/shs/xref_run_budget_doit.sh 'v2,' ',v3,' $BUDGETID $BATCHBGID ',mfn/,'else '/,'  $conversor_dir/shs/xref_run_budget_stop.sh $BATCHBGID ',mfn/,'exit 0'/,'fi'/" now > $MYTEMP/xref_run_budget_calculateFee.sh
 		else
