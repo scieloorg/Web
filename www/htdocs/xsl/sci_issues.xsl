@@ -34,7 +34,6 @@
 			</HEAD>
 			<BODY vLink="#800080" bgColor="#ffffff">
 
-			<xsl:value-of select="$moreColumns"/>
 				<xsl:call-template name="NAVBAR">
 					<xsl:with-param name="bar1">issues</xsl:with-param>
 					<xsl:with-param name="bar2">articlesiah</xsl:with-param>
