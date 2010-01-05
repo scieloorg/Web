@@ -36,15 +36,19 @@
        |<issue>|v32|</issue>|,/
                         '</journal_issue>',#
                         '<journal_article publication_type="full_text">',#
-                                if v12>'' or v18>'' then
                                   '<titles>',#
-           if p(v12) then
-        	                                '<title>',proc('GBIREME_TABS_GCHARENT,12'),v12[1]^*,'</title>',#
-					else
-	                                        if p(v18) then                                      '<title>',proc('GBIREME_TABS_GCHARENT,18'),v18[1]^*,'</title>',# fi
-					 fi
-                                  '</titles>',#
-                                fi
+                                    '<title>',
+                                    if p(v12) then
+                                        proc('GBIREME_TABS_GCHARENT,12'),v12[1]^*,
+                                    else
+	                                   if p(v18) then
+                                          ,proc('GBIREME_TABS_GCHARENT,18'),v18[1]^*,
+                                       else
+                                            ,' ',
+                                       fi
+					                fi
+                                  '</title>',#
+                                '</titles>',#
                                 if p(v10) then
                                 '<contributors>',#
                                         (

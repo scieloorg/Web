@@ -43,6 +43,11 @@
              if p(v18) then '<title>',proc('G/usr/local/bireme/tabs/gcharent,18'),v18[1]^*,'</title>',# fi
            fi
          '</titles>',#
+       else
+		'<titles>',#           
+             '<title> </title>',#
+	      '</titles>',#
+
        fi
        if p(v10) then
          '<contributors>',#
