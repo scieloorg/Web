@@ -24,7 +24,7 @@ if [ -f toDoList.txt ]; then
 #		echo "$cisis_dir/mx cipar=crossref.cip $database_dir/artigo/artigo \"proc=@$conversor_dir/prc/Article.prc\" \"proc=('G$conversor_dir/gizmo/crossref')\"  btell=0  \"HR=$DAVEZ_Y and tp=h\" \"proc='d32001'\" lw=99999 pft=@$conversor_dir/formats/crossref_requestXML.pft \"tell=1000\" -all now >> $conversor_dir/output/crossref/$ISSN/$YEAR/$NUMB/$ARTC/requestDOIXML_$ARTC.xml"
    
 		# $cisis_dir/mx cipar=crossref.cip $database_dir/artigo/artigo "proc=@$conversor_dir/prc/Article.prc" "proc=('G$conversor_dir/gizmo/crossref')"  btell=0  "HR=$DAVEZ_Y and tp=h" "proc='d32001'" lw=99999 pft=@$conversor_dir/formats/crossref_requestXML.pft "tell=1000" -all now >> $conversor_dir/output/crossref/$ISSN/$YEAR/$NUMB/$ARTC/requestDOIXML_$ARTC.xml
-	$cisis_dir/mx cipar=crossref.cip $database_dir/artigo/artigo "proc=@$conversor_dir/prc/Article.prc" "proc=('G$conversor_dir/gizmo/crossref')"  btell=0  "HR=$DAVEZ_Y and tp=h" "proc='d32001'" lw=99999 pft=@$conversor_dir/formats/crossref_requestXML.pft "tell=1000" -all now | iconv --from-code=ISO-8859-1 --to-code=UTF-8 > $conversor_dir/output/crossref/$ISSN/$YEAR/$NUMB/$ARTC/requestDOIXML_$ARTC.xml
+	$cisis_dir/mx cipar=crossref.cip $database_dir/artigo/artigo "proc=@$conversor_dir/prc/Article.prc" "proc=('G$conversor_dir/gizmo/crossref')"  btell=0  "HR=$DAVEZ_Y and tp=h" "proc='d32001'" lw=99999 pft=@$conversor_dir/formats/crossref_requestXML.pft "tell=1000" -all now | iconv --from-code=ISO-8859-1 --to-code=UTF-8 >> $conversor_dir/output/crossref/$ISSN/$YEAR/$NUMB/$ARTC/requestDOIXML_$ARTC.xml
 		   COUNTY=`expr $COUNTY - 1`
 		done
 	fi
