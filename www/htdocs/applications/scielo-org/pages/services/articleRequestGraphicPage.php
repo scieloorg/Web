@@ -1,6 +1,5 @@
 <?
-ini_set('display_errors', '1');
-error_reporting(1);
+
 	$DirNameLocalGraphPage=dirname(__FILE__).'/';
 
 	require_once($DirNameLocalGraphPage."../../users/functions.php");
@@ -17,13 +16,22 @@ error_reporting(1);
 
 	$pid = $_REQUEST['pid'];
 	$caller = $_REQUEST["caller"];
-	$startYear = $_REQUEST['startYear'];
-	$lastYear = $_REQUEST['lastYear'];
-	
+		
 	$articleService = new ArticleService($caller);
 	$articleService->setParams($pid);
 	$article = $articleService->getArticle();
-?>
+	
+	$accessService = new AccessService();
+	$accessService->setParam('pid',$_REQUEST['pid']);
+	$accessService->setParam('app',$scielomaindef["SITE_INFO"][APP_NAME]);
+	$years = array();
+	$years = $accessService->getYears($accessService->getStats());
+	
+	$yearsLastIndex = (count($years) - 1);
+	
+	$startYear = $_REQUEST['startYear'] ? $_REQUEST['startYear'] : $years[$yearsLastIndex];
+	$lastYear = $_REQUEST['lastYear'] ? $_REQUEST['lastYear'] :  $years[$yearsLastIndex];	
+      ?>
 <!DOCTYPE html
   PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
@@ -80,13 +88,7 @@ error_reporting(1);
 				<!-- Formulário de opção de estatísticas por data -->
 				<form action="articleRequestGraphicPage.php" name="form1" method="get" onSubmit="return valida_form();">
 					<p><b><?=CHOOSE_PERIOD?></b><br/>
-					<?php
-						$accessService = new AccessService();
-						$accessService->setParam('pid',$_REQUEST['pid']);
-						$accessService->setParam('app',$scielomaindef["SITE_INFO"][APP_NAME]);
-						$years = array();
-						$years = $accessService->getYears($accessService->getStats());
-					?>
+					
 					<?=START_YEAR?> 
 					<select id="startYear" name="startYear"> 	
 					<?php
