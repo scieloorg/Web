@@ -1,8 +1,14 @@
-﻿Versão: v4.41
+﻿Versão: v4.42
 
 Melhorias
 -------------------
-#184 Ajustes para parametrizar apresentação de link de estatísticas de acesso de artigos por idioma.
+v4.42
+#197 Ajustes no serviço Estatísticas de Acesso. Para que o gráfico fosse
+carregado era necessário clicar no botão Atualizar Gráfico.
+
+v4.41
+#184 Ajustes para parametrizar apresentação de link de estatísticas de
+acesso de artigos por idioma.
 # Processamento de avaliacao de periodicos de permanencia
 # Processamento de Traduções 
 
