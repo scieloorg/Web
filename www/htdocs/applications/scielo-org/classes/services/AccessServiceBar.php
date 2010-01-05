@@ -20,6 +20,7 @@ para ter o gráfico "multi-lingüe"
 		function AccessService(){
 		
 			$f = dirname(__FILE__);
+            $this->ini_main = parse_ini_file($f."/../../../../scielo.def.php", true);
 			$this->ini = parse_ini_file($f."/../../scielo.def.php", true);
 			$this->Service('access');
 		}
@@ -27,7 +28,9 @@ para ter o gráfico "multi-lingüe"
 			$this->setParam('pid', $pid);
 		}
 		function getStats(){
-			$this->setCall($this->ini['requests_server']['url'].'/scielologArticle.php');
+
+			$this->setCall('http://'.$this->ini_main['LOG']['SERVER_LOG_PROC'].'/'.$this->ini_main['LOG']['SERVER_LOG_PROC_PATH'].'/scielologArticle.php');
+            
 			Service::callService(Service::buildCall());
 			$xml[] = Service::getResultInXML();
 			$XML_XSL = new XSL_XML();
