@@ -2,6 +2,7 @@
 <!-- Genenerate XML for Issue Number with Abstract element (RSS FEED) -->
 
 <!-- Common functions -->
+<include>ScieloXML/pressrelease.xis</include>
 <include>ScieloXML/sci_common.xis</include>
 
 <function name="translateSectionName" action="replace" tag="4001">
