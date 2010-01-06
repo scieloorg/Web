@@ -104,7 +104,7 @@
 
 	<!-- importar count do scielo.def.php -->
 	<field action="import" tag="list">3000,8888</field>
-	<field action="replace" tag="8888"><pft>if a(v8888) then '10' fi</pft></field>
+	<field action="replace" tag="8888"><pft>if a(v8888) then '20' fi</pft></field>
 
 	<display><pft>'<PRESSRELEASE>' ,/ </pft></display>
 
@@ -113,8 +113,9 @@
 	<do task="keyrange">
 
 		<parm name="db">ARTIGO</parm>
-		<parm name="from"><pft>'PR_HR=S',v5000</pft></parm>
-		<parm name="to"><pft>'PR_HR=S',v5000,'9999999999'</pft></parm>
+        <parm name="from"><pft>'PR_HR=S',v5000,'9999999999'</pft></parm>
+        <parm name="to"><pft>'PR_HR=S',v5000</pft></parm>
+        <parm name="reverse">On</parm>
 		<parm name="count"><pft>v8888</pft></parm>
 		<parm name="posting"><pft>'ALL'</pft></parm>
 
