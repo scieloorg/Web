@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:mml="http://www.w3.org/1998/Math/MathML">
 	<xsl:include href="scielo_pmc_main.xsl"/>
-	<xsl:include href="sci_navegation.xsl"/>
+	<xsl:include href="sci_navegation_tableless.xsl"/>
 	<xsl:include href="sci_toolbox.xsl"/>
 	<xsl:variable name="LANGUAGE" select="//LANGUAGE"/>
 	<xsl:variable name="SCIELO_REGIONAL_DOMAIN" select="//SCIELO_REGIONAL_DOMAIN"/>
@@ -22,7 +22,10 @@
 				<meta http-equiv="Pragma" content="no-cache"/>
 				<meta http-equiv="Expires" content="Mon, 06 Jan 1990 00:00:01 GMT"/>
 				<meta Content-math-Type="text/mathml"/>
-				<link rel="stylesheet" type="text/css" href="/css/screen.css"/>
+				<link rel="STYLESHEET" TYPE="text/css" href="/css/scielo.css" media="screen"/>
+				<link rel="STYLESHEET" TYPE="text/css" href="/css/include_layout.css" media="screen"/>
+				<link rel="STYLESHEET" TYPE="text/css" href="/css/include_styles.css" media="screen"/>
+				<link rel="stylesheet" type="text/css" href="/css/include_general.css" media="screen"/>
 				<xsl:apply-templates select="." mode="css"/>
 				<script language="javascript" src="applications/scielo-org/js/httpAjaxHandler.js"/>
 				<script language="javascript" src="article.js"/>
@@ -31,7 +34,8 @@
 				<div class="container">
 					<div class="top">
 						<div id="issues"/>
-						<xsl:call-template name="NAVBAR">
+						<!--xsl:call-template name="NAVBAR"></xsl:call-template-->
+						<xsl:apply-templates select="." mode="tableless-navbar">
 							<xsl:with-param name="bar1">articles</xsl:with-param>
 							<xsl:with-param name="bar2">articlesiah</xsl:with-param>
 							<xsl:with-param name="home">1</xsl:with-param>
@@ -42,7 +46,7 @@
 								</xsl:choose>
 							</xsl:with-param>
 							<xsl:with-param name="scope" select="TITLEGROUP/SIGLUM"/>
-						</xsl:call-template>
+						</xsl:apply-templates>
 					</div>
 					<div class="content">
 						<xsl:if test="$show_toolbox = 1">
@@ -51,7 +55,7 @@
 						<xsl:choose>
 							<xsl:when test="//NO_SCI_SERIAL='yes'">
 								<h2 id="printISSN">
-                                    <xsl:value-of select="$translations/xslid[@id='sci_arttext']/text[@find='original_version_published_in']"/>
+									<xsl:value-of select="$translations/xslid[@id='sci_arttext']/text[@find='original_version_published_in']"/>
 								</h2>
 							</xsl:when>
 							<xsl:otherwise>
@@ -71,7 +75,7 @@
 							</xsl:if>
 							<xsl:if test="TITLEGROUP/SIGLUM = 'bjmbr' ">
 								<xsl:apply-templates select="ISSUE/STRIP"/>
-<!--xsl:apply-templates select="ISSUE/ARTICLE" mode="Epub">
+								<!--xsl:apply-templates select="ISSUE/ARTICLE" mode="Epub">
 									<xsl:with-param name="ahpdate" select="ISSUE/ARTICLE/@ahpdate"/>
 									<xsl:with-param name="rvpdate" select="ISSUE/ARTICLE/@rvpdate"/>
 								</xsl:apply-templates-->
@@ -81,7 +85,7 @@
 							<xsl:apply-templates select="ISSUE/ARTICLE/@DOI"/>&#160;
 						</h4>
 						<div class="index,{ISSUE/ARTICLE/@TEXTLANG}">
-						<xsl:apply-templates select="ISSUE/ARTICLE/BODY"/>
+							<xsl:apply-templates select="ISSUE/ARTICLE/BODY"/>
 						</div>
 						<xsl:if test="ISSUE/ARTICLE/fulltext">
 							<xsl:apply-templates select="ISSUE/ARTICLE[fulltext]"/>
@@ -114,7 +118,9 @@
 			<xsl:with-param name="CITY" select="CITY"/>
 			<xsl:with-param name="MONTH" select="MONTH"/>
 			<xsl:with-param name="YEAR" select="YEAR"/>
-			<xsl:with-param name="reviewType"><xsl:if test="../ARTICLE/@hcomment!='1' or not(../ARTICLE/@hcomment)">provisional</xsl:if></xsl:with-param>
+			<xsl:with-param name="reviewType">
+				<xsl:if test="../ARTICLE/@hcomment!='1' or not(../ARTICLE/@hcomment)">provisional</xsl:if>
+			</xsl:with-param>
 		</xsl:call-template>
 	</xsl:template>
 </xsl:stylesheet>

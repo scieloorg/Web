@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-	<xsl:include href="sci_navegation.xsl"/>
+	<xsl:include href="sci_navegation_tableless.xsl"/>
 	<xsl:variable name="forceType" select="//CONTROLINFO/ENABLE_FORCETYPE"/>
 	<xsl:variable name="ISSN_AS_ID" select="concat(substring-before(/SERIAL/ISSN_AS_ID,'-'),substring-after(/SERIAL/ISSN_AS_ID,'-'))"/>
 	<xsl:variable name="show_scimago" select="//show_scimago"/>
@@ -18,14 +18,13 @@
 		</xsl:choose>
 	</xsl:variable>
 	<xsl:variable name="pref">
-        	<xsl:choose>
-                	<xsl:when test="//CONTROLINFO/LANGUAGE='en' ">i</xsl:when>
-                    <xsl:when test="//CONTROLINFO/LANGUAGE='es' ">e</xsl:when>
-                    <xsl:when test="//CONTROLINFO/LANGUAGE='pt' ">p</xsl:when>
-                </xsl:choose>
+		<xsl:choose>
+			<xsl:when test="//CONTROLINFO/LANGUAGE='en' ">i</xsl:when>
+			<xsl:when test="//CONTROLINFO/LANGUAGE='es' ">e</xsl:when>
+			<xsl:when test="//CONTROLINFO/LANGUAGE='pt' ">p</xsl:when>
+		</xsl:choose>
 	</xsl:variable>
-
-	<xsl:output method="html" indent="no" doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+	<xsl:output method="html" indent="yes" doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 	<xsl:template match="SERIAL">
 		<html>
 			<head>
@@ -43,9 +42,10 @@
 						<xsl:attribute name="Content"><xsl:value-of select="concat('0;URL=',$X)"/></xsl:attribute>
 					</meta>
 				</xsl:if>
-				<link rel="STYLESHEET" TYPE="text/css" href="/css/scielo.css"/>
-				<link rel="STYLESHEET" TYPE="text/css" href="/css/include_layout.css"/>
-				<link rel="STYLESHEET" TYPE="text/css" href="/css/include_styles.css"/>
+				<link rel="STYLESHEET" TYPE="text/css" href="/css/scielo.css" media="screen"/>
+				<link rel="STYLESHEET" TYPE="text/css" href="/css/include_layout.css" media="screen"/>
+				<link rel="STYLESHEET" TYPE="text/css" href="/css/include_styles.css" media="screen"/>
+				<link rel="stylesheet" type="text/css" href="/css/include_general.css" media="screen"/>
 				<!-- link pro RSS aparecer automaticamente no Browser -->
 				<xsl:call-template name="AddRssHeaderLink">
 					<xsl:with-param name="pid" select="//CURRENT/@PID"/>
@@ -60,10 +60,7 @@
 				<xsl:if test="//NO_SCI_SERIAL!='yes' or not(//NO_SCI_SERIAL)">
 					<div class="container">
 						<div class="top">
-							<!--
-                                monta a barra de navegacao
-                            -->
-							<xsl:call-template name="NAVBAR">
+							<xsl:apply-templates select="." mode="tableless-navbar">
 								<xsl:with-param name="bar1">issues</xsl:with-param>
 								<xsl:with-param name="bar2">articlesiah</xsl:with-param>
 								<xsl:with-param name="alpha">
@@ -73,20 +70,31 @@
 									</xsl:choose>
 								</xsl:with-param>
 								<xsl:with-param name="scope" select="TITLEGROUP/SIGLUM"/>
-							</xsl:call-template>
-						</div>
-						<div class="middle">
-							<!--
-                                monta as divs: leftCol e mainContent
-                            -->
-							<xsl:apply-templates select="CONTROLINFO">
-								<xsl:with-param name="YEAR" select="substring(@LASTUPDT,1,4)"/>
-								<xsl:with-param name="MONTH" select="substring(@LASTUPDT,5,2)"/>
-								<xsl:with-param name="DAY" select="substring(@LASTUPDT,7,2)"/>
 							</xsl:apply-templates>
 							<!--
-                                monta a div: rightCol
+                                monta a barra de navegacao
                             -->
+							<!--xsl:call-template name="NAVBAR">
+								<xsl:with-param name="bar1">issues</xsl:with-param>
+								<xsl:with-param name="bar2">articlesiah</xsl:with-param>
+								<xsl:with-param name="alpha">
+									<xsl:choose>
+										<xsl:when test=" normalize-space(//CONTROLINFO/APP_NAME) = 'scielosp' ">0</xsl:when>
+										<xsl:otherwise>1</xsl:otherwise>
+									</xsl:choose>
+								</xsl:with-param>
+								<xsl:with-param name="scope" select="TITLEGROUP/SIGLUM"/>
+							</xsl:call-template-->
+						</div>
+						<div class="middle">
+							<div class="leftCol">
+								<xsl:apply-templates select="CONTROLINFO" mode="left">
+									<xsl:with-param name="YEAR" select="substring(@LASTUPDT,1,4)"/>
+									<xsl:with-param name="MONTH" select="substring(@LASTUPDT,5,2)"/>
+									<xsl:with-param name="DAY" select="substring(@LASTUPDT,7,2)"/>
+								</xsl:apply-templates>
+							</div>
+							<xsl:apply-templates select="CONTROLINFO" mode="middle"/>
 							<div class="rightCol">
 								<xsl:if test="($has_issue_pr = 'false') and ($has_article_pr = 'false')">
 									<xsl:attribute name="style">display: none;</xsl:attribute>
@@ -111,7 +119,7 @@
 									<ul class="pressReleases">
 										<xsl:apply-templates select="//PRESSRELEASE/article" mode="pr">
 											<xsl:sort select="@data" order="descending"/>
-                                                                                </xsl:apply-templates>
+										</xsl:apply-templates>
 									</ul>
 								</xsl:if>
 							</div>
@@ -161,7 +169,9 @@ press release do issue
 					<xsl:if test="$supl != 0">s.<xsl:value-of select="@sup"/>
 					</xsl:if>
 				</strong>
-					<span><xsl:value-of select="title"/></span>
+				<span>
+					<xsl:value-of select="title"/>
+				</span>
 			</a>
 		</li>
 	</xsl:template>
@@ -187,7 +197,6 @@ press release do artigo
 				<strong>
 					<xsl:if test="$currlang='pt'">
 						<xsl:value-of select="concat($month,'/',$year)"/>
-						
 					</xsl:if>
 					<xsl:if test="$currlang='es'">
 						<xsl:value-of select="concat($month,'/',$year)"/>
@@ -201,7 +210,9 @@ press release do artigo
 					<xsl:if test="$supl != 0">s.<xsl:value-of select="@sup"/>
 					</xsl:if>
 				</strong>
-                                        <span><xsl:value-of select="title"/></span>
+				<span>
+					<xsl:value-of select="title"/>
+				</span>
 			</a>
 		</li>
 	</xsl:template>
@@ -226,7 +237,7 @@ press release do artigo
 		links dos idiomas da interface
 	-->
 	<xsl:template match="CONTROLINFO" mode="change-language">
-        <br/>
+		<br/>
 		<xsl:if test="//CONTROLINFO/LANGUAGE != 'pt'">
 			<a>
 				<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_DATA"/>scielo.php?script=<xsl:value-of select="//PAGE_NAME"/>&amp;pid=<xsl:value-of select="//PAGE_PID"/>&amp;lng=pt&amp;nrm=iso</xsl:attribute>
@@ -253,7 +264,7 @@ press release do artigo
 				</font>
 			</a>
 			<br/>
-		</xsl:if>		
+		</xsl:if>
 	</xsl:template>
 	<!--
 		formacao do link de página secundária
@@ -355,40 +366,39 @@ press release do artigo
 	<!-- 
 	CONTROLINFO
 	-->
-	<xsl:template match="CONTROLINFO">
+	<xsl:template match="CONTROLINFO" mode="left">
 		<xsl:param name="YEAR"/>
 		<xsl:param name="MONTH"/>
 		<xsl:param name="DAY"/>
-		<div class="leftCol">
-			<small>
-				<xsl:apply-templates select="." mode="update-date"/>
-			</small>
-			<span id="lastUpdate">
-				<xsl:call-template name="GET_MONTH_NAME">
-					<xsl:with-param name="LANG" select="LANGUAGE"/>
-					<xsl:with-param name="MONTH" select="$MONTH"/>
-				</xsl:call-template>&#160;<xsl:value-of select="$DAY"/>,&#160;<xsl:value-of select="$YEAR"/>
-			</span>
-            <xsl:apply-templates select="." mode="change-language"/>
-			<xsl:apply-templates select="." mode="links"/>
-			<!-- monta o grafico scimago -->
-                    <div class="optionsSubMenu">
-                        <xsl:variable name="graphMago" select="document('../../bases/scimago/scimago.xml')/SCIMAGOLIST/title[@ISSN = $ISSN_AS_ID]/@SCIMAGO_ID"/>
-                        <xsl:if test="$show_scimago!=0 and normalize-space($scimago_status) = normalize-space('online')">
-                            <xsl:if test="$graphMago">
-                                <a>
-                                    <xsl:attribute name="href">http://www.scimagojr.com/journalsearch.php?q=<xsl:value-of select="$ISSN_AS_ID"/>&amp;tip=iss&amp;exact=yes></xsl:attribute>
-                                    <xsl:attribute name="target">_blank</xsl:attribute>
-                                    <img>
-                                        <xsl:attribute name="src">/img/scimago/<xsl:value-of select="$ISSN_AS_ID"/>.gif</xsl:attribute>
-                                        <xsl:attribute name="alt"><xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='scimago_journal_country_rank']"/></xsl:attribute>
-                                        <xsl:attribute name="border">0</xsl:attribute>
-                                    </img>
-                                </a>
-                            </xsl:if>
-                        </xsl:if>
-                    </div>
+		<small>
+			<xsl:apply-templates select="." mode="update-date"/>
+		</small>
+		<span id="lastUpdate">
+			<xsl:call-template name="GET_MONTH_NAME">
+				<xsl:with-param name="LANG" select="LANGUAGE"/>
+				<xsl:with-param name="MONTH" select="$MONTH"/>
+			</xsl:call-template>&#160;<xsl:value-of select="$DAY"/>,&#160;<xsl:value-of select="$YEAR"/>
+		</span>
+		<xsl:apply-templates select="." mode="links"/>
+		<!-- monta o grafico scimago -->
+		<div class="optionsSubMenu">
+			<xsl:variable name="graphMago" select="document('../../bases/scimago/scimago.xml')/SCIMAGOLIST/title[@ISSN = $ISSN_AS_ID]/@SCIMAGO_ID"/>
+			<xsl:if test="$show_scimago!=0 and normalize-space($scimago_status) = normalize-space('online')">
+				<xsl:if test="$graphMago">
+					<a>
+						<xsl:attribute name="href">http://www.scimagojr.com/journalsearch.php?q=<xsl:value-of select="$ISSN_AS_ID"/>&amp;tip=iss&amp;exact=yes></xsl:attribute>
+						<xsl:attribute name="target">_blank</xsl:attribute>
+						<img>
+							<xsl:attribute name="src">/img/scimago/<xsl:value-of select="$ISSN_AS_ID"/>.gif</xsl:attribute>
+							<xsl:attribute name="alt"><xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='scimago_journal_country_rank']"/></xsl:attribute>
+							<xsl:attribute name="border">0</xsl:attribute>
+						</img>
+					</a>
+				</xsl:if>
+			</xsl:if>
 		</div>
+	</xsl:template>
+	<xsl:template match="CONTROLINFO" mode="middle">
 		<div class="mainContent">
 			<xsl:if test="($has_issue_pr = 'false') and ($has_article_pr = 'false')">
 				<xsl:attribute name="style">border-right: none;</xsl:attribute>
@@ -448,7 +458,8 @@ press release do artigo
 				<span class="issn">
 					<xsl:apply-templates select="/SERIAL/TITLE_ISSN"/>
 				</span>
-                <br/><br/>
+				<br/>
+				<br/>
 				<small>
 					<xsl:apply-templates select="." mode="text-mission"/>
 				</small>

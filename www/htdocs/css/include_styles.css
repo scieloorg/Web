@@ -3,7 +3,7 @@
 }
 
 .top H1 {
-	background: url(../img/pt/scielo_br.gif) no-repeat;
+	background: url(../img/fbpelogp.gif) no-repeat;
 }
 
 .top H1 SPAN {
@@ -25,6 +25,13 @@
 	border-left: 3px solid #5AA5BD;
 	background: #006B94;
 }
+.top #globalNav .navButtonDisable {
+	border-top: 3px solid #5AA5BD;
+	border-right: 3px solid #003952;
+	border-bottom: 3px solid #003952;
+	border-left: 3px solid #5AA5BD;
+	background: #606060;
+}
 
 .top #globalNav .pressed {
 	border-top: 3px solid #989898;
@@ -35,6 +42,12 @@
 }
 
 .top #globalNav .navButton A {
+	color: #FFF;
+	font-family: trebuchet ms;
+	font-weight: bold;
+	font-size: 100%;
+}
+.top #globalNav .navButtonDisable A {
 	color: #FFF;
 	font-family: trebuchet ms;
 	font-weight: bold;
@@ -106,10 +119,6 @@
 	font-size: 80%;
 }
 
-.middle .rightCol UL.pressReleases LI {
-	list-style: none;
-}
-
 .middle .rightCol UL.pressReleases LI A {
 	color: #666;
 	font-size: 90%;
@@ -117,14 +126,8 @@
 
 .middle .rightCol UL.pressReleases LI SPAN {
 	font-size: 90%;
-	/*font-weight: bold;
-	font-style: italic;*/
-}
-
-.middle .rightCol UL.pressReleases LI STRONG {
-	font-size: 90%;
-	/*font-weight: bold;
-	font-style: italic;*/
+	font-weight: bold;
+	font-style: italic;
 }
 
 .middle .rightCol UL.pressReleases LI A:hover {
