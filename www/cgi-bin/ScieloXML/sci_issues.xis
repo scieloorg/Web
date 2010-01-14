@@ -205,7 +205,7 @@
   <call name="CreateTitleGroupXML"><pft>v5</pft></call>
   <call name="CreateChangesInfoXML"><pft>v5</pft></call>
   <call name="CreateISSN4IDXML"><pft>v5</pft></call>
-  <call name="CreateISSN4ISSUEXML"><pft>v5</pft></call>
+  <call name="CreateISSN4TITLEXML"><pft>v5</pft></call>
   <call name="CreateCopyrightXML"><pft>v5</pft></call>
   <call name="CreateContactXML"><pft>v5</pft></call>
   
