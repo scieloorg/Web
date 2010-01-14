@@ -62,13 +62,17 @@
 	float: left;
 	padding: 2px;
 }
+.top #globalNav .navButtonDisable {
+	float: left;
+	padding: 2px;
+}
 
 .middle .leftCol, .middle .mainContent, .middle .rightCol {
 	float: left;
 }
 
 .middle .leftCol {
-	width: 21%;
+	width: 16%;
 	clear: left;
 	padding-right: 12px;
 }
@@ -79,7 +83,7 @@
 }
 
 .middle .rightCol {
-	width: 19%;
+	width: 24%;
 	padding-left: 12px;
 }
 
@@ -142,13 +146,8 @@
 	margin: 4px 0px;
 }
 
-.middle .rightCol UL.pressReleases {
-	padding: 0px;
-	margin: 0px;
-}
-
 .middle .rightCol UL.pressReleases LI {
-	margin: 4px 0px 8px 0px;
+	margin: 4px 0px 12px 8px;
 }
 
 .middle .rightCol UL.pressReleases LI SPAN {

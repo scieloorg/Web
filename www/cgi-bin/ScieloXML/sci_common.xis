@@ -634,7 +634,24 @@
 	</pft></display>
 	
 	<call name="CreatePathControlInfoXML">Now</call>
-	
+	<call name="GetNotPrintedIssues">
+        <pft>
+        if s(mpu,v4900^t,mpl) = 'ART' or s(mpu,v4900^t,mpl) = 'ABS' then,
+            mid(v4900^p,2,9)
+        else
+            mid(v4900^p,1,9)
+        fi
+        </pft>
+    </call>
+    <display>
+        <pft>
+        if p(v3900) then
+            '<FUTURE_ISSUES>',#
+                (if v3900^f='1' then '<FUTURE_ISSUE PID="',v3900^*,'" NUM="',v3900^t,'"/>' fi/)
+            '</FUTURE_ISSUES>',#
+            fi
+            </pft>
+    </display>
 	<call name="CreateCurrentPreviousIssue">
 		<pft>
 			if a(v7048) then
@@ -707,16 +724,17 @@
 <!-- ============================================================================ -->
 <function name="CreateCurrentPreviousIssue" action="replace" tag="4900">
 	<field action="delete" tag="list">7050,7085,7090,7095</field>
-	
+	<field action="import" tag="list">3900</field>
 	<!--display><pft>| v4900 = |v4900</pft></display-->
-	<call name="GetNotPrintedIssues"><pft>mid(v4900,1,9)</pft></call>
+	<!--call name="GetNotPrintedIssues"><pft>mid(v4900,1,9)</pft></call-->
 	<call name="GetCurrentIssue"><pft>v4900</pft></call>
 	<call name="GetPreviousIssue"><pft>v7090</pft></call>
 	<call name="GetNextIssue"><pft>v7090,if a(v7090) then 'NO_CURRENT_ISSUE' fi</pft></call>
 
 	<display>
 		<pft>
-			'  <ISSUES>',/			
+			'  <ISSUES>',/
+            
 			if p(v7085) then
 				'   <PREVIOUS PID="',v7085,'"',
 				ref( ['NEWISSUE'] l(['NEWISSUE'], 'Y',v7085), 
@@ -763,9 +781,9 @@
 <!-- ============================================================================ -->
 <function name="CreatePreviousNextIssue" action="replace" tag="4900">
 	<field action="delete" tag="list">7085,7090,7095</field>
-	<field action="import" tag="list">7049/7061</field>
+	<field action="import" tag="list">7049/7061,3900</field>
 
-	<call name="GetNotPrintedIssues"><pft>mid(v4900,1,9)</pft></call>
+	<!--call name="GetNotPrintedIssues"><pft>mid(v4900,1,9)</pft></call-->
 
 	<!-- inicio - get v7085 = Previous issue -->
 	<call name="GetPreviousIssue"><pft>v4900</pft></call>
@@ -1028,9 +1046,10 @@
 <!-- ============================================================================ -->
 <function name="CreateCurrentPreviousYear" action="replace" tag="4900">
 	<field action="delete" tag="list">7050,7085,7090,7095</field>
-	
+	<field action="import" tag="list">3900</field>
+
 	<!--display><pft>| v4900 = |v4900</pft></display-->
-	<call name="GetNotPrintedIssues"><pft>mid(v4900,1,9)</pft></call>
+	<!--call name="GetNotPrintedIssues"><pft>mid(v4900,1,9)</pft></call-->
 	<call name="GetCurrentYEAR"><pft>v4900</pft></call>
 	<call name="GetPreviousYEAR"><pft>v7090</pft></call>
 	<call name="GetNextYEAR"><pft>v7090,if a(v7090) then 'NO_CURRENT_ISSUE' fi</pft></call>
@@ -1063,9 +1082,9 @@
 <!-- ============================================================================ -->
 <function name="CreatePreviousNextYear" action="replace" tag="4900">
 	<field action="delete" tag="list">7085,7090,7095</field>
-	<field action="import" tag="list">7049/7061</field>
+	<field action="import" tag="list">7049/7061,3900</field>
 
-	<call name="GetNotPrintedIssues"><pft>mid(v4900,1,9)</pft></call>
+	<!--call name="GetNotPrintedIssues"><pft>mid(v4900,1,9)</pft></call-->
 
 	<!-- inicio - get v7085 = Previous issue -->
 	<call name="GetPreviousYEAR"><pft>v4900</pft></call>
@@ -1108,12 +1127,13 @@
 <!-- ============================================================================ -->
 <function name="CreatePreviousNextArticle" action="replace" tag="4900">
 	<field action="delete" tag="list">7085,7090,7095</field>
+	<field action="import" tag="list">3900</field>
 
 	<!--display><pft>| v4900 = |v4900</pft></display-->
 	<field action="replace" tag="3000"><pft>v4900^l</pft></field>
 	<field action="replace" tag="3003"><pft>v4900^i</pft></field>
 	
-	<call name="GetNotPrintedIssues"><pft>mid(v4900^p,2,9)</pft></call>
+	<!--call name="GetNotPrintedIssues"><pft>mid(v4900^p,2,9)</pft></call-->
 	<field action="replace" tag="5000"><pft>(if instr(v3900,mid(v4900^p[1],2,17))>0 then v3900,'^z',f(iocc,1,0),break fi)</pft></field>
 
 	<field action="replace" tag="5001">
