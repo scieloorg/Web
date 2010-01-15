@@ -2,8 +2,14 @@
 	height: 110px;
 }
 
-.top H1 {
-	background: url(../img/fbpelogp.gif) no-repeat;
+.top .scielologo_pt {
+	background: url(../img/pt/scielobre.gif) no-repeat;
+}
+.top .scielologo_en {
+	background: url(../img/en/scielobre.gif) no-repeat;
+}
+.top .scielologo_es {
+	background: url(../img/es/scielobre.gif) no-repeat;
 }
 
 .top H1 SPAN {

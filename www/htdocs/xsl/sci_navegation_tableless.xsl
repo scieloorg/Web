@@ -114,14 +114,14 @@
 		<xsl:param name="home">0</xsl:param>
 		<xsl:param name="alpha">0</xsl:param>
 		<!-- FIXME -->
-		<h1>
+		
 			<a>
 				<xsl:call-template name="AddScieloLink">
 					<xsl:with-param name="script">sci_home</xsl:with-param>
 				</xsl:call-template>
-				<span>SciELO </span>
+				<h1 class="scielologo_{$interfaceLang}"><span>SciELO </span></h1>
 			</a>
-		</h1>
+		
 		<div class="bar">
 			<div id="otherVersions">
 				<xsl:apply-templates select="$otherLangs//lang[@id=$interfaceLang]//other" mode="link">
