@@ -1,60 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format">
-	<xsl:include href="sci_navegation_tableless.xsl"/>
+	<xsl:include href="sci_navegation.xsl"/>
 	<xsl:include href="journalStatus.xsl"/>
 	<xsl:output encoding="utf-8"/>
 	<xsl:template match="/">
 		<html>
 			<head>
 				<title>
-					<xsl:value-of select="$translations/xslid[@id='sci_home']/text[@find='alphabetic_list']"/>
+                    <xsl:value-of select="$translations/xslid[@id='sci_home']/text[@find='alphabetic_list']"/>
 				</title>
 				<meta http-equiv="Pragma" content="no-cache"/>
 				<meta http-equiv="Expires" content="Mon, 06 Jan 1990 00:00:01 GMT"/>
-				<link rel="STYLESHEET" TYPE="text/css" href="/css/scielo.css" media="screen"/>
-				<link rel="STYLESHEET" TYPE="text/css" href="/css/include_layout.css" media="screen"/>
-				<link rel="STYLESHEET" TYPE="text/css" href="/css/include_styles.css" media="screen"/>
-				<link rel="stylesheet" type="text/css" href="/css/include_general.css" media="screen"/>
+				<link rel="STYLESHEET" type="text/css" href="/css/scielo.css"/>
 			</head>
-			<body>
-				<div class="container">
-					<div class="top">
-						<xsl:apply-templates select="." mode="tableless-navbar">
-							<xsl:with-param name="bar1">serials</xsl:with-param>
-							<xsl:with-param name="bar2">articlesiah</xsl:with-param>
-							<xsl:with-param name="scope">library</xsl:with-param>
-						</xsl:apply-templates>
-					</div>
-					<div>
-						<!--table cellspacing="0" border="0" cellpadding="7" width="100%">
-							<tr>
-								<td width="26%">&#160;</td>
-								<td width="74%">
-									<font class="nomodel" size="+1" color="#000080">
-										<xsl:value-of select="$translations/xslid[@id='sci_alphabetic']/text[@find = 'library_collection']"/>
-									</font>
-								</td>
-							</tr>
-						</table-->
-						<div>
-							<table cellspacing="0" border="0" cellpadding="7" width="100%">
-								<tr>
-									<td width="26%">&#160;</td>
-									<td width="74%">
-										<font class="nomodel" size="+1" color="#000080">
-											<xsl:value-of select="$translations/xslid[@id='sci_alphabetic']/text[@find = 'library_collection']"/>
-										</font>
-									</td>
-								</tr>
-							</table>
-							<br/>
-						</div>
-						<div>
-						<xsl:apply-templates select="//LIST"/>
-						</div>
-					</div>
-					<xsl:apply-templates select="SERIALLIST/COPYRIGHT"/>
-				</div>
+			<body link="#0000ff" vlink="#800080" bgcolor="#ffffff">
+				<xsl:call-template name="NAVBAR">
+					<xsl:with-param name="bar1">serials</xsl:with-param>
+					<xsl:with-param name="bar2">articlesiah</xsl:with-param>
+					<xsl:with-param name="scope">library</xsl:with-param>
+				</xsl:call-template>
+				<table cellspacing="0" border="0" cellpadding="7" width="100%">
+					<tr>
+						<td width="26%">&#160;</td>
+						<td width="74%">
+							<font class="nomodel" size="+1" color="#000080">
+                                <xsl:value-of select="$translations/xslid[@id='sci_alphabetic']/text[@find='library_collection']"/>
+							</font>
+						</td>
+					</tr>
+				</table>
+				<br/>
+				<br/>
+				<xsl:apply-templates select="//LIST"/>
+				<br/>
+				<xsl:apply-templates select="SERIALLIST/COPYRIGHT"/>
 			</body>
 		</html>
 	</xsl:template>
@@ -65,8 +44,8 @@
 				<td width="82%">
 					<p align="LEFT">
 						<font class="nomodel" color="#800000">
-							<xsl:value-of select="$translations/xslid[@id='sci_alphabetic']/text[@find='alphabetic_list']"/> - <xsl:value-of select="count(SERIAL)"/>&#160;<xsl:value-of select="$translations/xslid[@id='sci_alphabetic']/text[@find='serials_listed']"/>
-						</font>
+                            <xsl:value-of select="$translations/xslid[@id='sci_alphabetic']/text[@find='alphabetic_list']"/> - <xsl:value-of select="count(SERIAL)"/>&#160;<xsl:value-of select="$translations/xslid[@id='sci_alphabetic']/text[@find='serials_listed']"/>
+                        </font>
 					</p>
 					<xsl:apply-templates select="." mode="display-list"/>
 					<font class="divisoria">&#160;<br/>
@@ -117,8 +96,7 @@
 				</a>
 				<xsl:if test="not(//NO_SCI_SERIAL='yes')">
 			- <xsl:value-of select="@QTYISS"/>
-                    &#160;<xsl:value-of select="$translations/xslid[@id='sci_alphabetic']/text[@find='issue']"/>
-					<xsl:if test="@QTYISS > 1">s</xsl:if>
+                    &#160;<xsl:value-of select="$translations/xslid[@id='sci_alphabetic']/text[@find='issue']"/> <xsl:if test="@QTYISS > 1">s</xsl:if>
 				</xsl:if>
 				<xsl:choose>
 					<xsl:when test=".//current-status/@status='' or not(.//current-status)">
