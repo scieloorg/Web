@@ -37,32 +37,49 @@
 		<xsl:param name="text"/>
 		<xsl:param name="seq"/>
 		<xsl:param name="disable"/>
+		<xsl:variable name="pid">
+			<xsl:choose>
+				<xsl:when test="@PID">
+					<xsl:value-of select="@PID"/>
+				</xsl:when>
+				<xsl:when test="$seq">
+					<xsl:value-of select="$seq"/>
+				</xsl:when>
+			</xsl:choose>
+		</xsl:variable>
+		<xsl:variable name="dis">
+			<xsl:if test="$script = /*//PAGE_NAME and ( ($pid=/*//PAGE_PID) or (not(//PAGE_PID) and $pid=''))">1</xsl:if>
+		</xsl:variable>
 		<xsl:choose>
-			<xsl:when test="$disable='Disable'">
-			<div class="navButton{$disable}">
-
-				<a href="#">
-					<xsl:value-of select="$text"/>
-				</a></div>
-
+			<xsl:when test="$disable='Disable' or $dis='1'">
+				<div class="navButtonDisable">
+					<a>
+						<xsl:value-of select="$text"/>
+					</a>
+				</div>
 			</xsl:when>
 			<xsl:otherwise>
 				<div class="navButton{$disable}">
 					<a>
-						<xsl:call-template name="AddScieloLink">
-							<xsl:with-param name="script" select="$script"/>
-							<xsl:with-param name="seq"><xsl:choose>
-								<xsl:when test="@PID"><xsl:value-of select="@PID"/></xsl:when>
-								<xsl:when test="$seq"><xsl:value-of select="$seq"/></xsl:when>
-							</xsl:choose></xsl:with-param>
-						</xsl:call-template>
+						<xsl:choose>
+							<xsl:when test="$pid!=''">
+								<xsl:call-template name="AddScieloLink">
+									<xsl:with-param name="script" select="$script"/>
+									<xsl:with-param name="seq" select="$pid"/>
+								</xsl:call-template>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:call-template name="AddScieloLink">
+									<xsl:with-param name="script" select="$script"/>
+								</xsl:call-template>
+							</xsl:otherwise>
+						</xsl:choose>
 						<xsl:value-of select="$text"/>
 					</a>
 				</div>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
-	
 	<xsl:template match="*" mode="searchButton">
 		<xsl:param name="file"/>
 		<xsl:param name="alttext"/>
@@ -102,8 +119,7 @@
 				<xsl:call-template name="AddScieloLink">
 					<xsl:with-param name="script">sci_home</xsl:with-param>
 				</xsl:call-template>
-				<span>SciELO Brasil
-				</span>
+				<span>SciELO </span>
 			</a>
 		</h1>
 		<div class="bar">
@@ -302,14 +318,7 @@
 			<div id="searchArticles">
 				<div class="navlabel" id="searchLabel">
 					<span>
-						<xsl:choose>
-							<xsl:when test="$bar1='serials'">
-								<xsl:value-of select="$translations/xslid[@id='sci_navegation']/text[@find = 'grp_articles']"/>
-							</xsl:when>
-							<xsl:otherwise>
-								<xsl:value-of select="$translations/xslid[@id='sci_navegation']/text[@find = 'search_form']"/>
-							</xsl:otherwise>
-						</xsl:choose>
+						<xsl:value-of select="$translations/xslid[@id='sci_navegation']/text[@find = 'search_form']"/>
 					</span>
 					<!-- FIXME -->
 				</div>
