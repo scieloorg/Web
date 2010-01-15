@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-	<xsl:include href="sci_navegation_tableless.xsl"/>
+	<xsl:include href="sci_navegation.xsl"/>
 	<xsl:include href="journalStatus.xsl"/>
 	<xsl:output method="html" indent="no"/>
 	<xsl:variable name="spaceYear" select="'12%'"/>
@@ -17,54 +17,47 @@
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:variable-->
-	<xsl:variable name="colnumber">
-		<xsl:choose>
-			<xsl:when test=".//YEARISSUE[count(.//ISSUE)&gt;12]">14</xsl:when>
-			<xsl:otherwise>12</xsl:otherwise>
-		</xsl:choose>
-	</xsl:variable>
+	<xsl:variable name="colnumber"><xsl:choose>
+		<xsl:when test=".//YEARISSUE[count(.//ISSUE)&gt;12]">14</xsl:when>
+		<xsl:otherwise>12</xsl:otherwise>
+	</xsl:choose></xsl:variable>
+	
 	<xsl:template match="SERIAL">
 		<HTML>
 			<HEAD>
 				<TITLE>
 					<xsl:value-of select="//TITLEGROUP/SHORTTITLE " disable-output-escaping="yes"/> - <xsl:value-of select="$translations/xslid[@id='sci_issues']/text[@find='available_issues']"/>
 				</TITLE>
-				<link rel="STYLESHEET" TYPE="text/css" href="/css/scielo.css" media="screen"/>
-				<link rel="STYLESHEET" TYPE="text/css" href="/css/include_layout.css" media="screen"/>
-				<link rel="STYLESHEET" TYPE="text/css" href="/css/include_styles.css" media="screen"/>
-				<link rel="stylesheet" type="text/css" href="/css/include_general.css" media="screen"/>
+				<LINK href="/css/scielo.css" type="text/css" rel="STYLESHEET"/>
 				<META http-equiv="Pragma" content="no-cache"/>
 				<META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT"/>
 			</HEAD>
-			<BODY>
-				<div class="container">
-					<div class="top">
-						<xsl:apply-templates select="." mode="tableless-navbar">
-							<xsl:with-param name="bar1">issues</xsl:with-param>
-							<xsl:with-param name="bar2">articlesiah</xsl:with-param>
-							<xsl:with-param name="alpha">
-								<xsl:choose>
-									<xsl:when test=" normalize-space(//CONTROLINFO/APP_NAME) = 'scielosp' ">0</xsl:when>
-									<xsl:otherwise>1</xsl:otherwise>
-								</xsl:choose>
-							</xsl:with-param>
-							<xsl:with-param name="scope" select="TITLEGROUP/SIGLUM"/>
+			<BODY vLink="#800080" bgColor="#ffffff">
+
+				<xsl:call-template name="NAVBAR">
+					<xsl:with-param name="bar1">issues</xsl:with-param>
+					<xsl:with-param name="bar2">articlesiah</xsl:with-param>
+					<xsl:with-param name="scope" select="//TITLEGROUP/SIGLUM"/>
+					<xsl:with-param name="home">1</xsl:with-param>
+					<xsl:with-param name="alpha">
+						<xsl:choose>
+							<xsl:when test=" normalize-space(//CONTROLINFO/APP_NAME) = 'scielosp' ">0</xsl:when>
+							<xsl:otherwise>1</xsl:otherwise>
+						</xsl:choose>
+					</xsl:with-param>
+				</xsl:call-template>
+				<xsl:apply-templates select="//TITLEGROUP"/>
+				<CENTER>
+					<FONT color="#000080">
+						<xsl:apply-templates select="//TITLE_ISSN">
+							<xsl:with-param name="LANG" select="//CONTROLINFO/LANGUAGE"/>
 						</xsl:apply-templates>
-					</div>
-					<div>
-						<xsl:apply-templates select="//TITLEGROUP"/>
-						<div>
-							<CENTER>
-								<FONT color="#000080">
-									<xsl:apply-templates select="//TITLE_ISSN">
-										<xsl:with-param name="LANG" select="//CONTROLINFO/LANGUAGE"/>
-									</xsl:apply-templates>
-								</FONT>
-							</CENTER>
-						</div>
-						<div>
-							<xsl:apply-templates select="." mode="journal-info"/>
-							<!--TABLE width="100%" border="0">
+					</FONT>
+				</CENTER>
+				<!--br/-->
+				<div class="content">
+					<xsl:apply-templates select="." mode="journal-info"/>
+					<!--TABLE width="100%" border="0">
 						<TBODY>
 							<tr>
 								<td>&#160;</td>
@@ -75,13 +68,10 @@
 							</tr>
 						</TBODY>
 					</TABLE-->
-							<br/>
-							<xsl:apply-templates select="//AVAILISSUES"/>
-						</div>
-					</div>
-					<xsl:apply-templates select="." mode="footer-journal"/>
+					<br/>
+					<xsl:apply-templates select="//AVAILISSUES"/>
 				</div>
-				<!--br/-->
+				<xsl:apply-templates select="." mode="footer-journal"/>
 			</BODY>
 		</HTML>
 	</xsl:template>
