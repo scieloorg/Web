@@ -3,7 +3,7 @@ ALL or ONLY_NEVER_PROCESSED or ONLY_NEVER_SUBMITTED
 */
 
 /* PID */
-,proc('d9980a9980{',if p(v891) then v891 else if p(v881) then v881, else v880 fi fi,'{')
+,proc('d9880a9880{',if p(v891) then v891 else if p(v881) then v881, else v880 fi fi,'{')
 /* SUBMISSION STATUS error, new, update */
 ,proc('d9030a9030{',
 		,if l(['XREF_DOI_REPORT']'hr='v9880)>0 then
