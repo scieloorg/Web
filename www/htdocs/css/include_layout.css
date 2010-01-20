@@ -27,6 +27,7 @@
 }
 
 .top #globalNav {
+    width: 660px;
 	float: left;
 	margin: 20px 0px 0px 90px;
 }
@@ -72,7 +73,7 @@
 }
 
 .middle .leftCol {
-	width: 16%;
+	width: 20%;
 	clear: left;
 	padding-right: 12px;
 }
@@ -83,7 +84,7 @@
 }
 
 .middle .rightCol {
-	width: 24%;
+	width: 20%;
 	padding-left: 12px;
 }
 

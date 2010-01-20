@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-	<xsl:output method="html" omit-xml-declaration="yes" indent="no"/>
+	<xsl:output method="html"  encoding="utf-8" indent="yes" doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
 	<xsl:include href="sci_navegation_tableless.xsl"/>
 	<xsl:variable name="issuetoc_controlInfo" select="//CONTROLINFO"/>
 	<xsl:template match="SERIAL">

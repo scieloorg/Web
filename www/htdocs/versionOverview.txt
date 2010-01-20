@@ -1,14 +1,10 @@
-﻿Versão: v4.42
+﻿Versão: v4.44
 
 Melhorias
 -------------------
-v4.42
-#197 Ajustes no serviço Estatísticas de Acesso. Para que o gráfico fosse
-carregado era necessário clicar no botão Atualizar Gráfico.
+v4.44
+#191 enhancement - botões de navegação para publicação adiantada
+#182 bug :reopen, corrigindo um bug no processamento de crossref com controle de verba; geração da lista de PID.
 
-v4.41
-#184 Ajustes para parametrizar apresentação de link de estatísticas de
-acesso de artigos por idioma.
-# Processamento de avaliacao de periodicos de permanencia
-# Processamento de Traduções 
-
+v4.43
+#201 bug: a lista de press releases  não estava aparecendo completa na página do título

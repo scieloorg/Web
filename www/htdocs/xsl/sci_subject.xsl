@@ -2,7 +2,9 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 	<xsl:include href="sci_navegation_tableless.xsl"/>
 	<xsl:include href="journalStatus.xsl"/>
-	<xsl:output method="html" indent="no"/>
+	<xsl:output method="html"  encoding="utf-8" indent="yes" doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+
 	<xsl:variable name="forceType" select="//CONTROLINFO/ENABLE_FORCETYPE"/>
 	<xsl:variable name="padrao">
 		<xsl:if test="not(//SERIAL[journal-status-history]) or (count(//SERIAL[journal-status-history/current-status/@status!=''])=0 )">true</xsl:if>
