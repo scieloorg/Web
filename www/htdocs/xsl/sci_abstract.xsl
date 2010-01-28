@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:mml="http://www.w3.org/1998/Math/MathML">
 	<xsl:include href="scielo_pmc_main.xsl"/>
-	<xsl:include href="sci_navegation_tableless.xsl"/>
+	<xsl:include href="sci_navegation.xsl"/>
 	<xsl:include href="sci_toolbox.xsl"/>
 	<xsl:variable name="LANGUAGE" select="//LANGUAGE"/>
 	<xsl:variable name="SCIELO_REGIONAL_DOMAIN" select="//SCIELO_REGIONAL_DOMAIN"/>
@@ -9,11 +9,12 @@
 	<xsl:template match="/">
 		<xsl:apply-templates select="//SERIAL"/>
 	</xsl:template>
+		
 	<xsl:template match="SERIAL">
 		<xsl:if test=".//mml:math">
 			<xsl:processing-instruction name="xml-stylesheet"> type="text/xsl" href="/xsl/mathml.xsl"</xsl:processing-instruction>
 		</xsl:if>
-		<html xmlns="http://www.w3.org/1999/xhtml">
+			<html xmlns="http://www.w3.org/1999/xhtml" >
 			<head>
 				<title>
 					<xsl:value-of select="TITLEGROUP/SHORTTITLE" disable-output-escaping="yes"/>&#160;
@@ -23,9 +24,7 @@
 						<xsl:with-param name="num" select="CONTROLINFO/CURRENTISSUE/@NUM"/>
 						<xsl:with-param name="suppl" select="CONTROLINFO/CURRENTISSUE/@SUPPL"/>
 						<xsl:with-param name="lang" select="normalize-space(CONTROLINFO/LANGUAGE)"/>
-						<xsl:with-param name="reviewType">
-							<xsl:if test=".//ARTICLE/@hcomment!='1' or not(.//ARTICLE/@hcomment)">provisional</xsl:if>
-						</xsl:with-param>
+						<xsl:with-param name="reviewType"><xsl:if test=".//ARTICLE/@hcomment!='1' or not(.//ARTICLE/@hcomment)">provisional</xsl:if></xsl:with-param>
 					</xsl:call-template>;
 				
 					<xsl:call-template name="ABSTR-TR">
@@ -36,10 +35,7 @@
 				</title>
 				<meta http-equiv="Pragma" content="no-cache"/>
 				<meta http-equiv="Expires" content="Mon, 06 Jan 1990 00:00:01 GMT"/>
-				<link rel="STYLESHEET" TYPE="text/css" href="/css/scielo.css" media="screen"/>
-				<link rel="STYLESHEET" TYPE="text/css" href="/css/include_layout.css" media="screen"/>
-				<link rel="STYLESHEET" TYPE="text/css" href="/css/include_styles.css" media="screen"/>
-				<link rel="stylesheet" type="text/css" href="/css/include_general.css" media="screen"/>
+				<link rel="stylesheet" type="text/css" href="/css/screen.css"/>
 				<script language="javascript" src="applications/scielo-org/js/httpAjaxHandler.js"/>
 				<script language="javascript" src="article.js"/>
 			</head>
@@ -47,8 +43,7 @@
 				<div class="container">
 					<div class="top">
 						<div id="issues"/>
-						<!--xsl:call-template name="NAVBAR">						</xsl:call-template-->
-						<xsl:apply-templates select="." mode="tableless-navbar">
+						<xsl:call-template name="NAVBAR">
 							<xsl:with-param name="bar1">articles</xsl:with-param>
 							<xsl:with-param name="bar2">articlesiah</xsl:with-param>
 							<xsl:with-param name="home">1</xsl:with-param>
@@ -59,7 +54,7 @@
 								</xsl:choose>
 							</xsl:with-param>
 							<xsl:with-param name="scope" select="TITLEGROUP/SIGLUM"/>
-						</xsl:apply-templates>
+						</xsl:call-template>
 					</div>
 					<div class="content">
 						<xsl:if test="$show_toolbox = 1">
@@ -73,11 +68,11 @@
 								<xsl:with-param name="LANG" select="normalize-space(CONTROLINFO/LANGUAGE)"/>
 							</xsl:apply-templates>
 						</h2>
-						<div class="index,{ARTICLE/@TEXTLANG}">
-							<xsl:apply-templates select="ARTICLE">
-								<xsl:with-param name="NORM" select="normalize-space(CONTROLINFO/STANDARD)"/>
-								<xsl:with-param name="LANG" select="normalize-space(CONTROLINFO/LANGUAGE)"/>
-							</xsl:apply-templates>
+                                                <div class="index,{ARTICLE/@TEXTLANG}">
+						<xsl:apply-templates select="ARTICLE">
+							<xsl:with-param name="NORM" select="normalize-space(CONTROLINFO/STANDARD)"/>
+							<xsl:with-param name="LANG" select="normalize-space(CONTROLINFO/LANGUAGE)"/>
+						</xsl:apply-templates>
 						</div>
 						<div align="left"/>
 						<!--/div>
@@ -104,9 +99,7 @@
 				<xsl:with-param name="NORM" select="'iso-e'"/>
 				<xsl:with-param name="LANG" select="$LANG"/>
 				<xsl:with-param name="AUTHLINK">1</xsl:with-param>
-				<xsl:with-param name="reviewType">
-					<xsl:if test="@hcomment!='1' or not(@hcomment)">provisional</xsl:if>
-				</xsl:with-param>
+			<xsl:with-param name="reviewType"><xsl:if test="@hcomment!='1' or not(@hcomment)">provisional</xsl:if></xsl:with-param>
 			</xsl:call-template>
 		</p>
 		<p>
@@ -139,6 +132,7 @@
 				<xsl:with-param name="PID" select="//CONTROLINFO/PAGE_PID"/>
 			</xsl:apply-templates>
 		</p>
+		
 	</xsl:template>
 	<xsl:template match="ABSTRACT">
 		<xsl:value-of select="." disable-output-escaping="yes"/>
@@ -153,13 +147,13 @@
 		<xsl:value-of select="."/>
 	</xsl:template>
 	<xsl:template name="ABSTR-TR">
-		<xsl:value-of select="$translations/xslid[@id='sci_abstract']/text[@find='abstract']"/>
+        <xsl:value-of select="$translations/xslid[@id='sci_abstract']/text[@find='abstract']"/>
 	</xsl:template>
 	<xsl:template match="KEYWORDS">
 		<xsl:param name="LANG"/>
 		<p>
 			<strong>
-				<xsl:value-of select="$translations/xslid[@id='sci_abstract']/text[@find='keywords']"/>
+                <xsl:value-of select="$translations/xslid[@id='sci_abstract']/text[@find='keywords']"/>
 		:
 		</strong>
 			<xsl:apply-templates select="KEYWORD"/>.
