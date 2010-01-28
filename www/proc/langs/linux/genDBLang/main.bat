@@ -1,6 +1,7 @@
 # opcional, se sem scilista significa que eh total
 SCILISTA=$1
-
+# opcional
+PARAM_YEAR=$2
 
 . langs/config/config.inc
 
@@ -9,7 +10,7 @@ SCILISTA=$1
 chmod 775 langs/*/*.bat
 
 echo [TIME-STAMP] `date '+%Y.%m.%d %H:%M:%S'` Executing $0 $1 $2 $3 $4 $5 > $PROCLANG_LOG
-./$BATCHES_PATH/genDBLang/genLangsVsPaths.bat $FILE_CONFIG
+./$BATCHES_PATH/genDBLang/genLangsVsPaths.bat $FILE_CONFIG $SCILISTA
 
 
 if [ ! -d $PATH_DBLANG ]
@@ -31,11 +32,13 @@ else
     # processamento parcial, baseado na scilista
     # prepara
     echo [TIME-STAMP] `date '+%Y.%m.%d %H:%M:%S'` Executa parcial    >> $PROCLANG_LOG
-    
-    # gerar uma nova scilista com ISSUE PID
-    $MX cipar=$FILE_CIPAR seq=$SCILISTA lw=9999 "pft=if p(v1) and size(v1)>0 then '$BATCHES_PATH/genDBLang/getIssuePID.bat $FILE_CONFIG $NEW_SCILISTA ',v1/, fi" now> temp/langs_getIssuePID.bat
-    chmod 775 temp/langs_getIssuePID.bat
-    ./temp/langs_getIssuePID.bat
+    if [ -f $SCILISTA ]
+    then
+        # gerar uma nova scilista com ISSUE PID
+        $MX cipar=$FILE_CIPAR "seq=$SCILISTA " lw=9999 "pft=if p(v1) and size(v1)>0 then '$BATCHES_PATH/genDBLang/getIssuePID.bat $FILE_CONFIG $NEW_SCILISTA ',v1,' ',v2,if a(v2) then 'x $PARAM_YEAR' fi/, fi" now> temp/langs_getIssuePID.bat
+        chmod 775 temp/langs_getIssuePID.bat
+        ./temp/langs_getIssuePID.bat    
+    fi
 fi
 
 ######################################
