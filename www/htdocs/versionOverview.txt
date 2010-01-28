@@ -1,7 +1,10 @@
-﻿Versão: v4.44
+﻿Versão: v4.45
 
-Melhorias
--------------------
+
+v4.45
+Anulado a melhoria #191 botões de navegação para publicação adiantada, pois desajustou o desenho de varias páginas dependendo do Browser utilizado
+
+
 v4.44
 #191 enhancement - botões de navegação para publicação adiantada
 #182 bug :reopen, corrigindo um bug no processamento de crossref com controle de verba; geração da lista de PID.
