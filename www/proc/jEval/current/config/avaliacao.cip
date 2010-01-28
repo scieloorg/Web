@@ -1,0 +1,4 @@
+ISSUE.*=../bases/issue/issue.*
+TITLE.*=../bases/title/title.*
+ARTIGO.*=../bases/artigo/artigo.*
+ENTITY.*=jEval/common/gizmo/ent2ans.*
