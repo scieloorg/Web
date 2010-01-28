@@ -1,3 +1,5 @@
+echo 
+echo [TIME-STAMP] `date '+%Y.%m.%d %H:%M:%S'` Executing $0 $1 $2 $3 $4 $5  
 . $1
 lang=$2
 f=$3

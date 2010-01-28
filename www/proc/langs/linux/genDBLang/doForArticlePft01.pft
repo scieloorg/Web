@@ -20,5 +20,6 @@
  /* valor entre serial e markup ou seja acronimo e issueid  */
  'a900{',replace(mid(v5000,1, val(v7002) + val(v7003) - 1),'\',''),'{'
  'a40{',v40,'{'
+ ('a12{',v12^l,'{')
  ('a83{',v83^l,'{')
  'a91{',date,'{` '

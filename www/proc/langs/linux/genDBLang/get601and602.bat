@@ -1,3 +1,5 @@
+#./langs/linux//genDBLang/get601and602.bat langs//config/config.inc "05" tla/v48n2 pt temp/langs_proc.prc htm temp/langs_TITLE_LANGS_0103-1813.seq
+
 . $1
 
 echo [TIME-STAMP] `date '+%Y.%m.%d %H:%M:%S'` Executing $0 $1 $2 $3 $4 $5 $6 $7  >> $PROCLANG_LOG
