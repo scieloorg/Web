@@ -47,6 +47,8 @@
 	</parm>	
 
 	<field action="cgi" tag="2">IsisScript</field>
+	<field action="cgi" tag="7000">issn</field>
+
 	<field action="replace" tag="3"><pft>date</pft></field>
 	<field action="replace" tag="4"><pft>'^d',v3.8,'^t',v3*9.6</pft></field>
 	<display><pft>'<wxis-modules IsisScript="',v2,'" version="0.1">'/</pft></display>
@@ -100,6 +102,13 @@
 		<loop>
 			<field action="delete" tag="list">4/13</field>
 			<field action="import" tag="list">2001</field>
+			<field action="import" tag="list">7000</field>
+
+                    <!-- Descomentar quando for passada uma lista de ISSN separados por pipe, comentar a linha semelhante abaixo
+                        <flow action="jump"><pft>if p(v7000) then if instr(v7000, s('|',ref([v2001]val(v3^m),v35),'|') )=0 then 'do_nothing' fi fi</pft></flow>
+                    -->
+                        <flow action="jump"><pft>if p(v7000) then if instr(v7000, ref([v2001]val(v3^m),v35) )=0 then 'do_nothing' fi fi</pft></flow>
+
 			<field action="replace" tag="4"><pft>ref([v2001]val(v3^m),v130)</pft></field>
                         <!--field action="replace" tag="4"><pft>v2001</pft></field-->
 			<field action="replace" tag="5"><pft>ref([v2001]val(v3^m),v35)</pft></field>
@@ -134,6 +143,7 @@
 					</pft>
 					
 				</display>
+                      <label>do_nothing</label>
 		</loop>
 
 		<parm name="isisxml table">

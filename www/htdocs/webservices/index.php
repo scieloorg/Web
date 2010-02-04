@@ -133,8 +133,8 @@ if ($output == "soap") {
         case "new_titles":
             $response = new_titles($_REQUEST["count"], $_REQUEST["rep"]);
             break;
-        case "new_issues":
-            $response = new_issues($_REQUEST["count"]);
+        case "new_issues":            
+            $response = new_issues($_REQUEST["count"], !empty($_REQUEST['issn']) ? $_REQUEST['issn'] : null);
             break;
         case "get_titles":
 	    if(isset($_REQUEST['issn'])){
@@ -206,14 +206,18 @@ function new_titles($count, $rep)
 	return $serviceXML;
 }
 
-function new_issues($count)
+function new_issues($count, $issn = null)
 {
 	global $country, $applServer, $output, $transformer, $serviceRoot,$databasePath ;
 	global $colname;
 
 	$count= ($count != "" ? $count : "50");
 	$serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/webservices/wxis/?IsisScript=listNewIssues.xis&database=".$databasePath."issue/issue&gizmo=GIZMO_XML&count=" . $count;
-	$XML = readData($serviceUrl,true);
+        if(!empty($issn)){
+          $serviceUrl .= '&issn=' . $issn;
+        }
+
+        $XML = readData($serviceUrl,true);
 	$serviceXML .= '<collection name="'.$colname.'" uri="http://'.$applServer.'">';
 	$serviceXML .= $XML;
         $serviceXML .= '</collection>';
@@ -334,61 +338,4 @@ function getDetachedTitles($issn){
 	
 	return $serviceXML;
 }
-
-function getDetachedNewTitles($issn){
-    global $country, $applServer, $output, $transformer, $serviceRoot, $databasePath ;
-	global $colname;
-
-    if(is_array($issn)){
-        $issnTmp='';
-        foreach($issn as $key => $value){
-            if($key > 0){
-                $issnTmp .= ' or ';
-            }
-            $issnTmp .= 'LOC='.$value;
-        }
-        $issnString = $issnTmp;
-    }else{
-        $issnString = 'LOC='.$issn;
-    }
-
-	$count= ($count != "" ? $count : "50");
-	$serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/webservices/wxis/?IsisScript=detached.xis&database=".$databasePath ."title/title&gizmo=GIZMO_XML&count=" . $count ."&search=".$issnString;
-	if ($rep){
-		$serviceUrl .="&rep=".$rep;
-	}
-    
-	$XML = readData($serviceUrl,true);
-	$serviceXML .= '<collection name="'.$colname.'" uri="http://'.$applServer.'">';
-	$serviceXML .= $XML;
-	$serviceXML .= '</collection>';
-        if ($output == "xml"){
-            header("Content-type: text/xml");
-	        return envelopeXml($serviceXML, $serviceRoot);
-        }else{
-            return $serviceXML;
-        }
-	return $serviceXML;
-}
-
-function getDetachedNewIssues($issn){
-    global $country, $applServer, $output, $transformer, $serviceRoot,$databasePath ;
-	global $colname;
-
-	$count= ($count != "" ? $count : "50");
-	$serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/webservices/wxis/?IsisScript=listNewIssues.xis&database=".$databasePath."issue/issue&gizmo=GIZMO_XML&count=" . $count;
-	$XML = readData($serviceUrl,true);
-	$serviceXML .= '<collection name="'.$colname.'" uri="http://'.$applServer.'">';
-	$serviceXML .= $XML;
-        $serviceXML .= '</collection>';
-	if ($output == "xml"){
-                header("Content-type: text/xml");
-                return envelopeXml($serviceXML, $serviceRoot);
-        }else{
-                return $serviceXML;
-        }
-        return $serviceXML;
-
-}
-
 ?>
