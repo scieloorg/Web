@@ -178,14 +178,11 @@
 	</xslid>
 	<xslid id="comments">
 		<text find="doesnt_comment">This article was not commented yet</text>
-		<text find=""/>
-		<text find=""/>
 	</xslid>
 	<xslid id="article_output">
 		<text find="similarity">Similarity:</text>
 		<text find="full_text">full text</text>
-		<text find=""/>
-		<text find=""/>
+		<text find="accessat">Acess at</text>
 	</xslid>
 	<xslid id="cited">
 		<text find="doesnt_cited">this article have no citations</text>
