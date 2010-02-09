@@ -163,8 +163,7 @@
 		<text find="grp_issues">números</text>
 		<text find="grp_articles">artigos</text>
 		<text find="grp_serials">periódicos</text>
-				<text find="table_of_contents">sumario</text>
-
+		<text find="table_of_contents">sumario</text>
 	</xslid>
 	<xslid id="reference">
 		<text find="not_found">this article doesn't have references</text>
@@ -200,6 +199,7 @@
 	</xslid>
 	<xslid id="sci_arttext">
 		<text find="original_version_published_in">versão original publicada em</text>
+		<text find="fulltext_only_in_pdf">Texto completo somente em PDF</text>
 	</xslid>
 	<xslid id="sci_abstract">
 		<text find="abstract">Resumo</text>
