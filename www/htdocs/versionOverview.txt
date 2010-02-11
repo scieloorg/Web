@@ -1,13 +1,20 @@
-﻿Versão: v4.45
+﻿Versão: v4.46
 
+v4.46
+Melhorias nos Web Services, a fim de contemplar coleta seletiva de
+novos issues de revistas específicas.
+#208 task: Alterado, no sumário eletrônico de Provisional Article, 
+o link "text in english" por "abstract in english".
 
 v4.45
-Anulado a melhoria #191 botões de navegação para publicação adiantada, pois desajustou o desenho de varias páginas dependendo do Browser utilizado
-
+Anulado a melhoria #191 botões de navegação para publicação adiantada,
+pois desajustou o desenho de varias páginas dependendo do Browser utilizado
 
 v4.44
 #191 enhancement - botões de navegação para publicação adiantada
-#182 bug :reopen, corrigindo um bug no processamento de crossref com controle de verba; geração da lista de PID.
+#182 bug :reopen, corrigindo um bug no processamento de crossref com
+controle de verba; geração da lista de PID.
 
 v4.43
-#201 bug: a lista de press releases  não estava aparecendo completa na página do título
+#201 bug: a lista de press releases  não estava aparecendo completa na 
+página do título
