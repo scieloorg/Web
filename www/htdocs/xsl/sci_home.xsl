@@ -16,7 +16,7 @@
 	<xsl:template match="HOMEPAGE">
 		<html>
 			<head>
-				<title>SciELO - Scientific electronic library online</title>
+				<title><xsl:value-of select="//SCIELOINFOGROUP/SITE_NAME" /></title>
 				<meta http-equiv="Pragma" content="no-cache"/>
 				<meta http-equiv="Expires" content="Mon, 06 Jan 1990 00:00:01 GMT"/>
 				<xsl:if test="//NEW_HOME">
