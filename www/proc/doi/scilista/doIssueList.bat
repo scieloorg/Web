@@ -24,6 +24,7 @@ if [ ! -f ../bases-work/doi/$1/$2/$2.xrf ]
 then
 	echo $1 $2>>../bases-work/doi/scilista/$1.txt
 else
+	cisis/mx ../bases-work/doi/$1/$2/$2 count=1 "pft=if instr('$2','ahead')>0 or instr('$2','review')>0 then '$1 $2'/ fi" now >temp/doi/scilista/teste2_$1_$2.txt
 	call batch/CriaDiretorio.bat temp/doi/scilista/
 
 	cisis/mx ../bases-work/doi/$1/$2/$2 btell=0 bool=STATUS=DOI count=1 "pft='$1 $2'/" now >temp/doi/scilista/teste2_$1_$2.txt
@@ -39,4 +40,4 @@ else
 fi
 
 
-echo Execution end of $0 $1 $2 $3 $4 $5 in  `date`
+echo Execution .end. of $0 $1 $2 $3 $4 $5 in  `date`

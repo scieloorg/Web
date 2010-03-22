@@ -37,4 +37,4 @@ else
 fi
 
 
-echo Execution end of $0 $1 $2 $3 $4 $5 in  `date`
+echo Execution .end. of $0 $1 $2 $3 $4 $5 in  `date`

@@ -33,4 +33,4 @@ chmod 775 temp/doi/scilista_$PROCESS_DATE/doJournalList.bat
 call temp/doi/scilista_$PROCESS_DATE/doJournalList.bat
 rm -rf temp/doi/scilista_$PROCESS_DATE
 
-echo Execution end of $0 $1 $2 $3 $4 $5 in  `date`
+echo Execution .end. of $0 $1 $2 $3 $4 $5 in  `date`
