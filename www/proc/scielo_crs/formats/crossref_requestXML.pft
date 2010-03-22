@@ -24,7 +24,7 @@
      '<journal_metadata language="en">',#
        '<full_title>',ref(['Y']l(['Y']'LOC='v35),proc('G/usr/local/bireme/tabs/gcharent,100')v100),'</full_title>',#
        '<abbrev_title>',v30,'</abbrev_title>',#
-       '<issn media_type="electronic">',v35,'</issn>',#
+       '<issn media_type="',if ref(['Y']l(['Y']'LOC='v35),v35)='PRINT' then 'print' else 'electronic' fi,'">',ref(['Y']l(['Y']'LOC='v35),if p(v935) then v935 else v400 fi),'</issn>',#
        '<coden>',ref(['Y']l(['Y']'LOC='v35),v930*0.6),'</coden>',#
      '</journal_metadata>',#
      '<journal_issue>',#
