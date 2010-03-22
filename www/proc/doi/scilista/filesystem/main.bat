@@ -34,4 +34,4 @@ fi
 call batch/CriaDiretorio.bat temp/doi/bkp/
 mv temp/doi/scilista temp/doi/bkp/scilista_$PROCESS_DATE
 
-echo Execution end of $0 $1 $2 $3 $4 $5 in  `date`
+echo Execution .end. of $0 $1 $2 $3 $4 $5 in  `date`

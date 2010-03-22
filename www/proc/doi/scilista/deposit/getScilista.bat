@@ -44,4 +44,4 @@ cp $SCILISTA ../bases-work/doi/scilista/deposit
 
 echo Created the scilista $SCILISTA
 
-echo Execution  end  of $0 $1 $2 $3 $4 $5 $6 $7 $8 in  `date`
+echo Execution .end. of $0 $1 $2 $3 $4 $5 $6 $7 $8 in  `date`

@@ -16,7 +16,7 @@ ISSUE_DOI=../bases-work/doi/$1/$2/$2
 #### if [ -f "$ISSUE_DOI.xrf" ]
 if [ -s "$ISSUE_DOI.n02" ]
 then
-	if [ "@$2" = "@nahead" ]
+	if [ "@$2" = "@nahead" -o "@$2" = "@nreview" ]
 	then
 		echo $1 $2 $3 >>  ../bases-work/doi/scilista/deposit/$4_$1.txt
 		echo $1 $2 $3 >> $5
@@ -32,5 +32,4 @@ else
 	echo $1 $2 $3 >> $5
 fi
 
-echo Execution end of $0 $1 $2 $3 $4 $5 $6 $7 $8 in  `date`
-
+echo Execution .end.  of $0 $1 $2 $3 $4 $5 $6 $7 $8 in  `date`
