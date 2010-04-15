@@ -1,2 +1,3 @@
 scielo.def.php
 nbproject
+logs
