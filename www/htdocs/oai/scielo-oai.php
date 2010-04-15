@@ -4,7 +4,6 @@
 //    include_once ("classScielo.php");
 	include_once ("version-4.1-like-4.0.php");
 	include_once ("scielo-ws.php");
-
 	define ( "DEFNAME", "scielo.def.php" );
     define ( "DEFAULT_CACHE_EXPIRES", 180 );
 	$defFile = parse_ini_file(dirname(__FILE__)."/../scielo.def.php");
@@ -18,7 +17,7 @@
 */        
     $debug_str = "";
 
-	/******************************************* Funcões *********************************************/
+	/******************************************* Funcï¿½es *********************************************/
     
     function debugstring ( $str )
     {
@@ -165,10 +164,8 @@
     }
 
 	/**************************************** generatePayload ****************************************/
-
     function generatePayload ( $ws_client_url, $service, $service_name, $parameters, $xsl )
     {
-
         global $debug, $defFile;
 			//die($service_name." - ".$service);
 			switch ( $service_name )
@@ -180,7 +177,7 @@
 				}
 			case "ListMetadataFormats":
 				{
-				$response = getAbstractArticle( $set = $parameters["set"], $from = $parameters["from"], $until = $parameters["until"], $control = $parameters["control"], $lang = "en", $nrm = "iso", $count = 30, $debug = false );
+				$response = getAbstractArticle( $set = $parameters["pid"], $from = $parameters["from"], $until = $parameters["until"], $control = $parameters["control"], $lang = "en", $nrm = "iso", $count = 30, $debug = false );
 				break;
 				}
 			case "ListIdentifiers":
@@ -347,11 +344,10 @@
                                   "lang" => "en", 
                                   "tlng" => "en", 
                                   "ws_oai" => true );
-                                  
             if ( $debug ) $parameters[ "debug" ] = true;
 
         	//$xsl = $xslPath . "ListMetadataFormats.xsl";
-			$xsl = "ListMetadataFormats.xsl";
+		$xsl = "ListMetadataFormats.xsl";
     		$payload = generatePayload ( $ws_client_url, "getAbstractArticle","ListMetadataFormats", $parameters, $xsl );
 		}
 
@@ -459,7 +455,6 @@
     }
 
 	/******************************************* Principal *******************************************/
-
     if ( isset ( $_SERVER ) && !isset ( $DOCUMENT_ROOT ) )
 	{
 		$DOCUMENT_ROOT = $_SERVER[ "DOCUMENT_ROOT" ];
@@ -494,21 +489,18 @@
     switch ( $verb )
     {
     	case "Identify":
-			$packet = Identify_OAI ( $self, $ws_client_url, $xslPath );
-            break;
+		$packet = Identify_OAI ( $self, $ws_client_url, $xslPath );
+        break;
 
-		case "ListMetadataFormats":
-			$packet = ListMetadataFormats_OAI ( $self, $ws_client_url, $xslPath, $identifier );
-			break;
-
+        case "ListMetadataFormats":
+	    $packet = ListMetadataFormats_OAI ( $self, $ws_client_url, $xslPath, "" );
+	break;
     	case "GetRecord":
         	$packet = getRecord_OAI ( $self, $ws_client_url, $xslPath, $identifier, $metadataPrefix );
-            break;
-
-		case "ListSets":
-			$packet = ListSets_OAI ( $self, $ws_client_url, $xslPath, $resumptionToken );
-			break;
-            
+        break;
+        case "ListSets":
+	     $packet = ListSets_OAI ( $self, $ws_client_url, $xslPath, $resumptionToken );
+	break;          
         case "ListIdentifiers":
         case "ListRecords":
 	    $metadataPrefix2 = $metadataPrefix; // $metadataPrefix perde seu valor original apos o IF abaixo.
