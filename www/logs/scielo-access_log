@@ -1,4 +1,4 @@
-127.0.0.1 - - [18/May/2006:10:25:52 -0300] "GET / HTTP/1.1" 302 5
+asdfkjaksd127.0.0.1 - - [18/May/2006:10:25:52 -0300] "GET / HTTP/1.1" 302 5
 127.0.0.1 - - [18/May/2006:10:25:52 -0300] "GET /cgi-bin/wxis.exe/?IsisScript=ScieloXML/sci_home.xis&def=scielo.def&lng=en&nrm=iso&sln=en&scielo.php= HTTP/1.0" 200 1286
 127.0.0.1 - - [18/May/2006:10:25:52 -0300] "GET /scielo.php HTTP/1.1" 200 1237
 127.0.0.1 - - [18/May/2006:10:26:00 -0300] "GET /install/setup.php HTTP/1.1" 200 4004
