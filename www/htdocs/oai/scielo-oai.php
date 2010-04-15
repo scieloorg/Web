@@ -239,7 +239,6 @@
 
     function getRecord_OAI ( $request_uri, $ws_client_url, $xslPath, $identifier, $metadataPrefix )
     {
-
         global $debug;
         
     	if ( !isset ( $identifier ) || empty ( $identifier ) )
@@ -262,10 +261,6 @@
                                   "ws_oai" => true );
                                   
         	if ( $debug ) $parameters[ "debug" ] = true;
-                                  
-	       // $xsl = $xslPath . "GetRecord.xsl";
-
-			 
 			 if($metadataPrefix == 'oai_dc_agris'){
 			 	$xsl = 'GetRecord_agris.xsl';
 			 	$result = generatePayload ( $ws_client_url, "getAbstractArticleAgris", "GetRecordAgris", $parameters, $xsl );
@@ -486,6 +481,7 @@
     
 	$repositoryName = trim ( $deffile->getKeyValue("SITE_NAME") );
 	$adminEmails = array ( trim ( $deffile->getKeyValue("E_MAIL") ) );
+
     switch ( $verb )
     {
     	case "Identify":
