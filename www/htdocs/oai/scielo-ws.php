@@ -69,7 +69,6 @@
 	function getAbstractArticle ( $pid, $lang = "en", $tlng = "en", $ws_oai = false, $debug = false  )
 	{
 		global $scielo_xml, $server;
-                var_dump($pid);
 		if ( $pid == "" )
 		{
 //    		return new soap_fault ( 'Scielo_WS_Server','','Client must supply a valid PID.' );
