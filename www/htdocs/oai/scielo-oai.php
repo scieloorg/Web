@@ -14,10 +14,10 @@
 /*
 	$repositoryName = "SciELO Online Library Collection";
 	$earliestDatestamp = "1996-01-01";
-*/        
+*/      
     $debug_str = "";
-
-	/******************************************* Func�es *********************************************/
+$identifier = cleanParameter($identifier);
+	/******************************************* Functions *********************************************/
     
     function debugstring ( $str )
     {
@@ -39,6 +39,15 @@
             exit;
         }
     }
+
+    function cleanParameter ($param)
+    {
+       $stopChars = array('"','<','>','&');
+       $allowedChars = array('&quot;','&lt;','&gt;','&amp;');
+
+       return str_replace($stopChars,$allowedChars,$param);
+
+    }   
 
 	/************************************** parseResumptionToken *************************************/
     
@@ -240,13 +249,13 @@
     function getRecord_OAI ( $request_uri, $ws_client_url, $xslPath, $identifier, $metadataPrefix )
     {
         global $debug;
-        
     	if ( !isset ( $identifier ) || empty ( $identifier ) )
     	{
     		$result = "<error code=\"badArgument\">Missing or empty identifier</error>\n";
     	}
     	else if ( !isset ( $metadataPrefix ) || empty ( $metadataPrefix ) )
     	{
+
     		$result = "<error code=\"badArgument\">Missing or empty metadataPrefix</error>\n";
     	}
     	else if ( !isValidPrefix ( $metadataPrefix ) )
@@ -266,13 +275,12 @@
 			 	$result = generatePayload ( $ws_client_url, "getAbstractArticleAgris", "GetRecordAgris", $parameters, $xsl );
 			 }else{
 			 	$xsl = 'GetRecord.xsl';
-			 	$result = generatePayload ( $ws_client_url, "getAbstractArticle", "GetRecord", $parameters, $xsl );				
+			 	$result = generatePayload ( $ws_client_url, "getAbstractArticle", "GetRecord", $parameters, $xsl );			
 			 }
 
 						 
 	    	
 	    }
-
 	    $oai_packet = generateOAI_packet ( $request_uri, "GetRecord", $result );
 
 //	    $oai_packet = str_replace ( "localhost", "200.6.42.159", $oai_packet);
@@ -481,7 +489,6 @@
     
 	$repositoryName = trim ( $deffile->getKeyValue("SITE_NAME") );
 	$adminEmails = array ( trim ( $deffile->getKeyValue("E_MAIL") ) );
-
     switch ( $verb )
     {
     	case "Identify":
@@ -492,7 +499,7 @@
 	    $packet = ListMetadataFormats_OAI ( $self, $ws_client_url, $xslPath, "" );
 	break;
     	case "GetRecord":
-        	$packet = getRecord_OAI ( $self, $ws_client_url, $xslPath, $identifier, $metadataPrefix );
+        	$packet = getRecord_OAI ( $self, $ws_client_url, $xslPath,$identifier, $metadataPrefix );
         break;
         case "ListSets":
 	     $packet = ListSets_OAI ( $self, $ws_client_url, $xslPath, $resumptionToken );
