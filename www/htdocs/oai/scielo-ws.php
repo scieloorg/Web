@@ -69,6 +69,7 @@
 	function getAbstractArticle ( $pid, $lang = "en", $tlng = "en", $ws_oai = false, $debug = false  )
 	{
 		global $scielo_xml, $server;
+                var_dump($pid);
 		if ( $pid == "" )
 		{
 //    		return new soap_fault ( 'Scielo_WS_Server','','Client must supply a valid PID.' );
@@ -76,12 +77,10 @@
 	    }
 
 		$parameters = array ( "pid" => $pid, "lng" => $lang, "tlng" => $tlng );
-        
         if ( $ws_oai )
         {
             $parameters[ "ws" ] = "true";
         }
-
 		$result = $scielo_xml->getXML ( "sci_abstract", $parameters, $debug );
 
 		if ( $error = $scielo_xml->getError () )
@@ -144,8 +143,8 @@
 		return $result;
 	}
     
-    /* A função abaixo serve para limitar o tamanho das subexpressões da expressão de busca em 
-      30 caracteres, caso a subexpressão apareça entre aspas. Isto contorna um bug no wxis 4.01r1
+    /* A funï¿½ï¿½o abaixo serve para limitar o tamanho das subexpressï¿½es da expressï¿½o de busca em 
+      30 caracteres, caso a subexpressï¿½o apareï¿½a entre aspas. Isto contorna um bug no wxis 4.01r1
       que deve ser usado com o scielo.
     */
     function limitSearchSubexprLength ( $search )
