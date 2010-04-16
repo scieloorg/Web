@@ -58,7 +58,8 @@ $identifier = cleanParameter($identifier);
         if (! preg_match("/HR__S([0-9X]{4}-[0-9X]{4})[0-9]{13}:\\1?:((19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01]))?:(((19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01]))|$)/" , $resumptionToken ) ){
             return false;
         }
-        $params = split ( ":", $resumptionToken );                
+        $params = split ( ":", $resumptionToken );
+               
         $metadataPrefix = "oai_dc"; 
         $control = $params[ 0 ];
         $set = $params[ 1 ];
@@ -80,14 +81,18 @@ $identifier = cleanParameter($identifier);
 
     function is_Set ( $set )
     {
-        return eregi ( "^[0-9a-z]{4}-[0-9a-z]{4}", $set );
+        return eregi ( "^[0-9a-z]{4}-[0-9a-z]{4}$", $set );
     }
 
 	/******************************************* isDatestamp **********************************************/
         
     function isDatestamp ( $date )
     {
-        return ereg ( "^[0-9]{4}-[0-9]{2}-[0-9]{2}", $date );
+
+        if (! preg_match("/[0-9]{4}-[0-9]{2}-[0-9]{2}$/",$date)){
+            return false;
+        }
+        return true;
     }
 
 	/******************************************* isValidPrefix *******************************************/
@@ -501,22 +506,25 @@ $identifier = cleanParameter($identifier);
         case "ListIdentifiers":
         case "ListRecords":
 	    $metadataPrefix2 = $metadataPrefix; // $metadataPrefix perde seu valor original apos o IF abaixo.
+
             if ( $resumptionToken && !parseResumptionToken ( $resumptionToken ) )
             {
                 $packet = createOAIErrorpacket ( $self, $verb, "badResumptionToken" );
                 break;
             }
-            if ( $from && !isDatestamp ( $from ) )
+            if ( $from && !isDatestamp( $from ) )
             {
                 $packet = createOAIErrorpacket ( $self, $verb, "badArgument", "Invalid date format" );
                 break;
             }
 
-            if ( $until && !isDatestamp ( $until ) )
+            if ( $until && !isDatestamp( $until ) )
             {
                 $packet = createOAIErrorpacket ( $self, $verb, "badArgument", "Invalid date format" );
                 break;
             }
+
+
             $packet = ListIdOrRecords_OAI ( $verb, $self, $ws_client_url, $xslPath, $metadataPrefix2, $set, $from, $until, $control );
 			break;
 
