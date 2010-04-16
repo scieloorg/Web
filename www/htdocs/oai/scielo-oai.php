@@ -274,6 +274,7 @@ $identifier = cleanParameter($identifier);
                                   "ws_oai" => true );
                                   
         	if ( $debug ) $parameters[ "debug" ] = true;
+
 			 if($metadataPrefix == 'oai_dc_agris'){
 			 	$xsl = 'GetRecord_agris.xsl';
 			 	$result = generatePayload ( $ws_client_url, "getAbstractArticleAgris", "GetRecordAgris", $parameters, $xsl );
@@ -307,7 +308,7 @@ $identifier = cleanParameter($identifier);
         
         $parameters = array (
                 "set" => "", 
-                "from" => "19700101", 
+                "from" => "19090401", 
                 "until" => "", 
                 "control" => "",
                 "lang" => "en",
@@ -403,10 +404,21 @@ $identifier = cleanParameter($identifier);
     
     function ListIdOrRecords_OAI ( $verb, $request_uri, $ws_client_url, $xslPath, $metadataPrefix, $set = "", $from = "", $until = "", $control = "" )
     {
-    	
         global $debug;
 
-    	if ( !isset ( $metadataPrefix ) || empty ( $metadataPrefix ) )
+        if (empty($from)){
+            $from = "1909-04-01";
+        }
+
+        if (empty($until)){
+            $until = "9999-12-31";
+        }
+
+        if ( $from ) $from = substr ( $from, 0, 4 ) . substr ( $from, 5, 2 ) . substr ( $from, 8, 2 );
+        if ( $until ) $until = substr ( $until, 0, 4 ) . substr ( $until, 5, 2 ) . substr ( $until, 8, 2 );
+        if ($until < $from ){
+            $result = '<error code="badArgument">The request specified a date one year before the earliestDatestamp given in the Identify response</error>';
+        }else if ( !isset ( $metadataPrefix ) || empty ( $metadataPrefix ) )
     	{
     		$result = "<error code=\"badArgument\">Missing or empty metadataPrefix</error>\n";
     	}
@@ -419,7 +431,6 @@ $identifier = cleanParameter($identifier);
             if ( $from ) $from = substr ( $from, 0, 4 ) . substr ( $from, 5, 2 ) . substr ( $from, 8, 2 );
 
             if ( $until ) $until = substr ( $until, 0, 4 ) . substr ( $until, 5, 2 ) . substr ( $until, 8, 2 );
-
 	        $parameters = array (
                 "set" => $set, 
                 "from" => $from, 
@@ -506,7 +517,6 @@ $identifier = cleanParameter($identifier);
         case "ListIdentifiers":
         case "ListRecords":
 	    $metadataPrefix2 = $metadataPrefix; // $metadataPrefix perde seu valor original apos o IF abaixo.
-
             if ( $resumptionToken && !parseResumptionToken ( $resumptionToken ) )
             {
                 $packet = createOAIErrorpacket ( $self, $verb, "badResumptionToken" );
@@ -523,8 +533,6 @@ $identifier = cleanParameter($identifier);
                 $packet = createOAIErrorpacket ( $self, $verb, "badArgument", "Invalid date format" );
                 break;
             }
-
-
             $packet = ListIdOrRecords_OAI ( $verb, $self, $ws_client_url, $xslPath, $metadataPrefix2, $set, $from, $until, $control );
 			break;
 
