@@ -55,9 +55,13 @@ $identifier = cleanParameter($identifier);
     {
         global $metadataPrefix, $control, $set, $from, $until;
 
-        if (! preg_match("/HR__S([0-9X]{4}-[0-9X]{4})[0-9]{13}:\\1?:((19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01]))?:(((19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01]))|$)/" , $resumptionToken ) ){
+        if (! preg_match("/HR__S([0-9X]{4}-[0-9X]{4})[0-9]{13}:\\1?:((19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01]))?:(((19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01]))|$)/" , $resumptionToken ) and ! preg_match("/DTH__[0-9]{8}__([0-9X]{4}-[0-9X]{4})[0-9]{8}:\\1?:((19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01]))?:(((19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01]))|$)/" , $resumptionToken )){
+
+// preg_match("/DTH__[0-9]{8}__([0-9X]{4}-[0-9X]{4})[0-9]{8}:\\1?:((19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01]))?:(((19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01]))|$)/" , $resumptionToken );
             return false;
         }
+
+    
         $params = split ( ":", $resumptionToken );
                
         $metadataPrefix = "oai_dc"; 
@@ -103,11 +107,10 @@ $identifier = cleanParameter($identifier);
 
 		reset ( $metadataPrefixList );
 
-
-		while ( list ( $key, )  = each ( $metadataPrefixList ) )
-		{
-			if ( $key == $metadataPrefix ) return true;
-		}
+	    while ( list ( $key, )  = each ( $metadataPrefixList ) )
+	    {
+		    if ( $key == $metadataPrefix ) return true;
+	    }
 
 		return false;
 	}
@@ -405,26 +408,19 @@ $identifier = cleanParameter($identifier);
     function ListIdOrRecords_OAI ( $verb, $request_uri, $ws_client_url, $xslPath, $metadataPrefix, $set = "", $from = "", $until = "", $control = "" )
     {
         global $debug;
+        $eds = "19090401";
 
-        if (empty($from)){
-            $from = "1909-04-01";
+        if (empty ($metadataPrefix )){
+            $metadataPrefix = "oai_dc"; 
         }
-
-        if (empty($until)){
-            $until = "9999-12-31";
-        }
-
-        if ( $from ) $from = substr ( $from, 0, 4 ) . substr ( $from, 5, 2 ) . substr ( $from, 8, 2 );
-        if ( $until ) $until = substr ( $until, 0, 4 ) . substr ( $until, 5, 2 ) . substr ( $until, 8, 2 );
-        if ($until < $from ){
+        if (($until < $from) and ($until < $eds)){
             $result = '<error code="badArgument">The request specified a date one year before the earliestDatestamp given in the Identify response</error>';
-        }else if ( !isset ( $metadataPrefix ) || empty ( $metadataPrefix ) )
-    	{
+        }else if ( !isset ( $metadataPrefix ) || empty ( $metadataPrefix )){
     		$result = "<error code=\"badArgument\">Missing or empty metadataPrefix</error>\n";
     	}
     	else if ( !isValidPrefix ( $metadataPrefix ) )
     	{
-    		$result = "<error code=\"cannotDisseminateFormat\"/>\n";
+       		$result = "<error code=\"cannotDisseminateFormat\"/>\n";
     	}
     	else
     	{
