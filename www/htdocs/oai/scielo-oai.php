@@ -1,8 +1,8 @@
 <?php
     include_once ("classDefFile.php");
     include_once ("class.XSLTransformerOAI.php");
-//    include_once ("classScielo.php");
-	include_once ("version-4.1-like-4.0.php");
+    //include_once ("classScielo.php");
+    include_once ("version-4.1-like-4.0.php");
 	include_once ("scielo-ws.php");
 	define ( "DEFNAME", "scielo.def.php" );
     define ( "DEFAULT_CACHE_EXPIRES", 180 );
@@ -55,8 +55,10 @@ $identifier = cleanParameter($identifier);
     {
         global $metadataPrefix, $control, $set, $from, $until;
 
-        $params = split ( ":", $resumptionToken );
-                
+        if (! preg_match("/HR__S([0-9X]{4}-[0-9X]{4})[0-9]{13}:\\1?:((19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01]))?:(((19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01]))|$)/" , $resumptionToken ) ){
+            return false;
+        }
+        $params = split ( ":", $resumptionToken );                
         $metadataPrefix = "oai_dc"; 
         $control = $params[ 0 ];
         $set = $params[ 1 ];
@@ -220,10 +222,8 @@ $identifier = cleanParameter($identifier);
 				break;
 				}
 			}
-       // $result = "";
         if ( !$debug )
         {
-//die($response);
 			$transform = new XSLTransformerOAI();			
 	    	$transform->setXslBaseUri($defFile["PATH_OAI"]);	
     	    $transform->setXslFile ( $defFile["PATH_OAI"].$xsl );			
@@ -231,7 +231,6 @@ $identifier = cleanParameter($identifier);
 	        $transform->transform();
             if ( $transform->getError() )
     	    {
-	            // Transformation error
                 echo "XSL Transformation error\n";
     	        echo $transform->getError();
 	            $transform->destroy();
@@ -283,8 +282,6 @@ $identifier = cleanParameter($identifier);
 	    }
 	    $oai_packet = generateOAI_packet ( $request_uri, "GetRecord", $result );
 
-//	    $oai_packet = str_replace ( "localhost", "200.6.42.159", $oai_packet);
-
 	    return $oai_packet;
     }
 
@@ -303,7 +300,6 @@ $identifier = cleanParameter($identifier);
     		$payload .= " <adminEmail>" . $adminEmails[ $i ] . "</adminEmail>\n";
     	}
         
-//    	$payload .= "  <earliestDatestamp>$earliestDatestamp</earliestDatestamp>\n";
         $parameters = array (
                 "set" => "", 
                 "from" => "19700101", 
@@ -316,12 +312,10 @@ $identifier = cleanParameter($identifier);
 
         if ( $debug ) $parameters[ "debug" ] = true;
             
-       // $xsl = $xslPath . "Identify.xsl";
-		 $xsl = "Identify.xsl";
+        $xsl = "Identify.xsl";
 	   	$result = generatePayload ( $ws_client_url, "listRecords","Identify", $parameters, $xsl );
         
         $payload .= trim ( str_replace ( "datestamp", "earliestDatestamp", $result ) );
-
     	$payload .= "  <deletedRecord>no</deletedRecord>\n";
     	$payload .= "  <granularity>YYYY-MM-DD</granularity>\n";
     	$payload .= " </Identify>\n";
