@@ -1,2 +1,3 @@
 scielo.def.php
+scielo.def.php.template
 nbproject
