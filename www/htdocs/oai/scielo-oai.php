@@ -232,20 +232,18 @@ $identifier = cleanParameter($identifier);
 			}
         if ( !$debug )
         {
-			$transform = new XSLTransformerOAI();			
-	    	$transform->setXslBaseUri($defFile["PATH_OAI"]);	
-    	    $transform->setXslFile ( $defFile["PATH_OAI"].$xsl );			
-	        $transform->setXml ( $response );
-	        $transform->transform();
+            $transform = new XSLTransformerOAI();
+            $transform->setXslBaseUri($defFile["PATH_OAI"]);
+            $transform->setXslFile ( $defFile["PATH_OAI"].$xsl );
+            $transform->setXml ( $response );
+            $transform->transform();
             if ( $transform->getError() )
     	    {
                 echo "XSL Transformation error\n";
     	        echo $transform->getError();
-	            $transform->destroy();
 	            exit ();
     	    }
 	        $result = $transform->getOutput();
-	        $transform->destroy();
         }
 		
 	    return $result;
