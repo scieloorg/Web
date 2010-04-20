@@ -38,7 +38,7 @@
 	<!-- Variável de Flag utilizada para log utilizada também no arquivo sci_toolbox -->
 	<xsl:variable name="service_log" select="//services_log"/>
 
-        <xsl:variable name="services" select="document('services_log.xml')"/>
+        <xsl:variable name="services" select="document('../xml/services_log.xml')"/>
 
         <!--xsl:if test="$service_log = 1">
                 <services>
