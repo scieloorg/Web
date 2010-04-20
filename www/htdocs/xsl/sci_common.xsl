@@ -37,44 +37,46 @@
 	</xsl:template>
 	<!-- Variável de Flag utilizada para log utilizada também no arquivo sci_toolbox -->
 	<xsl:variable name="service_log" select="//services_log"/>
-	<xsl:variable name="services">
-		<xsl:if test="$service_log = 1">
-			<services>
-				<service>
-					<name>minhaColecao</name>
-					<call>callUpdateArticleLog('adicionar_a_minha_colecao');</call>
-				</service>
-				<service>
-					<name>aviseMeCitado</name>
-					<call>callUpdateArticleLog('avise-me_quando_for_citado');</call>
-				</service>
-				<service>
-					<name>envieMeEstatisticaAcesso</name>
-					<call>callUpdateArticleLog('envie-me_estatisticas_de_acesso');</call>
-				</service>
-				<service>
-					<name>comentarios</name>
-					<call>callUpdateArticleLog('comentarios');</call>
-				</service>
-				<service>
-					<name>indicadoresSaude</name>
-					<call>callUpdateArticleLog('indicadores_de_saude');</call>
-				</service>
-				<service>
-					<name>referenciasArtigo</name>
-					<call>callUpdateArticleLog('referencias_do_artigo');</call>
-				</service>
-				<service>
-					<name>servicosCustomizados</name>
-					<call>callUpdateArticleLog('servicos_customizados');</call>
-				</service>
-				<service>
-					<name>curriculumScienTI</name>
-					<call>callUpdateArticleLog('curriculum_scienTI');</call>
-				</service>
-			</services>
-		</xsl:if>
-	</xsl:variable>
+
+        <xsl:variable name="services" select="document('services_log.xml')"/>
+
+        <!--xsl:if test="$service_log = 1">
+                <services>
+                        <service>
+                                <name>minhaColecao</name>
+                                <call>callUpdateArticleLog('adicionar_a_minha_colecao');</call>
+                        </service>
+                        <service>
+                                <name>aviseMeCitado</name>
+                                <call>callUpdateArticleLog('avise-me_quando_for_citado');</call>
+                        </service>
+                        <service>
+                                <name>envieMeEstatisticaAcesso</name>
+                                <call>callUpdateArticleLog('envie-me_estatisticas_de_acesso');</call>
+                        </service>
+                        <service>
+                                <name>comentarios</name>
+                                <call>callUpdateArticleLog('comentarios');</call>
+                        </service>
+                        <service>
+                                <name>indicadoresSaude</name>
+                                <call>callUpdateArticleLog('indicadores_de_saude');</call>
+                        </service>
+                        <service>
+                                <name>referenciasArtigo</name>
+                                <call>callUpdateArticleLog('referencias_do_artigo');</call>
+                        </service>
+                        <service>
+                                <name>servicosCustomizados</name>
+                                <call>callUpdateArticleLog('servicos_customizados');</call>
+                        </service>
+                        <service>
+                                <name>curriculumScienTI</name>
+                                <call>callUpdateArticleLog('curriculum_scienTI');</call>
+                        </service>
+                </services>
+        </xsl:if-->
+
 	<!--Exibe caixa para exportação da citacao para "Reference Managers"-->
 	<xsl:template name="PrintExportCitationForRefecenceManagers">
 		<xsl:param name="LANGUAGE"/>
