@@ -1,13 +1,16 @@
 <?php
 
-class XSLTransformerPHP5 {
+class XSLTransformerPHP5 
+{
   var $xsl, $xml, $output, $error, $errorcode, $processor, $uri, $host, $port, $byJava;   
 
-  function XSLTransformerPHP5() {
+  function XSLTransformerPHP5()
+  {
     $this->processor = new XSLTProcessor();
   }
 
-  function setXslBaseUri($uri){
+  function setXslBaseUri($uri)
+  {
     if ($uri != ""){
             if (strpos(' '.$uri,'file://')==0) $uri = 'file://'.$uri; 
     }
