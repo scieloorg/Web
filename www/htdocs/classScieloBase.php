@@ -12,11 +12,11 @@ class ScieloBase
 	// ------------------------------------------------------------------------------------------
 
 	var $_host = "",
-		$_xml = "",
-		$_xsl = "",
+	$_xml = "",
+	$_xsl = "",
         $_method = "GET",           // default method GET
 
-		$_homepg = "sci_home";		// default home page script
+        $_homepg = "sci_home";		// default home page script
 	var $_param = "";               // default parameters for home page script
 	var $_IsisScriptUrl = "";
 	// ------------------------------------------------------------------------------------------
@@ -25,7 +25,7 @@ class ScieloBase
 	var $_script = "",
         $_deffile = "scielo.def.php",	// default def file name
         $_debug = "",
-		$_def = null,
+	$_def = null,
         $_request = null;
 
 	// ------------------------------------------------------------------------------------------
@@ -193,7 +193,7 @@ class ScieloBase
 	{
 		if ( (!$this->_debug || $this->_debug == 'VERIFICA') && ($this->_script != 'sci_verify') )
 		{
-			return false;
+                  return false;
 		}
 
 		return true;
@@ -279,10 +279,10 @@ class ScieloBase
 
 		if (!$control->_error)
 		{
-		    if ($control->getKeyValue("MAINTENANCE"))
-    		{
-				return true;
-    		}
+                  if ($control->getKeyValue("MAINTENANCE"))
+                  {
+                    return true;
+                  }
 		}
 
 		return false;
@@ -311,7 +311,7 @@ class ScieloBase
                     $lng = $this->_def->getKeyValue ( "STANDARD_LANG" );
                     $newPage = $newPage . "&lng=" . $lng;
                 }
-// echo $newPage;
+                
 		header ("Location: " . $newPage );
 		exit;
 	}
@@ -399,37 +399,38 @@ class ScieloBase
 	*************************************************************************/
 	function _TransformXML()
 	{
-        $result = "";
+          $result = "";
 
-		// Apply transformer in xml
-		$transform = new ScieloXMLTransformer();
-		$transform->setXslBaseUri("file://" . $this->_def->getKeyValue("PATH_XSL"));
-        $transform->SetPreferedMethod ($this->_method);
+          // Apply transformer in xml
+          $transform = new ScieloXMLTransformer();
+          $transform->setXslBaseUri("file://" . $this->_def->getKeyValue("PATH_XSL"));
+          $transform->SetPreferedMethod($this->_method);
 
-		if($transform->setXsl($this->_xsl))
-		{
-   			if($transform->setXml($this->_xml))
-			{
-    	 		$transform->transform();
+          if($transform->setXsl($this->_xsl))
+          {
+                  if($transform->setXml($this->_xml))
+                  {
+                    $transform->transform();
 
-				if ($transform->getError() == 0)
-				{
-						$result = $transform->getOutput();
-	      		}
-				else
-				{
-	   				$result = "<p>Error transforming ".$this->_xml.".</p>\n";
-				}
-			}
-			else
-			{
-    			$result =  "<p>".$this->_xml.": ".$transform->getError()."</p>\n";
-			}
-		}
+                    if ($transform->getError() == 0)
+                    {
+                        $result = $transform->getOutput();
+                    }
+                    else
+                    {
+                        $result = "<p>Error transforming ".$this->_xml.".</p>\n";
+                    }
+                  }
+            else
+            {
+            $result =  "<p>".$this->_xml.": ".$transform->getError()."</p>\n";
+            }
+          }
 
-		$transform->destroy();
+          //$transform->destroy();
 
         return $result;
+        
 	}
 
 	/************************************************************************
@@ -449,29 +450,29 @@ class ScieloBase
 	*************************************************************************/
     function _CheckAlternateDisplay()
     {
-		if ( !$this->_xml)
-		{
-			echo "XML is not setted.<br>\n";
-			exit;
-		}
+      if ( !$this->_xml)
+      {
+              echo "XML is not setted.<br>\n";
+              exit;
+      }
 
-		if ( !$this->_xsl )
-		{
-			echo "XSL is not setted.<br>\n";
-			exit;
-		}
+      if ( !$this->_xsl )
+      {
+              echo "XSL is not setted.<br>\n";
+              exit;
+      }
 
-		if ( $this->_CheckMaintenance() )
-		{
-			$this->_MaintenancePage ();
-			exit;
-		}
+      if ( $this->_CheckMaintenance() )
+      {
+              $this->_MaintenancePage ();
+              exit;
+      }
 
-		if ( $this->_CheckBypassTransformer() )
-		{
-			$this->_BypassTransformer();
-			exit;
-		}
+      if ( $this->_CheckBypassTransformer() )
+      {
+              $this->_BypassTransformer();
+              exit;
+      }
     }
 	// ------------------------------------------------------------------------------------------
 	// ---------------------------------   Public Methods   -------------------------------------
@@ -508,15 +509,15 @@ class ScieloBase
 	***************************************************************************************/
 	function ShowPage ()
 	{
-    	$this->_CheckAlternateDisplay ();
-		echo $this->_Transform ();
+          $this->_CheckAlternateDisplay ();
+          echo $this->_Transform ();
 	}
-	//fixed 20041004
+	
 	function getPage ()
 	{
-    	$this->_CheckAlternateDisplay ();
-		$page = $this->_Transform ();
-		return $page;
+          $this->_CheckAlternateDisplay();
+          $page = $this->_Transform();
+          return $page;
 	}
 
 	// ------------------------------------------------------------------------------------------
@@ -533,25 +534,25 @@ class ScieloBase
         return $this->_method;
     }
 
-	function SetXMLUrl($xml)
-	{
-		$this->_xml = $xml;
-	}
+    function SetXMLUrl($xml)
+    {
+            $this->_xml = $xml;
+    }
 
-	function GetXMLUrl()
-	{
-		return $this->_xml;
-	}
+    function GetXMLUrl()
+    {
+            return $this->_xml;
+    }
 
-	function SetXSLUrl($xsl)
-	{
-		$this->_xsl = $xsl;
-	}
+    function SetXSLUrl($xsl)
+    {
+            $this->_xsl = $xsl;
+    }
 
-	function GetXSLUrl()
-	{
-		return $this->_xsl;
-	}
+    function GetXSLUrl()
+    {
+            return $this->_xsl;
+    }
 }
 
 ?>

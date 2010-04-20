@@ -28,8 +28,8 @@ class ScieloXMLTransformer extends XSLTransformer
 			return false; 
 		} 
     }
-    
-	 function SetXsl($uri)
+
+    function SetXsl($uri)
     {
 		if ($this->isXmlContent($uri)) {
 			if (getenv("ENV_SOCKET")=="true"){  //socket
@@ -86,8 +86,8 @@ class ScieloXMLTransformer extends XSLTransformer
 
     function isXmlContent(&$xml)
     {
-//WXIS_LINE_COMMAND
-$xml = trim(str_replace('Content-type:text/html', '', str_replace('Content-type:text/xml', '',$xml)));
+        //WXIS_LINE_COMMAND
+        $xml = trim(str_replace('Content-type:text/html', '', str_replace('Content-type:text/xml', '',$xml)));
         if (strcmp(substr(trim($xml),0,5), "<?xml") != 0)
         {
             return false;
