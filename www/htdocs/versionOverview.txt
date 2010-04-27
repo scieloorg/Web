@@ -1,4 +1,8 @@
-Versão: v4.47
+﻿Versão: proxima tag
+
+proxima tag
+#???    php5
+#215 correção de apresentação da licença CC
 
 v4.48
 Última versão para php 4.3.11
