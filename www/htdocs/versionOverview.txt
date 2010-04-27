@@ -1,4 +1,10 @@
-﻿Versão: v4.47
+﻿Versão: v4.49
+
+v4.49
+#215 correção de apresentação da licença CC
+
+v4.48
+Última versão para php 4.3.11
 
 v4.47
 #212 apresentação de DOI em alguns artigos ex-provisional
@@ -21,3 +27,4 @@ controle de verba; geração da lista de PID.
 v4.43
 #201 bug: a lista de press releases  não estava aparecendo completa na 
 página do título
+
