@@ -3,12 +3,12 @@
     
     Servername SERVERNAME
     
-    DocumentRoot PATH (NOT LAST SLASH)
+    DocumentRoot PATH (NOT USE LAST SLASH)
 	<Directory />
 		Options FollowSymLinks
 		AllowOverride None
 	</Directory>
-    <Directory PATH (WITH LAST SLASH)>
+    <Directory PATH (USE WITH LAST SLASH)>
         Options FollowSymLinks
         AllowOverride AuthConfig
         Order allow,deny
@@ -17,8 +17,8 @@
         Satisfy all
     </Directory>
 
-    ScriptAlias /cgi-bin/ PATH (WITH LAST SLASH)
-    <Directory "PATH (WITH LAST SLASH)">
+    ScriptAlias /cgi-bin/ PATH (USE WITH LAST SLASH)
+    <Directory "PATH (USE WITH LAST SLASH)">
         AllowOverride None
         Options None
         Order allow,deny
