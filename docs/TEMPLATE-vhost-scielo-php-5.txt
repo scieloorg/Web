@@ -1,0 +1,27 @@
+<VirtualHost *:80>
+    ServerAdmin EMAIL
+    
+    Servername SERVERNAME
+    
+    DocumentRoot PATH (NOT LAST SLASH)
+	<Directory />
+		Options FollowSymLinks
+		AllowOverride None
+	</Directory>
+    <Directory PATH (WITH LAST SLASH)>
+        Options FollowSymLinks
+        AllowOverride AuthConfig
+        Order allow,deny
+        Allow from all
+        DirectoryIndex index.php scielo.php index.html
+        Satisfy all
+    </Directory>
+
+    ScriptAlias /cgi-bin/ PATH (WITH LAST SLASH)
+    <Directory "PATH (WITH LAST SLASH)">
+        AllowOverride None
+        Options None
+        Order allow,deny
+        Allow from all
+    </Directory>
+</VirtualHost>
