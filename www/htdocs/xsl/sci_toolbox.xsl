@@ -243,34 +243,33 @@
                                 </xsl:apply-templates>
 					</li>				
 				</xsl:if>
-				
 				<xsl:if test="($show_article_wltranslation = 1)">
-					<li>
-						<a>
-							<xsl:attribute name="href">javascript: void(0);</xsl:attribute>
-							<!--xsl:attribute name="onClick">window.open('http://<xsl:value-of select="concat(//SERVER,'/scieloOrg/php/translate.php?pid=',//ARTICLE/@PID,'&amp;caller=',//SERVER,'&amp;lang=',$LANGUAGE,'&amp;tlang=',//ISSUE/ARTICLE/@TEXTLANG)"/>','','width=640,height=480,resizable=yes,scrollbars=1,menubar=yes'); <xsl:value-of select="$services//service[name='referenciasArtigo']/call"/></xsl:attribute-->
-							<xsl:attribute name="rel">nofollow</xsl:attribute>
-							<img src="/img/{$LANGUAGE}/iconTranslation.gif"/>						
-                            <xsl:value-of select="$translations/xslid[@id='sci_toolbox']/text[@find='automatic_translation']"/>
-						</a>
-					</li>
+                                  <li>
+                                    <a>
+                                      <xsl:attribute name="href">javascript: void(0);</xsl:attribute>
+                                      <xsl:attribute name="onClick">window.open('http://<xsl:value-of select="concat(//SERVER,'/scieloOrg/php/translate.php?pid=',//ARTICLE/@PID,'&amp;caller=',//SERVER,'&amp;lang=',$LANGUAGE,'&amp;tlang=',//ISSUE/ARTICLE/@TEXTLANG)"/>','','width=640,height=480,resizable=yes,scrollbars=1,menubar=yes'); <xsl:value-of select="$services//service[name='referenciasArtigo']/call"/></xsl:attribute>
+                                      <xsl:attribute name="rel">nofollow</xsl:attribute>
+                                      <img src="/img/{$LANGUAGE}/iconTranslation.gif"/>
+                                      <xsl:value-of select="$translations/xslid[@id='sci_toolbox']/text[@find='automatic_translation']"/>
+                                    </a>
+                                  </li>
 				</xsl:if>
-                <xsl:if test="($show_semantic_hl = 1)">
-					<xsl:if test="//ARTICLE/@TEXTLANG='en' or //ABSTRACT/@xml:lang='en'">
-						<xsl:if test="$title_subjects = 'HEALTH SCIENCES' or $title_subjects = 'BIOLOGICAL SCIENCES'">
-							<li>
-                              <xsl:apply-templates select="//fulltext-service[@id='semantic_highlights']" mode="semanticHighlights"/>
-			                </li>
-	                    </xsl:if>
-					</xsl:if>
-                </xsl:if>
+                                <xsl:if test="($show_semantic_hl = 1)">
+                                  <xsl:if test="//ARTICLE/@TEXTLANG='en' or //ABSTRACT/@xml:lang='en'">
+                                    <xsl:if test="$title_subjects = 'HEALTH SCIENCES' or $title_subjects = 'BIOLOGICAL SCIENCES'">
+                                      <li>
+                                     <xsl:apply-templates select="//fulltext-service[@id='semantic_highlights']" mode="semanticHighlights"/>
+                                      </li>
+                                    </xsl:if>
+                                  </xsl:if>
+                                </xsl:if>
 				<xsl:if test="$show_send_by_email = 1">
-					<li>
-						<xsl:apply-templates select="//fulltext-service[@id='send_mail']" mode="link"/>
-					</li>	
+                                  <li>
+                                    <xsl:apply-templates select="//fulltext-service[@id='send_mail']" mode="link"/>
+                                  </li>
 				</xsl:if>
 				<xsl:apply-templates select=".//ARTICLE" mode="related-documents"/>
-            </ul>
+                               </ul>
 		</div>
 	</xsl:template>
 	
