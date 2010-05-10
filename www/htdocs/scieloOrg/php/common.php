@@ -119,7 +119,7 @@
 	if($transformer->getError()){
 		echo $transformer->getError();
 	}
-	echo $result;
+	echo utf8_decode($result);
 
 
 ?>
