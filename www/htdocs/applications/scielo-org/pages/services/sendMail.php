@@ -1,8 +1,5 @@
 <?php
 
-ini_set("display_errors","1");
-error_reporting(E_ALL);
-
 require_once(dirname(__FILE__)."/../../users/functions.php");
 require_once(dirname(__FILE__)."/../../users/langs.php");	
 require_once(dirname(__FILE__)."/../../includes/phpmailer/class.phpmailer.php");
