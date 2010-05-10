@@ -310,8 +310,8 @@
 				<xsl:value-of select="normalize-space(ADDRESS/ADDRESS_2)"/> - <xsl:value-of select="normalize-space(ADDRESS/COUNTRY)"/>
 				<br/>
 				<xsl:value-of select="$translations/xslid[@id='sci_home']/text[@find='phone']"/>: <xsl:value-of select="normalize-space(PHONE)"/>
-				<br/>
-				<xsl:value-of select="$translations/xslid[@id='sci_home']/text[@find='fax']"/>: <xsl:value-of select="normalize-space(FAX)"/>
+				<!--br/>
+				<xsl:value-of select="$translations/xslid[@id='sci_home']/text[@find='fax']"/>: <xsl:value-of select="normalize-space(FAX)"/-->
 			</font>
 			<br/>
 			<a class="email">
