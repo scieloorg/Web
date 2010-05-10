@@ -7,8 +7,6 @@
  *
  ******************************************************************/
 header('Content-type: text/xml');
-ini_set("display_errors","1");
-error_reporting(E_ALL ^E_NOTICE);
 $lang = isset($_REQUEST['lang'])?($_REQUEST['lang']):"";
 $pid = isset($_REQUEST['pid'])?($_REQUEST['pid']):"";
 $text = isset($_REQUEST['text'])?($_REQUEST['text']):"";
