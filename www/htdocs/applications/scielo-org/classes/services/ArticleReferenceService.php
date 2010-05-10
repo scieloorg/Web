@@ -34,9 +34,6 @@
 			} else {
 				$parameters = '&pid='.$pid_or_arrayPid.'&tlng='.$textLang.'&lng='.$interfaceLang.'&presentation=onlyref&format='.$format.'&standard='.$standard.'&textlink='.$textLink;
 
-				//$call = 'http://'.$_SERVER["SERVER_NAME"].'/scielo.php?script=sci_isoref'. $parameters;
-				//$textref = file_get_contents($call);
-
 				if (!$textref) {
 					$call = $server.'/cgi-bin/wxis.exe/?IsisScript=ScieloXML/sci_isoref.xis&def=scielo.def.php&nrm=iso&sln=en&script=sci_isoref&PATH_TRANSLATED=../htdocs/'.$parameters;
 
@@ -55,7 +52,7 @@
 				}
 
 			}
-			return $textref;
+			return utf8_decode($textref);
 		}
 		function getFormattedReference($article, $interfaceLang, $textLang, $textLink = false){			
 			switch ($interfaceLang){
