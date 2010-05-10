@@ -107,7 +107,7 @@
 												$output = str_replace('<p>',' ',$output);
 												$output = str_replace('</p>',' ',$output);
 
-												echo $output;
+												echo utf8_decode($output);
 												
 												?>
 											</div>

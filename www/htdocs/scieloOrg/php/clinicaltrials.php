@@ -1,6 +1,6 @@
 <?php
-	//ini_set("display_errors","1");
-	//error_reporting(E_ALL);
+	ini_set("display_errors","1");
+	error_reporting(E_ALL);
 	$lang = isset($_REQUEST['lang'])?($_REQUEST['lang']):"";
 	$pid = isset($_REQUEST['pid'])?($_REQUEST['pid']):"";
 
