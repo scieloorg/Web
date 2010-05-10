@@ -50,17 +50,17 @@
 					<xsl:choose>
 						<xsl:when test="normalize-space(//USERINFO/@status) != normalize-space('logout') ">
 							<li>
-								<a href="javascript:void(0);" onclick='window.open("","mensagem","toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,resizable=0,width=320,height=240"); document.forms.addToShelf.submit();{$services//service[name="minhaColecao"]/call}' rel="nofollow"><img src="/img/en/iconSend2MyLibrary.gif"/>
+								<a href="javascript:void(0);" onclick='window.open("","mensagem","toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,resizable=0,width=360,height=240"); document.forms.addToShelf.submit();{$services//service[name="minhaColecao"]/call}' rel="nofollow"><img src="/img/en/iconSend2MyLibrary.gif"/>
                                     <xsl:value-of select="$translations/xslid[@id='sci_toolbox']/text[@find='add_to_my_collection']"/>
                                 </a>
 							</li>
 							<li>
-    							<a href="javascript:void(0);" onclick='window.open("","mensagem","toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,resizable=0,width=320,height=240");document.forms.citedAlert.submit();{$services//service[name="aviseMeCitado"]/call}' rel="nofollow"><img src="/img/en/iconAlert.gif" />
+    							<a href="javascript:void(0);" onclick='window.open("","mensagem","toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,resizable=0,width=360,height=240");document.forms.citedAlert.submit();{$services//service[name="aviseMeCitado"]/call}' rel="nofollow"><img src="/img/en/iconAlert.gif" />
                                     <xsl:value-of select="$translations/xslid[@id='sci_toolbox']/text[@find='alert_me_when_cited']"/>
                                 </a>
 							</li>
 							<li>
-								<a href="javascript:void(0);" onclick='window.open("","mensagem","toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,resizable=0,width=320,height=240");document.forms.accessAlert.submit();{$services//service[name="envieMeEstatisticaAcesso"]/call}' rel="nofollow"><img src="/img/es/iconStatistics.gif"/>
+								<a href="javascript:void(0);" onclick='window.open("","mensagem","toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,resizable=0,width=360,height=240");document.forms.accessAlert.submit();{$services//service[name="envieMeEstatisticaAcesso"]/call}' rel="nofollow"><img src="/img/es/iconStatistics.gif"/>
                                     <xsl:value-of select="$translations/xslid[@id='sci_toolbox']/text[@find='send_me_access_statistics']"/>
                                 </a>
 							</li>
@@ -162,7 +162,7 @@
 
 
                     <!-- Projetos FAPESP entra aqui!-->
-		<!--xsl:if test="$show_fapesp_projects = '1' and (//ARTICLE/@PROJFAPESP != '0' and //ARTICLE/@PROJFAPESP != '')">
+		<xsl:if test="$show_fapesp_projects = '1' and (//ARTICLE/@PROJFAPESP != '0' and //ARTICLE/@PROJFAPESP != '')">
                     <li>
                         <a>
                         <xsl:choose>
@@ -180,7 +180,7 @@
                         <xsl:value-of select="$translations/xslid[@id='sci_toolbox']/text[@find='fapesp_projects']"/>
                         </a>
                     </li>
-                </xsl:if-->
+                </xsl:if>
 		<!-- FAPESP termina aqui! -->
 
         <!-- CLINICAL TRIALS entra aqui!-->
