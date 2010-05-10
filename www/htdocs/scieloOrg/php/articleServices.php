@@ -1,17 +1,12 @@
 <?php
-	ini_set("display_errors","1");
-	error_reporting(E_ALL ^E_NOTICE);
-	$tlang = isset($_REQUEST['tlang'])?($_REQUEST['tlang']):"";
-	$lang = isset($_REQUEST['lang'])?($_REQUEST['lang']):"";
-	$pid = isset($_REQUEST['pid'])?($_REQUEST['pid']):"";
-	$text = isset($_REQUEST['text'])?($_REQUEST['text']):"";
+  $tlang = isset($_REQUEST['tlang'])?($_REQUEST['tlang']):"";
+  $lang = isset($_REQUEST['lang'])?($_REQUEST['lang']):"";
+  $pid = isset($_REQUEST['pid'])?($_REQUEST['pid']):"";
+  $text = isset($_REQUEST['text'])?($_REQUEST['text']):"";
 
-	require_once(dirname(__FILE__)."/../../applications/scielo-org/users/langs.php");
-	//require_once(dirname(__FILE__)."/../../classDefFile.php");
-
-	//$transformer = new XSLTransformer();
-	$defFile = parse_ini_file(dirname(__FILE__)."/../../scielo.def.php");
-
+  require_once(dirname(__FILE__)."/../../applications/scielo-org/users/langs.php");
+  
+  $defFile = parse_ini_file(dirname(__FILE__)."/../../scielo.def.php");
 ?>
 
 <!DOCTYPE html
@@ -85,6 +80,7 @@
 			</div>
 		</div>
 			<?
+                                $defFile = parse_ini_file(dirname(__FILE__)."/../../scielo.def.php");
 				if($defFile['LOG']['ACTIVATE_LOG'] == '1') {
 			?>
 				<script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
