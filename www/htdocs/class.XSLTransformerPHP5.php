@@ -25,10 +25,10 @@ class XSLTransformerPHP5
       die ('No xslt support');
     }
 
-    $domXml = new DOMDocument();
+    $domXml = new DOMDocument("1.0", "ISO-8859-1");
     $domXml->loadXML(trim($xml));
 
-    $domXsl = new DOMDocument();
+    $domXsl = new DOMDocument("1.0", "ISO-8859-1");
     $domXsl->load($xsl);
 
     $this->processor->importStylesheet($domXsl);
@@ -40,7 +40,7 @@ class XSLTransformerPHP5
       trigger_error('XSL transformation failed.', E_USER_ERROR);
     }
 
-    return $result;
+    return xml_utf8_decode($result);
     
     }
 }
