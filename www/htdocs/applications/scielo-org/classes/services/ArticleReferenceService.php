@@ -27,32 +27,34 @@
 		Modifiquei sci_artref.xsl por causa dos parâmetros format e standard.
 		*/
 		function getReferenceByPid($server, $pid_or_arrayPid, $interfaceLang, $textLang, $textLink = false, $standard = 'iso-e', $format='short', $sep = '<br/>'){			
-			if (is_array($pid_or_arrayPid)){
-				foreach ($pid_or_arrayPid as $pid_item){
-					$textref .= $this->getReference($pid_item, $interfaceLang, $textLang, $textLink, $standard, $format).$sep;
-				}
-			} else {
-				$parameters = '&pid='.$pid_or_arrayPid.'&tlng='.$textLang.'&lng='.$interfaceLang.'&presentation=onlyref&format='.$format.'&standard='.$standard.'&textlink='.$textLink;
+                  if (is_array($pid_or_arrayPid)){
+                          foreach ($pid_or_arrayPid as $pid_item){
+                                  $textref .= $this->getReference($pid_item, $interfaceLang, $textLang, $textLink, $standard, $format).$sep;
+                          }
+                  } else {
+                          $parameters = '&pid='.$pid_or_arrayPid.'&tlng='.$textLang.'&lng='.$interfaceLang.'&presentation=onlyref&format='.$format.'&standard='.$standard.'&textlink='.$textLink;
 
-				if (!$textref) {
-					$call = $server.'/cgi-bin/wxis.exe/?IsisScript=ScieloXML/sci_isoref.xis&def=scielo.def.php&nrm=iso&sln=en&script=sci_isoref&PATH_TRANSLATED=../htdocs/'.$parameters;
+                          if (!$textref) {
+                                  $call = $server.'/cgi-bin/wxis.exe/?IsisScript=ScieloXML/sci_isoref.xis&def=scielo.def.php&nrm=iso&sln=en&script=sci_isoref&PATH_TRANSLATED=../htdocs/'.$parameters;
 
-					$xml = file_get_contents($call);
-					if ($xml) {
-						$pathXSL = substr($xml, strpos($xml, '<PATH_XSL>')+ strlen('<PATH_XSL>'));
-						$pathXSL = substr($pathXSL, 0, strpos($pathXSL, '</PATH_XSL>'));
+                                  $xml = file_get_contents($call);
+                                  if ($xml) {
+                                          $pathXSL = substr($xml, strpos($xml, '<PATH_XSL>')+ strlen('<PATH_XSL>'));
+                                          $pathXSL = substr($pathXSL, 0, strpos($pathXSL, '</PATH_XSL>'));
 
-						$this->transformer->setXslBaseUri($pathXSL);
-						$this->transformer->setXml($xml);
-						$this->transformer->setXslFile($server."/xsl/sci_isoref.xsl");
-						$this->transformer->transform();
+                                          $this->transformer->setXslBaseUri($pathXSL);
+                                          $this->transformer->setXml($xml);
+                                          $this->transformer->setXslFile($server."/xsl/sci_isoref.xsl");
+                                          $this->transformer->transform();
 
-						$textref = $this->transformer->getOutput()."<!-- fez corretamente -->";
-					}
-				}
+                                          $textref = $this->transformer->getOutput()."<!-- fez corretamente -->";
+                                  }
+                          }
 
-			}
-			return utf8_decode($textref);
+                  }
+
+                  //mb_detect_encoding($textref, "ISO-8859-1", "UTF-8");
+                  return $textref;
 		}
 		function getFormattedReference($article, $interfaceLang, $textLang, $textLink = false){			
 			switch ($interfaceLang){
