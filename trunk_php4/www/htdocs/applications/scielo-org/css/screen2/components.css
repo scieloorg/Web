@@ -1,0 +1,675 @@
+/*
+	This file describes all the components boxes styles, 
+	like "about this site", "search box", and etc.
+	
+	List of Replaced HTML itens:
+
+		H3 = box title area
+		H3 SPAN = box title text
+		H4 = box sub-title area
+		H4 SPAN = box sub-title text
+		UL = box list area
+		LI = box list item
+		A = box link
+*/
+
+/* Search Box Cascading Styles */
+
+
+#search, #searchGoogle {
+	background: #FBFAF9;
+	border: 1px solid #E2D1D0;
+}
+
+#search .searchItens {
+	width: 100%;
+	font-size: 95%;
+}
+
+#search H3, #searchGoogle H3 {
+	border: 0px;
+}
+
+#search H3 SPAN, #searchGoogle H3 SPAN  {
+	display: inline;
+	padding: 8px;
+}
+
+#search H3 SPAN A, #searchGoogle H3 SPAN A {
+	font-family: arial;
+	color: #333;
+	font-size: 90%;
+	font-weight: normal;
+}
+
+#search #indexes {
+	font-size: 90%;
+	color: #666;
+}
+
+#search #indexes A {
+	color: #666;
+	text-decoration: underline;
+}
+
+
+
+
+/* Generic DIVs  */
+
+.generic, .webServices, .level2 .webServices {
+	background: #FBFAF9;
+	border: 1px solid #FBFAF9;
+}
+
+.generic H3, .webServices H3, .level2 .webServices H3 {
+	background: #F1F3EE;
+	color: #BC0812;
+}
+
+.generic H3 SPAN, .webServices H3 SPAN, .level2 .webServices H3 SPAN {
+	padding: 3px 3px 3px 12px;
+}
+/*
+.generic DIV UL, .webServices DIV UL, .level2 .webServices DIV UL {
+	margin: 0px;
+	padding-bottom: 0px;
+}
+*/
+/* centerLeftColumn Generic DIVs  */
+
+.secondColumn #RSS, .thirdColumn #RSS {
+	background: #FBFAF9;
+	border: 1px solid #FBFAF9;
+}
+
+.secondColumn #RSS H3, .thirdColumn #RSS H3 {
+	background: #F1F3EE;
+	color: #BC0812;
+	padding: 4px;
+	padding-left: 12px;
+
+}
+/*
+.secondColumn #RSS UL, .thirdColumn #RSS UL {
+	font-size: 90%;
+	color: #333;
+}
+*/
+/* Information sources Boxes Styles */
+
+#collection H3 {
+
+}
+
+#collection H3 SPAN {
+
+}
+
+#collection UL {
+	padding: 0px;
+	margin-left: 10px;
+}
+
+#collection UL UL {
+	margin: 0px;
+	margin-left: 5px;
+}
+
+#collection LI {
+	list-style: none;
+	margin: 0px;
+	margin-left: 0px;
+}
+
+#collection LI LI {
+	margin-bottom: 3px;
+}
+
+#collection LI A {
+	font-weight: bold;
+	text-decoration: none;
+}
+
+#collection LI LI A {
+	font-weight: normal;
+}
+
+#collection LI A:hover {
+	color: #803E12;
+	text-decoration: underline;
+}
+
+/* Community Boxes Styles */
+#community H3 {
+	border-color: #C29999;
+}
+
+#community H3 SPAN {
+	border-color: #E3C65F;
+}
+
+#community UL {
+	padding: 0px;
+	margin-left: 15px;
+}
+
+#community LI {
+	list-style: none;
+	margin-bottom: 5px;
+}
+
+#community LI LI {
+	font-weight: normal;
+}
+
+#community LI A {
+	font-weight: bold;
+	text-decoration: none;
+}
+
+#community LI LI A {
+	font-weight: normal;
+}
+
+#community LI A:hover {
+	color: #803E12;
+	text-decoration: underline;
+}
+
+/* Decs Topics Boxes Styles */
+.level2 #decs {
+	width: 49.1%;
+	float: left;
+	margin-right: .3em;
+}
+
+#decs H3 {
+	border-color: #F3DE92;
+}
+
+#decs H3 SPAN {
+	border-color: #F3BE00;
+}
+
+#decs H4 SPAN {
+	margin-left: 20px;
+	font-size: 10px;
+}
+
+#decs UL {
+	padding: 0px;
+	margin: 5px 10px 0px 21px;
+}
+
+.level2 #decs UL {
+	margin-left: 35px;
+}
+
+#decs UL LI {
+	margin-bottom: 5px;		
+	text-transform: lowercase;
+}
+
+.level2 #decs UL LI {
+	text-transform: none;
+}
+
+#decs LI A {	
+	text-decoration: none;
+}
+
+#decs LI A:hover {	
+	color: #803E12;
+	text-decoration: underline;
+}
+
+#decs H4 SPAN {
+	margin-left: 20px;
+	font-size: 10px;
+}
+
+#decs #help {		
+	background: white;
+	margin: 20px;
+	padding: 5px;
+	border: 1px dashed #CCC;
+}
+
+#decs #help OL {	
+
+}
+
+#decs #details {
+	clear: both;
+	width: 100%;
+	line-height: 150%;
+	border-bottom: 1px solid #C4DCDC;
+	margin-bottom: 10px;
+}
+
+#decs #details .label {
+	vertical-align: top;
+	width: 15%;
+	text-align: right;
+}
+
+#decs #details .area {
+	width: 84%;
+	font-weight: bold;
+}
+
+#decs #details .area #subheading {
+	font-weight: normal;
+}
+
+#decs #details .area #subheading A {
+	text-decoration: none;
+}
+
+#decs #details .area #subheading A:hover {
+	text-decoration: underline;
+}
+
+#decs #details #subheading {
+	display: block;
+	width: 49%;
+	float: left;
+}
+
+/* Warning Box Styles */
+#warnings H3 {
+	border-color: #E59696;
+}
+
+#warnings H3 SPAN {
+	border-color: red;
+}
+
+#warnings UL {
+	padding: 0px;
+	margin: 5px 10px 10px 15px;
+}
+
+#warnings LI {
+	list-style: none;
+}
+
+/* About BVS Box Styles */
+#about H3 {
+	border-color: #C29999;
+}
+
+#about H3 SPAN {
+	border-color: #F47B20;
+}
+
+#about UL {
+	margin: 0px 15px 0px 15px;
+	padding: 0px;
+}
+
+#about LI {
+	border-bottom: 1px solid #BEE0E0;
+	list-style: none;
+	padding: 3px;
+}
+
+.level2 #about LI {
+	border-bottom: 0px;
+}
+
+#about LI A {
+	text-decoration: none;
+}
+
+#about LI A:hover {
+	text-decoration: underline;
+}
+
+/* Highlights Box Styles */
+
+#calls {
+	background: #FBFAF9;
+	border: 1px solid #E2D1D0;
+}
+
+#calls H3 {
+	background: #F1F3EE;
+	color: #BC0812;
+}
+
+#calls H3 SPAN {
+	padding: 3px 3px 3px 12px;
+}
+
+#calls DIV {
+	padding: 8px;
+}
+
+#calls DIV UL {
+	margin: 0px;
+}
+
+
+/*
+#calls H3 {
+	border-color: #C29999;
+}
+
+#calls H3 SPAN {
+	border-color: #DF5917;
+}
+
+#calls LI {
+	clear: both;
+	width: 100%;
+	list-style: none;
+	margin-bottom: 10px;
+}
+
+#calls LI A {
+	float: left;
+	margin-right: 5px;
+	text-decoration: none;
+}
+
+#calls LI A:hover {
+	text-decoration: underline;
+}
+*/
+HTML>BODY #calls LI A { /* Mozilla exclusive definitions */
+	float: none;
+}
+
+HTML>BODY #calls LI IMG { /* Mozilla exclusive definitions */
+	float: left;
+	margin-right: 5px;
+}
+
+#calls A:hover {
+
+}
+
+/* Related Portals Box Styles */
+#portal {
+	
+}
+
+#portal H3 {
+
+}
+
+#portal H3 SPAN {
+
+}
+
+#portal UL {
+	padding: 0px;
+	margin-left: 20px;
+}
+
+#portal UL UL {
+	margin-left: 0px;
+}
+
+#portal UL UL UL {
+	margin-left: 10px;
+}
+
+#portal LI {
+	font-weight: bold;
+}
+
+#portal LI LI {
+	list-style: none;
+	margin-bottom: 3px;
+	font-weight: normal;
+}
+
+/* RSS Newsfeed Boxes Styles */
+#RSS H3 {
+	border-color: CCCA25;
+}
+
+#RSS H3 SPAN {
+	border-color: #CCCA25;
+}
+
+#RSS UL {
+	padding-bottom: 0px;
+}
+
+#RSS LI {
+	list-style: none;
+	margin-bottom: 10px;
+}
+
+#RSS LI A {
+	text-decoration: none;
+}
+
+#RSS LI A:hover {
+	text-decoration: underline;
+}
+
+
+/* webServices DIVs definitions*/
+
+.network UL {
+	padding: 0px;
+	margin: 10px 0px 0px 5px;
+}
+
+.network UL UL {
+	margin: 3px 0px 5px 15px;
+}
+
+.network UL UL UL {
+	margin: 0px 0px 0px 10px;
+}
+
+.network LI {
+	list-style: none;
+	font-weight: bold;
+	margin: 5px 0px 7px 0px;
+}
+
+.network LI LI {
+	font-size: 97%;
+	margin-bottom: 3px;
+	font-weight: normal;
+}
+
+.network LI A {
+	text-decoration: none;
+}
+
+.network LI A:hover {
+	text-decoration: underline;
+}
+
+.network LI IMG {
+	margin-right: 4px !important;
+}
+
+A.closed {
+	padding-left: 24px;
+	background: url(../../image/common/arrowClosed.gif) top left no-repeat;
+}
+
+A.opened {
+	padding-left: 24px;
+	background: url(../../image/common/arrowOpened.gif) top left no-repeat;
+}
+
+.indicators {
+	padding: 0px !important;
+	margin: 0px !important;
+}
+
+.indicators LI {
+	font-size: 85%;
+}
+
+.journals LI LI A {
+	text-decoration: underline;
+}
+
+.journals LI UL {
+	margin-left: 0px;
+}
+
+.journals FORM {
+	margin: 5px 0px 10px 0px;
+}
+
+.journals INPUT.expression {
+	width: 90px;
+	font-size: 85%;
+	background: #EFEFEF;
+}
+
+.login {
+	padding: 15px 5px 5px 5px;
+	font-size: 85%;
+}
+
+.login TH {
+	text-align: left;
+	color: #444;
+}
+
+.login TH, .login TD {
+	padding: 2px;
+}
+
+.login INPUT.expression {
+	font-size: 85%;
+	background: #EFEFEF;
+}
+
+.login STRONG {
+	color: #BC0812;
+}
+
+.login INPUT.submit {
+	font-size: 100%;
+}
+
+.userInfo {
+	font-size: 85%;
+	margin: 10px 0px 0px 0px;
+}
+
+.userInfo SPAN {
+	background: url(../../image/common/user.gif) no-repeat;
+	padding: 3px 0px 3px 17px;
+}
+
+.userInfo A {
+	text-decoration: underline;
+}
+
+.alerts STRONG {
+	color: #BC0812;
+}
+
+.registeredUser UL UL {
+	padding-bottom: 0px;
+	margin-bottom: 0px;
+}
+
+/* generic Elements */
+.lengthData {
+	color: #777 !important;
+	font-size: 90% !important;
+	margin-left: 5px !important;
+	white-space: nowrap !important;
+}
+
+.lengthData STRONG {
+	color: #BC0812 !important;
+}
+
+.level2 H3 .lengthData {
+	font-size: 70% !important;
+	display: inline !important;
+	font-weight: normal !important;
+}
+
+.letters A {
+	font-family: Lucida Console, Courier New, Courier;
+	padding: 0px 5px 0px 5px;
+}
+
+.letters A:hover {
+	background: #DDD;
+}
+
+.level2 .letters {
+	margin-left: 18px;
+}
+
+.level2 #collection {
+	width: 72%;
+}
+
+.level2 #sortedBy {
+	width: 77%;	
+}
+
+.level2 .webServices {
+	float: right;
+	width: 25%;
+	clear: both;
+}
+
+.level2 .webServices DIV UL {
+	margin: 0px;
+	margin-top: 10px;
+	padding: 0px 0px 0px 10px;
+}
+
+.level2 .alertList LI {
+	list-style: url(../../image/common/citedBy.gif) !important;
+	margin: 18px 0px 0px 0px !important;
+}
+
+.level2 .articleList LI {
+	list-style: square !important;
+	margin: 18px 0px 0px 0px !important;
+}
+
+.level2 .alertList H5 {
+	color: #BC0812;
+}
+
+.level2 .articleList LI A {
+	color: #000;
+}
+
+.level2 UL.citedBy {
+	margin: 0px 0px 0px 30px !important;
+}
+
+.level2 .alertList UL.citedBy LI {
+	list-style: url(../../image/common/citation.gif) !important;
+}
+
+.level2 UL.citedBy A {
+	font-weight: bold !important;
+}
+
+.level2 UL#history {
+	margin: 5px 0px 0px 15px;
+}
+
+.level2 .pages {
+	text-align: right;
+	font-size: 85%;
+}
+
+.level2 .pages A {
+	color: #666;
+}

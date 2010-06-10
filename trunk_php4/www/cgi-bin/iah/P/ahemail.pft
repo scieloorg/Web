@@ -1,0 +1,26 @@
+,if v1 = 'SEND' then,
+	,@AHHEAD.PFT,
+	'
+	<table width="600" border="0">
+	<tr>
+		<td width="100">&nbsp;</td>
+		<td>
+			<font face="Verdana" size="2">Resultado enviado para: <b>'v6213'</b></font>
+			<br><br>
+			<font face="verdana" size="1">[ <a href="javascript:history.go(-2)">Retorna</a> ]</font>
+			
+		</td>
+	</tr>
+	</table>
+	
+	</body>
+	</html>
+	'		
+,fi,
+
+,if v1 = 'OPEN' then,
+	'From: online@brm.bireme.br'/
+	'To: ',replace(v6213,'@bireme.br','@brm.bireme.br')/
+	'Subject: Resultado'/
+    'Mime-Version: 1.0'/'Content-Type: text/html'/
+,fi,

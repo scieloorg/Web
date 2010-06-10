@@ -1,0 +1,175 @@
+/* 
+	This file describes general styles all over the site,
+	like "top banner", "footer", and general styles about the component boxes.
+*/
+.container {
+	background: url(../../image/public/skins/scielo/common/containerBackground.gif) repeat-y;
+}
+
+.copyright {
+	background: url(../../image/public/skins/scielo/common/copyrightBackground.gif) bottom left repeat-y;
+}
+
+
+/* Page Body Styles */
+.top {
+	border-top: 7px solid #990000;
+}
+
+.top #parent {
+	text-align: center;
+}
+
+.top #identification {
+	
+}
+
+.top #identification H1 {
+	color: white;
+	font-size: 180%;
+}
+
+.top #institutionList {
+	text-align: right;
+}
+
+.top #institutionList LI {
+	list-style: none;
+	font-size: 90%;
+}
+
+HTML>BODY .top #institutionList LI {
+	font-size: 85%;
+}
+
+.top #institutionList LI A {
+	text-decoration: none;
+	color: #FFF;
+}
+
+
+.bar {
+	text-align: right;
+	font-weight: bold;
+	font-size: 75%;
+}
+
+.bar, .bar A {
+	color: #5C5C5C;
+}
+
+.bar #contact A {
+	background: url(../../image/public/skins/classic/common/bt_contact.jpg) no-repeat;
+}
+
+.bottom #footNotes {
+
+}
+
+.bottom #footNotes {
+	font-size: 85%;
+}
+
+.bottom #footNotes, .bottom #footNotes A {
+	color: #990000;
+}
+
+.middle {
+
+}
+
+/* Cascading definitions #Start */
+.firstColumn DIV, .secondColumn .centerLeftColumn DIV, .secondColumn .centerRightColumn DIV, .thirdColumn DIV, #search, #searchGoogle, .level2 .middle DIV {
+
+}
+
+.thirdColumn DIV {
+	margin-top: 6px;
+}
+
+.firstColumn DIV H3, .secondColumn DIV H3, .thirdColumn DIV H3, #search H3, #searchGoogle H3, .level2 .middle DIV H3 {
+	border-bottom: 1px solid #C29999;
+}
+
+.firstColumn DIV H3 SPAN, .secondColumn DIV H3 SPAN, .thirdColumn DIV H3 SPAN, #search H3 SPAN, #searchGoogle H3 SPAN, .level2 .middle DIV H3 SPAN {
+	color: #BC0812;
+
+}
+
+html>body .firstColumn DIV H3 SPAN, html>body .secondColumn DIV H3 SPAN, html>body .thirdColumn DIV H3 SPAN, html>body #search H3 SPAN, html>body #searchGoogle H3 SPAN, html>body .level2 .middle DIV H3 SPAN {
+	font-size: 75%;
+}
+
+/* Cascading definitions #End */
+
+
+/* Second pages Styles */
+
+.level2 #breadCrumb {
+	font-size: 90%;
+}
+
+.level2 .middle {
+	background: none;
+}
+
+.level2 .middle #contact A {
+	background: none;
+}
+
+.level2 H4 {
+	border-bottom: 1px solid #ccc;
+	font-size: 95%;
+	color: #333;
+}
+
+.level2 .content H3 {
+	border: none !important;
+}
+
+.level2 #search UL LI {
+	list-style: none;
+}
+
+.level2 #search LI {
+	font-weight: bold;
+	list-style: none;
+}
+
+.level2 #search LI LI {
+	font-weight: normal;
+}
+
+
+/* MetaIAH Pop-up styles */
+#popUp {
+	background: #EEF1F1;
+}
+
+#popUp TD {
+	font-size: 80%;
+}
+
+#popUp .bottom {
+	border-top: 1px solid #CCC;
+}
+
+.copyright {
+	font-size: 65%;
+	text-align: right;
+	color: #777;
+}
+
+/* General Styles */
+.expression { 	/* = input to write a search expression */
+	background: white;
+}
+
+.submit {
+	background: #CCC5BB url(../../image/public/skins/classic/common/search.gif) ;
+	border-top: 1px solid #CCC5BB;
+	border-left: 1px solid #CCC5BB;
+	border-right: 1px solid #7D7668;
+	border-bottom: 1px solid #7D7668;
+	color: #000000;
+}

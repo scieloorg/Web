@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<root>
+    <labels lang="pt">
+		<general>
+			<journal>Periódico</journal>
+			<journals>Periódicos</journals>
+
+			<title>Título</title>
+			<titles>Títulos</titles>
+			
+			<issue>Fascículo</issue>
+			<issues>Fascículos</issues>
+			
+			<article>Artigo</article>
+			<articles>Artigos</articles>
+
+			<citation>Citação</citation>
+			<citations>Citações</citations>
+			
+			<usage>Uso do site</usage>
+			<co-authors>Co-autoria</co-authors>
+
+			<lastUpdate>Última atualização</lastUpdate>
+
+			<searchFormTitle>Pesquisa periódicos</searchFormTitle>
+			<searchFormSubTitle> </searchFormSubTitle>
+			<submitSearchButton>pesquisar</submitSearchButton>
+			<date>
+				<format>dmy</format>
+				<separator>/</separator>
+				<months>
+					<month name="jan" value="01"/>
+					<month name="fev" value="02"/>
+					<month name="mar" value="03"/>
+					<month name="abr" value="04"/>
+					<month name="mai" value="05"/>
+					<month name="Jun" value="06"/>
+					<month name="jul" value="07"/>
+					<month name="ago" value="08"/>
+					<month name="set" value="09"/>
+					<month name="out" value="10"/>
+					<month name="nov" value="11"/>
+					<month name="dez" value="12"/>
+				</months>
+			</date>
+
+			<subjectListName>
+					<subject name="Exact and Earth Sciences">
+							<title>Ciências Exatas e da Terra</title>
+					</subject>
+
+					<subject name="Biological Sciences">
+							<title>Ciências Biológicas</title>
+					</subject>
+
+					<subject name="Engeneering">
+							<title>Engenharias</title>
+					</subject>
+
+					<subject name="Health Sciences">
+							<title>Ciências da Saúde</title>
+					</subject>
+
+					<subject name="Agricultural Sciences">
+							<title>Ciências Agrárias</title>
+					</subject>
+
+					<subject name="Applied Social Sciences">
+							<title>Ciências Sociais Aplicadas</title>
+					</subject>
+
+					<subject name="Human Sciences">
+							<title>Ciências Humanas</title>
+					</subject>
+
+					<subject name="Linguistics, Letters and Arts">
+							<title>Lingüística, Letras e Artes</title>
+					</subject>
+
+					<subject name="Others">
+							<title>Outras</title>
+					</subject>
+			</subjectListName>
+
+		</general>
+
+        <journalAlphabeticList>
+			<title>Por ordem alfabética</title>
+		</journalAlphabeticList>
+
+		<collectionList>
+			<title>Por coleção</title>
+		</collectionList>
+
+        <subjectList>
+            <title>Por assunto</title>
+        </subjectList>
+							
+		<publisherAlphabeticList>
+			<title>Por publicador</title>
+		</publisherAlphabeticList>
+		<reports>Relatórios</reports>
+		<metaSearch>	
+			<index>Índices</index>
+			<method>método</method>
+			<by_word>por palavra</by_word>
+			<lexical_proximity>proximidade léxica</lexical_proximity>
+			<google_scholar>Google Acadêmico</google_scholar>
+			<similarity>relevância</similarity>
+			<where>Coleção</where>
+		</metaSearch>					
+    </labels>
+
+    <labels lang="es">
+		<general>
+			<journal>Periódico</journal>
+			<journals>Periódicos</journals>
+			<title>Título</title>
+			<titles>Títulos</titles>
+			<issue>Fascículo</issue>
+			<issues>Fascículos</issues>
+			<lastUpdate>Última atualização</lastUpdate>
+
+			<article>Artículo</article>
+			<articles>Artículos</articles>
+
+			<citation>Citación</citation>
+			<citations>Citaciones</citations>
+			
+			<usage>Uso del sitio</usage>
+			<co-authors>Co-autoria</co-authors>
+			
+			<searchFormTitle>Búsqueda por Periódicos</searchFormTitle>
+			<searchFormSubTitle> </searchFormSubTitle>
+			<submitSearchButton>buscar</submitSearchButton>
+
+			<date>
+				<format>dmy</format>
+				<separator>/</separator>
+				<months>
+					<month name="ene" value="01"/>
+					<month name="feb" value="02"/>
+					<month name="mar" value="03"/>
+					<month name="abr" value="04"/>
+					<month name="may" value="05"/>
+					<month name="jun" value="06"/>
+					<month name="jul" value="07"/>
+					<month name="ago" value="08"/>
+					<month name="sep" value="09"/>
+					<month name="oct" value="10"/>
+					<month name="nov" value="11"/>
+					<month name="dic" value="12"/>
+				</months>
+			</date>
+			
+			<subjectListName>
+					<subject name="Exact and Earth Sciences">
+							<title>Ciências Exatas e da Terra</title>
+					</subject>
+
+					<subject name="Biological Sciences">
+							<title>Ciências Biológicas</title>
+					</subject>
+
+					<subject name="Engeneering">
+							<title>Engenharias</title>
+					</subject>
+
+					<subject name="Health Sciences">
+							<title>Ciências da Saúde</title>
+					</subject>
+
+					<subject name="Agricultural Sciences">
+							<title>Ciências Agrárias</title>
+					</subject>
+
+					<subject name="Applied Social Sciences">
+							<title>Ciencias Sociales Aplicadas</title>
+					</subject>
+
+					<subject name="Human Sciences">
+							<title>Ciências Humanas</title>
+					</subject>
+
+					<subject name="Linguistics, Letters and Arts">
+							<title>Lingüística, Letras e Artes</title>
+					</subject>
+
+					<subject name="Others">
+							<title>Outras</title>
+					</subject>
+			</subjectListName>
+		
+		</general>
+
+		<journalAlphabeticList>
+			<title>Por ordem alfabética</title>
+		</journalAlphabeticList>
+		
+		<collectionList>
+			<title>Por coleção</title>
+		</collectionList>
+
+        <subjectList>
+            <title>Por assunto</title>
+        </subjectList>
+		
+		<publisherAlphabeticList>
+			<title>Por publicador</title>
+		</publisherAlphabeticList>
+		
+				<reports>Informes</reports>
+		<metaSearch>	
+			<index>Índices</index>
+			<method>método</method>
+			<by_word>por palabra</by_word>
+			<lexical_proximity>proximidade léxica</lexical_proximity>
+			<google_scholar>Google Académico</google_scholar>
+			<similarity>releváncia</similarity>
+			<where>Colección</where>
+		</metaSearch>	
+    </labels>
+				
+    <labels lang="en">
+		<general>
+			<journal>Journal</journal>
+			<journals>Journals</journals>
+			<title>Title</title>
+			<titles>Titles</titles>
+			<issue>Issue</issue>
+			<issues>Issues</issues>
+
+			<article>Article</article>
+			<articles>Articles</articles>
+
+			<citation>Citation</citation>
+			<citations>Citations</citations>
+			
+			<usage>Site usage</usage>
+			<co-authors>Co-authors</co-authors>
+
+			<searchFormTitle>Search by journals</searchFormTitle>
+			<searchFormSubTitle> </searchFormSubTitle>
+			<submitSearchButton>search</submitSearchButton>
+
+			<lastUpdate>Last Update</lastUpdate>
+			<date>
+				<format>mdy</format>
+				<separator>-</separator>
+				<months>
+					<month name="jan" value="01"/>
+					<month name="feb" value="02"/>
+					<month name="mar" value="03"/>
+					<month name="apr" value="04"/>
+					<month name="may" value="05"/>
+					<month name="jun" value="06"/>
+					<month name="jul" value="07"/>
+					<month name="aug" value="08"/>
+					<month name="sep" value="09"/>
+					<month name="oct" value="10"/>
+					<month name="nov" value="11"/>
+					<month name="dec" value="12"/>
+				</months>
+			</date>
+			<subjectListName>
+					<subject name="Exact and Earth Sciences">
+							<title>Exact and Earth Sciences</title>
+					</subject>
+
+					<subject name="Biological Sciences">
+							<title>Biological Sciences</title>
+					</subject>
+
+					<subject name="Engeneering">
+							<title>Engeneering"</title>
+					</subject>
+
+					<subject name="Health Sciences">
+							<title>Health Sciences</title>
+					</subject>
+
+					<subject name="Agricultural Sciences">
+							<title>Agricultural Sciences</title>
+					</subject>
+
+					<subject name="Applied Social Sciences">
+							<title>Applied Social Sciences</title>
+					</subject>
+
+					<subject name="Human Sciences">
+							<title>Human Sciences</title>
+					</subject>
+
+					<subject name="Linguistics, Letters and Arts">
+							<title>Linguistics, Letters and Arts</title>
+					</subject>
+
+					<subject name="Others">
+							<title>Others</title>
+					</subject>
+			</subjectListName>
+		</general>
+
+		<journalAlphabeticList>
+			<title>By alphabetic list</title>
+		</journalAlphabeticList>
+		
+		<collectionList>
+			<title>By collection</title>
+		</collectionList>
+
+        <subjectList>
+            <title>By subject</title>
+        </subjectList>
+		
+		<publisherAlphabeticList>
+			<title>By publisher</title>
+		</publisherAlphabeticList>
+				<reports>Reports</reports>
+		<metaSearch>	
+			<index>Indexes</index>
+			<method>method</method>
+			<by_word>by word</by_word>
+			<lexical_proximity>proximity vocabulary</lexical_proximity>
+			<google_scholar>Google Scholar</google_scholar>
+			<similarity>similarity</similarity>
+			<where>Collection</where>
+		</metaSearch>			
+     </labels>
+				
+</root>

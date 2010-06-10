@@ -1,0 +1,1 @@
+c:\home\scielo\www\proc\lilacs_scielo\tools\renamePDF.bat v v:\scielo\serial\mioc\ c:\home\scielo\www\proc\temp\pdf.txt c:\home\scielo\www\proc\cisis\mx c:\home\scielo\www\proc\lilacs_scielo\tools\ c:\home\scielo\www\proc\temp 

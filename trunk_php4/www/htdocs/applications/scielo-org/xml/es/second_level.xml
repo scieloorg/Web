@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<texts>
+	<text>
+		<find>alphabeticSort</find>
+		<replace>orden alfabética</replace>
+	</text>
+	<text>
+		<find>collection</find>
+		<replace>colección</replace>
+	</text>
+	<text>
+		<find>home</find>
+		<replace>página inicial</replace>
+	</text>
+	<text>
+		<find>issues</find>
+		<replace>fascículo (s)</replace>
+	</text>
+	<text>
+		<find>journals</find>
+		<replace>periódico(s)</replace>
+	</text>
+	<text>
+		<find>journal</find>
+		<replace>periódico</replace>
+	</text>
+	<text>
+		<find>journal-by-subject</find>
+		<replace>Periódicos por tema</replace>
+	</text>
+	<text>
+		<find>lastIssuesByAlphabetic</find>
+		<replace>Últimos fascículos en orden alfabética</replace>
+	</text>
+	<text>
+		<find>lastIssuesByCollection</find>
+		<replace>Últimos fascículos por colección</replace>
+	</text>
+	<text>
+		<find>lastIssuesBySubject</find>
+		<replace>Últimos fascículos por tema</replace>
+	</text>
+	<text>
+		<find>lastJournalsByAlphabetic</find>
+		<replace>Últimos periódicos en orden alfabética</replace>
+	</text>
+	<text>
+		<find>journalsByAlphabetic</find>
+		<replace>Periódicos por ordem alfabética</replace>
+	</text>	
+	<text>
+		<find>lastJournalsByCollection</find>
+		<replace>Últimos periódicos por colección</replace>
+	</text>
+	<text>
+		<find>lastJournalsBySubject</find>
+		<replace>Últimos periódicos por tema</replace>
+	</text>
+	<text>
+		<find>previewBy</find>
+		<replace>Visualizar la lista por:</replace>
+	</text>
+	<text>
+		<find>sortedBy</find>
+		<replace>ordenado por:</replace>
+	</text>
+	<text>
+		<find>subject</find>
+		<replace>tema</replace>
+	</text>
+	<text>
+		<find>journalsBySubjectSortedByCollection</find>
+		<replace>Periódicos  REPLACE_SUBJECT por colección </replace>
+	</text>
+	<text>
+		<find>journalsBySubjectSortedByLetter</find>
+		<replace>Periódicos REPLACE_SUBJECT en orden alfabética</replace>
+	</text>
+	<text>
+		<find>all</find>
+		<replace>todos</replace>
+	</text>
+	<text>
+		<find>allSubjects</find>
+		<replace>todos los temas</replace>
+	</text>
+</texts>

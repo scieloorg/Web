@@ -1,0 +1,31 @@
+'Content-type: text/html'/#
+'
+<html>
+<head>
+	<title>iAH Search interface ',v5000^v,
+		select s(mpu,v5001^s,mpl)			
+		    case 'SEARCH' 	: ' - Results of the search &lt;page  ',v6205^c[1],'&gt;'
+			case 'INDEX' 	: ' - Index 'v6100^i,			
+			case 'CONFIG'	: ' - Configuration',
+			case 'LIST'		: ' - List',
+			case 'SCAD'		: ' - Photocopy request',			 
+		endsel
+'
+	</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link rel="STYLESHEET" type="text/css" href="/css/scielo.css">
+<script language="javascript" src="/article.js">
+</script>
+</head>
+<body bgcolor="'v5006^c'" text="'v5006^t'" link="'v5006^l'" vlink="'v5006^l'">
+			<!--div class="scielo10bar">
+				<div>
+				<ul>
+					<li><a href="http://www.eventos.bvsalud.org/scielo10/?lang=en" border="0"><img src="/img/scielo.gif"/></a></li>
+					<li><a href="http://www.eventos.bvsalud.org/scielo10/?lang=en">SciELO 10 years</a></li>
+					<li><a href="http://www2.scielo.org/?lang=en">Access the new SciELO Network Portal</a></li>
+				</ul>
+				</div>
+			</div-->
+'
+,@HEADER.IAH,

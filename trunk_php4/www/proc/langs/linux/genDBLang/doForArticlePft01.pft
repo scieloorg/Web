@@ -1,0 +1,25 @@
+ '`d*'
+ 'a880{',v880,'{'
+ 'a71{',v71,'{'
+ 'a702{',v702,'{'
+
+/* posicao apos serial */
+ proc('d7001a7001{',f(instr(s(mpu,v702,mpl),'\SERIAL\')+size('\serial\'),1,0),'{')
+
+/* substr apos \serial\ (acron em diante) */
+   proc('d5000a5000{',mid(v702,val(v7001),size(v702)),'{')
+/* posicao de / seguinte a \serial\ */
+   proc('d7002a7002{',f(instr(v5000,'\'),1,0),'{')
+
+/* substr apos \serial\*\ (issueid em diante) */
+   proc('d5001a5001{',mid(v5000,val(v7002)+1,size(v702)),'{')
+/* posicao de / seguinte a \serial\*\ */
+   proc('d7003a7003{',f(instr(v5001,'\'),1,0),'{')
+
+ 
+ /* valor entre serial e markup ou seja acronimo e issueid  */
+ 'a900{',replace(mid(v5000,1, val(v7002) + val(v7003) - 1),'\',''),'{'
+ 'a40{',v40,'{'
+ ('a12{',v12^l,'{')
+ ('a83{',v83^l,'{')
+ 'a91{',date,'{` '

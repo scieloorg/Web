@@ -1,0 +1,149 @@
+.top {
+	height: 110px;
+}
+
+.top .scielologo_pt {
+	background: url(../img/pt/fbpelogp.gif) no-repeat;
+}
+.top .scielologo_en {
+	background: url(../img/en/fbpelogp.gif) no-repeat;
+}
+.top .scielologo_es {
+	background: url(../img/es/fbpelogp.gif) no-repeat;
+}
+
+.top H1 SPAN {
+	display: none;
+}
+
+.top .bar #contact {
+	background: url(../img/common/btn_contact.gif) no-repeat right;
+}
+
+.top #globalNav H2 {
+	display: none;
+}
+
+.top #globalNav .navButton {
+	border-top: 3px solid #5AA5BD;
+	border-right: 3px solid #003952;
+	border-bottom: 3px solid #003952;
+	border-left: 3px solid #5AA5BD;
+	background: #006B94;
+}
+.top #globalNav .navButtonDisable {
+	border-top: 3px solid #5AA5BD;
+	border-right: 3px solid #003952;
+	border-bottom: 3px solid #003952;
+	border-left: 3px solid #5AA5BD;
+	background: #606060;
+}
+
+.top #globalNav .pressed {
+	border-top: 3px solid #989898;
+	border-right: 3px solid #333;
+	border-bottom: 3px solid #333;
+	border-left: 3px solid #989898;
+	background: #606060;
+}
+
+.top #globalNav .navButton A {
+	color: #FFF;
+	font-family: trebuchet ms;
+	font-weight: bold;
+	font-size: 100%;
+}
+.top #globalNav .navButtonDisable A {
+	color: #FFF;
+	font-family: trebuchet ms;
+	font-weight: bold;
+	font-size: 100%;
+}
+
+.top #globalNav .navlabel {
+	border: 1px solid #666;
+	border-bottom: none;
+}
+
+.top #globalNav .navlabel SPAN {
+	background: #FFF;
+	font-size: 90%;
+	color: #666;
+}
+
+.middle .mainContent {
+	border-left: 1px solid #CCC;
+	border-right: 1px solid #CCC;
+}
+
+.middle .leftCol LI {
+	list-style: none;
+	background: url(../img/common/pointer.gif) no-repeat 0px 4px;
+}
+
+.middle .leftCol LI#btn_submission {
+	background: none;
+}
+
+.middle .leftCol LI#btn_submission A {
+	background: url(../img/pt/btn_submission.gif) no-repeat;
+}
+
+.middle .leftCol LI#btn_submission SPAN {
+	display: none;
+}
+
+.middle H2 {
+	font-size: 120%;
+	color: #C00;
+}
+
+.middle .mainContent .search .defaultValue {
+	color: #999999;
+	font-style: italic;
+}
+
+.middle .mainContent .search .expression {
+	border:1px solid #999999;	
+}
+
+.middle .mainContent .search .submit {
+	border-top: 2px solid #5AA5BD;
+	border-right: 2px solid #003952;
+	border-bottom: 2px solid #003952;
+	border-left: 2px solid #5AA5BD;
+	background: #006B94;
+	color: #FFF;
+}
+
+.middle .mainContent .journalInfo SMALL {
+	color: #C00;
+	font-weight: bold;
+}
+
+.middle .mainContent .journalInfo .issn {
+	font-size: 80%;
+}
+
+.middle .rightCol UL.pressReleases LI A {
+	color: #666;
+	font-size: 90%;
+}
+
+.middle .rightCol UL.pressReleases LI SPAN {
+	font-size: 90%;
+	font-weight: bold;
+	font-style: italic;
+}
+
+.middle .rightCol UL.pressReleases LI A:hover {
+	color: #333;
+}
+
+.footer {
+	border-top: 1px solid #ccc;
+}
+
+.footer P {
+	font-size: 100% !important;
+}
