@@ -14,15 +14,16 @@
 		<xsl:variable name="show_datasus" select="//varScieloOrg/show_datasus" />
 		<xsl:variable name="services_comments" select="//varScieloOrg/services_comments" />
 		<xsl:variable name="show_article_wltranslation" select="//varScieloOrg/show_article_wltranslation" />
-        <xsl:variable name="show_semantic_hl" select="//varScieloOrg/show_semantic_hl" />
+                <xsl:variable name="show_semantic_hl" select="//varScieloOrg/show_semantic_hl" />
 		<xsl:variable name="acron" select="//SIGLUM" />
 		<xsl:variable name="commentCount" select="//commentCount" />
 		<!--xsl:variable name="current_issn" select="//ARTICLE/ISSUEINFO/ISSN"/-->
 		<xsl:variable name="current_issn" select="//SERIAL/ISSN_AS_ID"/>
 		<xsl:variable name="allow_comments" select="document('../xml/allow_comment.xml')/COMMENT/ISSN[text() = $current_issn ]"/>
 		<xsl:variable name="title_subjects" select="//TITLEGROUP/SUBJECT"/>
-		<xsl:variable name="show_fapesp_projects" select="//varScieloOrg/show_fapesp_projects" />        
+		<xsl:variable name="show_fapesp_projects" select="//varScieloOrg/show_fapesp_projects" />
 		<xsl:variable name="show_clinical_trials" select="//varScieloOrg/show_clinical_trials"/>
+                <xsl:variable name="url_login" select="//varScieloOrg/url_login"/>
 
 		<div id="toolBox">
 			<h2 id="toolsSection">
@@ -50,25 +51,26 @@
 					<xsl:choose>
 						<xsl:when test="normalize-space(//USERINFO/@status) != normalize-space('logout') ">
 							<li>
-								<a href="javascript:void(0);" onclick='window.open("","mensagem","toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,resizable=0,width=320,height=240"); document.forms.addToShelf.submit();{$services//service[name="minhaColecao"]/call}' rel="nofollow"><img src="/img/en/iconSend2MyLibrary.gif"/>
+								<a href="javascript:void(0);" onclick='window.open("","mensagem","toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,resizable=0,width=360,height=240"); document.forms.addToShelf.submit();{$services//service[name="minhaColecao"]/call}' rel="nofollow"><img src="/img/en/iconSend2MyLibrary.gif"/>
                                     <xsl:value-of select="$translations/xslid[@id='sci_toolbox']/text[@find='add_to_my_collection']"/>
                                 </a>
 							</li>
 							<li>
-    							<a href="javascript:void(0);" onclick='window.open("","mensagem","toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,resizable=0,width=320,height=240");document.forms.citedAlert.submit();{$services//service[name="aviseMeCitado"]/call}' rel="nofollow"><img src="/img/en/iconAlert.gif" />
+    							<a href="javascript:void(0);" onclick='window.open("","mensagem","toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,resizable=0,width=360,height=240");document.forms.citedAlert.submit();{$services//service[name="aviseMeCitado"]/call}' rel="nofollow"><img src="/img/en/iconAlert.gif" />
                                     <xsl:value-of select="$translations/xslid[@id='sci_toolbox']/text[@find='alert_me_when_cited']"/>
                                 </a>
 							</li>
 							<li>
-								<a href="javascript:void(0);" onclick='window.open("","mensagem","toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,resizable=0,width=320,height=240");document.forms.accessAlert.submit();{$services//service[name="envieMeEstatisticaAcesso"]/call}' rel="nofollow"><img src="/img/es/iconStatistics.gif"/>
+								<a href="javascript:void(0);" onclick='window.open("","mensagem","toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,resizable=0,width=360,height=240");document.forms.accessAlert.submit();{$services//service[name="envieMeEstatisticaAcesso"]/call}' rel="nofollow"><img src="/img/es/iconStatistics.gif"/>
                                     <xsl:value-of select="$translations/xslid[@id='sci_toolbox']/text[@find='send_me_access_statistics']"/>
                                 </a>
 							</li>
 						</xsl:when>
 						<xsl:when test="normalize-space(//USERINFO/@status) = normalize-space('logout') ">
 							<li>
-                                <a href="http://{$SCIELO_REGIONAL_DOMAIN}/applications/scielo-org/sso/loginScielo.php?lang={$LANGUAGE}" onClick="{$services//service[name='servicosCustomizados']/call}" rel="nofollow" ><img src="/img/{$LANGUAGE}/iconLogin.gif"/>
-                                    <xsl:value-of select="$translations/xslid[@id='sci_toolbox']/text[@find='custom_services']"/>
+                                <!--a href="http://{$SCIELO_REGIONAL_DOMAIN}/applications/scielo-org/sso/loginScielo.php?lang={$LANGUAGE}" onClick="{$services//service[name='servicosCustomizados']/call}" rel="nofollow" ><img src="/img/{$LANGUAGE}/iconLogin.gif"/-->
+                                <a href="http://{$SCIELO_REGIONAL_DOMAIN}/apps/controller/authentication/origin/{$url_login}" onClick="{$services//service[name='servicosCustomizados']/call}" rel="nofollow" ><img src="/img/{$LANGUAGE}/iconLogin.gif"/>
+                                <xsl:value-of select="$translations/xslid[@id='sci_toolbox']/text[@find='custom_services']"/>
                                 </a>
                             </li>
 						</xsl:when>
@@ -80,7 +82,11 @@
 					<li>
 						<a>
                             <xsl:attribute name="href">javascript: void(0);</xsl:attribute>
-                            <xsl:attribute name="onClick">window.open('http://<xsl:value-of select="concat(//SERVER,'/scieloOrg/php/wpPosts.php?pid=',//ARTICLE/@PID,'&amp;lang=',$LANGUAGE,'&amp;acron=',$acron)"/>','','width=640,height=480,resizable=yes,scrollbars=1,menubar=yes'); <xsl:value-of select="$services//service[name='comentarios']/call"/></xsl:attribute>
+
+
+                            <!-- xsl:attribute name="onClick">window.open('http://<xsl:value-of select="concat(//SERVER,'/scieloOrg/php/wpPosts.php?pid=',//ARTICLE/@PID,'&amp;lang=',$LANGUAGE,'&amp;acron=',$acron)"/>','','width=640,height=480,resizable=yes,scrollbars=1,menubar=yes'); <xsl:value-of select="$services//service[name='comentarios']/call"/></xsl:attribute -->
+
+                            <xsl:attribute name="onClick"><xsl:value-of select="concat('window.open(&quot;http://',//SERVER,'/scieloOrg/php/wpPosts.php?pid=',//ARTICLE/@PID,'&amp;lang=',$LANGUAGE,'&amp;acron=',$acron,',&quot;&quot;,&quot;width=640,height=480,resizable=yes,scrollbars=1,menubar=yes&quot;);')"/> <xsl:value-of select="$services//service[name='comentarios']/call"/></xsl:attribute>
                             <xsl:attribute name="rel">nofollow</xsl:attribute>
                             <img src="/img/{$LANGUAGE}/iconComment.gif"/>
                             <xsl:value-of select="$translations/xslid[@id='sci_toolbox']/text[@find='comments']"/> (<xsl:value-of select="$commentCount" />)
@@ -127,15 +133,16 @@
 				<xsl:if test="($show_article_references = 1) and (//EMBARGO/@text='yes' or not(//EMBARGO))">
 				<li>
 					<a>
-						<xsl:attribute name="href">javascript: void(0);</xsl:attribute>
-						<xsl:attribute name="onClick">window.open('http://<xsl:value-of select="concat(//SERVER,'/scieloOrg/php/reference.php?pid=',//ARTICLE/@PID,'&amp;caller=',//SERVER,'&amp;lang=',$LANGUAGE)"/>','','width=640,height=480,resizable=yes,scrollbars=1,menubar=yes'); <xsl:value-of select="$services//service[name='referenciasArtigo']/call"/></xsl:attribute>
-						<xsl:attribute name="rel">nofollow</xsl:attribute>
-						<img src="/img/{$LANGUAGE}/iconReferences.gif"/>						
+				  <xsl:attribute name="href">javascript: void(0);</xsl:attribute>
+                                  <xsl:attribute name="onClick">window.open('http://<xsl:value-of select="concat(//SERVER,'/scieloOrg/php/reference.php?pid=',//ARTICLE/@PID,'&amp;caller=',//SERVER,'&amp;lang=',$LANGUAGE)"/>','','width=640,height=480,resizable=yes,scrollbars=1,menubar=yes'); <xsl:if test="$service_log = '1'"><xsl:value-of select="$services//service[name='referenciasArtigo']/call"/></xsl:if></xsl:attribute>
+                                  <!-- xsl:attribute name="onClick"><xsl:value-of select="concat('window.open(&quot;http://',//SERVER,'/scieloOrg/php/reference.php?pid=',//ARTICLE/@PID,'&amp;caller=',//SERVER,'&amp;lang=',$LANGUAGE,',&quot;&quot;,&quot;width=640,height=480,resizable=yes,scrollbars=1,menubar=yes&quot;);')"/>  <xsl:value-of select="$services//service[name='referenciasArtigo']/call"/></xsl:attribute -->
+                                  <xsl:attribute name="rel">nofollow</xsl:attribute>
+                                  <img src="/img/{$LANGUAGE}/iconReferences.gif"/>
                         <xsl:value-of select="$translations/xslid[@id='sci_toolbox']/text[@find='article_references']"/></a>
 				</li>
 				</xsl:if>
 				
-				<xsl:if test="$show_datasus = 1 and (//ARTICLE/@AREASGEO != 0 and //ARTICLE/@AREASGEO != '')">
+				<xsl:if test="$show_datasus = '1' and (//ARTICLE/@AREASGEO != '0' and //ARTICLE/@AREASGEO != '')">
 				<li>
 					<a>
 						<xsl:attribute name="href">javascript:void(0);</xsl:attribute>
@@ -154,14 +161,16 @@
 						<xsl:apply-templates select="ISSUE/ARTICLE/LATTES"/>
 					</li>
 				</xsl:if>
-		<!-- Projetos FAPESP entra aqui!-->
-				<xsl:if test="$show_fapesp_projects = 1 and (//ARTICLE/@PROJFAPESP != 0 and //ARTICLE/@PROJFAPESP != '')">
+
+
+                    <!-- Projetos FAPESP entra aqui!-->
+		<xsl:if test="$show_fapesp_projects = '1' and (//ARTICLE/@PROJFAPESP != '0' and //ARTICLE/@PROJFAPESP != '')">
                     <li>
                         <a>
                         <xsl:choose>
                             <xsl:when test="normalize-space(//ARTICLE/@PROJFAPESP) != normalize-space(1)">
                                 <xsl:attribute name="href">javascript:void(0);</xsl:attribute>
-                                <xsl:attribute name="onClick">javascript: window.open('http://<xsl:value-of select="concat(//SERVER,'/scieloOrg/php/projfapesp.php?pid=',//ARTICLE/@PID,'&amp;lang=',$LANGUAGE)"/>','','width=640,height=480,resizable=yes,scrollbars=1,menubar=yes');</xsl:attribute>
+                                <xsl:attribute name="onClick">javascript: window.open("http://<xsl:value-of select="concat(//SERVER,'/scieloOrg/php/projfapesp.php?pid=',//ARTICLE/@PID,'&amp;lang=',$LANGUAGE)"/>','','width=640,height=480,resizable=yes,scrollbars=1,menubar=yes");</xsl:attribute>
                                 <xsl:attribute name="rel">nofollow</xsl:attribute>
                             </xsl:when>
                             <xsl:when test="normalize-space(//ARTICLE/@PROJFAPESP) = normalize-space(1)">
@@ -175,6 +184,7 @@
                     </li>
                 </xsl:if>
 		<!-- FAPESP termina aqui! -->
+
         <!-- CLINICAL TRIALS entra aqui!-->
                 <!-- o atributo clinicaltrials aparece apenas quando a funcionalidade esta habilitada -->
 				<xsl:if test="$show_clinical_trials = 1 and (normalize-space(//ARTICLE/@CLINICALTRIALS) != normalize-space(0))">
@@ -235,34 +245,33 @@
                                 </xsl:apply-templates>
 					</li>				
 				</xsl:if>
-				
 				<xsl:if test="($show_article_wltranslation = 1)">
-					<li>
-						<a>
-							<xsl:attribute name="href">javascript: void(0);</xsl:attribute>
-							<xsl:attribute name="onClick">window.open('http://<xsl:value-of select="concat(//SERVER,'/scieloOrg/php/translate.php?pid=',//ARTICLE/@PID,'&amp;caller=',//SERVER,'&amp;lang=',$LANGUAGE,'&amp;tlang=',//ISSUE/ARTICLE/@TEXTLANG)"/>','','width=640,height=480,resizable=yes,scrollbars=1,menubar=yes'); <xsl:value-of select="$services//service[name='referenciasArtigo']/call"/></xsl:attribute>
-							<xsl:attribute name="rel">nofollow</xsl:attribute>
-							<img src="/img/{$LANGUAGE}/iconTranslation.gif"/>						
-                            <xsl:value-of select="$translations/xslid[@id='sci_toolbox']/text[@find='automatic_translation']"/>
-						</a>
-					</li>
+                                  <li>
+                                    <a>
+                                      <xsl:attribute name="href">javascript: void(0);</xsl:attribute>
+                                      <xsl:attribute name="onClick">window.open('http://<xsl:value-of select="concat(//SERVER,'/scieloOrg/php/translate.php?pid=',//ARTICLE/@PID,'&amp;caller=',//SERVER,'&amp;lang=',$LANGUAGE,'&amp;tlang=',//ISSUE/ARTICLE/@TEXTLANG)"/>','','width=640,height=480,resizable=yes,scrollbars=1,menubar=yes'); <xsl:value-of select="$services//service[name='referenciasArtigo']/call"/></xsl:attribute>
+                                      <xsl:attribute name="rel">nofollow</xsl:attribute>
+                                      <img src="/img/{$LANGUAGE}/iconTranslation.gif"/>
+                                      <xsl:value-of select="$translations/xslid[@id='sci_toolbox']/text[@find='automatic_translation']"/>
+                                    </a>
+                                  </li>
 				</xsl:if>
-                <xsl:if test="($show_semantic_hl = 1)">
-					<xsl:if test="//ARTICLE/@TEXTLANG='en' or //ABSTRACT/@xml:lang='en'">
-						<xsl:if test="$title_subjects = 'HEALTH SCIENCES' or $title_subjects = 'BIOLOGICAL SCIENCES'">
-							<li>
-                              <xsl:apply-templates select="//fulltext-service[@id='semantic_highlights']" mode="semanticHighlights"/>
-			                </li>
-	                    </xsl:if>
-					</xsl:if>
-                </xsl:if>
+                                <xsl:if test="($show_semantic_hl = 1)">
+                                  <xsl:if test="//ARTICLE/@TEXTLANG='en' or //ABSTRACT/@xml:lang='en'">
+                                    <xsl:if test="$title_subjects = 'HEALTH SCIENCES' or $title_subjects = 'BIOLOGICAL SCIENCES'">
+                                      <li>
+                                     <xsl:apply-templates select="//fulltext-service[@id='semantic_highlights']" mode="semanticHighlights"/>
+                                      </li>
+                                    </xsl:if>
+                                  </xsl:if>
+                                </xsl:if>
 				<xsl:if test="$show_send_by_email = 1">
-					<li>
-						<xsl:apply-templates select="//fulltext-service[@id='send_mail']" mode="link"/>
-					</li>	
+                                  <li>
+                                    <xsl:apply-templates select="//fulltext-service[@id='send_mail']" mode="link"/>
+                                  </li>
 				</xsl:if>
 				<xsl:apply-templates select=".//ARTICLE" mode="related-documents"/>
-            </ul>
+                               </ul>
 		</div>
 	</xsl:template>
 	
