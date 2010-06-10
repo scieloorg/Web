@@ -1,7 +1,10 @@
 ﻿Versão: proxima tag
 
-proxima tag
-#???    php5
+v5.51-pr(Press-Release)
+Ajustado o link na caixa de serviços do artigo.
+
+v5.50-pr(Press-Release)
+Realizado alteração nas classes de tranformação para php5(Notificações do php para essa versão deve ser suprimidos)
 #215 correção de apresentação da licença CC
 
 v4.48
