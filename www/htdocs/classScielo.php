@@ -203,6 +203,8 @@ class Scielo extends ScieloBase
                             $xmlScieloOrg.= "<scimago_status>offline</scimago_status>";
 
                     }
+                    
+                    $xmlScieloOrg.="<url_login>".base64_encode("http://".$_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"])."</url_login>";
                     $xmlScieloOrg.="<commentCount>".$commentCount."</commentCount>";
                     $xmlScieloOrg = "<varScieloOrg>".$xmlScieloOrg."</varScieloOrg>";
 
