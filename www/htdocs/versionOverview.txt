@@ -1,4 +1,7 @@
-﻿Versão: proxima tag
+﻿Versão: v5.53-pr
+
+v5.52-pr(Press-Release)
+Ajustado path para serviços personalizado na caixa de serviços do artigo.
 
 v5.51-pr(Press-Release)
 Ajustado o link na caixa de serviços do artigo.
