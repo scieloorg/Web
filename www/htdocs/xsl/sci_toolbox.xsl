@@ -69,7 +69,7 @@
 						<xsl:when test="normalize-space(//USERINFO/@status) = normalize-space('logout') ">
 							<li>
                                 <!--a href="http://{$SCIELO_REGIONAL_DOMAIN}/applications/scielo-org/sso/loginScielo.php?lang={$LANGUAGE}" onClick="{$services//service[name='servicosCustomizados']/call}" rel="nofollow" ><img src="/img/{$LANGUAGE}/iconLogin.gif"/-->
-				<a href="http://{$SCIELO_REGIONAL_DOMAIN}/apps/controller/authentication/origin/{$url_login}" onClick="{$services//service[name='servicosCustomizados']/call}" rel="nofollow" ><img src="/img/{$LANGUAGE}/iconLogin.gif"/>
+				<a href="http://{$SCIELO_REGIONAL_DOMAIN}/apps/servicesplatform/client/controller/authentication/origin/{$url_login}" onClick="{$services//service[name='servicosCustomizados']/call}" rel="nofollow" ><img src="/img/{$LANGUAGE}/iconLogin.gif"/>
                                     <xsl:value-of select="$translations/xslid[@id='sci_toolbox']/text[@find='custom_services']"/>
                                 </a>
                             </li>

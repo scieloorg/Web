@@ -113,19 +113,20 @@ class Scielo extends ScieloBase
                     }
             }
 
-			foreach ($elements as $k => $v) {
-				$xmlScieloOrg .= "<$k>" . $this->_def->getKeyValue($v) . "</$k>";
-			}
-			$xmlScieloOrg .=  $this->userInfo();
-               	        if(($_REQUEST['script']=='sci_serial') and ($this->_def->getKeyValue("show_scimago") == 1)){
-				$xmlScieloOrg.= "<scimago_status>online</scimago_status>";
-			}else{
-				$xmlScieloOrg.= "<scimago_status>offline</scimago_status>";
-				
-			}
-			$xmlScieloOrg.="<url_login>".base64_encode("http://".$_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"])."</url_login>";
-			$xmlScieloOrg.="<commentCount>".$commentCount."</commentCount>";
-			$xmlScieloOrg = "<varScieloOrg>".$xmlScieloOrg."</varScieloOrg>";
+            if ($this->_script == 'sci_arttext_pr' || $this->_script == 'sci_arttext' || $this->_script == 'sci_abstract' ){
+                    $server = $this->_def->getKeyValue("SERVER_SCIELO");
+                    $services = $this->_def->getSection("FULLTEXT_SERVICES");
+                    $services_xml = array();
+                    foreach ($services as $id=>$service){
+                            $service = str_replace('PARAM_PID', $pid, $service);
+                            $service = str_replace('PARAM_SERVER', $server, $service);
+                            $service = str_replace('CURRENT_URL', urlencode("http://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']), $service);
+                            //$services_xml[count($services_xml)] = $this->callService($service, $id);
+                            $services_xml[count($services_xml)] = $this->getURLService($service, $id);
+                    }
+                    if (count($services_xml)>0){
+                            $xmlList[] = $this->XML_XSL->concatXML($services_xml, "fulltext-service-list");
+                    }
 
                     require_once("classes/XMLFromIsisScript.php");
                     $xmlIsisScript = new XMLFromIsisScript($xmlFromIsisScript);
