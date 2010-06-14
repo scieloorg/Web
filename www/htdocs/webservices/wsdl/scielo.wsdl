@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="ISO-8859-1"?><definitions xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:si="http://soapinterop.org/xsd" xmlns:tns="urn:SciELOService" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="urn:SciELOService"><types><xsd:schema targetNamespace="urn:SciELOService">
+ <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+ <xsd:import namespace="http://schemas.xmlsoap.org/wsdl/"/>
+</xsd:schema>
+</types>
+<message name="searchRequest">
+  <part name="expression" type="xsd:string" />
+  <part name="from" type="xsd:string" />
+  <part name="count" type="xsd:string" />
+  <part name="lang" type="xsd:string" />
+</message>
+<message name="searchResponse">
+  <part name="return" type="xsd:anyType" />
+</message>
+<message name="new_titlesRequest">
+  <part name="count" type="xsd:string" />
+</message>
+<message name="new_titlesResponse">
+  <part name="return" type="xsd:anyType" />
+</message>
+<message name="new_issuesRequest">
+  <part name="count" type="xsd:string" />
+</message>
+<message name="new_issuesResponse">
+  <part name="return" type="xsd:anyType" />
+</message>
+<message name="get_titlesRequest">
+  <part name="return" type="xsd:anyType" />
+</message>
+<message name="get_titlesResponse">
+  <part name="return" type="xsd:string" />
+</message>
+<message name="get_title_indicatorsRequest">
+  <part name="return" type="xsd:anyType" />
+</message>
+<message name="getDetachedTitlesRequest">
+  <part name="issn" type="xsd:string" />
+</message>
+<message name="getDetachedTitlesResponse">
+  <part name="return" type="xsd:string" />
+</message>
+<message name="getDetachedNewTitlesRequest">
+  <part name="issn" type="xsd:string" />
+</message>
+<message name="getDetachedNewTitlesResponse">
+  <part name="return" type="xsd:string" />
+</message>
+<message name="get_title_indicatorsResponse">
+  <part name="return" type="xsd:string" />
+</message>
+<portType name="SciELOServicePortType">
+  <operation name="search">
+    <documentation>Search on SciELO article database</documentation>
+    <input message="tns:searchRequest"/>
+    <output message="tns:searchResponse"/>
+    </operation>
+  <operation name="new_titles">
+    <documentation>Return new titles from title database</documentation>
+    <input message="tns:new_titlesRequest"/>
+    <output message="tns:new_titlesResponse"/>
+  </operation>
+  <operation name="new_issues">
+    <documentation>Return new titles from title database</documentation>
+    <input message="tns:new_issuesRequest"/>
+    <output message="tns:new_issuesResponse"/>
+  </operation>
+  <operation name="get_titles">
+    <input message="tns:get_titlesRequest"/>
+    <output message="tns:get_titlesResponse"/>
+  </operation>
+  <operation name="get_title_indicators">
+    <input message="tns:get_title_indicatorsRequest"/>
+    <output message="tns:get_title_indicatorsResponse"/>
+    </operation>
+  <operation name="getDetachedTitles">
+    <documentation>Retorna XML</documentation>
+    <input message="tns:getDetachedTitlesRequest"/>
+    <output message="tns:getDetachedTitlesResponse"/>
+  </operation>
+    <operation name="getDetachedNewTitles">
+    <documentation>Retorna XML</documentation>
+    <input message="tns:getDetachedNewTitlesRequest"/>
+    <output message="tns:getDetachedNewTitlesResponse"/>
+  </operation>
+</portType>
+<binding name="SciELOServiceBinding" type="tns:SciELOServicePortType">
+<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+<operation name="search">
+  <soap:operation soapAction="urn:SciELOService#search" style="rpc"/>
+  <input><soap:body use="encoded" namespace="urn:SciELOService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></input>
+  <output><soap:body use="encoded" namespace="urn:SciELOService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></output>
+</operation>
+<operation name="new_titles">
+ <soap:operation soapAction="urn:SciELOService#new_titles" style="rpc"/>
+ <input><soap:body use="encoded" namespace="urn:SciELOService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></input>
+ <output><soap:body use="encoded" namespace="urn:SciELOService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></output>
+</operation>
+<operation name="new_issues">
+ <soap:operation soapAction="urn:SciELOService#new_titles" style="rpc"/>
+ <input><soap:body use="encoded" namespace="urn:SciELOService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></input>
+ <output><soap:body use="encoded" namespace="urn:SciELOService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></output>
+</operation>
+<operation name="get_titles">
+ <soap:operation soapAction="SOAP-ENC:Array" style="rpc"/>
+ <input><soap:body use="Return titles from title database [de acordo com o tipo e parametro]" namespace="urn:SciELOService#get_titles" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></input>
+ <output><soap:body use="Return titles from title database [de acordo com o tipo e parametro]" namespace="urn:SciELOService#get_titles" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></output>
+</operation>
+<operation name="get_title_indicators">
+ <soap:operation soapAction="SOAP-ENC:Array" style="rpc"/><input>
+ <soap:body use="Return titles from title database [de acordo com o tipo e parametro]" namespace="urn:SciELOService#get_titles" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></input>
+ <output><soap:body use="Return titles from title database [de acordo com o tipo e parametro]" namespace="urn:SciELOService#get_titles" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></output>
+</operation>
+<operation name="getDetachedTitles">
+ <soap:operation soapAction="urn:search.server#lastRecords" style="rpc"/>
+ <input><soap:body use="encoded" namespace="urn:search.server" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></input>
+ <output><soap:body use="encoded" namespace="urn:search.server" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></output>
+</operation>
+<operation name="getDetachedNewTitles">
+  <soap:operation soapAction="urn:search.server#lastRecords" style="rpc"/>
+  <input><soap:body use="encoded" namespace="urn:search.server" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></input>
+  <output><soap:body use="encoded" namespace="urn:search.server" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></output>
+</operation>
+</binding>
+<service name="SciELOService">
+  <port name="SciELOServicePort" binding="tns:SciELOServiceBinding">
+  <soap:address location="http://scielo5/webservicesNew/server.php"/>
+  </port>
+</service>
+</definitions>
