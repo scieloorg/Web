@@ -17,11 +17,12 @@
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:variable-->
-	<xsl:variable name="colnumber"><xsl:choose>
-		<xsl:when test=".//YEARISSUE[count(.//ISSUE)&gt;12]">14</xsl:when>
-		<xsl:otherwise>12</xsl:otherwise>
-	</xsl:choose></xsl:variable>
-	
+	<xsl:variable name="colnumber">
+		<xsl:choose>
+			<xsl:when test=".//YEARISSUE[count(.//ISSUE)&gt;12]">14</xsl:when>
+			<xsl:otherwise>12</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
 	<xsl:template match="SERIAL">
 		<HTML>
 			<HEAD>
@@ -29,11 +30,24 @@
 					<xsl:value-of select="//TITLEGROUP/SHORTTITLE " disable-output-escaping="yes"/> - <xsl:value-of select="$translations/xslid[@id='sci_issues']/text[@find='available_issues']"/>
 				</TITLE>
 				<LINK href="/css/scielo.css" type="text/css" rel="STYLESHEET"/>
+				<link rel="STYLESHEET" TYPE="text/css" href="/css/include_layout.css"/>
+				<link rel="STYLESHEET" TYPE="text/css" href="/css/include_styles.css"/>
+				<style type="text/css" title="Gold">
+/* The following is for windows that aren't tall enough for
+   the fixed menu. Use the scrolling menu instead. */
+.note {
+  color:#800000
+}
+.note2 {
+  color: black
+}
+
+</style>
+
 				<META http-equiv="Pragma" content="no-cache"/>
 				<META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT"/>
 			</HEAD>
 			<BODY vLink="#800080" bgColor="#ffffff">
-
 				<xsl:call-template name="NAVBAR">
 					<xsl:with-param name="bar1">issues</xsl:with-param>
 					<xsl:with-param name="bar2">articlesiah</xsl:with-param>
@@ -56,20 +70,37 @@
 				</CENTER>
 				<!--br/-->
 				<div class="content">
-					<xsl:apply-templates select="." mode="journal-info"/>
-					<!--TABLE width="100%" border="0">
+					<TABLE width="100%" border="0">
 						<TBODY>
 							<tr>
 								<td>&#160;</td>
-
 								<td width="95%">
-									<xsl:apply-templates select="." mode="journal-info"/>
+									<div class="journalInfo">
+										<xsl:if test="/SERIAL/CHANGESINFO">
+											<xsl:apply-templates select="/SERIAL/CHANGESINFO">
+												<xsl:with-param name="LANG" select="//CONTROLINFO/LANGUAGE"/>
+											</xsl:apply-templates>
+										</xsl:if>
+									</div>
 								</td>
 							</tr>
 						</TBODY>
-					</TABLE-->
+					</TABLE>
 					<br/>
 					<xsl:apply-templates select="//AVAILISSUES"/>
+					<TABLE width="100%" border="0">
+						<TBODY>
+							<tr>
+								<td>&#160;</td>
+								<td width="95%">
+									<div class="journalInfo"> 
+										<xsl:apply-templates select="." mode="journal-history"/>
+									</div>
+								</td>
+							</tr>
+						</TBODY>
+					</TABLE>
+					<br/>
 				</div>
 				<xsl:apply-templates select="." mode="footer-journal"/>
 			</BODY>
@@ -86,7 +117,7 @@
 					<TD width="95%">
 						<P align="left">
 							<FONT class="nomodel" color="#800000">
-								<xsl:value-of select="$translations/xslid[@id='sci_issues']/text[@find='available_issues']"/>
+								<xsl:value-of select="$translations/xslid[@id='sci_issues']/text[@find='available_issues']"/> <a href="#note" class="note">*</a><a name="top"></a>
 							</FONT>
 						</P>
 						<TABLE borderColor="#c0c0c0" cellSpacing="3" cellPadding="3" width="100%" border="0">

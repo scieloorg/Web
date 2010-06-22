@@ -37,44 +37,46 @@
 	</xsl:template>
 	<!-- Variável de Flag utilizada para log utilizada também no arquivo sci_toolbox -->
 	<xsl:variable name="service_log" select="//services_log"/>
-	<xsl:variable name="services">
-		<xsl:if test="$service_log = 1">
-			<services>
-				<service>
-					<name>minhaColecao</name>
-					<call>callUpdateArticleLog('adicionar_a_minha_colecao');</call>
-				</service>
-				<service>
-					<name>aviseMeCitado</name>
-					<call>callUpdateArticleLog('avise-me_quando_for_citado');</call>
-				</service>
-				<service>
-					<name>envieMeEstatisticaAcesso</name>
-					<call>callUpdateArticleLog('envie-me_estatisticas_de_acesso');</call>
-				</service>
-				<service>
-					<name>comentarios</name>
-					<call>callUpdateArticleLog('comentarios');</call>
-				</service>
-				<service>
-					<name>indicadoresSaude</name>
-					<call>callUpdateArticleLog('indicadores_de_saude');</call>
-				</service>
-				<service>
-					<name>referenciasArtigo</name>
-					<call>callUpdateArticleLog('referencias_do_artigo');</call>
-				</service>
-				<service>
-					<name>servicosCustomizados</name>
-					<call>callUpdateArticleLog('servicos_customizados');</call>
-				</service>
-				<service>
-					<name>curriculumScienTI</name>
-					<call>callUpdateArticleLog('curriculum_scienTI');</call>
-				</service>
-			</services>
-		</xsl:if>
-	</xsl:variable>
+
+        <xsl:variable name="services" select="document('../xml/services_log.xml')"/>
+
+        <!--xsl:if test="$service_log = 1">
+                <services>
+                        <service>
+                                <name>minhaColecao</name>
+                                <call>callUpdateArticleLog('adicionar_a_minha_colecao');</call>
+                        </service>
+                        <service>
+                                <name>aviseMeCitado</name>
+                                <call>callUpdateArticleLog('avise-me_quando_for_citado');</call>
+                        </service>
+                        <service>
+                                <name>envieMeEstatisticaAcesso</name>
+                                <call>callUpdateArticleLog('envie-me_estatisticas_de_acesso');</call>
+                        </service>
+                        <service>
+                                <name>comentarios</name>
+                                <call>callUpdateArticleLog('comentarios');</call>
+                        </service>
+                        <service>
+                                <name>indicadoresSaude</name>
+                                <call>callUpdateArticleLog('indicadores_de_saude');</call>
+                        </service>
+                        <service>
+                                <name>referenciasArtigo</name>
+                                <call>callUpdateArticleLog('referencias_do_artigo');</call>
+                        </service>
+                        <service>
+                                <name>servicosCustomizados</name>
+                                <call>callUpdateArticleLog('servicos_customizados');</call>
+                        </service>
+                        <service>
+                                <name>curriculumScienTI</name>
+                                <call>callUpdateArticleLog('curriculum_scienTI');</call>
+                        </service>
+                </services>
+        </xsl:if-->
+
 	<!--Exibe caixa para exportação da citacao para "Reference Managers"-->
 	<xsl:template name="PrintExportCitationForRefecenceManagers">
 		<xsl:param name="LANGUAGE"/>
@@ -314,9 +316,9 @@
 		</xsl:if>
 		<xsl:if test="NEWTITLE/TITLE">
 			<br/>
-			<font color="#000000">
+			<small>
 				<xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'new_title']"/>:
-			</font>
+			</small>
 			<br/>
 			<font color="#000080">
 				<em>
@@ -815,7 +817,7 @@
 		</xsl:variable>
 		<td valign="middle">
 			<a href="javascript:void(0);" onmouseout="status='';" class="nomodel" style="text-decoration: none;">
-				<xsl:attribute name="onclick">OpenArticleInfoWindow ( 640, 320,  "<xsl:value-of select="$INFOPAGE"/>");
+				<xsl:attribute name="onclick">OpenArticleInfoWindow ( 780, 450,  "<xsl:value-of select="$INFOPAGE"/>");
 				<xsl:if test="$service_log  = 1">callUpdateArticleLog('como_citar_este_artigo');</xsl:if></xsl:attribute>
 				<xsl:attribute name="rel">nofollow</xsl:attribute>
 				<xsl:attribute name="onmouseover">
@@ -826,7 +828,7 @@
 		</td>
 		<td>
 			<a href="javascript:void(0);" onmouseout="status='';" class="nomodel" style="text-decoration: none;">
-				<xsl:attribute name="onclick">OpenArticleInfoWindow ( 640, 320,  "<xsl:value-of select="$INFOPAGE"/>");<xsl:if test="$service_log = 1">callUpdateArticleLog('como_citar_este_artigo');</xsl:if></xsl:attribute>
+				<xsl:attribute name="onclick">OpenArticleInfoWindow ( 780, 450,  "<xsl:value-of select="$INFOPAGE"/>");<xsl:if test="$service_log = 1">callUpdateArticleLog('como_citar_este_artigo');</xsl:if></xsl:attribute>
 				<xsl:attribute name="rel">nofollow</xsl:attribute>
 				<xsl:attribute name="onmouseover">
 				status='<xsl:call-template name="PrintArticleInformationLabel"><xsl:with-param name="LANGUAGE" select="$LANGUAGE"/></xsl:call-template>'; return true;
