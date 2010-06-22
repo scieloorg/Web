@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 	<xsl:include href="sci_navegation.xsl"/>
+	<xsl:include href="journalStatus.xsl"/>
+
 	<xsl:variable name="forceType" select="//CONTROLINFO/ENABLE_FORCETYPE"/>
 	<xsl:variable name="ISSN_AS_ID" select="concat(substring-before(/SERIAL/ISSN_AS_ID,'-'),substring-after(/SERIAL/ISSN_AS_ID,'-'))"/>
 	<xsl:variable name="show_scimago" select="//show_scimago"/>
@@ -454,10 +456,13 @@ press release do artigo
 				</small>
 				<p>
 					<xsl:apply-templates select="/SERIAL/MISSION"/>
-					<xsl:apply-templates select="/SERIAL/CHANGESINFO">
-						<xsl:with-param name="LANG" select="normalize-space(LANGUAGE)"/>
-					</xsl:apply-templates>
+					
 				</p>
+				<xsl:if test="/SERIAL/CHANGESINFO">
+				<xsl:apply-templates select="/SERIAL/CHANGESINFO">
+					<xsl:with-param name="LANG" select="//CONTROLINFO/LANGUAGE"/>
+				</xsl:apply-templates>
+			</xsl:if>
 			</div>
 		</div>
 	</xsl:template>
