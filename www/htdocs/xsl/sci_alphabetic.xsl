@@ -7,7 +7,7 @@
 		<html>
 			<head>
 				<title>
-                    <xsl:value-of select="$translations/xslid[@id='sci_home']/text[@find='alphabetic_list']"/>
+					<xsl:value-of select="$translations/xslid[@id='sci_home']/text[@find='alphabetic_list']"/>
 				</title>
 				<meta http-equiv="Pragma" content="no-cache"/>
 				<meta http-equiv="Expires" content="Mon, 06 Jan 1990 00:00:01 GMT"/>
@@ -24,7 +24,7 @@
 						<td width="26%">&#160;</td>
 						<td width="74%">
 							<font class="nomodel" size="+1" color="#000080">
-                                <xsl:value-of select="$translations/xslid[@id='sci_alphabetic']/text[@find='library_collection']"/>
+								<xsl:value-of select="$translations/xslid[@id='sci_alphabetic']/text[@find='library_collection']"/>
 							</font>
 						</td>
 					</tr>
@@ -44,8 +44,8 @@
 				<td width="82%">
 					<p align="LEFT">
 						<font class="nomodel" color="#800000">
-                            <xsl:value-of select="$translations/xslid[@id='sci_alphabetic']/text[@find='alphabetic_list']"/> - <xsl:value-of select="count(SERIAL)"/>&#160;<xsl:value-of select="$translations/xslid[@id='sci_alphabetic']/text[@find='serials_listed']"/>
-                        </font>
+							<xsl:value-of select="$translations/xslid[@id='sci_alphabetic']/text[@find='alphabetic_list']"/> - <xsl:value-of select="count(SERIAL)"/>&#160;<xsl:value-of select="$translations/xslid[@id='sci_alphabetic']/text[@find='serials_listed']"/>
+						</font>
 					</p>
 					<xsl:apply-templates select="." mode="display-list"/>
 					<font class="divisoria">&#160;<br/>
@@ -94,9 +94,13 @@
 					<xsl:attribute name="href">http://<xsl:value-of select="//SERVER"/><xsl:value-of select="//PATH_DATA"/>scielo.php?script=<xsl:apply-templates select="." mode="sci_serial"/>&amp;pid=<xsl:value-of select="TITLE/@ISSN"/>&amp;lng=<xsl:value-of select="normalize-space(//CONTROLINFO/LANGUAGE)"/>&amp;nrm=<xsl:value-of select="normalize-space(//CONTROLINFO/STANDARD)"/><xsl:apply-templates select="." mode="repo_url_param"/></xsl:attribute>
 					<xsl:value-of select="TITLE" disable-output-escaping="yes"/>
 				</a>
-				<xsl:if test="not(//NO_SCI_SERIAL='yes')">
-			- <xsl:value-of select="@QTYISS"/>
-                    &#160;<xsl:value-of select="$translations/xslid[@id='sci_alphabetic']/text[@find='issue']"/> <xsl:if test="@QTYISS > 1">s</xsl:if>
+				<xsl:if test="not(//NO_SCI_SERIAL='yes')">-	
+					<!--a>
+						<xsl:attribute name="href">http://<xsl:value-of select="//SERVER"/><xsl:value-of select="//PATH_DATA"/>scielo.php?script=sci_issues&amp;pid=<xsl:value-of select="TITLE/@ISSN"/>&amp;lng=<xsl:value-of select="normalize-space(//CONTROLINFO/LANGUAGE)"/>&amp;nrm=<xsl:value-of select="normalize-space(//CONTROLINFO/STANDARD)"/><xsl:apply-templates select="." mode="repo_url_param"/></xsl:attribute-->
+						<xsl:value-of select="@QTYISS"/>
+					<!--/a-->
+				&#160;<xsl:value-of select="$translations/xslid[@id='sci_alphabetic']/text[@find='issue']"/>
+					<xsl:if test="@QTYISS > 1">s</xsl:if>
 				</xsl:if>
 				<xsl:choose>
 					<xsl:when test=".//current-status/@status='' or not(.//current-status)">
@@ -105,13 +109,13 @@
 						</xsl:if>
 					</xsl:when>
 					<xsl:when test=".//current-status/@status='C'">
-						<xsl:apply-templates select="." mode="display-status-info"/>
+						<xsl:apply-templates select=".//journal-status-history" mode="display-status-info"/>
 						<xsl:if test="not(starts-with(normalize-space(following-sibling::node()/TITLE), substring(normalize-space(TITLE), 1, 1)))">
 							<br/>
 						</xsl:if>
 					</xsl:when>
 					<xsl:otherwise>
-						<xsl:apply-templates select="." mode="display-status-info"/>
+						  - <xsl:apply-templates select=".//journal-status-history" mode="display-status-info"/>
 					</xsl:otherwise>
 				</xsl:choose>
 			</font>

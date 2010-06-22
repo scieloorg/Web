@@ -1,14 +1,15 @@
 <function name="getJournalStatusHistory" action="replace" tag="400">
   <field action="replace" tag="51" split="occ"><pft>ref(['TITLE']l(['TITLE'],'LOC=',v400),(v51/))</pft></field>
   <field action="replace" tag="710" split="occ"><pft>ref(['TITLE']l(['TITLE'],'LOC=',v400),(v710/))</pft></field>
-	<field action="export" tag="list">51,710</field>
+  <!--field action="replace" tag="610" split="occ"><pft>ref(['TITLE']l(['TITLE'],'LOC=',v400),(v610/))</pft></field-->
+	<field action="export" tag="list">51,610,710</field>
 
 </function>
 <function name="getXMLJournalStatusHistory" action="replace" tag="400">
 	<call name="getJournalStatusHistory"><pft>v400</pft></call>
 	<field action="replace" tag="9051"><pft>v51[1]</pft></field>
 
-	<call name="getTitleISSNList"><pft>v710</pft></call>
+<call name="getTitleISSNList"><pft>v710</pft></call>
 
 	<return action="replace" tag="5151">
 	<pft>if p(v9051) and size(v9051)>0 then
@@ -17,17 +18,18 @@
 		,if p(v710) then
 			'   <CHANGESINFO><NEWTITLE><TITLE',| ISSN="|v400|"|,'><![CDATA[',v710,']]></TITLE></NEWTITLE></CHANGESINFO>'/
 		,fi,
-		/*
+
+		
 		'		<periods>'/,
 	   ('		<period>'/,
 		,'			<begin date="',v51^a,'" status="',v51^b,'"/>'/
-		,if p(v9051^d) then
+		,if p(v51^d) then
 		,'			<end date="',v51^c,'" status="',v51^d,'"/>'/
 		,fi,
 	   ,'</period>'/)
 		
 		,'</periods>'/
-		*/
+		
 		'	</journal-status-history>'/
 		,fi
 	</pft>

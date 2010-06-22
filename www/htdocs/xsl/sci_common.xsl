@@ -316,9 +316,9 @@
 		</xsl:if>
 		<xsl:if test="NEWTITLE/TITLE">
 			<br/>
-			<font color="#000000">
+			<small>
 				<xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'new_title']"/>:
-			</font>
+			</small>
 			<br/>
 			<font color="#000080">
 				<em>
