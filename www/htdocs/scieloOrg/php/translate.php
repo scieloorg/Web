@@ -20,11 +20,13 @@
 	$flagLog = $defFile['ENABLE_SERVICES_LOG'];
 	//geting metadatas from PID
 	$tlang = $_REQUEST['tlang'];
+
+    include('translateView.php');
 ?>
- <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
         <link rel="stylesheet" href="/applications/scielo-org/css/public/style-<?=$lang?>.css" type="text/css" media="screen"/>
         <!-- Adicionado script para passa a utilizar o serviço de log comentado por Jamil Atta Junior (jamil.atta@bireme.org)-->
         <script language="javascript" src="/../../applications/scielo-org/js/httpAjaxHandler.js">
@@ -66,30 +68,20 @@
                             <TR>
                                 <TD colspan="2">
                                     <h3><span style="font-weight:normal; font-size:70%; background:none;">
-                                            <?php										
-											switch($tlang){
-												case 'pt':
-													print('<a href="'.$defFile['windows_live_translator'].'/BV.aspx?ref=AddIn&lp=pt_en&a=http://'.$_SERVER['HTTP_HOST'].'/scielo.php?script=sci_arttext&pid='.$_REQUEST['pid'].'&lng='.$_REQUEST['lang'].'&nrm=iso&tlng='.$_REQUEST['tlang'].'&skpa=on'.'" target="_blank"  style="color:black;">'.PORTUGUESE_ENGLISH.'</a>');													
-													break;
-												case 'en':
-													print('<a href="'.$defFile['windows_live_translator'].'/BV.aspx?ref=AddIn&lp=en_ar&a=http://'.$_SERVER['HTTP_HOST'].'/scielo.php?script=sci_arttext&pid='.$_REQUEST['pid'].'&lng='.$_REQUEST['lang'].'&nrm=iso&tlng='.$_REQUEST['tlang'].'&skpa=on'.'" target="_blank"  style="color:black;">'.ENGLISH_ARABIC.'</a><br/>');
-													print('<a href="'.$defFile['windows_live_translator'].'/BV.aspx?ref=AddIn&lp=en_zh-chs&a=http://'.$_SERVER['HTTP_HOST'].'/scielo.php?script=sci_arttext&pid='.$_REQUEST['pid'].'&lng='.$_REQUEST['lang'].'&nrm=iso&tlng='.$_REQUEST['tlang'].'&skpa=on'.'" target="_blank"  style="color:black;">'.ENGLISH_CHINESE_S.'</a><br/>');
-													print('<a href="'.$defFile['windows_live_translator'].'/BV.aspx?ref=AddIn&lp=en_zh-cht&a=http://'.$_SERVER['HTTP_HOST'].'/scielo.php?script=sci_arttext&pid='.$_REQUEST['pid'].'&lng='.$_REQUEST['lang'].'&nrm=iso&tlng='.$_REQUEST['tlang'].'&skpa=on'.'" target="_blank"  style="color:black;">'.ENGLISH_CHINESE_T.'</a><br/>');													
-													print('<a href="'.$defFile['windows_live_translator'].'/BV.aspx?ref=AddIn&lp=en_nl&a=http://'.$_SERVER['HTTP_HOST'].'/scielo.php?script=sci_arttext&pid='.$_REQUEST['pid'].'&lng='.$_REQUEST['lang'].'&nrm=iso&tlng='.$_REQUEST['tlang'].'&skpa=on'.'" target="_blank"  style="color:black;">'.ENGLISH_DUTCH.'</a><br/>');
-													print('<a href="'.$defFile['windows_live_translator'].'/BV.aspx?ref=AddIn&lp=en_fr&a=http://'.$_SERVER['HTTP_HOST'].'/scielo.php?script=sci_arttext&pid='.$_REQUEST['pid'].'&lng='.$_REQUEST['lang'].'&nrm=iso&tlng='.$_REQUEST['tlang'].'&skpa=on'.'" target="_blank"  style="color:black;">'.ENGLISH_FRENCH.'</a><br/>');													
-													print('<a href="'.$defFile['windows_live_translator'].'/BV.aspx?ref=AddIn&lp=en_de&a=http://'.$_SERVER['HTTP_HOST'].'/scielo.php?script=sci_arttext&pid='.$_REQUEST['pid'].'&lng='.$_REQUEST['lang'].'&nrm=iso&tlng='.$_REQUEST['tlang'].'&skpa=on'.'" target="_blank"  style="color:black;">'.ENGLISH_GERMAN.'</a><br/>');
-													print('<a href="'.$defFile['windows_live_translator'].'/BV.aspx?ref=AddIn&lp=en_it&a=http://'.$_SERVER['HTTP_HOST'].'/scielo.php?script=sci_arttext&pid='.$_REQUEST['pid'].'&lng='.$_REQUEST['lang'].'&nrm=iso&tlng='.$_REQUEST['tlang'].'&skpa=on'.'" target="_blank"  style="color:black;">'.ENGLISH_ITALIAN.'</a><br/>');
-													print('<a href="'.$defFile['windows_live_translator'].'/BV.aspx?ref=AddIn&lp=en_ja&a=http://'.$_SERVER['HTTP_HOST'].'/scielo.php?script=sci_arttext&pid='.$_REQUEST['pid'].'&lng='.$_REQUEST['lang'].'&nrm=iso&tlng='.$_REQUEST['tlang'].'&skpa=on'.'" target="_blank"  style="color:black;">'.ENGLISH_JAPANESE.'</a><br/>');
-													print('<a href="'.$defFile['windows_live_translator'].'/BV.aspx?ref=AddIn&lp=en_ko&a=http://'.$_SERVER['HTTP_HOST'].'/scielo.php?script=sci_arttext&pid='.$_REQUEST['pid'].'&lng='.$_REQUEST['lang'].'&nrm=iso&tlng='.$_REQUEST['tlang'].'&skpa=on'.'" target="_blank"  style="color:black;">'.ENGLISH_KOREAN.'</a><br/>');
-													print('<a href="'.$defFile['windows_live_translator'].'/BV.aspx?ref=AddIn&lp=en_pt&a=http://'.$_SERVER['HTTP_HOST'].'/scielo.php?script=sci_arttext&pid='.$_REQUEST['pid'].'&lng='.$_REQUEST['lang'].'&nrm=iso&tlng='.$_REQUEST['tlang'].'&skpa=on'.'" target="_blank"  style="color:black;">'.ENGLISH_PORTUGUESE.'</a><br/>');													
-													print('<a href="'.$defFile['windows_live_translator'].'/BV.aspx?ref=AddIn&lp=en_es&a=http://'.$_SERVER['HTTP_HOST'].'/scielo.php?script=sci_arttext&pid='.$_REQUEST['pid'].'&lng='.$_REQUEST['lang'].'&nrm=iso&tlng='.$_REQUEST['tlang'].'&skpa=on'.'" target="_blank"  style="color:black;">'.ENGLISH_SPANISH.'</a><br/>');													
-													break;
-												case 'es':
-													print('<a href="'.$defFile['windows_live_translator'].'/BV.aspx?ref=AddIn&lp=es_en&a=http://'.$_SERVER['HTTP_HOST'].'/scielo.php?script=sci_arttext&pid='.$_REQUEST['pid'].'&lng='.$_REQUEST['lang'].'&nrm=iso&tlng='.$_REQUEST['tlang'].'&skpa=on'.'" target="_blank"  style="color:black;">'.SPANISH_ENGLISH.'</a><br/>');
-													break;		
-											}
-										?>
                                       </span></h3>
+<?php
+    //$source = urlencode(str_replace('&','|','http://'.$_SERVER['HTTP_HOST'].'/scielo.php!script='.$_REQUEST['script'].'&pid='.$_REQUEST['pid'].'&lng='.$_REQUEST['lang'].'&nrm=iso&tlng='.$_REQUEST['tlang']));
+    $script = $_REQUEST['script'];
+    if (!$script) $script = 'sci_arttext';
+    $source = urlencode('http://'.$_SERVER['HTTP_HOST'].'/scielo.php?script='.$_REQUEST['script'].'&pid='.$_REQUEST['pid'].'&lng='.$_REQUEST['lang'].'&nrm=iso&tlng='.$_REQUEST['tlang']);
+    $print = str_replace('TEXTSOURCE', $source, $html[$lang]);
+    $print = str_replace('TEXTLANG', $tlang, $print);
+    $print = str_replace('SCRIPT', $script, $print);
+    $print = str_replace('LANG', $_REQUEST['lang'], $print);
+    $print = str_replace('PID', $_REQUEST['pid'], $print);
+    echo $print;
+?>
+
                                 </TD>
                             </TR>
                         </TABLE>
@@ -103,7 +95,7 @@
         <script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
         </script>
         <script type="text/javascript">
-            _uacct = "UA-604844-1";
+            _uacct = "<?php echo $deffile['LOG']['GOOGLE_CODE']; ?>";
             urchinTracker();
         </script>
         <?}?>

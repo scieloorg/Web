@@ -246,10 +246,14 @@
 					</li>				
 				</xsl:if>
 				<xsl:if test="($show_article_wltranslation = 1)">
+					<xsl:variable name="textlang"><xsl:choose>
+						<xsl:when test="//PAGE_NAME='sci_arttext' "><xsl:value-of select="//ISSUE/ARTICLE/@TEXTLANG"/></xsl:when>
+						<xsl:when test="//PAGE_NAME='sci_abstract'"><xsl:value-of select="//ABSTRACT/@xml:lang"/></xsl:when>			
+					</xsl:choose></xsl:variable>
                                   <li>
                                     <a>
                                       <xsl:attribute name="href">javascript: void(0);</xsl:attribute>
-                                      <xsl:attribute name="onClick">window.open('http://<xsl:value-of select="concat(//SERVER,'/scieloOrg/php/translate.php?pid=',//ARTICLE/@PID,'&amp;caller=',//SERVER,'&amp;lang=',$LANGUAGE,'&amp;tlang=',//ISSUE/ARTICLE/@TEXTLANG)"/>','','width=640,height=480,resizable=yes,scrollbars=1,menubar=yes'); <xsl:value-of select="$services//service[name='referenciasArtigo']/call"/></xsl:attribute>
+                                      <xsl:attribute name="onClick">window.open('http://<xsl:value-of select="concat(//SERVER,'/scieloOrg/php/translate.php?script=',//PAGE_NAME,'&amp;pid=',//ARTICLE/@PID,'&amp;caller=',//SERVER,'&amp;lang=',$LANGUAGE,'&amp;tlang=',$textlang)"/>','','width=640,height=480,resizable=yes,scrollbars=1,menubar=yes'); <xsl:value-of select="$services//service[name='referenciasArtigo']/call"/></xsl:attribute>
                                       <xsl:attribute name="rel">nofollow</xsl:attribute>
                                       <img src="/img/{$LANGUAGE}/iconTranslation.gif"/>
                                       <xsl:value-of select="$translations/xslid[@id='sci_toolbox']/text[@find='automatic_translation']"/>
