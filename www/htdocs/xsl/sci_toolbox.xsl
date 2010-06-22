@@ -23,7 +23,7 @@
 		<xsl:variable name="title_subjects" select="//TITLEGROUP/SUBJECT"/>
 		<xsl:variable name="show_fapesp_projects" select="//varScieloOrg/show_fapesp_projects" />
 		<xsl:variable name="show_clinical_trials" select="//varScieloOrg/show_clinical_trials"/>
-		<xsl:variable name="url_login" select="//varScieloOrg/url_login"/>
+                <xsl:variable name="url_login" select="//varScieloOrg/url_login"/>
 
 		<div id="toolBox">
 			<h2 id="toolsSection">
@@ -69,8 +69,8 @@
 						<xsl:when test="normalize-space(//USERINFO/@status) = normalize-space('logout') ">
 							<li>
                                 <!--a href="http://{$SCIELO_REGIONAL_DOMAIN}/applications/scielo-org/sso/loginScielo.php?lang={$LANGUAGE}" onClick="{$services//service[name='servicosCustomizados']/call}" rel="nofollow" ><img src="/img/{$LANGUAGE}/iconLogin.gif"/-->
-				<a href="http://{$SCIELO_REGIONAL_DOMAIN}/apps/servicesplatform/client/controller/authentication/origin/{$url_login}" onClick="{$services//service[name='servicosCustomizados']/call}" rel="nofollow" ><img src="/img/{$LANGUAGE}/iconLogin.gif"/>
-                                    <xsl:value-of select="$translations/xslid[@id='sci_toolbox']/text[@find='custom_services']"/>
+                                <a href="http://{$SCIELO_REGIONAL_DOMAIN}/apps/servicesplatform/client/controller/authentication/origin/{$url_login}" onClick="{$services//service[name='servicosCustomizados']/call}" rel="nofollow" ><img src="/img/{$LANGUAGE}/iconLogin.gif"/>
+                                <xsl:value-of select="$translations/xslid[@id='sci_toolbox']/text[@find='custom_services']"/>
                                 </a>
                             </li>
 						</xsl:when>
@@ -246,10 +246,14 @@
 					</li>				
 				</xsl:if>
 				<xsl:if test="($show_article_wltranslation = 1)">
+					<xsl:variable name="textlang"><xsl:choose>
+						<xsl:when test="//PAGE_NAME='sci_arttext' "><xsl:value-of select="//ISSUE/ARTICLE/@TEXTLANG"/></xsl:when>
+						<xsl:when test="//PAGE_NAME='sci_abstract'"><xsl:value-of select="//ABSTRACT/@xml:lang"/></xsl:when>			
+					</xsl:choose></xsl:variable>
                                   <li>
                                     <a>
                                       <xsl:attribute name="href">javascript: void(0);</xsl:attribute>
-                                      <xsl:attribute name="onClick">window.open('http://<xsl:value-of select="concat(//SERVER,'/scieloOrg/php/translate.php?pid=',//ARTICLE/@PID,'&amp;caller=',//SERVER,'&amp;lang=',$LANGUAGE,'&amp;tlang=',//ISSUE/ARTICLE/@TEXTLANG)"/>','','width=640,height=480,resizable=yes,scrollbars=1,menubar=yes'); <xsl:value-of select="$services//service[name='referenciasArtigo']/call"/></xsl:attribute>
+                                      <xsl:attribute name="onClick">window.open('http://<xsl:value-of select="concat(//SERVER,'/scieloOrg/php/translate.php?script=',//PAGE_NAME,'&amp;pid=',//ARTICLE/@PID,'&amp;caller=',//SERVER,'&amp;lang=',$LANGUAGE,'&amp;tlang=',$textlang)"/>','','width=640,height=480,resizable=yes,scrollbars=1,menubar=yes'); <xsl:value-of select="$services//service[name='referenciasArtigo']/call"/></xsl:attribute>
                                       <xsl:attribute name="rel">nofollow</xsl:attribute>
                                       <img src="/img/{$LANGUAGE}/iconTranslation.gif"/>
                                       <xsl:value-of select="$translations/xslid[@id='sci_toolbox']/text[@find='automatic_translation']"/>

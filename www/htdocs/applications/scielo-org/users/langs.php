@@ -49,7 +49,7 @@ rótulos tela Article References
 */
 define("SCIELO.ORG"," indicou um artigo para você.");
 define("ARTICLE_REFERENCES","Referências do Artigo");
-define("ARTICLE_TRANSLATION","Tradução automática utilizando o serviço Windows Live Translator ");
+define("ARTICLE_TRANSLATION","Tradução automática utilizando o serviço Windows Live Translator e Google Translator");
 define("ARTICLE_TRANSLATION_WARNING","Este serviço é uma tradução automática que não foi revista pelo autor e pode ter imperfeições.");
 define('NO_DATA_FOR_GRAPHIC','Gráfico não disponível, dados em processamento.');
 
@@ -165,7 +165,7 @@ define("START_YEAR", "De:");
 define("LAST_YEAR", "Até:");
 define("BUTTON_REFRESH", "Atualizar gráfico");
 define("GRAFIC_STATS_FALSE", "Não existem dados estatísticos para o período selecionado");
-
+/*
 define("ENGLISH_GERMAN","Inglês->Alemão");
 define("ENGLISH_ARABIC","Inglês->Árabe");
 define("ENGLISH_CHINESE_S","Inglês->Chines simplificado");
@@ -181,6 +181,7 @@ define("FRENCH_GERMAN","Francês->Alemão");
 define("FRENCH_ENGLISH","Francês->Inglês");
 define("SPANISH_ENGLISH","Espanhol->Inglês");
 define("PORTUGUESE_ENGLISH","Português->Inglês");
+*/
 /*
 textos das mensagens de erro
 */
@@ -342,7 +343,7 @@ rótulos tela Article References
 */
 
 define("ARTICLE_REFERENCES","Article References");
-define("ARTICLE_TRANSLATION","Automatic translation using Windows Live Translator service");
+define("ARTICLE_TRANSLATION","Automatic translation using Windows Live Translator and Google Translator service");
 define("ARTICLE_TRANSLATION_WARNING","This is an automatic translation that represents a “best effort”  but it was not reviewed by the author and might have imperfections.");
 define('NO_DATA_FOR_GRAPHIC','Graphic unavailable, data in processing.');
 
@@ -634,7 +635,7 @@ rótulos tela Article References
 */
 
 define("ARTICLE_REFERENCES","Referencias del artículo");
-define("ARTICLE_TRANSLATION","Traducción automática utilizando el servicio Windows Live Translator ");
+define("ARTICLE_TRANSLATION","Traducción automática utilizando el servicio Windows Live Translator y Google Translator ");
 define("ARTICLE_TRANSLATION_WARNING","Ese servicio es una traducción automática que no fue revisada por el autor y puede tener imperfecciones.");
 define('NO_DATA_FOR_GRAPHIC','Gráfico no disponible, datos en procesamiento.');
 
