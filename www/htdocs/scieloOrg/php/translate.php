@@ -31,6 +31,22 @@
         <!-- Adicionado script para passa a utilizar o serviço de log comentado por Jamil Atta Junior (jamil.atta@bireme.org)-->
         <script language="javascript" src="/../../applications/scielo-org/js/httpAjaxHandler.js">
         </script>
+	  <style type="text/css">
+/* The following is for windows that aren't tall enough for
+   the fixed menu. Use the scrolling menu instead. */
+.r0 {
+  background-color: gray
+}
+.r2 {
+  background-color: white
+}
+#translations {
+}
+.lang {
+ font-style: italic
+}
+</style>
+
     </head>
     <body>
         <div class="container">

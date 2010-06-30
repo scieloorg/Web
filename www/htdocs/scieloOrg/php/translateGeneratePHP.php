@@ -34,38 +34,41 @@
         
         $print .= '<p>';
 
-        $print .= '<table>';
-        $print .= '<tr><th></th><th>Google</th><th>Windows</th><th></th><th>Google</th><th>Windows</th></tr>';
+        $print .= '<table id="translations">';
+        // $print .= '<tr><th></th><th>Google</th><th>Windows</th><th></th><th>Google</th><th>Windows</th></tr>';
 
 
+	   $class = 1;	
         for ($i=0;$i<$n;$i++) {
             $val = current($ss);
+		 $class = -1 * $class; 
 
-            $print .= '<tr>';
-            $print .= '<td>'.$data[$iLang][$val]['label'].'</td>';
+		 $className = 1 + $class;
+            $print .= '<tr class="r'.$className.'">';
+            $print .= '<td class="lang">'.$data[$iLang][$val]['label'].'</td>';
             $print .= '<td>';
             if ($data[$iLang][$val]['google']){
-                $print .= '<a href="/scieloOrg/php/translateCallAndLog.php?translator=google&tlang=TEXTLANG&tlang2='.$data[$iLang][$val]['google'].'&lang=LANG&pid=PID&script=SCRIPT&url=TEXTSOURCE"  target="_blank"  style="color:black;">x</a>';
+                $print .= '<a href="/scieloOrg/php/translateCallAndLog.php?translator=google&tlang=TEXTLANG&tlang2='.$data[$iLang][$val]['google'].'&lang=LANG&pid=PID&script=SCRIPT&url=TEXTSOURCE"  target="_blank"  style="color:black;">Google</a>';
             }
             $print .= '</td>';
             $print .= '<td>';
             if ($data[$iLang][$val]['win']){
                 //$print .= '<a href="'.$data[$iLang][$val]['win'].'"  target="_blank"  style="color:black;">x</a>';
-                $print .= '<a href="/scieloOrg/php/translateCallAndLog.php?translator=win&tlang=TEXTLANG&tlang2='.$data[$iLang][$val]['win'].'&lang=LANG&pid=PID&script=SCRIPT&url=TEXTSOURCE"  target="_blank"  style="color:black;">x</a>';
+                $print .= '<a href="/scieloOrg/php/translateCallAndLog.php?translator=win&tlang=TEXTLANG&tlang2='.$data[$iLang][$val]['win'].'&lang=LANG&pid=PID&script=SCRIPT&url=TEXTSOURCE"  target="_blank"  style="color:black;">Windows</a>';
             }
             $print .= '</td>';
 
             next($ss);
             $val = current($ss);
-            $print .= '<td>'.$data[$iLang][$val]['label'].'</td>';
+            $print .= '<td class="lang">'.$data[$iLang][$val]['label'].'</td>';
             $print .= '<td>';
             if ($data[$iLang][$val]['google']){
-                $print .= '<a href="/scieloOrg/php/translateCallAndLog.php?translator=google&tlang=TEXTLANG&tlang2='.$data[$iLang][$val]['google'].'&lang=LANG&pid=PID&script=SCRIPT&url=TEXTSOURCE"  target="_blank"  style="color:black;">x</a>';
+                $print .= '<a href="/scieloOrg/php/translateCallAndLog.php?translator=google&tlang=TEXTLANG&tlang2='.$data[$iLang][$val]['google'].'&lang=LANG&pid=PID&script=SCRIPT&url=TEXTSOURCE"  target="_blank"  style="color:black;">Google</a>';
             }
             $print .= '</td>';
             $print .= '<td>';
             if ($data[$iLang][$val]['win']){
-                $print .= '<a href="/scieloOrg/php/translateCallAndLog.php?translator=win&tlang=TEXTLANG&tlang2='.$data[$iLang][$val]['win'].'&lang=LANG&pid=PID&script=SCRIPT&url=TEXTSOURCE"  target="_blank"  style="color:black;">x</a>';
+                $print .= '<a href="/scieloOrg/php/translateCallAndLog.php?translator=win&tlang=TEXTLANG&tlang2='.$data[$iLang][$val]['win'].'&lang=LANG&pid=PID&script=SCRIPT&url=TEXTSOURCE"  target="_blank"  style="color:black;">Windows</a>';
             }
             $print .= '</td>';
 
