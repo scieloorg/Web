@@ -1,5 +1,8 @@
 ﻿Versão: 
 
+v4.55
+#219, melhoria na apresentação 
+
 v4.54
 #219 
 
