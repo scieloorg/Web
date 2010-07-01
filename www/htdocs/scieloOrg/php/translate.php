@@ -32,18 +32,30 @@
         <script language="javascript" src="/../../applications/scielo-org/js/httpAjaxHandler.js">
         </script>
 	  <style type="text/css">
-/* The following is for windows that aren't tall enough for
-   the fixed menu. Use the scrolling menu instead. */
 .r0 {
-  background-color: gray
+  background-color: #EEE9E9
 }
 .r2 {
   background-color: white
 }
-#translations {
+#translations table, #translations  th, #translations  td
+{
+  border: 1px solid white;
+}
+#translations td
+{
+  padding:2px;
+}
+.break
+{
+  background-color: white
+}
+#translations a
+{
+  color: #27408B
 }
 .lang {
- font-style: italic
+  font-style: italic
 }
 </style>
 
@@ -95,6 +107,8 @@
     $print = str_replace('SCRIPT', $script, $print);
     $print = str_replace('LANG', $_REQUEST['lang'], $print);
     $print = str_replace('PID', $_REQUEST['pid'], $print);
+    //$print = str_replace('?', '?date='.date('YmdHis').rand().'&', $print);
+    $print = str_replace('?', '?date='.$_REQUEST['date'].'&', $print);
     echo $print;
 ?>
 
