@@ -19,7 +19,7 @@ function str2index($str){
      $interfaceLanguages = array('pt','en','es');
 
      foreach ($interfaceLanguages as $interfaceLang){
-        $availableLanguages = file_get_contents('http://translate.google.com/?hl='.$interfaceLang);
+        $availableLanguages = utf8_encode(file_get_contents('http://translate.google.com/?hl='.$interfaceLang));
         $temp_select = explode('<select ', $availableLanguages);
         $temp_select_end = explode('</select>', $temp_select[1]);
 
@@ -42,7 +42,8 @@ function str2index($str){
      }
     foreach ($interfaceLanguages as $interfaceLang){
     //var_dump($defFile['windows_live_translator']);
-        $availableLanguages = utf8_decode(file_get_contents('http://www.microsofttranslator.com/'));
+        //$availableLanguages = utf8_decode(file_get_contents('http://www.microsofttranslator.com/'));
+        $availableLanguages = file_get_contents('http://www.microsofttranslator.com/');
 
         $temp1 = explode('var LangPair_ToDDL_keys=[', str_replace("'", '', $availableLanguages));
         $temp2 = explode(']', $temp1[1]);
@@ -56,7 +57,7 @@ function str2index($str){
             if ($data['pt'][$languagesCode[$i]]['google']){
                 $text = $data[$interfaceLang][$languagesCode[$i]]['label'];
             }
-            $data[$interfaceLang][$languagesCode[$i]]['label'] = utf8_encode( $text);
+            $data[$interfaceLang][$languagesCode[$i]]['label'] = $text;
             //$data[$interfaceLang][$languagesCode[$i]]['win'] = 'http://www.microsofttranslator.com/BV.aspx?ref=AddIn&lp=TEXTLANG_'.$languagesCode[$i].'&a=TEXTSOURCE&skpa=on';
             $data[$interfaceLang][$languagesCode[$i]]['win'] = $languagesCode[$i];
             $sorted[$interfaceLang][str2index($text)]=$languagesCode[$i];
