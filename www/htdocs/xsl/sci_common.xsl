@@ -3,6 +3,7 @@
 	<xsl:variable name="HOME_URL">http://<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/SERVER"/>
 		<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_DATA"/>scielo.php</xsl:variable>
 	<xsl:variable name="interfaceLang" select="//CONTROLINFO/LANGUAGE"/>
+	<xsl:variable name="SITE_NAME" select="//CONTROLINFO/SITE_NAME"/>
 	<xsl:variable name="translations" select="document(concat('../xml/',$interfaceLang,'/translation.xml'))/translations"/>
 	<xsl:variable name="ARTICLE_LICENSE" select="//article-meta/permissions"/>
 	<xsl:variable name="GENERAL_LICENSE" select="//PERMISSIONS/permissions"/>
