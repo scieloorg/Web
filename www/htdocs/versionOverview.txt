@@ -2,6 +2,7 @@
 
 v4.55
 #219, melhoria na apresentação 
+#218, melhoria na apresentação 
 
 v4.54
 #219 
