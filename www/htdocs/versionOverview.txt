@@ -2,8 +2,7 @@
 
 {{{
 PARA A PRÓXIMA TAG
-#219, melhoria na apresentação 
-
+#219, tradução para africaner e outros
 #217 scielo_crs se o documento já tiver doi, verifica o prefixo do provedor local, se sim, fazer o registro no CrossRef, caso contrario ignorar
 #218 sci_issues apresentação de nota dos períodos em que o periódico é considerado de acordo com os criterios da coleção
 PARA A PRÓXIMA TAG
