@@ -30,7 +30,7 @@
 							<blockquote>
 								<p align="left">
 									<font face="Verdana" size="4" color="#000080">
-                                       asdfasd <xsl:value-of select="$translations/xslid[@id='sci_stat']/text[@find='library_collection']"/>
+                                        <xsl:value-of select="$translations/xslid[@id='sci_stat']/text[@find='library_collection']"/>
 									</font>
 								</p>
 							</blockquote>
