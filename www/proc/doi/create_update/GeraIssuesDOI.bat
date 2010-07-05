@@ -26,7 +26,7 @@ call batch/VerifPresencaParametro.bat $0 @$8 email
 rem Inicializa variaveis
 PROCESS_DATE=`date +%Y%m%d%H%M%S`
 
-cisis/mx "seq=$2 " lw=9000 "pft=if p(v1) and p(v2) then 'doi/create_update/GeraIssueDOI.bat ',v1,x1,v2,x1,if v2:'ahead' or v2:'review' then 'update' else 'reset' fi,x1,'$3 $4 ',,if '$4'<>'no_query' then '$6 $7 $8' else v3,' $5 $8' fi/, fi" now >temp/doi/proc/current/GeraIssuesDOI.bat
+cisis/mx "seq=$2 " lw=9000 "pft=if p(v1) and p(v2) then if p(v3) then  'doi/create_update/GeraIssueDOI.bat ',v1,x1,v2,x1,if v2:'ahead' or v2:'review' then 'update' else 'reset' fi,x1,'$3 $4 ',,if '$4'<>'no_query' then '$6 $7 $8' else v3,' $5 $8' fi/, else 'echo ...............',#,'echo ERROR: Missing pid of scilista for ',v1,' ',v2/,'echo ...............',#, fi fi" now >temp/doi/proc/current/GeraIssuesDOI.bat
 
 chmod 700 temp/doi/proc/current/GeraIssuesDOI.bat
 call temp/doi/proc/current/GeraIssuesDOI.bat
