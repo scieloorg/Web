@@ -293,12 +293,12 @@
 		<text find="img_alt">Scientific Electronic Library Online</text>
 	</xslid>
 	<xslid id="sci_toolbox">
-		<text find="services">services</text>
-		<text find="article">article</text>
+		<text find="services">Services</text>
+		<text find="article">Article</text>
 		<text find="add_to_my_collection">Add to my collection</text>
 		<text find="alert_me_when_cited">Alert me when cited</text>
 		<text find="send_me_access_statistics">Send me access statistics</text>
-		<text find="custom_services">custom services</text>
+		<text find="custom_services">Custom services</text>
 		<text find="comments">Comments</text>
 		<text find="article_in_pdf_format">Article in pdf format</text>
 		<text find="article_in_xml_format">Article in xml format</text>
