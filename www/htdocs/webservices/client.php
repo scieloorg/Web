@@ -9,22 +9,22 @@ $wsdl  =  $endPoint . "?wsdl";
 
 <html>
   <head>
-    <title>SciELO Client SOAP Test</title>
+    <title>SciELO Client SOAP</title>
     <style type="text/css">
             body  { font-family: arial; font-size: 12pt; color: #000000; background-color: #ffffff; margin: 10px 20px 20px 5px; }
-            h2    { color: #990000};
+            h3    { color: #990000};
     </style>
   </head>
   <body>
 <div style="text-align:center"><img alt="ScieELO.org - Scientific Electronic Library Online" src="http://www.scielo.br/applications/scielo-org/image/public/skins/classic/pt/banner.jpg"></center></div>
-<h2>SciELO Client SOAP Test</h2>
+<h3>SciELO Client SOAP</h3>
 <b>endpoint: &nbsp;</b><a href="<?=$endPoint?>" target="_blank"><?=$endPoint?></a><br/>
 <b>wsdl: &nbsp;</b><a href="<?=$wsdl?>" target="_blank"><?=$wsdl?></a>
 <br><br>
-<h3>Examples</h3>
+<h3>Services Examples</h3>
 <ul><li>Search: http://<? echo $_SERVER["HTTP_HOST"]?><? echo htmlspecialchars("/webservices/client.php?expression=dengue&from=1&count=10&service=search&lang=p");?></li></ul>
 <ul><li>New Titles: http://<? echo $_SERVER["HTTP_HOST"]?><? echo htmlspecialchars("/webservices/client.php?service=new_titles&count=10");?></li></ul>
-<ul><li>New Issues: http://<? echo $_SERVER["HTTP_HOST"]?><? echo htmlspecialchars("/webservices/client.php?");?></li></ul>
+<ul><li>New Issues: http://<? echo $_SERVER["HTTP_HOST"]?><? echo htmlspecialchars("/webservices/client.php?service=new_issues&count=10");?></li></ul>
 <ul><li>Get Titles: http://<? echo $_SERVER["HTTP_HOST"]?><? echo htmlspecialchars("//webservices/client.php?service=get_titles&issn=0102-8650");?></li></ul>
 <ul><li>Get Title Indicators: http://<? echo $_SERVER["HTTP_HOST"]?><? echo htmlspecialchars("/webservices/client.php?service=get_title_indicators&issn=0102-8650");?></li></ul>
 <h3>Result</h3>
@@ -87,6 +87,8 @@ switch($service){
 <textarea cols="100" rows="30">
 <? echo trim($resultado);?>
 </textarea>
+
+<p align="center"><font color="#0000a0" size="-1" class="nomodel">SciELO - Scientific Electronic Library Online<br>FAPESP - BIREME<br>Rua Dr. Diogo de Farias, 1087 conj. 810 - Vila Clementino<br>04037-003 São Paulo SP - Brazil - Brasil<br>Phone: +55 11 3369-4080<br>Fax: </font><br><a href="mailto:scielo@scielo.org" class="email"><img border="0" src="/img/e-mailt.gif"><br><font color="#0000a0" size="2">scielo@scielo.org</font></a></p>
 
 
 
