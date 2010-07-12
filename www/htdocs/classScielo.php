@@ -190,7 +190,12 @@ class Scielo extends ScieloBase
                             "show_home_about" => "show_home_about",
                             "show_home_scielo_news" => "show_home_scielo_news",
                             "show_home_scielo_team" => "show_home_scielo_team",
-                            "show_home_scielo_signature" => "show_home_scielo_signature"
+                            "show_home_scielo_signature" => "show_home_scielo_signature",
+                            "show_group_article"  => "show_group_article",
+                            "show_group_indicators" => "show_group_indicators",
+                            "show_group_related_links" => "show_group_related_links",
+                            "show_group_services" => "show_group_services",
+                            "show_group_bookmark" => "show_group_bookmark"
                     );
 
                     foreach ($elements as $k => $v) {
