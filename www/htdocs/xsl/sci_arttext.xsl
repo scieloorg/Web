@@ -17,17 +17,17 @@
 		</xsl:if>
 		<html xmlns="http://www.w3.org/1999/xhtml">
 			<head>
-				<title>
-					<xsl:value-of select="TITLEGROUP/TITLE" disable-output-escaping="yes"/> - <xsl:value-of select="normalize-space(ISSUE/ARTICLE/TITLE)" disable-output-escaping="yes"/>
-				</title>
-				<meta http-equiv="Pragma" content="no-cache"/>
-				<meta http-equiv="Expires" content="Mon, 06 Jan 1990 00:00:01 GMT"/>
-				<meta Content-math-Type="text/mathml"/>
-                                <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-				<link rel="stylesheet" type="text/css" href="/css/screen.css"/>
-				<xsl:apply-templates select="." mode="css"/>
-				<script language="javascript" src="applications/scielo-org/js/httpAjaxHandler.js"/>
-				<script language="javascript" src="article.js"/>
+                            <title>
+                                    <xsl:value-of select="TITLEGROUP/TITLE" disable-output-escaping="yes"/> - <xsl:value-of select="normalize-space(ISSUE/ARTICLE/TITLE)" disable-output-escaping="yes"/>
+                            </title>
+                            <meta http-equiv="Pragma" content="no-cache"/>
+                            <meta http-equiv="Expires" content="Mon, 06 Jan 1990 00:00:01 GMT"/>
+                            <meta Content-math-Type="text/mathml"/>
+                            <link rel="stylesheet" type="text/css" href="/css/screen.css"/>
+                            <xsl:apply-templates select="." mode="css"/>
+                            <script language="javascript" src="applications/scielo-org/js/jquery-1.4.2.min.js"/>
+                            <script language="javascript" src="applications/scielo-org/js/toolbox.js"/>
+                            <script language="javascript" src="article.js"/>
 			</head>
 			<body>
 				<div class="container">

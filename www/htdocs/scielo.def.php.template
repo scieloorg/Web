@@ -140,6 +140,12 @@ show_fapesp_projects=0
 show_press_releases=0
 show_clinical_trials=0
 
+[services_group]
+show_group_article = 1
+show_group_indicators = 1
+show_group_related_links = 1
+show_group_bookmark = 1
+
 [FULLTEXT_SERVICES]
 access="http://vm.scielo.br/applications/scielo-org/pages/services/articleRequestGraphicPage.php?pid=PARAM_PID&caller=PARAM_SERVER"
 cited_SciELO="http://vm.scielo.br/scieloOrg/php/citedScielo.php?pid=PARAM_PID"

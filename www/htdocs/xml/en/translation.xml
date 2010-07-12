@@ -326,6 +326,7 @@
 		<text find="pr">Press release</text>
 		<text find="issue">See the issue</text>
 		<text find="clinical_trial">Clinical trial</text>
+                <text find="bookmark_more">More</text>
 	</xslid>
 	<xslid id="sci_issuetoc">
 		<text find="abstract">abstract in </text>
