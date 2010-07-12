@@ -1,9 +1,11 @@
-﻿v5.2-pr(Press-Release)
+﻿v5.3-pr(Press-Release)
+#8 Melhorias na interface da caixa de serviçoes 
+#35 Adicionado Social Bookmarks na caixa de serviçoes 
+#51 Ajustado utf-8 como saida padrão PHP 5 e Java
+
+v5.2-pr(Press-Release)
 #219, tradução para africaner e outros
 #217 scielo_crs se o documento já tiver doi, verifica o prefixo do provedor local, se sim, fazer o registro no CrossRef, caso contrario ignorar
-#218 sci_issues apresentação de nota dos períodos em que o periódico é considerado de acordo com os criterios da coleção
-PARA A PRÓXIMA TAG
-
 
 v5.1-pr(Press-Release)
 Ajustado o link na caixa de serviços do artigo.
