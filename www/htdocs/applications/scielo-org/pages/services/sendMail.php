@@ -110,6 +110,7 @@ switch($acao){
 		<? include(dirname(__FILE__)."/../../../../php/head.php"); ?>
 		<script language="JavaScript" src="../../js/script.js"></script>
 		<script language="JavaScript" src="../../js/validator.js"></script>
+                <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 		<style>
 			/* classes for validator */
 			.tfvHighlight
@@ -122,7 +123,6 @@ switch($acao){
 		<div class="container">	
 			<div class="level2">
 				<? require_once(dirname(__FILE__)."/../../html/" . $lang . "/headerInstancesServices.html"); ?>
-
 				<div class="middle">				
 					<!--div id="breadCrumb">
 						<a href="/">

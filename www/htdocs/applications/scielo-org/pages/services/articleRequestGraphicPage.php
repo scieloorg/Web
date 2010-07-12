@@ -36,12 +36,10 @@
   PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="Expires" content="-1">
     <meta http-equiv="pragma" content="no-cache">
     <meta name="robots" content="all">
-    <meta name="MSSmartTagsPreventParsing" content="true">
-    <meta name="generator" content="BVS-Site 4.0-rc4">
 	
     <script language="JavaScript">lang = '<?=$lang?>';</script>
     <script language="JavaScript" src="<?=$scielodef['this']['url']?>/js/functions.js"></script>
@@ -68,18 +66,16 @@
 						<TD colspan="2">
 							<h3><span style="font-weight:100;font-size: 70%; background:none;">
 							<?php
-								
-								$author = getAutors($article->getAuthorXML());
-								$pos = strrpos($author, ";");
-								$author[$pos] = " ";
+                                                            $author = getAutors($article->getAuthorXML());
+                                                            $pos = strrpos($author, ";");
+                                                            $author[$pos] = " ";
 
-								echo $author;
-								echo '<i><b>';
-								echo (getTitle($article->getTitle(), $lang).". ");
-								echo ('</b></i>');					        
-								echo ($article->getSerial(). ', '.$article->getYear().', vol.'.$article->getVolume());
-								echo (', n. '.$article->getNumber().', ISSN '.substr($article->getPID(),1,9).'.<br/><br/>'."\n");
-								
+                                                            echo $author;
+                                                            echo '<i><b>';
+                                                            echo getTitle($article->getTitle(), $lang).". ";
+                                                            echo ('</b></i>');
+                                                            echo utf8_encode($article->getSerial(). ', '.$article->getYear().', vol.'.$article->getVolume());
+                                                            echo utf8_encode(', n. '.$article->getNumber().', ISSN '.substr($article->getPID(),1,9).'.<br/><br/>'."\n");
 							?>
 							</span></h3>
 						</TD>

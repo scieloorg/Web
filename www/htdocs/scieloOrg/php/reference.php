@@ -7,9 +7,7 @@
 
 	require_once(dirname(__FILE__)."/../../applications/scielo-org/users/langs.php");
 	require_once(dirname(__FILE__)."/../../classDefFile.php");
-	//require_once(dirname(__FILE__)."/../../class.XSLTransformer.php");
 
-	//$transformer = new XSLTransformer();
 	$defFile = parse_ini_file(dirname(__FILE__)."/../../scielo.def.php");
 
 	$applServer = $defFile["SERVER_SCIELO"];
@@ -21,10 +19,9 @@
 
 <!DOCTYPE html
   PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 		<html>
 			<head>
-				<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+				<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 				<link rel="stylesheet" href="/applications/scielo-org/css/public/style-<?=$lang?>.css" type="text/css" media="screen"/>
 				<!-- Adicionado script para passa a utilizar o serviço de log comentado por Jamil Atta Junior (jamil.atta@bireme.org)-->
 				<script language="javascript" src="/../../applications/scielo-org/js/httpAjaxHandler.js"></script>

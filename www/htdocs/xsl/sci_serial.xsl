@@ -36,6 +36,7 @@
 				</title>
 				<meta http-equiv="Pragma" content="no-cache"/>
 				<meta http-equiv="Expires" content="Mon, 06 Jan 1990 00:00:01 GMT"/>
+                                <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 				<xsl:if test="//NO_SCI_SERIAL='yes'">
 					<xsl:variable name="X">http://<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/SERVER"/>
 						<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_artlist&amp;pid=<xsl:value-of select="//PAGE_PID"/>&amp;lng=<xsl:value-of select="normalize-space(//CONTROLINFO/LANGUAGE)"/>&amp;nrm=<xsl:value-of select="normalize-space(//CONTROLINFO/STANDARD)"/>

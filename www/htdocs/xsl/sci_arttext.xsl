@@ -23,6 +23,7 @@
 				<meta http-equiv="Pragma" content="no-cache"/>
 				<meta http-equiv="Expires" content="Mon, 06 Jan 1990 00:00:01 GMT"/>
 				<meta Content-math-Type="text/mathml"/>
+                                <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 				<link rel="stylesheet" type="text/css" href="/css/screen.css"/>
 				<xsl:apply-templates select="." mode="css"/>
 				<script language="javascript" src="applications/scielo-org/js/httpAjaxHandler.js"/>

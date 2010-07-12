@@ -40,7 +40,7 @@ class XSLTransformerPHP5
       trigger_error('XSL transformation failed.', E_USER_ERROR);
     }
 
-    return xml_utf8_decode($result);
+    return $result;
     
     }
 }
