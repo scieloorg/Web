@@ -14,7 +14,7 @@
 
 		<html>
 			<head>
-				<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+				<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 				<link rel="stylesheet" href="/applications/scielo-org/css/public/style-<?=$lang?>.css" type="text/css" media="screen"/>
 				<?php
 				/* Adicionado script para passa a utilizar o serviço de log comentado por Jamil Atta Junior (jamil.atta@bireme.org) */

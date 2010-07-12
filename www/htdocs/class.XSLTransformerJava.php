@@ -73,7 +73,7 @@ function transform($xsl, $xml)
         } else {
                 $message = 'NO_SOCKET';
         }
-        return  xml_utf8_decode($message);
+        return  $message;
 }
 
 function recebeResultado()
