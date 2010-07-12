@@ -1,5 +1,5 @@
 #scieloLogo {
-	background: url(../../image/en/fbpelogp.gif) no-repeat;
+	background: url('../../image/en/fbpelogp.gif') no-repeat;
 	width: 110px;
 	height: 57px;
 	float: left;
@@ -32,11 +32,26 @@
 
 #toolBox {
 	font-family: arial;
-	font-size: 85%;
-	border: 1px solid #900;
-	background: #F9F9F9;
+	font-size: 90%;
+	border: 1px solid #CCCCCC;
 	padding: 8px;
-	margin: 0px 0px 20px 20px;
+	margin: 0px 0px 10px 20px;
+}
+
+.toolBoxSection{
+    border-bottom:1px solid #CCCCCC;
+}
+
+.content .toolBoxSection H2 {
+    font-family: arial;
+    color: #666666;
+    font-size: 100%;
+    font-weight: bold; 
+    margin-top: 10px; 
+}
+
+.content .box A {
+    text-decoration: none;
 }
 
 #toolsSection {
@@ -176,6 +191,7 @@ HTML>BODY .content H4 {
 	position: absolute;
 	right: 10px;
 	top: 10px;
+
 }
 
 .popUp .close A {
@@ -183,38 +199,12 @@ HTML>BODY .content H4 {
 }
 .invisible {display: none}
 
-.license P {
-        text-align: center;
-}
-.license P {
-        color: gray;
-        font-weight: normal;
-        font-size: 80% !important;
+.license P, .license  A, .license  SPAN{
+	text-align: center;
+	font-size: 8pt;
+	color: black
 }
 
-.license P A {
-        font-size: 100% !important;
-        color: gray;
-        text-decoration: underline;
-}
-
-.license P IMG {
-        vertical-align: middle;
-
-}
-
-.footer .license P {
-	color: gray;
-	font-weight: normal;
-	font-size: 90% !important;
-}
-
-.footer .license P A {
-	font-size: 100% !important;
-	color: gray;
-	text-decoration: underline;
-}
-
-.footer .license P IMG {
-	vertical-align: middle;
+.license img {
+	
 }

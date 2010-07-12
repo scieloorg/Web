@@ -326,6 +326,7 @@
 		<text find="pr">Press release</text>
 		<text find="issue">Veja o fascículo</text>
 		<text find="clinical_trial">Ensaio clínico</text>
+                <text find="bookmark_more">Mais</text>
 	</xslid>
 	<xslid id="sci_issuetoc">
 		<text find="abstract">resumo em </text>
