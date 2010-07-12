@@ -1,6 +1,6 @@
 <?
 /**
-* definição das constantes para os rótulos dos formulários
+* definiÃ§Ã£o das constantes para os rÃ³tulos dos formulÃ¡rios
 * usados para multilanguage
 */
 
@@ -18,169 +18,169 @@ if(!in_array($lang,$langs)){
 if($lang == "pt")
 {
 /*
-rótulo tela ofigraph20.php
+rÃ³tulo tela ofigraph20.php
 */
 define("RANKING_MOST_VISITED_JOURNALS","Ranking de revistas mas visitadas");
-define("VISITED_ARTICLES_BY_MONTH","Número de artigos visitados por mês");
-define("OFIGRAPH21_SENTENCE1","Artigos visitados em um título, agrupados por mês");
-define("OFIGRAPH21_SENTENCE2","Todos artigos visitados dos seguintes títulos");
-define("OFIGRAPH21_LIBRARY_COLLECTION","Coleção da Biblioteca");
-define("OFIGRAPH21_SELECT_JOURNAL","Selecione um título");
+define("VISITED_ARTICLES_BY_MONTH","NÃºmero de artigos visitados por mÃªs");
+define("OFIGRAPH21_SENTENCE1","Artigos visitados em um tÃ­tulo, agrupados por mÃªs");
+define("OFIGRAPH21_SENTENCE2","Todos artigos visitados dos seguintes tÃ­tulos");
+define("OFIGRAPH21_LIBRARY_COLLECTION","ColeÃ§Ã£o da Biblioteca");
+define("OFIGRAPH21_SELECT_JOURNAL","Selecione um tÃ­tulo");
 define("OFIGRAPH21_SEE_THE_DATA","veja os dados");
 
 
 /*
-rótulos tela FAPESP
+rÃ³tulos tela FAPESP
 */
 define("PROJFAPESP","Projetos FAPESP");
 
 /*
-rótulos tela CLINICAL TRIAL
+rÃ³tulos tela CLINICAL TRIAL
 */
-define("CLINICALTRIALS","Ensaios Clínicos");
+define("CLINICALTRIALS","Ensaios ClÃ­nicos");
 
 /*
-rótulos tela DATASUS
+rÃ³tulos tela DATASUS
 */
-define("DATASUS","Indicadores de Saúde");
+define("DATASUS","Indicadores de SaÃºde");
 
 /*
-rótulos tela Article References
+rÃ³tulos tela Article References
 */
-define("SCIELO.ORG"," indicou um artigo para você.");
-define("ARTICLE_REFERENCES","Referências do Artigo");
-define("ARTICLE_TRANSLATION","Tradução automática utilizando o serviço Windows Live Translator e Google Translator");
-define("ARTICLE_TRANSLATION_WARNING","Este serviço é uma tradução automática que não foi revista pelo autor e pode ter imperfeições.");
-define('NO_DATA_FOR_GRAPHIC','Gráfico não disponível, dados em processamento.');
+define("SCIELO.ORG"," indicou um artigo para vocÃª.");
+define("ARTICLE_REFERENCES","ReferÃªncias do Artigo");
+define("ARTICLE_TRANSLATION","TraduÃ§Ã£o automÃ¡tica utilizando o serviÃ§o Windows Live Translator e Google Translator");
+define("ARTICLE_TRANSLATION_WARNING","Este serviÃ§o Ã© uma traduÃ§Ã£o automÃ¡tica que nÃ£o foi revista pelo autor e pode ter imperfeiÃ§Ãµes.");
+define('NO_DATA_FOR_GRAPHIC','GrÃ¡fico nÃ£o disponÃ­vel, dados em processamento.');
 
 /*
-rótulos para a tela envio de artigo por email
+rÃ³tulos para a tela envio de artigo por email
 */
-define("TO_EMAIL","Email do destinatário:");
-define("TO_NAME","Nome do destinatário:");
-define("COMMENTS","Comentários:");
-define("ARTICLE_TITLE","Título: ");
+define("TO_EMAIL","Email do destinatÃ¡rio:");
+define("TO_NAME","Nome do destinatÃ¡rio:");
+define("COMMENTS","ComentÃ¡rios:");
+define("ARTICLE_TITLE","TÃ­tulo: ");
 define("ARTICLE_SUGGESTION","SciELO: Artigo recomendado de ");
 /*
-rótulos para a tela envio de nova senha
+rÃ³tulos para a tela envio de nova senha
 */
 define("FORGOT_TITLE","Envio de nova senha");
 define("BUTTON_SEND_NEW_PASSORD","Enviar nova senha");
-define("UNKNOW_USER_ERROR","Usuário não encontrado");
+define("UNKNOW_USER_ERROR","UsuÃ¡rio nÃ£o encontrado");
 define("SEND_NEW_PASSWORD_SUCCESS","Senha enviada com sucesso !!!");
 
 /*
-rótulos para a tela de login
+rÃ³tulos para a tela de login
 */
-define("HELLO_STRING","Olá, ");
+define("HELLO_STRING","OlÃ¡, ");
 define("EDIT_USER_DATA","Meus dados");
-define("LOGIN_TITLE","Login de usuário");
+define("LOGIN_TITLE","Login de usuÃ¡rio");
 define("BUTTON_LOGIN","Login");
 define("BUTTON_LOGOUT","Sair");
 define("FORGOT_PASSWORD","Enviar-me nova senha  ");
 define("REGISTER","Cadastre-se");
-define("FOR_SERVICES","para serviços personalizados");
-define("LOGIN_ERROR","Login/Senha inválidos");
-define("FIELD_LOGIN_ALREADY_EXISTS","Login já existe !!!");
-define("REQUIRED_FIELD_TEXT"," * Campos Obrigatórios");
+define("FOR_SERVICES","para serviÃ§os personalizados");
+define("LOGIN_ERROR","Login/Senha invÃ¡lidos");
+define("FIELD_LOGIN_ALREADY_EXISTS","Login jÃ¡ existe !!!");
+define("REQUIRED_FIELD_TEXT"," * Campos ObrigatÃ³rios");
 define("LOGOUT_DONE","Logout realizado com sucesso !!!");
-define("NOT_LOGED","Usuário não logado, por favor, visite <a target=\"_blank\" href=\"".$url."\">Scielo</a> e se logue");
+define("NOT_LOGED","UsuÃ¡rio nÃ£o logado, por favor, visite <a target=\"_blank\" href=\"".$url."\">Scielo</a> e se logue");
 
 /*
 rotulos da tela de cadastro/alteracao de usuario
 */
-define("REGISTER_NEW_USER_TITLE","Cadastro de Novo Usuário");
-define("UPDATE_USER_TITLE","Atualização dos dados");
+define("REGISTER_NEW_USER_TITLE","Cadastro de Novo UsuÃ¡rio");
+define("UPDATE_USER_TITLE","AtualizaÃ§Ã£o dos dados");
 define("FIELD_FIRST_NAME","Nome");
 define("FIELD_LAST_NAME","Sobrenome");
 define("FIELD_GENDER","Sexo");
 define("FIELD_GENDER_MALE","Masculino");
 define("FIELD_GENDER_FEMALE","Feminino");
 define("FIELD_PASSWORD","Senha");
-define("FIELD_PASSWORD_CONFIRMATION","Confirmação");
+define("FIELD_PASSWORD_CONFIRMATION","ConfirmaÃ§Ã£o");
 define("FIELD_PASSWORD_CHANGE_MESSAGE","(somente preencha caso deseje alterar sua senha)");
 define("FIELD_EMAIL","E-Mail");
 define("FIELD_LOGIN","Login");
-define("FIELD_AFILIATION","Instituição");
-define("FIELD_DEGREE","Select|Selecione,Ensino_Fundamental|Ensino Fundamental (1o Grau),Ensino_Medio|Ensino Médio (2o Grau),Ensino_Tecnico|Ensino Profissional De Nível Técnico,Graduacao|Graduação,Especializacao|Especialização,Mestrado_Profissionalizante|Mestrado Profissionalizante,Mestrado|Mestrado,Doutorado|Doutorado,MBA|MBA,Pos_Doutorado|Pós Doutorado,PHD|PHD");
+define("FIELD_AFILIATION","InstituiÃ§Ã£o");
+define("FIELD_DEGREE","Select|Selecione,Ensino_Fundamental|Ensino Fundamental (1o Grau),Ensino_Medio|Ensino MÃ©dio (2o Grau),Ensino_Tecnico|Ensino Profissional De NÃ­vel TÃ©cnico,Graduacao|GraduaÃ§Ã£o,Especializacao|EspecializaÃ§Ã£o,Mestrado_Profissionalizante|Mestrado Profissionalizante,Mestrado|Mestrado,Doutorado|Doutorado,MBA|MBA,Pos_Doutorado|PÃ³s Doutorado,PHD|PHD");
 define("STEP","Passo");
 define("OF","de");
 
 /*
-rótulos para o cadastro de avise-me
+rÃ³tulos para o cadastro de avise-me
 */
-define("ADD_TO_SHELF_OK","Artigo adicionado à coleção com sucesso !!!");
-define("REMOVE_FROM_SHELF_OK","Artigo removido da coleção com sucesso !!!");
-define("REMOVE_CITED_ALERT_OK","Alerta de citação removido com sucesso !!!");
+define("ADD_TO_SHELF_OK","Artigo adicionado Ã  coleÃ§Ã£o com sucesso !!!");
+define("REMOVE_FROM_SHELF_OK","Artigo removido da coleÃ§Ã£o com sucesso !!!");
+define("REMOVE_CITED_ALERT_OK","Alerta de citaÃ§Ã£o removido com sucesso !!!");
 define("REMOVE_ACCESS_ALERT_OK","Alerta de acesso removido com sucesso !!!");
 define("ALERT_CITED_OK","Aviso quando for citado cadastrado com sucesso !!!");
-define("ALERT_ACCESSED_OK","Cadastro para envio de estatísticas de acesso realizado com sucesso !!!");
+define("ALERT_ACCESSED_OK","Cadastro para envio de estatÃ­sticas de acesso realizado com sucesso !!!");
 
 /*
-rótulos dos links para os serviços de usuários
+rÃ³tulos dos links para os serviÃ§os de usuÃ¡rios
 */
 define("PERSONAL_DATA","Dados pessoais");
 define("PROFILE","Perfil");
 define("PROFILES","Perfis");
 define("VIEW_BY","Visualizar Lista por");
-define("MY_SHELF","Minha Coleção");
+define("MY_SHELF","Minha ColeÃ§Ã£o");
 define("MY_LINKS","Meus Links");
 define("MY_NEWS","Minhas Noticias");
 define("MY_ARTICLE_PROFILE","Artigos do Perfil");
 define("MY_NEW_ARTICLE_PROFILE","Artigos Novos do Perfil");
 define("ORDER_BY","Ordenado por");
-define("RELEVANCE","Relevância");
+define("RELEVANCE","RelevÃ¢ncia");
 define("DATE","Data");
 define("MY_ALERTS","Meus Alertas");
-define("REMOVE_FROM_SHELF","Remover da coleção");
-define("CITATIONS","Citações");
-define("ACCESS_STATS","Estatísticas de acessos");
+define("REMOVE_FROM_SHELF","Remover da coleÃ§Ã£o");
+define("CITATIONS","CitaÃ§Ãµes");
+define("ACCESS_STATS","EstatÃ­sticas de acessos");
 define("ARTICLE_ACCESS","Acessos ao Artigo");
 define("ACCESSES","Acessos");
 define("MONTHS","Meses");
 define("REMOVE_ALERT","Remover alerta");
-define("REMOVE_ACCESS_ALERT","Não receber mais alertas de acessos desse artigo");
-define("REMOVE_CITED_ALTER","Não receber mais alertas de citação desse artigo");
+define("REMOVE_ACCESS_ALERT","NÃ£o receber mais alertas de acessos desse artigo");
+define("REMOVE_CITED_ALTER","NÃ£o receber mais alertas de citaÃ§Ã£o desse artigo");
 define("MONTH_LIST", "jan,fev,mar,abr,mai,jun,jul,ago,set,out,nov,dez");
 define("CITED_BY","Citado Por");
 define("SIMILARYS_IN","Similares em");
-define("COMMENTS_ARTICLE","Comentários");
-define("COMMENTS_ADD","(Adicionar Comentários)");
+define("COMMENTS_ARTICLE","ComentÃ¡rios");
+define("COMMENTS_ADD","(Adicionar ComentÃ¡rios)");
 define("COMMENTS_USER_AUTHOR","*Nome: ");
 define("COMMNETS_USER_EMAIL","*Email: ");
 define("COMMNETS_USER_BUTTON","Enviar");
-define("COMMNETS_USER_COMMENT","*Comentário:");
+define("COMMNETS_USER_COMMENT","*ComentÃ¡rio:");
 define("COMMNETS_MESSAGE_BLOG_INI","Por favor efetuar ");
-define("COMMNETS_MESSAGE_BLOG_FIM"," se deseja enviar um comentário.");
-define("COMMNETS_DONT_BLOG","Esta revista não pode receber comentários.");
-define("COMMNETS_MESSAGE_ERRO_1","Desculpe, mas você só pode postar um novo comentário uma vez a cada 15 segundos.");
+define("COMMNETS_MESSAGE_BLOG_FIM"," se deseja enviar um comentÃ¡rio.");
+define("COMMNETS_DONT_BLOG","Esta revista nÃ£o pode receber comentÃ¡rios.");
+define("COMMNETS_MESSAGE_ERRO_1","Desculpe, mas vocÃª sÃ³ pode postar um novo comentÃ¡rio uma vez a cada 15 segundos.");
 define("COMMNETS_MESSAGE_ERRO_2","Menssagem enviada anteriormente.");
-define("COMMNETS_MESSAGE_INFO_1","Comentário enviado por: ");
-define("COMMNETS_MESSAGE_INFO_2",", aguarde aprovação.");
+define("COMMNETS_MESSAGE_INFO_1","ComentÃ¡rio enviado por: ");
+define("COMMNETS_MESSAGE_INFO_2",", aguarde aprovaÃ§Ã£o.");
 define("CHAR_LIMIT","Limite de 1024 caracteres | restantes : ");
 define("SEE","Ver");
-define("SEE_HISTORY","Ver Histórico");
+define("SEE_HISTORY","Ver HistÃ³rico");
 define("CHOOSE_PERIOD", "Escolha por ano:");
 define("START_YEAR", "De:");
-define("LAST_YEAR", "Até:");
-define("BUTTON_REFRESH", "Atualizar gráfico");
-define("GRAFIC_STATS_FALSE", "Não existem dados estatísticos para o período selecionado");
+define("LAST_YEAR", "AtÃ©:");
+define("BUTTON_REFRESH", "Atualizar grÃ¡fico");
+define("GRAFIC_STATS_FALSE", "NÃ£o existem dados estatÃ­sticos para o perÃ­odo selecionado");
 /*
-define("ENGLISH_GERMAN","Inglês->Alemão");
-define("ENGLISH_ARABIC","Inglês->Árabe");
-define("ENGLISH_CHINESE_S","Inglês->Chines simplificado");
-define("ENGLISH_CHINESE_T","Inglês->Chines tradicional");
-define("ENGLISH_KOREAN","Inglês->Coreano");
-define("ENGLISH_SPANISH","Inglês->Espanhol");
-define("ENGLISH_FRENCH","Inglês->Francês");
-define("ENGLISH_DUTCH","Inglês->Holandês");
-define("ENGLISH_ITALIAN","Inglês->Italiano");
-define("ENGLISH_JAPANESE","Inglês->Japonês");
-define("ENGLISH_PORTUGUESE","Inglês->Português");
-define("FRENCH_GERMAN","Francês->Alemão");
-define("FRENCH_ENGLISH","Francês->Inglês");
-define("SPANISH_ENGLISH","Espanhol->Inglês");
-define("PORTUGUESE_ENGLISH","Português->Inglês");
+define("ENGLISH_GERMAN","InglÃªs->AlemÃ£o");
+define("ENGLISH_ARABIC","InglÃªs->Ãrabe");
+define("ENGLISH_CHINESE_S","InglÃªs->Chines simplificado");
+define("ENGLISH_CHINESE_T","InglÃªs->Chines tradicional");
+define("ENGLISH_KOREAN","InglÃªs->Coreano");
+define("ENGLISH_SPANISH","InglÃªs->Espanhol");
+define("ENGLISH_FRENCH","InglÃªs->FrancÃªs");
+define("ENGLISH_DUTCH","InglÃªs->HolandÃªs");
+define("ENGLISH_ITALIAN","InglÃªs->Italiano");
+define("ENGLISH_JAPANESE","InglÃªs->JaponÃªs");
+define("ENGLISH_PORTUGUESE","InglÃªs->PortuguÃªs");
+define("FRENCH_GERMAN","FrancÃªs->AlemÃ£o");
+define("FRENCH_ENGLISH","FrancÃªs->InglÃªs");
+define("SPANISH_ENGLISH","Espanhol->InglÃªs");
+define("PORTUGUESE_ENGLISH","PortuguÃªs->InglÃªs");
 */
 /*
 textos das mensagens de erro
@@ -195,7 +195,7 @@ define("FIELD_PROFILE_ONE","Perfil 1");
 define("FIELD_PROFILE_TWO","Perfil 2");
 define("FIELD_PROFILE_TREE","Perfil 3");
 define("FIELD_PROFILE_NAME","Nome");
-define("FIELD_PROFILE_DESCRIPTION_TEXT","Descrição");
+define("FIELD_PROFILE_DESCRIPTION_TEXT","DescriÃ§Ã£o");
 define("BUTTON_NEW_USER","Gravar");
 define("BUTTON_UPDATE_USER","Atualizar");
 define("BUTTON_BACK","Voltar");
@@ -205,30 +205,30 @@ define("REGISTER_NEW_USER_SUCESS","Dados Gravados com sucesso !!!");
 define("UPDATE_USER_SUCESS","Dados Atualizados com sucesso !!!");
 
 /*
-textos para a paginação
+textos para a paginaÃ§Ã£o
 */
 define("FIRST_PAGE","Primeira");
-define("LAST_PAGE","Última");
-define("PAGE","Página");
+define("LAST_PAGE","Ãšltima");
+define("PAGE","PÃ¡gina");
 
 /*
-textos para a régua de navegação
+textos para a rÃ©gua de navegaÃ§Ã£o
 */
 define("HOME","home");
-define("SEARCH_JOURNALS","Pesquisa periódicos");
-define("JOURNALS_ALPHABETIC_LIST","Periódicos por ordem alfabética");
+define("SEARCH_JOURNALS","Pesquisa periÃ³dicos");
+define("JOURNALS_ALPHABETIC_LIST","PeriÃ³dicos por ordem alfabÃ©tica");
 
 /*
-segundo nivel SciELO em números
+segundo nivel SciELO em nÃºmeros
 */
-define("NUMBERS","SciELO em números");
-define("CITATION","Citações");
+define("NUMBERS","SciELO em nÃºmeros");
+define("CITATION","CitaÃ§Ãµes");
 define("CO_AUTHORS","Co-autoria");
 define("USAGE","Uso do site");
 define("BRASIL","Brasil");
 define("CHILE","Chile");
 define("CUBA","Cuba");
-define("PUBLIC_HEALTH","Saúde Pública");
+define("PUBLIC_HEALTH","SaÃºde PÃºblica");
 define("SPAIN","Espanha");
 define("VENEZUELA","Venezuela");
 
@@ -249,7 +249,7 @@ define("ADD","Adicionar");
 define("ADD_FEED","Adicionar RSS Feed");
 define("REMOVE_FEED","Remover RSS Feed");
 define("RSS_PROBLEM","Ocorreu um erro ao tentar abrir o RSS Feed");
-define("REMOVE_FEED_CONFIRM","Confirma a remoção do Feed ?");
+define("REMOVE_FEED_CONFIRM","Confirma a remoÃ§Ã£o do Feed ?");
 define("PUBLISH_IN_HOME_PAGE","Publicar na Home Page");
 define("REMOVE_FROM_HOME_PAGE","Remover da Home Page");
 define("ALL_FEEDS","Todos os Feeds");
@@ -263,7 +263,7 @@ define("ADD_LINK","Adicionar Link");
 */
 
 define("MONITORED_ACCESS","acesso monitorado");
-define("MONITORED_CITATIONS","citações monitoradas");
+define("MONITORED_CITATIONS","citaÃ§Ãµes monitoradas");
 define("MOVE_TO","mover para");
 define("MY_FOLDERS","Minhas Pastas");
 define("ADD_FOLDER","Adicionar pasta");
@@ -279,8 +279,8 @@ define("BUTTON_CANCEL","cancelar");
 define("BUTTON_REMOVE","remover");
 define("BUTTON_EDIT","editar");
 define("BUTTON_CREATE","salvar");
-define("MOVE_CONTENT_TO_OTHER_FOLDER","mover conteúdo para outra pasta");
-define("REMOVE_CONTENT","remover conteúdo");
+define("MOVE_CONTENT_TO_OTHER_FOLDER","mover conteÃºdo para outra pasta");
+define("REMOVE_CONTENT","remover conteÃºdo");
 define("SHOW_BY_RATE"," por Ranking");
 define("SHOW_BY_DATE"," por Data");
 
@@ -291,21 +291,21 @@ define("SHOW_BY_DATE"," por Data");
 define("REMOVE_LINK","deletar link");
 define("EDIT_LINK","editar link");
 define("ADD_LINK","Incluir link");
-define("LINK_TITLE","Título do Link");
+define("LINK_TITLE","TÃ­tulo do Link");
 define("LINK_URL","URL do Link");
-define("LINK_DESCRIPTION","Descrição do Link");
-define("IN_HOME","página inicial");
+define("LINK_DESCRIPTION","DescriÃ§Ã£o do Link");
+define("IN_HOME","pÃ¡gina inicial");
 define("DO_YOU_REALY_WANT_TO_REMOVE_IT","Deseja realmente excluir este link?");
 define("ENVIAR_ARTIGO_POR_EMAIL","Enviar artigo por e-mail");
 define("SEND","enviar e-mail");
 define("CLOSE","fechar janela");
 define("ARTICLE_SUBMITED_WITH_SUCCESS","artigo enviado com sucesso");
 define("SEARCHING_IN","buscando em");
-define("SIMILARITY","relevância");
+define("SIMILARITY","relevÃ¢ncia");
 /*
 Collexis Instances Name
 */
-define("ARR","SCI_OVERALL|SciELO Regional,SCI_SCIELOBR|SciELO Brasil,SCI_SCIELOCL|SciELO Chile,SCI_SCIELOCB|SciELO Cuba,SCI_SCIELOESP| SciELO Espanha,SCI_SCIELOVE|SciELO Venezuela,SCI_SCIELOSP|SciELO Saúde Pública,SCI_SCIELOSS|SciELO Ciências Sociais");
+define("ARR","SCI_OVERALL|SciELO Regional,SCI_SCIELOBR|SciELO Brasil,SCI_SCIELOCL|SciELO Chile,SCI_SCIELOCB|SciELO Cuba,SCI_SCIELOESP| SciELO Espanha,SCI_SCIELOVE|SciELO Venezuela,SCI_SCIELOSP|SciELO SaÃºde PÃºblica,SCI_SCIELOSS|SciELO CiÃªncias Sociais");
 
 define("FULL_TEXT","texto completo");
 }
@@ -324,31 +324,31 @@ define("OFIGRAPH21_SEE_THE_DATA","see the data");
 
 
 /*
-rótulos tela FAPESP
+rÃ³tulos tela FAPESP
 */
 define("PROJFAPESP","FAPESP Projects");
 
 /*
-rótulo tela CLINICAL TRIALS
+rÃ³tulo tela CLINICAL TRIALS
 */
 define("CLINICALTRIALS","Clinical Trials");
 
 /*
-rótulos tela DATASUS
+rÃ³tulos tela DATASUS
 */
 define("DATASUS","Health Indicators");
 
 /*
-rótulos tela Article References
+rÃ³tulos tela Article References
 */
 
 define("ARTICLE_REFERENCES","Article References");
 define("ARTICLE_TRANSLATION","Automatic translation using Windows Live Translator and Google Translator service");
-define("ARTICLE_TRANSLATION_WARNING","This is an automatic translation that represents a “best effort”  but it was not reviewed by the author and might have imperfections.");
+define("ARTICLE_TRANSLATION_WARNING","This is an automatic translation that represents a best effort but it was not reviewed by the author and might have imperfections.");
 define('NO_DATA_FOR_GRAPHIC','Graphic unavailable, data in processing.');
 
 /*
-rótulos para a tela envio de artigo por email
+rÃ³tulos para a tela envio de artigo por email
 */
 define("TO_EMAIL","To Email:");
 define("TO_NAME","To:");
@@ -357,7 +357,7 @@ define("ARTICLE_TITLE","Title: ");
 define("ARTICLE_SUGGESTION","SciELO: Recommended article from ");
 
 /*
-rótulos para a tela envio de nova senha
+rÃ³tulos para a tela envio de nova senha
 */
 define("FORGOT_TITLE","New password send");
 define("BUTTON_SEND_NEW_PASSORD","Send new password");
@@ -365,7 +365,7 @@ define("UNKNOW_USER_ERROR","User not found");
 define("SEND_NEW_PASSWORD_SUCCESS","New password sent successfully !!!");
 
 /*
-rótulos para a tela de login
+rÃ³tulos para a tela de login
 */
 define("HELLO_STRING","Hello, ");
 define("EDIT_USER_DATA","Edit user data");
@@ -402,7 +402,7 @@ define("STEP","Step");
 define("OF","of");
 
 /*
-rótulos para o cadastro de avise-me
+rÃ³tulos para o cadastro de avise-me
 */
 define("ADD_TO_SHELF_OK","Article added to collection successfully !!!");
 define("REMOVE_FROM_SHELF_OK","Article removed from collection successfully !!!");
@@ -412,7 +412,7 @@ define("ALERT_CITED_OK","Acknowledgment when article will be cited registered su
 define("ALERT_ACCESSED_OK","Registration to receive statistics of access was made successfully !!!");
 
 /*
-rótulos dos links para os serviços de usuários
+rÃ³tulos dos links para os serviÃ§os de usuÃ¡rios
 */
 define("PERSONAL_DATA","Personal data");
 define("PROFILE","Profile");
@@ -501,21 +501,21 @@ define("REGISTER_NEW_USER_SUCESS","New user registration done successfully !!!")
 define("UPDATE_USER_SUCESS","Update user data successfully !!!");
 
 /*
-textos para a paginação
+textos para a paginaÃ§Ã£o
 */
 define("FIRST_PAGE","First");
 define("LAST_PAGE","Last");
 define("PAGE","Page");
 
 /*
-textos para a régua de navegação
+textos para a rÃ©gua de navegaÃ§Ã£o
 */
 define("HOME","home");
 define("SEARCH_JOURNALS","Search by journals");
-define("JOURNALS_ALPHABETIC_LIST","Periódicos por ordem alfabética");
+define("JOURNALS_ALPHABETIC_LIST","PeriÃ³dicos por ordem alfabÃ©tica");
 
 /*
-segundo nivel SciELO em números
+segundo nivel SciELO em nÃºmeros
 */
 define("NUMBERS","SciELO in numbers");
 define("CITATION","Citations");
@@ -607,167 +607,167 @@ define("FULL_TEXT","full text");
 if ($lang=="es")
 {
 
-define("RANKING_MOST_VISITED_JOURNALS","Ranking de los periódicos mas accesados");
+define("RANKING_MOST_VISITED_JOURNALS","Ranking de los periÃ³dicos mas accesados");
 define("VISITED_ARTICLES_BY_MONTH","El numero de articulos visitados por mes");
 define("OFIGRAPH21_SENTENCE1","los articulos visitados de todas las revistas, agrupado por mes.");
 define("OFIGRAPH21_SENTENCE2","Todos los articulos visitados, de lso siguientes titulos");
-define("OFIGRAPH21_LIBRARY_COLLECTION","Colección de la Biblioteca");
-define("OFIGRAPH21_SELECT_JOURNAL","Elija algunos periódicos");
+define("OFIGRAPH21_LIBRARY_COLLECTION","ColecciÃ³n de la Biblioteca");
+define("OFIGRAPH21_SELECT_JOURNAL","Elija algunos periÃ³dicos");
 define("OFIGRAPH21_SEE_THE_DATA","vea los datos");
 
 /*
-rótulos tela FAPESP
+rÃ³tulos tela FAPESP
 */
 define("PROJFAPESP","Proyectos FAPESP");
 
 /*
-rótulo tela CLINICAL TRIALS
+rÃ³tulo tela CLINICAL TRIALS
 */
-define("CLINICALTRIALS","Ensayos Clínicos");
+define("CLINICALTRIALS","Ensayos ClÃ­nicos");
 
 /*
-rótulos tela DATASUS
+rÃ³tulos tela DATASUS
 */
 define("DATASUS","Indicadores de Salud");
 
 /*
-rótulos tela Article References
+rÃ³tulos tela Article References
 */
 
-define("ARTICLE_REFERENCES","Referencias del artículo");
-define("ARTICLE_TRANSLATION","Traducción automática utilizando el servicio Windows Live Translator y Google Translator ");
-define("ARTICLE_TRANSLATION_WARNING","Ese servicio es una traducción automática que no fue revisada por el autor y puede tener imperfecciones.");
-define('NO_DATA_FOR_GRAPHIC','Gráfico no disponible, datos en procesamiento.');
+define("ARTICLE_REFERENCES","Referencias del artÃ­culo");
+define("ARTICLE_TRANSLATION","TraducciÃ³n automÃ¡tica utilizando el servicio Windows Live Translator y Google Translator ");
+define("ARTICLE_TRANSLATION_WARNING","Ese servicio es una traducciÃ³n automÃ¡tica que no fue revisada por el autor y puede tener imperfecciones.");
+define('NO_DATA_FOR_GRAPHIC','GrÃ¡fico no disponible, datos en procesamiento.');
 
 /*
-rótulos para a tela envio de artigo por email
+rÃ³tulos para a tela envio de artigo por email
 */
-define("TO_EMAIL","Correo Electrónico del Destinatario:");
+define("TO_EMAIL","Correo ElectrÃ³nico del Destinatario:");
 define("TO_NAME","Destinatario:");
-define("COMMENTS","Comentários:");
-define("ARTICLE_TITLE","Título: ");
-define("ARTICLE_SUGGESTION","SciELO: Artículo recomendado de ");
+define("COMMENTS","ComentÃ¡rios:");
+define("ARTICLE_TITLE","TÃ­tulo: ");
+define("ARTICLE_SUGGESTION","SciELO: ArtÃ­culo recomendado de ");
 
 /*
-rótulos para a tela envio de nova senha
+rÃ³tulos para a tela envio de nova senha
 */
 define("HELLO_STRING","Hola, ");
 define("FORGOT_TITLE","Nueva clave de acceso");
-define("BUTTON_SEND_NEW_PASSORD","Envío de nueva clave de acceso");
+define("BUTTON_SEND_NEW_PASSORD","EnvÃ­o de nueva clave de acceso");
 define("UNKNOW_USER_ERROR","Usuario no encontrado");
-define("SEND_NEW_PASSWORD_SUCCESS","Clave de acceso enviada con éxito");
+define("SEND_NEW_PASSWORD_SUCCESS","Clave de acceso enviada con Ã©xito");
 
 /*
-rótulos para a tela de login
+rÃ³tulos para a tela de login
 */
 define("LOGIN_TITLE","Login de usuario");
 define("EDIT_USER_DATA","Actualizar los datos personales");
 define("BUTTON_LOGIN","Login");
 define("BUTTON_LOGOUT","Salir");
-define("FORGOT_PASSWORD","Envíeme una nueva clave de acceso");
-define("REGISTER","Regístrese");
+define("FORGOT_PASSWORD","EnvÃ­eme una nueva clave de acceso");
+define("REGISTER","RegÃ­strese");
 define("FOR_SERVICES","para servicios personalizados");
-define("LOGIN_ERROR","Usuario/Clave inválidos");
-define("LOGOUT_DONE","Logout realizado con éxito!!!");
+define("LOGIN_ERROR","Usuario/Clave invÃ¡lidos");
+define("LOGOUT_DONE","Logout realizado con Ã©xito!!!");
 define("NOT_LOGED","Usuario no logado, por favor, visitar <a target=\"_blank\" href=\"".$url."\">Scielo</a> y entrar");
 
 /*
 rotulos da tela de cadastro/alteracao de usuario
 */
 define("REGISTER_NEW_USER_TITLE","Registro de nuevo usuario");
-define("UPDATE_USER_TITLE","Actualización de sus datos");
+define("UPDATE_USER_TITLE","ActualizaciÃ³n de sus datos");
 define("FIELD_FIRST_NAME","Nombre");
 define("FIELD_LAST_NAME","Apellido");
-define("FIELD_GENDER","Género");
+define("FIELD_GENDER","GÃ©nero");
 define("FIELD_GENDER_MALE","Masculino");
 define("FIELD_GENDER_FEMALE","Femenino");
 define("FIELD_PASSWORD","Clave de acceso");
-define("FIELD_PASSWORD_CONFIRMATION","Confirmación");
+define("FIELD_PASSWORD_CONFIRMATION","ConfirmaciÃ³n");
 define("FIELD_PASSWORD_CHANGE_MESSAGE","(Llene apenas si desea cambiar su clave de acceso)");
-define("FIELD_EMAIL","Correo Electrónico");
+define("FIELD_EMAIL","Correo ElectrÃ³nico");
 define("FIELD_LOGIN","Login");
-define("FIELD_AFILIATION","Instituición");
-define("FIELD_DEGREE","Select|Selecione,Ensino_Fundamental|Enseñanza o Educación Básica,Ensino_Medio|Enseñanza o Educación Media,Ensino_Tecnico|Enseñanza o Educación Técnico-Profesional,Graduacao|Superior Universitario de Grado,Especializacao|Especialización,Mestrado_Profissionalizante|Maestría Profisionalizante,Mestrado|Maestría,Doutorado|Doctorado,MBA|MBA,Pos_Doutorado|Pos Doctorado,PHD|PhD");
+define("FIELD_AFILIATION","InstituiciÃ³n");
+define("FIELD_DEGREE","Select|Selecione,Ensino_Fundamental|EnseÃ±anza o EducaciÃ³n BÃ¡sica,Ensino_Medio|EnseÃ±anza o EducaciÃ³n Media,Ensino_Tecnico|EnseÃ±anza o EducaciÃ³n TÃ©cnico-Profesional,Graduacao|Superior Universitario de Grado,Especializacao|EspecializaciÃ³n,Mestrado_Profissionalizante|MaestrÃ­a Profisionalizante,Mestrado|MaestrÃ­a,Doutorado|Doctorado,MBA|MBA,Pos_Doutorado|Pos Doctorado,PHD|PhD");
 define("FIELD_LOGIN_ALREADY_EXISTS","Login ya existe !!!");
 define("REQUIRED_FIELD_TEXT"," * Campos obligatorios");
 define("STEP","Passo");
 define("OF","de");
 
 /*
-rótulos para o cadastro de avise-me
+rÃ³tulos para o cadastro de avise-me
 */
-define("ADD_TO_SHELF_OK","Artigo adicionado a la colección");
-define("REMOVE_FROM_SHELF_OK","Artigo retirado de la colección");
-define("REMOVE_CITED_ALERT_OK","Alerta de citación retirado");
+define("ADD_TO_SHELF_OK","Artigo adicionado a la colecciÃ³n");
+define("REMOVE_FROM_SHELF_OK","Artigo retirado de la colecciÃ³n");
+define("REMOVE_CITED_ALERT_OK","Alerta de citaciÃ³n retirado");
 define("REMOVE_ACCESS_ALERT_OK","Alerta de acesso retirado");
-define("ALERT_CITED_OK","Alerta de cuando el artículo es citado fue registrado con éxito");
-define("ALERT_ACCESSED_OK","Registro para recibimiento de estadísticas de acceso del artículo realizado con éxito");
+define("ALERT_CITED_OK","Alerta de cuando el artÃ­culo es citado fue registrado con Ã©xito");
+define("ALERT_ACCESSED_OK","Registro para recibimiento de estadÃ­sticas de acceso del artÃ­culo realizado con Ã©xito");
 
 /*
-rótulos dos links para os serviços de usuários
+rÃ³tulos dos links para os serviÃ§os de usuÃ¡rios
 */
 define("PERSONAL_DATA","Datos personales");
 define("PROFILE","Perfil");
 define("PROFILES","Perfiles");
 define("VIEW_BY","Ver la Lista por");
-define("MY_SHELF","Mi Colección");
+define("MY_SHELF","Mi ColecciÃ³n");
 define("MY_LINKS","Mis Enlaces");
-define("MY_NEWS","Mis Notícias");
-define("MY_ARTICLE_PROFILE","Artículos de mi perfil");
-define("MY_NEW_ARTICLE_PROFILE","Artículos nuevos de mi perfil");
+define("MY_NEWS","Mis NotÃ­cias");
+define("MY_ARTICLE_PROFILE","ArtÃ­culos de mi perfil");
+define("MY_NEW_ARTICLE_PROFILE","ArtÃ­culos nuevos de mi perfil");
 define("ORDER_BY","Ordenado por");
 define("RELEVANCE","Relevancia");
 define("DATE","Fecha");
 define("MY_ALERTS","Mis Alertas");
-define("REMOVE_FROM_SHELF","Retirar de mi colección");
+define("REMOVE_FROM_SHELF","Retirar de mi colecciÃ³n");
 define("CITATIONS","Citaciones");
-define("ACCESS_STATS","Estadísticas de accesos");
-define("ARTICLE_ACCESS","Accesos al artículo");
+define("ACCESS_STATS","EstadÃ­sticas de accesos");
+define("ARTICLE_ACCESS","Accesos al artÃ­culo");
 define("ACCESSES","Accesos");
 define("MONTHS","Meses");
 define("REMOVE_ALERT","Retirar alerta");
-define("REMOVE_ACCESS_ALERT","No quiero más recibir alertas de accessos de este artículo");
-define("REMOVE_CITED_ALTER","No quiero más recibir alertas de citaciones a este artículo");
+define("REMOVE_ACCESS_ALERT","No quiero mÃ¡s recibir alertas de accessos de este artÃ­culo");
+define("REMOVE_CITED_ALTER","No quiero mÃ¡s recibir alertas de citaciones a este artÃ­culo");
 define("MONTH_LIST", "ene,feb,mar,abr,mayo,jun,jul,ago,sept,oct,nov,dic");
 define("CITED_BY","Citado Por");
 define("SIMILARYS_IN","Similares en");
 define("COMMENTS_ARTICLE","Comentarios");
-define("COMMENTS_ADD","(Añadir Comentarios)");
+define("COMMENTS_ADD","(AÃ±adir Comentarios)");
 define("COMMENTS_USER_AUTHOR","*Nombre: ");
 define("COMMNETS_USER_EMAIL","*Email: ");
 define("COMMNETS_USER_BUTTON","Enviar");
 define("COMMNETS_USER_COMMENT","*Comentario:");
 define("COMMNETS_MESSAGE_BLOG_INI","Por favor, haga el ");
-define("COMMNETS_MESSAGE_BLOG_FIM"," para enviar un comentario a ese artículo.");
-define("COMMNETS_DONT_BLOG","Disculpa, ese artículo no podrá ser comentado.");
-define("COMMNETS_MESSAGE_ERRO_1","Disculpa, mas usted solamente podrá enviar un nuevo comentario una vez a cada 15 segundos.");
+define("COMMNETS_MESSAGE_BLOG_FIM"," para enviar un comentario a ese artÃ­culo.");
+define("COMMNETS_DONT_BLOG","Disculpa, ese artÃ­culo no podrÃ¡ ser comentado.");
+define("COMMNETS_MESSAGE_ERRO_1","Disculpa, mas usted solamente podrÃ¡ enviar un nuevo comentario una vez a cada 15 segundos.");
 define("COMMNETS_MESSAGE_INFO_1","Comentario enviado por: ");
-define("COMMNETS_MESSAGE_INFO_2",", aguarde aprobación.");
+define("COMMNETS_MESSAGE_INFO_2",", aguarde aprobaciÃ³n.");
 define("CHAR_LIMIT","limite de 1024 caracteres | restantes : ");
 
 define("SEE","Ver");
-define("SEE_HISTORY","Ver Histórico");
-define("CHOOSE_PERIOD", "Elegir por año:");
+define("SEE_HISTORY","Ver HistÃ³rico");
+define("CHOOSE_PERIOD", "Elegir por aÃ±o:");
 define("START_YEAR", "De:");
 define("LAST_YEAR", "Hasta:");
-define("BUTTON_REFRESH", "Actualizar gráfico");
-define("GRAFIC_STATS_FALSE", "No hay datos estadísticos para el periodo elegido");
+define("BUTTON_REFRESH", "Actualizar grÃ¡fico");
+define("GRAFIC_STATS_FALSE", "No hay datos estadÃ­sticos para el periodo elegido");
 
-define("ENGLISH_GERMAN","Inglés->Alemán");
-define("ENGLISH_ARABIC","Inglés->Árabe");
-define("ENGLISH_CHINESE_S","Inglés->Chino simplificado");
-define("ENGLISH_CHINESE_T","Inglés->Chino tradicional");
-define("ENGLISH_KOREAN","Inglés->Coreano");
-define("ENGLISH_SPANISH","Inglés->Español");
-define("ENGLISH_FRENCH","Inglés->Francés");
-define("ENGLISH_DUTCH","Inglés->Neerlandés");
-define("ENGLISH_ITALIAN","Inglés->Italiano");
-define("ENGLISH_JAPANESE","Inglés->Japonés");
-define("ENGLISH_PORTUGUESE","Inglés->Portugués");
-define("FRENCH_GERMAN","Francés->Alemán");
-define("FRENCH_ENGLISH","Francés->Inglés");
-define("SPANISH_ENGLISH","Español->Inglés");
-define("PORTUGUESE_ENGLISH","Portugués->Inglés");
+define("ENGLISH_GERMAN","InglÃ©s->AlemÃ¡n");
+define("ENGLISH_ARABIC","InglÃ©s->Ãrabe");
+define("ENGLISH_CHINESE_S","InglÃ©s->Chino simplificado");
+define("ENGLISH_CHINESE_T","InglÃ©s->Chino tradicional");
+define("ENGLISH_KOREAN","InglÃ©s->Coreano");
+define("ENGLISH_SPANISH","InglÃ©s->EspaÃ±ol");
+define("ENGLISH_FRENCH","InglÃ©s->FrancÃ©s");
+define("ENGLISH_DUTCH","InglÃ©s->NeerlandÃ©s");
+define("ENGLISH_ITALIAN","InglÃ©s->Italiano");
+define("ENGLISH_JAPANESE","InglÃ©s->JaponÃ©s");
+define("ENGLISH_PORTUGUESE","InglÃ©s->PortuguÃ©s");
+define("FRENCH_GERMAN","FrancÃ©s->AlemÃ¡n");
+define("FRENCH_ENGLISH","FrancÃ©s->InglÃ©s");
+define("SPANISH_ENGLISH","EspaÃ±ol->InglÃ©s");
+define("PORTUGUESE_ENGLISH","PortuguÃ©s->InglÃ©s");
 
 /*
 textos das mensagens de erro
@@ -781,39 +781,39 @@ define("FIELD_LOGIN_ERROR_DESCRIPTION","*");
 define("FIELD_PROFILE_ONE","Perfil 1");
 define("FIELD_PROFILE_TWO","Perfil 2");
 define("FIELD_PROFILE_TREE","Perfil 3");
-define("FIELD_PROFILE_NAME","Título");
-define("FIELD_PROFILE_DESCRIPTION_TEXT","Descripción");
+define("FIELD_PROFILE_NAME","TÃ­tulo");
+define("FIELD_PROFILE_DESCRIPTION_TEXT","DescripciÃ³n");
 define("BUTTON_NEW_USER","Record");
 define("BUTTON_UPDATE_USER","Update");
 define("BUTTON_BACK","Volver");
 define("BUTTON_CANCEL","Cancelar");
 define("BUTTON_CLOSE","Cerrar");
-define("REGISTER_NEW_USER_SUCESS","Nuevo usuario registrado con éxito");
-define("UPDATE_USER_SUCESS","Actualización de datos hecha con éxito");
+define("REGISTER_NEW_USER_SUCESS","Nuevo usuario registrado con Ã©xito");
+define("UPDATE_USER_SUCESS","ActualizaciÃ³n de datos hecha con Ã©xito");
 
 /*
-textos para a paginação
+textos para a paginaÃ§Ã£o
 */
 define("FIRST_PAGE","Primera ");
-define("LAST_PAGE","Última");
-define("PAGE","Página");
+define("LAST_PAGE","Ãšltima");
+define("PAGE","PÃ¡gina");
 
 define("HOME","home");
-define("SEARCH_JOURNALS","Búsqueda por Periódicos");
-define("JOURNALS_ALPHABETIC_LIST","Periódicos por ordem alfabética");
+define("SEARCH_JOURNALS","BÃºsqueda por PeriÃ³dicos");
+define("JOURNALS_ALPHABETIC_LIST","PeriÃ³dicos por ordem alfabÃ©tica");
 
 /*
-segundo nivel SciELO em números
+segundo nivel SciELO em nÃºmeros
 */
-define("NUMBERS","SciELO en números");
+define("NUMBERS","SciELO en nÃºmeros");
 define("CITATION","Citas de revistas");
 define("CO_AUTHORS","Co-autoria");
 define("USAGE","Uso del sitio");
 define("BRASIL","Brasil");
 define("CHILE","Chile");
 define("CUBA","Cuba");
-define("PUBLIC_HEALTH","Salud Pública");
-define("SPAIN","España");
+define("PUBLIC_HEALTH","Salud PÃºblica");
+define("SPAIN","EspaÃ±a");
 define("VENEZUELA","Venezuela");
 
 /*
@@ -829,10 +829,10 @@ define("TOOLS","Herramientas");
 /*
 minhas noticias
 */
-define("ADD","Añadir RSS Feed");
-define("ADD_FEED","Añadir RSS Feed");
+define("ADD","AÃ±adir RSS Feed");
+define("ADD_FEED","AÃ±adir RSS Feed");
 define("REMOVE_FEED","Remover RSS Feed");
-define("RSS_PROBLEM","Se ocurrrió un error al abrir el RSS Feed");
+define("RSS_PROBLEM","Se ocurrriÃ³ un error al abrir el RSS Feed");
 define("REMOVE_FEED_CONFIRM","Esta seguro?");
 define("PUBLISH_IN_HOME_PAGE","Publicar en la Home");
 define("REMOVE_FROM_HOME_PAGE","Remover de la Home");
@@ -846,11 +846,11 @@ define("MONITORED_ACCESS","acceso monitorado");
 define("MONITORED_CITATIONS","citaciones monitoradas");
 define("MOVE_TO","mover para");
 define("MY_FOLDERS","Mis Carpetas");
-define("ADD_FOLDER","añadir carpeta");
+define("ADD_FOLDER","aÃ±adir carpeta");
 define("INCOMING_FOLDER","Carpeta de Entrada");
 define("SHOW_FOLDERLIST_BY","mirar lista por:");
 define("DATE_SORT","Fecha");
-define("MY_RANKING","Mi clasificación");
+define("MY_RANKING","Mi clasificaciÃ³n");
 define("EDIT_FOLDER","Editar Carpeta");
 define("DELETE_FOLDER","Apagar Carpeta");
 define("FOLDER_NAME","Nombre de la Carpeta");
@@ -860,8 +860,8 @@ define("BUTTON_CANCEL","cancelar");
 define("BUTTON_REMOVE","apagar");
 define("BUTTON_EDIT","editar");
 define("BUTTON_CREATE","crear");
-define("MOVE_CONTENT_TO_OTHER_FOLDER","mover contenído para otra carpeta");
-define("REMOVE_CONTENT","apagar contenído");
+define("MOVE_CONTENT_TO_OTHER_FOLDER","mover contenÃ­do para otra carpeta");
+define("REMOVE_CONTENT","apagar contenÃ­do");
 define("SHOW_BY_RATE"," por Ranking");
 define("SHOW_BY_DATE"," por Fecha");
 
@@ -869,24 +869,24 @@ define("SHOW_BY_DATE"," por Fecha");
  USER LINKS
 */
 
-define("REMOVE_LINK","remover dirección eletrónica");
-define("EDIT_LINK","editar dirección eletrónica");
-define("ADD_LINK","añadir dirección eletrónica");
-define("LINK_TITLE","Título de la dirección eletrónica");
-define("LINK_URL","URL de la dirección eletrónica");
-define("LINK_DESCRIPTION","Descripción de la dirección eletrónica");
-define("IN_HOME","añadir a primera página");
-define("DO_YOU_REALY_WANT_TO_REMOVE_IT","Desea realmente apagar la dirección eletrónica?");
-define("ENVIAR_ARTIGO_POR_EMAIL","Enviar artículo por e-mail");
+define("REMOVE_LINK","remover direcciÃ³n eletrÃ³nica");
+define("EDIT_LINK","editar direcciÃ³n eletrÃ³nica");
+define("ADD_LINK","aÃ±adir direcciÃ³n eletrÃ³nica");
+define("LINK_TITLE","TÃ­tulo de la direcciÃ³n eletrÃ³nica");
+define("LINK_URL","URL de la direcciÃ³n eletrÃ³nica");
+define("LINK_DESCRIPTION","DescripciÃ³n de la direcciÃ³n eletrÃ³nica");
+define("IN_HOME","aÃ±adir a primera pÃ¡gina");
+define("DO_YOU_REALY_WANT_TO_REMOVE_IT","Desea realmente apagar la direcciÃ³n eletrÃ³nica?");
+define("ENVIAR_ARTIGO_POR_EMAIL","Enviar artÃ­culo por e-mail");
 define("SEND","enviar e-mail");
 define("CLOSE","cerrar ventana");
-define("ARTICLE_SUBMITED_WITH_SUCCESS","artículo enviado com éxito");
+define("ARTICLE_SUBMITED_WITH_SUCCESS","artÃ­culo enviado com Ã©xito");
 define("SEARCHING_IN","procurando em");
-define("SIMILARITY","releváncia");
+define("SIMILARITY","relevÃ¡ncia");
 /*
 Collexis Instances Name
 */
-define("ARR","SCI_OVERALL|SciELO Regional,SCI_SCIELOBR|SciELO Brasil,SCI_SCIELOCL|SciELO Chile,SCI_SCIELOCB|SciELO Cuba,SCI_SCIELOESP| SciELO España,SCI_SCIELOVE|SciELO Venezuela,SCI_SCIELOSP|SciELO Salud Pública,SCI_SCIELOSS|SciELO Ciências Sociales");
+define("ARR","SCI_OVERALL|SciELO Regional,SCI_SCIELOBR|SciELO Brasil,SCI_SCIELOCL|SciELO Chile,SCI_SCIELOCB|SciELO Cuba,SCI_SCIELOESP| SciELO EspaÃ±a,SCI_SCIELOVE|SciELO Venezuela,SCI_SCIELOSP|SciELO Salud PÃºblica,SCI_SCIELOSS|SciELO CiÃªncias Sociales");
 
 define("FULL_TEXT","texto completo");
 }

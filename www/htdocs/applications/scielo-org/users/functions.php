@@ -46,7 +46,7 @@ function getTitle($titleXML, $lang = '')
         $article_title = $node->getText();
     }
 
-    return  $article_title;
+    return  utf8_encode($article_title);
 }
 
 /**
@@ -99,7 +99,7 @@ function getAutors($authorsXML, $link=false,$domain=""){
 		}
 	}
 		$article_autors = substr($article_autors,0,strlen($article_autors)-1);
-		return $article_autors;
+		return utf8_encode($article_autors);
 }
 
 /**
