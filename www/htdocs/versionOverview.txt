@@ -1,5 +1,9 @@
 ﻿Versão: 
 
+v4.57
+services_log faltando no trunk_php4
+
+
 v4.56
 #217, correções de bug inseridos no ticket #217
 
