@@ -9,7 +9,7 @@ echo === ATENCAO ===
 echo
 echo Este arquivo executara: 
 echo
-echo Envia2Medline.bat .. transf/Envia2MedlinePadrao.txt log/envia2medlineFTP.log cria
+echo Envia2Medline.bat .. transf/Envia2MedlineLogOn.txt log/envia2medlineFTP.log cria
 echo
 echo Tecle CONTROL-C para sair ou ENTER para continuar...
 
