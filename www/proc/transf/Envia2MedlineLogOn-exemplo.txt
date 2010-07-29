@@ -1,7 +1,7 @@
 open ftp.scielo.br
 user user_id user_passwd
 
-ascii
+bin
 
 lcd temp/transf2medline
 

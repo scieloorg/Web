@@ -1,4 +1,4 @@
-<?php
+;<?php /*
 [SITE_INFO]
 SITE_NAME=SciELO - Scientific Electronic Library Online
 SHORT_NAME=Scielo Brazil
@@ -199,4 +199,4 @@ DB_USER_SCIELO_PASSWORD=
 DB_USER_BLOG_PASSWORD=
 DB_HOST_BLOG =
 DB_HOST_SCIELO =
-?>
+; */ ?>
