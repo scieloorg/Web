@@ -23,6 +23,26 @@
                             <meta http-equiv="Pragma" content="no-cache"/>
                             <meta http-equiv="Expires" content="Mon, 06 Jan 1990 00:00:01 GMT"/>
                             <meta Content-math-Type="text/mathml"/>
+
+                            <!--Meta Google Scholar-->
+                            <meta name="citation_journal_title" content="{TITLEGROUP/TITLE}"/>
+                            <meta name="citation_publisher" content="{normalize-space(substring-after(COPYRIGHT,'-'))}"/>
+                            <meta name="citation_title" content="{ISSUE/ARTICLE/TITLE}"/>
+                            <meta name="citation_date" content="{concat(ISSUE/ISSUEINFO/@MONTH,'/',ISSUE/ISSUEINFO/@YEAR)}"/>
+                            <meta name="citation_volume" content="{ISSUE/ISSUEINFO/@VOL}"/>
+                            <meta name="citation_doi" content="{ISSUE/ARTICLE/@DOI}"/>
+                            <meta name="citation_abstract_html_url" content="{concat('http://',CONTROLINFO/SCIELO_INFO/SERVER, '/scielo.php?script=sci_abstract&amp;pid=', ARTICLE/@PID, '&amp;lng=', CONTROLINFO/LANGUAGE , '&amp;nrm=iso&amp;tlng=', ARTICLE/@TEXT_LANG)}"/>
+                            <meta name="citation_fulltext_html_url" content="{concat('http://',CONTROLINFO/SCIELO_INFO/SERVER, '/scielo.php?script=sci_arttext&amp;pid=', ARTICLE/@PID, '&amp;lng=', CONTROLINFO/LANGUAGE , '&amp;nrm=iso&amp;tlng=', ARTICLE/@TEXT_LANG)}"/>
+                            <meta name="citation_pdf_url" content="{concat('http://',CONTROLINFO/SCIELO_INFO/SERVER, '/scielo.php?script=sci_pdf&amp;pid=', ARTICLE/@PID, '&amp;lng=', CONTROLINFO/LANGUAGE , '&amp;nrm=iso&amp;tlng=', ARTICLE/@TEXT_LANG)}"/>
+                            <xsl:apply-templates select=".//AUTHORS" mode="AUTHORS_META"/>
+
+                            <!--Meta Google Scholar DC-->
+                            <meta name="dc.Title" content="{TITLEGROUP/TITLE}"/>
+                            <meta name="dc.Identifier" content="{ISSUE/ARTICLE/@DOI}"/>
+                            <meta name="dc.Date" content="{concat(ISSUE/ISSUEINFO/@MONTH,'/',ISSUE/ISSUEINFO/@YEAR)}"/>
+                            <xsl:apply-templates select=".//AUTHORS" mode="AUTHORS_META_DC"/>
+                            <meta name="citation_id" content="{ISSUE/ARTICLE/@DOI}"/>                          
+
                             <link rel="stylesheet" type="text/css" href="/css/screen.css"/>
                             <xsl:apply-templates select="." mode="css"/>
                             <script language="javascript" src="applications/scielo-org/js/jquery-1.4.2.min.js"/>

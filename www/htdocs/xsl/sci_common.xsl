@@ -1264,4 +1264,26 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
 			<xsl:with-param name="app" select="//CONTROLINFO/APP_NAME"/>
 		</xsl:call-template>
 	</xsl:template>
+
+
+        <xsl:template match="AUTHORS" mode="AUTHORS_META">
+          <meta name="citation_authors">
+            <xsl:attribute name="content">
+              <xsl:apply-templates select=".//AUTHOR" mode="AUTHORS_META"/>
+            </xsl:attribute>
+          </meta>
+        </xsl:template>
+
+        <xsl:template match="AUTHOR" mode="AUTHORS_META">
+          <xsl:apply-templates select=".//SURNAME"/>,<xsl:apply-templates select=".//NAME"/>;
+        </xsl:template>
+
+        <xsl:template match="AUTHORS" mode="AUTHORS_META_DC">
+              <xsl:apply-templates select=".//AUTHOR" mode="AUTHORS_META_DC"/>
+        </xsl:template>
+
+        <xsl:template match="AUTHOR" mode="AUTHORS_META_DC">
+          <meta name="dc.Contributor" content="{concat(.//SURNAME, ', ', .//NAME)}"/>
+        </xsl:template>
+
 </xsl:stylesheet>
