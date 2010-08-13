@@ -140,7 +140,7 @@
    <display><pft>@PROC_SPLIT_MST.PFT</pft></display>
    <field action="import" tag="list">4001,7009/7060</field> <!-- fixed -->
 
-   <!-- fixed 20040607 - solucao para email solange 07/06/2004 - verifica se existe a traduçao antes -->
+   <!-- fixed 20040607 - solucao para email solange 07/06/2004 - verifica se existe a traduï¿½ao antes -->
    
 	<!-- -->
 	<call name="GetTranslationFileNames"><pft>'^o',v40,'^p',v4001^p,'^l'v4001^t,'^d',v7041</pft></call>
@@ -208,7 +208,7 @@
    <call name="CreateArticleTitle1XML"><pft>'^r'v4001^a'^l'v4001^l'^i'v4001^i'^h1'</pft></call>
 
 
-   <!--call name="CreateAuthorsGroupXML"><pft>v880</pft></call-->   
+   <call name="CreateAuthorsGroupXML"><pft>v880</pft></call>
    <call name="CreateLattesGroupXML"><pft>v880</pft></call>	   
    <call name="CreateProjetoFAPESP"><pft>if v7052 = '1' then v880 fi</pft></call>
    <call name="CreateClinicalTrials"><pft>v880</pft></call>
@@ -253,12 +253,12 @@
  <call name="GetContentTranslationFileName"><pft>v7999[1]</pft></call> 
  <flow action="jump"><pft>v7999^x[2]</pft></flow>
 
- <!-- identifica o primeiro e o último registro parágrafo que contenha referência -->
+ <!-- identifica o primeiro e o ï¿½ltimo registro parï¿½grafo que contenha referï¿½ncia -->
  <call name="getRange"><pft>'RP=',v4001^p</pft></call> 
  <field action="replace" tag="9911"><pft>v9901</pft></field>
  <field action="replace" tag="9912"><pft>v9902</pft></field>
  
- <!-- identifica o primeiro e o último registro parágrafo  -->
+ <!-- identifica o primeiro e o ï¿½ltimo registro parï¿½grafo  -->
  <call name="getRange"><pft>if v7999[1]='' then 'ART='v4001^p fi</pft></call> 
 
  <call name="GetLanguageIAH"><pft>v4001^l</pft></call>
@@ -275,7 +275,7 @@
 		<display><pft>'[numeracao: *** ',v1001,']'</pft></display>	
 		<display><pft>@PROC_SPLIT_MST.PFT,</pft></display>
 		asael/rpiva: 21.Jan.2004
-		fixed 20040122 - corrige problema de leitura da base ao executar a proc PROC_SPLIT_MST. A solução usada foi criar uma função que faz o mesmo que a proc    
+		fixed 20040122 - corrige problema de leitura da base ao executar a proc PROC_SPLIT_MST. A soluï¿½ï¿½o usada foi criar uma funï¿½ï¿½o que faz o mesmo que a proc    
 		-->
 		<call name="PROC_SPLIT_MST"><pft>v32701</pft></call>
 
@@ -386,7 +386,7 @@
   
   <include>ScieloXML/sci_cipar.xis</include>  
   
-  <!-- verifica se artigo era um ahead of print, então troca o pid pelo novo pid -->
+  <!-- verifica se artigo era um ahead of print, entï¿½o troca o pid pelo novo pid -->
   <field action="replace" tag="1"><pft>ref(['ARTIGO']l(['ARTIGO']'HR='v1),@PROC_SPLIT_MST.PFT,if p(v222) then v222 else v880 fi)</pft></field>
   <field action="replace" tag="3331"><pft>ref(['ARTIGO']l(['ARTIGO']'HR='v1),@PROC_SPLIT_MST.PFT,if p(v41) then 'P' else 'Y' fi)</pft></field>
 
