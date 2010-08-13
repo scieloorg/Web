@@ -79,10 +79,13 @@
          if v7052 = '1' then
 		    ,' PROJFAPESP="',ref(['PROJFAPESP']l(['PROJFAPESP'],'SCI=',v880),f(nocc(v88),2,0)),'"',
 	     fi
-		 ,' AREASGEO="',ref(['areasgeo']l(['areasgeo']v880),f(nocc(v880),2,0)),'"'
-		 ,' PROCESSDATE="',ref(l('OU=',v880),proc(if val(v32701^m) > 0 then,'R../bases/artigo/',v32701^*,',',v32701^m , fi),v91),'"',
-                </pft>
-            </display>
+         if v7055 = '1' then
+                ,' CLINICALTRIALS="',f(nocc(v770),2,0),'"',
+            fi
+         ,' AREASGEO="',ref(['areasgeo']l(['areasgeo']v880),f(nocc(v880),2,0)),'"'
+         ,' PROCESSDATE="',ref(l('OU=',v880),proc(if val(v32701^m) > 0 then,'R../bases/artigo/',v32701^*,',',v32701^m , fi),v91),'"',
+        </pft>
+    </display>
             
 <call name="getDOI"><pft>v880</pft></call>
 <call name="showText"><pft>v264</pft></call>
@@ -109,7 +112,7 @@
 			<call name="CreateTitleGroupXML"><pft>if v4001^f = 'sws' then v4001^t fi</pft></call>
 
             <!-- FIXME 20040902
-                WORKAROUND: When there is an article record in article database but there isn´t a corresponding issue record in newissue database, 
+                WORKAROUND: When there is an article record in article database but there isnï¿½t a corresponding issue record in newissue database, 
                 the v4001^i variable is zero. In this case, the CreateArtIssueInfoXML function crashes. To avoid this, I first check the value of
                 v4001^i before passing the parameters to the function. There could be a better aproach...
             -->
