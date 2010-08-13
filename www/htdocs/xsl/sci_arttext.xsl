@@ -35,6 +35,7 @@
                             <meta name="citation_fulltext_html_url" content="{concat('http://',CONTROLINFO/SCIELO_INFO/SERVER, '/scielo.php?script=sci_arttext&amp;pid=', ARTICLE/@PID, '&amp;lng=', CONTROLINFO/LANGUAGE , '&amp;nrm=iso&amp;tlng=', ARTICLE/@TEXT_LANG)}"/>
                             <meta name="citation_pdf_url" content="{concat('http://',CONTROLINFO/SCIELO_INFO/SERVER, '/scielo.php?script=sci_pdf&amp;pid=', ARTICLE/@PID, '&amp;lng=', CONTROLINFO/LANGUAGE , '&amp;nrm=iso&amp;tlng=', ARTICLE/@TEXT_LANG)}"/>
                             <xsl:apply-templates select=".//AUTHORS" mode="AUTHORS_META"/>
+                            <meta name="citation_firstpage" content="{ISSUE/ARTICLE/@FPAGE}"/>
 
                             <!--Meta Google Scholar DC-->
                             <meta name="dc.Title" content="{TITLEGROUP/TITLE}"/>
