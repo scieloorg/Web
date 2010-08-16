@@ -168,9 +168,11 @@
 		
 		<label>EPILOG</label>
 
-		<field action="replace" tag="2011"><pft>if val(v2001) > 1 then f(val(v2001) - val(v2003),1,0) fi</pft></field>
-		<field action="replace" tag="2011"><pft>if val(v2001) > 1 and val(v2011) < 1 then '1' fi</pft></field>
-		<field action="replace" tag="2012"><pft>if val(v1001) < val(v1002) then f(val(v1001) + 1,1,0) fi</pft></field>
+             <field action="replace" tag="2103"><pft>if val(v2003) > 1 then v2003 else v1001 fi</pft></field>
+             <field action="replace" tag="2104"><pft>if val(v2004) > 1 then v2004 else f(val(v2103) - val(v2002) + 1,1,0) fi</pft></field>
+             <field action="replace" tag="2011"><pft>if val(v2002) > 1 then f(val(v2002) - val(v2104),1,0) fi</pft></field>
+             <field action="replace" tag="2011"><pft>if val(v2002) > 1 and val(v2011) < 1 then '1' fi</pft></field>
+             <field action="replace" tag="2012"><pft>if val(v1001) < val(v1002) then f(val(v1001) + 1,1,0) fi</pft></field>
 		<parm name="isisxml table">
 			<pft>
 				'record=search'/
