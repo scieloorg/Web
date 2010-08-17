@@ -1,4 +1,8 @@
-﻿v5.3-pr(Press-Release)
+﻿v5.4-pr(Press-Release)
+#221 Adiconado tags meta para busca no Google Scholar 
+#223 Error do clinical trials
+
+v5.3-pr(Press-Release)
 #8 Melhorias na interface da caixa de serviçoes 
 #35 Adicionado Social Bookmarks na caixa de serviçoes 
 #51 Ajustado utf-8 como saida padrão PHP 5 e Java
