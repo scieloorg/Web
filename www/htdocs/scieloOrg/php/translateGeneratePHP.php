@@ -48,7 +48,7 @@
             $print .= '<td class="lang">'.$data[$iLang][$val]['label'].'</td>';
             $print .= '<td>';
             if ($data[$iLang][$val]['google']){
-                $print .= '<a href="/scieloOrg/php/translateCallAndLog.php?translator=google&tlang=TEXTLANG&tlang2='.$data[$iLang][$val]['google'].'&lang=LANG&pid=PID&script=SCRIPT&url=TEXTSOURCE"  target="_blank"  ">Google</a>';
+                $print .= '<a href="/scieloOrg/php/translateCallAndLog.php?translator=google&tlang=TEXTLANG&tlang2='.$data[$iLang][$val]['google'].'&lang=LANG&pid=PID&script=SCRIPT&url=TEXTSOURCE"  target="_blank">Google</a>';
             }
             $print .= '</td>';
             $print .= '<td>';
