@@ -123,7 +123,7 @@
 </binding>
 <service name="SciELOService">
   <port name="SciELOServicePort" binding="tns:SciELOServiceBinding">
-  <soap:address location="http://scielo5/webservicesNew/server.php"/>
+  <soap:address location="http://scielo5/webservices/server.php"/>
   </port>
 </service>
 </definitions>

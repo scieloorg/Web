@@ -31,7 +31,7 @@ $wsdl  =  $endPoint . "?wsdl";
 <?
 $service = $_REQUEST['service'];
 
-$client = new SoapClient($wsdl, array('encoding'=>'ISO-8859-1'));
+$client = new SoapClient('wsdl/scielo.wsdl', array('encoding'=>'ISO-8859-1'));
 
 switch($service){
     case "search":
