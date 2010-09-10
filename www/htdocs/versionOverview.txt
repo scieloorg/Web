@@ -1,4 +1,7 @@
-﻿v5.5-pr(Press-Release)
+﻿v5.6-pr(Pre-Release)
+#231, corrigindo link de tradução automática causado por mudança na caixa de serviços #8
+
+v5.5-pr(Press-Release)
 #no_ticket, corrigindo #219, havia uma aspas a mais, prejudicando a apresentação apenas no IE
 
 v5.4-pr(Press-Release)
