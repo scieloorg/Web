@@ -1,4 +1,7 @@
-﻿v5.6-pr(Pre-Release)
+﻿v5.7-pr(Pre-Release)
+#237, tratando & na url de clinical trial
+
+v5.6-pr(Pre-Release)
 #231, corrigindo link de tradução automática causado por mudança na caixa de serviços #8
 
 v5.5-pr(Press-Release)
