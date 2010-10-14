@@ -40,7 +40,7 @@
                                 <!--Meta Google Scholar-->
                                 <meta name="citation_journal_title" content="{TITLEGROUP/TITLE}"/>
                                 <meta name="citation_publisher" content="{normalize-space(substring-after(COPYRIGHT,'-'))}"/>
-                                <meta name="citation_title" content="{ARTICLE/TITLE}"/>                                
+                                <meta name="citation_title" content="{ARTICLE/NOHTML-TITLE}"/>                                
                                 <meta name="citation_date" content="{concat(ARTICLE/ISSUEINFO/@MONTH,'/',ARTICLE/ISSUEINFO/@YEAR)}"/>
                                 <meta name="citation_volume" content="{ARTICLE/ISSUEINFO/@VOL}"/>
                                 <meta name="citation_issue" content="{ARTICLE/ISSUEINFO/@NUM}"/>
