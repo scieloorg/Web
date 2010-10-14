@@ -3633,6 +3633,21 @@ fi
 				<field action="replace"	tag="9001">
 					<pft>(if v9040[1]=v12^l then v12^s fi)</pft>
 				</field>
+
+				<display>
+				  <pft>
+                    if v706='f' then
+                      ref(mfn-1,
+                          if v706='h' then
+					      '  <NOHTML-TITLE><![CDATA[',
+					          ,v12^*[1],| |v12^s[1],
+						    ,']]></NOHTML-TITLE>'/,
+                          fi
+                          )		
+                    fi
+				   </pft>
+				</display>	
+
 					
 				<display>
 					<pft>
