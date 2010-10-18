@@ -168,6 +168,8 @@
       </li>
      </xsl:if>
      <!-- CURRICULUM SCIENTI FIM-->
+
+     <!-- COMMENTS SCIELO INICIO -->
     <xsl:if test="$services_comments != 0">
         <xsl:if test="string-length($allow_comments) !=  '0' ">
         <li>
@@ -220,8 +222,6 @@
         </li>
     </xsl:if>
     <!-- SEND BY E-MAIL FIM -->
-
-    <xsl:apply-templates select=".//ARTICLE" mode="related-documents"/>
     </ul>
   </div>
  </xsl:if>
@@ -248,6 +248,14 @@
         </li>
       </xsl:if>
       <!-- DATASUS LATTES CV FIM -->
+
+      <!-- CITED SCIELO INICIO -->
+      <xsl:if test="$show_cited_scielo = 1">
+        <li>
+          <xsl:apply-templates select="//fulltext-service[@id='cited_SciELO']" mode="linkCited"/>
+        </li>
+      </xsl:if>
+      <!-- CITED SCIELO FIM -->
 
       <!-- REQUESTS GRAFICS INICIO-->
       <xsl:if test="$show_requests = 1">
@@ -288,14 +296,6 @@
   </div>
   <div class="box">
       <ul>
-
-          <!-- CITED SCIELO INICIO -->
-          <xsl:if test="$show_cited_scielo = 1">
-            <li>
-              <xsl:apply-templates select="//fulltext-service[@id='cited_SciELO']" mode="linkCited"/>
-            </li>
-          </xsl:if>
-          <!-- CITED SCIELO FIM -->
 
           <!-- CITED GOOGLE INICIO -->
           <xsl:if test="$show_cited_google = 1">
