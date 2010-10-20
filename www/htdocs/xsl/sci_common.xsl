@@ -521,7 +521,12 @@
 				<xsl:attribute name="border">0</xsl:attribute>
 				<xsl:attribute name="height">1</xsl:attribute>
 				<xsl:attribute name="width">1</xsl:attribute>
-			</img>
+			</img>      
+                        <script src="http://{//CONTROLINFO/SCIELO_INFO/SERVER_LOG}/logger/js/jquery.js" type="text/javascript"></script>
+                        <script src="http://{//CONTROLINFO/SCIELO_INFO/SERVER_LOG}/logger/js/logger.js" type="text/javascript"></script>
+			<script type="text/javascript">
+                            logger("vmscl");
+                        </script>
 		</xsl:if>
 		<!-- to use Google Analytics -->
 		<xsl:if test="//CONTROLINFO/SCIELO_INFO/GOOGLE_CODE != ''">
@@ -535,6 +540,7 @@
 				pageTracker._trackPageview();
 			</script>
 		</xsl:if>
+                
 	</xsl:template>
 	<xsl:template name="ImageLogo">
 		<xsl:param name="src"/>
