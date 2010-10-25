@@ -3395,38 +3395,48 @@ fi
 			fi
 		</pft></return>   
  </function>
-<function name="returnDOI" action="replace" tag="880">
-	<field action="import" tag="7011">7011</field>
-	<field action="import" tag="9800">9800</field>
+<function name="getDOIfromDB" action="replace" tag="880">
+	<field action="import" tag="list">7011,9800</field>
 	<call name="getDOIDB"><pft>if a(v9800) then v880 fi</pft></call>
-	<field action="export" tag="9800">9800</field>
+	<field action="export" tag="list">9800</field>
 
 	<return action="replace" tag="900"><pft>
 		if p(v9800) and v9800<>'no_doi_db' then ref([v9800]l([v9800],v880),v1) fi
 	</pft></return>   
  </function>
  <function name="getDOILink" action="replace" tag="880">
-	<field action="import" tag="7011">7011</field>
-	<field action="import" tag="9800">9800</field>
-	<call name="getDOIDB"><pft>if a(v9800) then v880 fi</pft></call>
-	<field action="export" tag="9800">9800</field>
+	<field action="import" tag="list">7011,237,881,9800</field>
+    <call name="getDOI"><pft>v880</pft></call>
+
+	<field action="export" tag="list">9800</field>
 	<return action="add" tag="9999"><pft>
 		if p(v9800) and v9800<>'no_doi_db' then ref([v9800]l([v9800],v880),(if v999^u<>'' then '<a href="',v999^u,'">',v999^l,'</a>'/ fi)) fi
 	</pft></return>   
  </function>
- <function name="getDOI" action="replace" tag="880">
-	<field action="import" tag="list">7011,237</field>
+ <function name="displayDOIAttribute" action="replace" tag="880">
+	<field action="import" tag="list">7011,237,881,9800</field>
+    <field action="replace" tag="9237"><pft>v237</pft></field>
+	<call name="getDOI"><pft>v880</pft></call>
+	
+	<display><pft>| DOI="|v237|"|,| displayDOILink="|v9237|"|</pft></display>
+	<display><pft>| oldpid="|v881|"|</pft></display>
+	<field action="export" tag="9800">9800</field>
+
+ </function>
+<function name="getDOI" action="replace" tag="880">
+    <field action="import" tag="list">7011,237,9800</field>
+	<flow action="jump"><pft>if p(v237) then 'ok' fi</pft></flow>
 	<field action="replace" tag="881"><pft>ref(['ARTIGO']l(['ARTIGO'],'HR=',v880),@PROC_SPLIT_MST.PFT,
                                         if p(v891) then v891 else v881 fi)</pft></field>
 
-	<call name="returnDOI"><pft>if p(v881) then v881 else v880 fi</pft></call>
+	<call name="getDOIfromDB"><pft>if p(v881) then v881 else v880 fi</pft></call>
 
-   	<call name="fixDOI"><pft>if a(v900) then v237 fi</pft></call>
-	<field action="replace" tag="900"><pft>if a(v900) then v237 fi</pft></field>
 
-	<display><pft>| DOI="|v900|"|,| displayDOILink="|v237|"|</pft></display>
-	<display><pft>| oldpid="|v881|"|</pft></display>
-	<field action="export" tag="9800">9800</field>
+	<field action="replace" tag="237"><pft>v900</pft></field>
+
+    <label>ok</label>
+    <call name="fixDOI"><pft>v237</pft></call>
+	<field action="export" tag="list">237,9800</field>
 
  </function>
  <function name="fixDOI" action="replace" tag="237">
