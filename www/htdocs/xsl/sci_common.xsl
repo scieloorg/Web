@@ -522,11 +522,6 @@
 				<xsl:attribute name="height">1</xsl:attribute>
 				<xsl:attribute name="width">1</xsl:attribute>
 			</img>      
-                        <script src="http://{//CONTROLINFO/SCIELO_INFO/SERVER_LOG}:8080/js/jquery.js" type="text/javascript"></script>
-                        <script src="http://{//CONTROLINFO/SCIELO_INFO/SERVER_LOG}:8080/js/logger.js" type="text/javascript"></script>
-			<script type="text/javascript">
-                            logger("<xsl:value-of select="normalize-space(//CONTROLINFO/APP_NAME)"/>");
-                        </script>
 		</xsl:if>
 		<!-- to use Google Analytics -->
 		<xsl:if test="//CONTROLINFO/SCIELO_INFO/GOOGLE_CODE != ''">
