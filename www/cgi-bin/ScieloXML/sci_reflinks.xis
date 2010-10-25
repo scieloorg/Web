@@ -16,8 +16,8 @@ IsisScript que gera o XML Para a tela de links da referencia bibliografica
 	<field action="cgi" tag="3011">def</field>
 	<field action="cgi" tag="3012">tlng</field> <!-- fixed -->
 	<!-- 
-	se o texto é proveniente do xml do pubmed central, 
-	há no xml da referencia elementos para doi e pmid,
+	se o texto ï¿½ proveniente do xml do pubmed central, 
+	hï¿½ no xml da referencia elementos para doi e pmid,
 	que seriam dados para gerar links respectivamente para 
 	CrossRef e PubMed, assim podem chegar via parametros cgi 
 	-->
@@ -37,14 +37,14 @@ IsisScript que gera o XML Para a tela de links da referencia bibliografica
 
 
 	<!-- 
-	se o texto é proveniente do xml do pubmed central, 
-	há no xml da referencia elementos para doi e pmid,
+	se o texto ï¿½ proveniente do xml do pubmed central, 
+	hï¿½ no xml da referencia elementos para doi e pmid,
 	que seriam dados para gerar links respectivamente para 
 	CrossRef e PubMed, assim podem chegar via parametros cgi 
-	OU ainda serem recuperados dos registros das referências nos campos v350 e v352 
-	que são pmid e doi, respectivamente, obtidos do xml do pubmed central.
-	Em suma, se não vierem via cgi, podem ser recuperados dos registros c ou r.
-	Mas, se ainda, não existirem, é possível que esses dados estejam ou na NLINKS ou na base DOI
+	OU ainda serem recuperados dos registros das referï¿½ncias nos campos v350 e v352 
+	que sï¿½o pmid e doi, respectivamente, obtidos do xml do pubmed central.
+	Em suma, se nï¿½o vierem via cgi, podem ser recuperados dos registros c ou r.
+	Mas, se ainda, nï¿½o existirem, ï¿½ possï¿½vel que esses dados estejam ou na NLINKS ou na base DOI
 	-->
 	<field action="replace" tag="9350"><pft>if a(v9350) and a(v9351) then ref(['ARTIGO']l(['ARTIGO'],'R='v3002),@PROC_SPLIT_MST.PFT,v350) else v9350,'^a'v9351 fi</pft></field>
 	<field action="replace" tag="9352"><pft>if a(v9352) then ref(['ARTIGO']l(['ARTIGO'],'R='v3002),@PROC_SPLIT_MST.PFT,v352) fi</pft></field>
@@ -154,15 +154,15 @@ IsisScript que gera o XML Para a tela de links da referencia bibliografica
 	<!--field action="import" tag="9800">9800</field--> 
 	
 	<!-- Montando o CrossRef -->
-	<!-- A função getDOILink seria mais ou menos em uma linguagem normal assim
+	<!-- A funï¿½ï¿½o getDOILink seria mais ou menos em uma linguagem normal assim
 
 	String getDOILink(String PID);
 
 	ela retorna uma String com o link na variavel v9999 ou tag="9999" segundo a sci_common.xis
-	e o parametro é a variavel v3002 que o pid na definição lá em cima
+	e o parametro ï¿½ a variavel v3002 que o pid na definiï¿½ï¿½o lï¿½ em cima
 	-->
 
-	<!-- Se o doi vier via cgi ou existir no registro c ou r não há necessidade de consultar a base doi -->
+	<!-- Se o doi vier via cgi ou existir no registro c ou r nï¿½o hï¿½ necessidade de consultar a base doi -->
 	<call name="getDOILink"><pft>if a(v9352) then v3002 fi</pft></call>
 	<field action="replace" tag="9999"><pft>if p(v9352) then '<a href="http://dx.doi.org/',v9352,'">CrossRef</a>' fi</pft></field>
 	
