@@ -96,7 +96,7 @@
                 </pft>
             </display>
 
-			<call name="getDOI"><pft>if v8264<>'no' then v880 fi</pft></call>
+			<call name="displayDOIAttribute"><pft>if v8264<>'no' then v880 fi</pft></call>
 			<call name="TestPDFPresence"><pft>if v8264<>'no' then v880 fi</pft></call>
 			
 			<display><pft>'>'/#</pft></display>

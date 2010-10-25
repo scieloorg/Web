@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"  xmlns:ags="http://purl.org/agmes/1.1/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:agls="http://www.naa.gov.au/recordkeeping/gov_online/agls/1.2" xmlns:dcterms="http://purl.org/dc/terms/">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"  xmlns:ags="http://purl.org/agmes/1.1/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:agls="http://www.naa.gov.au/recordkeeping/gov_online/agls/1.2" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xlink="http://www.w3.org/1999/xlink">
 
 <xsl:output method="xml"/>
 <xsl:variable name="spacechar">00</xsl:variable>
@@ -62,8 +62,9 @@
 </xsl:template>
 
 <xsl:template match="article-meta" mode="identifier">
-	<dc:identifier scheme="dcterms:URI"><xsl:text disable-output-escaping="yes">&lt;![CDATA[http://www.scielo.br/scielo.php?script=sci_arttext&amp;pid=</xsl:text><xsl:value-of select="article-id"/><xsl:text disable-output-escaping="yes">]]&gt;</xsl:text></dc:identifier>
-	<dc:identifier scheme="ags:DOI">10.1590/<xsl:value-of select="article-id"/></dc:identifier>
+        <!--dc:identifier scheme="dcterms:URI"><xsl:text disable-output-escaping="yes">&lt;![CDATA[http://www.scielo.br/scielo.php?script=sci_arttext&amp;pid=</xsl:text><xsl:value-of select="article-id"/><xsl:text disable-output-escaping="yes">]]&gt;</xsl:text></dc:identifier-->
+<dc:identifier scheme="dcterms:URI">&lt;![CDATA[<xsl:value-of select=".//self-uri[1]/@xlink:href"/>]]&gt;</dc:identifier>
+	<dc:identifier scheme="ags:DOI"><xsl:value-of select=".//article-id[@pub-id-type='doi']"/></dc:identifier>
 </xsl:template>
 
 <xsl:template match="title-group" mode="language">
@@ -110,7 +111,7 @@
 <xsl:template match="front">	
 	<record>
 		<header>
-			<xsl:apply-templates select=".//article-meta/article-id" mode="identifier"/>
+			<xsl:apply-templates select=".//article-meta/article-id[1]" mode="identifier"/>
 			<xsl:apply-templates select="article-meta/pub-date[@pub-type='pub']" mode="datestamp" />
 			<xsl:apply-templates select="journal-meta/issn" mode="setSpec" />
 		</header>
@@ -125,7 +126,7 @@
 		<xsl:value-of select=" concat( '&lt;ags:resources ', $xsl, ' ', $ags, ' ', $dc, ' ', $agls, ' ', $dcterms,'&gt;' )" disable-output-escaping="yes" />		
 		
 		<!--ags:resources><xsl:attribute name="xmlns:xsl">http://www.w3.org/1999/XSL/Transform</xsl:attribute><xsl:attribute name="xmlns:ags">http://purl.org/agmes/1.1/</xsl:attribute><xsl:attribute name="xmlns:dc">http://purl.org/dc/elements/1.1/</xsl:attribute><xsl:attribute name="xmlns:agls">http://www.naa.gov.au/recordkeeping/gov_online/agls/1.2</xsl:attribute><xsl:attribute name="xmlns:dcterms">http://purl.org/dc/terms/</xsl:attribute-->
-				<ags:resource ags:ARN="XS{concat(substring(article-meta/article-id,11,4),$spacechar,substring(article-meta/article-id,17,2),substring(article-meta/article-id,22,2) )}">
+				<ags:resource ags:ARN="XS{concat(substring(article-meta/article-id[1],11,4),$spacechar,substring(article-meta/article-id[1],17,2),substring(article-meta/article-id[1],22,2) )}">
 					<xsl:apply-templates select=".//title-group" mode="title"/>
 					<dc:creator>
 						<xsl:apply-templates select=".//contrib-group/contrib" mode="creator"/>
@@ -141,7 +142,7 @@
 					<!--xsl:apply-templates select="article-meta" mode="article-id"/-->
 					<agls:availability>
 						<ags:availabilityLocation>SCIELO</ags:availabilityLocation>
-						<ags:availabilityNumber>10.1590/<xsl:value-of select=".//article-meta/article-id"/></ags:availabilityNumber> 
+						<ags:availabilityNumber><xsl:value-of select=".//article-meta/article-id[@pub-id-type='doi']"/></ags:availabilityNumber> 
 					</agls:availability>
 					<ags:citation>
 				              <xsl:apply-templates select="journal-meta/journal-title" mode="citationTitle"/>

@@ -12,6 +12,8 @@
 	'</journal-meta>',#
 	'<article-meta>',#
 		|<article-id>|v880|</article-id>|/,
+		|<doi>|v237|</doi>|/,
+
 		'<title-group>',#
 			('<article-title xml:lang="'v12^l'"><![CDATA[',v12^*,']]></article-title>'/),
 		'</title-group>',#
@@ -63,9 +65,9 @@
 		|<lpage>|v14^l|</lpage>|/,
 		'<copyright-statement/>',#
 		'<copyright-year/>',#
-		'<self-uri xlink:href="http://www.scielo.br/scielo.php?script=sci_arttext&amp;pid=',v880,'&amp;lng=en&amp;nrm=iso&amp;tlng=en"></self-uri>'
-		'<self-uri xlink:href="http://www.scielo.br/scielo.php?script=sci_abstract&amp;pid=',v880,'&amp;lng=en&amp;nrm=iso&amp;tlng=en"></self-uri>'
-		'<self-uri xlink:href="http://www.scielo.br/scielo.php?script=sci_pdf&amp;pid=',v880,'&amp;lng=en&amp;nrm=iso&amp;tlng=en"></self-uri>'
+		'<self-uri xlink:href="http://',v7009,'/scielo.php?script=sci_arttext&amp;pid=',v880,'&amp;lng=en&amp;nrm=iso&amp;tlng=en"></self-uri>'
+		'<self-uri xlink:href="http://',v7009,'/scielo.php?script=sci_abstract&amp;pid=',v880,'&amp;lng=en&amp;nrm=iso&amp;tlng=en"></self-uri>'
+		'<self-uri xlink:href="http://',v7009,'/scielo.php?script=sci_pdf&amp;pid=',v880,'&amp;lng=en&amp;nrm=iso&amp;tlng=en"></self-uri>'
 		,if p(v83) then,
 			(,'<abstract abstract-type="short" xml:lang="',v83^l,'"><p><![CDATA['v83^a']]></p></abstract>',#,)
 		,fi,

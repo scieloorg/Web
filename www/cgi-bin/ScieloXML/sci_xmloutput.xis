@@ -26,7 +26,8 @@
 			fi
 		</pft>
 	</display>
-
+    <field action="cgi" tag="6">debug</field>
+    <trace><pft>v6</pft></trace>
 	<field action="replace" tag="1"><pft>getenv('PATH_TRANSLATED')</pft></field>
 	<field action="cgi" tag="2">IsisScript</field>
         <field action="cgi" tag="3011">def</field>
@@ -76,7 +77,7 @@
 				'1002 Isis_Total'/
 			</pft>
 		</parm>
-		<trace>xOn</trace>		
+				
 		<field action="cgi" tag="2038">hlprefix</field>
 		<field action="cgi" tag="2039">hlsuffix</field>
 		<field action="cgi" tag="2051">extract</field>
@@ -84,8 +85,10 @@
 		<flow action="jump"><pft>if p(v2051) then 'EXTRACT' fi</pft></flow>
 
 		<loop>
-			<field action="import" tag="list">2007</field>
+			<field action="import" tag="list">2007,7009,7011</field>
 			<flow action="jump"><pft>if val(v32701^m) > 0 then 'proc_split' fi</pft></flow>
+
+            <call name="getDOI"><pft>if v706='h' then v880 fi</pft></call>
 			<display><pft>@PROC_XML_PMC.PFT</pft></display>
 			<flow action="skip">Next</flow>
 			
@@ -107,7 +110,9 @@
 				</parm>
 		
 				<loop>
-					<field action="import" tag="32701">32701</field>
+					<field action="import" tag="list">32701,7009,7011</field>
+                    <call name="getDOI"><pft>if v706='h' then v880 fi</pft></call>
+
 					<display><pft>@PROC_XML_PMC.PFT</pft></display>
 					<!--display><isisxml>*</isisxml></display-->
 				</loop>
