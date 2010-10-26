@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # coding:utf-8
-
+import os
 from lxml import etree
 from doaj_config import *
 
@@ -31,13 +31,15 @@ file_path=proc_path+'/scielo_doaj/output/doaj/file_%02d.xml'
 file_log_path=proc_path+'/scielo_doaj/output/doaj/file_log_%02d.txt'
 file_schema_path=proc_path+'/scielo_doaj/xsd/doajArticles.xsd'
 
-for myline in open(proc_path+'/scielo_doaj/output/doaj/file.xml'):
+#mxStringb = '''iconv -f ISO-8859-1 -t UTF-8 %s/scielo_doaj/output/doaj/file.xml -o %s/scielo_doaj/output/doaj/file.utf.xml'''%(proc_path,proc_path)
+#os.popen(mxStringb)
 
+for myline in open(proc_path+'/scielo_doaj/output/doaj/file.xml'):
     line_count+= 1
     if line_count == 1:
         saida = open(file_path%file_count,'w')
         log   = open(file_log_path%file_count,'w')
-        escrever(saida,'<?xml version="1.0" encoding="iso-8859-1" ?>')
+        escrever(saida,'<?xml version="1.0" encoding="utf-8" ?>')
         escrever(saida,'<records>')
     
     escrever(saida,myline)

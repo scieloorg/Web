@@ -3,6 +3,7 @@ import os
 from doaj_config import *
 
 mxString = ['''%s/mx seq=%s/scielo_doaj/databases/iso6932.seq create=%s/scielo_doaj/databases/iso6932 -all now'''%(cisis,proc_path,proc_path),
+   '''%s/mx %s/scielo_doaj/databases/iso6932 fst=@%s/scielo_doaj/databases/iso6932.fst fullinv=%s/scielo_doaj/databases/iso6932'''%(cisis,proc_path,proc_path,proc_path),
    '''%s/mx cipar=%s/scielo_doaj/databases/cipar.cip %s "proc=('G%s/scielo_doaj/gizmo/gizmo_xml')" btell=0  tp=h "proc='d32001'" lw=99999 pft=@%s/scielo_doaj/formats/doaj_XML.pft tell=1000 -all now'''%(cisis,proc_path,database_article,proc_path,proc_path)
     ]
 
