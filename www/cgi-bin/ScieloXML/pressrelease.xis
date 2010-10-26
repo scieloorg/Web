@@ -19,7 +19,10 @@
 	 4001^n - Standard
 	 4001^p - PID 
      4001^t - text language
---> 
+-->
+
+        <include>ScieloXML/sci_cipar.xis</include>
+
 	<!-- campo v241, presente no registro h de um artigo regular -->
 	<label>RELATED_TO_PRESSRELEASE</label>
 	<field action="replace" tag="241" split="occ"><pft>(if p(v5000^i) then v5000/ fi)</pft></field>
@@ -56,7 +59,7 @@
 </function>
 
 <function name="getArticleRelatedToPressRelease" action="replace" tag="5000">
-	<!-- pid do press release do número -->
+	<!-- pid do press release do nï¿½mero -->
 	<do task="search">
 		<parm name="db">ARTIGO</parm>
 		<parm name="expression"><pft>'PR_LK='v5000</pft></parm>		
@@ -71,7 +74,7 @@
 </function>
 
 <function name="getIssueRelatedToPressRelease" action="replace" tag="5000" split="occ">
-	<!-- pid do press release do número -->
+	<!-- pid do press release do nï¿½mero -->
 	<!-- Encontra o pid do issue press release, dado o pid de um issue regular -->
 	<do task="search">
 		<parm name="db">ARTIGO</parm>
@@ -157,7 +160,7 @@
 					</do>
 
 					<display><pft>
-                    if v32<>'ahead' and v32<>'review' then
+                                    if v32<>'ahead' and v32<>'review' then
 					if a(v9249) then
 						,proc('a9242{',(if v12^l=v3000[1] then v12,break fi),'{')
 						,if v9242='' then ,proc('a9242{',v12[1],'{'), fi,
@@ -176,6 +179,110 @@
 	<display><pft>'</PRESSRELEASE>'</pft></display>
 </function>
 
+
+<function name="getPressReleaseRssByDate" action="replace" tag="5000" split="occ">
+
+    <!-- importar count do scielo.def.php -->
+    <field action="import" tag="list">3000,8888</field>
+    <field action="replace" tag="8888"><pft>if a(v8888) then '20' fi</pft></field>
+    <field action="import" tag="list">7009</field>
+
+    <!-- busca press release de artigos -->
+    <!-- navega pelo press release de artigos e numeros, dado issn -->
+
+      <do task="keyrange">
+
+        <parm name="db">ARTIGO</parm>
+        <parm name="from"><pft>'PR_HR=S',v5000^*,v5000^i,</pft></parm>
+        <parm name="to"><pft>'PR_HR=S',v5000^*,v5000^f,'999999999'</pft></parm>
+        <parm name="count"><pft>v8888</pft></parm>
+        <parm name="posting"><pft>'ALL'</pft></parm>
+
+        <field action="define" tag=1001>Isis_Current</field>
+        <field action="define" tag=1002>Isis_Key</field>
+        <field action="define" tag="1003">Isis_Posting</field>
+        <field action="define" tag="1004">Isis_Postings</field>
+
+          <loop>
+            <field action="import" tag="list">3000</field>
+            <field action="import" tag="list">7009</field>
+
+            <!-- PRESS RELEASE -->
+            <do task="mfnrange">
+              <parm name="db">ARTIGO</parm>
+              <parm name="from"><pft>v1003^m</pft></parm>
+              <parm name="count">1</parm>
+
+              <loop>
+                <field action="import" tag="list">7009</field>
+                <field action="import" tag="list">3000</field>
+                  <display>
+                    <pft>
+                      '<item>',/
+                      '<title><![CDATA[',v12^*,']]></title>',/
+                      '<link>','http://', v7009, '/scielo.php?script=sci_arttext_pr&pid=', v880 ,'&lng=en&nrm=iso&tlng=en','</link>',/
+                      '<description>'   '</description>',/
+                      '</item>',/
+                    </pft>
+                  </display>
+              </loop>
+            </do>
+        </loop>
+      </do>
+</function>
+
+
+
+<function name="getPressReleaseRssByDateCount" action="replace" tag="5000" split="occ">
+
+    <!-- importar count do scielo.def.php -->
+    <field action="import" tag="list">3000,8888</field>
+    <field action="replace" tag="8888"><pft>if a(v5000^c) then '20' else v5000^c fi</pft></field>
+    <parm name="reverse">On</parm>
+    <field action="import" tag="list">7009</field>
+
+    <!-- busca press release de artigos -->
+    <!-- navega pelo press release de artigos e numeros, dado issn -->
+
+      <do task="keyrange">
+
+        <parm name="db">ARTIGO</parm>
+        <parm name="from"><pft>'PR_DT=',v5000^*</pft></parm>
+        <parm name="count"><pft>v8888</pft></parm>
+        <parm name="posting"><pft>'ALL'</pft></parm>
+
+        <field action="define" tag=1001>Isis_Current</field>
+        <field action="define" tag=1002>Isis_Key</field>
+        <field action="define" tag="1003">Isis_Posting</field>
+        <field action="define" tag="1004">Isis_Postings</field>
+
+          <loop>
+            <field action="import" tag="list">3000</field>
+            <field action="import" tag="list">7009</field>
+
+            <!-- PRESS RELEASE -->
+            <do task="mfnrange">
+              <parm name="db">ARTIGO</parm>
+              <parm name="from"><pft>v1003^m</pft></parm>
+              <parm name="count">1</parm>
+
+              <loop>
+                <field action="import" tag="list">7009</field>
+                <field action="import" tag="list">3000</field>
+                  <display>
+                    <pft>
+                      '<item>',/
+                      '<title><![CDATA[',v12^*,']]></title>',/
+                      '<link>','http://', v7009, '/scielo.php?script=sci_arttext_pr&pid=', v880 ,'&lng=en&nrm=iso&tlng=en','</link>',/
+                      '<description>'   '</description>',/
+                      '</item>',/
+                    </pft>
+                  </display>
+              </loop>
+            </do>
+        </loop>
+      </do>
+</function>
 
 <function name="displayPressReleasesRelatedToIssue" action="replace" tag="4001">
 
@@ -229,7 +336,7 @@
 			<field action="import" tag="list">4001</field>		
             <field action="import" tag="list">7009/7060</field>
 			<field action="delete" tag="list">9241</field>
-			<!-- verifica se este press release está relacionada a pelo menos um artigo -->
+			<!-- verifica se este press release estï¿½ relacionada a pelo menos um artigo -->
 			<do task="search">
 				<parm name="db">ARTIGO</parm>
 				<parm name="expression"><pft>|PR_LK=|v1002*3</pft></parm>		
@@ -272,7 +379,7 @@
 			<field action="replace" tag="264"><pft>ref(['ARTIGO']val(v1003^m),@PROC_SPLIT_MST.PFT,v264)</pft></field> 
 			<call name="showText"><pft>v264</pft></call>
 			<display><pft>if p(v264) then '<EMBARGO date="',v264,'" text="',v8264,'"/>'/ fi</pft></display>
-	<call name="insertElementRelatedToDocument"><pft>if p(v241) or p(v41) then  (v880[1],|^x|v41[1],v241,|^v|v31[1],|^w|v131[1],|^n|v32[1],|^y|v132[1],|^d|v65[1]*0.4/) fi</pft></call>
+                        <call name="insertElementRelatedToDocument"><pft>if p(v241) or p(v41) then  (v880[1],|^x|v41[1],v241,|^v|v31[1],|^w|v131[1],|^n|v32[1],|^y|v132[1],|^d|v65[1]*0.4/) fi</pft></call>
 
 			<field action="replace" tag="4040" split="occ"><pft>(v12^l/), if a(v12) then v40 fi</pft></field> 
 			
