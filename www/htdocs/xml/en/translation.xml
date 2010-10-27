@@ -217,9 +217,9 @@
 	</xslid>
 	<xslid id="sci_serial">
 		<text find="home_page">Home Page</text>
-		<text find="portuguese">português</text>
-		<text find="spanish">español</text>
-		<text find="english">english</text>
+		<text find="portuguese">Português</text>
+		<text find="spanish">Español</text>
+		<text find="english">English</text>
 		<text find="indicators_scimago">SCImago Indicators</text>
 		<text find="scimago_journal_country_rank">SCImago Journal and Country Rank</text>
 		<text find="mission">Mission</text>
@@ -251,9 +251,9 @@
 	</xslid>
 	<xslid id="sci_home">
 		<text find="journal_evaluation">journals evaluation</text>
-		<text find="portuguese">português</text>
-		<text find="spanish">español</text>
-		<text find="english">english</text>
+		<text find="portuguese">Português</text>
+		<text find="spanish">Español</text>
+		<text find="english">English</text>
 		<text find="help">help</text>
 		<text find="app_name">SciELO</text>
 		<text find="about_this_site">about this site</text>
