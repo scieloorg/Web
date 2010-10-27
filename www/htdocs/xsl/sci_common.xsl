@@ -461,8 +461,11 @@
 			</xsl:if>
 			<xsl:variable name="languages" select="document(concat('../xml/',$INTLANG,'/language.xml'))//language"/>
 			<xsl:text> </xsl:text>
+			<xsl:value-of select="$languages[@id=$TXTLANG]"/>
+		<!--	As 2 linhas abaixo foram substituídas pela linha superior.
 			<xsl:value-of select="translate(substring($languages[@id=$TXTLANG],1,1),'ABCDEFGHJIKLMNOPQRSTUVWXYZ','abcdefghjiklmnopqrstuvwxyz')"/>
 			<xsl:value-of select="substring($languages[@id=$TXTLANG],2)"/>
+		-->
 		</xsl:variable>
 		<xsl:choose>
 			<xsl:when test="$TYPE='pr'">
