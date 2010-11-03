@@ -172,7 +172,7 @@ class scieloWS {
             header("Content-type: text/xml");
             return envelopeXml($serviceXML, $serviceRoot);
     }else{
-            return $serviceXML;
+            return utf8_encode($serviceXML);
     }
     return $serviceXML;
   }
@@ -212,7 +212,7 @@ class scieloWS {
     }else{
       return utf8_encode($serviceXML);
     }
-    return $serviceXML;
+    return utf8_encode($serviceXML);
   }
 
   /**
@@ -255,7 +255,7 @@ class scieloWS {
     $serviceXML .= '</collection>';
     $serviceXML .= '</SciELOWebService>';
 
-    return $serviceXML;
+    return utf8_encode($serviceXML);
   }
 }
 
