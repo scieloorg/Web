@@ -130,7 +130,7 @@ class scieloWS {
             header("Content-type: text/xml");
             return envelopeXml($serviceXML, $serviceRoot);
     }else{
-            return $serviceXML;
+            return utf8_encode($serviceXML);
     }
     return $serviceXML;
   }
