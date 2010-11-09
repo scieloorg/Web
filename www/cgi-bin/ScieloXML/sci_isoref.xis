@@ -8,8 +8,8 @@
 	
 		<field action="replace" tag="1" split="occ"><pft>'iso-e'/,'nbr6023-e'/,</pft></field>
 		<field action="replace" tag="2" split="occ"><pft>'Electronic Document Format (ISO)'/,'Electronic Document Format (ABNT)'/,</pft></field>
-		<field action="replace" tag="3" split="occ"><pft>'Formato Documento Electrï¿½nico (ISO)'/,'Formato Documento Electrï¿½nico (ABNT)'/,</pft></field>
-		<field action="replace" tag="4" split="occ"><pft>'Formato Documento Eletrï¿½nico (ISO)'/,'Formato Documento Eletrï¿½nico (ABNT)'/,</pft></field>
+		<field action="replace" tag="3" split="occ"><pft>'Formato Documento Electrónico (ISO)'/,'Formato Documento Electrónico (ABNT)'/,</pft></field>
+		<field action="replace" tag="4" split="occ"><pft>'Formato Documento Eletrônico (ISO)'/,'Formato Documento Eletrônico (ABNT)'/,</pft></field>
 		<display>
 			<pft>
 				'<standard-list>'
@@ -27,8 +27,8 @@
 		</field>
 		<field action="add" tag="1"><pft>if p(v999) then v999 fi</pft></field>
 		<field action="add" tag="2"><pft>if p(v999) then 'Electronic Document Format (Vancouver)'/, fi</pft></field>
-		<field action="add" tag="3"><pft>if p(v999) then 'Formato Documento Electrï¿½nico (Vancouver)'/ fi</pft></field>
-		<field action="add" tag="4"><pft>if p(v999) then 'Formato Documento Eletrï¿½nico (Vancouver)'/, fi</pft></field>
+		<field action="add" tag="3"><pft>if p(v999) then 'Formato Documento Electrónico (Vancouver)'/ fi</pft></field>
+		<field action="add" tag="4"><pft>if p(v999) then 'Formato Documento Eletrônico (Vancouver)'/, fi</pft></field>
 
 		
 
