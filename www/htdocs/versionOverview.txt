@@ -1,3 +1,13 @@
+v5.9
+r4262 Removendo arquivos do MX. Os arquivos deverão ser copiados do site de produtos da BIREME
+r4263 Removendo arquivo WXIS.EXE. Os arquivos deverão ser copiados do site de produtos da BIREME
+#115  Correções aplicadas somente em SciELObr, interface em inglês.
+r4270 Faltante utf-8 enconding no webservices serviço de new_titles
+r4271 Atualizado conforme solicitado no ticket #220 (closes #220)
+#220 Atualizado conforme solicitado.
+#r4275 Adicionado pastas wxis e gizmo no webservices faltantes na versão php5
+#251 Trocando a codificação do arquivo sci_isoref.xis de UTF-8 para ISO-8859-1. Problemas na exibição de caracteres acentuados.
+
 v5.8
 #240, corrigindo o título do artigo na tag meta/citation_title da página sci_abstract
 
