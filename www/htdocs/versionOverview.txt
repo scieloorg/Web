@@ -1,3 +1,6 @@
+para próxima v5.10
+#252 Na home, o link para o portal (seja www.scielo.org, ou www.portal.revenf.bvsalud.org) tem que ser obtido do scielo.def.php
+
 v5.9
 r4262 Removendo arquivos do MX. Os arquivos deverão ser copiados do site de produtos da BIREME
 r4263 Removendo arquivo WXIS.EXE. Os arquivos deverão ser copiados do site de produtos da BIREME
