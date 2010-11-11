@@ -41,7 +41,7 @@
 </xsl:template>
 	<xsl:template match="CONTROLINFO">
 		<p align="center">
-			<a href="http://www.scielo.org/php/index.php?lang={LANGUAGE}">
+			<a href="http://{.//SCIELO_REGIONAL_DOMAIN}/php/index.php?lang={LANGUAGE}">
 				<img>
 					<xsl:attribute name="alt"><xsl:value-of select="$translations/xslid[@id='sci_home']/text[@find='img_alt']"/></xsl:attribute>
 					<xsl:attribute name="border">0</xsl:attribute>
@@ -66,7 +66,7 @@
 						</xsl:apply-templates>
 					</xsl:if>
 					<xsl:if test="$show_home_scieloorg = 1">
-						<a href="http://www.scielo.org/php/index.php?lang={LANGUAGE}">
+						<a href="http://{.//SCIELO_REGIONAL_DOMAIN}/php/index.php?lang={LANGUAGE}">
 							<font class="linkado" size="-1">SciELO.org</font>
 						</a>
 						<br/>
