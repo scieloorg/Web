@@ -1,5 +1,8 @@
-para próxima v5.10
+para próxima v5.11
 #252 Na home, o link para o portal (seja www.scielo.org, ou www.portal.revenf.bvsalud.org) tem que ser obtido do scielo.def.php
+
+v5.10
+Removido include para o arquivo cipar.xis no pressrelease.xis
 
 v5.9
 r4262 Removendo arquivos do MX. Os arquivos deverão ser copiados do site de produtos da BIREME
