@@ -21,8 +21,6 @@
      4001^t - text language
 -->
 
-        <include>ScieloXML/sci_cipar.xis</include>
-
 	<!-- campo v241, presente no registro h de um artigo regular -->
 	<label>RELATED_TO_PRESSRELEASE</label>
 	<field action="replace" tag="241" split="occ"><pft>(if p(v5000^i) then v5000/ fi)</pft></field>
