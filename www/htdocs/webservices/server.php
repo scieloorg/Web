@@ -259,7 +259,7 @@ class scieloWS {
   }
 }
 
-  $server = new SoapServer("wsdl/scielo.wsdl");
+  $server = new SoapServer("wsdl/scielo_1.wsdl");
   $server->setClass("scieloWS");
   $server->handle();
 

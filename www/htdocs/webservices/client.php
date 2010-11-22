@@ -88,7 +88,7 @@ switch($service){
 <? echo trim($resultado);?>
 </textarea>
 
-<p align="center"><font color="#0000a0" size="-1" class="nomodel">SciELO - Scientific Electronic Library Online<br>FAPESP - BIREME<br>Rua Dr. Diogo de Farias, 1087 conj. 810 - Vila Clementino<br>04037-003 São Paulo SP - Brazil - Brasil<br>Phone: +55 11 3369-4080<br>Fax: </font><br><a href="mailto:scielo@scielo.org" class="email"><img border="0" src="/img/e-mailt.gif"><br><font color="#0000a0" size="2">scielo@scielo.org</font></a></p>
+<p align="center"><font color="#0000a0" size="-1" class="nomodel">SciELO - Scientific Electronic Library Online<br>FAPESP - BIREME<br>Rua Dr. Diogo de Farias, 1087 conj. 810 - Vila Clementino<br>04037-003 Sï¿½o Paulo SP - Brazil - Brasil<br>Phone: +55 11 3369-4080<br>Fax: </font><br><a href="mailto:scielo@scielo.org" class="email"><img border="0" src="/img/e-mailt.gif"><br><font color="#0000a0" size="2">scielo@scielo.org</font></a></p>
 
 
 

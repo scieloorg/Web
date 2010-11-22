@@ -16,10 +16,10 @@ function getElementValue ($xml, $element, $attributes = '')
 }
 
 //=============================================================================================
-function getIndicators($indicator,$issn)
+function getIndicators($indicator,$applServer,$databasePath,$issn)
 {
-global $applServer,$databasePath ;
-$result="";
+    
+    $result="";
         switch ($indicator){
                 case "journalTotal":
                         $serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/webservices/wxis/?IsisScript=list.xis&database=".$databasePath ."title/title&count=1";
