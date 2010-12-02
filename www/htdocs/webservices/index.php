@@ -1,6 +1,4 @@
 <?php
-
-
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -18,7 +16,7 @@ require_once("../class.XSLTransformer.php");
 
 $service = $_REQUEST['service'];
 
-$client = new SoapClient('wsdl/scielo.wsdl', array('encoding'=>'ISO-8859-1'));
+$scieloWS = new scieloWS();
 
 switch($service){
     case "search":
@@ -34,21 +32,19 @@ switch($service){
         if(!isset($_REQUEST['lang'])){
                 die("missing parameter <i>lang</i>");
         }
-        $param = array('expression' => $_REQUEST['expression'],'from' => $_REQUEST['from'],'count' => $_REQUEST['count'],'lang' => $_REQUEST['lang']);
-        $resultado = $client->__call('search',$param);
+        $resultado = $scieloWS->search($_REQUEST['expression'],$_REQUEST['from'],$_REQUEST['count'],$_REQUEST['lang']);
         echo trim($resultado);
         break;
     case "new_titles":
-        $param = array('count' => $_REQUEST["count"], 'rep' => $_REQUEST["rep"]);
-        $resultado = $client->__call('new_titles',$param);
+        $resultado = $scieloWS->new_titles($_REQUEST["count"],$_REQUEST["rep"]);
         echo trim($resultado);
         break;
     case "new_issues":
-        $param = array('count' => $_REQUEST["count"], 'rep' => $_REQUEST["rep"]);
-        $resultado = $client->__call('new_issues',$param);
+        $resultado = $scieloWS->new_issues($_REQUEST["count"],$_REQUEST["rep"]);
         echo trim($resultado);
         break;
     case "get_titles":
+    
         if(isset($_REQUEST['issn'])){
             if(is_string($_REQUEST['issn'])){
                 $issn = explode(',',$_REQUEST['issn']);
@@ -57,18 +53,15 @@ switch($service){
             }else{
                 break;
             }
-            $param = array('issn' => $_REQUEST["issn"]);
-            $resultado = $client->__call('getDetachedTitles', $param);
+            $resultado = $scieloWS->getDetachedTitles($issn);
             echo trim($resultado);
         }else{
-            $param = array('type' => $_REQUEST["type"], 'rep' => $_REQUEST["rep"]);
-            $resultado = $client->__call('get_titles',$param);
+            $resultado = $scieloWS->get_titles($_REQUEST["type"],$_REQUEST["rep"]);            
             echo trim($resultado);
         }
         break;
     case "get_title_indicators":
-         $param = array('type' => $_REQUEST["type"], 'rep' => $_REQUEST["rep"], 'issn' => $_REQUEST["issn"]);
-         $resultado = $client->__call('get_title_indicators', $param);
+         $resultado = $scieloWS->get_title_indicators($_REQUEST["type"],$_REQUEST["rep"],$_REQUEST["issn"]);         
          echo trim($resultado);
         break;
     case "":
@@ -88,20 +81,15 @@ class scieloWS {
   private $country;
   private $databasePath;
 
-
   private function getVariableFromDef()
   {
-
     $transformer = new XSLTransformer();
     $defFile = new DefFile("../scielo.def.php");
-
     $this->applServer = $defFile->getKeyValue("SERVER_SCIELO");
     $this->regionalScielo = $defFile->getKeyValue("SCIELO_REGIONAL_DOMAIN");
     $this->collection = $defFile->getKeyValue("SHORT_NAME");
     $this->country = $defFile->getKeyValue("COUNTRY");
     $this->databasePath = $defFile->getKeyValue("PATH_DATABASE");
-
-
   }
 
 
@@ -151,19 +139,13 @@ class scieloWS {
     $serviceUrl = "http://" . $this->applServer . "/cgi-bin/wxis.exe/webservices/wxis/?IsisScript=listNewTitles.xis&database=".$this->databasePath ."title/title&gizmo=GIZMO_XML&count=" . $count;
     if ($rep){
             $serviceUrl .="&rep=".$rep;
-
     }
     $XML = readData($serviceUrl,true);
-    $serviceXML .= '<collection name="'.$colname.'" uri="http://'.$applServer.'">';
+    $serviceXML .= '<collection name="'.$this->country.'" uri="http://'.$this->applServer.'">';
     $serviceXML .= $XML;
     $serviceXML .= '</collection>';
-    if ($output == "xml"){
-            header("Content-type: text/xml");
-            return envelopeXml($serviceXML, $serviceRoot);
-    }else{
-            return utf8_encode($serviceXML);
-    }
-    return $serviceXML;
+    header("Content-type: text/xml");
+    return utf8_encode($serviceXML);
   }
 
   /**
@@ -183,16 +165,11 @@ class scieloWS {
     }
 
     $XML = readData($serviceUrl,true);
-    $serviceXML .= '<collection name="'.$colname.'" uri="http://'.$applServer.'">';
+    $serviceXML .= '<collection name="'.$this->country.'" uri="http://'.$this->applServer.'">';
     $serviceXML .= $XML;
     $serviceXML .= '</collection>';
-    if ($output == "xml"){
-            header("Content-type: text/xml");
-            return envelopeXml($serviceXML, $serviceRoot);
-    }else{
-            return utf8_encode($serviceXML);
-    }
-    return $serviceXML;
+    header("Content-type: text/xml");
+    return utf8_encode($serviceXML);
   }
 
   /**
@@ -205,7 +182,7 @@ class scieloWS {
   {
 
     $this->getVariableFromDef();
-
+    
     $xslName = '';
 
     $serviceUrl = "http://" . $this->applServer . "/cgi-bin/wxis.exe/webservices/wxis/?IsisScript=list.xis&database=".$this->databasePath."title/title&gizmo=GIZMO_XML";
@@ -215,11 +192,11 @@ class scieloWS {
     }
     $XML = readData($serviceUrl,true);
     if ($rep) {
-      $serviceXML .= '<collection name="'.$colname.'" uri="http://'.$applServer.'">';
+      $serviceXML .= '<collection name="'.$this->country.'" uri="http://'.$this->applServer.'">';
       $serviceXML .= $XML;
       $serviceXML .= '</collection>';
     } else {
-      $serviceXML .= '<collection name="'.$colname.'" uri="http://'.$applServer.'">';
+      $serviceXML .= '<collection name="'.$this->country.'" uri="http://'.$this->applServer.'">';
       $serviceXML .= '<indicators>';
       $serviceXML .= '<journalTotal>'.getIndicators("journalTotal",$this->applServer,$this->databasePath,$issn).'</journalTotal>';
       $serviceXML .= '<articleTotal>'.getIndicators("articleTotal",$this->applServer,$this->databasePath,$issn).'</articleTotal>';
@@ -229,13 +206,8 @@ class scieloWS {
       $serviceXML .= $XML;
       $serviceXML .= '</collection>';
     }
-    if ($output == "xml"){
-            header("Content-type: text/xml");
-            return envelopeXml($serviceXML, $serviceRoot);
-    }else{
-            return utf8_encode($serviceXML);
-    }
-    return $serviceXML;
+    header("Content-type: text/xml");
+    return utf8_encode($serviceXML);
   }
 
   /**
@@ -257,7 +229,7 @@ class scieloWS {
     }
     $XML = readData($serviceUrl,true);
 
-    $serviceXML .= '<collection name="'.$colname.'" uri="http://'.$applServer.'">';
+    $serviceXML .= '<collection name="'.$this->country.'" uri="http://'.$this->applServer.'">';
     $serviceXML .= '<journalIndicators>';
     $serviceXML .= '<articleTotal>'.getIndicators("journalArticleTotal",$this->applServer,$this->databasePath,$issn).'</articleTotal>';
     $serviceXML .= '<issueTotal>'.getIndicators("journalIssueTotal",$this->applServer,$this->databasePath,$issn).'</issueTotal>';
@@ -266,13 +238,8 @@ class scieloWS {
     $serviceXML .= $XML;
     $serviceXML .= '</collection>';
 
-    if ($output == "xml"){
-      header("Content-type: text/xml");
-      return envelopeXml($serviceXML, $serviceRoot);
-    }else{
-      return utf8_encode($serviceXML);
-    }
-    return utf8_encode($serviceXML);
+   header("Content-type: text/xml");
+   return utf8_encode($serviceXML);
   }
 
   /**
@@ -300,9 +267,8 @@ class scieloWS {
     $XML = readData($serviceUrl,true);
     $journalTotal=getElementValue(getElementValue(str_replace("<hr>","<hr />",$XML) , "Isis_Total"),"occ");
 
-    $serviceXML .= '<?xml version="1.0" encoding="ISO-8859-1"?>';
     $serviceXML .= '<SciELOWebService version="1.0">';
-    $serviceXML .= '<collection name="'.$colname.'" uri="http://'.$applServer.'">';
+    $serviceXML .= '<collection name="'.$this->country.'" uri="http://'.$this->applServer.'">';
     $serviceXML .= '<indicators>';
     $serviceXML .= '<journalTotal>'.$journalTotal.'</journalTotal>';
     $serviceXML .= '<articleTotal>'.getIndicators("articleTotal",$this->applServer,$this->databasePath,$issn).'</articleTotal>';
@@ -313,12 +279,8 @@ class scieloWS {
     $serviceXML .= '</collection>';
     $serviceXML .= '</SciELOWebService>';
 
+    header("Content-type: text/xml");
     return utf8_encode($serviceXML);
   }
 }
-
-  $server = new SoapServer("wsdl/scielo.wsdl");
-  $server->setClass("scieloWS");
-  $server->handle();
-
 ?>
