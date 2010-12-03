@@ -217,9 +217,9 @@
 	</xslid>
 	<xslid id="sci_serial">
 		<text find="home_page">Home Page</text>
-		<text find="portuguese">Português</text>
-		<text find="spanish">Español</text>
-		<text find="english">English</text>
+		<text find="portuguese">português</text>
+		<text find="spanish">español</text>
+		<text find="english">english</text>
 		<text find="indicators_scimago">SCImago Indicators</text>
 		<text find="scimago_journal_country_rank">SCImago Journal and Country Rank</text>
 		<text find="mission">Mission</text>
@@ -251,14 +251,14 @@
 	</xslid>
 	<xslid id="sci_home">
 		<text find="journal_evaluation">journals evaluation</text>
-		<text find="portuguese">Português</text>
-		<text find="spanish">Español</text>
-		<text find="english">English</text>
-		<text find="help">help</text>
-		<text find="app_name">SciELO</text>
-		<text find="about_this_site">about this site</text>
-		<text find="scielo_news">SciELO news</text>
-		<text find="scielo_team">SciELO team</text>
+		<text find="portuguese">português</text>
+		<text find="spanish">español</text>
+		<text find="english">english</text>
+		<text find="help">Critérios para admissão automática</text>
+		<text find="app_name">PePSIC</text>
+		<text find="about_this_site">Critérios para Inclusão de Revistas</text>
+		<text find="scielo_news">PePSIC news</text>
+		<text find="scielo_team">PePSIC team</text>
 		<text find="serial_browsing">serial browsing</text>
 		<text find="alphabetic_list">alphabetic list</text>
 		<text find="subject_list">subject list</text>
@@ -271,17 +271,53 @@
 		<text find="site_usage">site usage</text>
 		<text find="journal_citation">journal citation</text>
 		<text find="co_authors">co-authors</text>
-		<text find="text_1">The Scientific Electronic Library Online - SciELO is an electronic library covering a selected collection of Brazilian scientific journals.<br/>
-			<br/>The library is an integral part of a project being developed by <a href="http://www.fapesp.br">FAPESP</a> - Fundação de Amparo à Pesquisa do Estado de São Paulo, in partnership with <a href="http://www.bireme.br/bvs/I/ihome.htm">BIREME</a> - the Latin American and Caribbean Center on Health Sciences Information. Since 2002, the Project is also supported by <a href="http://www.cnpq.br">CNPq</a> - Conselho Nacional de Desenvolvimento Científico e Tecnológico.<br/>
-			<br/>The Project envisages the development of a common methodology for the preparation, storage, dissemination and evaluation of scientific literature in electronic format.<br/>
-			<br/>As the project develops, new journal titles are being added in the library collection.</text>
-		<text find="text_2">This is the home page of SciELO Brasil Site.<br/>
-			<br/>The objective of the site is to implement an electronic virtual library, providing full access to a collection of serial titles, a collection of issues from individual serial titles, as well as to the full text of articles. The access to both serial titles and articles is available via indexes and search forms.<br/>
-			<br/>SciELO site is an integral part of the FAPESP/BIREME/CNPq Project and it is an application of the methodology being developed by the project, particularly the Internet Interface module.<br/>
-			<br/>The site will be constantly updated both in form and content, according to the project's advancements.</text>
-		<text find="text_3">SciELO interface provides access to its serials collection via an <i>alphabetic list</i> of titles or a <i>subject list</i> or a <i>search form</i> by word of serial titles, publisher names, city of publication and subject.<br/>
-			<br/>The interface also provides access to the full text of articles via <i>author index</i> or <i>subject index</i>, or by a <i>search form</i> on article elements such as author names, words from title, subject, words from the full text and publication year.<br/>
-			<br/>Click an hypertext link at the <a href="#top">top</a> to call the corresponding access page.</text>
+		<text find="text_1">
+			<div>
+				<p>O portal de Periódicos Eletrônicos de Psicologia (PePSIC) é uma fonte da Biblioteca Virtual em Saúde - Psicologia da União Latino-Americana de Entidades de Psicologia (BVS-Psi ULAPSI) e fruto da parceria entre Fórum de Entidades Nacionais da Psicologia Brasileira (FENPB), Biblioteca Dante Moreira Leite do Instituto de Psicologia da Universidade de São Paulo (IP/USP) e do Centro Latino Americano e do Caribe de Informação em Ciências da Saúde - <a href="http://regional.bvsalud.org/php/index.php?lng=es">BIREME</a>, que cedeu a metodologia - <a href="http://www.scielo.org/php/index.php?lng=es">Scientific Electronic Library Online (SciELO)</a> - modelo de publicação eletrônica de periódicos para países em desenvolvimento.</p>
+				<p>O objetivo do PePSIC é contribuir para a visibilidade do conhecimento psicológico e científico gerado nos países da América Latina, a partir da publicação de revistas científicas em acesso aberto.</p>
+				<p>Por acesso aberto, tal como a <a href="http://www.soros.org/openaccess">Budapest Open Acess Initiative</a>, entendemos “a  disposição livre e pública na internet, de forma a permitir a qualquer usuário a leitura, download, cópia, distribuição, impressão, busca ou o link com o conteúdo completo de artigos, bem como a indexação ou o uso para qualquer outro propósito legal, sem barreiras financeiras, legais e técnicas outras que não aquelas necessárias para a conexão da Internet. O único constrangimento para a reprodução, distribuição, bem como os direitos de cópia e seu domínio deve ser o controle do autor sobre a integridade de seu trabalho e o direito de sua propriedade intelectual e citação.” </p>
+				<p>Originalmente desenvolvido para publicar as revistas científicas de Psicologia do Brasil, o PePSIC foi lançado oficialmente em 2005, sendo expandido para os demais países da América Latina no ano 2006. Atualmente, o portal publica títulos de 11 países.</p>
+				<p>A Coordenação Técnico-Científico da BVS-Psi ULAPSI é responsável pela política de inclusão de novos títulos e gestão do PePSIC.</p>
+			</div>
+		</text>
+		<text find="text_2">
+			<div>
+				<p>Para ser incluída no PePSIC a revista deve passar por processo de avaliação da Coordenação Técnico-Científica, que poderá recorrer a um parecerista externo, caso julgue necessário. As revistas candidatas à publicação devem atender ao menos 70% dos critérios adotados pelo <a href="http://www.latindex.unam.mx/documentos/revistas_imp_por.html">Latindex</a>. Além de atender a esses critérios a revista deve:</p>
+				<ul>
+					<li>Pertencer á área de Psicologia e ciências afins</li>
+					<li>Ter caráter científico</li>
+					<li>Ser arbitrada</li>
+					<li>Ser publicada em um dos países da América Latina</li>
+					<li>Ter, no mínimo, três fascículos publicados</li>
+				</ul>
+				<p>Para submeter uma revista ao processo de avaliação o editor deve enviar:</p>
+				<ol>
+					<li>um exemplar dos três últimos fascículos publicados ou, no caso de periódicos eletrônicos, o endereço eletrônico (URL) do periódico e as especificações dos 3 últimos números publicados, com sua respectiva localização.</li>
+					<li>Carta de apresentação da revista e do Conselho Editorial.</li>
+				</ol>
+			</div>
+		</text>
+		<text find="text_3">
+			<div>
+				<p>Os periódicos indexados nos seguintes índices internacionais estão automaticamente aprovados para sua inclusão no portal PePSIC:</p>
+				<ul>
+					<li>Rede SciELO</li>
+					<li>Thomson Reuters (antigo ISI)</li>
+					<li>PsycInfo</li>
+				</ul>
+				<p>As revistas publicadas pelas entidades do Fórum das Entidades Nacionais da Psicologia Brasileira e do Sistema Conselhos estão automaticamente aprovadas para inclusão no PePSIC, desde que atendam aos 70% dos critérios do Latindex. </p>
+				<p>Os fascículos impressos, ou a URL da revista digital, e carta de apresentação da revista devem ser enviados para:</p>
+				<p>
+Biblioteca Dante Moreira Leite - BVS-Psi ULAPSI/PePSIC<br/>
+Universidade de São Paulo<br/>
+Instituto de Psicologia<br/>
+Portal de Periódicos Eletrônicos em Psicologia - PePSIC<br/>
+A/C Maria Imaculada Cardoso Sampaio<br/>
+Av. Prof. Mello Moraes, 1721- Bl C<br/>
+05508-030 - São Paulo - SP - Brasil<br/>
+				</p>
+			</div>
+		</text>
 		<text find="phone">Phone</text>
 		<text find="fax">Fax</text>
 		<text find="register_free">Free sign up</text>
@@ -293,12 +329,12 @@
 		<text find="img_alt">Scientific Electronic Library Online</text>
 	</xslid>
 	<xslid id="sci_toolbox">
-		<text find="services">Services</text>
-		<text find="article">Article</text>
+		<text find="services">services</text>
+		<text find="article">article</text>
 		<text find="add_to_my_collection">Add to my collection</text>
 		<text find="alert_me_when_cited">Alert me when cited</text>
 		<text find="send_me_access_statistics">Send me access statistics</text>
-		<text find="custom_services">Custom services</text>
+		<text find="custom_services">custom services</text>
 		<text find="comments">Comments</text>
 		<text find="article_in_pdf_format">Article in pdf format</text>
 		<text find="article_in_xml_format">Article in xml format</text>
@@ -326,7 +362,6 @@
 		<text find="pr">Press release</text>
 		<text find="issue">See the issue</text>
 		<text find="clinical_trial">Clinical trial</text>
-                <text find="bookmark_more">More</text>
 	</xslid>
 	<xslid id="sci_issuetoc">
 		<text find="abstract">abstract in </text>
