@@ -1,7 +1,4 @@
-<?php
-  $redirect = "./scielo.php";
-  if ($_REQUEST['lang'])
-          $redirect .= "?lang=" . $_REQUEST['lang'];
-
-  header("Location: " . $redirect);
+<?
+header ("Location: scielo.php?script=sci_serial&pid=1020-3397&lng=en&nrm=iso"); 
+exit;                 
 ?>
