@@ -55,7 +55,6 @@
 		<text find="top_ten_titles">10 títulos más visitados</text>
 		<text find="articles_per_month">Artículos visitados por mes</text>
 		<text find="library_site_usage_reports">Informes de uso del sítio</text>
-		<text find="article_requests_lang">Acesso a los artículos por idioma</text>
 	</xslid>
 	<xslid id="sci_common">
 		<text find="reference_manager">Gestores Bibliográficos</text>
@@ -76,7 +75,6 @@
 		<text find="there_are_no_statistics_forthat_period">No existen estadísticas para ese período</text>
 		<text find="how_to_cite_this_article">Como citar este artículo</text>
 		<text find="text_available_after">texto disponible después de</text>
-		<text find="contact">Contacto</text>
 	</xslid>
 	<xslid id="sci_subject">
 		<text find="issue">número</text>
@@ -96,6 +94,7 @@
 	<xslid id="sci_artref">
 		<text find="ahead_of_print">ahead of print</text>
 		<text find="provisional">provisorio</text>
+
 		<text find="review_in_progress">en revisión</text>
 		<text find="not_printed">no impresso</text>
 		<text find="special_issue">número especial</text>
@@ -149,21 +148,6 @@
 		<text find="sentence_1">Un error inesperado ocurrió en el servidor de SciELO.<br/>
 			<br/>Clique en el logo de SciELO para revisar la Biblioteca SciELO o use el botón "BACK" del visualizador para volver a la página anterior.<br/>
 			<br/>Agradeceríamos que nos enviaran emails con cualquier pregunta, comentario o sugerencia usando el link que aparece a continuación.</text>
-		<text find="ahead_of_print">ahead of print</text>
-		<text find="provisional">provisorios</text>
-		<text find="buttonAuthor">autor</text>
-		<text find="buttonSubject">materia</text>
-		<text find="buttonSearch">búsqueda</text>
-		<text find="buttonAlpha">lista alfabética</text>
-		<text find="current">actual</text>
-		<text find="previous">anterior</text>
-		<text find="next">próximo</text>
-		<text find="all_issues">todos</text>
-		<text find="grp_advanced">publ adelantadas</text>
-		<text find="grp_issues">números</text>
-		<text find="grp_articles">artículos</text>
-		<text find="grp_serials">revistas</text>
-		<text find="table_of_contents">sumario</text>
 	</xslid>
 	<xslid id="reference">
 		<text find="not_found">this article doesn't have references</text>
@@ -182,7 +166,6 @@
 	<xslid id="article_output">
 		<text find="similarity">Similaridad:</text>
 		<text find="full_text">texto completo</text>
-                <text find="accessat">Acceder em</text>
 	</xslid>
 	<xslid id="cited">
 		<text find="doesnt_cited">ese articulo no tiene citaciones</text>
@@ -200,8 +183,6 @@
 	</xslid>
 	<xslid id="sci_arttext">
 		<text find="original_version_published_in">versión original publicada en</text>
-				<text find="fulltext_only_in_pdf">texto completo solamente en formato PDF</text>
-
 	</xslid>
 	<xslid id="sci_abstract">
 		<text find="abstract">Resumen</text>
@@ -327,7 +308,6 @@
 		<text find="pr">Press release</text>
 		<text find="issue">Vea el número</text>
 		<text find="clinical_trial">Ensayo clínico</text>
-                <text find="bookmark_more">Otros</text>
 	</xslid>
 	<xslid id="sci_issuetoc">
 		<text find="abstract">resumen en </text>
