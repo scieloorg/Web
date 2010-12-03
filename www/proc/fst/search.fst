@@ -35,3 +35,6 @@
 70 0 mpl,if v706='h' then (v70^p|%|/), fi,
 70 0 mpl,if v706='h' then (v70^c|%|/), fi,
 70 0 mpl,if v706='h' then (v70^s|%|/), fi,
+
+268 0 mpl,if v706='h' and p(v268) then 'REP=',s(f(val(v268)+100000,6,0))*1.5,/, fi,
+

@@ -37,3 +37,5 @@
 71 0 mpl,if v706='h' then if size(v71)=2 then proc('Ggizmo/gtdoc_en,71')  fi,('DT_',v71/)  fi,
 71 0 mpl,if v706='h' then if size(v71)=2 then proc('Ggizmo/gtdoc_es,171') fi,('DT_',v171/) fi,
 71 0 mpl,if v706='h' then if size(v71)=2 then proc('Ggizmo/gtdoc_pt,271') fi,('DT_',v271/) fi,
+
+268 0 mpl,if v706='h' and p(v268) then 'REP=',s(f(val(v268)+100000,6,0))*1.5,/, fi,

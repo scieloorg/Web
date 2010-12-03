@@ -2,17 +2,13 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 	<xsl:output method="html" omit-xml-declaration="yes" indent="no"/>
 	<xsl:include href="sci_navegation.xsl"/>
+	<xsl:include href="sci_error.xsl"/>
 	<xsl:variable name="PAGINATION" select="//PAGINATION"/>
 	<xsl:template match="SERIAL">
 		<HTML>
 			<HEAD>
 				<TITLE>
-					<xsl:value-of select="//TITLEGROUP/SHORTTITLE" disable-output-escaping="yes"/> - <xsl:call-template name="GetStrip">
-						<xsl:with-param name="vol" select="//ISSUE/@VOL"/>
-						<xsl:with-param name="num" select="//ISSUE/@NUM"/>
-						<xsl:with-param name="suppl" select="//ISSUE/@SUPPL"/>
-						<xsl:with-param name="lang" select="//CONTROLINFO/LANGUAGE"/>
-					</xsl:call-template>
+					x<xsl:value-of select="$PAGINATION/@repname"/>
 				</TITLE>
 				<LINK href="/css/scielo.css" type="text/css" rel="STYLESHEET"/>
 				<style type="text/css">
@@ -147,7 +143,11 @@ ol li.current * { color: #000; text-decoration: none; background: none; cursor: 
 	</xsl:template>
 	<xsl:template match="STRIP">
 		<FONT class="nomodel" color="#800000">
-            <xsl:value-of select="$translations/xslid[@id='sci_artlist']/text[@find = 'table_of_contents']"/>
+			<xsl:choose>
+				<xsl:when test="//CONTROLINFO[LANGUAGE='en']">Table of contents</xsl:when>
+				<xsl:when test="//CONTROLINFO[LANGUAGE='es']">Tabla de contenido</xsl:when>
+				<xsl:when test="//CONTROLINFO[LANGUAGE='pt']">Sumário</xsl:when>
+			</xsl:choose>
 		</FONT>
 		<BR/>
 		<font color="#800000">
@@ -282,7 +282,12 @@ ol li.current * { color: #000; text-decoration: none; background: none; cursor: 
 				<a>
 					<xsl:apply-templates select="." mode="link2list">
 						<xsl:with-param name="page" select="//PAGE[@selected]/@NUM - 1"/>
-					</xsl:apply-templates>&lt;&#160;<xsl:value-of select="$translations/xslid[@id='sci_artlist']/text[@find = 'anterior']"/>
+					</xsl:apply-templates>&lt;
+
+					<xsl:choose>			<xsl:when test="$interfaceLang='pt'">Anterior </xsl:when>
+			<xsl:when test="$interfaceLang='es'">Anterior </xsl:when>
+			<xsl:when test="$interfaceLang='en'">Previous </xsl:when>
+		</xsl:choose>
 				</a>
 			</xsl:if>
 			<xsl:apply-templates select=".//PAGE"/>
@@ -292,7 +297,11 @@ ol li.current * { color: #000; text-decoration: none; background: none; cursor: 
 					<xsl:apply-templates select="." mode="link2list">
 						<xsl:with-param name="page" select="//PAGE[@selected]/@NUM + 1"/>
 					</xsl:apply-templates>
-                    <xsl:value-of select="$translations/xslid[@id='sci_artlist']/text[@find = 'next']"/>&#160;&gt;
+					<xsl:choose> 
+			<xsl:when test="$interfaceLang='pt'">Próxima </xsl:when>
+			<xsl:when test="$interfaceLang='es'">Próxima </xsl:when>
+			<xsl:when test="$interfaceLang='en'">Next </xsl:when>
+		</xsl:choose> &gt;
 				</a>
 			</xsl:if>
 		</div>
@@ -313,7 +322,11 @@ ol li.current * { color: #000; text-decoration: none; background: none; cursor: 
 		</strong>
 	</xsl:template>
 	<xsl:template match="@entrdate">
-        <xsl:value-of select="$translations/xslid[@id='sci_artlist']/text[@find = 'published_on']"/>
+		<xsl:choose>
+			<xsl:when test="$interfaceLang='pt'">Depositado em </xsl:when>
+			<xsl:when test="$interfaceLang='es'">Depositado en </xsl:when>
+			<xsl:when test="$interfaceLang='en'">Deposited in </xsl:when>
+		</xsl:choose>
 		<xsl:call-template name="ShowDate">
 			<xsl:with-param name="DATEISO" select="."/>
 			<xsl:with-param name="LANG" select="$interfaceLang"/>

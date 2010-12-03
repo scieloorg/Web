@@ -1,0 +1,119 @@
+<function name="GenerateCalendarXML" action="replace" tag="4001">
+<do task="keyrange">
+   <parm name="db"><pft>v4001^d</pft></parm>
+   <parm name="from"><pft>v4001^f</pft></parm>
+   <parm name="to"><pft>v4001^t</pft></parm>
+   <parm name="reverse">On</parm>
+
+   <field action="define" tag="1001">Isis_Current</field>
+   <field action="define" tag="1002">Isis_Key</field>
+   <field action="define" tag="1003">Isis_Posting</field>
+   <field action="define" tag="1004">Isis_Item</field>
+   <field action="define" tag="1005">Isis_Total</field>
+   <field action="define" tag="1006">Isis_Postings</field>
+
+   
+	<display><pft>'<CALENDAR>'</pft></display>
+  
+	<loop>
+		<field action="import" tag="list">3000/3004</field>
+
+		<call name="privateGenerateCalendar"><pft>mid(v1002,size(v1002)-7,8),'^l',v4001^l</pft></call>
+		<field action="export" tag="list">3000/3004</field>
+
+	</loop>
+		<display><pft>if v3002<>'' or p(v3002) then '</MONTH>' fi</pft></display>
+		<display><pft>if v3001<>'' or p(v3001) then '</YEAR>' fi</pft></display>
+	<display><pft>'</CALENDAR>'</pft></display>
+   
+  </do> 
+</function>
+
+<function name="privateGenerateCalendar" action="replace" tag="4001">
+<!-- Create Article List
+     4001 date iso
+	 -->
+  
+		<field action="import" tag="list">3000/3004</field>
+
+		<field action="replace" tag="2000"><pft>v4001^*</pft></field>
+		<field action="replace" tag="2001"><pft>v2000*0.4</pft></field>
+		<field action="replace" tag="2002"><pft>v2000*4.2</pft></field>
+		<field action="replace" tag="2003"><pft>v2000*6.2</pft></field>
+
+
+		<display><pft>if p(v3001) and p(v3002) and s(v2001,v2002)<>s(v3001,v3002)  then '</MONTH>'/ fi</pft></display>
+		<display><pft>if p(v3001) and v2001<>v3001 then '</YEAR>'/ fi</pft></display>
+		
+		<display><pft>if v2001<>v3001 then '<YEAR value="',v2001,'" key="',v2000*0.4,'">'/ fi</pft></display>
+
+		<call name="getMonth"><pft>v2002,'^l',v4001^l</pft></call>
+		<display><pft>if s(v2001,v2002)<>s(v3001,v3002)  then '<MONTH value="',v2002,'" name="',v3004,'" key="',v2000*0.6,'">'/ fi</pft></display>
+		
+
+		<display><pft>'<DAY value="',v2003,'" key="',v2000,'"/>'/</pft></display>
+
+
+		<field action="replace" tag="3003"><pft>if s(v2001,v2002,v2003)<>s(v3001,v3002,v3003) then v2003 fi</pft></field>
+		<field action="replace" tag="3002"><pft>if s(v2001,v2002)<>s(v3001,v3002) then v2002 fi</pft></field>
+		<field action="replace" tag="3001"><pft>if v2001<>v3001 then v2001 fi</pft></field>
+		<field action="export" tag="list">3000/3004</field>
+
+</function>
+
+<function name="getMonth" action="replace" tag="4001">
+	<field action="replace" tag="3004"><pft>
+	
+	,if v4001^l='es' then
+		
+        ,select s(v4001^*)
+            case '01': ,'Enero',
+            ,case '02': ,'Febrero',
+            ,case '03': ,'Marzo',
+            ,case '04': ,'Abril',
+            ,case '05': ,'Mayo',
+            ,case '06': ,'Junio',
+            ,case '07': ,'Julio',
+            ,case '08': ,'Agosto',
+            ,case '09': ,'Septiembre',
+            ,case '10': ,'Octubre',
+            ,case '11': ,'Noviembre',
+            ,case '12': ,'Diciembre',
+        ,endsel,
+    ,else,
+        ,if v4001^l='pt' then
+            ,select s(v4001^*)
+                case '01': ,'Janeiro',
+                ,case '02': ,'Fevereiro',
+                ,case '03': ,'Março',
+                ,case '04': ,'Abril',
+                ,case '05': ,'Maio',
+                ,case '06': ,'Junho',
+                ,case '07': ,'Julho',
+                ,case '08': ,'Agosto',
+                ,case '09': ,'Setembro',
+                ,case '10': ,'Outubro',
+                ,case '11': ,'Novembro',
+                ,case '12': ,'Dezembro',
+            ,endsel,			
+        ,else,
+            ,select s(v4001^*)
+                case '01': ,'January',
+                ,case '02': ,'February',
+                ,case '03': ,'March',
+                ,case '04': ,'April',
+                ,case '05': ,'May',
+                ,case '06': ,'June',
+                ,case '07': ,'July',
+                ,case '08': ,'August',
+                ,case '09': ,'September',
+                ,case '10': ,'October',
+                ,case '11': ,'November',
+                ,case '12': ,'December',	    		
+			,endsel,			
+        ,fi,
+    ,fi,
+	
+	</pft></field>
+	<return action="replace" tag="3004"><pft>v3004</pft></return>
+</function>

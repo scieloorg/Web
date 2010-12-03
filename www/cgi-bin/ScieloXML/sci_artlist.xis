@@ -1,0 +1,297 @@
+<IsisScript>
+<!-- Genenerate XML for Issue Number -->
+
+<!-- Common functions -->
+<include>ScieloXML/sci_common.xis</include>
+<include>ScieloXML/calendar.xis</include>
+
+<function name="getRepositoryName" action="replace" tag="4000">
+	<do task="import">
+	    <parm name="file">../htdocs/rep.def.php</parm>
+		<parm name="type">RLine</parm>
+    	<loop>
+			<field action="import" tag="list">4000</field>
+			<field action="export" tag="list"><pft>if val(v1)=val(v4000^i) then '2' fi</pft></field>
+			<flow action="skip"><pft>if val(v1)=val(v4000^i) then  'Quit' fi</pft></flow>
+   		</loop>
+	</do>
+	
+	<field action="replace" tag="3"><pft>if v4000^l='en' then 'Articles Repository' fi</pft></field>
+	<field action="replace" tag="3"><pft>if v4000^l='es' then 'Repositorio de artículos' fi</pft></field>
+	<field action="replace" tag="3"><pft>if v4000^l='pt' then 'Repositório de artigos' fi</pft></field>
+	<field action="replace" tag="6325"><pft>v2,' ',v3</pft></field>
+	<field action="export" tag="list">6325</field>
+</function>
+
+<function name="translateSectionName" action="replace" tag="4001">
+  <return action="replace" tag="5010">
+	<pft>replace(replace(v4001^s,'REVIEW','Review in progress'),'AHEAD','Ahead of print')</pft>
+   </return>
+</function>
+<function name="CreateArticleListXML" action="replace" tag="4001">
+<!-- Create Article List
+     4001^p - PID 
+	 4001^l - Interface Language 
+	 4001^i - International Language 
+	 4001^s - Issue MFN -->
+  <display><pft>'<!-- aqui comeca -->'</pft></display>
+  <field action="import" tag="list">7009/7060</field> <!--fixed-->
+
+  <field action="replace" tag="5000"><pft>'SM_',
+		if p(v4001^r) then
+			,'R',
+		fi
+		if p(v4001^p) then 
+			,'J',
+		fi
+		if a(v4001^p) and a(v4001^r) then
+			,'D',
+		fi,'=',
+	</pft></field>
+	<field action="replace" tag="5001"><pft>if p(v4001^c) then v4001^c else '10' fi</pft></field>
+	<field action="replace" tag="5002"><pft>if p(v4001^f) then v4001^f else '1' fi</pft></field>
+
+  <!-- Paginação - inicio -->
+  
+  <do task="keyrange">
+   <parm name="db">ARTIGO</parm>
+   <parm name="from"><pft>v5000,v4001^r,v4001^p,v4001^d,mid('99999999',1,8-size(v4001^d))</pft></parm>
+   <parm name="to"><pft>v5000,v4001^r,v4001^p,v4001^d,mid('00000000',1,8-size(v4001^d))</pft></parm>
+   <parm name="reverse">On</parm>
+   <parm name="posting"><pft>'ALL'</pft></parm>
+
+   <field action="define" tag="1001">Isis_Current</field>
+   <field action="define" tag="1002">Isis_Key</field>
+   <field action="define" tag="1003">Isis_Posting</field>
+   <field action="define" tag="1004">Isis_Item</field>
+
+   <field action="replace" tag="2005">0</field>
+   <field action="replace" tag="9005">0</field>
+   <field action="replace" tag="9006">0</field>
+
+   <call name="getRepositoryName"><pft>|^i|v4001^r,'^l'v4001^l</pft></call>
+   
+   <!--display><pft>'<PAGINATION',| rep="|v4001^r|"|,,| journal="|v4001^p|"|,,| date="|v4001^d|"|,'>'/</pft></display-->
+   <display><pft>'<PAGINATION',| rep="|v4001^r|"|,,| journal="|v4001^p|"|,' repname="',v6325,'">'/</pft></display>
+   <loop>
+	   <field action="import" tag="list">2005,4001,5001,5002,9005/9008,2005</field>   
+
+	   <field action="replace" tag="2005"><pft>f(val(v2005)+1,1,0)</pft></field>
+
+	   <field action="replace" tag="9006"><pft>if v9006 = v5001 then '1' else f(val(v9006)+1,1,0) fi</pft></field>
+	   <field action="export" tag="list">2005,4001,5001,5002,9005/9008,2005</field>   
+
+	   <flow action="skip"><pft>if v9006 <> '1' then 'Next' fi</pft></flow>
+
+
+	   <field action="replace" tag="9005"><pft>f(val(v9005)+1,1,0)</pft></field>
+
+	   <field action="replace" tag="9008"><pft>if a(v9008) then '^f'v1002,'^m'v1003^m,'^q',v1001 fi</pft></field>
+	   <field action="replace" tag="9007"><pft>if v9005=v5002 then '^f'v1002,'^m'v1003^m,'^q',v1001 fi</pft></field>
+
+	   <display><pft>'<PAGE NUM="',v9005,'" key="',v1002,'" mfn="',v1003^m,'"',if v9005=v5002 then ' selected="yes"' fi,' art="',v1001,'"/>'/</pft></display>
+	   <field action="export" tag="list">2005,4001,5001,5002,9005/9008</field>   
+
+   </loop>
+   <display><pft>'<total>',v2005,'</total>'/,'</PAGINATION>'/ </pft></display>
+  </do> 
+  <!-- Paginação - fim -->
+
+  <field action="replace" tag="9008"><pft>if p(v9007^f) then v9007 else v9008 fi</pft></field>
+
+  <!-- lista -->
+  <do task="keyrange">
+   <parm name="db">ARTIGO</parm>
+   <parm name="from"><pft>v9008^f</pft></parm>
+   <parm name="to"><pft>v5000,v4001^r,v4001^p,v4001^d,if a(v4001^d) then '00000000' fi</pft></parm>
+   
+   <parm name="reverse">On</parm>
+   <parm name="posting"><pft>'ALL'</pft></parm>
+
+   <field action="define" tag="1001">Isis_Current</field>
+   <field action="define" tag="1002">Isis_Key</field>
+   <field action="define" tag="1003">Isis_Posting</field>
+   <field action="define" tag="1004">Isis_Postings</field>
+  
+
+   <field action="replace" tag="9010">0</field>
+
+   <loop>
+   <field action="import" tag="list">7009/7060</field>
+      <field action="import" tag="list">4001,5001,9010,9008</field>
+      <field action="export" tag="list">4001,5001,9010,9008</field>
+	  <field action="replace" tag="1005"><pft>f(val(v1003^m)+1,1,0)</pft></field>
+   <!-- 2000 - Section Code -->
+	<flow action="skip"><pft>if v9010='0' then if v1003^m<>v9008^m then 'Next' fi fi</pft></flow>
+	<field action="replace" tag="9010"><pft>f(val(v9010)+1,1,0)</pft></field>
+  <display><pft>'<!-- verificar: ',v9010,' ',v5001,' -->'</pft></display>
+
+	<flow action="skip">
+                <pft>
+        if val(v9010) > val(v5001)  then 'Quit' fi
+                </pft>
+    </flow>
+
+	<flow action="skip">
+                <pft>
+        ref(['ARTIGO']val(v1003^m),@PROC_SPLIT_MST.PFT,if p(v222) then 'Next' fi)
+                </pft>
+    </flow>
+
+	<field action="replace" tag="40" split="occ">
+                <pft>
+        ref(['ARTIGO']val(v1003^m),@PROC_SPLIT_MST.PFT,(v40/))
+                </pft>
+    </field>
+	<field action="replace" tag="12" split="occ">
+                <pft>
+        ref(['ARTIGO']val(v1005),@PROC_SPLIT_MST.PFT,(v12/))
+                </pft>
+    </field>
+	<field action="replace" tag="880" split="occ">
+                <pft>
+        ref(['ARTIGO']val(v1003^m),@PROC_SPLIT_MST.PFT,v880)
+                </pft>
+    </field>
+	<field action="replace" tag="123" split="occ">
+                <pft>
+		ref(['ARTIGO']val(v1003^m),@PROC_SPLIT_MST.PFT,(if a(v123) then '0' else v123 fi))
+		</pft>
+    </field>
+		
+	<display><pft>'<ARTICLE i="',f(val(v9010)+val(v9008^q)-1,1,0),'" ',|PID="|v880|"|,| TEXT_LANG="|v40|"|
+		 ,ref(['ARTIGO']val(v1003^m),@PROC_SPLIT_MST.PFT,' entrdate="',v265,'" rep="',v268,'"'),
+    </pft></display>
+    <display><pft>'>'/</pft></display>
+
+	<field action="delete" tag="264">1</field>
+	<field action="replace" tag="264"><pft>ref(['ARTIGO']val(v1003^m),@PROC_SPLIT_MST.PFT,v264)</pft></field> 
+
+
+	<call name="showText"><pft>v264</pft></call>
+	<display><pft>if p(v264) then '<EMBARGO date="',v264,'" text="',v8264,'"/>'/ fi</pft></display>
+
+	<field action="replace" tag="4040" split="occ"><pft>(v12^l/), if a(v12) then v40 fi</pft></field> 
+    
+    <call name="CreateLanguageXML"><pft>'^l'v4001^l'^i'v4001^i'^m'v1003^m'^ssci_artlist'</pft></call>
+	
+    <call name="CreateArticleTitle1XML"><pft>'^r'v1005'^l'v4001^l'^i'v4001^i</pft></call>
+	<call name="CreateAuthorsGroupXML"><pft>v880,'^nNOUPPER'</pft></call>
+	
+	<label>END</label>
+    <display><pft>'</ARTICLE>'/</pft></display>
+	
+	<field action="export" tag="list">4001,5001,9010,9007</field>
+   </loop>
+  </do> 
+  
+  <display><pft>'<!-- aqui termina -->'</pft></display>
+
+</function>
+
+<function name="CreateDebugInfoXML" action="replace" tag="4000">
+	<display>
+		<pft>
+			if v4000 = 'VERIFICA' then
+				' <DEBUG VERIFY="1" />'/#
+			fi
+		</pft>
+	</display>
+</function>
+<function name="CreateCalendar" action="replace" tag="4001">
+<!-- Create Article List
+     4001^p - PID 
+	 4001^l - Interface Language 
+	 4001^i - International Language 
+	 4001^s - Issue MFN -->
+  <display><pft>'<!-- aqui comeca -->'</pft></display>
+  <field action="import" tag="list">7009/7060</field> <!--fixed-->
+
+  <field action="replace" tag="5000"><pft>'SM_',
+		if p(v4001^r) then
+			,'R',
+		fi
+		if p(v4001^p) then 
+			,'J',
+		fi
+		if a(v4001^p) and a(v4001^r) then
+			,'D',
+		fi,'=',
+	</pft></field>
+
+  <!-- Paginação - inicio -->
+  
+	<call name="GenerateCalendarXML"><pft>'^l',v4001^l,'^dARTIGO^f',v5000,v4001^r,v4001^p,'99999999','^t',v5000,v4001^r,v4001^p,'00000000'</pft></call>
+  <!-- Paginação - fim -->
+
+
+</function>
+
+ 
+<section>
+  <!-- Get CGI Parameters -->
+  <field action="cgi" tag="1">pid</field>
+  <field action="cgi" tag="3311">rep</field>
+  <field action="cgi" tag="12">count</field>
+  <field action="cgi" tag="13">page</field>
+  <field action="cgi" tag="14">date</field>
+  <field action="cgi" tag="2">lng</field>
+  <field action="cgi" tag="3">nrm</field>
+  <field action="cgi" tag="4">sln</field>
+  <field action="cgi" tag="10">debug</field>
+  <field action="cgi" tag="3011">def</field>
+	
+  <field action="replace" tag="3011"><pft>if a(v3011) then 'scielo.def.php' fi</pft></field>
+  <field action="replace" tag="3311"><pft>if p(v3311) then s(f(val(v3311)+100000,6,0))*1.5 fi</pft></field>
+
+  <call name="DebugMode"><pft>if a(v10) then 'OFF' else mpu,v10,mpl fi</pft></call>
+  
+  <include>ScieloXML/sci_cipar.xis</include>  
+    
+  <!-- 5 - Title MFN, 6 - Issue MFN, 7 - Article MFN -->  
+  <field action="replace" tag="5"><pft>f(l(['TITLE']'LOC='mid(v1,1,9)),1,0)</pft></field>
+  <call name="issueHasArticles"><pft>v1</pft></call>
+  <field action="replace" tag="7"><pft>if v1=v9036 then '1' else '0' fi</pft></field>
+  
+  <call name="CreateErrorXML">
+   <pft>
+	if p(v1) then 
+		if val(v5)<=0 or val(v7)<=0 then
+	      '^l'v2,'^p'v1'^c',   
+		  if val(v5)<=0 then '0001'
+    	  else 
+			if val(v7)<=0 then '0006' fi
+		  fi
+
+		fi
+	 fi
+   </pft>
+  </call>
+  
+  <!-- Create XML heading -->
+  <display>
+   <pft>
+		'<SERIAL>'/</pft>
+  </display>
+     
+  <call name="CreateControlInfoXML"><pft>'^l'v2'^s'v3'^p'v1'^tISS^i',v4,'^fsci_artlist'</pft></call>
+  
+  <!-- Get Title Information from TITLE DB -->
+  <call name="CreateTitleGroupXML"><pft>v5</pft></call>
+  <call name="CreateChangesInfoXML"><pft>v5</pft></call>
+  <call name="CreateISSNXML"><pft>v5</pft></call>            
+  <call name="CreateCopyrightXML"><pft>v5</pft></call>
+  <call name="CreateContactXML"><pft>v5</pft></call>
+  
+  <call name="CreateDebugInfoXML"><pft>mpu,v10,mpl</pft></call>
+  
+  
+  <call name="CreateCalendar"><pft>|^r|v3311,|^p|v1,'^l'v2'^i'v4,|^c|v12,|^f|v13,|^d|v14</pft></call>
+  <!-- Create XML for article list -->	    	
+  <call name="CreateArticleListXML"><pft>|^r|v3311,|^p|v1,'^l'v2'^i'v4,|^c|v12,|^f|v13,|^d|v14</pft></call>
+
+  <!-- Close SERIAL -->
+  <display><pft>'</SERIAL>'</pft></display>
+</section>
+
+</IsisScript>

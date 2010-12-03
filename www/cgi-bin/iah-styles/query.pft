@@ -1,28 +1,39 @@
-
-,if p(v7000) then '(00='v7000'$) AND ' fi
-
-,'( '				
-	,if p(v6102) then,
-		,if v6100^d <> '*' then '['v6100^x']' fi,
-		,'(',v6102,')',
-	,else,
-		   ,if v6000 = 'F' then,
-		      ,replace(v6002,' ',s(' 'v6001' ')),
-		   ,else,
-	          ,if nocc(v6002) = 3 then,
-      			  /* tratamento para prioridade dos operadores booleanos */
-	             ,'( ',
-      			  ,(if p(v6002) then if iocc>1 then ,| |v6001 fi,
-		              /*,if v6003^d <> '*' then ' ['v6003^x']' fi,' (',v6002,')', */
-					  ,' ['v6003^x'] (',v6002,')',
-           			  ,if iocc=2 then ' )' fi,
-		          ,fi),
-			  ,else,
-				   ,(if p(v6002) then if iocc>1 then ,| |v6001| | fi,
-		          	  /* ,if v6003^d <> '*' then '['v6003^x']' fi,'(',v6002,')', */
-					  ,'['v6003^x'] (',v6002,')', 
-       			  ,fi),
-   		       ,fi,
-		   ,fi,
-	 ,fi,				 
- ,' )',/
+,proc('d7001d7003',
+        ,if v7000:'rep=' then
+                ,if instr(v7000,' and ')>0 then
+                        'a7003{',mid(v7000,1,instr(v7000,' and ')-1),'{',
+                ,fi
+                'a7001{',mid(v7000,instr(v7000,'rep=')+4,5),'{',
+        ,else
+                'a7003{',v7000,'{',
+        ,fi
+),
+
+,if size(v7003)>0 then '(00='v7003'$) AND ' fi
+,if size(v7001)>0 then '(rep='v7001'$) AND ' fi
+
+,'( '				
+	,if p(v6102) then,
+		,if v6100^d <> '*' then '['v6100^x']' fi,
+		,'(',v6102,')',
+	,else,
+		   ,if v6000 = 'F' then,
+		      ,replace(v6002,' ',s(' 'v6001' ')),
+		   ,else,
+	          ,if nocc(v6002) = 3 then,
+      			  /* tratamento para prioridade dos operadores booleanos */
+	             ,'( ',
+      			  ,(if p(v6002) then if iocc>1 then ,| |v6001 fi,
+		              /*,if v6003^d <> '*' then ' ['v6003^x']' fi,' (',v6002,')', */
+					  ,' ['v6003^x'] (',v6002,')',
+           			  ,if iocc=2 then ' )' fi,
+		          ,fi),
+			  ,else,
+				   ,(if p(v6002) then if iocc>1 then ,| |v6001| | fi,
+		          	  /* ,if v6003^d <> '*' then '['v6003^x']' fi,'(',v6002,')', */
+					  ,'['v6003^x'] (',v6002,')', 
+       			  ,fi),
+   		       ,fi,
+		   ,fi,
+	 ,fi,				 
+ ,' )',/

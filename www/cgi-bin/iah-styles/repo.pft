@@ -1,0 +1,9 @@
+,select s(v268)
+            case '1': ,'Unicamp',
+            ,case '2': ,'Unifesp',
+            ,case '3': ,'Unesp',
+            ,case '4': ,'USP',
+            ,case '5': ,'ITA',
+            ,case '6': ,'UFSCAR',
+			,elsecase v268,
+     ,endsel,
