@@ -53,7 +53,7 @@
 		if (document.Option.sendOption[2].status){ // email option
 			email = document.Option.sendToEmail.value
 			if (email.length == 0){
-				alert("Informe el e-mail para envio del resultado");
+				alert("Informe el e-mail para envío del resultado");
 				return false;
 			}	
 			isGood = (email.indexOf("@")  != "-1") && 
@@ -83,7 +83,7 @@
 		<td nowrap>			
 	        <table width="100%" border="1" cellspacing="0" cellpadding="10" bordercolorlight="#808080" bordercolordark="#FFFFFF">
 			<tr>
-				<td valign="top" nowrap><font face="Verdana" size="1">¿Cuáles referencias?</font></td> 
+				<td valign="top" nowrap><font face="Verdana" size="1">Elija una opción</font></td> 
         	    <td nowrap>				
 					<font face="Arial" size="2">
 					<input type="Radio" name="listOption" value="list_all" [pft]if a(v6210) then 'checked' fi[/pft]>
@@ -107,10 +107,10 @@
 		</td>
 		<tr>
 			<td nowrap>			
-			<font face="Verdana" size="1">Opciones de envio</font><p>
+			<font face="Verdana" size="1">Opciones de envío</font><p>
 			<font face="arial" size="2">
 			&nbsp;&nbsp;&nbsp;&nbsp;<input type="Radio" name="sendOption" value="print" checked>enviar para impresión<p>
-			&nbsp;&nbsp;&nbsp;&nbsp;<input type="Radio" name="sendOption" value="save">enviar para su computadora en el formato
+			&nbsp;&nbsp;&nbsp;&nbsp;<input type="Radio" name="sendOption" value="save">enviar a su ordenador en formato
 			<select name="saveFileType" onFocus="document.Option.sendOption[1].checked = true">
 			[pft]if v5018^f : 'XML' then[/pft]
 					<option value="xml">XML</option>
@@ -121,7 +121,7 @@
 			</select><p>
 			
 			[pft]if v5018^e = 'ON' then[/pft]
-				&nbsp;&nbsp;&nbsp;&nbsp;<input type="Radio" name="sendOption" value="e-mail">enviar para el e-mail:&nbsp;&nbsp;</font>
+				&nbsp;&nbsp;&nbsp;&nbsp;<input type="Radio" name="sendOption" value="e-mail">enviar por e-mail a:&nbsp;&nbsp;</font>
 				<input type="text" name="sendToEmail" size="27" onFocus="document.Option.sendOption[2].checked = true"><p>
 			[pft]fi[/pft]	
 						
