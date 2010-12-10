@@ -1,3 +1,6 @@
+v5.13
+Ajustes nos webservices de problemas gerados após mudanças realizadas na versão v5.12
+
 v5.12
 Ajustes nos webservices para entregar XML sem camada de WSDL.
 
