@@ -5,8 +5,9 @@ echo `date`
 if [ ! -d  $TEMP_PATH ]
 then 
 	mkdir -p $TEMP_PATH
+	
 fi
-
+chmod -R 777 $TEMP_PATH
 
 echo ARTIGO.mst=$ARTIGODB.mst > $CIPFILE
 echo ARTIGO.xrf=$ARTIGODB.xrf >>$CIPFILE 
