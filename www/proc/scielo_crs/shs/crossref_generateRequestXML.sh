@@ -5,7 +5,10 @@
 
 . crossref_config.sh
 
-echo "Y.*=$database_dir/title/title.*">crossref.cip
+cp $database_dir/title/title.mst .
+cp $database_dir/title/title.xrf .
+mx title "fst='1 0 mpl,`loc=`v400/" fullinv=title
+echo "Y.*=title.*">crossref.cip
 if [ -f toDoList.txt ]; then
 	COUNTY=`grep -cE $ toDoList.txt`
 	TOT=$COUNTY
@@ -25,6 +28,8 @@ if [ -f toDoList.txt ]; then
    
 		# $cisis_dir/mx cipar=crossref.cip $database_dir/artigo/artigo "proc=@$conversor_dir/prc/Article.prc" "proc=('G$conversor_dir/gizmo/crossref')"  btell=0  "HR=$DAVEZ_Y and tp=h" "proc='d32001'" lw=99999 pft=@$conversor_dir/formats/crossref_requestXML.pft "tell=1000" -all now >> $conversor_dir/output/crossref/$ISSN/$YEAR/$NUMB/$ARTC/requestDOIXML_$ARTC.xml
 	$cisis_dir/mx cipar=crossref.cip $database_dir/artigo/artigo "proc=@$conversor_dir/prc/Article.prc" "proc=('G$conversor_dir/gizmo/crossref')"  btell=0  "HR=$DAVEZ_Y and tp=h" "proc='d32001'" lw=99999 pft=@$conversor_dir/formats/crossref_requestXML.pft "tell=1000" -all now | iconv --from-code=ISO-8859-1 --to-code=UTF-8 >> $conversor_dir/output/crossref/$ISSN/$YEAR/$NUMB/$ARTC/requestDOIXML_$ARTC.xml
+	$cisis_dir/mx cipar=crossref.cip $database_dir/artigo/artigo "proc=@$conversor_dir/prc/Article.prc" "proc=('G$conversor_dir/gizmo/crossref')"  btell=0  "HR=$DAVEZ_Y and tp=h" lw=99999 "pft=if ref(['Y']l(['Y']'LOC='v35),v400)<>v35 then 'proc date=',date,'|issn(artigo)=',v35,'|tit(artigo)=',v30,'|issn(title)=',ref(['Y']l(['Y']'LOC='v35),v400),'|tit(title)=',ref(['Y']l(['Y']'LOC='v35),v100)/ fi" now >> $conversor_dir/issn_problem.txt
+
 		   COUNTY=`expr $COUNTY - 1`
 		done
 	fi
