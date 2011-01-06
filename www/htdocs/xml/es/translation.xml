@@ -272,10 +272,7 @@
 		<text find="site_usage">uso del sitio</text>
 		<text find="journal_citation">citas de revistas</text>
 		<text find="co_authors">co-autoria</text>
-		<text find="text_1">La Scientific Electronic Library Online - SciELO es una biblioteca electrónica que abarca una colección seleccionada de revistas científicas Brasileñas. <br/>
-			<br/>La biblioteca es resultado de un proyecto de investigación de la <a href="http://www.fapesp.br">FAPESP</a> - Fundação de Amparo à Pesquisa do Estado de São Paulo, en colaboración con <a href="http://www.bireme.br/bvs/E/ehome.htm">BIREME</a> - Centro Latinoamericano y del Caribe de Información en Ciencias de la Salud. A partir de 2002, el Proyecto conta con el apoyo del <a href="http://www.cnpq.br">CNPq</a> - Conselho Nacional de Desenvolvimento Científico e Tecnológico.<br/>
-			<br/>El proyecto contempla el desarrollo de una metodología común para la preparación, almacenamiento, diseminación y evaluación de literatura científica en formato electrónico.<br/>
-			<br/>Con el desarrollo del proyecto, nuevos títulos son añadidos a la colección de la biblioteca.</text>
+		<text find="text_1">La colección Rev@Odonto es producto de la participación del editores científicos en el campo de la odontología, para contribuir con la mayor visibilidad de la producción cientifica en el área, publicada en las revistas científicas brasileñas indexadas en las bases de datos Bibliografia Brasileña de Odontología (BBO) e Literatura Latino-Americana y del Caribe de Informaçión e Ciências de la Salud (LILACS). Es un proyecto que fomenta el libre acceso al contenido de los artículos facilitando la difusión de la información.</text>
 		<text find="text_2">Esta es la home page del Sitio SciELO Brasil.<br/>
 			<br/>El objetivo del sitio es implementar una biblioteca electrónica, que proporcione acceso completo a una colección de revistas, una colección de números de revistas individuales, así como al texto completo de los artículos. El acceso tanto a las revistas como a los artículos se puede realizar usando índices y formularios de búsqueda.<br/>
 			<br/>El sitio de SciELO es una parte del Proyecto FAPESP/BIREME/CNPq y es una aplicación de la metodología que el proyecto está desarrollando, en particular, el módulo de Interfaz en Internet.<br/>
