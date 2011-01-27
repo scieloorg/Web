@@ -5,7 +5,7 @@
 
 . crossref_config.sh
 
-
+rm title.*
 cp $database_dir/title/title.mst .
 cp $database_dir/title/title.xrf .
 mx title fst=@../fst/title.fst fullinv=title
