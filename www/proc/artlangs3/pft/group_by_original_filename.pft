@@ -1,0 +1,4 @@
+,if ref(mfn-1,v1)<>v1 then
+	,#,v1,
+,fi
+,'|^f',v4,'^l',v2,'^t',v3,

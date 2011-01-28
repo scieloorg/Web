@@ -65,6 +65,12 @@
                                         ,if (mid(v65,7,2)<>'' and mid(v65,7,2)<>'00') then,'<day>',mid(v65,7,2),'</day>',#,fi,
                                         ,if (mid(v65,1,4)<>'' and mid(v65,1,4)<>'00') then,'<year>',mid(v65,1,4),'</year>',#,fi,
                                 '</publication_date>',#
+                                ,if p(v14) then 
+       '<pages>',#
+	   ,|  <first_page>|v14^f|</first_page>|,#
+       ,|  <last_page>|v14^l|</last_page>|,#
+       ,'</pages>',
+       ,fi,
                                 '<publisher_item>',#
                                         '<identifier id_type="pii">',v9880,'</identifier>',#
                                 '</publisher_item>',#,
