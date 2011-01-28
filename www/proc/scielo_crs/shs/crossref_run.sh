@@ -46,10 +46,14 @@ echo "updating report database"
 ./crossref_UpadateReportDatabase.sh
 echo "Copying Log files to output directory"
 if [ ! -d ../output/crossref/log ]; then
-	mkdir ../output/crossref/log
+	mkdir -p ../output/crossref/log
 fi
-if [ -f "*.log" ]; then
-        mv *.log ../output/crossref/log
+#if [ -f "*.log" ]; then
+if [ `ls *.log |wc -l` -gt 0 ]; then
+	echo copying log
+        mv *.log ../output/crossref/log/
+else
+	echo Cannot copy log
 fi
 echo "Copying Database to SciELO"
 #cp ../databases/crossref/* $scielo_dir/bases/doi
