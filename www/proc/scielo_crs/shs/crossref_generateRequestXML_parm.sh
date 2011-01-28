@@ -5,10 +5,10 @@
 
 . crossref_config.sh
 
-
+rm title.*
 cp $database_dir/title/title.mst .
 cp $database_dir/title/title.xrf .
-mx title "fst='1 0 mpl,`loc=`v400/" fullinv=title
+mx title fst=@../fst/title.fst fullinv=title
 echo "Y.*=title.*">crossref.cip
 #echo "Y.*=$database_dir/title/title.*">crossref.cip
 if [ -f toDoList.txt ]; then
