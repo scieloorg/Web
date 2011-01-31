@@ -254,9 +254,9 @@
 		<text find="portuguese">Português</text>
 		<text find="spanish">Español</text>
 		<text find="english">English</text>
-		<text find="help"></text>
-		<text find="app_name">RevOdonto</text>
-		<text find="about_this_site"></text>
+		<text find="help">Ayuda</text>
+		<text find="app_name">Rev@Odonto</text>
+		<text find="about_this_site">Criterios</text>
 		<text find="scielo_news">SciELO news</text>
 		<text find="scielo_team">SciELO team</text>
 		<text find="serial_browsing">serial browsing</text>
@@ -271,14 +271,111 @@
 		<text find="site_usage">site usage</text>
 		<text find="journal_citation">journal citation</text>
 		<text find="co_authors">co-authors</text>
-		<text find="text_1">The collection Rev@Odonto results from the participation of scientific editors in the
-Dentistry´s area to contribute with the enlargement of the visibility of the academic scientific
-production published in the Brazilians periodicals, indexed in the databases Bibliografia
-Brasileira de Odontologia (BBO) e Literatura Latino-Americana e do Caribe de Informação
-em Ciências da Saúde (LILACS). The project stimulates the open access at the contents of the
-articles in order to ease the dissemination of the information.</text>
-		<text find="text_2" />
-		<text find="text_3" />
+		<text find="text_1"><p>El catálogo de Revistas Electrónicas de Odontologia forma la colección Rev@Odonto que es producto de
+la participación de editores científicos de odontológia, para contribuir con el crecimiento de la visibilidad
+de la producción científica del área, publicada en revistas nacionales basileños indexadas en las bases
+de datos Bibliografia Brasileña de Odontologia (BBO) y Literatura Latinoamericana y del Caribe de
+Información en Ciências de La Salud (LILACS).</p>
+<p>El objeto de este site es disponer revistas científicos de interés para la Odontologia, en ambiente
+digital y con acceso abierto para promover la democratización del acceso al conocimiento científico
+en Odontología y áreas afines, por medio de acceso universal y grátis a las publicaciones de revistas
+científicas en Odontologia, facilitando la búsqueda y recuperación de la información, a través de una
+plataforma de acceso unificada, a partir de una misma dirección utilizando la metodologia SciELO,
+garantizando la compatibilidad de las publicaciones.</p>
+<p>La coordinación Técnico-Científico de BVS Odontologia Brasil es responsable por la política de nuevos
+títulos y gestión de Rev@Odonto.</p>
+</text>
+<text find="text_2">
+<p>La base de datos BBO – Bibliografia Brasileña de Odontologia comprende la literatura relativa a la
+Odontologa producida por autores nacionales.</p>
+<p>Los critérios para selección de títulos de revistas para la base de datos BBO, incluyen revistas publicados
+en papel y en forma electrónica.</p>
+<p><b>1. Responsabilidad y proceso de selección de títulos</b></p>
+<p>Es por el Centro de Coordinación de Sistema de Información de Especialista en el Campo de la
+Odontología (SIEO) la responsabilidad de seleccionar las revistas nacionales. Teniendo este una
+Comisión de selección para títulos nuevos.</p>
+<p>Son considerados para la indexación en la base de datos BBO, los revistas científicos nacionales dentro
+del área, em Odontologia, siempre que posean las normas básicas de uma publicación científica.</p>
+<p><b>2. Contenido</b></p>
+<p>El mérito científico de una revista es un factor primordial para la selección de un nuevo título. Para
+la evaluación se consideran los siguientes factores de calidad: validez, pertinencia, originalidad del
+tema, la contribución a la zona en cuestión y la estructura del trabajo científico. La publicación de un
+número importante de artículos originales es muy importante para la selección de un título. Las revistas
+científicas deben publicar predominantemente el resultado de la investigación científica original y/o
+significativo para el campo de la Odontología. Este artículo será revisado por un miembro de la Comisión
+de Selección de Revistas de la base de datos BBO.</p>
+<p><b>2.1 No se indexarán</b></p>
+<ul>
+<li>Las revistas que publican artículos, básicamente, traducidos o presentados en otras revistas,
+informes de asociaciones o sociedades científicas, resúmenes, noticias y comentarios;</li>
+<li>Boletines de noticias o publicaciones dirigidas a las cuestiones de organización e información;</li>
+<li>Revistas de carácter comercial.</li>
+</ul>
+<p><b>3. Revisión por los pares (Peer Review)</b></p>
+<p>El examen y la aprobación de las contribuciones a las revistas científicas deben llevarse a cabo y la
+revisión paritaria debe dejar claro cuál es el procedimiento de arbitraje. Se recomienda que las fechas
+de los procedimientos de arbitraje incluida la fecha de recepción y aprobación de los trabajos.</p>
+<p><b>4. Consejo Editorial</b></p>
+<p>La revista debe tener una junta editorial adecuada. La composición del Consejo Editorial debe ser
+pública y sus miembros deben ser expertos con reconocida experiencia en el campo de la Odontología.
+Se sugiere una indicación de la institución de origen de los miembros del comité y el estado y el país al
+que pertenecen.</b></p>
+<p><b>5. Regularidad / puntualidad de publicación</b></p>
+<p>La regularidad de publicación es uno de los criterios obligatorios en el proceso de evaluación. Para
+ser seleccionado para la base de datos BBO, la revista debe aparecer puntualmente de acuerdo con la
+periodicidad establecida, es decir, una revista trimestral se publica cuatro veces al año, un semestre, dos
+veces, y así sucesivamente.</p>
+<p><b>6. Periodicidad</b></p>
+<p>La periodicidad es un indicador del flujo de la producción científica en el área de la odontología, se
+recomienda que la revista es una publicación trimestral o trimestral.</p>
+<p><b>7. Momento de la publicación</b></p>
+
+<p>Las revistas deben tener al menos 4 (cuatro) cifras publicadas para ser considerado para la evaluación.</p>
+
+<p><b>8. Normalización</b></p>
+
+<p>Las revistas deben:</p>
+<ul>
+<li>Especificar la (s) norma (s) a continuación (s) para la presentación de sus documentos;</li>
+<li>Demostrar la estructuración de los textos y referencias, de modo que sea posible evaluar la propuesta
+de normalización de la obediencia;</li>
+<li>Presentación compatible con las normas para la publicación de artículos científicos;</li>
+<li>contener resúmenes y descripciones de las obras en el idioma original y en Inglés. Se recomienda el uso
+del DeCS - Descriptores en Ciencias de la Salud para la selección de descriptores;</li>
+<li>Tener registro ISSN (International Standard Serial Number);</li>
+<li>Visualización de la fecha de recepción y aceptación de los artículos.</li>
+</ul>
+<p><b>9. Enviando selección periódica</b></p>
+<p>Para el análisis de un nuevo título, debe enviar al Centro de Coordinación (SDO / FOUSP), los últimos
+cuatro números de la revista, o la URL donde la publicación se encuentra alojado. Por lo tanto, no deben
+ser enviados revistas de reciente publicación, antes de completar el número requerido de cuestiones.
+Para la publicación predominantemente electrónica, la revista debería haberse quedado en el aire
+durante al menos un año y tienen el correspondiente número de cuestiones para el análisis.</b></p>
+<p><b>10. Dictamen del proceso de admisión</b></p>
+<p>La inclusión de una revista en BBO sólo puede hacerse después de una opinión positiva del Comité de
+Selección.</p>
+<p><b>11. Eliminación de los títulos</b></p>
+<p>Una revista indizada en la base de datos de BBO pueden ser excluidos si no cumple con los requisitos
+anteriores. La exclusión debe hacerse previa consulta al Comité de Selección.</p>
+<p><b>12. Compromiso de Editores</b></p>
+<p>Los editores de revistas científicas seleccionadas para la base de datos BBO se han comprometido a
+mantener y actualizar el nivel de las revistas indexadas. Las revistas son evaluadas regularmente para
+garantizar el control de calidad de la base de datos. Es la responsabilidad de mantener el editor de
+la colección del Centro Cooperativo SIEO que harán el registro de los temas. Las revistas deben ser
+tratadas por la donación tan pronto como una nueva edición de su publicación.</p>
+<p><b>13. Instrucciones a los autores</b></p>
+<p>Instrucciones para los autores deben ajustarse a la presentación del cuerpo de trabajo y las referencias.</p>
+</text>
+<text find="text_3"><p>La colección Rev@Odonto se puede acceder a través de una lista por orden alfabético o por el tema.
+Usted puede hacer también una búsqueda de títulos de revistas por tema, por los institutos de la
+publicación y lugar de publicación.</p>
+<p>La interfaz también proporciona acceso al texto completo de artículos de un índice de autores
+y un índice de materias, o a través de un buscador de artículos, búsqueda de los elementos que
+lo componen, tales como autor, palabras del título, sin perjuicio de , palabras de texto y año de
+publicación.</p>
+
+		</text>
+
 		<text find="phone">Phone</text>
 		<text find="fax">Fax</text>
 		<text find="register_free">Free sign up</text>

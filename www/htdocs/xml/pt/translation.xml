@@ -255,8 +255,8 @@
 		<text find="spanish">español</text>
 		<text find="english">english</text>
 		<text find="help"></text>
-		<text find="app_name">RevOdonto</text>
-		<text find="about_this_site"></text>
+		<text find="app_name">Rev@Odonto</text>
+		<text find="about_this_site">Critérios de Seleção para a Base de Dados BBO</text>
 		<text find="scielo_news">SciELO news</text>
 		<text find="scielo_team">equipe SciELO</text>
 		<text find="serial_browsing">periódicos</text>
@@ -271,9 +271,113 @@
 		<text find="site_usage">uso do site</text>
 		<text find="journal_citation">citações de revistas</text>
 		<text find="co_authors">co-autoria</text>
-		<text find="text_1">A coleção Rev@Odonto é produto da participação de editores científicos da área de odontologia, para contribuir com o aumento da visibilidade da produção científica da área, publicada em revistas nacionais brasileiras indexadas nas bases de dados Bibliografia Brasileira de Odontologia (BBO) e Literatura Latino-Americana e do Caribe de Informação em Ciências da Saúde (LILACS). Trata-se de projeto que estimula o acesso aberto ao conteúdo dos artigos, facilitando a disseminação da informação.</text>
-		<text find="text_2" />
-		<text find="text_3" />
+		<text find="text_1"><p>O catálogo de Revistas eletrônicas de Odontologia forma a coleção Rev@Odonto que é produto
+da participação de editores científicos da área de odontologia, para contribuir com o aumento da
+visibilidade da produção científica da área, publicada em revistas nacionais brasileiras indexadas nas
+bases de dados Bibliografia Brasileira de Odontologia (BBO) e Literatura Latino-Americana e do Caribe
+de Informação em Ciências da Saúde (LILACS).</p>
+<p>O objetivo deste site é disponibilizar periódicos científicos de interesse para a área odontológica, em
+ambiente digital e com acesso aberto promovendo a democratização do acesso ao conhecimento
+científico produzido na área de Odontologia e áreas afins, por meio de acesso universal e gratuito às
+publicações de periódicos científicos de Odontologia, facilitando a busca e recuperação da informação,
+através de uma plataforma de acesso unificada, a partir de um mesmo endereço e utilizando a
+metodologia SciELO, garantindo a compatibilização das publicações.</p>
+<p>A Coordenação Técnico-Científica da BVS Odontologia Brasil é responsável pela política de novos títulos
+e gestão do Rev@Odonto</p>
+</text>
+		<text find="text_2">
+<p>A base de dados BBO - Bibliografia Brasileira de Odontologia compreende a literatura relativa à área de
+odontologia produzida por autores nacionais.</p>
+<p>Os critérios para seleção de títulos de periódicos para a base de dados BBO, incluem periódicos
+publicados em papel e em formato eletrônico.</p>
+<p><b>1. Responsabilidade e processo de seleção de títulos</b></p>
+<p>Cabe ao Centro Coordenador do Sistema de Informação Especializado na Área de Odontologia (SIEO)
+ser responsável pela seleção de títulos de periódicos nacionais. Tendo este um Comitê de Seleção para
+seleção de novos títulos.</p>
+<p>São considerados para indexação na base de dados BBO, os periódicos científicos nacionais da área, de
+Odontologia, desde que possuam os padrões básicos de uma publicação científica.</p>
+<p><b>2. Conteúdo</b></p>
+<p>O mérito científico de um periódico é o principal fator para a seleção de um novo título. Para sua
+avaliação são considerados os seguintes fatores de qualidade: validade, importância, originalidade do
+tema, contribuição para a área temática em questão e estrutura do trabalho científico. A publicação
+de um número significativo de artigos originais é muito importante para a seleção de um título. Os
+periódicos científicos devem publicar predominantemente contribuições originais resultantes de
+pesquisa científica e/ou significativas para a área de Odontologia. Este item será analisado por um
+integrante do Comitê de Seleção de Revistas para a Base de Dados BBO.</p>
+<p><b>2.1 Não serão indexados</b></p>
+<ul>
+<li>Periódicos que publicam basicamente artigos traduzidos ou apresentados em outros periódicos,
+relatórios de atividades de sociedades ou associações científicas, resumos, notícias e recensões;</li>
+<li>Boletins de notícias ou publicações dirigidas a temas organizacionais e informativos;</li>
+<li>Periódicos de caráter comercial.</li>
+</ul>
+<p><b>3. Revisão por pares</b></p>
+<p>A revisão e aprovação das contribuições para os periódicos científicos devem ser realizadas pelos pares
+e a revista deve tornar claro qual é o procedimento de arbitragem. Recomenda-se a indicação das datas
+do processo de arbitragem incluindo data de recebimento e aprovação dos trabalhos.</p>
+<p><b>4. Comitê Editorial</b></p>
+<p>O periódico deve possuir um Comitê Editorial reconhecidamente idôneo. A composição do Comitê
+Editorial deve ser pública e seus integrantes devem ser especialistas com experiência reconhecida na
+área de Odontologia. Sugere-se a indicação da Instituição de origem dos membros do comitê bem como
+o Estado e o País a que pertencem.</p>
+<p><b>5. Regularidade/Pontualidade da Publicação</b></p>
+<p>A regularidade de publicação é um dos critérios obrigatórios no processo de avaliação. Para ser
+selecionado para a base de dados BBO, o periódico deve aparecer pontualmente de acordo com a
+periodicidade estabelecida, isto é, um periódico trimestral deve ser publicado 4 vezes ao ano; um
+semestral, 2 vezes, e assim por diante.</p>
+<p><b>6. Periodicidade</b></p>
+<p>A periodicidade é um indicador do fluxo da produção científica da área de odontologia, recomenda-se
+que o periódico seja trimestral ou quadrimestral.</p>
+<p><b>7. Tempo da publicação</b></p>
+
+<p>Os periódicos devem ter pelo menos 4 (quatro) números publicados para ser considerado para
+avaliação.</p>
+
+<p><b>8. Normalização</b></p>
+
+<p>Os periódicos devem:</p>
+<ul>
+<li>Especificar a(s) norma(s) seguida(s) para a apresentação de seus originais;</li>
+<li>Demonstrar estruturação dos textos e referências, de modo que seja possível a avaliação da
+obediência à normalização proposta;</li>
+<li>Possuir formato de apresentação compatível com as normas para publicações de artigos
+científicos;</li>
+<li>Conter resumos e descritores dos trabalhos no idioma do texto e em inglês. Recomenda-se o uso
+do DeCS - Descritores em Ciências da Saúde para seleção de descritores;</li>
+<li>Ter registro de ISSN (International Standard Serial Number);</li>
+<li>Apresentar a data de recebimento e aceite dos artigos.</li>
+</ul>
+
+<p><b>9. Envio de periódicos para seleção</b></p>
+
+<p>Para análise de um novo título, é necessário enviar ao Centro Coordenador (SDO/FOUSP), os 4 últimos
+fascículos do periódico, ou a URL onde a publicação esteja hospedada. Assim sendo, não devem
+ser enviados periódicos recém-editados, antes de completar o número de fascículos exigido. Para
+publicação predominantemente eletrônica, o periódico deve ter permanecido no ar pelo menos por um
+ano e possuir o número de fascículos correspondentes para análise.</p>
+<p><b>10. Parecer do processo de admissão</b></p>
+<p>A inclusão de um periódico na BBO só pode ser feita após parecer positivo do Comitê de Seleção.</p>
+<p><b>11. Exclusão de títulos</b></p>
+<p>Um periódico indexado na base de dados BBO pode ser excluído se deixar de cumprir os requisitos
+acima citados. A exclusão deve ser feita após parecer do Comitê de Seleção.</p>
+<p><b>12. Compromisso dos Editores</b></p>
+<p>Os editores científicos dos periódicos selecionados para a base de dados BBO têm o compromisso de
+manter a atualização e o padrão dos periódicos indexados. Periodicamente é feita uma avaliação dos
+periódicos para garantir o controle de qualidade da base de dados. É de responsabilidade do editor
+manter atualizada a coleção do Centro Cooperante do SIEO que fará o cadastramento dos fascículos. As
+revistas devem ser encaminhadas por doação, tão logo um novo número seja editado.</p>
+<p><b>13. Instruções aos Autores</b></p>
+<p>As instruções para os autores devem estar em conformidade com a apresentação do corpo do trabalho
+e das referências bibliográficas.</p>
+		</text>
+		<text find="text_3"><p>A coleção Rev@Odonto pode ser acessada por meio de uma lista alfabética ou lista de assunto. Pode-
+se fazer, também, uma pesquisa por títulos dos periódicos, por assunto, pelos nomes das instituições
+publicadoras e pelo local de publicação.</p>
+<p>A interface também propicia acesso aos textos completos dos artigos através de um índice de autor e
+um índice de assuntos, ou por meio de um formulário de pesquisa de artigos, que busca os elementos
+que o compõem, tais como autor, palavras do título, assunto, palavras do texto e ano de publicação.</p>
+
+		</text>
 		<text find="phone">Tel.</text>
 		<text find="fax">Fax</text>
 		<text find="register_free">Registre-se Gratuitamente</text>

@@ -254,9 +254,9 @@
 		<text find="portuguese">Português</text>
 		<text find="spanish">Español</text>
 		<text find="english">English</text>
-		<text find="help"></text>
-		<text find="app_name">RevOdonto</text>
-		<text find="about_this_site"></text>
+		<text find="help">help</text>
+		<text find="app_name">Rev@Odonto</text>
+		<text find="about_this_site">Criteria</text>
 		<text find="scielo_news">SciELO news</text>
 		<text find="scielo_team">SciELO team</text>
 		<text find="serial_browsing">serial browsing</text>
@@ -271,14 +271,107 @@
 		<text find="site_usage">site usage</text>
 		<text find="journal_citation">journal citation</text>
 		<text find="co_authors">co-authors</text>
-		<text find="text_1">The collection Rev@Odonto results from the participation of scientific editors in the
-Dentistry´s area to contribute with the enlargement of the visibility of the academic scientific
-production published in the Brazilians periodicals, indexed in the databases Bibliografia
-Brasileira de Odontologia (BBO) e Literatura Latino-Americana e do Caribe de Informação
-em Ciências da Saúde (LILACS). The project stimulates the open access at the contents of the
-articles in order to ease the dissemination of the information.</text>
-		<text find="text_2" />
-		<text find="text_3" />
+		<text find="text_1"><p>The catalog of dentistry electronic journals form the collection of Rev@Odonto which is the product
+of the participation of scientific publishers in the field of dentistry, to contribute to the increased
+visibility of scientific production in the area, published in Brazilian national journals indexed in databases
+Bibliography Brazilian Dentistry (BBO) and Latin American and Caribbean Literature on Health Sciences (LILACS).</p>
+<p>The purpose of this site is to provide scientific journals of interest to the dental field in digital
+environment and with open access and promoting democratic access to scientific knowledge
+produced in the field of dentistry and related areas through universal free access to publications of
+scientific journals of dentistry, facilitating search and retrieval of information through a unified access
+platform from the same address and using the SciELO methodology, ensuring the compatibility of the
+publications.</p>
+<p>The Technical-Scientific Coordination of Brazil dentistry VHL is responsible for policy of new titles and
+management of Rev@Odonto.</p>
+</text>
+<text find="text_2">
+<p>The database BBO - Brazilian Bibliography of Dentistry understands the literature concerning the area of
+dentistry produced by national authors.</p>
+<p>The criteria for selection of journals titles for the database BBO include journals published in paper and
+electronic format.</p>
+<p><b>1. Responsibility and selection titles process</b></p>
+<p>It is up to Coordinator Center of Specialized Information System in Dentistry Area (SIEO) being
+responsible for selecting its national journals titles. Having this a Selection Committee to select new
+titles.</p>
+<p>Be considered for indexing in the database BBO, the national scientific journals in the field of dentistry,
+providing they have the basic standards of a scientific publication.</p>
+<p><b>2. Content</b></p>
+<p>The scientific merit of a journal is a primary factor for selecting a new title. For evaluation are
+considered the following quality factors: validity, relevance, originality of theme, contribution to the
+area in question and the structure of scientific work. The publication of a significant number of original
+articles is very important to select a title. Scientific journals should publish predominantly original
+contributions resulting of scientific research and / or significant to the field of Dentistry. This item will be
+reviewed by a member of the Magazines Selection Committee of database BBO.</p>
+<p><b>2.1 Don’t be indexed</b></p>
+<ul>
+<li>Journal that publishes primarily articles translated or presented in other journals, reports of
+societies activities or scientific associations, abstracts, news and reviews;</li>
+<li>Newsletters or publications directed to organizational issues and informative;</li>
+<li>Periodicals of commercial character.</li>
+</ul>
+<p><b>3. Peer Review</b></p>
+<p>The review and approval of contributions to scientific journals must be performed by peers and the
+journal should make clear what the procedure of arbitration is. It is recommended the indication of the
+dates of arbitration proceedings including date of receipt and approval of works.</p>
+<p><b>4. Editorial Board</b></p>
+<p>The journal must have a suitable Editorial Board. The composition of the Editorial Board must be public
+and its members should be experts with recognized experience in the field of dentistry. It is suggested
+an indication of the home institution of the committee members and the state and the country they
+belong to.</b></p>
+<p><b>5. Regularity / Punctuality of Published</b></p>
+<p>The regularity of publication is one of the mandatory criteria in the evaluation process. To be selected
+for the database BBO, the journal should appear promptly in accordance with the established
+periodicity, i.e., a quarterly journal should be published four times a year, a half-yearly, two times, and
+so on.</p>
+<p><b>6. Periodicity</b></p>
+<p>Periodicity is an indicator of scientific production flow of dentistry area, recommends that the journal is
+published three or four months a year.</p>
+<p><b>7. Publication time</b></p>
+
+<p>Journals should be at least 4 (four) figures published to be considered for evaluation.</p>
+
+<p><b>8. Standardization</b></p>
+
+<p>The periodicals should::</p>
+<ul>
+<li>Specify the standard(s) followed to submit their manuscripts;</li>
+<li>Demonstrate the structuring of texts and references, so that it is possible to evaluate the
+obedience to proposed standardization;</li>
+<li>Have a presentation format compatible with the standards for publications of scientific articles;</li>
+<li>Contain summaries and descriptors of works in the original language and in english. We
+recommend the use of DeCS - Descriptors in Health Sciences for the selection of descriptors;</li>
+<li>Have record of ISSN (International Standard Serial Number);</li>
+<li>Presenting the date of receipt and acceptance of articles.</li>
+</ul>
+<p><b>9. Sending periodicals for selection</b></p>
+<p>For analysis of a new title, it's necessary send to the Coordinator Center (SDO/FOUSP), the last 4 issues
+of the journal, or the URL where the publication is hosted. Therefore, should not be sent newly edited
+journals, before completing the required number of issues. For predominantly electronic publication,
+the journal should have stayed in the air for at least a year and have the corresponding number of issues
+for analysis.</b></p>
+<p><b>10. Opinion of the admissions process</b></p>
+<p>The inclusion of a journal in BBO can only be done after a positive opinion of the Selection Committee.</p>
+<p><b>11. Exclusion of titles</b></p>
+<p>A journal indexed in the database BBO can be excluded if it fails to keep the requirements above cited.
+The exclusion should be made after opinion of the Committee of Selection.</p>
+<p><b>12. Appointment of editors</b></p>
+<p>The scientific editors of journals selected for the database BBO are committed to keep updating and
+pattern of the indexed journals. Periodically it's done an evaluation of journals to ensure the quality
+control of database. Its responsibility of the editor keep updates the collection of Coordinator Center of
+SIEO that will make the registration of the issues. The journals should be addressed by giving
+as soon as a new issue is published.</p>
+<p><b>13. Instructions for authors</b></p>
+<p>Instructions for authors should be in consistent with the presentation of the body of work and
+bibliographical references.</p>
+</text>
+<text find="text_3"><p>Rev@Odonto collection can be accessed through an alphabetical list or subject list. You can do also a
+search for journal titles, by subject, by publishing institutes names and by publication place.
+</p>
+<p>The interface also provides access to full text of articles through an author index and a subject index, or
+through a search form of articles, that seeks the elements that compose it, such as author, title words,
+subject, text words and publication year.</p>
+
+		</text>
 		<text find="phone">Phone</text>
 		<text find="fax">Fax</text>
 		<text find="register_free">Free sign up</text>
