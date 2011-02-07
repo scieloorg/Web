@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <translations>
 	<xslid id="sci_artmonthyearstat">
 		<text find="journal_articles_requests_by_month_and_year">Journal articles requests by month and year</text>
@@ -178,11 +178,14 @@
 	</xslid>
 	<xslid id="comments">
 		<text find="doesnt_comment">This article was not commented yet</text>
+		<text find=""/>
+		<text find=""/>
 	</xslid>
 	<xslid id="article_output">
 		<text find="similarity">Similarity:</text>
 		<text find="full_text">full text</text>
-		<text find="accessat">Access at</text>
+		<text find=""/>
+		<text find=""/>
 	</xslid>
 	<xslid id="cited">
 		<text find="doesnt_cited">this article have no citations</text>
@@ -200,7 +203,6 @@
 	</xslid>
 	<xslid id="sci_arttext">
 		<text find="original_version_published_in">original version published in</text>
-		<text find="fulltext_only_in_pdf">Full text available only in PDF format</text>
 	</xslid>
 	<xslid id="sci_abstract">
 		<text find="abstract">Abstract</text>
@@ -217,9 +219,9 @@
 	</xslid>
 	<xslid id="sci_serial">
 		<text find="home_page">Home Page</text>
-		<text find="portuguese">Português</text>
-		<text find="spanish">Español</text>
-		<text find="english">English</text>
+		<text find="portuguese">português</text>
+		<text find="spanish">español</text>
+		<text find="english">english</text>
 		<text find="indicators_scimago">SCImago Indicators</text>
 		<text find="scimago_journal_country_rank">SCImago Journal and Country Rank</text>
 		<text find="mission">Mission</text>
@@ -251,12 +253,13 @@
 	</xslid>
 	<xslid id="sci_home">
 		<text find="journal_evaluation">journals evaluation</text>
-		<text find="portuguese">Português</text>
-		<text find="spanish">Español</text>
-		<text find="english">English</text>
-		<text find="help">help</text>
-		<text find="app_name">SciELO</text>
-		<text find="about_this_site">about this site</text>
+		<text find="criterios_ppegeo">criteria PPeGeo</text>
+		<text find="portuguese">português</text>
+		<text find="spanish">español</text>
+		<text find="english">english</text>
+		<text find="help">Help</text>
+		<text find="app_name">PPeGeo</text>
+		<text find="about_this_site">About this site</text>
 		<text find="scielo_news">SciELO news</text>
 		<text find="scielo_team">SciELO team</text>
 		<text find="serial_browsing">serial browsing</text>
@@ -271,17 +274,16 @@
 		<text find="site_usage">site usage</text>
 		<text find="journal_citation">journal citation</text>
 		<text find="co_authors">co-authors</text>
-		<text find="text_1">The Scientific Electronic Library Online - SciELO is an electronic library covering a selected collection of Brazilian scientific journals.<br/>
-			<br/>The library is an integral part of a project being developed by <a href="http://www.fapesp.br">FAPESP</a> - Fundação de Amparo à Pesquisa do Estado de São Paulo, in partnership with <a href="http://www.bireme.br/bvs/I/ihome.htm">BIREME</a> - the Latin American and Caribbean Center on Health Sciences Information. Since 2002, the Project is also supported by <a href="http://www.cnpq.br">CNPq</a> - Conselho Nacional de Desenvolvimento Científico e Tecnológico.<br/>
-			<br/>The Project envisages the development of a common methodology for the preparation, storage, dissemination and evaluation of scientific literature in electronic format.<br/>
-			<br/>As the project develops, new journal titles are being added in the library collection.</text>
-		<text find="text_2">This is the home page of SciELO Brasil Site.<br/>
-			<br/>The objective of the site is to implement an electronic virtual library, providing full access to a collection of serial titles, a collection of issues from individual serial titles, as well as to the full text of articles. The access to both serial titles and articles is available via indexes and search forms.<br/>
-			<br/>SciELO site is an integral part of the FAPESP/BIREME/CNPq Project and it is an application of the methodology being developed by the project, particularly the Internet Interface module.<br/>
-			<br/>The site will be constantly updated both in form and content, according to the project's advancements.</text>
-		<text find="text_3">SciELO interface provides access to its serials collection via an <i>alphabetic list</i> of titles or a <i>subject list</i> or a <i>search form</i> by word of serial titles, publisher names, city of publication and subject.<br/>
-			<br/>The interface also provides access to the full text of articles via <i>author index</i> or <i>subject index</i>, or by a <i>search form</i> on article elements such as author names, words from title, subject, words from the full text and publication year.<br/>
-			<br/>Click an hypertext link at the <a href="#top">top</a> to call the corresponding access page.</text>
+		<text find="text_1">The Portal de Periódicos Eletrônicos em Geociências (Portal of Electronic Journals in Geosciences) - PPeGeo - is a collecion of scientific journals in Geosciences. PPeGeo is a partnership among Brazilian Geological Society and the Library and Documentation Service of the Geociences Institute of University of São Paulo.<br/>
+			<br/>The Portal’s objective is to provide wide access to scientific journals of interest to the geosciences area in the digital environment and with open access, promoting the democratization of access to geological knowledge generated by renowned research centers.<br/>
+			<br/>To structure of this collection, the project PPeGeo set partnership with the Latin American and Caribbean Center on Health Sciences Information (BIREME), that offered the methodology Scientific Electronic Library Online (SciELO) - pattern of journals electronic publication for developing countries.<br/>
+			<br/></text>
+		<text find="text_2">This is the home page of PPeGeo website.<br/>
+			<br/>The objective of the site is to implement an electronic virtual library, providing full access to a collection of journals titles, a collection of issues from individual journals titles, as well as to the full text of articles. The access to both, journals titles and articles, is available via indexes and search forms.<br/>
+			<br/></text>
+		<text find="text_3">PPeGeo interface provides access to its serials collection via an alphabetic list of titles or a subject index or a search by word of serial titles, publisher names, city of publication and subject.<br/>
+			<br/>The interface also provides access to the full text of articles via author index or subject index, or by a search form on article elements such as author names, words from title, subject, words from the full text.<br/>
+			<br/>Click an hypertext link to call the corresponding access page.</text>
 		<text find="phone">Phone</text>
 		<text find="fax">Fax</text>
 		<text find="register_free">Free sign up</text>
@@ -293,12 +295,12 @@
 		<text find="img_alt">Scientific Electronic Library Online</text>
 	</xslid>
 	<xslid id="sci_toolbox">
-		<text find="services">Services</text>
-		<text find="article">Article</text>
+		<text find="services">services</text>
+		<text find="article">article</text>
 		<text find="add_to_my_collection">Add to my collection</text>
 		<text find="alert_me_when_cited">Alert me when cited</text>
 		<text find="send_me_access_statistics">Send me access statistics</text>
-		<text find="custom_services">Custom services</text>
+		<text find="custom_services">custom services</text>
 		<text find="comments">Comments</text>
 		<text find="article_in_pdf_format">Article in pdf format</text>
 		<text find="article_in_xml_format">Article in xml format</text>
@@ -326,7 +328,6 @@
 		<text find="pr">Press release</text>
 		<text find="issue">See the issue</text>
 		<text find="clinical_trial">Clinical trial</text>
-                <text find="bookmark_more">More</text>
 	</xslid>
 	<xslid id="sci_issuetoc">
 		<text find="abstract">abstract in </text>

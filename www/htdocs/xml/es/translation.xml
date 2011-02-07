@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <translations>
 	<xslid id="sci_artmonthyearstat">
 		<text find="journal_articles_requests_by_month_and_year">Accesos a los artículos de las revistas por mes y año</text>
@@ -76,7 +76,8 @@
 		<text find="there_are_no_statistics_forthat_period">No existen estadísticas para ese período</text>
 		<text find="how_to_cite_this_article">Como citar este artículo</text>
 		<text find="text_available_after">texto disponible después de</text>
-		<text find="contact">Contacto</text>
+				<text find="contact">Contacto</text>
+
 	</xslid>
 	<xslid id="sci_subject">
 		<text find="issue">número</text>
@@ -162,8 +163,10 @@
 		<text find="grp_advanced">publ adelantadas</text>
 		<text find="grp_issues">números</text>
 		<text find="grp_articles">artículos</text>
-		<text find="grp_serials">revistas</text>
-		<text find="table_of_contents">sumario</text>
+		<text find="grp_serials">revistas</text><text find="table_of_contents">sumario</text>
+
+
+
 	</xslid>
 	<xslid id="reference">
 		<text find="not_found">this article doesn't have references</text>
@@ -182,7 +185,6 @@
 	<xslid id="article_output">
 		<text find="similarity">Similaridad:</text>
 		<text find="full_text">texto completo</text>
-                <text find="accessat">Acceder em</text>
 	</xslid>
 	<xslid id="cited">
 		<text find="doesnt_cited">ese articulo no tiene citaciones</text>
@@ -200,8 +202,6 @@
 	</xslid>
 	<xslid id="sci_arttext">
 		<text find="original_version_published_in">versión original publicada en</text>
-				<text find="fulltext_only_in_pdf">texto completo solamente en formato PDF</text>
-
 	</xslid>
 	<xslid id="sci_abstract">
 		<text find="abstract">Resumen</text>
@@ -252,12 +252,13 @@
 	</xslid>
 	<xslid id="sci_home">
 		<text find="journal_evaluation">evaluación de revistas</text>
+		<text find="criterios_ppegeo">criterios PPeGeo</text>
 		<text find="portuguese">português</text>
 		<text find="spanish">español</text>
 		<text find="english">english</text>
 		<text find="help">Ayuda</text>
-		<text find="app_name">SciELO</text>
-		<text find="about_this_site">acerca de este sitio</text>
+		<text find="app_name">PPeGeo</text>
+		<text find="about_this_site">Acerca de este sitio</text>
 		<text find="scielo_news">SciELO news</text>
 		<text find="scielo_team">equipo SciELO</text>
 		<text find="serial_browsing">revistas</text>
@@ -272,17 +273,16 @@
 		<text find="site_usage">uso del sitio</text>
 		<text find="journal_citation">citas de revistas</text>
 		<text find="co_authors">co-autoria</text>
-		<text find="text_1">La Scientific Electronic Library Online - SciELO es una biblioteca electrónica que abarca una colección seleccionada de revistas científicas Brasileñas. <br/>
-			<br/>La biblioteca es resultado de un proyecto de investigación de la <a href="http://www.fapesp.br">FAPESP</a> - Fundação de Amparo à Pesquisa do Estado de São Paulo, en colaboración con <a href="http://www.bireme.br/bvs/E/ehome.htm">BIREME</a> - Centro Latinoamericano y del Caribe de Información en Ciencias de la Salud. A partir de 2002, el Proyecto conta con el apoyo del <a href="http://www.cnpq.br">CNPq</a> - Conselho Nacional de Desenvolvimento Científico e Tecnológico.<br/>
-			<br/>El proyecto contempla el desarrollo de una metodología común para la preparación, almacenamiento, diseminación y evaluación de literatura científica en formato electrónico.<br/>
-			<br/>Con el desarrollo del proyecto, nuevos títulos son añadidos a la colección de la biblioteca.</text>
-		<text find="text_2">Esta es la home page del Sitio SciELO Brasil.<br/>
-			<br/>El objetivo del sitio es implementar una biblioteca electrónica, que proporcione acceso completo a una colección de revistas, una colección de números de revistas individuales, así como al texto completo de los artículos. El acceso tanto a las revistas como a los artículos se puede realizar usando índices y formularios de búsqueda.<br/>
-			<br/>El sitio de SciELO es una parte del Proyecto FAPESP/BIREME/CNPq y es una aplicación de la metodología que el proyecto está desarrollando, en particular, el módulo de Interfaz en Internet.<br/>
-			<br/>El sitio será constantemente actualizado tanto en forma como en contenido, en la medida en que el proyecto avance.</text>
-		<text find="text_3">La interfaz SciELO proporciona acceso a su colección de revistas mediante una <i>lista alfabética</i> de títulos, una <i>lista por materia</i>, o una <i>búsqueda de títulos</i> de los periódicos, por palabra del título, materia, nombres de publicadores y ciudad de publicación.<br/>
-			<br/>La interfaz también proporciona acceso al texto completo de los artículos por medio de un <i>índice de autores</i>, un <i>índice de materia</i> o un formulario de <i>búsqueda de artículos</i> por sus elementos, como nombres de autores, palabras del título, materias, palabras del texto completo y año de publicación.<br/>
-			<br/>Clique un enlace hipertexto en el <a href="#top">topo</a> de la página para llamar la correspondiente página de acceso.</text>
+		<text find="text_1">El Portal de Periódicos Eletrônicos em Geociências (Portal de Revistas Electrónicas en Geociencias) - PPeGeo - reúne una colección de revistas científicas en el area de Geociencias. Es fruto de la asociación entre la Sociedad Brasileña de Geología y el Servicio de Biblioteca e Documentación del Instituto de Geociencias de la Universidad de São Paulo.<br/>
+			<br/>El objetivo del Portal es proporcionar acceso a las revistas científicas de interés para el área de las Geociencias en el ambiente digital y con acceso abierto, promoviendo la democratización del acceso a los conocimientos geológicos generados en los gran centros de investigación a la comunidad en general.<br/>
+			<br/>Para la estructuración de esta colección, el PPeGeo cuenta con el apoyo del Centro Latinoamericano y del Caribe de Información en Ciencias de la Salud (BIREME), que cedió la metodología Scientific Electronic Library Online (SciELO) - modelo de publicación electrónica de revistas para países en desarrollo.<br/>
+			<br/></text>
+		<text find="text_2">Esta es la homepage del sitio PPeGeo.<br/>
+			<br/>El objetivo del sitio es implementar una biblioteca electrónica, que proporcione acceso completo a una colección de revistas y a una colección de números de revistas individuales, así como al texto completo de los artículos. El acceso tanto a las revistas como a los artículos se puede realizar usando índices y formularios de búsqueda.<br/>
+			<br/></text>
+		<text find="text_3">La interfaz PPeGeo proporciona acceso a su colección de revistas mediante índices de títulos o asuntos, o una búsqueda de títulos de las revistas, por asunto, nombres de editoriales, ciudad de publicación. La interfaz también proporciona acceso al texto completo de los artículos por medio de un índice de autores, un índice de asuntos o un formulario de búsqueda por los elementos del artículo como nombres de autores, palabras del título, asuntos y palabras del texto completo.<br/>
+			<br/>La interfaz también proporciona acceso al texto completo de los artículos por medio de índices de autor y de asuntos o un formulario de búsqueda de artículos por sus elementos, como nombres de autores, palabras del título, asuntos, palabras del texto completo y año de publicación.<br/>
+			<br/>Clique un enlace de hipertexto para llamar la correspondiente página de acceso.</text>
 		<text find="phone">Tel.</text>
 		<text find="fax">Fax</text>
 		<text find="register_free">Regístrese gratuitamente</text>
@@ -307,8 +307,8 @@
 		<text find="health_indicators">Indicadores de salud</text>
 		<text find="fapesp_projects">Proyectos FAPESP</text>
 		<text find="automatic_translation">Traducción automática</text>
-		<text find="show_semantic_highlights">Mas detalles sem&#225;nticos</text>
-		<text find="hide_semantic_highlights">Cerrar los detalles sem&#225;nticos</text>
+		<text find="show_semantic_highlights">Mas detalles semánticos</text>
+		<text find="hide_semantic_highlights">Cerrar los detalles semánticos</text>
 		<text find="access">Accesos</text>
 		<text find="have_no_cited_article">No hay articulos citados</text>
 		<text find="cited_by">Citado por</text>
@@ -327,7 +327,6 @@
 		<text find="pr">Press release</text>
 		<text find="issue">Vea el número</text>
 		<text find="clinical_trial">Ensayo clínico</text>
-                <text find="bookmark_more">Otros</text>
 	</xslid>
 	<xslid id="sci_issuetoc">
 		<text find="abstract">resumen en </text>
