@@ -267,7 +267,6 @@ class scieloWS {
     $XML = readData($serviceUrl,true);
     $journalTotal=getElementValue(getElementValue(str_replace("<hr>","<hr />",$XML) , "Isis_Total"),"occ");
 
-    $serviceXML .= '<SciELOWebService version="1.0">';
     $serviceXML .= '<collection name="'.$this->country.'" uri="http://'.$this->applServer.'">';
     $serviceXML .= '<indicators>';
     $serviceXML .= '<journalTotal>'.$journalTotal.'</journalTotal>';
@@ -277,7 +276,6 @@ class scieloWS {
     $serviceXML .= '</indicators>';
     $serviceXML .= $XML;
     $serviceXML .= '</collection>';
-    $serviceXML .= '</SciELOWebService>';
 
     header("Content-type: text/xml");
     return utf8_encode($serviceXML);
