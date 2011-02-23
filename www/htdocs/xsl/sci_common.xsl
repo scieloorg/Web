@@ -852,14 +852,10 @@
 	doi: <xsl:value-of select="."/>
 	</xsl:template>
 	<xsl:template match="ARTICLE[@displayDOILink]/@DOI">
-		<xsl:if test="../@displayDOILink!=.">
-			doi: <xsl:value-of select="."/>
-			<br/>
-		</xsl:if>
+		<xsl:apply-templates select="../@displayDOILink"/>			
 	</xsl:template>
 	<xsl:template match="ARTICLE/@displayDOILink">
-		<a href="http://dx.doi.org/{normalize-space(.)}" target="_blank">doi: <xsl:value-of select="."/>
-		</a>
+		doi:<!--a href="http://dx.doi.org/{normalize-space(.)}" target="_blank"--><xsl:value-of select="."/><!--/a-->
 	</xsl:template>
 	<!--
 
