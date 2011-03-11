@@ -230,6 +230,10 @@ $identifier = cleanParameter($identifier);
 				break;
 				}
 			}
+        
+        #workaround for fatal error in DOMDocument::loadXML() when XML have & character 
+        $response = preg_replace('/ & /', ' &amp; ', $response);
+        
         if ( !$debug )
         {
             $transform = new XSLTransformerOAI();
