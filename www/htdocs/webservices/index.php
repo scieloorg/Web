@@ -33,15 +33,15 @@ switch($service){
                 die("missing parameter <i>lang</i>");
         }
         $resultado = $scieloWS->search($_REQUEST['expression'],$_REQUEST['from'],$_REQUEST['count'],$_REQUEST['lang']);
-        echo trim($resultado);
+        echo trim('<SciELOWebService version="1.0">'.$resultado.'</SciELOWebService>');
         break;
     case "new_titles":
         $resultado = $scieloWS->new_titles($_REQUEST["count"],$_REQUEST["rep"]);
-        echo trim($resultado);
+        echo trim('<SciELOWebService version="1.0">'.$resultado.'</SciELOWebService>');
         break;
     case "new_issues":
         $resultado = $scieloWS->new_issues($_REQUEST["count"],$_REQUEST["rep"]);
-        echo trim($resultado);
+        echo trim('<SciELOWebService version="1.0">'.$resultado.'</SciELOWebService>');
         break;
     case "get_titles":
     
@@ -54,15 +54,15 @@ switch($service){
                 break;
             }
             $resultado = $scieloWS->getDetachedTitles($issn);
-            echo trim($resultado);
+            echo trim('<SciELOWebService version="1.0">'.$resultado.'</SciELOWebService>');
         }else{
             $resultado = $scieloWS->get_titles($_REQUEST["type"],$_REQUEST["rep"]);            
-            echo trim($resultado);
+            echo trim('<SciELOWebService version="1.0">'.$resultado.'</SciELOWebService>');
         }
         break;
     case "get_title_indicators":
          $resultado = $scieloWS->get_title_indicators($_REQUEST["type"],$_REQUEST["rep"],$_REQUEST["issn"]);         
-         echo trim($resultado);
+         echo trim('<SciELOWebService version="1.0">'.$resultado.'</SciELOWebService>');
         break;
     case "":
         $resultado = "No result";
@@ -267,7 +267,6 @@ class scieloWS {
     $XML = readData($serviceUrl,true);
     $journalTotal=getElementValue(getElementValue(str_replace("<hr>","<hr />",$XML) , "Isis_Total"),"occ");
 
-    $serviceXML .= '<SciELOWebService version="1.0">';
     $serviceXML .= '<collection name="'.$this->country.'" uri="http://'.$this->applServer.'">';
     $serviceXML .= '<indicators>';
     $serviceXML .= '<journalTotal>'.$journalTotal.'</journalTotal>';
@@ -277,7 +276,6 @@ class scieloWS {
     $serviceXML .= '</indicators>';
     $serviceXML .= $XML;
     $serviceXML .= '</collection>';
-    $serviceXML .= '</SciELOWebService>';
 
     header("Content-type: text/xml");
     return utf8_encode($serviceXML);
