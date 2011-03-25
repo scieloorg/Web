@@ -33,15 +33,15 @@ switch($service){
                 die("missing parameter <i>lang</i>");
         }
         $resultado = $scieloWS->search($_REQUEST['expression'],$_REQUEST['from'],$_REQUEST['count'],$_REQUEST['lang']);
-        echo trim('<SciELOWebService version="1.0">'.$resultado.'</SciELOWebService>');
+        echo trim('<?xml version="1.0" encoding="ISO-8859-1"?><SciELOWebService version="1.0">'.$resultado.'</SciELOWebService>');
         break;
     case "new_titles":
         $resultado = $scieloWS->new_titles($_REQUEST["count"],$_REQUEST["rep"]);
-        echo trim('<SciELOWebService version="1.0">'.$resultado.'</SciELOWebService>');
+        echo trim('<?xml version="1.0" encoding="ISO-8859-1"?><SciELOWebService version="1.0">'.$resultado.'</SciELOWebService>');
         break;
     case "new_issues":
         $resultado = $scieloWS->new_issues($_REQUEST["count"],$_REQUEST["rep"]);
-        echo trim('<SciELOWebService version="1.0">'.$resultado.'</SciELOWebService>');
+        echo trim('<?xml version="1.0" encoding="ISO-8859-1"?><SciELOWebService version="1.0">'.$resultado.'</SciELOWebService>');
         break;
     case "get_titles":
     
@@ -54,15 +54,15 @@ switch($service){
                 break;
             }
             $resultado = $scieloWS->getDetachedTitles($issn);
-            echo trim('<SciELOWebService version="1.0">'.$resultado.'</SciELOWebService>');
+            echo trim('<?xml version="1.0" encoding="ISO-8859-1"?><SciELOWebService version="1.0">'.$resultado.'</SciELOWebService>');
         }else{
             $resultado = $scieloWS->get_titles($_REQUEST["type"],$_REQUEST["rep"]);            
-            echo trim('<SciELOWebService version="1.0">'.$resultado.'</SciELOWebService>');
+            echo trim('<?xml version="1.0" encoding="ISO-8859-1"?><SciELOWebService version="1.0">'.$resultado.'</SciELOWebService>');
         }
         break;
     case "get_title_indicators":
          $resultado = $scieloWS->get_title_indicators($_REQUEST["type"],$_REQUEST["rep"],$_REQUEST["issn"]);         
-         echo trim('<SciELOWebService version="1.0">'.$resultado.'</SciELOWebService>');
+         echo trim('<?xml version="1.0" encoding="ISO-8859-1"?><SciELOWebService version="1.0">'.$resultado.'</SciELOWebService>');
         break;
     case "":
         $resultado = "No result";
@@ -144,8 +144,9 @@ class scieloWS {
     $serviceXML .= '<collection name="'.$this->country.'" uri="http://'.$this->applServer.'">';
     $serviceXML .= $XML;
     $serviceXML .= '</collection>';
-    header("Content-type: text/xml");
-    return utf8_encode($serviceXML);
+    
+    header("Content-type: text/xml charset=ISO-8859-1");
+    return $serviceXML;
   }
 
   /**
@@ -169,7 +170,7 @@ class scieloWS {
     $serviceXML .= $XML;
     $serviceXML .= '</collection>';
     header("Content-type: text/xml");
-    return utf8_encode($serviceXML);
+    return $serviceXML;
   }
 
   /**
@@ -207,7 +208,7 @@ class scieloWS {
       $serviceXML .= '</collection>';
     }
     header("Content-type: text/xml");
-    return utf8_encode($serviceXML);
+    return $serviceXML;
   }
 
   /**
@@ -239,7 +240,7 @@ class scieloWS {
     $serviceXML .= '</collection>';
 
    header("Content-type: text/xml");
-   return utf8_encode($serviceXML);
+   return $serviceXML;
   }
 
   /**
@@ -278,7 +279,7 @@ class scieloWS {
     $serviceXML .= '</collection>';
 
     header("Content-type: text/xml");
-    return utf8_encode($serviceXML);
+    return $serviceXML;
   }
 }
 ?>
