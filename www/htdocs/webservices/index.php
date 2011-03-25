@@ -169,7 +169,7 @@ class scieloWS {
     $serviceXML .= '<collection name="'.$this->country.'" uri="http://'.$this->applServer.'">';
     $serviceXML .= $XML;
     $serviceXML .= '</collection>';
-    header("Content-type: text/xml");
+    header("Content-type: text/xml charset=ISO-8859-1");
     return $serviceXML;
   }
 
@@ -207,7 +207,7 @@ class scieloWS {
       $serviceXML .= $XML;
       $serviceXML .= '</collection>';
     }
-    header("Content-type: text/xml");
+    header("Content-type: text/xml charset=ISO-8859-1");
     return $serviceXML;
   }
 
@@ -239,7 +239,7 @@ class scieloWS {
     $serviceXML .= $XML;
     $serviceXML .= '</collection>';
 
-   header("Content-type: text/xml");
+   header("Content-type: text/xml charset=ISO-8859-1");
    return $serviceXML;
   }
 
@@ -278,7 +278,7 @@ class scieloWS {
     $serviceXML .= $XML;
     $serviceXML .= '</collection>';
 
-    header("Content-type: text/xml");
+    header("Content-type: text/xml charset=ISO-8859-1");
     return $serviceXML;
   }
 }
