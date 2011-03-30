@@ -8,9 +8,7 @@
     define ( "DEFAULT_CACHE_EXPIRES", 180 );
 	$defFile = parse_ini_file(dirname(__FILE__)."/../scielo.def.php");
     $metadataPrefixList = array ( "oai_dc" => array( "ns" => "http://www.openarchives.org/OAI/2.0/oai_dc/",
-                                                     "schema" => "http://www.openarchives.org/OAI/2.0/oai_dc.xsd"),
-								  "oai_dc_agris" => array("ns" => "http://www.purl.org/agmes/agrisap/schema/",
-								  							"schema" => "http://www.purl.org/agmes/agrisap/schema/agris.xsd"));
+                                                     "schema" => "http://www.openarchives.org/OAI/2.0/oai_dc.xsd"));
 /*
 	$repositoryName = "SciELO Online Library Collection";
 	$earliestDatestamp = "1996-01-01";
