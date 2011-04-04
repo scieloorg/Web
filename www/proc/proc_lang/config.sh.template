@@ -1,0 +1,45 @@
+
+MX=/var/www/html/scielo/www/bireme/cisis/5.5.pre02/linux/lindG4/mx
+MXTB=/var/www/html/scielo/www/bireme/cisis/5.5.pre02/linux/lindG4/mxtb
+
+#########################
+# sh_genfilelist
+#########################
+# entrada
+FILES_PATH=../bases
+# SAIDA
+# 
+# CAMINHO COMPLETO
+FILES_LIST=/var/www/scielo_br/proc/proc_lang/files_list.seq
+
+#########################
+# sh_genlangdb
+#########################
+# ENTRADA
+ARTIGODB=../../bases/artigo/artigo
+ARTIGOIF=$ARTIGODB
+
+# SAIDA
+TEMP_PATH=../temp/proc_lang
+CIPFILE=$TEMP_PATH/lang.cip
+LOGFILE=$TEMP_PATH/genlangdb.log
+LANGDB=../../bases-work/artigo/languages
+
+#########################
+# sh_rep_evol_journal
+#########################
+REP_EVOL_JOURNAL_PATH=../bases/reports/lang/journal
+
+
+#########################
+# sh_rep_evol_subj
+#########################
+#  entrada
+TITLEDB=../../bases/title/title
+TITLEIF=$TEMP_PATH/title
+#  saida
+REPORT_PATH=../../bases-work/reports/lang/subject
+
+# nao está em uso, mas tem que ter algo
+CREATE_OR_APPEND=create
+
