@@ -8,13 +8,14 @@ MXTB=/var/www/html/scielo/www/bireme/cisis/5.5.pre02/linux/lindG4/mxtb
 # entrada
 FILES_PATH=../bases
 # SAIDA
-FILES_LIST=../files_list.seq
+# 
+# CAMINHO COMPLETO
+FILES_LIST=/var/www/scielo_br/proc/proc_lang/files_list.seq
 
 #########################
 # sh_genlangdb
 #########################
 # ENTRADA
-FILES_LIST=../files_list.seq
 ARTIGODB=../../bases/artigo/artigo
 ARTIGOIF=$ARTIGODB
 
