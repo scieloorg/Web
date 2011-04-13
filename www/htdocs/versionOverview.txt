@@ -1,5 +1,7 @@
 v5.16
 Fix the URI of OAI full text
+#269 Na página do artigo no título do periódico colocar um link para sua home
+#270 Na home do periódico juntamente com os links das páginas secundarias, acrescentar um link para página externa do periódico, quando houver.
 
 v5.15
 Alter the retorn of caracter set from UTF-8 to ISO-8859-1 on webservice. 
