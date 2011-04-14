@@ -80,7 +80,7 @@
 										<xsl:otherwise>
 											<a>
 												<xsl:call-template name="AddScieloLink">
-													<xsl:with-param name="seq" select=".//ISSUE_ISSN_ID"/>
+													<xsl:with-param name="seq" select=".//ISSN_AS_ID"/>
 													<xsl:with-param name="script">sci_serial</xsl:with-param>																										</xsl:call-template>
 												<xsl:value-of select="TITLEGROUP/TITLE" disable-output-escaping="yes"/>
 											</a>
