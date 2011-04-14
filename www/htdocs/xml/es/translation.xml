@@ -272,17 +272,22 @@
 		<text find="site_usage">uso del sitio</text>
 		<text find="journal_citation">citas de revistas</text>
 		<text find="co_authors">co-autoria</text>
-		<text find="text_1">La Scientific Electronic Library Online - SciELO es una biblioteca electrónica que abarca una colección seleccionada de revistas científicas Brasileñas. <br/>
-			<br/>La biblioteca es resultado de un proyecto de investigación de la <a href="http://www.fapesp.br">FAPESP</a> - Fundação de Amparo à Pesquisa do Estado de São Paulo, en colaboración con <a href="http://www.bireme.br/bvs/E/ehome.htm">BIREME</a> - Centro Latinoamericano y del Caribe de Información en Ciencias de la Salud. A partir de 2002, el Proyecto conta con el apoyo del <a href="http://www.cnpq.br">CNPq</a> - Conselho Nacional de Desenvolvimento Científico e Tecnológico.<br/>
-			<br/>El proyecto contempla el desarrollo de una metodología común para la preparación, almacenamiento, diseminación y evaluación de literatura científica en formato electrónico.<br/>
-			<br/>Con el desarrollo del proyecto, nuevos títulos son añadidos a la colección de la biblioteca.</text>
-		<text find="text_2">Esta es la home page del Sitio SciELO Brasil.<br/>
-			<br/>El objetivo del sitio es implementar una biblioteca electrónica, que proporcione acceso completo a una colección de revistas, una colección de números de revistas individuales, así como al texto completo de los artículos. El acceso tanto a las revistas como a los artículos se puede realizar usando índices y formularios de búsqueda.<br/>
-			<br/>El sitio de SciELO es una parte del Proyecto FAPESP/BIREME/CNPq y es una aplicación de la metodología que el proyecto está desarrollando, en particular, el módulo de Interfaz en Internet.<br/>
-			<br/>El sitio será constantemente actualizado tanto en forma como en contenido, en la medida en que el proyecto avance.</text>
-		<text find="text_3">La interfaz SciELO proporciona acceso a su colección de revistas mediante una <i>lista alfabética</i> de títulos, una <i>lista por materia</i>, o una <i>búsqueda de títulos</i> de los periódicos, por palabra del título, materia, nombres de publicadores y ciudad de publicación.<br/>
-			<br/>La interfaz también proporciona acceso al texto completo de los artículos por medio de un <i>índice de autores</i>, un <i>índice de materia</i> o un formulario de <i>búsqueda de artículos</i> por sus elementos, como nombres de autores, palabras del título, materias, palabras del texto completo y año de publicación.<br/>
-			<br/>Clique un enlace hipertexto en el <a href="#top">topo</a> de la página para llamar la correspondiente página de acceso.</text>
+		<text find="text_1">
+			SciELO (Scientific Electronic Library Online) - SciELO es una biblioteca electrónica que abarca una colección seleccionada de revistas científicas Costarricenses.<br/>
+			En Costa Rica Scielo inicia en el año 2000 bajo la coordinación de BIREME - OPS y con el apoyo de la Caja Costarricense de Seguro Social por medio de la Biblioteca Nacional de Salud y Seguridad Social BINASSS incluyendo solo revistas en Ciencias de la Salud, actualmente esta aceptando de otros temas aparte de salud.<br/>
+			Cuenta con un Comité Consultivo Nacional integrado por Caja Costarricense de Seguro Social -BINASSS-, CONICIT, Universidad de Costa Rica Vicerrectoria de Investigación, Escuela de Historia, Instituto Clodomiro Picado y el Hospital Nacional de Niños.<br/>
+			Todos los asuntos relacionados con el ingreso de revistas a Scielo-C.R. se discuten en las reuniones del Comité Consultivo, dejando en actas las evaluaciones, acuerdos, conclusiones y otros aspectos a considerar.
+		</text>
+		<text find="text_2">
+			Esta es la página del Sitio SciELO Costa Rica.<br/>
+			Costa Rica pretende con el desarrollo de SciELO adquirir el compromiso conjuntamente con los editores de mejorar la calidad y accesibilidad de la publicación cientifica. La finalidad de Scielo es contar con una biblioteca electrónica, que pueda ofrecer acceso completo a una coleccion de revisas, cuyos articulos puedan ser recuperados a traves de índices o formularios de búsqueda.<br/>
+			El sitio será constantemente actualizado por la unidad coordinadora tanto en forma como en contenido, en la medida en que surjan avances en la metodologia.<br/>
+		</text>
+		<text find="text_3">
+			La interfase SciELO permite acceso a su colección de revistas mediante una lista alfabética de títulos, una lista por materia, o una búsqueda de títulos de los periódicos, por palabra del título, materia, nombres de publicadores y ciudad de publicación.<br/>
+			La interfaz también proporciona acceso al texto completo de los artículos por medio de un índice de autores, un índice de materia o un formulario de búsqueda de artículos por sus elementos, como nombres de autores, palabras del título, materias, palabras del texto completo y año de publicación.<br/>
+			Clique en el enlace para llamar la correspondiente página de acceso.
+		</text>
 		<text find="phone">Tel.</text>
 		<text find="fax">Fax</text>
 		<text find="register_free">Regístrese gratuitamente</text>
