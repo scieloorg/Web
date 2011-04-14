@@ -317,7 +317,10 @@ press release do artigo
 		<li>
 			<xsl:if test="$t='online_submission'"><xsl:attribute name="id">btn_submission</xsl:attribute></xsl:if>
 			<a href="{.}" target="{$t}">
+				<xsl:if test="$t != 'online_submission'">
+			
 				<xsl:value-of select="$label"/>
+				</xsl:if>
 			</a>
 			<br/>
 		</li>
