@@ -1,3 +1,13 @@
+v5.16
+Fix the URI of OAI full text
+Add templates files to send e-mail
+
+v5.15
+Alter the retorn of caracter set from UTF-8 to ISO-8859-1 on webservice. 
+Since Jan-27,2011, 4.1.0 is discontinued. 
+Removing root element from XML output 
+fix OAI problem when record is a press release article 
+
 v5.14
 Presentation of DOI which is provided by the journal editor
 

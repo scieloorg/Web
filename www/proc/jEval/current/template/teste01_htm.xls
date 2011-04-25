@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:x="urn:schemas-microsoft-com:office:excel"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=utf-8">
+<meta name=ProgId content=Excel.Sheet>
+<meta name=Generator content="Microsoft Excel 11">
+<link rel=File-List href="teste01_htm_arquivos/filelist.xml">
+<link rel=Edit-Time-Data href="teste01_htm_arquivos/editdata.mso">
+<link rel=OLE-Object-Data href="teste01_htm_arquivos/oledata.mso">
+<title>TODO supply a title</title>
+<!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:LastAuthor>roberta.takenaka</o:LastAuthor>
+  <o:LastSaved>2011-02-21T20:35:57Z</o:LastSaved>
+  <o:Version>11.9999</o:Version>
+ </o:DocumentProperties>
+</xml><![endif]-->
+<style>
+<!--table
+	{mso-displayed-decimal-separator:"\,";
+	mso-displayed-thousand-separator:"\.";}
+@page
+	{margin:.98in .79in .98in .79in;
+	mso-header-margin:.49in;
+	mso-footer-margin:.49in;}
+tr
+	{mso-height-source:auto;}
+col
+	{mso-width-source:auto;}
+br
+	{mso-data-placement:same-cell;}
+.style0
+	{mso-number-format:General;
+	text-align:general;
+	vertical-align:bottom;
+	white-space:nowrap;
+	mso-rotate:0;
+	mso-background-source:auto;
+	mso-pattern:auto;
+	color:windowtext;
+	font-size:10.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:Arial;
+	mso-generic-font-family:auto;
+	mso-font-charset:0;
+	border:none;
+	mso-protection:locked visible;
+	mso-style-name:Normal;
+	mso-style-id:0;}
+td
+	{mso-style-parent:style0;
+	padding-top:1px;
+	padding-right:1px;
+	padding-left:1px;
+	mso-ignore:padding;
+	color:windowtext;
+	font-size:10.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:Arial;
+	mso-generic-font-family:auto;
+	mso-font-charset:0;
+	mso-number-format:General;
+	text-align:general;
+	vertical-align:bottom;
+	border:none;
+	mso-background-source:auto;
+	mso-pattern:auto;
+	mso-protection:locked visible;
+	white-space:nowrap;
+	mso-rotate:0;}
+.xl24
+	{mso-style-parent:style0;
+	background:yellow;
+	mso-pattern:auto none;
+	white-space:normal;}
+.xl25
+	{mso-style-parent:style0;
+	font-family:"Arial Unicode MS";
+	mso-generic-font-family:auto;
+	mso-font-charset:0;
+	background:yellow;
+	mso-pattern:auto none;
+	white-space:normal;}
+.xl26
+	{mso-style-parent:style0;
+	white-space:normal;}
+.xl27
+	{mso-style-parent:style0;
+	font-family:"Arial Unicode MS";
+	mso-generic-font-family:auto;
+	mso-font-charset:0;
+	white-space:normal;}
+-->
+</style>
+<!--[if gte mso 9]><xml>
+ <x:ExcelWorkbook>
+  <x:ExcelWorksheets>
+   <x:ExcelWorksheet>
+    <x:Name>teste01_htm</x:Name>
+    <x:WorksheetOptions>
+     <x:Selected/>
+     <x:DoNotDisplayGridlines/>
+     <x:ProtectContents>False</x:ProtectContents>
+     <x:ProtectObjects>False</x:ProtectObjects>
+     <x:ProtectScenarios>False</x:ProtectScenarios>
+    </x:WorksheetOptions>
+   </x:ExcelWorksheet>
+  </x:ExcelWorksheets>
+  <x:WindowHeight>7455</x:WindowHeight>
+  <x:WindowWidth>9555</x:WindowWidth>
+  <x:WindowTopX>360</x:WindowTopX>
+  <x:WindowTopY>75</x:WindowTopY>
+  <x:ProtectStructure>False</x:ProtectStructure>
+  <x:ProtectWindows>False</x:ProtectWindows>
+ </x:ExcelWorkbook>
+</xml><![endif]-->
+</head>
+
+<body link=blue vlink=purple>
+
+<table x:str border=0 cellpadding=0 cellspacing=0 width=512 style='border-collapse:
+ collapse;table-layout:fixed;width:384pt'>
+ <col width=256 span=2 style='mso-width-source:userset;mso-width-alt:9362;
+ width:192pt'>
+ <tr height=17 style='height:12.75pt'>
+  <td height=17 class=xl25 width=256 style='height:12.75pt;width:192pt'>Título</td>
+  <td class=xl27 width=256 style='width:192pt'>Varia Historia</td>
+ </tr>
+ <tr height=51 style='height:38.25pt'>
+  <td height=51 class=xl25 width=256 style='height:38.25pt;width:192pt'>Instituição</td>
+  <td class=xl27 width=256 style='width:192pt'>Universidade Federal de Minas
+  Gerais, Faculdade de Filosofia e Ciências Humanas, Departamento de História</td>
+ </tr>
+ <tr height=17 style='height:12.75pt'>
+  <td height=17 class=xl25 width=256 style='height:12.75pt;width:192pt'>Acrônimo</td>
+  <td class=xl27 width=256 style='width:192pt'>vh</td>
+ </tr>
+ <tr height=17 style='height:12.75pt'>
+  <td height=17 class=xl25 width=256 style='height:12.75pt;width:192pt'>Título
+  abreviado</td>
+  <td class=xl27 width=256 style='width:192pt'>Varia hist</td>
+ </tr>
+ <tr height=17 style='height:12.75pt'>
+  <td height=17 class=xl25 width=256 style='height:12.75pt;width:192pt'>Título
+  abreviado ISO</td>
+  <td class=xl27 width=256 style='width:192pt'>Varia hist.</td>
+ </tr>
+ <tr height=34 style='height:25.5pt'>
+  <td height=34 class=xl25 width=256 style='height:25.5pt;width:192pt'>Título
+  anterior</td>
+  <td class=xl27 width=256 style='width:192pt'>Revista do Departamento de
+  História, Universidade Federal de Minas Gerais</td>
+ </tr>
+ <tr height=17 style='height:12.75pt'>
+  <td height=17 class=xl25 width=256 style='height:12.75pt;width:192pt'>Título
+  adicional</td>
+  <td class=xl26></td>
+ </tr>
+ <tr height=17 style='height:12.75pt'>
+  <td height=17 class=xl25 width=256 style='height:12.75pt;width:192pt'>ISSN
+  impresso</td>
+  <td class=xl27 width=256 style='width:192pt'>0104-8775</td>
+ </tr>
+ <tr height=17 style='height:12.75pt'>
+  <td height=17 class=xl25 width=256 style='height:12.75pt;width:192pt'>ISSN
+  online</td>
+  <td class=xl26></td>
+ </tr>
+ <tr height=17 style='height:12.75pt'>
+  <td height=17 class=xl25 width=256 style='height:12.75pt;width:192pt'>ISSN
+  (outros)</td>
+  <td class=xl26></td>
+ </tr>
+ <tr height=17 style='height:12.75pt'>
+  <td height=17 class=xl25 width=256 style='height:12.75pt;width:192pt'>Ano de
+  criação</td>
+  <td class=xl27 align=right width=256 style='width:192pt' x:num>1993</td>
+ </tr>
+ <tr height=85 style='height:63.75pt'>
+  <td height=85 class=xl25 width=256 style='height:63.75pt;width:192pt'>Missão</td>
+  <td class=xl27 width=256 style='width:192pt'>Privilegiar a publicação de
+  artigos de história visando constituir-se em um locus de diálogo
+  internacionalizado e multicultural de pesquisadores das várias áreas do
+  conhecimento histórico.</td>
+ </tr>
+ <tr height=17 style='height:12.75pt'>
+  <td height=17 class=xl25 width=256 style='height:12.75pt;width:192pt'>Website</td>
+  <td class=xl26></td>
+ </tr>
+ <tr height=17 style='height:12.75pt'>
+  <td height=17 class=xl25 width=256 style='height:12.75pt;width:192pt'>Informação
+  do Website</td>
+  <td class=xl26></td>
+ </tr>
+ <tr height=17 style='height:12.75pt'>
+  <td height=17 class=xl25 width=256 style='height:12.75pt;width:192pt'>Periodicidade</td>
+  <td class=xl27 width=256 style='width:192pt'>Bimestral</td>
+ </tr>
+ <tr height=17 style='height:12.75pt'>
+  <td height=17 class=xl25 width=256 style='height:12.75pt;width:192pt'>Norma
+  adotada</td>
+  <td class=xl27 width=256 style='width:192pt'>ABNT</td>
+ </tr>
+ <tr height=17 style='height:12.75pt'>
+  <td height=17 class=xl25 width=256 style='height:12.75pt;width:192pt'>Área(s)
+  do conhecimento (tabela CNPq)</td>
+  <td class=xl27 width=256 style='width:192pt'>Human Sciences</td>
+ </tr>
+ <tr height=68 style='height:51.0pt'>
+  <td height=68 class=xl25 width=256 style='height:51.0pt;width:192pt'>Sub-área(s)
+  do conhecimento (tabela CNPq)</td>
+  <td class=xl27 width=256 style='width:192pt'>HISTÓRIA; TEORIA E FILOSOFIA DA
+  HISTÓRIA;HISTÓRIA DO BRASIL; HISTÓRIA MODERNA E CONTEMPORÂNEA</td>
+ </tr>
+ <tr height=17 style='height:12.75pt'>
+  <td height=17 class=xl25 width=256 style='height:12.75pt;width:192pt'>Bases
+  de dados nacionais</td>
+  <td class=xl27 width=256 style='width:192pt'>The History Journals Guide</td>
+ </tr>
+ <tr height=17 style='height:12.75pt'>
+  <td height=17 class=xl25 width=256 style='height:12.75pt;width:192pt'>Bases
+  de dados regionais</td>
+  <td class=xl27 width=256 style='width:192pt'>The History Journals Guide</td>
+ </tr>
+ <tr height=17 style='height:12.75pt'>
+  <td height=17 class=xl25 width=256 style='height:12.75pt;width:192pt'>Bases
+  de dados estrangeiras</td>
+  <td class=xl27 width=256 style='width:192pt'>The History Journals Guide</td>
+ </tr>
+ <tr height=17 style='height:12.75pt'>
+  <td height=17 class=xl25 width=256 style='height:12.75pt;width:192pt'>Diretórios</td>
+  <td class=xl26></td>
+ </tr>
+ <tr height=17 style='height:12.75pt'>
+  <td height=17 class=xl25 width=256 style='height:12.75pt;width:192pt'>Licença
+  Creative Commons</td>
+  <td class=xl26></td>
+ </tr>
+ <tr height=68 style='height:51.0pt'>
+  <td height=68 class=xl25 width=256 style='height:51.0pt;width:192pt'>Dados de
+  contato do periódico</td>
+  <td class=xl27 width=256 style='width:192pt'>Av. Antônio Carlos, 6627
+  Pampulha, Cidade Universitária Caixa Postal 253 - CEP 31270-901 Tel./Fax: (55
+  31) 3499-5045 Belo Horizonte - MG Brasil</td>
+ </tr>
+ <tr height=17 style='height:12.75pt'>
+  <td height=17 class=xl25 width=256 style='height:12.75pt;width:192pt'>E-mail</td>
+  <td class=xl27 width=256 style='width:192pt'>varia@fafich.ufmg.br</td>
+ </tr>
+ <tr height=17 style='height:12.75pt'>
+  <td height=17 class=xl24 style='height:12.75pt'>&nbsp;</td>
+  <td class=xl26></td>
+ </tr>
+ <tr height=17 style='height:12.75pt'>
+  <td height=17 class=xl25 width=256 style='height:12.75pt;width:192pt'>Dados
+  de contato do editor chefe</td>
+  <td class=xl26></td>
+ </tr>
+ <tr height=17 style='height:12.75pt'>
+  <td height=17 class=xl25 width=256 style='height:12.75pt;width:192pt'>Nome</td>
+  <td class=xl26></td>
+ </tr>
+ <tr height=17 style='height:12.75pt'>
+  <td height=17 class=xl25 width=256 style='height:12.75pt;width:192pt'>Endereço</td>
+  <td class=xl26></td>
+ </tr>
+ <tr height=17 style='height:12.75pt'>
+  <td height=17 class=xl25 width=256 style='height:12.75pt;width:192pt'>Código
+  postal</td>
+  <td class=xl26></td>
+ </tr>
+ <tr height=17 style='height:12.75pt'>
+  <td height=17 class=xl25 width=256 style='height:12.75pt;width:192pt'>Cidade</td>
+  <td class=xl27 width=256 style='width:192pt'>Belo Horizonte</td>
+ </tr>
+ <tr height=17 style='height:12.75pt'>
+  <td height=17 class=xl25 width=256 style='height:12.75pt;width:192pt'>Estado</td>
+  <td class=xl27 width=256 style='width:192pt'>MG</td>
+ </tr>
+ <tr height=17 style='height:12.75pt'>
+  <td height=17 class=xl25 width=256 style='height:12.75pt;width:192pt'>País</td>
+  <td class=xl27 width=256 style='width:192pt'>BR</td>
+ </tr>
+ <tr height=68 style='height:51.0pt'>
+  <td height=68 class=xl25 width=256 style='height:51.0pt;width:192pt'>Telefone</td>
+  <td class=xl27 width=256 style='width:192pt'>Av. Antônio Carlos, 6627
+  Pampulha, Cidade Universitária Caixa Postal 253 - CEP 31270-901 Tel./Fax: (55
+  31) 3499-5045 Belo Horizonte - MG Brasil</td>
+ </tr>
+ <tr height=17 style='height:12.75pt'>
+  <td height=17 class=xl25 width=256 style='height:12.75pt;width:192pt'>Fax</td>
+  <td class=xl26></td>
+ </tr>
+ <tr height=17 style='height:12.75pt'>
+  <td height=17 class=xl25 width=256 style='height:12.75pt;width:192pt'>E-mail</td>
+  <td class=xl27 width=256 style='width:192pt'>varia@fafich.ufmg.br</td>
+ </tr>
+ <tr height=17 style='height:12.75pt'>
+  <td height=17 class=xl24 style='height:12.75pt'>&nbsp;</td>
+  <td class=xl26></td>
+ </tr>
+ <tr height=51 style='height:38.25pt'>
+  <td height=51 class=xl25 width=256 style='height:38.25pt;width:192pt'>Dados
+  da editora comercial (responsável pelo envio dos arquivos à Unidade SciELO)</td>
+  <td class=xl26></td>
+ </tr>
+ <tr height=17 style='height:12.75pt'>
+  <td height=17 class=xl25 width=256 style='height:12.75pt;width:192pt'>Nome</td>
+  <td class=xl26></td>
+ </tr>
+ <tr height=17 style='height:12.75pt'>
+  <td height=17 class=xl25 width=256 style='height:12.75pt;width:192pt'>Endereço</td>
+  <td class=xl26></td>
+ </tr>
+ <tr height=17 style='height:12.75pt'>
+  <td height=17 class=xl25 width=256 style='height:12.75pt;width:192pt'>Código
+  postal</td>
+  <td class=xl26></td>
+ </tr>
+ <tr height=17 style='height:12.75pt'>
+  <td height=17 class=xl25 width=256 style='height:12.75pt;width:192pt'>Cidade</td>
+  <td class=xl27 width=256 style='width:192pt'>Belo Horizonte</td>
+ </tr>
+ <tr height=17 style='height:12.75pt'>
+  <td height=17 class=xl25 width=256 style='height:12.75pt;width:192pt'>Estado</td>
+  <td class=xl27 width=256 style='width:192pt'>MG</td>
+ </tr>
+ <tr height=17 style='height:12.75pt'>
+  <td height=17 class=xl25 width=256 style='height:12.75pt;width:192pt'>País</td>
+  <td class=xl27 width=256 style='width:192pt'>BR</td>
+ </tr>
+ <tr height=68 style='height:51.0pt'>
+  <td height=68 class=xl25 width=256 style='height:51.0pt;width:192pt'>Telefone</td>
+  <td class=xl27 width=256 style='width:192pt'>Av. Antônio Carlos, 6627
+  Pampulha, Cidade Universitária Caixa Postal 253 - CEP 31270-901 Tel./Fax: (55
+  31) 3499-5045 Belo Horizonte - MG Brasil</td>
+ </tr>
+ <tr height=17 style='height:12.75pt'>
+  <td height=17 class=xl25 width=256 style='height:12.75pt;width:192pt'>Fax</td>
+  <td class=xl26></td>
+ </tr>
+ <tr height=17 style='height:12.75pt'>
+  <td height=17 class=xl25 width=256 style='height:12.75pt;width:192pt'>E-mail</td>
+  <td class=xl27 width=256 style='width:192pt'>varia@fafich.ufmg.br</td>
+ </tr>
+ <tr height=17 style='height:12.75pt'>
+  <td height=17 class=xl24 style='height:12.75pt'>&nbsp;</td>
+  <td class=xl26></td>
+ </tr>
+ <tr height=34 style='height:25.5pt'>
+  <td height=34 class=xl25 width=256 style='height:25.5pt;width:192pt'>Dados do
+  responsável pelo preenchimento do informe</td>
+  <td class=xl26></td>
+ </tr>
+ <tr height=17 style='height:12.75pt'>
+  <td height=17 class=xl25 width=256 style='height:12.75pt;width:192pt'>Nome</td>
+  <td class=xl26></td>
+ </tr>
+ <tr height=17 style='height:12.75pt'>
+  <td height=17 class=xl25 width=256 style='height:12.75pt;width:192pt'>Cargo/função</td>
+  <td class=xl26></td>
+ </tr>
+ <![if supportMisalignedColumns]>
+ <tr height=0 style='display:none'>
+  <td width=256 style='width:192pt'></td>
+  <td width=256 style='width:192pt'></td>
+ </tr>
+ <![endif]>
+</table>
+
+</body>
+
+</html>
