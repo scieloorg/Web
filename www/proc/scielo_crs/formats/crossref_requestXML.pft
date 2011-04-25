@@ -9,7 +9,7 @@
         fi
    fi
 ,'{'),
- '<doi_batch xmlns="http://www.crossref.org/schema/4.1.0" version="4.1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">',#
+ '<doi_batch xmlns="http://www.crossref.org/schema/4.3.0" version="4.3.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">',#
  '<head>',#
          '<doi_batch_id>',v9880,'</doi_batch_id>',#
    '<timestamp>',mid(replace(date,' ',''),0,14),'</timestamp>',#
