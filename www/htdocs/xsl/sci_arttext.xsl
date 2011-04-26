@@ -41,7 +41,6 @@
                             <meta name="citation_lastpage" content="{ISSUE/ARTICLE/@LPAGE}"/>
                             <meta name="citation_id" content="{ISSUE/ARTICLE/@DOI}"/>
 
-			    <xsl:apply-templates select="ISSUE/ARTICLE/REFERENCES"/>
 
                             <link rel="stylesheet" type="text/css" href="/css/screen.css"/>
                             <xsl:apply-templates select="." mode="css"/>
@@ -133,10 +132,6 @@
 				<xsl:value-of select="$translations/xslid[@id='sci_arttext']/text[@find='fulltext_only_in_pdf']"/>
 			</a>
 		</xsl:if>
-	</xsl:template>
-
-	<xsl:template match="REFERENCES/REFERENCE">
-                <meta name="citation_reference" content="citation_title={TITLE}; citation_author={AUTHORS};citation_journal_title={JOURNAL_TITLE};citation_volume={VOLUME};citation_pages={PAGE};citation_year={YEAR}"/>
 	</xsl:template>
 
 	<xsl:template match="*|text()" mode="body-content">

@@ -1,3 +1,6 @@
+v5.17
+Removed the citation reference
+
 v5.16
 Fix the URI of OAI full text
 Add templates files to send e-mail
