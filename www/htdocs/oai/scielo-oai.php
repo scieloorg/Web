@@ -56,7 +56,6 @@ $identifier = cleanParameter($identifier);
         global $metadataPrefix, $control, $set, $from, $until;
 
         if (! preg_match("/HR__S([0-9X]{4}-[0-9X]{4})[0-9]{13}:\\1?:((19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01]))?:(((19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01]))|$)/" , $resumptionToken ) and ! preg_match("/DTH__[0-9]{8}__([0-9X]{4}-[0-9X]{4})[0-9]{8}:\\1?:((19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01]))?:(((19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01]))|$)/" , $resumptionToken )){
-
 // preg_match("/DTH__[0-9]{8}__([0-9X]{4}-[0-9X]{4})[0-9]{8}:\\1?:((19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01]))?:(((19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01]))|$)/" , $resumptionToken );
             return false;
         }
@@ -230,6 +229,10 @@ $identifier = cleanParameter($identifier);
 				break;
 				}
 			}
+        
+        #workaround for fatal error in DOMDocument::loadXML() when XML have & character 
+        $response = preg_replace('/ & /', ' &amp; ', $response);
+
         if ( !$debug )
         {
             $transform = new XSLTransformerOAI();
@@ -245,6 +248,7 @@ $identifier = cleanParameter($identifier);
     	    }
 	        $result = $transform->getOutput();
         }
+        
 		
 	    return $result;
     }
@@ -407,10 +411,20 @@ $identifier = cleanParameter($identifier);
     {
         global $debug;
         $eds = "19090401";
+        $latest_datestamp = "20991230";
 
-        if (empty ($metadataPrefix )){
+        if ( empty($metadataPrefix) )
             $metadataPrefix = "oai_dc"; 
+
+        if ($from != '')
+            $from = substr($from, 0, 4) . substr($from, 5, 2) . substr($from, 8, 2);
+
+        if ($until != ''){
+            $until = substr($until, 0, 4) . substr($until, 5, 2) . substr($until, 8, 2);
+        }elseif ($from != ''){
+            $until = $latest_datestamp;
         }
+
         if (($until < $from) and ($until < $eds)){
             $result = '<error code="badArgument">The request specified a date one year before the earliestDatestamp given in the Identify response</error>';
         }else if ( !isset ( $metadataPrefix ) || empty ( $metadataPrefix )){
@@ -422,9 +436,6 @@ $identifier = cleanParameter($identifier);
     	}
     	else
     	{
-            if ( $from ) $from = substr ( $from, 0, 4 ) . substr ( $from, 5, 2 ) . substr ( $from, 8, 2 );
-
-            if ( $until ) $until = substr ( $until, 0, 4 ) . substr ( $until, 5, 2 ) . substr ( $until, 8, 2 );
 	        $parameters = array (
                 "set" => $set, 
                 "from" => $from, 
