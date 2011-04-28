@@ -1,4 +1,5 @@
-'<record>',#
+if ref(mfn-1,v91) > v1900 then
+  '<record>',#
     '<language>',ref(['LANG']l(['LANG']'LANG='v40),v1),'</language>',#
     '<publisher>',replace(replace(replace(ref(['Y']l(['Y']'LOC='v35),v480),'&','&amp;'),'<','&gt;'),'>','&lt;'),'</publisher>',#
     '<journalTitle>',replace(replace(replace(ref(['Y']l(['Y'],s('LOC=',v880*1.9)),v100),'&','&amp;'),'<','&gt;'),'>','&lt;'),'</journalTitle>',#
@@ -47,4 +48,5 @@
              (,|<keyword>|v85^k|</keyword>|/,)
         '</keywords>',#
     ,fi,
-'</record>',#
+  '</record>',#
+fi

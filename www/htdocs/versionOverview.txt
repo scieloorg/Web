@@ -1,7 +1,15 @@
+v5.16.r
+Removed the citation reference
+
 v5.16
 Fix the URI of OAI full text
+<<<<<<< HEAD
 #269 Na página do artigo no título do periódico colocar um link para sua home
 #270 Na home do periódico juntamente com os links das páginas secundarias, acrescentar um link para página externa do periódico, quando houver.
+=======
+Add templates files to send e-mail
+Add citation reference on SciELO sci_arttext.xis and sci_arttext.xsl 
+>>>>>>> 282011ae4bcf2a155e3c1b0bf77341062151c75f
 
 v5.15
 Alter the retorn of caracter set from UTF-8 to ISO-8859-1 on webservice. 

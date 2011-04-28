@@ -1,0 +1,10 @@
+`<?xml version="1.0" encoding="iso-8859-1"?>
+<query_batch version="2.0"
+       xsi:schemaLocation="http://www.crossref.org/qschema/2.0 http://www.crossref.org/qschema/crossref_query_input2.0.xsd"
+       xmlns="http://www.crossref.org/qschema/2.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+ <head>
+    <email_address>`,v9000,`</email_address>
+    <doi_batch_id>`,v9001,`</doi_batch_id>
+ </head>
+ <body>`,

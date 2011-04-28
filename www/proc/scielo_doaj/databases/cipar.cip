@@ -1,2 +1,3 @@
-Y.*=/home/fabiosantos/Applications/scielo/www/bases/title/title.*
-LANG.*=/home/fabiosantos/Applications/scielo/www/proc/scielo_doaj/databases/iso6932.*
+Y.*=/var/www/scielo_br/bases/title/title.*
+LANG.*=/var/www/scielo_br/proc/scielo_doaj/databases/iso6932.*
+LASTPROCESS="proc='a1900#20110301#'"
