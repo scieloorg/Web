@@ -140,6 +140,7 @@ show_fapesp_projects=0
 show_press_releases=0
 show_clinical_trials=0
 show_ref_links=1
+show_meta_citation_reference=1
 
 [services_group]
 show_group_article = 1
