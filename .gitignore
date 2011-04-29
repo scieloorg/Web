@@ -1,3 +1,5 @@
 bases/
 scielo.def.php
 wxis.exe
+*.pyc
+scielo-env/
