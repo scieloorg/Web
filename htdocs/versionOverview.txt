@@ -1,6 +1,10 @@
+v5.16.r
+Removed the citation reference
+
 v5.16
 Fix the URI of OAI full text
 Add templates files to send e-mail
+Add citation reference on SciELO sci_arttext.xis and sci_arttext.xsl 
 
 v5.15
 Alter the retorn of caracter set from UTF-8 to ISO-8859-1 on webservice. 
