@@ -331,10 +331,7 @@
 		<field action="replace" tag="705"><pft>f(instr(v703,'</P>'),1,0)</pft></field>
 		<field action="replace" tag="705"><pft>if val(v705)=0 then f(instr(v703,'<HR'),1,0) fi</pft></field>
 
-		<field action="replace" tag="3333"><pft>ref(['ARTIGO']l(['ARTIGO'],'R='v3330),@PROC_SPLIT_MST.PFT,' intitle:%22'v12^*'%22')</pft></field> <!--('%22author:'v10^n' ','author:'v10^s'%22'), colocar antes do intitle se quiser incluir autores no try google--> 
-		<field action="replace" tag="3334"><pft>ref(['ARTIGO']l(['ARTIGO'],'R='v3330),@PROC_SPLIT_MST.PFT,v12^*)</pft></field>    
 
-		
 		<display>
 			<pft>
 				 '<!-- ref -->'
@@ -368,7 +365,7 @@
   <pft>if  v8000='BODY' then ' ]]></BODY>'/ else '</fulltext>' fi</pft>
  </display>
  <label>NO_TEXT_AVAILABLE</label>
-
+ 
  <display>
   <pft>'</ARTICLE>'/'</ISSUE>'/</pft>
  </display>
