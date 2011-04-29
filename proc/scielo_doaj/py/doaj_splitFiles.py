@@ -3,6 +3,7 @@
 import os
 from lxml import etree
 from doaj_config import *
+import codecs
 
 size = 0
 
@@ -34,15 +35,15 @@ file_schema_path=proc_path+'/scielo_doaj/xsd/doajArticles.xsd'
 #mxStringb = '''iconv -f ISO-8859-1 -t UTF-8 %s/scielo_doaj/output/doaj/file.xml -o %s/scielo_doaj/output/doaj/file.utf.xml'''%(proc_path,proc_path)
 #os.popen(mxStringb)
 
-for myline in open(proc_path+'/scielo_doaj/output/doaj/file.xml'):
+for myline in codecs.open(proc_path+'/scielo_doaj/output/doaj/file.xml'):
     line_count+= 1
     if line_count == 1:
-        saida = open(file_path%file_count,'w')
-        log   = open(file_log_path%file_count,'w')
+        saida = codecs.open(file_path%file_count,'w','utf-8')
+        log   = codecs.open(file_log_path%file_count,'w','utf-8')
         escrever(saida,'<?xml version="1.0" encoding="utf-8" ?>')
         escrever(saida,'<records>')
     
-    escrever(saida,myline)
+    escrever(saida,myline.decode('iso-8859-1'))
     print "creating file %s with %s bytes"%(file_count,size)
 
     if size > max_file_size:
