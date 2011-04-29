@@ -4,6 +4,7 @@
 	<xsl:variable name="show_toolbox" select="//toolbox"/>
 	<xsl:variable name="show_login" select="//show_login"/>
 	<xsl:variable name="login_url" select="//loginURL"/>
+	<xsl:variable name="logout_url" select="//logoutURL"/>
 	<xsl:variable name="show_home_journal_evaluation" select="//show_home_journal_evaluation"/>
 	<xsl:variable name="show_home_scieloorg" select="//show_home_scieloorg"/>
 	<xsl:variable name="show_home_help" select="//show_home_help"/>
@@ -16,9 +17,10 @@
 	<xsl:template match="HOMEPAGE">
 		<html>
 			<head>
-				<title><xsl:value-of select="//SCIELOINFOGROUP/SITE_NAME" /></title>
+				<title>SciELO - Scientific electronic library online</title>
 				<meta http-equiv="Pragma" content="no-cache"/>
 				<meta http-equiv="Expires" content="Mon, 06 Jan 1990 00:00:01 GMT"/>
+                                <meta name="keywords" content="arquitectura, ciencias agrícolas, ciencias biológicas, ciencias de la salud, ciencias de la tierra, ciencias jurídicas, ciencias sociales, humanidades, ingeniería, matemáticas, oceanografía, química, ciencias exactas y de la tierra, ciencias sociales aplicadas, linguistica, letras y artes, abioth, actalit, agrtec, ainpat, aisthesis, alpha, amv, andgeol, arq, atenea, bcpar, bmchap, bosque, bres, bscq, cecon, chiljar, chungara, ciagr, cienf, cmoebio, eatacam, ede, efilolo, ejb, estconst, estped, eure, gayana, gbot, historia, idesia, ijmorphol, imar, infotec, ingeniare, iusetp, jcchems, jotmi, jtaer, lajar, lyl, maderas, magallamia, orl, parasitol, pd, polis, proy, psykhe, rca, rchcir, rcher, rchilder, rchilite, rchmnat, rchnp, rchnut, rchog, rchradiol, rci, rcp, rcsuelo, rdpucv, rehj, revbiomar, revcipol, revider, rfacinf, rfilosof, rgch, reong, ric, rla, rmc, rmusic, signos, terpsicol, tv, udecada, universum, acceso en linea, biblioteca cientifica, biblioteca electronica, ciencia y tecnologia, citas de revistas, coleccion cientifica, coleccion SciELO, CONICYT, estadisticas SciELO, informacion cientifica, literatura cientifica, produccion cientifica, red SciELO, revistas cientificas, revistas cientificas chilenas, SciELO, SciELO Chile" />
 				<xsl:if test="//NEW_HOME">
 					<xsl:variable name="X" select="//NEW_HOME"/>
 					<meta HTTP-EQUIV="REFRESH">
@@ -41,7 +43,7 @@
 </xsl:template>
 	<xsl:template match="CONTROLINFO">
 		<p align="center">
-			<a href="http://{.//SCIELO_REGIONAL_DOMAIN}/php/index.php?lang={LANGUAGE}">
+			<a href="http://www.scielo.org/php/index.php?lang={LANGUAGE}">
 				<img>
 					<xsl:attribute name="alt"><xsl:value-of select="$translations/xslid[@id='sci_home']/text[@find='img_alt']"/></xsl:attribute>
 					<xsl:attribute name="border">0</xsl:attribute>
@@ -57,6 +59,19 @@
 				</img>
 			</xsl:if>
 		</p>
+<div align="center">
+<!-- Google CSE Search Box Begins  -->
+<form action="http://www.scielo.cl/result.html" id="searchbox_002778039995109192455:mjmfr2dvt3c">
+  <input type="hidden" name="cx" value="002778039995109192455:mjmfr2dvt3c" />
+  <input type="hidden" name="cof" value="FORID:11" />
+  <input type="text" name="q" size="25" />
+  <input type="submit" name="sa" value="Search" />
+</form>
+<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=searchbox_002778039995109192455%3Amjmfr2dvt3c"></script>
+<!-- Google CSE Search Box Ends -->
+</div>
+<br />
+
 		<table border="0">
 			<tr>
 				<td width="205" valign="top" rowspan="2">
@@ -66,20 +81,25 @@
 						</xsl:apply-templates>
 					</xsl:if>
 					<xsl:if test="$show_home_scieloorg = 1">
-						<a href="http://{.//SCIELO_REGIONAL_DOMAIN}/php/index.php?lang={LANGUAGE}">
+						<a href="http://www.scielo.org/php/index.php?lang={LANGUAGE}">
 							<font class="linkado" size="-1">SciELO.org</font>
 						</a>
 						<br/>
 					</xsl:if>
 					<xsl:if test="$show_home_journal_evaluation = 1">
 						<a>
-							<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_DATA"/>avaliacao/avaliacao_<xsl:value-of select="LANGUAGE"/>.htm</xsl:attribute>
+							<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_DATA"/>criterios/<xsl:value-of select="LANGUAGE"/></xsl:attribute>
 							<font class="linkado" size="-1">
 								<xsl:value-of select="$translations/xslid[@id='sci_home']/text[@find='journal_evaluation']"/>
 							</font>
 						</a>
 						<br/>
 					</xsl:if>
+<a>
+<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_DATA"/>sr_scielocl</xsl:attribute>
+<font class="linkado" size="-1">procedimientos SciELO</font>
+</a><br/>
+
 					<br/>
 					<xsl:if test="//CONTROLINFO/LANGUAGE != 'pt'">
 						<a>
@@ -126,7 +146,7 @@
 						<br/>
 					</xsl:if>
 					<xsl:if test="$show_home_scielo_news = 1">
-						<a href="http://listas.bireme.br/mailman/listinfo/scieloi-l">
+						<a href="http://www.scielo.cl/news/">
 							<font class="linkado" size="1">
 								<xsl:value-of select="$translations/xslid[@id='sci_home']/text[@find='scielo_news']"/>
 							</font>
@@ -134,12 +154,12 @@
 						<br/>
 					</xsl:if>
 					<xsl:if test="$show_home_scielo_team = 1">
-						<a>
+						<!--a>
 							<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_DATA"/>equipe/equipe_<xsl:value-of select="$translations/xslid[@id='sci_home']/text[@find=$interfaceLang]"/>.htm</xsl:attribute>
 							<font class="linkado" size="-1">
 								<xsl:value-of select="$translations/xslid[@id='sci_home']/text[@find='scielo_team']"/>
 							</font>
-						</a>
+						</a-->
 						<br/>
 					</xsl:if>
 				</td>
@@ -343,6 +363,13 @@
 		<xsl:if test="$STATUS = 'login'">
 			<p>
 				<xsl:value-of select="$translations/xslid[@id='sci_home']/text[@find='welcome']"/>: <xsl:value-of select="."/>
+			</p>
+			<p>
+				<a href="http://{$SCIELO_REGIONAL_DOMAIN}/{$logout_url}">
+					<span>
+						<xsl:value-of select="$translations/xslid[@id='sci_home']/text[@find='logout']"/>
+					</span>
+				</a>
 			</p>
 		</xsl:if>
 	</xsl:template>

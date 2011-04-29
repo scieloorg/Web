@@ -64,20 +64,7 @@
 											</xsl:call-template>
                                             <xsl:value-of select="$translations/xslid[@id='sci_stat']/text[@find='journal_requests']"/>
 										</a>
-									</li>														
-									<xsl:if test="//CONTROLINFO/SCIELO_INFO/ENABLE_ARTICLE_LANG_LINK=1">			
-									<li>
-										<a>
-											<xsl:call-template name="AddScieloLogLink">
-												<xsl:with-param name="script">sci_journalstatlang</xsl:with-param>
-												<xsl:with-param name="app" select="//CONTROLINFO/APP_NAME"/>
-												<xsl:with-param name="server" select="//CONTROLINFO/SCIELO_INFO/SERVER"/>
-											</xsl:call-template>
-                                            <xsl:value-of select="$translations/xslid[@id='sci_stat']/text[@find='article_requests_lang']"/>
-										</a>
 									</li>
-									</xsl:if>
-																
 									<li>
 										<a>
 											<xsl:call-template name="AddScieloLogLink">
@@ -102,6 +89,27 @@
 											</a>
 										</li>
 									</xsl:if>
+<li>
+    <a>
+      <xsl:attribute name="href">http://<xsl:value-of select="CONTROLINFO/SCIELO_INFO/SERVER"/>/estadisticas</xsl:attribute>
+      <xsl:choose>
+          <xsl:when test=" CONTROLINFO/LANGUAGE='en' ">Use of the site</xsl:when>
+          <xsl:when test=" CONTROLINFO/LANGUAGE='pt' ">Acessos uso do site</xsl:when>
+          <xsl:when test=" CONTROLINFO/LANGUAGE='es' ">Acceso uso del sitio</xsl:when>
+      </xsl:choose>
+    </a>
+</li>
+<li>
+    <a>
+      <xsl:attribute name="href">http://<xsl:value-of select="CONTROLINFO/SCIELO_INFO/SERVER"/>/estadisticas/datos</xsl:attribute>
+      <xsl:choose>
+          <xsl:when test=" CONTROLINFO/LANGUAGE='en' ">Most visited Articles</xsl:when>
+          <xsl:when test=" CONTROLINFO/LANGUAGE='pt' ">Mais visitados Artigos</xsl:when>
+          <xsl:when test=" CONTROLINFO/LANGUAGE='es' ">Artículos más vistados</xsl:when>
+      </xsl:choose>
+    </a>
+
+</li>
 								</ul>
 							</blockquote>
 						</td>
