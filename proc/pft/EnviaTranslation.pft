@@ -1,0 +1,17 @@
+#
+'dir'/
+'lcd bases'/
+'lcd translation/',v1,'/',v2/
+'pwd'/
+'mkdir bases/translation/'/
+'cd bases/translation/'/
+'mkdir',x1,v1/
+'mkdir',x1,v1,'/',v2/
+'pwd'/
+'cd',x1,v1,'/',v2/
+'asc'/
+'mput *.h*'/
+'mput *.H*'/
+'pwd'/
+'cd ../../../../'/
+'lcd ..\..\..\..'/
