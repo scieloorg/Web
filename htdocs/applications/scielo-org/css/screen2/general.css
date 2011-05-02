@@ -1,0 +1,69 @@
+/* 
+	This file replace some HTML styles descriptions,
+	you will find here used fonts, background and others replaced definitions.
+*/
+
+BODY {
+	margin: 0px 10px 0px 10px;
+	background: #F8F8F8;
+	color: black;
+}
+
+FORM {
+	margin: 0px;
+	padding: 0px;
+}
+
+BODY, INPUT, TEXTAREA, SELECT {
+	font-family: Arial, Verdana;
+	font-size: 82%;
+}
+
+HTML>BODY, HTML>BODY INPUT, HTML>BODY TEXTAREA,  HTML>BODY SELECT { /* Mozilla exclusive definitions */
+	font-size: 82%;
+}
+
+TEXTAREA, SELECT {
+	font-size: 90%;
+}
+
+H1, H2, H3 {
+	font-family: Trebuchet MS, Arial;
+}
+
+H3 {
+	font-size: 110%;
+}
+
+HTML>BODY H3 { /* Mozilla exclusive definitions */
+	font-size: 140%;
+}
+
+HTML>BODY H4 { /* Mozilla exclusive definitions */
+	font-size: 130%;
+}
+
+HTML>BODY H5 { /* Mozilla exclusive definitions */
+	font-size: 100%;
+}
+
+A {
+	color: black;
+	text-decoration: none;
+}
+
+A:hover {
+	text-decoration: underline;
+	
+}
+
+A IMG {
+	border: 0px;
+}
+
+UL LI {
+	list-style: none;
+	margin: 0px 0px 5px 0px;
+	font-size: 95%;
+}
+

@@ -1,0 +1,188 @@
+
+'<tr>
+	<td>
+	 <a name="#',v200,'"> </a>'
+	 ,if v706 = 'i' then,	 		 	
+	 	,proc('d5201',		
+		 	,(if s(v200^k)*0.1='h' then,		
+				,'a5201|',
+			 	 ,ref(['DATABASE']l(['INVERTED']'KO=',v2[1],v200^k),			
+	  				,'^p',v700,'^a',v202| |,v201,| - |v208^*,
+				 ,),
+				 '^c',v200^k,
+				,'|',			
+			,fi),		
+		,),	
+		,proc('d5200a5200|',v6205^l[1],'|')
+		,if nocc(v5201) > 1 then,			
+			,'<font size="+1">Table of Contents</font>',
+			,(,
+				,proc('d9800d9801'
+					  ,'a9800|',f(val(v5201^p)/val(v5008[1]),1,2),'|',
+              	      ,'a9801|',f((val(v1002[1])/val(v5008[1]))+1,1,2),'|'
+				,),				
+				,'<p class="item" align="left">',
+				,`<a href="javascript:void(goPage('`,f(val(left(v9800[1],instr(v9800[1],'.')-1))+1,1,0),`','`v5201^c`'))">`,
+				,v5201^a,
+				,'</a>',				
+				' - ',f(val(left(v9800[1],instr(v9800[1],'.')-1))+1,1,0),'/',v5200[1]
+				'</p>',/			
+			,),
+		,fi,		
+	 ,fi,	 
+	 
+	 
+ 	 ,if v706='f' or v706='b' then
+         ,'<p class="article" align="lef">',
+     ,fi,
+     ,if v204='larticle' then
+         ,'<p class="article" align="left">',
+     ,fi,
+     ,if v204='paragrap' then
+         ,'<p class="paragraph" align="left">',
+     ,fi,
+     ,if v204='interpro' then
+         ,'<p class="roman" align="left">',
+     ,fi,
+     ,if v204='letter' then
+         ,'<p class="letter" align="left">',
+     ,fi,
+     ,if v204='item' then
+         ,'<p class="item" align="left">',
+     ,fi,
+     ,if v204='part' then
+         ,'<p class="title" align="left">',
+     ,fi,
+     ,if v204='body' then
+         ,'<p class="article" align="left">',
+     ,fi,
+     ,if v204='attach' then
+         ,'<p class="article" align="left">',
+     ,fi,
+	 
+	 ,if p(v203) then
+      ,(if p(v203^p) then
+              ,v203^p| |,
+         ,fi,
+         ,if p(v203^n) then
+             ,v203^n| |,
+         ,fi,
+         ,if p(v203^b) then
+             ,v203^b| |,
+         ,fi,
+         ,if p(v203^l) then
+             ,v203^l| |,
+         ,fi,
+		 
+ 		 ,if p(v203^r) then
+		 	,'<a href="#',v203^r,'">',v203^7,'</a> ',
+		 ,fi			 
+		 ,if p(v203^f) then
+			 ,'<br><a name="',v203^z,'"><img src="',v5022[1],v203^9,'"></a><br>',
+             ,v203^1| - |,v203^2| - |,v203^3,
+         ,fi,		 
+         ,if p(v203^x) then
+             ,'<a href="#',v203^x,'">',v203^8,'</a> ',
+         ,fi       
+  		 ,if p(v203^g) then
+		 	 ,'<a name="',v203^y,'">',cat(v5000^b[1]'tbl/',v4[1],'/',v203^g),'</a>',
+			 ,v203^4| - |,v203^5| - |,v203^6,
+		 ,fi		 		 
+		 ,if p(v203^q) then
+		 	 ,'<br><br>',
+		 ,fi),
+     ,fi,
+	 
+	 
+     ,if p(v210) then
+         ,(if p(v210^p) then
+              ,v210^p| |,
+         ,fi,
+         ,if p(v210^e) then
+             ,v210^e|<br>|,
+         ,fi,
+         ,if p(v210^s) then
+             ,v210^s|<br>|,
+         ,fi,
+         ,if p(v210^a) then
+             ,v210^a| |,
+         ,fi,
+         ,if p(v210^i) then
+             ,v210^i|<br>|,
+         ,fi,
+         ,if p(v210^n) then
+             ,v210^n| |,
+         ,fi,
+         ,if p(v210^b) then
+             ,v210^b| |,
+         ,fi,
+         ,if p(v210^l) then
+             ,v210^l| |,
+         ,fi,
+  		 ,if p(v210^r) then
+		 	,'<a href="#',v210^r,'">',v210^7,'</a> ',
+		 ,fi			 
+		 ,if p(v210^f) then
+			 ,'<br><a name="',v210^z,'"><img src="',v5022[1],v210^9,'"></a><br>',
+             ,v210^1| - |,v210^2| - |,v210^3,
+         ,fi,		 
+         ,if p(v210^x) then
+             ,'<a href="#',v210^x,'">',v210^8,'</a> ',
+         ,fi       
+  		 ,if p(v210^g) then
+		 	 ,'<a name="',v210^y,'">',cat(v5000^b[1]'tbl/',v4[1],'/',v210^g),'</a>',
+			 ,v210^4| - |,v210^5| - |,v210^6,
+		 ,fi		 
+		 ,if p(v210^q) then
+		 	 ,'<br><br>',
+		 ,fi),
+     ,fi,
+	 
+	 ,if p(v211) then
+         ,(if p(v211^p) then
+              ,v211^p|<br>|,
+         ,fi,
+         ,if p(v211^a) then
+             ,v211^a|<br>|,
+         ,fi,
+         ,if p(v211^o) then
+             ,v211^o|<br>|,
+         ,fi,
+         ,if p(v211^i) then
+             ,v211^i|<br>|,
+         ,fi,
+         ,if p(v211^n) then
+             ,v211^n| |,
+         ,fi,
+         ,if p(v211^b) then
+             ,v211^b| |,
+         ,fi,
+         ,if p(v211^l) then
+             ,v211^l| |,
+         ,fi,
+		 
+  		 ,if p(v211^r) then
+		 	,'<a href="#',v211^r,'">',v211^7,'</a> ',
+		 ,fi			 
+		 ,if p(v211^f) then
+			 ,'<br><a name="',v211^z,'"><img src="',v5022[1],v211^9,'"></a><br>',
+             ,v211^1| - |,v211^2| - |,v211^3,
+         ,fi,		 
+         ,if p(v211^x) then
+             ,'<a href="#',v211^x,'">',v211^8,'</a> ',
+         ,fi       
+   		 ,if p(v211^g) then
+		 	 ,'<a name="',v211^y,'">',cat(v5000^b[1]'tbl/',v4[1],'/',v211^g),'</a>',
+			 ,v211^4| - |,v211^5| - |,v211^6,
+		 ,fi		 
+		 ,if p(v211^q) then
+		 	 ,'<br><br>',
+		 ,fi),
+     ,fi,
+
+     ,if p(v208) then
+        ,'<br>',v208,
+     ,fi,
+     ,'</p>',  
+	'</td>
+</tr>'

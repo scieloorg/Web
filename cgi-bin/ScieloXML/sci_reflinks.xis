@@ -1,0 +1,191 @@
+<!--
+
+IsisScript que gera o XML Para a tela de links da referencia bibliografica
+
+-->
+<IsisScript name="sci_reflinks">
+	
+	<include>ScieloXML/sci_common.xis</include>
+
+<section>
+	<field action="cgi" tag="3000">lng</field>
+	<field action="cgi" tag="3001">nrm</field>
+	<field action="cgi" tag="3002">pid</field>
+	<field action="cgi" tag="3003">sln</field>
+	<field action="cgi" tag="3010">debug</field>
+	<field action="cgi" tag="3011">def</field>
+	<field action="cgi" tag="3012">tlng</field> <!-- fixed -->
+	<!-- 
+	se o texto � proveniente do xml do pubmed central, 
+	h� no xml da referencia elementos para doi e pmid,
+	que seriam dados para gerar links respectivamente para 
+	CrossRef e PubMed, assim podem chegar via parametros cgi 
+	-->
+	<field action="cgi" tag="9350">pmid</field> 
+	<field action="cgi" tag="9351">medline_db</field> 
+	<field action="cgi" tag="9352">doi</field> 
+	
+	<field action="replace" tag="3011"><pft>if a(v3011) then 'scielo.def.php' fi</pft></field>
+
+	<call name="DebugMode"><pft>if a(v3010) then 'OFF' else mpu,v3010,mpl fi</pft></call>
+
+	<include>ScieloXML/sci_cipar.xis</include>	
+
+	<field action="replace" tag="3002"><pft>mpu,v3002,mpl</pft></field>
+										      
+	<display><pft>'<root>'/#</pft></display>
+
+
+	<!-- 
+	se o texto � proveniente do xml do pubmed central, 
+	h� no xml da referencia elementos para doi e pmid,
+	que seriam dados para gerar links respectivamente para 
+	CrossRef e PubMed, assim podem chegar via parametros cgi 
+	OU ainda serem recuperados dos registros das refer�ncias nos campos v350 e v352 
+	que s�o pmid e doi, respectivamente, obtidos do xml do pubmed central.
+	Em suma, se n�o vierem via cgi, podem ser recuperados dos registros c ou r.
+	Mas, se ainda, n�o existirem, � poss�vel que esses dados estejam ou na NLINKS ou na base DOI
+	-->
+	<field action="replace" tag="9350"><pft>if a(v9350) and a(v9351) then ref(['ARTIGO']l(['ARTIGO'],'R='v3002),@PROC_SPLIT_MST.PFT,v350) else v9350,'^a'v9351 fi</pft></field>
+	<field action="replace" tag="9352"><pft>if a(v9352) then ref(['ARTIGO']l(['ARTIGO'],'R='v3002),@PROC_SPLIT_MST.PFT,v352) fi</pft></field>
+
+   <do task="search">
+    <parm name="db">NLINKS</parm>
+    <parm name="expression"><pft>v3002</pft></parm>
+
+    <field action="define" tag=1001>Isis_Current</field>
+    <field action="define" tag=1002>Isis_Total</field>
+    <field action="define" tag=1003>Isis_Status</field>
+    <loop>	
+	 	
+		<!-- inicio - importa dados do pubmed -->
+ 		<field action="import" tag="list">9350</field>
+		<field action="replace" tag="350"><pft>if a(v350) then v9350 fi</pft></field>
+		<!-- fim - importa dados do pubmed -->
+
+		<flow action="skip"><pft>if a(v2) and a(v3) and a(v4) and a(v350) and a(v881)  and a(v999) then 'Quit' fi</pft></flow>
+ 	 <field action="import" tag="list">3002,3000,7009/7060</field>
+
+		<field action="add" tag="9999" split="occ"><pft>
+          (if v999^u<>'' then '<a href="',v999^u,'">',v999^l,'</a>'/ fi)
+          </pft></field>
+		 <!-- MINISTERIO DA SAUDE  [alekenji20050413]-->
+		 <field action="replace" tag="9994">
+		  <pft>
+		   if p(v4) then
+		   '<a href="http://coleciona-sus.bvs.br/cgi-bin/wxis1660.exe/lildbi/iah/?IsisScript=lildbi/iah/iah.xic&nextAction=lnk&base=',
+			mpu,v4^a,mpl,'&exprSearch='v4^*'&indexSearch=ID&lang=p" target="_blank">Coleciona-SUS</a>'		
+		   fi
+		  </pft>
+		 </field>
+
+		 <!-- MEDLINE -->
+		 <field action="replace" tag="9995">
+		  <pft>
+		  ,if p(v350) then
+			   ,if p(v350^a) then
+		   
+				,'<a href="http://'v7027,v7028,v7030'?IsisScript='v7029'iah.xis&nextAction=lnk&base=',
+			mpu,v350^a,mpl,'&exprSearch='v350^*'&indexSearch=UI&lang='
+			   select s(v3000)	
+				case 'es': 'e'
+				case 'en': 'i'
+				case 'pt': 'p'
+			   endsel
+				'" target="_blank">Medline</a>',
+				,else
+					,'<a href="http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?cmd=Retrieve&db=PubMed&dopt=abstract&list_uids=',v350^*,'" target="_blank">Medline</a>',
+				,fi
+		   ,fi
+		  </pft>
+		 </field>
+		 
+		 <!-- LILACS -->
+		 <field action="replace" tag="9996">
+		  <pft>
+		   if p(v2) then
+		   '<a href="http://'v7023,v7024,v7026'?IsisScript='v7025'iah.xis&nextAction=lnk&base=',
+			mpu,v2^a,mpl,'&exprSearch='f(val(v2^*),1,0),'&indexSearch=ID&lang='
+			select s(v3000)	
+				case 'es': 'e'
+				case 'en': 'i'
+				case 'pt': 'p'
+			endsel
+			'" target="_blank">Lilacs</a>'		
+		   fi
+		  </pft>
+		 </field>
+				 
+		 <!-- ADOLEC -->
+		 <field action="replace" tag="9997">
+		  <pft>
+		   if p(v3) then
+		   '<a href="http://'v7031,v7032,v7034'?IsisScript='v7033'iah.xis&nextAction=lnk&base=',   
+		   mpu,v3^a,mpl,'&exprSearch=',f(val(v3^*),1,0),'&indexSearch=ID&lang='
+			select s(v3000)	
+				case 'es': 'e'
+				case 'en': 'i'
+				case 'pt': 'p'
+			 endsel
+			'" target="_blank">Adolec</a>'		
+		   fi
+		  </pft>
+		 </field>
+		 
+		 <!-- SCIELO -->
+		 <field action="replace" tag="9998"><pft>
+		  if p(v881) then
+		  '<a href="http://'v7009,v7013,'scielo.php?script=sci_arttext&pid='mpu,v881^*,mpl,
+		  '&lng=',v3000,'" target="_blank">SciELO</a>'
+		  fi</pft>
+		 </field>
+
+
+		<field action="export" tag="list">9994/9999</field>
+    </loop>
+   </do>
+   <file action="close" type="database">NLINKS</file>
+ 
+
+   <field action="replace" tag="3333"><pft>ref(['ARTIGO']l(['ARTIGO'],'R='v3002),@PROC_SPLIT_MST.PFT,(' author:',v10^n,' OR author:',v10^s,' OR '))</pft></field> <!--('%22author:'v10^n' ','author:'v10^s'%22'), colocar antes do intitle se quiser incluir autores no try google--> 
+   <field action="replace" tag="3334"><pft>ref(['ARTIGO']l(['ARTIGO'],'R='v3002),@PROC_SPLIT_MST.PFT,v12^*)</pft></field>    
+   <field action="replace" tag="3335"><pft>ref(['ARTIGO']l(['ARTIGO'],'R='v3002),@PROC_SPLIT_MST.PFT,v18^*)</pft></field>    
+   
+	<!--field action="import" tag="9800">9800</field--> 
+	
+	<!-- Montando o CrossRef -->
+	<!-- A fun��o getDOILink seria mais ou menos em uma linguagem normal assim
+
+	String getDOILink(String PID);
+
+	ela retorna uma String com o link na variavel v9999 ou tag="9999" segundo a sci_common.xis
+	e o parametro � a variavel v3002 que o pid na defini��o l� em cima
+	-->
+
+	<!-- Se o doi vier via cgi ou existir no registro c ou r n�o h� necessidade de consultar a base doi -->
+	<call name="getDOILink"><pft>if a(v9352) then v3002 fi</pft></call>
+	<field action="replace" tag="9999"><pft>if p(v9352) then '<a href="http://dx.doi.org/',v9352,'">CrossRef</a>' fi</pft></field>
+	
+	
+
+<display>
+    <pft>
+    	'<vars>',/
+	        "<lang>"v3000"</lang>",/
+		'</vars>',/
+        "<ref_PID><![CDATA["v3002"]]></ref_PID>",/
+        '<ref_TITLE><![CDATA[',v3333,' ',v3334,' ',v3335,']]></ref_TITLE>',/
+		'<TITLE><![CDATA[',v3334,' ',v3335,']]></TITLE>',/
+        "<medline><![CDATA["v9995"]]></medline>",/
+        "<lilacs><![CDATA["v9996"]]></lilacs>",/
+        "<adolec><![CDATA["v9997"]]></adolec>",/
+        "<scielo><![CDATA["v9998"]]></scielo>",/
+		"<crossref><![CDATA["v9999"]]></crossref>",/
+
+    </pft>
+</display>
+
+		<display><pft>'</root>'/#</pft></display>
+	</section>
+	
+</IsisScript>

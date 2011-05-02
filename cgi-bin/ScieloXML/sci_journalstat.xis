@@ -1,0 +1,157 @@
+<IsisScript>
+
+	<include>ScieloXML/sci_common.xis</include>
+
+    <section>
+	
+	<field action="cgi" tag="3000">lng</field>
+	<field action="cgi" tag="3001">nrm</field>
+	<field action="cgi" tag="3002">table</field> 	
+    <!-- Format of the table:
+       1st Line  : Error code
+       2nd Line  : Log Start Date
+       3rd Line  : Last Log Date
+       from 4th  : Query result 
+    -->
+	<field action="cgi" tag="3003">sln</field>
+	<field action="cgi" tag="3004">pid</field>
+	<field action="cgi" tag="3005">order</field>
+	<field action="cgi" tag="3006">dti</field>
+	<field action="cgi" tag="3007">dtf</field>
+	<field action="cgi" tag="3008">access</field>
+	<field action="cgi" tag="3010">debug</field>	
+	<field action="cgi" tag="3011">def</field>
+
+	<field action="replace" tag="3004"><pft>mpu,v3004,mpl</pft></field>
+	<field action="replace" tag="3005"><pft>if a(v3005) then '1' fi</pft></field>
+    
+	<call name="DebugMode"><pft>if a(v3010) then 'OFF' else mpu,v3010,mpl fi</pft></call>
+	
+	<include>ScieloXML/sci_cipar.xis</include>
+
+	<field action="replace" split="occ" tag="3002"><pft>v3002</pft></field>
+
+    <!-- Invalid ISSN -->
+    <call name="CreateErrorXML">
+		<pft>
+			if p(v3004) and l(['TITLE'],'LOC='v3004) <= 0 then
+				'^l', v3000, '^p', v3004, '^c0001'
+			fi
+		</pft>
+    </call>
+    
+    <!-- Error code -->    
+	<field action="occ" tag="4000" from="3002">1</field>
+    <field action="delete" tag="3002">1</field>
+    
+    <call name="CreateMySQLErrorXML">
+        <pft>
+            if val(v4000) <> 0 then
+                '^l', v3000, '^e', v4000
+            fi
+        </pft>
+    </call>
+
+    <!-- Start date -->
+	<field action="occ" tag="4001" from="3002">1</field>
+    <field action="delete" tag="3002">1</field>
+
+    <!-- Current date -->
+	<field action="occ" tag="4002" from="3002">1</field>
+    <field action="delete" tag="3002">1</field>
+    <!--display><pft>ALL</pft></display-->
+  
+	<display>
+        <pft>
+            '<JOURNALSTAT>',/
+        </pft>
+    </display>
+    
+    <call name="CreateStatParamXML">
+        <pft>
+            |^s|v4001, 
+            |^c|v4002, 
+            if a(v3004) and nocc(v3002) > 1 then '^o',v3005 fi,
+            |^i|v3006, 
+            |^f|v3007,
+            |^a|v3008
+        </pft>
+    </call>
+	
+	<call name="CreateControlInfoXML">
+		<pft>'^l'v3000,'^s'v3001,'^i',v3003,'^fsci_journalstat'</pft>
+	</call>
+	
+    <display>
+        <pft>
+            if a(v3004) then ' <LIST>'/, fi
+        </pft>
+    </display>
+
+    <flow action="jump"><pft>if nocc(v3002) = 0 then 'FOOTER' fi</pft></flow>
+
+    <do>
+        <parm name="count"><pft>f(nocc(v3002),1,0)</pft></parm>
+        <field action="define" tag="1001">Isis_Current</field>
+        
+        <loop>
+            <field action="import" tag="list">3002,3004</field>
+            <field action="occ" tag="1002" from="3002"><pft>v1001</pft></field>
+            
+            <do task="search">
+                <parm name="db">TITLE</parm>
+                <parm name="expression"><pft>'LOC='v1002^i</pft></parm>
+                <parm name="count">1</parm>
+                <loop>
+                    <field action="import" tag="list">1002,3004</field>
+                    <display>
+                        <pft>
+            			' <JOURNAL STARTDATE="', v942, '">'/,
+                        </pft>
+                    </display>
+                    
+                    <flow action="jump"><pft>if p(v3004) then 'TITLEGROUP' fi</pft></flow>
+
+                    <display><pft>'  <TITLE><![CDATA[',v150,']]></TITLE>'/</pft></display>
+                    <flow action="jump">HITS</flow>
+                    
+                    <label>TITLEGROUP</label>
+                    <call name="CreateTitleGroupXML"><pft>mfn</pft></call>
+                    <call name="CreateISSN4IDXML"><pft>mfn</pft></call>
+                    <call name="CreateISSN4TITLEXML"><pft>mfn</pft></call>
+
+                    <label>HITS</label>
+                                        
+                    <display>
+                        <pft>
+			            '  <HOMEPAGE>',f(val(v1002^h),10,0),'</HOMEPAGE>'/
+            			'  <ISSUETOC>',f(val(v1002^t),10,0),'</ISSUETOC>'/
+			            '  <ARTICLES>',f(val(v1002^a),10,0),'</ARTICLES>'/
+            			'  <OTHERS>',f(val(v1002^o),10,0),'</OTHERS>'/
+                        ' </JOURNAL>'/
+                        </pft>
+                    </display>
+                </loop>
+            </do>
+        </loop>
+    </do>
+
+    <label>FOOTER</label>
+
+    <display>
+        <pft>
+            if a(v3004) then ' </LIST>'/, fi
+        </pft>
+    </display>
+        	
+    <call name="CreateScieloCopyInfoXML">Now</call>
+    
+    <display>
+        <pft>
+            '</JOURNALSTAT>'/,
+        </pft>
+    </display>
+    
+	</section>
+
+</IsisScript>

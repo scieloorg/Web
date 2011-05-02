@@ -1,0 +1,346 @@
+[pft]@AHHEAD.PFT[/pft]
+
+<link rel="stylesheet" href="/estilo.css">
+
+
+
+<form action="[pft]replace(getenv('SCRIPT_NAME'),'wxislind','wxis')v5000^d[/pft]" method="POST">
+
+	[pft]@AHHIDD.PFT[/pft]
+
+	<input type=hidden name="nextAction" value="access scad">
+
+	<center>
+
+    <table border="0" width="600" cellspacing="0" cellpadding="0">
+
+        <tr>
+
+          <td width="3%">&nbsp;</td>
+
+          <td width="97%" valign="top"> 
+
+            <table border="0" width="100%" cellspacing="0" cellpadding="0">
+
+              <tr> 
+
+                <td width="100%" align="center"> 
+
+                  <div align="left"><font color="#000000" face="Arial"> 
+				  <img src="[pft]v5002[/pft]logoscad.gif" alt="SCAD" align="bottom" >
+				  <small>
+                    </small></font><font color="#003366" class="titulo">Servi&ccedil;o 
+                    Cooperativo de Acesso a Documentos</font>	
+                    </small></strong></small></font> 
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+
+                      <tr>
+
+                        <td width="70%"><font color="#003366" face="Arial"><small><strong><small class="titulo"><br>
+
+                          </small></strong></small></font> <a href="http://www.bireme.br/bvs/P/pcada.htm" class="menubvs"><img src="/bvs/images/pointer.gif" width="8" height="9" border="0"></a>&nbsp;<a href="http://www.bireme.br/bvs/P/pcada.htm" class="menubvs">Registro 
+
+                          de usu&aacute;rio</a><br>
+
+						  <a href="http://www.bireme.br/cadan/recada.htm" class="menubvs"><img src="/bvs/images/pointer.gif" width="8" height="9" border="0"></a>&nbsp;<a href="http://www.bireme.br/cadan/recada.htm" class="menubvs">Atualiza&ccedil;&atilde;o de dados cadastrais</a><br>
+
+                          <a href="http://www.bireme.br/bvs/P/pnorm.htm" class="menubvs"><img src="/bvs/images/pointer.gif" width="8" height="9" border="0"></a>&nbsp;<a href="http://www.bireme.br/bvs/P/pnorm.htm" class="menubvs">Normas 
+
+                          e procedimentos</a><br>
+
+                          <a href="http://www.bireme.br/bvs/P/psobre.htm" class="menubvs"><img src="/bvs/images/pointer.gif" width="8" height="9" border="0"></a>&nbsp;<a href="http://www.bireme.br/bvs/P/psobre.htm" class="menubvs">Sobre 
+
+                          o SCAD</a><br>
+
+                          <a href="http://www.bireme.br/bvs/P/pcusto.htm" class="menubvs"><img src="/bvs/images/pointer.gif" width="8" height="9" border="0"></a>&nbsp;<a href="http://www.bireme.br/bvs/P/pcusto.htm" class="menubvs">Pre&ccedil;o 
+
+                          do servi&ccedil;o</a><br>
+
+                          <a href="http://www.bireme.br/bvs/P/pcusto.htm" class="menubvs"><img src="/bvs/images/pointer.gif" width="8" height="9" border="0"></a>&nbsp;<a href="http://www.bireme.br/bvs/P/pfatura.htm" class="menubvs">Pagamento 
+
+                          de fatura/boleto</a><br>
+
+                          <a href="http://www.bireme.br/bvs/P/pcusto.htm" class="menubvs"><img src="/bvs/images/pointer.gif" width="8" height="9" border="0"></a>&nbsp;<a href="http://www.bireme.br/bvs/P/peletron.htm" class="menubvs">Envio 
+
+                          via e-mail e Ariel</a><br>
+
+                          <a href="http://www.bireme.br/bvs/P/newspt.htm" class="menubvs"><img src="/bvs/images/pointer.gif" width="8" height="9" border="0"></a>&nbsp;<a href="http://www.bireme.br/bvs/P/newspt.htm" class="menubvs">Not&iacute;cias</a><br>
+
+                        </td>
+
+                        <td width="30%"> 
+
+                          <div align="center"></div>
+
+                        </td>
+
+                      </tr>
+
+                    </table>
+
+                    
+
+                  </div>
+
+                </td>
+
+              </tr>
+			  <tr>
+			  	<td>
+				[pft]
+				if s(v5013) <> 'GUEST' then
+				   '<font face="arial" size="2" color="red">'
+
+					if p(v5013^b) then							
+						ref(['MSGS_3']l(['MSGS_3']'MENU'),v3[20])  /* usuario bloqueado */
+					else	
+						'<center><b>Código ou senha inválida!</b></center>'
+					fi
+				fi	
+				[/pft] 
+
+				
+				</td>		  
+			  </tr>		  
+
+              <tr> 
+
+                <td> 
+
+                    <div align="center"> 
+
+                      <center>
+
+                        <div align="left">
+
+                          <table border="0" style="font-family: Arial" cellspacing="0"      cellpadding="0" width="79%">
+
+                            <tr> 
+
+                              <td align="right" style="font-family: Arial" width="23%"><small><font face="Arial">Código:</font></small></td>
+
+                              <td width="28%"> 
+
+                                <input type="text" size="17" name="user">
+
+                              </td>
+
+                              <td width="49%">&nbsp; </td>
+
+                            </tr>
+
+                            <tr> 
+
+                              <td align="right" style="font-family: Arial" width="23%"><small><font face="Arial">Senha:</font></small></td>
+
+                              <td width="28%"> 
+
+                               <input type="password" size="17" name="userPassword">
+
+                              </td>
+
+                              <td width="49%"> 
+
+                                <div align="center"> 
+
+                                  <input src="/bvs/P/images/pentra.gif" type="image" border="0" value="Entra" width="77" height="22">
+
+                                </div>
+
+                              </td>
+
+                            </tr>
+
+                          </table>
+
+                          
+
+                        </div>
+
+                      </center>
+
+                    </div>
+
+                  </form>
+
+                </td>
+
+              </tr>
+
+              <tr> 
+
+                <td height="20"><font face="Verdana, Arial, Helvetica, sans-serif" size="2"><br>
+
+                  <i><a href="http://www.bireme.br/bvs/P/lei9610.htm">De acordo com a Lei N&ordm; 9.610, 
+
+                  de 19 de fevereiro de 1998, est&atilde;o proibidas as reprodu&ccedil;&otilde;es 
+
+                  e todas as formas de difus&atilde;o em rede, mesmo que parcial 
+
+                  de qualquer artigo ou documento obtido atrav&eacute;s do SCAD.</a></i></font></td>
+
+              </tr>
+
+              <tr> 
+
+                <td rowspan="3"> 
+
+                  <p align="left">&nbsp; </p>
+
+                  <p>
+
+                </td>
+
+              </tr>
+
+              <tr> </tr>
+
+              <tr> </tr>
+
+            </table>
+
+          </td>
+
+        </tr>
+
+      </table>
+
+	
+
+	
+
+<!--	
+
+	<font face="verdana" size="2">	
+
+	<b>Serviço Cooperativo de Acesso a Documentos</b><br><br>
+
+	<font color="red">Atenção:</font> Antes de entrar no SCAD veja a <a href="http://www.bireme.br/bvs/P/pcusto.htm">tabela de preços</a> e as <a href="http://www.bireme.br/bvs/P/pnorm.htm">normas e procedimentos</a> do serviço.
+
+	</font>	
+
+	</center>
+
+	<br>
+
+	[pft]
+
+		if s(v5013) <> 'GUEST' then
+
+			'<table width="630" align="center">'
+
+			'<tr><td>'
+
+			    '<font face="arial" size="2" color="red">'
+
+				if p(v5013^b) then					
+
+					ref(['MSGS_3']l(['MSGS_3']'MENU'),v3[20])  /* usuario bloqueado */
+
+				else	
+
+					'<center><b>Código ou senha inválida!</b></center>'
+
+				fi
+
+			'</td></tr>'
+
+			'</table>'
+
+		fi	
+
+	[/pft] 
+
+	<center>
+
+	<table cellspacing="1" cellpadding="1" border="0">
+
+		<tr>
+
+			<td align="left">
+
+				<font face="verdana" size="2">Código:</font>
+
+			</td>					
+
+			<td align="left">
+
+				<input type="text" size="17" name="user">
+
+			</td>
+
+		</tr>
+
+		<tr>
+
+			<td>
+
+				<font face="verdana" size="2">Senha:</font>
+
+			</td>
+
+			<td>
+
+				<input type="password" size="17" name="userPassword">
+
+			</td>
+
+		</tr>
+
+	</table>
+
+	</center>
+
+	<center><input type="submit" value="Entrar"></center>
+
+	<br><br>
+
+	<center>
+
+	<table width="97%" cellpadding="0" cellspacing="0" border="0">
+
+	<tr>
+
+		<td colspan="3"><font face="verdana" size="2">
+
+			<b>Usuário NÃO cadastrado:</b> para ter acesso ao serviço de fotocópias preencha o <a href="http://www.bireme.br/bvs/P/pcada.htm">Formulário de cadastramento</a> de usuário ou contate-nos:
+
+		</font></td>		
+
+	</tr>
+
+	<tr>
+
+		<td width="15%">&nbsp;</td>
+
+		<td><br><font face="verdana" size="2">
+
+			Tel.: (011) 576-9854 / 576-9839<br>
+
+			Fax : (011) 571-1919<br>
+
+			E-mail: <a href="mailto:scad@bireme.br">scad@bireme.br</a><br><br>
+
+		</font></td>
+
+		<td align="right">
+
+			<a href="http://www.bireme.br/bvs/P/psobre.htm"><img src="[pft]v5002[/pft]scadhlp.gif" border=0></a>
+
+		</td>
+
+	</tr>
+
+	</table>
+
+	</center>
+
+-->	
+
+</form>
+
+	
+
+</body>
+
+</html>
