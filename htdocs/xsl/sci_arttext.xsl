@@ -17,36 +17,33 @@
 		</xsl:if>
 		<html xmlns="http://www.w3.org/1999/xhtml">
 			<head>
-                            <title>
-                                    <xsl:value-of select="TITLEGROUP/TITLE" disable-output-escaping="yes"/> - <xsl:value-of select="normalize-space(ISSUE/ARTICLE/TITLE)" disable-output-escaping="yes"/>
-                            </title>
-                            <meta http-equiv="Pragma" content="no-cache"/>
-                            <meta http-equiv="Expires" content="Mon, 06 Jan 1990 00:00:01 GMT"/>
-                            <meta Content-math-Type="text/mathml"/>
-
-                            <!--Meta Google Scholar-->
-                            <meta name="citation_journal_title" content="{TITLEGROUP/TITLE}"/>
-                            <meta name="citation_publisher" content="{normalize-space(COPYRIGHT)}"/>
-                            <meta name="citation_title" content="{ISSUE/ARTICLE/TITLE}"/>
-                            <meta name="citation_date" content="{concat(substring(ISSUE/@PUBDATE,5,2),'/',substring(ISSUE/@PUBDATE,1,4))}"/>
-                            <meta name="citation_volume" content="{ISSUE/@VOL}"/>
-                            <meta name="citation_issue" content="{ISSUE/@NUM}"/>
-                            <meta name="citation_issn" content="{ISSN}"/>
-                            <meta name="citation_doi" content="{ISSUE/ARTICLE/@DOI}"/>
-                            <meta name="citation_abstract_html_url" content="{concat('http://',CONTROLINFO/SCIELO_INFO/SERVER, '/scielo.php?script=sci_abstract&amp;pid=', ISSUE/ARTICLE/@PID, '&amp;lng=', CONTROLINFO/LANGUAGE , '&amp;nrm=iso&amp;tlng=', ISSUE/ARTICLE/@TEXTLANG)}"/>
-                            <meta name="citation_fulltext_html_url" content="{concat('http://',CONTROLINFO/SCIELO_INFO/SERVER, '/scielo.php?script=sci_arttext&amp;pid=', ISSUE/ARTICLE/@PID, '&amp;lng=', CONTROLINFO/LANGUAGE , '&amp;nrm=iso&amp;tlng=', ISSUE/ARTICLE/@TEXTLANG)}"/>
-                            <meta name="citation_pdf_url" content="{concat('http://',CONTROLINFO/SCIELO_INFO/SERVER, '/scielo.php?script=sci_pdf&amp;pid=', ISSUE/ARTICLE/@PID, '&amp;lng=', CONTROLINFO/LANGUAGE , '&amp;nrm=iso&amp;tlng=', ISSUE/ARTICLE/@TEXTLANG)}"/>
-                            <xsl:apply-templates select=".//AUTHORS" mode="AUTHORS_META"/>
-                            <meta name="citation_firstpage" content="{ISSUE/ARTICLE/@FPAGE}"/>
-                            <meta name="citation_lastpage" content="{ISSUE/ARTICLE/@LPAGE}"/>
-                            <meta name="citation_id" content="{ISSUE/ARTICLE/@DOI}"/>
-
-
-                            <link rel="stylesheet" type="text/css" href="/css/screen.css"/>
-                            <xsl:apply-templates select="." mode="css"/>
-                            <script language="javascript" src="applications/scielo-org/js/jquery-1.4.2.min.js"/>
-                            <script language="javascript" src="applications/scielo-org/js/toolbox.js"/>
-                            <script language="javascript" src="article.js"/>
+				<title>
+					<xsl:value-of select="TITLEGROUP/TITLE" disable-output-escaping="yes"/> - <xsl:value-of select="normalize-space(ISSUE/ARTICLE/TITLE)" disable-output-escaping="yes"/>
+				</title>
+				<meta http-equiv="Pragma" content="no-cache"/>
+				<meta http-equiv="Expires" content="Mon, 06 Jan 1990 00:00:01 GMT"/>
+				<meta Content-math-Type="text/mathml"/>
+				<!--Meta Google Scholar-->
+				<meta name="citation_journal_title" content="{TITLEGROUP/TITLE}"/>
+				<meta name="citation_publisher" content="{normalize-space(COPYRIGHT)}"/>
+				<meta name="citation_title" content="{ISSUE/ARTICLE/TITLE}"/>
+				<meta name="citation_date" content="{concat(substring(ISSUE/@PUBDATE,5,2),'/',substring(ISSUE/@PUBDATE,1,4))}"/>
+				<meta name="citation_volume" content="{ISSUE/@VOL}"/>
+				<meta name="citation_issue" content="{ISSUE/@NUM}"/>
+				<meta name="citation_issn" content="{ISSN}"/>
+				<meta name="citation_doi" content="{ISSUE/ARTICLE/@DOI}"/>
+				<meta name="citation_abstract_html_url" content="{concat('http://',CONTROLINFO/SCIELO_INFO/SERVER, '/scielo.php?script=sci_abstract&amp;pid=', ISSUE/ARTICLE/@PID, '&amp;lng=', CONTROLINFO/LANGUAGE , '&amp;nrm=iso&amp;tlng=', ISSUE/ARTICLE/@TEXTLANG)}"/>
+				<meta name="citation_fulltext_html_url" content="{concat('http://',CONTROLINFO/SCIELO_INFO/SERVER, '/scielo.php?script=sci_arttext&amp;pid=', ISSUE/ARTICLE/@PID, '&amp;lng=', CONTROLINFO/LANGUAGE , '&amp;nrm=iso&amp;tlng=', ISSUE/ARTICLE/@TEXTLANG)}"/>
+				<meta name="citation_pdf_url" content="{concat('http://',CONTROLINFO/SCIELO_INFO/SERVER, '/scielo.php?script=sci_pdf&amp;pid=', ISSUE/ARTICLE/@PID, '&amp;lng=', CONTROLINFO/LANGUAGE , '&amp;nrm=iso&amp;tlng=', ISSUE/ARTICLE/@TEXTLANG)}"/>
+				<xsl:apply-templates select=".//AUTHORS" mode="AUTHORS_META"/>
+				<meta name="citation_firstpage" content="{ISSUE/ARTICLE/@FPAGE}"/>
+				<meta name="citation_lastpage" content="{ISSUE/ARTICLE/@LPAGE}"/>
+				<meta name="citation_id" content="{ISSUE/ARTICLE/@DOI}"/>
+				<link rel="stylesheet" type="text/css" href="/css/screen.css"/>
+				<xsl:apply-templates select="." mode="css"/>
+				<script language="javascript" src="applications/scielo-org/js/jquery-1.4.2.min.js"/>
+				<script language="javascript" src="applications/scielo-org/js/toolbox.js"/>
+				<script language="javascript" src="article.js"/>
 			</head>
 			<body>
 				<div class="container">
@@ -77,7 +74,18 @@
 							</xsl:when>
 							<xsl:otherwise>
 								<h2>
-									<xsl:value-of select="TITLEGROUP/TITLE" disable-output-escaping="yes"/>
+									<xsl:choose>
+										<xsl:when test="//CONTROLINFO/NO_SCI_SERIAL='yes'"><xsl:value-of select="TITLEGROUP/TITLE" disable-output-escaping="yes"/>
+</xsl:when>
+										<xsl:otherwise>
+											<a>
+												<xsl:call-template name="AddScieloLink">
+													<xsl:with-param name="seq" select=".//ISSN_AD_ID"/>
+													<xsl:with-param name="script">sci_serial</xsl:with-param>																										</xsl:call-template>
+												<xsl:value-of select="TITLEGROUP/TITLE" disable-output-escaping="yes"/>
+											</a>
+										</xsl:otherwise>
+									</xsl:choose>
 								</h2>
 								<h2 id="printISSN">
 									<xsl:apply-templates select=".//ISSUE_ISSN">
@@ -133,7 +141,6 @@
 			</a>
 		</xsl:if>
 	</xsl:template>
-
 	<xsl:template match="*|text()" mode="body-content">
 		<xsl:value-of select="." disable-output-escaping="yes"/>
 	</xsl:template>
