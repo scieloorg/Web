@@ -1,3 +1,7 @@
+v5.17
+Included the HTML META citation reference for Google Scholar.
+To enable this feature include the parameter show_meta_citation_reference=1 in the group [services] on scielo.def.php file
+
 v5.16.r
 Removed the citation reference
 
