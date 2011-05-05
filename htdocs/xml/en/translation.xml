@@ -217,9 +217,9 @@
 	</xslid>
 	<xslid id="sci_serial">
 		<text find="home_page">Home Page</text>
-		<text find="portuguese">português</text>
-		<text find="spanish">español</text>
-		<text find="english">english</text>
+		<text find="portuguese">Português</text>
+		<text find="spanish">Español</text>
+		<text find="english">English</text>
 		<text find="indicators_scimago">SCImago Indicators</text>
 		<text find="scimago_journal_country_rank">SCImago Journal and Country Rank</text>
 		<text find="mission">Mission</text>
@@ -242,6 +242,7 @@
 		<text find="this_journal">This Journal</text>
 		<text find="scielo_instance">All Collection</text>
 		<text find="enter_search_term">Enter one or more words</text>
+		<text find="journal_site">journal's site</text>
 	</xslid>
 	<xslid id="sci_alphabetic">
 		<text find="alphabetic_list">Alphabetic list</text>
@@ -362,6 +363,7 @@ Av. Prof. Mello Moraes, 1721- Bl C<br/>
 		<text find="pr">Press release</text>
 		<text find="issue">See the issue</text>
 		<text find="clinical_trial">Clinical trial</text>
+		<text find="bookmark_more">More</text>
 	</xslid>
 	<xslid id="sci_issuetoc">
 		<text find="abstract">abstract in </text>

@@ -242,6 +242,7 @@
 		<text find="this_journal">En la Revista</text>
 		<text find="scielo_instance">Toda Coleción</text>
 		<text find="enter_search_term">Introduzca una o más palabras</text>
+		<text find="journal_site">sitio de la revista</text>
 	</xslid>
 	<xslid id="sci_alphabetic">
 		<text find="alphabetic_list">Lista alfabética</text>
@@ -362,6 +363,7 @@ Av. Prof. Mello Moraes, 1721- Bl C<br/>
 		<text find="pr">Press release</text>
 		<text find="issue">Vea el número</text>
 		<text find="clinical_trial">Ensayo clínico</text>
+		<text find="bookmark_more">Otros</text>
 	</xslid>
 	<xslid id="sci_issuetoc">
 		<text find="abstract">resumen en </text>
