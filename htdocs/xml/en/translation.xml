@@ -178,14 +178,11 @@
 	</xslid>
 	<xslid id="comments">
 		<text find="doesnt_comment">This article was not commented yet</text>
-		<text find=""/>
-		<text find=""/>
 	</xslid>
 	<xslid id="article_output">
 		<text find="similarity">Similarity:</text>
 		<text find="full_text">full text</text>
-		<text find=""/>
-		<text find=""/>
+		<text find="accessat">Access at</text>
 	</xslid>
 	<xslid id="cited">
 		<text find="doesnt_cited">this article have no citations</text>
@@ -203,6 +200,7 @@
 	</xslid>
 	<xslid id="sci_arttext">
 		<text find="original_version_published_in">original version published in</text>
+		<text find="fulltext_only_in_pdf">Full text available only in PDF format</text>
 	</xslid>
 	<xslid id="sci_abstract">
 		<text find="abstract">Abstract</text>
@@ -219,9 +217,9 @@
 	</xslid>
 	<xslid id="sci_serial">
 		<text find="home_page">Home Page</text>
-		<text find="portuguese">português</text>
-		<text find="spanish">español</text>
-		<text find="english">english</text>
+		<text find="portuguese">Português</text>
+		<text find="spanish">Español</text>
+		<text find="english">English</text>
 		<text find="indicators_scimago">SCImago Indicators</text>
 		<text find="scimago_journal_country_rank">SCImago Journal and Country Rank</text>
 		<text find="mission">Mission</text>
@@ -244,6 +242,7 @@
 		<text find="this_journal">This Journal</text>
 		<text find="scielo_instance">All Collection</text>
 		<text find="enter_search_term">Enter one or more words</text>
+		<text find="journal_site">journal's site</text>
 	</xslid>
 	<xslid id="sci_alphabetic">
 		<text find="alphabetic_list">Alphabetic list</text>
@@ -295,12 +294,12 @@
 		<text find="img_alt">Scientific Electronic Library Online</text>
 	</xslid>
 	<xslid id="sci_toolbox">
-		<text find="services">services</text>
-		<text find="article">article</text>
+		<text find="services">Services</text>
+		<text find="article">Article</text>
 		<text find="add_to_my_collection">Add to my collection</text>
 		<text find="alert_me_when_cited">Alert me when cited</text>
 		<text find="send_me_access_statistics">Send me access statistics</text>
-		<text find="custom_services">custom services</text>
+		<text find="custom_services">Custom services</text>
 		<text find="comments">Comments</text>
 		<text find="article_in_pdf_format">Article in pdf format</text>
 		<text find="article_in_xml_format">Article in xml format</text>
@@ -328,6 +327,7 @@
 		<text find="pr">Press release</text>
 		<text find="issue">See the issue</text>
 		<text find="clinical_trial">Clinical trial</text>
+		<text find="bookmark_more">More</text>
 	</xslid>
 	<xslid id="sci_issuetoc">
 		<text find="abstract">abstract in </text>

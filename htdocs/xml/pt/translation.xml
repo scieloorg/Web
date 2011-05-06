@@ -163,8 +163,7 @@
 		<text find="grp_issues">números</text>
 		<text find="grp_articles">artigos</text>
 		<text find="grp_serials">periódicos</text>
-				<text find="table_of_contents">sumario</text>
-
+		<text find="table_of_contents">sumario</text>
 	</xslid>
 	<xslid id="reference">
 		<text find="not_found">this article doesn't have references</text>
@@ -183,6 +182,7 @@
 	<xslid id="article_output">
 		<text find="similarity">Similaridade:</text>
 		<text find="full_text">texto completo</text>
+		<text find="accessat">Acesse em</text>
 	</xslid>
 	<xslid id="cited">
 		<text find="doesnt_cited">este artigo não possui citações</text>
@@ -200,6 +200,7 @@
 	</xslid>
 	<xslid id="sci_arttext">
 		<text find="original_version_published_in">versão original publicada em</text>
+		<text find="fulltext_only_in_pdf">Texto completo somente em PDF</text>
 	</xslid>
 	<xslid id="sci_abstract">
 		<text find="abstract">Resumo</text>
@@ -241,6 +242,7 @@
 		<text find="this_journal">Neste Periódico</text>
 		<text find="scielo_instance">Toda Coleção</text>
 		<text find="enter_search_term">Entre uma ou mais palavras</text>
+		<text find="journal_site">Site do periódico</text>
 	</xslid>
 	<xslid id="sci_alphabetic">
 		<text find="alphabetic_list">Lista Alfabética</text>
@@ -293,7 +295,7 @@
 	</xslid>
 	<xslid id="sci_toolbox">
 		<text find="services">Serviços</text>
-		<text find="article">artigo</text>
+		<text find="article">Artigo</text>
 		<text find="add_to_my_collection">Adicionar a minha coleção</text>
 		<text find="alert_me_when_cited">Alerte-me quando for citado</text>
 		<text find="send_me_access_statistics">Envie-me estatísticas de acessos</text>
@@ -325,6 +327,7 @@
 		<text find="pr">Press release</text>
 		<text find="issue">Veja o fascículo</text>
 		<text find="clinical_trial">Ensaio clínico</text>
+		<text find="bookmark_more">Mais</text>
 	</xslid>
 	<xslid id="sci_issuetoc">
 		<text find="abstract">resumo em </text>

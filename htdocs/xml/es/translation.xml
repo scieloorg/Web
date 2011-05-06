@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <translations>
 	<xslid id="sci_artmonthyearstat">
 		<text find="journal_articles_requests_by_month_and_year">Accesos a los artículos de las revistas por mes y año</text>
@@ -76,8 +76,7 @@
 		<text find="there_are_no_statistics_forthat_period">No existen estadísticas para ese período</text>
 		<text find="how_to_cite_this_article">Como citar este artículo</text>
 		<text find="text_available_after">texto disponible después de</text>
-				<text find="contact">Contacto</text>
-
+		<text find="contact">Contacto</text>
 	</xslid>
 	<xslid id="sci_subject">
 		<text find="issue">número</text>
@@ -163,10 +162,8 @@
 		<text find="grp_advanced">publ adelantadas</text>
 		<text find="grp_issues">números</text>
 		<text find="grp_articles">artículos</text>
-		<text find="grp_serials">revistas</text><text find="table_of_contents">sumario</text>
-
-
-
+		<text find="grp_serials">revistas</text>
+		<text find="table_of_contents">sumario</text>
 	</xslid>
 	<xslid id="reference">
 		<text find="not_found">this article doesn't have references</text>
@@ -185,6 +182,7 @@
 	<xslid id="article_output">
 		<text find="similarity">Similaridad:</text>
 		<text find="full_text">texto completo</text>
+		<text find="accessat">Acceder em</text>
 	</xslid>
 	<xslid id="cited">
 		<text find="doesnt_cited">ese articulo no tiene citaciones</text>
@@ -202,6 +200,7 @@
 	</xslid>
 	<xslid id="sci_arttext">
 		<text find="original_version_published_in">versión original publicada en</text>
+		<text find="fulltext_only_in_pdf">texto completo solamente en formato PDF</text>
 	</xslid>
 	<xslid id="sci_abstract">
 		<text find="abstract">Resumen</text>
@@ -243,6 +242,7 @@
 		<text find="this_journal">En la Revista</text>
 		<text find="scielo_instance">Toda Coleción</text>
 		<text find="enter_search_term">Introduzca una o más palabras</text>
+		<text find="journal_site">sitio de la revista</text>
 	</xslid>
 	<xslid id="sci_alphabetic">
 		<text find="alphabetic_list">Lista alfabética</text>
@@ -327,6 +327,7 @@
 		<text find="pr">Press release</text>
 		<text find="issue">Vea el número</text>
 		<text find="clinical_trial">Ensayo clínico</text>
+		<text find="bookmark_more">Otros</text>
 	</xslid>
 	<xslid id="sci_issuetoc">
 		<text find="abstract">resumen en </text>
