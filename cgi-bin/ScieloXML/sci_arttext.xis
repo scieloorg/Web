@@ -360,11 +360,112 @@
  <label>CLOSE_BODY</label>
  <call name="GetContentTranslationFileName"><pft>v7999^*[2]</pft></call> 
 
-
  <display>
   <pft>if  v8000='BODY' then ' ]]></BODY>'/ else '</fulltext>' fi</pft>
  </display>
  <label>NO_TEXT_AVAILABLE</label>
+
+<!--################################REFERENCE##############################################-->
+ <flow action="jump"><pft>if a(v9901) or a(v9902) then 'CLOSE_BODY' fi</pft></flow>
+ <display><pft>'<REFERENCES>'</pft></display>
+ <do task="mfnrange">
+ 	<parm name="db">ARTIGO</parm>
+	<parm name="from"><pft>v9901</pft></parm>
+	<parm name="to"><pft>v9902</pft></parm>
+	
+	<loop>
+		<call name="PROC_SPLIT_MST"><pft>v32701</pft></call>
+
+		<field action="import" tag="list">40,4001,4010,5000,7009/7062</field>
+		<field action="import" tag="list">7999,9900,9903</field>
+	   
+	    <flow action="jump">
+			<pft>
+				if p(v10) then 'CREATE_AUTHOR_LINK' 
+				else if p(v888) then 'CREATE_REF_LINK' fi
+				fi
+			</pft>
+	   </flow>  
+
+	   <flow action="jump">CONTINUE</flow>
+	   
+	   <label>CREATE_AUTHOR_LINK</label>
+	   <!-- Create author link -->    
+	   <!-- 9999 - author string trimmed -->
+	   <field action="replace" tag="9999" split="occ"><pft>replace(v704^*,' ',s(#))</pft></field>
+	   <flow action="jump">CONTINUE</flow> 
+	   
+
+	   <label>CREATE_REF_LINK</label>
+	   <field action="replace" tag="3330"><pft>s(v880,s(f(val(v888)+100000,5,0))*1.5)</pft></field>
+
+	   <field action="statusdb" tag=2001>NLINKS</field>
+	   <flow action="jump">
+		 <pft>if a(v2001^n) then 'END_NLINKS' fi</pft>
+	   </flow>
+	   
+	   <!-- Create Reference Link -->   
+		<field action="replace" tag="703"><pft>mpu,v704^*,mpl</pft></field>   
+		<field action="replace" tag="9669"><pft>' '</pft></field>   
+		<field action="replace" tag="9999"><pft>|'|v9669</pft></field>
+		<field action="replace" tag="705"><pft>f(instr(v703,'</P>'),1,0)</pft></field>
+		<field action="replace" tag="705"><pft>if val(v705)=0 then f(instr(v703,'<HR'),1,0) fi</pft></field>
+
+		<!--Title of reference-->
+		<field action="replace" tag="3333"><pft>ref(['ARTIGO']l(['ARTIGO'],'R='v3330),@PROC_SPLIT_MST.PFT,v12^*, v18^*)</pft></field> 
+		
+		<!--Name authors of reference-->
+		<field action="replace" tag="3334"><pft>ref(['ARTIGO']l(['ARTIGO'],'R='v3330),@PROC_SPLIT_MST.PFT,(v10^s, if p(v10^s) then ' ' fi, v10^n, if p(v10^n) then ',' fi,))</pft></field>
+		
+		<field action="replace" tag="3334"><pft>ref(['ARTIGO']l(['ARTIGO'],'R='v3330),@PROC_SPLIT_MST.PFT,(v11^*, if p(v11^*) then ' ' fi,))</pft></field>
+		
+		<field action="replace" tag="3339"><pft>ref(['ARTIGO']l(['ARTIGO'],'R='v3330),@PROC_SPLIT_MST.PFT,(v16^s, if p(v16^s) then ' ' fi, v16^n, if p(v16^n) then ',' fi))</pft></field>
+		
+		<field action="replace" tag="3339"><pft>ref(['ARTIGO']l(['ARTIGO'],'R='v3330),@PROC_SPLIT_MST.PFT,(v17^*, if p(v17^*) then ' ' fi,))</pft></field>
+		<!--Name authors of reference-->
+		
+		<!--Journal Title of reference-->
+		<field action="replace" tag="3335"><pft>ref(['ARTIGO']l(['ARTIGO'],'R='v3330),@PROC_SPLIT_MST.PFT,v30^*,v62^*)</pft></field>
+		
+		<!--Volume of reference-->
+		<field action="replace" tag="3336"><pft>ref(['ARTIGO']l(['ARTIGO'],'R='v3330),@PROC_SPLIT_MST.PFT,v31^*)</pft></field>
+
+		<!--Page of reference-->
+		<field action="replace" tag="3337"><pft>ref(['ARTIGO']l(['ARTIGO'],'R='v3330),@PROC_SPLIT_MST.PFT,v14^*)</pft></field>			
+
+		<!--Year of reference-->
+		<field action="replace" tag="3338"><pft>ref(['ARTIGO']l(['ARTIGO'],'R='v3330),@PROC_SPLIT_MST.PFT,v64^*)</pft></field>
+		
+		<!--PID of reference-->
+		<field action="replace" tag="3340"><pft>ref(['ARTIGO']l(['ARTIGO'],'R='v3330),@PROC_SPLIT_MST.PFT,v880^*)</pft></field>
+
+		<!--URL of reference-->
+		<field action="replace" tag="3341"><pft>ref(['ARTIGO']l(['ARTIGO'],'R='v3330),@PROC_SPLIT_MST.PFT,v37^*)</pft></field>
+		
+		<display>
+			<pft>
+				'<REFERENCE>'
+					if p(v3333) then '<TITLE_REFERENCE><![CDATA[' v3333 ']]></TITLE_REFERENCE>' fi
+					if p(v3334) then '<AUTHORS_REFERENCE><![CDATA[' v3334 ']]></AUTHORS_REFERENCE>' fi
+					if p(v3339) then '<AUTHORS_REFERENCE><![CDATA[' v3339 ']]></AUTHORS_REFERENCE>' fi
+					if p(v3335) then '<JOURNAL_TITLE_REFERENCE><![CDATA[' v3335 ']]></JOURNAL_TITLE_REFERENCE>' fi
+					if p(v3336) then '<VOLUME_REFERENCE><![CDATA[' v3336 ']]></VOLUME_REFERENCE>' fi
+					if p(v3337) then '<PAGE_REFERENCE><![CDATA[' v3337 ']]></PAGE_REFERENCE>' fi
+					if p(v3338) then '<YEAR_REFERENCE><![CDATA[' v3338 ']]></YEAR_REFERENCE>' fi
+					if p(v3341) then '<URL_REFERENCE><![CDATA[' v3341 ']]></URL_REFERENCE>' fi
+					if p(v3340) then '<PID_REFERENCE><![CDATA[' v3340 ']]></PID_REFERENCE>' fi
+				'</REFERENCE>' 
+			</pft>
+		</display>
+		   
+	   <label>CONTINUE</label>
+		<file action="close" type="database">ARTIGO</file>
+		
+  </loop>
+ </do>
+ 
+ <display><pft>'</REFERENCES>'</pft></display>
+<!--##################################################################################-->
  
  <display>
   <pft>'</ARTICLE>'/'</ISSUE>'/</pft>
