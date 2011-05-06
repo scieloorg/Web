@@ -293,6 +293,7 @@
         <text find="pr">Press release</text>
         <text find="issue">Vea el número</text>
 		<text find="clinical_trial">Ensayo clínico</text>
+		<text find="bookmark_more">Otros</text>
     </xslid>
     <xslid id="sci_issuetoc">
         <text find="abstract">resumen en </text>
