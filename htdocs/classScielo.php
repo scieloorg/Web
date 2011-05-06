@@ -195,7 +195,8 @@ class Scielo extends ScieloBase
                             "show_group_indicators" => "show_group_indicators",
                             "show_group_related_links" => "show_group_related_links",
                             "show_group_services" => "show_group_services",
-                            "show_group_bookmark" => "show_group_bookmark"
+                            "show_group_bookmark" => "show_group_bookmark",
+                            "show_meta_citation_reference" => "show_meta_citation_reference"
                     );
 
                     foreach ($elements as $k => $v) {
