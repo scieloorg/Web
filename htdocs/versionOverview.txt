@@ -1,3 +1,7 @@
+v5.17
+Included the HTML META citation reference for Google Scholar.
+To enable this feature include the parameter show_meta_citation_reference=1 in the group [services] on scielo.def.php file
+
 v5.16.r
 Removed the citation reference
 
@@ -5,6 +9,8 @@ v5.16
 Fix the URI of OAI full text
 Add templates files to send e-mail
 Add citation reference on SciELO sci_arttext.xis and sci_arttext.xsl 
+#269 Na p√°gina do artigo no t√≠tulo do peri√≥dico colocar um link para sua home
+#270 Na home do peri√≥dico juntamente com os links das p√°ginas secundarias, acrescentar um link para p√°gina externa do peri√≥dico, quando houver.
 
 v5.15
 Alter the retorn of caracter set from UTF-8 to ISO-8859-1 on webservice. 
@@ -16,80 +22,80 @@ v5.14
 Presentation of DOI which is provided by the journal editor
 
 v5.13
-Ajustes nos webservices de problemas gerados apÛs mudanÁas realizadas na vers„o v5.12
+Ajustes nos webservices de problemas gerados ap√≥s mudan√ßas realizadas na vers√£o v5.12
 
 v5.12
 Ajustes nos webservices para entregar XML sem camada de WSDL.
 
-para prÛxima v5.11
+para pr√≥xima v5.11
 #252 Na home, o link para o portal (seja www.scielo.org, ou www.portal.revenf.bvsalud.org) tem que ser obtido do scielo.def.php
 
 v5.10
 Removido include para o arquivo cipar.xis no pressrelease.xis
 
 v5.9
-r4262 Removendo arquivos do MX. Os arquivos dever„o ser copiados do site de produtos da BIREME
-r4263 Removendo arquivo WXIS.EXE. Os arquivos dever„o ser copiados do site de produtos da BIREME
-#115  CorreÁıes aplicadas somente em SciELObr, interface em inglÍs.
-r4270 Faltante utf-8 enconding no webservices serviÁo de new_titles
+r4262 Removendo arquivos do MX. Os arquivos dever√£o ser copiados do site de produtos da BIREME
+r4263 Removendo arquivo WXIS.EXE. Os arquivos dever√£o ser copiados do site de produtos da BIREME
+#115  Corre√ß√µes aplicadas somente em SciELObr, interface em ingl√™s.
+r4270 Faltante utf-8 enconding no webservices servi√ßo de new_titles
 r4271 Atualizado conforme solicitado no ticket #220 (closes #220)
 #220 Atualizado conforme solicitado.
-#r4275 Adicionado pastas wxis e gizmo no webservices faltantes na vers„o php5
-#251 Trocando a codificaÁ„o do arquivo sci_isoref.xis de UTF-8 para ISO-8859-1. Problemas na exibiÁ„o de caracteres acentuados.
+#r4275 Adicionado pastas wxis e gizmo no webservices faltantes na vers√£o php5
+#251 Trocando a codifica√ß√£o do arquivo sci_isoref.xis de UTF-8 para ISO-8859-1. Problemas na exibi√ß√£o de caracteres acentuados.
 
 v5.8
-#240, corrigindo o tÌtulo do artigo na tag meta/citation_title da p·gina sci_abstract
+#240, corrigindo o t√≠tulo do artigo na tag meta/citation_title da p√°gina sci_abstract
 
 v5.7-pr(Pre-Release)
 #237, tratando & na url de clinical trial
 
 v5.6-pr(Pre-Release)
-#231, corrigindo link de traduÁ„o autom·tica causado por mudanÁa na caixa de serviÁos #8
+#231, corrigindo link de tradu√ß√£o autom√°tica causado por mudan√ßa na caixa de servi√ßos #8
 
 v5.5-pr(Press-Release)
-#no_ticket, corrigindo #219, havia uma aspas a mais, prejudicando a apresentaÁ„o apenas no IE
+#no_ticket, corrigindo #219, havia uma aspas a mais, prejudicando a apresenta√ß√£o apenas no IE
 
 v5.4-pr(Press-Release)
 #221 Adiconado tags meta para busca no Google Scholar 
 #223 Error do clinical trials
 
 v5.3-pr(Press-Release)
-#8 Melhorias na interface da caixa de serviÁoes 
-#35 Adicionado Social Bookmarks na caixa de serviÁoes 
-#51 Ajustado utf-8 como saida padr„o PHP 5 e Java
+#8 Melhorias na interface da caixa de servi√ßoes 
+#35 Adicionado Social Bookmarks na caixa de servi√ßoes 
+#51 Ajustado utf-8 como saida padr√£o PHP 5 e Java
 
 v5.2-pr(Press-Release)
-#219, traduÁ„o para africaner e outros
-#217 scielo_crs se o documento j· tiver doi, verifica o prefixo do provedor local, se sim, fazer o registro no CrossRef, caso contrario ignorar
+#219, tradu√ß√£o para africaner e outros
+#217 scielo_crs se o documento j√° tiver doi, verifica o prefixo do provedor local, se sim, fazer o registro no CrossRef, caso contrario ignorar
 
 v5.1-pr(Press-Release)
-Ajustado o link na caixa de serviÁos do artigo.
+Ajustado o link na caixa de servi√ßos do artigo.
 
 v5.0-pr(Press-Release)
-Realizado alteraÁ„o nas classes de tranformaÁ„o para php5(NotificaÁıes do php para essa vers„o deve ser suprimidos)
-#215 correÁ„o de apresentaÁ„o da licenÁa CC
+Realizado altera√ß√£o nas classes de transforma√ß√£o para php5(Notifica√ß√µes do php para essa vers√£o deve ser suprimidos)
+#215 corre√ß√£o de apresenta√ß√£o da licen√ßa CC
 
 v4.48
-⁄ltima vers„o para php 4.3.11
+√öltima vers√£o para php 4.3.11
 
 v4.47
-#212 apresentaÁ„o de DOI em alguns artigos ex-provisional
+#212 apresenta√ß√£o de DOI em alguns artigos ex-provisional
 
 v4.46
 Melhorias nos Web Services, a fim de contemplar coleta seletiva de
-novos issues de revistas especÌficas.
-#208 task: Alterado, no sum·rio eletrÙnico de Provisional Article, 
+novos issues de revistas espec√≠ficas.
+#208 task: Alterado, no sum√°rio eletr√¥nico de Provisional Article, 
 o link "text in english" por "abstract in english".
 
 v4.45
-Anulado a melhoria #191 botıes de navegaÁ„o para publicaÁ„o adiantada,
-pois desajustou o desenho de varias p·ginas dependendo do Browser utilizado
+Anulado a melhoria #191 bot√µes de navega√ß√£o para publica√ß√£o adiantada,
+pois desajustou o desenho de varias p√°ginas dependendo do Browser utilizado
 
 v4.44
-#191 enhancement - botıes de navegaÁ„o para publicaÁ„o adiantada
+#191 enhancement - bot√µes de navega√ß√£o para publica√ß√£o adiantada
 #182 bug :reopen, corrigindo um bug no processamento de crossref com
-controle de verba; geraÁ„o da lista de PID.
+controle de verba; gera√ß√£o da lista de PID.
 
 v4.43
-#201 bug: a lista de press releases  n„o estava aparecendo completa na 
-p·gina do tÌtulo
+#201 bug: a lista de press releases  n√£o estava aparecendo completa na 
+p√°gina do t√≠tulo
