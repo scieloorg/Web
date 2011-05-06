@@ -65,8 +65,9 @@
 			<call name="CreateCopyrightXML"><pft>mfn</pft></call>
 	
 			<call name="CreateContactXML"><pft>mfn</pft></call>
-			<display><pft>if p(v692) then '<link type="online-submission"><![CDATA[',v692,']]></link>' fi/#</pft></display>
-	<display><pft>if p(v3311) then '<PAGINATION rep="',v3311,'" journal="',v3002,'"/>',/# fi</pft></display>
+			<display><pft>if p(v692) then '<link type="online_submission"><![CDATA[',v692,']]></link>',# fi</pft></display>
+	            <display><pft>if p(v69)  then '<link type="journal_site"><![CDATA[',v69,']]></link>',# fi</pft></display>
+	            <display><pft>if p(v3311) then '<PAGINATION rep="',v3311,'" journal="',v3002,'"/>',/# fi</pft></display>
 
 
 			<call name="getPressReleaseRelatedToJournal"><pft>if v7054 = '1' then v3002 fi</pft></call>
