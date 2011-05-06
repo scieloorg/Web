@@ -214,25 +214,25 @@
     </xslid>
 	<xslid id="sci_serial">
 		<text find="home_page">Home Page</text>
-        <text find="portuguese">português</text>
-        <text find="spanish">español</text>
-        <text find="english">english</text>
-        <text find="indicators_scimago">SCImago Indicators</text>
-        <text find="scimago_journal_country_rank">SCImago Journal and Country Rank</text>
-        <text find="mission">Mission</text>
-        <text find="publication_of">Publication of</text>
-        <text find="updated_on">Updated on</text>
-        <text find="about_the_journal">about the journal</text>
-        <text find="editorial_board">editorial board</text>
-        <text find="instructions_to_authors">instructions to authors</text>
-        <text find="subscription">subscription</text>
-        <text find="statistics">statistics</text>
-        <text find="online_submission">online submission</text>
-        <text find="press_releases">Press Releases</text>
-        <text find="numbers">Issues</text>
-        <text find="articles">Articles</text>
-        <text find="search">Search</text>
-        <text find="all_indexes">All indexes</text>
+		<text find="portuguese">Português</text>
+		<text find="spanish">Español</text>
+		<text find="english">English</text>
+		<text find="indicators_scimago">SCImago Indicators</text>
+		<text find="scimago_journal_country_rank">SCImago Journal and Country Rank</text>
+		<text find="mission">Mission</text>
+		<text find="publication_of">Publication of</text>
+		<text find="updated_on">Updated on</text>
+		<text find="about_the_journal">about the journal</text>
+		<text find="editorial_board">editorial board</text>
+		<text find="instructions_to_authors">instructions to authors</text>
+		<text find="subscription">subscription</text>
+		<text find="statistics">statistics</text>
+		<text find="online_submission">online submission</text>
+		<text find="press_releases">Press Releases</text>
+		<text find="numbers">Issues</text>
+		<text find="articles">Articles</text>
+		<text find="search">Search</text>
+		<text find="all_indexes">All indexes</text>
 		<text find="title">Title</text>
 		<text find="author">Author</text>
 		<text find="subject">Subject</text>
@@ -240,8 +240,9 @@
 		<text find="scielo_instance">All Collection</text>
 <text find="scielo_brazil">SciELO Spain</text>
 		<text find="enter_search_term">Enter one or more words</text>
-    </xslid>
-    <xslid id="sci_alphabetic">
+		<text find="journal_site">journal's site</text>
+	</xslid>
+	<xslid id="sci_alphabetic">
 		<text find="alphabetic_list">Alphabetic list</text>
         <text find="library_collection">Library Collection</text>
         <text find="serials_listed">serials listed</text>
@@ -249,9 +250,9 @@
     </xslid>
 	<xslid id="sci_home">
 		<text find="journal_evaluation">journals evaluation</text>
-        <text find="portuguese">português</text>
-        <text find="spanish">español</text>
-        <text find="english">english</text>
+        <text find="portuguese">Português</text>
+        <text find="spanish">Español</text>
+        <text find="english">English</text>
         <text find="help">help</text>
         <text find="app_name">SciELO</text>
         <text find="about_this_site">about this site</text>
@@ -283,12 +284,12 @@
         <text find="img_alt">Scientific Electronic Library Online</text>
     </xslid>
 	<xslid id="sci_toolbox">
-		<text find="services">services</text>
-		<text find="article">article</text>
+		<text find="services">Services</text>
+		<text find="article">Article</text>
 		<text find="add_to_my_collection">Add to my collection</text>
 		<text find="alert_me_when_cited">Alert me when cited</text>
 		<text find="send_me_access_statistics">Send me access statistics</text>
-		<text find="custom_services">custom services</text>
+		<text find="custom_services">Custom services</text>
 		<text find="comments">Comments</text>
 		<text find="article_in_pdf_format">Article in pdf format</text>
 		<text find="article_in_xml_format">Article in xml format</text>
@@ -316,6 +317,7 @@
 		<text find="pr">Press release</text>
 		<text find="issue">See the issue</text>
 		<text find="clinical_trial">Clinical trial</text>
+		<text find="bookmark_more">More</text>
 	</xslid>
 	<xslid id="sci_issuetoc">
 		<text find="abstract">abstract in </text>

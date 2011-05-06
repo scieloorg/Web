@@ -158,56 +158,59 @@
 		<text find="grp_advanced">publ adelantadas</text>
 		<text find="grp_issues">números</text>
 		<text find="grp_articles">artículos</text>
-		<text find="grp_serials">revistas</text><text find="table_of_contents">sumario</text>
-    </xslid>
-    <xslid id="reference">
-        <text find="not_found">this article doesn't have references</text>
-        <text find="findReferenceOnLine">Links</text>
-    </xslid>
-    <xslid id="datasus">
-        <text find="country">país</text>
-        <text find="region">región</text>
-        <text find="state">provincia</text>
-        <text find="city">ciudad</text>
-        <text find="not_found">no hay indicadores de salud para ese articulo</text>
-    </xslid>
-    <xslid id="comments">
-        <text find="doesnt_comment">No hay comentários para ese artículo.</text>
-    </xslid>
-    <xslid id="article_output">
-        <text find="similarity">Similaridad:</text>
-        <text find="full_text">texto completo</text>
-    </xslid>
-    <xslid id="cited">
-        <text find="doesnt_cited">ese articulo no tiene citaciones</text>
-    </xslid>
-    <xslid id="related">
-        <text find="doesnt_related">no hay artículos similares</text>
-    </xslid>
-    <xslid id="similar">
-        <text find="doesnt_related">no hay artículos similares</text>
-        <text find="related_to">Similars</text>
-        <text find="scientific_electronic_library_online">SciELO - Scientific Electronic Library Online</text>
-    </xslid>
-    <xslid id="sci_arttext_pr">
-        <text find="press_release">PRESS RELEASE</text>
-    </xslid>
-    <xslid id="sci_arttext">
-        <text find="original_version_published_in">versión original publicada en</text>
-    </xslid>
-    <xslid id="sci_abstract">
-        <text find="abstract">Resumen</text>
-        <text find="keywords">Palabras llave</text>
-    </xslid>
-    <xslid id="sci_issues">
-        <text find="available_issues">Números disponibles</text>
-        <text find="year">Año</text>
-        <text find="vol.">Vol.</text>
-        <text find="number">Número</text>
-        <text find="not_printed">no impresos</text>
-        <text find="ahead_of_print">ahead of print</text>
-        <text find="review_in_progress">review in progress</text>
-    </xslid>
+		<text find="grp_serials">revistas</text>
+		<text find="table_of_contents">sumario</text>
+	</xslid>
+	<xslid id="reference">
+		<text find="not_found">this article doesn't have references</text>
+		<text find="findReferenceOnLine">Links</text>
+	</xslid>
+	<xslid id="datasus">
+		<text find="country">país</text>
+		<text find="region">región</text>
+		<text find="state">provincia</text>
+		<text find="city">ciudad</text>
+		<text find="not_found">no hay indicadores de salud para ese articulo</text>
+	</xslid>
+	<xslid id="comments">
+		<text find="doesnt_comment">No hay comentários para ese artículo.</text>
+	</xslid>
+	<xslid id="article_output">
+		<text find="similarity">Similaridad:</text>
+		<text find="full_text">texto completo</text>
+		<text find="accessat">Acceder em</text>
+	</xslid>
+	<xslid id="cited">
+		<text find="doesnt_cited">ese articulo no tiene citaciones</text>
+	</xslid>
+	<xslid id="related">
+		<text find="doesnt_related">no hay artículos similares</text>
+	</xslid>
+	<xslid id="similar">
+		<text find="doesnt_related">no hay artículos similares</text>
+		<text find="related_to">Similars</text>
+		<text find="scientific_electronic_library_online">SciELO - Scientific Electronic Library Online</text>
+	</xslid>
+	<xslid id="sci_arttext_pr">
+		<text find="press_release">PRESS RELEASE</text>
+	</xslid>
+	<xslid id="sci_arttext">
+		<text find="original_version_published_in">versión original publicada en</text>
+		<text find="fulltext_only_in_pdf">texto completo solamente en formato PDF</text>
+	</xslid>
+	<xslid id="sci_abstract">
+		<text find="abstract">Resumen</text>
+		<text find="keywords">Palabras llave</text>
+	</xslid>
+	<xslid id="sci_issues">
+		<text find="available_issues">Números disponibles</text>
+		<text find="year">Año</text>
+		<text find="vol.">Vol.</text>
+		<text find="number">Número</text>
+		<text find="not_printed">no impresos</text>
+		<text find="ahead_of_print">ahead of print</text>
+		<text find="review_in_progress">review in progress</text>
+	</xslid>
 	<xslid id="sci_serial">
 		<text find="home_page">Home Page</text>
         <text find="portuguese">português</text>
@@ -236,7 +239,8 @@
 		<text find="scielo_instance">Toda Coleción</text>
 <text find="scielo_brazil">SciELO España</text>
 		<text find="enter_search_term">Introduzca una o más palabras</text>
-    </xslid>
+		<text find="journal_site">sitio de la revista</text>
+	</xslid>
 	<xslid id="sci_alphabetic">
 		<text find="alphabetic_list">Lista alfabética</text>
         <text find="library_collection">Colección de la biblioteca</text>
@@ -312,15 +316,16 @@
         <text find="pr">Press release</text>
         <text find="issue">Vea el número</text>
 		<text find="clinical_trial">Ensayo clínico</text>
-    </xslid>
-    <xslid id="sci_issuetoc">
-        <text find="abstract">resumen en </text>
-        <text find="full">texto en </text>
-        <text find="pdf">pdf en </text>
-        <text find="pr">press release en </text>
-        <text find="page">página</text>
-        <text find="of">de</text>
-        <text find="gotopage">ir a la página</text>
-        <text find="table_of_contents">Tabla de contenido</text>
+		<text find="bookmark_more">Otros</text>
+	</xslid>
+	<xslid id="sci_issuetoc">
+		<text find="abstract">resumen en </text>
+		<text find="full">texto en </text>
+		<text find="pdf">pdf en </text>
+		<text find="pr">press release en </text>
+		<text find="page">página</text>
+		<text find="of">de</text>
+		<text find="gotopage">ir a la página</text>
+		<text find="table_of_contents">Tabla de contenido</text>
 	</xslid>
 </translations>
