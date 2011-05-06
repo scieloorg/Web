@@ -242,6 +242,7 @@
 		<text find="this_journal">This Journal</text>
 		<text find="scielo_instance">All Collection</text>
 		<text find="enter_search_term">Enter one or more words</text>
+		<text find="journal_site">journal's site</text>
 	</xslid>
 	<xslid id="sci_alphabetic">
 		<text find="alphabetic_list">Alphabetic list</text>
@@ -331,7 +332,7 @@
 		<text find="pr">Press release</text>
 		<text find="issue">See the issue</text>
 		<text find="clinical_trial">Clinical trial</text>
-                <text find="bookmark_more">More</text>
+		<text find="bookmark_more">More</text>
 	</xslid>
 	<xslid id="sci_issuetoc">
 		<text find="abstract">abstract in </text>

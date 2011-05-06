@@ -182,7 +182,7 @@
 	<xslid id="article_output">
 		<text find="similarity">Similaridade:</text>
 		<text find="full_text">texto completo</text>
-                <text find="accessat">Acesse em</text>
+		<text find="accessat">Acesse em</text>
 	</xslid>
 	<xslid id="cited">
 		<text find="doesnt_cited">este artigo não possui citações</text>
@@ -242,6 +242,7 @@
 		<text find="this_journal">Neste Periódico</text>
 		<text find="scielo_instance">Toda Coleção</text>
 		<text find="enter_search_term">Entre uma ou mais palavras</text>
+		<text find="journal_site">Site do periódico</text>
 	</xslid>
 	<xslid id="sci_alphabetic">
 		<text find="alphabetic_list">Lista Alfabética</text>
@@ -331,7 +332,7 @@
 		<text find="pr">Press release</text>
 		<text find="issue">Veja o fascículo</text>
 		<text find="clinical_trial">Ensaio clínico</text>
-                <text find="bookmark_more">Mais</text>
+		<text find="bookmark_more">Mais</text>
 	</xslid>
 	<xslid id="sci_issuetoc">
 		<text find="abstract">resumo em </text>

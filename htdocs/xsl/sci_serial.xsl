@@ -261,15 +261,15 @@ press release do artigo
 	<!--
 		formacao do link de página secundária
 	-->
-	<xsl:template match="CONTROLINFO" mode="link">
+	<xsl:template match="CONTROLINFO" mode="link_to_secondary_page">
 		<xsl:param name="itemName"/>
 		<xsl:param name="itemName2"/>
+		<xsl:param name="label"/>
+		
 		<li>
 			<a>
 				<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_SERIAL_HTML"/><xsl:value-of select="/SERIAL/TITLEGROUP/SIGLUM"/>/<xsl:value-of select="$pref"/><xsl:if test="$itemName2"><xsl:value-of select="$itemName2"/></xsl:if><xsl:if test="not($itemName2)"><xsl:value-of select="$itemName"/></xsl:if>.htm</xsl:attribute>
-				<xsl:apply-templates select="." mode="link-text">
-					<xsl:with-param name="type" select="$itemName"/>
-				</xsl:apply-templates>
+				<xsl:value-of select="$label"/>
 			</a>
 		</li>
 	</xsl:template>
@@ -279,29 +279,28 @@ press release do artigo
 	<xsl:template match="CONTROLINFO" mode="links">
 		<ul class="contextMenu">
 			<!--link de submissao-->
-			<li id="btn_submission">
-				<xsl:apply-templates select="..//link[@type='online-submission']"/>
-			</li>
-			<xsl:apply-templates select="." mode="link">
+			<xsl:apply-templates select="..//link"/>
+			<xsl:apply-templates select="." mode="link_to_secondary_page">
 				<xsl:with-param name="itemName" select="'aboutj'"/>
+				<xsl:with-param name="label"><xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='about_the_journal']"/></xsl:with-param>
 			</xsl:apply-templates>
-			<xsl:apply-templates select="." mode="link">
+			<xsl:apply-templates select="." mode="link_to_secondary_page">
 				<xsl:with-param name="itemName" select="'edboard'"/>
+				<xsl:with-param name="label"><xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='editorial_board']"/></xsl:with-param>
 			</xsl:apply-templates>
-			<xsl:apply-templates select="." mode="link">
+			<xsl:apply-templates select="." mode="link_to_secondary_page">
 				<xsl:with-param name="itemName" select="'instruc'"/>
+				<xsl:with-param name="label"><xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='instructions_to_authors']"/></xsl:with-param>
 			</xsl:apply-templates>
-			<xsl:apply-templates select="." mode="link">
+			<xsl:apply-templates select="." mode="link_to_secondary_page">
 				<xsl:with-param name="itemName" select="'subscri'"/>
 				<xsl:with-param name="itemName2" select="'subscrp'"/>
+				<xsl:with-param name="label"><xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='subscription']"/></xsl:with-param>
 			</xsl:apply-templates>
 			<xsl:if test=" ENABLE_STAT_LINK = 1 or ENABLE_CIT_REP_LINK = 1 ">
 				<li>
 					<a href="{SCIELO_INFO/SERVER_SCIELO}/statjournal.php?lang={LANGUAGE}&amp;issn={/SERIAL/ISSN_AS_ID}">
-						<xsl:apply-templates select="." mode="link-text">
-							<xsl:with-param name="type" select="'statistic'"/>
-						</xsl:apply-templates>
-						<br/>
+						<xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='statistics']"/>
 					</a>
 				</li>
 			</xsl:if>
@@ -311,50 +310,24 @@ press release do artigo
         submissao online
     -->
 	<xsl:template match="link">
-		<a href="{.}" target="subm">
-			<xsl:apply-templates select="../CONTROLINFO" mode="link-text">
-				<xsl:with-param name="type" select="'subm'"/>
-			</xsl:apply-templates>
-		</a>
-		<br/>
+		<xsl:variable name="t" select="@type"/>
+		<xsl:variable name="label"><xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find=$t]"/></xsl:variable>
+		
+		<xsl:if test="$label!=''">
+		<li>
+			<xsl:if test="$t='online_submission'"><xsl:attribute name="id">btn_submission</xsl:attribute></xsl:if>
+			<a href="{.}" target="{$t}">
+				<xsl:if test="$t != 'online_submission'">
+					<xsl:value-of select="$label"/>
+				</xsl:if>
+			</a>
+			<br/>
+		</li>
+		</xsl:if>		
 	</xsl:template>
 	<!--
 		textos traduzidos
 	-->
-	<xsl:template match="CONTROLINFO" mode="text-mission">
-		<xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='mission']"/>
-	</xsl:template>
-	<xsl:template match="CONTROLINFO" mode="text-publication-of">
-		<xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='publication_of']"/>
-	</xsl:template>
-	<xsl:template match="CONTROLINFO" mode="update-date">
-		<xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='updated_on']"/>
-	</xsl:template>
-	<xsl:template match="CONTROLINFO" mode="link-text">
-		<xsl:param name="type"/>
-		<span>
-			<xsl:choose>
-				<xsl:when test="$type='aboutj'">
-					<xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='about_the_journal']"/>
-				</xsl:when>
-				<xsl:when test="$type='edboard'">
-					<xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='editorial_board']"/>
-				</xsl:when>
-				<xsl:when test="$type='instruc'">
-					<xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='instructions_to_authors']"/>
-				</xsl:when>
-				<xsl:when test="$type='subscri'">
-					<xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='subscription']"/>
-				</xsl:when>
-				<xsl:when test="$type='statistic'">
-					<xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='statistics']"/>
-				</xsl:when>
-				<xsl:when test="$type='subm'">
-					<xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='online_submission']"/>
-				</xsl:when>
-			</xsl:choose>
-		</span>
-	</xsl:template>
 	<!-- 
 	CONTROLINFO
 	-->
@@ -364,7 +337,7 @@ press release do artigo
 		<xsl:param name="DAY"/>
 		<div class="leftCol">
 			<small>
-				<xsl:apply-templates select="." mode="update-date"/>
+				<xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='updated_on']"/>
 			</small>
 			<span id="lastUpdate">
 				<xsl:call-template name="GET_MONTH_NAME">
@@ -443,7 +416,7 @@ press release do artigo
 			</div>
 			<div class="journalInfo">
 				<small>
-					<xsl:apply-templates select="." mode="text-publication-of"/>
+					<xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='publication_of']"/>
 				</small>
 				<strong class="journalTitle">
 					<xsl:apply-templates select="/SERIAL/PUBLISHERS/PUBLISHER"/>
@@ -453,7 +426,7 @@ press release do artigo
 				</span>
                 <br/><br/>
 				<small>
-					<xsl:apply-templates select="." mode="text-mission"/>
+					<xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='mission']"/>
 				</small>
 				<p>
 					<xsl:apply-templates select="/SERIAL/MISSION"/>
