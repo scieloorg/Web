@@ -165,8 +165,9 @@
 		<text find="this_journal">This Journal</text>
 		<text find="scielo_instance">All Collection</text>
 		<text find="enter_search_term">Enter one or more words</text>
-    </xslid>
-    <xslid id="sci_alphabetic">
+		<text find="journal_site">journal's site</text>
+	</xslid>
+	<xslid id="sci_alphabetic">
 		<text find="alphabetic_list">Alphabetic list</text>
         <text find="library_collection">Library Collection</text>
         <text find="serials_listed">serials listed</text>
@@ -206,7 +207,8 @@
 		<text find="en">i</text>
 		<text find="es">e</text>
 		<text find="pt">p</text>
-    </xslid>
+		<text find="img_alt">Scientific Electronic Library Online</text>
+	</xslid>
 	<xslid id="sci_toolbox">
 		<text find="services">services</text>
 		<text find="article">article</text>
@@ -240,6 +242,8 @@
 		<text find="art">Read the article</text>
 		<text find="pr">Press release</text>
 		<text find="issue">See the issue</text>
+		<text find="clinical_trial">Clinical trial</text>
+		<text find="bookmark_more">More</text>
 	</xslid>
 	<xslid id="sci_issuetoc">
 		<text find="abstract">abstract in </text>
