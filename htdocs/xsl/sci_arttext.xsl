@@ -7,6 +7,7 @@
 	<xsl:variable name="SCIELO_REGIONAL_DOMAIN" select="//SCIELO_REGIONAL_DOMAIN"/>
 	<xsl:variable name="hasPDF" select="//ARTICLE/@PDF"/>
 	<xsl:variable name="show_toolbox" select="//toolbox"/>
+        <xsl:variable name="show_meta_citation_reference" select="//varScieloOrg/show_meta_citation_reference" />
 	<xsl:template match="fulltext-service-list"/>
 	<xsl:template match="/">
 		<xsl:apply-templates select="//SERIAL"/>
@@ -35,11 +36,16 @@
                             <meta name="citation_doi" content="{ISSUE/ARTICLE/@DOI}"/>
                             <meta name="citation_abstract_html_url" content="{concat('http://',CONTROLINFO/SCIELO_INFO/SERVER, '/scielo.php?script=sci_abstract&amp;pid=', ISSUE/ARTICLE/@PID, '&amp;lng=', CONTROLINFO/LANGUAGE , '&amp;nrm=iso&amp;tlng=', ISSUE/ARTICLE/@TEXTLANG)}"/>
                             <meta name="citation_fulltext_html_url" content="{concat('http://',CONTROLINFO/SCIELO_INFO/SERVER, '/scielo.php?script=sci_arttext&amp;pid=', ISSUE/ARTICLE/@PID, '&amp;lng=', CONTROLINFO/LANGUAGE , '&amp;nrm=iso&amp;tlng=', ISSUE/ARTICLE/@TEXTLANG)}"/>
-                            <meta name="citation_pdf_url" content="{concat('http://',CONTROLINFO/SCIELO_INFO/SERVER, '/scielo.php?script=sci_pdf&amp;pid=', ISSUE/ARTICLE/@PID, '&amp;lng=', CONTROLINFO/LANGUAGE , '&amp;nrm=iso&amp;tlng=', ISSUE/ARTICLE/@TEXTLANG)}"/>
+                            <meta name="citation_pdf_url" content="{concat('http://',CONTROLINFO/SCIELO_INFO/SERVER, '/scielo.php?script=sci_pdf&amp;pid=', ISSUE/ARTICLE/@PID, '&amp;lng=', CONTROLINFO/LANGUAGE , '&amp;nrm=iso&amp;tlng=', ISSUE/ARTICLE/@TEXTLANG)}"/>                            
                             <xsl:apply-templates select=".//AUTHORS" mode="AUTHORS_META"/>
                             <meta name="citation_firstpage" content="{ISSUE/ARTICLE/@FPAGE}"/>
                             <meta name="citation_lastpage" content="{ISSUE/ARTICLE/@LPAGE}"/>
                             <meta name="citation_id" content="{ISSUE/ARTICLE/@DOI}"/>
+
+                            <!--Reference Citation-->
+                            <xsl:if test="$show_meta_citation_reference='1'">
+                                 <xsl:apply-templates select="ISSUE/ARTICLE/REFERENCES"/>
+                            </xsl:if>
 
                             <link rel="stylesheet" type="text/css" href="/css/screen.css"/>
                             <xsl:apply-templates select="." mode="css"/>
@@ -76,7 +82,18 @@
 							</xsl:when>
 							<xsl:otherwise>
 								<h2>
-									<xsl:value-of select="TITLEGROUP/TITLE" disable-output-escaping="yes"/>
+									<xsl:choose>
+										<xsl:when test="//CONTROLINFO/NO_SCI_SERIAL='yes'"><xsl:value-of select="TITLEGROUP/TITLE" disable-output-escaping="yes"/>
+</xsl:when>
+										<xsl:otherwise>
+											<a>
+												<xsl:call-template name="AddScieloLink">
+													<xsl:with-param name="seq" select=".//ISSN_AS_ID"/>
+													<xsl:with-param name="script">sci_serial</xsl:with-param>																										</xsl:call-template>
+												<xsl:value-of select="TITLEGROUP/TITLE" disable-output-escaping="yes"/>
+											</a>
+										</xsl:otherwise>
+									</xsl:choose>
 								</h2>
 								<h2 id="printISSN">
 									<xsl:apply-templates select=".//ISSUE_ISSN">
@@ -132,6 +149,11 @@
 			</a>
 		</xsl:if>
 	</xsl:template>
+
+        <xsl:template match="REFERENCES/REFERENCE">
+                <meta name="citation_reference" content="citation_title={TITLE_REFERENCE}; citation_author={AUTHORS_REFERENCE};citation_journal_title={JOURNAL_TITLE_REFERENCE};citation_volume={VOLUME_REFERENCE};citation_pages={PAGE_REFERENCE};citation_year={YEAR_REFERENCE};citation_fulltext_html_url={URL_REFERENCE};"/>
+	</xsl:template>
+
 	<xsl:template match="*|text()" mode="body-content">
 		<xsl:value-of select="." disable-output-escaping="yes"/>
 	</xsl:template>
