@@ -1,4 +1,0 @@
-MX=
-CIPAR=
-username=
-password=

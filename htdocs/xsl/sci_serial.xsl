@@ -259,7 +259,7 @@ press release do artigo
 		</xsl:if>		
 	</xsl:template>
 	<!--
-		formacao do link de pÃ¡gina secundÃ¡ria
+		formacao do link de página secundária
 	-->
 	<xsl:template match="CONTROLINFO" mode="link_to_secondary_page">
 		<xsl:param name="itemName"/>
@@ -274,7 +274,7 @@ press release do artigo
 		</li>
 	</xsl:template>
 	<!--
-		formacao dos links das pÃ¡ginas secundÃ¡rias
+		formacao dos links das páginas secundárias
 	-->
 	<xsl:template match="CONTROLINFO" mode="links">
 		<ul class="contextMenu">
@@ -318,8 +318,7 @@ press release do artigo
 			<xsl:if test="$t='online_submission'"><xsl:attribute name="id">btn_submission</xsl:attribute></xsl:if>
 			<a href="{.}" target="{$t}">
 				<xsl:if test="$t != 'online_submission'">
-			
-				<xsl:value-of select="$label"/>
+					<xsl:value-of select="$label"/>
 				</xsl:if>
 			</a>
 			<br/>
@@ -391,10 +390,10 @@ press release do artigo
 					<input type="hidden" value="extSearch" name="nextAction"/>
 					<input id="textEntry1" name="exprSearch" class="expression midium defaultValue" value="{$translations/xslid[@id='sci_serial']/text[@find='enter_search_term']}" onfocus="clearDefault('textEntry1', 'expression midium'); this.value= (this.value=='{$translations/xslid[@id='sci_serial']/text[@find='enter_search_term']}')? '' : this.value" onblur="clearDefault('textEntry1', 'expression midium defaultValue'); this.value= (this.value=='')? '{$translations/xslid[@id='sci_serial']/text[@find='enter_search_term']}' : this.value" type="text"/>
 					<select class="inputText mini" name="indexSearch">
-						<option selected="true" value="^nTo^pTodos os Ã­ndices^eTodos los indices^iAll indexes^d*^xTO ^yFULINV">
+						<option selected="true" value="^nTo^pTodos os índices^eTodos los indices^iAll indexes^d*^xTO ^yFULINV">
 							<xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='all_indexes']"/>
 						</option>
-						<option value="^nTi^pPalavras do tÃ­tulo^ePalabras del tÃ­tulo^iTitle words^xTI ^yPREINV^uTI_^mTI_">
+						<option value="^nTi^pPalavras do título^ePalabras del título^iTitle words^xTI ^yPREINV^uTI_^mTI_">
 							<xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='title']"/>
 						</option>
 						<option value="^nAu^pAutor^eAutor^iAuthor^xAU ^yPREINV^uAU_^mAU_">
@@ -441,4 +440,5 @@ press release do artigo
 			</div>
 		</div>
 	</xsl:template>
+
 </xsl:stylesheet>

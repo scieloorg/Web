@@ -243,7 +243,6 @@
 		<text find="scielo_instance">All Collection</text>
 		<text find="enter_search_term">Enter one or more words</text>
 		<text find="journal_site">journal's site</text>
-
 	</xslid>
 	<xslid id="sci_alphabetic">
 		<text find="alphabetic_list">Alphabetic list</text>

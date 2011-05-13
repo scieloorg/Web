@@ -1,15 +1,16 @@
+v5.17
+Included the HTML META citation reference for Google Scholar.
+To enable this feature include the parameter show_meta_citation_reference=1 in the group [services] on scielo.def.php file
+
 v5.16.r
 Removed the citation reference
 
 v5.16
 Fix the URI of OAI full text
-<<<<<<< HEAD
-#269 Na página do artigo no título do periódico colocar um link para sua home
-#270 Na home do periódico juntamente com os links das páginas secundarias, acrescentar um link para página externa do periódico, quando houver.
-=======
 Add templates files to send e-mail
 Add citation reference on SciELO sci_arttext.xis and sci_arttext.xsl 
->>>>>>> 282011ae4bcf2a155e3c1b0bf77341062151c75f
+#269 Na página do artigo no título do periódico colocar um link para sua home
+#270 Na home do periódico juntamente com os links das páginas secundarias, acrescentar um link para página externa do periódico, quando houver.
 
 v5.15
 Alter the retorn of caracter set from UTF-8 to ISO-8859-1 on webservice. 
@@ -71,7 +72,7 @@ v5.1-pr(Press-Release)
 Ajustado o link na caixa de serviços do artigo.
 
 v5.0-pr(Press-Release)
-Realizado alteração nas classes de tranformação para php5(Notificações do php para essa versão deve ser suprimidos)
+Realizado alteração nas classes de transformação para php5(Notificações do php para essa versão deve ser suprimidos)
 #215 correção de apresentação da licença CC
 
 v4.48

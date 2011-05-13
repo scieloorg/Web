@@ -1,7 +1,0 @@
-|Trends Ecol Evol|Murcia|10||58|1995||k1|
-|Urban Ecosyst|Jokimäki|3||21|1999||k2|
-|Science|Maniatis|278||818|1997||k3|
-|Annu Rev Immunol|Baeuerle|12||141|1994||k4|
-|Proc Natl Acad Sci USA|Miagkov|95||13859|1998||k5|
-|Lancet|Bonn|351||1710|1998||k6|
-|N Engl J Med|Barnes|336||1066|1997||k7|
