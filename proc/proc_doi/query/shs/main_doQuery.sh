@@ -17,6 +17,8 @@ then
     echo create $DATA_PATH
     mkdir -p $DATA_PATH
 fi
+dos2unix shs/ent.seq
+$MX seq=shs/ent.seq create=shs/ent now -all
 
 sh ./reglog.sh $LOG_FILE inicio
 # dado um pid de title, or issue or article, seleciona os pid das referencias e do artigo
