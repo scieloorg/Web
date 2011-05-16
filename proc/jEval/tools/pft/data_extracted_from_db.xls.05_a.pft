@@ -1,0 +1,17 @@
+'<Worksheet ss:Name="HIST">
+  <Table ss:ExpandedColumnCount="3" ss:ExpandedRowCount="512" x:FullColumns="1"
+   x:FullRows="1">
+   <Column ss:Width="85.5"/>
+   <Column ss:Width="69.75"/>
+   <Column ss:AutoFitWidth="0" ss:Width="96"/>
+   <Row>
+    <Cell ss:Formula="=SMALL(R[4]C[2]:R[508]C[2],1)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:Formula="=LARGE(R[4]C[1]:R[509]C[1],1)"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:Formula="=AVERAGE(R[4]C:R[509]C)"><Data ss:Type="Number">0</Data></Cell>
+   </Row>
+   <Row ss:Index="4">
+    <Cell><Data ss:Type="String">DATA RECEBIDO</Data></Cell>
+    <Cell><Data ss:Type="String">DATA ACEITO</Data></Cell>
+    <Cell><Data ss:Type="String">DIFERENCA</Data></Cell>
+   </Row>
+'
