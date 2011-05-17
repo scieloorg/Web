@@ -1,0 +1,231 @@
+<!--
+
+IsisScript que gera o XML Para a tela de links da referencia bibliografica
+
+-->
+<IsisScript name="sci_reflinks">
+	
+	<include>ScieloXML/sci_common.xis</include>
+
+<section>
+	<field action="cgi" tag="3000">lng</field>
+	<field action="cgi" tag="3001">nrm</field>
+	<field action="cgi" tag="3003">sln</field>
+	<field action="cgi" tag="3010">debug</field>
+	<field action="cgi" tag="3011">def</field>
+	<field action="cgi" tag="3012">tlng</field> <!-- fixed -->
+
+    <field action="cgi" tag="5000">pid</field>
+    <field action="cgi" tag="5001">ref</field>
+
+	<!-- 
+	se o texto � proveniente do xml do pubmed central, 
+	h� no xml da referencia elementos para doi e pmid,
+	que seriam dados para gerar links respectivamente para 
+	CrossRef e PubMed, assim podem chegar via parametros cgi 
+	-->
+
+	<field action="cgi" tag="9350">pmid</field> 
+	<field action="cgi" tag="9351">medline_db</field> 
+	<field action="cgi" tag="9352">doi</field> 
+
+	<field action="replace" tag="3011"><pft>if a(v3011) then 'scielo.def.php' fi</pft></field>
+
+	<call name="DebugMode"><pft>if a(v3010) then 'OFF' else mpu,v3010,mpl fi</pft></call>
+
+	<include>ScieloXML/sci_cipar.xis</include>	
+
+										      
+	<display><pft>'<root>'/#</pft></display>
+
+
+	<call name="CreateControlInfoXML"><pft>'^l',v3000,'^s',v3001,'^fsci_nlinks'</pft></call>
+
+    <field action="replace" tag="5012"><pft>ref(['ARTIGO']l(['ARTIGO'],'R='v5000),@PROC_SPLIT_MST.PFT,v12^*,| |v18^*)</pft></field>
+    <!--
+	se o texto � proveniente do xml do pubmed central,
+	h� no xml da referencia elementos para doi e pmid,
+	que seriam dados para gerar links respectivamente para
+	CrossRef e PubMed, assim podem chegar via parametros cgi
+	OU ainda serem recuperados dos registros das refer�ncias nos campos v350 e v352
+	que s�o pmid e doi, respectivamente, obtidos do xml do pubmed central.
+	Em suma, se n�o vierem via cgi, podem ser recuperados dos registros c ou r.
+	Mas, se ainda, n�o existirem, � poss�vel que esses dados estejam ou na NLINKS ou na base DOI
+	-->
+	<field action="replace" tag="9350"><pft>if p(v9350) and p(v9351) then v9350,'^a'v9351 else ref(['ARTIGO']l(['ARTIGO'],'R='v5000),@PROC_SPLIT_MST.PFT,v350) fi</pft></field>
+	<field action="replace" tag="9352"><pft>if a(v9352) then ref(['DOIQUERY']l(['DOIQUERY'],'PID='v5000),v237) fi</pft></field>
+	<field action="replace" tag="9352"><pft>if a(v9352) then ref(['ARTIGO']l(['ARTIGO'],'R='v5000),@PROC_SPLIT_MST.PFT,v237,if a(v237) and p(v61) then if v61:'doi:' or v61:'DOI:' then v61  fi fi) fi</pft></field>
+
+
+
+	<display><pft>'<REFERENCE>',#</pft></display>
+    <display><pft>'  <TEXT><![CDATA[',ref(['ARTIGO']val(v5001),v704^*),']]></TEXT>',#</pft></display>
+	<display><pft>'  <TITLE><![CDATA[',v5012,']]></TITLE>',#</pft></display>
+	<display><pft>'</REFERENCE>'/#</pft></display>
+
+    <do task="search">
+        <parm name="db">NLINKS</parm>
+        <parm name="expression"><pft>v5000</pft></parm>
+
+        <field action="define" tag=1001>Isis_Current</field>
+        <field action="define" tag=1002>Isis_Total</field>
+        <field action="define" tag=1003>Isis_Status</field>
+        <loop>
+            <field action="import" tag="list">9350/9352</field>
+
+            <!-- inicio - importa dados do pubmed -->
+            <field action="replace" tag="350"><pft>if a(v350) then v9350 fi</pft></field>
+            <!-- fim - importa dados do pubmed -->
+
+            <flow action="skip"><pft>if a(v2) and a(v3) and a(v4) and a(v350) and a(v9352) and a(v881)  and a(v999) then 'Quit' fi</pft></flow>
+
+            <field action="import" tag="list">5000,3000,7000/7060</field>
+            <field action="import" tag="list">9000/9003</field>
+
+            <label>SCIELO</label>
+            <flow action="jump"><pft>if a(v881) then 'CROSSREF' fi</pft></flow>
+            <field action="add" tag="9000">
+              <pft>'http://'v7009,v7013,'scielo.php?script=sci_arttext&pid='mpu,v881^*,mpl,'&lng=',v3000</pft>
+            </field>
+            <field action="add" tag="9001">SciELO</field>
+            <field action="add" tag="9002">no</field>
+            <field action="add" tag="9003">SciELO</field>
+
+            <label>CROSSREF</label>
+            <flow action="jump"><pft>if a(v9352) then 'MEDLINE' fi</pft></flow>
+            <field action="replace" tag="9352">
+              <pft>
+                if not v9352:'http' then
+                   if s(mpu,v9352,mpl):'DOI:' then
+                       'http://dx.doi.org/',mid(v9352,instr(v9352,':')+1,size(v9352))
+                   else
+                       'http://dx.doi.org/',v9352
+                   fi
+                fi
+              </pft>
+             </field>
+            <field action="add" tag="9000">
+              <pft>replace(v9352,' ','')</pft>
+             </field>
+            <field action="add" tag="9001">CrossRef</field>
+            <field action="add" tag="9002">no</field>
+            <field action="add" tag="9003">CrossRef</field>
+
+            <label>MEDLINE</label>
+            <flow action="jump"><pft>if a(v350) then 'LILACS' fi</pft></flow>
+            <field action="add" tag="9000">
+              <pft>
+               if p(v350^a) then
+                'http://'v7027,v7028,v7030'?IsisScript='v7029'iah.xis&nextAction=lnk&base=',
+                mpu,v350^a,mpl,'&exprSearch='v350^*'&indexSearch=UI&lang='
+                   select s(v3000)
+                    case 'es': 'e'
+                    case 'en': 'i'
+                    case 'pt': 'p'
+                   endsel
+              else
+                   'http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?cmd=Retrieve&db=PubMed&dopt=abstract&list_uids=',v350^*
+              fi
+              </pft>
+             </field>
+            <field action="add" tag="9001">Medline</field>
+            <field action="add" tag="9002">no</field>
+            <field action="add" tag="9003">Medline</field>
+
+
+            <label>LILACS</label>
+            <flow action="jump"><pft>if a(v2) then 'ADOLEC' fi</pft></flow>
+            <field action="add" tag="9000">
+              <pft>
+               'http://'v7023,v7024,v7026'?IsisScript='v7025'iah.xis&nextAction=lnk&base=',
+                mpu,v2^a,mpl,'&exprSearch=',f(val(v2^*),1,0),'&indexSearch=ID&lang='
+                select s(v3000)
+                    case 'es': 'e'
+                    case 'en': 'i'
+                    case 'pt': 'p'
+                endsel
+              </pft>
+             </field>
+            <field action="add" tag="9001">LILACS</field>
+            <field action="add" tag="9002">no</field>
+            <field action="add" tag="9003">LILACS</field>
+
+            <label>ADOLEC</label>
+            <flow action="jump"><pft>if a(v3) then 'MINISTERIO_SAUDE' fi</pft></flow>
+            <field action="add" tag="9000">
+              <pft>
+               'http://'v7031,v7032,v7034'?IsisScript='v7033'iah.xis&nextAction=lnk&base=',
+               mpu,v3^a,mpl,'&exprSearch=',f(val(v3^*),1,0),'&indexSearch=ID&lang='
+                select s(v3000)
+                    case 'es': 'e'
+                    case 'en': 'i'
+                    case 'pt': 'p'
+                 endsel
+              </pft>
+             </field>
+            <field action="add" tag="9001">Adolec</field>
+            <field action="add" tag="9002">no</field>
+            <field action="add" tag="9003">Adolec</field>
+
+            <label>MINISTERIO_SAUDE</label>
+            <flow action="jump"><pft>if a(v4) then 'END' fi</pft></flow>
+            <field action="add" tag="9000">
+              <pft>
+               'http://coleciona-sus.bvs.br/cgi-bin/wxis1660.exe/lildbi/iah/?IsisScript=lildbi/iah/iah.xic&nextAction=lnk&base=',
+                mpu,v4^a,mpl,'&exprSearch='v4^*'&indexSearch=ID&lang=p'
+              </pft>
+             </field>
+            <field action="add" tag="9001">Coleciona-SUS</field>
+            <field action="add" tag="9002">no</field>
+            <field action="add" tag="9003">SUS</field>
+
+            <label>END</label>
+
+            <field action="export" tag="list">9000/9003</field>
+        </loop>
+   </do>
+   <file action="close" type="database">NLINKS</file>
+ 
+
+   
+<display>
+    <pft>
+    	if p(v9000) then
+        '<group id="linksTo">',#
+
+        (
+        '   <link>',#
+        '     <url><![CDATA[',v9000,']]></url>',#
+        '     <label>',v9001,'</label>',#
+        if v9002<>'no' then
+         '     <log>',v9002,'</log>',#
+
+        fi
+        '     <target>',v9003,v5000,'</target>',#
+        '   </link>',#
+        )
+        '</group>',#
+        fi
+        '<group id="tryLink">',#
+        '   <link>',#
+        '     <url><![CDATA[http://scholar.google.com.br/scholar?q=',v5012,']]></url>',#
+        '     <label>Google</label>',#
+        '     <log>similares_em_google</log>',#
+        '     <target>trygoogle',v5000,'</target>',#
+        '   </link>',#
+        '</group>',#
+        '<group id="similarLink">',#
+        '   <link>',#
+        '     <url><![CDATA[/scieloOrg/php/similar.php?lang=',v3000,'&text=',v5012,']]></url>',#
+        '     <label-id>scieloNetwork</label-id>',#
+        '     <log>similares_em_scielo</log>',#
+        '     <target>similarLink',v5000,'</target>',#
+        '   </link>',#
+        '</group>',#
+    </pft>
+</display>
+
+		<display><pft>'</root>'/#</pft></display>
+	</section>
+	
+</IsisScript>
