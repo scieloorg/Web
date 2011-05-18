@@ -1,6 +1,6 @@
  if v9999^d='' then
    if v9999^p<>'' then
-     'sh ./shs/regnotfound.sh ',v8000,' ',v9999^p,#
+     'sh ./shs/regquerylog.sh ',v8000,' ',v9999^p,' notfound',#
    fi
  else
    if l(['QUERY']v9999^d)=0 then

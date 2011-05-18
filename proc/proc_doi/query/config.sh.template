@@ -13,6 +13,7 @@ NOTFOUND=/var/www/scielo_br/bases-work/doi_query/notfound
 CIPFILE=$TEMP_PATH/query.cip
 LOG_FILE=$DATA_PATH/doi_query.log
 QUERYDB=$DATA_PATH/query
+QUERYLOGDB=$DATA_PATH/querylog
 RESULT_PATH=$DATA_PATH/results
 RESULT_FILE=$RESULT_PATH/result.txt
 

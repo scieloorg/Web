@@ -6,6 +6,8 @@ RESULT=$3
 
 . $CONFIG
 
+LOC_TEMP_PATH=$TEMP_PATH/`date '+%Y%m%d%H%M'`
+
 if [ ! -d $TEMP_PATH ]
 then
     echo create $TEMP_PATH
@@ -28,29 +30,36 @@ if [ ! -f $PIDLIST ]
 then
     echo Missing pid list $PIDLIST
 else
-    $MX seq=$PIDLIST "proc=if v1<>'' then 'a9000{',if v1*0.1<>'S' then 'S' fi,v1,'{' fi" lw=999 "pft=if v9000<>'' then 'sh ./shs/select.sh $CONFIG ',v9000,#  fi" now > $TEMP_PATH/call_select.sh
-
-    sh $TEMP_PATH/call_select.sh | sort -u > $TEMP_PATH/selection.txt
 
     # para cada MAX itens da selecao, fazer um request de query
     sh ./reglog.sh $LOG_FILE "split selection"
-    $MX seq=$TEMP_PATH/selection.txt create=$TEMP_PATH/selection now -all
+    $MX seq=$PIDLIST create=$TEMP_PATH/selection now -all
 
-    C=0`wc -l $TEMP_PATH/selection.txt`
+    if [ ! -f $QUERYLOGDB.mst ]
+    then
+        $MX $TEMP_PATH/selection create=$QUERYLOGDB now -all
+        $MX $QUERYLOGDB fst=@fst/log.fst fullinv=$QUERYLOGDB
+    else
+        $MX $QUERYLOGDB fst=@fst/log.fst fullinv=$QUERYLOGDB
+        $MX $TEMP_PATH/selection "proc=if l(['$QUERYLOGDB']'pid='v1)>0 then 'd*' fi" append=$QUERYLOGDB now -all
+        $MX $QUERYLOGDB fst=@fst/log.fst fullinv=$QUERYLOGDB
+    fi
+
+    C=0`wc -l $PIDLIST`
     $MX null count=1 "proc='a9999{',mid('$C',1,instr('$C',' ')-1),'{'" "pft=v9999" now > $TEMP_PATH/c
 
     COUNTY=`cat $TEMP_PATH/c`
     echo $COUNTY
     START=1
-    while [ $COUNTY -gt 0 ]
+    while [ $START -lt $COUNTY ]
     do
-        sh ./reglog.sh $LOG_FILE "execute selection $START $COUNTY"
-        $MX $TEMP_PATH/selection from=$START count=$MAX_QTY_DOC_PER_XML lw=999 "pft='sh ./shs/generate_xml_node_query.sh $CONFIG ',v1,#" now >$TEMP_PATH/call_generate_xml_node_query.sh
-
         sh ./reglog.sh $LOG_FILE "generate xml"
         XML=$TEMP_PATH/selection_$START.xml
         $MX null count=1 lw=999 "proc='a9000{$EMAIL{a9001{',replace(date,' ','-'),'{'" "pft=@pft/begin.pft" now > $XML
-        sh $TEMP_PATH/call_generate_xml_node_query.sh >> $XML
+
+        sh ./reglog.sh $LOG_FILE "execute selection $START $COUNTY"
+        $MX $TEMP_PATH/selection from=$START count=$MAX_QTY_DOC_PER_XML lw=999 "pft=if size(v1)=23 or size(v1)=28 then 'sh ./shs/generate_xml_node_query.sh $CONFIG ',v1,' $XML '#,'sh ./shs/regquerylog.sh $CONFIG ',v1,' query '# fi" now >$TEMP_PATH/call_generate_xml_node_query_and_do_log.sh
+        sh $TEMP_PATH/call_generate_xml_node_query_and_do_log.sh
         $MX null count=1 lw=999 "pft=@pft/end.pft" now >> $XML
 
         sh ./reglog.sh $LOG_FILE "execute request"
@@ -61,9 +70,10 @@ else
         sh ./reglog.sh $LOG_FILE "receive result"
 
 
-        COUNTY=`expr $COUNTY - $MAX_QTY_DOC_PER_XML`
+        #COUNTY=`expr $COUNTY - $MAX_QTY_DOC_PER_XML`
         START=`expr $START + $MAX_QTY_DOC_PER_XML`
     done
+    $MX $QUERYLOGDB fst=@fst/log.fst fullinv=$QUERYLOGDB
 
     sh ./reglog.sh $LOG_FILE $RESULT generated.
 fi

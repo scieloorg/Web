@@ -32,12 +32,15 @@ $MX cipar=$CIPFILE seq=$RESULT "proc=@pft/add_doi_data.prc" lw=999 "proc='a8000{
 sh ./reglog.sh $LOG_FILE "execute actions"
 sh $TEMP_PATH/treatresult.sh
 
-sh ./reglog.sh $LOG_FILE "invert QUERY"
-$MX $QUERYDB fst=@fst/query.fst fullinv=$QUERYDB
-
 sh ./reglog.sh $LOG_FILE "generate update.sh"
 $MX "seq=$TEMP_PATH/update.txt " lw=999 "pft=if size(v2)>0 then 'sh ./shs/updatereg.sh $CONFIG \"',replace(replace(v1,')','\)'),'(','\('),'\" ',v2,# fi" now > $TEMP_PATH/call_updatereg.sh
 sh ./reglog.sh $LOG_FILE "execute update.sh"
 sh $TEMP_PATH/call_updatereg.sh
+
+sh ./reglog.sh $LOG_FILE "invert QUERY"
+$MX $QUERYDB fst=@fst/query.fst fullinv=$QUERYDB
+sh ./reglog.sh $LOG_FILE "invert QUERY"
+$MX $QUERYLOGDB fst=@fst/log.fst fullinv=$QUERYLOGDB
+
 
 echo $0 done.
