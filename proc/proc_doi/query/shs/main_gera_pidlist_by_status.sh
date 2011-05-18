@@ -3,12 +3,13 @@ PIDLIST=$2
 PIDSELLIST=$3
 STATUS=$4
 
-. $CONFIG
 
 if [ "@$CONFIG" == "@" ]
 then
     echo Missing param 1 CONFIG
 else
+    . $CONFIG
+
     if [ "@$PIDLIST" == "@" ]
     then
         echo Missing param 2 pidlist
@@ -25,6 +26,8 @@ else
             else
 
                 $MX $QUERYLOGDB btell=0 "bool=CST=$STATUS" "pft=v1/" now  | sort -u > $PIDSELLIST
+                sh ./reglog.sh $LOG_FILE $PIDSELLIST generated.
+                sh ./reglog.sh $LOG_FILE $0 finished.
 
             fi
 
@@ -32,5 +35,3 @@ else
 
     fi
 fi
-sh ./reglog.sh $LOG_FILE $PIDSELLIST generated.
-sh ./reglog.sh $LOG_FILE $0 finished.
