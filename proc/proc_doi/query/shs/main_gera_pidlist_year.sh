@@ -4,12 +4,12 @@ PIDLIST=$2
 YEAR=$3
 
 
-. $CONFIG
 
 if [ "@$CONFIG" == "@" ]
 then
     echo Missing param 1 CONFIG
 else
+    . $CONFIG
     if [ "@$PIDLIST" == "@" ]
     then
         echo Missing param 2 pidlist
@@ -18,16 +18,13 @@ else
         then
             echo Missing param 3 YEAR
         else
-            
-            $MX $ARTIGO btell=0 "bool=DHT=$YEAR$" "pft=v880/"  now | sort -u > $PIDLIST.tmp
-            echo >> $PIDLIST.tmp
-
-            $MX seq=$PIDLIST.tmp lw=9999 "pft=if size(v1)>0 then 'sh ./shs/select.sh $CONFIG ',v1/ fi"  now > $TEMP_PATH/call_select.sh
-            sh $TEMP_PATH/call_select.sh | sort -u > $PIDLIST
+            sh ./reglog.sh $LOG_FILE "Identifying articles published in $YEAR, and their references"
+            $MX $ARTIGO btell=0 "bool=DTH=$YEAR$" "pft='sh ./shs/select.sh $CONFIG ',v880/"  now | sort -u > $TEMP_PATH/call_select.sh
+            sh $TEMP_PATH/call_select.sh  > $PIDLIST
+            sh ./reglog.sh $LOG_FILE "$PIDLIST generated."
+            sh ./reglog.sh $LOG_FILE "$0 finished."
 
 
         fi
     fi
 fi
-sh ./reglog.sh $LOG_FILE $PIDLIST generated.
-sh ./reglog.sh $LOG_FILE $0 finished.
