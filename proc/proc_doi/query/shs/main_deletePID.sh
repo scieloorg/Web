@@ -1,6 +1,5 @@
 CONFIG=$1
 PIDLIST=$2
-RESULT=$3
 
 
 . $CONFIG
@@ -27,6 +26,6 @@ else
     $MX seq=$PIDLIST "proc=if v1<>'' then 'a9000{',if v1*0.1<>'S' then 'S' fi,v1,'{' fi" lw=999 "pft=if v9000<>'' then 'sh ./shs/delete_pid.sh $CONFIG ',v9000,#  fi" now > $TEMP_PATH/call_delete_pid.sh
 
     sh $TEMP_PATH/delete_pid_select.sh 
-    
+    $MX $QUERYDB fst=@fst/query.fst fullinv=$QUERYDB
 fi
-sh ./reglog.sh $0 finished.
+sh ./reglog.sh $LOG_FILE $0 finished.
