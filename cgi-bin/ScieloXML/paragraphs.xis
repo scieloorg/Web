@@ -1,0 +1,263 @@
+<!-- Functions Paragraphs-->
+
+
+<function name="return_ARTIGO_or_P"  action="replace" tag="880">
+    <field action="import" tag="list">7011</field>
+    <field action="replace" tag="2002"><pft>'/artigo/p/',v880*1.9,'/',v880*10.4,'/',v880*14.4,'/',v880*18</pft></field>
+    <field action="replace" tag="2002"><pft>v7011,if instr(v7011,'\')>0 then replace(v2002,'\','/') else v2002 fi</pft></field>
+    <field action="statusfile" tag="9004"><pft>v2002</pft></field>
+	<field action="replace" tag="7777"><pft>'^d',if v9004^s : 'e' then v2002,'^tp' else 'ARTIGO^ta' fi</pft></field>
+    <field action="export" tag="list">7777</field>
+</function>
+
+<function name="getMfnRangeGivenSearchExpression" action="replace" tag=4001>
+    <do task="search">
+	  <parm name="db">ARTIGO</parm>
+	  <parm name="expression"><pft>v4001</pft></parm>
+	  <parm name="count">1</parm>
+
+	  <loop>
+			<field action="replace" tag="9901"><pft>mfn</pft></field>
+			<field action="export" tag="list">9901</field>
+	  </loop>
+	</do>
+	<do task="search">
+	  <parm name="db">ARTIGO</parm>
+	  <parm name="expression"><pft>v4001</pft></parm>
+	  <parm name="count">1</parm>
+	  <parm name="reverse">On</parm>
+
+	  <loop>
+			<field action="replace" tag="9902"><pft>mfn</pft></field>
+			<field action="export" tag="list">9902</field>
+	  </loop>
+
+	</do>
+    <field action="replace" tag="9901"><pft>|^s|v9901,|^e|v9902</pft></field>
+	<field action="export" tag="list">9901</field>
+</function>
+
+<function name="getMfnRangeGivenNoSearchExpression" action="replace" tag=4001>
+    <!-- quantidade de reg de referencias -->
+    <do task="search">
+	  <parm name="db">ARTIGO</parm>
+	  <parm name="expression"><pft>'R='v4001^p,'$'</pft></parm>
+	  <parm name="count">1</parm>
+	  <loop>
+			<field action="replace" tag="9708"><pft>v708</pft></field>
+			<field action="export" tag="list">9708</field>
+	  </loop>
+	</do>
+    <flow action="jump"><pft>if a(v9708) then 'NO_REFERENCES' fi</pft></flow>
+
+    <!-- quantidade total de reg paragrafos -->
+	<do task="mfnrange">
+	  <parm name="db"><pft>v4001^d</pft></parm>
+	  <parm name="from">1</parm>
+	  <loop>
+			<field action="export" tag="list">708</field>
+	  </loop>
+	</do>
+    <!-- na base de paragrafos, localiza o ?ltimo paragrafo referente a uma referencia (presenca de v888) -->
+    <!-- OBSERVACAO: MAS n?o necessariamente v888 se refere a ?ltima referencia -->
+	<do task="mfnrange">
+	  <parm name="db">ARTIGO</parm>
+	  <parm name="from"><pft>v708</pft></parm>
+	  <parm name="reverse">On</parm>
+
+	  <loop>
+			<field action="replace" tag="9902"><pft>if p(v888) then mfn fi</pft></field>
+			<field action="export" tag="list">9902</field>
+            <flow action="skip"><pft>if p(v9902) then 'Quit' fi</pft></flow>
+	  </loop>
+
+	</do>
+    <field action="replace" tag="9901"><pft>'^s',f(val(v9902) - val(v9708)  + 1 ,1,0),|^e|v9902</pft></field>
+	<field action="export" tag="list">9901</field>
+
+    <label>NO_REFERENCES</label>
+</function>
+
+<function name="getParagraphsRange" action="replace" tag=4001>
+    <!-- identifica o primeiro e o ï¿?timo registro parï¿?rafo  -->
+    <field action="import" tag="list">7011</field>
+    <call name="return_ARTIGO_or_P"><pft>v4001*0.23</pft></call>
+
+    <!-- se a base for somente de paragrafos v9901^s=1 e n?o precisa do v9901^e -->
+    <field action="replace" tag="9901">^s1</field>
+
+    <call name="getMfnRangeGivenSearchExpression"><pft>if v7777^t='a' then 'ART='v4001 fi</pft></call>
+    <field action="replace" tag="9901"><pft>v9901,v7777</pft></field>
+    <field action="export" tag="list">9901</field>
+</function>
+
+<function name="getReferencesRange" action="replace" tag=4001>
+    <field action="import" tag="list">7011</field>
+    <call name="return_ARTIGO_or_P"><pft>v4001*0.23</pft></call>
+
+    <call name="getMfnRangeGivenNoSearchExpression"><pft>if v7777^t='p' then '^d',v7777^*,'^p',v4001^p*0.23 fi</pft></call>
+    <call name="getMfnRangeGivenSearchExpression"><pft>if v7777^t='a' then 'RP=',v4001 fi</pft></call>
+    <field action="replace" tag="9901"><pft>v9901,v7777</pft></field>
+    <field action="export" tag="list">9901</field>
+</function>
+
+<function name="getReferenceText" action="replace" tag="4001">
+<field action="import" tag="list">7011/7070</field>
+    <!-- artigo proveniente de xml pmc 3.0-->
+    <field action="replace" tag="5002"><pft>ref(['ARTIGO']l(['ARTIGO']'R=',v4001^p),v704^*)</pft></field>
+
+    <!-- artigo proveniente de markup-->
+    <call name="return_ARTIGO_or_P"><pft>if a(v5002) then s(v4001^p)*0.23 fi</pft></call>
+    <field action="replace" tag="5002"><pft>if p(v7777) then ref([v7777^*]val(v4001^m),v704^*) fi</pft></field>
+
+    <!-- comum -->
+    <field action="export" tag="list">5002</field>
+</function>
+
+<function name="GetLanguageIAH" action="replace" tag=4001>
+<!-- Convert language to IAH format
+      4001 - Language Code
+	 Returns:
+	  4010 - IAH Language Code -->
+
+ <return action="replace" tag="4010">
+  <pft>
+   select s(v4001)
+    case 'es': 'e'
+    case 'en': 'i'
+    case 'pt': 'p'
+   endsel
+  </pft>
+ </return>
+</function>
+
+ 
+<function name="display_fulltext" action="replace" tag=4001>
+    <field action="import" tag="list">7000/7070</field>
+    <field action="import" tag="list">7999</field>
+
+    <field action="replace" tag="8000"><pft>v4001^x</pft></field>
+    <field action="replace" tag="880"><pft>v4001^p</pft></field>
+
+    <display>
+        <pft>
+            if v8000='XML' then
+                '<fulltext  xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:util="http://dtd.nlm.nih.gov/xsl/util"
+                xmlns:doc="http://www.dcarlisle.demon.co.uk/xsldoc"
+                xmlns:ie5="http://www.w3.org/TR/WD-xsl"
+                xmlns:msxsl="urn:schemas-microsoft-com:xslt"
+                xmlns:fns="http://www.w3.org/2002/Math/preference"
+                xmlns:mml="http://www.w3.org/1998/Math/MathML"  >'/,
+
+             else
+                '<BODY><![CDATA[ '
+            fi
+        </pft>
+    </display>
+
+    <!-- versao traduzida -->
+    <call name="displayTranslationFilename"><pft>v7999[1]</pft></call>
+
+    <!-- versao traduzida: sem referencias na base, pula para final 'CLOSE_BODY' -->
+    <flow action="jump"><pft>v7999^x[2]</pft></flow>
+
+    <!-- versao traduzida: identifica o primeiro e o ï¿?timo registro parï¿?rafo v9901^s e v9901^e -->
+    <call name="getReferencesRange"><pft>if v7999[1]<>'' then v4001^p fi</pft></call>
+
+    <!-- versao original: identifica o primeiro e o ï¿?timo registro parï¿?rafo v9901^s e v9901^e -->
+    <call name="getParagraphsRange"><pft>if v7999[1]='' then v4001^p fi</pft></call>
+
+    <call name="GetLanguageIAH"><pft>v4001^l</pft></call>
+
+    <!-- Extract full text e/ou references -->
+    <flow action="jump"><pft>if a(v9901)  then 'CLOSE_BODY' fi</pft></flow>
+    <do task="mfnrange">
+        <parm name="db"><pft>v9901^d</pft></parm>
+        <parm name="from"><pft>v9901^s</pft></parm>
+        <parm name="to"><pft>v9901^e</pft></parm>
+
+        <loop>
+            <!--
+            <display><pft>'[numeracao: *** ',v1001,']'</pft></display>
+            <display><pft>@PROC_SPLIT_MST.PFT,</pft></display>
+            asael/rpiva: 21.Jan.2004
+            fixed 20040122 - corrige problema de leitura da base ao executar a proc PROC_SPLIT_MST. A soluï¿½ï¿½o usada foi criar uma funï¿½ï¿½o que faz o mesmo que a proc
+            -->
+            <call name="PROC_SPLIT_MST"><pft>v32701</pft></call>
+
+            <field action="import" tag="list">40,4001,4010,7009/7070</field>
+            
+            <flow action="jump">
+                <pft>
+                    if p(v10) then 'CREATE_AUTHOR_LINK'
+                    else if p(v888) then 'CREATE_REF_LINK' fi
+                    fi
+                </pft>
+           </flow>
+
+           <display>
+                <pft>
+                    if v704^*:'http:' and not v704^*:'http://' then
+                        replace(v704^*,'http:','')/,
+                    else
+                        /* replace(v704^*,'&#956;','&#xB5;'), */
+                        ,v704^*,
+                    fi</pft></display>
+
+           <!-- THERE ARE CASES WHICH PHP CAN NOT TRANSFORM BECAUSE OF THE LARGE BODY, THE SOLUTION IS BREAK THE LARGE BODY IN SEVERAL ONES -->
+           <field action="import" tag="list">8000</field>
+           <display><pft>if v8000<>'XML'  and mid(v701,size(v701),1)='0' then ']]></BODY>'/,'<BODY><![CDATA[' fi</pft></display>
+
+           <flow action="skip">Next</flow>
+
+           <label>CREATE_AUTHOR_LINK</label>
+           <!-- Create author link -->
+           <!-- 9999 - author string trimmed -->
+           <field action="replace" tag="9999" split="occ"><pft>replace(v704^*,' ',s(#))</pft></field>
+           <display>
+            <pft>'<a href=http://'v7009,v7010,v7020'?IsisScript='v7021'iah.xis&nextAction=lnk&base=article^dlibrary&indexSearch=AU&exprSearch=',v9999+|+|,'&lang='v4010'>'v10'</a>'</pft>
+           </display>
+           <flow action="skip">Next</flow>
+
+
+           <label>CREATE_REF_LINK</label>
+           <field action="replace" tag="3330"><pft>s(v880,s(f(val(v888)+100000,5,0))*1.5)</pft></field>
+
+           <!-- Create Reference Link -->
+            <field action="replace" tag="703"><pft>mpu,v704^*,mpl</pft></field>
+            <field action="replace" tag="9669"><pft>' '</pft></field>
+            <field action="replace" tag="9999"><pft>|'|v9669</pft></field>
+            <field action="replace" tag="705"><pft>f(instr(v703,'</P>'),1,0)</pft></field>
+            <field action="replace" tag="705"><pft>if val(v705)=0 then f(instr(v703,'<HR'),1,0) fi</pft></field>
+
+
+            <display>
+                <pft>
+                     '<!-- ref -->'
+                    ,if val(v705)>0 then mid(v704^*,1,val(v705)-1) else v704^* fi,
+                    ,if v7062 = '1' then
+                        '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;',
+                        '[&#160;<a href="javascript:void(0);" ',
+                        'onclick="javascript: ',
+                        'window.open(',v9999*0.1,'/scielo.php?script=sci_nlinks&ref=',mfn,'&pid=',v3330,'&lng=',v4001^l,'',v9999*0.1,','v9999*0.1,v9999*0.1',',v9999*0.1,'width=640,height=500,resizable=yes,scrollbars=1,menubar=yes,',v9999*0.1,');">Links</a>&#160;]','<!-- end-ref -->'
+                     fi,
+
+                </pft>
+            </display>
+      </loop>
+    </do>
+
+    <!-- fixed 20040614 -->
+    <label>CLOSE_BODY</label>
+    <call name="displayTranslationFilename"><pft>v7999^*[2]</pft></call>
+
+    <display>
+      <pft>if  v8000='BODY' then ' ]]></BODY>'/ else '</fulltext>' fi</pft>
+    </display>
+</function>
+
+<function name="displayTranslationFilename" action="replace" tag="4901" split="occ">
+<!-- fixed 20040122 - corrige problema de leitura com cat() por causa do tamanho do arquivo -->
+	<display><pft>'[replace-this-by-content]',if v4901^x='CLOSE_BODY' then v4901^* else v4901 fi,'[/replace-this-by-content]'</pft></display>
+</function>
+

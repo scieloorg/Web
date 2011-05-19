@@ -1651,8 +1651,8 @@
 
 	<call name="GetLanguage"><pft>v3012/v3003/(|^l|v4001^l/)</pft></call>
 
-	<!-- anteriormente tag="9000", foi substituï¿½do por tag="4001", reaproveitando-o, 
-	pois havia um problema de memï¿½ria no wxis.exe, reaproveitando o campo, reaproveita-se a memï¿½ria -->
+	<!-- anteriormente tag="9000", foi substituï¿?o por tag="4001", reaproveitando-o, 
+	pois havia um problema de memï¿?ia no wxis.exe, reaproveitando o campo, reaproveita-se a memï¿?ia -->
     <field action="replace" tag="4001">
    		<pft>(if s(mpu,v4001^l)=s(mpu,v4010[1]) then mpl,v4001^a,break fi)</pft>
     </field>
@@ -2054,7 +2054,7 @@ fi
  		 excluding the file extension. The only exception is the bjmbr serial.
 	     In this case, the pdf file name is one character shorter.
 	 -->
-	 <!-- fixed 20040622 atï¿½ o final da funcao -->
+	 <!-- fixed 20040622 atï¿?o final da funcao -->
 	<list action="load" type="list"><pft>(v4040/)</pft></list>
 
 	<do task="list">
@@ -2348,7 +2348,7 @@ fi
      4901^o - idioma do texto original
      4901^p - pid 
 	 4901^l - language da interface
-	 4901^d - diretï¿½rio da traduï¿½ï¿½o (pdf ou translation)
+	 4901^d - diretï¿?io da traduï¿½ï¿½o (pdf ou translation)
 	-->
 	
 	<flow action="jump"><pft>if v4901^o=v4901^l then 'end' else 'getFileNames' fi</pft></flow>
@@ -2369,8 +2369,8 @@ fi
 <!-- If there is the translations then generate the elements translation
      4901 - pid 
 	 4901^l - language
-	 4901^a - indica se ï¿½ o arquivo do trecho do texto completo apï¿½s as referï¿½ncias: ausente ou caracter 'b' (back)
-	 4901^d - diretï¿½rio da traduï¿½ï¿½o (pdf ou translation)
+	 4901^a - indica se ï¿?o arquivo do trecho do texto completo apï¿? as referï¿?cias: ausente ou caracter 'b' (back)
+	 4901^d - diretï¿?io da traduï¿½ï¿½o (pdf ou translation)
 	 -->
    <field action="replace" tag="4901" split="occ"><pft>(v4901/)</pft></field> 
    <field action="replace" tag="4902" split="occ"><pft>(v4901^l/)</pft></field> 
@@ -2463,52 +2463,7 @@ fi
 	
 </function>
 
-<function name="oldGetContentTranslationFileName" action="replace" tag="4901" split="occ">
-<!-- fixed 20040122 - corrige problema de leitura com cat() por causa do tamanho do arquivo -->
-	<do task="import">
-	    <parm name="file"><pft>v4901</pft></parm>
-		<parm name="type">RLine</parm>
-		
-		<field action="replace" tag="7999">inicio_body</field>
-    	<loop>
-			<field action="import" tag="list">7999</field>
-			<field action="replace" tag="1"><pft>v1,if p(v2) then ,'|'v2 fi,if p(v3) then ,'|'v3 fi</pft></field>
 
-			<field action="replace" tag="7900">0</field>
-			<field action="replace" tag="7901">0</field>
-
-			<flow action="jump"><pft>v7999</pft></flow>
-		
-			<label>inicio_body</label>
-			<!-- procura o inicio da tag body -->
-			<field action="replace" tag="7900"><pft>if val(v7900)=0 then f(instr(v1,'<BODY'),1,0) fi</pft></field>
-			<field action="replace" tag="7900"><pft>if val(v7900)=0 then f(instr(v1,'<body'),1,0) fi</pft></field>		
-
-			<!-- encontra o primeiro caracter do conteï¿½do da tag body -->
-			<field action="replace" tag="1"><pft>if val(v7900)>0 then mid(v1,val(v7900),size(v1)) fi</pft></field>
-			<field action="replace" tag="7900"><pft>if val(v7900)>0 then f(instr(v1,'>'),1,0) fi</pft></field>		
-
-			<!-- indica que a tag body jï¿½ foi encontrada, agora procurar o fim -->
-			<field action="replace" tag="7999">fim_body</field>		
-
-			<label>fim_body</label>
-			<field action="replace" tag="7901"><pft>if val(v7901)=0 then f(instr(v1,'</BODY>'),1,0) fi</pft></field>
-			<field action="replace" tag="7901"><pft>if val(v7901)=0 then f(instr(v1,'</body>'),1,0) fi</pft></field>		
-<!--display><pft>ALL</pft></display-->
-			<field action="replace" tag="1"><pft>mid(v1,val(v7900)+1,size(v1))</pft></field>
-			<field action="replace" tag="1"><pft>if val(v7901)>0 then mid(v1,1,val(v7901)-1) fi</pft></field>
-	
-			<label>DISPLAY_BODY</label>
-			<display><pft>v1' '/</pft></display>
-			<field action="export" tag="list">7999</field>
-    		</loop>
-	</do>
-</function>
-
-<function name="GetContentTranslationFileName" action="replace" tag="4901" split="occ">
-<!-- fixed 20040122 - corrige problema de leitura com cat() por causa do tamanho do arquivo -->
-	<display><pft>'[replace-this-by-content]',if v4901^x='CLOSE_BODY' then v4901^* else v4901 fi,'[/replace-this-by-content]'</pft></display>
-</function>
 
 <function name="CreateScieloCopyInfoXML" action="replace" tag="4900">
 	<field action="import" tag="list">7000/7022</field>
@@ -3697,36 +3652,3 @@ fi
 		</do>
 	</function>
 	
-<function name="existParagraphsDatabase" tag="880">
-    <field action="import" tag="list">7011</field>
-    <field action="replace" tag="2002"><pft>v7011,'/artigo/p/',v880*1.9,'/',v880*10.8,'/',v880*18</pft></field>
-    <field action="statusfile" tag="9004"><pft>v2002</pft></field>
-	<field action="replace" tag="7777"><pft>if v9004^s : 'e' then ,'^d',v2002,'^eyes' else '^dARTIGO^eno' fi</pft></field>
-    <field action="export" tag="list">7777</field>
-</function>
-
-<function name="getRange" action="replace" tag=4001>
-	<do task="search">
-	  <parm name="db">ARTIGO</parm>
-	  <parm name="expression"><pft>v4001</pft></parm>
-	  <parm name="count">1</parm>
-
-	  <loop>
-			<field action="replace" tag="9901"><pft>mfn</pft></field>
-			<field action="export" tag="list">9901</field>
-	  </loop>
-	 </do>
-	 <do task="search">
-	  <parm name="db">ARTIGO</parm>
-	  <parm name="expression"><pft>v4001</pft></parm>
-	  <parm name="count">1</parm>
-	  <parm name="reverse">On</parm>
-
-	  <loop>
-			<field action="replace" tag="9902"><pft>mfn</pft></field>
-			<field action="export" tag="list">9902</field>
-	  </loop>
-
-	 </do>
-	<field action="export" tag="list">9901/9902</field>
-</function>

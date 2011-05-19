@@ -3,10 +3,10 @@
 IsisScript que gera o XML Para a tela de links da referencia bibliografica
 
 -->
-<IsisScript name="sci_reflinks">
+<IsisScript name="sci_nlinks">
 	
 	<include>ScieloXML/sci_common.xis</include>
-
+    <include>ScieloXML/paragraphs.xis</include>
 <section>
 	<field action="cgi" tag="3000">lng</field>
 	<field action="cgi" tag="3001">nrm</field>
@@ -17,10 +17,11 @@ IsisScript que gera o XML Para a tela de links da referencia bibliografica
 
     <field action="cgi" tag="5000">pid</field>
     <field action="cgi" tag="5001">ref</field>
+    <field action="cgi" tag="5002">reftext</field>
 
 	<!-- 
-	se o texto ï¿½ proveniente do xml do pubmed central, 
-	hï¿½ no xml da referencia elementos para doi e pmid,
+	se o texto ï¿?proveniente do xml do pubmed central, 
+	hï¿?no xml da referencia elementos para doi e pmid,
 	que seriam dados para gerar links respectivamente para 
 	CrossRef e PubMed, assim podem chegar via parametros cgi 
 	-->
@@ -42,24 +43,32 @@ IsisScript que gera o XML Para a tela de links da referencia bibliografica
 	<call name="CreateControlInfoXML"><pft>'^l',v3000,'^s',v3001,'^fsci_nlinks'</pft></call>
 
     <field action="replace" tag="5012"><pft>ref(['ARTIGO']l(['ARTIGO'],'R='v5000),@PROC_SPLIT_MST.PFT,v12^*,| |v18^*)</pft></field>
+
+
+
     <!--
-	se o texto ï¿½ proveniente do xml do pubmed central,
-	hï¿½ no xml da referencia elementos para doi e pmid,
+	se o texto ï¿?proveniente do xml do pubmed central,
+	hï¿?no xml da referencia elementos para doi e pmid,
 	que seriam dados para gerar links respectivamente para
 	CrossRef e PubMed, assim podem chegar via parametros cgi
-	OU ainda serem recuperados dos registros das referï¿½ncias nos campos v350 e v352
-	que sï¿½o pmid e doi, respectivamente, obtidos do xml do pubmed central.
-	Em suma, se nï¿½o vierem via cgi, podem ser recuperados dos registros c ou r.
-	Mas, se ainda, nï¿½o existirem, ï¿½ possï¿½vel que esses dados estejam ou na NLINKS ou na base DOI
+	OU ainda serem recuperados dos registros das referï¿?cias nos campos v350 e v352
+	que sï¿? pmid e doi, respectivamente, obtidos do xml do pubmed central.
+	Em suma, se nï¿? vierem via cgi, podem ser recuperados dos registros c ou r.
+	Mas, se ainda, nï¿? existirem, ï¿?possï¿?el que esses dados estejam ou na NLINKS ou na base DOI
 	-->
 	<field action="replace" tag="9350"><pft>if p(v9350) and p(v9351) then v9350,'^a'v9351 else ref(['ARTIGO']l(['ARTIGO'],'R='v5000),@PROC_SPLIT_MST.PFT,v350) fi</pft></field>
 	<field action="replace" tag="9352"><pft>if a(v9352) then ref(['DOIQUERY']l(['DOIQUERY'],'PID='v5000),v237) fi</pft></field>
-	<field action="replace" tag="9352"><pft>if a(v9352) then ref(['ARTIGO']l(['ARTIGO'],'R='v5000),@PROC_SPLIT_MST.PFT,v237,if a(v237) and p(v61) then if v61:'doi:' or v61:'DOI:' then v61  fi fi) fi</pft></field>
+	<field action="replace" tag="9352"><pft>if a(v9352) then ref(['ARTIGO']l(['ARTIGO'],'R='v5000),@PROC_SPLIT_MST.PFT,v237,if a(v237) and p(v61) then if v61:'doi:' or v61:'DOI:' then v61  fi fi ) fi</pft></field>
 
-
+    <field action="replace" tag="5002"><pft>if p(v5002) then v5002 else  fi</pft></field>
+    
+    <!-- se texto est? em XML PMC 2.0 ent?o o texto da referencia deve ser passado como parametro v5002,
+         caso contrario recuperar da base
+     -->
+    <call name="getReferenceText"><pft>if a(v5002) then '^p'v5000*0.23,'^m',v5001 fi</pft></call>
 
 	<display><pft>'<REFERENCE>',#</pft></display>
-    <display><pft>'  <TEXT><![CDATA[',ref(['ARTIGO']val(v5001),v704^*),']]></TEXT>',#</pft></display>
+    <display><pft>'  <TEXT><![CDATA[',v5002,']]></TEXT>',#</pft></display>
 	<display><pft>'  <TITLE><![CDATA[',v5012,']]></TITLE>',#</pft></display>
 	<display><pft>'</REFERENCE>'/#</pft></display>
 
