@@ -1505,7 +1505,7 @@
   <field action="replace" tag="935"><pft>if v1935^i=v2935 then v1935 else '^i'v2935,'^t' fi,if v1935^t='PRINT' then 'ONLIN' else 'PRINT'  fi</pft></field>
   
   <display>
-   <pft>' <ISSUE_ISSN',| TYPE="|v935^t|"|,'>'v935^*'</ISSUE_ISSN>'/</pft>
+   <pft>' <ISSUE_ISSN',| TYPE="|v935^t|"|,'>'v935^i'</ISSUE_ISSN>'/</pft>
   </display>
 </function>
 <function name="CreateCopyrightXML" action="replace" tag=4001>
