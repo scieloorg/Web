@@ -273,11 +273,26 @@
 		<text find="journal_citation">citações de revistas</text>
 		<text find="co_authors">co-autoria</text>
 		<text find="text_1"></text>
-		<text find="text_2"><b>SciELO Social Sciences English Edition</b> tem como objetivo promover 
+		<text find="text_2"><b>SciELO Social Sciences English Edition</b> é produto do esforço conjunto 
+        da <a href="http://www.scielo.org/" target="_blank">SciELO</a> (Scientific 
+        Electronic Library Online) e do <a href="http://www.centroedelstein.org.br/english/index.asp" target="_blank">Centro 
+        Edelstein de Pesquisas Sociais</a>, com apoio da Open Society Institute 
+        (OSI).
+				<br/> 
+				<br/> 
+				<p align="center"> 
+					<a href="http://www.centroedelstein.org.br/english/index.asp" target="_blank"> 
+						<img alt="The Edelstein Center for Social Research" border="0" src="/img/en/glogo_Edelstein.gif"/> 
+					</a> 
+				</p> 
+				<br/> 
+				<br/> 
+				<p> 
+					<b>SciELO Social Sciences English Edition</b> tem como objetivo promover 
         o acesso internacional as revistas científicas em Ciências Sociais na 
         América Latina e sua principal caracteristica é a disponibilização dos 
         textos em inglês, gratuitamente com vistas a aumentar a visibilidade e 
-        acessibilidade.
+        acessibilidade.</p> 
 				<p>Na fase inicial o site incluirá 30 revistas da Argentina, Bolivia, Brasil, Chile, Paraguai and Uruguai.
 	Nos próximos meses serão adicionados 4 revistas ao mês.</p> 
 				<p> 
@@ -287,10 +302,7 @@
         a <a href="http://www.bireme.br" target="_blank">BIREME</a> - Centro Latino-Americano 
         e do Caribe de Informação em Ciências da Saúde. A partir de 2002, o Projeto 
         conta com o apoio do <a href="http://www.cnpq.br" target="_blank">CNPq</a> 
-        - Conselho Nacional de Desenvolvimento Científico e Tecnológico.</p> <br/>
-			<br/>O objetivo deste site é implementar uma biblioteca eletrônica que possa proporcionar um amplo acesso a coleções de periódicos como um todo, aos fascículos de cada título de periódico, assim como aos textos completos dos artigos. O acesso aos títulos dos periódicos e aos artigos pode ser feito através de índices e de formulários de busca.<br/>
-			<br/>O site da SciELO é parte do Projeto FAPESP/BIREME/CNPq e um dos produtos da aplicação da metodologia para preparação de publicações eletrônicas em desenvolvimento, especialmente o módulo de interface Internet.<br/>
-			<br/>Este site é constantemente atualizado tanto no seu formato como no seu conteúdo, de acordo com os avanços e os resultados do projeto.</text>
+        - Conselho Nacional de Desenvolvimento Científico e Tecnológico.</p></text>
 		<text find="text_3"><b>SciELO Social Sciences English Edition</b> proporciona acesso à sua 
         coleção de periódicos através de uma <i>lista alfabética</i> de títulos, 
         ou por meio de uma <i>lista de assuntos</i> ou ainda através de um módulo 
