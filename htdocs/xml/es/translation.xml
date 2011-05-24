@@ -272,17 +272,37 @@
 		<text find="site_usage">uso del sitio</text>
 		<text find="journal_citation">citas de revistas</text>
 		<text find="co_authors">co-autoria</text>
-		<text find="text_1">La Scientific Electronic Library Online - SciELO es una biblioteca electrónica que abarca una colección seleccionada de revistas científicas Brasileñas. <br/>
-			<br/>La biblioteca es resultado de un proyecto de investigación de la <a href="http://www.fapesp.br">FAPESP</a> - Fundação de Amparo à Pesquisa do Estado de São Paulo, en colaboración con <a href="http://www.bireme.br/bvs/E/ehome.htm">BIREME</a> - Centro Latinoamericano y del Caribe de Información en Ciencias de la Salud. A partir de 2002, el Proyecto conta con el apoyo del <a href="http://www.cnpq.br">CNPq</a> - Conselho Nacional de Desenvolvimento Científico e Tecnológico.<br/>
-			<br/>El proyecto contempla el desarrollo de una metodología común para la preparación, almacenamiento, diseminación y evaluación de literatura científica en formato electrónico.<br/>
-			<br/>Con el desarrollo del proyecto, nuevos títulos son añadidos a la colección de la biblioteca.</text>
-		<text find="text_2">Esta es la home page del Sitio SciELO Brasil.<br/>
-			<br/>El objetivo del sitio es implementar una biblioteca electrónica, que proporcione acceso completo a una colección de revistas, una colección de números de revistas individuales, así como al texto completo de los artículos. El acceso tanto a las revistas como a los artículos se puede realizar usando índices y formularios de búsqueda.<br/>
-			<br/>El sitio de SciELO es una parte del Proyecto FAPESP/BIREME/CNPq y es una aplicación de la metodología que el proyecto está desarrollando, en particular, el módulo de Interfaz en Internet.<br/>
-			<br/>El sitio será constantemente actualizado tanto en forma como en contenido, en la medida en que el proyecto avance.</text>
-		<text find="text_3">La interfaz SciELO proporciona acceso a su colección de revistas mediante una <i>lista alfabética</i> de títulos, una <i>lista por materia</i>, o una <i>búsqueda de títulos</i> de los periódicos, por palabra del título, materia, nombres de publicadores y ciudad de publicación.<br/>
-			<br/>La interfaz también proporciona acceso al texto completo de los artículos por medio de un <i>índice de autores</i>, un <i>índice de materia</i> o un formulario de <i>búsqueda de artículos</i> por sus elementos, como nombres de autores, palabras del título, materias, palabras del texto completo y año de publicación.<br/>
-			<br/>Clique un enlace hipertexto en el <a href="#top">topo</a> de la página para llamar la correspondiente página de acceso.</text>
+		<text find="text_1"></text>
+		<text find="text_2"><b>SciELO Social Sciences English Edition</b> tiene como objetivo de 
+        promover el acceso internacional a las revistas científicas en Ciencias 
+        Sociales en América Latina y su principal caracteristica es la disponibilización 
+        de textos, <i>en forma gratuita</i>, en inglés, para aumentar la visibilidad 
+        y accesibilidad.</p> 
+			<p>En la primera etapa el Portal incluirá 30 revistas deArgentina, Bolivia, 
+        Brasil, Chile, Paraguay y Uruguay. Cada mes serán incluidos cuatro revistas 
+        al Portal. </p> 
+			<p> 
+				<b>SciELO Social Sciences English Edition</b> utiliza la Metodología 
+        SciELO desarrollada en conjunto con <a href="http://www.fapesp.br" target="_blank">FAPESP</a>- 
+        Fundação de Amparo à Pesquisa do Estado de São Paulo, en colaboración 
+        con <a href="http://www.bireme.br/bvs/E/ehome.htm" target="_blank">BIREME</a> 
+        - Centro Latinoamericano y del Caribe de Información en Ciencias de la 
+        Salud. Desde 2002, el Proyecto conta con el apoyo del <a href="http://www.cnpq.br" target="_blank">CNPq</a> 
+        - Conselho Nacional de Desenvolvimento Científico e Tecnológico.</text>
+		<text find="text_3"><b>SciELO Social Sciences English Edition</b> la interfaz proporciona 
+        acceso a su colección de revistas mediante una <i>lista alfabética</i> 
+        de títulos, una <i>lista por materia</i>, o una <i>búsqueda de títulos</i> 
+        de periódicos, por palabra del título, materia, nombres de publicadores 
+        y ciudad de publicación.<br> 
+				<br> 
+La interfaz también proporciona acceso al texto completo de los artículos por
+medio de un <i>índice de autores</i>, un <i>índice de materia</i> o un
+formulario de <i>búsqueda de artículos</i> por sus elementos, como nombres de
+autores, palabras del título, materias, palabras del texto completo y año de
+publicación.<br> 
+				<br> 
+Clique un enlace hipertexto en el <a href="#top">topo</a> de la página para
+llamar la correspondiente página de acceso.</text>
 		<text find="phone">Tel.</text>
 		<text find="fax">Fax</text>
 		<text find="register_free">Regístrese gratuitamente</text>
