@@ -272,7 +272,8 @@
 		<text find="site_usage">uso do site</text>
 		<text find="journal_citation">citações de revistas</text>
 		<text find="co_authors">co-autoria</text>
-		<text find="text_1"><b>SciELO Social Sciences English Edition</b> tem como objetivo promover 
+		<text find="text_1"></text>
+		<text find="text_2"><b>SciELO Social Sciences English Edition</b> tem como objetivo promover 
         o acesso internacional as revistas científicas em Ciências Sociais na 
         América Latina e sua principal caracteristica é a disponibilização dos 
         textos em inglês, gratuitamente com vistas a aumentar a visibilidade e 
