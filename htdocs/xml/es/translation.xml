@@ -273,16 +273,28 @@
 		<text find="journal_citation">citas de revistas</text>
 		<text find="co_authors">co-autoria</text>
 		<text find="text_1"></text>
-		<text find="text_2"><b>SciELO Social Sciences English Edition</b> tiene como objetivo de 
+		<text find="text_2"><b>SciELO Social Sciences English Edition</b> es un producto del esfuerzo 
+        conjunto de <a href="http://www.scielo.org/" target="_blank">SciELO</a> 
+        (Scientific Electronic Library Online) y del <a href="http://www.centroedelstein.org.br/english/index.asp" target="_blank">Centro 
+        Edelstein de Pesquisas Sociais</a>, con el apoyo del Open Society Institute.</p> 
+			<br/> 
+			<br/> 
+			<p align="center"> 
+				<a href="http://www.centroedelstein.org.br/english/index.asp" target="_blank"> 
+					<img alt="The Edelstein Center for Social Research" border="0" src="/img/en/glogo_Edelstein.gif"/> 
+				</a> 
+			</p> 
+			<br/> 
+			<br/> 
+			<b>SciELO Social Sciences English Edition</b> tiene como objetivo de 
         promover el acceso internacional a las revistas científicas en Ciencias 
         Sociales en América Latina y su principal caracteristica es la disponibilización 
         de textos, <i>en forma gratuita</i>, en inglés, para aumentar la visibilidad 
-        y accesibilidad.</p> 
+        y accesibilidad.
 			<p>En la primera etapa el Portal incluirá 30 revistas deArgentina, Bolivia, 
         Brasil, Chile, Paraguay y Uruguay. Cada mes serán incluidos cuatro revistas 
-        al Portal. </p> 
-			<p> 
-				<b>SciELO Social Sciences English Edition</b> utiliza la Metodología 
+        al Portal.</p> 
+			<p> <b>SciELO Social Sciences English Edition</b> utiliza la Metodología 
         SciELO desarrollada en conjunto con <a href="http://www.fapesp.br" target="_blank">FAPESP</a>- 
         Fundação de Amparo à Pesquisa do Estado de São Paulo, en colaboración 
         con <a href="http://www.bireme.br/bvs/E/ehome.htm" target="_blank">BIREME</a> 
@@ -293,16 +305,16 @@
         acceso a su colección de revistas mediante una <i>lista alfabética</i> 
         de títulos, una <i>lista por materia</i>, o una <i>búsqueda de títulos</i> 
         de periódicos, por palabra del título, materia, nombres de publicadores 
-        y ciudad de publicación.<br> 
-				<br> 
-La interfaz también proporciona acceso al texto completo de los artículos por
+        y ciudad de publicación.
+        <p>
+    La interfaz también proporciona acceso al texto completo de los artículos por
 medio de un <i>índice de autores</i>, un <i>índice de materia</i> o un
 formulario de <i>búsqueda de artículos</i> por sus elementos, como nombres de
 autores, palabras del título, materias, palabras del texto completo y año de
-publicación.<br> 
-				<br> 
+publicación.</p>
+<p>
 Clique un enlace hipertexto en el <a href="#top">topo</a> de la página para
-llamar la correspondiente página de acceso.</text>
+llamar la correspondiente página de acceso.</p></text>
 		<text find="phone">Tel.</text>
 		<text find="fax">Fax</text>
 		<text find="register_free">Regístrese gratuitamente</text>
