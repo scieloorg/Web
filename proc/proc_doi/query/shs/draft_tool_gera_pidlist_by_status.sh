@@ -8,7 +8,7 @@ if [ "@$CONFIG" == "@" ]
 then
     echo Missing param 1 CONFIG
 else
-    . $CONFIG
+    . shs/readconfig.sh
 
     if [ "@$PIDLIST" == "@" ]
     then
@@ -25,7 +25,7 @@ else
                 echo Missing param 4 STATUS
             else
 
-                $MX $QUERYLOGDB btell=0 "bool=CST=$STATUS" "pft=v1/" now  | sort -u > $PIDSELLIST
+                $MX $QUERYLOGDB btell=0 "bool=CST=$STATUS" "pft=v880/" now  | sort -u > $PIDSELLIST
                 sh ./reglog.sh $LOG_FILE $PIDSELLIST generated.
                 sh ./reglog.sh $LOG_FILE $0 finished.
 
