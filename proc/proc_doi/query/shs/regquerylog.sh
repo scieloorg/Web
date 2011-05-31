@@ -1,9 +1,18 @@
 CONFIG=$1
 PID=$2
 STATUS=$3
-. $CONFIG
+MFN=$4
 
+. shs/readconfig.sh
 
-$MX cipar=$CIPFILE QUERYLOG btell=0 "pid=$PID" "proc='d2','a2{$STATUS{a91{^d',date,'^s$STATUS{'" copy=QUERYLOG now -all
-
-
+if [ "@$MFN" == "@" ]
+then
+    $MX cipar=$CIPFILE null count=1 "proc='a880{$PID{','a100{$STATUS{','a91{^s$STATUS^d',date,'{'" append=QUERYLOG now -all
+else
+    if [ $MFN -gt 0 ]
+    then
+        $MX cipar=$CIPFILE QUERYLOG from=$MFN count=1 "proc='d100','a100{$STATUS{','a91{^s$STATUS^d',date,'{'" copy=QUERYLOG now -all
+    else
+        #$MX cipar=$CIPFILE null count=1 "proc='a880{$PID{','a100{$STATUS{','a91{^s$STATUS^d',date,'{'" append=QUERYLOG now -all
+    fi
+fi

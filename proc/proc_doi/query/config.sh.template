@@ -1,21 +1,19 @@
-MAX_QTY_DOC_PER_XML=100
+MAX_QTY_DOC_PER_XML=10
 USERNAME=bireme
 PASSWORD=p@s5w0Rd
 EMAIL=roberta.takenaka@scielo.org
 
-
+# mX
 MX=/usr/local/bireme/cisis/5.5.pre02/linux/lindG4/mx
-TEMP_PATH=/var/www/scielo_br/proc/temp/proc_doi_query/
-DATA_PATH=/var/www/scielo_br/bases-work/doi_query
+
+# DATABASES INPUT / OUTPUT
+DATA_PATH=/var/www/scielo_br/bases-work/doi
 ARTIGO=/var/www/scielo_br/bases/artigo/artigo
-NOTFOUND=/var/www/scielo_br/bases-work/doi_query/notfound
-
-CIPFILE=$TEMP_PATH/query.cip
-LOG_FILE=$DATA_PATH/doi_query.log
 QUERYDB=$DATA_PATH/query
-QUERYLOGDB=$DATA_PATH/querylog
-RESULT_PATH=$DATA_PATH/results
-RESULT_FILE=$RESULT_PATH/result.txt
 
+
+# WORK FILES
+TEMP_PATH=../../temp/proc_doi_query/
+WORK_PATH=../../../bases-work/doi_query
+LOG_PATH=$WORK_PATH/log
 JAR_PATH=/var/www/scielo_br/proc/proc_doi/query/crossref/
-
