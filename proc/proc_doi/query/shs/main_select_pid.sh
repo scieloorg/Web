@@ -56,11 +56,16 @@ else
                 sh ./reglog.sh $BATCH_LOGFILE "Statistics BEFORE"
                 sh ./shs/tool_statistics.sh $BATCH_LOGFILE $BATCH_TEMP_PATH
 
-                sh ./reglog.sh $BATCH_LOGFILE selection
+                sh ./reglog.sh $BATCH_LOGFILE list of pid or acron issue_id
+                echo ". ./shs/readconfig.sh">$BATCH_TEMP_PATH/find_pid.sh
+                echo >> $PIDLIST
+                $MX "seq=$PIDLIST " lw=9999 "pft=if p(v2) then 'sh shs/find_pid.sh ',v1,' ',v2,# fi" now >>$BATCH_TEMP_PATH/find_pid.sh
+                sh $BATCH_TEMP_PATH/find_pid.sh > $PIDLIST
+
 
                 sh ./reglog.sh $BATCH_LOGFILE "generate $BATCH_TEMP_PATH/call_select.sh"
                 echo >> $PIDLIST
-                $MX seq=$PIDLIST lw=9999 "pft=if size(v1)>0 then 'sh shs/select.sh ',if v1*0.1<>'S' then 'S' fi,v1,# fi" now | sort -u -r>>$BATCH_TEMP_PATH/call_select.sh
+                $MX seq=$PIDLIST lw=9999 "pft=if size(v1)>0 then 'sh shs/select.sh ',if v1*0.1<>'S' then 'S' fi,v1,' $BATH_TEMP_PATH',# fi" now | sort -u -r>>$BATCH_TEMP_PATH/call_select.sh
 
                 sh ./reglog.sh $BATCH_LOGFILE "execute $BATCH_TEMP_PATH/call_select.sh"
                 sh ./reglog.sh $BATCH_LOGFILE "... it will append new PID to querylog"

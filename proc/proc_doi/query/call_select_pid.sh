@@ -14,6 +14,8 @@ else
         . shs/readconfig.sh
 
         echo ARTIGO.*=$ARTIGO.*     >  $CIPFILE
+        echo ISSUE.*=$ISSUEDB.*     >> $CIPFILE
+        echo TITLE.*=$TITLEDB.*     >> $CIPFILE
         echo QUERY.*=$QUERYDB.*     >> $CIPFILE
         echo QUERYLOG.*=$QUERYLOGDB.*     >> $CIPFILE
         

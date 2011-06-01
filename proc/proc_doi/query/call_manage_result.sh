@@ -29,7 +29,7 @@ then
     mv $RESULT_PATH/*.res $INPROC_PATH
     echo cat
     cat $INPROC_PATH/*.res | sort -u -r > $PROCESSED_FILE
-    #rm -rf $INPROC_PATH/*.res
+    rm -rf $INPROC_PATH/*.res
 
 else
     if [ -f $OPTIONAL_RESULT_FILE ]
