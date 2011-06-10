@@ -82,7 +82,18 @@
 							</xsl:when>
 							<xsl:otherwise>
 								<h2>
-									<xsl:value-of select="TITLEGROUP/TITLE" disable-output-escaping="yes"/>
+									<xsl:choose>
+										<xsl:when test="//CONTROLINFO/NO_SCI_SERIAL='yes'"><xsl:value-of select="TITLEGROUP/TITLE" disable-output-escaping="yes"/>
+</xsl:when>
+										<xsl:otherwise>
+											<a>
+												<xsl:call-template name="AddScieloLink">
+													<xsl:with-param name="seq" select=".//ISSN_AS_ID"/>
+													<xsl:with-param name="script">sci_serial</xsl:with-param>																										</xsl:call-template>
+												<xsl:value-of select="TITLEGROUP/TITLE" disable-output-escaping="yes"/>
+											</a>
+										</xsl:otherwise>
+									</xsl:choose>
 								</h2>
 								<h2 id="printISSN">
 									<xsl:apply-templates select=".//ISSUE_ISSN">
