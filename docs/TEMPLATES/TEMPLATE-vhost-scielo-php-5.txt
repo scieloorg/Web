@@ -2,6 +2,10 @@
     ServerAdmin EMAIL
     
     Servername SERVERNAME
+
+    Alias /pdf/ PATH /bases/pdf/
+    Alias /img/fbpe/ PATH /img/revistas/
+    Alias /img/scimago/ PATH /bases/scimago/images/
     
     DocumentRoot PATH (NOT USE LAST SLASH)
 	<Directory />
