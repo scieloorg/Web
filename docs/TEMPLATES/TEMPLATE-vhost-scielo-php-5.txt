@@ -21,6 +21,20 @@
         Satisfy all
     </Directory>
 
+    <Directory PATH /bases/pdf/>
+        Options  FollowSymLinks MultiViews
+        Order deny,allow
+         AcceptPathInfo On
+        Allow from all
+    </Directory>
+
+    <Directory PATH /bases/scimago/images/>
+        Options  FollowSymLinks MultiViews
+        Order deny,allow
+         AcceptPathInfo On
+        Allow from all
+    </Directory>
+
     ScriptAlias /cgi-bin/ PATH (USE WITH LAST SLASH)
     <Directory "PATH (USE WITH LAST SLASH)">
         AllowOverride None
