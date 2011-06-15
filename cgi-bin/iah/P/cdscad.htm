@@ -1,0 +1,107 @@
+[pft]@AHHEAD.PFT[/pft]
+
+[pft]if p(v5013^m) then[/pft]
+	<center>
+	<img src="[pft]v5002[/pft]logoscad.gif" alt="SCAD"><br>
+	<font face="verdana" size="2">
+	<b>Serviço Cooperativo de Acesso a Documentos</b><p><br>
+	
+	<table>
+		<tr><td colspan="2" bgcolor="#F2F2F2" align="center" valign="middle"><br><font face="verdana" size="3" color="navy"><b>Usuário identificado : [pft]v5013^*[/pft]</b></font><p><br></td></tr>
+		<tr>
+			<td>			
+				<form action="[pft]getenv('SCRIPT_NAME')v5000^d[/pft]" method="POST" action="change id">					
+					[pft]@AHHIDD.PFT[/pft]	
+					<input type="hidden" name="nextAction" value="photocopy cd">					
+					<input type="submit" value="Muda identificação">			
+				</form>	
+			</td>
+			<td>
+				<form action="http://www.bireme.br/cgi-bin/wxislind.exe/iah/cdrom/" method="POST">					
+					[pft]@AHHIDD.PFT[/pft]	
+					<input type="hidden" name="nextAction" value="cdrom to server">
+					<input type="hidden" name="user" value="[pft]v5013[/pft]">					
+					<input type="submit" value="Continua com pedido">			
+				</form>				
+			</td>
+		</tr>			
+	</table>		
+	</center>	
+	<table width="95%" cellpadding="0" cellspacing="0" border="0">
+		<tr>
+			<td align="right">
+				<font face="verdana" size="1"><b>* É necessário estar conectado a INTERNET para usar este serviço</b></font><br><br><br>
+			</td>
+		</tr>
+		<tr>
+			<td align="right">
+				<a href="http://www.bireme.br/scad/hscad.htm"><img src="[pft]v5002[/pft]scadhlp.gif" border=0></a>			
+			</td>
+		</tr>
+	</table>
+	
+[pft]else[/pft]	
+	
+	<form action="http://www.bireme.br/cgi-bin/wxislind.exe/iah/cdrom/" method="POST">		
+		[pft]@AHHIDD.PFT[/pft]
+		<input type="hidden" name="nextAction" value="cdrom to server">
+
+		<center>
+		<img src="[pft]v5002[/pft]logoscad.gif" alt="SCAD"><br>
+		<font face="verdana" size="2">
+		<b>Serviço Cooperativo de Acesso a Documentos</b><br><br>
+		<font color="red">Atenção:</font> Antes de entrar no SCAD veja a <a href="http://www.bireme.br/bvs/P/pcusto.htm">tabela de preços</a> e as <a href="http://www.bireme.br/bvs/P/pnorm.htm">normas e procedimentos</a> do serviço.
+		</font>	
+		</center>
+		<br>	
+		<center>
+		<table cellspacing="1" cellpadding="1" border="0">
+			<tr>
+				<td align="left">
+					<font face="verdana" size="2">Código:</font>
+				</td>					
+				<td align="left">
+					<input type="text" size="17" name="user">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<font face="verdana" size="2">Senha:</font>
+				</td>
+				<td>
+					<input type="password" size="17" name="userPassword">
+				</td>
+			</tr>
+		</table>
+		</center>
+		<center><input type="submit" value="Submete"></center>
+		<center>
+		<table width="97%" cellpadding="0" cellspacing="0" border="0">
+		<tr>
+			<td colspan="3" align="right">
+				<br><font face="verdana" size="1"><b>* É necessário estar conectado a INTERNET para usar este serviço</b></font><br><br><br>
+			</td>
+		</tr>		
+		<tr>
+			<td colspan="3">
+				<font face="verdana" size="2"><b>Usuário NÃO cadastrado:</b> para ter acesso ao serviço de fotocópias preencha o <a href="http://www.bireme.br/bvs/P/pcada.htm">Formulário de cadastramento</a> de usuário ou contate-nos:</font>
+			</td>		
+		</tr>
+		<tr>
+			<td width="15%">&nbsp;</td>
+			<td><br><font face="verdana" size="2">
+				Fone: (011) 576-9839 ou 567-9854<br>
+				Fax : (011) 571-1919 ou 575-8868<br>
+				E-mail: <a href="mailto:online@bireme.br">online@bireme.br</a><br><br>
+			</font></td>
+			<td align="right">
+				<a href="http://www.bireme.br/scad/hscad.htm"><img src="[pft]v5002[/pft]scadhlp.gif" border=0></a>
+			</td>
+		</tr>
+		</table>
+		</center>
+	</form>
+	
+[pft]fi[/pft]	
+</body>
+</html>

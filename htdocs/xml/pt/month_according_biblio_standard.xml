@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<months>
+	<standard id="nbr6023">
+		<month id="01">jan.</month>
+		<month id="02">fev.</month>
+		<month id="03">mar.</month>
+		<month id="04">abr.</month>
+		<month id="05">maio</month>
+		<month id="06">jun.</month>
+		<month id="07">jul.</month>
+		<month id="08">ago.</month>
+		<month id="09">set.</month>
+		<month id="10">out.</month>
+		<month id="11">nov.</month>
+		<month id="12">dez.</month>
+	</standard>
+
+</months>

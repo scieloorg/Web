@@ -1,0 +1,52 @@
+<IsisScript name="sci_home">
+
+	<!-- Inclui definicao de funcao que le parametros de configuracao contidos em arquivo -->
+	<!-- No caso do scielo, apenas os paths da base, do cgi e data importam -->
+	<include>ScieloXML/sci_getdefine.xis</include>
+	<!--include>ScieloXML/GetPIDs.xis</include-->
+	<include>ScieloXML/sci_common.xis</include>
+        <include>ScieloXML/pressrelease.xis</include>
+
+	<section>
+
+        <field action="import" tag="list">7009</field>
+
+	<field action="cgi" tag="3000">lng</field>
+	<field action="cgi" tag="3001">nrm</field>
+	<field action="cgi" tag="3002">pid</field>
+	<field action="cgi" tag="3003">sln</field>
+	<field action="cgi" tag="3010">debug</field>
+	<field action="cgi" tag="3011">def</field>
+	<field action="cgi" tag="3312">dateStart</field>
+        <field action="cgi" tag="3313">dateStop</field>
+        <field action="cgi" tag="3314">prelease</field>
+        <field action="cgi" tag="3315">count</field>
+        <field action="cgi" tag="3316">date</field>
+
+	<field action="replace" tag="3011"><pft>if a(v3011) then 'scielo.def.php' fi</pft></field>
+
+	<call name="DebugMode"><pft>if a(v3010) then 'OFF' else mpu,v3010,mpl fi</pft></call>
+
+	<include>ScieloXML/sci_cipar.xis</include>
+
+        <display><pft>'<rss version="2.0">'/</pft></display>
+
+            <display><pft>
+             '<channel>',/
+             '<generator>Scielo RSS Press Release</generator>',/
+             '<title><![CDATA[', ref(['TITLE']l(['TITLE'],'LOC=',v3002),v100),']]></title>',/
+             '<link>','http://', v7009 ,'/rss.php?pid=', V3002 ,'&amp;lang=en&prelease=true','</link>'/
+               if p(v3312) or p(v3313) then
+                '<description> Date. ', v3312, ' -  ', v3313, ' (Press Release)', '</description>'/
+               fi
+            </pft></display>
+
+            <call name="getPressReleaseRssByDate"><pft>if p(v3314) and p(v3312) and p(v3313) then  v3002, '^i', v3312, '^f', v3313 fi</pft></call>
+
+            <call name="getPressReleaseRssByDateCount"><pft>if p(v3314) and p(v3315) and p(v3316) then  v3316, '^c', v3315, fi</pft></call>
+
+        <display><pft>'</channel></rss>'/</pft></display>
+
+	</section>
+
+</IsisScript>

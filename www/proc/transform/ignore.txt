@@ -1,4 +1,0 @@
-chama.sh
-xslts.ini
-logs
-teste

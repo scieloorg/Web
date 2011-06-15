@@ -1,7 +1,0 @@
-open server
-user
-password
-
-cd www
-prompt
-bin

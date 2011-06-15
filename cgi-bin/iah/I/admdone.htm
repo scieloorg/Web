@@ -1,0 +1,13 @@
+<!-- substitue caracter \ por \\ para correta exibição no javascript -->
+[pft]proc('d1a1!',replace(s(mpu,v1,mpl),'\','\\'),'!')[/pft]	
+
+<script language="javascript">
+		[pft]select val(v1^*)
+		
+				case 1: 'alert("Definition file ',v1^f,' saved")'
+				case 2: 'alert("Definition file ',v1^f,' apagado")'
+				case 3: 'alert("Erro : Arquivo não encontrado ',v1^f,'")'				
+				case 4: 'alert("Definition file ',v1^f, ' copied")'
+				
+		endsel[/pft]					
+</script>

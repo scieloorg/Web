@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2006-12-11T08:56:48</date>
+  <millis>1165834608752</millis>
+  <sequence>0</sequence>
+  <logger>XSLTransformer.XSLTServer</logger>
+  <level>WARNING</level>
+  <class>XSLTransformer.XSLTServer</class>
+  <method>main</method>
+  <thread>10</thread>
+  <message>main/javax.xml.transform.TransformerConfigurationException: Failed to compile stylesheet. 1 error detected.</message>
+</record>
+</log>

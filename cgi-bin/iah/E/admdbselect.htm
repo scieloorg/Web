@@ -1,0 +1,95 @@
+<script language="javascript">
+	function confirmDel(){
+		target = document.mainform.nome_def[document.mainform.nome_def.selectedIndex].value;
+		if (target == "new"){
+			return false;
+		}	
+		resp = confirm("¿Borrar el archivo de definición "  + target.toUpperCase() + "  ?");
+		
+		if (resp){
+			document.mainform.systemOption.value="delete database def";
+			document.mainform.submit();
+		}
+		else{
+			return false;
+		}		
+	}
+
+	function copyDef(){		
+		lista  = document.mainform.nome_def;
+		target = document.mainform.nome_def[document.mainform.nome_def.selectedIndex].value;		
+		source = " ";		
+		if (target == "new"){
+			return false;
+		}	
+		source = prompt("Guardar el archivo de definición "  + target.toUpperCase() + " como :","");
+			
+		if (source != null){	
+			existdef = false;			
+			for(i = 1 ; i < lista.length ; i++){
+				if (lista[i].value.toUpperCase() == source.toUpperCase()){
+					existdef = true;
+					break;
+				}								 
+			}
+			if (existdef){			
+				overwrite = confirm("¿El archivo de definición " + source.toUpperCase() + " ya existe.\nSobreescribir ?");
+				if (!overwrite){
+					return false;
+				}	
+			}
+			document.mainform.target_def.value = source;
+			document.mainform.systemOption.value="copy database def";
+			document.mainform.submit();
+		}
+		else{
+			return false;
+		}
+	}	
+	
+	function editDef(){				
+		if (document.mainform.nome_def[document.mainform.nome_def.selectedIndex].value == "new"){	
+			newdef = prompt("Informe el nombre del nuevo archivo de definición:","");
+			
+			if (newdef != "" && newdef != null){ 
+				document.mainform.nome_def[0].value = newdef;	
+			}
+			else{
+				return false;
+			}			
+		}			
+		document.mainform.systemOption.value="edit database def";
+		document.mainform.submit();			
+	}	
+</script>
+
+<input type="hidden" name="target_def" value="">
+
+<table border="0" align="center" cellpadding="10" width="90%">
+	<tr>
+		<TD><img src="[pft]v7001,v5021[/pft]/image/seta.gif" align="texttop"> Configuración de las Bases </TD>	
+	</tr>
+</table>	
+
+
+<table border="0" cellspacing="1" cellpadding="8" align="center" width="60%">			
+	<TR bgcolor="#6291b0">
+		<TD align="middle"><b>Archivos de definición de las bases de datos</b></TD>
+	</TR>
+	<TR bgcolor="silver">
+		<TD valign="top">Seleccione el archivo de definición:<br>			
+			<b>[pft]v7011[/pft]</b>
+			<select name="nome_def" size="1">
+				<option value="new"> - - -  Nuevo  - - - </option>
+				[pft](if v8001 <> '*none*' then '<option value="',v8001,'">',v8001.15,'</option>' fi)[/pft]				
+			</select>		
+		</TD>				
+	</TR>
+	<TR bgcolor="silver">
+		<TD align="right">
+			<input type="button" value="Edita" onClick="javascript:editDef()">
+			<input type="button" value="Borrar" onClick="javascript:confirmDel()">
+			<input type="button" value="Copia" onClick="javascript:copyDef()">
+		</TD>
+	</TR>
+</table>	
