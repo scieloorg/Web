@@ -1,5 +1,0 @@
-This class implements methods to check if a URL or file is well-formed XML. If not the class supplies
-methods to return the error message, line number and column number. If the source is well-formed the
-class provides methods to return the number of elements, attributes, text_sections, size of text
-sections and size of the XML document. It's based on SAX so it can check huge documents without a
-problem.

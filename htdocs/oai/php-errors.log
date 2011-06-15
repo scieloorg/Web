@@ -1,0 +1,105 @@
+[10-May-2005 11:24:27] PHP Parse error:  parse error, unexpected T_EXIT, expecting T_CASE or T_DEFAULT or '}' in /home/scielo/www/htdocs/oai/scielo-oai.php on line 452
+[17-May-2005 17:47:08] PHP Parse error:  parse error, unexpected '%' in /home/scielo/www/htdocs/oai/nusoap.php on line 3465
+[17-May-2005 18:01:55] PHP Parse error:  parse error, unexpected ',' in /home/scielo/www/htdocs/oai/nusoap.php on line 3547
+[18-May-2005 17:01:00] PHP Warning:  Sablotron error on line 28: XML parser error 3: no element found in /home/scielo/www/htdocs/oai/class.XSLTransformer41.php on line 64
+[18-May-2005 17:01:05] PHP Warning:  Sablotron error on line 28: XML parser error 3: no element found in /home/scielo/www/htdocs/oai/class.XSLTransformer41.php on line 64
+[18-May-2005 17:03:20] PHP Warning:  Sablotron error on line 28: XML parser error 3: no element found in /home/scielo/www/htdocs/oai/class.XSLTransformer41.php on line 64
+[18-May-2005 17:03:23] PHP Warning:  Sablotron error on line 28: XML parser error 3: no element found in /home/scielo/www/htdocs/oai/class.XSLTransformer41.php on line 64
+[18-May-2005 18:19:31] PHP Fatal error:  Cannot instantiate non-existent class:  deffile in /home/scielo/www/htdocs/oai/scielo-oai.php on line 475
+[18-May-2005 18:20:03] PHP Fatal error:  Call to a member function on a non-object in /home/scielo/www/htdocs/ws/scielo-ws.php on line 183
+[18-May-2005 18:20:59] PHP Fatal error:  Call to a member function on a non-object in /home/scielo/www/htdocs/ws/scielo-ws.php on line 183
+[18-May-2005 18:21:45] PHP Fatal error:  Call to a member function on a non-object in /home/scielo/www/htdocs/ws/scielo-ws.php on line 183
+[18-May-2005 18:32:42] PHP Fatal error:  Call to undefined function:  listrecords() in /home/scielo/www/htdocs/oai/scielo-oai.php on line 178
+[18-May-2005 18:40:51] PHP Fatal error:  Call to a member function on a non-object in /home/scielo/www/htdocs/ws/scielo-ws.php on line 183
+[18-May-2005 18:43:08] PHP Warning:  fopen(<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<LIST_RECORDS>
+ <CONTROLINFO>
+  <LANGUAGE>en</LANGUAGE>
+  <STANDARD>iso</STANDARD>
+  <PAGE_NAME>sci_listrecords</PAGE_NAME>
+  <APP_NAME>scielo</APP_NAME>
+  <ENABLE_STAT_LINK>0</ENABLE_STAT_LINK>
+  <ENABLE_CIT_REP_LINK>0</ENABLE_CIT_REP_LINK>
+  <SCIELO_INFO>
+   <SERVER>scielo.dev</SERVER>
+   <PATH_WXIS>/cgi-bin/wxis.exe</PATH_WXIS>
+   <PATH_CGI-BIN>/cgi-bin/</PATH_CGI-BIN>
+   <PATH_DATA>/</PATH_DATA>
+   <PATH_SCRIPTS>ScieloXML/</PATH_SCRIPTS>
+   <PATH_SERIAL_HTML>/revistas/</PATH_SERIAL_HTML>
+   <PATH_XSL>/home/scielo/www/htdocs/xsl/</PATH_XSL>
+   <PATH_GENIMG>/img/</PATH_GENIMG>
+   <PATH_SERIMG>/img/revistas/</PATH_SERIMG>
+   <PATH_DATA_IAH>/iah/</PATH_DATA_IAH>
+   <PATH_CGI_IAH>iah/</PATH_CGI_IAH>
+  </SCIELO_INFO>
+ </CONTROLINFO>
+
+ <LIST>
+<ARTICLE TEXT_LANG="en" FPAGE="1227" LPAGE="1235" PID="S0100-879X2001001000001">
+
+ <LATTES>
+ </LATTES>
+ <LANGUAGES MAXLINES="1">
+  <ABSTRACT_LANGS>
+   <LANG>en</LANG>
+  </ABSTRACT_LANGS>
+  <ART_TEXT_LANGS>
+   <LANG>en</LANG in /home/scielo/www/htdocs/oai/class.XSLTransformer41.php on line 94
+[18-May-2005 18:43:08] PHP Warning:  Sablotron error on line 1: XML parser error 3: no element found in /home/scielo/www/htdocs/oai/class.XSLTransformer41.php on line 64
+[18-May-2005 19:03:03] PHP Fatal error:  Cannot instantiate non-existent class:  soap_server in /home/scielo/www/htdocs/ws/scielo-ws.php on line 215
+[18-May-2005 19:03:46] PHP Fatal error:  Call to a member function on a non-object in /home/scielo/www/htdocs/ws/scielo-ws.php on line 182
+[18-May-2005 19:04:00] PHP Fatal error:  Call to a member function on a non-object in /home/scielo/www/htdocs/ws/scielo-ws.php on line 182
+[20-May-2005 10:23:10] PHP Warning:  Sablotron error on line 1: XML parser error 3: no element found in /home/scielo/www/htdocs/oai/class.XSLTransformer41.php on line 64
+[20-May-2005 10:23:12] PHP Warning:  Sablotron error on line 1: XML parser error 3: no element found in /home/scielo/www/htdocs/oai/class.XSLTransformer41.php on line 64
+[20-May-2005 10:42:49] PHP Warning:  Sablotron error on line 1: XML parser error 3: no element found in /home/scielo/www/htdocs/oai/class.XSLTransformer41.php on line 64
+[20-May-2005 10:43:04] PHP Warning:  Sablotron error on line 1: XML parser error 2: syntax error in /home/scielo/www/htdocs/oai/class.XSLTransformer41.php on line 64
+[20-May-2005 10:44:38] PHP Warning:  Sablotron error on line 1: XML parser error 3: no element found in /home/scielo/www/htdocs/oai/class.XSLTransformer41.php on line 64
+[20-May-2005 10:45:14] PHP Warning:  Sablotron error on line 1: XML parser error 2: syntax error in /home/scielo/www/htdocs/oai/class.XSLTransformer41.php on line 64
+[20-May-2005 10:48:41] PHP Warning:  Sablotron error on line 1: XML parser error 2: syntax error in /home/scielo/www/htdocs/oai/class.XSLTransformer41.php on line 64
+[20-May-2005 10:48:52] PHP Warning:  Sablotron error on line 1: XML parser error 2: syntax error in /home/scielo/www/htdocs/oai/class.XSLTransformer41.php on line 64
+[20-May-2005 10:49:19] PHP Parse error:  parse error, unexpected T_VARIABLE in /home/scielo/www/htdocs/oai/scielo-oai.php on line 196
+[20-May-2005 10:49:27] PHP Warning:  Sablotron error on line 1: XML parser error 2: syntax error in /home/scielo/www/htdocs/oai/class.XSLTransformer41.php on line 64
+[20-May-2005 10:51:08] PHP Warning:  Sablotron error on line 1: XML parser error 2: syntax error in /home/scielo/www/htdocs/oai/class.XSLTransformer41.php on line 64
+[20-May-2005 10:51:10] PHP Warning:  Sablotron error on line 1: XML parser error 2: syntax error in /home/scielo/www/htdocs/oai/class.XSLTransformer41.php on line 64
+[20-May-2005 11:34:08] PHP Parse error:  parse error, unexpected '{' in /home/scielo/www/htdocs/oai/scielo-oai.php on line 178
+[20-May-2005 11:34:13] PHP Parse error:  parse error, unexpected '{' in /home/scielo/www/htdocs/oai/scielo-oai.php on line 178
+[20-May-2005 11:34:31] PHP Parse error:  parse error, unexpected T_CASE in /home/scielo/www/htdocs/oai/scielo-oai.php on line 183
+[20-May-2005 11:35:29] PHP Warning:  Missing argument 5 for generatepayload() in /home/scielo/www/htdocs/oai/scielo-oai.php on line 166
+[20-May-2005 11:35:29] PHP Warning:  Sablotron error on line 1: XML parser error 3: no element found in /home/scielo/www/htdocs/oai/class.XSLTransformer41.php on line 64
+[20-May-2005 11:35:40] PHP Warning:  Missing argument 5 for generatepayload() in /home/scielo/www/htdocs/oai/scielo-oai.php on line 166
+[20-May-2005 11:40:11] PHP Warning:  Missing argument 5 for generatepayload() in /home/scielo/www/htdocs/oai/scielo-oai.php on line 166
+[20-May-2005 11:44:28] PHP Warning:  Sablotron error on line 1: XML parser error 2: syntax error in /home/scielo/www/htdocs/oai/class.XSLTransformer41.php on line 64
+[20-May-2005 11:45:03] PHP Warning:  Sablotron error on line 1: XML parser error 17: xml declaration not at start of external entity in /home/scielo/www/htdocs/oai/class.XSLTransformer41.php on line 64
+[20-May-2005 11:52:33] PHP Warning:  Missing argument 5 for generatepayload() in /home/scielo/www/htdocs/oai/scielo-oai.php on line 166
+[20-May-2005 11:53:55] PHP Warning:  Missing argument 5 for generatepayload() in /home/scielo/www/htdocs/oai/scielo-oai.php on line 166
+[20-May-2005 11:54:03] PHP Warning:  Missing argument 5 for generatepayload() in /home/scielo/www/htdocs/oai/scielo-oai.php on line 166
+[20-May-2005 11:54:03] PHP Warning:  Sablotron error on line 1: XML parser error 3: no element found in /home/scielo/www/htdocs/oai/class.XSLTransformer41.php on line 64
+[20-May-2005 11:54:24] PHP Warning:  Missing argument 5 for generatepayload() in /home/scielo/www/htdocs/oai/scielo-oai.php on line 166
+[20-May-2005 11:54:24] PHP Warning:  Sablotron error on line 1: XML parser error 3: no element found in /home/scielo/www/htdocs/oai/class.XSLTransformer41.php on line 64
+[20-May-2005 11:54:29] PHP Warning:  Missing argument 5 for generatepayload() in /home/scielo/www/htdocs/oai/scielo-oai.php on line 166
+[20-May-2005 11:56:22] PHP Warning:  Sablotron error on line 1: XML parser error 17: xml declaration not at start of external entity in /home/scielo/www/htdocs/oai/class.XSLTransformer41.php on line 64
+[20-May-2005 11:56:44] PHP Warning:  Sablotron error on line 1: XML parser error 17: xml declaration not at start of external entity in /home/scielo/www/htdocs/oai/class.XSLTransformer41.php on line 64
+[20-May-2005 12:02:29] PHP Warning:  Sablotron error on line 1: XML parser error 2: syntax error in /home/scielo/www/htdocs/oai/class.XSLTransformer41.php on line 64
+[20-May-2005 12:02:31] PHP Warning:  Sablotron error on line 1: XML parser error 2: syntax error in /home/scielo/www/htdocs/oai/class.XSLTransformer41.php on line 64
+[20-May-2005 12:18:52] PHP Parse error:  parse error, unexpected '}' in /home/scielo/www/htdocs/oai/scielo-oai.php on line 230
+[20-May-2005 12:22:08] PHP Warning:  main(classScielo_WS_XML.php): failed to open stream: No such file or directory in /home/scielo/www/htdocs/oai/scielo-ws.php on line 2
+[20-May-2005 12:22:08] PHP Warning:  main(): Failed opening 'classScielo_WS_XML.php' for inclusion (include_path='.:/usr/local/php/lib/php') in /home/scielo/www/htdocs/oai/scielo-ws.php on line 2
+[20-May-2005 12:22:08] PHP Fatal error:  Cannot instantiate non-existent class:  scielo_ws_xml in /home/scielo/www/htdocs/oai/scielo-ws.php on line 211
+[20-May-2005 12:22:55] PHP Warning:  main(classScielo_WS_XML.php): failed to open stream: No such file or directory in /home/scielo/www/htdocs/oai/scielo-ws.php on line 2
+[20-May-2005 12:22:55] PHP Warning:  main(): Failed opening 'classScielo_WS_XML.php' for inclusion (include_path='.:/usr/local/php/lib/php') in /home/scielo/www/htdocs/oai/scielo-ws.php on line 2
+[20-May-2005 12:22:55] PHP Fatal error:  Cannot instantiate non-existent class:  scielo_ws_xml in /home/scielo/www/htdocs/oai/scielo-ws.php on line 211
+[20-May-2005 12:27:48] PHP Warning:  main(classScielo_WS_Client.php): failed to open stream: No such file or directory in /home/scielo/www/htdocs/oai/scielo-oai.php on line 4
+[20-May-2005 12:27:48] PHP Warning:  main(): Failed opening 'classScielo_WS_Client.php' for inclusion (include_path='.:/usr/local/php/lib/php') in /home/scielo/www/htdocs/oai/scielo-oai.php on line 4
+[20-May-2005 12:27:48] PHP Fatal error:  Cannot instantiate non-existent class:  scielo_ws_xml in /home/scielo/www/htdocs/oai/scielo-ws.php on line 211
+[20-May-2005 12:28:02] PHP Fatal error:  Cannot instantiate non-existent class:  scielo_ws_xml in /home/scielo/www/htdocs/oai/scielo-ws.php on line 211
+[20-May-2005 12:29:00] PHP Fatal error:  Cannot instantiate non-existent class:  scielo_ws_xml in /home/scielo/www/htdocs/oai/scielo-ws.php on line 211
+[20-May-2005 12:29:16] PHP Fatal error:  Cannot instantiate non-existent class:  soapclient in /home/scielo/www/htdocs/oai/classScielo.php on line 9
+[20-May-2005 12:33:21] PHP Warning:  main(classScielo.php): failed to open stream: No such file or directory in /home/scielo/www/htdocs/oai/scielo-oai.php on line 4
+[20-May-2005 12:33:21] PHP Warning:  main(): Failed opening 'classScielo.php' for inclusion (include_path='.:/usr/local/php/lib/php') in /home/scielo/www/htdocs/oai/scielo-oai.php on line 4
+[20-May-2005 12:33:21] PHP Warning:  main(classScielo.php): failed to open stream: No such file or directory in /home/scielo/www/htdocs/oai/scielo-ws.php on line 2
+[20-May-2005 12:33:21] PHP Warning:  main(): Failed opening 'classScielo.php' for inclusion (include_path='.:/usr/local/php/lib/php') in /home/scielo/www/htdocs/oai/scielo-ws.php on line 2
+[20-May-2005 12:33:21] PHP Fatal error:  Cannot instantiate non-existent class:  scielo_xml in /home/scielo/www/htdocs/oai/scielo-ws.php on line 211
+[20-May-2005 12:33:44] PHP Fatal error:  Cannot instantiate non-existent class:  scielo_xml in /home/scielo/www/htdocs/oai/scielo-ws.php on line 211
+[20-May-2005 12:34:01] PHP Fatal error:  Call to a member function on a non-object in /home/scielo/www/htdocs/oai/scielo-ws.php on line 85

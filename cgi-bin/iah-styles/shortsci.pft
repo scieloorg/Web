@@ -1,0 +1,47 @@
+/* shortcut scielo articles */
+
+,@places.pft,
+
+proc('d9001d9002',
+		if v5021 ='p' then 'a9001~pt~a9002~^1Resumo^2Texto Completo~' fi
+		if v5021 ='e' then 'a9001~es~a9002~^1Resumen^2Texto Completo~' fi
+		if v5021 ='i' then 'a9001~en~a9002~^1Abstract^2Full Text~' fi
+
+,),		
+/*	,'<tr>',/
+    	  ,'<td width="28%"><input type="image" src="',v5000^i,v8005^i[28],'" border="0" name="print^m',mfn(1),'" ></td>',/,
+	  	  ,'<td width="72%"><font face="Verdana" size="1">',v8004[11],'</font></td>',/
+    ,'</tr>',/ */
+
+/*	,if p(v83) then,
+    	,'<tr>',/
+          ,'<td width="28%">',/
+		  		,'<a href="http://',v7990,v7991,'fbabs',v7998,
+                ,'got=last&pid=',v2,'&lng=',v9001,
+                ,'&nrm=',v5009.3,'&isn=',v35,'">',
+                ,'<img src="',v5000^i,v8005^i[27],'" border="0" name="article abstract">',
+                ,'</a></td>',
+          ,'<td width="72%"><font face=verdana size=1>',v9002^1'</font></td>',/
+		,'</tr>',/	  
+	,fi,
+
+	,'<tr>',/
+       	  ,'<td width="28%">',/
+	          ,'<a href="http://',v7990,v7991,'fbtext',v7998,
+              ,'got=last&pid=',v2,'&lng=',v9001,
+              ,'&isn=',v35,'&nrm=',v5009.3'">',
+	          ,'<img src="',v5000^i,v8005^i[27],'" border="0" name="article text">', 
+			  ,'</a></td>',
+		  ,'<td width="72%"><font face=verdana size=1>',v9002^2'</font></td>',/
+	,'</tr>',/	  
+
+	,if l(['ftp']v2)<>0 then
+		,'<tr>',/
+       	   ,'<td width="28%">',/	           
+   	           	,'<a href="http://',v7990,v7991,'fbftp',v7998,
+			    ,'pid=',v2,'&lng=',v9001,'&nrm=',v5009.3'">',
+				,'<img src="',v5000^i,v8005^i[27],'" border="0" name="article pdf">', 
+			  	,'</a></td>',
+	   	   ,'<td width="72%"><font face=verdana size=1>PDF</font></td>',/
+        ,'</tr>',/	  
+	,fi,	*/

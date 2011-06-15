@@ -1,0 +1,83 @@
+if v1001 = '1' then 'Content-type: ', if v6212:'save' then 'bireme/application' else 'text/html' fi,/#,fi
+
+if v1001 = '1'  then
+'
+<html>	
+<head>	
+<title>iAH Interface de búsqueda - Lista</title>
+
+<script language="javascript">
+	function showPrintDialog(){
+		var version = Math.round(parseFloat(navigator.appVersion) * 1000);		
+		if (version >= 4000){
+			window.print();
+		}
+	}				
+</script>	
+</head>
+<body link="',v5006^l,'" vlink="',v5006^l,'" ',if v6212 = 'print' then 'onLoad="javascript:void(showPrintDialog())"' fi,'>
+<center>
+<font face="verdana" size="1">BIREME/OPS/OMS - Biblioteca Virtual en Salud</font>
+<hr width="600" align="center">
+
+<table border="0" width="600" cellspacing="0" cellpadding="0">	
+	<tr>
+		<td width="50">&nbsp;</td>
+		<td>
+		<table border="0" width="550">
+			<tr>
+				<td align="right" valign="top">
+					<font face="arial" size="2">Base de datos :</font>
+				</td>
+				<td valign="top">
+					<font face="verdana" size="1"><b>',v5003^*,'</b></font>
+				</td>		
+			</tr>
+			<tr>
+				<td align="right" width="35%" valign="top">
+					<font face="arial" size="2">Búsqueda :</font>
+				</td>
+				<td width="65%" valign="top">
+					<font face="verdana" size="1"><b>'
+					,if p(v6102) then
+						 v6102 ' [',v6100^e,']' 
+					,else,
+						,if v6000='F' then,
+							 replace(v6002,' ',s('&nbsp;'mpu,v6001,mpl'&nbsp;'))
+						,else,	 
+							,(if p(v6002) then if iocc > 1 then '&nbsp;'v6001'&nbsp;'fi,v6002,' [',v6003^e,']' fi),
+						,fi,							
+					,fi,						
+					'</b></font>					
+				</td>
+			</tr>		
+			<tr>
+				<td align="right" valign="top">
+					<font face="arial" size="2">Total de referencias :</font>
+				</td>
+				<td valign="top">
+					<font face="verdana" size="1"><b>',v1002,'</b></font>
+				</td>				
+			</tr>	
+		</table>				
+		</td>
+	</tr>	
+</table>
+</center>
+<hr width="600" align="center">
+'
+fi	
+
+'
+<br>
+<center>
+<table border="0" width="600" cellspacing="0" cellpadding="0">	
+<tr>	
+	<td width="500">
+		<font face="verdana" size="1"><b>',v1001'/'v1002,'</b></font><br>
+	</td>
+</tr>
+<tr>	
+	<td>
+'
+

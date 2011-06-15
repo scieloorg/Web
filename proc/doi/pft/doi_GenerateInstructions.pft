@@ -1,0 +1,211 @@
+,if l([v9002],v880[1])=0 then
+	`echo no exist `,v880[1],` in `,v9002/
+,fi
+,if l([v9002],v880[1])>0 then
+	`echo exist `,v880[1],` in `,v9002/
+,fi
+
+/* if l([v9002],v880[1])=0 or (l([v9002],v880[1])>0 and ref([v9002]l([v9002],v880[1]),if a(v1) or v1='' then 'true' fi)='true') then */
+/*
+
+or (v9003='update' and l([v9002],v880[1])>0 and ref([v9002]l([v9002],v880[1]),if a(v1) or v1='' then 'true' fi)='true')
+
+*/
+,proc('d2000d2001d2002d2003d2004d2005d2006'),
+
+,proc('a2006{',
+	,if v9003='update' then
+		,'^aupdate',
+		,'^l',v9002,'^m',v880[1],
+		,if l([v9002],v880[1])>0 then		
+			,'^bexist in doi db',
+			,'^d',v1,
+			,'^f',ref([v9002]l([v9002],v880[1]),v1),
+			,if ref([v9002]l([v9002],v880[1]),if a(v1) or v1='' then 'true' fi)='true' then
+				'^xdoit'
+			,fi
+		,fi
+	,else
+		,'^acreate',
+		,if l([v9002],v880[1])=0  then
+			'^xdoit'
+		,fi
+	,fi
+,'{'),
+,`echo `,v2006/,
+,if v2006^x='doit'  then
+	,proc('d9100d9101d9102'),
+	,proc('a9100{../bases/medline/nlinks{'),
+	,proc('a9101{../bases/title/title{'),
+	,proc('a9102{../bases/issue/issue{'),
+
+	,if l([v9100],v880[1]) > 0 then
+		/* if the reference is an article of scielo, get its pid */
+		,proc('a2000{',ref([v9100]l([v9100],v880[1]),v881),'{'),
+	,fi,
+
+	,if v2000<>'' then
+		/* this reference is registered in nlinks and is an SciELO's article */
+		/* check whether this pid has an register in doi database and whether has the doi */
+
+		,proc('a2004{',ref([v9101]l([v9101],'LOC=',v2000*1.9),v68),'{'),
+		,proc('a2005{',ref([v9102]l([v9102],'Y',v2000*1.17),|v|v31,|n|v32,|s|v131,|s|v132),'{'),
+
+		,`echo Searching `,v2004,`_`,v2005,` in ../bases-work/doi/controler`/,
+
+		,proc('a2002{','../bases-work/doi/',v2004,'/',v2005,'/',v2005,'{'),
+
+		,if l(['../bases-work/doi/controler'],v2004,'_',v2005)>0 then 
+			,`echo Searching `,v2000,` in `,v2002/,
+			,if l([v2002],v2000)>0 then 
+				,proc('a2001{',ref([v2002]l([v2002],v2000),v1),'{'),
+				,proc('a2003{nlinks;',v2004,'_',v2005,';doi;{'),
+			,else,
+				,proc('a2003{nlinks;',v2004,'_',v2005,';no_doi;',v2000,'{'),
+			,fi,
+		,else
+			,proc('a2003{nlinks;',v2004,'_',v2005,';no_doi_db{'),
+		,fi,
+		,if v2001<>'' then
+			,`echo Found doi in `,v2002/,
+			,if l([v9002],v880[1])=0 then
+				,`	echo doi found create register pid `,v880[1],` in $BASE_VN_DOI`/,
+				,`	cisis/mx $BASE_REGBIBLIO from=`,f(mfn,1,0),` count=1 "proc='d*','a880{`,v880[1],`{a1{`,v2001,`{a2{doi^d`,date,`{a999{^uhttp://dx.doi.org/`,v2001,`^lCrossRef{a3{ref{a91{`,date,`{a13{`,v2003,`{'"  append=$BASE_VN_DOI now -all`/,
+			,else,
+				,`	echo doi found update register of pid `,v880[1],` in $BASE_VN_DOI`/,
+				,`	cisis/mx $BASE_VN_DOI from=`,f(l([v9002],v880[1]),1,0),` count=1  "proc='d*','a880{`,v880[1],`{a1{`,v2001,`{a2{doi^d`,date,`{a999{^uhttp://dx.doi.org/`,v2001,`^lCrossRef{a3{ref{a91{`,date,`{a13{`,v2003,`{'"  copy=$BASE_VN_DOI now -all`/,
+			,fi,
+		,else
+			,`echo NOT Found doi in `,v2002/,
+			,if l([v9002],v880[1])=0 then
+				,`	echo doi found create register pid `,v880[1],` in $BASE_VN_DOI`/,
+				,`	cisis/mx $BASE_REGBIBLIO from=`,f(mfn,1,0),` count=1 "proc='d*','a880{`,v880[1],`{a2{unresolved^d`,date,`{a3{ref{a91{`,date,`{a13{`,v2003,`{'"  append=$BASE_VN_DOI now -all`/,
+			,else,
+				,`	echo doi found update register of pid `,v880[1],` in $BASE_VN_DOI`/,
+				,`	cisis/mx $BASE_VN_DOI from=`,f(l([v9002],v880[1]),1,0),` count=1  "proc='d*','a880{`,v880[1],`{a2{unresolved^d`,date,`{a3{ref{a91{`,date,`{a13{`,v2003,`{'"  copy=$BASE_VN_DOI now -all`/,
+			,fi,
+		,fi,
+
+	,else
+
+		,`export PATH=$PATH:.`/,
+		,`export CISIS_DIR=cisis`/,
+		,`arquivo=DOI_QUERY_`,v880[1],`.xml`/,
+		,`TMP_PATH=temp/doi`/
+		,`TMP_PROC=$TMP_PATH/proc`/
+		,`TMP_SEQ_PID_DOI=$TMP_PROC/pid_doi_`,v880[1],`.seq`/
+		,`TMP_PROC_SET_DOI=$TMP_PROC/SetDOI_`,v880[1],`.prc`/
+		,`QUERY_FILE_NAME=DOI_QUERY_`,v880[1],`.xml`/,
+		,`QUERY_FILE=$TMP_PATH/xml/query/$QUERY_FILE_NAME`/,
+		,`QUERY_FILE_RESULT_NAME=qr_`,v880[1],`.xml`/,
+		,`QUERY_FILE_RESULT=$TMP_PATH/xml/query/$QUERY_FILE_RESULT_NAME`/,
+		,`QUERY_PATH=/query/`/,
+		,`QUERY_DONE_PATH=$TMP_PATH/xml/query_done`/,
+		,`QUERY_RESULT_PATH=$TMP_PATH/xml/query_result`/,
+		,`FILE_RESULT_SUCCESS=$QUERY_RESULT_PATH/success/$QUERY_FILE_RESULT_NAME`/
+		,`BASE_REGBIBLIO=`,v9001/
+		,`BASE_VN_DOI=`,v9002/
+		,`echo Execute query file:`/,
+		,`call doi/batch/DOI_Step2_GenerateQueryXML.bat $QUERY_FILE `,v9999,` `,v9001,` "D=`,v880[1],`"`/,
+		,`echo $QUERY_FILE`/
+		,`cd doi/crossref`/
+		,`./CrossRefQuery.bat -f ../../$QUERY_FILE -r xml -u `,v9990,` -p `,v9991,` -a live >& ../../$QUERY_FILE_RESULT`/,
+		,`cd ../../`/,
+		,`if grep -q "<?xml" $QUERY_FILE_RESULT`/,
+		,`then`/,
+		,`	if grep -q "malformed" $QUERY_FILE_RESULT`/,
+		,`	then`/,
+		,`		export STATUS_RESULT=malformed`/
+		,`		rm $QUERY_FILE_RESULT $QUERY_FILE`/,
+		,`	else`/
+		,`		if grep -q "unresolved" $QUERY_FILE_RESULT`/,
+		,`		then`/,
+		,`			/* por ser unresolved, deixar em query a pesquisa e não utilizar o resultado */`/
+		,`			export STATUS_RESULT=unresolved`/
+		,`			rm $QUERY_FILE_RESULT $QUERY_FILE`/,
+		,`		else`/
+		,`			if grep -q "resolved" $QUERY_FILE_RESULT`/,
+		,`			then`/,
+		,`				echo RESOLVED!`/
+		,`				export STATUS_RESULT=resolved`/
+		,`				cp $QUERY_FILE_RESULT $QUERY_RESULT_PATH/success/`/,
+		,`				rm $QUERY_FILE`/,
+		,`			else`/
+		,`				if grep -q "</doi>" $QUERY_FILE_RESULT`/,
+		,`				then`/,
+		,`					echo RESOLVED!`/
+		,`					cp $QUERY_FILE_RESULT $QUERY_RESULT_PATH/success/`/,
+		,`				else`/
+		,`					if grep -q "<doi/>" $QUERY_FILE_RESULT`/,
+		,`					then`/,
+		,`						export STATUS_RESULT=unresolved`/
+		,`						rm $QUERY_FILE_RESULT $QUERY_FILE`/,
+
+		,`					else`/
+		,`						echo WARNING!`/
+		,`						export STATUS_RESULT=warning`/
+		,`						rm $QUERY_FILE_RESULT $QUERY_FILE`/,
+		,`					fi`/,
+		,`				fi`/,
+		,`			fi`/,
+		,`		fi`/,
+		,`	fi`/,
+		,`else`/
+		,`	echo ERROR - NOT XML!`/
+		,`	export STATUS_RESULT=notxml`/
+		,`	rm $QUERY_FILE_RESULT $QUERY_FILE`/,
+		,`fi`/,
+
+		,`if [ -f "$FILE_RESULT_SUCCESS" ]`/,
+		,`then`/,
+		,`  echo Extract result`/,
+		,`	call doi/batch/DOI_Step4_ExtractResultFromXML.bat $FILE_RESULT_SUCCESS $TMP_SEQ_PID_DOI `,v880[1]/
+		,`	call batch/DeletaArquivo.bat $FILE_RESULT_SUCCESS`/
+
+		,`	cisis/mx null count=1 "pft=' '/" now >> $TMP_SEQ_PID_DOI `/,
+
+
+		,`	cisis/mx seq=$TMP_SEQ_PID_DOI lw=9999 count=1 "proc='a9995{$BASE_VN_DOI{'"  "pft=@doi/pft/generateProcToSetDOI.pft" now > $TMP_PROC_SET_DOI`/
+
+
+			,if l([v9002],v880[1])=0 then
+				,`	echo doi found: create register pid in `,v880[1],` $BASE_VN_DOI`/,
+				,`	cisis/mx $BASE_REGBIBLIO from=`,f(mfn,1,0),` count=1  "proc='a9995{$BASE_VN_DOI{'" proc=@$TMP_PROC_SET_DOI append=$BASE_VN_DOI now -all`/,
+			,else,
+				,`	echo doi found: update register of pid `,v880[1],` in $BASE_VN_DOI`/,
+				,`	cisis/mx $BASE_VN_DOI from=`,f(l([v9002],v880[1]),1,0),` count=1  "proc='a9995{$BASE_VN_DOI{'" proc=@$TMP_PROC_SET_DOI copy=$BASE_VN_DOI now -all`/,
+			,fi,
+
+		,`	call batch/DeletaArquivo.bat $TMP_PROC_SET_DOI`/,
+		,`	call batch/DeletaArquivo.bat $TMP_SEQ_PID_DOI`/,
+
+		/* else nao sucesso */
+		,`else`/,
+			,if l([v9002],v880[1])=0 then
+				,`		echo doi not found: create register pid in `,v880[1],` $BASE_VN_DOI`/,
+				,`		cisis/mx $BASE_REGBIBLIO from=`,f(mfn,1,0),` count=1 "proc='a9994{$STATUS_RESULT{a9995{$BASE_VN_DOI{'" proc=@doi/prc/doi_create_register.prc  append=$BASE_VN_DOI now -all`/,
+			,else,/
+				,`		echo doi not found: update register of pid `,v880[1],` in $BASE_VN_DOI`/,
+				,`		cisis/mx $BASE_VN_DOI from=`,f(l([v9002],v880[1]),1,0),` count=1 "proc='a9994{$STATUS_RESULT{a9995{$BASE_VN_DOI{'" proc=@doi/prc/doi_create_register.prc  copy=$BASE_VN_DOI now -all`/,
+			,fi,
+		,`fi`/,
+		,`if [  "$STATUS_RESULT" ==  "" ]`/,
+		,`then`/,
+			,`rm $QUERY_FILE`/,
+			,`rm $QUERY_FILE_RESULT`/,
+		,`else`/
+			,`if [  "$STATUS_RESULT" ==  "unresolved" ]`/,
+			,`then`/,
+				,`rm $QUERY_FILE`/,
+				,`rm $QUERY_FILE_RESULT`/,
+	/*		,`else`/,
+
+				,`mv $QUERY_FILE temp/doi/xml/query/`/,
+				,`mv $QUERY_FILE_RESULT  temp/doi/xml/query/`/,
+	*/
+			,`fi`/,
+		,`fi`/,
+	,fi,
+,else,
+	,`echo nao executou nada`/,
+,fi,/

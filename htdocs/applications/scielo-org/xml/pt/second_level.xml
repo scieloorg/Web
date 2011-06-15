@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<texts>
+	<text>
+		<find>alphabeticSort</find>
+		<replace>ordem alfabética</replace>
+	</text>
+	<text>
+		<find>alphabeticPublisherHome</find>
+		<replace>Publicadores</replace>
+	</text>
+	<text>
+		<find>collection</find>
+		<replace>coleção</replace>
+	</text>
+	<text>
+		<find>home</find>
+		<replace>home</replace>
+	</text>
+	<text>
+		<find>issues</find>
+		<replace>fascículo (s)</replace>
+	</text>
+	<text>
+		<find>journals</find>
+		<replace>periódico(s)</replace>
+	</text>
+	<text>
+		<find>journal</find>
+		<replace>periódico</replace>
+	</text>
+	<text>
+		<find>journal-by-subject</find>
+		<replace>Periódicos por assunto</replace>
+	</text>
+	<text>
+		<find>lastIssuesByAlphabetic</find>
+		<replace>Últimos fascículos por ordem alfabética</replace>
+	</text>
+	<text>
+		<find>issuesByAlphabetic</find>
+		<replace>Fascículos por ordem alfabética</replace>
+	</text>
+	<text>
+		<find>lastIssuesByCollection</find>
+		<replace>Últimos fascículos por coleção</replace>
+	</text>
+	<text>
+		<find>lastIssuesBySubject</find>
+		<replace>Últimos fascículos por assunto</replace>
+	</text>
+	<text>
+		<find>lastJournalsByAlphabetic</find>
+		<replace>Últimos periódicos por ordem alfabética</replace>
+	</text>
+	<text>
+		<find>journalsByAlphabetic</find>
+		<replace>Periódicos por ordem alfabética</replace>
+	</text>
+	<text>
+		<find>journalsByAlphabeticByCollection</find>
+		<replace>Periódicos por coleção</replace>
+	</text>
+	<text>
+		<find>journalsByAlphabeticBySubject</find>
+		<replace>Periódicos por assunto</replace>
+	</text>
+	<text>
+		<find>journalsByAlphabeticByPublisher</find>
+		<replace>Periódicos por publicador</replace>
+	</text>
+	<text>
+		<find>lastJournalsByCollection</find>
+		<replace>Últimos periódicos por coleção</replace>
+	</text>
+	<text>
+		<find>lastJournalsBySubject</find>
+		<replace>Últimos periódicos por assunto</replace>
+	</text>
+	<text>
+		<find>previewBy</find>
+		<replace>Visualizar a lista por:</replace>
+	</text>
+	<text>
+		<find>sortedBy</find>
+		<replace>ordenado por:</replace>
+	</text>
+	<text>
+		<find>subject</find>
+		<replace>assunto</replace>
+	</text>
+	<text>
+		<find>journalsBySubjectSortedByCollection</find>
+		<replace>Periódicos REPLACE_SUBJECT por coleção </replace>
+	</text>
+	<text>
+		<find>journalsBySubjectSortedByLetter</find>
+		<replace>Periódicos REPLACE_SUBJECT em ordem alfabética</replace>
+	</text>
+	<text>
+		<find>all</find>
+		<replace>todos</replace>
+	</text>
+	<text>
+		<find>allSubjects</find>
+		<replace>todos os assuntos</replace>
+	</text>
+</texts>

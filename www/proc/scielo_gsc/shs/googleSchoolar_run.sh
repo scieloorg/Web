@@ -1,1 +1,0 @@
-./googleSchoolar_issueList.sh

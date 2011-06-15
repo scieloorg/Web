@@ -1,5 +1,0 @@
-,if v1:'.pdf' and v1:'baixa' then 
-	,proc('a3333{',replace(v1,'baixa',''),'{'),
-	,'ren ',v3333,' ',mid(replace(v3333,'.pdf','_alta.pdf'),instr(v3333,'\pdf\')+5,size(v3333))/,
-	,'ren ',v1,' ',mid(v3333,instr(v3333,'\pdf\')+5,size(v3333))/,
-,fi
