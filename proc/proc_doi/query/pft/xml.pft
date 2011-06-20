@@ -1,4 +1,4 @@
-,`   <query key="`,v880,`" enable-multiple-hits="false" forward-match="false">`,
+,`   <query key="`,v691,v880,`" enable-multiple-hits="false" forward-match="false">`,
 ,if p(v35) then
 ,`        <issn match="optional">`,v35,`</issn>`,
 ,fi
@@ -25,7 +25,7 @@
 ,`        <year>`,v65*0.4,`</year>`,
 ,fi
 ,if p(v12) then
-,`         <article_title>`,v12^*,`</article_title>`,
+,`         <article_title>`,v12^*[1],`</article_title>`,
 ,fi
 ,if p(v18) then
 ,`         <volume_title>`,v18^*,`</volume_title>`,

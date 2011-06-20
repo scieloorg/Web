@@ -1,5 +1,6 @@
 CONFIG=$1
 RESULT=$2
+STATUS=$3
 
 if [ "@$CONFIG" == "@" ]
 then
@@ -13,10 +14,10 @@ else
 
         BATCH_ID=`date '+%Y%m%d%H%M'`
         BATCH_LOGFILE=$LOG_PATH/p2.log
-        BATCH_TEMP_PATH=$TEMP_PATH/$BATCH_ID
+        BATCH_TEMP_PATH=$TEMP_PATH/q.$BATCH_ID
         PID_SELECTED_LIST=$BATCH_TEMP_PATH/selection.txt
 
-        mkdir -p $TEMP_PATH/$BATCH_ID
+        mkdir -p $BATCH_TEMP_PATH
 
         sh ./reglog.sh $BATCH_LOGFILE inicio
 
@@ -34,8 +35,18 @@ else
                 echo free> $QLOG_STFILE
             fi
 
-            sh ./reglog.sh $BATCH_LOGFILE find query status
-            $MX $QUERYLOGDB "cst=new" "pft=v880/" now > $PID_SELECTED_LIST
+            if [ "$STATUS" == "new" ]
+            then
+                sh ./reglog.sh $BATCH_LOGFILE find NEW status
+                $MX $QUERYLOGDB btell=0 "cst=new" "proc='d100a100{query{a91{^query^d',date,'{'" copy=$QUERYLOGDB now -all
+
+                echo inverting> $QLOG_STFILE
+                sh ./reglog.sh $BATCH_LOGFILE  invert $QUERYLOGDB
+                $MX $QUERYLOGDB fst=@fst/log.fst fullinv=$QUERYLOGDB
+                sh ./reglog.sh $BATCH_LOGFILE  fim invert $QUERYLOGDB
+                echo free> $QLOG_STFILE
+            fi
+            $MX $QUERYLOGDB btell=0 "cst=query" "pft=v880,' ',v691/" now > $PID_SELECTED_LIST
 
             sh ./reglog.sh $BATCH_LOGFILE "create $BATCH_TEMP_PATH/selection"
             echo >>$PID_SELECTED_LIST
@@ -61,7 +72,7 @@ else
                 $MX null count=1 "proc='a9000{$EMAIL{a9001{',replace(date,' ','-'),'{'"  lw=999 "pft=@pft/begin.pft" now > $XML
 
                 sh ./reglog.sh $BATCH_LOGFILE "execute selection $START $QTDPID"
-                $MX $BATCH_TEMP_PATH/selection from=$START count=$MAX_QTY_DOC_PER_XML lw=999 "pft='sh ./shs/generate_xml_node_query.sh $CONFIG ',v1,' $XML '#" now >$BATCH_TEMP_PATH/call_generate_xml_node_query_and_do_log.sh
+                $MX $BATCH_TEMP_PATH/selection from=$START count=$MAX_QTY_DOC_PER_XML lw=999 "pft='sh ./shs/generate_xml_node_query.sh $CONFIG ',v1,' $XML ',v2,#" now >$BATCH_TEMP_PATH/call_generate_xml_node_query_and_do_log.sh
                 sh $BATCH_TEMP_PATH/call_generate_xml_node_query_and_do_log.sh
                 $MX null count=1 lw=999 "pft=@pft/end.pft" now >> $XML
 

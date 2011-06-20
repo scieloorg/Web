@@ -30,3 +30,10 @@ if [ ! -f $APP_STFILE ]
 then
     echo nothing> $APP_STFILE
 fi
+
+
+echo ARTIGO.*=$ARTIGO.*     >  $CIPFILE
+        echo ISSUE.*=$ISSUEDB.*     >> $CIPFILE
+        echo TITLE.*=$TITLEDB.*     >> $CIPFILE
+        echo QUERY.*=$QUERYDB.*     >> $CIPFILE
+        echo QUERYLOG.*=$QUERYLOGDB.*     >> $CIPFILE

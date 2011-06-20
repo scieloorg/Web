@@ -5,7 +5,7 @@
     <field action="import" tag="list">7011</field>
     <field action="replace" tag="2002"><pft>'/artigo/p/',v880*1.9,'/',v880*10.4,'/',v880*14.4,'/',v880*18</pft></field>
     <field action="replace" tag="2002"><pft>v7011,if instr(v7011,'\')>0 then replace(v2002,'\','/') else v2002 fi</pft></field>
-    <field action="statusfile" tag="9004"><pft>v2002</pft></field>
+    <field action="statusfile" tag="9004"><pft>v2002,'.mst'</pft></field>
 	<field action="replace" tag="7777"><pft>'^d',if v9004^s : 'e' then v2002,'^tp' else 'ARTIGO^ta' fi</pft></field>
     <field action="export" tag="list">7777</field>
 </function>
@@ -37,7 +37,7 @@
 	<field action="export" tag="list">9901</field>
 </function>
 
-<function name="getMfnRangeGivenNoSearchExpression" action="replace" tag=4001>
+<function name="getReferencesRangeInP_old" action="replace" tag=4001>
     <!-- quantidade de reg de referencias -->
     <do task="search">
 	  <parm name="db">ARTIGO</parm>
@@ -48,34 +48,62 @@
 			<field action="export" tag="list">9708</field>
 	  </loop>
 	</do>
-    <flow action="jump"><pft>if a(v9708) then 'NO_REFERENCES' fi</pft></flow>
+    <flow action="jump"><pft>if a(v9708) then 'END' fi</pft></flow>
 
     <!-- quantidade total de reg paragrafos -->
-	<do task="mfnrange">
-	  <parm name="db"><pft>v4001^d</pft></parm>
-	  <parm name="from">1</parm>
-	  <loop>
-			<field action="export" tag="list">708</field>
-	  </loop>
-	</do>
+    <do task="mfnrange">
+        <parm name="db"><pft>v4001^d</pft></parm>
+        <parm name="from">1</parm>
+        <parm name="count">1</parm>
+        <loop>
+            <field action="export" tag="list">708</field>
+        </loop>
+    </do>
+    
     <!-- na base de paragrafos, localiza o ?ltimo paragrafo referente a uma referencia (presenca de v888) -->
     <!-- OBSERVACAO: MAS n?o necessariamente v888 se refere a ?ltima referencia -->
 	<do task="mfnrange">
-	  <parm name="db">ARTIGO</parm>
-	  <parm name="from"><pft>v708</pft></parm>
+	  <parm name="db"><pft>v4001^d</pft></parm>
 	  <parm name="reverse">On</parm>
 
 	  <loop>
-			<field action="replace" tag="9902"><pft>if p(v888) then mfn fi</pft></field>
-			<field action="export" tag="list">9902</field>
-            <flow action="skip"><pft>if p(v9902) then 'Quit' fi</pft></flow>
+            <field action="import" tag="list">9902/9903</field>
+            
+
+            <display><pft>'<!-- ',mfn,' ',v9902,' ',v888,' -->',#</pft></display>
+
+            <field action="replace" tag="9902"><pft>if v9902='' or a(v9902) then if p(v888) then mfn fi fi</pft></field>
+			<field action="replace" tag="9903"><pft>if v888='1' then mfn fi</pft></field>
+
+            <field action="export" tag="list">9902/9903</field>
+            
+            <flow action="skip"><pft>if val(v9902)>0 and val(v9903)>0 then 'Quit' fi</pft></flow>
 	  </loop>
 
 	</do>
-    <field action="replace" tag="9901"><pft>'^s',f(val(v9902) - val(v9708)  + 1 ,1,0),|^e|v9902</pft></field>
+    <!-- nao funcionou, provavel bug no wxis ou obsoleto uso de reverse
+    <do task="mfnrange">
+	  <parm name="db"><pft>v4001^d</pft></parm>
+	  <parm name="from"><pft>f(val(v9902) - val(v9708)  + 1 ,1,0)</pft></parm>
+      
+      
+	  <loop>
+            <display><pft>mfn</pft></display>
+			<field action="replace" tag="9903"><pft>if v888='1' then mfn fi</pft></field>
+			<field action="export" tag="list">9903</field>
+            <flow action="skip"><pft>if val(v9903)>0 then 'Quit' fi</pft></flow>
+	  </loop>
+	</do>
+    -->
+    <field action="replace" tag="9901"><pft>'^s',v9903,|^e|v9902</pft></field>
 	<field action="export" tag="list">9901</field>
 
-    <label>NO_REFERENCES</label>
+    <label>END</label>
+</function>
+
+<function name="getReferencesRangeInP" action="replace" tag=4001>
+    <field action="replace" tag="9901"><pft>ref([v4001^d]1,if p(v715) then '^s',f(val(v715)+2,1,0) fi) ,ref([v4001^d]2,if p(v715) then '^e',f(val(v715)+2,1,0) fi)</pft></field>
+	<field action="export" tag="list">9901</field>
 </function>
 
 <function name="getParagraphsRange" action="replace" tag=4001>
@@ -95,7 +123,7 @@
     <field action="import" tag="list">7011</field>
     <call name="return_ARTIGO_or_P"><pft>v4001*0.23</pft></call>
 
-    <call name="getMfnRangeGivenNoSearchExpression"><pft>if v7777^t='p' then '^d',v7777^*,'^p',v4001^p*0.23 fi</pft></call>
+    <call name="getReferencesRangeInP"><pft>if v7777^t='p' then '^d',v7777^*,'^p',v4001*0.23 fi</pft></call>
     <call name="getMfnRangeGivenSearchExpression"><pft>if v7777^t='a' then 'RP=',v4001 fi</pft></call>
     <field action="replace" tag="9901"><pft>v9901,v7777</pft></field>
     <field action="export" tag="list">9901</field>

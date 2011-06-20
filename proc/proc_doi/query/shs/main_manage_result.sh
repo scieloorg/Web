@@ -10,9 +10,8 @@ else
     then
         echo missing RESULT
     else
-        . ./shs/readconfig.sh
-
         
+        . ./shs/readconfig.sh
         STATUSAPP=`cat $APP_STFILE`
 
         if [ "@$STATUSAPP" == "@nothing" ]
@@ -21,9 +20,12 @@ else
 
             BATCH_ID=`date '+%Y%m%d%H%M'`
             BATCH_LOGFILE=$LOG_PATH/p3.log
-            BATCH_TEMP_PATH=$TEMP_PATH/$BATCH_ID
+            BATCH_TEMP_PATH=$TEMP_PATH/r.$BATCH_ID
 
             mkdir -p $BATCH_TEMP_PATH/
+
+            . ./shs/readconfig.sh
+
             echo >$BATCH_LOGFILE
             sh ./reglog.sh $BATCH_LOGFILE inicio
 
@@ -48,7 +50,7 @@ else
             tar cvfzp $WORK_PATH/before.result.tgz $QUERYDB.* $QUERYLOGDB.*
 
             sh ./reglog.sh $BATCH_LOGFILE "Statistics BEFORE"
-            sh ./shs/tool_statistics.sh $BATCH_LOGFILE $BATCH_TEMP_PATH
+            sh ./shs/tool_statistics.sh $BATCH_LOGFILE $BATCH_TEMP_PATH "before treating result"
 
             sh ./reglog.sh $BATCH_LOGFILE "Sort result"
             echo reading> $Q_STFILE
@@ -59,7 +61,7 @@ else
 
             #1 doi, 2 pid, 3 tipo
             sh ./reglog.sh $BATCH_LOGFILE "Join same doi"
-            $MX cipar=$CIPFILE  $BATCH_TEMP_PATH/sorted_result lw=9999 "pft=if v1='' then #,'k1|',v2 else if v1<>ref(mfn+1,v1) then #,f(l(['QUERY']'doi=',v1),1,0),'|',v1,'|',v3,'|', fi,'a880{'v2,'^d',date,'{',  fi" now> $BATCH_TEMP_PATH/doi_agrouped.seq
+            $MX cipar=$CIPFILE  $BATCH_TEMP_PATH/sorted_result lw=9999 "pft=if v1='' then #,'k1|',v2,'|',v4 else if v1<>ref(mfn+1,v1) then #,f(l(['QUERY']'doi=',v1),1,0),'|',v1,'|',v3,'|', fi,'a880{'v2,'^c',v4,'^d',date,'{',  fi" now> $BATCH_TEMP_PATH/doi_agrouped.seq
             
             sh ./reglog.sh $BATCH_LOGFILE "Generate gen_instructions.sh"
             echo ". ./shs/readconfig.sh"> $BATCH_TEMP_PATH/gen_instructions.sh
@@ -72,8 +74,8 @@ else
 
             sh ./reglog.sh $BATCH_LOGFILE "Retira registros vazios de querylog"
             $MX cipar=$CIPFILE null count=0 create=$QUERYLOGDB.bkp now -all
-            $MX cipar=$CIPFILE QUERYLOG append=$QUERYLOGDB.bkp now -all
-            $MX cipar=$CIPFILE $QUERYLOGDB.bkp create=QUERYLOG now -all
+            $MX cipar=$CIPFILE $QUERYLOGDB append=$QUERYLOGDB.bkp now -all
+            $MX cipar=$CIPFILE $QUERYLOGDB.bkp create=$QUERYLOGDB now -all
 
             sh ./reglog.sh $BATCH_LOGFILE "Fim Retira registros vazios de querylog"
 
@@ -91,12 +93,13 @@ else
 
 
             sh ./reglog.sh $BATCH_LOGFILE "Statistics AFTER"
-            sh ./shs/tool_statistics.sh $BATCH_LOGFILE $BATCH_TEMP_PATH
+            sh ./shs/tool_statistics.sh $BATCH_LOGFILE $BATCH_TEMP_PATH "after treating result"
 
 
             rm -rf $BATCH_TEMP_PATH/
             echo nothing> $APP_STFILE
-            echo $0 done.
+
+            sh ./reglog.sh $BATCH_LOGFILE "$0 done"
         else
              sh ./reglog.sh $BATCH_LOGFILE $0 canceled
              sh ./reglog.sh $BATCH_LOGFILE Executing $STATUSAPP

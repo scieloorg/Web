@@ -9,8 +9,8 @@ MX=/usr/local/bireme/cisis/5.5.pre02/linux/lindG4/mx
 # DATABASES INPUT / OUTPUT
 DATA_PATH=/var/www/scielo_br/bases-work/doi
 ARTIGO=/var/www/scielo_br/bases/artigo/artigo
-ISSUEDB=/var/www/scielo_br/bases/title/title
-TITLEDB=/var/www/scielo_br/bases/issue/issue
+TITLEDB=/var/www/scielo_br/bases/title/title
+ISSUEDB=/var/www/scielo_br/bases/issue/issue
 QUERYDB=$DATA_PATH/query
 
 
