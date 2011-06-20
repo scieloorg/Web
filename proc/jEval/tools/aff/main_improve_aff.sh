@@ -47,14 +47,14 @@ then
     $MX null count=1 "proc='a999{',date,'{'" create=$INPUT_DB_v70_completa now -all
     $MX $INPUT_DB_v70_completa fst=@$PATH_AFF_MODULE/v70_completa.fst fullinv=$INPUT_DB_v70_completa
 fi
-$MX $OUTPUT_DB_v10v70 btell=0 "bool=completa" lw=9999 "pft=if l(['$INPUT_DB_v70_completa']v2)=0 then v2/ fi" now | sort -u > $LOCAL_SEQ_v70_completa
+$MX $OUTPUT_DB_v10v70 btell=0 "bool=completa" lw=9999 "pft=if l(['$INPUT_DB_v70_completa']v2^*,v2^c,v2^s,v2^p)=0 then v2/ fi" now | sort -u > $LOCAL_SEQ_v70_completa
 $MX seq=$LOCAL_SEQ_v70_completa append=$INPUT_DB_v70_completa now -all
 $MX $INPUT_DB_v70_completa fst=@$PATH_AFF_MODULE/v70_completa.fst fullinv=$INPUT_DB_v70_completa
 
 ####
 #   ATUALIZA V10 + V70, COM AFF COMPLETAS
 
-$MX $OUTPUT_DB_v10v70 btell=0 "parcial" lw=99999 "proc=ref(['$INPUT_DB_v70_completa']l(['$INPUT_DB_v70_completa']v2),'d2','a2{',v1,'{a444{completed{')" copy=$OUTPUT_DB_v10v70 now -all
+$MX $OUTPUT_DB_v10v70 btell=0 "parcial" lw=99999 "proc=if l(['$INPUT_DB_v70_completa']v2^*,v2^c,v2^s,v2^p)>0 then 'd2','a400{',v2,'{',ref(['$INPUT_DB_v70_completa']l(['$INPUT_DB_v70_completa']v2^*,v2^c,v2^s,v2^p),'a2{',v1,'{a444{completed{') fi" copy=$OUTPUT_DB_v10v70 now -all
 $MX $OUTPUT_DB_v10v70 fst=@$PATH_AFF_MODULE/v10v70.fst fullinv=$OUTPUT_DB_v10v70
 
 

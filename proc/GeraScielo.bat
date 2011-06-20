@@ -30,7 +30,10 @@ export INFORMALOG=$3
 call batch/InformaLog.bat $0 dh ===Inicio===
 
 call batch/VerifExisteArquivo.bat $1/serial/scilista.lst
-call batch/CopiaArquivo.bat $1/serial/scilista.lst scilista.lst
+
+rem # call batch/CopiaArquivo.bat $1/serial/scilista.lst scilista.lst
+call batch/SortScilista.bat $1/serial/scilista.lst scilista.lst
+
 call batch/VerifExistemBases.bat $1
 
 call batch/CriaDiretorio.bat ../bases-work/title

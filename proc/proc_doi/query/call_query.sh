@@ -1,20 +1,28 @@
-dos2unix *.sh
-dos2unix */*.sh
+
+STATUS=$1
+
+if [ "@$STATUS" == "@" ]
+then
+    echo Missing STATUS new or query
+
+else
+    dos2unix *.sh
+    dos2unix */*.sh
 
 
-        . shs/readconfig.sh
-
-        echo ARTIGO.*=$ARTIGO.*     >  $CIPFILE
-        echo QUERY.*=$QUERYDB.*       >> $CIPFILE
-        echo QUERYLOG.*=$QUERYLOGDB.* >> $CIPFILE
+    . shs/readconfig.sh
 
 
-        if [ ! -d $RESULT_PATH ]
-        then
-            mkdir -p $RESULT_PATH
-        fi
 
-        RES=$RESULT_PATH/`date '+%Y%m%d%H%M'`.res
 
-        sh ./shs/main_do_query.sh config.sh $RES
 
+    if [ ! -d $RESULT_PATH ]
+    then
+        mkdir -p $RESULT_PATH
+    fi
+
+    RES=$RESULT_PATH/`date '+%Y%m%d%H%M'`.res
+
+    sh ./shs/main_do_query.sh config.sh $RES $STATUS
+
+fi

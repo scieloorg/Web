@@ -2,7 +2,7 @@ dos2unix *.sh
 dos2unix */*.sh
 
 PIDLIST=$1
-
+COLLECTION=$2
 
 if [ "@" == "@$PIDLIST" ]
 then
@@ -11,15 +11,15 @@ else
     if [ -f $PIDLIST ]
     then
 
-        . shs/readconfig.sh
-
-        echo ARTIGO.*=$ARTIGO.*     >  $CIPFILE
-        echo ISSUE.*=$ISSUEDB.*     >> $CIPFILE
-        echo TITLE.*=$TITLEDB.*     >> $CIPFILE
-        echo QUERY.*=$QUERYDB.*     >> $CIPFILE
-        echo QUERYLOG.*=$QUERYLOGDB.*     >> $CIPFILE
+        if [ "@" == "@$COLLECTION" ]
+        then
+            echo Missing COLLECTION
+        else
+            . shs/readconfig.sh
         
-        sh ./shs/main_select_pid.sh config.sh $PIDLIST
+            sh ./shs/main_select_pid.sh config.sh $PIDLIST $COLLECTION
+            
+        fi
     else
         echo Missing $PIDLIST
     fi

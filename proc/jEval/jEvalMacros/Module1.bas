@@ -24,35 +24,34 @@ Function executeMacro(source_path As String, excel_filename As String, ByRef msg
    ' On a Macintosh computer, you may need to omit the .xls file
    ' extension.
    Dim oExcelApp As excel.Application
-
+   Dim backup As String
+   
     msgError = ""
    ' Create a reference to the currently running excel application
    
    ' Make the Excel Application Visible.
    Set oExcelApp = New excel.Application
    
+   backup = excel_filename & ".bkp.xls"
    If visible_processing = "1" Then
     oExcelApp.visible = True
    End If
    
-   Call FileCopy(App.Path & "\" & MacroFilename, excel_filename & ".bkp")
+   Call FileCopy(App.Path & "\" & MacroFilename, backup)
    
    'MsgBox Dir(excel_filename, vbNormal) & vbCrLf & Mid(excel_filename, InStrRev(excel_filename, "\") + 1)
-   
-   If Dir(excel_filename, vbNormal) = Mid(excel_filename, InStrRev(excel_filename, "\") + 1) Then
-    Kill excel_filename
-   End If
-   Call oExcelApp.Workbooks.Open(excel_filename & ".bkp")
+   Call oExcelApp.Workbooks.Open(backup)
    Call oExcelApp.Run("Export", source_path, excel_filename)
-      
    Call oExcelApp.Workbooks.Close
    Call oExcelApp.Quit
-   Call Kill(excel_filename & ".bkp")
+   
+   'Call FileCopy(backup, excel_filename)
    If Dir(excel_filename, vbNormal) = Mid(excel_filename, InStrRev(excel_filename, "\") + 1) Then
        executeMacro = True
    Else
        executeMacro = False
    End If
+   Call Kill(backup)
    'ActiveWorkbook.Close    ' Closes the workbook Book1.xls.
    
    

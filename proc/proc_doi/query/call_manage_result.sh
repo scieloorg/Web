@@ -5,9 +5,7 @@ dos2unix */*.sh
 
 OPTIONAL_RESULT_FILE=$1
 
-echo ARTIGO.*=$ARTIGO.*     >  $CIPFILE
-echo QUERY.*=$QUERYDB.*     >> $CIPFILE
-echo QUERYLOG.*=$QUERYLOGDB.*     >> $CIPFILE
+
 
 
 PROC_ID=`date '+%Y%m%d%H%M'`
