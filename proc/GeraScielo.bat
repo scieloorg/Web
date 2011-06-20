@@ -14,6 +14,7 @@ rem Inicializa variaveis
 
 export INFORMALOG=log/GeraScielo.log
 export CISIS_DIR=cisis
+export CIPAR=tabs/GIGA032.cip
 
 rem Verifica parametros
 call batch/VerifPresencaParametro.bat $0 @$1 path producao SciELO

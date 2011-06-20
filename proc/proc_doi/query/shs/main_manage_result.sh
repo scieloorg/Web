@@ -13,15 +13,15 @@ else
         
         . ./shs/readconfig.sh
         STATUSAPP=`cat $APP_STFILE`
+        BATCH_ID=`date '+%Y%m%d%H%M'`
+        BATCH_LOGFILE=$LOG_PATH/p3.log
+        BATCH_TEMP_PATH=$TEMP_PATH/r.$BATCH_ID
 
         if [ "@$STATUSAPP" == "@nothing" ]
         then
             echo manage_result > $APP_STFILE
 
-            BATCH_ID=`date '+%Y%m%d%H%M'`
-            BATCH_LOGFILE=$LOG_PATH/p3.log
-            BATCH_TEMP_PATH=$TEMP_PATH/r.$BATCH_ID
-
+            
             mkdir -p $BATCH_TEMP_PATH/
 
             . ./shs/readconfig.sh
