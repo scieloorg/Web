@@ -4,7 +4,7 @@
         ,`$MX cipar=$CIPFILE QUERYLOG btell=0 "bool=pidcol=`,v2,v3,`" "proc='d100a100{notfound{a91{^snotfound^d`,date,`{'" copy=QUERYLOG now -all`,#
      ,fi
 ,else
-    ,if size(v2)>0 then
+    ,if size(v2)>0 and size(v4)>0 then
         /* tem doi */
         ,`echo 1 "`,v2,`"`,#
         ,`$MX cipar=$CIPFILE null count=1 "proc='`,v4,`'" lw=999 "pft=@pft/update_querylog.pft" now > $TEMP_PATH/s`,#

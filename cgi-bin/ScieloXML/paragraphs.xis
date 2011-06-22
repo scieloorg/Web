@@ -102,7 +102,7 @@
 </function>
 
 <function name="getReferencesRangeInP" action="replace" tag=4001>
-    <field action="replace" tag="9901"><pft>ref([v4001^d]1,if p(v715) then '^s',f(val(v715)+2,1,0) fi) ,ref([v4001^d]2,if p(v715) then '^e',f(val(v715)+2,1,0) fi)</pft></field>
+    <field action="replace" tag="9901"><pft>ref([v4001^d]1,if p(v2) then '^s',f(val(v2)+2,1,0) fi) ,ref([v4001^d]2,if p(v2) then '^e',f(val(v2)+2,1,0) fi)</pft></field>
 	<field action="export" tag="list">9901</field>
 </function>
 
