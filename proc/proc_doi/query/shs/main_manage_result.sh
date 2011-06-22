@@ -61,7 +61,7 @@ else
 
             #1 doi, 2 pid, 3 tipo
             sh ./reglog.sh $BATCH_LOGFILE "Join same doi"
-            $MX cipar=$CIPFILE  $BATCH_TEMP_PATH/sorted_result lw=9999 "pft=if v1='' then #,'k1|',v2,'|',v4 else if v1<>ref(mfn+1,v1) then #,f(l(['QUERY']'doi=',v1),1,0),'|',v1,'|',v3,'|', fi,'a880{'v2,'^c',v4,'^d',date,'{',  fi" now> $BATCH_TEMP_PATH/doi_agrouped.seq
+            $MX cipar=$CIPFILE  $BATCH_TEMP_PATH/sorted_result lw=9999 "pft=if v1='' then #,'k1|',v2,'|',v4 else if v1<>ref(mfn+1,v1) then #,f(l(['QUERY']'doi=',v1),1,0),'|',v1,'|',v3,'|', fi,if l(['QUERY']'pidcol=',v2,v4)=0 then 'a880{'v2,'^c',v4,'^d',date,'{' fi,  fi" now> $BATCH_TEMP_PATH/doi_agrouped.seq
             
             sh ./reglog.sh $BATCH_LOGFILE "Generate gen_instructions.sh"
             echo ". ./shs/readconfig.sh"> $BATCH_TEMP_PATH/gen_instructions.sh

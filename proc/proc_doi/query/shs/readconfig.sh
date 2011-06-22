@@ -1,6 +1,6 @@
 . config.sh
 
-
+export CIPAR=../../tabs/GIGA032.cip
 
 CIPFILE=$TEMP_PATH/query.cip
 LOG_FILE=$LOG_PATH/doi_query.log
