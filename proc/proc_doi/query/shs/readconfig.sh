@@ -31,9 +31,14 @@ then
     echo nothing> $APP_STFILE
 fi
 
+if [ ! -f $CIPFILE ]
+then
+    echo GENERATING $CIPFILE
+    echo ARTIGO.*=$ARTIGO.*     >  $CIPFILE
+    echo ISSUE.*=$ISSUEDB.*     >> $CIPFILE
+    echo TITLE.*=$TITLEDB.*     >> $CIPFILE
+    echo QUERY.*=$QUERYDB.*     >> $CIPFILE
+    echo QUERYLOG.*=$QUERYLOGDB.*     >> $CIPFILE
+    echo GENERATED $CIPFILE
 
-echo ARTIGO.*=$ARTIGO.*     >  $CIPFILE
-        echo ISSUE.*=$ISSUEDB.*     >> $CIPFILE
-        echo TITLE.*=$TITLEDB.*     >> $CIPFILE
-        echo QUERY.*=$QUERYDB.*     >> $CIPFILE
-        echo QUERYLOG.*=$QUERYLOGDB.*     >> $CIPFILE
+fi

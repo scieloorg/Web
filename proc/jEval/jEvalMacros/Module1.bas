@@ -1,22 +1,22 @@
 Attribute VB_Name = "Module1"
 Option Explicit
 
-Public MacroFilename As String
+Public MACRO_FUNCTION As String
 Public visible_processing As String
 Public lang As String
 Public labels As New ClsLabels
 
-Sub Main()
+'Sub Main()
 
-    Call readConfig
-    FormSelectParameters.Show vbModal
+'    Call readConfig
+'    FormSelectParameters.Show vbModal
     
-    Unload FormSelectDir
-    Unload FormSelectParameters
-    End
-End Sub
+'    Unload FormSelectDir
+'    Unload FormSelectParameters
+'    End
+'End Sub
 
-Function executeMacro(source_path As String, excel_filename As String, ByRef msgError As String) As Boolean
+Function executeMacro(source_path As String, excel_filename As String, ByRef msgError As String, src_excel_filename As String) As Boolean
    ' Declare variables.
    
    ' Run the macro Receiver and pass the variables to the
@@ -25,7 +25,7 @@ Function executeMacro(source_path As String, excel_filename As String, ByRef msg
    ' extension.
    Dim oExcelApp As excel.Application
    Dim backup As String
-   
+   Dim SOURCE_EXCEL As String
     msgError = ""
    ' Create a reference to the currently running excel application
    
@@ -37,11 +37,21 @@ Function executeMacro(source_path As String, excel_filename As String, ByRef msg
     oExcelApp.visible = True
    End If
    
-   Call FileCopy(App.Path & "\" & MacroFilename, backup)
+   Call FileCopy(App.Path & "\jemacro.xls", backup)
+   
    
    'MsgBox Dir(excel_filename, vbNormal) & vbCrLf & Mid(excel_filename, InStrRev(excel_filename, "\") + 1)
    Call oExcelApp.Workbooks.Open(backup)
-   Call oExcelApp.Run("Export", source_path, excel_filename)
+   Call oExcelApp.Run("Export", source_path, excel_filename, src_excel_filename)
+   ' Case "history"
+     '   Call oExcelApp.Run("Export", source_path, excel_filename)
+        
+        'SOURCE_EXCEL = excel_filename & ".old.xls"
+        'Call FileCopy(excel_filename, SOURCE_EXCEL)
+        'Kill excel_filename
+        'Call oExcelApp.Run("UpdateHistory", source_path, excel_filename, SOURCE_EXCEL)
+        'Kill SOURCE_EXCEL
+    'End Select
    Call oExcelApp.Workbooks.Close
    Call oExcelApp.Quit
    
@@ -52,6 +62,7 @@ Function executeMacro(source_path As String, excel_filename As String, ByRef msg
        executeMacro = False
    End If
    Call Kill(backup)
+   
    'ActiveWorkbook.Close    ' Closes the workbook Book1.xls.
    
    
@@ -72,7 +83,7 @@ Sub readConfig()
     f = FreeFile
     Open "config.ini" For Input As #f
     Input #f, label, content
-    MacroFilename = content
+    MACRO_FUNCTION = content
     Input #f, label, content
     visible_processing = content
     Input #f, label, content

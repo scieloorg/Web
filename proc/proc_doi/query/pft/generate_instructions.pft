@@ -7,16 +7,16 @@
     ,if size(v2)>0 and size(v4)>0 then
         /* tem doi */
         ,`echo 1 "`,v2,`"`,#
-        ,`$MX cipar=$CIPFILE null count=1 "proc='`,v4,`'" lw=999 "pft=@pft/update_querylog.pft" now > $TEMP_PATH/s`,#
+        ,`$MX cipar=$CIPFILE  mfrl=60000 fmtl=60000  null count=1 "proc='`,v4,`'" lw=999 "pft=@pft/update_querylog.pft" now > $TEMP_PATH/s`,#
         ,`echo 2 "`,v2,`"`,#
         ,`sh $TEMP_PATH/s`,#
-        ,`echo 3 "`,v2,`"`
+        ,`echo 3 "`,v2,`"`,#
         ,if val(v1)>0 then
             ,`echo 4a "`,v2,`"`,#
-            ,`$MX cipar=$CIPFILE QUERY from=`,v1,` count=1 "proc='`,v4,`'" copy=QUERY now -all`,#
+            ,`$MX cipar=$CIPFILE  mfrl=60000 fmtl=60000   QUERY from=`,v1,` count=1 "proc='`,v4,`'" copy=QUERY now -all`,#
         ,else
             ,`echo 4b "`,v2,`"`,#
-            ,`$MX cipar=$CIPFILE null count=1 "proc='a237{`,v2,`{a2{`,v3,`{`,v4,`'" append=QUERY now -all`,#
+            ,`$MX cipar=$CIPFILE  mfrl=60000 fmtl=60000  null count=1 "proc='a237{`,v2,`{a2{`,v3,`{`,v4,`'" append=QUERY now -all`,#
         ,fi,
     ,fi,
 ,fi

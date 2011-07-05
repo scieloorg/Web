@@ -39,6 +39,11 @@ else
             fi
 
             STATUSQ=`cat $Q_STFILE`
+            if [ ! -f $QUERYDB.mst ]
+            then
+                $MX null count=1 "proc='a91{',date,'{'" create=$QUERYDB now -all
+                $MX $QUERYDB fst=@fst/query.fst fullinv=$QUERYDB
+            fi
             if [ ! "$STATUSQ" == "free" ]
             then
                 sh ./reglog.sh $BATCH_LOGFILE  invert $QUERYDB
@@ -61,11 +66,11 @@ else
 
             #1 doi, 2 pid, 3 tipo
             sh ./reglog.sh $BATCH_LOGFILE "Join same doi"
-            $MX cipar=$CIPFILE  $BATCH_TEMP_PATH/sorted_result lw=9999 "pft=if v1='' then #,'k1|',v2,'|',v4 else if v1<>ref(mfn+1,v1) then #,f(l(['QUERY']'doi=',v1),1,0),'|',v1,'|',v3,'|', fi,if l(['QUERY']'pidcol=',v2,v4)=0 then 'a880{'v2,'^c',v4,'^d',date,'{' fi,  fi" now> $BATCH_TEMP_PATH/doi_agrouped.seq
+            $MX cipar=$CIPFILE  $BATCH_TEMP_PATH/sorted_result lw=999999 "pft=if v1='' then #,'k1|',v2,'|',v4 else if v1<>ref(mfn+1,v1) then #,f(l(['QUERY']'doi=',v1),1,0),'|',v1,'|',v3,'|', fi,if l(['QUERY']'pidcol=',v2,v4)=0 then 'a880{'v2,'^c',v4,'^d',date,'{' fi,  fi" now> $BATCH_TEMP_PATH/doi_agrouped.seq
             
             sh ./reglog.sh $BATCH_LOGFILE "Generate gen_instructions.sh"
             echo ". ./shs/readconfig.sh"> $BATCH_TEMP_PATH/gen_instructions.sh
-            $MX cipar=$CIPFILE  seq=$BATCH_TEMP_PATH/doi_agrouped.seq lw=9999 "pft=@pft/generate_instructions.pft" now >> $BATCH_TEMP_PATH/gen_instructions.sh
+            $MX cipar=$CIPFILE  mfrl=60000 fmtl=60000  seq=$BATCH_TEMP_PATH/doi_agrouped.seq lw=999999 "pft=@pft/generate_instructions.pft" now >> $BATCH_TEMP_PATH/gen_instructions.sh
             
 
             sh ./reglog.sh $BATCH_LOGFILE "Execute $BATCH_TEMP_PATH/gen_instructions.sh"
