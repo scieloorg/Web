@@ -3381,13 +3381,17 @@ fi
  </function>
 <function name="getDOI" action="replace" tag="880">
     <field action="import" tag="list">7011,237,9800</field>
-	<flow action="jump"><pft>if p(v237) then 'ok' fi</pft></flow>
+
+    <!-- consulta a base doi/query -->
+    <field action="replace" tag="237"><pft>if a(v237) then ref(['DOIQUERY']l(['DOIQUERY'],'PID=',v880),v237) fi</pft></field>
+
+    <flow action="jump"><pft>if p(v237) then 'ok' fi</pft></flow>
+
+    <!-- n?o encontrando, consulta a base de doi antiga  -->
 	<field action="replace" tag="881"><pft>ref(['ARTIGO']l(['ARTIGO'],'HR=',v880),@PROC_SPLIT_MST.PFT,
                                         if p(v891) then v891 else v881 fi)</pft></field>
 
 	<call name="getDOIfromDB"><pft>if p(v881) then v881 else v880 fi</pft></call>
-
-
 	<field action="replace" tag="237"><pft>v900</pft></field>
 
     <label>ok</label>

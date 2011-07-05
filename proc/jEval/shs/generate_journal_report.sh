@@ -45,7 +45,7 @@ $MX cipar=$FILE_CIPAR TITLE btell=0 "loc=$ISSN" lw=9999 gizmo=$PATH_GZM/gizmoFre
 sh ./$PATH_COMMON_SHELLS/WriteLog.bat $FILE_LOG $ACRON Issues data
 
 
-$MX $JOURNAL_PATH_OUTPUT/selected_issues lw=9999 "pft=if size(v1)>0 then 'sh ./$PATH_APP_SHS/generate_issues_data.sh $1 ',v1,' $JOURNAL_PATH_OUTPUT ',if ref(mfn+1,v1)='' then 'LAST' else f(val(mfn),1,0) fi,' $OUTPUT_DOCTOPIC_REPORT $OUTPUT_HISTORY_REPORT $OUTPUT_ISSUES_REPORT $OUTPUT_AUTHORS_REPORT',# fi" now > $APP_TEMP_PATH/je_generate_issues_data.sh
+$MX $JOURNAL_PATH_OUTPUT/selected_issues lw=9999 "pft=if size(v1)>0 then 'sh ./$PATH_APP_SHS/generate_issues_data.sh $1 ',v1,' $JOURNAL_PATH_OUTPUT ',if ref(mfn+1,v1)='' then 'LAST' else f(val(mfn),1,0) fi,' $OUTPUT_DOCTOPIC_REPORT $OUTPUT_HISTORY_REPORT $OUTPUT_ISSUES_REPORT $OUTPUT_AUTHORS_REPORT ',# fi" now > $APP_TEMP_PATH/je_generate_issues_data.sh
 sh $APP_TEMP_PATH/je_generate_issues_data.sh
 
 

@@ -1,11 +1,17 @@
 proc(,if p(v9) or p(v11) then
     ,`a9999{^d`,
     ,if p(v11) then
-        ,v12,`^p`,v11,`^tm`
+        if v11*3.1='S' then
+            ,v12,`^p`,v11,`^tm`
+        fi
     ,else
-        ,v10,`^p`,v9,`^tj`
+        if v9*3.1='S' then
+            ,v10,`^p`,v9,`^tj`
+        fi
+        
     ,fi,
     ,`{`
 ,fi),
-
-if l(['QUERY']'PIDCOL=',v9999^p*3,v9999^p*0.3)=0 then v9999^d,'|',v9999^p*3,'|',v9999^t,'|',v9999^p*0.3,# fi
+,if v9999^p<>'' then
+   ,if l(['QUERY']'PIDCOL=',v9999^p*3,v9999^p*0.3)=0 then v9999^d,'|',v9999^p*3,'|',v9999^t,'|',v9999^p*0.3,# fi,
+,fi
