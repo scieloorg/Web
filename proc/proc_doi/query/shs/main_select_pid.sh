@@ -68,7 +68,7 @@ else
 
                     sh ./reglog.sh $BATCH_LOGFILE "generate $BATCH_TEMP_PATH/call_select.sh"
                     echo >> $PIDLIST
-                    $MX seq=$PIDLIST lw=9999 "pft=if size(v1)>0 then 'sh shs/select.sh ',if v1*0.1<>'S' then 'S' fi,v1,' $BATH_TEMP_PATH $COLLECTION',# fi" now | sort -u -r>>$BATCH_TEMP_PATH/call_select.sh
+                    $MX seq=$PIDLIST lw=9999 "pft=if size(v1)>0 then 'sh shs/select.sh ',if v1*0.1<>'S' then 'S' fi,v1,' $BATCH_LOGFILE $COLLECTION',# fi" now | sort -u -r>>$BATCH_TEMP_PATH/call_select.sh
 
                     sh ./reglog.sh $BATCH_LOGFILE "execute $BATCH_TEMP_PATH/call_select.sh"
                     sh ./reglog.sh $BATCH_LOGFILE "... it will append new PID to querylog"
