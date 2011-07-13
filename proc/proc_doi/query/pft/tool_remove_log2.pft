@@ -1,1 +1,0 @@
-if ref(mfn+1,v1)=v1 and v2='l' then `$MX `,v4,` btell=0 bool=pidcol=`,v1,`scl count=1 "proc='d*'" copy=`,v4,` now -all`/ fi
