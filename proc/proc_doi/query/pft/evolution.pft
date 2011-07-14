@@ -1,15 +1,16 @@
 ,if mfn=1 then
-'date|task|total of reg query|total of reg log|pid done|pid todo|not found|queried|to query|ok*',#
+'data|tarefa|total mfn qdb|total mfn qlog|pid doc|pid ref|total pid feito|pid notfound|pid querying|pid novo|total pid pendente',#
 ,fi,
 
 ,v91,'|',
 ,v5,'|',
 ,(if v1^b='total_doi' then v1^c fi),'|',
 ,(if v1^b='total_log' then v1^c fi),'|',
+,(if v1^b='pid_doc' then v1^c fi),'|',
+,(if v1^b='pid_ref' then v1^c fi),'|',
 ,(if v1^b='pid_done' then v1^c fi),'|',
-,(if v1^b='pid_toDo' then v1^c fi),'|',
-,(if v1^b='status=notfound' then v1^c fi),'|',
-,(if v1^b='status=query' then v1^c fi),'|',
-,(if v1^b='status=new' then v1^c fi),,'|',
-,(if v1^b='status=OK' then v1^c fi),,#,
+,(if v1^b:'notfound' then v1^c fi),'|',
+,(if v1^b:'query' then v1^c fi),'|',
+,(if v1^b:'new' then v1^c fi),,'|',
+,(if v1^b='pid_toDo' then v1^c fi),#
 
