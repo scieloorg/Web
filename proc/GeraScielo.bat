@@ -43,7 +43,7 @@ call batch/GeraMaster.bat $1/serial/title/title ../bases-work/title/title prc/Ge
 call batch/GeraNewcodeAux.bat $1/serial temp/
 call batch/OrdenaMaster.bat ../bases-work/title/title 150 pft/OrdTitle.pft
 call batch/GeraInvertido.bat ../bases-work/title/title fst/title.fst ../bases-work/title/title
-call batch/GeraInvertido.bat ../bases-work/title/title fst/serarea.fst ../bases-work/title/serarea
+#call batch/GeraInvertido.bat ../bases-work/title/title fst/serarea.fst ../bases-work/title/serarea
 
 
 call batch/GeraInvertido.bat ../bases-work/title/title fst/titsrc.fst ../bases-work/title/titsrc

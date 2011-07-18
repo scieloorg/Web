@@ -38,7 +38,18 @@ else
             if [ "$STATUS" == "new" ]
             then
                 sh ./reglog.sh $BATCH_LOGFILE find NEW status
-                $MX $QUERYLOGDB btell=0 "cst=new" "proc='d100a100{query{a91{^query^d',date,'{'" copy=$QUERYLOGDB now -all
+                $MX $QUERYLOGDB btell=0 "cst=$STATUS" "proc='d100a100{query{a91{^query^d',date,'{'" copy=$QUERYLOGDB now -all
+
+                echo inverting> $QLOG_STFILE
+                sh ./reglog.sh $BATCH_LOGFILE  invert $QUERYLOGDB
+                $MX $QUERYLOGDB fst=@fst/log.fst fullinv=$QUERYLOGDB
+                sh ./reglog.sh $BATCH_LOGFILE  fim invert $QUERYLOGDB
+                echo free> $QLOG_STFILE
+            fi
+            if [ "$STATUS" == "notfound" ]
+            then
+                sh ./reglog.sh $BATCH_LOGFILE find NEW status
+                $MX $QUERYLOGDB btell=0 "cst=$STATUS" "proc='d100a100{query{a91{^query^d',date,'{'" copy=$QUERYLOGDB now -all
 
                 echo inverting> $QLOG_STFILE
                 sh ./reglog.sh $BATCH_LOGFILE  invert $QUERYLOGDB
