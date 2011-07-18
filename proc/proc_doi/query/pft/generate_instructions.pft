@@ -5,6 +5,16 @@
      ,fi
 ,else
     ,if size(v2)>0 and size(v4)>0 then
+        ,if size(v4)>999 then
+
+            ,`echo TAMANHO `,v4,,#
+
+            ,proc('d4444','a4444~',mid(v4,1000,100),'~'),
+            ,proc('d4','a4~',mid(v4,1,999),mid(v4444,1,instr(v4444,'a880{')-1),'~'),
+
+            ,`echo REDUZIDO `,v4,,#
+
+        ,fi
         /* tem doi */
         ,`echo 1 "`,v2,`"`,#
         ,`$MX cipar=$CIPFILE  mfrl=60000 fmtl=60000  null count=1 "proc='`,v4,`'" lw=999 "pft=@pft/update_querylog.pft" now > $TEMP_PATH/s`,#
