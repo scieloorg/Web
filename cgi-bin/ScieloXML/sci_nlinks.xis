@@ -92,7 +92,7 @@ IsisScript que gera o XML Para a tela de links da referencia bibliografica
             <field action="import" tag="list">9000/9003</field>
 
             <label>SCIELO</label>
-            <flow action="jump"><pft>if a(v881) then 'CROSSREF' fi</pft></flow>
+            <flow action="jump"><pft>if a(v881) then 'MEDLINE' fi</pft></flow>
             <field action="add" tag="9000">
               <pft>'http://'v7009,v7013,'scielo.php?script=sci_arttext&pid='mpu,v881^*,mpl,'&lng=',v3000</pft>
             </field>
@@ -100,25 +100,7 @@ IsisScript que gera o XML Para a tela de links da referencia bibliografica
             <field action="add" tag="9002">no</field>
             <field action="add" tag="9003">SciELO</field>
 
-            <label>CROSSREF</label>
-            <flow action="jump"><pft>if a(v9352) then 'MEDLINE' fi</pft></flow>
-            <field action="replace" tag="9352">
-              <pft>
-                if not v9352:'http' then
-                   if s(mpu,v9352,mpl):'DOI:' then
-                       'http://dx.doi.org/',mid(v9352,instr(v9352,':')+1,size(v9352))
-                   else
-                       'http://dx.doi.org/',v9352
-                   fi
-                fi
-              </pft>
-             </field>
-            <field action="add" tag="9000">
-              <pft>replace(v9352,' ','')</pft>
-             </field>
-            <field action="add" tag="9001">CrossRef</field>
-            <field action="add" tag="9002">no</field>
-            <field action="add" tag="9003">CrossRef</field>
+            
 
             <label>MEDLINE</label>
             <flow action="jump"><pft>if a(v350) then 'LILACS' fi</pft></flow>
@@ -193,7 +175,26 @@ IsisScript que gera o XML Para a tela de links da referencia bibliografica
             <field action="export" tag="list">9000/9003</field>
         </loop>
    </do>
-   <file action="close" type="database">NLINKS</file>
+    <file action="close" type="database">NLINKS</file>
+    <label>CROSSREF</label>
+    <field action="replace" tag="9352">
+      <pft>if p(v9352) then
+        if not v9352:'http' then
+           if s(mpu,v9352,mpl):'DOI:' then
+               'http://dx.doi.org/',mid(v9352,instr(v9352,':')+1,size(v9352))
+           else
+               'http://dx.doi.org/',v9352
+           fi
+        fi fi
+      </pft>
+     </field>
+    <field action="add" tag="9000">
+      <pft>replace(v9352,' ','')</pft>
+     </field>
+    <field action="add" tag="9001"><pft>if p(v9352) then 'CrossRef' fi</pft></field>
+    <field action="add" tag="9002"><pft>if p(v9352) then 'no' fi</pft></field>
+    <field action="add" tag="9003"><pft>if p(v9352) then 'CrossRef' fi</pft></field>
+   
  
 
    
