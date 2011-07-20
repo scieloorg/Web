@@ -849,13 +849,13 @@
 		<xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'how_to_cite_this_article']"/>
 	</xsl:template>
 	<xsl:template match="@DOI">
-	doi: <xsl:value-of select="."/>
+	 http://dx.doi.org/<xsl:value-of select="translate(.,' ','')"/>
 	</xsl:template>
 	<xsl:template match="ARTICLE[@displayDOILink]/@DOI">
 		<xsl:apply-templates select="../@displayDOILink"/>			
 	</xsl:template>
 	<xsl:template match="ARTICLE/@displayDOILink">
-		doi:<!--a href="http://dx.doi.org/{normalize-space(.)}" target="_blank"--><xsl:value-of select="."/><!--/a-->
+		http://dx.doi.org/<xsl:value-of select="translate(.,' ','')"/>
 	</xsl:template>
 	<!--
 
