@@ -13,10 +13,12 @@ then
    $CISIS_DIR/mx tmp count=1 "pft='[VERSAO 2.1]'/,x3,s(date).13/" >> $INFORMALOG
 fi
 
+echo `date '+%Y%m%d %H:%M:%S'`
 echo [$1]
 echo    $3 $4 $5 $6 $7 $8 $9
-echo 
+echo
 
+echo `date '+%Y%m%d %H:%M:%S'` >> $INFORMALOG
 echo [$1] >> $INFORMALOG
 echo     $3 $4 $5 $6 $7 $8 $9 >> $INFORMALOG
 echo  >> $INFORMALOG

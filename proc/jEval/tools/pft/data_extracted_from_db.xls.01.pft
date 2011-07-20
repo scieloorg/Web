@@ -1,0 +1,346 @@
+'<Worksheet ss:Name="DADOS BÁSICOS">
+  <Table ss:ExpandedColumnCount="256" ss:ExpandedRowCount="44" x:FullColumns="1"
+   x:FullRows="1" ss:StyleID="s47">
+   <Column ss:StyleID="s47" ss:Hidden="1" ss:AutoFitWidth="0" ss:Width="108.75"/>
+   <Column ss:StyleID="s47" ss:AutoFitWidth="0" ss:Width="195.75"/>
+   <Column ss:StyleID="s47" ss:AutoFitWidth="0" ss:Width="405.75"/>
+   <Column ss:StyleID="s47" ss:AutoFitWidth="0" ss:Width="46.5" ss:Span="252"/>
+   <Row ss:AutoFitHeight="0" ss:Height="20.0625">
+    <Cell ss:Index="2" ss:MergeAcross="1" ss:StyleID="s49"><Data ss:Type="String">SELEÇÃO DE PERIÓDICOS SciELO BRASIL - 2009</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="20.0625"/>
+   <Row ss:AutoFitHeight="0" ss:Height="20.0625">
+    <Cell ss:Index="2" ss:StyleID="s50"><Data ss:Type="String">2. DADOS BÁSICOS</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="13.5"/>
+   <Row>
+    <Cell ss:StyleID="s52"><Data ss:Type="String">p_titulo</Data></Cell>
+    <Cell ss:StyleID="s53"><Data ss:Type="String">Título</Data><Comment
+      ss:Author="fabiana.montanari"><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40"><Font html:Face="Tahoma" html:Size="8"
+        html:Color="#000000">Preencher com o título completo do periódico, conforme registrado no ISSN. &#10;Ex: Revista Científica Brasileira</Font></ss:Data></Comment></Cell>
+    <Cell ss:StyleID="s54"><Data ss:Type="String">',v100,'</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s55"/>
+    <Cell ss:StyleID="s56"><Data ss:Type="String">Título anterior</Data><Comment
+      ss:Author="fabiana.montanari"><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40"><Font html:Face="Tahoma" html:Size="8"
+        html:Color="#000000">Preencher com o título anterior do periódico, conforme registrado no ISSN.</Font></ss:Data></Comment></Cell>
+    <Cell ss:StyleID="s57"><Data ss:Type="String">',v610,'</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s55"/>
+    <Cell ss:StyleID="s56"><Data ss:Type="String">Título adicional</Data><Comment
+      ss:Author="fabiana.montanari"><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40"><Font html:Face="Tahoma" html:Size="8"
+        html:Color="#000000">Preencher com o título adicional do periódico, conforme registrado no ISSN.</Font></ss:Data></Comment></Cell>
+    <Cell ss:StyleID="s57"><Data ss:Type="String">',(v230|; |),'</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s58"><Data ss:Type="String">p_suporte</Data></Cell>
+    <Cell ss:StyleID="s59"><Data ss:Type="String">Suporte</Data><Comment
+      ss:Author="fabiana.montanari"><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40"><Font html:Face="Tahoma" html:Size="8"
+        html:Color="#000000">Indicar a opção de suporte (impresso ou eletrônico) em que o periódico deverá ser avaliado.</Font></ss:Data></Comment></Cell>
+    <Cell ss:StyleID="s60"><Data ss:Type="String">',if v35='PRINT' then 'Impresso' else 'Eletrônico' fi,'</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s58"><Data ss:Type="String">p_issn</Data></Cell>
+    <Cell ss:StyleID="s59"><Data ss:Type="String">ISSN</Data><Comment
+      ss:Author="fabiana.montanari"><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40"><Font html:Face="Tahoma" html:Size="8"
+        html:Color="#000000">Incluir o número de ISSN do periódico, correspondente ao suporte (impresso/eletrônico) que será avaliado. Exemplo: 2009-2009</Font></ss:Data></Comment></Cell>
+    <Cell ss:StyleID="s61"><Data ss:Type="String">',(v400),'</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s58"/>
+    <Cell ss:StyleID="s59"><Data ss:Type="String">Missão</Data><Comment
+      ss:Author="fabiana.montanari"><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40"><Font html:Face="Tahoma" html:Size="8"
+        html:Color="#000000">Incluir o texto sobre a missão do periódico.</Font></ss:Data></Comment></Cell>
+    <Cell ss:StyleID="s61"><Data ss:Type="String">',(v901^*/),,'</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s58"/>
+    <Cell ss:StyleID="s59"><Data ss:Type="String">Tipos de trabalhos publicados</Data><Comment
+      ss:Author="fabiana.montanari"><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40"><Font html:Face="Tahoma" html:Size="8"
+        html:Color="#000000">Indicar os tipos que trabalhos publicados no periódico.&#10;Ex: artigo científico, artigo de revisão, artigo de atualização, estudo de caso, ensaio, ensaio clínico, entrevista, comunicação breve, resumo de teses, editorial, outros.</Font></ss:Data></Comment></Cell>
+    <Cell ss:StyleID="s61"><Data ss:Type="String">','</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s58"><Data ss:Type="String">p_instituicao</Data></Cell>
+    <Cell ss:StyleID="s59"><Data ss:Type="String">Instituição</Data><Comment
+      ss:Author="fabiana.montanari"><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40"><Font html:Face="Tahoma" html:Size="8"
+        html:Color="#000000">Indicar o nome por extenso da instituição responsável pela publicação do periódico e/ou pelo copyright, sem abreviações. &#10;Ex: Universidade Científica Brasileira</Font></ss:Data></Comment></Cell>
+    <Cell ss:StyleID="s60"><Data ss:Type="String">',v480,'</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s58"><Data ss:Type="String">p_cidade</Data></Cell>
+    <Cell ss:StyleID="s59"><Data ss:Type="String">Cidade</Data><Comment
+      ss:Author="fabiana.montanari"><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40"><Font html:Face="Tahoma" html:Size="8"
+        html:Color="#000000">Indicar o nome da cidade de publicação do periódico. &#10;Ex: São Paulo</Font></ss:Data></Comment></Cell>
+    <Cell ss:StyleID="s60"><Data ss:Type="String">',v490,'</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s58"><Data ss:Type="String">p_estado</Data></Cell>
+    <Cell ss:StyleID="s59"><Data ss:Type="String">Estado</Data><Comment
+      ss:Author="fabiana.montanari"><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40"><Font html:Face="Tahoma" html:Size="8"
+        html:Color="#000000">Incluir a sigla do Estado de publicação do periódico.&#10;Ex: SP</Font></ss:Data></Comment></Cell>
+    <Cell ss:StyleID="s60"><Data ss:Type="String">',v320,'</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s58"><Data ss:Type="String">p_area</Data></Cell>
+    <Cell ss:StyleID="s59"><Data ss:Type="String">Área</Data><Comment
+      ss:Author="fabiana.montanari"><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40"><Font html:Face="Tahoma" html:Size="8"
+        html:Color="#000000">Informar a área temática do periódico, conforme Tabela do CNPq (Ciências Exatas e da Terra, Ciências Biológicas, Engenharias, Ciências da Saúde, Ciências Agrárias, Ciências Sociais Aplicadas, Ciências Humanas, Lingüística, Letras e Artes, Outros).</Font></ss:Data></Comment></Cell>
+    <Cell ss:StyleID="s60"><Data ss:Type="String">',(v441+|; |),,'</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s58"><Data ss:Type="String">p_subarea</Data></Cell>
+    <Cell ss:StyleID="s59"><Data ss:Type="String">Especialidade</Data><Comment
+      ss:Author="fabiana.montanari"><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40"><Font html:Face="Tahoma" html:Size="8"
+        html:Color="#000000">Incluir a área de especialidade do periódico (ex: Odontologia, Arquitetura, Engenharia Ambiental, etc.)</Font></ss:Data></Comment></Cell>
+    <Cell ss:StyleID="s60"><Data ss:Type="String">',,'</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s58"><Data ss:Type="String">p_periodicidade</Data></Cell>
+    <Cell ss:StyleID="s59"><Data ss:Type="String">Periodicidade</Data><Comment
+      ss:Author="fabiana.montanari"><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40"><Font html:Face="Tahoma" html:Size="8"
+        html:Color="#000000">Informar a periodicidade adotada atualmente pelo periódico (Bimestral, Trimestral, Quadrimestral, Semestral, Irregular).</Font></ss:Data></Comment></Cell>
+    <Cell ss:StyleID="s60"><Data ss:Type="String">',v340,'</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s58"><Data ss:Type="String">p_site</Data></Cell>
+    <Cell ss:StyleID="s59"><Data ss:Type="String">Website</Data><Comment
+      ss:Author="fabiana.montanari"><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40"><Font html:Face="Tahoma" html:Size="8"
+        html:Color="#000000">Informar a URL do website do periódico, quando houver.</Font></ss:Data></Comment></Cell>
+    <Cell ss:StyleID="s60"><Data ss:Type="String">',,'</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s58"><Data ss:Type="String">p_site_inf_disponivel</Data></Cell>
+    <Cell ss:StyleID="s59"><Data ss:Type="String">Informação do Website </Data><Comment
+      ss:Author="fabiana.montanari"><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40"><Font html:Face="Tahoma" html:Size="8"
+        html:Color="#000000">Indicar o conteúdo disponível no Website do periódico (resumo dos artigos, sumário dos números, texto completo dos artigos,etc.)</Font></ss:Data></Comment></Cell>
+    <Cell ss:StyleID="s60"><Data ss:Type="String">',,'</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s58"><Data ss:Type="String">p_norma</Data></Cell>
+    <Cell ss:StyleID="s59"><Data ss:Type="String">Norma</Data><Comment
+      ss:Author="fabiana.montanari"><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40"><Font html:Face="Tahoma" html:Size="8"
+        html:Color="#000000">Indicar a norma adotada pelo periódico (ISO, Vancouver, ABNT, APA, Norma adaptada).</Font></ss:Data></Comment></Cell>
+    <Cell ss:StyleID="s60"><Data ss:Type="String">',if v117:'vanc' then 'Vancouver' else if v117:'iso' then 'ISO' else if v117:'nbr' then 'ABNT' else  fi fi fi,#,'</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s58"><Data ss:Type="String">p_tempoexistencia</Data></Cell>
+    <Cell ss:StyleID="s59"><Data ss:Type="String">Ano de criação</Data><Comment
+      ss:Author="fabiana.montanari"><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40"><Font html:Face="Tahoma" html:Size="8"
+        html:Color="#000000">Informar o ano em que o periódico foi criado.&#10;Ex: 2009</Font></ss:Data></Comment></Cell>
+    <Cell ss:StyleID="s60"><Data ss:Type="String">',v301,'</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s58"><Data ss:Type="String">p_qualis</Data></Cell>
+    <Cell ss:StyleID="s59"><Data ss:Type="String">Classificação Qualis</Data><Comment
+      ss:Author="fabiana.montanari"><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40"><Font html:Face="Tahoma" html:Size="8"
+        html:Color="#000000">Informar a classificação Qualis recebida pelo periódico no último triênio, em sua respectiva especialidade.</Font></ss:Data></Comment></Cell>
+    <Cell ss:StyleID="s60"><Data ss:Type="String">',,'</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s58"><Data ss:Type="String">p_cnpq</Data></Cell>
+    <Cell ss:StyleID="s59"><Data ss:Type="String">Financiada pelo CNPq</Data><Comment
+      ss:Author="fabiana.montanari"><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40"><Font html:Face="Tahoma" html:Size="8"
+        html:Color="#000000">Indicar se o periódico recebe financiamento do CNPq (considerar o ano de preenchimento do formulário de avaliação).&#10;Ex: Recebe financiamento</Font></ss:Data></Comment></Cell>
+    <Cell ss:StyleID="s60"><Data ss:Type="String">',if v140:'CNPq' then 'Sim' else '' fi,'</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s58"><Data ss:Type="String">p_outrofinanc</Data></Cell>
+    <Cell ss:StyleID="s59"><Data ss:Type="String">Outras instituições financiadoras</Data><Comment
+      ss:Author="fabiana.montanari"><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40"><Font html:Face="Tahoma" html:Size="8"
+        html:Color="#000000">Incluir o nome de outras instituições que financiam o periódico (considerar o ano de preenchimento do formulário de avaliação).&#10;Ex: Fundação Científica Brasileira </Font></ss:Data></Comment></Cell>
+    <Cell ss:StyleID="s60"><Data ss:Type="String">',(v140|; |),'</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s58"><Data ss:Type="String">p_classificacao_pos</Data></Cell>
+    <Cell ss:StyleID="s59"><Data ss:Type="String">Classificação pós-graduação </Data><Comment
+      ss:Author="fabiana.montanari"><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40"><Font html:Face="Tahoma" html:Size="8"
+        html:Color="#000000">Informar a classificação recebida pelo Programa de Pós-Graduação a qual o periódico está ligado.&#10;Ex: Mestrado 7; Doutorado 7</Font></ss:Data></Comment></Cell>
+    <Cell ss:StyleID="s60"><Data ss:Type="String">',,'</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s58"><Data ss:Type="String">p_indexnac</Data></Cell>
+    <Cell ss:StyleID="s59"><Data ss:Type="String">Bases de dados nacionais</Data><Comment
+      ss:Author="fabiana.montanari"><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40"><Font html:Face="Tahoma" html:Size="8"
+        html:Color="#000000">Indicar em quais bases de dados nacionais o periódico está indexado.&#10;Ex: AGROBASE, BDENF, BBO, EDUBASE</Font></ss:Data></Comment></Cell>
+    <Cell ss:StyleID="s60"><Data ss:Type="String">',(v450+|; |),'</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s58"/>
+    <Cell ss:StyleID="s59"><Data ss:Type="String">Bases de dados regionais</Data><Comment
+      ss:Author="fabiana.montanari"><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40"><Font html:Face="Tahoma" html:Size="8"
+        html:Color="#000000">Indicar em quais bases de dados regionais o periódico está indexado.&#10;Ex: CUIDEN, HOMEOINDEX, LILACS, REDALYC, REPIDISCA</Font></ss:Data></Comment></Cell>
+    <Cell ss:StyleID="s60"><Data ss:Type="String">',,'</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s58"><Data ss:Type="String">p_indexinter</Data></Cell>
+    <Cell ss:StyleID="s59"><Data ss:Type="String">Bases de dados estrangeiras</Data><Comment
+      ss:Author="fabiana.montanari"><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40"><Font html:Face="Tahoma" html:Size="8"
+        html:Color="#000000">Indicar em quais bases de dados internacionais o periódico está indexada.&#10;Ex: Academic Search Premier (EbscoHost), AGRICOLA Agricultural OnLine Access, AGRIS - AGRIS/CARIS, Animal Behavior Abstracts (CSA), Biological Abstracts, BIOSIS, CAB Abstracts, CINAHL (Cumulative Index to Nursing &amp; Allied Health Literature), Civil Engineering Abstracts (CSA), COMPENDEX, Computer Database (GALE), EMBASE (Excerpta Medica), Engineering Materials Abstracts (CSA), ERIC, FSTA - Food Science &amp; Technology Abstracts, GeoRef, Historical Abstracts, IEEE, INIS - International Nuclear Information System, INSPEC, LISA - Library and Information Science Abstracts, MEDLINE, PASCAL, PsycInfo, PubMed, Scopus, Social Services Abstracts (CSA), Sociological Abstracts, Sociology of Education Abstracts, Solid State and Superconductivity Abstracts (CSA), SportDiscus, Technology Research Database (CSA), Tropag and Rural, Web of Science</Font></ss:Data></Comment></Cell>
+    <Cell ss:StyleID="s60"><Data ss:Type="String">',,'</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s58"/>
+    <Cell ss:StyleID="s59"><Data ss:Type="String">Diretórios</Data><Comment
+      ss:Author="fabiana.montanari"><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40"><Font html:Face="Tahoma" html:Size="8"
+        html:Color="#000000">Indicar em quais diretórios o periódico está.&#10;Ex: DOAJ, Latindex, Ulrich´s, outros.</Font></ss:Data></Comment></Cell>
+    <Cell ss:StyleID="s60"><Data ss:Type="String">',,'</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s58"><Data ss:Type="String">p_distribuicao</Data></Cell>
+    <Cell ss:StyleID="s59"><Data ss:Type="String">Formas de distribuição</Data><Comment
+      ss:Author="fabiana.montanari"><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40"><Font html:Face="Tahoma" html:Size="8"
+        html:Color="#000000">Incluir as formas como o periódico é distribuído (Assinatura, doação, permuta e/ou acesso online gratuito).</Font></ss:Data></Comment></Cell>
+    <Cell ss:StyleID="s60"><Data ss:Type="String">',,'</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s58"><Data ss:Type="String">p_disponibilidade</Data></Cell>
+    <Cell ss:StyleID="s59"><Data ss:Type="String">Total de bibliotecas</Data><Comment
+      ss:Author="fabiana.montanari"><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40"><Font html:Face="Tahoma" html:Size="8"
+        html:Color="#000000">Incluir o número total de bibliotecas que recebem o periódico regularmente.&#10;Ex: 285</Font></ss:Data></Comment></Cell>
+    <Cell ss:StyleID="s60"><Data ss:Type="String">',,'</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s58"><Data ss:Type="String">p_editor</Data></Cell>
+    <Cell ss:StyleID="s59"><Data ss:Type="String">Editor</Data><Comment
+      ss:Author="fabiana.montanari"><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40"><Font html:Face="Tahoma" html:Size="8"
+        html:Color="#000000">Indicar o nome completo do editor para contato.</Font></ss:Data></Comment></Cell>
+    <Cell ss:StyleID="s60"><Data ss:Type="String">',,'</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s58"><Data ss:Type="String">p_email</Data></Cell>
+    <Cell ss:StyleID="s59"><Data ss:Type="String">E-mail principal</Data><Comment
+      ss:Author="fabiana.montanari"><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40"><Font html:Face="Tahoma" html:Size="8"
+        html:Color="#000000">Informar o e-mail principal do periódico para contato.</Font></ss:Data></Comment></Cell>
+    <Cell ss:StyleID="s60"><Data ss:Type="String">',v64,'</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s58"><Data ss:Type="String">p_email2</Data></Cell>
+    <Cell ss:StyleID="s59"><Data ss:Type="String">E-mail alternativo</Data><Comment
+      ss:Author="fabiana.montanari"><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40"><Font html:Face="Tahoma" html:Size="8"
+        html:Color="#000000">Informar um e-mail alternativo para contato.</Font></ss:Data></Comment></Cell>
+    <Cell ss:StyleID="s60"><Data ss:Type="String">',,'</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s58"><Data ss:Type="String">p_telefone</Data></Cell>
+    <Cell ss:StyleID="s59"><Data ss:Type="String">Telefone</Data><Comment
+      ss:Author="fabiana.montanari"><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40"><Font html:Face="Tahoma" html:Size="8"
+        html:Color="#000000">Indicar telefone(s) do periódico.&#10;Ex: (11) 5576-9863</Font></ss:Data></Comment></Cell>
+    <Cell ss:StyleID="s60"><Data ss:Type="String">',(v63/),'</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s58"><Data ss:Type="String">p_fax</Data></Cell>
+    <Cell ss:StyleID="s59"><Data ss:Type="String">Fax</Data><Comment
+      ss:Author="fabiana.montanari"><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40"><Font html:Face="Tahoma" html:Size="8"
+        html:Color="#000000">Indicar número do fax do periódico.&#10;Ex: (11) 5575-8868</Font></ss:Data></Comment></Cell>
+    <Cell ss:StyleID="s60"><Data ss:Type="String">',,'</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s58"><Data ss:Type="String">p_endereco</Data></Cell>
+    <Cell ss:StyleID="s62"><Data ss:Type="String">Endereço</Data><Comment
+      ss:Author="fabiana.montanari"><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40"><Font html:Face="Tahoma" html:Size="8"
+        html:Color="#000000">Indicar o endereço de correspondência do periódico.&#10;Ex: Rua, número, complemento, bairro, cidade, estado.</Font></ss:Data></Comment></Cell>
+    <Cell ss:StyleID="s60"><Data ss:Type="String">',,'</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s58"><Data ss:Type="String">p_cep</Data></Cell>
+    <Cell ss:StyleID="s59"><Data ss:Type="String">CEP</Data><Comment
+      ss:Author="fabiana.montanari"><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40"><Font html:Face="Tahoma" html:Size="8"
+        html:Color="#000000">Incluir o CEP.&#10;Ex: 04023-901</Font></ss:Data></Comment></Cell>
+    <Cell ss:StyleID="s63"/>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:StyleID="s58"><Data ss:Type="String">p_datasolicitacao</Data></Cell>
+    <Cell ss:StyleID="s64"><Data ss:Type="String">Data de solicitação</Data><Comment
+      ss:Author="fabiana.montanari"><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40"><Font html:Face="Tahoma" html:Size="8"
+        html:Color="#000000">Informar a data de solicitação de avaliação do periódico, no formato DD/MM/AAAA (considerar a data de envio deste formulário à Unidade SciELO).</Font></ss:Data></Comment></Cell>
+    <Cell ss:StyleID="s65"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="0.75">
+    <Cell ss:StyleID="s58"><Data ss:Type="String">p_dataatualizacao</Data></Cell>
+    <Cell ss:StyleID="s66"/>
+    <Cell ss:StyleID="s67"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="13.5">
+    <Cell ss:StyleID="s68"><Data ss:Type="String">p_periodicoscielo</Data></Cell>
+    <Cell ss:StyleID="s69"/>
+    <Cell ss:StyleID="s70"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="13.5">
+    <Cell ss:StyleID="s71"><Data ss:Type="String">p_notas</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">Notas</Data><Comment
+      ss:Author="fabiana.montanari"><ss:Data
+       xmlns="http://www.w3.org/TR/REC-html40"><Font html:Face="Tahoma" html:Size="8"
+        html:Color="#000000">Campo para inclusão de observações/notas.</Font></ss:Data></Comment></Cell>
+    <Cell ss:StyleID="s72"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s71"><Data ss:Type="String">p_titulo_antigo</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s71"><Data ss:Type="String">p_titulo_adicional</Data></Cell>
+   </Row>
+  </Table>
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <PageSetup>
+    <Header x:Margin="0.49212598499999999"/>
+    <Footer x:Margin="0.49212598499999999"/>
+    <PageMargins x:Bottom="0.984251969" x:Left="0.78740157499999996"
+     x:Right="0.78740157499999996" x:Top="1.534251969"/>
+   </PageSetup>
+   <Print>
+    <ValidPrinterInfo/>
+    <Scale>95</Scale>
+    <HorizontalResolution>600</HorizontalResolution>
+    <VerticalResolution>600</VerticalResolution>
+   </Print>
+   <Selected/>
+   <LeftColumnVisible>1</LeftColumnVisible>
+   <Panes>
+    <Pane>
+     <Number>3</Number>
+     <ActiveRow>4</ActiveRow>
+     <ActiveCol>2</ActiveCol>
+    </Pane>
+   </Panes>
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>',
