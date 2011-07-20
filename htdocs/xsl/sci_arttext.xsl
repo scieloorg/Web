@@ -84,6 +84,7 @@
 								<h2>
 									<xsl:choose>
 										<xsl:when test="//CONTROLINFO/NO_SCI_SERIAL='yes'"><xsl:value-of select="TITLEGROUP/TITLE" disable-output-escaping="yes"/>
+
 </xsl:when>
 										<xsl:otherwise>
 											<a>
@@ -171,4 +172,5 @@
 			</xsl:with-param>
 		</xsl:call-template>
 	</xsl:template>
+
 </xsl:stylesheet>
