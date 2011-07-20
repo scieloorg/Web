@@ -23,7 +23,7 @@
 			<head>
 				<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 				<link rel="stylesheet" href="/applications/scielo-org/css/public/style-<?=$lang?>.css" type="text/css" media="screen"/>
-				<!-- Adicionado script para passa a utilizar o serviço de log comentado por Jamil Atta Junior (jamil.atta@bireme.org)-->
+				<!-- Adicionado script para passa a utilizar o servi? de log comentado por Jamil Atta Junior (jamil.atta@bireme.org)-->
 				<script language="javascript" src="/../../applications/scielo-org/js/httpAjaxHandler.js"></script>
 			</head>
 			<body>
@@ -74,6 +74,7 @@
 											$xml .= str_replace('<?xml version="1.0" encoding="ISO-8859-1"?>','',$xmlFile);
 											$xml .='</root>';
 											if($_REQUEST['debug'] == 'on'){
+                                                echo $serviceUrl;
 												die($xml);
 											}
 

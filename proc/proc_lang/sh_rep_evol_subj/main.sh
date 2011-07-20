@@ -8,6 +8,7 @@ then
 fi
 
 $MX seq=sh_rep_evol_subj/gizmo.seq create=sh_rep_evol_subj/gizmo now -all
+$MX seq=sh_rep_evol_subj/lowercase.seq create=sh_rep_evol_subj/lowercase now -all
 
 $MX cipar=$CIPFILE TITLE "pft=(replace(v441,' ','_')/)" now | sort -u > $TEMP_PATH/subjects.seq
 $MX null count=1 "pft='ALL',#," now >> $TEMP_PATH/subjects.seq
