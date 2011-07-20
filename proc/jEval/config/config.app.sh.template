@@ -1,0 +1,18 @@
+# PARAMETERS OF EXECUTION
+
+PARAM_SELECT_BY_YEAR=
+PARAM_SELECT_BY_RECENT=3
+REPORT_TITLE="INFORME ANUAL DE DESEMPENHO"
+PATH_OUTPUT=report/2011
+
+
+# ENV CONFIGURATION
+
+MX=/usr/local/bireme-old/cisis/5.5.pre02/linux/lindG4/mx
+MXTB=/usr/local/bireme-old/cisis/5.5.pre02/linux/lindG4/mxtb
+FILE_LOG=je_permanencia.log
+APP_TEMP_PATH=../temp
+TITLE=../../bases/title/title
+ARTIGODB=../../bases/artigo/artigo
+LANGDB=/var/www/scielo_br_old/bases-work/artigo/languages
+ISSUEDB=../../bases/issue/issue

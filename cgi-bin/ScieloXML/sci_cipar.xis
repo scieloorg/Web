@@ -35,9 +35,23 @@ PATH_DATA:     tag 7014
 <call name="getDefine"><pft>v8034,v3011</pft></call>	
 <!--call name="getDefine"><pft>'C:\httpd\htdocs\ScieloXML\scielo.def.php'</pft></call-->
 
+<!----------------------------------------------------------------------------->
+<!--  EVITA DAR ERRO CASO BASE doi/query não exista   -->
+<field action="statusfile" tag="9004"><pft>v7011,'doi/query.mst'</pft></field>
+<field action="replace" tag="7777">
+		<pft>
+			if v9004^s : 'e' then
+				,v7011,'doi/query.*',
+            else
+                ,v7011, 'title/title.*',
+			fi
+		</pft>
+</field>
+<!----------------------------------------------------------------------------->
 <parm name="cipar">
 	<pft>
-'ARTICLE_DOI.*=',     v7011, 'doi/doi.*',/
+        'DOIQUERY.*=',v7777/
+        'ARTICLE_DOI.*=',     v7011, 'doi/doi.*',/
 		'TITLE.*=',     v7011, 'title/title.*',/
 		'SERAREAen.*=',   v7011, 'title/serareaEN.*',/
 		'SERAREAes.*=',   v7011, 'title/serareaES.*',/
@@ -89,7 +103,7 @@ PATH_DATA:     tag 7014
         'related.*=', v7011, 'related/related.*',/
         'cited.*=', v7011, 'cited/cited.*',/
         'areasgeo.*=', v7011, 'areasgeo/areasgeo.*',/
-	'PROJFAPESP.*=', v7011, 'projfapesp/projfapesp.*',/
+        'PROJFAPESP.*=', v7011, 'projfapesp/projfapesp.*',/
 		'PROC_SPLIT_MST.PFT=', v8034, 'pfts/proc_split_mst.pft',/
 		'PROC_XML_PMC.PFT=',v8034, 'pfts/proc_xml_pmc.pft',/
 		'PROC_XML_AGRIS.PFT=',v8034, 'pfts/proc_xml_agris.pft',/

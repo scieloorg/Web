@@ -1,7 +1,7 @@
 <IsisScript name="search">
 
 <include>ScieloXML/sci_common.xis</include>
-
+<include>ScieloXML/paragraphs.xis</include>
 <function name="error" action="replace" tag="1">
 	<parm name="isisxml table">
 		<pft>
@@ -43,23 +43,29 @@
 	
 	<display><pft>'<wxis-modules IsisScript="',v2,'" version="0.2">'/</pft></display>
 
-	<field action="cgi" tag="2001">database</field>
 	<field action="cgi" tag="2005">search</field>
+    <field action="replace" tag="1880"><pft>mid(v2005,instr(v2005,'=')+1,size(v2005))</pft></field>
+    <field action="replace" tag="880"><pft>mid(v1880,1,size(v1880)-1)</pft></field>
 
 
-	<field action="replace" tag="4000"><pft>ref([v2001]l([v2001],replace(v2005,'$',''),'00001'),v32701)</pft></field>
+    <call name="return_ARTIGO_or_P"><pft>v880</pft></call>
+	<field action="replace" tag="2001">ARTIGO</field>
 
-	<field action="replace" tag="2505"><pft>mid(v2005,instr(v2005,'=')+1,size(v2005))</pft></field>
-	<flow action="jump"><pft>if ref([v2001]l([v2001],'HR=',replace(v2505,'$','') ),@PROC_SPLIT_MST.PFT,mid(v702,size(v702)-3,size(v702)))<>'.xml' then 'REFERENCES_FROM_HTML' fi</pft></flow>
+
+	
+	<flow action="jump"><pft>if ref([v2001]l([v2001],'HR=',v880),@PROC_SPLIT_MST.PFT,mid(v702,size(v702)-3,size(v702)))<>'.xml' then 'REFERENCES_FROM_HTML' fi</pft></flow>
+
+
 	<label>REFERENCES_FROM_XML</label>
-	<do task="search">
-		<parm name="db"><pft>v2001</pft></parm>
-		<call name="error"><pft>"missing parameter: expression"n2005</pft></call>
-		<parm name="expression"><pft>'ART='v2505</pft></parm>
+    <call name="getParagraphsRange"><pft>v880</pft></call>
+	<do task="mfnrange">
+		<parm name="db"><pft>v9901^d</pft></parm>
+		<parm name="from"><pft>v9901^s</pft></parm>
+        <parm name="to"><pft>v9901^e</pft></parm>
 
 		<display><pft>'<root  xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML">'/</pft></display>
 		<display><pft>'<nlm-xsl-file-path>../../xsl/</nlm-xsl-file-path>'/,
-					'<ARTICLE PID="',mid(v2505,1,size(v2505)-1),'"/>'</pft></display>
+					'<ARTICLE PID="',v880,'"/>'</pft></display>
 		<display><pft>'<references-from-xml>'</pft></display>
 		<loop>
 			<display><pft>v704^*</pft></display>
@@ -68,31 +74,21 @@
 	</do>
 	<flow action="jump">sci_references_fim</flow>
 	
-	<label>REFERENCES_FROM_HTML</label>		
+	<label>REFERENCES_FROM_HTML</label>
 
-	<do task="search">
+    <!-- gizmos ???? -->
+	<field action="replace" tag="4000"><pft>ref([v2001]l([v2001],replace(v2005,'$','00001')),v32701)</pft></field>
+    <field action="cgi" tag="2007">gizmo</field>
+    <field action="replace" tag="2007" split="occ"><pft>(v2007/)</pft></field>
 
-		<call name="error"><pft>"missing parameter: database"n2001</pft></call>
-		<parm name="db"><pft>v2001</pft></parm>
-		
-		<field action="cgi" tag="2007">gizmo</field>
-		<field action="replace" tag="2007" split="occ"><pft>(v2007/)</pft></field>
+
+    <call name="getReferencesRange"><pft>v880</pft></call>
+	<do task="mfnrange">
+		<parm name="db"><pft>v9901^d</pft></parm>
+		<parm name="from"><pft>v9901^s</pft></parm>
+		<parm name="to"><pft>v9901^e</pft></parm>
 		<parm name="gizmo"><pft>if v4000<>'' then '' else (v2007) fi</pft></parm>
 
-		<call name="error"><pft>"missing parameter: expression"n2005</pft></call>
-		<parm name="expression"><pft>v2005</pft></parm>
-
-		<field action="cgi" tag="2002">from</field>
-		<parm name="from"><pft>v2002</pft></parm>
-
-		<field action="cgi" tag="2003">to</field>
-		<parm name="to"><pft>v2003</pft></parm>
-
-		<field action="cgi" tag="2004">count</field>
-		<parm name="count"><pft>v2004</pft></parm>
-
-		<field action="cgi" tag="2006">reverse</field>
-		<parm name="reverse"><pft>v2006</pft></parm>
 
 		<field action="define" tag="1001">Isis_Current</field>
 		<field action="define" tag="1002">Isis_Total</field>
@@ -113,8 +109,17 @@
 
 		<loop>
 			<field action="import" tag="list">2007</field>
+
+            <!-- se nao eh paragrafo de referencia skip next -->
+			<flow action="skip"><pft>if a(v888) then 'Next' fi</pft></flow>
+
+            <!-- se proc_split, jump-->
 			<flow action="jump"><pft>if val(v32701^m) > 0 then 'proc_split' fi</pft></flow>
+
+            <!-- imprime xml -->
 			<display><isisxml>*</isisxml></display>
+
+            <!-- proximo -->
 			<flow action="skip">Next</flow>
 			
 
