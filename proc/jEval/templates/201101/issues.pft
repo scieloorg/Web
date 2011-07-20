@@ -1,0 +1,76 @@
+/* Volume */
+,v31 ,#,
+/* N?mero */
+,v32 ,#,
+/* Ano de publica??o */
+,v65*0.4 ,#,
+/* M?s de publica??o */
+,v65*4.2 ,#,
+/* N?mero total de artigos publicados no fasc?culo, (artigos originais, ensaios, relatos de caso, outros), desconsiderando editoriais, entrevistas, resenhas, comunica??es breves, resumos de tese, resumos de congresso, notas, eventos e not?cias. */
+,v900 ,#,
+/* N?mero total de artigos originais publicados nesse fasc?culo, considerando apenas artigos originais, resultante de pesquisa cient?fica. */
+,v901 ,#,
+/* N?mero total de artigos de autores convidados para publicar trabalhos nos fasc?culos. */
+,,#,
+/* N?mero total de artigos traduzidos, considerando somente os artigos traduzidos de peri?dicos cient?ficos estrangeiros, publicados h? mais de 2 meses antes do fasc?culo do peri?dico. */
+,,#,
+/*  */
+,#,
+/* Dados de formato */
+,,#,
+/* O fasc?culo corresponde a um ?nico n?mero? (marcar com "x" caso o fasc?culo n?o possua n?meros acumulados, por exemplo: n?mero 1/2) */
+,if instr(v32,'-')=0 then 'x' fi,#,
+/* A numera??o de volume, n?mero e p?ginas ? feita adequadamente, ou seja, utilizando algarismos ar?bicos, em ordem seq?encial, reiniciada a cada volume? */
+,v902,#,
+/* O expediente do peri?dico apresenta a afilia??o completa dos membros do Corpo Editorial (institui??o, cidade e pa?s)? */
+,,#,
+/* O n?mero de ISSN ? informado? */
+,,#,
+/* O peri?dico indica seus dados completos para contato? (rua, bairro, cidade, cep, estado e pa?s; telefone e e-mail) */
+,,#,
+/* O peri?dico indica qual ? sua periodicidade? */
+,,#,
+/* O peri?dico indica sua miss?o? */
+,,#,
+/* Existe sum?rio bil?ngue? */
+,proc('a943{',if v43^l:'en' then '1' fi,if v43^l:'es' then '1' fi,if v43^l:'pt' then '1' fi,'{'),if size(v943)>1 then 'x' fi,#
+/* O sum?rio indica divis?o de conte?do em se??es? */
+,if p(v43) then 'x' fi,#,
+/* As instru??es aos autores esclarecem sobre indica??o de responsabilidade? */
+,,#,
+/* As instru??es aos autores esclarecem sobre conflito de interesse? */
+,,#,
+/* As instru??es aos autores esclarecem sobre aprova??o do comit? de ?tica? (apenas para Ci?ncias da Sa?de) */
+,,#,
+/* As instru??es aos autores indicam a ado??o de normas bibliogr?ficas? */
+,,#,
+/* As instru??es aos autores indicam norma para a ado??o de palavras-chave? */
+,,#,
+/* As instru??es aos autores indicam os crit?rios e procedimentos para revis?o dos trabalhos? */
+,,#,
+/* As instru??es aos autores orientam quanto ? forma de apresenta??o  da afilia??o? */
+,,#,
+/* As instru??es aos autores esclarecem sobre os procedimentos para a transfer?ncia dos direitos autorais? */
+,,#,
+/* As instru??es aos autores orientam quanto ? indica??o dos financiamentos relacionados ao trabalho a ser publicado? */
+,,#,
+/* As instru??es aos autores indicam os idiomas de publica??o? */
+,,#,
+/* A legenda bibliogr?fica indica em todas as p?ginas o t?tulo abreviado do peri?dico, local de publica??o, volume, n?mero, ano, p?gina inicial e final do artigo? */
+,,#,
+/* Os artigos incluem t?tulos, palavras-chave e resumo no idioma do texto? */
+,v950 ,#,
+/* Os artigos incluem t?tulos, palavras-chave e resumo em ingl?s? */
+,v951 ,#,
+/* Os artigos indicam afilia??o completa de todos os autores, com a indica??o de institui??o, cidade e pa?s? */
+,v952 ,#,
+/* Os artigos indicam dados de contato do primeiro autor (e-mail)? */
+,v953 ,#,
+/* Os artigos apresentam data de recebimento? */
+,v954 ,#,
+/* Os artigos apresentam data de aprova??o? */
+,v955 ,#,
+/* As refer?ncias bibliogr?ficas citadas nos artigos seguem a norma indicada? */
+,,#,
+/* Os artigos s?o publicados sem interrup??o de publicidade?  */
+,,#,
