@@ -83,6 +83,7 @@
 						case 'ALT_PDF_URL'     : 'h17060',
 						case 'ENABLE_ARTICLE_LANG_LINK'     : 'h17061',
 						case 'show_ref_links'				: 'h17062',
+						case 'show_meta_citation_reference'	: 'h17070',
 
 						elsecase 'h4903'
 					endsel
