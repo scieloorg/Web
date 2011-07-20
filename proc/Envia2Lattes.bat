@@ -27,6 +27,10 @@ then
 fi
 export INFORMALOG=$3
 
+# Apaga massa de dados se o FLAG permitir
+[ -s temp/transf2lattes/SciELO.txt ] && rm temp/transf2lattes/SciELO*.txt
+
+
 call batch/InformaLog.bat $0 dh ===Inicio===
 
 call batch/CriaDiretorio.bat temp/transf2lattes
