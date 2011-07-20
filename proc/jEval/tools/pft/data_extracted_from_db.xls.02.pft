@@ -1,0 +1,354 @@
+`
+ <Worksheet ss:Name="DADOS FASCÍCULOS">
+  <Names>
+   <NamedRange ss:Name="Print_Area" ss:RefersTo="='DADOS FASCÍCULOS'!R1C1:R47C4"/>
+  </Names>
+  <Table ss:ExpandedColumnCount="4" ss:ExpandedRowCount="47" x:FullColumns="1"
+   x:FullRows="1" ss:StyleID="s47">
+   <Column ss:StyleID="s47" ss:AutoFitWidth="0" ss:Width="433.5"/>
+   <Column ss:StyleID="s47" ss:AutoFitWidth="0" ss:Width="41.25"/>
+   <Column ss:StyleID="s47" ss:AutoFitWidth="0" ss:Width="39"/>
+   <Column ss:StyleID="s47" ss:AutoFitWidth="0" ss:Width="36.75"/>
+   <Row ss:AutoFitHeight="0" ss:Height="20.0625">
+    <Cell ss:MergeAcross="3" ss:StyleID="s49"><Data ss:Type="String">SELEÇÃO DE PERIÓDICOS SciELO BRASIL - 2009</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="20.0625">
+    <Cell ss:StyleID="s73"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s73"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s73"><NamedCell ss:Name="Print_Area"/></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="20.0625">
+    <Cell ss:StyleID="s50"><Data ss:Type="String">3. DADOS DOS FASCÍCULOS </Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="14.25">
+    <Cell ss:StyleID="s50"><NamedCell ss:Name="Print_Area"/></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="24">
+    <Cell ss:MergeAcross="3" ss:StyleID="s75"><ss:Data ss:Type="String"
+      xmlns="http://www.w3.org/TR/REC-html40">Nos dados de formato, <B>marcar com &quot;X&quot; somente os itens que o periódico atende</B><Font>, deixando em branco os itens não atendidos. Deverão ser incluídos os dados referentes aos 3 últimos fascículos publicados.</Font></ss:Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="13.5">
+    <Cell ss:StyleID="s76"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s76"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s76"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s76"><NamedCell ss:Name="Print_Area"/></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="13.5">
+    <Cell ss:MergeAcross="3" ss:StyleID="m154590932"
+     ss:Formula="='DADOS BÁSICOS'!R[-2]C[2]"><Data ss:Type="String">xxxx</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="13.5">
+    <Cell ss:MergeAcross="3" ss:StyleID="m154590942"><NamedCell
+      ss:Name="Print_Area"/></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="13.5">
+    <Cell ss:StyleID="s90"><Data ss:Type="String">Item</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s91"><Data ss:Type="Number">1</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s91"><Data ss:Type="Number">2</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s92"><Data ss:Type="Number">3</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s93"><Data ss:Type="String">Volume</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s94"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s94"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s95"><NamedCell ss:Name="Print_Area"/></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s96"><Data ss:Type="String">Número</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s97"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s97"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s98"><NamedCell ss:Name="Print_Area"/></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s96"><Data ss:Type="String">Ano de publicação</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s97"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s97"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s98"><NamedCell ss:Name="Print_Area"/></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s96"><Data ss:Type="String">Mês de publicação</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s97"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s97"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s98"><NamedCell ss:Name="Print_Area"/></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s99"><ss:Data ss:Type="String"
+      xmlns="http://www.w3.org/TR/REC-html40">Número total de <B>artigos publicados</B><Font> no fascículo (considerar os originais, ensaios, relatos de caso, e outros, desconsiderando editoriais, debates, breves comunicações, entrevistas, etc.)</Font></ss:Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s97"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s97"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s98"><NamedCell ss:Name="Print_Area"/></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s101"><ss:Data ss:Type="String"
+      xmlns="http://www.w3.org/TR/REC-html40">Número de <B>artigos originais</B><Font> publicados no fascículo (considerar apenas os artigos originais resultante de pesquisa científica).</Font></ss:Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s97"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s97"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s98"><NamedCell ss:Name="Print_Area"/></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s101"><ss:Data ss:Type="String"
+      xmlns="http://www.w3.org/TR/REC-html40">Número de <B>artigos de autores convidados</B><Font> publicados no fascículo.</Font></ss:Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s97"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s97"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s98"><NamedCell ss:Name="Print_Area"/></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="39.9375">
+    <Cell ss:StyleID="s102"><ss:Data ss:Type="String"
+      xmlns="http://www.w3.org/TR/REC-html40">Número de <B>artigos traduzidos</B><Font> publicados no fascículo (considerar somente os artigos traduzidos de periódicos científicos estrangeiros, publicados há mais de 2 meses antes do fascículo do periódico).</Font></ss:Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s103"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s103"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s104"><NamedCell ss:Name="Print_Area"/></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="13.5">
+    <Cell ss:StyleID="s105"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s106"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s106"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s107"><NamedCell ss:Name="Print_Area"/></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="13.5">
+    <Cell ss:StyleID="s108"><Data ss:Type="String">Dados de formato</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s109"><Data ss:Type="Number">1</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s109"><Data ss:Type="Number">2</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s110"><Data ss:Type="Number">3</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s111"><Data ss:Type="String">O fascículo corresponde a um único número? (marcar com &quot;x&quot; caso o fascículo não possua números acumulados, por exemplo: número 1/2)</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s112"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s112"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s113"><NamedCell ss:Name="Print_Area"/></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s99"><Data ss:Type="String">A numeração de volume, número e páginas é feita adequadamente, ou seja, utilizando algarismos arábicos, em ordem seqüencial, reiniciada a cada volume?</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s97"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s97"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s98"><NamedCell ss:Name="Print_Area"/></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s99"><Data ss:Type="String">O expediente do periódico apresenta a afiliação completa dos membros do Corpo Editorial (instituição, cidade e país)?</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s114"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s114"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s115"><NamedCell ss:Name="Print_Area"/></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s99"><Data ss:Type="String">O número de ISSN é informado?</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s97"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s97"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s98"><NamedCell ss:Name="Print_Area"/></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s99"><Data ss:Type="String">O periódico indica seus dados completos para contato? (rua, bairro, cidade, cep, estado e país; telefone e e-mail)</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s97"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s97"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s98"><NamedCell ss:Name="Print_Area"/></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s99"><Data ss:Type="String">O periódico indica qual é sua periodicidade?</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s97"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s97"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s98"><NamedCell ss:Name="Print_Area"/></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s99"><Data ss:Type="String">O periódico indica sua missão?</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s97"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s97"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s98"><NamedCell ss:Name="Print_Area"/></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s99"><Data ss:Type="String">Existe sumário bilíngue?</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s97"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s97"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s98"><NamedCell ss:Name="Print_Area"/></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s99"><Data ss:Type="String">O sumário indica divisão de conteúdo em seções?</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s97"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s97"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s98"><NamedCell ss:Name="Print_Area"/></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s99"><Data ss:Type="String">As instruções aos autores esclarecem sobre indicação de responsabilidade?</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s97"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s97"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s98"><NamedCell ss:Name="Print_Area"/></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s99"><Data ss:Type="String">As instruções aos autores esclarecem sobre conflito de interesse?</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s97"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s97"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s98"><NamedCell ss:Name="Print_Area"/></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s99"><ss:Data ss:Type="String"
+      xmlns="http://www.w3.org/TR/REC-html40">As instruções aos autores esclarecem sobre aprovação do comitê de ética? <Font
+       html:Color="#993300">(apenas para Ciências da Saúde)</Font></ss:Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s97"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s97"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s98"><NamedCell ss:Name="Print_Area"/></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s99"><Data ss:Type="String">As instruções aos autores indicam a adoção de normas bibliográficas?</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s97"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s97"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s98"><NamedCell ss:Name="Print_Area"/></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s99"><Data ss:Type="String">As instruções aos autores indicam norma para a adoção de palavras-chave?</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s97"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s97"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s98"><NamedCell ss:Name="Print_Area"/></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s99"><Data ss:Type="String">As instruções aos autores indicam os critérios e procedimentos para revisão dos trabalhos?</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s97"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s97"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s98"><NamedCell ss:Name="Print_Area"/></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s99"><Data ss:Type="String">As instruções aos autores orientam quanto à forma de apresentação  da afiliação?</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s97"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s97"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s98"><NamedCell ss:Name="Print_Area"/></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s99"><Data ss:Type="String">As instruções aos autores esclarecem sobre os procedimentos para a transferência dos direitos autorais?</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s97"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s97"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s98"><NamedCell ss:Name="Print_Area"/></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s99"><Data ss:Type="String">As instruções aos autores orientam quanto à indicação dos financiamentos relacionados ao trabalho a ser publicado?</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s97"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s97"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s98"><NamedCell ss:Name="Print_Area"/></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s99"><Data ss:Type="String">As instruções aos autores indicam os idiomas de publicação?</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s97"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s97"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s98"><NamedCell ss:Name="Print_Area"/></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s99"><Data ss:Type="String">A legenda bibliográfica indica em todas as páginas o título abreviado do periódico, local de publicação, volume, número, ano, página inicial e final do artigo?</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s97"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s97"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s98"><NamedCell ss:Name="Print_Area"/></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s99"><Data ss:Type="String">Os artigos incluem títulos, palavras-chave e resumo no idioma do texto?</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s97"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s97"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s97"><NamedCell ss:Name="Print_Area"/></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s99"><Data ss:Type="String">Os artigos incluem títulos, palavras-chave e resumo em inglês?</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s97"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s97"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s98"><NamedCell ss:Name="Print_Area"/></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s99"><Data ss:Type="String">Os artigos indicam afiliação completa de todos os autores, com a indicação de instituição, cidade e país?</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s97"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s97"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s98"><NamedCell ss:Name="Print_Area"/></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s99"><Data ss:Type="String">Os artigos indicam dados de contato do primeiro autor (e-mail)?</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s97"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s97"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s98"><NamedCell ss:Name="Print_Area"/></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s99"><Data ss:Type="String">Os artigos apresentam data de recebimento?</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s97"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s97"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s98"><NamedCell ss:Name="Print_Area"/></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s99"><Data ss:Type="String">Os artigos apresentam data de aprovação?</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s97"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s97"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s98"><NamedCell ss:Name="Print_Area"/></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s116"><Data ss:Type="String">As referências bibliográficas citadas nos artigos seguem a norma indicada?</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s117"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s117"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s118"><NamedCell ss:Name="Print_Area"/></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="13.5">
+    <Cell ss:StyleID="s119"><Data ss:Type="String">Os artigos são publicados sem interrupção de publicidade? </Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s103"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s103"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s104"><NamedCell ss:Name="Print_Area"/></Cell>
+   </Row>
+  </Table>
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <PageSetup>
+    <Header x:Margin="0.49212598499999999"/>
+    <Footer x:Margin="0.49212598499999999"/>
+    <PageMargins x:Bottom="0.984251969" x:Left="0.78740157499999996"
+     x:Right="0.78740157499999996" x:Top="0.984251969"/>
+   </PageSetup>
+   <Print>
+    <ValidPrinterInfo/>
+    <HorizontalResolution>600</HorizontalResolution>
+    <VerticalResolution>600</VerticalResolution>
+   </Print>
+   <Panes>
+    <Pane>
+     <Number>3</Number>
+     <ActiveRow>67</ActiveRow>
+    </Pane>
+   </Panes>
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>`,
