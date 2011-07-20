@@ -1,0 +1,6 @@
+'   <Row>
+    <Cell ss:StyleID="s117"><Data ss:Type="DateTime">',v2*0.4,'-',v2*4.2,'-',,v2*6.2,'</Data></Cell>
+    <Cell ss:StyleID="s117"><Data ss:Type="DateTime">',v3*0.4,'-',v3*4.2,'-',,v3*6.2,'</Data></Cell>
+    <Cell ss:StyleID="s119" ss:Formula="=RC[-1]-RC[-2]"><Data ss:Type="Number"></Data></Cell>
+   </Row>
+'
