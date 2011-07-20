@@ -1,0 +1,1 @@
+if mfn=1 then 'f(0', fi,'+',v1,,if ref(mfn+1,v1)='' then ',1,0)' fi,
