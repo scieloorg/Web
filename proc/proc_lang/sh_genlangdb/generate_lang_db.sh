@@ -46,6 +46,7 @@ then
 	$MX cipar=$cipfile ARTIGO gizmo=sh_genlangdb/lowercase,702 btell=0 "bool=hr=s$" "proc='d9999'" "proc=@sh_genlangdb/add.prc" append=$TEMP1 now -all
 else
 	echo `date` create2 $TEMP1 >> $LOGFILE
+    $MX $LANGDB fst=@fst/langs.fst fullinv=$LANGDB
 	$MX cipar=$cipfile ARTIGO gizmo=sh_genlangdb/lowercase,702 btell=0 "bool=hr=s$" "proc='d9999a9999{$LANGDB{'" "proc=@sh_genlangdb/add.prc" append=$TEMP1 now -all
 fi 
 

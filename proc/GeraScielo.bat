@@ -14,6 +14,7 @@ rem Inicializa variaveis
 
 export INFORMALOG=log/GeraScielo.log
 export CISIS_DIR=cisis
+export CIPAR=tabs/GIGA032.cip
 
 rem Verifica parametros
 call batch/VerifPresencaParametro.bat $0 @$1 path producao SciELO
@@ -30,7 +31,10 @@ export INFORMALOG=$3
 call batch/InformaLog.bat $0 dh ===Inicio===
 
 call batch/VerifExisteArquivo.bat $1/serial/scilista.lst
-call batch/CopiaArquivo.bat $1/serial/scilista.lst scilista.lst
+
+rem # call batch/CopiaArquivo.bat $1/serial/scilista.lst scilista.lst
+call batch/SortScilista.bat $1/serial/scilista.lst scilista.lst
+
 call batch/VerifExistemBases.bat $1
 
 call batch/CriaDiretorio.bat ../bases-work/title
@@ -39,8 +43,9 @@ call batch/GeraMaster.bat $1/serial/title/title ../bases-work/title/title prc/Ge
 call batch/GeraNewcodeAux.bat $1/serial temp/
 call batch/OrdenaMaster.bat ../bases-work/title/title 150 pft/OrdTitle.pft
 call batch/GeraInvertido.bat ../bases-work/title/title fst/title.fst ../bases-work/title/title
-call batch/GeraInvertido.bat ../bases-work/title/title fst/serarea.fst ../bases-work/title/serarea
-./geraSubjectList.sh
+#call batch/GeraInvertido.bat ../bases-work/title/title fst/serarea.fst ../bases-work/title/serarea
+
+
 call batch/GeraInvertido.bat ../bases-work/title/title fst/titsrc.fst ../bases-work/title/titsrc
 call batch/GeraInvertido.bat ../bases-work/title/title fst/titsrcp.fst ../bases-work/title/titsrcp
 
