@@ -2,7 +2,6 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 	<xsl:include href="sci_navegation.xsl"/>
 	<xsl:include href="journalStatus.xsl"/>
-
 	<xsl:variable name="forceType" select="//CONTROLINFO/ENABLE_FORCETYPE"/>
 	<xsl:variable name="ISSN_AS_ID" select="concat(substring-before(/SERIAL/ISSN_AS_ID,'-'),substring-after(/SERIAL/ISSN_AS_ID,'-'))"/>
 	<xsl:variable name="show_scimago" select="//show_scimago"/>
@@ -20,13 +19,12 @@
 		</xsl:choose>
 	</xsl:variable>
 	<xsl:variable name="pref">
-        	<xsl:choose>
-                	<xsl:when test="//CONTROLINFO/LANGUAGE='en' ">i</xsl:when>
-                    <xsl:when test="//CONTROLINFO/LANGUAGE='es' ">e</xsl:when>
-                    <xsl:when test="//CONTROLINFO/LANGUAGE='pt' ">p</xsl:when>
-                </xsl:choose>
+		<xsl:choose>
+			<xsl:when test="//CONTROLINFO/LANGUAGE='en' ">i</xsl:when>
+			<xsl:when test="//CONTROLINFO/LANGUAGE='es' ">e</xsl:when>
+			<xsl:when test="//CONTROLINFO/LANGUAGE='pt' ">p</xsl:when>
+		</xsl:choose>
 	</xsl:variable>
-
 	<xsl:output method="html" indent="no" doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 	<xsl:template match="SERIAL">
 		<html>
@@ -36,7 +34,7 @@
 				</title>
 				<meta http-equiv="Pragma" content="no-cache"/>
 				<meta http-equiv="Expires" content="Mon, 06 Jan 1990 00:00:01 GMT"/>
-                                <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+				<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 				<xsl:if test="//NO_SCI_SERIAL='yes'">
 					<xsl:variable name="X">http://<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/SERVER"/>
 						<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_artlist&amp;pid=<xsl:value-of select="//PAGE_PID"/>&amp;lng=<xsl:value-of select="normalize-space(//CONTROLINFO/LANGUAGE)"/>&amp;nrm=<xsl:value-of select="normalize-space(//CONTROLINFO/STANDARD)"/>
@@ -114,7 +112,7 @@
 									<ul class="pressReleases">
 										<xsl:apply-templates select="//PRESSRELEASE/article" mode="pr">
 											<xsl:sort select="@data" order="descending"/>
-                                                                                </xsl:apply-templates>
+										</xsl:apply-templates>
 									</ul>
 								</xsl:if>
 							</div>
@@ -164,7 +162,9 @@ press release do issue
 					<xsl:if test="$supl != 0">s.<xsl:value-of select="@sup"/>
 					</xsl:if>
 				</strong>
-					<span><xsl:value-of select="title"/></span>
+				<span>
+					<xsl:value-of select="title"/>
+				</span>
 			</a>
 		</li>
 	</xsl:template>
@@ -190,7 +190,6 @@ press release do artigo
 				<strong>
 					<xsl:if test="$currlang='pt'">
 						<xsl:value-of select="concat($month,'/',$year)"/>
-						
 					</xsl:if>
 					<xsl:if test="$currlang='es'">
 						<xsl:value-of select="concat($month,'/',$year)"/>
@@ -204,7 +203,9 @@ press release do artigo
 					<xsl:if test="$supl != 0">s.<xsl:value-of select="@sup"/>
 					</xsl:if>
 				</strong>
-                                        <span><xsl:value-of select="title"/></span>
+				<span>
+					<xsl:value-of select="title"/>
+				</span>
 			</a>
 		</li>
 	</xsl:template>
@@ -229,7 +230,7 @@ press release do artigo
 		links dos idiomas da interface
 	-->
 	<xsl:template match="CONTROLINFO" mode="change-language">
-        <br/>
+		<br/>
 		<xsl:if test="//CONTROLINFO/LANGUAGE != 'pt'">
 			<a>
 				<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_DATA"/>scielo.php?script=<xsl:value-of select="//PAGE_NAME"/>&amp;pid=<xsl:value-of select="//PAGE_PID"/>&amp;lng=pt&amp;nrm=iso</xsl:attribute>
@@ -256,16 +257,15 @@ press release do artigo
 				</font>
 			</a>
 			<br/>
-		</xsl:if>		
+		</xsl:if>
 	</xsl:template>
 	<!--
-		formacao do link de página secundária
+		formacao do link de pagina secundaria
 	-->
 	<xsl:template match="CONTROLINFO" mode="link_to_secondary_page">
 		<xsl:param name="itemName"/>
 		<xsl:param name="itemName2"/>
 		<xsl:param name="label"/>
-		
 		<li>
 			<a>
 				<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_SERIAL_HTML"/><xsl:value-of select="/SERIAL/TITLEGROUP/SIGLUM"/>/<xsl:value-of select="$pref"/><xsl:if test="$itemName2"><xsl:value-of select="$itemName2"/></xsl:if><xsl:if test="not($itemName2)"><xsl:value-of select="$itemName"/></xsl:if>.htm</xsl:attribute>
@@ -274,7 +274,7 @@ press release do artigo
 		</li>
 	</xsl:template>
 	<!--
-		formacao dos links das páginas secundárias
+		formacao dos links das paginas secundarias
 	-->
 	<xsl:template match="CONTROLINFO" mode="links">
 		<ul class="contextMenu">
@@ -282,20 +282,28 @@ press release do artigo
 			<xsl:apply-templates select="..//link"/>
 			<xsl:apply-templates select="." mode="link_to_secondary_page">
 				<xsl:with-param name="itemName" select="'aboutj'"/>
-				<xsl:with-param name="label"><xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='about_the_journal']"/></xsl:with-param>
+				<xsl:with-param name="label">
+					<xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='about_the_journal']"/>
+				</xsl:with-param>
 			</xsl:apply-templates>
 			<xsl:apply-templates select="." mode="link_to_secondary_page">
 				<xsl:with-param name="itemName" select="'edboard'"/>
-				<xsl:with-param name="label"><xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='editorial_board']"/></xsl:with-param>
+				<xsl:with-param name="label">
+					<xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='editorial_board']"/>
+				</xsl:with-param>
 			</xsl:apply-templates>
 			<xsl:apply-templates select="." mode="link_to_secondary_page">
 				<xsl:with-param name="itemName" select="'instruc'"/>
-				<xsl:with-param name="label"><xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='instructions_to_authors']"/></xsl:with-param>
+				<xsl:with-param name="label">
+					<xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='instructions_to_authors']"/>
+				</xsl:with-param>
 			</xsl:apply-templates>
 			<xsl:apply-templates select="." mode="link_to_secondary_page">
 				<xsl:with-param name="itemName" select="'subscri'"/>
 				<xsl:with-param name="itemName2" select="'subscrp'"/>
-				<xsl:with-param name="label"><xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='subscription']"/></xsl:with-param>
+				<xsl:with-param name="label">
+					<xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='subscription']"/>
+				</xsl:with-param>
 			</xsl:apply-templates>
 			<xsl:if test=" ENABLE_STAT_LINK = 1 or ENABLE_CIT_REP_LINK = 1 ">
 				<li>
@@ -311,19 +319,22 @@ press release do artigo
     -->
 	<xsl:template match="link">
 		<xsl:variable name="t" select="@type"/>
-		<xsl:variable name="label"><xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find=$t]"/></xsl:variable>
-		
+		<xsl:variable name="label">
+			<xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find=$t]"/>
+		</xsl:variable>
 		<xsl:if test="$label!=''">
-		<li>
-			<xsl:if test="$t='online_submission'"><xsl:attribute name="id">btn_submission</xsl:attribute></xsl:if>
-			<a href="{.}" target="{$t}">
-				<xsl:if test="$t != 'online_submission'">
-					<xsl:value-of select="$label"/>
+			<li>
+				<xsl:if test="$t='online_submission'">
+					<xsl:attribute name="id">btn_submission</xsl:attribute>
 				</xsl:if>
-			</a>
-			<br/>
-		</li>
-		</xsl:if>		
+				<a href="{.}" target="{$t}">
+					<xsl:if test="$t != 'online_submission'">
+						<xsl:value-of select="$label"/>
+					</xsl:if>
+				</a>
+				<br/>
+			</li>
+		</xsl:if>
 	</xsl:template>
 	<!--
 		textos traduzidos
@@ -345,25 +356,26 @@ press release do artigo
 					<xsl:with-param name="MONTH" select="$MONTH"/>
 				</xsl:call-template>&#160;<xsl:value-of select="$DAY"/>,&#160;<xsl:value-of select="$YEAR"/>
 			</span>
-            <xsl:apply-templates select="." mode="change-language"/>
+			<xsl:apply-templates select="." mode="change-language"/>
 			<xsl:apply-templates select="." mode="links"/>
 			<!-- monta o grafico scimago -->
-                    <div class="optionsSubMenu">
-                        <xsl:variable name="graphMago" select="document('../../bases/scimago/scimago.xml')/SCIMAGOLIST/title[@ISSN = $ISSN_AS_ID]/@SCIMAGO_ID"/>
-                        <xsl:if test="$show_scimago!=0 and normalize-space($scimago_status) = normalize-space('online')">
-                            <xsl:if test="$graphMago">
-                                <a>
-                                    <xsl:attribute name="href">http://www.scimagojr.com/journalsearch.php?q=<xsl:value-of select="$ISSN_AS_ID"/>&amp;tip=iss&amp;exact=yes></xsl:attribute>
-                                    <xsl:attribute name="target">_blank</xsl:attribute>
-                                    <img>
-                                        <xsl:attribute name="src">/img/scimago/<xsl:value-of select="$ISSN_AS_ID"/>.gif</xsl:attribute>
-                                        <xsl:attribute name="alt"><xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='scimago_journal_country_rank']"/></xsl:attribute>
-                                        <xsl:attribute name="border">0</xsl:attribute>
-                                    </img>
-                                </a>
-                            </xsl:if>
-                        </xsl:if>
-                    </div>
+			<div class="optionsSubMenu">
+				<!--xsl:variable name="graphMago" select="document('file:///../../bases/scimago/scimago.xml')/SCIMAGOLIST/title[@ISSN = $ISSN_AS_ID]/@SCIMAGO_ID"/-->
+				<xsl:variable name="graphMago" select="document('../../bases/scimago/scimago.xml')/SCIMAGOLIST/title[@ISSN = $ISSN_AS_ID]/@SCIMAGO_ID"/>
+				<xsl:if test="$show_scimago!=0 and normalize-space($scimago_status) = normalize-space('online')">
+					<xsl:if test="$graphMago">
+						<a>
+							<xsl:attribute name="href">http://www.scimagojr.com/journalsearch.php?q=<xsl:value-of select="$ISSN_AS_ID"/>&amp;tip=iss&amp;exact=yes></xsl:attribute>
+							<xsl:attribute name="target">_blank</xsl:attribute>
+							<img>
+								<xsl:attribute name="src">/img/scimago/<xsl:value-of select="$ISSN_AS_ID"/>.gif</xsl:attribute>
+								<xsl:attribute name="alt"><xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='scimago_journal_country_rank']"/></xsl:attribute>
+								<xsl:attribute name="border">0</xsl:attribute>
+							</img>
+						</a>
+					</xsl:if>
+				</xsl:if>
+			</div>
 		</div>
 		<div class="mainContent">
 			<xsl:if test="($has_issue_pr = 'false') and ($has_article_pr = 'false')">
@@ -424,19 +436,19 @@ press release do artigo
 				<span class="issn">
 					<xsl:apply-templates select="/SERIAL/TITLE_ISSN"/>
 				</span>
-                <br/><br/>
+				<br/>
+				<br/>
 				<small>
 					<xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='mission']"/>
 				</small>
 				<p>
 					<xsl:apply-templates select="/SERIAL/MISSION"/>
-					
 				</p>
 				<xsl:if test="/SERIAL/CHANGESINFO">
-				<xsl:apply-templates select="/SERIAL/CHANGESINFO">
-					<xsl:with-param name="LANG" select="//CONTROLINFO/LANGUAGE"/>
-				</xsl:apply-templates>
-			</xsl:if>
+					<xsl:apply-templates select="/SERIAL/CHANGESINFO">
+						<xsl:with-param name="LANG" select="//CONTROLINFO/LANGUAGE"/>
+					</xsl:apply-templates>
+				</xsl:if>
 			</div>
 		</div>
 	</xsl:template>
