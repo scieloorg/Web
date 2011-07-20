@@ -1,0 +1,116 @@
+/* An?cio*/
+,ref([v9001]l([v9001]'anpt'),v999),'|',
+,ref([v9001]l([v9001]'anen'),v999),'|',
+,ref([v9001]l([v9001]'anes'),v999),'|',
+,ref([v9001]l([v9001]'anxx'),v999),#,
+
+/* Artigo/Ensaio Original*/
+,ref([v9001]l([v9001]'oapt'),v999),'|',
+,ref([v9001]l([v9001]'oaen'),v999),'|',
+,ref([v9001]l([v9001]'oaes'),v999),'|',
+,ref([v9001]l([v9001]'oaxx'),v999),#,
+
+/* Atualização*/
+,ref([v9001]l([v9001]'uppt'),v999),'|',
+,ref([v9001]l([v9001]'upen'),v999),'|',
+,ref([v9001]l([v9001]'upes'),v999),'|',
+,ref([v9001]l([v9001]'upxx'),v999),#,
+
+/* Carta*/
+,ref([v9001]l([v9001]'lept'),v999),'|',
+,ref([v9001]l([v9001]'leen'),v999),'|',
+,ref([v9001]l([v9001]'lees'),v999),'|',
+,ref([v9001]l([v9001]'lexx'),v999),#,
+
+/* Coment?io*/
+,ref([v9001]l([v9001]'copt'),v999),'|',
+,ref([v9001]l([v9001]'coen'),v999),'|',
+,ref([v9001]l([v9001]'coes'),v999),'|',
+,ref([v9001]l([v9001]'coxx'),v999),#,
+
+/* Comunicação Breve*/
+,ref([v9001]l([v9001]'scpt'),v999),'|',
+,ref([v9001]l([v9001]'scen'),v999),'|',
+,ref([v9001]l([v9001]'sces'),v999),'|',
+,ref([v9001]l([v9001]'scxx'),v999),#,
+
+/* Editorial*/
+,ref([v9001]l([v9001]'edpt'),v999),'|',
+,ref([v9001]l([v9001]'eden'),v999),'|',
+,ref([v9001]l([v9001]'edes'),v999),'|',
+,ref([v9001]l([v9001]'edxx'),v999),#,
+
+/* Ensaio Cl?ico*/
+,ref([v9001]l([v9001]'ctpt'),v999),'|',
+,ref([v9001]l([v9001]'cten'),v999),'|',
+,ref([v9001]l([v9001]'ctes'),v999),'|',
+,ref([v9001]l([v9001]'ctxx'),v999),#,
+
+/* Ensaio Controlado Aleat?io*/
+,ref([v9001]l([v9001]'ctpt'),v999),'|',
+,ref([v9001]l([v9001]'cten'),v999),'|',
+,ref([v9001]l([v9001]'ctes'),v999),'|',
+,ref([v9001]l([v9001]'ctxx'),v999),#,
+
+/* Entrevista*/
+,ref([v9001]l([v9001]'inpt'),v999),'|',
+,ref([v9001]l([v9001]'inen'),v999),'|',
+,ref([v9001]l([v9001]'ines'),v999),'|',
+,ref([v9001]l([v9001]'inxx'),v999),#,
+
+/* Informe T?nico*/
+,ref([v9001]l([v9001]'trpt'),v999),'|',
+,ref([v9001]l([v9001]'tren'),v999),'|',
+,ref([v9001]l([v9001]'tres'),v999),'|',
+,ref([v9001]l([v9001]'trxx'),v999),#,
+
+/* Metodologia*/
+,ref([v9001]l([v9001]'mtpt'),v999),'|',
+,ref([v9001]l([v9001]'mten'),v999),'|',
+,ref([v9001]l([v9001]'mtes'),v999),'|',
+,ref([v9001]l([v9001]'mtxx'),v999),#,
+
+/* Nota*/
+,ref([v9001]l([v9001]'rnpt'),v999),'|',
+,ref([v9001]l([v9001]'rnen'),v999),'|',
+,ref([v9001]l([v9001]'rnes'),v999),'|',
+,ref([v9001]l([v9001]'rnxx'),v999),#,
+
+/* Ponto de Vista*/
+,ref([v9001]l([v9001]'pvpt'),v999),'|',
+,ref([v9001]l([v9001]'pven'),v999),'|',
+,ref([v9001]l([v9001]'pves'),v999),'|',
+,ref([v9001]l([v9001]'pvxx'),v999),#,
+
+/* Relato de Caso*/
+,ref([v9001]l([v9001]'crpt'),v999),'|',
+,ref([v9001]l([v9001]'cren'),v999),'|',
+,ref([v9001]l([v9001]'cres'),v999),'|',
+,ref([v9001]l([v9001]'crxx'),v999),#,
+
+/* Resenha*/
+,ref([v9001]l([v9001]'rcpt'),v999),'|',
+,ref([v9001]l([v9001]'rcen'),v999),'|',
+,ref([v9001]l([v9001]'rces'),v999),'|',
+,ref([v9001]l([v9001]'rcxx'),v999),#,
+
+/* Resumo*/
+,ref([v9001]l([v9001]'abpt'),v999),'|',
+,ref([v9001]l([v9001]'aben'),v999),'|',
+,ref([v9001]l([v9001]'abes'),v999),'|',
+,ref([v9001]l([v9001]'abxx'),v999),#,
+
+/* Revis? Sistem?ica*/
+,ref([v9001]l([v9001]'rapt'),v999),'|',
+,ref([v9001]l([v9001]'raen'),v999),'|',
+,ref([v9001]l([v9001]'raes'),v999),'|',
+,ref([v9001]l([v9001]'raxx'),v999),#,
+
+/* Traduções*/
+,#,
+/* Outras Contribuições*/
+,ref([v9001]l([v9001]'xxpt'),v999),'|',
+,ref([v9001]l([v9001]'xxen'),v999),'|',
+,ref([v9001]l([v9001]'xxes'),v999),'|',
+,ref([v9001]l([v9001]'raxx'),v999),#,
+
