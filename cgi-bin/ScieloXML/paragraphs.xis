@@ -186,19 +186,19 @@
     <!-- versao traduzida -->
     <call name="displayTranslationFilename"><pft>v7999[1]</pft></call>
 
-    <!-- versao traduzida: sem referencias na base, pula para final 'CLOSE_BODY' -->
+    <!-- versao traduzida: as referencias estao no texto traduzido, pula para final 'CLOSE_BODY' -->
     <flow action="jump"><pft>v7999^x[2]</pft></flow>
 
-    <!-- versao traduzida: identifica o primeiro e o ï¿?timo registro parï¿?rafo v9901^s e v9901^e -->
+    <!-- versao traduzida: identifica o primeiro e o ultimo registro paragrafo v9901^s e v9901^e -->
     <call name="getReferencesRange"><pft>if v7999[1]<>'' then v4001^p fi</pft></call>
 
-    <!-- versao original: identifica o primeiro e o ï¿?timo registro parï¿?rafo v9901^s e v9901^e -->
+    <!-- versao original: identifica o primeiro e o ultimo registro paragrafo v9901^s e v9901^e -->
     <call name="getParagraphsRange"><pft>if v7999[1]='' then v4001^p fi</pft></call>
 
     <call name="GetLanguageIAH"><pft>v4001^l</pft></call>
 
     <!-- Extract full text e/ou references -->
-    <flow action="jump"><pft>if a(v9901)  then 'CLOSE_BODY' fi</pft></flow>
+    <flow action="jump"><pft>if a(v9901^s)   then 'CLOSE_BODY' fi</pft></flow>
     <do task="mfnrange">
         <parm name="db"><pft>v9901^d</pft></parm>
         <parm name="from"><pft>v9901^s</pft></parm>
@@ -209,7 +209,7 @@
             <display><pft>'[numeracao: *** ',v1001,']'</pft></display>
             <display><pft>@PROC_SPLIT_MST.PFT,</pft></display>
             asael/rpiva: 21.Jan.2004
-            fixed 20040122 - corrige problema de leitura da base ao executar a proc PROC_SPLIT_MST. A soluï¿½ï¿½o usada foi criar uma funï¿½ï¿½o que faz o mesmo que a proc
+            fixed 20040122 - corrige problema de leitura da base ao executar a proc PROC_SPLIT_MST. A solucao usada foi criar uma funcao que faz o mesmo que a proc
             -->
             <call name="PROC_SPLIT_MST"><pft>v32701</pft></call>
 
