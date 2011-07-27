@@ -1,4 +1,11 @@
-v5.18
+v5.18.r3
+1) paragraphs.xis: Fix loading of paragraphs for translated texts, which has no references.
+2) CreateBaseP.bat: Fix mx calling
+3) CriaDiretorio.bat: create more than one level of folders
+4) GeraIssue.bat: include instructions to separate issues databases (v31n1) for CouchDB.
+
+
+v5.18 (time out problem)
 #275 DOI for references (proc and web)
 #276 jEval (journal evaluation to continue in collection)
 proc_lang fixed
