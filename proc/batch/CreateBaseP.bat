@@ -16,5 +16,5 @@ $MX $DB btell=0 "bool=P$ID" append=$NEWDBPATH/$NEWDB now -all
 $MX $DB btell=0 "bool=P$ID" "proc='d*'" copy=$DB now -all
 
 echo $NEWDBPATH/$NEWDB >> log/NUMEROS
-$CISIS_DIR/mx $NEWDBPATH/$NEWDB +control now >> log/NUMEROS
+$MX $NEWDBPATH/$NEWDB +control now >> log/NUMEROS
 
