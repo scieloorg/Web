@@ -9,6 +9,7 @@ if mfn = 1 then
 	'cd ..'/
 	'mkdir code'/
 	'cd code'/
+	'mput code/code.*'/
 	'mput code/newcode.*'/
 	'cd ..'/
 fi,
