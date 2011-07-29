@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format">
 	<!--xsl:output method="html" encoding="iso-8859-1" /-->
-	<xsl:include href="file:///home/scielosp/www/htdocs/xsl/sci_navegation.xsl"/>
+	<xsl:include href="sci_navegation.xsl"/>
 
 	<xsl:template match="HOMEPAGE">
 		<xsl:apply-templates select="CONTROLINFO"/>
