@@ -16,7 +16,7 @@
 		</text>
 		<text>
 			<find>scieloNetwork</find>
-			<replace>Rede Scielo</replace>
+			<replace>Rede SciELO</replace>
 		</text>
 		<text>
 			<find>similarLink</find>
@@ -202,7 +202,7 @@
 		</text>
 		<text>
 			<find>scieloNetwork</find>
-			<replace>Red Scielo</replace>
+			<replace>Red SciELO</replace>
 		</text>
 		<text>
 			<find>similarLink</find>
@@ -384,7 +384,7 @@
 		</text>
 		<text>
 			<find>scieloNetwork</find>
-			<replace>Scielo Network</replace>
+			<replace>SciELO Network</replace>
 		</text>
 		<text>
 			<find>similarLink</find>

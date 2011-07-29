@@ -40,6 +40,6 @@ TITLEIF=$TEMP_PATH/title
 #  saida
 REPORT_PATH=../../bases-work/reports/lang/subject
 
-# nao está em uso, mas tem que ter algo
+# nao est?em uso, mas tem que ter algo
 CREATE_OR_APPEND=create
 

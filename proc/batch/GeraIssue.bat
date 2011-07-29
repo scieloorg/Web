@@ -13,40 +13,101 @@ call batch/CriaDiretorio.bat ../bases-work/$2
 export REVISTA=../bases-work/$2/$2
 call batch/CriaDiretorio.bat ../bases-work/$2/$3
 export ISSUE=../bases-work/$2/$3/$3
+PATH_P=../bases-work/artigo/p
+SERIAL_COUCH=../serial_couch
+TEST_EXIST=../bases-work/$2/$3.exist.txt
+
 
 call batch/InformaLog.bat $0 x Gera Issue: $2 $3
-if [ ! "$4" == "del" ]
-then
-	rem 1
-	$CISIS_DIR/mx $1/serial/$2/$3/base/$3 gizmo=gizmo/gizmoHTML create=$ISSUE now -all
-	batch/ifErrorLevel.bat $? batch/AchouErro.bat $0 mx $1/serial/$2/$3/base/$3 gizmo:gizmo/gizmoHTML create:$ISSUE
-	rem 2
-	call batch/GeraInvertido.bat $ISSUE fst/auxcria799.fst $ISSUE
-	rem 3
-	$CISIS_DIR/mx $ISSUE proc=@prc/cria799.prc proc=@prc/cria936.prc copy=$ISSUE now -all
-	batch/ifErrorLevel.bat $? batch/AchouErro.bat $0 mx $ISSUE proc:@prc/cria799.prc proc:@prc/cria936.prc copy=$ISSUE
 
-	rem Este mx eh soh para evitar o erro do mx bool se o master estiver vazio
-	echo $3> temp/vol-num.txt
-	$CISIS_DIR/mx tmp count=1 "proc='a4~',cat('temp/vol-num.txt'),'~','a1004~',date,'~'" append=$REVISTA now -all
-	batch/ifErrorLevel.bat $? batch/AchouErro.bat $0 Gambiarra...
+
+call batch/InformaLog.bat $0 x Re-inverte  $REVISTA
+rem Este mx eh soh para evitar o erro do mx bool se o master estiver vazio
+$CISIS_DIR/mx null count=1 "proc='a4~','qualquercoisa','~'" append=$REVISTA now -all
+
+call batch/GeraInvertido.bat $REVISTA fst/Fasciculo.fst $REVISTA
+
+if [ -d $SERIAL_COUCH ]
+then
+   call batch/InformaLog.bat $0 x Eh atualizacao?
+   $CISIS_DIR/mx $REVISTA btell=0 "bool=$3" count=1 "pft=v4" now > $TEST_EXIST
 fi
+
+echo $REVISTA >> log/NUMEROS
+$CISIS_DIR/mx $REVISTA delete count=0 now >> log/NUMEROS
+$CISIS_DIR/mx $REVISTA p$ count=0 now >> log/NUMEROS
 
 call batch/InformaLog.bat $0 x Deleta issue antigo: $2 $3
-call batch/GeraInvertido.bat $REVISTA fst/Fasciculo.fst $REVISTA
-$CISIS_DIR/mx $REVISTA "bool=$3" "proc='d.'" now -all copy=$REVISTA
+$CISIS_DIR/mx $REVISTA "bool=$3 or delete" "proc='d*'" now -all copy=$REVISTA
 batch/ifErrorLevel.bat $? batch/AchouErro.bat $0 mx $REVISTA bool:$3 proc:'d.'
 
-if [ ! "$4" == "del" ]
-then
-   call batch/InformaLog.bat $0 x Adiciona issue na base: $2 $3
-   $CISIS_DIR/mx $ISSUE  "proc='a9999{$REVISTA{'" proc=@prc/criaPID.prc append=$REVISTA now -all
-   batch/ifErrorLevel.bat $? batch/AchouErro.bat $0 mx $ISSUE proc:@prc/criaPID.prc append:$REVISTA
-fi
+call batch/InformaLog.bat $0 x Retirada de paragrafos de $2
+$CISIS_DIR/mx $REVISTA btell=0 "a$" lw=9999 "pft=if p(v880) then 'call batch/CreateBaseP.bat ',v880,' $CISIS_DIR/mx $REVISTA $PATH_P/',v880*1.9,'/',v880*10.4,'/',v880*14.4,' ',v880*18,/ fi" now > temp1.sh
+call temp1.sh
+call batch/InformaLog.bat $0 x Fim Retirada de paragrafos de $2
+
+call batch/InformaLog.bat $0 x Remove os registros apagados
+rem Este mx eh soh para evitar o erro do mx bool se o master estiver vazio
+$CISIS_DIR/mx null count=1 "proc='a4~','$3','~'" create=$REVISTA.tmp now -all
+$CISIS_DIR/mx $REVISTA append=$REVISTA.tmp now -all
+
+call batch/InformaLog.bat $0 x $REVISTA.tmp para $REVISTA
+$CISIS_DIR/mx $REVISTA.tmp create=$REVISTA now -all
+
+rm -r $REVISTA.tmp.*
+
+batch/ifErrorLevel.bat $? batch/AchouErro.bat $0 mx $REVISTA bool:$3 proc:'d.'
+
+
 
 if [ ! "$4" == "del" ]
 then
-   call batch/GeraIso.bat $1/serial/$2/$3/base/$3 $1/serial/$2/$3/base/$2$3.iso
+   rem 1
+   call batch/InformaLog.bat $0 x Gera $2 $3 serial para bases-work
+   $CISIS_DIR/mx $1/serial/$2/$3/base/$3 gizmo=gizmo/gizmoHTML  "proc=|d3a3{|v2|{|" create=$ISSUE now -all
+   batch/ifErrorLevel.bat $? batch/AchouErro.bat $0 mx $1/serial/$2/$3/base/$3 gizmo:gizmo/gizmoHTML create:$ISSUE
+
+   rem 2
+   call batch/InformaLog.bat $0 x Inverte usando fst/auxcria799.fst
+   call batch/GeraInvertido.bat $ISSUE fst/auxcria799.fst $ISSUE
+
+
+
+   rem 3
+   call batch/InformaLog.bat $0 x Aplica procs em bases-work $2 $3 e faz append em $2
+   $CISIS_DIR/mx $ISSUE proc=@prc/cria799.prc proc=@prc/cria936.prc "proc='d9999a9999{$REVISTA{'" proc=@prc/criaPID.prc copy=$ISSUE now -all
+   batch/ifErrorLevel.bat $? batch/AchouErro.bat $0 mx $ISSUE proc:@prc/cria799.prc proc:@prc/cria936.prc proc:@prc/criaPID.prc copy=$ISSUE 
+
+    call batch/InformaLog.bat $0 x Retirada de paragrafos de $2 $3
+    $CISIS_DIR/mx $ISSUE btell=0 "a$" lw=9999 "pft=if p(v880) then 'call batch/CreateBaseP.bat ',v3,' $CISIS_DIR/mx $ISSUE $PATH_P/',v880*1.9,'/',v880*10.4,'/',v880*14.4,' ',v880*18,/ fi" now > temp2.sh
+    call temp2.sh
+    call batch/InformaLog.bat $0 x Fim Retirada de paragrafos de $2 $3
+
+    if [ -d $SERIAL_COUCH ]
+    then
+        call batch/InformaLog.bat $0 x Copiar $ISSUE para Couch
+        EXIST=`cat $TEST_EXIST`
+        if [ "@" == "@$EXIST" ]
+        then
+           call batch/CriaDiretorio.bat $SERIAL_COUCH/new/$2
+           call batch/CopiaArquivo.bat "$ISSUE.*" $SERIAL_COUCH/new/$2
+        else
+           call batch/CriaDiretorio.bat $SERIAL_COUCH/update/$2
+           call batch/CopiaArquivo.bat "$ISSUE.*" $SERIAL_COUCH/update/$2
+        fi
+    fi
+
+    call batch/InformaLog.bat $0 x Adiciona issue $3 na base $2
+    $CISIS_DIR/mx $ISSUE append=$REVISTA now -all
+    batch/ifErrorLevel.bat $? batch/AchouErro.bat $0 mx $ISSUE append:$REVISTA
+
+    call batch/InformaLog.bat $0 x GeraIso $2 $3 
+    call batch/GeraIso.bat $1/serial/$2/$3/base/$3 $1/serial/$2/$3/base/$2$3.iso
 fi
-call batch/InformaLog.bat $0 x Re-inverte issue: $2 $3
+
+call batch/InformaLog.bat $0 x Re-inverte  $REVISTA
 call batch/GeraInvertido.bat $REVISTA fst/Fasciculo.fst $REVISTA
+
+$CISIS_DIR/mx $REVISTA delete count=0 now >> log/NUMEROS
+$CISIS_DIR/mx $REVISTA p$ count=0 now >> log/NUMEROS
+
