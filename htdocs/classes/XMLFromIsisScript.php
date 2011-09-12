@@ -16,23 +16,26 @@ class XMLFromIsisScript {
 		$this->_xml= $this->replaceThisByContent($this->_xml); // 200603
 
 		$p = strpos($this->_xml,'<BODY>');
-		$p2 = strpos($this->_xml,'</BODY>');
+		$p2 = strrpos($this->_xml,'</BODY>');
 
 		if (!$p){
 		$p = strpos($this->_xml,'<body>');
-		$p2 = strpos($this->_xml,'</body>');
+		$p2 = strrpos($this->_xml,'</body>');
 		}
 
 		$body = substr($this->_xml,$p,$p2-$p+1);
 		$xbody = $body;
 		if (count($this->_labels)>0 && strlen($this->_pdfLink)>0 ){
-			foreach ($this->_labels as $l){
-                if (count($this->_labels)>0 && strlen($this->_pdfLink)>0 ){
-					$expr = str_replace(' ','[ ]+',$l);
-					$expr = str_replace('dispon','[a-z&Ì√;]+',$expr);
-					$xbody = ereg_replace($expr, '<a href="'.str_replace('&','&amp;',$this->_pdfLink).'">'.$l.'</a>', $xbody);
-				}
-			}
+ 		   foreach ($this->_labels as $l){
+			//$expr = str_replace(' ','[ ]+',$l);
+			//$expr = substr($expr,0,strpos('dispon','[a-z&Ì√;]+',$expr);
+			//$xbody = ereg_replace($expr, '<a href="'.str_replace('&','&amp;',$this->_pdfLink).'">'.$l.'</a>', $xbody);
+
+			$xbody = str_replace($l, '<a href="'.str_replace('&','&amp;',$this->_pdfLink).'">'.$l.'</a>', $xbody);
+                  if (strpos($l, 'dispo') && ($xbody == $body)){
+			   $xbody = str_replace(utf8_encode($l), '<a href="'.str_replace('&','&amp;',$this->_pdfLink).'">'.$l.'</a>', $xbody);
+                  }
+		   }
 		}
 		if ($xbody!=$body){
 			$this->_xml = substr($this->_xml,0,$p).$xbody.substr($this->_xml,$p2+1);

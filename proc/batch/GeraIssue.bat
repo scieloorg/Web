@@ -23,7 +23,7 @@ call batch/InformaLog.bat $0 x Gera Issue: $2 $3
 
 call batch/InformaLog.bat $0 x Re-inverte  $REVISTA
 rem Este mx eh soh para evitar o erro do mx bool se o master estiver vazio
-$CISIS_DIR/mx null count=1 "proc='a4~','qualquercoisa','~'" append=$REVISTA now -all
+$CISIS_DIR/mx null count=1 "proc='a4~','$3','~'" append=$REVISTA now -all
 
 call batch/GeraInvertido.bat $REVISTA fst/Fasciculo.fst $REVISTA
 
@@ -48,15 +48,10 @@ call batch/InformaLog.bat $0 x Fim Retirada de paragrafos de $2
 
 call batch/InformaLog.bat $0 x Remove os registros apagados
 rem Este mx eh soh para evitar o erro do mx bool se o master estiver vazio
-$CISIS_DIR/mx null count=1 "proc='a4~','$3','~'" create=$REVISTA.tmp now -all
+$CISIS_DIR/mx null count=0 create=$REVISTA.tmp now -all
 $CISIS_DIR/mx $REVISTA append=$REVISTA.tmp now -all
 
-call batch/InformaLog.bat $0 x $REVISTA.tmp para $REVISTA
-$CISIS_DIR/mx $REVISTA.tmp create=$REVISTA now -all
 
-rm -r $REVISTA.tmp.*
-
-batch/ifErrorLevel.bat $? batch/AchouErro.bat $0 mx $REVISTA bool:$3 proc:'d.'
 
 
 
@@ -98,12 +93,16 @@ then
     fi
 
     call batch/InformaLog.bat $0 x Adiciona issue $3 na base $2
-    $CISIS_DIR/mx $ISSUE append=$REVISTA now -all
+    $CISIS_DIR/mx $ISSUE append=$REVISTA.tmp now -all
     batch/ifErrorLevel.bat $? batch/AchouErro.bat $0 mx $ISSUE append:$REVISTA
 
     call batch/InformaLog.bat $0 x GeraIso $2 $3 
     call batch/GeraIso.bat $1/serial/$2/$3/base/$3 $1/serial/$2/$3/base/$2$3.iso
 fi
+
+call batch/InformaLog.bat $0 x $REVISTA.tmp para $REVISTA
+$CISIS_DIR/mx $REVISTA.tmp create=$REVISTA now -all
+rm -r $REVISTA.tmp.*
 
 call batch/InformaLog.bat $0 x Re-inverte  $REVISTA
 call batch/GeraInvertido.bat $REVISTA fst/Fasciculo.fst $REVISTA
