@@ -272,20 +272,20 @@
         <text find="site_usage">site usage</text>
         <text find="journal_citation">journal citation</text>
         <text find="co_authors">co-authors</text>
-		<text find="text_1">
+	<text find="text_1">
         The Scientific Electronic Library Online <b>(SciELO) SA</b>  is South Africa’s premier open-access (free to access and free to publish) searchable full-text journal database in service of the South African research community. The database covers a selected collection of peer-reviewed South African scholarly journals and forms an integral part of the <a href="http://www.scielo.br" target="_blank">SciELO Brazil</a> project. SciELO SA is managed by the Academy of Science of South Africa (<a href="http://www.assaf.org.za" tagert="_blank">ASSAf</a>), funded by the South African Department of Science and Technology and endorsed by the South African Department of Higher Education and Training (DHET).
-		</text>
+	</text>
         <text find="text_2">
         <b>SciELO SA</b> focuses on strengthening the scholarly journal evaluation and accreditation systems in South Africa.<br/><br/>
-        <b>The SciELO Brazil</b> electronic library is a network of collections from <b>developing countries</b>. The SciELO project is based on the development of a model methodology for the preparation, storage, dissemination and evaluation of scientific publication in electronic form.<br/><br/>
-        <b>SciELO Brazil</b> is an initiative of <a href="http://www.bireme.org" target="_blank">BIREME</a> – the Latin American and Caribbean Centre on Health Sciences Information. Since its inception in 1997 it has been funded by  the Foundation for Research Support of São Paulo (<a href="http://www.fapesp.br" target="_blank">FAPESP</a>). This project has also been supported by the <a href="http://www.cnpq.br" target="_blank">CNPq</a> (The National Council for Scientific and Technological Development) since 2002.<br/><br/>
-        The project aims to make visible <b>the science of developing countries</b> that the mainstream does not provide for this scientific communication. As an assessment tool the site provides statistical indicators of use and impact factor of journals.<br/><br/>
-        South Africa joined the SciELO project in 2009.<br/><br/>
-        Journals are considered for inclusion in SciELO SA when they have received a favourable evaluation from ASSAf’s journal quality peer-review panel.<br/><br/>
-        For further information or to submit a journal for consideration, contact: scielo@assaf.org.za
+        <b>The SciELO</b> library is an integral part of a project being developed by <a href="http://www.fapesp.br" target="_blank">FAPESP</a> - Fundação de Amparo à Pesquisa do Estado de São Paulo, in partnership with BIREME - the Latin American and Caribbean Center on Health Sciences Information. Since 2002, the Project is also supported by CNPq - Conselho Nacional de Desenvolvimento Científico e Tecnológico.<br/><br/>
+	SciELO contributes to the development of national capacities in scientific editing and publishing to be on par with the international state of the art.  The project aims to make visible the science of developing countries that the mainstream does not provide for this scientific communication.<br/><br/>
+	The coordinating centers all follow the same methodology and technology developed and maintained under the leadership of SciELO Brazil. Each collection has its own Web portal with multilingual interfaces in English, Portuguese and Spanish. The interfaces include a bibliometric module that provides usage statistics based on article downloads and impact indicators based on citations. This allows for the following up of the performance of the collections and the individual journals, and contributes to the enhancement of the evaluation of scientific production.<br/><br/>
+	The <a href="http://www.scielo.org/">SciELO Portal</a> provides a single point of access to the SciELO Network of collections with searching, dissemination and bibliometric services. The SciELO Open Access collections represent an important global public good, contributing to the advancement of national programs and priorities on scientific research and communication.<br/><br/>
+	South Africa joined the SciELO Program  in 2009. <br/><br/>
+	Journals are considered for inclusion in SciELO SA when they have received a favourable evaluation from ASSAf’s journal quality peer-review panel. For further information or to submit a journal for consideration, contact: scielo@assaf.org.za
         </text>
         <text find="text_3">
-        SciELO interface provides access to its serials collection via an alphabetic list of titles or a subject list or a search form by word of serial titles, publisher names, city of publication and subject.<br/><br/>
+        The SciELO interface provides access to its serials collection via an alphabetic list of titles or a subject list or a search form by word of serial titles, publisher names, city of publication and subject.<br/><br/>
         The interface also provides access to the full text of articles via author index or subject index, or by a search form on article elements such as author names, words from title, subject, words from the full text and publication year.<br/><br/>
         </text>
         <text find="phone">Phone</text>
