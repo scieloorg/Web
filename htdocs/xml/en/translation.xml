@@ -272,17 +272,29 @@
 		<text find="site_usage">site usage</text>
 		<text find="journal_citation">journal citation</text>
 		<text find="co_authors">co-authors</text>
-		<text find="text_1">The Scientific Electronic Library Online - SciELO is an electronic library covering a selected collection of Brazilian scientific journals.<br/>
-			<br/>The library is an integral part of a project being developed by <a href="http://www.fapesp.br">FAPESP</a> - Fundação de Amparo à Pesquisa do Estado de São Paulo, in partnership with <a href="http://www.bireme.br/bvs/I/ihome.htm">BIREME</a> - the Latin American and Caribbean Center on Health Sciences Information. Since 2002, the Project is also supported by <a href="http://www.cnpq.br">CNPq</a> - Conselho Nacional de Desenvolvimento Científico e Tecnológico.<br/>
-			<br/>The Project envisages the development of a common methodology for the preparation, storage, dissemination and evaluation of scientific literature in electronic format.<br/>
-			<br/>As the project develops, new journal titles are being added in the library collection.</text>
-		<text find="text_2">This is the home page of SciELO Brasil Site.<br/>
-			<br/>The objective of the site is to implement an electronic virtual library, providing full access to a collection of serial titles, a collection of issues from individual serial titles, as well as to the full text of articles. The access to both serial titles and articles is available via indexes and search forms.<br/>
-			<br/>SciELO site is an integral part of the FAPESP/BIREME/CNPq Project and it is an application of the methodology being developed by the project, particularly the Internet Interface module.<br/>
-			<br/>The site will be constantly updated both in form and content, according to the project's advancements.</text>
-		<text find="text_3">SciELO interface provides access to its serials collection via an <i>alphabetic list</i> of titles or a <i>subject list</i> or a <i>search form</i> by word of serial titles, publisher names, city of publication and subject.<br/>
-			<br/>The interface also provides access to the full text of articles via <i>author index</i> or <i>subject index</i>, or by a <i>search form</i> on article elements such as author names, words from title, subject, words from the full text and publication year.<br/>
-			<br/>Click an hypertext link at the <a href="#top">top</a> to call the corresponding access page.</text>
+		<text find="text_1">
+			SciELO (scientific electronic library online) is a virtual library for Latin-America, the Caribbean, Spain and Portugal.<br/><br/> 
+			It consists of a network operating in two fields:<br/><br/>
+			<ul>
+				<li>Regional collections (SciELO Brazil, SciELO Chile, SciELO Cuba, SciELO Colombia, etc.), having regular operation sites in each country and developing initiatives.</li>
+				<li>Thematic areas (SciELO public health).</li>
+			</ul> 
+			SciELO Colombia is an electronic library covering a select collection of scientific Colombian journals from all areas of knowledge. SciELO Colombia has a National Consultative Committee consisting of Colciencias (Instituto Colombiano para el Desarrollo de la Ciencia y la Tecnología &#8220;Francisco José de Caldas&#8221;), the Pan-American Health Organisation (Colombia), the Universidad Nacional de Colombia and the editors' representatives.<br/><br/> 
+			The library forms part of a project being developed by FAPESP (Fundação de Amparo à Pesquisa do Estado de São Paulo) in collaboration with BIREME (Centro Latinoamericano y del Caribe de Información en Ciencias de la Salud). The FAPESP/BIREME project envisages developing a common methodology for preparing, storing, disseminating and evaluating scientific literature in electronic form.<br/><br/> 
+			The <a href="http://www.scielo.org/">http://www.scielo.org/</a> webpage is designed for enabling access to SciELO's network of sites. Searches can be made of SciELO's existing collections covering the whole network or just a particular country.
+		</text>
+		<text find="text_2">
+			SciELO Colombia seeks to improve Colombian scientific publications' quality and visibility and spread SciELO's methodology for electronic publications. A national programme has thus been developed for improving serialised publications and training courses re SciELO methodology.<br/><br/> 
+			The site's object is to implement an electronic library providing complete access to collections of journals and the complete text of articles. Journals and articles can be accessed by using search indices and forms.<br/><br/> 
+			The SciELO Colombia site forms part of the FAPESP/BIREME project aimed at applying methodologies which the project is currently developing. The Instituto de Salud Pública at the Universidad Nacional de Colombia has been instrumental in providing TIC resources for implementing the site.<br/><br/> 
+			The site will be constantly updated both in form and content, according to the project's advancements.
+		</text>
+		<text find="text_3">
+			On gaining access to the SciELO Colombia collection library, a user will find an interface presenting journals listed alphabetically by title, an index of materials, a key word search, the names of publishers, city of publication and material.<br/><br/> 
+			The interface also provides access to the full text of articles via <i>author index</i> or <i>subject index</i>, or by a <i>search form</i> on article elements such as author names, words from title, subject, words from the full text and publication year.<br/><br/> 
+			A set of links enables calling the page corresponding to the result of a search.<br/><br/> 
+			Click an hypertext link at the <a href="#top">top</a> to call the corresponding access page.
+		</text>
 		<text find="phone">Phone</text>
 		<text find="fax">Fax</text>
 		<text find="register_free">Free sign up</text>
