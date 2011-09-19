@@ -1,39 +1,39 @@
-,`   <query key="`,v691,v880,`" enable-multiple-hits="false" forward-match="false">`,
-,if p(v35) then
-,`        <issn match="optional">`,v35,`</issn>`,
-,fi
-,if p(v30) then
-,`       <journal_title match="fuzzy">`,v30,`</journal_title>`,
-,fi
-,if p(v10) then
-,`         <author match="fuzzy" search-all-authors="false">`,v10^s[1],`</author>`,
-,fi
-,if p(v31) then
-,`         <volume match="fuzzy">`,v31,`</volume>`,
-,fi
-,if p(v32) then
-,`          <issue>`,v32^*,`</issue>`,
-,fi
-,if p(v14^f) then
-,`         <first_page>`,v14^f,`</first_page>`,
-,else
-,if p(v14) and instr(v14,'-')>0 then
-,`         <first_page>`,mid(v14,1,instr(v14,'-')-1),`</first_page>`,
-,fi
-,fi
-,if p(v65) then
-,`        <year>`,v65*0.4,`</year>`,
-,fi
-,if p(v12) then
-,`         <article_title>`,v12^*[1],`</article_title>`,
-,fi
-,if p(v18) then
-,`         <volume_title>`,v18^*,`</volume_title>`,
-,fi
-,if p(v53) then
-,`         <proceedings_title>`,v53^*,`</proceedings_title>`,
-,fi
-,if p(v63) then
-    `<edition_number match="fuzzy">`,v63,`</edition_number>`,
-,fi
-,`        </query>`,
+,`   <query key="`,v691,v880^*,`" enable-multiple-hits="false" forward-match="false">`,
+,if p(v35) then
+,`        <issn match="optional">`,v35,`</issn>`,
+,fi
+,if p(v30) then
+,`       <journal_title match="fuzzy">`,v30,`</journal_title>`,
+,fi
+,if p(v10) then
+,`         <author match="fuzzy" search-all-authors="false">`,v10^s[1],`</author>`,
+,fi
+,if p(v31) then
+,`         <volume match="fuzzy">`,v31,`</volume>`,
+,fi
+,if p(v32) then
+,`          <issue>`,v32^*,`</issue>`,
+,fi
+,if p(v14^f) then
+,`         <first_page>`,v14^f,`</first_page>`,
+,else
+,if p(v14) and instr(v14,'-')>0 then
+,`         <first_page>`,mid(v14,1,instr(v14,'-')-1),`</first_page>`,
+,fi
+,fi
+,if p(v65) then
+,`        <year>`,v65*0.4,`</year>`,
+,fi
+,if p(v12) then
+,`         <article_title>`,v12^*[1],`</article_title>`,
+,fi
+,if p(v18) then
+,`         <volume_title>`,v18^*,`</volume_title>`,
+,fi
+,if p(v53) then
+,`         <proceedings_title>`,v53^*,`</proceedings_title>`,
+,fi
+,if p(v63) then
+    `<edition_number match="fuzzy">`,v63,`</edition_number>`,
+,fi
+,`        </query>`,
