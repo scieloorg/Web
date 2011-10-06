@@ -121,6 +121,16 @@
 						<div class="index,{ISSUE/ARTICLE/@TEXTLANG}">
 							<xsl:apply-templates select="ISSUE/ARTICLE/BODY"/>
 						</div>
+						<xsl:if test="$isProvisional='1' and $hasPDF='1'">
+			<a>
+				<xsl:call-template name="AddScieloLink">
+					<xsl:with-param name="seq" select="ISSUE/ARTICLE/@PID"/>
+					<xsl:with-param name="script">sci_pdf</xsl:with-param>
+					<xsl:with-param name="txtlang" select="ISSUE/ARTICLE/@TEXTLANG"/>
+				</xsl:call-template>
+				<xsl:value-of select="$translations/xslid[@id='sci_arttext']/text[@find='fulltext_only_in_pdf']"/>
+			</a>
+		</xsl:if>
 						<xsl:if test="ISSUE/ARTICLE/fulltext">
 							<xsl:apply-templates select="ISSUE/ARTICLE[fulltext]"/>
 						</xsl:if>
@@ -139,16 +149,7 @@
 	</xsl:template>
 	<xsl:template match="BODY">
 		<xsl:apply-templates select="*|text()" mode="body-content"/>
-		<xsl:if test="$isProvisional='1' and $hasPDF='1'">
-			<a>
-				<xsl:call-template name="AddScieloLink">
-					<xsl:with-param name="seq" select="../../ARTICLE/@PID"/>
-					<xsl:with-param name="script">sci_pdf</xsl:with-param>
-					<xsl:with-param name="txtlang" select="../../ARTICLE/@TEXTLANG"/>
-				</xsl:call-template>
-				<xsl:value-of select="$translations/xslid[@id='sci_arttext']/text[@find='fulltext_only_in_pdf']"/>
-			</a>
-		</xsl:if>
+		
 	</xsl:template>
 
         <xsl:template match="REFERENCES/REFERENCE">
