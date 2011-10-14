@@ -36,7 +36,7 @@ $CISIS_DIR/mx $REVISTA "bool=$3 or delete" "proc='d*'" now -all copy=$REVISTA
 batch/ifErrorLevel.bat $? batch/AchouErro.bat $0 mx $REVISTA bool:$3 proc:'d.'
 
 call batch/InformaLog.bat $0 x Retirada de paragrafos de $2
-$CISIS_DIR/mx $REVISTA btell=0 "a$" lw=9999 "pft=if p(v880) then 'call batch/CreateBaseP.bat ',v880,' $CISIS_DIR/mx $REVISTA $PATH_P/',v880*1.9,'/',v880*10.4,'/',v880*14.4,' ',v880*18,/ fi" now > temp1.sh
+$CISIS_DIR/mx $REVISTA btell=0 "a$" lw=9999 "pft=if p(v880) then 'call batch/CreateBaseP.bat ',v880,' $CISIS_DIR/mx $REVISTA $PATH_P/',v880*1.9,'/',v880*10.4,'/',v880*14.4,' ',v880*18,/ fi" now |sort -u > temp1.sh
 call temp1.sh
 call batch/InformaLog.bat $0 x Fim Retirada de paragrafos de $2
 
@@ -68,7 +68,7 @@ then
    batch/ifErrorLevel.bat $? batch/AchouErro.bat $0 mx $ISSUE proc:@prc/nop_cria799.prc proc:@prc/nop_cria936.prc proc:@prc/nop_criaPID.prc copy=$ISSUE
 
     call batch/InformaLog.bat $0 x Retirada de paragrafos de $2 $3
-    $CISIS_DIR/mx $ISSUE btell=0 "a$" lw=9999 "pft=if p(v880) then 'call batch/CreateBaseP.bat ',v3,' $CISIS_DIR/mx $ISSUE $PATH_P/',v880*1.9,'/',v880*10.4,'/',v880*14.4,' ',v880*18,/ fi" now > temp2.sh
+    $CISIS_DIR/mx $ISSUE btell=0 "a$" lw=9999 "pft=if p(v880) then 'call batch/CreateBaseP.bat ',v3,' $CISIS_DIR/mx $ISSUE $PATH_P/',v880*1.9,'/',v880*10.4,'/',v880*14.4,' ',v880*18,/ fi" now |sort -u> temp2.sh
     call temp2.sh
     call batch/InformaLog.bat $0 x Fim Retirada de paragrafos de $2 $3
 
