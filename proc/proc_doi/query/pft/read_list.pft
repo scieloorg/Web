@@ -1,10 +1,10 @@
-if size(v1)>0 then
-    if p(v2) then
-
-    else
-        'sh shs/select.sh ',if v1*0.1<>'S' then 'S' fi,v1,' ',v9999,# fi
-    fi
-
-
-
+if size(v1)>0 then
+    if p(v2) then
+
+    else
+        'sh shs/select.sh ',if v1*0.1<>'S' then 'S' fi,v1,' ',v9999,# fi
+    fi
+
+
+
 fi

@@ -1,5 +1,5 @@
-,if val(v9001)=0 then
-    ,if val(v9000)=0 then
-        if size(v880)=23 or size(v880)=28 then `$MX cipar=$CIPFILE null count=1 "proc='d*a880{`,v880,`{a100{new{a91{^snew^d`,date,`{a691{`,v691,`{'" append=QUERYLOG now -all`,# fi
-    ,fi
-,fi
+,if val(v9001)=0 then
+    ,if val(v9000)=0 then
+        if size(v880^*)=23 or size(v880^*)=28 then `$MX cipar=$CIPFILE null count=1 "proc='d*a880{`,v880^*,`{a100{new{a91{^snew^d`,date,`{a691{`,v691,`{'" append=QUERYLOG now -all`,# fi
+    ,fi
+,fi
