@@ -1,5 +1,5 @@
-if ref(mfn-1,s(v1,v4))=s(v1,v4) or v1*0.1<>'S' then 
-
-  `$MX `,v3,` from=`,v4,` count=1 "proc=(if v880^*='`,v1[1],`' and v880*0.1='S' then 'a9880{',v880,'{' fi)" "proc='d880',(if v880^*<>'`,v1[1],`' then if v880*0.1='S' then 'a880{',v880,'{' fi fi),if v9880[1]<>'' then 'a880{',v9880[1],'{' fi" "proc='d9880'" copy=`,v3,` now -all`/
-
+if ref(mfn-1,s(v1,v4))=s(v1,v4) or v1*0.1<>'S' then 
+
+  `$MX `,v3,` from=`,v4,` count=1 "proc=(if v880^*='`,v1[1],`' and v880*0.1='S' then 'a9880{',v880,'{' fi)" "proc='d880',(if v880^*<>'`,v1[1],`' then if v880*0.1='S' then 'a880{',v880,'{' fi fi),if v9880[1]<>'' then 'a880{',v9880[1],'{' fi" "proc='d9880'" copy=`,v3,` now -all`/
+
 fi
