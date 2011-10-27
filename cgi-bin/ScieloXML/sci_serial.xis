@@ -65,6 +65,20 @@
 			<call name="CreateCopyrightXML"><pft>mfn</pft></call>
 	
 			<call name="CreateContactXML"><pft>mfn</pft></call>
+
+
+			<field action="replace" split="occ" tag="9691">
+			    <pft>
+			        if size(v691)>0 then ,if replace(v691,'0','')<>'1' then
+                                   replace(replace(v691,'0',s('0',#)),'1',s('1',#))
+                                fi fi
+                            </pft>
+                        </field>
+                        <field action="replace" split="occ" tag="9692"><pft>cat('../cgi-bin/ScieloXML/collection.xis')</pft></field>
+
+                        <display><pft>if instr(v9691,'1')>0 then (if v9691='1' and not v9692^u:v7009[1] then '<link type="collection" label="',v9692^n,'">',v9692^u,'/scielo.php?script=sci_serial&amp;pid=',v400[1],'</link>' fi), fi</pft></display>
+
+
 			<display><pft>if p(v692) then '<link type="online_submission"><![CDATA[',v692,']]></link>',# fi</pft></display>
 	            <display><pft>if p(v69)  then '<link type="journal_site"><![CDATA[',v69,']]></link>',# fi</pft></display>
 	            <display><pft>if p(v3311) then '<PAGINATION rep="',v3311,'" journal="',v3002,'"/>',/# fi</pft></display>
