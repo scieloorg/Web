@@ -1,2 +1,2 @@
-/* ('sh shs/regquerylog.sh config.sh ',v880,' OK ',f(l(['QUERYLOG']'pid=',v880,),1,0),#) */
+/* ('sh shs/regquerylog.sh config.sh ',v880,' OK ',f(l(['QUERYLOG']'pid=',v880,),1,0),#) */
 ('sh ./shs/del_pid_querylog.sh config.sh ',v880^*,' ',f(l(['QUERYLOG']'pidcol=',v880^*,v880^c),1,0)#)
