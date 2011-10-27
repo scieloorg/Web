@@ -11,6 +11,4 @@ echo GeraScielo.bat .. /scielo/web log/GeraPadrao.log adiciona
 echo 
 echo Tecle CONTROL-C para sair ou ENTER para continuar...
 
-rem # read pause
-
 GeraScielo.bat .. .. log/GeraPadrao.log adiciona

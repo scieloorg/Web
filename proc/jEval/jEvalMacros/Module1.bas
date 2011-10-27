@@ -37,7 +37,7 @@ Function executeMacro(source_path As String, excel_filename As String, ByRef msg
     oExcelApp.visible = True
    End If
    
-   Call FileCopy(App.Path & "\jemacro.xls", backup)
+   Call FileCopy(App.Path & "\" & MACRO_FUNCTION & ".xls", backup)
    
    
    'MsgBox Dir(excel_filename, vbNormal) & vbCrLf & Mid(excel_filename, InStrRev(excel_filename, "\") + 1)
