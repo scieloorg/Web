@@ -60,7 +60,7 @@ else
             sh ./reglog.sh $BATCH_LOGFILE "Sort result"
             echo reading> $Q_STFILE
             echo >> $RESULT
-            $MX cipar=$CIPFILE seq=$RESULT lw=999 "pft=@pft/sort_result.pft" now |sort -u > $BATCH_TEMP_PATH/sorted_result.txt
+            $MX cipar=$CIPFILE seq=$RESULT lw=99999 "pft=@pft/sort_result.pft" now |sort -u > $BATCH_TEMP_PATH/sorted_result.txt
             echo >>$BATCH_TEMP_PATH/sorted_result.txt
             $MX seq=$BATCH_TEMP_PATH/sorted_result.txt create=$BATCH_TEMP_PATH/sorted_result now -all
 
@@ -101,7 +101,7 @@ else
             sh ./shs/tool_statistics.sh $BATCH_LOGFILE $BATCH_TEMP_PATH "after treating result"
 
 
-            rm -rf $BATCH_TEMP_PATH/
+            #rm -rf $BATCH_TEMP_PATH/
             echo nothing> $APP_STFILE
 
             sh ./reglog.sh $BATCH_LOGFILE "$0 done"
