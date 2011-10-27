@@ -1,3 +1,22 @@
+v5.19
+[bases]
+Bases Cited Related Areasgeo Lattes para Bases Modelo
+Including LINDG4 model databases
+
+[web] 
+1) sci_serial. enhancement. present links to the other SciELO collections in which the journal is registered.
+2) sci_issuetoc. bug. Issuetoc page of a review issue, the previous button tried to show the ahead issue, that does not exist, so the previous button should show the last issue.
+3) sci_arttext. bug. Provisional texts: Link to PDF was presented twice.
+
+[proc]
+1) New GeraPadrao. check migration before deleting records in original db.
+2) GeraNewcodeAux. new. generate standard subjects list
+3) proc_doi. bug. fix a message, fix (v880 => v880^*), fix entities, generation of reports
+4) GeraIssue.bat. bug. press release problem
+5) jEval: different treatment for journal which publish one article per issue.
+
+----------------------------------------------
+
 v5.18.r3
 1) paragraphs.xis: Fix loading of paragraphs for translated texts, which has no references.
 2) CreateBaseP.bat: Fix mx calling
