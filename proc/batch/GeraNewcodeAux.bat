@@ -18,6 +18,6 @@ fi
 call batch/VerifExisteBase.bat $2/subject
 
 
-$CISIS_DIR/mx $2/subject lw=999 "pft='call batch/GeraSerareaLANG.bat $2/subject ',mfn,' ../bases-work/title/title gizmo/serarea',mpu,v1^l,mpl,' $2'/" now > $2/GeraSerareaLANG.bat
+$CISIS_DIR/mx $2/subject lw=999 "pft='call batch/GeraSerareaLANG.bat $2/subject ',mfn,' ../bases-work/title/title ../bases-work/title/serarea',mpu,v1^l,mpl,' $2'/" now > $2/GeraSerareaLANG.bat
 call $2/GeraSerareaLANG.bat
 
