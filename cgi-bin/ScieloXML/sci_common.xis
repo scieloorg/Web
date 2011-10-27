@@ -207,11 +207,12 @@
 			   <parm name="expression"><pft>'SM='v4901,'$'</pft></parm>
 			   <parm name="count">1</parm>
 			   <loop>
-					<field action="replace" tag="4902">880</field>
+					<field action="replace" tag="4902"><pft>v880</pft></field>
 					<field action="export" tag="list">4902</field>
 				</loop>	
 			</do>	
-			<field action="add" tag="4903"><pft>v4901,if p(v4902) then '^f1' fi,'^t'v4900^b</pft></field>
+			<!--field action="add" tag="4903"><pft>v4901,if p(v4902) then '^f1' fi,'^t'v4900^b</pft></field-->
+			<field action="add" tag="4903"><pft>if p(v4902) then v4901,'^f1','^t'v4900^b fi</pft></field>
 			<field action="export" tag="list">4903</field>
 		</loop>	
 	</do>
