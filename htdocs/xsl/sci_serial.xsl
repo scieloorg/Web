@@ -320,7 +320,7 @@ press release do artigo
 	<xsl:template match="link">
 		<xsl:variable name="t" select="@type"/>
 		<xsl:variable name="label">
-			<xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find=$t]"/>
+			<xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find=$t]"/><xsl:value-of select="@label"/>
 		</xsl:variable>
 		<xsl:if test="$label!=''">
 			<li>
