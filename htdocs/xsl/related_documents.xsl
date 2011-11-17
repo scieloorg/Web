@@ -38,7 +38,7 @@
 			</xsl:call-template>
 		</xsl:variable>
 		<a href="javascript:void(0);" class="nomodel" style="text-decoration: none;">
-			<xsl:attribute name="onclick">window.opener.location.href = '<xsl:value-of select="$url"/>'; window.close();</xsl:attribute>
+			<xsl:attribute name="onclick">if (window.opener) { window.opener.location.href = '<xsl:value-of select="$url"/>'; window.close(); } else { window.location.href = '<xsl:value-of select="$url"/>'; }</xsl:attribute>
 			<xsl:attribute name="rel">nofollow</xsl:attribute>
 			<xsl:value-of select="$translations//xslid[@id='sci_toolbox']//text[@find=$relatedType]"/>
 		</a>
