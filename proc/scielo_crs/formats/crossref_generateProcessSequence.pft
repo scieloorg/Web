@@ -1,5 +1,7 @@
 
 
+,if a(v41) or v41='' then
+/* to ignore press releases */
 ,proc('d9090a9090{',
     ,if p(v237) then
         ,if mid(v237,1,instr(v237,'/')-1)=v9191 then
@@ -36,3 +38,5 @@
             'fi',#
      fi
  fi
+
+ ,fi
