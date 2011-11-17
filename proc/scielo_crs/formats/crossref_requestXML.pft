@@ -1,3 +1,4 @@
+,if a(v41) or v41='' then
 ,proc('d9880a9880{',
     if p(v891) then
         v891
@@ -75,10 +76,11 @@
        '</publisher_item>',#
        '<doi_data>',#
          '<doi>10.1590/',v9880,'</doi>'
-         '<resource>http://www.scielo.br/scielo.php?script=sci_arttext&amp;pid=',v880,'&amp;lng=',v40,'&amp;nrm=iso&amp;tlng=',v40,'</resource>',#
+         '<resource>http://www.scielo.br/scielo.php?script=sci_arttext&amp;pid=',v880,'&amp;lng=',v40,'&amp;nrm=iso&amp;tlng=en</resource>',#
          
        '</doi_data>',#
      '</journal_article>',#
    '</journal>',#
  '</body>',#
  '</doi_batch>',#
+,fi,
