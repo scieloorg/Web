@@ -1,3 +1,10 @@
+v5.20
+[web]
+FIXED a bug at issues navegation button (ticket 292)
+FIXED link to related article in press release, when this page is opened by a web page out of the scielo website (ticket 293)
+[proc]
+scielo_crs: do not generate doi for press release texts and the link has to go to the full text in the English version (294,295)
+
 v5.19
 [bases]
 Bases Cited Related Areasgeo Lattes para Bases Modelo

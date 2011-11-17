@@ -2,7 +2,7 @@
 <include>ScieloXML/sci_getdefine.xis</include>
 <include>ScieloXML/sci_journal.xis</include>
 <!-- ============================================================================ -->
-<!--  function GetCurrentIssue                                                       -->
+<!--  function GetLastRegularIssue                                                       -->
 <!--                                                                              -->
 <!--  Gets the pid (issnyyyynnnn) of the last issue of a serial.                  -->
 <!--                                                                              -->
@@ -13,68 +13,38 @@
 <!--     If found, returns the pid of the last issue of the serial in the tag     -->
 <!--  7090. Otherwise, returns nothing.                                           -->
 <!-- ============================================================================ -->
-<function name="GetCurrentIssue" action="replace" tag="4900">
-	<!--display><pft>'v4900 = ',v4900,'<br>'</pft></display-->
+<function name="GetLastRegularIssue" action="replace" tag="4900">
+	<display><pft>'<!-- (issn) v4900 = ',v4900,' -->',#</pft></display>
 
-	<field action="import" tag="3900">3900</field>
-
-	<field action="replace" tag="9000"><pft>(v3900,' ')</pft></field>
-	
 	<do task="keyrange">
-		<!--parm name="db">NEWISSUE</parm-->
 		<parm name="db">ARTIGO</parm>
 		<parm name="from"><pft>'Y',v4900,'zzzz'</pft></parm>
-		<!--parm name="count">1</parm-->
 		<parm name="reverse">On</parm>
 		
 		<field action="define" tag="4901">Isis_Key</field>
 		
 		<loop>
-
-			<field action="import" tag="list">4900,9000</field>
-			<flow action="skip">
+			<field action="import" tag="list">4900</field>			
+			<field action="replace" tag="7090" >
 				<pft>
-					if instr(v4901,v4900) = 0 then
-						'Quit'
+					if instr(v4901,v4900) = 0 then, /* there is no last issue */ ,
+						,'NONE',
 					else
 						if l(['NEWISSUE'],v4901) > 0 then
-							,if instr(v9000,v4901*1)=0 then
-								'Quit' 
+							,if ref(['NEWISSUE']l(['NEWISSUE'],v4901), if v32<>'ahead' and v32<>'review' and v41='' then 'regular' fi) = 'regular' then
+								,v4901*1, 
 							,fi
 						fi
 					fi
 				</pft>
-			</flow>			
+			</field>
+			<field action="export" tag="list"><pft>if p(v7090) then '7090' fi</pft></field>	
+			<flow action="skip"><pft>if p(v7090) then 'Quit' fi</pft></flow>
+						
 		</loop>
-		<field action="export" tag="list">9000</field>
+		<field action="export" tag="list">7090</field>
 	</do>
-	
-	<field action="replace" tag="7090">
-		<pft>
-			/* If the pid of the serial (issn) isn't in the key, then it's another serial */
-			if p(v4901) and instr(v4901, v4900) > 0 and instr(v9000,v4901*1)=0 then v4901*1 fi
-		</pft>
-	</field>
-
-	<!--field action="replace" tag="9090" split="occ">
-		<pft>
-			/* If the pid of the serial (issn) isn't in the key, then it's another serial */
-			if a(v7090) then
-				(if p(v3900^f) then v3900/ fi)
-			fi
-		</pft>
-	</field>
-	<field action="replace" tag="7090">
-		<pft>
-			/* If the pid of the serial (issn) isn't in the key, then it's another serial */
-			if a(v7090) then
-				v9090[1]
-			fi
-		</pft>
-	</field-->
-
-	<!--display><pft>'Isis_Key (v4901): ', v4901,'<br>'</pft></display-->
-	<display><pft>'<!-- retorno=',v7090,' -->'</pft></display>
+	<display><pft>'<!-- last regular issue=',v7090,' -->'</pft></display>
 	
 	<return action="replace" tag="7090">
 		<pft>
@@ -87,89 +57,161 @@
 <!-- ============================================================================ -->
 <!--  function GetPreviousIssue                                                   -->
 <!--                                                                              -->
-<!--  Gets the pid (issnyyyynnnn) of the previous issue of the current issue.     -->
+<!--  Gets the pid (issnyyyynnnn) of the previous issue of a given issue pid.     -->
 <!--                                                                              -->
-<!--  Argument:                                                                   -->
-<!--     The pid (issnyyyynnnn) of the current issue.                             -->
+<!--  Arguments:                                                                   -->
+<!--     The pid (issnyyyynnnn) of an issue.                                      -->
+<!--     ^t type of the given issue (REGULAR, ahead, review) -->
 <!--                                                                              -->
 <!--  Return value:                                                               -->
 <!--     If found, returns the pid of the previous issue in the tag 7085.         -->
 <!--  Otherwise, returns nothing.                                                 -->
 <!--  Note:                                                                       -->
-<!--  If it is a ahead of print issue, the previous issue is the current issue    -->
+<!--  If it is a ahead of print issue, the previous issue is the last regular issue -->
 <!--  Otherwise any previous issue but any ahead of print                         -->
 <!-- ============================================================================ -->
 <function name="GetPreviousIssue" action="replace" tag="4900">
-	<!--display><pft>'v4900 = ',v4900,'<br>'</pft></display-->
-	<field action="import" tag="3900">3900</field>
-
-	<field action="replace" tag="1001"><pft>(if instr(v3900,v4900[1])>0 then v3900 fi)</pft></field>
-
-	<!-- as partes abaixo se excluem -->
-	<!-- parte 1 - no caso de current=review entao previous=ahead -->
-	<field action="replace" tag="7085"><pft>if v1001^t='REVIEW' then (if v3900^t='AHEAD' then v3900^*, break,fi) fi</pft></field>
+	<display><pft>'<!-- v4900 (issue pid) = ',v4900,' -->',#</pft></display>
 	
-	<!-- parte 2 - no caso de current=ahead entao previous=current -->
-	<call name="GetCurrentIssue"><pft>if v1001^t='AHEAD' then v4900*0.9 fi</pft></call>
+	<field action="replace" tag="4910"><pft>v4900^t</pft></field>
+	<field action="replace" tag="4900"><pft>v4900^*</pft></field>
+	
+	<!-- given issue is ahead or review? -->
+	<field action="replace" tag="4910"><pft>if a(v4910) then ref(['NEWISSUE']l(['NEWISSUE'],'Y',v4900), if v32='ahead' or v32='review' then v32 fi)  fi</pft></field>
+	
+	
+	<flow action="jump"><pft>'given_issue_is_',v4910</pft></flow>
+	
+	<label>given_issue_is_review</label>
+	<call name="GetNotPrintedIssuePID"><pft>'^a',v4900*0.9,'^bAHEAD'</pft></call>
+	<field action="replace" tag="7085"><pft>v7095^*[1]</pft></field>
+	<field action="delete" tag="list">7095</field>
+	<flow action="jump"><pft>if p(v7085) then 'DONE'  fi</pft></flow>
+	
+	<label>given_issue_is_ahead</label>
+	<call name="GetLastRegularIssue"><pft>v4900*0.9</pft></call>
 	<field action="replace" tag="7085"><pft>v7090</pft></field>
+	<flow action="jump"><pft>if p(v7085) then 'DONE'  fi</pft></flow>
 	
-	<!-- parte 3 - no caso de nenhum das anteriores, entao previous eh qualquer issue normal -->
-	<flow action="jump"><pft>if p(v7085) then 'fim' fi</pft></flow>
-
-	<field action="replace" tag="1001"><pft>(v3900,' ')</pft></field>
+	<label>given_issue_is_LAST</label>
+	<label>given_issue_is_</label>
 	<do task="keyrange">
-		<!--parm name="db">NEWISSUE</parm-->
 		<parm name="db">ARTIGO</parm>
 		<parm name="from"><pft>'Y',v4900</pft></parm>
-		<!--parm name="count">10</parm-->
 		<parm name="reverse">On</parm>
 		
 		<field action="define" tag="4901">Isis_Key</field>
 		
 		<loop>
 			<display><pft>'<!-- ',v4901,' -->'/</pft></display>
-			<field action="import" tag="list">4900,1001</field>
-			<field action="replace" tag="4902">
+			<field action="import" tag="list">4900,4910</field>
+			<field action="replace" tag="7085">
 				<pft>
-					/* The first key found whose pid isn't the current issue's and it is not ahead neither review */
-					if p(v4901) then
-						if  instr(v4901,v4900) = 0 then
-							/* eh a proxima chave, agora verifica se eh a mesma revista */
-							if  instr(v4901,s('Y',mid(v4900,1,9))) = 1 then
-								/* eh da mesma revista, mesmo issn */
-								if instr(v1001,v4901*1)=0 then
-									/* eh printed issue */
-
-									if l(['NEWISSUE'],v4901) > 0 then, 
-										'OK' 
-									fi
-								fi
-							else 
-								/* nao eh da mesma revista, issn diferente */
-								'Error'
-							fi
-						else 
-							/* eh a mesma chave, entao continuar */
-						fi
-					else
- 							'Error' 
-					fi 
+					if v4900=v4901*1 then
+					     /* it is the given issue, execute a new loop */
+					     
+					,else
+					    ,if instr(v4901,s(v4900*0.9))>0 then
+						    ,if l(['NEWISSUE'],v4901) > 0 then
+								,if ref(['NEWISSUE']l(['NEWISSUE'],v4901), if v32<>'ahead' and v32<>'review' and v41='' then 'regular' fi) = 'regular' then
+									,v4901*1, 
+								,fi
+							,fi
+						,else
+						     ,'FINISH'
+					    ,fi
+					,fi 
 				</pft>
 			</field>
 			
-			<field action="export" tag="list">4901,4902</field>
-			<flow action="skip">
-				<pft>
-					if v4902='OK' or v4902='Error' then 
-						'Quit'
-					fi
-				</pft>
-			</flow>
+			<field action="export" tag="list">7085</field>
+			<flow action="skip"><pft>if p(v7085) then 'Quit' fi</pft></flow>
 		</loop>	
 	</do>	
-	<field action="replace" tag="7085"><pft>if v4902='OK' then v4901*1 fi</pft></field>
-	<label>fim</label>
+	<label>DONE</label>
 	<return action="replace" tag="7085"><pft>v7085</pft></return>
+</function>
+<!-- ============================================================================ -->
+<!--  function GetNextIssue                                                       -->
+<!--                                                                              -->
+<!--  Gets the pid (issnyyyynnnn) of the next issue of a given issue.         -->
+<!--                                                                              -->
+<!--  Argument:                                                                   -->
+<!--     The pid (issnyyyynnnn) of a given issue.                             -->
+<!--                                                                              -->
+<!--  Return value:                                                               -->
+<!--     If found, returns the pid of the next issue in the tag 7095. Otherwise   -->
+<!--  returns nothing.                                                            -->
+<!-- ============================================================================ -->
+<function name="GetNextIssue" action="replace" tag="4900">
+	<display><pft>'<!-- v4900 (issue pid) = ',v4900,' -->',#</pft></display>
+	
+	<field action="replace" tag="4910"><pft>v4900^t</pft></field>
+	<field action="replace" tag="4900"><pft>v4900^*</pft></field>
+	
+	<!-- given issue is ahead or review? -->
+	<field action="replace" tag="4910"><pft>if a(v4910) then ref(['NEWISSUE']l(['NEWISSUE'],'Y',v4900), if v32='ahead' or v32='review' then v32 fi)  fi</pft></field>
+	
+	
+	
+	<flow action="jump"><pft>'given_issue_is_',v4910</pft></flow>
+	
+	<label>given_issue_is_review</label>
+	<flow action="jump">DONE</flow>
+	
+	
+	<label>given_issue_is_</label>
+	<call name="GetLastRegularIssue"><pft>v4900*0.9</pft></call>
+	<flow action="jump"><pft>if v7090=v4900 then 'given_issue_is_LAST' fi</pft></flow>
+	
+	<do task="keyrange">
+		<parm name="db">ARTIGO</parm>
+		<parm name="from"><pft>'Y',v4900</pft></parm>
+		
+		<field action="define" tag="4901">Isis_Key</field>
+		<loop>
+			<field action="import" tag="list">4900,4910</field>
+			<field action="replace" tag="7095">
+				<pft>
+					if v4900=v4901*1 then
+					     /* it is the given issue, execute a new loop */
+					     
+					,else
+					    ,if instr(v4901,s(v4900*0.9))>0 then
+						    ,if l(['NEWISSUE'],v4901) > 0 then
+								,if ref(['NEWISSUE']l(['NEWISSUE'],v4901), if v32<>'ahead' and v32<>'review' and v41='' then 'regular' fi) = 'regular' then
+									,v4901*1, 
+								,fi
+							,fi
+						,else
+						     ,'FINISH'
+					    ,fi
+					,fi 
+				</pft>
+			</field>
+			
+			<field action="export" tag="list">7095</field>
+			<flow action="skip"><pft>if p(v7095) then 'Quit' fi</pft></flow>
+		</loop>	
+	</do>	
+	<flow action="jump"><pft>if p(v7095) then 'DONE' fi</pft></flow>
+	
+	
+	<label>given_issue_is_LAST</label>
+	<call name="GetNotPrintedIssuePID"><pft>'^a',v4900*0.9,'^bAHEAD'</pft></call>
+	<field action="replace" tag="7095"><pft>v7095^*[1]</pft></field>
+	<flow action="jump"><pft>if p(v7095) then 'DONE' fi</pft></flow>
+	
+	<label>given_issue_is_ahead</label>
+	<call name="GetNotPrintedIssuePID"><pft>'^a',v4900*0.9,'^bREVIEW'</pft></call>
+	<field action="replace" tag="7095"><pft>v7095^*[1]</pft></field>
+	<flow action="jump">DONE</flow>
+	
+	
+	
+	<label>DONE</label>
+	<return action="replace" tag="7095"><pft>v7095</pft></return>
+		
 </function>
 
 <!-- ============================================================================ -->
@@ -244,161 +286,6 @@
 	<field action="export" tag="3900">3900</field>
 </function>
 
-
-<!-- ============================================================================ -->
-<!--  function GetNextIssue                                                       -->
-<!--                                                                              -->
-<!--  Gets the pid (issnyyyynnnn) of the next issue of the current issue.         -->
-<!--                                                                              -->
-<!--  Argument:                                                                   -->
-<!--     The pid (issnyyyynnnn) of the current issue.                             -->
-<!--                                                                              -->
-<!--  Return value:                                                               -->
-<!--     If found, returns the pid of the next issue in the tag 7095. Otherwise   -->
-<!--  returns nothing.                                                            -->
-<!-- ============================================================================ -->
-<function name="GetNextIssue" action="replace" tag="4900">
-	<field action="import" tag="list">7049/7061</field>
-	<!--display><pft>'v4900 = ',v4900,'<br>'</pft></display-->
-	<!--display><pft>ALL</pft></display-->
-	<field action="import" tag="3900">3900</field>
-
-	<!-- get info of the "current" issue (AHEAD, REVIEW, PRINTED) -->
-	<field action="replace" tag="1001"><pft>if v4900<>'NO_CURRENT_ISSUE' then (if instr(v3900,v4900[1])>0 then v3900 fi) fi</pft></field>
-
-	<!-- get the not printed issues which have articles -->
-	<field action="replace" tag="1002" split="occ"><pft>(if p(v3900^f) then v3900/ fi)</pft></field>
-
-	<!-- there is no current issue, then Next=ahead or Next=review or Next=none -->
-	<flow action="jump"><pft>if v4900='NO_CURRENT_ISSUE' then 'NEXT_IS_AHEAD' fi</pft></flow>
-	
-	<!-- issue is review, then Next=none -->
-	<flow action="jump"><pft>if v1001^t='REVIEW' then 'NEXT_FOUND' fi</pft></flow>
-
-	<!-- issue is ahead, then Next=review or  Next=none -->
-	<flow action="jump"><pft>if v1001^t='AHEAD' then 'NEXT_IS_REVIEW' fi</pft></flow>
-	
-	<!-- issue is last, then Next=ahead or  Next=review or  Next=none -->
-	<call name="GetCurrentIssue"><pft>mid(v4900,1,9)</pft></call>
-	<flow action="jump"><pft>if v7090=v4900 then 'NEXT_IS_AHEAD' fi</pft></flow>
-
-	<!-- issue is any other printed issue -->
-	<label>NEXT_IS_PRINTED</label>
-	<field action="replace" tag="1003"><pft>(v3900,' ')</pft></field>
-	<do task="keyrange">
-		<!--parm name="db">NEWISSUE</parm-->
-		<parm name="db">ARTIGO</parm>
-		<parm name="from"><pft>'Y',v4900</pft></parm>
-		<!--parm name="count">10</parm-->
-		
-		
-		<field action="define" tag="4901">Isis_Key</field>
-		
-		<loop>
-			<display><pft>'<!-- ',v4901,' -->'/</pft></display>
-			<field action="import" tag="list">4900,1003</field>
-			<field action="replace" tag="4902">
-				<pft>
-					/* The first key found whose pid isn't the current issue's and it is not ahead neither review */
-					if p(v4901) then
-						if  instr(v4901,v4900) = 0 then
-							/* eh a proxima chave, agora verifica se eh a mesma revista */
-							if  instr(v4901,s('Y',mid(v4900,1,9))) = 1 then
-								/* eh da mesma revista, mesmo issn */
-								if instr(v1003,v4901*1)=0 then
-									/* eh printed issue */
-									if l(['NEWISSUE'],v4901) > 0 then, 
-										'OK' 
-									fi
-								fi
-							else 
-								/* nao eh da mesma revista, issn diferente */
-								'Error'
-							fi
-						else 
-							/* eh a mesma chave, entao continuar */
-						fi
-					else
- 							'Error' 
-					fi 
-				</pft>
-			</field>
-			
-			<field action="export" tag="list">4901,4902</field>
-			<flow action="skip">
-				<pft>
-					if v4902='OK' or v4902='Error' then 
-						'Quit'
-					fi
-				</pft>
-			</flow>
-		</loop>	
-	</do>	
-	<field action="replace" tag="7095"><pft>if v4902='OK' then v4901*1 fi</pft></field>
-
-	<label>NEXT_IS_AHEAD</label>
-	<field action="replace" tag="7095"><pft>if a(v7095) then (if v1002^t='AHEAD' then v1002^*, break,fi) fi</pft></field>
-
-	<label>NEXT_IS_REVIEW</label>
-	<field action="replace" tag="7095"><pft>if a(v7095) then (if v1002^t='REVIEW' then v1002^*, break,fi) fi</pft></field>
-
-	<label>NEXT_FOUND</label>
-	<return action="replace" tag="7095"><pft>v7095</pft></return>
-		
-</function>
-
-<!-- ============================================================================ -->
-<!--  function xxGetPreviousArticle                                                 -->
-<!--                                                                              -->
-<!--  Gets the pid (issnyyyynnnnaaaaa) of the previous article of the current     -->
-<!--  article.                                                                    -->
-<!--                                                                              -->
-<!--  Argument:                                                                   -->
-<!--     The pid (issnyyyynnnnaaaaa) of the current article.                      -->
-<!--                                                                              -->
-<!--  Return value:                                                               -->
-<!--     If found, returns the pid of the previous article in the tag 7085.       -->
-<!--  Otherwise, returns nothing.                                                 -->
-<!-- ============================================================================ -->
-<function name="xxGetPreviousArticle" action="replace" tag="4900">
-	<!--display><pft>'v4900 = ',v4900,'<br>'</pft></display-->
-	<do task="keyrange">
-		<parm name="db">ARTIGO</parm>
-		<parm name="from"><pft>'HR=',v4900</pft></parm>
-		<!--parm name="count">2</parm-->
-		<parm name="reverse">On</parm>
-
-		<field action="define" tag="4901">Isis_Key</field>
-		
-		<loop>
-			<field action="import" tag="4900">4900</field>
-			<flow action="skip">
-				<pft>
-					/* The first key found whose pid isn't the current article's  */
-					/* pid stops the loop.                                        */
-					/* if article has new-pid (v222) then execute next loop       */
-					if ref(['ARTIGO']l(['ARTIGO'],v4901),@PROC_SPLIT_MST.PFT,v222)='' then 
-						if p(v4901) and instr(v4901,v4900) = 0 then 'Quit' fi
-					fi
-				</pft>
-			</flow>
-		</loop>	
-	</do>	
-
-	<!--display><pft>'Isis_Key (v4901): ', v4901,'<br>'</pft></display-->
-	
-	<return action="replace" tag="7085">
-		<pft>
-			/* The pid of the key must be different from the pid of the current issue */
-			/* and the issue must be equal.                                           */
-			if p(v4901) and
-			   instr(v4901, v4900) = 0 and 
-			   instr(v4901, left(v4900, size(v4900) - 5)) > 0 then,
- 				mid(v4901*3, 1, 23),
-			fi,
-		</pft>
-	</return>
-</function>
 
 <!-- ============================================================================ -->
 <!--  function GetPreviousArticle                                                 -->
@@ -654,7 +541,7 @@
             fi
             </pft>
     </display>
-	<call name="CreateCurrentPreviousIssue">
+	<call name="CreateIssuesNavButtonsForJournal">
 		<pft>
 			if a(v7048) then
 			if s(mpu,v4900^t,mpl) = 'TIT' then 
@@ -717,21 +604,18 @@
 </function>
 
 <!-- ============================================================================ -->
-<!--  function CreateCurrentPreviousIssue                                         -->
+<!--  function CreateIssuesNavButtonsForJournal                                         -->
 <!--                                                                              -->
 <!--  Prints the current and previous issues' control information.              -->
 <!--                                                                              -->
 <!--  Argument:                                                                   -->
 <!--     The pid (issn) of the serial.                                            -->
 <!-- ============================================================================ -->
-<function name="CreateCurrentPreviousIssue" action="replace" tag="4900">
+<function name="CreateIssuesNavButtonsForJournal" action="replace" tag="4900">
 	<field action="delete" tag="list">7050,7085,7090,7095</field>
-	<field action="import" tag="list">3900</field>
-	<!--display><pft>| v4900 = |v4900</pft></display-->
-	<!--call name="GetNotPrintedIssues"><pft>mid(v4900,1,9)</pft></call-->
-	<call name="GetCurrentIssue"><pft>v4900</pft></call>
-	<call name="GetPreviousIssue"><pft>v7090</pft></call>
-	<call name="GetNextIssue"><pft>v7090,if a(v7090) then 'NO_CURRENT_ISSUE' fi</pft></call>
+	<call name="GetLastRegularIssue"><pft>v4900</pft></call>
+	<call name="GetPreviousIssue"><pft>v7090|^tLAST|</pft></call>
+	<call name="GetNextIssue"><pft>v7090|^tLAST|</pft></call>
 
 	<display>
 		<pft>
