@@ -1,17 +1,1 @@
-proc(,if p(v9) or p(v11) then
-    ,`a9999{^d`,
-    ,if p(v11) then
-        if v11*3.1='S' then
-            ,v12,`^p`,v11,`^tm`
-        fi
-    ,else
-        if v9*3.1='S' then
-            ,v10,`^p`,v9,`^tj`
-        fi
-        
-    ,fi,
-    ,`{`
-,fi),
-,if v9999^p<>'' then
-   ,if l(['QUERY']'PIDCOL=',v9999^p*3,v9999^p*0.3)=0 then v9999^d,'|',v9999^p*3,'|',v9999^t,'|',v9999^p*0.3,# fi,
-,fi
+proc(,if p(v9) or p(v11) then    ,`a9999{^d`,    ,if p(v11) then        if v11*3.1='S' then            ,if v12:'/' and not v12:'---' then               ,v12,            ,fi            ,`^p`,v11,`^tm`        fi    ,else        if v9*3.1='S' then           ,if v10:'/' and not v10:'---' then            ,v10,           ,fi            ,`^p`,v9,`^tj`        fi    ,fi,    ,`{`,fi),,if v9999^p<>'' then   ,if l(['QUERY']'PIDCOL=',v9999^p*3,v9999^p*0.3)=0 then v9999^d,'|',v9999^p*3,'|',v9999^t,'|',v9999^p*0.3,# fi,,fi
