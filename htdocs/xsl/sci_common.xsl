@@ -1266,16 +1266,17 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
 	</xsl:template>
 
 
-        <xsl:template match="AUTHORS" mode="AUTHORS_META">
-          <meta name="citation_authors">
+        <xsl:template match="AUTHOR" mode="AUTHORS_META">
+          <xsl:element name="meta">
+          	<xsl:attribute name="name">citation_authors</xsl:attribute>
             <xsl:attribute name="content">
-              <xsl:apply-templates select=".//AUTHOR" mode="AUTHORS_META"/>
+              <xsl:apply-templates select="." mode="AUTHOR_META"/>
             </xsl:attribute>
-          </meta>
+          </xsl:element>
         </xsl:template>
 
-        <xsl:template match="AUTHOR" mode="AUTHORS_META">
-          <xsl:apply-templates select=".//SURNAME"/>,<xsl:apply-templates select=".//NAME"/>;
+        <xsl:template match="AUTHOR" mode="AUTHOR_META">
+          <xsl:apply-templates select=".//SURNAME"/>, <xsl:apply-templates select=".//NAME"/>
         </xsl:template>
 
         <xsl:template match="AUTHORS" mode="AUTHORS_META_DC">
