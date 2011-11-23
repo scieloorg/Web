@@ -100,31 +100,37 @@
     <ul>
 
       <!-- ARTICLO IN PDF INICIO-->
+       <xsl:variable name="tlng" select="//ARTICLE/@TEXTLANG"/>
+       <xsl:if test="$tlng!=//ARTICLE/@ORIGINALLANG or //LANGUAGES/ART_TEXT_LANGS//LANG[.!=$tlng]">
+       	<li>
+       <xsl:if test="$tlng!=//ARTICLE/@ORIGINALLANG">
+       <xsl:apply-templates select="//ARTICLE/@ORIGINALLANG" mode="display-link-to-article-version">
+        	<xsl:with-param name="pid" select="CONTROLINFO/PAGE_PID"/>
+            <xsl:with-param name="script" select="CONTROLINFO/PAGE_NAME"/>
+			<xsl:with-param name="icon">/img/fulltxt.gif</xsl:with-param>	
+			<xsl:with-param name="label" select="$translations/xslid[@id='sci_issuetoc']/text[@find='full']"/>    
+        </xsl:apply-templates>
+        	<xsl:if test="//LANGUAGES/ART_TEXT_LANGS//LANG[.!=$tlng]"> | 
+        	</xsl:if>
+       </xsl:if>
+       
+        <xsl:apply-templates select="//LANGUAGES/ART_TEXT_LANGS//LANG[.!=$tlng]" mode="display-link-to-article-version">
+        	<xsl:with-param name="pid" select="CONTROLINFO/PAGE_PID"/>
+            <xsl:with-param name="script" select="CONTROLINFO/PAGE_NAME"/>
+			<xsl:with-param name="icon">/img/fulltxt.gif</xsl:with-param>	
+			<xsl:with-param name="label" select="$translations/xslid[@id='sci_issuetoc']/text[@find='full']"/>    
+        </xsl:apply-templates>
+        </li>
+      </xsl:if>
       <xsl:if test="//ARTICLE/@PDF">
-      <xsl:variable name="tlng" select="//ARTICLE/@TEXTLANG"/>
-      <xsl:variable name="pdf_tlng">
-          <xsl:choose>
-              <xsl:when test="//LANGUAGES/PDF_LANGS[LANG=$tlng]">
-                  <xsl:value-of select="$tlng"/>
-              </xsl:when>
-              <xsl:otherwise>
-                  <xsl:value-of select="//LANGUAGES/PDF_LANGS/LANG"/>
-              </xsl:otherwise>
-          </xsl:choose>
-      </xsl:variable>
       <li>
-        <a>
-          <xsl:call-template name="AddScieloLink">
-            <xsl:with-param name="seq" select="CONTROLINFO/PAGE_PID"/>
-            <xsl:with-param name="script">sci_pdf</xsl:with-param>
-            <xsl:with-param name="txtlang">
-                <xsl:value-of select="$pdf_tlng"/>
-            </xsl:with-param>
-          </xsl:call-template>
-          <img src="/img/{$LANGUAGE}/iconPDFDocument.gif"/>
-          <xsl:value-of select="$translations/xslid[@id='sci_toolbox']/text[@find='article_in_pdf_format']"/>
-        </a>
-      </li>
+        <xsl:apply-templates select="//LANGUAGES/PDF_LANGS/LANG" mode="display-link-to-article-version">
+	        <xsl:with-param name="pid" select="CONTROLINFO/PAGE_PID"/>
+        	<xsl:with-param name="script" >sci_pdf</xsl:with-param>
+			<xsl:with-param name="icon">/img/en/iconPDFDocument.gif</xsl:with-param>	    
+			<xsl:with-param name="label" select="$translations/xslid[@id='sci_issuetoc']/text[@find='pdf']"/>
+        </xsl:apply-templates>
+        </li>
       </xsl:if>
       <!-- ARTICLO IN PDF FIM-->
 
@@ -525,5 +531,28 @@
       <img src="/img/{$LANGUAGE}/iconEmail.gif"/>
       <xsl:value-of select="$translations/xslid[@id='sci_toolbox']/text[@find='send_this_article_by_email']"/>
     </xsl:template>
-
+	<xsl:template match="LANG|@ORIGINALLANG" mode="display-link-to-article-version">
+		<xsl:param name="pid"></xsl:param>
+		<xsl:param name="label"></xsl:param>
+		<xsl:param name="script">sci_pdf</xsl:param>
+		<xsl:param name="icon">/img/<xsl:value-of select="."/>/iconPDFDocument.gif</xsl:param>
+		<xsl:variable name="lang" select="."/>
+        <xsl:choose>
+        	<xsl:when test="position()=1">
+        	<img src="{$icon}"/> <xsl:value-of select="$label"></xsl:value-of>
+        	</xsl:when>
+            <xsl:otherwise>
+             | 
+            </xsl:otherwise>
+        </xsl:choose>
+        <a>
+          <xsl:call-template name="AddScieloLink">
+            <xsl:with-param name="seq" select="$pid"/>
+            <xsl:with-param name="script" select="$script"/>
+            <xsl:with-param name="txtlang" select="."/>
+          </xsl:call-template>
+          <xsl:value-of select="document(concat('../xml/',$interfaceLang,'/language.xml'))//language[@id=$lang]"/>
+        </a>
+      
+	</xsl:template>
 </xsl:stylesheet>
