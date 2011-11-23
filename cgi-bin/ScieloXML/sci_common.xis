@@ -1596,6 +1596,26 @@
 	<call name="CreateCorporativeAuthorsXML"><pft>(v11/)</pft></call>
 
 	<display><pft>if p(v10) or p(v11) then ' </AUTHORS>'/# fi</pft></display>	
+	
+	<field action="replace" tag="70" split="occ"><pft>replace(replace(replace(ref(['ARTIGO']l(['ARTIGO'],'HR=',v4001^*),@PROC_SPLIT_MST.PFT,(v70/)),'"',' '),'>','&gt;'),'<','&lt;'),</pft></field>
+    <display><pft>if p(v70) then ('<AFF id="',v70^i,'">',
+    	,if size(v70^*)>0 then
+    		,'<ORGNAME><![CDATA[',v70^*,']]></ORGNAME>',#
+    	,fi
+    	,if size(v70^d)>0 then
+    		,'<ORGDIV><![CDATA[',v70^d,']]></ORGDIV>',#
+    	,fi
+    	,if size(v70^1)>0 then
+    		,'<ORGDIV><![CDATA[',v70^1,|, |v70^2,|, |v70^3,']]></ORGDIV>',#
+    	,fi
+    	,if size(v70^c)>0 then
+    		,'<CITY><![CDATA[',v70^c,']]></CITY>',#
+    	,fi
+    	,if size(v70^p)>0 then
+    		,'<COUNTRY><![CDATA[',v70^p,']]></COUNTRY>',#
+    	,fi
+    	
+    , '</AFF>' ) fi</pft></display>
 </function>
 
 <function name="CreateAuthorsAffXML" action="replace" tag="4001">
