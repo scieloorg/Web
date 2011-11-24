@@ -1273,10 +1273,15 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
               <xsl:apply-templates select="." mode="AUTHOR_META"/>
             </xsl:attribute>
           </xsl:element>
-          <xsl:apply-templates select="../../../AFF" /> 
+          <xsl:apply-templates select="AFF" mode="A"/> 
         </xsl:template>
 
-        <xsl:template match="AFF">
+        <xsl:template match="AFF" mode="A">
+        	<xsl:variable name="affilid" select="@xref"/>
+        	<xsl:apply-templates select="../../../../AFF[@id=$affilid]" mode="B"/>
+        </xsl:template>
+
+        <xsl:template match="AFF" mode="B">
           <xsl:element name="meta">
           	<xsl:attribute name="name">citation_author_institution</xsl:attribute>
             <xsl:attribute name="content"><xsl:apply-templates select="ORGNAME"/><xsl:if test="CITY">, <xsl:apply-templates select="CITY"/></xsl:if><xsl:if test="COUNTRY">, <xsl:apply-templates select="COUNTRY"/></xsl:if>
