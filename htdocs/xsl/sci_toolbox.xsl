@@ -101,6 +101,8 @@
 
       <!-- ARTICLO IN PDF INICIO-->
        <xsl:variable name="tlng" select="//ARTICLE/@TEXTLANG"/>
+       
+       <xsl:if test="//CONTROLINFO/PAGE_NAME='sci_arttext'">
        <xsl:if test="$tlng!=//ARTICLE/@ORIGINALLANG or //LANGUAGES/ART_TEXT_LANGS//LANG[.!=$tlng]">
        	<li>
        <xsl:if test="$tlng!=//ARTICLE/@ORIGINALLANG">
@@ -121,6 +123,7 @@
 			<xsl:with-param name="label" select="$translations/xslid[@id='sci_issuetoc']/text[@find='full']"/>    
         </xsl:apply-templates>
         </li>
+      </xsl:if>
       </xsl:if>
       <xsl:if test="//ARTICLE/@PDF">
       <li>
@@ -537,20 +540,20 @@
 		<xsl:param name="script">sci_pdf</xsl:param>
 		<xsl:param name="icon">/img/<xsl:value-of select="."/>/iconPDFDocument.gif</xsl:param>
 		<xsl:variable name="lang" select="."/>
-        <xsl:choose>
-        	<xsl:when test="position()=1">
-        	<img src="{$icon}"/> <xsl:value-of select="$label"></xsl:value-of>
-        	</xsl:when>
-            <xsl:otherwise>
-             | 
-            </xsl:otherwise>
-        </xsl:choose>
         <a>
           <xsl:call-template name="AddScieloLink">
             <xsl:with-param name="seq" select="$pid"/>
             <xsl:with-param name="script" select="$script"/>
             <xsl:with-param name="txtlang" select="."/>
           </xsl:call-template>
+        <xsl:choose>
+        	<xsl:when test="position()=1 and name()='LANG'">
+        	<img src="{$icon}"/> <xsl:value-of select="$label"></xsl:value-of>
+        	</xsl:when>
+            <xsl:otherwise>
+             | 
+            </xsl:otherwise>
+        </xsl:choose>
           <xsl:value-of select="document(concat('../xml/',$interfaceLang,'/language.xml'))//language[@id=$lang]"/>
         </a>
       
