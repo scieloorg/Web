@@ -10,6 +10,7 @@ DB_DOI_QUERY=../../../bases/doi/query
 NEW_DB_DOI=../databases/crossref/doi
 
 ART=$database_dir/artigo/artigo
+echo $ART
 
 $cisis_dir/mx seq=../gizmo/ent.seq create=../gizmo/ent now -all
 $cisis_dir/mx seq=../gizmo/ent2.seq create=../gizmo/ent2 now -all
@@ -42,16 +43,16 @@ then
   fi
     
 fi
-
+echo $ART
 if [ -f $NEW_DB_DOI.mst ]
 then
   if [ -f $DB_DOI_QUERY.mst ]
   then
-    echo read $XREF_DOI_REPORT, and check $DB_DOI_QUERY and $NEW_DB_DOI, then create new records for $NEW_DB_DOI
+    echo read $ART, and check $DB_DOI_QUERY and $NEW_DB_DOI, then create new records for $NEW_DB_DOI
     $cisis_dir/mx $ART btell=0 "bool=hr=$"  "proc='a9000{$NEW_DB_DOI{a9001{$DB_DOI_QUERY{'" "proc=@../prc/xref_check_create_reg.prc" append=$NEW_DB_DOI now -all
     $cisis_dir/mx $NEW_DB_DOI fst=@ fullinv=$NEW_DB_DOI
   else
-  	echo read $XREF_DOI_REPORT, and check $NEW_DB_DOI, then create new records for $NEW_DB_DOI
+  	echo read $ART, and check $NEW_DB_DOI, then create new records for $NEW_DB_DOI
     $cisis_dir/mx $ART btell=0 "bool=hr=$" "proc='a9000{$NEW_DB_DOI{'" "proc=@../prc/xref_check_create_reg.prc" append=$NEW_DB_DOI now -all
     $cisis_dir/mx $NEW_DB_DOI fst=@ fullinv=$NEW_DB_DOI
   fi
@@ -84,3 +85,4 @@ fi
 #echo executar $SCRIPT_TO_REPROC
 #  sh $SCRIPT_TO_REPROC
 #fi
+echo $0 finished.

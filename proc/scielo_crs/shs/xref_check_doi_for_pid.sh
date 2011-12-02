@@ -17,7 +17,7 @@ PFT_PATH=../pft
 
 echo ... check doi for $PID
 
-echo no>$ANS_FILE
+echo >$ANS_FILE
 
 #### QUERY CROSSREF ####
 echo ... query crossref
@@ -33,12 +33,12 @@ sh ./CrossRefQuery.sh -f $QUERY_XML_FILE -t d -a live -u $crossrefUserName -p $c
 cd ../shs
 
 more $QUERY_RESULT
-$MX seq=$QUERY_RESULT "pft=if size(v9)>0 then if v9*0.1='S' and v10:'/' and not v10:'---' then v10 ,else 'no'   fi  fi" now  > $ANS_FILE
+$MX seq=$QUERY_RESULT "pft=if size(v9)>0 then if v9*0.1='S' and v10:'/' and not v10:'---' then v10   fi  fi" now  > $ANS_FILE
 
 #### FIM QUERY CROSSREF ####
 
 DOI_OR_NO=`cat $ANS_FILE`
-if [ "@$DOI_OR_NO" == "@no" ]
+if [ "@$DOI_OR_NO" == "@" ]
 then 
    
     if [ "@$DEPOSIT_XML_FILE" != "@" ]
@@ -49,6 +49,7 @@ then
         	echo $PID redeposit >> $LOG_FILE
       	fi
     else
+    	echo Missing $DEPOSIT_XML_FILE 
 	    if [ "@$XML_881" != "@" ]
 	    then 
 	      	if [ -f $XML_881 ]
@@ -57,6 +58,7 @@ then
 	        	echo $PID redeposit >> $LOG_FILE
 	      	fi
 	    else
+	    	echo Missing $XML_881 
 	    	if [ "@$XML_891" != "@" ]
 		    then 
 		      	if [ -f $XML_891 ]
@@ -68,14 +70,14 @@ then
 		    	echo $PID new >> $LOG_FILE
 		    	echo Missing $XML_891 
 		    fi
-		    echo Missing $XML_881 
+		    
 	    fi
 	    
-    	echo Missing $DEPOSIT_XML_FILE 
+    	
     fi
 else 
     echo $PID crossref >> $LOG_FILE
-    $cisis_dir/mx $NEW_DB_DOI btell=0 "bool=hr=$PID" lw=9999 "proc=if v880='$PID' or v881='$PID' or v891='$PID'  then 'd237a237{$DOI_OR_NO','^d',date,'{' fi" copy=$NEW_DB_DOI now -all
+    $cisis_dir/mx $NEW_DB_DOI btell=0 "bool=hr=$PID" lw=9999 "proc=if v880='$PID' or v881='$PID' or v891='$PID' and '$DOI_OR_NO'<>''  then 'd237a237{$DOI_OR_NO{','a91{',date,'{' fi" copy=$NEW_DB_DOI now -all
 fi
 if [ "@$PID" != "@" ]
 then
