@@ -129,7 +129,8 @@
 		</loop>	
 	</do>	
 	<label>DONE</label>
-	<return action="replace" tag="7085"><pft>v7085</pft></return>
+	<return action="replace" tag="7085"><pft>if v7085<>'FINISH' then v7085 fi</pft></return>
+	
 </function>
 <!-- ============================================================================ -->
 <!--  function GetNextIssue                                                       -->
@@ -179,7 +180,7 @@
 					,else
 					    ,if instr(v4901,s(v4900*0.9))>0 then
 						    ,if l(['NEWISSUE'],v4901) > 0 then
-								,if ref(['NEWISSUE']l(['NEWISSUE'],v4901), if v32<>'ahead' and v32<>'review' and v41='' then 'regular' fi) = 'regular' then
+								,if ref(['NEWISSUE']l(['NEWISSUE'],v4901), if v32<>'ahead' and v32<>'review' and (v41='' or a(v41)) then 'regular' fi) = 'regular' then
 									,v4901*1, 
 								,fi
 							,fi
@@ -210,7 +211,8 @@
 	
 	
 	<label>DONE</label>
-	<return action="replace" tag="7095"><pft>v7095</pft></return>
+	<return action="replace" tag="7095"><pft>if v7095<>'FINISH' then v7095 fi</pft></return>
+	
 		
 </function>
 
