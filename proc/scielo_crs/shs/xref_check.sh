@@ -39,26 +39,33 @@ then
   else
      echo create doi db from $XREF_DOI_REPORT
     $cisis_dir/mx $ART btell=0 hr=$ count=1 "proc='d*','a880{',v880,'{',|a881{|v881|{|,|a891{|v891|{|,|a237{|v237|{|"  append=$NEW_DB_DOI now -all
-	$cisis_dir/mx $NEW_DB_DOI fst=@ fullinv=$NEW_DB_DOI
+	
   fi
     
 fi
+
+$cisis_dir/mx $NEW_DB_DOI fst=@ fullinv=$NEW_DB_DOI
+
 echo $ART
 if [ -f $NEW_DB_DOI.mst ]
 then
   if [ -f $DB_DOI_QUERY.mst ]
   then
     echo read $ART, and check $DB_DOI_QUERY and $NEW_DB_DOI, then create new records for $NEW_DB_DOI
+    echo `date '+%Y%m%d %H:%M:%S'`
     $cisis_dir/mx $ART btell=0 "bool=hr=$"  "proc='a9000{$NEW_DB_DOI{a9001{$DB_DOI_QUERY{'" "proc=@../prc/xref_check_create_reg.prc" append=$NEW_DB_DOI now -all
     $cisis_dir/mx $NEW_DB_DOI fst=@ fullinv=$NEW_DB_DOI
   else
   	echo read $ART, and check $NEW_DB_DOI, then create new records for $NEW_DB_DOI
+  	echo `date '+%Y%m%d %H:%M:%S'`
     $cisis_dir/mx $ART btell=0 "bool=hr=$" "proc='a9000{$NEW_DB_DOI{'" "proc=@../prc/xref_check_create_reg.prc" append=$NEW_DB_DOI now -all
     $cisis_dir/mx $NEW_DB_DOI fst=@ fullinv=$NEW_DB_DOI
   fi
 fi
 
-$cisis_dir/mx $NEW_DB_DOI btell=0 "bool=$  and not (DOI=$)" lw=9999 "pft=if instr(v237,'/')=0  then 'sh ./xref_check_doi_for_pid.sh ',v880,' $conversor_dir/output/crossref/',v880*1.9, '/',v880*10.4,'/',v880*14.4,'/',v880*18,'.xml $LOG_FILE $NEW_DB_DOI',' ', v881,' $conversor_dir/output/crossref/',v881*1.9, '/',v881*10.4,'/',v881*14.4,'/',v881*18,'.xml',' ', v891,' $conversor_dir/output/crossref/',v891*1.9, '/',v891*10.4,'/',v891*14.4,'/',v891*18,'.xml', # fi" now > $MYTEMP/call_xref_check_doi_for_pid.sh
+echo generate xref_check_doi_for_pid.sh
+echo `date '+%Y%m%d %H:%M:%S'`
+$cisis_dir/mx $NEW_DB_DOI btell=0 "bool=$  and not (DOI=$)" lw=9999 "pft=if size(v880)>0 then if instr(v237,'/')=0  then 'sh ./xref_check_doi_for_pid.sh ',v880,,' $conversor_dir/output/crossref/',v880*1.9, '/',v880*10.4,'/',v880*14.4,'/',v880*18,'.xml $LOG_FILE $NEW_DB_DOI',' ', v881,,if p(v881) then ' $conversor_dir/output/crossref/',v881*1.9, '/',v881*10.4,'/',v881*14.4,'/',v881*18,'.xml', fi, ' ', v891,if p(v891) then ' $conversor_dir/output/crossref/',v891*1.9, '/',v891*10.4,'/',v891*14.4,'/',v891*18,'.xml',fi #  fi fi" now > $MYTEMP/call_xref_check_doi_for_pid.sh
 
 if [ -f $MYTEMP/call_xref_check_doi_for_pid.sh ]
 then
