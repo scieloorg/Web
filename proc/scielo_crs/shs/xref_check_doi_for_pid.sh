@@ -77,7 +77,7 @@ then
     fi
 else 
     echo $PID crossref >> $LOG_FILE
-    $cisis_dir/mx $NEW_DB_DOI btell=0 "bool=hr=$PID" lw=9999 "proc=if v880='$PID' or v881='$PID' or v891='$PID' and '$DOI_OR_NO'<>''  then 'd237a237{$DOI_OR_NO{','a91{',date,'{' fi" copy=$NEW_DB_DOI now -all
+    $cisis_dir/mx $NEW_DB_DOI btell=0 "bool=PID=$PID" lw=9999 "proc=if v880='$PID' or v881='$PID' or v891='$PID' and '$DOI_OR_NO'<>''  then 'd237a237{$DOI_OR_NO{','a91{',date,'{' fi" copy=$NEW_DB_DOI now -all
 fi
 if [ "@$PID" != "@" ]
 then
