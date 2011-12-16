@@ -1,0 +1,10 @@
+MX=.mx
+MX=mx
+MXTB=mxtb
+MYTEMP=../../temp
+DB_QUERY=../../../bases/doi/query
+DB_DOI_BR=../../../bases/doi/doi
+
+depositor_email=roberta.takenaka@scielo.org
+crossrefUserName=bireme
+crossrefPassword=p@s5w0Rd
