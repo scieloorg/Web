@@ -1,4 +1,4 @@
-FUTURE v5.21
+v5.21
 [web]
 How to cite using APA standard
 At article tool box, add link to other text version
@@ -7,6 +7,7 @@ FIXED Issue navegation: at the oldest issue, it is presenting erroneously a prev
 
 [proc]
 xref_check (check if DOI is registered at CrossRef)
+proc_xref (query for references, including h records, and for all the collections)
 
 v5.20
 [web]
