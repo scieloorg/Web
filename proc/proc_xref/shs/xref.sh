@@ -12,13 +12,13 @@ echo ...........  Executing $0 $1 $2 $3 $4 $5
 PATH_LOG=../log
 PATH_WRK=../wrk/doi.$PARAM_COL
 
-#DB_NEW_DOI_WRK=$PATH_WRK/doi
-#DB_NEWPID=$PATH_WRK/newpid
+
 DB_SRC=$PATH_WRK/src
 
-if [ -f $PARAM_PATH_NEW_DB_DOI/doi.mst ]
+if [ -f $PARAM_PATH_NEW_DB_DOI/query.mst ]
 then
-DB_NEW_DOI_READONLY=$PARAM_PATH_NEW_DB_DOI/doi
+DB_NEW_DOI_READONLY=$PARAM_PATH_NEW_DB_DOI/query
+cp $DB_NEW_DOI_READONLY.??? $PATH_WRK
 fi
 
 FILE_CONTROL=$MYTEMP/$PARAM_COL.FILE_CONTROL
@@ -41,7 +41,7 @@ if [ ! -d $MYTEMP ]
 then
 	mkdir -p $MYTEMP
 fi
-cp ../fst/ref.fst $PATH_WRK/doi.fst
+cp ../fst/ref.fst $PATH_WRK/query.fst
 echo 1 > $FILE_CONTROL 
 
 # h + c = src
