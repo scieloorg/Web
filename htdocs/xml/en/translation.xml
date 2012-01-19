@@ -256,7 +256,7 @@
 		<text find="spanish">Español</text>
 		<text find="english">English</text>
 		<text find="help">help</text>
-		<text find="app_name">SciELO</text>
+		<text find="app_name"></text>
 		<text find="about_this_site">about this site</text>
 		<text find="scielo_news">SciELO news</text>
 		<text find="scielo_team">SciELO team</text>
