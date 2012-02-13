@@ -196,12 +196,14 @@ class Scielo extends ScieloBase
                             "show_group_related_links" => "show_group_related_links",
                             "show_group_services" => "show_group_services",
                             "show_group_bookmark" => "show_group_bookmark",
-                            "show_meta_citation_reference" => "show_meta_citation_reference"
+                            "show_meta_citation_reference" => "show_meta_citation_reference",
+                            "show_ubio" => "show_ubio"
                     );
 
                     foreach ($elements as $k => $v) {
                             $xmlScieloOrg .= "<$k>" . $this->_def->getKeyValue($v) . "</$k>";
                     }
+                    $xmlScieloOrg .="<refferer>http://".htmlentities($_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"])."</refferer>";
                     $xmlScieloOrg .=  $this->userInfo();
                     if(($_REQUEST['script']=='sci_serial') and ($this->_def->getKeyValue("show_scimago") == 1)){
                             $xmlScieloOrg.= "<scimago_status>online</scimago_status>";
