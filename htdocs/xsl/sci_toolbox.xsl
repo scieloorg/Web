@@ -364,6 +364,7 @@
 
           <!-- uBio -->
           <xsl:if test="$show_ubio = 1">
+              <xsl:if test="$title_subjects = 'BIOLOGICAL SCIENCES'">
               <li>
                 <a href="javascript:void(0);" >
                 <xsl:attribute name="onclick">
@@ -372,6 +373,7 @@
                 <img src="/img/btubio.png" border="0" width="21px" heigth="21px"/> uBio
               </a>
               </li>
+              </xsl:if>
           </xsl:if>
           <!-- FIM uBio -->
       </ul>
