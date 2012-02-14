@@ -161,7 +161,7 @@ related_service="http://trigramas.bireme.br/cgi-bin/mx/cgi=@scielo/related?pid=P
 send_mail="http://vm.scielo.br/applications/scielo-org/pages/services/sendMail.php?pid=PARAM_PID&caller=PARAM_SERVER"
 windows_live_translator="http://www.windowslivetranslator.com"
 semantic_highlights="http://conceptweblinker.wikiprofessional.org/wikibutton.js?id=BS"
-ubio="http://www.ubio.org/tools/linkit.php?map=all&url="
+ubio="http://www.ubio.org/tools/linkit.php?url="
 
 [mimetex]
 mimetex=/cgi-bin/mimetex.cgi
