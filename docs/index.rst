@@ -6,11 +6,15 @@
 Welcome to SciELO Site's documentation!
 =======================================
 
+**SciELO Site** is a product of SciELO Methodology.
+
 Contents:
 
 .. toctree::
-   :maxdepth: 2
+    :maxdepth: 2
 
+    about.rst
+    howtoinstall.rst
 
 
 Indices and tables
