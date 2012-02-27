@@ -300,8 +300,135 @@ Special Configurations (XML Google, DOAJ, Crossref DOI, SCIMAGO, etc)
 Bibliometria
 ------------
 
+.. warning::
+
+    Los pasos seguintes son ejecutados a partir del directório htdocs.
+
+Editar el archivo de configuración de SciELO.
+
+    .. code-block:: text
+        
+        #var/www/scielo/htdocs$> vi scielo.def.php
+
+Solicitar al equipo SciELO el contenido que deberá ser añadido en el parametro "APP_NAME".
+
+    .. code-block:: text
+
+        [SITE_INFO]
+        APP_NAME=scielo
+
+
+Garantizar que el domínio del servidore de Bibliometria esta correcto. **scielo-log.scielo.br**
+
+* Cambiar el parametro "app=scielo" para app=\<mismo que APP_NAME\>
+* Cambiar el contenido de los parametros abajo denjandolos como el ejempo.
+
+    .. code-block:: text
+
+        [SCIELO]
+        STAT_SERVER_CITATION=http://statbiblio.scielo.org/
+        STAT_SERVER_COAUTH=http://statbiblio.scielo.org/
+
+
+    .. code-block:: text
+
+        [LOG]
+        ENABLE_STATISTICS_LINK=1
+        ENABLE_CITATION_REPORTS_LINK=1
+        SERVER_LOG=scielo-log.scielo.br
+        SERVER_LOG_PROC=scielo-log.scielo.br/
+        SERVER_LOG_PROC_PATH=scielolog
+        SCRIPT_LOG_NAME=scielolog/updateLog02.php
+        SCRIPT_LOG_RUN=scielo-log.scielo.br/scielolog/scielolog03B2.php
+        SCRIPT_TOP_TEN="http://scielo-log.scielo.br/scielolog/ofigraph20.php?app=APP_NAME"
+        SCRIPT_ARTICLES_PER_MONTH="http://scielo-log.scielo.br/scielolog/ofigraph21.php?app=APP_NAME"
+
+
+
 Estadísticas de Accesos
 -----------------------
+
+.. warning::
+
+    Los pasos seguintes son ejecutados a partir del directório htdocs.
+
+Editar el archivo de configuración de SciELO.
+
+    .. code-block:: text
+
+        #var/www/scielo/htdocs$> vi scielo.def.php
+
+
+Editar el archivo de configuración y cambiar los siguintes parametros.
+
+Solicitar al equipo SciELO el contenido que deberá ser añadido en el parametro "APP_NAME".
+
+Cambiar "SCRIPT_TOP_TEN" y "SCRIPT_ARTICLES_PER_MONTH" sustituindo app=scielo por app= al mismo contenido de APP_NAME.
+
+    .. code-block:: text
+    
+        [SITE_INFO]
+        APP_NAME=scielo 
+
+        [LOG]
+        ACTIVATE_LOG=1
+        ENABLE_STATISTICS_LINK=1
+        ACCESSSTAT_LOG_DIRECTORY=/var/www/scielo/bases/accesstat
+        SERVER_LOG=scielo-log.scielo.br
+        SERVER_LOG_PROC=scielo-log.scielo.br/
+        SERVER_LOG_PROC_PATH=scielolog
+        SCRIPT_LOG_NAME=scielolog/updateLog02.php
+        SCRIPT_LOG_RUN=scielo-log.scielo.br/scielolog/scielolog03B2.php
+        SCRIPT_TOP_TEN="http://scielo-log.scielo.br/scielolog/ofigraph20.php?app=scielo"
+        SCRIPT_ARTICLES_PER_MONTH="http://scielo-log.scielo.br/scielolog/ofigraph21.php?app=scielo"
+        ENABLE_ARTICLE_LANG_LINK=1
+
+**Para habilitar las gráficas de accesos en la página del artículo**
+
+Editar el archivo de configuración de SciELO.
+
+    .. code-block:: text
+        
+        #var/www/scielo/htdocs$> vi applications/scielo-org/scielo.def.php
+
+En el grupo "requests_server" cambiar el parametro "url"
+
+    .. code-block:: text
+
+        [requests_server]
+        url="http://scielo-log.scielo.br/"
+
+**Habilitar enlace en la caja de servícios del artículos**
+
+Editar el archivo de configuración y cambiar el siguiente parametro.
+
+    .. code-block:: text
+    
+        #> vi htdocs/scielo.def.php
+
+
+En el grupo "services" cambiar el parametro "show_requests"
+
+    .. code-block:: text
+
+        [services]
+        ...
+        show_requests=1
+        ...
+
+
+Notas
+`````
+
+* Solicitar al equipo SciELO el contenido que deberá ser añadido en el parametro "APP_NAME".
+* Para ver si la configuración fue hecha con succeso mirar el codigo fuente de cualquier página del sitio SciELO. Localizar la linea: 
+
+    .. code-block:: text
+
+        <img src="http://scielo-log.scielo.br/scielolog/updateLog02.php?app=scielo&amp;page=sci_home&amp;lang=en&amp;norm=iso&amp;doctopic=&amp;doctype=&amp;tlng=" border="0" height="1" width="1">
+
+* Tener en cuenta que el parametro app sea el mismo de parametro "APP_NAME" configurado en el archivo scielo.def.php
+
 
 Requisición de DOI
 ------------------
@@ -312,11 +439,187 @@ DOAJ
 SCIMAGO
 -------
 
+El diretório raiz de los archivos del procesamiento de SCIMAGO es **proc/scielo_sjr**
+
+Los pasos seguintes son ejecutados a partir del directório proc/scielo_sjr.
+
+Copiar el archivo de configuración.
+
+
+    .. code-block:: text
+
+        #var/www/scielo/proc/scielo_sjr$> cp shs\config.sh.template shs\config.sh
+
+
+Editar el archivo de configuración y cambiar los paths de las variables si necesario.
+
+    .. code-block:: text
+
+        #var/www/scielo/proc/scielo_sjr$> vi shs/config.sh
+
+
+**Ejemplo del archivo de configuración**
+
+    .. code-block:: text
+
+        #!/bin/bash
+        # ------------------------------------------------------------------------- #
+        # variaveis com caminho para bases de dados utilizadas no processmento.
+        # ------------------------------------------------------------------------- #
+        export scielo_dir="/var/www/scielo"
+        export scielo_proc="/var/www/scielo/proc"
+        export database_dir="$scielo_dir/bases"
+        export cisis_dir="$scielo_dir/proc/cisis"
+        # ------------------------------------------------------------------------- #
+
+**Fuera de uso**
+
+    .. code-block:: text
+
+        #JAVA RUNTIME ENVIRONMENT VARS
+        export JAVA_HOME=/usr/local/jdk1.5.0_06
+
+Ejecutar el script para recolectar las graficas de SCIMAGO.
+
+    .. code-block:: text
+
+        #var/www/scielo/proc/scielo_sjr$> cd shs/
+        #var/www/scielo/proc/scielo_sjr$> ./sjr_run.sh
+
+
 Envio de Bases para SciELO
 --------------------------
 
-------
-Update
-------
+    .. warning::
 
-Update Guide from SciELO Web Site. [[read|actualizacion_en]]
+        Las configuraciones abajo deben ser ejecutadas desde el servidor de procesamiento
+
+Acceder a la carpeta de procesamiento
+
+    .. code-block:: text
+
+        #>cd /var/www/scielo/proc 
+
+Copiar el archivo de configuración de la cuenta de FTP
+
+    .. code-block:: text
+
+        #var/www/scielo/proc$> cp transf/Envia2MedlineLogOn-exemplo.txt transf/Envia2MedlineLogOn.txt
+
+Editar el archivo de configuración de la cuenta de FTP
+
+    .. code-block:: text
+
+        #var/www/scielo/proc> vi transf/Envia2MedlineLogOn.txt
+
+
+Cambiar los parametros del ftp de:
+
+    .. code-block:: text
+
+        open ftp.scielo.br
+        user user_id user_passwd
+
+para:
+
+    .. code-block:: text
+
+        open ftp.scielo.br
+        user <scielo.code> <clave de accesos>
+
+
+ejecutar
+
+    .. code-block:: text
+
+        #var/www/scielo/proc$>./Envia2MedlinePadrao.bat 
+
+
+Notas
+`````
+
+* Solicitar al equipo SciELO el "code" y clave de acceso para la cuenta FTP.
+* Configura un ***cron*** para ejecutar el procedimiento periodicamente. (Semanualmente)
+* El archivo de log para consultas en casos de problemas esta en:
+    * /var/www/proc/log/envia2medlineFTP.log
+    * /var/www/proc/log/envia2medline.log
+
+----------
+Updating
+----------
+
+Download the latest version available in a temporary directory
+
+All collection package is up to date with the latest version, see the corresponding code of your distribution at `GitHub <https://github.com/scieloorg/Web/branches>`_
+
+**Switch the "master" in the syntax bellow with the corresponding code of your collection.**
+
+    .. code-block:: text
+
+        #> cd /tmp
+        #tmp$> wget https://github.com/scieloorg/Web/tarball/master --no-check-certificate
+
+
+Expanding the downloaded file. The file will be named like (scieloorg-Web-v5.14-12-gd37aad4.tar.gz).
+The file name will be different for each version.
+
+    .. code-block:: text
+    
+        #tmp$> tar xvfzp scieloorg-Web-v5.14-12-gd37aad4.tar.gz
+
+
+The created file structure will be like:
+
+    .. code-block:: text
+
+        scieloorg-Web-XXXXXXXX-XXXXXXXX/
+        bases/
+        bases_modelo/
+        bases-work/
+        bases-work_modelo/
+        cgi-bin/
+        htdocs/
+        logs/
+        proc/
+        serial/
+        serial_modelo/ 
+
+
+Compressing only the necessary folders for the update.
+
+    .. code-block:: text
+
+        #tmp$> cd scieloorg-Web-XXXXXXXX-XXXXXXXX
+        #tmp/scieloorg-Web-XXXXXXXX-XXXXXXXX$> tar cvfzp scielo_tmp.tgz htdocs/ cgi-bin/ proc/
+
+
+Switching to the SciELO Site folder.
+
+    .. code-block:: text
+
+        #> cd /var/www/scielo
+
+Moving the tgz temporary file to the SciELO Web folder.
+
+    .. code-block:: text
+
+        #tmp/scieloorg-Web-XXXXXXXX-XXXXXXXX$> mv scielo_tmp.tgz .
+
+
+Expanding the file.
+
+    .. code-block:: text
+
+        #tmp/scieloorg-Web-XXXXXXXX-XXXXXXXX$> cd /var/www/scielo
+        #var/www/scielo$> tar xvfzp scielo_tmp.tgz
+
+Removing the tgz file
+
+    .. code-block:: text
+
+        #var/www/scielo$> rm scielo_tmp.tgz
+
+Notes
+=====
+
+Mirar el archivo versionOverview.txt para sabe si es necesario hacer nuevas configuraciones para la versión instalada accediendo la dirección electronica del sitio SciELO: http://www.scielo.br/versionOverview.txt
