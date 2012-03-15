@@ -20,9 +20,9 @@ Presentations
 -------------
 `Overview <https://github.com/scieloorg/Web/raw/master/docs/presentation/scielo_overview_en.ppt>`_
 
-`Infrastruture https://github.com/scieloorg/Web/raw/master/docs/presentation/scielo_infraestrutura_pt.ppt`_
+`Infrastruture <https://github.com/scieloorg/Web/raw/master/docs/presentation/scielo_infraestrutura_pt.ppt>`_
 
-`Methodology https://github.com/scieloorg/Web/raw/master/docs/presentation/scielo_metodologia_en.ppt`_
+`Methodology <https://github.com/scieloorg/Web/raw/master/docs/presentation/scielo_metodologia_en.ppt>`_
 
 Indices and tables
 ==================
