@@ -15,6 +15,7 @@ Contents:
 
     about.rst
     howtoinstall.rst
+    presentations
 
 
 Indices and tables
