@@ -141,6 +141,7 @@ show_press_releases=0
 show_clinical_trials=0
 show_ref_links=1
 show_meta_citation_reference=1
+show_ubio=1
 
 [services_group]
 show_group_article = 1
@@ -160,6 +161,7 @@ related_service="http://trigramas.bireme.br/cgi-bin/mx/cgi=@scielo/related?pid=P
 send_mail="http://vm.scielo.br/applications/scielo-org/pages/services/sendMail.php?pid=PARAM_PID&caller=PARAM_SERVER"
 windows_live_translator="http://www.windowslivetranslator.com"
 semantic_highlights="http://conceptweblinker.wikiprofessional.org/wikibutton.js?id=BS"
+ubio="http://www.ubio.org/tools/linkit.php?url="
 
 [mimetex]
 mimetex=/cgi-bin/mimetex.cgi

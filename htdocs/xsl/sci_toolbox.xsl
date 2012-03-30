@@ -3,6 +3,7 @@
   <xsl:include href="related_documents.xsl"/>
   <xsl:template name="tool_box">
     <xsl:variable name="show_requests" select="//varScieloOrg/requests" />
+    <xsl:variable name="refferer" select="//varScieloOrg/refferer" />
     <xsl:variable name="show_login" select="//varScieloOrg/show_login" />
     <xsl:variable name="show_send_by_email" select="//varScieloOrg/show_send_by_email" />
     <xsl:variable name="show_cited_scielo" select="//varScieloOrg/show_cited_scielo" />
@@ -15,6 +16,7 @@
     <xsl:variable name="services_comments" select="//varScieloOrg/services_comments" />
     <xsl:variable name="show_article_wltranslation" select="//varScieloOrg/show_article_wltranslation" />
     <xsl:variable name="show_semantic_hl" select="//varScieloOrg/show_semantic_hl" />
+    <xsl:variable name="show_ubio" select="//varScieloOrg/show_ubio" />
     <xsl:variable name="acron" select="//SIGLUM" />
     <xsl:variable name="commentCount" select="//commentCount" />
     <xsl:variable name="current_issn" select="//SERIAL/ISSN_AS_ID"/>
@@ -359,6 +361,21 @@
             </li>
            </xsl:if>
          <!-- FAPESP FIM-->
+
+          <!-- uBio -->
+          <xsl:if test="$show_ubio = 1">
+              <xsl:if test="$title_subjects = 'BIOLOGICAL SCIENCES'">
+              <li>
+                <a href="javascript:void(0);" >
+                <xsl:attribute name="onclick">
+                  window.open('<xsl:value-of select="concat(//fulltext-service[@id='ubio']/url,$refferer)"/>')
+                </xsl:attribute>
+                <img src="/img/btubio.png" border="0" width="21px" heigth="21px"/> uBio
+              </a>
+              </li>
+              </xsl:if>
+          </xsl:if>
+          <!-- FIM uBio -->
       </ul>
   </div>
  </xsl:if>
