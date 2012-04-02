@@ -433,26 +433,25 @@ DOAJ
 SCIMAGO
 -------
 
-El diretório raiz de los archivos del procesamiento de SCIMAGO es **proc/scielo_sjr**
+The root directory for this processing is **proc/scielo_sjr**
 
-Los pasos seguintes son ejecutados a partir del directório proc/scielo_sjr.
+The following steps run at the directory proc/scielo_sjr.
 
-Copiar el archivo de configuración.
+Copping the config file.
 
 
     .. code-block:: text
 
         #var/www/scielo/proc/scielo_sjr$> cp shs\config.sh.template shs\config.sh
 
-
-Editar el archivo de configuración y cambiar los paths de las variables si necesario.
+Editing the config file and changing the paths if necessary.
 
     .. code-block:: text
 
         #var/www/scielo/proc/scielo_sjr$> vi shs/config.sh
 
 
-**Ejemplo del archivo de configuración**
+**Config file sample**
 
     .. code-block:: text
 
@@ -466,14 +465,14 @@ Editar el archivo de configuración y cambiar los paths de las variables si nece
         export cisis_dir="$scielo_dir/proc/cisis"
         # ------------------------------------------------------------------------- #
 
-**Fuera de uso**
+**Out of use**
 
     .. code-block:: text
 
         #JAVA RUNTIME ENVIRONMENT VARS
         export JAVA_HOME=/usr/local/jdk1.5.0_06
 
-Ejecutar el script para recolectar las graficas de SCIMAGO.
+Run the script to harvest the SCIMAGO charts.
 
     .. code-block:: text
 
@@ -481,40 +480,39 @@ Ejecutar el script para recolectar las graficas de SCIMAGO.
         #var/www/scielo/proc/scielo_sjr$> ./sjr_run.sh
 
 
-Envio de Bases para SciELO
---------------------------
+Sending databases to SciELO
+---------------------------
 
     .. warning::
 
-        Las configuraciones abajo deben ser ejecutadas desde el servidor de procesamiento
+        The above configurations must be run from the processing server
 
-Acceder a la carpeta de procesamiento
+Accessing the processing directory
 
     .. code-block:: text
 
         #>cd /var/www/scielo/proc 
 
-Copiar el archivo de configuración de la cuenta de FTP
+Copying the FTP account configuration file.
 
     .. code-block:: text
 
         #var/www/scielo/proc$> cp transf/Envia2MedlineLogOn-exemplo.txt transf/Envia2MedlineLogOn.txt
 
-Editar el archivo de configuración de la cuenta de FTP
+Editing the FTP configuration file
 
     .. code-block:: text
 
         #var/www/scielo/proc> vi transf/Envia2MedlineLogOn.txt
 
-
-Cambiar los parametros del ftp de:
+Changing the ftp parameters, from:
 
     .. code-block:: text
 
         open ftp.scielo.br
         user user_id user_passwd
 
-para:
+to:
 
     .. code-block:: text
 
@@ -522,7 +520,7 @@ para:
         user <scielo.code> <clave de accesos>
 
 
-ejecutar
+running
 
     .. code-block:: text
 
@@ -532,9 +530,9 @@ ejecutar
 Notes
 `````
 
-* Solicitar al equipo SciELO el "code" y clave de acceso para la cuenta FTP.
-* Configura un ***cron*** para ejecutar el procedimiento periodicamente. (Semanualmente)
-* El archivo de log para consultas en casos de problemas esta en:
+* Ask for the SciELO team the "code" and password for your ftp account.
+* Configure a **cron** to periodicaly run the processing. (Preferable Weekly)
+* The log files are:
     * /var/www/proc/log/envia2medlineFTP.log
     * /var/www/proc/log/envia2medline.log
 
