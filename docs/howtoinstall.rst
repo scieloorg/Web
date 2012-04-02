@@ -529,7 +529,7 @@ ejecutar
         #var/www/scielo/proc$>./Envia2MedlinePadrao.bat 
 
 
-Notas
+Notes
 `````
 
 * Solicitar al equipo SciELO el "code" y clave de acceso para la cuenta FTP.
