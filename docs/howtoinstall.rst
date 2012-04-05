@@ -34,16 +34,16 @@ Install
 SciELO Site Installation guide
 ===============================
 
-1. Preparación del ambiente y instalación
+1. Preparing the environment and install
 
-    1.1. Crear la estructura de carpetas de la aplicación SciELO
+    1.1. Creating the directories to receive the application
 
         .. code-block:: text
 
             #>$ mkdir -f /var/www/scielo
             #>$ cd /var/www/scielo
 
-    1.2. Instalando através del GitHub
+    1.2. Installing by GitHub
 
         .. code-block:: text
 
@@ -57,7 +57,7 @@ SciELO Site Installation guide
 
             Change the version according to the latest version available at `GitHub <https://github.com/scieloorg/Web/tags>`_
 
-        La estructura creada bajo la carpeta /var/www/scielo es
+        The created directory structure at /var/www/scielo must be 
 
         .. code-block:: text
 
@@ -71,22 +71,22 @@ SciELO Site Installation guide
             proc/
             serial_modelo/ 
 
-    1.3. Añadir los paquetes de ISIS y WWWISIS en el directório de la aplicación
+    1.3. Install the ISIS and WISIS tools at the SciELO Site diretories
 
 
-        **Paquete ISIS**
+        **ISIS Package**
 
-        en la carpeta /var/www/scielo/proc/cisis
+        inside /var/www/scielo/proc/cisis
 
-        Bajar el paquete CISIS del sitio de `productos <http://bvsmodelo.bvsalud.org/php/level.php?lang=es&component=28&item=1>`_ de BIREME. La versión recomendada es la versión **LINDG4**
+        Download the CISIS package from the BIREME products `productos <http://bvsmodelo.bvsalud.org/php/level.php?lang=es&component=28&item=1>`_  website. The recomended version is **LINDG4**
 
-        Para comprobar la versión del CISIS, despues de descomprimir el archivo en /var/www/scielo/proc/cisis, ejecutar: 
+        To check the CISIS version, after unzip the donwloaded file at /var/www/scielo/proc/cisis, run: 
 
         .. code-block:: text
 
             #/var/www/scielo/proc/cisis$>./mx what
 
-        El resultado deverá ser:
+        The result must be:
 
         .. code-block:: text
 
@@ -94,20 +94,20 @@ SciELO Site Installation guide
             CISIS Interface v5.2b/.iy0/Z/4GB/GIZ/DEC/ISI/UTL/INVX/B7/FAT/CIP/CGI/MX/W
             Copyright (c)BIREME/PAHO 2006. [!http://www.bireme.br/products/cisis]
 
-        **Paquete WWWISIS**
+        **WWWISIS Package**
 
-        En la carpeta /var/www/scielo/cgi-bin
+        at /var/www/scielo/cgi-bin
 
-        Bajar el paquete WWWISIS del sitio de `productos <http://bvsmodelo.bvsalud.org/php/level.php?lang=pt&component=28&item=2>`_ de BIREME. La versión recomendada es la version **LINDG4**
+        Download the WWWISIS package from the BIREME products `productos <http://bvsmodelo.bvsalud.org/php/level.php?lang=es&component=28&item=1>`_  website. The recomended version is **LINDG4**
 
-        Para comprobar la versión de WWWISIS y también comprobar si el **Apache** se configuró correctamente para ejecutar scripts CGI, acceder la URL:
-
+        To check the WWWISIS version, access the website url:
+        
         .. code-block:: text
 
             http://vm.scielo.br/cgi-bin/wxis.exe?hello
         
 
-        El resultado deveberá ser:
+        The result must be:
 
         .. code-block:: text
         
@@ -119,25 +119,24 @@ SciELO Site Installation guide
 
             WXIS release date: Sep 24 2008
 
-    1.4. Configuración inicial del archivo /var/www/scielo/htdocs/scielo.def.php
+    1.4. Configuring the file: /var/www/scielo/htdocs/scielo.def.php
 
         .. warning::
             
-            Este es un tema que requiere mayor atención, puesto que hay que configurar muchos parámetros.
+            Pay attention at this part, a lot of parameters must be configured.
 
-        Copiar el archivo scielo.def.php.template para scielo.def.php
+        Coping the file scielo.def.php.template to scielo.def.php
 
         .. code-block:: text
 
             #var/www/scielo$>cp htdocs/scielo.def.php.template htdocs/scielo.def.php
             #var/www/scielo$>vi htdocs/scielo.def.php
     
+        This file is splited by sections **[ ]** where each section have a group of parameters that could be changed. 
 
-        El archivo esta organizado en secciones identificadas por **[ ]**, donde cada sección tiene un grupo de variables
+        At this part you will setup just the parameters necessary to run the website with basic features. For specific configurations for Bibliometria, Access Statistics, SCIMAGO, Crossref, Cache and other features, take a look at **Special Configurations**
 
-        En ese punto serán configurados apenas parametros que permiten la utilización de los componentes basicos del sitios SciELO. Para configuración de servicios especificos como, Bibliometria, Estadísticas de Accesos, SCIMAGO, Google Scholar, Crossref, Cache, y otros mirar **Configuraciones Especiales**
-
-        Configuración de identificación básica de la instalación
+        Configuring the SciELO Site Identification
 
         .. code-block:: text
 
@@ -154,14 +153,14 @@ SciELO Site Installation guide
             ''STANDARD_LANG=en''
             '''APP_NAME=scielo'''
 
-        El contenido de APP_NAME debrá ser consultado con el equipo tecnico de SciELO
+        The APP_NAME parameter is given by the SciELO Team
 
         .. code-block:: text
 
             [SCIELO]
             '''SERVER_SCIELO=vm.scielo.br'''
 
-        El contenido de SERVER_SCIELO deberá ser cambiado por el dominio del sitio SciELO configurado en el APACHE
+        The SERVER_SCIELO must be changed by the intended domain of this SciELO Site installation. 
 
         .. code-block:: text
 
@@ -174,22 +173,22 @@ SciELO Site Installation guide
             PATH_OAI=/var/www/scielo/htdocs/oai/
             PATH_PROC=/var/www/scielo/proc/
 
-    1.5. Configurar el archivo /var/www/scielo/htdocs/iah/iah.def
+    1.5. Configuring the file: /var/www/scielo/htdocs/iah/iah.def
 
         .. warning::
 
-            Este es un tema que requiere mayor atención, puesto que hay que configurar muchos parámetros.
+            Pay attention at this part, a lot of parameters must be configured.
 
-        Copiar el archivo iah.def.template para iah.def.php
+        Copy the file iah.def.template to iah.def.php
 
         .. code-block:: text
 
             #var/www/scielo$>cp htdocs/iah/iah.def.template htdocs/iah/iah.def
             #var/www/scielo$>vi htdocs/iah/iah.def
         
-        El contenido de “PATH_CGI-BIN” deberá ser cambiado para el path de la aplicación SciELO configurado en el APACHE
+        The content of “PATH_CGI-BIN” must be changed to the path of the applications previously configured on the APACHE Server.
         
-        El contenido de “PATH_DATABASE” deberá ser cambiado para el path de la aplicación SciELO configurado en el APACHE
+        The content of “PATH_DATABASE” must be changed to the path of the applications previously configured on the APACHE Server.
 
         .. code-block:: text
     
@@ -197,19 +196,19 @@ SciELO Site Installation guide
             PATH_CGI-BIN=/var/www/scielo/cgi-bin/iah/
             PATH_DATABASE=/var/www/scielo/bases/
     
-        El contenido de “LOGO URL” deberá ser cambiado para el dominio de la aplicación SciELO configurado en el APACHE
-        
-        El contenido de “HEADER URL” deberá ser cambiado para el dominio de la aplicación SciELO configurado en el APACHE
+        The content of “LOGO URL” must be changed to the path of the applications previously configured on the APACHE Server.
 
+        The content of “HEADER URL” must be changed to the path of the applications previously configured on the APACHE Server.
+        
         .. code-block:: text
 
             [HEADER]
             LOGO URL=www.scielo.br
             HEADER URL=www.scielo.br
 
-        El contenido de “MANAGER E-MAIL” deberá ser cambiado por el email del administrador del nuevo sitio SciELO
+        The content of “MANAGER E-MAIL” must be changed to the path of the applications previously configured on the APACHE Server.
 
-        La carpeta configurada en el parámetro LOG_DATABASE deberá tener permisos de escrita para el usuario apache o nobody
+        The directory configured in the parameter LOG_DATABASE must have write permission for the user apache
 
         .. code-block:: text
 
@@ -217,20 +216,20 @@ SciELO Site Installation guide
             MANAGER E-MAIL=scielo@bireme.br
             LOG_DATABASE=/var/www/scielo/bases/logdia/iahlog
 
-    1.6. Configurar el archivo /var/www/scielo/htdocs/iah/article.def
+    1.6. Configuring the file /var/www/scielo/htdocs/iah/article.def
 
         .. warning::
         
-            Este es un tema que requiere mayor atención, puesto que hay que configurar varios parámetros.
+            Pay attention at this part, a lot of parameters must be configured.
 
-        Copiar el archivo article.def.template para article.def.php
+        Copy the file article.def.template to article.def.php
 
         .. code-block:: text
 
             #var/www/scielo$>mv htdocs/iah/article.def.template htdocs/iah/article.def
             #var/www/scielo$>vi htdocs/iah/article.def
     
-        Cambiar el path de la aplicación
+        Changing the applications path
 
         .. code-block:: text
 
@@ -251,7 +250,7 @@ SciELO Site Installation guide
             FILE ahlist.pft=/var/www/scielo/cgi-bin/iah-styles/%lang%/ahlist.pft
             FILE citation.xml=/var/www/scielo/cgi-bin/iah-styles/fbisoXML.pft
 
-        Cambiar el path de la aplicación
+        Changing the application path
 
         .. code-block:: text        
 
@@ -259,20 +258,20 @@ SciELO Site Installation guide
             VARIABLE APP_PATH=/var/www/scielo
             VARIABLE APP_REVISTAS_PATH=/var/www/scielo/htdocs/revistas/
 
-    1.7. Configurar el archivo /var/www/scielo/htdocs/iah/title.def
+    1.7. Configuring the file /var/www/scielo/htdocs/iah/title.def
 
         .. warning::
 
-            Este es un tema que requiere mayor atención, puesto que hay que configurar muchos parámetros.
+            Pay attention at this part, a lot of parameters must be configured.
 
-        Copiar el archivo article.def.template para article.def.php
+        Copy the file article.def.template to article.def.php
 
         .. code-block:: text
 
             #var/www/scielo$>cp htdocs/iah/title.def.template htdocs/iah/title.def
             #var/www/scielo$>vi htdocs/iah/title.def
 
-        Cambiar el path de la aplicación
+        Change the application path
 
         .. code-block:: text
 
@@ -284,7 +283,7 @@ SciELO Site Installation guide
             FILE van.pft=/var/www/scielo/cgi-bin/iah-styles/fbsrc1.pft
             FILE abn.pft=/var/www/scielo/cgi-bin/iah-styles/fbsrc1.pft
 
-        Cambiar el path de la aplicación
+        Change the application path
 
         .. code-block:: text
             
@@ -302,15 +301,15 @@ Bibliometria
 
 .. warning::
 
-    Los pasos seguintes son ejecutados a partir del directório htdocs.
+    Run each step from the **htdocs** directory.
 
-Editar el archivo de configuración de SciELO.
+Setup the cofiguration file.
 
     .. code-block:: text
         
         #var/www/scielo/htdocs$> vi scielo.def.php
 
-Solicitar al equipo SciELO el contenido que deberá ser añadido en el parametro "APP_NAME".
+Ask for the SciELO team for your "APP_NAME".
 
     .. code-block:: text
 
@@ -318,10 +317,10 @@ Solicitar al equipo SciELO el contenido que deberá ser añadido en el parametro
         APP_NAME=scielo
 
 
-Garantizar que el domínio del servidore de Bibliometria esta correcto. **scielo-log.scielo.br**
+Check if the domain of the Bibliometria Server is correct. It must be **scielo-log.scielo.br**
 
-* Cambiar el parametro "app=scielo" para app=\<mismo que APP_NAME\>
-* Cambiar el contenido de los parametros abajo denjandolos como el ejempo.
+* Change the parameter "app=scielo" to app=\<same as APP_NAME\>
+* Change the parameter according to the following example.
 
     .. code-block:: text
 
@@ -345,25 +344,23 @@ Garantizar que el domínio del servidore de Bibliometria esta correcto. **scielo
 
 
 
-Estadísticas de Accesos
------------------------
+Access Statistics
+-----------------
 
 .. warning::
 
-    Los pasos seguintes son ejecutados a partir del directório htdocs.
+    Run each step from the **htdocs** directory.
 
-Editar el archivo de configuración de SciELO.
+Setup the cofiguration file.
 
     .. code-block:: text
-
+        
         #var/www/scielo/htdocs$> vi scielo.def.php
 
 
-Editar el archivo de configuración y cambiar los siguintes parametros.
+Ask for the SciELO team for your "APP_NAME".
 
-Solicitar al equipo SciELO el contenido que deberá ser añadido en el parametro "APP_NAME".
-
-Cambiar "SCRIPT_TOP_TEN" y "SCRIPT_ARTICLES_PER_MONTH" sustituindo app=scielo por app= al mismo contenido de APP_NAME.
+Change "SCRIPT_TOP_TEN" and "SCRIPT_ARTICLES_PER_MONTH" replacing app=scielo por app=\< same as APP_NAME \>.
 
     .. code-block:: text
     
@@ -383,31 +380,31 @@ Cambiar "SCRIPT_TOP_TEN" y "SCRIPT_ARTICLES_PER_MONTH" sustituindo app=scielo po
         SCRIPT_ARTICLES_PER_MONTH="http://scielo-log.scielo.br/scielolog/ofigraph21.php?app=scielo"
         ENABLE_ARTICLE_LANG_LINK=1
 
-**Para habilitar las gráficas de accesos en la página del artículo**
+**To display the access statistics chart in the article page**
 
-Editar el archivo de configuración de SciELO.
+Setup the cofiguration file.
 
     .. code-block:: text
         
         #var/www/scielo/htdocs$> vi applications/scielo-org/scielo.def.php
 
-En el grupo "requests_server" cambiar el parametro "url"
+In the group "requests_server" change the parameter "url"
 
     .. code-block:: text
 
         [requests_server]
         url="http://scielo-log.scielo.br/"
 
-**Habilitar enlace en la caja de servícios del artículos**
+**Enable the Access Statistics link to register your access in the SciELO Server **
 
-Editar el archivo de configuración y cambiar el siguiente parametro.
+Setup the cofiguration file.
 
     .. code-block:: text
     
         #> vi htdocs/scielo.def.php
 
 
-En el grupo "services" cambiar el parametro "show_requests"
+In the group "services" change the parameter "show_requests"
 
     .. code-block:: text
 
@@ -417,21 +414,18 @@ En el grupo "services" cambiar el parametro "show_requests"
         ...
 
 
-Notas
+Notes
 `````
 
-* Solicitar al equipo SciELO el contenido que deberá ser añadido en el parametro "APP_NAME".
-* Para ver si la configuración fue hecha con succeso mirar el codigo fuente de cualquier página del sitio SciELO. Localizar la linea: 
+* Ask for the SciELO Team for your APP_NAME.
+* Check if the configuration is fine looking for the following line in any SciELO Site page. 
 
     .. code-block:: text
 
         <img src="http://scielo-log.scielo.br/scielolog/updateLog02.php?app=scielo&amp;page=sci_home&amp;lang=en&amp;norm=iso&amp;doctopic=&amp;doctype=&amp;tlng=" border="0" height="1" width="1">
 
-* Tener en cuenta que el parametro app sea el mismo de parametro "APP_NAME" configurado en el archivo scielo.def.php
-
-
-Requisición de DOI
-------------------
+DOI Request
+-----------
 
 DOAJ
 ----
@@ -439,26 +433,25 @@ DOAJ
 SCIMAGO
 -------
 
-El diretório raiz de los archivos del procesamiento de SCIMAGO es **proc/scielo_sjr**
+The root directory for this processing is **proc/scielo_sjr**
 
-Los pasos seguintes son ejecutados a partir del directório proc/scielo_sjr.
+The following steps run at the directory proc/scielo_sjr.
 
-Copiar el archivo de configuración.
+Copping the config file.
 
 
     .. code-block:: text
 
         #var/www/scielo/proc/scielo_sjr$> cp shs\config.sh.template shs\config.sh
 
-
-Editar el archivo de configuración y cambiar los paths de las variables si necesario.
+Editing the config file and changing the paths if necessary.
 
     .. code-block:: text
 
         #var/www/scielo/proc/scielo_sjr$> vi shs/config.sh
 
 
-**Ejemplo del archivo de configuración**
+**Config file sample**
 
     .. code-block:: text
 
@@ -472,14 +465,14 @@ Editar el archivo de configuración y cambiar los paths de las variables si nece
         export cisis_dir="$scielo_dir/proc/cisis"
         # ------------------------------------------------------------------------- #
 
-**Fuera de uso**
+**Out of use**
 
     .. code-block:: text
 
         #JAVA RUNTIME ENVIRONMENT VARS
         export JAVA_HOME=/usr/local/jdk1.5.0_06
 
-Ejecutar el script para recolectar las graficas de SCIMAGO.
+Run the script to harvest the SCIMAGO charts.
 
     .. code-block:: text
 
@@ -487,40 +480,39 @@ Ejecutar el script para recolectar las graficas de SCIMAGO.
         #var/www/scielo/proc/scielo_sjr$> ./sjr_run.sh
 
 
-Envio de Bases para SciELO
---------------------------
+Sending databases to SciELO
+---------------------------
 
     .. warning::
 
-        Las configuraciones abajo deben ser ejecutadas desde el servidor de procesamiento
+        The above configurations must be run from the processing server
 
-Acceder a la carpeta de procesamiento
+Accessing the processing directory
 
     .. code-block:: text
 
         #>cd /var/www/scielo/proc 
 
-Copiar el archivo de configuración de la cuenta de FTP
+Copying the FTP account configuration file.
 
     .. code-block:: text
 
         #var/www/scielo/proc$> cp transf/Envia2MedlineLogOn-exemplo.txt transf/Envia2MedlineLogOn.txt
 
-Editar el archivo de configuración de la cuenta de FTP
+Editing the FTP configuration file
 
     .. code-block:: text
 
         #var/www/scielo/proc> vi transf/Envia2MedlineLogOn.txt
 
-
-Cambiar los parametros del ftp de:
+Changing the ftp parameters, from:
 
     .. code-block:: text
 
         open ftp.scielo.br
         user user_id user_passwd
 
-para:
+to:
 
     .. code-block:: text
 
@@ -528,19 +520,19 @@ para:
         user <scielo.code> <clave de accesos>
 
 
-ejecutar
+running
 
     .. code-block:: text
 
         #var/www/scielo/proc$>./Envia2MedlinePadrao.bat 
 
 
-Notas
+Notes
 `````
 
-* Solicitar al equipo SciELO el "code" y clave de acceso para la cuenta FTP.
-* Configura un ***cron*** para ejecutar el procedimiento periodicamente. (Semanualmente)
-* El archivo de log para consultas en casos de problemas esta en:
+* Ask for the SciELO team the "code" and password for your ftp account.
+* Configure a **cron** to periodicaly run the processing. (Preferable Weekly)
+* The log files are:
     * /var/www/proc/log/envia2medlineFTP.log
     * /var/www/proc/log/envia2medline.log
 
@@ -622,4 +614,4 @@ Removing the tgz file
 Notes
 =====
 
-Mirar el archivo versionOverview.txt para sabe si es necesario hacer nuevas configuraciones para la versión instalada accediendo la dirección electronica del sitio SciELO: http://www.scielo.br/versionOverview.txt
+Take a look at versionOverview.txt file to check if the updated web site has the newer version of ScIELO Site: http://www.scielo.br/versionOverview.txt

@@ -13,6 +13,7 @@ Welcome to SciELO Site's documentation!
 
     about.rst
     howtoinstall.rst
+    network.rst
 
 .. toctree::
     :maxdepth: 1
