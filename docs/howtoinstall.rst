@@ -1,38 +1,34 @@
-==============
-How to Install
-==============
+================================================
+Installation and configuration of SciELO Website 
+================================================
 
-------------
-Requirements
-------------
-
-Linux Server
+REQUIREMENTS
 ============
+    - CentOS release 5.6
+    - Apache 2.2.3 or later
+    - PHP 5.2.10 (required)
+        - PHP Modules
+            - libpng
+            - soap
+            - zlib
+            - XSL
+            - XML
+    - vim
+    - Git client
+    - basic knowledge of Linux Administration
+    - wget
 
-* Always use an up to date Linux distribution.
-    * PHP 5.2.X
-    * Apache 2.2.X
-    * PHP Modules
-        * libpng
-        * soap
-        * zlib
-        * XSL
-        * XML
-    * Git Client
 
-Guide for CentOS Distributions
+Checking the version
+====================
 
-Windows Server
-==============
+The <SciELO website>/versionOverview.txt displays the current version of the website.
+ 
+Check ScIELO Site: http://www.scielo.br/versionOverview.txt to see the most recent version.
 
-It is not recomended use windows as a server, considering that all the **SciELO Site** releases are only officialy tested at Linux. But if you wanna try, all the libraries and services are compatible with Windows Operating Systems.
 
--------
-Install
--------
-
-SciELO Site Installation guide
-===============================
+Installation
+============
 
 1. Preparing the environment and install
 
@@ -45,17 +41,40 @@ SciELO Site Installation guide
 
     1.2. Installing by GitHub
 
+
+        <branch_or_tag> 
+
+            - tag is corresponding to the versions. 
+                E.g.: v5.21. 
+                Link to the versions at `SciELO's GitHub <https://github.com/scieloorg/Web/tags>`_
+            - branch is the current version plus customizations for the country/collection.
+                E.g.: scielo_esp
+                Check the `branch name of each collection <network.html>`_.
+
+        <randomic_code>
+            a code generated after unzip execution
+
+
         .. code-block:: text
 
-            $ wget https://github.com/scieloorg/Web/zipball/v5.21 
-            $ unzip v5.21
-            $ mv scielo-org-<code>/* .
-            $ rmdir scielo-org-<code>
-            $ rm v5.21
+            $ wget https://github.com/scieloorg/Web/zipball/<branch_or_tag> 
+            $ unzip <branch_or_tag>
+
+
+        A folder named as scieloorg-<randomic_code> will be created.
+
+        .. code-block:: text
+
+            $ mv scieloorg-<randomic_code>/* .
+            $ rmdir scieloorg-<randomic_code>
+            $ rm <branch_or_tag>
+
+
 
         .. warning::
 
-            Change the version according to the latest version available at `GitHub <https://github.com/scieloorg/Web/tags>`_
+            Change <branch_or_tag> according to the latest version or the branch of the collection
+
 
         The created directory structure at /var/www/scielo must be 
 
@@ -71,14 +90,22 @@ SciELO Site Installation guide
             proc/
             serial_modelo/ 
 
-    1.3. Install the ISIS and WISIS tools at the SciELO Site diretories
+
+        .. image:: img/en/Metodologia-linux003.png
 
 
-        **ISIS Package**
+    1.3. Install the CISIS and WISIS tools at the SciELO Site diretories
+
+
+        **CISIS Package**
 
         inside /var/www/scielo/proc/cisis
 
-        Download the CISIS package from the BIREME products `productos <http://bvsmodelo.bvsalud.org/php/level.php?lang=es&component=28&item=1>`_  website. The recomended version is **LINDG4**
+        Download the `CISIS package <http://bvsmodelo.bvsalud.org/php/level.php?lang=es&component=28&item=1>`_ from the BIREME products website.
+
+        Set permissions to execute mx.
+
+        The recommended version is **LINDG4**
 
         To check the CISIS version, after unzip the donwloaded file at /var/www/scielo/proc/cisis, run: 
 
@@ -98,14 +125,25 @@ SciELO Site Installation guide
 
         at /var/www/scielo/cgi-bin
 
-        Download the WWWISIS package from the BIREME products `productos <http://bvsmodelo.bvsalud.org/php/level.php?lang=es&component=28&item=1>`_  website. The recomended version is **LINDG4**
-
-        To check the WWWISIS version, access the website url:
+        Download the `WWWISIS package <http://bvsmodelo.bvsalud.org/php/level.php?lang=es&component=28&item=1>`_ from the BIREME products website.
         
+        Set permission to execute wxis.
+
+        The recommended version is **LINDG4**
+
+        To check the WWWISIS version, at /var/www/scielo/cgi-bin/, run:
+
+        .. code-block:: text
+
+            #/var/www/scielo/cgi-bin$>wxis hello
+
+        If you have already configured the virtual host, you can check WWWISIS version by accessing the url:
+
         .. code-block:: text
 
             http://vm.scielo.br/cgi-bin/wxis.exe?hello
         
+        where vm.scielo.br is the website address
 
         The result must be:
 
@@ -119,48 +157,54 @@ SciELO Site Installation guide
 
             WXIS release date: Sep 24 2008
 
+Configuration
+=============
+
     1.4. Configuring the file: /var/www/scielo/htdocs/scielo.def.php
 
         .. warning::
             
-            Pay attention at this part, a lot of parameters must be configured.
+             Some parameters must be configured.
 
-        Coping the file scielo.def.php.template to scielo.def.php
+        Copying the file scielo.def.php.template to scielo.def.php
 
         .. code-block:: text
 
             #var/www/scielo$>cp htdocs/scielo.def.php.template htdocs/scielo.def.php
             #var/www/scielo$>vi htdocs/scielo.def.php
     
-        This file is splited by sections **[ ]** where each section have a group of parameters that could be changed. 
+        This file is organized by blocks name using  **[BLOCK_NAME]**. 
+        Each section have a set of parameters to be edited. 
 
-        At this part you will setup just the parameters necessary to run the website with basic features. For specific configurations for Bibliometria, Access Statistics, SCIMAGO, Crossref, Cache and other features, take a look at **Special Configurations**
+        At this moment, you will configure only the mandatory parameters to run the website with basic features.
+        
+        To configure other features, such as Bibliometrics, Access Statistics, SCIMAGO, etc, read `Special configurations`_.
 
         Configuring the SciELO Site Identification
 
         .. code-block:: text
 
             [SITE_INFO]
-            ''SITE_NAME=SciELO - Scientific Electronic Library Online''
-            ''SHORT_NAME=Scielo Brazil''
-            ''SITE_AUTHOR=FAPESP – BIREME''
-            ''ADDRESS_1=Rua Botucatu, 862 - Vila Clementino''
-            ''ADDRESS_2=04023-901 São Paulo SP''
-            ''COUNTRY=Brasil''
-            ''PHONE_NUMBER="+55 11 5576-9863'
-            ''FAX_NUMBER="+55 11 5575-8868"''
-            ''E_MAIL=!scielo@bireme.br''
-            ''STANDARD_LANG=en''
-            '''APP_NAME=scielo'''
+            SITE_NAME=SciELO - Scientific Electronic Library Online
+            SHORT_NAME=Scielo Brazil
+            SITE_AUTHOR=FAPESP – BIREME
+            ADDRESS_1=Rua Botucatu, 862 - Vila Clementino
+            ADDRESS_2=04023-901 São Paulo SP
+            COUNTRY=Brasil
+            PHONE_NUMBER="+55 11 5576-9863'
+            FAX_NUMBER="+55 11 5575-8868"
+            E_MAIL=scielo@bireme.br
+            STANDARD_LANG=en
+            APP_NAME=scielo
 
-        The APP_NAME parameter is given by the SciELO Team
+        The **APP_NAME** parameter value is provided by the SciELO Team.  
 
         .. code-block:: text
 
             [SCIELO]
-            '''SERVER_SCIELO=vm.scielo.br'''
+            SERVER_SCIELO=vm.scielo.br
 
-        The SERVER_SCIELO must be changed by the intended domain of this SciELO Site installation. 
+        Set SERVER_SCIELO to domain of your SciELO Site installation. 
 
         .. code-block:: text
 
@@ -177,18 +221,18 @@ SciELO Site Installation guide
 
         .. warning::
 
-            Pay attention at this part, a lot of parameters must be configured.
+             some parameters must be configured.
 
-        Copy the file iah.def.template to iah.def.php
+        Copy the file iah.def.template to iah.def and open it to edit.
 
         .. code-block:: text
 
             #var/www/scielo$>cp htdocs/iah/iah.def.template htdocs/iah/iah.def
             #var/www/scielo$>vi htdocs/iah/iah.def
         
-        The content of “PATH_CGI-BIN” must be changed to the path of the applications previously configured on the APACHE Server.
+        The value for **PATH_CGI-BIN** must be changed to the application path previously configured for the virtual host on the APACHE Server.
         
-        The content of “PATH_DATABASE” must be changed to the path of the applications previously configured on the APACHE Server.
+        The value for **PATH_DATABASE** must be changed to the application path previously configured for the virtual host on the APACHE Server.
 
         .. code-block:: text
     
@@ -196,9 +240,9 @@ SciELO Site Installation guide
             PATH_CGI-BIN=/var/www/scielo/cgi-bin/iah/
             PATH_DATABASE=/var/www/scielo/bases/
     
-        The content of “LOGO URL” must be changed to the path of the applications previously configured on the APACHE Server.
+        The value for **LOGO URL** must be changed to the application path previously configured for the virtual host on the APACHE Server.
 
-        The content of “HEADER URL” must be changed to the path of the applications previously configured on the APACHE Server.
+        The value for **HEADER URL** must be changed to the application path previously configured for the virtual host on the APACHE Server.
         
         .. code-block:: text
 
@@ -206,9 +250,9 @@ SciELO Site Installation guide
             LOGO URL=www.scielo.br
             HEADER URL=www.scielo.br
 
-        The content of “MANAGER E-MAIL” must be changed to the path of the applications previously configured on the APACHE Server.
+        The value for **MANAGER E-MAIL** must be changed to the application path previously configured for the virtual host on the APACHE Server.
 
-        The directory configured in the parameter LOG_DATABASE must have write permission for the user apache
+        The directory configured for LOG_DATABASE must have write permission for the user apache
 
         .. code-block:: text
 
@@ -220,9 +264,9 @@ SciELO Site Installation guide
 
         .. warning::
         
-            Pay attention at this part, a lot of parameters must be configured.
+             some parameters must be configured.
 
-        Copy the file article.def.template to article.def.php
+        Copy the file article.def.template to article.def
 
         .. code-block:: text
 
@@ -262,9 +306,9 @@ SciELO Site Installation guide
 
         .. warning::
 
-            Pay attention at this part, a lot of parameters must be configured.
+             some parameters must be configured.
 
-        Copy the file article.def.template to article.def.php
+        Copy the file title.def.template to title.def
 
         .. code-block:: text
 
@@ -293,23 +337,56 @@ SciELO Site Installation guide
 
 
 
-Special Configurations (XML Google, DOAJ, Crossref DOI, SCIMAGO, etc)
-=====================================================================
+Special Configurations
+======================
 
-Bibliometria
-------------
+To configure other features, such as Bibliometrics, Access Statistics, SCIMAGO, etc.
+
+Google Analytics
+----------------
 
 .. warning::
 
     Run each step from the **htdocs** directory.
 
-Setup the cofiguration file.
+Edit the configuration file.
 
     .. code-block:: text
         
         #var/www/scielo/htdocs$> vi scielo.def.php
 
-Ask for the SciELO team for your "APP_NAME".
+Ask SciELO team for your **APP_NAME**.
+
+    .. code-block:: text
+
+        ACTIVATE_GOOGLE=1
+        GOOGLE_CODE=<google_code>
+
+
+    e.g.:
+
+    .. code-block:: text
+         
+        ACTIVATE_GOOGLE=1
+        GOOGLE_CODE=UA-01010101010-1
+
+**Note:**
+    To have this code, you must have an account in Google Analytics.
+
+Bibliometric reports website
+----------------------------
+
+.. warning::
+
+    Run each step from the **htdocs** directory.
+
+Edit the configuration file.
+
+    .. code-block:: text
+        
+        #var/www/scielo/htdocs$> vi scielo.def.php
+
+Ask SciELO team for your **APP_NAME**.
 
     .. code-block:: text
 
@@ -317,10 +394,13 @@ Ask for the SciELO team for your "APP_NAME".
         APP_NAME=scielo
 
 
-Check if the domain of the Bibliometria Server is correct. It must be **scielo-log.scielo.br**
+Indicate the domain for Bibliometric reports website editing STAT_SERVER_CITATION and STAT_SERVER_COAUTH.
 
-* Change the parameter "app=scielo" to app=\<same as APP_NAME\>
+* Change the parameter **app=scielo** to app=\<same as APP_NAME\>
 * Change the parameter according to the following example.
+
+    **Note:** Bibliometric reports website is other website which is also part of SciELO.
+
 
     .. code-block:: text
 
@@ -351,16 +431,16 @@ Access Statistics
 
     Run each step from the **htdocs** directory.
 
-Setup the cofiguration file.
+Edit the configuration file.
 
     .. code-block:: text
         
         #var/www/scielo/htdocs$> vi scielo.def.php
 
 
-Ask for the SciELO team for your "APP_NAME".
+Ask SciELO team for your **APP_NAME**.
 
-Change "SCRIPT_TOP_TEN" and "SCRIPT_ARTICLES_PER_MONTH" replacing app=scielo por app=\< same as APP_NAME \>.
+Set **SCRIPT_TOP_TEN** and **SCRIPT_ARTICLES_PER_MONTH**, replacing app=scielo by app=\< same as APP_NAME \>.
 
     .. code-block:: text
     
@@ -380,31 +460,7 @@ Change "SCRIPT_TOP_TEN" and "SCRIPT_ARTICLES_PER_MONTH" replacing app=scielo por
         SCRIPT_ARTICLES_PER_MONTH="http://scielo-log.scielo.br/scielolog/ofigraph21.php?app=scielo"
         ENABLE_ARTICLE_LANG_LINK=1
 
-**To display the access statistics chart in the article page**
-
-Setup the cofiguration file.
-
-    .. code-block:: text
-        
-        #var/www/scielo/htdocs$> vi applications/scielo-org/scielo.def.php
-
-In the group "requests_server" change the parameter "url"
-
-    .. code-block:: text
-
-        [requests_server]
-        url="http://scielo-log.scielo.br/"
-
-**Enable the Access Statistics link to register your access in the SciELO Server **
-
-Setup the cofiguration file.
-
-    .. code-block:: text
-    
-        #> vi htdocs/scielo.def.php
-
-
-In the group "services" change the parameter "show_requests"
+Set show_requests to 1, to enable the Access Statistics link.
 
     .. code-block:: text
 
@@ -413,36 +469,45 @@ In the group "services" change the parameter "show_requests"
         show_requests=1
         ...
 
+Chart of Access statistics
+--------------------------
 
-Notes
-`````
+Edit the configuration file.
 
-* Ask for the SciELO Team for your APP_NAME.
-* Check if the configuration is fine looking for the following line in any SciELO Site page. 
+    .. code-block:: text
+        
+        #var/www/scielo/htdocs$> vi applications/scielo-org/scielo.def.php
+
+At the block named  *[requests_server]* set *url*
+
+    .. code-block:: text
+
+        [requests_server]
+        url="http://scielo-log.scielo.br/"
+
+
+    .. warning:: 
+
+        Check if the configuration is correct, looking for the following line in any SciELO website page. 
+
 
     .. code-block:: text
 
         <img src="http://scielo-log.scielo.br/scielolog/updateLog02.php?app=scielo&amp;page=sci_home&amp;lang=en&amp;norm=iso&amp;doctopic=&amp;doctype=&amp;tlng=" border="0" height="1" width="1">
 
-DOI Request
------------
-
-DOAJ
-----
-
 SCIMAGO
 -------
 
-The root directory for this processing is **proc/scielo_sjr**
+The root directory for this processing is **/var/www/scielo/proc/scielo_sjr**
 
 The following steps run at the directory proc/scielo_sjr.
 
-Copping the config file.
+Copying the config file.
 
 
     .. code-block:: text
 
-        #var/www/scielo/proc/scielo_sjr$> cp shs\config.sh.template shs\config.sh
+        #var/www/scielo/proc/scielo_sjr$> cp shs/config.sh.template shs/config.sh
 
 Editing the config file and changing the paths if necessary.
 
@@ -451,7 +516,7 @@ Editing the config file and changing the paths if necessary.
         #var/www/scielo/proc/scielo_sjr$> vi shs/config.sh
 
 
-**Config file sample**
+**Config file sample**. If you are already using /var/www/scielo as the application path, so no changes need.
 
     .. code-block:: text
 
@@ -479,88 +544,37 @@ Run the script to harvest the SCIMAGO charts.
         #var/www/scielo/proc/scielo_sjr$> cd shs/
         #var/www/scielo/proc/scielo_sjr$> ./sjr_run.sh
 
+DOI Request
+-----------
 
-Sending databases to SciELO
----------------------------
-
-    .. warning::
-
-        The above configurations must be run from the processing server
-
-Accessing the processing directory
-
-    .. code-block:: text
-
-        #>cd /var/www/scielo/proc 
-
-Copying the FTP account configuration file.
-
-    .. code-block:: text
-
-        #var/www/scielo/proc$> cp transf/Envia2MedlineLogOn-exemplo.txt transf/Envia2MedlineLogOn.txt
-
-Editing the FTP configuration file
-
-    .. code-block:: text
-
-        #var/www/scielo/proc> vi transf/Envia2MedlineLogOn.txt
-
-Changing the ftp parameters, from:
-
-    .. code-block:: text
-
-        open ftp.scielo.br
-        user user_id user_passwd
-
-to:
-
-    .. code-block:: text
-
-        open ftp.scielo.br
-        user <scielo.code> <clave de accesos>
+DOAJ
+----
 
 
-running
-
-    .. code-block:: text
-
-        #var/www/scielo/proc$>./Envia2MedlinePadrao.bat 
-
-
-Notes
-`````
-
-* Ask for the SciELO team the "code" and password for your ftp account.
-* Configure a **cron** to periodicaly run the processing. (Preferable Weekly)
-* The log files are:
-    * /var/www/proc/log/envia2medlineFTP.log
-    * /var/www/proc/log/envia2medline.log
-
-----------
 Updating
-----------
+========
 
-Download the latest version available in a temporary directory
+1. Create a temporary folder
 
-All collection package is up to date with the latest version, see the corresponding code of your distribution at `GitHub <https://github.com/scieloorg/Web/branches>`_
+2. `Identify your branch <network.html>`_
 
-**Switch the "master" in the syntax bellow with the corresponding code of your collection.**
-
+    https://github.com/scieloorg/Web/tarball/<branch_name>
+    
     .. code-block:: text
 
         #> cd /tmp
-        #tmp$> wget https://github.com/scieloorg/Web/tarball/master --no-check-certificate
+        #tmp$> wget https://github.com/scieloorg/Web/tarball/<branch_name> --no-check-certificate
 
+    A file such as scieloorg-Web-<version-code>.tar.gz will be created. Where <version-code> changes according to the application version.
 
-Expanding the downloaded file. The file will be named like (scieloorg-Web-v5.14-12-gd37aad4.tar.gz).
-The file name will be different for each version.
+3. Extract the downloaded file. 
 
     .. code-block:: text
     
         #tmp$> tar xvfzp scieloorg-Web-v5.14-12-gd37aad4.tar.gz
 
 
-The created file structure will be like:
+    The created file structure will be like:
 
     .. code-block:: text
 
@@ -576,42 +590,37 @@ The created file structure will be like:
         serial/
         serial_modelo/ 
 
-
-Compressing only the necessary folders for the update.
+4. Compress only the necessary folders to update.
 
     .. code-block:: text
 
         #tmp$> cd scieloorg-Web-XXXXXXXX-XXXXXXXX
         #tmp/scieloorg-Web-XXXXXXXX-XXXXXXXX$> tar cvfzp scielo_tmp.tgz htdocs/ cgi-bin/ proc/
 
+    scielo_tmp.tgz will only have htdocs, cgi-bin, proc folders.
 
-Switching to the SciELO Site folder.
-
-    .. code-block:: text
-
-        #> cd /var/www/scielo
-
-Moving the tgz temporary file to the SciELO Web folder.
+5. Move the tgz temporary file to the SciELO Website folder.
 
     .. code-block:: text
 
-        #tmp/scieloorg-Web-XXXXXXXX-XXXXXXXX$> mv scielo_tmp.tgz .
+        #tmp/scieloorg-Web-XXXXXXXX-XXXXXXXX$> mv scielo_tmp.tgz /var/www/scielo
 
 
-Expanding the file.
+6. Go to the application SciELO website folder.
 
     .. code-block:: text
 
         #tmp/scieloorg-Web-XXXXXXXX-XXXXXXXX$> cd /var/www/scielo
+
+7. Extract scielo_tmp.tgz
+
+    .. code-block:: text
+
         #var/www/scielo$> tar xvfzp scielo_tmp.tgz
 
-Removing the tgz file
+8. Remove the tgz file
 
     .. code-block:: text
 
         #var/www/scielo$> rm scielo_tmp.tgz
 
-Notes
-=====
-
-Take a look at versionOverview.txt file to check if the updated web site has the newer version of ScIELO Site: http://www.scielo.br/versionOverview.txt

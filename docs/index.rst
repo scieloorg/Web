@@ -13,12 +13,22 @@ Welcome to SciELO Site's documentation!
 
     about.rst
     howtoinstall.rst
+    processing.rst
+
     network.rst
+
 
 .. toctree::
     :maxdepth: 1
 
     changelog.rst
+
+
+Support
+-------
+
+How to get `support <http://docs.scielo.org/en/latest/index.html#support>`_.
+
 
 Presentations
 -------------
@@ -27,6 +37,8 @@ Presentations
 `Infrastructure <https://github.com/scieloorg/Web/raw/master/docs/presentation/scielo_infraestrutura_pt.ppt>`_
 
 `Methodology <https://github.com/scieloorg/Web/raw/master/docs/presentation/scielo_metodologia_en.ppt>`_
+
+
 
 Indices and tables
 ==================
