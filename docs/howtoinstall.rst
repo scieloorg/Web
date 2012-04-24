@@ -294,6 +294,7 @@ SciELO Site Installation guide
     1.8. Permissions
 
         755 apache:apache htdocs
+        
         755 apache:apache bases
 
 Special Configurations (XML Google, DOAJ, Crossref DOI, SCIMAGO, etc)
