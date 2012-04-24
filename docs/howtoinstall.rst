@@ -291,7 +291,10 @@ SciELO Site Installation guide
             VARIABLE APP_PATH=/var/www/scielo
             VARIABLE APP_REVISTAS_PATH=/var/www/scielo/htdocs/revistas/
 
+    1.8. Permissions
 
+        755 apache:apache htdocs
+        755 apache:apache bases
 
 Special Configurations (XML Google, DOAJ, Crossref DOI, SCIMAGO, etc)
 =====================================================================
