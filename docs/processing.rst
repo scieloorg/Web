@@ -88,8 +88,8 @@ Execute
 
 
 
-Transfering databases to SciELO's servers
-=========================================
+Exporting the databases for SciELO Network processing
+=====================================================
 
 Configuration
 -------------
