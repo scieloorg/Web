@@ -9,12 +9,14 @@ Welcome to SciELO Site's documentation!
 **SciELO Site** is a product of SciELO Methodology.
 
 .. toctree::
-    :maxdepth: 2
+    :maxdepth: 3
 
     about.rst
     howtoinstall.rst
+
     processing.rst
 
+    content.rst
     network.rst
 
 
