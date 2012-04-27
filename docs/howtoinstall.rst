@@ -1,6 +1,6 @@
-================================================
-Installation and configuration of SciELO Website 
-================================================
+=========================
+Installation and updating
+=========================
 
 REQUIREMENTS
 ============
@@ -157,10 +157,93 @@ Installation
 
             WXIS release date: Sep 24 2008
 
-Configuration
-=============
 
-    1.4. Configuring the file: /var/www/scielo/htdocs/scielo.def.php
+Updating
+========
+
+1. Create a temporary folder
+
+2. `Identify your branch <network.html>`_
+
+    https://github.com/scieloorg/Web/tarball/<branch_name>
+    
+    .. code-block:: text
+
+        cd /tmp
+        wget https://github.com/scieloorg/Web/tarball/<branch_name> --no-check-certificate
+        unzip <branch_name>
+
+    A file such as scieloorg-Web-<version-code>.tar.gz will be created. Where <version-code> changes according to the application version.
+
+3. Extract the downloaded file. 
+
+    .. code-block:: text
+    
+        #tmp$> tar xvfzp scieloorg-Web-v5.14-12-gd37aad4.tar.gz
+
+
+    The created file structure will be like:
+
+    .. code-block:: text
+
+        scieloorg-Web-XXXXXXXX-XXXXXXXX/
+        bases/
+        bases_modelo/
+        bases-work/
+        bases-work_modelo/
+        cgi-bin/
+        htdocs/
+        logs/
+        proc/
+        serial/
+        serial_modelo/ 
+
+4. Compress only the necessary folders to update.
+
+    .. code-block:: text
+
+        #tmp$> cd scieloorg-Web-XXXXXXXX-XXXXXXXX
+        #tmp/scieloorg-Web-XXXXXXXX-XXXXXXXX$> tar cvfzp scielo_tmp.tgz htdocs/ cgi-bin/ proc/
+
+    scielo_tmp.tgz will only have htdocs, cgi-bin, proc folders.
+
+5. Move the tgz temporary file to the SciELO Website folder.
+
+    .. code-block:: text
+
+        #tmp/scieloorg-Web-XXXXXXXX-XXXXXXXX$> mv scielo_tmp.tgz /var/www/scielo
+
+
+6. Go to the application SciELO website folder.
+
+    .. code-block:: text
+
+        #tmp/scieloorg-Web-XXXXXXXX-XXXXXXXX$> cd /var/www/scielo
+
+7. Extract scielo_tmp.tgz
+
+    .. code-block:: text
+
+        #var/www/scielo$> tar xvfzp scielo_tmp.tgz
+
+8. Remove the tgz file
+
+    .. code-block:: text
+
+        #var/www/scielo$> rm scielo_tmp.tgz
+
+
+==============
+Configurations
+==============
+
+Mandatory configurations
+========================
+
+Configuring scielo.def.php
+--------------------------
+
+    Edit the file: /var/www/scielo/htdocs/scielo.def.php
 
         .. warning::
             
@@ -191,7 +274,7 @@ Configuration
             ADDRESS_1=Rua Botucatu, 862 - Vila Clementino
             ADDRESS_2=04023-901 São Paulo SP
             COUNTRY=Brasil
-            PHONE_NUMBER="+55 11 5576-9863'
+            PHONE_NUMBER="+55 11 5576-9863"
             FAX_NUMBER="+55 11 5575-8868"
             E_MAIL=scielo@bireme.br
             STANDARD_LANG=en
@@ -217,22 +300,25 @@ Configuration
             PATH_OAI=/var/www/scielo/htdocs/oai/
             PATH_PROC=/var/www/scielo/proc/
 
-    1.5. Configuring the file: /var/www/scielo/htdocs/iah/iah.def
+Configuring iah.def
+-------------------
+
+    Edit the file: /var/www/scielo/htdocs/iah/iah.def
 
         .. warning::
 
-             some parameters must be configured.
+    some parameters must be configured.
 
-        Copy the file iah.def.template to iah.def and open it to edit.
+    Copy the file iah.def.template to iah.def and open it to edit.
 
         .. code-block:: text
 
             #var/www/scielo$>cp htdocs/iah/iah.def.template htdocs/iah/iah.def
             #var/www/scielo$>vi htdocs/iah/iah.def
         
-        The value for **PATH_CGI-BIN** must be changed to the application path previously configured for the virtual host on the APACHE Server.
+     The value for **PATH_CGI-BIN** must be changed to the application path previously configured for the virtual host on the APACHE Server.
         
-        The value for **PATH_DATABASE** must be changed to the application path previously configured for the virtual host on the APACHE Server.
+     The value for **PATH_DATABASE** must be changed to the application path previously configured for the virtual host on the APACHE Server.
 
         .. code-block:: text
     
@@ -240,9 +326,9 @@ Configuration
             PATH_CGI-BIN=/var/www/scielo/cgi-bin/iah/
             PATH_DATABASE=/var/www/scielo/bases/
     
-        The value for **LOGO URL** must be changed to the application path previously configured for the virtual host on the APACHE Server.
+     The value for **LOGO URL** must be changed to the application path previously configured for the virtual host on the APACHE Server.
 
-        The value for **HEADER URL** must be changed to the application path previously configured for the virtual host on the APACHE Server.
+     The value for **HEADER URL** must be changed to the application path previously configured for the virtual host on the APACHE Server.
         
         .. code-block:: text
 
@@ -250,9 +336,9 @@ Configuration
             LOGO URL=www.scielo.br
             HEADER URL=www.scielo.br
 
-        The value for **MANAGER E-MAIL** must be changed to the application path previously configured for the virtual host on the APACHE Server.
+     The value for **MANAGER E-MAIL** must be changed to the application path previously configured for the virtual host on the APACHE Server.
 
-        The directory configured for LOG_DATABASE must have write permission for the user apache
+     The directory configured for LOG_DATABASE must have write permission for the user apache
 
         .. code-block:: text
 
@@ -260,20 +346,23 @@ Configuration
             MANAGER E-MAIL=scielo@bireme.br
             LOG_DATABASE=/var/www/scielo/bases/logdia/iahlog
 
-    1.6. Configuring the file /var/www/scielo/htdocs/iah/article.def
+Configuring article.def
+-----------------------
+
+    Edit the file /var/www/scielo/htdocs/iah/article.def
 
         .. warning::
         
              some parameters must be configured.
 
-        Copy the file article.def.template to article.def
+    Copy the file article.def.template to article.def
 
         .. code-block:: text
 
             #var/www/scielo$>mv htdocs/iah/article.def.template htdocs/iah/article.def
             #var/www/scielo$>vi htdocs/iah/article.def
     
-        Changing the applications path
+    Changing the applications path
 
         .. code-block:: text
 
@@ -294,7 +383,7 @@ Configuration
             FILE ahlist.pft=/var/www/scielo/cgi-bin/iah-styles/%lang%/ahlist.pft
             FILE citation.xml=/var/www/scielo/cgi-bin/iah-styles/fbisoXML.pft
 
-        Changing the application path
+    Changing the application path
 
         .. code-block:: text        
 
@@ -302,20 +391,23 @@ Configuration
             VARIABLE APP_PATH=/var/www/scielo
             VARIABLE APP_REVISTAS_PATH=/var/www/scielo/htdocs/revistas/
 
-    1.7. Configuring the file /var/www/scielo/htdocs/iah/title.def
+Configuring title.def
+---------------------
+
+    Edit the file /var/www/scielo/htdocs/iah/title.def
 
         .. warning::
 
              some parameters must be configured.
 
-        Copy the file title.def.template to title.def
+    Copy the file title.def.template to title.def
 
         .. code-block:: text
 
             #var/www/scielo$>cp htdocs/iah/title.def.template htdocs/iah/title.def
             #var/www/scielo$>vi htdocs/iah/title.def
 
-        Change the application path
+    Change the application path
 
         .. code-block:: text
 
@@ -327,7 +419,7 @@ Configuration
             FILE van.pft=/var/www/scielo/cgi-bin/iah-styles/fbsrc1.pft
             FILE abn.pft=/var/www/scielo/cgi-bin/iah-styles/fbsrc1.pft
 
-        Change the application path
+    Change the application path
 
         .. code-block:: text
             
@@ -551,76 +643,9 @@ DOAJ
 ----
 
 
-Updating
-========
-
-1. Create a temporary folder
-
-2. `Identify your branch <network.html>`_
-
-    https://github.com/scieloorg/Web/tarball/<branch_name>
-    
-    .. code-block:: text
-
-        #> cd /tmp
-        #tmp$> wget https://github.com/scieloorg/Web/tarball/<branch_name> --no-check-certificate
-
-    A file such as scieloorg-Web-<version-code>.tar.gz will be created. Where <version-code> changes according to the application version.
-
-3. Extract the downloaded file. 
-
-    .. code-block:: text
-    
-        #tmp$> tar xvfzp scieloorg-Web-v5.14-12-gd37aad4.tar.gz
 
 
-    The created file structure will be like:
-
-    .. code-block:: text
-
-        scieloorg-Web-XXXXXXXX-XXXXXXXX/
-        bases/
-        bases_modelo/
-        bases-work/
-        bases-work_modelo/
-        cgi-bin/
-        htdocs/
-        logs/
-        proc/
-        serial/
-        serial_modelo/ 
-
-4. Compress only the necessary folders to update.
-
-    .. code-block:: text
-
-        #tmp$> cd scieloorg-Web-XXXXXXXX-XXXXXXXX
-        #tmp/scieloorg-Web-XXXXXXXX-XXXXXXXX$> tar cvfzp scielo_tmp.tgz htdocs/ cgi-bin/ proc/
-
-    scielo_tmp.tgz will only have htdocs, cgi-bin, proc folders.
-
-5. Move the tgz temporary file to the SciELO Website folder.
-
-    .. code-block:: text
-
-        #tmp/scieloorg-Web-XXXXXXXX-XXXXXXXX$> mv scielo_tmp.tgz /var/www/scielo
 
 
-6. Go to the application SciELO website folder.
 
-    .. code-block:: text
-
-        #tmp/scieloorg-Web-XXXXXXXX-XXXXXXXX$> cd /var/www/scielo
-
-7. Extract scielo_tmp.tgz
-
-    .. code-block:: text
-
-        #var/www/scielo$> tar xvfzp scielo_tmp.tgz
-
-8. Remove the tgz file
-
-    .. code-block:: text
-
-        #var/www/scielo$> rm scielo_tmp.tgz
 
