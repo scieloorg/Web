@@ -20,16 +20,16 @@ It means:
     - bases/*
     - bases/pdf
     - bases/translation
-    - htdocs/img
-
+    - htdocs/img/revistas
+    - htdocs/revistas
 
 
 Location of the webpages about the journal
 ------------------------------------------
 
-The webpages of the journal (also known as secondary or informative pages) are in a folder structure like htdocs/img/revistas/<acronym>/.
+The webpages of the journal (also known as secondary or informative pages) are in a folder structure like htdocs/revistas/<acronym>/.
 
-E.g.: htdocs/img/revistas/bjmbr/
+E.g.: htdocs/revistas/bjmbr/
 
 
 Location of the images of the journal
