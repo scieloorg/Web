@@ -8,6 +8,13 @@ Welcome to SciELO Site's documentation!
 
 **SciELO Site** is a product of SciELO Methodology.
 
+
+Read:
+
+    - `SciELO local Website <http://docs.scielo.org/projects/scielo-web-windows/en/latest/>`_
+    - `SciELO PC Programs <http://docs.scielo.org/projects/scielo-pc-programs/en/latest/>`_
+    
+
 .. toctree::
     :maxdepth: 3
 
