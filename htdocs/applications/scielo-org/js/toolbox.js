@@ -46,6 +46,14 @@ var rateResult = "";
       $(this).next(".box").slideToggle(500);
 
       });
+      $('#permalink').click(function(){
+        $('#permalink_box').toggle();
+	if($('#permalink_box').css('display') != 'none'){
+	    $.getJSON('http://ref.scielo.org/api/v1/shorten?url=' + escape(document.URL) + '&callback=?',function(data){
+      	        $('#short-url').val(data);
+            }); 
+        }
+      });
   });
 
 function httpInit()
