@@ -40,22 +40,11 @@ then
 fi
 
 
-if [ ! -f $LANGDB.mst ]
-then	
-	echo `date` create1 $TEMP1 >> $LOGFILE
-	$MX cipar=$cipfile ARTIGO gizmo=sh_genlangdb/lowercase,702 btell=0 "bool=hr=s$" "proc='d9999'" "proc=@sh_genlangdb/add.prc" append=$TEMP1 now -all
-else
-	echo `date` create2 $TEMP1 >> $LOGFILE
-    $MX $LANGDB fst=@fst/langs.fst fullinv=$LANGDB
-	$MX cipar=$cipfile ARTIGO gizmo=sh_genlangdb/lowercase,702 btell=0 "bool=hr=s$" "proc='d9999a9999{$LANGDB{'" "proc=@sh_genlangdb/add.prc" append=$TEMP1 now -all
-fi 
 
-echo `date` Update $TEMP1 >> $LOGFILE
-$MX $TEMP1 "proc='a9000{',f(l(['$TEMP_PATH/grouped']'file='v700),1,0),'{'" "proc='d9000',if val(v9000)>0 then ref(['$TEMP_PATH/grouped']val(v9000),(|a601{|v601|{|),(|a602{|v602|{|)) fi" copy=$TEMP1 now -all
+echo `date` create1 $TEMP1 >> $LOGFILE
+$MX null count=0 create=$LANGDB now -all
+$MX cipar=$cipfile ARTIGO gizmo=sh_genlangdb/lowercase,702 btell=0 "bool=hr=s$" "proc='d9999a9999{$TEMP_PATH/grouped{'" "proc=@sh_genlangdb/add.prc" append=$LANGDB now -all
 
-echo `date` append $TEMP1 to $LANGDB >> $LOGFILE
-$MX $TEMP1 append=$LANGDB now -all
-echo `date` invert $LANGDB >> $LOGFILE
 $MX $LANGDB fst=@fst/langs.fst fullinv=$LANGDB
 
 echo `date` FIM >> $LOGFILE

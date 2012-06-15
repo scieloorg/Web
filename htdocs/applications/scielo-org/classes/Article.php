@@ -78,19 +78,22 @@
 			return $this->_data['year'];
 		} 
 		function setAuthorXML($value){
-			$this->_data['authorXML'] = mysql_escape_string($value);
+			//$this->_data['authorXML'] = mysql_escape_string($value);
+			$this->_data['authorXML'] = $value;
 		}
 		function getAuthorXML(){
 			return $this->_data['authorXML'];
 		} 
 		function setKeywordXML($value){
-			$this->_data['keywordXML'] = mysql_escape_string($value);
+			//$this->_data['keywordXML'] = mysql_escape_string($value);
+			$this->_data['keywordXML'] = $value;
 		}
 		function getKeywordXML(){
 			return $this->_data['keywordXML'];
 		}
 		function setAbstractXML($value){
-			$this->_data['AbstractXML'] = mysql_escape_string($value);
+			//$this->_data['AbstractXML'] = mysql_escape_string($value);
+			$this->_data['AbstractXML'] = $value;
 		}
 		function getAbstractXML(){
 			return $this->_data['AbstractXML'];
