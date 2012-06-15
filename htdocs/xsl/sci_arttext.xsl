@@ -27,6 +27,7 @@
 
                             <!--Meta Google Scholar-->
                             <meta name="citation_journal_title" content="{TITLEGROUP/TITLE}"/>
+                            <meta name="citation_journal_title_abbrev" content="{TITLEGROUP/SHORTTITLE}"/>
                             <meta name="citation_publisher" content="{normalize-space(COPYRIGHT)}"/>
                             <meta name="citation_title" content="{ISSUE/ARTICLE/TITLE}"/>
                             <meta name="citation_date" content="{concat(substring(ISSUE/@PUBDATE,5,2),'/',substring(ISSUE/@PUBDATE,1,4))}"/>
@@ -37,7 +38,7 @@
                             <meta name="citation_abstract_html_url" content="{concat('http://',CONTROLINFO/SCIELO_INFO/SERVER, '/scielo.php?script=sci_abstract&amp;pid=', ISSUE/ARTICLE/@PID, '&amp;lng=', CONTROLINFO/LANGUAGE , '&amp;nrm=iso&amp;tlng=', ISSUE/ARTICLE/@TEXTLANG)}"/>
                             <meta name="citation_fulltext_html_url" content="{concat('http://',CONTROLINFO/SCIELO_INFO/SERVER, '/scielo.php?script=sci_arttext&amp;pid=', ISSUE/ARTICLE/@PID, '&amp;lng=', CONTROLINFO/LANGUAGE , '&amp;nrm=iso&amp;tlng=', ISSUE/ARTICLE/@TEXTLANG)}"/>
                             <meta name="citation_pdf_url" content="{concat('http://',CONTROLINFO/SCIELO_INFO/SERVER, '/scielo.php?script=sci_pdf&amp;pid=', ISSUE/ARTICLE/@PID, '&amp;lng=', CONTROLINFO/LANGUAGE , '&amp;nrm=iso&amp;tlng=', ISSUE/ARTICLE/@TEXTLANG)}"/>                            
-                            <xsl:apply-templates select=".//AUTHORS" mode="AUTHORS_META"/>
+                            <xsl:apply-templates select="ISSUE/ARTICLE/AUTHORS/AUTH_PERS/AUTHOR" mode="AUTHORS_META"/>
                             <meta name="citation_firstpage" content="{ISSUE/ARTICLE/@FPAGE}"/>
                             <meta name="citation_lastpage" content="{ISSUE/ARTICLE/@LPAGE}"/>
                             <meta name="citation_id" content="{ISSUE/ARTICLE/@DOI}"/>
