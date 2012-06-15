@@ -1,0 +1,12 @@
+#########################
+# LIST PDF AND TR FILES
+#########################
+
+# ENTRADA
+# caminho completo da pasta que contem pdf e translation
+FILES_PATH=/var/www/scielo_br/bases
+
+# SAIDA
+# caminho completo de onde será gerado o arquivo files_list.seq
+FILES_LIST=/var/www/scielo_br/proc/proc_lang/files_list.seq
+
