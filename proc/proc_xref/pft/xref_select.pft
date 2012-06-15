@@ -1,0 +1,55 @@
+
+/* DB_NEW_DOI_READONLY v9004 */
+
+,if size(v9003)>0 then
+,proc(`a1000{`,
+,if l([v9003]`pid=`v880^*)>0 then
+	,f(l([v9003]`pid=`v880^*),1,0),
+,else
+	,if p(v881) then 
+		,if l([v9003]`pid=`v881^*)>0 then
+			,f(l([v9003]`pid=`v881^*),1,0),
+		,else
+			,if p(v891) then 
+				,if l([v9003]`pid=`v891^*)>0 then
+					,f(l([v9003]`pid=`v891^*),1,0),
+				,fi
+			
+			,fi
+		,fi
+	,else
+		,if p(v891) then 
+			,if l([v9003]`pid=`v891^*)>0 then
+				,f(l([v9003]`pid=`v891^*),1,0),
+			,fi
+		
+		,fi
+	,fi
+,fi
+`{`),
+,fi
+,if v1000=`` or v1000=`0` then
+	`echo `,
+	,v9001,` `, /* PATH_WRK */
+	,v9002,` `, /* DB_SRC */
+	,mfn,` `, /* mfn */
+	,` >> `,v9001,`/`,
+	,`new.seq `,#
+,else
+	,if ref([v9003]val(v1000),v237)=`` then
+		`echo `,
+		,v9001,` `, /* PATH_WRK */
+		,v9002,` `, /* DB_SRC */
+		,mfn,` `, /* mfn */
+		,v1000,
+		,` >> `,v9001,`/`,
+		,`retry.seq `,#
+		
+	,else
+	/*
+		`echo `,v880^*,`>>`,v9001,`/`,
+		,`done.seq `,#
+		*/
+	,fi
+,fi
+
