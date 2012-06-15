@@ -117,6 +117,22 @@
 			</xsl:if>
 		</li>
 	</xsl:template>
+	<xsl:template match="standard[@id='apa']">
+		<li>
+			<h5>
+				<xsl:apply-templates select="label[@lang=$LANG]"/>
+			</h5>
+			<xsl:if test="../PRESENTS-ONLY-REF">
+				<xsl:comment>inicio-MY-REFERENCE</xsl:comment>
+			</xsl:if>
+			<xsl:value-of select="$data/APA" disable-output-escaping="yes"/>
+		 <xsl:apply-templates select="$data//@DOI"/>.
+		 <xsl:if test="../PRESENTS-ONLY-REF">
+				<xsl:comment>fim-MY-REFERENCE</xsl:comment>
+			</xsl:if>
+		</li>
+		
+	</xsl:template>
 	<!--xsl:template match="*" mode="print-ref">
 		<xsl:param name="NORM"/>
 			<xsl:call-template name="PrintAbstractHeaderInformation">
