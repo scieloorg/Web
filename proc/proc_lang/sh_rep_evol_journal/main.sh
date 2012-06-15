@@ -5,11 +5,18 @@ if [ ! -d $TEMP_PATH ]
 then
    mkdir -p $TEMP_PATH
 fi
-echo generate $TEMP_PATH/report_evol_journal.seq
-$MX $LANGDB lw=9999 "pft=if p(v83) and  a(v131) and a(v132) and v32<>'ahead' and v32<>'review'  then v880*1.9,'|',v880*10.4,'|',v40,#,(if v601^l<>'' then v880[1]*1.9,'|',v880[1]*10.4,'|',v601^l,#, fi) fi" now> $TEMP_PATH/report_evol_journal.seq
+echo generate $TEMP_PATH/report_evol_journal.00.seq
+$MX $LANGDB lw=9999 "pft=if p(v83) and  a(v131) and a(v132) and v32<>'ahead' and v32<>'review'  then v880,'|',v40,#,(if v601^l<>'' then v880[1],'|',v601^l,#, fi),(if v602^l<>'' then v880[1],'|',v602^l,#, fi), fi" now|sort -u> $TEMP_PATH/report_evol_journal.00.seq
 
+#echo generate $TEMP_PATH/report_evol_journal
+#$MX seq=$TEMP_PATH/report_evol_journal.seq create=$TEMP_PATH/report_evol_journal now -all
+
+$MX seq=$TEMP_PATH/report_evol_journal.00.seq create=$TEMP_PATH/report_evol_journal.00 now -all
+$MX $TEMP_PATH/report_evol_journal.00 lw=9999 "pft=v1*1.9,'|',v1*10.4,'|',v2,#" now > $TEMP_PATH/report_evol_journal.seq
 echo generate $TEMP_PATH/report_evol_journal
 $MX seq=$TEMP_PATH/report_evol_journal.seq create=$TEMP_PATH/report_evol_journal now -all
+
+
 
 echo tabula
 $MXTB $TEMP_PATH/report_evol_journal create=$TEMP_PATH/report_lang_2006-2010 "100:v1,'|',v2,'|',if instr('en-es-pt',v3)=0 then '??' else v3 fi/" class=10000
