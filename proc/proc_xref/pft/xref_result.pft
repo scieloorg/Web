@@ -1,0 +1,8 @@
+,
+,if size(v11)>0 and size(v12)>0 then 
+	,'sh ./xref_result.sh ',v9000,' ',v9001,' ',v11,' "'v12,'"',#
+, else 
+	,if size(v9)>0 and size(v10)>0 then 
+		,'sh ./xref_result.sh ',v9000,' ',v9001,' ',v9,' "'v10,'"',#
+  	,fi 	
+,fi
