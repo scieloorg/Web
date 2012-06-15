@@ -1,0 +1,5 @@
+/* ../wrk/doi.scl ../wrk/doi.scl/src 000043 43 */
+
+,if size(v1)>0 then
+	,'$MX ',v2,' from=',v3,' count=1 gizmo=../gizmo/ent gizmo=../gizmo/ent2 lw=9999  "pft=@../pft/xml.pft" now ',# 
+,fi
