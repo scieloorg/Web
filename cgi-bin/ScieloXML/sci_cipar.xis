@@ -47,12 +47,22 @@ PATH_DATA:     tag 7014
 			fi
 		</pft>
 </field>
+<field action="statusfile" tag="9004"><pft>v7011,'doi/doi.mst'</pft></field>
+<field action="replace" tag="7778">
+		<pft>
+			if v9004^s : 'e' then
+				,v7011,'doi/doi.*',
+            else
+                ,v7011, 'title/title.*',
+			fi
+		</pft>
+</field>
 <!----------------------------------------------------------------------------->
 <parm name="cipar">
 	<pft>
         'DOIQUERY.*=',v7777/
-        'ARTICLE_DOI.*=',     v7011, 'doi/doi.*',/
-		'TITLE.*=',     v7011, 'title/title.*',/
+        'DOI.*=',v7778/
+        'TITLE.*=',     v7011, 'title/title.*',/
 		'SERAREAen.*=',   v7011, 'title/serareaEN.*',/
 		'SERAREAes.*=',   v7011, 'title/serareaES.*',/
 		'SERAREApt.*=',   v7011, 'title/serareaPT.*',/
