@@ -129,7 +129,8 @@
 		</loop>	
 	</do>	
 	<label>DONE</label>
-	<return action="replace" tag="7085"><pft>v7085</pft></return>
+	<return action="replace" tag="7085"><pft>if v7085<>'FINISH' then v7085 fi</pft></return>
+	
 </function>
 <!-- ============================================================================ -->
 <!--  function GetNextIssue                                                       -->
@@ -179,7 +180,7 @@
 					,else
 					    ,if instr(v4901,s(v4900*0.9))>0 then
 						    ,if l(['NEWISSUE'],v4901) > 0 then
-								,if ref(['NEWISSUE']l(['NEWISSUE'],v4901), if v32<>'ahead' and v32<>'review' and v41='' then 'regular' fi) = 'regular' then
+								,if ref(['NEWISSUE']l(['NEWISSUE'],v4901), if v32<>'ahead' and v32<>'review' and (v41='' or a(v41)) then 'regular' fi) = 'regular' then
 									,v4901*1, 
 								,fi
 							,fi
@@ -210,7 +211,8 @@
 	
 	
 	<label>DONE</label>
-	<return action="replace" tag="7095"><pft>v7095</pft></return>
+	<return action="replace" tag="7095"><pft>if v7095<>'FINISH' then v7095 fi</pft></return>
+	
 		
 </function>
 
@@ -3288,13 +3290,23 @@ fi
     <field action="import" tag="list">7011,237,9800</field>
 
     <!-- consulta a base doi/query -->
-    <field action="replace" tag="237"><pft>if a(v237) then ref(['DOIQUERY']l(['DOIQUERY'],'PID=',v880),v237) fi</pft></field>
-
+    <field action="replace" tag="237"><pft>if a(v237) then ref(['DOI']l(['DOI'],'pid=',v880),v237^*) fi</pft></field>
+	<field action="replace" tag="237"><pft>if a(v237) then ref(['DOIQUERY']l(['DOIQUERY'],'PID=',v880),v237) fi</pft></field>
+	
+	
     <flow action="jump"><pft>if p(v237) then 'ok' fi</pft></flow>
-
-    <!-- n?o encontrando, consulta a base de doi antiga  -->
-	<field action="replace" tag="881"><pft>ref(['ARTIGO']l(['ARTIGO'],'HR=',v880),@PROC_SPLIT_MST.PFT,
-                                        if p(v891) then v891 else v881 fi)</pft></field>
+	<field action="replace" tag="881"><pft>ref(['ARTIGO']l(['ARTIGO'],'HR=',v880),@PROC_SPLIT_MST.PFT,v881)</pft></field>
+    <field action="replace" tag="237"><pft>if a(v237) and p(v881) then ref(['DOI']l(['DOI'],'pid=',v881),v237^*) fi</pft></field>
+	<field action="replace" tag="237"><pft>if a(v237) and p(v881) then ref(['DOIQUERY']l(['DOIQUERY'],'PID=',v881),v237) fi</pft></field>
+	                                    
+    <flow action="jump"><pft>if p(v237) then 'ok' fi</pft></flow>
+	<field action="replace" tag="891"><pft>ref(['ARTIGO']l(['ARTIGO'],'HR=',v880),@PROC_SPLIT_MST.PFT,v891)</pft></field>
+    <field action="replace" tag="237"><pft>if a(v237) and p(v891) then ref(['DOI']l(['DOI'],'pid=',v891),v237^*) fi</pft></field>
+	<field action="replace" tag="237"><pft>if a(v237) and p(v891) then ref(['DOIQUERY']l(['DOIQUERY'],'PID=',v891),v237) fi</pft></field>
+	
+    <flow action="jump"><pft>if p(v237) then 'ok' fi</pft></flow>
+	<!-- n?o encontrando, consulta a base de doi antiga  -->
+	
 
 	<call name="getDOIfromDB"><pft>if p(v881) then v881 else v880 fi</pft></call>
 	<field action="replace" tag="237"><pft>v900</pft></field>
