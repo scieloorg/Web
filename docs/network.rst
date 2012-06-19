@@ -25,7 +25,7 @@ Network Websites
 +-----------------+---------------------------+-------------------------+
 | Mexico          | www.scielo.org.mx         | scielo_mex              |
 +-----------------+---------------------------+-------------------------+
-| Portugal        | www.scielo.oces.mctes.pt  | scielo_prt              |
+| Portugal        | www.scielo.gpeari.mctes.pt| scielo_prt              |
 +-----------------+---------------------------+-------------------------+
 | South Africa    | www.scielo.org.za         | scielo_sza              |
 +-----------------+---------------------------+-------------------------+
