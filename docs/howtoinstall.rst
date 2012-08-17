@@ -685,7 +685,7 @@ The XML files will be available at /var/www/scielo/proc/scielo_gsc/output/google
 
     .. warning::
 
-        All the content available at /var/www/scielo/proc/scielo_gsc/output/googlescholar must be published in the internet. The publication patter is:
+        All the content available at /var/www/scielo/proc/scielo_gsc/output/googlescholar must be published in the internet. The publication pattern is:
 
         artigos.<your scielo site domain>
 
