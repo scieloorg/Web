@@ -674,6 +674,14 @@ Editing the config file and changing the paths if necessary.
         export database_issue="/var/www/scielo/bases/issue/issue"
         export cisis_dir="/var/www/scielo/proc/cisis"
 
+Editing the XML template file.
+
+    .. code-block:: text
+
+        #var/www/scielo/proc/scielo_gsc$> vi formats/googleSchoolar_XMLPubMed.pft
+
+    Where are "localhost", change to your site domain.
+
 Run the script to generate de XML files.
 
     .. code-block:: text
