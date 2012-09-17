@@ -1702,7 +1702,7 @@ Parameters:
 		</xsl:call-template>
 	</xsl:template>
 	<xsl:template match="@DOI" mode="ref">&#160;
-		<xsl:apply-templates select="."/>.</xsl:template>
+		<xsl:apply-templates select="." mode="display"/>.</xsl:template>
 	<xsl:template match="*" mode="Epub">
 		<xsl:param name="ahpdate"/>
 		<xsl:param name="rvpdate"/>

@@ -1,0 +1,1164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="xsl/EstiloXSL.xsl"?>
+<!DOCTYPE article PUBLIC "-//NLM//DTD Journal Publishing DTD v3.0 20080202//EN" "journalpublishing3.dtd">
+<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="3.0" article-type="research-article" xml:lang="en">
+	<front>
+		<journal-meta>
+			<journal-id journal-id-type="nlm-ta">Arq Gastroenterol</journal-id>
+			<journal-title-group>
+				<journal-title>Arquivos de Gastroenterologia</journal-title>
+				<abbrev-journal-title abbrev-type="publisher">Arq. Gastroenterol.</abbrev-journal-title>
+			</journal-title-group>
+			<issn pub-type="ppub">0004-2803</issn>
+			<publisher>
+				<publisher-name>Instituto Brasileiro de Estudos e Pesquisas de Gastroenterologia - IBEPEGE , Colégio Brasileiro de Cirurgia Digestiva - CBCD , Sociedade Brasileira de Motilidade Digestiva - SBMD , Federação Brasileira de Gastroenterologia - FBG, Sociedade Brasileira de Hepatologia - SBH, Sociedade Brasileira de Endoscopia Digestiva - SOBED</publisher-name>
+			</publisher>
+		</journal-meta>
+		<article-meta>
+			<article-id pub-id-type="publisher-id">S0004-28032012000100004</article-id>
+			<article-id pub-id-type="doi">10.1590/S0004-28032012000100004</article-id>
+			<article-categories>
+				<subj-group subj-group-type="heading">
+					<subject>Original Article</subject>
+				</subj-group>
+			</article-categories>
+			<title-group>
+				<article-title xml:lang="en">Assessment of portal venous index as a non-invasive method for diagnosing liver fibrosis in patients with chronic hepatitis C</article-title>
+				<trans-title-group xml:lang="pt">
+					<trans-title>Emprego do índice venoso portal como método não-invasivo no diagnóstico de fibrose hepática em pacientes portadores de hepatite C crônica</trans-title>
+				</trans-title-group>
+			</title-group>
+			<contrib-group>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Rocha</surname>
+						<given-names>Haroldo Luis Oliva Gomes</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff1">1</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Diniz</surname>
+						<given-names>Angélica Lemos Debs</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff2">2</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Borges</surname>
+						<given-names>Valéria Ferreira de Almeida e</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff1">1</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Salomão</surname>
+						<given-names>Frederico Chaves</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff3">3</xref>
+				</contrib>
+			</contrib-group>
+			<aff id="aff1">
+				<label>1</label>Serviço de Gastroenterologia, Hospital de Clínicas, Universidade Federal de Uberlândia (HC-UFU)</aff>
+			<aff id="aff2">
+				<label>2</label>Pós-graduação - Ciências da Saúde, UFU</aff>
+			<aff id="aff3">
+				<label>3</label>Departamento de Anatomia Patológica - UFU, Uberlândia, MG, Brasil</aff>
+			<author-notes>
+				<corresp>
+					<bold>Correspondence</bold>:  Dr. Haroldo Luís Oliva Gomes Rocha Rua Quinze de Novembro, 365/1500 - Centro 38400-214 - Uberlândia, MG, Brasil E-mail: <email>haroldoluisrocha@yahoo.com.br</email>
+				</corresp>
+				<fn fn-type="financial-disclosure">
+					<p>No external support relevant to this submission.</p>
+				</fn>
+				<fn fn-type="conflict">
+					<p>The authors have no conflicts of interest to declare.</p>
+				</fn>
+			</author-notes>
+			<pub-date pub-type="epub-ppub">
+				<season>Jan-Mar</season>
+				<year>2012</year>
+			</pub-date>
+			<volume>49</volume>
+			<issue>1</issue>
+			<fpage>14</fpage>
+			<lpage>18</lpage>
+			<history>
+				<date date-type="received">
+					<day>24</day>
+					<month>07</month>
+					<year>2011</year>
+				</date>
+				<date date-type="accepted">
+					<day>19</day>
+					<month>10</month>
+					<year>2011</year>
+				</date>
+			</history>
+			<permissions>
+				<license license-type="open-access" xlink:href="http://creativecommons.org/licenses/by-nc/3.0/">
+					<license-p>This is an Open Access article distributed under the terms of the Creative Commons Attribution Non-Commercial License, which permits unrestricted non-commercial use, distribution, and reproduction in any medium, provided the original work is properly cited.</license-p>
+				</license>
+			</permissions>
+			<abstract xml:lang="en">
+				<sec>
+					<title>CONTEXT:</title>
+					<p> Hepatitis C is an important cause of chronic liver disease worldwide. The grading of hepatic fibrosis in chronic hepatitis C is important for better clinical management. However, until now, liver biopsy is the only test accepted for this purpose, despite their contraindications and complications. New methods for non-invasive assessment of hepatic fibrosis are under investigation. One proposal is the Doppler ultrasound, as a non-invasive, widely available and inexpensive. </p>
+				</sec>
+				<sec>
+					<title>OBJECTIVE:</title>
+					<p> To compare Doppler parameters of portal vein in patients with chronic hepatitis C with a healthy control group and to correlate these parameters with fibrosis degree obtained by liver biopsy. </p>
+				</sec>
+				<sec>
+					<title>METHODS:</title>
+					<p> Fifty patients with chronic hepatitis C submitted to liver biopsy and 44 healthy controls had Doppler of the portal vein performed, with the calculation of the portal venous index. We conducted a comparison between the averages of the two groups of portal venous index. For the correlation between portal venous index and fibrosis was employed the Spearman test. </p>
+				</sec>
+				<sec>
+					<title>RESULTS:</title>
+					<p> There was a difference between the average portal venous index between controls (0.33 ± 0.07) and patients (0.23 ± 0.09) with <italic>P</italic>&lt;0.001. No difference was observed between the portal venous index in patients with chronic hepatitis C who have significant fibrosis or not. The correlation between the portal venous index and fibrosis degree was reverse and moderate (r =-0.448 <italic>P</italic>&lt;0.001). The area under the ROC curve was 78.4% (95% CI: 68.8% to 88%). The cutoff for the portal venous index was 0.28 with sensitivity of 73.5% and specificity of 71.1%.</p>
+				</sec>
+				<sec>
+					<title> CONCLUSION:</title>
+					<p> The portal venous index was useful in distinguishing healthy patients from patients with CHC. However, there was no significant difference in the quantification of degree of fibrosis.</p>
+				</sec>
+			</abstract>
+			<trans-abstract xml:lang="pt">
+				<sec>
+					<title>CONTEXTO:</title>
+					<p> A hepatite C é uma importante causa de hepatopatia crônica no mundo. A avaliação do grau de fibrose hepática na hepatite C crônica é importante para o melhor manejo clínico. Entretanto, até o momento, a biopsia hepática é o único teste aceito para esta finalidade, apesar de suas contra-indicações e complicações. Novos métodos para avaliação não invasiva de fibrose hepática estão sendo pesquisados. Uma proposta é o ultrassom com Doppler, por ser um método não-invasivo, amplamente disponível e de baixo custo. </p>
+				</sec>
+				<sec>
+					<title>OBJETIVO:</title>
+					<p> Comparar os parâmetros Doppler da veia porta de portadores de hepatite C crônica com um grupo controle sadio e correlacionar estes parâmetros com os graus de fibrose obtidos por biopsia hepática. </p>
+				</sec>
+				<sec>
+					<title>MÉTODOS:</title>
+					<p> Cinquenta pacientes portadores de hepatite C crônica com biopsia hepática e 44 controles sadios foram submetidos ao Doppler da veia porta, com cálculo do índice venoso portal. Realizou-se a comparação entre as médias do índice venoso portal dos dois grupos. Para a correlação entre o índice venoso portal e os graus de fibrose empregou-se o teste de Spearman. </p>
+				</sec>
+				<sec>
+					<title>RESULTADOS:</title>
+					<p> Houve diferença entre a média do índice venoso portal entre os controles (0,33 ± 0,07) e os doentes (0,23 ± 0,09) com <italic>P</italic>&lt;0,001. Não foi observada diferença do índice venoso portal entre os pacientes com hepatite C crônica que tem ou não fibrose significante. A correlação entre o índice venoso portal e o grau de fibrose foi inversa e moderada (r = -0,448 <italic>P</italic>&lt;0,001). A área sob a curva ROC foi de 78,4% (IC 95%: 68,8%-88%). O ponto de corte para o índice venoso portal foi de 0,28 com sensibilidade de 73,5% e especificidade de 71,1%. </p>
+				</sec>
+				<sec>
+					<title>CONCLUSÃO:</title>
+					<p> O índice venoso portal foi útil em diferenciar pacientes sadios de pacientes portadores de hepatite C crônica. No entanto, não se encontrou diferença significante na quantificação dos graus de fibrose.</p>
+				</sec>
+			</trans-abstract>
+			<kwd-group xml:lang="en">
+				<kwd>Hepatitis C, chronic</kwd>
+				<kwd>Liver cirrhosis</kwd>
+				<kwd>Portal vein, ultrasonography</kwd>
+				<kwd>Ultrasonography</kwd>
+			</kwd-group>
+			<kwd-group xml:lang="pt">
+				<kwd>Hepatite C crônica</kwd>
+				<kwd>Cirrose hepática</kwd>
+				<kwd>Veia porta, ultrassonografia</kwd>
+				<kwd>Ultrassonografia Doppler</kwd>
+			</kwd-group>
+			<counts>
+				<fig-count count="3"/>
+				<table-count count="1"/>
+				<ref-count count="26"/>
+				<page-count count="5"/>
+			</counts>
+		</article-meta>
+	</front>
+	<body>
+		<sec sec-type="intro">
+			<title>INTRODUCTION</title>
+			<p>Hepatitis C virus (HCV) infection is a global health problem. It is estimated that about 3% of the world's population is infected with HCV and that 3 million people are infected each year. Eighty percent of cases will become chronic carriers. Of these patients, 10% to 20% will develop cirrhosis and 1% to 5% will develop hepatocellular carcinoma<sup>(<xref ref-type="bibr" rid="r13">13</xref>, <xref ref-type="bibr" rid="r14">14</xref>)</sup>.</p>
+			<p>The current recommended treatment for chronic hepatitis C (CHC) is pegylated interferon with ribavirin. However, this treatment is costly and has potential adverse effects. Treatment indications are, in most cases, the degree of liver inflammation and fibrosis, with liver biopsy being the testing method of choice<sup>(<xref ref-type="bibr" rid="r23">23</xref>)</sup>. Liver biopsy, however, has its limitations since it does not diagnose cirrhosis in 10% to 30% of cases, and it results in the misclassification of fibrosis by at least 1 grade in 20% to 30% of cases. In addition, there are certain contraindications and adverse events. Some have reported mortality rates after liver biopsy at 3 in 10,000 procedures<sup>(<xref ref-type="bibr" rid="r04">4</xref>, <xref ref-type="bibr" rid="r19">19</xref>, <xref ref-type="bibr" rid="r22">22</xref>)</sup>.</p>
+			<p>Given the importance of assessing liver fibrosis in hepatitis C patients, coupled with the limitations of biopsy, a non-invasive assessment of liver fibrosis based on laboratory tests<sup>(<xref ref-type="bibr" rid="r19">19</xref>)</sup> and imaging<sup>(<xref ref-type="bibr" rid="r22">22</xref>)</sup> needs to be developed. Imaging methods such as ultrasound, computerized tomography and magnetic resonance imaging can provide useful information on morphological changes in the diseased liver<sup>(<xref ref-type="bibr" rid="r21">21</xref>, <xref ref-type="bibr" rid="r22">22</xref>)</sup>. Elastography is a new method that is the most effective at differentiating between cirrhosis and non-cirrhosis and is considered to be a quick and easy, non-invasive procedure for diagnosing cirrhosis. Elastography has been adopted as an alternative to liver biopsy in patients with formal contraindications<sup>(<xref ref-type="bibr" rid="r07">7</xref>)</sup>. However, it is not yet available for small-scale providers. Ultrasound is widely available throughout the world thanks to its low cost, ease of use, non-invasive nature, and wide acceptance by patients. It provides useful information on the morphology of the hepatic parenchyma, as well as on hemodynamics changes, using pulsed color Doppler velocimetry<sup>(<xref ref-type="bibr" rid="r18">18</xref>, <xref ref-type="bibr" rid="r24">24</xref>)</sup>.</p>
+			<p>The objective of this study was to compare the portal vein velocities and venous pulsatility indexes (VPIs) obtained in patients with CHC versus a healthy control group, and to correlate these parameters with grade of fibrosis obtained from transcutaneous biopsy.</p>
+		</sec>
+		<sec sec-type="methods">
+			<title>METHODS</title>
+			<p>A prospective observational study that included 50 patients with CHC and 44 healthy controls was conducted between April 2009 and October 2010. The Ethics Committee of Federal University of Uberlândia, MG, Brazil, approved the project (Protocol No. 005/09). For ethical reasons, only patients with HCV underwent liver biopsy. All patients signed the informed consent form.</p>
+			<p>The inclusion criteria were the presence of serology and panel reactive antibodies that were positive for HCV and age between 18 and 70 years. The control group had the same inclusion criteria, except for the presence of HCV.</p>
+			<p>Patients with alcohol intake &gt;140 g/week for males and &gt;70 g/week for females were excluded<sup>(<xref ref-type="bibr" rid="r10">10</xref>)</sup>, as were those using medications known to be hepatotoxic or medications causing hemodynamic changes that could cause changes in liver Doppler flow data. Patients with any blood clotting disorder, heart disease with signs of heart failure, nephropathy with modification of renal texture during the ultrasound examination and pregnant or lactating women were also excluded.</p>
+			<p>All 94 volunteers were examined by two-dimensional ultrasonography with Doppler, using a 2 MHz-5 MHz multifrequency convex transducer (Voluson 730 PRO V, General Electric, Milwaukee, USA). The subjects fasted for 10 hours to 12 hours and then in the morning underwent an ultrasound exam in a supine position with arms outstretched alongside the head. All ultrasounds were performed by the same experienced examiner. All segments of the liver were examined and patients that were found to have vascular malformations, cysts, and focal parenchymal lesions were excluded.</p>
+			<p>A liver biopsy was performed in the outpatient clinic using intercostal access guided by ultrasound, using a TruCut automatic needle (16 ga x 15 cm). Biopsies that contained at least five portal tracts were considered representative and those with 10 or more portal tracts were considered ideal. The slides were examined by a single experienced pathologist who had no knowledge of the patients' clinical and laboratory reports or ultrasound data. Classifications from the Clube Brasileiro de Hepatologia of the Sociedade Brasileira de Patologia<sup>(<xref ref-type="bibr" rid="r12">12</xref>)</sup> and METAVIR<sup>(<xref ref-type="bibr" rid="r03">3</xref>)</sup> were used for histological assessment.</p>
+			<p>For clinical application, the HCV patients were divided into two groups by grade of fibrosis: the first had no significant fibrosis, consisting of patients with F0 and F1 fibrosis (n = 17); the second had significant fibrosis, consisting of patients with F2, F3, and F4 fibrosis (n = 33).</p>
+			<p>The ultrasound parameters were obtained within a week after performing the biopsy. The portal vein Doppler velocimetry was performed during apnea, at the beginning of inspiration to avoid changes caused by deep inspiration. Spectral analysis of the portal vein flow velocity waveform (FVW) was recorded for at least 5 seconds of suspended inspiration<sup>(<xref ref-type="bibr" rid="r16">16</xref>)</sup>. The measurement point for the portal vein FVW was in the extrahepatic portion, adjacent to the hepatic hilum (<xref ref-type="fig" rid="f01">Figure 1</xref>). The Doppler sample volume was set to between 4 mm and 8 mm, with a pulse repetition frequency of less than 3.3 KHZ and FVW recorded with an angle of less than 60º. Maximum and minimum portal vein velocities were recorded and photo documented for each volunteer (<xref ref-type="fig" rid="f01">Figure 1</xref>), after obtaining at least three FVWs with homogeneous patterns. The VPI was obtained for all patients and controls by subtracting Vmin from Vmax and dividing the remainder of Vmax [VPI = (Vmax - Vmin) / Vmax] in a single wave for each patient.</p>
+			<p>
+				<fig id="f01">
+					<label>FIGURE 1</label>
+					<caption>
+						<title>On the left, a portal vein Doppler result showing strong pulsatility of the portal vein (VPI = 0.47) and, on the right, low pulsatility (VPI = 0.18)</title>
+					</caption>
+					<graphic xlink:href="0004-2803-ag-49-01-14-gf01"/>
+				</fig>
+			</p>
+			<p>Descriptive statistics were used to characterize the sample. Continuous variables were expressed as mean ± standard deviation, and categorical variables were expressed as absolute (n) and relative (%). The distribution of the data was analyzed using the Lilliefors normality test. For variables that followed a normal distribution, comparisons were made between the means of the two samples using Student's <italic>t</italic> test. For variables that did not follow a normal distribution, the Mann-Whitney test was used. The Kruskal-Wallis test and Student-Newman-Keuls test were used for comparisons between VPI samples for the three patient groups. The correlation analyses were performed using the Spearman coefficient. The receiver operating characteristic (ROC) was also calculated for the parameters with the greatest degree of significance based on the above tests. All tests were considered significant at <italic>P</italic>&lt;0.05. The statistical analyses were performed using Statistical Package for the Social Sciences (SPSS for Windows, version 17.0, Chicago, IL).</p>
+		</sec>
+		<sec sec-type="results">
+			<title>RESULTS</title>
+			<p>The groups were matched for sex and age. The CHC patient group had an average age of 45 ± 11 years. There was no difference between the mean age of the study group and the control group, which was 41 ± 11 years (<italic>P</italic> = 0.06). There were 29 men (58%) in the study group compared to 18 male volunteers (40.9%) in the control group (<italic>P</italic> = 0.098), as shown in <xref ref-type="table" rid="t01">Table 1</xref>.</p>
+			<p>
+				<table-wrap id="t01">
+					<label>TABLE 1</label>
+					<caption>
+						<title>Clinical, laboratory, and ultrasound characteristics of groups with HCV and control groups, expressed as mean ± standard deviation, except for categorical variables, which are expressed in absolute and percentage frequencies, where indicated</title>
+					</caption>
+					<table frame="hsides" rules="groups" width="60%">
+						<thead style="border-bottom: thin solid; border-top: thin solid; border-color: #000000">
+							<tr>
+								<th/>
+								<th>HCV (n = 50)</th>
+								<th>Control (n = 44)</th>
+								<th>
+									<italic>P</italic>-value</th>
+							</tr>
+						</thead>
+						<tbody style="border-color: #000000; border-bottom: thin solid">
+							<tr>
+								<td>Age (years) </td>
+								<td align="center">45.32 &#177; 11.14 </td>
+								<td align="center">41.98 &#177; 11.09 </td>
+								<td align="center">0.060 </td>
+							</tr>
+							<tr>
+								<td>Males (%) </td>
+								<td align="center">29 (58%) </td>
+								<td align="center">18 (40.90%) </td>
+								<td align="center">0.098 </td>
+							</tr>
+							<tr>
+								<td>Platelet count (n)</td>
+								<td align="center">212,170 &#177; 56,921 </td>
+								<td align="center">251,054 &#177; 45,230 </td>
+								<td align="center">&lt;0.001 </td>
+							</tr>
+							<tr>
+								<td>Albumin(g/dL)</td>
+								<td align="center">4.43 &#177; 0.37 </td>
+								<td align="center">4.62 &#177; 0.41 </td>
+								<td align="center">0.570 </td>
+							</tr>
+							<tr>
+								<td>Total bilirubin(mg/dL)</td>
+								<td align="center">0.77 &#177; 0.41 </td>
+								<td align="center">0.81 &#177; 0.4 </td>
+								<td align="center">0.650 </td>
+							</tr>
+							<tr>
+								<td>AST<xref ref-type="table-fn" rid="TFN02t01">*</xref>
+								</td>
+								<td align="center">1.32 &#177; 0.78 </td>
+								<td align="center">0.4 &#177; 0.1 </td>
+								<td align="center">&lt;0.001 </td>
+							</tr>
+							<tr>
+								<td>ALT<xref ref-type="table-fn" rid="TFN02t01">*</xref>
+								</td>
+								<td align="center">1.9 &#177; 1.32 </td>
+								<td align="center">0.45 &#177; 0.21 </td>
+								<td align="center">&lt;0.001 </td>
+							</tr>
+							<tr>
+								<td>GGT<xref ref-type="table-fn" rid="TFN02t01">*</xref>
+								</td>
+								<td align="center">2.39 &#177; 1.92 </td>
+								<td align="center">0.48 &#177; 0.3 </td>
+								<td align="center">&lt;0.001 </td>
+							</tr>
+							<tr>
+								<td>ALP<xref ref-type="table-fn" rid="TFN02t01">*</xref>
+								</td>
+								<td align="center">0.69 &#177; 0.19 </td>
+								<td align="center">0.57 &#177; 0.19 </td>
+								<td align="center">0.070 </td>
+							</tr>
+							<tr>
+								<td>V<sub>max</sub> (cm/s) </td>
+								<td align="center">24.88 &#177; 6.31 </td>
+								<td align="center">23.37 &#177; 5.38 </td>
+								<td align="center">0.214 </td>
+							</tr>
+							<tr>
+								<td>V<sub>min</sub> (cm/s) </td>
+								<td align="center">16.50 &#177; 4.26 </td>
+								<td align="center">17.77 &#177; 3.75 </td>
+								<td align="center">0.128 </td>
+							</tr>
+							<tr>
+								<td>Portal venous index </td>
+								<td align="center">0.33 &#177; 0.07 </td>
+								<td align="center">0.23 &#177; 0.09 </td>
+								<td align="center">&lt;0.001 </td>
+							</tr>
+						</tbody>
+					</table>
+					<table-wrap-foot>
+						<fn id="TFN01t01">
+							<p>AST = aspartate aminotransferase; ALT = alanine aminotransferase; GGT = gamma glutamyl transferase; ALP = alkaline phosphatase; HCV = hepatitis C virus; Vmax = portal vein maximum velocity; Vmin = portal vein minimum velocity</p>
+						</fn>
+						<fn id="TFN02t01">
+							<label>*</label>
+							<p> Liver enzymes were described in relation to their upper normal limit</p>
+						</fn>
+					</table-wrap-foot>
+				</table-wrap>
+			</p>
+			<p>Most patients (74%) were infected with HCV genotype 1. The average viral load was of 2,742,812 ± 4,001,501 copies and 6.09 ± 0.59 log. The aspartate transaminase (AST), alanine transaminase (ALT), and gamma glutamyl transpeptidase (GGT) liver enzymes were higher in the CHC carrier group compared to the levels of the control group (<italic>P</italic>&lt;0.001; <xref ref-type="table" rid="t01">Table 1</xref>).</p>
+			<p>Of the patients who underwent biopsy, 5 (10%) had F0 fibrosis, 12 (24%) had F1 fibrosis, 22 (44%) had F2 fibrosis, 9 (18%) had F3 fibrosis and only 2 (4%) had F4 fibrosis. All HCV patients had some degree of liver inflammation indicated during the pathology exam: 31 (62%) showed A1 activity, 16 (32%) showed A2 activity and 3 (6%) had A3 activity. Hydropic degeneration was found in 94% of patients, with ballooning in 44% of patients and hemosiderosis in 12%. Only 12 patients (24%) had some degree of steatosis on biopsy: 8 with grade I steatosis and only 4 with moderate or severe steatosis.</p>
+			<p>The portal vein flow velocity waveform was more pulsatile in the control group than in patients with HCV. The mean values for VPI were 0.33 ± 0.07 in the control group and 0.23 ± 0.09 in patients with HCV (<italic>P</italic>&lt;0.001; <xref ref-type="table" rid="t01">Table 1</xref>). The correlation between VPI and the degree of fibrosis was moderate and inverse (r = -0.448, <italic>P</italic>&lt;0.001). There was a significant difference between the mean VPI (greater) for the control group compared to the means of the HCV patient groups that were subdivided into insignificant fibrosis (F0 and F1) and significant fibrosis (F2, F3 and F4), with <italic>P</italic> = 0.001 and <italic>P</italic>&lt;0.001, respectively (<xref ref-type="fig" rid="f02">Figure 2</xref>). But when comparing the values for VPI between the two CHC patient groups - without significant fibrosis (F0 and F1) and with significant fibrosis (F2, F3, F4) - we found no significant differences (<italic>P</italic> = 0.715).</p>
+			<p>
+				<fig id="f02">
+					<label>FIGURE 2</label>
+					<caption>
+						<title>Box plot graph of portal vein pulsatility index (VPI) according to the degree of fibrosis at histology. Assessment results using the Kruskal- Wallis test and post hoc analysis using the Student-Newman-Keuls test, with respective degrees of significance shown in bars. Numbers next to the black dots reflect outliers, and the numbers next to the graphs show the median, with the standard deviation of each group</title>
+					</caption>
+					<graphic xlink:href="0004-2803-ag-49-01-14-gf02"/>
+				</fig>
+			</p>
+			<p>In order to define the cutoff parameter for VPI for the diagnosis of liver fibrosis in HCV patients, we used the ROC curve. The area under the curve was 78.4% (CI 95%: 68.8%-88%). The ideal cutoff point for the VPI was calculated to be 0.28, with sensitivity equal to 73.5% and specificity equal to 71.1% (<xref ref-type="fig" rid="f03">Figure 3</xref>).</p>
+			<p>
+				<fig id="f03">
+					<label>FIGURE 3</label>
+					<caption>
+						<title>ROC curve graph for sensitivity plotted against 1-VPI specificity for the diagnosis of fibrosis on biopsy</title>
+					</caption>
+					<graphic xlink:href="0004-2803-ag-49-01-14-gf03"/>
+				</fig>
+			</p>
+		</sec>
+		<sec sec-type="discussion">
+			<title>DISCUSSION</title>
+			<p>HCV infection is a major cause of chronic liver disease throughout the world<sup>(<xref ref-type="bibr" rid="r25">25</xref>)</sup>. The assessment of the degree of liver fibrosis in HCV patients is important for better clinical management. Until now, liver biopsy has been the gold standard for defining the degree of liver fibrosis and providing treatment, despite its contraindications and adverse effects<sup>(<xref ref-type="bibr" rid="r19">19</xref>)</sup>.</p>
+			<p>New methods for non-invasive assessment of liver fibrosis are being investigated<sup>(<xref ref-type="bibr" rid="r19">19</xref>)</sup>. Among these methods, ultrasound with Doppler has been the subject of several publications<sup>(<xref ref-type="bibr" rid="r05">5</xref>, <xref ref-type="bibr" rid="r17">17</xref>, <xref ref-type="bibr" rid="r26">26</xref>)</sup>. These methods include portal vein maximum velocity (Vmax), portal vein minimum velocity (Vmin), portal blood flow volume, congestive index, and portal venous index (VPI). VPI is defined as a parameter that evaluates portal venous pulsatility and its major advantage is it does not depend on the angulation obtained in the Doppler sample, which makes it more reproducible. The relative lack of studies in the literature looking at VPI as a parameter in the assessment of fibrosis in patients with CHC<sup>(<xref ref-type="bibr" rid="r02">2</xref>, <xref ref-type="bibr" rid="r16">16</xref>)</sup> was the motive for this study.</p>
+			<p>It is known that HCV can lead to various degrees of liver inflammation and fibrosis, with modification of the usual architecture of the liver, associated with sinusoidal vascular distortion. These changes may lead to changes in intra- and extra-hepatic vascular impedance, which theoretically can be detected by the Doppler examination of the portal vein, hepatic vein and hepatic artery. A large number of Doppler ultrasound parameters have been studied in order to identify hemodynamic changes in the liver, but there is no consensus on which option is best in identifying the grade of liver fibrosis<sup>(<xref ref-type="bibr" rid="r06">6</xref>, <xref ref-type="bibr" rid="r08">8</xref>, <xref ref-type="bibr" rid="r15">15</xref>)</sup>.</p>
+			<p>The numerous hemodynamic changes present in livers with established cirrhosis is unquestionable. In these cases there is an increase of intrahepatic vascular resistance and a reduction of portal blood flow, which are changes that lead to compensatory increase in hepatic artery flow. In addition, intrahepatic shunts may develop between branches of the portal vein, hepatic vein, and hepatic artery. Porto-systemic collateral vessels may increase resistance to portal blood flow, and their formation precedes the clinical manifestations of hypertension per se<sup>(<xref ref-type="bibr" rid="r20">20</xref>)</sup>.</p>
+			<p>At issue is to what extent fibrosis, inflammation, and steatosis may modify the arterial and venous hepatic vascular patterns before cirrhosis is established, and what would be the ideal non-invasive method for diagnosing and grading fibrosis levels. Given that Doppler ultrasound is a method that aids in the diagnosis of hepatic hemodynamic changes, we chose to evaluate VPI of the portal vein in this group of patients with HCV, given the small number of studies in the literature that calculate VPI in grading liver fibrosis<sup>(<xref ref-type="bibr" rid="r01">1</xref>, <xref ref-type="bibr" rid="r02">2</xref>)</sup>. Galix et al.<sup>(<xref ref-type="bibr" rid="r11">11</xref>)</sup> Barakat<sup>(<xref ref-type="bibr" rid="r02">2</xref>)</sup>, and Balci et al.<sup>(<xref ref-type="bibr" rid="r01">1</xref>)</sup> described the following reference values for VPI in normal patients: 0.39 ± 0.10, 0.48 ± 0.31 and 0.32 ± 0.06, respectively. In this study, the mean VPI for the control group was 0.33 ± 0.07, which is in agreement with most of the authors cited above.</p>
+			<p>The isolated use of portal vein velocities was not sufficient to discriminate between healthy patients and fibrotic patients, which is in agreement with the literature. Lim et al.<sup>(<xref ref-type="bibr" rid="r17">17</xref>)</sup> compared portal vein Vmax between patients with mild and moderate hepatitis and cirrhosis, but did not observe significant differences. The same occurred in the Bernatik et al.<sup>(<xref ref-type="bibr" rid="r05">5</xref>)</sup> study comparing Vmax for grades I to IV patients, which failed to yield significant results. Our study agrees with the above research in that we found no significant difference in Vmax and Vmin between groups of normal patients and patients with CHC.</p>
+			<p>Changes in VPI were initially described in patients with congestive heart failure. Later it was found that patients with chronic liver disease also exhibited changes in portal vein flow patterns<sup>(<xref ref-type="bibr" rid="r02">2</xref>)</sup>. As shown in the current study, the portal vein flow velocity waveform is less pulsatile in patients with CHC compared to healthy controls, after quantification using VPI and defining significant differences between the two groups. In previously published work, this same difference was also observed<sup>(<xref ref-type="bibr" rid="r02">2</xref>)</sup>. Our study, however, found no significant difference between groups of patients with significant or insignificant fibrosis. Barakat's<sup>(<xref ref-type="bibr" rid="r02">2</xref>)</sup> 2002 study classified patients with chronic liver disease according to the Child-Pugh clinical criteria and found no significant difference between VPI values, independent of severity.</p>
+			<p>After constructing a ROC curve, we obtained a cutoff of 0.28 for VPI with good sensitivity and specificity. Data published in the literature suggest a normal range for VPI between 0.20 and 0.50<sup>(<xref ref-type="bibr" rid="r02">2</xref>)</sup>.</p>
+			<p>In our study, only two (4%) patients had F4 fibrosis. This fact is explained by the rigorous criterion used in conducting the biopsy; that is, any clotting disorder was considered a contraindication for performing the procedure. The small number of patients with cirrhosis may explain the absence of VPI values difference among groups of patients with CHC. It is known that the main changes occur in cases with severe fibrosis and cirrhosis, where there is a parenchymal and vascular remodeling<sup>(<xref ref-type="bibr" rid="r20">20</xref>)</sup>. Further studies will be important to analyse the portal venous index pattern in patients with severe liver fibrosis and cirrhosis. However, these patients most often are categorized as cirrhotic through imaging and laboratory examinations, which commences a special treatment protocol, and they do not require biopsy to start drug therapy<sup>(<xref ref-type="bibr" rid="r09">9</xref>)</sup>.</p>
+		</sec>
+		<sec sec-type="conclusions">
+			<title>CONCLUSIONS</title>
+			<p>The portal venous index was useful in differentiating healthy subjects from patients with fibrosis due to chronic HCV. However, there was no significant difference regarding the grade of fibrosis in the patient group.</p>
+		</sec>
+	</body>
+	<back>
+		<ref-list>
+			<title>REFERENCES</title>
+			<ref id="r01">
+				<label>1</label>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Balci</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Karazincir</surname>
+							<given-names>S</given-names>
+						</name>
+						<name>
+							<surname>Sumbas</surname>
+							<given-names>H</given-names>
+						</name>
+						<name>
+							<surname>Oter</surname>
+							<given-names>Y</given-names>
+						</name>
+						<name>
+							<surname>Egilmez</surname>
+							<given-names>E</given-names>
+						</name>
+						<name>
+							<surname>Inandi</surname>
+							<given-names>T</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Effects of diffuse fatty infiltration of the liver on portal vein flow hemodynamics</article-title>
+					<source xml:lang="en">J Clin Ultrasound</source>
+					<year>2008</year>
+					<volume>36</volume>
+					<fpage>134</fpage>
+					<lpage>140</lpage>
+				</element-citation>
+			</ref>
+			<ref id="r02">
+				<label>2</label>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Barakat</surname>
+							<given-names>M</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Portal vein pulsatility and spectral width changes in patients with portal hypertension: relation to the severity of liver disease</article-title>
+					<source xml:lang="en">Br J Radiol</source>
+					<year>2002</year>
+					<volume>75</volume>
+					<fpage>417</fpage>
+					<lpage>421</lpage>
+				</element-citation>
+			</ref>
+			<ref id="r03">
+				<label>3</label>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Bedossa</surname>
+							<given-names>P</given-names>
+						</name>
+						<name>
+							<surname>Poynard</surname>
+							<given-names>T</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">An algorithm for the grading of activity in chronic hepatitis C. The METAVIR Cooperative Study Group</article-title>
+					<source xml:lang="en">Hepatology</source>
+					<year>1996</year>
+					<volume>24</volume>
+					<fpage>289</fpage>
+					<lpage>293</lpage>
+				</element-citation>
+			</ref>
+			<ref id="r04">
+				<label>4</label>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Bedossa</surname>
+							<given-names>P</given-names>
+						</name>
+						<name>
+							<surname>Dargère</surname>
+							<given-names>D</given-names>
+						</name>
+						<name>
+							<surname>Paradis</surname>
+							<given-names>V</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Sampling variability of liver fibrosis in chronic hepatitis C</article-title>
+					<source xml:lang="en">Hepatology</source>
+					<year>2003</year>
+					<volume>38</volume>
+					<fpage>1449</fpage>
+					<lpage>1457</lpage>
+				</element-citation>
+			</ref>
+			<ref id="r05">
+				<label>5</label>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Bernatik</surname>
+							<given-names>T</given-names>
+						</name>
+						<name>
+							<surname>Strobel</surname>
+							<given-names>D</given-names>
+						</name>
+						<name>
+							<surname>Hahn</surname>
+							<given-names>EG</given-names>
+						</name>
+						<name>
+							<surname>Becker</surname>
+							<given-names>D</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Doppler measurements: a surrogate marker of liver fibrosis? </article-title>
+					<source xml:lang="en">Eur J Gastroenterol Hepatol</source>
+					<year>2002</year>
+					<volume>14</volume>
+					<fpage>383</fpage>
+					<lpage>387</lpage>
+				</element-citation>
+			</ref>
+			<ref id="r06">
+				<label>6</label>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Borges</surname>
+							<given-names>VFA</given-names>
+						</name>
+						<name>
+							<surname>Diniz</surname>
+							<given-names>ALD</given-names>
+						</name>
+						<name>
+							<surname>Cotrim</surname>
+							<given-names>HP</given-names>
+						</name>
+						<name>
+							<surname>Rocha</surname>
+							<given-names>HLOG</given-names>
+						</name>
+						<name>
+							<surname>Salomão</surname>
+							<given-names>FC</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Dopplerfluxometria da veia hepática em pacientes com esteatose hepática não alcoólica</article-title>
+					<source xml:lang="en">Radiol Bras</source>
+					<year>2011</year>
+					<volume>44</volume>
+					<fpage>1</fpage>
+					<lpage>6</lpage>
+				</element-citation>
+			</ref>
+			<ref id="r07">
+				<label>7</label>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Coco</surname>
+							<given-names>B</given-names>
+						</name>
+						<name>
+							<surname>Oliveri</surname>
+							<given-names>F</given-names>
+						</name>
+						<name>
+							<surname>Maina</surname>
+							<given-names>AM</given-names>
+						</name>
+						<name>
+							<surname>Ciccorossi</surname>
+							<given-names>P</given-names>
+						</name>
+						<name>
+							<surname>Sacco</surname>
+							<given-names>R</given-names>
+						</name>
+						<name>
+							<surname>Colombatto</surname>
+							<given-names>P</given-names>
+						</name>
+						<name>
+							<surname>Bonino</surname>
+							<given-names>F</given-names>
+						</name>
+						<name>
+							<surname>Brunetto</surname>
+							<given-names>MR</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Transient elastography: a new surrogate marker of liver fibrosis influenced by major changes of transaminases</article-title>
+					<source xml:lang="en">J Viral Hepat</source>
+					<year>2007</year>
+					<volume>14</volume>
+					<fpage>360</fpage>
+					<lpage>369</lpage>
+				</element-citation>
+			</ref>
+			<ref id="r08">
+				<label>8</label>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Colli</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Cocciolo</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Riva</surname>
+							<given-names>C</given-names>
+						</name>
+						<name>
+							<surname>Martinez</surname>
+							<given-names>E</given-names>
+						</name>
+						<name>
+							<surname>Prisco</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Pirola</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Bratina</surname>
+							<given-names>G</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Abnormalities of Doppler waveform of the hepatic veins in patients with chronic liver disease: correlation with histologic findings</article-title>
+					<source xml:lang="en">AJR Am J Roentgenol</source>
+					<year>1994</year>
+					<volume>162</volume>
+					<fpage>833</fpage>
+					<lpage>837</lpage>
+				</element-citation>
+			</ref>
+			<ref id="r09">
+				<label>9</label>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>de Araújo</surname>
+							<given-names>ES</given-names>
+						</name>
+						<name>
+							<surname>Mendonça</surname>
+							<given-names>JS</given-names>
+						</name>
+						<name>
+							<surname>Barone</surname>
+							<given-names>AA</given-names>
+						</name>
+						<name>
+							<surname>Gonçales</surname>
+							<given-names>FL Jr</given-names>
+						</name>
+						<name>
+							<surname>Ferreira</surname>
+							<given-names>MS</given-names>
+						</name>
+						<name>
+							<surname>Focaccia</surname>
+							<given-names>R</given-names>
+						</name>
+						<name>
+							<surname>Pawlotsky</surname>
+							<given-names>JM</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Consensus of the Brazilian Society of Infectious Diseases on the management and treatment of hepatitis C</article-title>
+					<source xml:lang="en">Braz J Infect Dis</source>
+					<year>2007</year>
+					<volume>11</volume>
+					<fpage>446</fpage>
+					<lpage>450</lpage>
+				</element-citation>
+			</ref>
+			<ref id="r10">
+				<label>10</label>
+				<element-citation publication-type="book">
+					<person-group person-group-type="editor">
+						<name>
+							<surname>Farrell</surname>
+							<given-names>GC</given-names>
+						</name>
+						<name>
+							<surname>George</surname>
+							<given-names>J</given-names>
+						</name>
+						<name>
+							<surname>Pauline de la</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Hall</surname>
+							<given-names>P</given-names>
+						</name>
+						<name>
+							<surname>McCullough</surname>
+							<given-names>AJ</given-names>
+						</name>
+					</person-group>
+					<source xml:lang="en">Fatty liver disease: NASH and related disorders</source>
+					<publisher-loc>Malden, MA</publisher-loc>
+					<publisher-name>Blackwell</publisher-name>
+					<year>2005</year>
+					<fpage>1</fpage>
+					<lpage>319</lpage>
+				</element-citation>
+			</ref>
+			<ref id="r11">
+				<label>11</label>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Gallix</surname>
+							<given-names>BP</given-names>
+						</name>
+						<name>
+							<surname>Taourel</surname>
+							<given-names>P</given-names>
+						</name>
+						<name>
+							<surname>Dauzat</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Bruel</surname>
+							<given-names>JM</given-names>
+						</name>
+						<name>
+							<surname>Lafortune</surname>
+							<given-names>M</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Flow pulsatility in the portal venous system: a study of Doppler sonography in healthy adults</article-title>
+					<source xml:lang="en">AJR Am J Roentgenol</source>
+					<year>1997</year>
+					<volume>169</volume>
+					<fpage>141</fpage>
+					<lpage>144</lpage>
+				</element-citation>
+			</ref>
+			<ref id="r12">
+				<label>12</label>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Gayotto</surname>
+							<given-names>LCC</given-names>
+						</name>
+						<name>
+							<surname>Comitê</surname>
+							<given-names>SBP/SBH</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="pt">Visão histórica e consenso nacional sobre a classificação das hepatites crônicas - projeto do Clube de Patologia Hepática da Sociedade Brasileira de Patologia aprovado pela Sociedade Brasileira de Hepatologia</article-title>
+					<source xml:lang="en">GED Gastroenterol Endosc Dig</source>
+					<year>2000</year>
+					<volume>19</volume>
+					<fpage>137</fpage>
+					<lpage>140</lpage>
+				</element-citation>
+			</ref>
+			<ref id="r13">
+				<label>13</label>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<collab>Global Burden of Hepatitis C Working Group</collab>
+					</person-group>
+					<article-title xml:lang="en">Global burden of disease (GBD) for hepatitis C</article-title>
+					<source xml:lang="en">J Clin Pharmacol</source>
+					<year>2004</year>
+					<volume>44</volume>
+					<fpage>20</fpage>
+					<lpage>29</lpage>
+				</element-citation>
+			</ref>
+			<ref id="r14">
+				<label>14</label>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<collab>Global surveillance and control of hepatitis C</collab>
+					</person-group>
+					<article-title xml:lang="en">Report of a WHO Consultation organized in collaboration with the Viral Hepatitis Prevention Board, Antwerp, Belgium</article-title>
+					<source xml:lang="en">J Viral Hepat</source>
+					<year>1999</year>
+					<volume>6</volume>
+					<fpage>35</fpage>
+					<lpage>47</lpage>
+				</element-citation>
+			</ref>
+			<ref id="r15">
+				<label>15</label>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Iliopoulos</surname>
+							<given-names>P</given-names>
+						</name>
+						<name>
+							<surname>Vlychou</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Margaritis</surname>
+							<given-names>V</given-names>
+						</name>
+						<name>
+							<surname>Tsamis</surname>
+							<given-names>I</given-names>
+						</name>
+						<name>
+							<surname>Tepetes</surname>
+							<given-names>K</given-names>
+						</name>
+						<name>
+							<surname>Petsas</surname>
+							<given-names>T</given-names>
+						</name>
+						<name>
+							<surname>Karatza</surname>
+							<given-names>C</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Gray and color Doppler ultrasonography in differentiation between chronic viral hepatitis and compensated early stage cirrhosis</article-title>
+					<source xml:lang="en">J Gastrointestin Liver Dis</source>
+					<year>2007</year>
+					<volume>16</volume>
+					<fpage>279</fpage>
+					<lpage>286</lpage>
+				</element-citation>
+			</ref>
+			<ref id="r16">
+				<label>16</label>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Karabulut</surname>
+							<given-names>N</given-names>
+						</name>
+						<name>
+							<surname>Kazil</surname>
+							<given-names>S</given-names>
+						</name>
+						<name>
+							<surname>Yagci</surname>
+							<given-names>B</given-names>
+						</name>
+						<name>
+							<surname>Sabir</surname>
+							<given-names>N</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Doppler waveform of the hepatic veins in an obese population</article-title>
+					<source xml:lang="en">Eur Radiol</source>
+					<year>2004</year>
+					<volume>14</volume>
+					<fpage>2268</fpage>
+					<lpage>2272</lpage>
+				</element-citation>
+			</ref>
+			<ref id="r17">
+				<label>17</label>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Lim</surname>
+							<given-names>AK</given-names>
+						</name>
+						<name>
+							<surname>Patel</surname>
+							<given-names>N</given-names>
+						</name>
+						<name>
+							<surname>Eckersley</surname>
+							<given-names>RJ</given-names>
+						</name>
+						<name>
+							<surname>Kuo</surname>
+							<given-names>YT</given-names>
+						</name>
+						<name>
+							<surname>Goldin</surname>
+							<given-names>RD</given-names>
+						</name>
+						<name>
+							<surname>Thomas</surname>
+							<given-names>HC</given-names>
+						</name>
+						<name>
+							<surname>Cosgrove</surname>
+							<given-names>DO</given-names>
+						</name>
+						<name>
+							<surname>Taylor-Robinson</surname>
+							<given-names>SD</given-names>
+						</name>
+						<name>
+							<surname>Blomley</surname>
+							<given-names>MJ</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Can Doppler sonography grade the severity of hepatitis C-related liver disease?</article-title>
+					<source xml:lang="en">AJR Am J Roentgenol</source>
+					<year>2005</year>
+					<volume>184</volume>
+					<fpage>1848</fpage>
+					<lpage>1853</lpage>
+				</element-citation>
+			</ref>
+			<ref id="r18">
+				<label>18</label>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Martínez-Noguera</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Montserrat</surname>
+							<given-names>E</given-names>
+						</name>
+						<name>
+							<surname>Torrubia</surname>
+							<given-names>S</given-names>
+						</name>
+						<name>
+							<surname>Villalba</surname>
+							<given-names>J</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Doppler in hepatic cirrhosis and chronic hepatitis</article-title>
+					<source xml:lang="en">Semin Ultrasound CT MR</source>
+					<year>2002</year>
+					<volume>23</volume>
+					<fpage>19</fpage>
+					<lpage>36</lpage>
+				</element-citation>
+			</ref>
+			<ref id="r19">
+				<label>19</label>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Myers</surname>
+							<given-names>RP</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Noninvasive markers of liver fibrosis: playing the probabilities</article-title>
+					<source xml:lang="en">Liver Int</source>
+					<year>2008</year>
+					<volume>28</volume>
+					<fpage>1328</fpage>
+					<lpage>1331</lpage>
+				</element-citation>
+			</ref>
+			<ref id="r20">
+				<label>20</label>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Ridolfi</surname>
+							<given-names>F</given-names>
+						</name>
+						<name>
+							<surname>Abbattista</surname>
+							<given-names>T</given-names>
+						</name>
+						<name>
+							<surname>Marini</surname>
+							<given-names>F</given-names>
+						</name>
+						<name>
+							<surname>Vedovelli</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Quagliarini</surname>
+							<given-names>P</given-names>
+						</name>
+						<name>
+							<surname>Busilacchi</surname>
+							<given-names>P</given-names>
+						</name>
+						<name>
+							<surname>Brunelli</surname>
+							<given-names>E</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Contrast-enhanced ultrasound to evaluate the severity of chronic hepatitis C</article-title>
+					<source xml:lang="en">Dig Liver Dis</source>
+					<year>2007</year>
+					<volume>39</volume>
+					<fpage>929</fpage>
+					<lpage>935</lpage>
+				</element-citation>
+			</ref>
+			<ref id="r21">
+				<label>21</label>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Ronot</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Asselah</surname>
+							<given-names>T</given-names>
+						</name>
+						<name>
+							<surname>Paradis</surname>
+							<given-names>V</given-names>
+						</name>
+						<name>
+							<surname>Michoux</surname>
+							<given-names>N</given-names>
+						</name>
+						<name>
+							<surname>Dorvillius</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Baron</surname>
+							<given-names>G</given-names>
+						</name>
+						<name>
+							<surname>Marcellin</surname>
+							<given-names>P</given-names>
+						</name>
+						<name>
+							<surname>Van Beers</surname>
+							<given-names>BE</given-names>
+						</name>
+						<name>
+							<surname>Vilgrain</surname>
+							<given-names>V</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Liver fibrosis in chronic hepatitis C virus infection: differentiating minimal from intermediate fibrosis with perfusion CT</article-title>
+					<source xml:lang="en">Radiology</source>
+					<year>2010</year>
+					<volume>256</volume>
+					<fpage>135</fpage>
+					<lpage>142</lpage>
+				</element-citation>
+			</ref>
+			<ref id="r22">
+				<label>22</label>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Searle</surname>
+							<given-names>J</given-names>
+						</name>
+						<name>
+							<surname>Mendelson</surname>
+							<given-names>R</given-names>
+						</name>
+						<name>
+							<surname>Zelesco</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Sanford</surname>
+							<given-names>J</given-names>
+						</name>
+						<name>
+							<surname>Cheng</surname>
+							<given-names>W</given-names>
+						</name>
+						<name>
+							<surname>McKinstry</surname>
+							<given-names>C</given-names>
+						</name>
+						<name>
+							<surname>Ramsay</surname>
+							<given-names>D</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Non-invasive prediction of the degree of liver fibrosis in patients with hepatitis C using an ultrasound contrast agent. A pilot study</article-title>
+					<source xml:lang="en">J Med Imaging Radiat Oncol</source>
+					<year>2008</year>
+					<volume>52</volume>
+					<fpage>130</fpage>
+					<lpage>133</lpage>
+				</element-citation>
+			</ref>
+			<ref id="r23">
+				<label>23</label>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Strader</surname>
+							<given-names>DB</given-names>
+						</name>
+						<name>
+							<surname>Wright</surname>
+							<given-names>T</given-names>
+						</name>
+						<name>
+							<surname>Thomas</surname>
+							<given-names>DL</given-names>
+						</name>
+						<name>
+							<surname>Seeff</surname>
+							<given-names>LB</given-names>
+						</name>
+						<collab>American Association for the Study of Liver Diseases</collab>
+					</person-group>
+					<article-title xml:lang="en">Diagnosis, management, and treatment of hepatitis C</article-title>
+					<source xml:lang="en">Hepatology</source>
+					<year>2004</year>
+					<volume>39</volume>
+					<fpage>1147</fpage>
+					<lpage>1171</lpage>
+				</element-citation>
+			</ref>
+			<ref id="r24">
+				<label>24</label>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Tchelepi</surname>
+							<given-names>H</given-names>
+						</name>
+						<name>
+							<surname>Ralls</surname>
+							<given-names>PW</given-names>
+						</name>
+						<name>
+							<surname>Radin</surname>
+							<given-names>R</given-names>
+						</name>
+						<name>
+							<surname>Grant</surname>
+							<given-names>E</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Sonography of diffuse liver disease</article-title>
+					<source xml:lang="en">J Ultrasound Med</source>
+					<year>2002</year>
+					<volume>21</volume>
+					<fpage>1023</fpage>
+					<lpage>1032</lpage>
+				</element-citation>
+			</ref>
+			<ref id="r25">
+				<label>25</label>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Verna</surname>
+							<given-names>EC</given-names>
+						</name>
+						<name>
+							<surname>RS</surname>
+							<given-names>Brown</given-names>
+							<suffix>Jr.</suffix>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Hepatitis C virus and liver transplantation</article-title>
+					<source xml:lang="en">Clin Liver Dis.</source>
+					<year>2006</year>
+					<volume>10</volume>
+					<fpage>919</fpage>
+					<lpage>940</lpage>
+				</element-citation>
+			</ref>
+			<ref id="r26">
+				<label>26</label>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Walsh</surname>
+							<given-names>KM</given-names>
+						</name>
+						<name>
+							<surname>Leen</surname>
+							<given-names>E</given-names>
+						</name>
+						<name>
+							<surname>MacSween</surname>
+							<given-names>RN</given-names>
+						</name>
+						<name>
+							<surname>Morris</surname>
+							<given-names>AJ</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Hepatic blood flow changes in chronic hepatitis C measured by duplex Doppler color sonography: relationship to histological features</article-title>
+					<source xml:lang="en">Dig Dis Sci</source>
+					<year>1998</year>
+					<volume>43</volume>
+					<fpage>2584</fpage>
+					<lpage>2590</lpage>
+				</element-citation>
+			</ref>
+		</ref-list>
+		<fn-group>
+			<fn fn-type="other">
+				<p>From the Departamento de Diagnóstico por Imagem, Universidade Federal de Uberlândia, MG, Brazil.</p>
+			</fn>
+		</fn-group>
+	</back>
+</article>
