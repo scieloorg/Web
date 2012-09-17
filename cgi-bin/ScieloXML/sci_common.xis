@@ -3317,7 +3317,7 @@ fi
 
  </function>
  <function name="fixDOI" action="replace" tag="237">
-	<return action="replace" tag="237"><pft>replace(replace(replace(v237,'doi:',''),'DOI:',''),' ','')</pft></return>
+	<return action="replace" tag="237"><pft>replace(replace(replace(replace(v237,'http://dx.doi.org/',''),'doi:',''),'DOI:',''),' ','')</pft></return>
  </function>
  <!--function name="displayDOI" action="replace" tag="237">
 	<field action="import" tag="list">237</field>
