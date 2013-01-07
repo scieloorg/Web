@@ -612,7 +612,7 @@ Editing the config file and changing the paths if necessary.
         #var/www/scielo/proc/scielo_sjr$> vi shs/config.sh
 
 
-**Config file sample**. If you are already using /var/www/scielo as the application path, so no changes need.
+**Config file sample**. If you are already using /var/www/scielo as the application path, so no changes are need.
 
     .. code-block:: text
 
@@ -640,16 +640,75 @@ Run the script to harvest the SCIMAGO charts.
         #var/www/scielo/proc/scielo_sjr$> cd shs/
         #var/www/scielo/proc/scielo_sjr$> ./sjr_run.sh
 
+XML Files
+---------
+
+Those XML files was used before by Google Scholar indexing tools. Now these XML files are mainly used to publish SciELO Sites metadata to any other institution, project our person interested in the SciELO Metadata.
+
+The root directory for this processing is **/var/www/scielo/proc/scielo_gsc**
+
+The following steps run at the directory proc/scielo_gsc.
+
+Copying the config file.
+
+
+    .. code-block:: text
+
+        #var/www/scielo/proc/scielo_gsc$> cp shs/googleSchoolar_config.sh.template shs/googleSchoolar_config.sh
+
+Editing the config file and changing the paths if necessary.
+
+    .. code-block:: text
+
+        #var/www/scielo/proc/scielo_gsc$> vi shs/googleSchoolar_config.sh
+
+**Config file sample**. If you are already using /var/www/scielo as the application path, so no changes are need.
+
+    .. code-block:: text
+
+        ##################
+        # variáveis com caminho para bases de dados utilizadas no processmento.
+        ##################
+        export database_title="/var/www/scielo/bases/title/title"
+        export database_article="/var/www/scielo/bases/artigo/artigo"
+        export database_issue="/var/www/scielo/bases/issue/issue"
+        export cisis_dir="/var/www/scielo/proc/cisis"
+
+Editing the XML template file.
+
+    .. code-block:: text
+
+        #var/www/scielo/proc/scielo_gsc$> vi formats/googleSchoolar_XMLPubMed.pft
+
+    Where are "localhost", change to your site domain.
+
+Run the script to generate de XML files.
+
+    .. code-block:: text
+
+        #var/www/scielo/proc/scielo_gsc$> cd shs/
+        #var/www/scielo/proc/scielo_gsc/shs$> ./googleSchoolar_run.sh
+
+The XML files will be available at /var/www/scielo/proc/scielo_gsc/output/googlescholar
+
+    .. warning::
+
+        All the content available at /var/www/scielo/proc/scielo_gsc/output/googlescholar must be published in the internet. The publication pattern is:
+
+        artigos.<your scielo site domain>
+
+        Ex:
+
+        artigos.scielo.br
+        artigos.scielo.org.ar
+        artigos.scielo.cl
+        artigos.scielo.org.mx
+        artigos.scielo.org.ve
+        artigos.scielo.isciii.es
+        ...
+
 DOI Request
 -----------
 
 DOAJ
 ----
-
-
-
-
-
-
-
-
