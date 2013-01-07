@@ -3112,7 +3112,7 @@ fi
 <function name="CreateProjetoFAPESP" action="replace" tag="4001">
    <field action="statusdb" tag="2001">PROJFAPESP</field>
 
-        <field action="replace" tag="10" split="occ"><pft>,ref(['PROJFAPESP']l(['PROJFAPESP'],'SCI=',v4001),('<PROJETO><title>',v88^n,'</title><url>',v88^u,'</url></PROJETO>',/))</pft></field>
+        <field action="replace" tag="10" split="occ"><pft>,ref(['PROJFAPESP']l(['PROJFAPESP'],'SCI=',v4001),('<PROJETO><title><![CDATA[',v88^n,']]></title><url>',v88^u,'</url></PROJETO>',/))</pft></field>
 
         <flow action="jump"><pft>if a(v10) then 'EXIT_FAPESP' fi</pft></flow>
 
