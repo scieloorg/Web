@@ -1,5 +1,10 @@
 @charset "utf-8";
 
+.container {
+	width: auto;
+	max-width: 760px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+}
 /*Títulos do artigo*/
 .title{
 	font-size: 16pt;
@@ -27,9 +32,6 @@
 
 
 
-
-
-
 /*Seção do artigo*/
 /*Talvez seja desnecessário essa informação*/
 .categoria{
@@ -47,9 +49,8 @@
 	padding-top: 5px;
 	
 }
-
 /*Notas dos autores*/
-.fn-author, .recebido{
+.fn-author {
 	margin-top: 50px;
 }
 
@@ -61,12 +62,28 @@
 
 
 
-
+.foot-notes {
+	padding-top: 20px
+}
 
 /*Licença do artigo*/
 .lic{
 	font-size: 13px;
+	font-style: italic
 }
+
+.corresp {
+	font-style: italic
+}
+/*Caption de Tabelas e Imagens*/
+.fn {
+	margin: 0;
+	font-style: italic
+}
+.history {
+   font-style: italic
+}
+
 
 
 /*Título das Seções*/
@@ -76,6 +93,7 @@
 	border-bottom: #CCC double thick;
 	margin-top: 45px;
 	font-weight: bold;
+	text-transform: uppercase;
 }
 	
 /*Título das Subseções do artigo*/
@@ -88,6 +106,7 @@
 /*Título das Subseções do artigo*/
 .sub-subsec{
 	font-size: 11pt;
+	font-weight: bold;
 }
 
 /*Sig Block*/
@@ -107,6 +126,7 @@
 	border: groove;
 	border-color: transparent;
 	padding: 20px;
+	text-align: center;
 }
 
 .xref-img:hover, .xref-tab:hover{
@@ -129,17 +149,17 @@
 }
 .figure{
 
-	height: auto;
+	
     width: auto;
-
+    text-align: center;
 }
 
 .graphic{
 	margin: 0 auto;
-	height: auto;
+	
     width: auto;
-    max-width:700px;
-	max-height:500px;
+    max-width:600px;
+	
 }
 
 .tab-tooltip{
@@ -149,33 +169,15 @@
 
 
 
-/*Caption de Tabelas e Imagens*/
-.fn, .caption {
-	margin: 0;
-}
 
 
 .xref-div-img{
-	width: 130px;
+	width: auto;
+	max-width: 600px;
 	float: left;
 }
 
 
-/*.ref{}
-
-.ref-label{
-}
-
-.ref-autor{}
-
-
-.ref-title{}
-
-.ref-title-t{}
-
-.ref-source{}
-
-.data{}*/
 
 
 /*Estilo para os tooltips(vem com o código da biblioteca do jquery)*/
@@ -211,7 +213,8 @@
 
 .xref-img-tooltip, .xref-tab-tooltip{
 	padding: 0px;
-	width: 580px;
+	width: auto;
+	max-width: 580px;
 }
 
 .stickytooltip div{
@@ -232,5 +235,6 @@
 }
 
 .xref-ref{
-	width: 300px;
+	width: auto;
+	max-width: 300px;
 }

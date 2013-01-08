@@ -61,15 +61,7 @@
 				
 			</div>
 		
-		<!--ToolTips        	****************************************         id e class da primeira div dos tooltips:         ****************************************         '         '<div id="mystickytooltip" class="stickytooltip">         '         -->
-		<div id="mystickytooltip" class="stickytooltip">
-			<div style="padding:5px">
-				<xsl:apply-templates select="*" mode="tooltip"/>
-				
-			</div>
-			<!--Mensagem de instrução,status da miniatura.-->
-			<div class="stickystatus"/>
-		</div>
+		
 	</xsl:template>
 	
 	<xsl:template match="sub | sup ">
@@ -166,7 +158,7 @@
 	</xsl:template>
 	<xsl:template match="xref" mode="xref">
 		<xsl:if test="position() &gt; 1">,</xsl:if>
-		<a href="#{@rid}" data-tooltip="t{@rid}"><!--FIXME-->
+		<a href="#{@rid}" ><!--FIXME-->
 		<xsl:apply-templates select="label|text()"/>
 		</a>
 		
@@ -200,14 +192,22 @@
 		<xsl:apply-templates select="* | text()"/>
 	</xsl:template>
 	<xsl:template match="aff">
-		<p class="aff"><a name="aff{@id}">
+		<p class="aff"><a name="{@id}">
 			<xsl:apply-templates select="label"/>
 			</a>
 			<xsl:apply-templates select="institution[@content-type='orgdiv3']"/><xsl:if test="institution[@content-type='orgdiv3']">, </xsl:if>
 			<xsl:apply-templates select="institution[@content-type='orgdiv2']"/><xsl:if test="institution[@content-type='orgdiv2']">, </xsl:if>
 			<xsl:apply-templates select="institution[@content-type='orgdiv1']"/><xsl:if test="institution[@content-type='orgdiv1']">, </xsl:if>
 			<xsl:apply-templates select="institution[@content-type='orgname']"/>
+			<xsl:apply-templates select="addr-line | country"/>
 			</p>
+	</xsl:template>
+	
+	<xsl:template match="addr-line//text()"><xsl:value-of select="normalize-space(.)"/><xsl:if test="contains(.,',')">&#160; 
+</xsl:if>
+	</xsl:template>
+	
+	<xsl:template match="addr-line | country">, <xsl:apply-templates select="*|text()"/>
 	</xsl:template>
 	<xsl:template match="aff/label">
 		<sup><xsl:value-of select="."/></sup>
@@ -225,7 +225,7 @@
 	<!--Fim de Notas de autor--><!--Recebido e aceito-->
 	<xsl:template match="history">
 		<!--xsl:variable name="lang" select="@xml:lang"/> 		<xsl:apply-templates select="../kwd-group[@xml:lang=$lang]" mode="keywords-with-abstract" /-->
-		<div class="recebido">
+		<div class="history">
 			<p>
 				<xsl:choose>
 					<xsl:when test="$article_lang='en'">
@@ -529,12 +529,13 @@
 	</xsl:template>
 	<!--Tabelas-->
 	<xsl:template match="table-wrap">
-		<div class="xref-tab">
+		<div class="xref-tab"><a name="{@id}"/>
 			<div class="label_caption">
 			    <xsl:apply-templates select="label"/><xsl:if test="label and caption"> - <xsl:apply-templates select="caption"/>
 			     </xsl:if>
 		    </div>
-		    <xsl:apply-templates select="table | graphic"/>
+		    <xsl:apply-templates select="table | graphic | table-wrap-foot"/>
+
 		</div>
 	</xsl:template>
 	<!--Tabela se estiver como imagem-->
@@ -1033,7 +1034,7 @@
 	</xsl:template>
 	<xsl:template match="fn-group/fn">
 		<a name="{@id}">
-		<p class="a">
+		<p class="fn">
 			<xsl:apply-templates select="*" mode="fn-group"/>
 		</p>
 		</a>
@@ -1045,16 +1046,27 @@
 		<a href="{@xlink:href}" target="_blank"><xsl:value-of select="text()"/></a>
 	</xsl:template>
 	<xsl:template match="xref">
+
 		<xsl:if test="text()!='' or label">
-            <sup>
+            
             	<!--a href="#{@rid}" data-tooltip="t{@rid}"-->
 				<a href="#{@rid}">
 				    <xsl:apply-templates select=".//text()"/>
 				</a>
-			</sup>
+			
 		</xsl:if>
 	</xsl:template>
-
+    <xsl:template match="xref[@ref-type='bibr']">
+		<sup>
+		<xsl:if test="text()!='' or label">
+            
+            	<!--a href="#{@rid}" data-tooltip="t{@rid}"-->
+				<a href="#{@rid}">
+				    <xsl:apply-templates select=".//text()"/>
+				</a>
+			
+		</xsl:if></sup>
+	</xsl:template>
     <xsl:template match="ack//title">
     	<p class="subsec">
             	<xsl:apply-templates select="*|text()"/></p>
