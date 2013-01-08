@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:mml="http://www.w3.org/1998/Math/MathML">
-	<!--xsl:include href="scielo_pmc_main.xsl"/-->
+	<xsl:import href="scielo_pmc_main.xsl"/>
 
 	<!--xsl:template match="*" mode="sections-navegation"/-->
     
@@ -18,12 +18,13 @@
     <xsl:variable name="version">
         <xsl:choose>
             <xsl:when test=".//BODY">html</xsl:when>
-            <xsl:when test=".//fulltext/article">xml</xsl:when>
+            <xsl:when test=".//fulltext/front">xml</xsl:when>
             <xsl:otherwise>xml-file</xsl:otherwise>
         </xsl:choose>
     </xsl:variable>
 	
-    <xsl:variable name="xml_article"><xsl:if test="$version='xml-file'">file:///<xsl:value-of select="concat(.//PATH_HTDOCS,'/xml_files/',.//filename)"/></xsl:if></xsl:variable>
+    <!--xsl:variable name="xml_article"><xsl:if test="$version='xml-file'">file:///<xsl:value-of select="concat(.//PATH_HTDOCS,'/xml_files/',.//filename)"/></xsl:if></xsl:variable-->
+    <xsl:variable name="xml_article"><xsl:if test="$version='xml-file'">file:///<xsl:value-of select="concat(substring-before(.//PATH_HTDOCS,'htdocs'),'bases/xml/',.//filename)"/></xsl:if></xsl:variable>
     <xsl:variable name="merge">true</xsl:variable>
 	<xsl:variable name="xml_display_objects">
 		<xsl:choose>
@@ -241,7 +242,7 @@
 		        </xsl:choose>
 				<xsl:apply-templates select="." mode= "version-js"/>
 
-				
+				<xsl:comment><xsl:value-of select="$xml_article"/></xsl:comment>
 			</body>
 		</html>
 	</xsl:template>
@@ -268,6 +269,12 @@
 				<link rel="stylesheet" type="text/css" href="/css/screen.css"/>
                 <link rel="stylesheet" type="text/css" href="/xsl/pmc/v3.0/css/xml.css" />
                 <!--link rel="stylesheet" type="text/css" href="/xsl/pmc/v3.0/css/jpub-preview.css" /-->
+            </xsl:when>
+            <xsl:when test="$version='xml'">
+            	<link rel="stylesheet" type="text/css" href="/css/screen.css"/>
+                <link xmlns="" rel="stylesheet" type="text/css" href="/css/pmc/ViewNLM.css"/>
+                <link xmlns="" rel="stylesheet" type="text/css" href="/css/pmc/ViewScielo.css"/>
+
             </xsl:when>
 		    <xsl:otherwise>
                 <link rel="stylesheet" type="text/css" href="/css/screen.css"/>
