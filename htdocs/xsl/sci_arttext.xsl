@@ -1,14 +1,44 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:mml="http://www.w3.org/1998/Math/MathML">
 	<!--xsl:include href="scielo_pmc_main.xsl"/-->
+
+	<!--xsl:template match="*" mode="sections-navegation"/-->
+    
 	<xsl:import href="sci_navegation.xsl"/>
 	<xsl:import href="sci_toolbox.xsl"/>
-    <xsl:import href="pmc/v3.0/article.xsl"/>
-	
-    <xsl:variable name="version"><xsl:choose><xsl:when test=".//BODY">html</xsl:when><xsl:when test=".//fulltext/article">xml</xsl:when><xsl:otherwise>xml-file</xsl:otherwise></xsl:choose></xsl:variable>
-    <xsl:variable name="xml_article"><xsl:if test="$version='xml-file'"><xsl:value-of select="concat(.//PATH_HTDOCS,'/xml_files/',.//filename)"/></xsl:if></xsl:variable>
 
+    <xsl:variable name="path_img" select="'/img/revistas/'"/>
+	
+
+    <xsl:include href="pmc/v3.0/site.xsl"/>
+	
+
+    		
+	
+    <xsl:variable name="version">
+        <xsl:choose>
+            <xsl:when test=".//BODY">html</xsl:when>
+            <xsl:when test=".//fulltext/article">xml</xsl:when>
+            <xsl:otherwise>xml-file</xsl:otherwise>
+        </xsl:choose>
+    </xsl:variable>
+	
+    <xsl:variable name="xml_article"><xsl:if test="$version='xml-file'">file:///<xsl:value-of select="concat(.//PATH_HTDOCS,'/xml_files/',.//filename)"/></xsl:if></xsl:variable>
     <xsl:variable name="merge">true</xsl:variable>
+	<xsl:variable name="xml_display_objects">
+		<xsl:choose>
+			<xsl:when test="document($xml_article)//sec/@sec-type='display-objects'">true</xsl:when>
+			<xsl:otherwise>false</xsl:otherwise>
+		</xsl:choose>
+    </xsl:variable>
+	
+	<xsl:variable name="xml_article_lang">
+        <xsl:choose>
+            <xsl:when test=".//BODY">html</xsl:when>
+            <xsl:when test=".//fulltext/article">xml</xsl:when>
+            <xsl:otherwise><xsl:value-of select="document($xml_article)/article/@xml:lang"/></xsl:otherwise>
+        </xsl:choose>
+    </xsl:variable>
     <xsl:variable name="article" select=".//ISSUE/ARTICLE"/>
 	<xsl:variable name="LANGUAGE" select="//LANGUAGE"/>
 	<xsl:variable name="SCIELO_REGIONAL_DOMAIN" select="//SCIELO_REGIONAL_DOMAIN"/>
@@ -17,6 +47,7 @@
     <xsl:variable name="show_meta_citation_reference" select="//varScieloOrg/show_meta_citation_reference" />
 	<xsl:template match="fulltext-service-list"/>
 	<xsl:template match="/">
+    
 		<xsl:choose>
 			<xsl:when test="$version='xml-file' or $merge='true'">
 				<xsl:apply-templates select="//SERIAL" mode="merged"/>
@@ -27,19 +58,22 @@
         </xsl:choose>
 	</xsl:template>
 
-	<xsl:template match="SERIAL">
-		<xsl:if test=".//mml:math">
-			<xsl:processing-instruction name="xml-stylesheet"> type="text/xsl" href="/xsl/mathml.xsl"</xsl:processing-instruction>
+    <xsl:template match="ARTICLE" mode="redirect_press_release">
+    	<xsl:if test="@is='pr'">                
+
+			<xsl:variable name="X">/scielo.php?script=sci_arttext_pr&amp;PID=<xsl:value-of select="@PID"/></xsl:variable>
+			<meta HTTP-EQUIV="REFRESH">
+				<xsl:attribute name="Content"><xsl:value-of select="concat('0;URL=',$X)"/></xsl:attribute>
+			</meta>
 		</xsl:if>
-		<html xmlns="http://www.w3.org/1999/xhtml">
-			<head>
-                <title>
-			        <xsl:value-of select="TITLEGROUP/TITLE" disable-output-escaping="yes"/> - <xsl:value-of select="normalize-space(ISSUE/ARTICLE/TITLE)" disable-output-escaping="yes"/>						   
-                </title>
-                <meta http-equiv="Pragma" content="no-cache"/>
+
+    </xsl:template>
+	<xsl:template match="SERIAL"  mode="meta_names">
+		<meta http-equiv="Pragma" content="no-cache"/>
                 <meta http-equiv="Expires" content="Mon, 06 Jan 1990 00:00:01 GMT"/>
                 <meta Content-math-Type="text/mathml"/>
 
+                <xsl:apply-templates select="//ARTICLE" mode="redirect_press_release"/>
                 <!--Meta Google Scholar-->
                 <meta name="citation_journal_title" content="{TITLEGROUP/TITLE}"/>
                 <meta name="citation_journal_title_abbrev" content="{TITLEGROUP/SHORTTITLE}"/>
@@ -62,6 +96,18 @@
                 <xsl:if test="$show_meta_citation_reference='1'">
                      <xsl:apply-templates select="ISSUE/ARTICLE/REFERENCES"/>
                 </xsl:if>
+    </xsl:template>
+    <xsl:template match="SERIAL">
+        
+		<xsl:if test=".//mml:math">
+			<xsl:processing-instruction name="xml-stylesheet"> type="text/xsl" href="/xsl/mathml.xsl"</xsl:processing-instruction>
+		</xsl:if>
+		<html xmlns="http://www.w3.org/1999/xhtml">
+			<head>
+                <title>
+			        <xsl:value-of select="TITLEGROUP/TITLE" disable-output-escaping="yes"/> - <xsl:value-of select="normalize-space(ISSUE/ARTICLE/TITLE)" disable-output-escaping="yes"/>						   
+                </title>
+                <xsl:apply-templates select="." mode="meta_names"/>
 
                 <link rel="stylesheet" type="text/css" href="/css/screen.css"/>
                 <xsl:apply-templates select="." mode="css"/>
@@ -179,32 +225,7 @@
                 <title>
 			        <xsl:apply-templates select="." mode="version-head-title"/>						   
                 </title>
-                <meta http-equiv="Pragma" content="no-cache"/>
-                <meta http-equiv="Expires" content="Mon, 06 Jan 1990 00:00:01 GMT"/>
-                <meta Content-math-Type="text/mathml"/>
-
-                <!--Meta Google Scholar-->
-                <meta name="citation_journal_title" content="{TITLEGROUP/TITLE}"/>
-                <meta name="citation_journal_title_abbrev" content="{TITLEGROUP/SHORTTITLE}"/>
-                <meta name="citation_publisher" content="{normalize-space(COPYRIGHT)}"/>
-                <meta name="citation_title" content="{ISSUE/ARTICLE/TITLE}"/>
-                <meta name="citation_date" content="{concat(substring(ISSUE/@PUBDATE,5,2),'/',substring(ISSUE/@PUBDATE,1,4))}"/>
-                <meta name="citation_volume" content="{ISSUE/@VOL}"/>
-                <meta name="citation_issue" content="{ISSUE/@NUM}"/>
-                <meta name="citation_issn" content="{ISSN}"/>
-                <meta name="citation_doi" content="{ISSUE/ARTICLE/@DOI}"/>
-                <meta name="citation_abstract_html_url" content="{concat('http://',CONTROLINFO/SCIELO_INFO/SERVER, '/scielo.php?script=sci_abstract&amp;pid=', ISSUE/ARTICLE/@PID, '&amp;lng=', CONTROLINFO/LANGUAGE , '&amp;nrm=iso&amp;tlng=', ISSUE/ARTICLE/@TEXTLANG)}"/>
-                <meta name="citation_fulltext_html_url" content="{concat('http://',CONTROLINFO/SCIELO_INFO/SERVER, '/scielo.php?script=sci_arttext&amp;pid=', ISSUE/ARTICLE/@PID, '&amp;lng=', CONTROLINFO/LANGUAGE , '&amp;nrm=iso&amp;tlng=', ISSUE/ARTICLE/@TEXTLANG)}"/>
-                <meta name="citation_pdf_url" content="{concat('http://',CONTROLINFO/SCIELO_INFO/SERVER, '/scielo.php?script=sci_pdf&amp;pid=', ISSUE/ARTICLE/@PID, '&amp;lng=', CONTROLINFO/LANGUAGE , '&amp;nrm=iso&amp;tlng=', ISSUE/ARTICLE/@TEXTLANG)}"/>                            
-                <xsl:apply-templates select="ISSUE/ARTICLE/AUTHORS/AUTH_PERS/AUTHOR" mode="AUTHORS_META"/>
-                <meta name="citation_firstpage" content="{ISSUE/ARTICLE/@FPAGE}"/>
-                <meta name="citation_lastpage" content="{ISSUE/ARTICLE/@LPAGE}"/>
-                <meta name="citation_id" content="{ISSUE/ARTICLE/@DOI}"/>
-
-                <!--Reference Citation-->
-                <xsl:if test="$show_meta_citation_reference='1'">
-                     <xsl:apply-templates select="ISSUE/ARTICLE/REFERENCES"/>
-                </xsl:if>
+                <xsl:apply-templates select="." mode="meta_names"/>	
                 <xsl:apply-templates select="." mode= "version-css"/>
             </head>
 			<body>
@@ -212,7 +233,7 @@
 						
 				<xsl:choose>
 					<xsl:when test="$version='xml-file'">
-						 <xsl:apply-templates select="." mode= "version-body-xml-file"/>
+						 <xsl:apply-templates select="." mode="version-body-xml-file"/>
 		            </xsl:when>
 				    <xsl:otherwise>
 		                <xsl:apply-templates select="." mode= "version-body-html"/>
@@ -245,12 +266,11 @@
 		<xsl:choose>
 			<xsl:when test="$version='xml-file'">
 				<link rel="stylesheet" type="text/css" href="/css/screen.css"/>
-               
-                <link rel="stylesheet" type="text/css" href="xsl/pmc/v3.0/css/xml.css" />
+                <link rel="stylesheet" type="text/css" href="/xsl/pmc/v3.0/css/xml.css" />
+                <!--link rel="stylesheet" type="text/css" href="/xsl/pmc/v3.0/css/jpub-preview.css" /-->
             </xsl:when>
 		    <xsl:otherwise>
                 <link rel="stylesheet" type="text/css" href="/css/screen.css"/>
-               
 		    </xsl:otherwise>
         </xsl:choose>
 	</xsl:template>
@@ -272,12 +292,6 @@
                 </script>
                 <script type="text/javascript" src="js/executartooltip.js"></script>
                 
-                <script type="text/javascript">
-                    function menu(id){
-                        /*this.location = "#" + anc;*/
-                        document.getElementById(id).className = "select";
-                    }
-                </script>
             </xsl:when>
 		    <xsl:otherwise>
                 <script language="javascript" src="applications/scielo-org/js/jquery-1.4.2.min.js"/>
@@ -292,16 +306,19 @@
 				<div id="issues"/>
 				<xsl:apply-templates select="." mode= "common-display-nav-bar"/>
 			</div>
+			<div class="content">
+	    	<xsl:if test="$show_toolbox = '1'">
+			    <xsl:call-template name="tool_box"/>
+		    </xsl:if>
+			<xsl:apply-templates select="." mode="text-header"/>
+			<xsl:apply-templates select="document($xml_article)" mode="text-content"/>
+		
 		</div>
-		<xsl:apply-templates select="document($xml_article)" mode="sections-navegation"/>
+		</div><!--xsl:value-of select="$xml_article"/-->
+		<!--xsl:apply-templates select="document($xml_article)" mode="sections-navegation"/-->
         
-		<xsl:if test="$show_toolbox = '1'">
-			<xsl:call-template name="tool_box"/>
-		</xsl:if>
-	    <div class="all">
-			<xsl:apply-templates select="document($xml_article)" mode="text-header"/>
-		</div>
-		<xsl:apply-templates select="document($xml_article)" mode="text-content"/>
+		
+	    
 			
 		<div class="container">
 			<div align="left"/>
@@ -310,13 +327,7 @@
 		</div>
 	</xsl:template>
 
-	<xsl:template match="article" mode="journal-link">
-		<xsl:call-template name="AddScieloLink">
-			<xsl:with-param name="seq" select="$article//ISSN_AS_ID"/>
-			<xsl:with-param name="script">sci_serial</xsl:with-param>
-		</xsl:call-template>
-	</xsl:template>
-
+	
 	<xsl:template match="SERIAL" mode="version-body-html">
 		<div class="container">
 			<div class="top">
