@@ -266,6 +266,7 @@
 	<xsl:template name="GET_ISSN_TYPE">
 		<xsl:param name="TYPE"/>
 		<xsl:param name="LANG"/>
+		<xsl:comment><xsl:value-of select="$TYPE"/><xsl:value-of select="$LANG"/></xsl:comment>
 		<xsl:choose>
 			<xsl:when test="($LANG = 'pt') or ($LANG = 'es')">
 				<em>
