@@ -399,7 +399,7 @@
 	<!--display><pft>'v4900 = ',v4900,'<br>'</pft></display-->
 
 	<field action="replace" tag="5000"><pft>v4900^x</pft></field>
-	<field action="replace" tag="4900"><pft>'SM=',mid(v4900^*,2,17),'-',mid(v4900^*,19,5)</pft></field>
+	<field action="replace" tag="4900"><pft>'SM=',s(v4900^*)*1.17,'-',s(v4900^*)*18</pft></field>
 	<do task="keyrange">
 		<parm name="db">ARTIGO</parm>
 		<parm name="from"><pft>v4900,'zzzzz'</pft></parm>

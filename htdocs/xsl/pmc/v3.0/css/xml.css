@@ -3,17 +3,26 @@
 .container {
 	width: auto;
 	max-width: 760px;
-	font-family: Verdana, Arial, Helvetica, sans-serif;
+	/* font-family: Verdana, Arial, Helvetica, sans-serif; */
 }
+
+/* ------- FRONT ----- */
+/*Seção do artigo*/
+.categoria{
+	text-align: right;
+	text-transform: uppercase;
+}
+
 /*Títulos do artigo*/
 .title{
-	font-size: 16pt;
+	/* font-size: 16pt; */
 	font-weight: bold;
+	font-size: 120%;
 }
 
 /*Titulo traduzido do artigo*/
 .trans-title{
-	font-size: 14pt;
+	font-size: 110%;
 	margin-top: 80px;
 	margin-bottom: 80px;
 }
@@ -22,27 +31,35 @@
 .autores{
 	margin-bottom: 25px;
 	font-weight: bold;
+	font-size: 97%;
 }
 
 .aff{
 	margin: 0px;
 }
 
-
-
-
-
-/*Seção do artigo*/
-/*Talvez seja desnecessário essa informação*/
-.categoria{
-	text-align: right;
+.abstract .sec, .trans-abstract .sec {
+	font-size: 97%;
 	text-transform: uppercase;
+	margin-top: 10px;
+}
+.abstract {
+	border-top: 1px solid;
+	border-bottom: 1px solid;
+	margin-top: 45px;
+	font-size: 97%;
+
+}
+.trans-abstract {
+	border-bottom: 1px solid;
+	margin-top: 45px;
+	font-size: 97%;
+	
 }
 
+/* ------------------ */
 
-
-
-
+/* -- FOOTNOTES -- */
 /*Formata as notas do autor*/
 
 .author-note{
@@ -59,117 +76,120 @@
 	margin-top: 5px;
 	margin-bottom: 0px;
 }
-
-
-
 .foot-notes {
 	padding-top: 20px
 }
-
 /*Licença do artigo*/
 .lic{
 	font-size: 13px;
-	font-style: italic
+	
 }
 
 .corresp {
-	font-style: italic
+	
 }
 /*Caption de Tabelas e Imagens*/
 .fn {
 	margin: 0;
-	font-style: italic
-}
+	}
 .history {
-   font-style: italic
+   
 }
+/*Sig Block*/
+.sig{
+	text-align: right;
+}
+/* ------------------ */
 
-
-
+/* ---- BODY --- */
 /*Título das Seções*/
 .sec{
-	/* clear:both; */
-	font-size: 15pt;
-	border-bottom: #CCC double thick;
-	margin-top: 45px;
+	/* clear:both; 
+	font-size: 15pt;*/
+	/* border-bottom: #CCC double thick; */
+	margin-top: 40px;
 	font-weight: bold;
-	text-transform: uppercase;
+	font-size: 120%;
+	text-transform: uppercase;	
 }
-	
 /*Título das Subseções do artigo*/
 .subsec{
-	font-size: 12pt;
+	font-size: 110%;
 	margin-bottom: 0px;
 	font-weight: bold;
 }
 
 /*Título das Subseções do artigo*/
 .sub-subsec{
-	font-size: 11pt;
+	font-size: 100%;
 	font-weight: bold;
 }
-
-/*Sig Block*/
-.sig{
-	text-align: right;
+.xref-fn{
+	width: 200px;
 }
 
+.xref-autornote{
+	margin: 0px;
+	width: auto;
+	max-width: 330px;
+	padding: 0;
+}
+
+.xref-ref{
+	width: auto;
+	max-width: 300px;
+}
 /*Tirar estilo da lista*/
 .list-none{
 	list-style: none;
 }
-
-
 /*DIV da imagem*/
-.xref-img, .xref-tab{
+.xref-img, .xref-tab, .figure {
 	width: auto;
-	border: groove;
 	border-color: transparent;
-	padding: 20px;
+	padding: 10px;
+	
 	text-align: center;
 }
 
+/*
 .xref-img:hover, .xref-tab:hover{
 	border: groove;
 	border-color: #09F;
-}
+}*/
 /*Figura*/
 .thumbnail{
 	width: auto;
-	max-width: 60px
+	max-width: 60px;
 
 }
 .label_caption {
 	text-align: center;
 	padding: 20px;
+	font-size: 80%;
 
 }
 .label {
 	font-weight: bold;
 }
-.figure{
-
-	
-    width: auto;
-    text-align: center;
-}
 
 .graphic{
-	margin: 0 auto;
 	
     width: auto;
     max-width:600px;
 	
 }
 
-.tab-tooltip{
-	width:100%;
-	background: #FFF;
+.table {
+	font-size: 90%;
+	text-align: center;
 }
 
-
-
-
+.table table {
+	font-size: 90%;
+	text-align: center; 
+	width: 100%;
+}
 
 .xref-div-img{
 	width: auto;
@@ -202,6 +222,10 @@
 	font:bold 8pt Verdana, Geneva, sans-serif;
 }
 
+.tab-tooltip{
+	width:100%;
+	background: #FFF;
+}
 
 
 /*Classes '.atip' são referentes as miniaturas*/
@@ -222,19 +246,6 @@
 }
 
 
-
-.xref-fn{
-	width: 200px;
-}
-
-.xref-autornote{
-	margin: 0px;
-	width: auto;
-	max-width: 330px;
-	padding: 0;
-}
-
-.xref-ref{
-	width: auto;
-	max-width: 300px;
+.article-title {
+	font-weight: bold;
 }

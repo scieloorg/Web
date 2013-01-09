@@ -64,28 +64,12 @@
 		
 	</xsl:template>
 	
-	<xsl:template match="sub | sup ">
+	<xsl:template match="sub | sup | p">
 		<xsl:element name="{name()}">
-			<xsl:apply-templates select="@* | * | text()"/>
+			<xsl:apply-templates select=" * | text()"/>
 		</xsl:element>
 	</xsl:template>
-	<xsl:template match="p">
-		<xsl:choose>
-			<xsl:when test="$display_objects = 'false'">
-				<xsl:element name="{name()}">
-					<xsl:apply-templates select="@* | * | text()"/>
-				</xsl:element>
-			</xsl:when>
-			<xsl:when test="$display_objects = 'true'">
-				<xsl:element name="{name()}">
-					<xsl:apply-templates select="@* | * | text()"/>
-				</xsl:element>
-				<!--xsl:if test=".//@ref-type='fig'">
-					<xsl:apply-templates select="..//fig"/>
-				</xsl:if-->
-			</xsl:when>
-		</xsl:choose>
-	</xsl:template>
+	
 
 	<!--Define itálicos e negritos-->
 	<xsl:template match="italic">
@@ -427,7 +411,8 @@
 	<!--Resumos-->
 	<xsl:template match="abstract | trans-abstract">
 		<xsl:variable name="lang" select="@xml:lang"/>
-		<div class="resumo"><!--Apresenta o título da seção conforme a lingua existente-->
+		<div><!--Apresenta o título da seção conforme a lingua existente-->
+			<xsl:attribute name="class"><xsl:value-of select="name()"/></xsl:attribute>
 			<xsl:choose>
 				<xsl:when test="$lang='pt'">
 					<p class="sec"><a name="resumo">RESUMO</a></p>
@@ -521,8 +506,8 @@
 	<xsl:template match="fig/caption | table-wrap/caption">
 		<span class="caption"><xsl:apply-templates select="* | text()"/></span>
 	</xsl:template>
-	<xsl:template match="graphic">
-		<img class="graphic"><xsl:apply-templates select="@xlink:href" mode="src"/></img>		
+	<xsl:template match="graphic"><a target="_blank"><xsl:apply-templates select="@xlink:href" mode="href"/>
+		<img class="graphic"><xsl:apply-templates select="@xlink:href" mode="src"/></img></a>		
 	</xsl:template>
 	<xsl:template match="graphic" mode="thumbnail">
 		<img class="thumbnail"><xsl:apply-templates select="@xlink:href" mode="src"/></img>		
@@ -546,6 +531,10 @@
 	<xsl:template match="@href" mode="src">
         <xsl:variable name="src"><xsl:value-of select="$var_IMAGE_PATH"/>/<xsl:choose><xsl:when test="contains(., '.tif')"><xsl:value-of select="substring-before(.,'.tif')"/></xsl:when><xsl:otherwise><xsl:value-of select="."/></xsl:otherwise></xsl:choose></xsl:variable>
         <xsl:attribute name="src"><xsl:value-of select="$src"/>.jpg</xsl:attribute>
+	</xsl:template>
+	<xsl:template match="@href" mode="href">
+        <xsl:variable name="src"><xsl:value-of select="$var_IMAGE_PATH"/>/<xsl:choose><xsl:when test="contains(., '.tif')"><xsl:value-of select="substring-before(.,'.tif')"/></xsl:when><xsl:otherwise><xsl:value-of select="."/></xsl:otherwise></xsl:choose></xsl:variable>
+        <xsl:attribute name="href"><xsl:value-of select="$src"/>.jpg</xsl:attribute>
 	</xsl:template>
 	<!--Tabela codificada-->
 	<xsl:template match="table"><div class="table">
@@ -704,6 +693,12 @@
 				</xsl:choose>
 				</xsl:if>
 			</a>
+            <xsl:variable name="aref">000000<xsl:value-of select="position()"/></xsl:variable><xsl:value-of select="string-length($aref)"/>
+
+             <xsl:variable name="ref"><xsl:value-of select="substring($aref, string-length($aref) - 5)"/></xsl:variable>
+            <xsl:variable name="pid"><xsl:value-of select="$PID"/><xsl:value-of select="substring($ref,2)"/></xsl:variable>
+
+			[&#160;<a href="javascript:void(0);" onclick="javascript: window.open('/scielo.php?script=sci_nlinks&amp;pid={$pid}&amp;lng=en','','width=640,height=500,resizable=yes,scrollbars=1,menubar=yes,');">Links</a>&#160;]
 		</p>
 	</xsl:template>
 	<!--mixed-citation-->
@@ -1068,15 +1063,16 @@
 		</xsl:if></sup>
 	</xsl:template>
     <xsl:template match="ack//title">
-    	<p class="subsec">
+    	<p class="sec">
             	<xsl:apply-templates select="*|text()"/></p>
     </xsl:template>
 
     <xsl:template match="ack">
         <xsl:if test="not(.//title)">
-            <p class="subsec">
+            <p class="sec">
             	Acknowledgements</p>
             </xsl:if>
         <xsl:apply-templates/>
     </xsl:template>
+    <xsl:template match="day|year"><xsl:value-of select="."/></xsl:template>
 </xsl:stylesheet>

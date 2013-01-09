@@ -512,7 +512,7 @@
 					<xsl:value-of select="$domain"/>/cgi-bin/wxis.exe/iah/?IsisScript=iah/iah.xis</xsl:if>
 			</xsl:with-param>
 		</xsl:call-template>
-		<xsl:if test="$ARTTITLE != '' ">
+		<xsl:if test="$ARTTITLE != '' "><span class="article-title">
 			<xsl:choose>
 				<xsl:when test="$TEXTLINK='1'">
 					<A>
@@ -528,7 +528,7 @@
 				</xsl:otherwise>
 			</xsl:choose>
 			<!--font class="negrito"-->
-			<xsl:if test="substring($ARTTITLE,string-length($ARTTITLE)) != '.' ">.</xsl:if>
+			<xsl:if test="substring($ARTTITLE,string-length($ARTTITLE)) != '.' ">.</xsl:if></span>
 			<!--/font-->
 		</xsl:if>
 		<xsl:call-template name="PrintTranslatorsISO">
