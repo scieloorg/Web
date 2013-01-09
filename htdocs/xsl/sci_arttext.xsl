@@ -14,7 +14,7 @@
 	
 
     		
-	
+	<xsl:variable name="PID" select="//ARTICLE/@PID"/>
     <xsl:variable name="version">
         <xsl:choose>
             <xsl:when test=".//BODY">html</xsl:when>
@@ -62,7 +62,7 @@
     <xsl:template match="ARTICLE" mode="redirect_press_release">
     	<xsl:if test="@is='pr'">                
 
-			<xsl:variable name="X">/scielo.php?script=sci_arttext_pr&amp;PID=<xsl:value-of select="@PID"/></xsl:variable>
+			<xsl:variable name="X">/scielo.php?script=sci_arttext_pr&amp;pid=<xsl:value-of select="@PID"/></xsl:variable>
 			<meta HTTP-EQUIV="REFRESH">
 				<xsl:attribute name="Content"><xsl:value-of select="concat('0;URL=',$X)"/></xsl:attribute>
 			</meta>
