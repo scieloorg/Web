@@ -48,7 +48,8 @@
 			
 			<xsl:apply-templates select=".//article-meta//trans-abstract"/>
 			
-			<xsl:apply-templates select=".//body"/>
+			<div class="body">
+			<xsl:apply-templates select=".//body"/></div>
 			
 			<xsl:apply-templates select=".//back "/>
 			
@@ -64,15 +65,15 @@
 		
 	</xsl:template>
 	
-	<xsl:template match="sub | sup | p">
+	<!--xsl:template match="sub | sup | p">
 		<xsl:element name="{name()}">
 			<xsl:apply-templates select=" * | text()"/>
 		</xsl:element>
-	</xsl:template>
+	</xsl:template-->
 	
 
 	<!--Define itálicos e negritos-->
-	<xsl:template match="italic">
+	<!--xsl:template match="italic">
 		<i>
 		<xsl:apply-templates select="*|text()"/>
 		</i>
@@ -86,7 +87,7 @@
 		<blockquote>
 			<xsl:apply-templates/>
 		</blockquote>
-	</xsl:template>
+	</xsl:template-->
 	<!-- inibe -->
 	<xsl:template match="article-meta/article-id"/>
 		<xsl:template match="article-meta//pub-date"/>
@@ -129,7 +130,9 @@
 		</div>
 	</xsl:template>
 	<xsl:template match="contrib">
-		<xsl:if test="position()!=1">, </xsl:if><xsl:apply-templates select="name"/><xsl:apply-templates select="." mode="xref-list"/>
+		<xsl:if test="position()!=1">, </xsl:if><xsl:apply-templates select="name"/>
+        <xsl:if test="xref">
+		<xsl:apply-templates select="." mode="xref-list"/></xsl:if>
 	</xsl:template>
 	<xsl:template match="contrib/name">
 		<xsl:apply-templates select="given-names"/>&#160;<xsl:apply-templates select="surname"/>
@@ -183,7 +186,7 @@
 			<xsl:apply-templates select="institution[@content-type='orgdiv2']"/><xsl:if test="institution[@content-type='orgdiv2']">, </xsl:if>
 			<xsl:apply-templates select="institution[@content-type='orgdiv1']"/><xsl:if test="institution[@content-type='orgdiv1']">, </xsl:if>
 			<xsl:apply-templates select="institution[@content-type='orgname']"/>
-			<xsl:apply-templates select="addr-line | country"/>
+			<xsl:apply-templates select="addr-line | country | email"/>
 			</p>
 	</xsl:template>
 	
@@ -205,6 +208,8 @@
 	</xsl:template>
 	<xsl:template match="email" mode="mixed-content">
 		<a href="mailto:{text()}"><xsl:value-of select="."/></a>
+	</xsl:template>
+	<xsl:template match="aff/email">, <a href="mailto:{text()}"><xsl:value-of select="."/></a>
 	</xsl:template>
 	<!--Fim de Notas de autor--><!--Recebido e aceito-->
 	<xsl:template match="history">
@@ -413,6 +418,7 @@
 		<xsl:variable name="lang" select="@xml:lang"/>
 		<div><!--Apresenta o título da seção conforme a lingua existente-->
 			<xsl:attribute name="class"><xsl:value-of select="name()"/></xsl:attribute>
+			<xsl:if test="not(.//title)">
 			<xsl:choose>
 				<xsl:when test="$lang='pt'">
 					<p class="sec"><a name="resumo">RESUMO</a></p>
@@ -423,7 +429,7 @@
 				<xsl:otherwise>
 					<p class="sec"><a name="abstract">ABSTRACT</a></p>
 				</xsl:otherwise>
-			</xsl:choose>
+			</xsl:choose></xsl:if>
 			<xsl:apply-templates select="* | text()"/>
 						<xsl:apply-templates select="..//kwd-group[normalize-space(@xml:lang)=normalize-space($lang)]" mode="keywords-with-abstract"/>
 		</div>
@@ -486,6 +492,20 @@
 			<xsl:apply-templates/>
 			</a></div>
 	</xsl:template>
+	
+	<xsl:template match=" caption/title | caption/title ">
+		<xsl:apply-templates select="*|text()"/>
+	</xsl:template>
+	<xsl:template match="fig/label | table-wrap/label | fig/caption | table-wrap/caption">
+		<span class="{name()}"><xsl:apply-templates select="* | text()"/></span>
+	</xsl:template>
+	<xsl:template match="inline-graphic | graphic"><a target="_blank"><xsl:apply-templates select="@xlink:href" mode="href"/>
+		<img class="graphic"><xsl:apply-templates select="@xlink:href" mode="src"/></img></a>		
+	</xsl:template>
+	<xsl:template match="inline-graphic | graphic" mode="thumbnail">
+		<img class="thumbnail"><xsl:apply-templates select="@xlink:href" mode="src"/></img>		
+	</xsl:template>
+
 	<xsl:template match="fig">
 
 		<div class="figure"><a name="{@id}"></a>
@@ -496,21 +516,6 @@
 		    </div>
 			
 		</div>
-	</xsl:template>
-	<xsl:template match="caption/title | caption/title ">
-		<xsl:apply-templates select="*|text()"/>
-	</xsl:template>
-	<xsl:template match="fig/label | table-wrap/label">
-		<span class="label"><xsl:apply-templates select="* | text()"/></span>
-	</xsl:template>
-	<xsl:template match="fig/caption | table-wrap/caption">
-		<span class="caption"><xsl:apply-templates select="* | text()"/></span>
-	</xsl:template>
-	<xsl:template match="graphic"><a target="_blank"><xsl:apply-templates select="@xlink:href" mode="href"/>
-		<img class="graphic"><xsl:apply-templates select="@xlink:href" mode="src"/></img></a>		
-	</xsl:template>
-	<xsl:template match="graphic" mode="thumbnail">
-		<img class="thumbnail"><xsl:apply-templates select="@xlink:href" mode="src"/></img>		
 	</xsl:template>
 	<!--Tabelas-->
 	<xsl:template match="table-wrap">
@@ -586,41 +591,33 @@
 		<xsl:apply-templates/>
 		</b>
 	</xsl:template>
-	<!--Listas--><!--Bullet sem estilo-->
-	<xsl:template match="p/list[@list-type='simple']">
-		<ul class="list-none">
-			<xsl:apply-templates select="list-item/p"/>
-		</ul>
-	</xsl:template>
-	<!--Lista Bullet Normal(Com marcador na frente)-->
-	<xsl:template match="p/list[@list-type='bullet']">
+		
+
+
+	<!--xsl:template match="list[@list-type='simple'] | list[@list-type='bullet']">
 		<ul>
-			<xsl:apply-templates select="list-item/p"/>
+			<xsl:apply-templates select="list-item"/>
 		</ul>
 	</xsl:template>
-	<!--Lista ordenada em letras maiúsculas-->
-	<xsl:template match="p/list[@list-type='alpha-upper']">
+	<xsl:template match="list[@list-type='alpha-upper']">
 		<ol type="A">
-			<xsl:apply-templates select="list-item/p"/>
+			<xsl:apply-templates select="list-item"/>
 		</ol>
 	</xsl:template>
-	<!--Lista ordana em letras minúsculas-->
-	<xsl:template match="p/list[@list-type='alpha-lower']">
+	<xsl:template match="list[@list-type='alpha-lower']">
 		<ol type="a">
-			<xsl:apply-templates select="list-item/p"/>
+			<xsl:apply-templates select="list-item"/>
 		</ol>
 	</xsl:template>
-	<!--Lista numerada-->
-	<xsl:template match="p/list[@list-type='order']">
+	<xsl:template match="list[@list-type='order']">
 		<ol>
-			<xsl:apply-templates select="list-item/p"/>
+			<xsl:apply-templates select="list-item"/>
 		</ol>
 	</xsl:template>
 	<xsl:template match="list-item/p">
-		<li>
-			<xsl:apply-templates select="* | text()"/>
-		</li>
-	</xsl:template>
+		<xsl:apply-templates select="* | text()"/>
+		
+	</xsl:template-->
 	<!--     *****************************     Referências     *****************************     --><!--Define referências-->
 	<xsl:template match=" back/ref-list">
 		<div>
@@ -693,7 +690,7 @@
 				</xsl:choose>
 				</xsl:if>
 			</a>
-            <xsl:variable name="aref">000000<xsl:value-of select="position()"/></xsl:variable><xsl:value-of select="string-length($aref)"/>
+            <xsl:variable name="aref">000000<xsl:value-of select="position()"/></xsl:variable>
 
              <xsl:variable name="ref"><xsl:value-of select="substring($aref, string-length($aref) - 5)"/></xsl:variable>
             <xsl:variable name="pid"><xsl:value-of select="$PID"/><xsl:value-of select="substring($ref,2)"/></xsl:variable>
@@ -1061,6 +1058,17 @@
 				</a>
 			
 		</xsl:if></sup>
+	</xsl:template>
+	<xsl:template match="sup/xref[@ref-type='bibr']">
+		
+		<xsl:if test="text()!='' or label">
+            
+            	<!--a href="#{@rid}" data-tooltip="t{@rid}"-->
+				<a href="#{@rid}">
+				    <xsl:apply-templates select=".//text()"/>
+				</a>
+			
+		</xsl:if>
 	</xsl:template>
     <xsl:template match="ack//title">
     	<p class="sec">

@@ -103,6 +103,9 @@
 
 /* ---- BODY --- */
 /*Título das Seções*/
+
+.body { padding-top: 50px }
+
 .sec{
 	/* clear:both; 
 	font-size: 15pt;*/
