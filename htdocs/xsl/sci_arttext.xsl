@@ -10,7 +10,7 @@
     <xsl:variable name="path_img" select="'/img/revistas/'"/>
 	
 
-    <xsl:include href="pmc/v3.0/site.xsl"/>
+    <xsl:include href="sci_arttext_pmc.xsl"/>
 	
 
     		
