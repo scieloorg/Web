@@ -36,29 +36,39 @@
 	
 	<xsl:template match="article" mode="text-content">
 		
-			<xsl:apply-templates select=".//article-meta//article-categories"/>
+			<xsl:apply-templates select="front//article-meta//article-categories"/>
 			
-			<xsl:apply-templates select=".//article-meta//title-group"/>
+			<xsl:apply-templates select="front//article-meta//title-group"/>
+			<xsl:apply-templates select="sub-article[@article-type='translation']//title-group"/>
 			
-			<xsl:apply-templates select=".//article-meta//contrib-group"/>
+			<xsl:apply-templates select="front//article-meta//contrib-group"/>
+
+			<xsl:apply-templates select="front//article-meta//aff"/>
 			
-			<xsl:apply-templates select=".//article-meta//aff"/>
+			<xsl:apply-templates select="front//article-meta//abstract | sub-article[@article-type='translation']//abstract"/>
 			
-			<xsl:apply-templates select=".//article-meta//abstract"/>
-			
-			<xsl:apply-templates select=".//article-meta//trans-abstract"/>
+			<xsl:apply-templates select="front//article-meta//trans-abstract"/>
 			
 			<div class="body">
-			<xsl:apply-templates select=".//body"/></div>
+				<xsl:apply-templates select="body"/>
+			</div>
 			
-			<xsl:apply-templates select=".//back "/>
+			<xsl:apply-templates select="back "/>
+
+			<div class="foot-notes">
+				<xsl:apply-templates select="front//article-meta//history"/>
+				
+				<xsl:apply-templates select="front//article-meta//author-notes"/>
+				
+				
+				
+			</div>
+
+			<xsl:apply-templates select="sub-article"/>
 			
 			<div class="foot-notes">
-				<xsl:apply-templates select=".//article-meta//history"/>
 				
-				<xsl:apply-templates select=".//article-meta//author-notes"/>
-				
-				<xsl:apply-templates select=".//article-meta//permissions"/>
+				<xsl:apply-templates select="front//article-meta//permissions"/>
 				
 			</div>
 		
@@ -129,13 +139,21 @@
 			<xsl:apply-templates select="contrib"/>
 		</div>
 	</xsl:template>
+	<xsl:template match="role">, <xsl:value-of select="."/>
+	</xsl:template>
+	<xsl:template match="sub-article//role"><p class="role"><xsl:value-of select="."/></p>
+	</xsl:template>
 	<xsl:template match="contrib">
 		<xsl:if test="position()!=1">, </xsl:if><xsl:apply-templates select="name"/>
         <xsl:if test="xref">
 		<xsl:apply-templates select="." mode="xref-list"/></xsl:if>
+		<xsl:apply-templates select="role"/>
 	</xsl:template>
 	<xsl:template match="contrib/name">
+		<xsl:if test="prefix"><xsl:apply-templates select="prefix"/>&#160;</xsl:if>
 		<xsl:apply-templates select="given-names"/>&#160;<xsl:apply-templates select="surname"/>
+		<xsl:if test="suffix">&#160;<xsl:apply-templates select="suffix"/></xsl:if>
+		
 	</xsl:template>
 	
 	<xsl:template match="*[xref]" mode="xref-list">
@@ -418,7 +436,7 @@
 		<xsl:variable name="lang" select="@xml:lang"/>
 		<div><!--Apresenta o título da seção conforme a lingua existente-->
 			<xsl:attribute name="class"><xsl:value-of select="name()"/></xsl:attribute>
-			<xsl:if test="not(.//title)">
+			<xsl:if test="not(title)">
 			<xsl:choose>
 				<xsl:when test="$lang='pt'">
 					<p class="sec"><a name="resumo">RESUMO</a></p>
@@ -460,7 +478,7 @@
 	<xsl:template match="kwd-group"/>
 		<!--Adiciona vírgulas as palavras-chave-->
 	<xsl:template match="kwd">
-		<xsl:if test="position()!= 1">, </xsl:if> 
+		<xsl:if test="position()!= 1">; </xsl:if> 
 		<xsl:value-of select="."/>
 	</xsl:template>
 	<xsl:template match="body/sec | ack/sec">
@@ -499,12 +517,17 @@
 	<xsl:template match="fig/label | table-wrap/label | fig/caption | table-wrap/caption">
 		<span class="{name()}"><xsl:apply-templates select="* | text()"/></span>
 	</xsl:template>
-	<xsl:template match="inline-graphic | graphic"><a target="_blank"><xsl:apply-templates select="@xlink:href" mode="href"/>
+	<xsl:template match="graphic"><a target="_blank"><xsl:apply-templates select="@xlink:href" mode="href"/>
 		<img class="graphic"><xsl:apply-templates select="@xlink:href" mode="src"/></img></a>		
+	</xsl:template>
+	<xsl:template match="inline-graphic | disp-formula//graphic"><a target="_blank"><xsl:apply-templates select="@xlink:href" mode="href"/>
+		<img class="thumbnail"><xsl:apply-templates select="@xlink:href" mode="src"/></img></a>		
 	</xsl:template>
 	<xsl:template match="inline-graphic | graphic" mode="thumbnail">
 		<img class="thumbnail"><xsl:apply-templates select="@xlink:href" mode="src"/></img>		
 	</xsl:template>
+
+    
 
 	<xsl:template match="fig">
 
@@ -1083,4 +1106,44 @@
         <xsl:apply-templates/>
     </xsl:template>
     <xsl:template match="day|year"><xsl:value-of select="."/></xsl:template>
+
+    <xsl:template match="sub-article[@article-type!='translation' or not(@article-type)]">
+    	<div class="sub-article" id="{@id}">
+				<xsl:apply-templates select=".//title-group"/>
+					
+				
+				<xsl:apply-templates select=".//abstract"/>
+				
+				<xsl:apply-templates select=".//trans-abstract"/>
+				
+				<div class="body">
+					<xsl:apply-templates select="body"/>
+				</div>
+				
+				<xsl:apply-templates select="back "/>
+
+				<div class="sig">
+					<xsl:apply-templates select=".//contrib-group"/>
+					
+					<xsl:apply-templates select=".//aff"/>
+				</div>
+
+		</div>
+		
+    </xsl:template>
+
+    <xsl:template match="sub-article[@article-type='translation']">
+    	<div class="sub-article" id="{@id}">
+				<xsl:apply-templates select=".//title-group"/>
+				
+				<div class="body">
+					<xsl:apply-templates select="body"/>
+				</div>
+				
+				<xsl:apply-templates select="back "/>
+
+				
+		</div>
+		
+    </xsl:template>
 </xsl:stylesheet>

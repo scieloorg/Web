@@ -166,6 +166,12 @@
 	<xsl:template match="ABSTRACT/text()">
 		<xsl:value-of select="."/>
 	</xsl:template>
+	<xsl:template match="ABSTRACT/sec">
+		<xsl:apply-templates select="*|text()"/>
+	</xsl:template>
+	<xsl:template match="ABSTRACT/sec/title"><p class="subsec">
+		<xsl:apply-templates select="*|text()"/></p>
+	</xsl:template>
 	<xsl:template name="ABSTR-TR">
         <xsl:value-of select="$translations/xslid[@id='sci_abstract']/text[@find='abstract']"/>
 	</xsl:template>
