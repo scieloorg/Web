@@ -80,7 +80,7 @@
 													<xsl:apply-templates select="ISSUE/ARTICLE/related[@type='art' or @type='issue']" mode="link"/>
 												</div>
 												<h4 id="doi">
-													<xsl:apply-templates select="ISSUE/ARTICLE/@DOI"/>&#160;
+													<xsl:apply-templates select="ISSUE/ARTICLE/@DOI" mode="display"/>&#160;
 						</h4>
 												<div class="index,{ISSUE/ARTICLE/@TEXTLANG}">
 													<xsl:apply-templates select="ISSUE/ARTICLE/BODY"/>
