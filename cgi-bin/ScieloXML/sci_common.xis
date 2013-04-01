@@ -305,7 +305,7 @@
 <function name="GetPreviousArticle" action="replace" tag="4900">
 	<!--display><pft>'v4900 = ',v4900,'<br>'</pft></display-->
 	<field action="replace" tag="5000"><pft>v4900^x</pft></field>
-	<field action="replace" tag="4900"><pft>'SM=',mid(v4900^*,2,17),'-',mid(v4900^*,21,3)</pft></field>
+	<field action="replace" tag="4900"><pft>'SM=',s(v4900^*)*1.17,'-',s(v4900^*)*18</pft></field>
 
 	<do task="keyrange">
 		<parm name="db">ARTIGO</parm>
@@ -333,7 +333,8 @@
 		</loop>	
 	</do>	
 
-	<!--display><pft>'Isis_Key (v4901): ', v4901,'<br>'</pft></display-->
+	<display><pft>'Isis_Key (v4901): ', v4901/</pft></display>
+	<display><pft>'Isis_Key (v4900): ', v4900/,v4900*0.21/</pft></display>
 	
 	<field action="replace" tag="7085">
 		<pft>
@@ -341,12 +342,13 @@
 			/* and the issue must be equal.                                           */
 			if p(v4901) and
 			   instr(v4901, v4900) = 0 and 
-			   instr(v4901, left(v4900, size(v4900) - 4)) > 0 then,
- 				,mid(v4901*3, 1, 23),
+			   instr(v4901, v4900*0.21) > 0 then,
+ 				,v4901*3,
 			fi,
 		</pft>
 	</field>
-
+    <display><pft>,v4901*3/,,'Isis_Key (v7085): ', v7085,/</pft></display>
+	
 	<flow action="jump"><pft>if p(v7085) or a(v5000) then 'FOUND_PREV_ARTICLE' fi</pft></flow>
 	<field action="replace" tag="4900"><pft>|SM=|v5000*1</pft></field>
 	<do task="keyrange">
@@ -360,12 +362,12 @@
 		<loop>
 			<field action="import" tag="4900">4900</field>
 			<display><pft>'<!-- ',v4900/</pft></display>
-			<display><pft>'left(v4900, size(v4900) - 4)',left(v4900, size(v4900) - 4)/</pft></display>
+			<display><pft>'left(v4900, size(v4900) - 5)',left(v4900, size(v4900) - 5)/</pft></display>
 			<display><pft>v4901,'-->'/</pft></display>
 			<field action="replace" tag="5001">
 				<pft>
 					if p(v4901) then
-						,if instr(v4901, left(v4900, size(v4900) - 4)) > 0 then,
+						,if instr(v4901, left(v4900, size(v4900) - 5)) > 0 then,
 							,mid(v4901*3, 1, 23),
 						,fi
 					fi,
@@ -376,7 +378,7 @@
 	</do>	
 	<field action="replace" tag="7085"><pft>v5001</pft></field>
 	<label>FOUND_PREV_ARTICLE</label>
-	<field action="replace" tag="7085"><pft>if p(v7085) then 'S',mid(v7085,1,17),'00',mid(v7085,19,3) fi</pft></field>
+	<field action="replace" tag="7085"><pft>if p(v7085) then 'S',mid(v7085,1,17),v7085*18 fi</pft></field>
 
 	<return action="replace" tag="7085"><pft>v7085</pft></return>
 </function>
@@ -397,7 +399,7 @@
 	<!--display><pft>'v4900 = ',v4900,'<br>'</pft></display-->
 
 	<field action="replace" tag="5000"><pft>v4900^x</pft></field>
-	<field action="replace" tag="4900"><pft>'SM=',mid(v4900^*,2,17),'-',mid(v4900^*,21,3)</pft></field>
+	<field action="replace" tag="4900"><pft>'SM=',s(v4900^*)*1.17,'-',s(v4900^*)*18</pft></field>
 	<do task="keyrange">
 		<parm name="db">ARTIGO</parm>
 		<parm name="from"><pft>v4900,'zzzzz'</pft></parm>
@@ -421,7 +423,6 @@
 			</flow>
 		</loop>	
 	</do>	
-
 	<!--display><pft>'Isis_Key (v4901): ', v4901,'<br>'</pft></display-->
 	
 	<field action="replace" tag="7095">
@@ -430,12 +431,13 @@
 			/* and the issue must be equal.                                             */
 			if p(v4901) and ref(['ARTIGO']l(['ARTIGO'],v4901),@PROC_SPLIT_MST.PFT,v222)='' and
 			   instr(v4901, v4900) = 0 and
-			   instr(v4901, left(v4900, size(v4900) - 4)) > 0 then,
+			   instr(v4901, left(v4900, size(v4900) - 5)) > 0 then,
  				,mid(v4901*3, 1, 23),				
 			fi,
 		</pft>
 	</field>
-	
+	<!--display><pft>'Isis_Key (v7095): ', v7095,'<br>'</pft></display-->
+
 	<flow action="jump"><pft>if p(v7095) or a(v5000) then 'FOUND_NEXT_ARTICLE' fi</pft></flow>
 	<field action="replace" tag="4900"><pft>|SM=|v5000*1</pft></field>
 	<do task="keyrange">
@@ -454,7 +456,7 @@
 					/* The pid of the key must be different from the pid of the current article */
 					/* and the ISSN must be equal.                                             */
 					if p(v4901) then
-						,if instr(v4901, left(v4900, size(v4900) - 4)) > 0 then,
+						,if instr(v4901, left(v4900, size(v4900) - 5)) > 0 then,
 							,mid(v4901*3, 1, 23),
 						,fi
 					fi,
@@ -465,7 +467,7 @@
 	</do>	
 	<field action="replace" tag="7095"><pft>v5001</pft></field>
 	<label>FOUND_NEXT_ARTICLE</label>
-	<field action="replace" tag="7095"><pft>if p(v7095) then 'S',mid(v7095,1,17),'00',mid(v7095,19,3) fi</pft></field>
+	<field action="replace" tag="7095"><pft>if p(v7095) then 'S',v7095*0.17,v7095*18 fi</pft></field>
 
 	<return action="replace" tag="7095"><pft>v7095</pft></return>
 		
@@ -3112,7 +3114,7 @@ fi
 <function name="CreateProjetoFAPESP" action="replace" tag="4001">
    <field action="statusdb" tag="2001">PROJFAPESP</field>
 
-        <field action="replace" tag="10" split="occ"><pft>,ref(['PROJFAPESP']l(['PROJFAPESP'],'SCI=',v4001),('<PROJETO><title>',v88^n,'</title><url>',v88^u,'</url></PROJETO>',/))</pft></field>
+        <field action="replace" tag="10" split="occ"><pft>,ref(['PROJFAPESP']l(['PROJFAPESP'],'SCI=',v4001),('<PROJETO><title><![CDATA[',v88^n,']]></title><url>',v88^u,'</url></PROJETO>',/))</pft></field>
 
         <flow action="jump"><pft>if a(v10) then 'EXIT_FAPESP' fi</pft></flow>
 
@@ -3289,6 +3291,8 @@ fi
 <function name="getDOI" action="replace" tag="880">
     <field action="import" tag="list">7011,237,9800</field>
 
+    <flow action="jump"><pft>if p(v237) then 'ok' fi</pft></flow>
+    
     <!-- consulta a base doi/query -->
     <field action="replace" tag="237"><pft>if a(v237) then ref(['DOI']l(['DOI'],'pid=',v880),v237^*) fi</pft></field>
 	<field action="replace" tag="237"><pft>if a(v237) then ref(['DOIQUERY']l(['DOIQUERY'],'PID=',v880),v237) fi</pft></field>
@@ -3308,16 +3312,17 @@ fi
 	<!-- n?o encontrando, consulta a base de doi antiga  -->
 	
 
-	<call name="getDOIfromDB"><pft>if p(v881) then v881 else v880 fi</pft></call>
+	<call name="getDOIfromDB"><pft>if p(v891) then v891 else if p(v881) then v881 else v880 fi fi</pft></call>
 	<field action="replace" tag="237"><pft>v900</pft></field>
 
     <label>ok</label>
     <call name="fixDOI"><pft>v237</pft></call>
 	<field action="export" tag="list">237,9800</field>
 
+
  </function>
  <function name="fixDOI" action="replace" tag="237">
-	<return action="replace" tag="237"><pft>replace(replace(replace(v237,'doi:',''),'DOI:',''),' ','')</pft></return>
+	<return action="replace" tag="237"><pft>replace(replace(replace(replace(v237,'http://dx.doi.org/',''),'doi:',''),'DOI:',''),' ','')</pft></return>
  </function>
  <!--function name="displayDOI" action="replace" tag="237">
 	<field action="import" tag="list">237</field>
