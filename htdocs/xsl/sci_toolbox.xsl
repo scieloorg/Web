@@ -407,10 +407,20 @@
   </div>
  </xsl:if>
   <!-- SECTION BOOKMARK INICIO -->
-
+  <hr/>
+   <ul>
+     <li>
+       <a id="permalink" href="javascript:void(0);"><img src="/img/common/iconPermalink.gif"/>Permalink</a>
+     </li>
+   </ul>
+  </div>
+  <div id="permalink_box" style="margin-left:20px;background-color:#F2F2F2;border: 1px solid #CCC;display:none;position:absolute;z-index:1;padding:2px 10px 10px 10px;">
+    <div style="text-align:right;"><img src="/img/common/icon-close.png" onClick="$('#permalink_box').toggle();"/></div>
+    <input type="text" name="short-url" id="short-url"/>
   </div>
 </div>
 </xsl:template>
+
 
     <xsl:template match="fulltext-service" mode="link">
       <xsl:variable name="params">

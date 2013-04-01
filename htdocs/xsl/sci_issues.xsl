@@ -223,7 +223,15 @@
 					</xsl:when>
 					<xsl:otherwise>&#160;</xsl:otherwise>
 				</xsl:choose>
-				<xsl:apply-templates select="ISSUE[@NUM or @SUPPL]"/>
+				<!--xsl:apply-templates select="ISSUE[@NUM or @SUPPL]"/-->
+				<xsl:apply-templates select="ISSUE[@NUM and @NUM!='ahead' and @NUM!='review']">
+				    <xsl:sort select="@PUBDATE" data-type="text" order="ascending"/>
+				</xsl:apply-templates>
+				<xsl:apply-templates select="ISSUE[not(@NUM)]">
+				    <xsl:sort select="@PUBDATE" data-type="text" order="ascending"/>
+				</xsl:apply-templates>
+				<xsl:apply-templates select="ISSUE[@NUM='AHEAD']"/>
+				<xsl:apply-templates select="ISSUE[@NUM='REVIEW']"/>
 				<!-- fixed 20040114 
 					ERRO OCASIONADO APOS CORRIGIR A AUSENCIA DE LINK NO VOLUME QUANDO ESTE NAO TINHA NEM NUMERO NEM VOLUME.
 					EXEMPLO ECLETICA QUIMICA ANO 2002.
