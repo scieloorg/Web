@@ -1,4 +1,4 @@
-,`   <query key="`,v691,v880^*,`" enable-multiple-hits="false" forward-match="false">`,
+,`   <query key="`,v880^*,`" enable-multiple-hits="false" forward-match="false">`,
 ,if p(v35) then
 ,`        <issn match="optional">`,v35,`</issn>`,
 ,fi
