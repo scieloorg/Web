@@ -99,21 +99,25 @@
 									<strong>
 										<xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='numbers']"/>
 									</strong>
-									<ul class="pressReleases">
+									<span class="PressReleases" id="issuePressRelease">
+										<!--
 										<xsl:apply-templates select="//PRESSRELEASE/issue" mode="pr">
 											<xsl:sort select="@data" order="descending"/>
 										</xsl:apply-templates>
-									</ul>
+										-->
+									</span>
 								</xsl:if>
 								<xsl:if test="$has_article_pr != 'false'">
 									<strong>
 										<xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='articles']"/>
 									</strong>
-									<ul class="pressReleases">
+									<span class="PressReleases" id="articlePressRelease">
+										<!--
 										<xsl:apply-templates select="//PRESSRELEASE/article" mode="pr">
 											<xsl:sort select="@data" order="descending"/>
 										</xsl:apply-templates>
-									</ul>
+										-->
+									</span>
 								</xsl:if>
 							</div>
 						</div>
@@ -124,6 +128,29 @@
 						<xsl:apply-templates select="." mode="footer-journal"/>
 					</div>
 				</xsl:if>
+				<script type="text/javascript" src="/js/jquery-1.9.1.min.js" />
+				<script type="text/javascript">
+				  function qry_pr_issue() {
+				    $.ajax({
+				      url: "pressrelease/pressrelease_issues_list.php",
+				      success: function (data) {
+				      	$("#issuePressRelease").html(data);
+				      }
+				    });
+				  }
+				  function qry_pr_article() {
+				    $.ajax({
+				      url: "pressrelease/pressrelease_articles_list.php",
+				      success: function (data) {
+				      	$("#articlePressRelease").html(data);
+				      }
+				    });
+				  }
+				  $(document).ready(function() {
+				      qry_pr_issue();
+				      qry_pr_article();
+				  });
+				</script>
 			</body>
 		</html>
 	</xsl:template>

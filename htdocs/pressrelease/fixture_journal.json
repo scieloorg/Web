@@ -2,7 +2,7 @@
     "issue": 1,
     "articles_press_releases": [
         {
-            "url": "http://www.scielo.br/scielo.php?script=sci_arttext&pid=S0034-89102010000100001&lng=en&nrm=iso&tlng=en",
+            "url": "http://www.scielo.br/scielo.php?script=sci_arttext&pid=S0034-89102010005000042&lng=en&nrm=iso&tlng=en",
             "title": "title",
             "issue_label": "v22 n1",
             "created_at": "2013-12-22",
@@ -17,7 +17,7 @@
             "id": 1
         },
         {
-            "url": "http://www.scielo.br/scielo.php?script=sci_arttext&pid=S0034-89102010000100001&lng=en&nrm=iso&tlng=en",
+            "url": "http://www.scielo.br/scielo.php?script=sci_arttext&pid=S0034-89102010005000042&lng=en&nrm=iso&tlng=en",
             "title": "title",
             "created_at": "2013-12-22",
             "issue_label": "v22 n1",
@@ -32,7 +32,7 @@
             "id": 2
         },
         {
-            "url": "http://www.scielo.br/scielo.php?script=sci_arttext&pid=S0034-89102010000100001&lng=en&nrm=iso&tlng=en",
+            "url": "http://www.scielo.br/scielo.php?script=sci_arttext&pid=S0034-89102010005000042&lng=en&nrm=iso&tlng=en",
             "title": "title",
             "created_at": "2013-12-22",
             "issue_label": "v22 n1",
@@ -69,7 +69,7 @@
     "issue": 2,
     "articles_press_releases": [
         {
-            "url": "http://www.scielo.br/scielo.php?script=sci_arttext&pid=S0034-89102010000100001&lng=en&nrm=iso&tlng=en",
+            "url": "http://www.scielo.br/scielo.php?script=sci_arttext&pid=S0034-89102010005000042&lng=en&nrm=iso&tlng=en",
             "title": "title",
             "created_at": "2013-12-22",
             "issue_label": "v22 n1",
@@ -84,7 +84,7 @@
             "id": 5
         },
         {
-            "url": "http://www.scielo.br/scielo.php?script=sci_arttext&pid=S0034-89102010000100001&lng=en&nrm=iso&tlng=en",
+            "url": "http://www.scielo.br/scielo.php?script=sci_arttext&pid=S0034-89102010005000042&lng=en&nrm=iso&tlng=en",
             "title": "title",
             "created_at": "2013-12-22",
             "issue_label": "v22 n1",
@@ -99,7 +99,7 @@
             "id": 6
         },
         {
-            "url": "http://www.scielo.br/scielo.php?script=sci_arttext&pid=S0034-89102010000100001&lng=en&nrm=iso&tlng=en",
+            "url": "http://www.scielo.br/scielo.php?script=sci_arttext&pid=S0034-89102010005000042&lng=en&nrm=iso&tlng=en",
             "title": "title",
             "created_at": "2013-12-22",
             "issue_label": "v22 n1",
