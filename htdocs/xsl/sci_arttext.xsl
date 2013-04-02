@@ -5,12 +5,13 @@
 	<!--xsl:template match="*" mode="sections-navegation"/-->
     
 	<xsl:import href="sci_navegation.xsl"/>
+	<xsl:import href="sci_arttext_pmc.xsl"/>
 	<xsl:import href="sci_toolbox.xsl"/>
 
     <xsl:variable name="path_img" select="'/img/revistas/'"/>
 	
 
-    <xsl:include href="sci_arttext_pmc.xsl"/>
+    
 	
 
     		
