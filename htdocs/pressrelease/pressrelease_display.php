@@ -2,12 +2,19 @@
 require_once('journalmanager.php');
 $data = get_press_release($_REQUEST['id']);
 
-$allowed_languages = array('pt', 'es', 'en');
+$allowed_interface_languages = array('pt', 'es', 'en');
+$allowed_content_languages = array('pt', 'es', 'en','it','ge','fr');
 
 if (in_array($_REQUEST['lng'], $allowed_languages)){
   $lng = $_REQUEST['lng'];
 }else{
   $lng = 'en';
+}
+
+if (in_array($_REQUEST['tlng'], $allowed_languages)){
+  $tlng = $_REQUEST['tlng'];
+}else{
+  $tlng = 'en';
 }
 
 ?>
@@ -38,8 +45,8 @@ if (in_array($_REQUEST['lng'], $allowed_languages)){
               <h3 style="font-size: 90%;">
                 <?=$data['citation']?>
               </h3>
-              <h1><?=$data['prs']['title'][$_REQUEST['tlng']]?></h1>
-              <?=$data['prs']['body'][$_REQUEST['tlng']]?>
+              <h1><?=$data['prs']['title'][$tlng]?></h1>
+              <?=$data['prs']['body'][$tlng]?>
             </div> <!-- content -->
           </div> <!-- collection -->
         </div> <!-- middle -->
