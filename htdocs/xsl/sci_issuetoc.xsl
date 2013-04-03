@@ -66,6 +66,29 @@ right: 20%}
 				</div>
 				<xsl:apply-templates select="." mode="footer-journal"/>
 			</BODY>
+			<script type="text/javascript" src="/js/jquery-1.9.1.min.js" />
+			<script type="text/javascript">
+			  function qry_pr_issue() {
+			    $.ajax({
+			      url: "pressrelease/pressrelease_issues_list.php",
+			      success: function (data) {
+			      	$("#issuePressRelease").html(data);
+			      }
+			    });
+			  }
+			  function qry_pr_article() {
+			    $.ajax({
+			      url: "pressrelease/pressrelease_articles_list.php",
+			      success: function (data) {
+			      	$("#articlePressRelease").html(data);
+			      }
+			    });
+			  }
+			  $(document).ready(function() {
+			      qry_pr_issue();
+			      qry_pr_article();
+			  });
+			</script>
 		</HTML>
 	</xsl:template>
 	<xsl:template match="ISSUE">
