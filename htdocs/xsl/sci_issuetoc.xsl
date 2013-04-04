@@ -3,7 +3,7 @@
 <xsl:output method="html" omit-xml-declaration="yes" indent="no" />
 
 <xsl:include href="sci_navegation.xsl"/>
-
+<xsl:variable name="num" select="//ISSUE/@NUM"/>
 	<xsl:variable name="issuetoc_controlInfo" select="//CONTROLINFO"/>
 <xsl:template match="SERIAL">
  <HTML>
@@ -144,7 +144,7 @@ right: 20%}
 		</font>
 	</xsl:template>
 	<xsl:template match="SECTION">
-		<xsl:if test="NAME">
+		<xsl:if test="NAME and not($num='AHEAD')">
 			<tr>
 				<td class="section" colspan="2">
 					<IMG>
@@ -161,7 +161,11 @@ right: 20%}
 				</xsl:if>
 			</tr>
 		</xsl:if>
-		<xsl:apply-templates select="ARTICLE"/>
+		<xsl:choose>
+			<xsl:when test="$num='AHEAD'"><xsl:apply-templates select="ARTICLE"><xsl:sort select="@ahpdate"/><xsl:sort select="@DOI"/></xsl:apply-templates></xsl:when>
+			<xsl:otherwise><xsl:apply-templates select="ARTICLE"/></xsl:otherwise>
+		</xsl:choose>
+		
 	</xsl:template>
 	<xsl:template match="ARTICLE">
 		<tr>
