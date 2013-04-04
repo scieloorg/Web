@@ -138,23 +138,23 @@
 				      url: url,
 				      success: function (data) {
 				      	jdata = jQuery.parseJSON(data);
-				      	var issue_html = '<ul>';
+				      	var issue_html = '<ul class="PressReleases" style="padding-left: 20px; margin-left: 0px;">';
 				      	for (var item in jdata['issue']){
 				      	    var pr_url = 'pressrelease/pressrelease_display.php?lng='+lng+'&amp;id='+jdata['issue'][item]['id'];
-				      		issue_html += '<li><a href="'+pr_url+'">'
-				      		           +jdata['issue'][item]['created_at']
-				      		           +': '
+				      		issue_html += '<li><a href="'+pr_url+'"><b>'
+				      		           +jdata['issue'][item]['created_at'].substring(0,7)
+				      		           +'</b><br/>'
 				      		           +jdata['issue'][item]['title']
 				      		           +'</a></li>';
 				      	}
 				      	issue_html += '</ul>';
 
-				      	var article_html = '<ul>';
+				      	var article_html = '<ul class="PressReleases" style="padding-left: 20px; margin-left: 0px;">';
 				      	for (var item in jdata['article']){
 				      		var pr_url = 'pressrelease/pressrelease_display.php?lng='+lng+'&amp;id='+jdata['article'][item]['id']+'&amp;pid='+jdata['article'][item]['pid'];
-				      		article_html += '<li><a href="'+pr_url+'">'
-				      					 +jdata['article'][item]['created_at']
-				      					 +': '
+				      		article_html += '<li><a href="'+pr_url+'"> <b>'
+				      					 +jdata['article'][item]['created_at'].substring(0,7)
+				      					 +'</b><br/> '
 				      					 +jdata['article'][item]['title']
 				      					 +'</a></li>';
 				      	}

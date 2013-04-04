@@ -155,3 +155,8 @@ A.rss {
 .status-info-alphabetic-list a {
 	font-style: italic;
 }
+
+.PressReleases a {
+    text-decoration: none;
+    color: gray;
+}
