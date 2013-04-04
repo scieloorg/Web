@@ -1,6 +1,6 @@
 <?php
 require_once('journalmanager.php');
-$data = get_press_release($_REQUEST['id']);
+$data = get_press_release($_REQUEST['id'], $_REQUEST['pid'], $_REQUEST['lng']);
 
 $allowed_interface_languages = array('pt', 'es', 'en');
 $allowed_content_languages = array('pt', 'es', 'en','it','ge','fr');
@@ -16,6 +16,8 @@ if (in_array($_REQUEST['tlng'], $allowed_languages)){
 }else{
   $tlng = 'en';
 }
+
+  $url = '/scielo.php?script=sci_issutoc&pid='.substr($_REQUEST['pid'], 0, 19).'&tlng='.$tlng;
 
 ?>
 <html>
@@ -33,20 +35,21 @@ if (in_array($_REQUEST['tlng'], $allowed_languages)){
         </div>
         <div class="middle">
           <div id="collection">
-            <h3>
-              PRESS RELEASE (
-                    <a href="javascript:void(0);"
+            <h3>PRESS RELEASE</h3>
+            <div class="content">
+              <?foreach ($data['meta'] as $meta) {?>
+              <?$url = '/scielo.php?script=sci_arttext&pid='.$meta['article']['id'].'&tlng='.$tlng;?>
+              <h3 style="font-size: 90%;">
+                <?=$meta['citation']?>
+                <a href="javascript:void(0);"
                        class="nomodel"
                        style="text-decoration: none;"
-                       onclick="if (window.opener) { window.opener.location.href = '<?=$data['prs']['url']?>'; window.close(); } else { window.location.href = '<?=$data['prs']['url']?>';}"
-                       rel="nofollow">See the <?=$data['prs']['type']?></a> )
-            </h3>
-            <div class="content">
-              <h3 style="font-size: 90%;">
-                <?=$data['citation']?>
+                       onclick="if (window.opener) { window.opener.location.href = '<?=$url?>'; window.close(); } else { window.location.href = '<?=$url?>';}"
+                       rel="nofollow">See the <?=$data['prs']['type']?></a>
               </h3>
-              <h1><?=$data['prs']['title'][$tlng]?></h1>
-              <?=$data['prs']['body'][$tlng]?>
+              <?}?>
+              <h1><?=$data['prs']['title']?></h1>
+              <?=$data['prs']['content']?>
             </div> <!-- content -->
           </div> <!-- collection -->
         </div> <!-- middle -->
