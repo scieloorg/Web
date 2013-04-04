@@ -88,37 +88,22 @@
 							<!--
                                 monta a div: rightCol
                             -->
-							<div class="rightCol">
-								<xsl:if test="($has_issue_pr = 'false') and ($has_article_pr = 'false')">
-									<xsl:attribute name="style">display: none;</xsl:attribute>
-								</xsl:if>
+							<div class="rightCol" style="display: none;" id="rightCol">
 								<h2 class="sectionHeading">
 									<xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='press_releases']"/>
 								</h2>
-								<xsl:if test="$has_issue_pr != 'false'">
+								<span id="pr_issue_area" style="display: none;">
 									<strong>
 										<xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='numbers']"/>
 									</strong>
-									<span class="PressReleases" id="issuePressRelease">
-										<!--
-										<xsl:apply-templates select="//PRESSRELEASE/issue" mode="pr">
-											<xsl:sort select="@data" order="descending"/>
-										</xsl:apply-templates>
-										-->
-									</span>
-								</xsl:if>
-								<xsl:if test="$has_article_pr != 'false'">
+									<span class="PressReleases" id="issuePressRelease"></span>
+								</span>
+								<span id="pr_article_area" style="display: none;">
 									<strong>
 										<xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='articles']"/>
 									</strong>
-									<span class="PressReleases" id="articlePressRelease">
-										<!--
-										<xsl:apply-templates select="//PRESSRELEASE/article" mode="pr">
-											<xsl:sort select="@data" order="descending"/>
-										</xsl:apply-templates>
-										-->
-									</span>
-								</xsl:if>
+									<span class="PressReleases" id="articlePressRelease"></span>
+								</span>
 							</div>
 						</div>
 						<div class="spacer">&#160;</div>
@@ -138,6 +123,16 @@
 				      url: url,
 				      success: function (data) {
 				      	jdata = jQuery.parseJSON(data);
+
+				      	if (jdata['issue'] || jdata['article']) {
+				      		$("#rightCol").show();
+				      	}
+				      	if (jdata['issue']){
+				      		$("#pr_issue_area").show();
+				      	}
+				      	if (jdata['article']){
+				      		$("#pr_article_area").show();
+				      	}
 				      	var issue_html = '<ul class="PressReleases" style="padding-left: 20px; margin-left: 0px;">';
 				      	for (var item in jdata['issue']){
 				      	    var pr_url = 'pressrelease/pressrelease_display.php?lng='+lng+'&amp;id='+jdata['issue'][item]['id'];

@@ -160,3 +160,8 @@ A.rss {
     text-decoration: none;
     color: gray;
 }
+
+.PressReleases a:hover {
+    text-decoration: none;
+    color: #444444;
+}
