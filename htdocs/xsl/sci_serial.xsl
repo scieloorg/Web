@@ -130,25 +130,43 @@
 				</xsl:if>
 				<script type="text/javascript" src="/js/jquery-1.9.1.min.js" />
 				<script type="text/javascript">
-				  function qry_pr_issue() {
+				  var lng = '<xsl:value-of select="CONTROLINFO/LANGUAGE"/>';
+				  var pid = '<xsl:value-of select="//PAGE_PID"/>';
+				  function qry_prs() {
+				    var url = "pressrelease/pressreleases_from_pid.php?lng="+lng+"&amp;pid="+pid;
 				    $.ajax({
-				      url: "pressrelease/pressrelease_issues_list.php",
+				      url: url,
 				      success: function (data) {
-				      	$("#issuePressRelease").html(data);
-				      }
-				    });
-				  }
-				  function qry_pr_article() {
-				    $.ajax({
-				      url: "pressrelease/pressrelease_articles_list.php",
-				      success: function (data) {
-				      	$("#articlePressRelease").html(data);
+				      	jdata = jQuery.parseJSON(data);
+				      	var issue_html = '<ul>';
+				      	for (var item in jdata['issue']){
+				      	    var pr_url = 'pressrelease/pressrelease_display.php?lng='+lng+'&amp;id='+jdata['issue'][item]['id'];
+				      		issue_html += '<li><a href="'+pr_url+'">'
+				      		           +jdata['issue'][item]['created_at']
+				      		           +': '
+				      		           +jdata['issue'][item]['title']
+				      		           +'</a></li>';
+				      	}
+				      	issue_html += '</ul>';
+
+				      	var article_html = '<ul>';
+				      	for (var item in jdata['article']){
+				      		var pr_url = 'pressrelease/pressrelease_display.php?lng='+lng+'&amp;id='+jdata['article'][item]['id']+'&amp;pid='+jdata['article'][item]['pid'];
+				      		article_html += '<li><a href="'+pr_url+'">'
+				      					 +jdata['article'][item]['created_at']
+				      					 +': '
+				      					 +jdata['article'][item]['title']
+				      					 +'</a></li>';
+				      	}
+				      	article_html += '</ul>';
+
+				      	$("#issuePressRelease").html(issue_html);
+				      	$("#articlePressRelease").html(article_html);
 				      }
 				    });
 				  }
 				  $(document).ready(function() {
-				      qry_pr_issue();
-				      qry_pr_article();
+				      qry_prs();
 				  });
 				</script>
 			</body>

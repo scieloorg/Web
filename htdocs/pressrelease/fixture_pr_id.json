@@ -1,0 +1,24 @@
+[{
+    "id": 1,
+    "translations": [
+        {
+            "language": "en",
+            "title": "title en",
+            "content": "content en"
+        },
+        {
+            "language": "es",
+            "title": "title es",
+            "content": "content es"
+        },
+        {
+            "language": "pt",
+            "title": "title pt",
+            "content": "content pt"
+        }
+    ],
+    "created_at": "2013-12-22",
+    "articles": [
+        "S0034-89102010000600001"
+    ]
+}]

@@ -497,6 +497,7 @@
 				</a>
 			</xsl:otherwise>
 		</xsl:choose>
+
 		<!-- &#160;&#160;&#160; -->
 	</xsl:template>
 	<!-- Invisible Image To Update Log File -->
@@ -706,11 +707,10 @@
 					<xsl:with-param name="lang" select="$interfaceLang"/>
 				</xsl:apply-templates>
 			</xsl:if>
-			<!--         </td>
-            </tr>
-        </table> -->
+        <span id="{concat('pr_',$PID)}" style="display: none;"></span>
 		</div>
 	</xsl:template>
+
 	<xsl:template match="LANGUAGES/*">
 		<xsl:param name="LANG"/>
 		<xsl:param name="PID"/>
@@ -737,15 +737,7 @@
 				<xsl:with-param name="CONTINUATION" select="(LANG[.=$LANG]!='')"/>
 			</xsl:apply-templates>
 		</xsl:if>
-		<xsl:if test="$type = 'pr'">
-			<span id="{concat('pr_',$PID)}">
-				<!--Press Release cluster for AJAX-->
-				&#160;&#160;&#160;&#160;<font face="Symbol" color="#000080">&#183;</font>
-				<a href="/pressrelease/pressrelease_display.php?id=1&amp;lng=en&amp;tlng=en">
-					press release in English
-				</a>
-			</span>
-		</xsl:if>
+
 	</xsl:template>
 	<xsl:template match="LANG" mode="issuetoc">
 		<xsl:param name="LANG"/>

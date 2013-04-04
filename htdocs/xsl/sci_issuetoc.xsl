@@ -68,26 +68,29 @@ right: 20%}
 			</BODY>
 			<script type="text/javascript" src="/js/jquery-1.9.1.min.js" />
 			<script type="text/javascript">
-			  function qry_pr_issue() {
-			    $.ajax({
-			      url: "pressrelease/pressrelease_issues_list.php",
-			      success: function (data) {
-			      	$("#issuePressRelease").html(data);
-			      }
-			    });
-			  }
-			  function qry_pr_article() {
-			    $.ajax({
-			      url: "pressrelease/pressrelease_articles_list.php",
-			      success: function (data) {
-			      	$("#articlePressRelease").html(data);
-			      }
-			    });
-			  }
-			  $(document).ready(function() {
-			      qry_pr_issue();
-			      qry_pr_article();
-			  });
+				var lng = '<xsl:value-of select="//CONTROLINFO/LANGUAGE"/>';
+				var pid = '<xsl:value-of select="//PAGE_PID"/>';
+				  function qry_prs() {
+				    var url = "pressrelease/pressreleases_from_pid.php?lng="+lng+"&amp;pid="+pid;
+				    $.ajax({
+				      url: url,
+				      success: function (data) {
+				      	jdata = jQuery.parseJSON(data);
+				      	for (var item in jdata['article']){
+				      		for (var npid in jdata['article'][item]['pid']){
+					      		var pid = jdata['article'][item]['pid'][npid];
+					      		var url = '/pressrelease/pressrelease_display.php?id='+jdata['article'][item]['id']+'&amp;pid='+jdata['article'][item]['pid']+'&amp;lng='+lng;
+					      		var article_html='&#160;&#160;&#160;&#160;<font face="Symbol" color="#000080">&#183; </font><a href="javascript: void(0);" onclick="OpenArticleInfoWindow(850,850,\''+url+'\')">Press Release</a>';
+					      		$("#pr_"+pid).html(article_html);
+					      		$("#pr_"+pid).show();
+				      		}
+				      	}
+				      }
+				    });
+				  }
+				  $(document).ready(function() {
+				      qry_prs();
+				  });
 			</script>
 		</HTML>
 	</xsl:template>
