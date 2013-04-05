@@ -1,6 +1,6 @@
 <?php
 $journal_manager_api = "http://localhost/api/v1/";
-$mencached_host = "localhost:11211";
+$memcached_host = "127.0.0.1:11211";
 
 function citation_display($data){
     $authors  = array();
@@ -80,9 +80,34 @@ function load_issue_meta($url){
     return $meta;
 }
 
+function quering_api($url='fixture_prs.json'){
+    global $memcached_host;
+    $m = new Memcache();
+    $memcache_url = explode(":", $memcached_host);
+    $memcache_domain = $memcache_url[0];
+    $memcache_port = $memcache_url[1];
+
+    $m->connect($memcache_domain, $memcache_port); 
+
+    $from_cache = $m->get($url);
+    if ($from_cache){
+        return $from_cache;
+    }else{
+        $response = file_get_contents($url);
+        $m->add($url, $response, 0);
+    }
+
+    $m->close();
+    return $response;
+}
+
 function get_press_releases_by_pid($pid, $lng){
-    $json = json_decode(file_get_contents('fixture_prs.json'), true);
-    #$request_url = $journal_manager_api+'prs/pid/'+$pid;
+    #$json = json_decode(file_get_contents('fixture_prs.json'), true);
+    $json = json_decode(quering_api('fixture_prs.json'), true);
+    #$request_url = $journal_manager_api+'article_pid/'+$pid;
+    #$request_url = $journal_manager_api+'issue_pid/'+$pid;
+    #$request_url = $journal_manager_api+'journal_pid/'+$pid;
+
     #$json = json_decode(file_get_contents($request_url), true);
     $prs = array('article'=>array(), 'issue'=>array()) ;
     foreach ($json as $itempr){
@@ -108,8 +133,10 @@ function get_press_releases_by_pid($pid, $lng){
 }
 
 function get_press_release($id, $pid, $lng){
-    $json = json_decode(file_get_contents('fixture_pr_id.json'), true);
-    #$request_url = $journal_manager_api+'prs/'+$id;
+    #$json = json_decode(file_get_contents('fixture_pr_id.json'), true);
+    $json = json_decode(quering_api('fixture_pr_id.json'), true);
+    #$request_url = $journal_manager_api+'article_pid/'+$pid;
+    #$request_url = $journal_manager_api+'issue_pid/'+$pid;
     #$json = json_decode(file_get_contents($request_url), true);
     $itempr = $json[0];
     $pr = array();
