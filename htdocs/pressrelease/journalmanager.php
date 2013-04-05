@@ -80,7 +80,7 @@ function load_issue_meta($url){
     return $meta;
 }
 
-function quering_api($url='fixture_prs.json'){
+function quering_api($url='fixture_prs.json', $ttl=0){
     global $memcached_host;
     $m = new Memcache();
     $memcache_url = explode(":", $memcached_host);
@@ -94,7 +94,7 @@ function quering_api($url='fixture_prs.json'){
         return $from_cache;
     }else{
         $response = file_get_contents($url);
-        $m->add($url, $response, 0);
+        $m->add($url, $response, $ttl);
     }
 
     $m->close();

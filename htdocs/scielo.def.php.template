@@ -119,6 +119,7 @@ show_home_scielo_team=1
 show_home_scielo_signature=1
 
 [services]
+journal_manager=1
 sci_artlangs="http://trigramas.bireme.br/cgi-bin/wxis.exe/?IsisScript=ScieloXML/sci_artlangs.xis&def=scielo.def&pid=PARAM_PID"
 show_toolbox=1
 show_datasus=0
