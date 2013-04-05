@@ -17,7 +17,7 @@
             "content": "content pt"
         }
     ],
-    "created_at": "2013-12-22",
+    "created_at": "2013-09-21",
     "articles": [
         "S0034-89102010000600001", "S0034-89102010000600002"
     ]
@@ -36,7 +36,7 @@
             "content": "content es"
         }
     ],
-    "created_at": "2013-12-22",
+    "created_at": "2013-10-22",
     "articles": [
         "S0034-89102010000600003"
     ]
@@ -55,5 +55,21 @@
             "content": "content pt"
         }
     ],
-    "created_at": "2013-12-22"
+    "created_at": "2013-11-23"
+},
+{
+    "id": 4,
+    "translations": [
+        {
+            "language": "es",
+            "title": "title es",
+            "content": "content es"
+        },
+        {
+            "language": "pt",
+            "title": "title pt",
+            "content": "content pt"
+        }
+    ],
+    "created_at": "2013-12-24"
 }]
