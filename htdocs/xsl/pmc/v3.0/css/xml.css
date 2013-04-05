@@ -1,5 +1,43 @@
 @charset "utf-8";
 
+.categoria{
+	text-align: right;
+	text-transform: uppercase;
+}
+
+/*Títulos do artigo*/
+.title{
+	/* font-size: 16pt; */
+	font-weight: bold;
+	font-size: 135%;
+}
+
+/*Titulo traduzido do artigo*/
+.trans-title{
+	font-size: 120%;
+	margin-top: 80px;
+	margin-bottom: 80px;
+}
+
+.abstract .sec, .trans-abstract .sec {
+	
+	text-transform: uppercase;
+	margin-top: 10px;
+}
+.abstract {
+	border-top: 1px solid;
+	border-bottom: 1px solid;
+	margin-top: 45px;
+	font-size: 97%;
+
+}
+.trans-abstract {
+	border-bottom: 1px solid;
+	margin-top: 45px;
+	font-size: 97%;
+	
+}
+
 
 .sec {
 	/* clear:both; 
@@ -15,6 +53,22 @@
     padding-top: 10px;
 	font-size: 100%;
 	font-weight: bold;
+}
+
+/*Título das Subseções do artigo*/
+.subsec{
+	font-size: 110%;
+	margin-bottom: 0px;
+	font-weight: bold;
+}
+
+/*Título das Subseções do artigo*/
+.sub-subsec, .subsection-title {
+	font-size: 100%;
+	font-weight: bold;
+}
+.table {
+    font-family: Helvetica,sans-serif;
 }
 .table_thumbnail {
     padding-top: 25px;
@@ -37,7 +91,7 @@
 }
 
 .label_caption {
-	font-size: 90%;
+	
 	vertical-align: top;
 }
 .caption {
@@ -70,7 +124,7 @@
 	
 }
 
-.xref-img, .xref-tab, .figure, .table-wrap {
+.figure, .table-wrap {
 	width: auto;
 	border-color: transparent;
 	padding-top: 10px;
@@ -87,3 +141,23 @@
 	padding-bottom: 40px;
 
 }
+
+.fn-author {}
+
+.corresp {}
+
+.sig-block {
+	text-align: right;
+	padding-top: 5%; 
+}
+.autores{
+	margin-bottom: 25px;
+	font-weight: bold;
+	font-size: 97%;
+}
+
+.sub-article {
+    border-top: 1px double #CCC ;
+    padding-top: 5%;
+    padding-bottom: 5%;
+	}

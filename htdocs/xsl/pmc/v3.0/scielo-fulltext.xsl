@@ -67,7 +67,10 @@
 	<xsl:template match="article" mode="text-content">
 		<xsl:call-template name="scift-make-article"/>		
 	</xsl:template>
-	
+	<xsl:template match="sub-article | response">
+		<hr class="part-rule"/>
+		<xsl:call-template name="scift-make-article"/>
+	</xsl:template>
 	<xsl:template name="scift-make-article">
 		<!-- Generates a series of (flattened) divs for contents of any
 	       article, sub-article or response -->
@@ -107,17 +110,11 @@
 			</div>
 		</xsl:for-each>
 		
-		
-		<!-- sub-article or response (recursively calls
-		     this template) -->
-		<xsl:apply-templates select="sub-article | response"/>
-		
-		
 		<div class="foot-notes">
 			<xsl:apply-templates select="front//article-meta//history"/>
 			<xsl:apply-templates select="front//article-meta//author-notes"/>
 		</div>
-		<xsl:apply-templates select="sub-article"/>
+		<xsl:apply-templates select="sub-article | response"/>
 		<div class="foot-notes">
 			<xsl:apply-templates select="front//article-meta//permissions"/>
 		</div>
@@ -163,6 +160,170 @@
 		</xsl:if>
 	</xsl:template>
 	
+	<xsl:template name="subsection-title"
+		match="abstract/*/*/title | body/*/*/*/title |
+		back[title]/*/*/title | back[not(title)]/*/*/*/title">
+		<xsl:param name="contents">
+			<xsl:apply-templates/>
+		</xsl:param>   
+		<xsl:if test="normalize-space($contents)">
+			<!-- coding defensively since empty titles make glitchy HTML -->
+			<p class="subsection-title">
+				<xsl:copy-of select="$contents"/>
+			</p>
+		</xsl:if>
+	</xsl:template>
+	
+	<xsl:template match="title-group/article-title">
+		<div>
+			<p class="title">
+				<xsl:apply-templates select="* | text() "/>
+				<xsl:apply-templates select="../subtitle"  mode="scift-subtitle"/>
+			</p>
+		</div>
+	</xsl:template>
+	<xsl:template match="trans-title-group/trans-title">
+		<div>
+			<p class="trans-title">
+				<xsl:apply-templates select="* | text() "/>
+				<xsl:apply-templates select="../trans-subtitle"  mode="scift-subtitle"/>
+			</p>
+		</div>
+	</xsl:template>
+	<!--Subtitulos do artigo-->
+	<xsl:template match="title-group/subtitle | trans-title-group/trans-subtitle"  mode="scift-subtitle">
+		<span>
+			<xsl:apply-templates select="* | text()"/>
+		</span>
+	</xsl:template>
+	<xsl:template match="title-group/subtitle | trans-title-group/trans-subtitle"/>
+	<!--Categoria do artigo     	Talvez seja desenecessária essa informação     -->
+	<xsl:template match="subj-group/subject">
+		<p class="categoria">
+			<xsl:value-of select="."/>
+		</p>
+	</xsl:template>
+	<!--Div contendo nome dos autores-->
+	<xsl:template match="contrib-group">
+		<div class="autores">
+			<xsl:apply-templates select="contrib"/>
+		</div>
+	</xsl:template>
+	<xsl:template match="role">, <xsl:value-of select="."/>
+	</xsl:template>
+	<xsl:template match="sub-article//role">
+		<p class="role">
+			<xsl:value-of select="."/>
+		</p>
+	</xsl:template>
+	<xsl:template match="contrib">
+		<xsl:if test="position()!=1">, </xsl:if>
+		<xsl:apply-templates select="name"/>
+		<xsl:if test="xref">
+			<xsl:apply-templates select="." mode="scift-xref_list"/>
+		</xsl:if>
+		<xsl:apply-templates select="role"/>
+	</xsl:template>
+	<xsl:template match="contrib/name">
+		<xsl:if test="prefix"><xsl:apply-templates select="prefix"/>&#160;</xsl:if>
+		<xsl:apply-templates select="given-names"/>&#160;<xsl:apply-templates select="surname"/>
+		<xsl:if test="suffix">&#160;<xsl:apply-templates select="suffix"/></xsl:if>
+	</xsl:template>
+	<xsl:template match="aff">
+		<p class="aff">
+			<xsl:variable name="text">
+				<xsl:apply-templates select="text() | add-line/text()" mode="aff-text"/>
+			</xsl:variable>
+			<xsl:comment><xsl:value-of select="$text"/></xsl:comment>
+			<xsl:comment><xsl:value-of select="string-length($text)"></xsl:value-of></xsl:comment>
+			<xsl:variable name="parts" select="count(text()[normalize-space(.)!=''] | institution | addr-line | country | email)"/>
+			
+			<xsl:if test="label">
+				<a name="{@id}">
+					<xsl:apply-templates select="label"/>
+				</a>
+			</xsl:if>
+			
+			
+			<xsl:choose>
+				<xsl:when test="$text=''">
+					<xsl:comment>aff has no separators = work around to insert separtors</xsl:comment>
+					<xsl:apply-templates select="institution | addr-line | country | email"
+						mode="aff-insert-separator"/>
+				</xsl:when>
+				<xsl:when test="translate($text,',', '')!=''">
+					<xsl:comment>text unlabeled = ok</xsl:comment>
+					<xsl:apply-templates select="text()[normalize-space(.)!=''] | institution | addr-line | country | email"/>
+				</xsl:when>
+				<xsl:when test="string-length($text) = $parts - 1">
+					<xsl:comment>aff has <xsl:value-of select="string-length($text)"/> separators</xsl:comment>
+					<xsl:apply-templates select="text()[normalize-space(.)!=''] | institution | addr-line | country | email"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:comment>aff has <xsl:value-of select="string-length($text)"/> separators. Deberia ter <xsl:value-of select="$parts - 1"/></xsl:comment>
+					<xsl:apply-templates select="text()[normalize-space(.)!=''] | institution | addr-line | country | email"
+						mode="aff-insert-separator"/>
+				</xsl:otherwise>
+			</xsl:choose>
+			
+			
+		</p>
+	</xsl:template>
+	<xsl:template match="text()" mode="aff-text">
+		<xsl:value-of select="normalize-space(.)"/>
+	</xsl:template>
+	<xsl:template match="text()[normalize-space(.)=',']" mode="aff-insert-separator">
+	</xsl:template>
+	<xsl:template match="aff/*" mode="aff-insert-separator"><xsl:if test="position()!=1">, </xsl:if>
+		<xsl:apply-templates select="*|text()" mode="aff-insert-separator"/>
+	</xsl:template>
+	<xsl:template match="aff/addr-line" mode="aff-insert-separator"><xsl:if test="position()!=1">, </xsl:if>
+		<xsl:apply-templates select="*" mode="aff-insert-separator"/>
+	</xsl:template>
+	<xsl:template match="addr-line/*">
+		<xsl:apply-templates select="*|text()"/>
+	</xsl:template>
+	
+	<xsl:template match="addr-line/*" mode="aff-insert-separator"><xsl:if test="position()!=1">, </xsl:if>
+		<xsl:apply-templates select="*|text()" mode="aff-insert-separator"/>
+	</xsl:template>
+	
+	<xsl:template match="aff/label">
+		<sup>
+			<xsl:value-of select="."/>
+		</sup>
+	</xsl:template>
+	<!--     *****     Email     **********************************************************************************     Nota:Se houver algum e-mail no resto do artigo também serpa aplicado este template     **********************************************************************************     -->
+	<xsl:template match="email">
+		<a href="mailto:{text()}">
+			<xsl:value-of select="."/>
+		</a>
+	</xsl:template>
+	<xsl:template match="email" mode="element-content"> &#160;<a href="mailto:{text()}"
+		><xsl:value-of select="."/></a>
+	</xsl:template>
+	<xsl:template match="email" mode="mixed-content">
+		<a href="mailto:{text()}">
+			<xsl:value-of select="."/>
+		</a>
+	</xsl:template>
+	<xsl:template match="aff/email">, <a href="mailto:{text()}"><xsl:value-of select="."/></a>
+	</xsl:template>
+	<xsl:template match="*[xref]" mode="scift-xref_list">
+		<sup>
+			<xsl:apply-templates select="xref" mode="xref"/>
+		</sup>
+	</xsl:template>
+	<xsl:template match="xref" mode="xref">
+		<xsl:if test="position() &gt; 1">,</xsl:if>
+		<a href="#{@rid}">
+			<!--FIXME-->
+			<xsl:apply-templates select="label|text()"/>
+		</a>
+		
+	</xsl:template>
+	
+	
 	<xsl:template match="xref[@ref-type='bibr']">
 		
 		<xsl:choose>
@@ -186,8 +347,6 @@
 			</xsl:otherwise>
 		</xsl:choose>				
 	</xsl:template>
-	<xsl:template match="body[//graphic]">
-	</xsl:template>
 	<xsl:template match="fig | table-wrap">
 		<xsl:choose>
 			<xsl:when test="$HOWTODISPLAY = 'THUMBNAIL'">
@@ -205,9 +364,8 @@
 			<xsl:call-template name="named-anchor"/>
 			<xsl:apply-templates select="graphic"/>
 			<div class="label_caption">
-				<xsl:apply-templates select="label" mode="scift-label-caption-graphic"/>
-				<xsl:if test="label and caption"> - <xsl:apply-templates select="caption" mode="scift-label-caption-graphic"/>
-				</xsl:if>
+				<xsl:apply-templates select="label | caption" mode="scift-label-caption-graphic"/>
+				
 			</div>
 			
 		</div>
@@ -218,13 +376,11 @@
 			<xsl:call-template name="named-anchor"/>
 			
 			<div class="label_caption">
-				<xsl:apply-templates select="label" mode="scift-label-caption-graphic"/>
-				<xsl:if test="label and caption"> - <xsl:apply-templates select="caption" mode="scift-label-caption-graphic"/>
-				</xsl:if>
+				<xsl:apply-templates select="label | caption" mode="scift-label-caption-graphic"/>
+				
 			</div>
 			<xsl:apply-templates select="graphic | table"/>
-				<xsl:apply-templates mode="footnote"
-					select="self::table-wrap//fn[not(ancestor::table-wrap-foot)]"/>
+			<xsl:apply-templates mode="footnote" select=".//fn"/>
 		</div>
 	</xsl:template>
 	<xsl:template match="fig/label | table-wrap/label | fig/caption | table-wrap/caption">
@@ -243,12 +399,11 @@
 					<td class="td_thumbnail"><xsl:apply-templates select=".//graphic" mode="scift-thumbnail"/></td>
 					<td class="td_label_caption">
 						<div class="label_caption">
-							<xsl:apply-templates select="label" mode="scift-label-caption-graphic"/>
-							<xsl:if test="label and caption"> - <xsl:apply-templates select="caption" mode="scift-label-caption-graphic"/>
-							</xsl:if>
+							<xsl:apply-templates select="label | caption" mode="scift-label-caption-graphic"/>
+							
 						</div>
 						<xsl:apply-templates mode="footnote"
-							select="self::table-wrap//fn[not(ancestor::table-wrap-foot)]"/>
+							select=".//fn"/>
 					</td>					
 				</tr>				
 			</table>
@@ -302,7 +457,7 @@
 		</xsl:attribute>
 	</xsl:template>
 	<xsl:template match="label|caption" mode="scift-label-caption-graphic">
-		<span class="{name()}"><xsl:apply-templates select="text() | *" mode="scift-label-caption-graphic"/></span>
+		<span class="{name()}"><xsl:apply-templates select="text() | *" mode="scift-label-caption-graphic"/>&#160;</span>
 	</xsl:template>
 	<xsl:template match="title" mode="scift-label-caption-graphic">
 		<xsl:apply-templates select="text() | *" />			
@@ -438,24 +593,166 @@
 			</p>
 		</div>
 	</xsl:template>
-	<xsl:template match="history/date/month" mode="month">
-		<xsl:value-of select="."/>
+	<xsl:template match="month" mode="date-month-en">
+		<xsl:choose>
+			<xsl:when test="text() = '01' or text() = '1'">January</xsl:when>
+			<xsl:when test="text() = '02' or text() = '2'">February</xsl:when>
+			<xsl:when test="text() = '03' or text() = '3'">March</xsl:when>
+			<xsl:when test="text() = '04' or text() = '4'">April</xsl:when>
+			<xsl:when test="text() = '05' or text() = '5'">May</xsl:when>
+			<xsl:when test="text() = '06' or text() = '6'">June</xsl:when>
+			<xsl:when test="text() = '07' or text() = '7'">July</xsl:when>
+			<xsl:when test="text() = '08' or text() = '8'">August</xsl:when>
+			<xsl:when test="text() = '09' or text() = '9'">September</xsl:when>
+			<xsl:when test="text() = '10'">October</xsl:when>
+			<xsl:when test="text() = '11'">November</xsl:when>
+			<xsl:when test="text() = '12'">December</xsl:when>
+		</xsl:choose>
 	</xsl:template>
-	<xsl:template match="history/date">
-		{<xsl:value-of select="."></xsl:value-of>}
+	<xsl:template match="month" mode="date-month-es">
+		<xsl:choose>
+			<xsl:when test="text() = '01' or text() = '1'">Enero</xsl:when>
+			<xsl:when test="text() = '02' or text() = '2'">Febrero</xsl:when>
+			<xsl:when test="text() = '03' or text() = '3'">Marzo</xsl:when>
+			<xsl:when test="text() = '04' or text() = '4'">Abril</xsl:when>
+			<xsl:when test="text() = '05' or text() = '5'">Mayo</xsl:when>
+			<xsl:when test="text() = '06' or text() = '6'">Junio</xsl:when>
+			<xsl:when test="text() = '07' or text() = '7'">Julio</xsl:when>
+			<xsl:when test="text() = '08' or text() = '8'">Agosto</xsl:when>
+			<xsl:when test="text() = '09' or text() = '9'">Septiembre</xsl:when>
+			<xsl:when test="text() = '10'">Octubre</xsl:when>
+			<xsl:when test="text() = '11'">Noviembre</xsl:when>
+			<xsl:when test="text() = '12'">Diciembre</xsl:when>
+		</xsl:choose>
+	</xsl:template>
+	<xsl:template match="month" mode="date-month-pt">
+		<xsl:choose>
+			<xsl:when test="text() = '01' or text() = '1'">Janeiro</xsl:when>
+			<xsl:when test="text() = '02' or text() = '2'">Fevereiro</xsl:when>
+			<xsl:when test="text() = '03' or text() = '3'">Março</xsl:when>
+			<xsl:when test="text() = '04' or text() = '4'">Abril</xsl:when>
+			<xsl:when test="text() = '05' or text() = '5'">Maio</xsl:when>
+			<xsl:when test="text() = '06' or text() = '6'">Junho</xsl:when>
+			<xsl:when test="text() = '07' or text() = '7'">Julho</xsl:when>
+			<xsl:when test="text() = '08' or text() = '8'">Agosto</xsl:when>
+			<xsl:when test="text() = '09' or text() = '9'">Setembro</xsl:when>
+			<xsl:when test="text() = '10'">Outubro</xsl:when>
+			<xsl:when test="text() = '11'">Novembro</xsl:when>
+			<xsl:when test="text() = '12'">Dezembro</xsl:when>
+		</xsl:choose>
+	</xsl:template>
+	<xsl:template match="history/date/@date-type" mode="scift-as-label-en">
+		<xsl:choose>
+			<xsl:when test=". = 'rev-recd'">Revised</xsl:when>
+			<xsl:otherwise><xsl:value-of select="translate(substring(.,1,1), 'ar', 'AR')"/><xsl:value-of select="substring(.,2)"/></xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+	<xsl:template match="history/date/@date-type" mode="scift-as-label-pt">
+		<xsl:choose>
+			<xsl:when test=". = 'rev-recd'">Revisado</xsl:when>
+			<xsl:when test=". = 'accepted'">Aceito</xsl:when>
+			<xsl:when test=". = 'received'">Recebido</xsl:when>
+			</xsl:choose>
+	</xsl:template>
+	<xsl:template match="history/date/@date-type" mode="scift-as-label-es">
+		<xsl:choose>
+			<xsl:when test=". = 'rev-recd'">Revisado</xsl:when>
+			<xsl:when test=". = 'accepted'">Aprobado</xsl:when>
+			<xsl:when test=". = 'received'">Recibido</xsl:when>
+		</xsl:choose>
+	</xsl:template>
+	<xsl:template match="history/date">		
 		<xsl:choose>
 			<xsl:when test="$article_lang='en'">
-				<xsl:value-of select="@date-type"/>: <xsl:apply-templates select="month" mode="month"/> <xsl:value-of select="day"/>,  <xsl:value-of select="year"/>
+				<xsl:apply-templates select="@date-type" mode="scift-as-label-en"/>: <xsl:apply-templates select="month" mode="date-month-en"/><xsl:value-of select="concat(' ',day)"/>,  <xsl:value-of select="year"/>
 			</xsl:when>
 			<xsl:when test="$article_lang='pt'">
-				<xsl:value-of select="@date-type"/>: <xsl:apply-templates select="month" mode="month"/> <xsl:value-of select="day"/>,  <xsl:value-of select="year"/>
+				<xsl:apply-templates select="@date-type" mode="scift-as-label-pt"/>: <xsl:value-of select="day"/> de <xsl:apply-templates select="month" mode="date-month-pt"/> de <xsl:value-of select="year"/>
 			</xsl:when>
 			<xsl:when test="$article_lang='es'">
-				<xsl:value-of select="@date-type"/>: <xsl:apply-templates select="month" mode="month"/> <xsl:value-of select="day"/>,  <xsl:value-of select="year"/>
+				<xsl:apply-templates select="@date-type" mode="scift-as-label-es"/>: <xsl:value-of select="day"/> de <xsl:apply-templates select="month" mode="date-month-es"/> de <xsl:value-of select="year"/>
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:value-of select="@date-type"/>: <xsl:apply-templates select="month" mode="month"/> <xsl:value-of select="day"/>,  <xsl:value-of select="year"/>
+				<xsl:apply-templates select="@date-type" mode="scift-as-label-en"/>: <xsl:apply-templates select="month" mode="date-month-en"/>
+				<xsl:value-of select="concat(' ',day)"/>,  <xsl:value-of select="year"/>
 			</xsl:otherwise>
 		</xsl:choose><xsl:if test="position()!=last()">; </xsl:if>
+	</xsl:template>
+	
+	
+	<xsl:template match="author-notes">
+		<div class="author-notes">
+			<xsl:apply-templates select=" corresp | .//fn | text()"></xsl:apply-templates>
+		</div>		
+	</xsl:template>
+	
+	<xsl:template match="author-notes//@id"><a name="{.}"/></xsl:template>
+	<xsl:template match="author-notes/corresp">
+		<p class="corresp">
+			<xsl:apply-templates select="@* | *|text()"></xsl:apply-templates>
+		</p>	
+	</xsl:template>
+	
+	<xsl:template match="author-notes/fn">
+		<xsl:apply-templates select="@* | *|text()"></xsl:apply-templates>
+	</xsl:template>
+	
+	<xsl:template match="corresp/label | author-notes/fn/label">
+		<sup>
+			<xsl:value-of select="."/>
+		</sup>	
+	</xsl:template>
+	
+	<xsl:template match="author-notes//fn/@fn-type">
+	</xsl:template>
+	<xsl:template match="author-notes//fn/p">
+		<p class="fn-author">
+			<xsl:apply-templates select="*|text()"></xsl:apply-templates>
+		</p>
+	</xsl:template>
+	<xsl:template match="fn-group/fn/p">
+		<p class="fn">
+			<xsl:apply-templates select="*|text()"></xsl:apply-templates>
+		</p>
+	</xsl:template>
+	
+	<xsl:template match="sub-article[@article-type!='translation' or not(@article-type)]">
+		<div class="sub-article" id="{@id}">
+			<xsl:apply-templates select=".//title-group"/>
+			
+			
+			<xsl:apply-templates select=".//abstract"/>
+			
+			<xsl:apply-templates select=".//trans-abstract"/>
+			
+			<div class="body">
+				<xsl:apply-templates select="body"/>
+			</div>
+			
+			<xsl:apply-templates select="back "/>
+			
+			<div class="sig-block">
+				<xsl:apply-templates select=".//contrib-group"/>
+				
+				<xsl:apply-templates select=".//aff"/>
+			</div>
+			
+		</div>
+		
+	</xsl:template>
+	
+	<xsl:template match="sub-article[@article-type='translation']">
+		<div class="sub-article" id="{@id}">
+			<xsl:apply-templates select=".//title-group"/>
+			
+			<div class="body">
+				<xsl:apply-templates select="body"/>
+			</div>
+			
+			<xsl:apply-templates select="back "/>
+			
+			
+		</div>
+		
 	</xsl:template>
 </xsl:stylesheet>
