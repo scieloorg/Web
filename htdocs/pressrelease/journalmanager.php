@@ -168,11 +168,10 @@ function get_press_release($id, $pid, $lng){
         }
     }else{
         $xml_url = 'http://vm.scielo.br/scielo.php?debug=xml&pid='.$pid.'&script=sci_issuetoc';
-        $meta = load_article_meta($xml_url);
-        $result['meta'] = array($meta);
+        $meta = load_issue_meta($xml_url);
         $meta['citation'] = citation_display($meta);
+        $result['meta'] = array($meta);
     }
-    
 
     return $result;
 }
