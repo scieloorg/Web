@@ -31,10 +31,38 @@ function citation_display($data){
     if ($data['issue']['year']){
         array_push($meta, $data['issue']['year']);
     }
-    $volnum = implode(' ', array($data['issue']['vol'], $data['issue']['num']));
+
+    $volnum = implode(' ', array("v.".$data['issue']['vol'], "n.".$data['issue']['num']));
     if (trim($volnum)){
         array_push($meta, $volnum);   
     }
+
+    $volnum_arr = array();
+    if ($data['issue']['vol']){
+        array_push($supplvolnum_arr, "v.".$data['issue']['vol']);
+    }
+
+    if ($data['issue']['num']){
+        array_push($supplvolnum_arr, "n.".$data['issue']['num']);
+    }
+    
+    if (sizeof($volnum_arr) > 0){
+            array_push($meta, implode(' ', $volnum));
+    }
+
+    $supplvolnum_arr = array();
+    if ($data['issue']['suppl_vol']){
+        array_push($supplvolnum_arr, "sup.v.".$data['issue']['suppl_vol']);
+    }
+
+    if ($data['issue']['suppl_num']){
+        array_push($supplvolnum_arr, "sup.n.".$data['issue']['suppl_num']);
+    }
+    
+    if (sizeof($supplvolnum_arr) > 0){
+            array_push($meta, implode(' ', $supplvolnum));
+    }
+
     $pages = implode('-', array($data['article']['fpage'], $data['article']['lpage']));
     if (str_replace('-', '', trim($pages))){
         array_push($meta, $pages);   
@@ -65,18 +93,18 @@ function load_article_meta($url){
     return $meta;
 }
 
-function load_issue_meta($url){
-    $xml_meta = file_get_contents($url);
-    $issue = new SimpleXMLElement($xml_meta);
+function load_issue_meta($issue_meta){
     $meta = array();
     $meta['issue'] = array();
-    $meta['issue']['journal_abbrev_title'] = $issue->TITLEGROUP->SHORTTITLE;
-    $meta['issue']['vol'] = $issue->ISSUE->STRIP->VOL;
-    $meta['issue']['num'] = $issue->ISSUE->STRIP->NUM;
-    $meta['issue']['city'] = $issue->ISSUE->STRIP->CITY;
-    $meta['issue']['month'] = $issue->ISSUE->STRIP->MONTH;
-    $meta['issue']['year'] = $issue->ISSUE->SECTION->YEAR;
-    $meta['issue']['id'] = substr($issue->ISSUE->SECTION->ARTICLE->attributes()->PID, 0 , 18);
+    $meta['issue']['journal_abbrev_title'] = $issue_meta['short_title'];
+    $meta['issue']['vol'] = $issue_meta['volume'];
+    $meta['issue']['num'] = $issue_meta['number'];
+    $meta['issue']['suppl_vol'] = $issue_meta['suppl_volume'];
+    $meta['issue']['suppl_num'] = $issue_meta['suppl_number'];
+    $meta['issue']['city'] = $issue_meta['publication_city'];
+    $meta['issue']['month'] = $issue_meta['publication_start_month'];
+    $meta['issue']['year'] = $issue_meta['publication_year'];
+    $meta['issue']['id'] = $issue_meta['pid'];
     return $meta;
 }
 
@@ -101,6 +129,33 @@ function quering_api($url='fixture_prs.json', $ttl=0){
     return $response;
 }
 
+function issue_label($meta){
+
+    $label_arr = array();
+
+    if ($meta['volume']){
+        array_push($label_arr, "v.".$meta['volume']);
+    }
+
+    if ($meta['number']){
+        array_push($label_arr, "n.".$meta['number']);
+    }
+
+    if ($meta['suppl_volume']){
+        array_push($label_arr, "suppl v.".$meta['suppl_volume']);
+    }
+
+    if ($meta['suppl_number']){
+        array_push($label_arr, "suppl n.".$meta['suppl_number']);
+    }
+
+    $date = $meta['publication_year']."/".sprintf('%1$02d', $meta["publication_start_month"]);
+
+    $str = $date.' - '.implode(' ', $label_arr);
+
+    return $str;
+}
+
 function get_press_releases_by_pid($pid, $lng){
     #$json = json_decode(file_get_contents('fixture_prs.json'), true);
     $json = json_decode(quering_api('fixture_prs.json'), true);
@@ -110,10 +165,13 @@ function get_press_releases_by_pid($pid, $lng){
 
     #$json = json_decode(file_get_contents($request_url), true);
     $prs = array('article'=>array(), 'issue'=>array()) ;
-    foreach ($json as $itempr){
+
+    foreach ($json['objects'] as $itempr){
         $pr = array();
         $pr['created_at'] = $itempr['created_at'];
         $pr['id'] = $itempr['id'];
+        $pr['issue_label'] = issue_label($itempr['issue_meta']);
+        $pr['number'] = $itempr['number'];
         $type = 'issue';
         if ($itempr['articles']){
             $type = 'article';
@@ -125,6 +183,7 @@ function get_press_releases_by_pid($pid, $lng){
                 $pr['title'] = $itemtrans['title'];
                 continue;
             }
+
         }
         array_push($prs[$type], $pr);
     }
@@ -138,10 +197,11 @@ function get_press_release($id, $pid, $lng){
     #$request_url = $journal_manager_api+'article_pid/'+$pid;
     #$request_url = $journal_manager_api+'issue_pid/'+$pid;
     #$json = json_decode(file_get_contents($request_url), true);
-    $itempr = $json[0];
+    $itempr = $json;
     $pr = array();
     $pr['created_at'] = $itempr['created_at'];
     $pr['id'] = $itempr['id'];
+    $pr['issue_label'] = issue_label($itempr['issue_meta']);
     $pr['type'] = 'issue';
     if ($itempr['articles']){
         $pr['type'] = 'article';
@@ -167,8 +227,8 @@ function get_press_release($id, $pid, $lng){
             array_push($result['meta'], $meta);
         }
     }else{
-        $xml_url = 'http://vm.scielo.br/scielo.php?debug=xml&pid='.$pid.'&script=sci_issuetoc';
-        $meta = load_issue_meta($xml_url);
+        $itempr['issue_meta']['pid'] = substr($pid, 0, 18);
+        $meta = load_issue_meta($itempr['issue_meta']);
         $meta['citation'] = citation_display($meta);
         $result['meta'] = array($meta);
     }

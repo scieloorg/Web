@@ -171,7 +171,7 @@
 				      	for (var item in jdata['issue']){
 				      	    var pr_url = 'pressrelease/pressrelease_display.php?lng='+lng+'&amp;id='+jdata['issue'][item]['id'];
 				      		issue_html += '<li><a href="'+pr_url+'"><b>'
-				      		           +jdata['issue'][item]['created_at'].substring(0,7)
+				      		           +jdata['issue'][item]['issue_label']
 				      		           +'</b><br/>'
 				      		           +jdata['issue'][item]['title']
 				      		           +'</a></li>';
@@ -182,7 +182,7 @@
 				      	for (var item in jdata['article']){
 				      		var pr_url = 'pressrelease/pressrelease_display.php?lng='+lng+'&amp;id='+jdata['article'][item]['id']+'&amp;pid='+jdata['article'][item]['pid'];
 				      		article_html += '<li><a href="'+pr_url+'"> <b>'
-				      					 +jdata['article'][item]['created_at'].substring(0,7)
+				      					 +jdata['article'][item]['issue_label']
 				      					 +'</b><br/> '
 				      					 +jdata['article'][item]['title']
 				      					 +'</a></li>';
