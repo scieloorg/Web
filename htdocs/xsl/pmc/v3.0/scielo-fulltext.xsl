@@ -131,7 +131,64 @@
 	</xsl:template>
 	<xsl:template match="front-stub">
 	</xsl:template>
+	<xsl:template match="abstract | trans-abstract">
+		<xsl:variable name="lang" select="@xml:lang"/>
+		<div>
+			<!--Apresenta o título da seção conforme a lingua existente-->
+			<xsl:attribute name="class">
+				<xsl:value-of select="name()"/>
+			</xsl:attribute>
+			<xsl:if test="not(title)">
+				<xsl:choose>
+					<xsl:when test="$lang='pt'">
+						<p class="sec">
+							<a name="resumo">RESUMO</a>
+						</p>
+					</xsl:when>
+					<xsl:when test="$lang='es'">
+						<p class="sec">
+							<a name="resumen">RESUMEN</a>
+						</p>
+					</xsl:when>
+					<xsl:otherwise>
+						<p class="sec">
+							<a name="abstract">ABSTRACT</a>
+						</p>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:if>
+			<xsl:apply-templates select="* | text()"/>
+			<xsl:apply-templates
+				select="..//kwd-group[normalize-space(@xml:lang)=normalize-space($lang)]"
+				mode="keywords-with-abstract"/>
+		</div>
+	</xsl:template>
 	
+	<xsl:template match="kwd-group" mode="keywords-with-abstract">
+		<xsl:variable name="lang" select="normalize-space(@xml:lang)"/>
+		<!--xsl:param name="test" select="1"/>     <xsl:value-of select="$test"/-->
+		<p>
+			<!--Define o nome a ser exibido a frente das palavras-chave conforme o idioma-->
+			<xsl:choose>
+				<xsl:when test="$lang='es'">
+					<b>Palabras-clave: </b>
+				</xsl:when>
+				<xsl:when test="$lang='pt'">
+					<b>Palavras-Chave: </b>
+				</xsl:when>
+				<xsl:otherwise>
+					<b>Keywords: </b>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:apply-templates select=".//kwd"/>
+		</p>
+	</xsl:template>
+	<xsl:template match="kwd-group"/>
+	<!--Adiciona vírgulas as palavras-chave-->
+	<xsl:template match="kwd">
+		<xsl:if test="position()!= 1">; </xsl:if>
+		<xsl:value-of select="."/>
+	</xsl:template>
 	<xsl:template name="main-title"
 		match="abstract/title | body/*/title |
 		back/title | back[not(title)]/*/title">
@@ -581,6 +638,8 @@
 				<xsl:apply-templates select="* | text()"/>
 			</a>
 		</p>
+	</xsl:template>
+	<xsl:template match="table-wrap-foot/fn/label"><sup><xsl:value-of select="."/></sup>
 	</xsl:template>
 	<xsl:template match="table-wrap-foot/fn/p">
 		<xsl:apply-templates/>
