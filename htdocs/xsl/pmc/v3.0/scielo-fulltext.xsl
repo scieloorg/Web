@@ -4,7 +4,7 @@
 
 
 	<xsl:variable name="HOWTODISPLAY"><xsl:choose>
-		<xsl:when test="//SIGLUM='bjmbr'">THUMBNAIL</xsl:when><xsl:otherwise>STANDARD</xsl:otherwise>
+		<xsl:when test="//SIGLUM='bjmbr'">STANDARD</xsl:when><xsl:otherwise>STANDARD</xsl:otherwise>
 	</xsl:choose></xsl:variable>
 	
 	<xsl:variable name="refpos">
@@ -405,13 +405,15 @@
 		</xsl:choose>				
 	</xsl:template>
 	<xsl:template match="fig | table-wrap">
+		<xsl:comment><xsl:value-of select="$HOWTODISPLAY"/></xsl:comment>
 		<xsl:choose>
 			<xsl:when test="$HOWTODISPLAY = 'THUMBNAIL'">
 				<!--xsl:apply-templates select="." mode="scift-thumbnail"></xsl:apply-templates-->				
 			</xsl:when>
 			<xsl:when test="$HOWTODISPLAY = 'STANDARD'">				
 				<xsl:apply-templates select="." mode="scift-standard"/>
-			</xsl:when>			
+			</xsl:when>		
+			
 		</xsl:choose>
 	</xsl:template>
 	
@@ -420,10 +422,10 @@
 			
 			<xsl:call-template name="named-anchor"/>
 			<xsl:apply-templates select="graphic"/>
-			<div class="label_caption">
+			<p class="label_caption">
 				<xsl:apply-templates select="label | caption" mode="scift-label-caption-graphic"/>
 				
-			</div>
+			</p>
 			
 		</div>
 	</xsl:template>
@@ -432,10 +434,10 @@
 			
 			<xsl:call-template name="named-anchor"/>
 			
-			<div class="label_caption">
+			<p class="label_caption">
 				<xsl:apply-templates select="label | caption" mode="scift-label-caption-graphic"/>
 				
-			</div>
+			</p>
 			<xsl:apply-templates select="graphic | table"/>
 			<xsl:apply-templates mode="footnote" select=".//fn"/>
 		</div>
@@ -455,10 +457,10 @@
 				<tr>
 					<td class="td_thumbnail"><xsl:apply-templates select=".//graphic" mode="scift-thumbnail"/></td>
 					<td class="td_label_caption">
-						<div class="label_caption">
+						<p class="label_caption">
 							<xsl:apply-templates select="label | caption" mode="scift-label-caption-graphic"/>
 							
-						</div>
+						</p>
 						<xsl:apply-templates mode="footnote"
 							select=".//fn"/>
 					</td>					
