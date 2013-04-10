@@ -18,33 +18,7 @@
 		</xsl:choose>
 	</xsl:variable>
 
-	<xsl:variable name="issue_label">
-		<xsl:choose>
-			<xsl:when test="//ISSUE/@NUM = 'AHEAD'">
-				<xsl:value-of select="substring(//ISSUE/@PUBDATE,1,4)"/>
-				<xsl:if test="//ISSUE/@NUM">nahead</xsl:if>
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:if test="//ISSUE/@VOL">v<xsl:value-of select="//ISSUE/@VOL"/>
-				</xsl:if>
-				<xsl:if test="//ISSUE/@NUM">n<xsl:value-of select="//ISSUE/@NUM"/>
-				</xsl:if>
-				<xsl:if test="//ISSUE/@SUPPL">s<xsl:value-of select="//ISSUE/@SUPPL"/>
-				</xsl:if>
-			</xsl:otherwise>
-		</xsl:choose>
-	</xsl:variable>
 
-	<xsl:variable name="var_IMAGE_PATH">
-		<xsl:choose>
-			<xsl:when test="//PATH_SERIMG and //SIGLUM and //ISSUE">
-				<xsl:value-of select="//PATH_SERIMG"/>
-				<xsl:value-of select="//SIGLUM"/>/<xsl:value-of select="$issue_label"/>/</xsl:when>
-			<xsl:otherwise>
-				<xsl:value-of select="//image-path"/>
-			</xsl:otherwise>
-		</xsl:choose>
-	</xsl:variable>
 
 	<xsl:variable name="article_lang">
 		<xsl:value-of select="$xml_article_lang"/>
@@ -204,7 +178,7 @@
 	</xsl:template>
 	
 	<xsl:template name="section-title"
-		match="abstract/*/title | body/*/*/title |
+		match="abstract/*/title | trans-abstract/*/title | body/*/*/title |
 		back[title]/*/title | back[not(title)]/*/*/title">
 		<xsl:param name="contents">
 			<xsl:apply-templates/>
@@ -275,11 +249,8 @@
 	</xsl:template>
 	<xsl:template match="contrib">
 		<xsl:if test="position()!=1">, </xsl:if>
-		<xsl:apply-templates select="name"/>
-		<xsl:if test="xref">
-			<xsl:apply-templates select="." mode="scift-xref_list"/>
-		</xsl:if>
-		<xsl:apply-templates select="role"/>
+		<xsl:apply-templates select="*|text()"/>
+		
 	</xsl:template>
 	<xsl:template match="contrib/name">
 		<xsl:if test="prefix"><xsl:apply-templates select="prefix"/>&#160;</xsl:if>
@@ -366,13 +337,9 @@
 	</xsl:template>
 	<xsl:template match="aff/email">, <a href="mailto:{text()}"><xsl:value-of select="."/></a>
 	</xsl:template>
-	<xsl:template match="*[xref]" mode="scift-xref_list">
-		<sup>
-			<xsl:apply-templates select="xref" mode="xref"/>
-		</sup>
-	</xsl:template>
-	<xsl:template match="xref" mode="xref">
-		<xsl:if test="position() &gt; 1">,</xsl:if>
+	
+	<xsl:template match="xref">
+		
 		<a href="#{@rid}">
 			<!--FIXME-->
 			<xsl:apply-templates select="label|text()"/>
@@ -381,26 +348,27 @@
 	</xsl:template>
 	
 	
+	
 	<xsl:template match="xref[@ref-type='bibr']">
 		
 		<xsl:choose>
-			<xsl:when test="not(sup)"><sup>
+			<xsl:when test="normalize-space(.//text())=''"><sup>
 				<a href="#{@rid}">
 					<xsl:apply-templates select="key('element-by-id',@rid)"
 						mode="label-text">
 						<xsl:with-param name="warning" select="true()"/>
 					</xsl:apply-templates>
 				</a>
-				
 			</sup></xsl:when>
+			<xsl:when test="not(.//sup)"><sup>
+				<a href="#{@rid}">
+					<xsl:apply-templates select="*|text()"/>
+				</a>
+				</sup></xsl:when>
 			<xsl:otherwise>
 				<a href="#{@rid}">
-					<xsl:apply-templates select="key('element-by-id',@rid)"
-						mode="label-text">
-						<xsl:with-param name="warning" select="true()"/>
-					</xsl:apply-templates>
+					<xsl:apply-templates select="*|text()"/>
 				</a>
-				
 			</xsl:otherwise>
 		</xsl:choose>				
 	</xsl:template>
@@ -571,22 +539,24 @@
 				<xsl:when test="label"><xsl:value-of select="label"/>.&#160; </xsl:when>
 				<!--xsl:otherwise><xsl:value-of select="position()"/>.&#160; </xsl:otherwise-->
 			</xsl:choose> 
-			
-				<xsl:choose>
-					<xsl:when test="mixed-citation">						
-						<xsl:apply-templates select="mixed-citation"/>
-					</xsl:when>
-					<!--xsl:when test="element-citation">
-						<xsl:apply-templates select="element-citation"/>
-					</xsl:when>
-					<xsl:when test="citation">
-						<xsl:apply-templates select="citation"/>
-					</xsl:when>
-					<xsl:when test="nlm-citation">
-						<xsl:apply-templates select="nlm-citation"/>
-					</xsl:when-->
-					<xsl:otherwise><xsl:comment>missing mixed-citation</xsl:comment></xsl:otherwise>
-				</xsl:choose>
+			<xsl:choose>
+				<xsl:when test="mixed-citation">						
+					<xsl:apply-templates select="mixed-citation"/>
+				</xsl:when>
+				<xsl:when test="$version='xml'">
+					<xsl:apply-templates select="citation"/>
+				</xsl:when>
+				<!--xsl:when test="element-citation">
+					<xsl:apply-templates select="element-citation"/>
+				</xsl:when>
+				<xsl:when test="citation">
+					<xsl:apply-templates select="citation"/>
+				</xsl:when>
+				<xsl:when test="nlm-citation">
+					<xsl:apply-templates select="nlm-citation"/>
+				</xsl:when-->
+				<xsl:otherwise><xsl:comment>missing mixed-citation</xsl:comment></xsl:otherwise>
+			</xsl:choose>
 			
 			<xsl:variable name="aref">000000<xsl:apply-templates select="." mode="scift-get_position"
 			/></xsl:variable>
@@ -604,34 +574,25 @@
 	</xsl:template>
 	
 	<xsl:template match="table">
-		<div class="table">
-			<xsl:copy-of select="."/>
+		<xsl:variable name="class"><xsl:choose>
+			<xsl:when test="$version='xml'">dotted_table</xsl:when><xsl:otherwise>table</xsl:otherwise>
+		</xsl:choose></xsl:variable>
+		<div  class="table">
+			
+			<table class="{$class}">
+				<xsl:apply-templates select="@*|*|text()"></xsl:apply-templates></table>
 		</div>
 	</xsl:template>
-	<xsl:template match="thead">
-		<thead>
-			<xsl:apply-templates select="@* | *"/>
-		</thead>
+	<xsl:template match="table//@*"><xsl:attribute name="{name()}"><xsl:value-of select="."/></xsl:attribute>
 	</xsl:template>
-	<xsl:template match="tbody">
-		<tbody>
-			<xsl:apply-templates select="@* | *"/>
-		</tbody>
-	</xsl:template>
-	<xsl:template match="tr">
-		<tr>
-			<xsl:apply-templates select="@* | *"/>
-		</tr>
-	</xsl:template>
-	<xsl:template match="td">
-		<td>
-			<xsl:apply-templates select="@* | *| text()"/>
-		</td>
-	</xsl:template>
-	<xsl:template match="th">
-		<th>
-			<xsl:apply-templates select="@* | *| text()"/>
-		</th>
+	<xsl:template match="table//*">
+		<xsl:element name="{name()}">
+			<xsl:if test=" name() = 'td' and $version='xml'">
+				<xsl:attribute name="class">td</xsl:attribute>
+			</xsl:if>
+			
+			<xsl:apply-templates select="@* | * | text()"/>
+		</xsl:element>
 	</xsl:template>
 	
 	<xsl:template match="table-wrap-foot/fn">
