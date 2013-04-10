@@ -3,6 +3,7 @@
 .categoria{
 	text-align: right;
 	text-transform: uppercase;
+	font-weight: bold;
 }
 
 /*Títulos do artigo*/
@@ -69,6 +70,25 @@
 }
 .table {
     font-family: Helvetica,sans-serif;
+    display: table;
+border-collapse: separate;
+border-spacing: 2px;
+border-color: gray;
+}
+
+.td {
+font-size: 8pt;
+border-bottom: 1px solid black;
+border-spacing: 20pt;
+}
+.dotted_table {
+    empty-cells: show;
+    border-style: dotted dotted dotted dotted;
+    font-family: Helvetica,sans-serif;
+    display: table;
+border-collapse: separate;
+border-spacing: 2px;
+border-color: gray;
 }
 .table_thumbnail {
     padding-top: 25px;

@@ -1,31 +1,74 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:mml="http://www.w3.org/1998/Math/MathML">
-	<xsl:import href="scielo_pmc_main.xsl"/>
-
-	<!--xsl:template match="*" mode="sections-navegation"/-->
-    
+	
 	<xsl:import href="sci_navegation.xsl"/>
 	<xsl:import href="sci_arttext_pmc.xsl"/>
 	<xsl:import href="sci_toolbox.xsl"/>
-
-    <xsl:variable name="path_img" select="'/img/revistas/'"/>
 	
-
-    
-	
-
-    		
 	<xsl:variable name="PID" select="//ARTICLE/@PID"/>
-    <xsl:variable name="version">
-        <xsl:choose>
-            <xsl:when test=".//BODY">html</xsl:when>
-            <xsl:when test=".//fulltext/front">xml</xsl:when>
-            <xsl:otherwise>xml-file</xsl:otherwise>
-        </xsl:choose>
-    </xsl:variable>
+	<xsl:variable name="version">
+		<xsl:choose>
+			<xsl:when test=".//BODY">html</xsl:when>
+			<xsl:when test=".//fulltext/front">xml</xsl:when>
+			<xsl:otherwise>xml-file</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
 	
-    <!--xsl:variable name="xml_article"><xsl:if test="$version='xml-file'">file:///<xsl:value-of select="concat(.//PATH_HTDOCS,'/xml_files/',.//filename)"/></xsl:if></xsl:variable-->
-    <xsl:variable name="xml_article"><xsl:if test="$version='xml-file'">file:///<xsl:value-of select="concat(substring-before(.//PATH_HTDOCS,'htdocs'),'bases/xml/',.//filename)"/></xsl:if></xsl:variable>
+	<!--xsl:variable name="xml_article"><xsl:if test="$version='xml-file'">file:///<xsl:value-of select="concat(.//PATH_HTDOCS,'/xml_files/',.//filename)"/></xsl:if></xsl:variable-->
+	<xsl:variable name="xml_article"><xsl:if test="$version='xml-file'">file:///<xsl:value-of select="concat(substring-before(.//PATH_HTDOCS,'htdocs'),'bases/xml/',.//filename)"/></xsl:if></xsl:variable>
+	
+    <xsl:variable name="path_img" select="'/img/revistas/'"/>
+
+	<xsl:variable name="issue_label">
+		<xsl:choose>
+			<xsl:when test="//ISSUE/@NUM = 'AHEAD'">
+				<xsl:value-of select="substring(//ISSUE/@PUBDATE,1,4)"/>
+				<xsl:if test="//ISSUE/@NUM">nahead</xsl:if>
+			</xsl:when>
+			<xsl:when test="//ISSUE/@NUM or //ISSUE/@VOL">	
+				<xsl:if test="//ISSUE/@VOL">v<xsl:value-of select="//ISSUE/@VOL"/></xsl:if>
+				<xsl:if test="//ISSUE/@NUM">n<xsl:value-of select="//ISSUE/@NUM"/></xsl:if>
+				<xsl:if test="//ISSUE/@SUPPL">s<xsl:value-of select="//ISSUE/@SUPPL"/></xsl:if>
+			</xsl:when>
+			<xsl:when test="$version='xml'"><xsl:apply-templates select=".//front/article-meta" mode="scift-issue-label"></xsl:apply-templates>
+			</xsl:when>
+			<xsl:when test="$version='xml-file'"><xsl:apply-templates select="document($xml_article)//front/article-meta" mode="scift-issue-label"></xsl:apply-templates>
+			</xsl:when>
+			<xsl:otherwise>
+				
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
+	<xsl:template match="front/article-meta" mode="scift-issue-label">
+		<xsl:if test="volume">v<xsl:value-of select="volume"/></xsl:if>
+		<xsl:if test="issue">
+			<xsl:choose>
+				<xsl:when test="contains(issue,'Suppl')">
+					<xsl:variable name="n"><xsl:value-of select="normalize-space(substring-before(issue,'Suppl'))"/></xsl:variable>
+					<xsl:variable name="s"><xsl:value-of select="normalize-space(substring-after(issue,'Suppl'))"></xsl:value-of></xsl:variable>
+					<xsl:if test="$n!=''">n<xsl:value-of select="$n"/></xsl:if>s<xsl:value-of select="$s"/><xsl:if test="$s=''">0</xsl:if>
+				</xsl:when>
+				<xsl:otherwise>n<xsl:value-of select="issue"/></xsl:otherwise>
+			</xsl:choose>
+			
+		</xsl:if>
+		<xsl:if test="supplement"><xsl:variable name="s"><xsl:choose>
+				<xsl:when test="contains(supplement, 'Suppl')"><xsl:value-of select="substring-after(supplement,'Suppl')"></xsl:value-of></xsl:when>
+				<xsl:otherwise><xsl:value-of select="supplement"></xsl:value-of></xsl:otherwise>
+			</xsl:choose></xsl:variable>s<xsl:value-of select="$s"/><xsl:if test="$s=''">0</xsl:if>
+		</xsl:if>
+		
+	</xsl:template>
+	<xsl:variable name="var_IMAGE_PATH">
+		<xsl:choose>
+			<xsl:when test="//PATH_SERIMG and //SIGLUM and //ISSUE">
+				<xsl:value-of select="//PATH_SERIMG"/>
+				<xsl:value-of select="//SIGLUM"/>/<xsl:value-of select="$issue_label"/>/</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="//image-path"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>		
     <xsl:variable name="merge">true</xsl:variable>
 	<xsl:variable name="xml_display_objects">
 		<xsl:choose>
@@ -54,7 +97,8 @@
 			<xsl:when test="$version='xml-file' or $merge='true'">
 				<xsl:apply-templates select="//SERIAL" mode="merged"/>
 			</xsl:when>
-		    <xsl:otherwise>
+			
+			<xsl:otherwise>
                 <xsl:apply-templates select="//SERIAL"/>
 		    </xsl:otherwise>
         </xsl:choose>
@@ -234,10 +278,11 @@
 				<a name="top"/><xsl:comment><xsl:value-of select="$version"/><xsl:value-of select="$merge"/></xsl:comment>
 						
 				<xsl:choose>
-					<xsl:when test="$version='xml-file'">
-						 <xsl:apply-templates select="." mode="version-body-xml-file"/>
-		            </xsl:when>
-				    <xsl:otherwise>
+					<xsl:when test="$version='xml-file' or $version='xml'">
+						<xsl:apply-templates select="." mode="version-body-xml-file"/>
+					</xsl:when>
+					
+					<xsl:otherwise>
 		                <xsl:apply-templates select="." mode= "version-body-html"/>
 				    </xsl:otherwise>
 		        </xsl:choose>
@@ -266,16 +311,16 @@
 
 	<xsl:template match="SERIAL" mode="version-css">
 		<xsl:choose>
-			<xsl:when test="$version='xml-file'">
+			<xsl:when test="$version='xml-file' or $version= 'xml'">
 				<link rel="stylesheet" type="text/css" href="/xsl/pmc/v3.0/css/scielo.css" />
                 <!--link rel="stylesheet" type="text/css" href="/xsl/pmc/v3.0/css/jpub-preview.css" /-->
             </xsl:when>
-            <xsl:when test="$version='xml'">
+            <!--xsl:when test="$version='xml'">
             	<link rel="stylesheet" type="text/css" href="/css/screen.css"/>
                 <link xmlns="" rel="stylesheet" type="text/css" href="/css/pmc/ViewNLM.css"/>
                 <link xmlns="" rel="stylesheet" type="text/css" href="/css/pmc/ViewScielo.css"/>
 
-            </xsl:when>
+            </xsl:when-->
 		    <xsl:otherwise>
                 <link rel="stylesheet" type="text/css" href="/css/screen.css"/>
 		    </xsl:otherwise>
@@ -307,6 +352,7 @@
 		    </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+	
 	<xsl:template match="SERIAL" mode="version-body-xml-file">
 		<div class="container">
 			<div class="top">
@@ -318,20 +364,16 @@
 			    <xsl:call-template name="tool_box"/>
 		    </xsl:if>
 			<xsl:apply-templates select="." mode="text-header"/>
-			<xsl:apply-templates select="document($xml_article)" mode="text-content"/>
-		
-		</div>
+			<xsl:apply-templates select="." mode="text-content"/>
+		 
+			</div>
 		</div><!--xsl:value-of select="$xml_article"/-->
 		<!--xsl:apply-templates select="document($xml_article)" mode="sections-navegation"/-->
-        
-		
-	    
-			
-		<div class="container">
+ 		<div class="container">
 			<div align="left"/>
 			<div class="spacer">&#160;</div>
 			<xsl:apply-templates select="." mode="footer-journal" />
-		</div>
+		</div><xsl:comment><xsl:value-of select="$issue_label"/><xsl:value-of select="//ISSUE"/></xsl:comment>
 	</xsl:template>
 
 	
@@ -344,12 +386,9 @@
 			<div class="content">
 				<xsl:if test="$show_toolbox = '1'">
 					<xsl:call-template name="tool_box"/>
-				</xsl:if>
-				
+				</xsl:if>				
 				<xsl:apply-templates select="." mode="text-header"/>
-
 				<xsl:apply-templates select="." mode="text-content"/>
-				
 			</div>
 			<xsl:apply-templates select="." mode="footer-journal"/>
 		</div>
