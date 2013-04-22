@@ -22,12 +22,13 @@
 		
 		'		<periods>'/,
 	   (
-	    ,if v51^a<>'00000000' then
-	       ,'		<date-status date="',v51^a,'" status="',v51^b,'"/>'/,
-	    ,fi,
+	    
 		,if p(v51^d) then
 		  ,'		<date-status date="',v51^c,'" status="',v51^d,'"/>'/,
 		,fi,
+		,if v51^a<>'00000000' then
+	       ,'		<date-status date="',v51^a,'" status="',v51^b,'"/>'/,
+	    ,fi,
 	   )
 		
 		,'</periods>'/
