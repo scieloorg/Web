@@ -17,9 +17,9 @@
 		<term code="finished">Publicação finalizada</term>
 		<term code="interrupted">Indexação interrompida pelo Comitê</term>
 		<term code="in">em </term>
-		<term code="hist">Histórico do periódico na coleção COLLECTION_NAME</term>
-		<term code="admitted">Admitido à coleção COLLECTION_NAME</term>
-		<term code="readmitted">Readmitido à coleção COLLECTION_NAME, pelo Comitê Consultivo</term>
+		<term code="hist">Histórico do periódico na coleção</term>
+		<term code="admitted">Admitido à coleção</term>
+		<term code="readmitted">Readmitido à coleção pelo Comitê Consultivo</term>
 	</translation>
 	<translation lang="es">
 		<term code="CURRENT-SITUATION">Estado actual de la revista en la colección: </term>
@@ -38,9 +38,9 @@
 		<term code="finished">Publicación finalizada</term>
 		<term code="interrupted">Indización interrumpida por el comité </term>
 		<term code="in">en </term>
-		<term code="hist">Histórico de la revista en la colección COLLECTION_NAME</term>
-		<term code="admitted">Admitido a la colección COLLECTION_NAME</term>
-		<term code="readmitted">Readmitido a la colección COLLECTION_NAME, por el comité</term>
+		<term code="hist">Histórico de la revista en la colección</term>
+		<term code="admitted">Admitido a la colección</term>
+		<term code="readmitted">Readmitido a la colección por el comité</term>
 
 	</translation>
 	<translation lang="en">
@@ -61,9 +61,9 @@
 		<term code="finished">Publication finished </term>
 		<term code="interrupted">Indexing interrupted by the committee </term>
 		<term code="in">in </term>
-		<term code="hist">Journal's history in COLLECTION_NAME collection</term>
-		<term code="admitted">Admitted to COLLECTION_NAME collection</term>
-		<term code="readmitted">Readmitted to COLLECTION_NAME collection by the committee</term>
+		<term code="hist">Journal's history in the collection</term>
+		<term code="admitted">Admitted to the collection</term>
+		<term code="readmitted">Readmitted to the collection by the committee</term>
 
 
 	</translation>
