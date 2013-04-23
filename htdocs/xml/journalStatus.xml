@@ -25,7 +25,7 @@
 		<term code="CURRENT-SITUATION">Estado actual de la revista en la colección: </term>
 		<term code="D">Terminado </term>
 		<term code="S">Indización interrumpida por el comité</term>
-		<term code="E">no publica en aceso abierto</term>
+		<term code="E">Se interrumpió la publicación en acceso abierto</term>
 		<term code="C">Vigente </term>
 		<term code="">Vigente </term>
 		<term code="certified">Períodos en que la revista está de acuerdo con los criterios de la colección </term>
@@ -47,7 +47,7 @@
 		<term code="CURRENT-SITUATION">Current status of the journal in the collection: </term>
 		<term code="D">Deceased </term>
 		<term code="S">Indexing interrupted by committee </term>
-		<term code="E">It is not open access journal</term>
+		<term code="E">No longer open access</term>
 		
 		<term code="C">Current </term>
 		<term code="">Current </term>
