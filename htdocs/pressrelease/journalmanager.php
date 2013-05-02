@@ -1,4 +1,6 @@
 <?php
+$journal_manager_user = "anonymous";
+$journal_manager_token = "f258b2b1fc74e11c738123da61g79b95d8578fbb";
 $journal_manager_api = "http://localhost/api/v1/";
 $memcached_host = "127.0.0.1:11211";
 
@@ -121,7 +123,7 @@ function quering_api($url='fixture_prs.json', $ttl=0){
     if ($from_cache){
         return $from_cache;
     }else{
-        $response = file_get_contents($url);
+        $response = file_get_contents($url, true);
         $m->add($url, $response, $ttl);
     }
 
@@ -158,12 +160,18 @@ function issue_label($meta){
 
 function get_press_releases_by_pid($pid, $lng){
     #$json = json_decode(file_get_contents('fixture_prs.json'), true);
-    $json = json_decode(quering_api('fixture_prs.json'), true);
-    #$request_url = $journal_manager_api+'article_pid/'+$pid;
-    #$request_url = $journal_manager_api+'issue_pid/'+$pid;
-    #$request_url = $journal_manager_api+'journal_pid/'+$pid;
+    #$json = json_decode(quering_api('fixture_prs.json'), true);
 
-    #$json = json_decode(file_get_contents($request_url), true);
+    if (preg_match("^[0-9]{4}-[0-9]{3}[0-9xX]$", $pid)){
+        $request_url = $journal_manager_api+'/pressreleases/?journal_pid='+$pid;
+    }elseif (preg_match("^[0-9]{4}-[0-9]{3}[0-9xX][0-2][0-9]{3}[0-9]{4}$", $pid)){
+        $request_url = $journal_manager_api+'/pressreleases/?issue_pid='+$pid;    
+    }elseif (preg_match("^[0-9]{4}-[0-9]{3}[0-9xX][0-2][0-9]{3}[0-9]{4}[0-9]{5}$", $pid)){
+        $request_url = $journal_manager_api+'/pressreleases/?article_pid='+$pid;
+    }
+
+    $json = json_decode(quering_api($request_url));
+
     $prs = array('article'=>array(), 'issue'=>array()) ;
 
     foreach ($json['objects'] as $itempr){
@@ -193,10 +201,11 @@ function get_press_releases_by_pid($pid, $lng){
 
 function get_press_release($id, $pid, $lng){
     #$json = json_decode(file_get_contents('fixture_pr_id.json'), true);
-    $json = json_decode(quering_api('fixture_pr_id.json'), true);
-    #$request_url = $journal_manager_api+'article_pid/'+$pid;
-    #$request_url = $journal_manager_api+'issue_pid/'+$pid;
-    #$json = json_decode(file_get_contents($request_url), true);
+    #$json = json_decode(quering_api('fixture_pr_id.json'), true);
+
+    $request_url = $journal_manager_api+'pressreleases/'+$id;
+    $json = json_decode(quering_api($request_url));
+
     $itempr = $json;
     $pr = array();
     $pr['created_at'] = $itempr['created_at'];
