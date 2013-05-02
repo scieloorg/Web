@@ -5,6 +5,7 @@
 	<xsl:variable name="forceType" select="//CONTROLINFO/ENABLE_FORCETYPE"/>
 	<xsl:variable name="ISSN_AS_ID" select="concat(substring-before(/SERIAL/ISSN_AS_ID,'-'),substring-after(/SERIAL/ISSN_AS_ID,'-'))"/>
 	<xsl:variable name="show_scimago" select="//show_scimago"/>
+	<xsl:variable name="journal_manager" select="//journal_manager"/>
 	<xsl:variable name="scimago_status" select="//scimago_status"/>
 	<xsl:variable name="has_article_pr">
 		<xsl:choose>
@@ -88,34 +89,55 @@
 							<!--
                                 monta a div: rightCol
                             -->
-							<div class="rightCol">
-								<xsl:if test="($has_issue_pr = 'false') and ($has_article_pr = 'false')">
-									<xsl:attribute name="style">display: none;</xsl:attribute>
-								</xsl:if>
-								<h2 class="sectionHeading">
-									<xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='press_releases']"/>
-								</h2>
-								<xsl:if test="$has_issue_pr != 'false'">
-									<strong>
-										<xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='numbers']"/>
-									</strong>
-									<ul class="pressReleases">
-										<xsl:apply-templates select="//PRESSRELEASE/issue" mode="pr">
-											<xsl:sort select="@data" order="descending"/>
-										</xsl:apply-templates>
-									</ul>
-								</xsl:if>
-								<xsl:if test="$has_article_pr != 'false'">
-									<strong>
-										<xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='articles']"/>
-									</strong>
-									<ul class="pressReleases">
-										<xsl:apply-templates select="//PRESSRELEASE/article" mode="pr">
-											<xsl:sort select="@data" order="descending"/>
-										</xsl:apply-templates>
-									</ul>
-								</xsl:if>
-							</div>
+							<xsl:if test="$journal_manager=0">
+								<div class="rightCol">
+									<xsl:if test="($has_issue_pr = 'false') and ($has_article_pr = 'false')">
+										<xsl:attribute name="style">display: none;</xsl:attribute>
+									</xsl:if>
+									<h2 class="sectionHeading">
+										<xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='press_releases']"/>
+									</h2>
+									<xsl:if test="$has_issue_pr != 'false'">
+										<strong>
+											<xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='numbers']"/>
+										</strong>
+										<ul class="pressReleases">
+											<xsl:apply-templates select="//PRESSRELEASE/issue" mode="pr">
+												<xsl:sort select="@data" order="descending"/>
+											</xsl:apply-templates>
+										</ul>
+									</xsl:if>
+									<xsl:if test="$has_article_pr != 'false'">
+										<strong>
+											<xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='articles']"/>
+										</strong>
+										<ul class="pressReleases">
+											<xsl:apply-templates select="//PRESSRELEASE/article" mode="pr">
+												<xsl:sort select="@data" order="descending"/>
+											</xsl:apply-templates>
+										</ul>
+									</xsl:if>
+								</div>
+							</xsl:if>
+							<xsl:if test="$journal_manager=1">
+								<div class="rightCol" style="display: none;" id="rightCol">
+									<h2 class="sectionHeading">
+										<xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='press_releases']"/>
+									</h2>
+									<span id="pr_issue_area" style="display: none;">
+										<strong>
+											<xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='numbers']"/>
+										</strong>
+										<span class="PressReleases" id="issuePressRelease"></span>
+									</span>
+									<span id="pr_article_area" style="display: none;">
+										<strong>
+											<xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='articles']"/>
+										</strong>
+										<span class="PressReleases" id="articlePressRelease"></span>
+									</span>
+								</div>
+							</xsl:if>
 						</div>
 						<div class="spacer">&#160;</div>
 						<!--
@@ -124,6 +146,59 @@
 						<xsl:apply-templates select="." mode="footer-journal"/>
 					</div>
 				</xsl:if>
+				<xsl:if test="$journal_manager=1">
+				  <script type="text/javascript" src="/js/jquery-1.9.1.min.js" />
+				  <script type="text/javascript">
+				  var lng = '<xsl:value-of select="CONTROLINFO/LANGUAGE"/>';
+				  var pid = '<xsl:value-of select="//PAGE_PID"/>';
+				  function qry_prs() {
+				    var url = "pressrelease/pressreleases_from_pid.php?lng="+lng+"&amp;pid="+pid;
+				    $.ajax({
+				      url: url,
+				      success: function (data) {
+				      	jdata = jQuery.parseJSON(data);
+
+				      	if (jdata['issue'] || jdata['article']) {
+				      		$("#rightCol").show();
+				      	}
+				      	if (jdata['issue']){
+				      		$("#pr_issue_area").show();
+				      	}
+				      	if (jdata['article']){
+				      		$("#pr_article_area").show();
+				      	}
+				      	var issue_html = '<ul class="PressReleases" style="padding-left: 20px; margin-left: 0px;">';
+				      	for (var item in jdata['issue']){
+				      	    var pr_url = 'pressrelease/pressrelease_display.php?lng='+lng+'&amp;id='+jdata['issue'][item]['id'];
+				      		issue_html += '<li><a href="'+pr_url+'"><b>'
+				      		           +jdata['issue'][item]['issue_label']
+				      		           +'</b><br/>'
+				      		           +jdata['issue'][item]['title']
+				      		           +'</a></li>';
+				      	}
+				      	issue_html += '</ul>';
+
+				      	var article_html = '<ul class="PressReleases" style="padding-left: 20px; margin-left: 0px;">';
+				      	for (var item in jdata['article']){
+				      		var pr_url = 'pressrelease/pressrelease_display.php?lng='+lng+'&amp;id='+jdata['article'][item]['id']+'&amp;pid='+jdata['article'][item]['pid'];
+				      		article_html += '<li><a href="'+pr_url+'"> <b>'
+				      					 +jdata['article'][item]['issue_label']
+				      					 +'</b><br/> '
+				      					 +jdata['article'][item]['title']
+				      					 +'</a></li>';
+				      	}
+				      	article_html += '</ul>';
+
+				      	$("#issuePressRelease").html(issue_html);
+				      	$("#articlePressRelease").html(article_html);
+				      }
+				    });
+				  }
+				  $(document).ready(function() {
+				      qry_prs();
+				  });
+				</script>
+			</xsl:if>
 			</body>
 		</html>
 	</xsl:template>

@@ -497,6 +497,7 @@
 				</a>
 			</xsl:otherwise>
 		</xsl:choose>
+
 		<!-- &#160;&#160;&#160; -->
 	</xsl:template>
 	<!-- Invisible Image To Update Log File -->
@@ -706,11 +707,12 @@
 					<xsl:with-param name="lang" select="$interfaceLang"/>
 				</xsl:apply-templates>
 			</xsl:if>
-			<!--         </td>
-            </tr>
-        </table> -->
+		<xsl:if test="$journal_manager=1">
+        	<span id="{concat('pr_',$PID)}" style="display: none;"></span>
+    	</xsl:if>
 		</div>
 	</xsl:template>
+
 	<xsl:template match="LANGUAGES/*">
 		<xsl:param name="LANG"/>
 		<xsl:param name="PID"/>
@@ -722,19 +724,37 @@
 				<xsl:when test="contains(name(),'PRESS')">pr</xsl:when>
 			</xsl:choose>
 		</xsl:variable>
-       &#160;&#160;&#160;&#160;<font face="Symbol" color="#000080">&#183; </font>
 		<!-- fixed 20040122 - ordem dos idiomas, primeiro o idioma da interface, seguido pelos outros idiomas -->
-		<xsl:apply-templates select="LANG[.=$LANG]" mode="issuetoc">
-			<xsl:with-param name="LANG" select="$LANG"/>
-			<xsl:with-param name="PID" select="$PID"/>
-			<xsl:with-param name="type" select="$type"/>
-		</xsl:apply-templates>
-		<xsl:apply-templates select="LANG[.!=$LANG]" mode="issuetoc">
-			<xsl:with-param name="LANG" select="$LANG"/>
-			<xsl:with-param name="PID" select="$PID"/>
-			<xsl:with-param name="type" select="$type"/>
-			<xsl:with-param name="CONTINUATION" select="(LANG[.=$LANG]!='')"/>
-		</xsl:apply-templates>
+		<xsl:if test="$journal_manager=0">
+			&#160;&#160;&#160;&#160;<font face="Symbol" color="#000080">&#183; </font>
+			<xsl:apply-templates select="LANG[.=$LANG]" mode="issuetoc">
+				<xsl:with-param name="LANG" select="$LANG"/>
+				<xsl:with-param name="PID" select="$PID"/>
+				<xsl:with-param name="type" select="$type"/>
+			</xsl:apply-templates>
+			<xsl:apply-templates select="LANG[.!=$LANG]" mode="issuetoc">
+				<xsl:with-param name="LANG" select="$LANG"/>
+				<xsl:with-param name="PID" select="$PID"/>
+				<xsl:with-param name="type" select="$type"/>
+				<xsl:with-param name="CONTINUATION" select="(LANG[.=$LANG]!='')"/>
+			</xsl:apply-templates>
+		</xsl:if>
+		<xsl:if test="$journal_manager=1">
+			<xsl:if test="$type != 'pr'">
+			&#160;&#160;&#160;&#160;<font face="Symbol" color="#000080">&#183; </font>
+			<xsl:apply-templates select="LANG[.=$LANG]" mode="issuetoc">
+				<xsl:with-param name="LANG" select="$LANG"/>
+				<xsl:with-param name="PID" select="$PID"/>
+				<xsl:with-param name="type" select="$type"/>
+			</xsl:apply-templates>
+			<xsl:apply-templates select="LANG[.!=$LANG]" mode="issuetoc">
+				<xsl:with-param name="LANG" select="$LANG"/>
+				<xsl:with-param name="PID" select="$PID"/>
+				<xsl:with-param name="type" select="$type"/>
+				<xsl:with-param name="CONTINUATION" select="(LANG[.=$LANG]!='')"/>
+			</xsl:apply-templates>
+			</xsl:if>
+		</xsl:if>
 	</xsl:template>
 	<xsl:template match="LANG" mode="issuetoc">
 		<xsl:param name="LANG"/>

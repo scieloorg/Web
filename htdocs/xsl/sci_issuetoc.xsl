@@ -3,6 +3,7 @@
 <xsl:output method="html" omit-xml-declaration="yes" indent="no" />
 
 <xsl:include href="sci_navegation.xsl"/>
+<xsl:variable name="journal_manager" select="//journal_manager"/>
 <xsl:variable name="num" select="//ISSUE/@NUM"/>
 	<xsl:variable name="issuetoc_controlInfo" select="//CONTROLINFO"/>
 <xsl:template match="SERIAL">
@@ -66,6 +67,47 @@ right: 20%}
 				</div>
 				<xsl:apply-templates select="." mode="footer-journal"/>
 			</BODY>
+			<xsl:if test="$journal_manager=1">
+				<script type="text/javascript" src="/js/jquery-1.9.1.min.js" />
+				<script type="text/javascript">
+					var lng = '<xsl:value-of select="//CONTROLINFO/LANGUAGE"/>';
+					var ppid = '<xsl:value-of select="//PAGE_PID"/>';
+					  function qry_prs() {
+					    var url = "pressrelease/pressreleases_from_pid.php?lng="+lng+"&amp;pid="+ppid;
+					    $.ajax({
+					      url: url,
+					      success: function (data) {
+					      	jdata = jQuery.parseJSON(data);
+					      	for (var item in jdata['article']){
+					      		for (var npid in jdata['article'][item]['pid']){
+						      		var pid = jdata['article'][item]['pid'][npid];
+						      		var url = '/pressrelease/pressrelease_display.php?id='+jdata['article'][item]['id']+'&amp;pid='+jdata['article'][item]['pid']+'&amp;lng='+lng;
+						      		var article_html='&#160;&#160;&#160;&#160;<font face="Symbol" color="#000080">&#183; </font><a href="javascript: void(0);" onclick="OpenArticleInfoWindow(850,850,\''+url+'\')">Press Release</a>';
+						      		$("#pr_"+pid).html(article_html);
+						      		$("#pr_"+pid).show();
+					      		}
+					      	}
+					      	for (var item in jdata['issue']){
+					      		jdata['issue'][item];
+								var url = '/pressrelease/pressrelease_display.php?id='+jdata['issue'][item]['id']+'&amp;pid='+ppid+'&amp;lng='+lng;
+					      		var li = '';
+					      		li += '<font face="Symbol" color="#000080">&#183; </font>';
+					      		li += '<b style="font-size: 13px;">&#160;'+jdata['issue'][item]['title']+'</b>';
+					      		li += '<br/>';
+					      		li += '<br/>';
+					      		li += '&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<font face="Symbol" color="#000080">&#183; </font>';
+					      		li += '<a href="javascript: void(0);" onclick="OpenArticleInfoWindow(850,850,\''+url+'\')">Press Release</a>';
+					      		$("#pr_issue_list").append('<li>'+li+'</li>');
+
+					      	}
+					      }
+					    });
+					  }
+					  $(document).ready(function() {
+					      qry_prs();
+					  });
+				</script>
+			</xsl:if>
 		</HTML>
 	</xsl:template>
 	<xsl:template match="ISSUE">
@@ -81,6 +123,27 @@ right: 20%}
 						<xsl:apply-templates select="PAGES"/>
 						<table border="0">
 							<tbody>
+								<xsl:if test="$journal_manager=1">
+								<span id="pr_issue">
+								<tr>
+									<td class="section" colspan="2">
+										<img>
+											<xsl:attribute name="src"><xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_GENIMG"/><xsl:value-of select="normalize-space(//CONTROLINFO/LANGUAGE)"/>/lead.gif</xsl:attribute>
+										</img>&#160;Press Release
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2">&#160;</td>
+								</tr>
+								<tr>
+									<td></td>
+									<td>
+										<ul id="pr_issue_list" style="padding-left: 0px; list-style: none;">
+										</ul>
+									</td>
+								</tr>
+								</span>
+								</xsl:if>
 								<xsl:apply-templates select="SECTION"/>
 							</tbody>
 						</table>
