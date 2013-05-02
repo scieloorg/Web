@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:mml="http://www.w3.org/1998/Math/MathML">
-	<xsl:include href="scielo_pmc_main.xsl"/>
 	<xsl:include href="sci_navegation.xsl"/>
 	<xsl:include href="sci_toolbox.xsl"/>
-	<xsl:variable name="LANGUAGE" select="//LANGUAGE"/>
+	<xsl:variable name="languages" select="document('../xml/pt/language.xml')"/><xsl:variable name="LANGUAGE" select="//LANGUAGE"/>
 	<xsl:variable name="SCIELO_REGIONAL_DOMAIN" select="//SCIELO_REGIONAL_DOMAIN"/>
 	<xsl:variable name="show_toolbox" select="//toolbox"/>
 	<xsl:template match="/">
@@ -54,8 +53,8 @@
                                 <meta name="citation_lastpage" content="{ARTICLE/@LPAGE}"/>
                                 <meta name="citation_id" content="{ARTICLE/@DOI}"/>
 
-				<link rel="stylesheet" type="text/css" href="/css/screen.css"/>
-                                <script language="javascript" src="applications/scielo-org/js/jquery-1.4.2.min.js"/>
+				<link rel="stylesheet" type="text/css" href="/xsl/pmc/v3.0/css/scielo.css"/>
+				<script language="javascript" src="applications/scielo-org/js/jquery-1.4.2.min.js"/>
 				<script language="javascript" src="applications/scielo-org/js/toolbox.js"/>
 				<script language="javascript" src="article.js"/>
 			</head>
@@ -127,6 +126,7 @@
 			<xsl:if test="$languages//language[@id=$lang]/@view='r2l'">
 				<xsl:attribute name="class">r2l</xsl:attribute>
 			</xsl:if>
+			
 			<xsl:apply-templates select="ABSTRACT"/>
 		</p>
 		<xsl:apply-templates select="KEYWORDS">
@@ -155,10 +155,15 @@
 		
 	</xsl:template>
 	<xsl:template match="ABSTRACT">
-		<xsl:value-of select="." disable-output-escaping="yes"/>
-	</xsl:template>
-	<xsl:template match="ABSTRACT[*]">
-		<xsl:apply-templates select="*|text()"/>
+		<xsl:choose>
+			<xsl:when test="*">
+				<xsl:apply-templates select="*|text()"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="." disable-output-escaping="yes"/>
+			</xsl:otherwise>
+		</xsl:choose>
+		
 	</xsl:template>
 	<!--xsl:template match="ABSTRACT/*">
 		<xsl:copy-of select="."/>
@@ -166,11 +171,14 @@
 	<xsl:template match="ABSTRACT/text()">
 		<xsl:value-of select="."/>
 	</xsl:template>
-	<xsl:template match="ABSTRACT/sec">
+	<xsl:template match="ABSTRACT//*">
 		<xsl:apply-templates select="*|text()"/>
 	</xsl:template>
 	<xsl:template match="ABSTRACT/sec/title"><p class="subsec">
 		<xsl:apply-templates select="*|text()"/></p>
+	</xsl:template>
+	<xsl:template match="ABSTRACT/sec"><div>
+		<xsl:apply-templates select="*|text()"/></div>
 	</xsl:template>
 	<xsl:template name="ABSTR-TR">
         <xsl:value-of select="$translations/xslid[@id='sci_abstract']/text[@find='abstract']"/>

@@ -1,16 +1,9 @@
 @charset "utf-8";
 
-.container {
-	width: auto;
-	max-width: 760px;
-	/* font-family: Verdana, Arial, Helvetica, sans-serif; */
-}
-
-/* ------- FRONT ----- */
-/*Seção do artigo*/
 .categoria{
 	text-align: right;
 	text-transform: uppercase;
+	font-weight: bold;
 }
 
 /*Títulos do artigo*/
@@ -25,24 +18,6 @@
 	font-size: 120%;
 	margin-top: 80px;
 	margin-bottom: 80px;
-}
-
-/*Formatação do grupo de autores*/
-.autores{
-	margin-bottom: 25px;
-	font-weight: bold;
-	font-size: 97%;
-}
-.role {
-	
-	font-weight: normal;
-}
-.sig .autores {
-	margin-bottom: 0
-}
-
-.aff{
-	margin: 0px;
 }
 
 .abstract .sec, .trans-abstract .sec {
@@ -64,64 +39,8 @@
 	
 }
 
-/* ------------------ */
 
-/* -- FOOTNOTES -- */
-/*Formata as notas do autor*/
-
-.author-note{
-	padding-top: 5px;
-	
-}
-/*Notas dos autores*/
-.fn-author {
-	margin-top: 50px;
-}
-
-.fn-author-p{
-	padding: 0px;
-	margin-top: 5px;
-	margin-bottom: 0px;
-}
-.foot-notes {
-	padding-top: 20px;
-	padding-bottom: 40px;
-
-}
-/*Licença do artigo*/
-.lic{
-	padding-top: 5%;
-	font-size: 13px;
-	border-top: 1px double #CCC ;
-}
-
-.corresp {
-	
-}
-/*Caption de Tabelas e Imagens*/
-.fn {
-	margin: 0;
-	}
-.history {
-   
-}
-/*Sig Block*/
-.sig {
-	text-align: right;
-	padding-top: 5%; 
-}
-/* ------------------ */
-
-/* ---- BODY --- */
-/*Título das Seções*/
-
-.body { padding-top: 20px }
-
-.sub-article .body { 
-	padding-top: 0%
-}
-
-.sec{
+.sec {
 	/* clear:both; 
 	font-size: 15pt;*/
 	/* border-bottom: #CCC double thick; */
@@ -130,6 +49,13 @@
 	font-size: 120%;
 	text-transform: uppercase;	
 }
+
+.sub-subsec{
+    padding-top: 10px;
+	font-size: 100%;
+	font-weight: bold;
+}
+
 /*Título das Subseções do artigo*/
 .subsec{
 	font-size: 110%;
@@ -138,137 +64,129 @@
 }
 
 /*Título das Subseções do artigo*/
-.sub-subsec{
+.sub-subsec, .subsection-title {
 	font-size: 100%;
 	font-weight: bold;
 }
-.xref-fn{
-	width: 200px;
+.table {
+    font-family: Helvetica,sans-serif;
+    display: table;
+border-collapse: separate;
+border-spacing: 2px;
+border-color: gray;
 }
 
-.xref-autornote{
-	margin: 0px;
-	width: auto;
-	max-width: 330px;
-	padding: 0;
+.td {
+font-size: 8pt;
+border-bottom: 1px solid black;
+border-spacing: 20pt;
 }
-
-.xref-ref{
-	width: auto;
-	max-width: 300px;
+.dotted_table {
+    empty-cells: show;
+    border-style: dotted dotted dotted dotted;
+    font-family: Helvetica,sans-serif;
+    display: table;
+border-collapse: separate;
+border-spacing: 2px;
+border-color: gray;
 }
-/*Tirar estilo da lista*/
-.list-none{
-	list-style: none;
+.table_thumbnail {
+    padding-top: 25px;
+    border-top: 1px solid;
+	min-height: 90px;
+	padding-bottom: 25px;
 }
-/*DIV da imagem*/
-.xref-img, .xref-tab, .figure {
-	width: auto;
-	border-color: transparent;
-	padding: 10px;
-	
-	text-align: center;
+.td_thumbnail {
+    vertical-align: top;
+    
 }
-
-/*
-.xref-img:hover, .xref-tab:hover{
-	border: groove;
-	border-color: #09F;
-}*/
-/*Figura*/
+.td_label_caption {
+    text-align: justify;
+	vertical-align: top;	
+}
 .thumbnail{
-	width: auto;
-	max-height: 50px;
-	text-align: center;
-
+	width: 120px;
+	max-height: 75px;
+	vertical-align: top;
 }
-.label_caption {
-	text-align: justify;
-	padding: 20px;
-	font-size: 80%;
 
+.label_caption {
+	padding-top: 10px;
+	vertical-align: top;
+	padding-bottom: 10px;
+	
+	font-family: arial;
+}
+.caption {
+	text-align: justify;
 }
 .label {
 	font-weight: bold;
 }
 
-.graphic{
-	
+.formula {
+	padding: 25px;
+    max-width: 100%;
+    display: inline;
+	max-height: 10%;
+}
+
+.graphic {
+	padding: 25px;
     width: auto;
-    max-width:600px;
+    max-width: 100%;
 	
 }
 
-.table {
+.inline-graphic{
+	display: inline;
+    width: auto;
+    
+    max-height: 40px;
+	
+}
+
+.figure, .table-wrap {
+	max-width: 100%;
+	border-color: transparent;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	
+}
+
+#article-footer {
+    display: none;
+    }
+    
+.foot-notes {
+	padding-top: 20px;
+	padding-bottom: 40px;
+
+}
+.footnote {
+border-top: 1px solid;
+	padding-top: 10px;
+	vertical-align: top;
+	padding-bottom: 10px;
 	font-size: 90%;
-	text-align: center;
+	
 }
+.fn-author {}
 
-.table table {
-	font-size: 90%;
-	text-align: center; 
-	width: 100%;
+.corresp {}
+
+.sig-block {
+	text-align: right;
+	padding-top: 5%; 
 }
-
-.xref-div-img{
-	width: auto;
-	max-width: 600px;
-	float: left;
-}
-
-
-
-
-/*Estilo para os tooltips(vem com o código da biblioteca do jquery)*/
-.stickytooltip{
-	box-shadow: 5px 5px 8px #818181; /*shadow for CSS3 capable browsers.*/
-	-webkit-box-shadow: 5px 5px 8px #818181;
-	-moz-box-shadow: 5px 5px 8px #818181;
-	display:none;
-	position:absolute;
-	display:none;
-	border: 1px double #CCC ; /*Border around tooltip*/
-	background:white;
-	z-index:3000;
-}
-
-
-.stickytooltip .stickystatus{ /*Style for footer bar within tooltip*/
-	background: white;
-	color:  #000;
-	padding-top: 3px;
-	text-align:center;
-	font:bold 8pt Verdana, Geneva, sans-serif;
-}
-
-.tab-tooltip{
-	width:100%;
-	background: #FFF;
-}
-
-
-/*Classes '.atip' são referentes as miniaturas*/
-.atip{
-	padding: 0;
-	font-size: 9pt;
-	background: 	#9F6;
-}
-
-.xref-img-tooltip, .xref-tab-tooltip{
-	padding: 0px;
-	width: auto;
-	max-width: 580px;
-}
-
-.stickytooltip div{
-	background: #E9E9E9;
-}
-
-
-.article-title {
+.autores{
+	margin-bottom: 25px;
 	font-weight: bold;
+	font-size: 97%;
 }
-
+.aff {
+    margin: 0;
+}
 .sub-article {
     border-top: 1px double #CCC ;
     padding-top: 5%;
