@@ -1,11 +1,6 @@
 <?php
 require_once("config.php");
 
-$JM_API_URL = JM_API_URL;
-$JM_API_USER = JM_API_USER;
-$JM_API_TOKEN = JM_API_TOKEN;
-$JM_MEMCACHED_HOST = JM_MEMCACHED_HOST;
-
 function citation_display($data){
     $authors  = array();
     foreach ($data['article']['authors']->AUTHOR as $author){
@@ -113,12 +108,10 @@ function load_issue_meta($issue_meta){
 }
 
 function quering_api($url='fixture_prs.json', $ttl=0){
-    global $JM_MEMCACHED_HOST;
     $m = new Memcache();
-    $memcache_url = explode(":", $JM_MEMCACHED_HOST);
+    $memcache_url = explode(":", JM_MEMCACHED_HOST);
     $memcache_domain = $memcache_url[0];
     $memcache_port = $memcache_url[1];
-
     $m->connect($memcache_domain, $memcache_port); 
 
     $from_cache = $m->get($url);
@@ -161,19 +154,18 @@ function issue_label($meta){
 }
 
 function get_press_releases_by_pid($pid, $lng){
-    global $JM_API_URL, $JM_API_USER, $JM_API_TOKEN;
     #$json = json_decode(file_get_contents('fixture_prs.json'), true);
     #$json = json_decode(quering_api('fixture_prs.json'), true);
 
-    if (preg_match("^[0-9]{4}-[0-9]{3}[0-9xX]$", $pid)){
-        $request_url = $JM_API_URL+'/pressreleases/?username='+$JM_API_USER+'&api_key'+$JM_API_TOKEN+'&journal_pid='+$pid;
-    }elseif (preg_match("^[0-9]{4}-[0-9]{3}[0-9xX][0-2][0-9]{3}[0-9]{4}$", $pid)){
-        $request_url = $JM_API_URL+'/pressreleases/?username='+$JM_API_USER+'&api_key'+$JM_API_TOKEN+'&issue_pid='+$pid;    
-    }elseif (preg_match("^[0-9]{4}-[0-9]{3}[0-9xX][0-2][0-9]{3}[0-9]{4}[0-9]{5}$", $pid)){
-        $request_url = $JM_API_URL+'/pressreleases/?username='+$JM_API_USER+'&api_key'+$JM_API_TOKEN+'&article_pid='+$pid;
+    $request_url = JM_API_URL.'pressreleases/?format=json&username='.JM_API_USER.'&api_key='.JM_API_TOKEN;
+    if (preg_match("/^[0-9]{4}-[0-9]{3}[0-9xX]$/", $pid)){
+        $request_url .= '&journal_pid='.$pid;
+    }elseif (preg_match("/^[0-9]{4}-[0-9]{3}[0-9xX][0-2][0-9]{3}[0-9]{4}$/", $pid)){
+        $request_url .= '&issue_pid='.$pid;    
+    }elseif (preg_match("/^[0-9]{4}-[0-9]{3}[0-9xX][0-2][0-9]{3}[0-9]{4}[0-9]{5}$/", $pid)){
+        $request_url .= '&article_pid='.$pid;
     }
-
-    $json = json_decode(quering_api($request_url));
+    $json = json_decode(quering_api($request_url), true);
 
     $prs = array('article'=>array(), 'issue'=>array()) ;
 
@@ -205,9 +197,8 @@ function get_press_releases_by_pid($pid, $lng){
 function get_press_release($id, $pid, $lng){
     #$json = json_decode(file_get_contents('fixture_pr_id.json'), true);
     #$json = json_decode(quering_api('fixture_pr_id.json'), true);
-
-    $request_url = JM_API_URL+'pressreleases/'+$id+'/?username='+JM_API_USER+'&api_key'+JM_API_TOKEN;
-    $json = json_decode(quering_api($request_url));
+    $request_url = JM_API_URL.'pressreleases/'.$id.'/?format=json&username='.JM_API_USER.'&api_key='.JM_API_TOKEN;
+    $json = json_decode(quering_api($request_url), true);
 
     $itempr = $json;
     $pr = array();
@@ -233,7 +224,7 @@ function get_press_release($id, $pid, $lng){
     if ($result['prs']['type'] === 'article'){
         $result['meta'] = array();
         foreach (explode(',', $pid) as $article_pid){
-            $xml_url = 'http://vm.scielo.br/scielo.php?debug=xml&pid='.$article_pid.'&script=sci_arttext';
+            $xml_url = 'http://'.$_SERVER['SERVER_NAME'].'/scielo.php?debug=xml&pid='.$article_pid.'&script=sci_arttext';
             $meta = load_article_meta($xml_url);
             $meta['citation'] = citation_display($meta);
             array_push($result['meta'], $meta);

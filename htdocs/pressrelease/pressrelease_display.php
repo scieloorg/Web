@@ -20,8 +20,10 @@ if (in_array($_REQUEST['tlng'], $allowed_languages)){
   $url = '/scielo.php?script=sci_issutoc&pid='.substr($_REQUEST['pid'], 0, 19).'&tlng='.$tlng;
 
 ?>
+<!DOCTYPE html>
 <html>
   <head>
+  <meta http-equiv="Content-Type" content="text/xhtml; charset=utf-8"/>
   <title>SciELO - Scientific Electronic Library Online</title>
   <link rel="stylesheet" href="/applications/scielo-org/css/public/style-en.css" type="text/css" media="screen"></link>
   </head>
