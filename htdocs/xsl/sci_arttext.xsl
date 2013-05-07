@@ -312,7 +312,8 @@
 	<xsl:template match="SERIAL" mode="version-css">
 		<xsl:choose>
 			<xsl:when test="$version='xml-file' or $version= 'xml'">
-				<link rel="stylesheet" type="text/css" href="/xsl/pmc/v3.0/css/scielo.css" />
+				<link rel="stylesheet" type="text/css" href="/css/screen.css" />
+				<link rel="stylesheet" type="text/css" href="/xsl/pmc/v3.0/xml.css" />
                 <!--link rel="stylesheet" type="text/css" href="/xsl/pmc/v3.0/css/jpub-preview.css" /-->
             </xsl:when>
             <!--xsl:when test="$version='xml'">
