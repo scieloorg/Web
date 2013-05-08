@@ -161,10 +161,10 @@
 				      	if (jdata['issue'] || jdata['article']) {
 				      		$("#rightCol").show();
 				      	}
-				      	if (jdata['issue']){
+				      	if (jdata['issue'].length > 0){
 				      		$("#pr_issue_area").show();
 				      	}
-				      	if (jdata['article']){
+				      	if (jdata['article'].length > 0){
 				      		$("#pr_article_area").show();
 				      	}
 				      	var issue_html = '<ul class="PressReleases" style="padding-left: 20px; margin-left: 0px;">';
