@@ -175,6 +175,7 @@ function get_press_releases_by_pid($pid, $lng){
         $pr['id'] = $itempr['id'];
         $pr['issue_label'] = issue_label($itempr['issue_meta']);
         $pr['number'] = $itempr['number'];
+        $pr['pid'] = array($itempr['issue_meta']['scielo_pid']);
         $type = 'issue';
         if ($itempr['articles']){
             $type = 'article';
@@ -206,6 +207,7 @@ function get_press_release($id, $pid, $lng){
     $pr['id'] = $itempr['id'];
     $pr['issue_label'] = issue_label($itempr['issue_meta']);
     $pr['type'] = 'issue';
+    $pr['pid'] = array($itempr['issue_meta']['scielo_pid']);
     if ($itempr['articles']){
         $pr['type'] = 'article';
         $pr['pid'] = $itempr['articles'][0];

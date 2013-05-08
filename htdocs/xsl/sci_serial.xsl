@@ -158,18 +158,18 @@
 				      success: function (data) {
 				      	jdata = jQuery.parseJSON(data);
 
-				      	if (jdata['issue'] || jdata['article']) {
+				      	if (jdata['issue'].length > 0 || jdata['article'].length > 0) {
 				      		$("#rightCol").show();
 				      	}
-				      	if (jdata['issue']){
+				      	if (jdata['issue'].length > 0){
 				      		$("#pr_issue_area").show();
 				      	}
-				      	if (jdata['article']){
+				      	if (jdata['article'].length > 0){
 				      		$("#pr_article_area").show();
 				      	}
 				      	var issue_html = '<ul class="PressReleases" style="padding-left: 20px; margin-left: 0px;">';
 				      	for (var item in jdata['issue']){
-				      	    var pr_url = 'pressrelease/pressrelease_display.php?lng='+lng+'&amp;id='+jdata['issue'][item]['id'];
+				      	    var pr_url = 'pressrelease/pressrelease_display.php?lng='+lng+'&amp;id='+jdata['issue'][item]['id']+'&amp;pid='+jdata['issue'][item]['pid'];
 				      		issue_html += '<li><a href="'+pr_url+'"><b>'
 				      		           +jdata['issue'][item]['issue_label']
 				      		           +'</b><br/>'
