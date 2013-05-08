@@ -158,7 +158,7 @@
 				      success: function (data) {
 				      	jdata = jQuery.parseJSON(data);
 
-				      	if (jdata['issue'] || jdata['article']) {
+				      	if (jdata['issue'].length > 0 || jdata['article'].length > 0) {
 				      		$("#rightCol").show();
 				      	}
 				      	if (jdata['issue'].length > 0){
