@@ -87,9 +87,9 @@ right: 20%}
 						      		$("#pr_"+pid).show();
 					      		}
 					      	}
-                                                if (jdata['issue'].length > 0 ){
-                                                        $("#pr_issue").show()
-                                                }
+						if (jdata['issue'].length > 0 ){
+							$("#pr_issue").show()	
+						}
 					      	for (var item in jdata['issue']){
 					      		jdata['issue'][item];
 								var url = '/pressrelease/pressrelease_display.php?id='+jdata['issue'][item]['id']+'&amp;pid='+ppid+'&amp;lng='+lng;
@@ -147,13 +147,13 @@ right: 20%}
                                                                 </tr>
                                                         </tbody>
                                                 </table>
-                                                </span>
-                                                </xsl:if>
-                                                <table border="0">
-                                                        <tbody>
-                                                                <xsl:apply-templates select="SECTION"/>
-                                                        </tbody>
-                                                </table>
+						</span>
+						</xsl:if>
+						<table border="0">
+							<tbody>
+								<xsl:apply-templates select="SECTION"/>
+							</tbody>
+						</table>
 						<xsl:apply-templates select="PAGES"/>
 					</TD>
 				</TR>
