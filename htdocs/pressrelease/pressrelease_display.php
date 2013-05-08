@@ -39,18 +39,21 @@ if (in_array($_REQUEST['tlng'], $allowed_languages)){
           <div id="collection">
             <h3>PRESS RELEASE</h3>
             <div class="content">
-              <?foreach ($data['meta'] as $meta) {?>
-              <?$url = '/scielo.php?script=sci_arttext&pid='.$meta['article']['id'].'&tlng='.$tlng;?>
-              <h3 style="font-size: 90%;">
-                <?=$meta['citation']?>
-                <a href="javascript:void(0);"
-                       class="nomodel"
-                       style="text-decoration: none;"
-                       onclick="if (window.opener) { window.opener.location.href = '<?=$url?>'; window.close(); } else { window.location.href = '<?=$url?>';}"
-                       rel="nofollow">See the <?=$data['prs']['type']?></a>
-              </h3>
-              <?}?>
-              <h1><?=$data['prs']['title']?></h1>
+                <?foreach ($data['meta'] as $meta) {?>
+                <?if ($data['prs']['type'] === 'issue'){?>
+                  <?$url = '/scielo.php?script=sci_issuetoc&pid='.$meta['issue']['id'].'&tlng='.$tlng;?>
+                <?}else{?>
+                  <?$url = '/scielo.php?script=sci_arttext&pid='.$meta['article']['id'].'&tlng='.$tlng;?>
+                <?}?>
+                <h3 style="font-size: 90%;">
+                  <?=$meta['citation']?>
+                  <a href="javascript:void(0);"
+                     class="nomodel"
+                     style="text-decoration: none;"
+                     onclick="if (window.opener) { window.opener.location.href = '<?=$url?>'; window.close(); } else { window.location.href = '<?=$url?>';}"
+                     rel="nofollow">See the <?=$data['prs']['type']?></a>
+                </h3>
+                <?}?>
               <?=$data['prs']['content']?>
             </div> <!-- content -->
           </div> <!-- collection -->
