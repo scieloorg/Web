@@ -121,32 +121,36 @@ right: 20%}
 							<xsl:apply-templates select="STRIP"/>
 						</P>
 						<xsl:apply-templates select="PAGES"/>
-						<table border="0">
-							<tbody>
-								<xsl:if test="$journal_manager=1">
-								<span id="pr_issue">
-								<tr>
-									<td class="section" colspan="2">
-										<img>
-											<xsl:attribute name="src"><xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_GENIMG"/><xsl:value-of select="normalize-space(//CONTROLINFO/LANGUAGE)"/>/lead.gif</xsl:attribute>
-										</img>&#160;Press Release
-									</td>
-								</tr>
-								<tr>
-									<td colspan="2">&#160;</td>
-								</tr>
-								<tr>
-									<td></td>
-									<td>
-										<ul id="pr_issue_list" style="padding-left: 0px; list-style: none;">
-										</ul>
-									</td>
-								</tr>
-								</span>
-								</xsl:if>
-								<xsl:apply-templates select="SECTION"/>
-							</tbody>
-						</table>
+						<xsl:if test="$journal_manager=1">
+						<span id="pr_issue" style="display: none;">
+                                                <table border="0">
+                                                        <tbody>
+                                                                <tr>
+                                                                        <td class="section" colspan="2">
+                                                                                <img>
+                                                                                        <xsl:attribute name="src"><xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_GENIMG"/><xsl:value-of select="normalize-space(//CONTROLINFO/LANGUAGE)"/>/lead.gif</xsl:attribute>
+                                                                                </img>&#160;Press Release
+                                                                        </td>
+                                                                </tr>
+                                                                <tr>
+                                                                        <td colspan="2">&#160;</td>
+                                                                </tr>
+                                                                <tr>
+                                                                        <td></td>
+                                                                        <td>
+                                                                                <ul id="pr_issue_list" style="padding-left: 0px; list-style: none;">
+                                                                                </ul>
+                                                                        </td>
+                                                                </tr>
+                                                        </tbody>
+                                                </table>
+                                                </span>
+                                                </xsl:if>
+                                                <table border="0">
+                                                        <tbody>
+                                                                <xsl:apply-templates select="SECTION"/>
+                                                        </tbody>
+                                                </table>
 						<xsl:apply-templates select="PAGES"/>
 					</TD>
 				</TR>
