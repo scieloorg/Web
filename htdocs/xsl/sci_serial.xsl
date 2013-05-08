@@ -169,7 +169,7 @@
 				      	}
 				      	var issue_html = '<ul class="PressReleases" style="padding-left: 20px; margin-left: 0px;">';
 				      	for (var item in jdata['issue']){
-				      	    var pr_url = 'pressrelease/pressrelease_display.php?lng='+lng+'&amp;id='+jdata['issue'][item]['id'];
+				      	    var pr_url = 'pressrelease/pressrelease_display.php?lng='+lng+'&amp;id='+jdata['issue'][item]['id']+'&amp;pid='+jdata['issue'][item]['pid'];
 				      		issue_html += '<li><a href="'+pr_url+'"><b>'
 				      		           +jdata['issue'][item]['issue_label']
 				      		           +'</b><br/>'
