@@ -87,6 +87,9 @@ right: 20%}
 						      		$("#pr_"+pid).show();
 					      		}
 					      	}
+                                                if (jdata['issue'].length > 0 ){
+                                                        $("#pr_issue").show()
+                                                }
 					      	for (var item in jdata['issue']){
 					      		jdata['issue'][item];
 								var url = '/pressrelease/pressrelease_display.php?id='+jdata['issue'][item]['id']+'&amp;pid='+ppid+'&amp;lng='+lng;
