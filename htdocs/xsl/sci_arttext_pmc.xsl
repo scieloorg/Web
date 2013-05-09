@@ -4,5 +4,5 @@
 	<xsl:import href="pmc/v3.0/jpub/main/jpub3-html.xsl"/>
 	<xsl:import href="pmc/v3.0/scielo-fulltext.xsl"/>
 	
-
+	
 </xsl:stylesheet>

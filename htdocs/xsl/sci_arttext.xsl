@@ -13,7 +13,7 @@
 			<xsl:otherwise>xml-file</xsl:otherwise>
 		</xsl:choose>
 	</xsl:variable>
-	
+	<xsl:variable name="TXTLANG" select="//ARTICLE/@TEXTLANG"/>
 	<!--xsl:variable name="xml_article"><xsl:if test="$version='xml-file'">file:///<xsl:value-of select="concat(.//PATH_HTDOCS,'/xml_files/',.//filename)"/></xsl:if></xsl:variable-->
 	<xsl:variable name="xml_article"><xsl:if test="$version='xml-file'">file:///<xsl:value-of select="concat(substring-before(.//PATH_HTDOCS,'htdocs'),'bases/xml/',.//filename)"/></xsl:if></xsl:variable>
 	
