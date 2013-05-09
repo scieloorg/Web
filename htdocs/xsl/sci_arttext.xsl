@@ -13,7 +13,7 @@
 			<xsl:otherwise>xml-file</xsl:otherwise>
 		</xsl:choose>
 	</xsl:variable>
-	
+	<xsl:variable name="TXTLANG" select="//ARTICLE/@TEXTLANG"/>
 	<!--xsl:variable name="xml_article"><xsl:if test="$version='xml-file'">file:///<xsl:value-of select="concat(.//PATH_HTDOCS,'/xml_files/',.//filename)"/></xsl:if></xsl:variable-->
 	<xsl:variable name="xml_article"><xsl:if test="$version='xml-file'">file:///<xsl:value-of select="concat(substring-before(.//PATH_HTDOCS,'htdocs'),'bases/xml/',.//filename)"/></xsl:if></xsl:variable>
 	
@@ -312,7 +312,8 @@
 	<xsl:template match="SERIAL" mode="version-css">
 		<xsl:choose>
 			<xsl:when test="$version='xml-file' or $version= 'xml'">
-				<link rel="stylesheet" type="text/css" href="/xsl/pmc/v3.0/css/scielo.css" />
+				<link rel="stylesheet" type="text/css" href="/css/screen.css" />
+				<link rel="stylesheet" type="text/css" href="/xsl/pmc/v3.0/xml.css" />
                 <!--link rel="stylesheet" type="text/css" href="/xsl/pmc/v3.0/css/jpub-preview.css" /-->
             </xsl:when>
             <!--xsl:when test="$version='xml'">
