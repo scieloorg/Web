@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-<xsl:output method="html" omit-xml-declaration="yes" indent="no" />
+	<xsl:output method="html" omit-xml-declaration="yes" indent="no"/>
 
-<xsl:include href="sci_navegation.xsl"/>
-<xsl:variable name="journal_manager" select="//journal_manager"/>
-<xsl:variable name="num" select="//ISSUE/@NUM"/>
+	<xsl:include href="sci_navegation.xsl"/>
+	<xsl:variable name="journal_manager" select="//journal_manager"/>
+	<xsl:variable name="num" select="//ISSUE/@NUM"/>
 	<xsl:variable name="issuetoc_controlInfo" select="//CONTROLINFO"/>
-<xsl:template match="SERIAL">
- <HTML>
-  <HEAD>
+	<xsl:template match="SERIAL">
+		<HTML>
+			<HEAD>
 				<TITLE>
-					<xsl:value-of select="//TITLEGROUP/SHORTTITLE" disable-output-escaping="yes"/> - <xsl:call-template name="GetStrip">
+					<xsl:value-of select="//TITLEGROUP/SHORTTITLE" disable-output-escaping="yes"/> -
+						<xsl:call-template name="GetStrip">
 						<xsl:with-param name="vol" select="//ISSUE/@VOL"/>
 						<xsl:with-param name="num" select="//ISSUE/@NUM"/>
 						<xsl:with-param name="suppl" select="//ISSUE/@SUPPL"/>
@@ -19,27 +20,48 @@
 				</TITLE>
 				<LINK href="/css/scielo.css" type="text/css" rel="STYLESHEET"/>
 				<style type="text/css">
-#pagination { font-size: 8pt; border-bottom: 1px solid #808080; padding: 5px; margin: 20px 0; align: justified; width: 80%; left:20%}
-#xpagination { padding: 5px;  margin: 20px 0;}
-#pagination a {font-size: 8pt;  margin: 0 4px; padding: 0 2px; font-color: #000; text-decoration: none}
-#pageNav {text-align: right; position: absolute;
-right: 20%}
-#pageOf {text-align: left;}
-   </style>
+					#pagination{
+					    font-size:8pt;
+					    border-bottom:1px solid #808080;
+					    padding:5px;
+					    margin:20px 0;
+					    align:justified;
+					    width:80%;
+					    left:20%
+					}
+					#xpagination{
+					    padding:5px;
+					    margin:20px 0;
+					}
+					#pagination a{
+					    font-size:8pt;
+					    margin:0 4px;
+					    padding:0 2px;
+					    font-color:#000;
+					    text-decoration:none
+					}
+					#pageNav{
+					    text-align:right;
+					    position:absolute;
+					    right:20%}
+					#pageOf{
+					    text-align:left;
+					}</style>
 				<style type="text/css">
-	a { text-decoration: none; }
-   </style>
+					a{
+					    text-decoration:none;
+					}</style>
 				<script language="javascript" src="article.js"/>
-   <META http-equiv="Pragma" content="no-cache" />
-   <META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT" />
-   			<!-- link pro RSS aparecer automaticamente no Browser -->
-			<xsl:call-template name="AddRssHeaderLink">
+				<META http-equiv="Pragma" content="no-cache"/>
+				<META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT"/>
+				<!-- link pro RSS aparecer automaticamente no Browser -->
+				<xsl:call-template name="AddRssHeaderLink">
 					<xsl:with-param name="pid" select="//CURRENT/@PID"/>
 					<xsl:with-param name="lang" select="//LANGUAGE"/>
 					<xsl:with-param name="server" select="CONTROLINFO/SCIELO_INFO/SERVER"/>
-				<xsl:with-param name="script">rss.php</xsl:with-param>
-			</xsl:call-template>
-		</HEAD>
+					<xsl:with-param name="script">rss.php</xsl:with-param>
+				</xsl:call-template>
+			</HEAD>
 			<BODY vLink="#800080" bgColor="#ffffff">
 				<xsl:call-template name="NAVBAR">
 					<xsl:with-param name="bar1">issues</xsl:with-param>
@@ -48,7 +70,8 @@ right: 20%}
 					<xsl:with-param name="home">1</xsl:with-param>
 					<xsl:with-param name="alpha">
 						<xsl:choose>
-							<xsl:when test=" normalize-space(//CONTROLINFO/APP_NAME) = 'scielosp' ">0</xsl:when>
+							<xsl:when test=" normalize-space(//CONTROLINFO/APP_NAME) = 'scielosp' "
+								>0</xsl:when>
 							<xsl:otherwise>1</xsl:otherwise>
 						</xsl:choose>
 					</xsl:with-param>
@@ -63,12 +86,12 @@ right: 20%}
 				</CENTER>
 				<br/>
 				<div class="content">
-				<xsl:apply-templates select="//ISSUE"/>
+					<xsl:apply-templates select="//ISSUE"/>
 				</div>
 				<xsl:apply-templates select="." mode="footer-journal"/>
 			</BODY>
 			<xsl:if test="$journal_manager=1">
-				<script type="text/javascript" src="/js/jquery-1.9.1.min.js" />
+				<script type="text/javascript" src="/js/jquery-1.9.1.min.js"/>
 				<script type="text/javascript">
 					var lng = '<xsl:value-of select="//CONTROLINFO/LANGUAGE"/>';
 					var ppid = '<xsl:value-of select="//PAGE_PID"/>';
@@ -125,29 +148,33 @@ right: 20%}
 						</P>
 						<xsl:apply-templates select="PAGES"/>
 						<xsl:if test="$journal_manager=1">
-						<span id="pr_issue" style="display: none;">
-                                                <table border="0">
-                                                        <tbody>
-                                                                <tr>
-                                                                        <td class="section" colspan="2">
-                                                                                <img>
-                                                                                        <xsl:attribute name="src"><xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_GENIMG"/><xsl:value-of select="normalize-space(//CONTROLINFO/LANGUAGE)"/>/lead.gif</xsl:attribute>
-                                                                                </img>&#160;Press Release
-                                                                        </td>
-                                                                </tr>
-                                                                <tr>
-                                                                        <td colspan="2">&#160;</td>
-                                                                </tr>
-                                                                <tr>
-                                                                        <td></td>
-                                                                        <td>
-                                                                                <ul id="pr_issue_list" style="padding-left: 0px; list-style: none;">
-                                                                                </ul>
-                                                                        </td>
-                                                                </tr>
-                                                        </tbody>
-                                                </table>
-						</span>
+							<span id="pr_issue" style="display: none;">
+								<table border="0">
+									<tbody>
+										<tr>
+											<td class="section" colspan="2">
+												<img>
+												<xsl:attribute name="src"><xsl:value-of
+												select="//CONTROLINFO/SCIELO_INFO/PATH_GENIMG"
+												/><xsl:value-of
+												select="normalize-space(//CONTROLINFO/LANGUAGE)"
+												/>/lead.gif</xsl:attribute>
+												</img>&#160;Press Release </td>
+										</tr>
+										<tr>
+											<td colspan="2">&#160;</td>
+										</tr>
+										<tr>
+											<td/>
+											<td>
+												<ul id="pr_issue_list"
+												style="padding-left: 0px; list-style: none;"
+												> </ul>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</span>
 						</xsl:if>
 						<table border="0">
 							<tbody>
@@ -171,7 +198,8 @@ right: 20%}
 	</xsl:template>
 	<xsl:template match="STRIP">
 		<FONT class="nomodel" color="#800000">
-            <xsl:value-of select="$translations//xslid[@id='sci_issuetoc']//text[@find='table_of_contents']"/>
+			<xsl:value-of
+				select="$translations//xslid[@id='sci_issuetoc']//text[@find='table_of_contents']"/>
 		</FONT>
 		<BR/>
 		<font color="#800000">
@@ -183,7 +211,9 @@ right: 20%}
 				<xsl:with-param name="CITY" select="CITY"/>
 				<xsl:with-param name="MONTH" select="MONTH"/>
 				<xsl:with-param name="YEAR" select="YEAR"/>
-				<xsl:with-param name="reviewType"><xsl:if test="contains(NUM,'review')">provisional</xsl:if></xsl:with-param>
+				<xsl:with-param name="reviewType">
+					<xsl:if test="contains(NUM,'review')">provisional</xsl:if>
+				</xsl:with-param>
 			</xsl:call-template>
 		</font>
 	</xsl:template>
@@ -192,7 +222,10 @@ right: 20%}
 			<tr>
 				<td class="section" colspan="2">
 					<IMG>
-						<xsl:attribute name="src"><xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_GENIMG"/><xsl:value-of select="normalize-space(//CONTROLINFO/LANGUAGE)"/>/lead.gif</xsl:attribute>
+						<xsl:attribute name="src"><xsl:value-of
+								select="//CONTROLINFO/SCIELO_INFO/PATH_GENIMG"/><xsl:value-of
+								select="normalize-space(//CONTROLINFO/LANGUAGE)"
+							/>/lead.gif</xsl:attribute>
 					</IMG>
 					<font size="-1">&#160;</font>
 					<xsl:value-of select="NAME" disable-output-escaping="yes"/>
@@ -206,10 +239,17 @@ right: 20%}
 			</tr>
 		</xsl:if>
 		<xsl:choose>
-			<xsl:when test="$num='AHEAD'"><xsl:apply-templates select="ARTICLE"><xsl:sort select="@ahpdate"/><xsl:sort select="@DOI"/></xsl:apply-templates></xsl:when>
-			<xsl:otherwise><xsl:apply-templates select="ARTICLE"/></xsl:otherwise>
+			<xsl:when test="$num='AHEAD'">
+				<xsl:apply-templates select="ARTICLE">
+					<xsl:sort select="@ahpdate"/>
+					<xsl:sort select="@DOI"/>
+				</xsl:apply-templates>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:apply-templates select="ARTICLE"/>
+			</xsl:otherwise>
 		</xsl:choose>
-		
+
 	</xsl:template>
 	<xsl:template match="ARTICLE">
 		<tr>
@@ -266,18 +306,20 @@ right: 20%}
 	<xsl:template match="PAGES">
 		<div id="pagination">
 			<span id="pageOf">
-				<xsl:value-of select="$translations//xslid[@id='sci_issuetoc']//text[@find='page']"/>&#160;
-				<xsl:value-of select="PAGE[@selected]/@number"/>&#160;
-				<xsl:value-of select="$translations//xslid[@id='sci_issuetoc']//text[@find='of']"/>&#160;
-				<xsl:value-of select="PAGE[position()=last()]/@number"/>
+				<xsl:value-of select="$translations//xslid[@id='sci_issuetoc']//text[@find='page']"
+				/>&#160; <xsl:value-of select="PAGE[@selected]/@number"/>&#160; <xsl:value-of
+					select="$translations//xslid[@id='sci_issuetoc']//text[@find='of']"/>&#160;
+					<xsl:value-of select="PAGE[position()=last()]/@number"/>
 			</span>
 			<span id="pageNav">
-				<xsl:value-of select="$translations//xslid[@id='sci_issuetoc']//text[@find='gotopage']"/>&#160;<xsl:apply-templates select="PAGE" mode="look"/>
+				<xsl:value-of
+					select="$translations//xslid[@id='sci_issuetoc']//text[@find='gotopage']"
+					/>&#160;<xsl:apply-templates select="PAGE" mode="look"/>
 			</span>
 		</div>
 	</xsl:template>
 	<xsl:template match="PAGE" mode="look">
-		<xsl:if test="@number != '1'"></xsl:if>
+		<xsl:if test="@number != '1'"/>
 		<span class="page">
 			<xsl:apply-templates select="."/>
 		</span>
@@ -286,21 +328,19 @@ right: 20%}
 		<xsl:value-of select="."/>
 	</xsl:template>
 	<xsl:template match="PAGE[@selected]/@number">
-		<strong>
-
-&#160;<xsl:value-of select="."/>&#160;
-
-		</strong>
+		<strong> &#160;<xsl:value-of select="."/>&#160; </strong>
 	</xsl:template>
 	<xsl:template match="PAGE">
 		<a>
-			<xsl:attribute name="href"><xsl:call-template name="getScieloLink"><xsl:with-param name="seq" select="$issuetoc_controlInfo/PAGE_PID"/><xsl:with-param name="script" select="'sci_issuetoc'"/></xsl:call-template>&amp;page=<xsl:value-of select="@number"/></xsl:attribute>
+			<xsl:attribute name="href"><xsl:call-template name="getScieloLink"><xsl:with-param
+						name="seq" select="$issuetoc_controlInfo/PAGE_PID"/><xsl:with-param
+						name="script" select="'sci_issuetoc'"
+					/></xsl:call-template>&amp;page=<xsl:value-of select="@number"/></xsl:attribute>
 			<xsl:apply-templates select="@number"/>
 		</a>
 	</xsl:template>
 	<xsl:template match="PAGE[@selected='true']">
 		<xsl:apply-templates select="@number"/>
 	</xsl:template>
-	<xsl:template match="PAGE/@selected">
-	</xsl:template>
+	<xsl:template match="PAGE/@selected"> </xsl:template>
 </xsl:stylesheet>

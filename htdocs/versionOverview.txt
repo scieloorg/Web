@@ -1,6 +1,8 @@
 v5.24
 [web]
 Including Journal Manager API Interface for press releases.
+Presentation of articles fulltext from XML files (PMC DTD 3.0) - translation/sub-article
+New status for journal history - journal is no longer open access
 
 v5.23
 [web]
