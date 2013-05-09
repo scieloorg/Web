@@ -833,7 +833,7 @@
 	</xsl:template>
 
 	<xsl:template match="sub-article[@article-type!='translation' or not(@article-type)]">
-		<!--div class="sub-article" id="{@id}">
+		<div class="sub-article" id="{@id}">
 			<xsl:apply-templates select=".//title-group"/>
 
 
@@ -853,7 +853,7 @@
 				<xsl:apply-templates select=".//aff"/>
 			</div>
 
-		</div-->
+		</div>
 
 	</xsl:template>
 
