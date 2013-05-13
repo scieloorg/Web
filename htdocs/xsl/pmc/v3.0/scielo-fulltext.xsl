@@ -49,13 +49,26 @@
 
 
 	<xsl:template match="article" mode="text-content">
-		<xsl:call-template name="scift-make-article"/>
+
+		
+		<xsl:choose>
+			<xsl:when test="..//sub-article[@article-type='translation' and @xml:lang=$article_lang]">
+				<xsl:for-each select="..//sub-article[@article-type='translation' and @xml:lang=$article_lang]">
+					<xsl:call-template name="scift-make-article"/>
+				</xsl:for-each>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:call-template name="scift-make-article"/>
+			</xsl:otherwise>
+		</xsl:choose>
+
 	</xsl:template>
 	<xsl:template match="sub-article | response">
 		<hr class="part-rule"/>
 		<xsl:call-template name="scift-make-article"/>
 	</xsl:template>
 	<xsl:template name="scift-make-article">
+
 		<!-- Generates a series of (flattened) divs for contents of any
 	       article, sub-article or response -->
 
@@ -64,31 +77,14 @@
 			<xsl:apply-templates select="." mode="id"/>
 		</xsl:variable>
 
-		<div id="{$this-article}-front" class="front">
-			<xsl:apply-templates select="front | front-stub"/>
-		</div>
 
-		<!-- body -->
-		<xsl:choose>
-			<xsl:when
-				test=".//sub-article[@article-type='translation'] and .//sub-article[@article-type='translation' and @xml:lang=$article_lang]">
-				<div id="{$this-article}-body" class="body">
-					<xsl:apply-templates
-						select=".//sub-article[@article-type='translation' and @xml:lang=$article_lang]//body"
-					/>
-				</div>
-			</xsl:when>
-			<xsl:otherwise>
-				<div id="{$this-article}-body" class="body">
-					<xsl:apply-templates select="body"/>
-				</div>
-				<!--xsl:for-each select="body">
-					<div id="{$this-article}-body" class="body">
-						<xsl:apply-templates/>
-					</div>
-				</xsl:for-each-->
-			</xsl:otherwise>
-		</xsl:choose>
+
+		<div id="{$this-article}-front" class="front">
+			<xsl:apply-templates select="front-stub | front"/>
+		</div>
+		<div id="{$this-article}-body" class="body">
+			<xsl:apply-templates select="body"/>
+		</div>
 
 
 		<xsl:if test="back | $loose-footnotes">
@@ -111,25 +107,48 @@
 		</xsl:for-each>
 
 		<div class="foot-notes">
-			<xsl:apply-templates select="front//article-meta//history"/>
-			<xsl:apply-templates select="front//article-meta//author-notes"/>
+			
+
+			<xsl:apply-templates select=".//history"/>
+			<xsl:apply-templates select=".//author-notes"/>
 		</div>
-		<xsl:apply-templates select="sub-article | response"/>
+		<xsl:apply-templates select="sub-article[@article-type!='translation'] | response"/>
 		<div class="foot-notes">
-			<xsl:apply-templates select="front//article-meta//permissions"/>
+			<xsl:apply-templates select=".//permissions"/>
 		</div>
+	</xsl:template>
+
+
+	<xsl:template match="front-stub">
+		<xsl:apply-templates select=".//article-categories"/>
+		<xsl:if test="not(.//article-categories)">
+			<xsl:apply-templates select="../..//front//article-categories"/>
+		</xsl:if>
+		<xsl:apply-templates select=".//title-group | .//trans-title"/>
+		<xsl:if test="not(.//title-group)">
+			<xsl:apply-templates select="../..//front//title-group | ../..//front//trans-title"/>
+		</xsl:if>
+		<xsl:apply-templates select=".//contrib-group"/>
+		<xsl:if test="not(.//contrib-group)">
+			<xsl:apply-templates select="../..//front//contrib-group"/>
+		</xsl:if>
+		<xsl:apply-templates select=".//aff"/>
+		<xsl:if test="not(.//aff)">
+			<xsl:apply-templates select="../..//front//aff"/>
+		</xsl:if>
+		<xsl:apply-templates select=".//abstract | .//trans-abstract"/>
+		<xsl:if test="not(.//abstract)">
+			<xsl:apply-templates select="../..//front//abstract  | ../..//front//trans-abstract"/>
+		</xsl:if>
 	</xsl:template>
 	<xsl:template match="front">
-		<xsl:apply-templates select="article-meta//article-categories"/>
-		<xsl:apply-templates select="article-meta//title-group"/>
-		<xsl:apply-templates select="../sub-article[@article-type='translation']//title-group"/>
-		<xsl:apply-templates select="article-meta//contrib-group"/>
-		<xsl:apply-templates select="article-meta//aff"/>
-		<xsl:apply-templates
-			select="article-meta//abstract | ../sub-article[@article-type='translation']//abstract"/>
-		<xsl:apply-templates select="article-meta//trans-abstract"/>
+		<xsl:apply-templates select=".//article-categories"/>
+		
+		<xsl:apply-templates select=".//title-group | .//trans-title"/>
+		<xsl:apply-templates select=".//contrib-group"/>
+		<xsl:apply-templates select=".//aff"/>
+		<xsl:apply-templates select=".//abstract | .//trans-abstract"/>
 	</xsl:template>
-	<xsl:template match="front-stub"> </xsl:template>
 	<xsl:template match="abstract | trans-abstract">
 		<xsl:variable name="lang" select="@xml:lang"/>
 		<div>
@@ -348,9 +367,11 @@
 			<xsl:when test="substring($text,string-length($text),1)=','">
 				<xsl:value-of select="substring($text,1,string-length($text)-1)"/>
 			</xsl:when>
-			<xsl:otherwise><xsl:value-of select="$text"/></xsl:otherwise>
+			<xsl:otherwise>
+				<xsl:value-of select="$text"/>
+			</xsl:otherwise>
 		</xsl:choose>
-		
+
 	</xsl:template>
 
 
@@ -869,6 +890,5 @@
 
 
 		</div-->
-
 	</xsl:template>
 </xsl:stylesheet>
