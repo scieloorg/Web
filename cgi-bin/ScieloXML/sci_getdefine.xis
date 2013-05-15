@@ -84,7 +84,7 @@
 						case 'ENABLE_ARTICLE_LANG_LINK'     : 'h17061',
 						case 'show_ref_links'				: 'h17062',
 						case 'show_meta_citation_reference'	: 'h17070',
-
+                        case 'show_new_article_link'        : 'h17063', 
 						elsecase 'h4903'
 					endsel
 

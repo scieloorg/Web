@@ -141,6 +141,7 @@ show_clinical_trials=0
 show_ref_links=1
 show_meta_citation_reference=1
 show_ubio=1
+show_new_article_link=0
 
 [services_group]
 show_group_article = 1

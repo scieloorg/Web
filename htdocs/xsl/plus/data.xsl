@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-    xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    xmlns:xlink="http://www.w3.org/1999/xlink" 
-    xmlns:math="http://www.w3.org/2005/xpath-functions/math" 
+    xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:math="http://www.w3.org/2005/xpath-functions/math"
     xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl" exclude-result-prefixes="xs math xd"
     version="3.0">
     <xd:doc scope="stylesheet">
@@ -12,18 +11,18 @@
             <xd:p/>
         </xd:desc>
     </xd:doc>
-    
+
     <xsl:template match="@*" mode="DATA-DISPLAY">
         <xsl:attribute name="{name()}">
             <xsl:value-of select="."/>
         </xsl:attribute>
     </xsl:template>
-    <xsl:template match="*" mode="DATA-DISPLAY">        
-        <xsl:apply-templates select="@* | *|text()" mode="DATA-DISPLAY"/>        
+    <xsl:template match="*" mode="DATA-DISPLAY">
+        <xsl:apply-templates select="@* | *|text()" mode="DATA-DISPLAY"/>
     </xsl:template>
     <xsl:template match="sup | sub " mode="DATA-DISPLAY">
         <xsl:element name="{name()}">
-            <xsl:apply-templates select="@* | *|text()"  mode="DATA-DISPLAY"/>
+            <xsl:apply-templates select="@* | *|text()" mode="DATA-DISPLAY"/>
         </xsl:element>
     </xsl:template>
     <xsl:template match="italic" mode="DATA-DISPLAY">
@@ -36,8 +35,8 @@
             <xsl:apply-templates select="@* | *|text()" mode="DATA-DISPLAY"/>
         </strong>
     </xsl:template>
-    
-    
+
+
 
     <xsl:template match="article" mode="HTML-HEAD-META">
         <meta name="citation_journal_title" content="{.//journal-meta//journal-title}"/>
@@ -66,10 +65,10 @@
     <xsl:template match="name" mode="HTML-HEAD-META">
         <meta name="citation_author">
             <xsl:attribute name="content">
-                <xsl:apply-templates select="name" mode="DATA-DISPLAY"></xsl:apply-templates>
+                <xsl:apply-templates select="name" mode="DATA-DISPLAY"/>
             </xsl:attribute>
         </meta>
-            
+
     </xsl:template>
     <xsl:template match="collab" mode="HTML-HEAD-META">
         <meta name="citation_author" content="{.//text()}"/>
@@ -94,10 +93,12 @@
                 />&amp;lang=<xsl:value-of select="$INTERFACE_LANG"/></xsl:if>
     </xsl:template>
     <xsl:template match="contrib" mode="DATA-DISPLAY">
-        <xsl:apply-templates select=".//name" mode="DATA-DISPLAY"></xsl:apply-templates>
-        <xsl:apply-templates select=".//collab" mode="DATA-DISPLAY"></xsl:apply-templates>
+        <xsl:apply-templates select=".//name" mode="DATA-DISPLAY"/>
+        <xsl:apply-templates select=".//collab" mode="DATA-DISPLAY"/>
     </xsl:template>
-    <xsl:template match="name" mode="DATA-DISPLAY"><xsl:apply-templates select="surname"/><xsl:apply-templates select="suffix"/>, <xsl:apply-templates select="given-names"/><xsl:apply-templates select="prefix"/></xsl:template>
+    <xsl:template match="name" mode="DATA-DISPLAY"><xsl:apply-templates select="surname"
+            /><xsl:apply-templates select="suffix"/>, <xsl:apply-templates select="given-names"
+            /><xsl:apply-templates select="prefix"/></xsl:template>
     <xsl:template match="aff" mode="DATA-label">
         <xsl:value-of select="label"/>
     </xsl:template>
@@ -118,9 +119,24 @@
         <xsl:if test="not(.//title)">Key words</xsl:if>
     </xsl:template>
     <xsl:template match="abstract|trans-abstract" mode="DATA-DISPLAY-TITLE">
-        
+
         <xsl:apply-templates select="title"/>
         <xsl:if test="not(.//title)">Abstract</xsl:if>
+        <!-- FIXME -->
+
+    </xsl:template>
+    <xsl:template match="ref-list" mode="DATA-DISPLAY-TITLE">
+
+        <xsl:apply-templates select="title"/>
+        <xsl:if test="not(.//title)">References</xsl:if>
+        <!-- FIXME -->
+
+    </xsl:template>
+
+    <xsl:template match="ack" mode="DATA-DISPLAY-TITLE">
+
+        <xsl:apply-templates select="title"/>
+        <xsl:if test="not(.//title)">Acknowledgements</xsl:if>
         <!-- FIXME -->
 
     </xsl:template>
@@ -130,11 +146,15 @@
     </xsl:template>
 
     <xsl:template match="pub-id" mode="DATA-DISPLAY">
-        <xsl:value-of select="@pub-id-type"/>: <xsl:value-of select="."></xsl:value-of>
+        <xsl:value-of select="@pub-id-type"/>: <xsl:value-of select="."/>
     </xsl:template>
-    <xsl:template match="pub-id[@pub-id-type='doi']| comment[contains(.,'doi:')]" mode="DATA-DISPLAY">
-        http://dx.doi.org/<xsl:value-of select="."></xsl:value-of>
+    <xsl:template match="pub-id[@pub-id-type='doi']| comment[contains(.,'doi:')]"
+        mode="DATA-DISPLAY"> http://dx.doi.org/<xsl:value-of select="."/>
     </xsl:template>
-    <xsl:template match="suffix"><xsl:value-of select="concat(' ',.)"></xsl:value-of></xsl:template>
-    <xsl:template match="prefix"><xsl:value-of select="concat(', ',.)"></xsl:value-of></xsl:template>
+    <xsl:template match="suffix">
+        <xsl:value-of select="concat(' ',.)"/>
+    </xsl:template>
+    <xsl:template match="prefix">
+        <xsl:value-of select="concat(', ',.)"/>
+    </xsl:template>
 </xsl:stylesheet>
