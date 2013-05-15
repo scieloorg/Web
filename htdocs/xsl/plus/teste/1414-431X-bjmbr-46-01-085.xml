@@ -1,0 +1,616 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE article PUBLIC "-//NLM//DTD Journal Publishing DTD v3.0 20080202//EN" "/bases/xml.000/xmlproc/pmc/v3.0/dtd/journalpublishing3.dtd">
+<article article-type="research-article" dtd-version="3.0" xml:lang="en" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML">
+	<front>
+		<journal-meta>
+			<journal-id journal-id-type="nlm-ta">Braz J Med Biol Res</journal-id>
+			<journal-title-group>
+				<journal-title>Brazilian Journal of Medical and Biological Research</journal-title>
+				<abbrev-journal-title abbrev-type="publisher">Braz. J. Med. Biol. Res.</abbrev-journal-title>
+			</journal-title-group>
+			<issn pub-type="epub">1414-431X</issn>
+			<publisher>
+				<publisher-name>Associação Brasileira de Divulgação Científica</publisher-name>
+			</publisher>
+		</journal-meta>
+		<article-meta>
+			<article-id pub-id-type="doi">10.1590/1414-431X20122449</article-id>
+			<article-categories>
+				<subj-group subj-group-type="heading">
+					<subject>Clinical Investigation</subject>
+				</subj-group>
+			</article-categories>
+			<title-group>
+				<article-title xml:lang="en">Cytogenetic studies of Brazilian pediatric myelodysplastic syndrome cases: challenges and difficulties in a large and emerging country</article-title>
+			</title-group>
+			<contrib-group>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Velloso</surname>
+						<given-names>E.D.R.P.</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff1">1</xref>
+					<xref ref-type="aff" rid="aff7">7</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Chauffaille</surname>
+						<given-names>M.L.</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff2">2</xref>
+					<xref ref-type="aff" rid="aff7">7</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Peliçario</surname>
+						<given-names>L.M.</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff3">3</xref>
+					<xref ref-type="aff" rid="aff7">7</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Tanizawa</surname>
+						<given-names>R.S.S.</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff3">3</xref>
+					<xref ref-type="aff" rid="aff7">7</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Toledo</surname>
+						<given-names>S.R.C.</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff4">4</xref>
+					<xref ref-type="aff" rid="aff7">7</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Gaiolla</surname>
+						<given-names>R.D.</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff5">5</xref>
+					<xref ref-type="aff" rid="aff7">7</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Lopes</surname>
+						<given-names>L.F.</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff6">6</xref>
+					<xref ref-type="aff" rid="aff7">7</xref>
+				</contrib>
+				<aff id="aff1">
+					<label>1</label>
+					<institution content-type="orgname">Universidade de São Paulo</institution>
+					<institution content-type="orgdiv2">Departamento de Hematologia</institution>
+					<institution content-type="orgdiv1">Faculdade de Medicina</institution>
+					<addr-line>
+						<named-content content-type="city">São Paulo</named-content>, <named-content content-type="state">SP</named-content>
+					</addr-line>, <country>Brasil</country>
+				</aff>
+				<aff id="aff2">
+					<label>2</label>
+					<institution content-type="orgname">Universidade Federal de São Paulo</institution>
+					<institution content-type="orgdiv1">Departamento de Hematologia</institution>
+					<addr-line>
+						<named-content content-type="city">São Paulo</named-content>, <named-content content-type="state">SP</named-content>
+					</addr-line>, <country>Brasil</country>
+				</aff>
+				<aff id="aff3">
+					<label>3</label>
+					<institution content-type="orgname">Universidade de São Paulo</institution>
+					<institution content-type="orgdiv3">Laboratório de Citogenética</institution>
+					<institution content-type="orgdiv2">Departamento de Hematologia</institution>
+					<institution content-type="orgdiv1">Faculdade de Medicina</institution>
+					<addr-line>
+						<named-content content-type="city">São Paulo</named-content>, <named-content content-type="state">SP</named-content>
+					</addr-line>, <country>Brasil</country>
+				</aff>
+				<aff id="aff4">
+					<label>4</label>
+					<institution content-type="orgname">Instituto de Oncologia Pediátrica, Universidade Federal de São Paulo</institution>
+					<addr-line>
+						<named-content content-type="city">São Paulo</named-content>, <named-content content-type="state">SP</named-content>
+					</addr-line>, <country>Brasil</country>
+				</aff>
+				<aff id="aff5">
+					<label>5</label>
+					<institution content-type="orgname">Universidade Estadual Paulista</institution>
+					<institution content-type="orgdiv2">Departamento de Clínica Médica</institution>
+					<institution content-type="orgdiv1">Faculdade de Medicina de Botucatu</institution>
+					<addr-line>
+						<named-content content-type="city">Botucatu</named-content>, <named-content content-type="state">SP</named-content>
+					</addr-line>, <country>Brasil</country>
+				</aff>
+				<aff id="aff6">
+					<label>6</label>
+					<institution content-type="orgname">Hospital de Câncer de Barretos</institution>
+					<addr-line>
+						<named-content content-type="city">Barretos</named-content>, <named-content content-type="state">SP</named-content>
+					</addr-line>, <country>Brasil</country>
+				</aff>
+				<aff id="aff7">
+					<label>7</label>
+					<institution content-type="orgname">Centro de Tratamento Fabiana Macedo de Morais</institution>
+					<institution content-type="orgdiv2">Grupo Cooperativo Brasileiro de Síndrome Mielodisplásica Pediátrica</institution>
+					<institution content-type="orgdiv1">Grupo de Assistência à Criança com Câncer</institution>
+					<addr-line>
+						<named-content content-type="city">São José dos Campos</named-content>, <named-content content-type="state">SP</named-content>
+					</addr-line>, <country>Brasil</country>
+				</aff>
+			</contrib-group>
+			<author-notes>
+				<corresp>Correspondence: E.D.R.P. Velloso, Departamento de Hematologia, Faculdade de Medicina, USP, Av. Eneas de Carvalho Aguiar, 155, 05403-000 São Paulo, SP, Brasil, +55-11-3061-554, E-mail: <email>elvira.velloso@yahoo.com.br</email>
+				</corresp>
+			</author-notes>
+			<pub-date pub-type="epub">
+				<day>11</day>
+				<month>01</month>
+				<year>2013</year>
+			</pub-date>
+			<pub-date pub-type="collection">
+				<month>01</month>
+				<year>2013</year>
+			</pub-date>
+			<volume>46</volume>
+			<issue>1</issue>
+			<fpage>85</fpage>
+			<lpage>90</lpage>
+			<history>
+				<date date-type="received">
+					<day>15</day>
+					<month>07</month>
+					<year>2012</year>
+				</date>
+				<date date-type="accepted">
+					<day>18</day>
+					<month>10</month>
+					<year>2012</year>
+				</date>
+			</history>
+			<permissions>
+				<license license-type="open-access" xlink:href="http://creativecommons.org/licenses/by-nc/3.0/">
+					<license-p>This is an Open Access article distributed under the terms of the Creative Commons Attribution Non-Commercial License, which permits unrestricted non-commercial use, distribution, and reproduction in any medium, provided the original work is properly cited.</license-p>
+				</license>
+			</permissions>
+			<abstract xml:lang="en">
+				<p>Myelodysplastic syndromes (MDS) and juvenile myelomonocytic leukemia (JMML) are rare hematopoietic stem cell diseases affecting children. Cytogenetics plays an important role in the diagnosis of these diseases. We report here the experience of the Cytogenetic Subcommittee of the Brazilian Cooperative Group on Pediatric Myelodysplastic Syndromes (BCG-MDS-PED). We analyzed 168 cytogenetic studies performed in 23 different cytogenetic centers; 84 of these studies were performed in patients with confirmed MDS (primary MDS, secondary MDS, JMML, and acute myeloid leukemia/MDS+Down syndrome). Clonal abnormalities were found in 36.9% of the MDS cases and cytogenetic studies were important for the detection of constitutional diseases and for differential diagnosis with other myeloid neoplasms. These data show the importance of the Cooperative Group for continuing education in order to avoid a late or wrong diagnosis.</p>
+			</abstract>
+			<kwd-group xml:lang="en">
+				<kwd>Childhood myelodysplastic syndromes</kwd>
+				<kwd>Juvenile myelomonocytic leukemia</kwd>
+				<kwd>Cytogenetics</kwd>
+				<kwd>Karyotype</kwd>
+				<kwd>Diagnosis</kwd>
+			</kwd-group>
+			<counts>
+				<fig-count count="2"/>
+				<table-count count="1"/>
+				<ref-count count="10"/>
+				<page-count count="1"/>
+			</counts>
+		</article-meta>
+	</front>
+	<body>
+		<sec sec-type="intro">
+			<title>Introduction</title>
+			<p>The Brazilian Cooperative Group on Pediatric Myelodysplastic Syndromes (BCG-MDS-PED) was founded in January 1997 as a working group of hematologists, pediatric hemato-oncologists, molecular biologists, and other related professionals with the following objectives: to provide support for diagnosis, to offer treatment advice and educational instructions, to perform studies and research, as well as to share experiences about cases of pediatric (age &lt;18 years) myelodysplastic syndromes (MDS). The BCG-MDS-PED consists of eight distinct committees: morphology (cytology, histopathology, and immunophenotyping); genetics (cytogenetics, molecular biology, and clinical genetics); epidemiology; secondary MDS; Down syndrome (DS); bone marrow failures (congenital, acquired, and after infections); myeloproliferative disorders and therapeutics, in order to cover all aspects of MDS. We report here the experience of the Cytogenetic Subcommittee.</p>
+		</sec>
+		<sec sec-type="materials|methods">
+			<title>Material and Methods</title>
+			<p>Since January 1985, 350 cases have been referred to the BCG-MDS-PED, coming from 68 different public or private centers, specialized or general, and located in 19 of the 26 states of Brazil. Some cases were included retrospectively before the BCG-MDS-PED was founded. The morphology committee reviewed peripheral blood/bone marrow smears and biopsies and classified the cases according to the WHO-Pediatric-Hasle's classification <xref ref-type="bibr" rid="B01">1</xref>.</p>
+			<p>Karyotypes were obtained at local centers when available and reviewed by the Cytogenetic Committee (EDRPV, MLC, SRCT) or at one of the four university centers in São Paulo. Karyotyping was performed in bone marrow samples using the Giemsa banding technique and chromosomal abnormalities were described according to the International System for Human Cytogenetic Nomenclature (ISCN 2009) <xref ref-type="bibr" rid="B02">2</xref>. Chromosome fragility was induced with the diepoxybutane (DEB) test in suspected cases of Fanconi anemia. Some cytogenetic centers performed FISH studies for monosomy 7 in cases with less than 20 metaphases analyzed and BCR/ABL1 rearrangement for a differential diagnosis between juvenile myelomonocytic leukemia (JMML) and chronic myeloid leukemia (CML).</p>
+			<p>After the review, 156 cases were confirmed as childhood MDS (<italic>de novo</italic> or secondary), JMML, or acute myeloid leukemia/MDS with DS (AML/MDS+DS), 129 cases did not meet the diagnostic criteria and 65 cases had no definitive diagnosis (in revision, inconclusive or insufficient sample).</p>
+			<p>For the 82 MDS patients with cytogenetic studies and evolution, we calculated overall survival and survival according to the cytogenetic profile (normal, chromosome 7 abnormality and other abnormalities). The same evaluation was performed for the 65 patients with well-known therapy, censoring the time of allogeneic hematopoietic stem cell transplantation (HSCT) (performed in 13 of them). Statistical analysis was performed using the Kaplan-Meier product limit estimation (survival curves) and log rank test to compare groups. The data were analyzed using the SPSS software.</p>
+		</sec>
+		<sec sec-type="results">
+			<title>Results</title>
+			<p>Of the 350 cases included in the BCG-MDS-PED database, 168 had been submitted to conventional cytogenetic studies (bone marrow karyotype) and 76 were reviewed by the committee. At least 23 cytogenetic centers located in 7 different Brazilian States, most of them in São Paulo (capital and interior of the state) were responsible for the study. <xref ref-type="fig" rid="f01">Figure 1</xref> shows the origin of all 350 patients and the distribution of the cytogenetic centers.</p>
+			<fig id="f01">
+				<label>Figure 1</label>
+				<caption>
+					<title>Map of Brazil showing the distribution of 350 patients included in the Brazilian Cooperative Group on Pediatric Myelodysplastic Syndromes (BCG-MDS-PED) database (1987-2007). Most of the cytogenetic centers are concentrated in the Brazilian states of the South and Southeast.</title>
+				</caption>
+				<graphic mimetype="image" xlink:href="1414-431X-bjmbr-46-01-085-gf01"/>
+			</fig>
+			<p>Although the number of cases with karyotype studies was small, we observed an increase in the percentage of cases with cytogenetics according to the period of diagnosis: 8.3% (1985 to 1990), 29.4% (1991-1995), 49.3% (1996-2000), 56.6% (2001-2005), and 50% (2005-2010). The abnormal cytogenetic studies according to final diagnosis are shown in <xref ref-type="table" rid="t01">Table 1</xref>.</p>
+			<p>
+				<table-wrap id="t01">
+					<label>Table 1</label>
+					<caption>
+						<title>Cytogenetic abnormalities in 52 patients with confirmed myelodysplastic syndromes and with other diagnoses.</title>
+					</caption>
+					<graphic mimetype="image" xlink:href="1414-431X-bjmbr-46-01-085-gt01"/>
+					<table-wrap-foot>
+						<fn id="TFN01t01">
+							<p>AML = acute myeloid leukemia; CML = chronic myeloid leukemia; DEB = positive diepoxybutane test; FISH = fluorescence <italic>in situ</italic> hybridization; JMML = juvenile myelomonocytic leukemia; MDS/AML+DS = myelodysplastic syndrome/AML associated with Down syndrome; MLN <italic>PDGFRB</italic> = myeloid and lymphoid neoplasia with eosinophilia and abnormalities in the <italic>PDGFRB</italic> gene; RC = refractory cytopenia; RAEB = refractory anemia with excess of blasts; RAEB/T = RAEB in transformation; U-MDS = unclassified MDS.</p>
+						</fn>
+					</table-wrap-foot>
+				</table-wrap>
+			</p>
+			<p>Childhood MDS was confirmed in 84 cases who had conclusive cytogenetic studies (5 cases showed no metaphases), including 11 with refractory cytopenia (RC), 48 with refractory anemia with excess of blasts (RAEB) or RAEB in transformation (RAEB/T), 4 with unclassified MDS, 11 with JMML, 7 with AML/MDS+DS, and 3 with secondary MDS. Results were abnormal in 45.2% of cases (38/84). Clonal abnormalities were found in 31 (36.9%) cases, 4 of them also with constitutional trisomy 21. Seven cases (8.3%) showed only constitutional abnormalities, including 4 cases with trisomy 21, 1 with balanced translocation t(8;9) and 2 with a positive DEB test.</p>
+			<p>Monosomy 7/deletion 7q was the most frequent clonal abnormality, found in 11 cases (13.9%), followed by trisomy 8 (4.7%) and 21; 2 or more abnormalities were seen in 5.9% of cases. Clonal abnormalities were more frequent in AML/MDS+DS (42.8%), RAEB/T (37.5%), JMML (36.4%), and secondary MDS (33.3%) than in RC (27.2%). In AML/MDS+DS, trisomy 8 and an extra copy of an isoderivative of chromosome 21 were found as clonal abnormalities in 2 cases and 1 case, respectively.</p>
+			<p>The median overall survival was 31 months for the MDS group (n = 82 patients), 122 months for the subgroup with chromosome 7 abnormality (n = 11 patients), 35 months for the subgroup with abnormal karyotype but no chromosome 7 abnormality (n = 19 patients), and 29 months for normal karyotype (n = 52 patients). No significant differences were detected in the survival of these 3 groups (P = 0.4; <xref ref-type="fig" rid="f02">Figure 2A</xref>). The median survival obtained by censoring the time of allogeneic HSCT was 29 months for the MDS group (n = 65 patients), a time not reached by the subgroup with chromosome 7 abnormality (n = 8 patients), 36 months for the subgroup with abnormal karyotype but no chromosome 7 abnormality (n = 17 patients), and 28 months for patients with a normal karyotype (n = 40). Again, no significant differences were detected in the survival of these 3 groups (P = 0.4; <xref ref-type="fig" rid="f02">Figure 2B</xref>).</p>
+			<fig id="f02">
+				<label>Figure 2</label>
+				<caption>
+					<title>Kaplan-Meier overall survival curves for patients with myelodysplastic syndromes according to the cytogenetic profile and to chromosome 7 abnormalities <italic>vs</italic> other abnormalities <italic>vs</italic> normal. <italic>A</italic>, Overall survival. <italic>B</italic>, Survival with censoring of the time of allogeneic hematopoietic stem cell transplantation.</title>
+				</caption>
+				<graphic mimetype="image" xlink:href="1414-431X-bjmbr-46-01-085-gf02"/>
+			</fig>
+			<p>Of 129 cases reviewed by the Morphology Committee who did not show childhood MDS, 53 had cytogenetic studies (but 4 cases showed no metaphases), 15 (30.6%) showed karyotype abnormalities, 1 of them characterized as constitutional in one boy with aplastic anemia who showed a balanced translocation involving the long arm of chromosome 3 and short arm of chromosome 5. Eight cases were diagnosed as AML, 3 with -7/7q- abnormalities, 2 with t(8;21), 2 with trisomy 8, one with del(11q23), and another with t(15;17). Karyotyping confirmed 3 cases of CML with Philadelphia chromosome, and 1 case of primary myelofibrosis with additional material on chromosome 22.</p>
+			<p>An interesting t(1;5)(q23;q33) translocation was detected in an 11-month-old girl with anemia, thrombocytopenia, leukocytosis with monocytosis, and marked eosinophilia. She was first diagnosed by our Committee as having unclassified MDS or MDS/myeloproliferative disorder. In cooperation with the Dana-Farber Cancer Institute and Harvard Medical School, the t(1;5)(q23;q33) translocation was cloned, showing the fusion of the platelet-derived growth factor receptor beta (<italic>PDGFRB</italic>) gene to the myomegalin gene. After imatinib therapy, the patient achieved a long- term hematological remission, and is still alive, more than 10 years after the diagnosis <xref ref-type="bibr" rid="B03">3</xref>. This disease is now called myeloid and lymphoid neoplasm with eosinophilia and abnormalities in the <italic>PDGFRB</italic> gene, according to the WHO 2008 classification <xref ref-type="bibr" rid="B04">4</xref>.</p>
+		</sec>
+		<sec>
+			<title>Discussion</title>
+			<p>Childhood MDS and JMML are a group of clonal hematopoietic disorders occurring in 1.2 and 1.8 children per million per year, respectively <xref ref-type="bibr" rid="B01">1</xref>. Cytogenetics plays an important role in the diagnosis of these rare diseases. The incidence of clonal cytogenetic abnormalities in childhood MDS ranges from 50 to 80% and monosomy 7/deletion 7q was the most frequent abnormality described in Europe <xref ref-type="bibr" rid="B05"/>
+				<xref ref-type="bibr" rid="B06">5,6</xref> and in the USA <xref ref-type="bibr" rid="B07">7</xref>. Trisomy 21 (inherited or acquired) was also common, but trisomy 8 and 5q deletions (often described in adult MDS) were detected in only a few cases <xref ref-type="bibr" rid="B07">7</xref>. The European Working Group of Myelodysplastic Syndrome in Childhood (EOWG-MDS group) demonstrated that 36% of JMML cases showed clonal abnormalities, and monosomy 7 was detected in 26% of the cases <xref ref-type="bibr" rid="B08">8</xref>. The role of cytogenetics in the prognosis of childhood MDS was published in few studies. In 1995, Passmore et al. <xref ref-type="bibr" rid="B09">9</xref> proposed a score that included platelet counts and fetal hemoglobin; but it was not validated by others <xref ref-type="bibr" rid="B07">7</xref>. The French group studying 44 children with MDS showed that monosomy 7 was associated with intermediate prognosis (Groupe Français de Cytogénétique Hématologique, 1997) <xref ref-type="bibr" rid="B05">5</xref>. Monosomy 7 was not associated with unfavorable prognosis in JMML by the EOWG-MDS group <xref ref-type="bibr" rid="B08">8</xref>. In 2010, the EOWG-MDS group studied prospectively 192 children with advanced MDS and identified that the presence of a structurally complex karyotype was the strongest independent prognostic marker predicting poor outcome, with only 14% of a 2-year survival in this group <xref ref-type="bibr" rid="B10">10</xref>.</p>
+			<p>Before the founding of the BCG-MDS-PED in 1997, there were almost no studies describing the incidence, clinical evolution or transformation of childhood MDS in Brazil. At first, the idea of this cooperative group was to review cases of the entire country and give diagnostic support (morphology, genetics, etc.). In parallel, a teaching initiative was designed in order to disseminate the concepts and tools for a correct and quick MDS diagnosis in children. The results of these initiatives are shown here. More than 350 cases were reviewed, 156 of which were correctly classified as MDS according to the WHO pediatric approach. Morphology, histology, and cytogenetic analysis were reviewed by a central committee and the evaluation was confirmed. As expected, most of these cases (113/157) were <italic>de novo</italic> MDS and a few were secondary. Also, AML and JMML were well defined, as well as DS cases.</p>
+			<p>Clonal abnormalities were found in 36.9% cases and only 13.9% of them had monosomy 7. Unfortunately, the small number and heterogeneity of cases and the loss to follow-up in some of them could not allow us to define the role of cytogenetic subgroups in prognosis. However, more than this, cytogenetics was very important in defining diseases as AML with t(8;21), CML and even myeloid and lymphoid diseases with PDGFRB rearrangement that have a better survival and require specific therapies.</p>
+			<p>Brazil is a huge country, with a territorial extent of 8,511,996.3 km<sup>2</sup>, with more than 5500 cities and 180 million inhabitants, most of them concentrated in the Southwest region, which is also the most economically rich and with an estimated adequate number of physicians/inhabitants. As shown, most of the MDS cases came from São Paulo State (Southeast). In Northern or Central states of Brazil not even a single MDS case was detected, a fact that raises concern about the possibility that cases may still be misdiagnosed in these regions. This indicates the need for continuing education and awareness of pediatricians regarding the different aspects of disease manifestation in order to avoid a late or wrong diagnosis. Very interesting lessons can be drawn from this collaborative study: the joint effort brought benefits to patients, relatives and physicians as well as some social, scientific, and economical profits.</p>
+		</sec>
+	</body>
+	<back>
+		<ref-list>
+			<title>References</title>
+			<ref id="B01">
+				<label>1</label>
+				<mixed-citation>1. Hasle H, Niemeyer CM, Chessells JM, Baumann I, Bennett JM, Kerndrup G, et al. A pediatric approach to the WHO classification of myelodysplastic and myeloproliferative diseases. Leukemia 2003; 17: 277-282, doi: 10.1038/sj.leu.2402765.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Hasle</surname>
+							<given-names>H</given-names>
+						</name>
+						<name>
+							<surname>Niemeyer</surname>
+							<given-names>CM</given-names>
+						</name>
+						<name>
+							<surname>Chessells</surname>
+							<given-names>JM</given-names>
+						</name>
+						<name>
+							<surname>Baumann</surname>
+							<given-names>I</given-names>
+						</name>
+						<name>
+							<surname>Bennett</surname>
+							<given-names>JM</given-names>
+						</name>
+						<name>
+							<surname>Kerndrup</surname>
+							<given-names>G</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">A pediatric approach to the WHO classification of myelodysplastic and myeloproliferative diseases</article-title>
+					<source xml:lang="en">Leukemia</source>
+					<year>2003</year>
+					<volume>17</volume>
+					<fpage>277</fpage>
+					<lpage>282</lpage>
+					<comment>doi:10.1038/sj.leu.2402765</comment>
+				</element-citation>
+			</ref>
+			<ref id="B02">
+				<label>2</label>
+				<mixed-citation>2. Schaffer LG, Slovak ML, Campbell LJ. ISCN 2009: an international system for human cytogenetic nomenclature. Basel: Karger; 2009.</mixed-citation>
+				<element-citation publication-type="book">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Schaffer</surname>
+							<given-names>LG</given-names>
+						</name>
+						<name>
+							<surname>Slovak</surname>
+							<given-names>ML</given-names>
+						</name>
+						<name>
+							<surname>Campbell</surname>
+							<given-names>LJ</given-names>
+						</name>
+					</person-group>
+					<source xml:lang="en">ISCN 2009: an international system for human cytogenetic nomenclature</source>
+					<publisher-loc>Basel</publisher-loc>
+					<publisher-name>Karger</publisher-name>
+					<year>2009</year>
+				</element-citation>
+			</ref>
+			<ref id="B03">
+				<label>3</label>
+				<mixed-citation>3. Wilkinson K, Velloso ER, Lopes LF, Lee C, Aster JC, Shipp MA, et al. Cloning of the t(1;5)(q23;q33) in a myeloproliferative disorder associated with eosinophilia: involvement of PDGFRB and response to imatinib. Blood 2003; 102: 4187-4190, doi: 10.1182/blood-2003-04-1150.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Wilkinson</surname>
+							<given-names>K</given-names>
+						</name>
+						<name>
+							<surname>Velloso</surname>
+							<given-names>ER</given-names>
+						</name>
+						<name>
+							<surname>Lopes</surname>
+							<given-names>LF</given-names>
+						</name>
+						<name>
+							<surname>Lee</surname>
+							<given-names>C</given-names>
+						</name>
+						<name>
+							<surname>Aster</surname>
+							<given-names>JC</given-names>
+						</name>
+						<name>
+							<surname>Shipp</surname>
+							<given-names>MA</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">Cloning of the t(1;5)(q23;q33) in a myeloproliferative disorder associated with eosinophilia: involvement of PDGFRB and response to imatinib</article-title>
+					<source xml:lang="en">Blood</source>
+					<year>2003</year>
+					<volume>102</volume>
+					<fpage>4187</fpage>
+					<lpage>4190</lpage>
+					<comment>doi:10.1182/blood-2003-04-1150</comment>
+				</element-citation>
+			</ref>
+			<ref id="B04">
+				<label>4</label>
+				<mixed-citation>4. Swerdlow SH, Campo E, Harris NL, Jaffe ES, Pileri SA, Stein H, et al. WHO classification of tumours of haematopoietic and lymphoid tissues. Lyon: International Agency for Research on Cancer; 2008.</mixed-citation>
+				<element-citation publication-type="book">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Swerdlow</surname>
+							<given-names>SH</given-names>
+						</name>
+						<name>
+							<surname>Campo</surname>
+							<given-names>E</given-names>
+						</name>
+						<name>
+							<surname>Harris</surname>
+							<given-names>NL</given-names>
+						</name>
+						<name>
+							<surname>Jaffe</surname>
+							<given-names>ES</given-names>
+						</name>
+						<name>
+							<surname>Pileri</surname>
+							<given-names>SA</given-names>
+						</name>
+						<name>
+							<surname>Stein</surname>
+							<given-names>H</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<source xml:lang="en">WHO classification of tumours of haematopoietic and lymphoid tissues.</source>
+					<publisher-loc>Lyon</publisher-loc>
+					<publisher-name>International Agency for Research on Cancer</publisher-name>
+					<year>2008</year>
+				</element-citation>
+			</ref>
+			<ref id="B05">
+				<label>5</label>
+				<mixed-citation>5. Groupe Français de Cytogénétique Hématologique. Forty-four cases of childhood myelodysplasia with cytogenetics, documented by the Groupe Francais de Cytogenetique Hematologique. Leukemia 1997; 11: 1478-1485, doi: 10.1038/sj.leu.2400771.</mixed-citation>
+				<element-citation publication-type="journal">
+					<collab>Groupe Français de Cytogénétique Hématologique</collab>
+					<article-title xml:lang="en">Forty-four cases of childhood myelodysplasia with cytogenetics, documented by the Groupe Francais de Cytogenetique Hematologique</article-title>
+					<source xml:lang="en">Leukemia</source>
+					<year>1997</year>
+					<volume>11</volume>
+					<fpage>1478</fpage>
+					<lpage>1485</lpage>
+					<comment>doi:10.1038/sj.leu.2400771</comment>
+				</element-citation>
+			</ref>
+			<ref id="B06">
+				<label>6</label>
+				<mixed-citation>6. Creutzig U, Cantu-Rajnoldi A, Ritter J, Romitti L, Odenwald E, Conter V, et al. Myelodysplastic syndromes in childhood. Report of 21 patients from Italy and West Germany. Am J Pediatr Hematol Oncol 1987; 9: 324-330, doi: 10.1097/00043426-198724000-00009.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Creutzig</surname>
+							<given-names>U</given-names>
+						</name>
+						<name>
+							<surname>Cantu-Rajnoldi</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Ritter</surname>
+							<given-names>J</given-names>
+						</name>
+						<name>
+							<surname>Romitti</surname>
+							<given-names>L</given-names>
+						</name>
+						<name>
+							<surname>Odenwald</surname>
+							<given-names>E</given-names>
+						</name>
+						<name>
+							<surname>Conter</surname>
+							<given-names>V</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">Myelodysplastic syndromes in childhood. Report of 21 patients from Italy and West Germany</article-title>
+					<source xml:lang="en">Am J Pediatr Hematol Oncol</source>
+					<year>1987</year>
+					<volume>9</volume>
+					<fpage>324</fpage>
+					<lpage>330</lpage>
+					<comment>doi:10.1097/00043426-198724000-00009</comment>
+				</element-citation>
+			</ref>
+			<ref id="B07">
+				<label>7</label>
+				<mixed-citation>7. Luna-Fineman S, Shannon KM, Atwater SK, Davis J, Masterson M, Ortega J, et al. Myelodysplastic and myeloproliferative disorders of childhood: a study of 167 patients. Blood 1999; 93: 459-466.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Luna-Fineman</surname>
+							<given-names>S</given-names>
+						</name>
+						<name>
+							<surname>Shannon</surname>
+							<given-names>KM</given-names>
+						</name>
+						<name>
+							<surname>Atwater</surname>
+							<given-names>SK</given-names>
+						</name>
+						<name>
+							<surname>Davis</surname>
+							<given-names>J</given-names>
+						</name>
+						<name>
+							<surname>Masterson</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Ortega</surname>
+							<given-names>J</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">Myelodysplastic and myeloproliferative disorders of childhood: a study of 167 patients</article-title>
+					<source xml:lang="en">Blood</source>
+					<year>1999</year>
+					<volume>93</volume>
+					<fpage>459</fpage>
+					<lpage>466</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B08">
+				<label>8</label>
+				<mixed-citation>8. Niemeyer CM, Arico M, Basso G, Biondi A, Cantu RA, Creutzig U, et al. Chronic myelomonocytic leukemia in childhood: a retrospective analysis of 110 cases. European Working Group on Myelodysplastic Syndromes in Childhood (EWOG-MDS). Blood 1997; 89: 3534-3543.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Niemeyer</surname>
+							<given-names>CM</given-names>
+						</name>
+						<name>
+							<surname>Arico</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Basso</surname>
+							<given-names>G</given-names>
+						</name>
+						<name>
+							<surname>Biondi</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Cantu</surname>
+							<given-names>RA</given-names>
+						</name>
+						<name>
+							<surname>Creutzig</surname>
+							<given-names>U</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">Chronic myelomonocytic leukemia in childhood: a retrospective analysis of 110 cases. European Working Group on Myelodysplastic Syndromes in Childhood (EWOG-MDS)</article-title>
+					<source xml:lang="en">Blood</source>
+					<year>1997</year>
+					<volume>89</volume>
+					<fpage>3534</fpage>
+					<lpage>3543</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B09">
+				<label>9</label>
+				<mixed-citation>9. Passmore SJ, Hann IM, Stiller CA, Ramani P, Swansbury GJ, Gibbons B, et al. Pediatric myelodysplasia: a study of 68 children and a new prognostic scoring system. Blood 1995; 85: 1742-1750.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Passmore</surname>
+							<given-names>SJ</given-names>
+						</name>
+						<name>
+							<surname>Hann</surname>
+							<given-names>IM</given-names>
+						</name>
+						<name>
+							<surname>Stiller</surname>
+							<given-names>CA</given-names>
+						</name>
+						<name>
+							<surname>Ramani</surname>
+							<given-names>P</given-names>
+						</name>
+						<name>
+							<surname>Swansbury</surname>
+							<given-names>GJ</given-names>
+						</name>
+						<name>
+							<surname>Gibbons</surname>
+							<given-names>B</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">Pediatric myelodysplasia: a study of 68 children and a new prognostic scoring system</article-title>
+					<source xml:lang="en">Blood</source>
+					<year>1995</year>
+					<volume>85</volume>
+					<fpage>1742</fpage>
+					<lpage>1750</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B10">
+				<label>10</label>
+				<mixed-citation>10. Gohring G, Michalova K, Beverloo HB, Betts D, Harbott J, Haas OA, et al. Complex karyotype newly defined: the strongest prognostic factor in advanced childhood myelodysplastic syndrome. Blood 2010; 116: 3766-3769, doi: 10.1182/blood-2010-04-280313.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Gohring</surname>
+							<given-names>G</given-names>
+						</name>
+						<name>
+							<surname>Michalova</surname>
+							<given-names>K</given-names>
+						</name>
+						<name>
+							<surname>Beverloo</surname>
+							<given-names>HB</given-names>
+						</name>
+						<name>
+							<surname>Betts</surname>
+							<given-names>D</given-names>
+						</name>
+						<name>
+							<surname>Harbott</surname>
+							<given-names>J</given-names>
+						</name>
+						<name>
+							<surname>Haas</surname>
+							<given-names>OA</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">Complex karyotype newly defined: the strongest prognostic factor in advanced childhood myelodysplastic syndrome</article-title>
+					<source xml:lang="en">Blood</source>
+					<year>2010</year>
+					<volume>116</volume>
+					<fpage>3766</fpage>
+					<lpage>3769</lpage>
+					<comment>doi:10.1182/blood-2010-04-280313</comment>
+				</element-citation>
+			</ref>
+		</ref-list>
+		<fn-group>
+		<fn fn-type="other">
+				<p>First published online January 11, 2013.</p>
+			</fn>
+		</fn-group>
+	</back>
+</article>
