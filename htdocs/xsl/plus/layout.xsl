@@ -4,14 +4,8 @@
     xmlns:math="http://www.w3.org/2005/xpath-functions/math"
     xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl" exclude-result-prefixes="xs math xd"
     version="3.0">
+
     
-    <xd:doc scope="stylesheet">
-        <xd:desc>
-            <xd:p><xd:b>Created on:</xd:b> May 10, 2013</xd:p>
-            <xd:p><xd:b>Author:</xd:b> robertatakenaka</xd:p>
-            <xd:p/>
-        </xd:desc>
-    </xd:doc>
     <xsl:template match="*" mode="HTML">
         <html class="no-js" lang="{$PAGE_LANG}">
             <xsl:apply-templates select="." mode="HTML-HEAD"/>
@@ -105,9 +99,7 @@
         <xsl:if test="$SHORT-LINK!=''">
             <!--TRANSLATE-->
             <input type="text" name="link-share" class="trans bIcon link" value="{$SHORT-LINK}"
-                data-toggle="tooltip" title="Click to copy URL to clipboard">
-                
-            </input>
+                data-toggle="tooltip" title="Click to copy URL to clipboard"> </input>
 
         </xsl:if>
     </xsl:template>
@@ -117,11 +109,10 @@
             <div class="span3">
                 <input type="text" name="link-share" class="trans bIcon link"
                     value="http://ref.scielo.org/y4qccf" data-toggle="tooltip"
-                    title="Click to copy URL to clipboard" />
+                    title="Click to copy URL to clipboard"/>
             </div>
             <div class="dropdown span5">
-                <a href="javascript:void(0);" class="bIcon stats">Article
-                    Indicators</a>
+                <a href="javascript:void(0);" class="bIcon stats">Article Indicators</a>
                 <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
                     <!--<li><a tabindex="-1" href="#">Cited by SciELO</a></li>-->
                     <li>
@@ -134,7 +125,7 @@
         </div>
     </xsl:template>
     <xsl:template match="*" mode="HTML-NEW">
-        
+
         <div class="span3">
             <xsl:apply-templates select="." mode="HTML-SHORT-LINK"/>
         </div>
@@ -148,8 +139,7 @@
                 <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
                     <!--<li><a tabindex="-1" href="#">Cited by SciELO</a></li>-->
                     <li>
-                        <a tabindex="-1" href="{$href}" class="iframeModal">Access
-                            Statistics</a>
+                        <a tabindex="-1" href="{$href}" class="iframeModal">Access Statistics</a>
                         <!--TRANSLATE-->
                     </li>
                 </ul>
@@ -162,21 +152,22 @@
         </div>
     </xsl:template>
     <xsl:template match="name" mode="HTML">
-        
+
         <span>
             <xsl:apply-templates select="." mode="DATA-DISPLAY"/>
             <xsl:apply-templates select="..//xref" mode="HTML-author"/>
-        
-        </span><xsl:text>
+
+        </span>
+        <xsl:text>
             <!-- manter esta quebra de linha -->
         </xsl:text>
-        
+
     </xsl:template>
     <xsl:template match="xref" mode="HTML-author">
         <sup class="xref">
             <xsl:value-of select="."/>
         </sup>
-        
+
     </xsl:template>
     <xsl:template match="*" mode="HTML-aff-list">
         <div class="span3">
@@ -276,31 +267,34 @@
     <xsl:template match="*" mode="HTML-BODY-SECTION-ARTICLE-ABSTRACT">
         <article id="abstract">
             <xsl:choose>
-                <xsl:when test=".//sub-article[@article-type='translation' and @xml:lang=$PAGE_LANG]//abstract">
+                <xsl:when
+                    test=".//sub-article[@article-type='translation' and @xml:lang=$PAGE_LANG]//abstract">
                     <xsl:apply-templates
-                        select=".//sub-article[@article-type='translation' and @xml:lang=$PAGE_LANG]//abstract" mode="HTML-TEXT">
-                        <xsl:with-param name="sections" select=".//sub-article[@article-type='translation' and @xml:lang=$PAGE_LANG]//body"></xsl:with-param>
+                        select=".//sub-article[@article-type='translation' and @xml:lang=$PAGE_LANG]//abstract"
+                        mode="HTML-TEXT">
+                        <xsl:with-param name="art_body"
+                            select=".//sub-article[@article-type='translation' and @xml:lang=$PAGE_LANG]//body"
+                        />
                     </xsl:apply-templates>
                 </xsl:when>
                 <xsl:when test=".//front//trans-abstract[@xml:lang=$PAGE_LANG]">
-                    <xsl:apply-templates
-                        select=".//front//trans-abstract[@xml:lang=$PAGE_LANG]" mode="HTML-TEXT">
-                        <xsl:with-param name="sections" select="body"></xsl:with-param>
+                    <xsl:apply-templates select=".//front//trans-abstract[@xml:lang=$PAGE_LANG]"
+                        mode="HTML-TEXT">
+                        <xsl:with-param name="art_body" select=".//body[1]"/>
                     </xsl:apply-templates>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:apply-templates
-                        select=".//front//abstract" mode="HTML-TEXT">
-                        <xsl:with-param name="sections" select="body"></xsl:with-param>
+                    <xsl:apply-templates select=".//front//abstract" mode="HTML-TEXT">
+                        <xsl:with-param name="art_body" select=".//body[1]"/>
                     </xsl:apply-templates>
                 </xsl:otherwise>
             </xsl:choose>
-            
+
         </article>
     </xsl:template>
 
     <xsl:template match="abstract|trans-abstract" mode="HTML-TEXT">
-        <xsl:param name="sections"></xsl:param>
+        <xsl:param name="art_body"/>
         <xsl:variable name="lang" select="@xml:lang"/>
         <h1>
             <xsl:apply-templates select="." mode="DATA-DISPLAY-TITLE"/>
@@ -317,8 +311,8 @@
                     </xsl:otherwise>
                 </xsl:choose>
             </div>
-            <xsl:if test="$sections">
-                <xsl:apply-templates select="$sections" mode="HTML-SECTIONS"/>
+            <xsl:if test="$art_body">
+                <xsl:apply-templates select="$art_body" mode="HTML-SECTIONS"/>
             </xsl:if>
 
         </div>
@@ -345,32 +339,24 @@
                             mode="HTML-FLOAT-SECTION"/>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:apply-templates select=".//body//sec[@sec-type]" mode="HTML-FLOAT-SECTION"
-                        />
+                        <xsl:apply-templates select=".//body//sec[@sec-type]"
+                            mode="HTML-FLOAT-SECTION"/>
                     </xsl:otherwise>
                 </xsl:choose>
             </ul>
         </div>
     </xsl:template>
     <xsl:template match="*" mode="HTML-SECTIONS">
+
         <div class="span4">
             <ul class="rMenu">
                 <li>
                     <a href="javascript:void(0);" class="yIcon section fold">Sections<!-- TRANSLATE -->
                         <span>-</span></a>
                     <div class="link-list">
-                        <xsl:choose>
-                            <xsl:when
-                                test=".//sub-article[@article-type='translation' and @xml:lang=$PAGE_LANG]">
-                                <xsl:apply-templates
-                                    select=".//sub-article[@article-type='translation' and @xml:lang=$PAGE_LANG]//sec[@sec-type]"
-                                    mode="HTML-SECTION"/>
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:apply-templates select=".//body//sec[@sec-type]"
-                                    mode="HTML-SECTION"/>
-                            </xsl:otherwise>
-                        </xsl:choose>
+
+                        <xsl:apply-templates select=".//sec[@sec-type]" mode="HTML-SECTION"/>
+
 
                     </div>
                 </li>
@@ -392,16 +378,20 @@
         </div>
     </xsl:template>
     <xsl:template match="sec[@sec-type]" mode="HTML-SECTION">
-        <a href="#{@sec-type}" class="goto">
-            <xsl:apply-templates select="title"/>
+        <a>
+            <xsl:attribute name="href">#<xsl:value-of select="translate(@sec-type,'|','-')"/>
+            </xsl:attribute>
+            <xsl:attribute name="class">goto</xsl:attribute> 
+                <xsl:apply-templates select="title"/>
         </a>
         <br/>
 
     </xsl:template>
     <xsl:template match="sec[@sec-type]" mode="HTML-FLOAT-SECTION">
-        <li>
-            <a href="#{@sec-type}" class="goto">
-                <xsl:apply-templates select="title"/>
+        <li><a>
+            <xsl:attribute name="href">#<xsl:value-of select="translate(@sec-type,'|','-')"/>
+            </xsl:attribute>
+            <xsl:attribute name="class">goto</xsl:attribute>       <xsl:apply-templates select="title"/>
             </a>
         </li>
 
@@ -414,21 +404,52 @@
                     test=".//sub-article[@article-type='translation' and @xml:lang=$PAGE_LANG]">
                     <xsl:apply-templates
                         select=".//sub-article[@article-type='translation' and @xml:lang=$PAGE_LANG]/body"
-                        mode="HTML"/>
+                        mode="HTML-TEXT"/>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:apply-templates select=".//body" mode="HTML"/>
+                    <xsl:apply-templates select=".//body| .//back" mode="HTML-TEXT"/>
                 </xsl:otherwise>
             </xsl:choose>
         </article>
     </xsl:template>
 
-    <xsl:template match="body" mode="HTML">
+    <xsl:template match="body| back " mode="HTML-TEXT">
         <xsl:apply-templates select="*|text()" mode="HTML-TEXT"/>
     </xsl:template>
 
-    
-    
+    <xsl:template match="fn-group" mode="HTML-TEXT"> </xsl:template>
+
+    <xsl:template match="ack" mode="HTML-TEXT">
+        <h1 id="ack">
+            <xsl:apply-templates select="." mode="DATA-DISPLAY-TITLE"/>
+        </h1>
+        <div class="row paragraph">
+            <div class="span12">
+                <xsl:apply-templates select="p" mode="HTML-TEXT"/>
+            </div>
+        </div>
+    </xsl:template>
+    <xsl:template match="ref-list" mode="HTML-TEXT">
+        <h1 id="ref-list">
+            <xsl:apply-templates select="." mode="DATA-DISPLAY-TITLE"/>
+        </h1>
+        <div class="ref-list">
+            <ul class="refList">
+                <xsl:apply-templates select="ref" mode="HTML-TEXT"/>
+            </ul>
+        </div>
+    </xsl:template>
+    <xsl:template match="ref" mode="HTML-TEXT">
+        <li class="clearfix">
+            <sup class="xref big pull-left">
+                <xsl:apply-templates select="label"/>
+            </sup>
+            <div class="pull-right">
+                <xsl:apply-templates select="mixed-citation"/>
+                <a href="#" class="bIcon miniLink" target="_blank">Link</a>
+            </div>
+        </li>
+    </xsl:template>
     <xsl:template match="p//italic" mode="HTML-TEXT">
         <xsl:param name="parag_id"/>
         <em>
@@ -467,7 +488,8 @@
     <xsl:template match="sec/title" mode="HTML-TEXT">
         <xsl:choose>
             <xsl:when test="../@sec-type">
-                <h1 id="{../@sec-type}">
+                <h1>
+                    <xsl:attribute name="id"><xsl:value-of select="translate(../@sec-type,'|', '-')"></xsl:value-of></xsl:attribute>
                     <xsl:apply-templates select="." mode="DATA-DISPLAY"/>
                 </h1>
             </xsl:when>
@@ -631,7 +653,8 @@
                                     <xsl:apply-templates select="." mode="DATA-issue-label"/>
                                 </strong>
                                 <span class="title">
-                                    <xsl:apply-templates select="." mode="DATA-DISPLAY-article-title"/>
+                                    <xsl:apply-templates select="."
+                                        mode="DATA-DISPLAY-article-title"/>
                                 </span>
                                 <span class="author">
                                     <xsl:apply-templates select=".//front//contrib"
@@ -644,9 +667,9 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="span6">
-                        <xsl:apply-templates select="." mode="HTML-FLOAT-SECTIONS"/>
-                        <xsl:apply-templates select="." mode="HTML-FLOAT-toolbox"></xsl:apply-templates>
+                    <div class="span6"> <xsl:apply-templates select="."
+                            mode="HTML-FLOAT-SECTIONS"/>
+                        <xsl:apply-templates select="." mode="HTML-FLOAT-toolbox"/>
                         <xsl:apply-templates select="." mode="HTML-CONTRAST"/>
                         <a href="#top" class="main gIcon top goto" title="Go to top">Top</a>
                         <!-- TRANSLATE -->
@@ -730,8 +753,8 @@
     </xsl:template>
     <xsl:template match="*" mode="HTML-FLOAT-RELATED">
         <div class="drop-container">
-            <a href="javascript:void(0);" class="main gIcon related"
-                title="Related links">Related links</a>
+            <a href="javascript:void(0);" class="main gIcon related" title="Related links">Related
+                links</a>
             <ul class="drop menu">
                 <!--
 								<li>
@@ -750,28 +773,25 @@
         <!-- FIXME -->
         <a
             href="http://www.scielo.br/scielo.php?script=sci_pdf&amp;pid=S0100-879X2013000100058&amp;lng=en&amp;nrm=iso&amp;tlng=en"
-            class="main gIcon pdf" title="Article in PDF" target="_blank">Article in
-            PDF</a>
+            class="main gIcon pdf" title="Article in PDF" target="_blank">Article in PDF</a>
         <a
             href="http://www.scielo.br/scieloOrg/php/articleXML.php?pid=S0100-879X2013000100058&amp;lang=en"
-            class="main gIcon xml" title="Article in XML" target="_blank">Article in
-            XML</a>
+            class="main gIcon xml" title="Article in XML" target="_blank">Article in XML</a>
         <a
             href="http://www.scielo.br/scieloOrg/php/reference.php?pid=S0100-879X2013000100058&amp;caller=www.scielo.br&amp;lang=en"
-            class="main gIcon refs iframeModal" title="Article references">Article
-            references</a>
+            class="main gIcon refs iframeModal" title="Article references">Article references</a>
         <a
             href="http://www.scielo.br/scieloOrg/php/translate.php?pid=S0100-879X2013000100058&amp;caller=www.scielo.br&amp;lang=en&amp;tlang=en&amp;script=sci_arttext"
-            class="main gIcon translate iframeModal" title="Article translate"
-            >Automatic translation</a>
+            class="main gIcon translate iframeModal" title="Article translate">Automatic
+            translation</a>
         <a
             href="http://www.scielo.br/applications/scielo-org/pages/services/sendMail.php?pid=S0100-879X2013000100058&amp;caller=www.scielo.br&amp;lang=en"
-            class="main gIcon send iframeModal" title="Send this article by email"
-            >Send this article by email</a>
-        
+            class="main gIcon send iframeModal" title="Send this article by email">Send this article
+            by email</a>
+
         <div class="drop-container social">
-            <a href="javascript:void(0);" class="main gIcon social"
-                title="Share this article">Share this article<!-- TRANSLATE --></a>
+            <a href="javascript:void(0);" class="main gIcon social" title="Share this article">Share
+                this article<!-- TRANSLATE --></a>
             <ul class="drop menu">
                 <li>
                     <a href="#">Link</a>
