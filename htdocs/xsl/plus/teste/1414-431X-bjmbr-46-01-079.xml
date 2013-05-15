@@ -1,0 +1,905 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE article PUBLIC "-//NLM//DTD Journal Publishing DTD v3.0 20080202//EN" "/bases/xml.000/xmlproc/pmc/v3.0/dtd/journalpublishing3.dtd">
+<article article-type="research-article" dtd-version="3.0" xml:lang="en" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML">
+	<front>
+		<journal-meta>
+			<journal-id journal-id-type="nlm-ta">Braz J Med Biol Res</journal-id>
+			<journal-title-group>
+				<journal-title>Brazilian Journal of Medical and Biological Research</journal-title>
+				<abbrev-journal-title abbrev-type="publisher">Braz. J. Med. Biol. Res.</abbrev-journal-title>
+			</journal-title-group>
+			<issn pub-type="epub">1414-431X</issn>
+			<publisher>
+				<publisher-name>Associação Brasileira de Divulgação Científica</publisher-name>
+			</publisher>
+		</journal-meta>
+		<article-meta>
+			<article-id pub-id-type="doi">10.1590/1414-431X20122451</article-id>
+			<article-categories>
+				<subj-group subj-group-type="heading">
+					<subject>Clinical Investigation</subject>
+				</subj-group>
+			</article-categories>
+			<title-group>
+				<article-title xml:lang="en">
+					<italic>CHRNA5</italic> polymorphism and susceptibility to lung cancer in a Chinese population</article-title>
+			</title-group>
+			<contrib-group>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Shen</surname>
+						<given-names>Bo</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff1">1</xref>
+					<xref ref-type="author-notes" rid="fn01">*</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Zhu</surname>
+						<given-names>Qun</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff2">2</xref>
+					<xref ref-type="author-notes" rid="fn01">*</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Zheng</surname>
+						<given-names>Ma-Qing</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff3">3</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Chen</surname>
+						<given-names>Jia</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff1">1</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Shi</surname>
+						<given-names>Mei-Qi</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff1">1</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Feng</surname>
+						<given-names>Ji-Feng</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff1">1</xref>
+				</contrib>
+				<aff id="aff1">
+					<label>1</label>
+					<institution content-type="orgname">Jiangsu Cancer Hospital</institution>
+					<institution content-type="orgdiv1">Department of Medical Oncology</institution>
+					<addr-line>
+						<named-content content-type="city">Nanjing, Jiangsu Province</named-content>
+					</addr-line>, <country>China</country>
+				</aff>
+				<aff id="aff2">
+					<label>2</label>
+					<institution content-type="orgname">Second Affiliated Hospital, Nanjing Medical University</institution>
+					<institution content-type="orgdiv1">Department of Endocrinology</institution>
+					<addr-line>
+						<named-content content-type="city">Nanjing, Jiangsu Province</named-content>
+					</addr-line>, <country>China</country>
+				</aff>
+				<aff id="aff3">
+					<label>3</label>
+					<institution content-type="orgname">College of Pharmacy, Nanjing University of Technology</institution>
+					<addr-line>
+						<named-content content-type="state">Nanjing, Jiangsu Province</named-content>
+					</addr-line>, <country>China</country>
+				</aff>
+			</contrib-group>
+			<author-notes>
+				<corresp>Correspondence: Ji-Feng Feng, Department of Medical Oncology, Jiangsu Cancer Hospital, No. 42 Baizi ting, Nanjing 210009, Jiangsu Province, China, E-mail: <email>fengjf0518@126.com</email>
+				</corresp>
+				<fn id="fn01">
+					<label>*</label>
+					<p>These authors contributed equally to this study.</p>
+				</fn>
+			</author-notes>
+			<pub-date pub-type="epub">
+				<day>11</day>
+				<month>01</month>
+				<year>2013</year>
+			</pub-date>
+			<pub-date pub-type="collection">
+				<month>01</month>
+				<year>2013</year>
+			</pub-date>
+			<volume>46</volume>
+			<issue>1</issue>
+			<fpage>79</fpage>
+			<lpage>84</lpage>
+			<history>
+				<date date-type="received">
+					<day>24</day>
+					<month>06</month>
+					<year>2012</year>
+				</date>
+				<date date-type="accepted">
+					<day>26</day>
+					<month>10</month>
+					<year>2012</year>
+				</date>
+			</history>
+			<permissions>
+				<license license-type="open-access" xlink:href="http://creativecommons.org/licenses/by-nc/3.0/">
+					<license-p>This is an Open Access article distributed under the terms of the Creative Commons Attribution Non-Commercial License, which permits unrestricted non-commercial use, distribution, and reproduction in any medium, provided the original work is properly cited.</license-p>
+				</license>
+			</permissions>
+			<abstract xml:lang="en">
+				<p>Polymorphisms in the nicotinic acetylcholine receptor subunit <italic>CHRNA5</italic> gene have been associated with lung cancer positive susceptibility in European and American populations. In the present hospital-based, case-control study, we determined whether polymorphism in rs503464 of <italic>CHRNA5</italic> is associated with lung cancer risk in Chinese individuals. A single nucleotide polymorphism in <italic>CHRNA5</italic> rs503464, c.-166T&gt;A (hereafter T&gt;A), was identified using TaqMan-MGB probes with sequencing via PCR in 600 lung cancer cases and 600 healthy individuals. Genotype frequencies for rs503464 (T&gt;A) were in Hardy-Weinberg equilibrium for the control population. However, genotype frequencies were significantly different between cases and controls (P &lt; 0.05), while allele frequencies were not significantly different between groups. Compared to homozygous genotypes (TT or AA), the risk of lung cancer in those with the heterozygous genotype (TA) was significantly lower (OR = 0.611, 95%CI = 0.486-0.768, P = 0.001). Using genotype AA as a reference, the risk of lung cancer for those with genotype TA was increased 1.5 times (OR = 1.496, 95%CI = 1.120-1.997, P = 0.006). However, no difference in risk was observed between T allele carriers and A allele carriers (OR = 0.914, 95%CI = 0.779-1.073, P = 0.270). Stratification analysis showed that the protective effect of TA was more pronounced in those younger than 60 years, nonsmokers, or those without a family history of cancer, as well as in patients with adenocarcinoma or squamous cell carcinoma in clinical stages III or IV (P &lt; 0.05). Therefore, the heterozygous genotype c.-166T&gt;A at rs503464 of <italic>CHRNA5</italic> may be associated with reduced risk of lung cancer, thus representing a susceptibility allele in Chinese individuals.</p>
+			</abstract>
+			<kwd-group xml:lang="en">
+				<kwd>Lung cancer</kwd>
+				<kwd>Nicotinic acetylcholine receptors</kwd>
+				<kwd>
+					<italic>CHRNA5</italic> gene</kwd>
+				<kwd>Single nucleotide polymorphisms</kwd>
+			</kwd-group>
+			<funding-group>
+				<award-group>
+					<funding-source>Jiangsu Provincial Health Department</funding-source>
+					<award-id>Grant #Z200902</award-id>
+				</award-group>
+			</funding-group>
+			<counts>
+				<fig-count count="0"/>
+				<table-count count="4"/>
+				<ref-count count="19"/>
+				<page-count count="1"/>
+			</counts>
+		</article-meta>
+	</front>
+	<body>
+		<sec sec-type="intro">
+			<title>Introduction</title>
+			<p>Lung cancer, one of the most common malignant tumors, causes the highest number of cancer-related deaths <xref ref-type="bibr" rid="B01">1</xref>. In 2009 in the U.S.A. alone, 219,440 cases were newly diagnosed with lung cancer, and 159,390 deaths resulted from the disease. In China, the numbers are more staggering: in 2004 and 2005, the average numbers of cases of newly developed lung cancer and of lung cancer-related deaths were 483,040 and 420,411, respectively <xref ref-type="bibr" rid="B02">2</xref>. The global threat of this disease marks it as a priority for developing new diagnostic, therapeutic, and prognostic approaches.</p>
+			<p>Lung cancer appears to result from the interaction between genetic susceptibility of the individual and risk factors in the environment; however, its pathogenesis has not been fully elucidated <xref ref-type="bibr" rid="B03">3</xref>. Smoking is the most important risk factor for lung cancer, but individual lung cancer risk caused by genetic susceptibility has become a major research focus <xref ref-type="bibr" rid="B03">3</xref>. Recently, genome-wide association studies of lung cancer conducted in European and American populations by three different research teams have identified that polymorphisms in the acetylcholine receptor subunit can confer genetic susceptibility to lung cancer <xref ref-type="bibr" rid="B04"/>
+				<xref ref-type="bibr" rid="B05"/>
+				<xref ref-type="bibr" rid="B06">4-6</xref>. Acetylcholine receptors can bind to tobacco carcinogens, such as nicotine and nitrosamines, in the body. Subsequently, activated nicotinic acetylcholine receptors can promote tumorigenic conversion of cells, angiogenesis, and cell growth, thereby contributing to tumor development <xref ref-type="bibr" rid="B07">7</xref>. Among the identified loci of lung cancer susceptibility, polymorphisms in the nicotinic acetylcholine receptor gene <italic>CHRNA5</italic>, including rs16969968 and rs503464, are closely associated with lung cancer <xref ref-type="bibr" rid="B08"/>
+				<xref ref-type="bibr" rid="B09"/>
+				<xref ref-type="bibr" rid="B10">8-10</xref>. Indeed, these variants influence nicotine addiction and correlate with cancer risk through increased smoking <xref ref-type="bibr" rid="B11">11</xref>. The rs503464 variant (T>A) appears to affect transcription of <italic>CHRNA5</italic>, offering a potential mechanism for its association with cancer <xref ref-type="bibr" rid="B12">12</xref>. However, association studies have focused solely on European and American populations. Moreover, one polymorphism identified in those studies, rs16969968, occurs less frequently and is not correlated with the occurrence of lung cancer in Asian populations <xref ref-type="bibr" rid="B10">10</xref>. Therefore, in this study a possible association between the <italic>CHRNA5</italic> polymorphism rs503464 and lung cancer was investigated using a case-control population of Chinese individuals to determine the relationship between the <italic>CHRNA5</italic> polymorphism and genetic susceptibility to lung cancer in China.</p>
+		</sec>
+		<sec sec-type="materials|methods">
+			<title>Material and Methods</title>
+			<sec>
+				<title>Participants</title>
+				<p>Samples from cases of primary lung cancer (n = 600) were collected from Jiangsu Cancer Hospital of Nanjing city from January 2008 to February 2011. Another 600 healthy individuals, 444 men and 156 women, who received physical examination at our hospital were selected for a control group. All patients and controls were of the Chinese Han population. Lung cancer patients were included in the study only if they had been diagnosed according to the guidelines of Diagnostic and Treatment Practices of Primary Lung Cancer by the Ministry of Health of the People's Republic of China in 2011 and had no other tumor history. There were 213 cases with adenocarcinoma, 208 with squamous cell carcinoma, 26 with large cell carcinoma, 74 with small cell carcinoma, and 79 cases with other pathological types. Eighty cases were in clinical stage I, 53 were in stage II, 203 in stage III, and 264 in stage IV. Subjects in the two groups were matched for age and gender. Written informed consent was obtained from all participants in this study, or from their family members. The study was approved by the Ethics Committee of the Jiangsu Cancer Hospital.</p>
+			</sec>
+			<sec>
+				<title>Epidemiological survey</title>
+				<p>Participants responded to an epidemiological survey, which included questions regarding age, gender, individual history of occupational exposure, medical history, family history of cancer, and diet/nutrition status. Smoking status included smoking or non-smoking, daily number of cigarettes, years of smoking, and smoking status of the surrounding population. Nonsmokers were defined as those who smoked less than one cigarette per day, and the cumulative smoking period throughout their life was less than 1 year; all others were considered to be smokers. Those who had quit smoking for more than 1 year were considered to be quitters, i.e., nonsmokers.</p>
+			</sec>
+			<sec>
+				<title>Genotyping</title>
+				<p>DNA extraction. Five milliliters of peripheral venous blood was collected from each participant into tubes containing sodium heparin anticoagulant. Genomic DNA was extracted from 2 mL peripheral blood using 0.1-20 mL blood genomic DNA extraction system (DP319-01, Tiangen Biochemical Science and Technology, China) according to manufacturer instructions.</p>
+				<p>Genotyping. The SNP database (<ext-link ext-link-type="uri" xlink:href="http://www.ncbi.nlm.nih.gov/snp">http://www.ncbi.nlm.nih.gov/snp</ext-link>) was used to determine genome sequences at the <italic>CHRNA5</italic> rs503464 (c.-166T>A; hereafter &#8220;T>A&#8221;) locus. TaqMan-MGB probes (Applied Biosystems, USA) were used for sequencing to detect rs503464 (T>A) genotypes in <italic>CHRNA5</italic>. Genotype results were independently observed by two experimenters and then entered into the computer.</p>
+			</sec>
+			<sec>
+				<title>Statistical analysis</title>
+				<p>The SPSS17.0 statistical software was used for statistical analysis. The two-sample <italic>t</italic>-test was used to compare age between the two groups, and the X<sup>2</sup> test to compare gender, smoking, family history of cancer, and genotype and allele frequencies between the two groups. The correlation between polymorphisms and lung cancer risk was analyzed by the odds ratio (OR) and its 95% confidence interval (CI) obtained by unconditional logistic regression analysis. P &lt; 0.05 was considered to be statistically significant.</p>
+			</sec>
+		</sec>
+		<sec sec-type="results">
+			<title>Results</title>
+			<sec>
+				<title>Participant characteristics</title>
+				<p>The study was conducted on 600 healthy individuals in the control group and 600 patients with lung cancer. The distributions of age, gender, smoking status, and family history of cancer are reported in <xref ref-type="table" rid="t01">Table 1</xref>. The mean age of the individuals was 59.9 &#177; 5.3 years for cases and 60.4 &#177; 5.4 years for controls. Lung cancer more commonly affects males, and the male:female ratio in each group was approximately 3:1. The proportion of smokers was higher in the patient group than in the control group (58.7 <italic>vs</italic> 48.7%, respectively). Statistical analysis indicated no significant difference in age, gender, or family history of cancer between the patient group and the control group, but the difference in smoking history was statistically significant between the two groups (P &lt; 0.05).</p>
+				<p>
+					<table-wrap id="t01">
+						<label>Table 1</label>
+						<caption>
+							<title>Comparison of the basic characteristics of the patient and control groups.</title>
+						</caption>
+						<graphic mimetype="image" xlink:href="1414-431X-bjmbr-46-01-079-gt01"/>
+						<table-wrap-foot>
+							<fn id="TFN01t01">
+								<p>The two-sample <italic>t</italic>-test was used to compare age between the two groups and the X<sup>2</sup> test was used for all other variables.</p>
+							</fn>
+						</table-wrap-foot>
+					</table-wrap>
+				</p>
+			</sec>
+			<sec>
+				<title>Genotype and allele frequencies</title>
+				<p>Genotypes and alleles for rs503464 were in Hardy-Weinberg equilibrium in the control population (P &lt; 0.05). However, the difference in genotype frequencies was statistically significant between the patient group and the control group (P &lt; 0.05; <xref ref-type="table" rid="t02">Table 2</xref>). Using genotype TT as a reference, the risk of lung cancer for those with genotype TA was reduced by 43.7% (OR = 0.563, 95%CI = 0.425-0.745, P = 0.001), while genotype AA did not affect the risk of lung cancer (OR = 0.841, 95%CI = 0.600-1.181, P = 0.318). Using genotype AA as a reference, the risk of lung cancer for those with genotype TA was increased by 1.5 times (OR = 1.496, 95%CI = 1.120-1.997, P = 0.006), while genotype TT did not affect the risk of lung cancer (OR = 0.841, 95%CI = 0.600-1.181, P = 0.318). Using homozygous genotypes (TT and AA) as a reference, the risk of lung cancer for those with the heterozygous genotype (TA) was reduced by 38.9% (OR = 0.611, 95%CI = 0.486-0.768, P = 0.001). No statistically significant difference in allele frequency was observed between the two groups; compared to the T allele, having the A allele did not change the risk of lung cancer (OR = 0.914, 95%CI = 0.779-1.073, P = 0.270).</p>
+				<p>
+					<table-wrap id="t02">
+						<label>Table 2</label>
+						<caption>
+							<title>Comparison of genotype and allele frequency between patients and controls.</title>
+						</caption>
+						<graphic mimetype="image" xlink:href="1414-431X-bjmbr-46-01-079-gt02"/>
+						<table-wrap-foot>
+							<fn id="TFN01t02">
+								<p>Data are reported as number with percent in parentheses. Unconditional multiple logistic regression was used for statistical analysis.</p>
+							</fn>
+						</table-wrap-foot>
+					</table-wrap>
+				</p>
+			</sec>
+			<sec>
+				<title>Genotype frequency and lung cancer susceptibility</title>
+				<p>Stratified analyses were performed according to age, gender, smoking status, and family history of cancer (<xref ref-type="table" rid="t03">Table 3</xref>). Results revealed that, among those &#8804;60 years old, the heterozygous genotype TA significantly reduced the risk of lung cancer (OR = 0.469, 95%CI = 0.337-0.654) compared to the homozygous genotypes (TT and AA). The heterozygous genotype TA had a protective effect among both males and females (males, OR = 0.703, 95%CI = 0.541-0.913; females, OR = 0.394, 95%CI = 0.244-0.635). Similarly, among nonsmokers and those without a family history of cancer, the heterozygous genotype TA also had a protective effect (nonsmokers, OR = 0.424, 95%CI = 0.300-0.600; no family history, OR = 0.623, 95%CI = 0.489-0.795). However, among those >60 years old, smokers, and those with a family history of cancer, the heterozygous genotype TA had no protective effect.</p>
+				<p>
+					<table-wrap id="t03">
+						<label>Table 3</label>
+						<caption>
+							<title>Association between genotype frequency and risk of lung cancer.</title>
+						</caption>
+						<graphic mimetype="image" xlink:href="1414-431X-bjmbr-46-01-079-gt03"/>
+						<table-wrap-foot>
+							<fn id="TFN01t03">
+								<p>Data are reported as number with percent in parentheses. Unconditional multiple logistic regression was used for statistical analysis.</p>
+							</fn>
+						</table-wrap-foot>
+					</table-wrap>
+				</p>
+			</sec>
+			<sec>
+				<title>Genotype frequency according to tumor characteristics</title>
+				<p>Stratified analyses were performed for the association between genotype frequency and tumor characteristics, specifically pathological type and clinical stage. The risk of lung adenocarcinoma (OR = 0.611, 95%CI = 0.446-0.837, P = 0.002) and lung squamous cell carcinoma (OR = 0.571, 95%CI = 0.415-0.784, P = 0.001) for those with the heterozygous genotype (TA) were lower than for those with homozygous genotypes (TT and AA), but no significant difference was observed in large cell carcinoma, small cell carcinoma, or other pathological types. Compared to patients with homozygous genotypes (TT and AA), patients with the heterozygous genotype (TA) had a lower risk in clinical stage III (OR = 0.541, 95%CI = 0.392-0.746, P = 0.001) and IV (OR = 0.596, 95%CI = 0.445-0.798, P = 0.001), but no significant differences were observed for stages I and II (<xref ref-type="table" rid="t04">Table 4</xref>).</p>
+				<p>
+					<table-wrap id="t04">
+						<label>Table 4</label>
+						<caption>
+							<title>Association between genotype frequency and type of pathology and clinical stage.</title>
+						</caption>
+						<graphic mimetype="image" xlink:href="1414-431X-bjmbr-46-01-079-gt04"/>
+						<table-wrap-foot>
+							<fn id="TFN01t04">
+								<p>Data are reported as number with percent in parentheses. Unconditional multiple logistic regression was used for statistical analysis.</p>
+							</fn>
+						</table-wrap-foot>
+					</table-wrap>
+				</p>
+			</sec>
+		</sec>
+		<sec>
+			<title>Discussion</title>
+			<p>Smoking is the major environmental risk factor for lung cancer because cigarettes contain strong carcinogens such as empyreumatic oil and benzo(a)pyrene <xref ref-type="bibr" rid="B13">13</xref>. These substances induce activation of cancer-related signaling pathways by binding the corresponding receptors or by metabolism in the body. It is unknown whether tobacco, a main component of cigarettes, can cause cancer directly, but, because tobacco contains the addictive substance nicotine, smokers are susceptible to high exposures to tobacco and the carcinogens in cigarettes <xref ref-type="bibr" rid="B14">14</xref>.</p>
+			<p>Nicotine is an alkaloid that is transported in the body through specific nicotine receptors. Nicotinic receptors can activate Akt molecular channels following stimulation with nicotine to prevent cancer cells and other abnormal cells from escaping programmed cell death, thereby promoting tumorigenesis <xref ref-type="bibr" rid="B15">15</xref>. The nicotinic acetylcholine receptor subunit A family (<italic>CHRNA</italic>) encodes receptors that are activated upon nicotine binding. Indeed, they are expressed in the core region of the brain that is closely related to nicotine addiction <xref ref-type="bibr" rid="B10"/>
+				<xref ref-type="bibr" rid="B16">10,16</xref>. Receptors distributed in lung epithelial cells are involved in signal transduction of nicotine and tobacco carcinogens and can promote cell proliferation and metastasis of cancer cells <xref ref-type="bibr" rid="B17"/>
+				<xref ref-type="bibr" rid="B18"/>
+				<xref ref-type="bibr" rid="B19">17-19</xref>. Previous research on two of the genes in this family, <italic>CHRNA5</italic> and <italic>CHRNA3</italic>, demonstrated associations of polymorphisms in these genes with lung cancer susceptibility in smokers <xref ref-type="bibr" rid="B09">9</xref>. Specifically, one study of rs503464 suggested that the heterozygous TA genotype may lead to an allelic expression imbalance that alters gene activity <xref ref-type="bibr" rid="B12">12</xref>.</p>
+			<p>In the present case-control study of 600 patients with lung cancer and 600 healthy controls, a significant difference in distribution of rs503464 (c.-166T>A) genotype frequency for <italic>CHRNA5</italic> was observed between groups, but no statistically significant difference was observed in allele frequency. Compared to individuals with a homozygous genotype (TT or AA), those exhibiting the heterozygous genotype TA had a reduced risk of lung cancer, indicating that polymorphisms in this locus are associated with lung cancer risk. Furthermore, stratified analyses showed that the heterozygous genotype TA was protective for those &lt;60 years of age, nonsmokers, and those without a family history of cancer. Thus, rs503464 of <italic>CHRNA5</italic> may be a susceptibility locus for lung cancer in Chinese individuals. Specifically, the heterozygous genotype TA appears to confer a reduced risk of lung cancer, especially for younger individuals, nonsmokers, and those without a family history of cancer, as well as patients with adenocarcinoma or squamous cell carcinoma or in clinical stages III or IV. It is possible that, as previously suggested <xref ref-type="bibr" rid="B12">12</xref>, the heterozygous genotype TA results in allelic expression imbalance that influences gene transcription or activity. Further experimental exploration is necessary to identify mechanisms by which polymorphism in this locus controls the expression of <italic>CHRNA5</italic> and contributes to the pathogenesis of lung cancer.</p>
+		</sec>
+	</body>
+	<back>
+		<ack>
+			<p>Research supported by Jiangsu Provincial Health Department (Grant #Z200902).</p>
+		</ack>
+		<ref-list>
+			<title>References</title>
+			<ref id="B01">
+				<label>1</label>
+				<mixed-citation>1. Jemal A, Siegel R, Ward E, Hao Y, Xu J, Thun MJ. Cancer statistics, 2009. CA Cancer J Clin 2009; 59: 225-249, doi: 10.3322/caac.20006.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Jemal</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Siegel</surname>
+							<given-names>R</given-names>
+						</name>
+						<name>
+							<surname>Ward</surname>
+							<given-names>E</given-names>
+						</name>
+						<name>
+							<surname>Hao</surname>
+							<given-names>Y</given-names>
+						</name>
+						<name>
+							<surname>Xu</surname>
+							<given-names>J</given-names>
+						</name>
+						<name>
+							<surname>Thun</surname>
+							<given-names>MJ</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Cancer statistics, 2009</article-title>
+					<source xml:lang="en">CA Cancer J Clin</source>
+					<year>2009</year>
+					<volume>59</volume>
+					<fpage>225</fpage>
+					<lpage>249</lpage>
+					<comment>doi:10.3322/caac.20006</comment>
+				</element-citation>
+			</ref>
+			<ref id="B02">
+				<label>2</label>
+				<mixed-citation>2. Chen WQ. [Estimation of cancer incidence and mortality in China in 2004-2005]. Zhonghua Zhong Liu Za Zhi 2009; 31: 664-668.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Chen</surname>
+							<given-names>WQ</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">[Estimation of cancer incidence and mortality in China in 2004-2005]</article-title>
+					<source xml:lang="en">Zhonghua Zhong Liu Za Zhi</source>
+					<year>2009</year>
+					<volume>31</volume>
+					<fpage>664</fpage>
+					<lpage>668</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B03">
+				<label>3</label>
+				<mixed-citation>3. Shields PG. Molecular epidemiology of smoking and lung cancer. Oncogene 2002; 21: 6870-6876, doi: 10.1038/sj.onc.1205832.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Shields</surname>
+							<given-names>PG</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Molecular epidemiology of smoking and lung cancer</article-title>
+					<source xml:lang="en">Oncogene</source>
+					<year>2002</year>
+					<volume>21</volume>
+					<fpage>6870</fpage>
+					<lpage>6876</lpage>
+					<comment>doi:10.1038/sj.onc.1205832</comment>
+				</element-citation>
+			</ref>
+			<ref id="B04">
+				<label>4</label>
+				<mixed-citation>4. Thorgeirsson TE, Geller F, Sulem P, Rafnar T, Wiste A, Magnusson KP, et al. A variant associated with nicotine dependence, lung cancer and peripheral arterial disease. Nature 2008; 452: 638-642, doi: 10.1038/nature06846.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Thorgeirsson</surname>
+							<given-names>TE</given-names>
+						</name>
+						<name>
+							<surname>Geller</surname>
+							<given-names>F</given-names>
+						</name>
+						<name>
+							<surname>Sulem</surname>
+							<given-names>P</given-names>
+						</name>
+						<name>
+							<surname>Rafnar</surname>
+							<given-names>T</given-names>
+						</name>
+						<name>
+							<surname>Wiste</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Magnusson</surname>
+							<given-names>KP</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">A variant associated with nicotine dependence, lung cancer and peripheral arterial disease</article-title>
+					<source xml:lang="en">Nature</source>
+					<year>2008</year>
+					<volume>452</volume>
+					<fpage>638</fpage>
+					<lpage>642</lpage>
+					<comment>doi:10.1038/nature06846</comment>
+				</element-citation>
+			</ref>
+			<ref id="B05">
+				<label>5</label>
+				<mixed-citation>5. Yokota J, Shiraishi K, Kohno T. Genetic basis for susceptibility to lung cancer: Recent progress and future directions. Adv Cancer Res 2010; 109: 51-72, doi: 10.1016/B978-0-12-380890-5.00002-8.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Yokota</surname>
+							<given-names>J</given-names>
+						</name>
+						<name>
+							<surname>Shiraishi</surname>
+							<given-names>K</given-names>
+						</name>
+						<name>
+							<surname>Kohno</surname>
+							<given-names>T</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Genetic basis for susceptibility to lung cancer: Recent progress and future directions</article-title>
+					<source xml:lang="en">Adv Cancer Res</source>
+					<year>2010</year>
+					<volume>109</volume>
+					<fpage>51</fpage>
+					<lpage>72</lpage>
+					<comment>doi:10.1016/B978-0-12-380890-5.00002-8</comment>
+				</element-citation>
+			</ref>
+			<ref id="B06">
+				<label>6</label>
+				<mixed-citation>6. Amos CI, Wu X, Broderick P, Gorlov IP, Gu J, Eisen T, et al. Genome-wide association scan of tag SNPs identifies a susceptibility locus for lung cancer at 15q25.1. Nat Genet 2008; 40: 616-622, doi: 10.1038/ng.109.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Amos</surname>
+							<given-names>CI</given-names>
+						</name>
+						<name>
+							<surname>Wu</surname>
+							<given-names>X</given-names>
+						</name>
+						<name>
+							<surname>Broderick</surname>
+							<given-names>P</given-names>
+						</name>
+						<name>
+							<surname>Gorlov</surname>
+							<given-names>IP</given-names>
+						</name>
+						<name>
+							<surname>Gu</surname>
+							<given-names>J</given-names>
+						</name>
+						<name>
+							<surname>Eisen</surname>
+							<given-names>T</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">Genome-wide association scan of tag SNPs identifies a susceptibility locus for lung cancer at 15q25.1</article-title>
+					<source xml:lang="en">Nat Genet</source>
+					<year>2008</year>
+					<volume>40</volume>
+					<fpage>616</fpage>
+					<lpage>622</lpage>
+					<comment>doi:10.1038/ng.109</comment>
+				</element-citation>
+			</ref>
+			<ref id="B07">
+				<label>7</label>
+				<mixed-citation>7. Hung RJ, McKay JD, Gaborieau V, Boffetta P, Hashibe M, Zaridze D, et al. A susceptibility locus for lung cancer maps to nicotinic acetylcholine receptor subunit genes on 15q25. Nature 2008; 452: 633-637, doi: 10.1038/nature06885.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Hung</surname>
+							<given-names>RJ</given-names>
+						</name>
+						<name>
+							<surname>McKay</surname>
+							<given-names>JD</given-names>
+						</name>
+						<name>
+							<surname>Gaborieau</surname>
+							<given-names>V</given-names>
+						</name>
+						<name>
+							<surname>Boffetta</surname>
+							<given-names>P</given-names>
+						</name>
+						<name>
+							<surname>Hashibe</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Zaridze</surname>
+							<given-names>D</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">A susceptibility locus for lung cancer maps to nicotinic acetylcholine receptor subunit genes on 15q25</article-title>
+					<source xml:lang="en">Nature</source>
+					<year>2008</year>
+					<volume>452</volume>
+					<fpage>633</fpage>
+					<lpage>637</lpage>
+					<comment>doi:10.1038/nature06885</comment>
+				</element-citation>
+			</ref>
+			<ref id="B08">
+				<label>8</label>
+				<mixed-citation>8. Wojas-Krawczyk K, Krawczyk P, Biernacka B, Grzybek M, Kolodziej P, Kucharczyk T, et al. The polymorphism of the CHRNA5 gene and the strength of nicotine addiction in lung cancer and COPD patients. Eur J Cancer Prev 2012; 21: 111-117, doi: 10.1097/CEJ.0b013e32834c9b40.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Wojas-Krawczyk</surname>
+							<given-names>K</given-names>
+						</name>
+						<name>
+							<surname>Krawczyk</surname>
+							<given-names>P</given-names>
+						</name>
+						<name>
+							<surname>Biernacka</surname>
+							<given-names>B</given-names>
+						</name>
+						<name>
+							<surname>Grzybek</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Kolodziej</surname>
+							<given-names>P</given-names>
+						</name>
+						<name>
+							<surname>Kucharczyk</surname>
+							<given-names>T</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">The polymorphism of the CHRNA5 gene and the strength of nicotine addiction in lung cancer and COPD patients</article-title>
+					<source xml:lang="en">Eur J Cancer Prev</source>
+					<year>2012</year>
+					<volume>21</volume>
+					<fpage>111</fpage>
+					<lpage>117</lpage>
+					<comment>doi:10.1097/CEJ.0b013e32834c9b40</comment>
+				</element-citation>
+			</ref>
+			<ref id="B09">
+				<label>9</label>
+				<mixed-citation>9. Le Marchand L, Derby KS, Murphy SE, Hecht SS, Hatsukami D, Carmella SG, et al. Smokers with the CHRNA lung cancer-associated variants are exposed to higher levels of nicotine equivalents and a carcinogenic tobacco-specific nitrosamine. Cancer Res 2008; 68: 9137-9140, doi: 10.1158/0008-5472.CAN-08-2271.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Le Marchand</surname>
+							<given-names>L</given-names>
+						</name>
+						<name>
+							<surname>Derby</surname>
+							<given-names>KS</given-names>
+						</name>
+						<name>
+							<surname>Murphy</surname>
+							<given-names>SE</given-names>
+						</name>
+						<name>
+							<surname>Hecht</surname>
+							<given-names>SS</given-names>
+						</name>
+						<name>
+							<surname>Hatsukami</surname>
+							<given-names>D</given-names>
+						</name>
+						<name>
+							<surname>Carmella</surname>
+							<given-names>SG</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">Smokers with the CHRNA lung cancer-associated variants are exposed to higher levels of nicotine equivalents and a carcinogenic tobacco-specific nitrosamine</article-title>
+					<source xml:lang="en">Cancer Res</source>
+					<year>2008</year>
+					<volume>68</volume>
+					<fpage>9137</fpage>
+					<lpage>9140</lpage>
+					<comment>doi:10.1158/0008-5472.CAN-08-2271</comment>
+				</element-citation>
+			</ref>
+			<ref id="B10">
+				<label>10</label>
+				<mixed-citation>10. Saccone SF, Hinrichs AL, Saccone NL, Chase GA, Konvicka K, Madden PA, et al. Cholinergic nicotinic receptor genes implicated in a nicotine dependence association study targeting 348 candidate genes with 3713 SNPs. Hum Mol Genet 2007; 16: 36-49, doi: 10.1093/hmg/ddl438.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Saccone</surname>
+							<given-names>SF</given-names>
+						</name>
+						<name>
+							<surname>Hinrichs</surname>
+							<given-names>AL</given-names>
+						</name>
+						<name>
+							<surname>Saccone</surname>
+							<given-names>NL</given-names>
+						</name>
+						<name>
+							<surname>Chase</surname>
+							<given-names>GA</given-names>
+						</name>
+						<name>
+							<surname>Konvicka</surname>
+							<given-names>K</given-names>
+						</name>
+						<name>
+							<surname>Madden</surname>
+							<given-names>PA</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">Cholinergic nicotinic receptor genes implicated in a nicotine dependence association study targeting 348 candidate genes with 3713 SNPs</article-title>
+					<source xml:lang="en">Hum Mol Genet</source>
+					<year>2007</year>
+					<volume>16</volume>
+					<fpage>36</fpage>
+					<lpage>49</lpage>
+					<comment>doi:10.1093/hmg/ddl438</comment>
+				</element-citation>
+			</ref>
+			<ref id="B11">
+				<label>11</label>
+				<mixed-citation>11. Chen LS, Saccone NL, Culverhouse RC, Bracci PM, Chen CH, Dueker N, et al. Smoking and genetic risk variation across populations of European, Asian, and African American ancestry - a meta-analysis of chromosome 15q25. Genet Epidemiol 2012; 36: 340-351, doi: 10.1002/gepi.21627.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Chen</surname>
+							<given-names>LS</given-names>
+						</name>
+						<name>
+							<surname>Saccone</surname>
+							<given-names>NL</given-names>
+						</name>
+						<name>
+							<surname>Culverhouse</surname>
+							<given-names>RC</given-names>
+						</name>
+						<name>
+							<surname>Bracci</surname>
+							<given-names>PM</given-names>
+						</name>
+						<name>
+							<surname>Chen</surname>
+							<given-names>CH</given-names>
+						</name>
+						<name>
+							<surname>Dueker</surname>
+							<given-names>N</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">Smoking and genetic risk variation across populations of European, Asian, and African American ancestry - a meta-analysis of chromosome 15q25</article-title>
+					<source xml:lang="en">Genet Epidemiol</source>
+					<year>2012</year>
+					<volume>36</volume>
+					<fpage>340</fpage>
+					<lpage>351</lpage>
+					<comment>doi:10.1002/gepi.21627</comment>
+				</element-citation>
+			</ref>
+			<ref id="B12">
+				<label>12</label>
+				<mixed-citation>12. Doyle GA, Wang MJ, Chou AD, Oleynick JU, Arnold SE, Buono RJ, et al. <italic>In vitro</italic> and <italic>ex vivo</italic> analysis of CHRNA3 and CHRNA5 haplotype expression. PLoS One2011; 6: e23373, doi: 10.1371/journal.pone.0023373.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Doyle</surname>
+							<given-names>GA</given-names>
+						</name>
+						<name>
+							<surname>Wang</surname>
+							<given-names>MJ</given-names>
+						</name>
+						<name>
+							<surname>Chou</surname>
+							<given-names>AD</given-names>
+						</name>
+						<name>
+							<surname>Oleynick</surname>
+							<given-names>JU</given-names>
+						</name>
+						<name>
+							<surname>Arnold</surname>
+							<given-names>SE</given-names>
+						</name>
+						<name>
+							<surname>Buono</surname>
+							<given-names>RJ</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">
+						<italic>In vitro</italic> and <italic>ex vivo</italic> analysis of CHRNA3 and CHRNA5 haplotype expression</article-title>
+					<source xml:lang="en">PLoS One</source>
+					<year>2011</year>
+					<volume>6</volume>
+					<fpage>e23373</fpage>
+					<comment>doi:10.1371/journal.pone.0023373</comment>
+				</element-citation>
+			</ref>
+			<ref id="B13">
+				<label>13</label>
+				<mixed-citation>13. Starek A, Podolak I. [Carcinogenic effect of tobacco smoke]. Rocz Panstw Zakl Hig 2009; 60: 299-310.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Starek</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Podolak</surname>
+							<given-names>I</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">[Carcinogenic effect of tobacco smoke]</article-title>
+					<source xml:lang="en">Rocz Panstw Zakl Hig</source>
+					<year>2009</year>
+					<volume>60</volume>
+					<fpage>299</fpage>
+					<lpage>310</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B14">
+				<label>14</label>
+				<mixed-citation>14. Wall JR. Treatment of a habitual smoker using nicotine gum: a case report. Va Dent J 1996; 73: 17-19.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Wall</surname>
+							<given-names>JR</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Treatment of a habitual smoker using nicotine gum: a case report</article-title>
+					<source xml:lang="en">Va Dent J</source>
+					<year>1996</year>
+					<volume>73</volume>
+					<fpage>17</fpage>
+					<lpage>19</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B15">
+				<label>15</label>
+				<mixed-citation>15. West KA, Brognard J, Clark AS, Linnoila IR, Yang X, Swain SM, et al. Rapid Akt activation by nicotine and a tobacco carcinogen modulates the phenotype of normal human airway epithelial cells. J Clin Invest 2003; 111: 81-90.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>West</surname>
+							<given-names>KA</given-names>
+						</name>
+						<name>
+							<surname>Brognard</surname>
+							<given-names>J</given-names>
+						</name>
+						<name>
+							<surname>Clark</surname>
+							<given-names>AS</given-names>
+						</name>
+						<name>
+							<surname>Linnoila</surname>
+							<given-names>IR</given-names>
+						</name>
+						<name>
+							<surname>Yang</surname>
+							<given-names>X</given-names>
+						</name>
+						<name>
+							<surname>Swain</surname>
+							<given-names>SM</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">Rapid Akt activation by nicotine and a tobacco carcinogen modulates the phenotype of normal human airway epithelial cells</article-title>
+					<source xml:lang="en">J Clin Invest</source>
+					<year>2003</year>
+					<volume>111</volume>
+					<fpage>81</fpage>
+					<lpage>90</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B16">
+				<label>16</label>
+				<mixed-citation>16. Bierut LJ, Stitzel JA, Wang JC, Hinrichs AL, Grucza RA, Xuei X, et al. Variants in nicotinic receptors and risk for nicotine dependence. Am J Psychiatry 2008; 165: 1163-1171, doi: 10.1176/appi.ajp.2008.07111711.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Bierut</surname>
+							<given-names>LJ</given-names>
+						</name>
+						<name>
+							<surname>Stitzel</surname>
+							<given-names>JA</given-names>
+						</name>
+						<name>
+							<surname>Wang</surname>
+							<given-names>JC</given-names>
+						</name>
+						<name>
+							<surname>Hinrichs</surname>
+							<given-names>AL</given-names>
+						</name>
+						<name>
+							<surname>Grucza</surname>
+							<given-names>RA</given-names>
+						</name>
+						<name>
+							<surname>Xuei</surname>
+							<given-names>X</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">Variants in nicotinic receptors and risk for nicotine dependence</article-title>
+					<source xml:lang="en">Am J Psychiatry</source>
+					<year>2008</year>
+					<volume>165</volume>
+					<fpage>1163</fpage>
+					<lpage>1171</lpage>
+					<comment>doi:10.1176/appi.ajp.2008.07111711</comment>
+				</element-citation>
+			</ref>
+			<ref id="B17">
+				<label>17</label>
+				<mixed-citation>17. Minna JD. Nicotine exposure and bronchial epithelial cell nicotinic acetylcholine receptor expression in the pathogenesis of lung cancer. J Clin Invest 2003; 111: 31-33.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Minna</surname>
+							<given-names>JD</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Nicotine exposure and bronchial epithelial cell nicotinic acetylcholine receptor expression in the pathogenesis of lung cancer</article-title>
+					<source xml:lang="en">J Clin Invest</source>
+					<year>2003</year>
+					<volume>111</volume>
+					<fpage>31</fpage>
+					<lpage>33</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B18">
+				<label>18</label>
+				<mixed-citation>18. Tsurutani J, Castillo SS, Brognard J, Granville CA, Zhang C, Gills JJ, et al. Tobacco components stimulate Akt-dependent proliferation and NFkappaB-dependent survival in lung cancer cells. Carcinogenesis 2005; 26: 1182-1195, doi: 10.1093/carcin/bgi072.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Tsurutani</surname>
+							<given-names>J</given-names>
+						</name>
+						<name>
+							<surname>Castillo</surname>
+							<given-names>SS</given-names>
+						</name>
+						<name>
+							<surname>Brognard</surname>
+							<given-names>J</given-names>
+						</name>
+						<name>
+							<surname>Granville</surname>
+							<given-names>CA</given-names>
+						</name>
+						<name>
+							<surname>Zhang</surname>
+							<given-names>C</given-names>
+						</name>
+						<name>
+							<surname>Gills</surname>
+							<given-names>JJ</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">Tobacco components stimulate Akt-dependent proliferation and NFkappaB-dependent survival in lung cancer cells</article-title>
+					<source xml:lang="en">Carcinogenesis</source>
+					<year>2005</year>
+					<volume>26</volume>
+					<fpage>1182</fpage>
+					<lpage>1195</lpage>
+					<comment>doi:10.1093/carcin/bgi072</comment>
+				</element-citation>
+			</ref>
+			<ref id="B19">
+				<label>19</label>
+				<mixed-citation>19. Schuller HM. Is cancer triggered by altered signalling of nicotinic acetylcholine receptors? Nat Rev Cancer 2009; 9: 195-205, doi: 10.1038/nrc2590.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Schuller</surname>
+							<given-names>HM</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Is cancer triggered by altered signalling of nicotinic acetylcholine receptors?</article-title>
+					<source xml:lang="en">Nat Rev Cancer</source>
+					<year>2009</year>
+					<volume>9</volume>
+					<fpage>195</fpage>
+					<lpage>205</lpage>
+					<comment>doi:10.1038/nrc2590</comment>
+				</element-citation>
+			</ref>
+		</ref-list>
+		<fn-group>
+		<fn fn-type="other">
+				<p>First published online January 11, 2013.</p>
+			</fn>
+		</fn-group>
+	</back>
+</article>

@@ -1,0 +1,1192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<article article-type="research-article" dtd-version="3.0" xml:lang="en" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML">
+	<front>
+		<journal-meta>
+			<journal-id journal-id-type="nlm-ta">Braz J Med Biol Res</journal-id>
+			<journal-title-group>
+				<journal-title>Brazilian Journal of Medical and Biological Research</journal-title>
+				<abbrev-journal-title abbrev-type="publisher">Braz. J. Med. Biol. Res.</abbrev-journal-title>
+			</journal-title-group>
+			<issn pub-type="epub">1414-431X</issn>
+			<publisher>
+				<publisher-name>Associação Brasileira de Divulgação Científica</publisher-name>
+			</publisher>
+		</journal-meta>
+		<article-meta>
+			<article-id pub-id-type="doi">10.1590/1414-431X20122409</article-id>
+			<article-categories>
+				<subj-group subj-group-type="heading">
+					<subject>Biomedical Sciences</subject>
+				</subj-group>
+			</article-categories>
+			<title-group>
+				<article-title xml:lang="en">Induction of chagasic-like arrhythmias in the isolated beating hearts of healthy rats perfused with <italic>Trypanosoma cruzi</italic>-conditioned medium</article-title>
+			</title-group>
+			<contrib-group>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Rodríguez-Angulo</surname>
+						<given-names>H.</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff1">1</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Toro-Mendoza</surname>
+						<given-names>J.</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff2">2</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Marques</surname>
+						<given-names>J.</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff3">3</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Bonfante-Cabarcas</surname>
+						<given-names>R.</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff4">4</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Mijares</surname>
+						<given-names>A.</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff1">1</xref>
+				</contrib>
+				<aff id="aff1">
+					<label>1</label>
+					<institution content-type="orgname">Instituto Venezolano de Investigaciones Científicas</institution>
+					<institution content-type="orgdiv1">Centro de Biofísica y Bioquímica</institution>
+					<addr-line>
+						<named-content content-type="city">Caracas</named-content>
+					</addr-line>, <country>Venezuela</country>
+				</aff>
+				<aff id="aff2">
+					<label>2</label>
+					<institution content-type="orgname">Instituto Venezolano de Investigaciones Científicas</institution>
+					<institution content-type="orgdiv1">Centro de Estudios Interdisciplinarios de la Física</institution>
+					<addr-line>
+						<named-content content-type="city">Caracas</named-content>
+					</addr-line>, <country>Venezuela</country>
+				</aff>
+				<aff id="aff3">
+					<label>3</label>
+					<institution content-type="orgname">Instituto de Medicina Tropical, Universidad Central de Venezuela</institution>
+					<institution content-type="orgdiv1">Servicio de Cardiología</institution>
+					<addr-line>
+						<named-content content-type="city">Caracas</named-content>
+					</addr-line>, <country>Venezuela</country>
+				</aff>
+				<aff id="aff4">
+					<label>4</label>
+					<institution content-type="orgname">Universidad Centroccidental &#8220;Lisandro Alvarado&#8221;</institution>
+					<institution content-type="orgdiv2">Unidad de Investigación en Bioquímica</institution>
+					<institution content-type="orgdiv1">Decanato de Ciencias de la Salud</institution>
+					<addr-line>
+						<named-content content-type="city">Barquisimeto</named-content>
+					</addr-line>, <country>Venezuela</country>
+				</aff>
+			</contrib-group>
+			<author-notes>
+				<corresp>Correspondence: J. Toro-Mendoza, Centro de Estudios Interdisciplinarios de la Física, Instituto Venezolano de Investigaciones Científicas, Caracas, 1020A, Venezuela, E-mail: <email>jtorom@ivic.gob.ve</email> and/or <email>jhoantoro@yahoo.com.ar</email>
+				</corresp>
+			</author-notes>
+			<pub-date pub-type="epub">
+				<day>11</day>
+				<month>01</month>
+				<year>2013</year>
+			</pub-date>
+			<pub-date pub-type="collection">
+				<month>01</month>
+				<year>2013</year>
+			</pub-date>
+			<volume>46</volume>
+			<issue>1</issue>
+			<fpage>58</fpage>
+			<lpage>64</lpage>
+			<history>
+				<date date-type="received">
+					<day>25</day>
+					<month>05</month>
+					<year>2012</year>
+				</date>
+				<date date-type="accepted">
+					<day>3</day>
+					<month>09</month>
+					<year>2012</year>
+				</date>
+			</history>
+			<permissions>
+				<license license-type="open-access" xlink:href="http://creativecommons.org/licenses/by-nc/3.0/">
+					<license-p>This is an Open Access article distributed under the terms of the Creative Commons Attribution Non-Commercial License, which permits unrestricted non-commercial use, distribution, and reproduction in any medium, provided the original work is properly cited.</license-p>
+				</license>
+			</permissions>
+			<abstract xml:lang="en">
+				<p>Chagas' myocardiopathy, caused by the intracellular protozoan <italic>Trypanosoma cruzi</italic>, is characterized by microvascular alterations, heart failure and arrhythmias. Ischemia and arrythmogenesis have been attributed to proteins shed by the parasite, although this has not been fully demonstrated. The aim of the present investigation was to study the effect of substances shed by <italic>T. cruzi</italic> on ischemia/reperfusion-induced arrhythmias. We performed a triple ischemia-reperfusion (I/R) protocol whereby the isolated beating rat hearts were perfused with either Vero-control or Vero <italic>T. cruzi</italic>-infected conditioned medium during the different stages of ischemia and subsequently reperfused with Tyrode's solution. ECG and heart rate were recorded during the entire experiment. We observed that triple I/R-induced bradycardia was associated with the generation of auricular-ventricular blockade during ischemia and non-sustained nodal and ventricular tachycardia during reperfusion. Interestingly, perfusion with Vero-infected medium produced a delay in the reperfusion-induced recovery of heart rate, increased the frequency of tachycardic events and induced ventricular fibrillation. These results suggest that the presence of parasite-shed substances in conditioned media enhances the arrhythmogenic effects that occur during the I/R protocol.</p>
+			</abstract>
+			<kwd-group xml:lang="en">
+				<kwd>Chagas' disease</kwd>
+				<kwd>Arrhythmias</kwd>
+				<kwd>Ischemia</kwd>
+			</kwd-group>
+			<funding-group>
+				<award-group>
+					<funding-source>IVIC</funding-source>
+					<award-id>#N-305</award-id>
+				</award-group>
+				<award-group>
+					<funding-source>Ministerio del Poder Popular para la Ciencia y Tecnología, Fondo Nacional de Ciencia y Tecnología (FONACIT)</funding-source>
+					<award-id>#2007001425</award-id>
+				</award-group>
+			</funding-group>
+			<counts>
+				<fig-count count="3"/>
+				<table-count count="0"/>
+				<ref-count count="28"/>
+				<page-count count="1"/>
+			</counts>
+		</article-meta>
+	</front>
+	<body>
+		<sec sec-type="intro">
+			<title>Introduction</title>
+			<p>Chagas' disease is a tropical disease, initially confined to Central and South America, caused by the intracellular protozoan <italic>Trypanosoma cruzi</italic>. This illness is characterized by an acute phase, which is generally asymptomatic or oligosymptomatic; an indeterminate phase, which may persist for several years, and a chronic phase, when dilated cardiomyopathy and arrhythmias are primarily observed. Chagasic cardiomyopathy has been attributed to an imbalance between adrenergic or cholinergic innervations, cellular and humoral autoimmunity, parasitic effects, or microischemic disturbances <xref ref-type="bibr" rid="B01">1</xref>.</p>
+			<p>The phenomenon of microvascular alterations and the generation of microischemic foci have been studied extensively during the acute and chronic phases of Chagas' disease. Several researchers have described changes indicative of ischemia in the hearts of chagasic patients, mainly associated with platelet aggregation <xref ref-type="bibr" rid="B02">2</xref>, thinning of the capillary basement membranes <xref ref-type="bibr" rid="B03">3</xref>, and areas of focal vascular constriction, microaneurysms, and dilatation of vascular beds in murine hearts during the acute phase of this infection <xref ref-type="bibr" rid="B04">4</xref>. These disturbances could generate or enhance arrhythmias that are observed during chronic Chagas' disease.</p>
+			<p>Cardiac arrhythmias are one of the most important disorders occurring during Chagas' disease. Traditionally, arrhythmias have been considered to be a consequence of cardiac structural changes that occur during the chronic phase. In this respect, the main alterations reported are atrial and ventricular extrasystoles, intraventricular and/or AV conduction disturbances, and primary ST-T wave changes <xref ref-type="bibr" rid="B05">5</xref>. However, ST and T abnormalities, ventricular and supraventricular arrhythmias and low-voltage QRS have been reported in a recent acute oral outbreak characterized by high parasitemia <xref ref-type="bibr" rid="B06">6</xref>, which suggest that the parasite may have a role in arrhythmia generation. The mechanisms associated with non-structural-related arrhythmias in Chagas' disease are poorly understood.</p>
+			<p>Soluble factors that are generated during ischemia have been linked to cardiac arrhythmias, which are observed in isolated beating chagasic hearts <xref ref-type="bibr" rid="B07">7</xref>. Moreover, it is known that <italic>T. cruzi</italic> can release several substances into the extracellular milieu that produce alterations in microvascular <xref ref-type="bibr" rid="B08">8</xref> and intracellular calcium homeostasis <xref ref-type="bibr" rid="B09"/>
+				<xref ref-type="bibr" rid="B10">9,10</xref>, thereby contributing to arrhythmogenesis. Nevertheless, the association between proteins that are secreted and/or shed by <italic>T. cruzi</italic> and the disturbances in heart conduction system and arrhythmias has not been fully elucidated. The aim of the present study was to determine whether perfusion of non-chagasic beating hearts with substances released by <italic>T. cruzi</italic> can potentiate arrhythmias under ischemic conditions. Therefore, we performed a triple ischemia/reperfusion (I/R) protocol to induce the ischemic and pro-arrhythmic conditions that are present in chronic chagasic hearts. To obtain quantitative information, the effects on heart rate (HR) were analyzed by fitting against a double-logistic model, and the results were compared to the changes observed in the ECG recordings during the different protocol stages.</p>
+		</sec>
+		<sec sec-type="materials|methods">
+			<title>Material and Methods</title>
+			<sec>
+				<title>Cell culture and conditioned medium</title>
+				<p>Vero cells were plated in a 75-cm<sup>2</sup> Easy Flask in 20-mL complete minimum essential medium (MEM) supplemented with 10% (v/v) fetal bovine serum (FBS), and were infected with 2 &#215; 10<sup>5</sup> trypomastigotes/mL of the EP strain at a ratio of 2 parasites per cell. Noninvasive parasites were removed after 24 h and the initial medium was changed at this time. The conditioned media were collected on the 5th or 6th day post-infection. The criteria for medium collection were that a minimum of 75% Vero cells should have adhered and that at least 2.5 &#215; 10<sup>6</sup> trypomastigotes/mL should be present in the supernatant. The medium was centrifuged at 1500 <italic>g</italic> for 10 min to separate the parasites, and the supernatant was subsequently filtered using a 0.2-&#181;M membrane filter (Millipore<sup>&#174;</sup>, USA) and stored at -20&#176;C until use.</p>
+			</sec>
+			<sec>
+				<title>Preparation of isolated Langendorff hearts</title>
+				<p>For the isolated beating heart experiments, hearts were removed from adult female Sprague Dawley rats weighing 300-400 g anesthetized <italic>ip</italic> with 40 mg/kg pentobarbital. The isolated hearts were placed in cold Tyrode's solution (25 mM sodium bicarbonate, 10 mM glucose, 116 mM sodium chloride, 3.3 mM potassium chloride, 2.5 mM calcium chloride, and 1 mM magnesium sulfate), cannulated through the aorta, and perfused in a retrograde manner with warm Tyrode's solution (37&#176;C) for 30 min by using the isolated beating heart system (AD Instruments, Australia). The presence of sinus rhythm, HR greater than 180 bpm, perfusion pressure higher than 30 mmHg, and a flow rate of 8-10 mL/min were considered to be stable values for all experiments. All procedures were approved by the Institutional Committee of the Venezuelan Institute for Scientific Research.</p>
+				<p>After stabilization was achieved, a protocol consisting of three consecutive I/R cycles (10 and 20 min, respectively) was initiated. During each ischemic cycle, deoxygenated complete MEM (1.8 mM calcium chloride, 0.81 mM magnesium sulfate, 5.33 mM potassium chloride, 117.24 mM sodium chloride, 1.01 mM sodium phosphate monobasic, 5.56 mM D-glucose, plus L-glutamine, phenol red and essential amino acids) supplemented with 24 mM sodium bicarbonate was perfused at a low flow rate (2 mL/min) for 10 min, followed by reperfusion with oxygenated Tyrode's solution for 20 min (flow of 8 to 10 mL/min). During the ischemic periods, the hearts were perfused with medium that was conditioned with either control Vero cells (Vero-control medium, n = 12) or infected Vero cells (Vero-infected medium, n = 14). Both of these media contained 10% FBS (v/v).</p>
+			</sec>
+			<sec>
+				<title>Measurement of enzyme activity</title>
+				<p>For biochemical analysis of the I/R process, we determined aspartate aminotransferase (AST) activity by sampling the effusate to indicate cardiac damage. The samples were collected every 2 min for a period of 30 min. The samples were immediately frozen and stored at -20&#176;C until further processing. The enzyme activity was measured with a commercially available ELISA kit (Invelab&#8482;, Venezuela) according to manufacturer specifications.</p>
+			</sec>
+			<sec>
+				<title>Curve fitting</title>
+				<p>In this study, we used a double-logistic model <xref ref-type="bibr" rid="B11">11</xref>
+				
+									<disp-formula id="bjb2409-e01">
+						<graphic xlink:href="1414-431X-bjmbr-46-01-058-ee01"/>
+					</disp-formula>
+					
+					where <italic>f</italic> is the time (<italic>t</italic>)-dependent HR, <italic>P<sub>1</sub>
+					</italic> represents the minimum HR value, <italic>P<sub>2</sub>
+					</italic> is the difference between the initial and final HR values in the ischemic stage, and <italic>P<sub>3</sub>
+					</italic> and <italic>P<sub>5</sub>
+					</italic> represent the HR slope values during the final ischemic and the initial reperfusion stages, respectively. <italic>P<sub>4</sub>
+					</italic> and <italic>P<sub>6</sub>
+					</italic> are the ascending and descending inflection times, respectively.</p>
+			</sec>
+			<sec>
+				<title>Statistical analysis</title>
+				<p>Data are reported as means &#177; SE. The Student <italic>t</italic>-test was used to determine statistical significance, and results with P &lt; 0.05 were considered to be statistically significant. The χ<sup>2</sup> test was used to compare the ventricular fibrillation rate between the groups. Data analysis was performed using the Prism5<sup>&#174;</sup> software (GraphPad Software, Inc., USA).</p>
+			</sec>
+		</sec>
+		<sec sec-type="results">
+			<title>Results</title>
+			<sec>
+				<title>Validation of the ischemia-reperfusion model</title>
+				<p>To evaluate cardiac damage during the I/R cycles, we collected the media after heart reperfusion and measured AST activity (<xref ref-type="fig" rid="f01">Figure 1</xref>). A rapid increase in enzymatic activity was observed during the three ischemic phases (0-10, 30-40 and 60-70 min; <xref ref-type="fig" rid="f01">Figure 1</xref>, thick black lines), which returned to basal levels during reperfusion. The enzymatic activity was not found to be different between the different ischemic cycles; therefore, these results suggest that our protocol produced a transient damage to the isolated beating hearts. Similarly, no significant differences were observed between the hearts that were perfused with Vero-control or Vero-infected medium (<xref ref-type="fig" rid="f01">Figure 1</xref>).</p>
+				<fig id="f01">
+					<label>Figure 1</label>
+					<caption>
+						<title>Average evolution of enzymatic activity (AST) in ischemia-reperfusion cycles. The graph shows the values of enzymatic activity measured every 2 min during the three ischemia-reperfusion cycles. Thick horizontal lines (top) indicate the different ischemia stages and are identified as I1 (ischemia 1), I2 (ischemia 2), and I3 (ischemia 3) and match the increased AST activity. The graph averages the data of Vero-control (n = 12) and Vero-infected hearts (n = 14).</title>
+					</caption>
+					<graphic mimetype="image" xlink:href="1414-431X-bjmbr-46-01-058-gf01"/>
+				</fig>
+			</sec>
+			<sec>
+				<title>Effect of conditioned medium on ECG values and recordings during I/R</title>
+				<p>
+					<xref ref-type="fig" rid="f02">Figure 2</xref> demonstrates the fitting of <xref ref-type="disp-formula" rid="bjb2409-e01">Equation 1</xref> to HR kinetics during the I/R protocol for perfusion with Vero-control (A) or Vero-infected conditioned (B) medium (r<sup>2</sup> = 0.94 and 0.92, respectively). The plot shows that HR recovery (P<sub>5</sub>) was significantly slower in hearts perfused with Vero-infected medium compared to Vero-control medium (0.53 &#177; 0.1422 <italic>vs</italic> 2.87 &#177; 0.36555, P = 0.0006). Interestingly, these results were associated with bradyarrhythmias, particularly sinus arrest during the reperfusion period (middle portion of <xref ref-type="fig" rid="f03">Figure 3</xref>), and were not observed in hearts perfused with Vero-control (top portion of <xref ref-type="fig" rid="f03">Figure 3</xref>) that showed AV blockade during the final phase of ischemia.</p>
+				<fig id="f02">
+					<label>Figure 2</label>
+					<caption>
+						<title>Average heart rate (HR) during the ischemia-reperfusion process. Dotted lines represent the mean &#177; SE HR in all ischemia-reperfusion cycles. <italic>Panel A</italic> shows the data of Vero-control-perfused hearts (n = 12), and <italic>Panel B</italic> shows data of Vero-infected-perfused hearts (n = 14). Continuous lines are the results of the fitting of <xref ref-type="disp-formula" rid="bjb2409-e01">Equation 1</xref>, and parameters are shown in the inset.</title>
+					</caption>
+					<graphic mimetype="image" xlink:href="1414-431X-bjmbr-46-01-058-gf02"/>
+				</fig>
+				<fig id="f03">
+					<label>Figure 3</label>
+					<caption>
+						<title>
+							<italic>Panel A</italic> shows representative ECG recordings of the ischemia-reperfusion process for different perfused media. The figure shows the ECG recordings during the different stages of ischemia-reperfusion processes, which were identified as I1, I2, I3 for the three ischemia stages and as R1, R2, and R3 for the reperfusion ones. The upper recording shows the ECG of an isolated beating heart perfused with Vero cell-conditioned medium (Vero-control), and the middle and bottom recordings show ECGs of two different isolated beating hearts perfused with Vero-infected-conditioned medium. <italic>Panel B</italic> shows a numerical comparison of tachyarrhythmia and ventricular fibrillation events between Vero-control and Vero-infected perfused hearts. The P value was 0.0138 in tachyarrhythmia comparison (Student <italic>t</italic>-test) and 0.0441 in ventricular fibrillation comparison (chi-square test).</title>
+					</caption>
+					<graphic mimetype="image" xlink:href="1414-431X-bjmbr-46-01-058-gf03"/>
+				</fig>
+				<p>In addition, tachyarrhythmias and the low-voltage QRS complex generated during perfusion of Vero-infected medium are displayed in <xref ref-type="fig" rid="f03">Figure 3A</xref> (Vero-infected &#8220;2&#8221;, bottom). Ventricular tachycardia was observed during the first reperfusion phase, whereas ventricular fibrillation was noted during the last reperfusion phase. Hearts perfused with Vero-infected medium demonstrated atrial flutter and nodal and ventricular tachycardia during the I/R stages, whereas in hearts perfused with Vero-control medium, nodal and ventricular tachycardia was observed in the reperfusion stage only. Overall, 1.5 &#177; 0.43 tachyarrhythmic events/record were recorded in hearts perfused with Vero-infected medium, whereas 0.25 &#177; 0.13 tachyarrhythmic events/record were recorded in hearts perfused with Vero-control medium (P = 0.0156). Ventricular fibrillation was detected in 4 of 14 hearts perfused with Vero-infected medium compared to 0 of 12 hearts perfused with Vero-control medium (P = 0.0441).</p>
+			</sec>
+		</sec>
+		<sec>
+			<title>Discussion</title>
+			<p>Ischemia-reperfusion can lead to arrhythmias and sudden death. In particular, ischemia can lead to ventricular tachycardia and, finally, ventricular fibrillation <xref ref-type="bibr" rid="B12">12</xref>. These events correlate with a concomitant increase in the intracellular H<sup>+</sup>, Na<sup>+</sup>, and Ca<sup>2+</sup> levels <xref ref-type="bibr" rid="B12">12</xref>, affecting the cardiac action potential and thereby generating arrhythmias. Furthermore, microvascular alterations observed in Chagas' disease could produce transient ischemia <xref ref-type="bibr" rid="B02">2</xref>, and this is probably due to parasite-shed proteins <xref ref-type="bibr" rid="B13">13</xref>. However, their participation in arrythmogenesis, which is observed in Chagas' disease, are still unclear.</p>
+			<p>The fitting of a double-logistic equation (<xref ref-type="disp-formula" rid="bjb2409-e01">Equation 1</xref>) to model the I/R process is suitable to quantify and compare the different situations explained above. Despite the high complexity of the heart dynamics, the tendency shown allows us to use this tool to have an idea of the kinetics of the process with a reasonable degree of precision. However, a full mathematical description of the heart is far from being obtained and is out of the scope of the present study.</p>
+			<p>During our experiments, we observed an increase in the frequency of tachyarrhythmias during perfusion with Vero-infected medium; therefore, we suggest that proteins present in the conditioned medium have the ability to enhance arrhythmias, probably by increasing the intracellular calcium levels. During parasite-host cell interaction, several secreted or released proteins can bind to the host cell receptors and modify cellular signaling. The different mucins present on the surface of trypomastigotes have been associated with the process of invasion. The protein gp82, a surface mucin of <italic>T. cruzi</italic>, causes an increase in intracellular calcium in Hela cells infected with metacyclic trypomastigotes, an effect mediated by IP3, phospholipase C and protein tyrosine kinase <xref ref-type="bibr" rid="B09"/>
+				<xref ref-type="bibr" rid="B14">9,14</xref>. Gp90 and gp35/50 proteins are involved in the modulation of calcium increase in the host cell and the invasiveness of the strain of the parasite in which they are present <xref ref-type="bibr" rid="B15">15</xref>. On the other hand, it has been reported that protein members of the transialidase and mucin family attach to the host cells and increase the intracellular calcium levels <xref ref-type="bibr" rid="B13">13</xref>. Similarly, parasite cysteine proteases can cleave extracellular precursors, such as kininogens, which in turn bind to the host cell BK<sub>2</sub>R receptors and increase the intracellular calcium concentration <xref ref-type="bibr" rid="B16">16</xref>. These phenomena facilitate the entry of the parasite into its respective host cell.</p>
+			<p>Interestingly, the existence of calcium overload in the ventricular myocytes of chagasic patients was recently reported <xref ref-type="bibr" rid="B17">17</xref>. It is well known that increases in the intracellular calcium levels are responsible for the extension of the plateau phase of the cardiac action potential. This phenomenon contributes to the generation of re-entry circuits and therefore the appearance of malignant ventricular arrhythmias <xref ref-type="bibr" rid="B18">18</xref>. It is possible that the calcium overload that occurs during parasitic invasion of the cardiac cells can potentiate the proarrhythmogenic status produced by the ischemia due to microvascular alterations, which is observed in Chagas' disease.</p>
+			<p>Ventricular arrhythmias observed in the isolated beating chagasic hearts have been attributed to the activation of adenosine and adrenergic systems, both of which are present during ischemia <xref ref-type="bibr" rid="B07">7</xref>. To our knowledge, this is the first report that demonstrates a causal link between trypomastigote-conditioned medium and arrythmogenesis in Chagas' disease.</p>
+			<p>Other ionic currents may be associated with electrical alterations produced by <italic>T. cruzi</italic>-conditioned medium. Pacioretty et al. <xref ref-type="bibr" rid="B19">19</xref> reported a reduction of transient outward potassium current in epicardial myocytes during the acute phase of Chagas' disease. This reduction was associated with the parasitemia peak, suggesting that a direct action of the parasite may be involved in this effect. Also, sera from chagasic patients with beta-adrenergic activity shortened the QT interval and the action potential duration and increased slow inward potassium current (IKs) and inward calcium current (Ica) <xref ref-type="bibr" rid="B20">20</xref>.</p>
+			<p>On the other hand, parasite-cell interaction relies on specific signaling pathways in the host cells that facilitate the entry of the parasite, which could contribute to the physiopathology of the disease. Andrade et al. <xref ref-type="bibr" rid="B21">21</xref> reported that exogenous endothelin-1 (ET-1) potentiated <italic>T. cruzi</italic> uptake <italic>in vitro</italic> and was associated with interstitial edema elicited by extracellular trypomastigotes. ET-1 is a potent vasoconstrictor and is present in high levels in the serum of chagasic patients. ET-1 induces vasospasm in <italic>T. cruzi</italic>-infected mice, consequently contributing to the development of myocardial ischemia and myonecrosis <xref ref-type="bibr" rid="B16">16</xref>. Additionally, other non-protein soluble mediators are secreted by the parasite and may be related to ischemic and electrical disturbances in chagasic hearts. <italic>T. cruzi</italic>-derived thromboxane A2 (TXA2) has been detected in the circulation of infected mice <xref ref-type="bibr" rid="B22">22</xref>. Interestingly, TXA2 has been associated with reperfusion arrhythmias <xref ref-type="bibr" rid="B23">23</xref>. Therefore, it could be involved in the arrythmogenesis observed in Chagas' disease.</p>
+			<p>Perfusion with conditioned media produced a delay in HR recovery during the early reperfusion phase (see <xref ref-type="fig" rid="f02">Figures 2</xref> and <xref ref-type="fig" rid="f03">3</xref>). This is particularly relevant because it has been widely reported that Chagas' disease is characterized by an alteration in the heart conduction pathways, which leads to AV block and sinus arrest among other complications <xref ref-type="bibr" rid="B24">24</xref>. In addition, it has been reported that sera obtained from chronic chagasic patients who suffer from complex cardiac arrhythmias show depressed electrogenesis and conduction when used in different isolated beating heart preparations <xref ref-type="bibr" rid="B25">25</xref>. It has been suggested that dampening of electrogenesis and bradyarrhythmias is due to the presence of autoantibodies against the second extracellular loop of cardiac M2 acetylcholine receptor and β2 adrenoceptor <xref ref-type="bibr" rid="B26"/>
+				<xref ref-type="bibr" rid="B27">26,27</xref>. Interestingly, some investigators have reported a decrease in the expression of connexin 43, a gap junction protein, in the infected cardiac myocytes <xref ref-type="bibr" rid="B28">28</xref>. This implies a causal relationship between parasitic infection and cardiac conduction disorders. However, to our knowledge, this is the first report that demonstrates the association of cardiac bradyarrhythmias with the perfusion of <italic>T. cruzi</italic>-conditioned medium.</p>
+			<p>We developed an experimental protocol to reproduce the ischemic and pro-arrhythmic conditions that exist in chronic chagasic hearts. The application of a double-logistic model allows the comparison of HR in the different media perfused. Our results suggest that substances present in the conditioned media have the ability to enhance I/R-induced arrhythmic and conduction disorders, which are similar to those observed in chagasic cardiomyopathy.</p>
+		</sec>
+	</body>
+	<back>
+		<ack>
+			<p>Research supported by IVIC, project #N-305, and by Misión Ciencia, Ministerio del Poder Popular para la Ciencia y Tecnología, Fondo Nacional de Ciencia y Tecnología (FONACIT), project #2007001425.</p>
+		</ack>
+		<ref-list>
+			<title>References</title>
+			<ref id="B01">
+				<label>1</label>
+				<mixed-citation>1. Higuchi Mde L, Benvenuti LA, Martins Reis M, Metzger M. Pathophysiology of the heart in Chagas' disease: current status and new developments. Cardiovasc Res 2003: 60: 96-107, doi: 10.1016/S0008-6363(03)00361-4.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Higuchi Mde</surname>
+							<given-names>L</given-names>
+						</name>
+						<name>
+							<surname>Benvenuti</surname>
+							<given-names>LA</given-names>
+						</name>
+						<name>
+							<surname>Martins Reis</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Metzger</surname>
+							<given-names>M</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Pathophysiology of the heart in Chagas' disease: current status and new developments</article-title>
+					<source xml:lang="en">Cardiovasc Res</source>
+					<year>2003</year>
+					<volume>60</volume>
+					<fpage>96</fpage>
+					<lpage>107</lpage>
+					<comment>doi:10.1016/S0008-6363(03)00361-4</comment>
+				</element-citation>
+			</ref>
+			<ref id="B02">
+				<label>2</label>
+				<mixed-citation>2. Rossi MA, Carobrez SG. Experimental <italic>Trypanosoma cruzi</italic> cardiomyopathy in BALB/c mice: histochemical evidence of hypoxic changes in the myocardium. Br J Exp Pathol 1985: 66: 155-160.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Rossi</surname>
+							<given-names>MA</given-names>
+						</name>
+						<name>
+							<surname>Carobrez</surname>
+							<given-names>SG</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Experimental <italic>Trypanosoma cruzi</italic> cardiomyopathy in BALB/c mice: histochemical evidence of hypoxic changes in the myocardium</article-title>
+					<source xml:lang="en">Br J Exp Pathol</source>
+					<year>1985</year>
+					<volume>66</volume>
+					<fpage>155</fpage>
+					<lpage>160</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B03">
+				<label>3</label>
+				<mixed-citation>3. Andrade ZA, Andrade SG, Sadigursky M, Wenthold RJ Jr, Hilbert SL, Ferrans VJ. The indeterminate phase of Chagas' disease: ultrastructural characterization of cardiac changes in the canine model. Am J Trop Med Hyg 1997: 57: 328-336.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Andrade</surname>
+							<given-names>ZA</given-names>
+						</name>
+						<name>
+							<surname>Andrade</surname>
+							<given-names>SG</given-names>
+						</name>
+						<name>
+							<surname>Sadigursky</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Wenthold</surname>
+							<given-names>RJ</given-names>
+							<suffix>Jr</suffix>
+						</name>
+						<name>
+							<surname>Hilbert</surname>
+							<given-names>SL</given-names>
+						</name>
+						<name>
+							<surname>Ferrans</surname>
+							<given-names>VJ</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">The indeterminate phase of Chagas' disease: ultrastructural characterization of cardiac changes in the canine model</article-title>
+					<source xml:lang="en">Am J Trop Med Hyg</source>
+					<year>1997</year>
+					<volume>57</volume>
+					<fpage>328</fpage>
+					<lpage>336</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B04">
+				<label>4</label>
+				<mixed-citation>4. Factor SM, Cho S, Wittner M, Tanowitz H. Abnormalities of the coronary microcirculation in acute murine Chagas' disease. Am J Trop Med Hyg 1985: 34: 246-253.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Factor</surname>
+							<given-names>SM</given-names>
+						</name>
+						<name>
+							<surname>Cho</surname>
+							<given-names>S</given-names>
+						</name>
+						<name>
+							<surname>Wittner</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Tanowitz</surname>
+							<given-names>H</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Abnormalities of the coronary microcirculation in acute murine Chagas' disease</article-title>
+					<source xml:lang="en">Am J Trop Med Hyg</source>
+					<year>1985</year>
+					<volume>34</volume>
+					<fpage>246</fpage>
+					<lpage>253</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B05">
+				<label>5</label>
+				<mixed-citation>5. Elizari MV, Chiale PA. Cardiac arrhythmias in Chagas' heart disease. J Cardiovasc Electrophysiol 1993: 4: 596-608, doi: 10.1111/j.1540-8167.1993.tb01247.x.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Elizari</surname>
+							<given-names>MV</given-names>
+						</name>
+						<name>
+							<surname>Chiale</surname>
+							<given-names>PA</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Cardiac arrhythmias in Chagas' heart disease</article-title>
+					<source xml:lang="en">J Cardiovasc Electrophysiol</source>
+					<year>1993</year>
+					<volume>4</volume>
+					<fpage>596</fpage>
+					<lpage>608</lpage>
+					<comment>doi:10.1111/j.1540-8167.1993.tb01247.x</comment>
+				</element-citation>
+			</ref>
+			<ref id="B06">
+				<label>6</label>
+				<mixed-citation>6. Alarcon de Noya B, Diaz-Bello Z, Colmenares C, Ruiz-Guevara R, Mauriello L, Zavala-Jaspe R, et al. Large urban outbreak of orally acquired acute Chagas disease at a school in Caracas, Venezuela. J Infect Dis 2010: 201: 1308-1315, doi: 10.1086/651608.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Alarcon de Noya</surname>
+							<given-names>B</given-names>
+						</name>
+						<name>
+							<surname>Diaz-Bello</surname>
+							<given-names>Z</given-names>
+						</name>
+						<name>
+							<surname>Colmenares</surname>
+							<given-names>C</given-names>
+						</name>
+						<name>
+							<surname>Ruiz-Guevara</surname>
+							<given-names>R</given-names>
+						</name>
+						<name>
+							<surname>Mauriello</surname>
+							<given-names>L</given-names>
+						</name>
+						<name>
+							<surname>Zavala-Jaspe</surname>
+							<given-names>R</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">Large urban outbreak of orally acquired acute Chagas disease at a school in Caracas, Venezuela</article-title>
+					<source xml:lang="en">J Infect Dis</source>
+					<year>2010</year>
+					<volume>201</volume>
+					<fpage>1308</fpage>
+					<lpage>1315</lpage>
+					<comment>doi:10.1086/651608</comment>
+				</element-citation>
+			</ref>
+			<ref id="B07">
+				<label>7</label>
+				<mixed-citation>7. Alvarado-Tapias E, Rivas-Coppola M, Alvarado A, Bello M, Briceno M, Rodriguez-Bonfante C, et al. [Adenosine induces ventricular arrythmias in hearts with chronic chagas cardiomyopathy]. Rev Esp Cardiol 2010: 63: 478-482, doi: 10.1016/S0300-8932(10)70069-5.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Alvarado-Tapias</surname>
+							<given-names>E</given-names>
+						</name>
+						<name>
+							<surname>Rivas-Coppola</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Alvarado</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Bello</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Briceno</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Rodriguez-Bonfante</surname>
+							<given-names>C</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">[Adenosine induces ventricular arrythmias in hearts with chronic chagas cardiomyopathy]</article-title>
+					<source xml:lang="en">Rev Esp Cardiol</source>
+					<year>2010</year>
+					<volume>63</volume>
+					<fpage>478</fpage>
+					<lpage>482</lpage>
+					<comment>doi:10.1016/S0300-8932(10)70069-5</comment>
+				</element-citation>
+			</ref>
+			<ref id="B08">
+				<label>8</label>
+				<mixed-citation>8. Libby P, Alroy J, Pereira ME. A neuraminidase from <italic>Trypanosoma cruzi</italic> removes sialic acid from the surface of mammalian myocardial and endothelial cells. J Clin Invest 1986: 77: 127-135, doi: 10.1172/JCI112266.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Libby</surname>
+							<given-names>P</given-names>
+						</name>
+						<name>
+							<surname>Alroy</surname>
+							<given-names>J</given-names>
+						</name>
+						<name>
+							<surname>Pereira</surname>
+							<given-names>ME</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">A neuraminidase from <italic>Trypanosoma cruzi</italic> removes sialic acid from the surface of mammalian myocardial and endothelial cells</article-title>
+					<source xml:lang="en">J Clin Invest</source>
+					<year>1986</year>
+					<volume>77</volume>
+					<fpage>127</fpage>
+					<lpage>135</lpage>
+					<comment>doi:10.1172/JCI112266</comment>
+				</element-citation>
+			</ref>
+			<ref id="B09">
+				<label>9</label>
+				<mixed-citation>9. Dorta ML, Ferreira AT, Oshiro ME, Yoshida N. Ca<sup>2+</sup> signal induced by <italic>Trypanosoma cruzi</italic> metacyclic trypomastigote surface molecules implicated in mammalian cell invasion. Mol Biochem Parasitol 1995: 73: 285-289, doi: 10.1016/0166-6851(94)00123-5.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Dorta</surname>
+							<given-names>ML</given-names>
+						</name>
+						<name>
+							<surname>Ferreira</surname>
+							<given-names>AT</given-names>
+						</name>
+						<name>
+							<surname>Oshiro</surname>
+							<given-names>ME</given-names>
+						</name>
+						<name>
+							<surname>Yoshida</surname>
+							<given-names>N</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Ca<sup>2+</sup> signal induced by <italic>Trypanosoma cruzi</italic> metacyclic trypomastigote surface molecules implicated in mammalian cell invasion</article-title>
+					<source xml:lang="en">Mol Biochem Parasitol</source>
+					<year>1995</year>
+					<volume>73</volume>
+					<fpage>285</fpage>
+					<lpage>289</lpage>
+					<comment>doi:10.1016/0166-6851(94)00123-5</comment>
+				</element-citation>
+			</ref>
+			<ref id="B10">
+				<label>10</label>
+				<mixed-citation>10. Manque PM, Neira I, Atayde VD, Cordero E, Ferreira AT, da Silveira JF, et al. Cell adhesion and Ca<sup>2+</sup> signaling activity in stably transfected <italic>Trypanosoma cruzi</italic> epimastigotes expressing the metacyclic stage-specific surface molecule gp82. Infect Immun 2003: 71: 1561-1565, doi: 10.1128/IAI.71.3.1561-1565.2003.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Manque</surname>
+							<given-names>PM</given-names>
+						</name>
+						<name>
+							<surname>Neira</surname>
+							<given-names>I</given-names>
+						</name>
+						<name>
+							<surname>Atayde</surname>
+							<given-names>VD</given-names>
+						</name>
+						<name>
+							<surname>Cordero</surname>
+							<given-names>E</given-names>
+						</name>
+						<name>
+							<surname>Ferreira</surname>
+							<given-names>AT</given-names>
+						</name>
+						<name>
+							<surname>da Silveira</surname>
+							<given-names>JF</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">Cell adhesion and Ca<sup>2+</sup> signaling activity in stably transfected <italic>Trypanosoma cruzi</italic> epimastigotes expressing the metacyclic stage-specific surface molecule gp82</article-title>
+					<source xml:lang="en">Infect Immun</source>
+					<year>2003</year>
+					<volume>71</volume>
+					<fpage>1561</fpage>
+					<lpage>1565</lpage>
+					<comment>doi:10.1128/IAI.71.3.1561-1565.2003</comment>
+				</element-citation>
+			</ref>
+			<ref id="B11">
+				<label>11</label>
+				<mixed-citation>11. Head GA, Lukoshkova EV, Mayorov DN, van den Buuse M. Non-symmetrical double-logistic analysis of 24-h blood pressure recordings in normotensive and hypertensive rats. J Hypertens 2004: 22: 2075-2085, doi: 10.1097/00004872-200411000-00008.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Head</surname>
+							<given-names>GA</given-names>
+						</name>
+						<name>
+							<surname>Lukoshkova</surname>
+							<given-names>EV</given-names>
+						</name>
+						<name>
+							<surname>Mayorov</surname>
+							<given-names>DN</given-names>
+						</name>
+						<name>
+							<surname>van den Buuse</surname>
+							<given-names>M</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Non-symmetrical double-logistic analysis of 24-h blood pressure recordings in normotensive and hypertensive rats</article-title>
+					<source xml:lang="en">J Hypertens</source>
+					<year>2004</year>
+					<volume>22</volume>
+					<fpage>2075</fpage>
+					<lpage>2085</lpage>
+					<comment>doi:10.1097/00004872-200411000-00008</comment>
+				</element-citation>
+			</ref>
+			<ref id="B12">
+				<label>12</label>
+				<mixed-citation>12. Cascio WE. Myocardial ischemia: what factors determine arrhythmogenesis? J Cardiovasc Electrophysiol 2001: 12: 726-729, doi: 10.1046/j.1540-8167.2001.00726.x.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Cascio</surname>
+							<given-names>WE</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Myocardial ischemia: what factors determine arrhythmogenesis?</article-title>
+					<source xml:lang="en">J Cardiovasc Electrophysiol</source>
+					<year>2001</year>
+					<volume>12</volume>
+					<fpage>726</fpage>
+					<lpage>729</lpage>
+					<comment>doi:10.1046/j.1540-8167.2001.00726.x</comment>
+				</element-citation>
+			</ref>
+			<ref id="B13">
+				<label>13</label>
+				<mixed-citation>13. Yoshida N, Cortez M. <italic>Trypanosoma cruzi</italic>: parasite and host cell signaling during the invasion process. Subcell Biochem 2008: 47: 82-91, doi: 10.1007/978-0-387-78267-6_6.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Yoshida</surname>
+							<given-names>N</given-names>
+						</name>
+						<name>
+							<surname>Cortez</surname>
+							<given-names>M</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">
+						<italic>Trypanosoma cruzi</italic>: parasite and host cell signaling during the invasion process</article-title>
+					<source xml:lang="en">Subcell Biochem</source>
+					<year>2008</year>
+					<volume>47</volume>
+					<fpage>82</fpage>
+					<lpage>91</lpage>
+					<comment>doi:10.1007/978-0-387-78267-6_6</comment>
+				</element-citation>
+			</ref>
+			<ref id="B14">
+				<label>14</label>
+				<mixed-citation>14. Yoshida N, Favoreto S Jr, Ferreira AT, Manque PM. Signal transduction induced in <italic>Trypanosoma cruzi</italic> metacyclic trypomastigotes during the invasion of mammalian cells. Braz J Med Biol Res 2000: 33: 269-278, doi: 10.1590/S0100-879X2000000300003.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Yoshida</surname>
+							<given-names>N</given-names>
+						</name>
+						<name>
+							<surname>Favoreto</surname>
+							<given-names>S</given-names>
+							<suffix>Jr</suffix>
+						</name>
+						<name>
+							<surname>Ferreira</surname>
+							<given-names>AT</given-names>
+						</name>
+						<name>
+							<surname>Manque</surname>
+							<given-names>PM</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Signal transduction induced in <italic>Trypanosoma cruzi</italic> metacyclic trypomastigotes during the invasion of mammalian cells</article-title>
+					<source xml:lang="en">Braz J Med Biol Res</source>
+					<year>2000</year>
+					<volume>33</volume>
+					<fpage>269</fpage>
+					<lpage>278</lpage>
+					<comment>doi:10.1590/S0100-879X2000000300003</comment>
+				</element-citation>
+			</ref>
+			<ref id="B15">
+				<label>15</label>
+				<mixed-citation>15. Ruiz RC, Favoreto S Jr, Dorta ML, Oshiro ME, Ferreira AT, Manque PM, et al. Infectivity of <italic>Trypanosoma cruzi</italic> strains is associated with differential expression of surface glycoproteins with differential Ca<sup>2+</sup> signalling activity. Biochem J 1998: 330 (Part 1): 505-511.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Ruiz</surname>
+							<given-names>RC</given-names>
+						</name>
+						<name>
+							<surname>Favoreto</surname>
+							<given-names>S</given-names>
+							<suffix>Jr</suffix>
+						</name>
+						<name>
+							<surname>Dorta</surname>
+							<given-names>ML</given-names>
+						</name>
+						<name>
+							<surname>Oshiro</surname>
+							<given-names>ME</given-names>
+						</name>
+						<name>
+							<surname>Ferreira</surname>
+							<given-names>AT</given-names>
+						</name>
+						<name>
+							<surname>Manque</surname>
+							<given-names>PM</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">Infectivity of <italic>Trypanosoma cruzi</italic> strains is associated with differential expression of surface glycoproteins with differential Ca<sup>2+</sup> signalling activity</article-title>
+					<source xml:lang="en">Biochem J</source>
+					<year>1998</year>
+					<volume>330</volume>
+					<issue>(Part 1)</issue>
+					<fpage>505</fpage>
+					<lpage>511</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B16">
+				<label>16</label>
+				<mixed-citation>16. Scharfstein J, Andrade D. Infection-associated vasculopathy in experimental chagas disease pathogenic roles of endothelin and kinin pathways. Adv Parasitol 2011: 76: 101-127, doi: 10.1016/B978-0-12-385895-5.00005-0.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Scharfstein</surname>
+							<given-names>J</given-names>
+						</name>
+						<name>
+							<surname>Andrade</surname>
+							<given-names>D</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Infection-associated vasculopathy in experimental chagas disease pathogenic roles of endothelin and kinin pathways</article-title>
+					<source xml:lang="en">Adv Parasitol</source>
+					<year>2011</year>
+					<volume>76</volume>
+					<fpage>101</fpage>
+					<lpage>127</lpage>
+					<comment>doi:10.1016/B978-0-12-385895-5.00005-0</comment>
+				</element-citation>
+			</ref>
+			<ref id="B17">
+				<label>17</label>
+				<mixed-citation>17. Lopez JR, Espinosa R, Landazuru P, Linares N, Allen P, Mijares A. [Dysfunction of diastolic [Ca(2)(+)] in cardiomyocytes isolated from chagasic patients]. Rev Esp Cardiol 2011: 64: 456-462, doi: 10.1016/j.recesp.2011.01.008.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Lopez</surname>
+							<given-names>JR</given-names>
+						</name>
+						<name>
+							<surname>Espinosa</surname>
+							<given-names>R</given-names>
+						</name>
+						<name>
+							<surname>Landazuru</surname>
+							<given-names>P</given-names>
+						</name>
+						<name>
+							<surname>Linares</surname>
+							<given-names>N</given-names>
+						</name>
+						<name>
+							<surname>Allen</surname>
+							<given-names>P</given-names>
+						</name>
+						<name>
+							<surname>Mijares</surname>
+							<given-names>A</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">[Dysfunction of diastolic [Ca(2)(+)] in cardiomyocytes isolated from chagasic patients]</article-title>
+					<source xml:lang="en">Rev Esp Cardiol</source>
+					<year>2011</year>
+					<volume>64</volume>
+					<fpage>456</fpage>
+					<lpage>462</lpage>
+					<comment>doi:10.1016/j.recesp.2011.01.008</comment>
+				</element-citation>
+			</ref>
+			<ref id="B18">
+				<label>18</label>
+				<mixed-citation>18. Sipido KR, Bito V, Antoons G, Volders PG, Vos MA. Na/Ca exchange and cardiac ventricular arrhythmias. Ann N Y Acad Sci 2007: 1099: 339-348, doi: 10.1196/annals.1387.066.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Sipido</surname>
+							<given-names>KR</given-names>
+						</name>
+						<name>
+							<surname>Bito</surname>
+							<given-names>V</given-names>
+						</name>
+						<name>
+							<surname>Antoons</surname>
+							<given-names>G</given-names>
+						</name>
+						<name>
+							<surname>Volders</surname>
+							<given-names>PG</given-names>
+						</name>
+						<name>
+							<surname>Vos</surname>
+							<given-names>MA</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Na/Ca exchange and cardiac ventricular arrhythmias</article-title>
+					<source xml:lang="en">Ann N Y Acad Sci</source>
+					<year>2007</year>
+					<volume>1099</volume>
+					<fpage>339</fpage>
+					<lpage>348</lpage>
+					<comment>doi:10.1196/annals.1387.066</comment>
+				</element-citation>
+			</ref>
+			<ref id="B19">
+				<label>19</label>
+				<mixed-citation>19. Pacioretty LM, Barr SC, Han WP, Gilmour RF Jr. Reduction of the transient outward potassium current in a canine model of Chagas' disease. Am J Physiol 1995: 268: H1258-H1264.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Pacioretty</surname>
+							<given-names>LM</given-names>
+						</name>
+						<name>
+							<surname>Barr</surname>
+							<given-names>SC</given-names>
+						</name>
+						<name>
+							<surname>Han</surname>
+							<given-names>WP</given-names>
+						</name>
+						<name>
+							<surname>Gilmour</surname>
+							<given-names>RF</given-names>
+							<suffix>Jr</suffix>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Reduction of the transient outward potassium current in a canine model of Chagas' disease</article-title>
+					<source xml:lang="en">Am J Physiol</source>
+					<year>1995</year>
+					<volume>268</volume>
+					<fpage>H1258</fpage>
+					<lpage>H1264</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B20">
+				<label>20</label>
+				<mixed-citation>20. Medei EH, Nascimento JH, Pedrosa RC, Barcellos L, Masuda MO, Sicouri S, et al. Antibodies with beta-adrenergic activity from chronic chagasic patients modulate the QT interval and M cell action potential duration. Europace 2008: 10: 868-876, doi: 10.1093/europace/eun138.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Medei</surname>
+							<given-names>EH</given-names>
+						</name>
+						<name>
+							<surname>Nascimento</surname>
+							<given-names>JH</given-names>
+						</name>
+						<name>
+							<surname>Pedrosa</surname>
+							<given-names>RC</given-names>
+						</name>
+						<name>
+							<surname>Barcellos</surname>
+							<given-names>L</given-names>
+						</name>
+						<name>
+							<surname>Masuda</surname>
+							<given-names>MO</given-names>
+						</name>
+						<name>
+							<surname>Sicouri</surname>
+							<given-names>S</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">Antibodies with beta-adrenergic activity from chronic chagasic patients modulate the QT interval and M cell action potential duration</article-title>
+					<source xml:lang="en">Europace</source>
+					<year>2008</year>
+					<volume>10</volume>
+					<fpage>868</fpage>
+					<lpage>876</lpage>
+					<comment>doi:10.1093/europace/eun138</comment>
+				</element-citation>
+			</ref>
+			<ref id="B21">
+				<label>21</label>
+				<mixed-citation>21. Andrade D, Serra R, Svensjo E, Lima AP, Ramos ES Jr, Fortes FS, et al. <italic>Trypanosoma cruzi</italic> invades host cells through the activation of endothelin and bradykinin receptors: a converging pathway leading to chagasic vasculopathy. Br J Pharmacol 2012: 165: 1333-1347, doi: 10.1111/j.1476-5381.2011.01609.x.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Andrade</surname>
+							<given-names>D</given-names>
+						</name>
+						<name>
+							<surname>Serra</surname>
+							<given-names>R</given-names>
+						</name>
+						<name>
+							<surname>Svensjo</surname>
+							<given-names>E</given-names>
+						</name>
+						<name>
+							<surname>Lima</surname>
+							<given-names>AP</given-names>
+						</name>
+						<name>
+							<surname>Ramos</surname>
+							<given-names>ES</given-names>
+							<suffix>Jr</suffix>
+						</name>
+						<name>
+							<surname>Fortes</surname>
+							<given-names>FS</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">
+						<italic>Trypanosoma cruzi</italic> invades host cells through the activation of endothelin and bradykinin receptors: a converging pathway leading to chagasic vasculopathy</article-title>
+					<source xml:lang="en">Br J Pharmacol</source>
+					<year>2012</year>
+					<volume>165</volume>
+					<fpage>1333</fpage>
+					<lpage>1347</lpage>
+					<comment>doi:10.1111/j.1476-5381.2011.01609.x</comment>
+				</element-citation>
+			</ref>
+			<ref id="B22">
+				<label>22</label>
+				<mixed-citation>22. Ashton AW, Mukherjee S, Nagajyothi FN, Huang H, Braunstein VL, Desruisseaux MS, et al. Thromboxane A2 is a key regulator of pathogenesis during <italic>Trypanosoma cruzi</italic> infection. J Exp Med 2007: 204: 929-940, doi: 10.1084/jem.20062432.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Ashton</surname>
+							<given-names>AW</given-names>
+						</name>
+						<name>
+							<surname>Mukherjee</surname>
+							<given-names>S</given-names>
+						</name>
+						<name>
+							<surname>Nagajyothi</surname>
+							<given-names>FN</given-names>
+						</name>
+						<name>
+							<surname>Huang</surname>
+							<given-names>H</given-names>
+						</name>
+						<name>
+							<surname>Braunstein</surname>
+							<given-names>VL</given-names>
+						</name>
+						<name>
+							<surname>Desruisseaux</surname>
+							<given-names>MS</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">Thromboxane A2 is a key regulator of pathogenesis during <italic>Trypanosoma cruzi</italic> infection</article-title>
+					<source xml:lang="en">J Exp Med</source>
+					<year>2007</year>
+					<volume>204</volume>
+					<fpage>929</fpage>
+					<lpage>940</lpage>
+					<comment>doi:10.1084/jem.20062432</comment>
+				</element-citation>
+			</ref>
+			<ref id="B23">
+				<label>23</label>
+				<mixed-citation>23. Parratt JR, Coker SJ, Wainwright CL. Eicosanoids and susceptibility to ventricular arrhythmias during myocardial ischaemia and reperfusion. J Mol Cell Cardiol 1987: 19 (Suppl 5): 55-66, doi: 10.1016/S0022-2828(87)80610-7.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Parratt</surname>
+							<given-names>JR</given-names>
+						</name>
+						<name>
+							<surname>Coker</surname>
+							<given-names>SJ</given-names>
+						</name>
+						<name>
+							<surname>Wainwright</surname>
+							<given-names>CL</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Eicosanoids and susceptibility to ventricular arrhythmias during myocardial ischaemia and reperfusion</article-title>
+					<source xml:lang="en">J Mol Cell Cardiol</source>
+					<year>1987</year>
+					<volume>19</volume>
+					<issue>(Suppl 5)</issue>
+					<fpage>55</fpage>
+					<lpage>66</lpage>
+					<comment>doi:10.1016/S0022-2828(87)80610-7</comment>
+				</element-citation>
+			</ref>
+			<ref id="B24">
+				<label>24</label>
+				<mixed-citation>24. Garzon SA, Lorga AM, Nicolau JC. Electrocardiography in Chagas' heart disease. São Paulo Med J 1995: 113: 802-813, doi: 10.1590/S1516-31801995000200011.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Garzon</surname>
+							<given-names>SA</given-names>
+						</name>
+						<name>
+							<surname>Lorga</surname>
+							<given-names>AM</given-names>
+						</name>
+						<name>
+							<surname>Nicolau</surname>
+							<given-names>JC</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Electrocardiography in Chagas' heart disease</article-title>
+					<source xml:lang="en">São Paulo Med J</source>
+					<year>1995</year>
+					<volume>113</volume>
+					<fpage>802</fpage>
+					<lpage>813</lpage>
+					<comment>doi:10.1590/S1516-31801995000200011</comment>
+				</element-citation>
+			</ref>
+			<ref id="B25">
+				<label>25</label>
+				<mixed-citation>25. Costa PC, Fortes FS, Machado AB, Almeida NA, Olivares EL, Cabral PR, et al. Sera from chronic chagasic patients depress cardiac electrogenesis and conduction. Braz J Med Biol Res 2000: 33: 439-446, doi: 10.1590/S0100-879X2000000400010.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Costa</surname>
+							<given-names>PC</given-names>
+						</name>
+						<name>
+							<surname>Fortes</surname>
+							<given-names>FS</given-names>
+						</name>
+						<name>
+							<surname>Machado</surname>
+							<given-names>AB</given-names>
+						</name>
+						<name>
+							<surname>Almeida</surname>
+							<given-names>NA</given-names>
+						</name>
+						<name>
+							<surname>Olivares</surname>
+							<given-names>EL</given-names>
+						</name>
+						<name>
+							<surname>Cabral</surname>
+							<given-names>PR</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">Sera from chronic chagasic patients depress cardiac electrogenesis and conduction</article-title>
+					<source xml:lang="en">Braz J Med Biol Res</source>
+					<year>2000</year>
+					<volume>33</volume>
+					<fpage>439</fpage>
+					<lpage>446</lpage>
+					<comment>doi:10.1590/S0100-879X2000000400010</comment>
+				</element-citation>
+			</ref>
+			<ref id="B26">
+				<label>26</label>
+				<mixed-citation>26. Escobar AL, Fernandez-Gomez R, Peter JC, Mobini R, Hoebeke J, Mijares A. IgGs and Mabs against the beta2-adrenoreceptor block A-V conduction in mouse hearts: A possible role in the pathogenesis of ventricular arrhythmias. J Mol Cell Cardiol 2006: 40: 829-837, doi: 10.1016/j.yjmcc.2006.03.430.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Escobar</surname>
+							<given-names>AL</given-names>
+						</name>
+						<name>
+							<surname>Fernandez-Gomez</surname>
+							<given-names>R</given-names>
+						</name>
+						<name>
+							<surname>Peter</surname>
+							<given-names>JC</given-names>
+						</name>
+						<name>
+							<surname>Mobini</surname>
+							<given-names>R</given-names>
+						</name>
+						<name>
+							<surname>Hoebeke</surname>
+							<given-names>J</given-names>
+						</name>
+						<name>
+							<surname>Mijares</surname>
+							<given-names>A</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">IgGs and Mabs against the beta2-adrenoreceptor block A-V conduction in mouse hearts: A possible role in the pathogenesis of ventricular arrhythmias</article-title>
+					<source xml:lang="en">J Mol Cell Cardiol</source>
+					<year>2006</year>
+					<volume>40</volume>
+					<fpage>829</fpage>
+					<lpage>837</lpage>
+					<comment>doi:10.1016/j.yjmcc.2006.03.430</comment>
+				</element-citation>
+			</ref>
+			<ref id="B27">
+				<label>27</label>
+				<mixed-citation>27. Mijares A, Verdot L, Peineau N, Vray B, Hoebeke J, Argibay J. Antibodies from <italic>Trypanosoma cruzi</italic> infected mice recognize the second extracellular loop of the beta 1-adrenergic and M2-muscarinic receptors and regulate calcium channels in isolated cardiomyocytes. Mol Cell Biochem 1996: 163-164: 107-112, doi: 10.1007/BF00408646.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Mijares</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Verdot</surname>
+							<given-names>L</given-names>
+						</name>
+						<name>
+							<surname>Peineau</surname>
+							<given-names>N</given-names>
+						</name>
+						<name>
+							<surname>Vray</surname>
+							<given-names>B</given-names>
+						</name>
+						<name>
+							<surname>Hoebeke</surname>
+							<given-names>J</given-names>
+						</name>
+						<name>
+							<surname>Argibay</surname>
+							<given-names>J</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Antibodies from <italic>Trypanosoma cruzi</italic> infected mice recognize the second extracellular loop of the beta 1-adrenergic and M2-muscarinic receptors and regulate calcium channels in isolated cardiomyocytes</article-title>
+					<source xml:lang="en">Mol Cell Biochem</source>
+					<year>1996</year>
+					<volume>163-164</volume>
+					<fpage>107</fpage>
+					<lpage>112</lpage>
+					<comment>doi:10.1007/BF00408646</comment>
+				</element-citation>
+			</ref>
+			<ref id="B28">
+				<label>28</label>
+				<mixed-citation>28. Adesse D, Goldenberg RC, Fortes FS, Jasmin, Iacobas DA, Iacobas S, et al. Gap junctions and Chagas disease. Adv Parasitol 2011: 76: 63-81, doi: 10.1016/B978-0-12-385895-5.00003-7.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Adesse</surname>
+							<given-names>D</given-names>
+						</name>
+						<name>
+							<surname>Goldenberg</surname>
+							<given-names>RC</given-names>
+						</name>
+						<name>
+							<surname>Fortes</surname>
+							<given-names>FS</given-names>
+						</name>
+						<name>
+							<surname>Jasmin, Iacobas</surname>
+							<given-names>DA</given-names>
+						</name>
+						<name>
+							<surname>Iacobas</surname>
+							<given-names>S</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">Gap junctions and Chagas disease</article-title>
+					<source xml:lang="en">Adv Parasitol</source>
+					<year>2011</year>
+					<volume>76</volume>
+					<fpage>63</fpage>
+					<lpage>81</lpage>
+					<comment>doi:10.1016/B978-0-12-385895-5.00003-7</comment>
+				</element-citation>
+			</ref>
+		</ref-list>
+		<fn-group>
+			<fn fn-type="other">
+				<p>First published online January 11, 2013.</p>
+			</fn>
+		</fn-group>
+	</back>
+</article>

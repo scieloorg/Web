@@ -1,0 +1,2667 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE article PUBLIC "-//NLM//DTD Journal Publishing DTD v3.0 20080202//EN" "/bases/xml.000/xmlproc/pmc/v3.0/dtd/journalpublishing3.dtd">
+<article article-type="research-article" dtd-version="3.0" xml:lang="en" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML">
+	<front>
+		<journal-meta>
+			<journal-id journal-id-type="nlm-ta">Braz J Med Biol Res</journal-id>
+			<journal-title-group>
+				<journal-title>Brazilian Journal of Medical and Biological Research</journal-title>
+				<abbrev-journal-title abbrev-type="publisher">Braz. J. Med. Biol. Res.</abbrev-journal-title>
+			</journal-title-group>
+			<issn pub-type="ppub">1414-431X</issn>
+			<publisher>
+				<publisher-name>Associação Brasileira de Divulgação Científica</publisher-name>
+			</publisher>
+		</journal-meta>
+		<article-meta>
+			<article-id pub-id-type="doi">10.1590/1414-431X20122388</article-id>
+			<article-categories>
+				<subj-group subj-group-type="heading">
+					<subject>Reviews</subject>
+				</subj-group>
+			</article-categories>
+			<title-group>
+				<article-title xml:lang="en">Biochemical adaptations of mammalian hibernation: exploring squirrels as a perspective model for naturally induced reversible insulin resistance</article-title>
+			</title-group>
+			<contrib-group>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Wu</surname>
+						<given-names>C-W.</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff1"/>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Biggar</surname>
+						<given-names>K.K.</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff1"/>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Storey</surname>
+						<given-names>K.B.</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff1"/>
+				</contrib>
+				<aff id="aff1">
+					<institution content-type="orgname">Carleton University</institution>
+					<institution content-type="orgdiv2">Department of Biology</institution>
+					<institution content-type="orgdiv1">Institute of Biochemistry</institution>
+					<addr-line>
+						<named-content content-type="city">Ottawa</named-content>, <named-content content-type="state">ON</named-content>
+					</addr-line>, <country>Canada</country>
+				</aff>
+			</contrib-group>
+			<author-notes>
+				<corresp>Correspondence: K.B. Storey, Department of Biology, Institute of Biochemistry, Carleton University, 1125 Colonel By Drive, Ottawa, ON, K1S 5B6, Canada, +613-520-3749, E-mail: <email>kenneth_storey@carleton.ca</email>
+				</corresp>
+			</author-notes>
+			<pub-date pub-type="ppub">
+				<month>1</month>
+				<year>2013</year>
+			</pub-date>
+			<volume>46</volume>
+			<issue>1</issue>
+			<fpage>1</fpage>
+			<lpage>13</lpage>
+			<history>
+				<date date-type="received">
+					<day>16</day>
+					<month>05</month>
+					<year>2012</year>
+				</date>
+				<date date-type="accepted">
+					<day>17</day>
+					<month>09</month>
+					<year>2012</year>
+				</date>
+			</history>
+			<permissions>
+				<license license-type="open-access" xlink:href="http://creativecommons.org/licenses/by-nc/3.0/">
+					<license-p>This is an Open Access article distributed under the terms of the Creative Commons Attribution Non-Commercial License, which permits unrestricted non-commercial use, distribution, and reproduction in any medium, provided the original work is properly cited.</license-p>
+				</license>
+			</permissions>
+			<abstract xml:lang="en">
+				<p>An important disease among human metabolic disorders is type 2 diabetes mellitus. This disorder involves multiple physiological defects that result from high blood glucose content and eventually lead to the onset of insulin resistance. The combination of insulin resistance, increased glucose production, and decreased insulin secretion creates a diabetic metabolic environment that leads to a lifetime of management. Appropriate models are critical for the success of research. As such, a unique model providing insight into the mechanisms of reversible insulin resistance is mammalian hibernation. Hibernators, such as ground squirrels and bats, are excellent examples of animals exhibiting reversible insulin resistance, for which a rapid increase in body weight is required prior to entry into dormancy. Hibernator studies have shown differential regulation of specific molecular pathways involved in reversible resistance to insulin. The present review focuses on this growing area of research and the molecular mechanisms that regulate glucose homeostasis, and explores the roles of the Akt signaling pathway during hibernation. Here, we propose a link between hibernation, a well-documented response to periods of environmental stress, and reversible insulin resistance, potentially facilitated by key alterations in the Akt signaling network, PPAR-γ/PGC-1α regulation, and non-coding RNA expression. Coincidentally, many of the same pathways are frequently found to be dysregulated during insulin resistance in human type 2 diabetes. Hence, the molecular networks that may regulate reversible insulin resistance in hibernating mammals represent a novel approach by providing insight into medical treatment of insulin resistance in humans.</p>
+			</abstract>
+			<kwd-group xml:lang="en">
+				<kwd>Metabolic depression</kwd>
+				<kwd>T2DM</kwd>
+				<kwd>PPAR-γ</kwd>
+				<kwd>MicroRNA</kwd>
+				<kwd>Glucose transport</kwd>
+				<kwd>Akt</kwd>
+			</kwd-group>
+			<counts>
+				<fig-count count="3"/>
+				<table-count count="0"/>
+				<ref-count count="84"/>
+				<page-count count="13"/>
+			</counts>
+		</article-meta>
+	</front>
+	<body>
+		<sec sec-type="intro">
+			<title>Introduction</title>
+			<p>Type 2 diabetes mellitus (T2DM) is one of the most common metabolic diseases in the world, affecting more than 21 million people in the United States <xref ref-type="bibr" rid="B01">1</xref>. Although the molecular basis of the disease is very well studied, cures and preventions for the disease have not been discovered. The pathogenesis towards T2DM is a result of a combination of metabolic dysfunctions, primarily characterized by severe insulin resistance and dysfunctional pancreatic β-cells resulting in hyperglycemia <xref ref-type="bibr" rid="B02">2</xref>. Development of T2DM is thought to be caused by a combination of dietary behaviors, physical fitness, and genetic factors <xref ref-type="bibr" rid="B03">3</xref>. Initiation of T2DM development is facilitated by a disturbance of normal biological functions in numerous tissues, with each tissue exhibiting both common and specific modes of dysfunction. Critical metabolic defects include insulin resistance in skeletal muscle, increased glucose production in the liver, and a progressive decline in insulin production in the pancreas. The physiological results in each tissue are caused by cellular dysregulation at the molecular level since cellular signaling processes such as glucose transport, insulin signaling, and mitochondria β-oxidation of fatty acids have all been found to be differentially dysregulated in the majority of T2DM patients <xref ref-type="bibr" rid="B04"/>
+				<xref ref-type="bibr" rid="B05">4,5</xref>. One of the most prevalent phenotype associations with T2DM is an increase in adipocyte diameter associated with obesity <xref ref-type="bibr" rid="B06">6</xref>. Although not all diabetics are obese and not all obese individuals are diabetic, there is a strong association between the two pathological conditions. The increase in adipose content in obese individuals can cause a disruption in endocrine production, and this change in hormonal balance can lead to an altered metabolism and often contributes to insulin resistance <xref ref-type="bibr" rid="B03">3</xref>.</p>
+			<p>Currently, most of the research on T2DM has been conducted using human cell lines and rat/mouse models, where the diabetic condition can be experimentally induced. However, naturally insulin-resistant models, such as the hibernating 13-lined ground squirrel (<italic>Ictidomys tridecemlineatus</italic>), may provide a critical vantage point towards the treatment of human T2DM. This mammal naturally undergoes a massive increase in body fat accumulation, while facilitating a reversible resistance to insulin during bouts of the hibernation cycle <xref ref-type="bibr" rid="B07">7</xref>. Hibernation is an altered physiological state that is characterized by seasonal heterothermy, entry into long periods of torpor at low body temperature (Tb) that are interspersed with short arousals back to a normal Tb (&#8764;37&#176;C), and a switch to a primary dependence on lipid catabolism for metabolic fuel <xref ref-type="bibr" rid="B08">8</xref>. In preparation for hibernation, ground squirrels undergo hyperphagia to increase their body fat storage via the accumulation of triglycerides in white adipose tissue <xref ref-type="bibr" rid="B09">9</xref>. This intense feeding allows the animals to increase their body weight up to &#8764;40%, facilitating survival for many months during the hibernation season <xref ref-type="bibr" rid="B10">10</xref>. The rapid development of an obesity-like state in these animals is a result of naturally induced insulin resistance during hyperinsulinemia, as well as an increase in adipocyte diameter <xref ref-type="bibr" rid="B07">7</xref>. Once adequate fat storage has been satisfied, the animal is able to enter hibernation. During deep torpor, the metabolic rate is strongly depressed and physiological actions, such as breathing and heartbeat, fall to low levels while Tb drops to near ambient <xref ref-type="bibr" rid="B10">10</xref>. Although maximal insulin resistance takes place during pre-hibernation, it is hypothesized that the reversal of insulin resistance takes place during the initial months of hibernation. It should be noted that metabolic rate depression and entry into a hypometabolic state is not unique to mammalian hibernators. When confronted with an extreme environmental stress, many animals escape by depressing their metabolic rate (often by 70-99%) and enter a state of hypometabolism, variously called torpor, dormancy, estivation, anaerobiosis, diapause, etc., depending on the environmental and physiological cues involved <xref ref-type="bibr" rid="B11"/>
+				<xref ref-type="bibr" rid="B12">11,12</xref>.</p>
+			<p>The molecular mechanisms of metabolic rate depression include global suppression of energy-expensive cell functions (e.g., protein synthesis, gene transcription, ATP-dependent ion pumps), reprioritization of ATP use by vital cell functions, and enhanced expression of multiple preservation mechanisms (e.g., antioxidants, chaperones) that protect and stabilize cellular macromolecules <xref ref-type="bibr" rid="B12">12</xref>. Although it might appear that only a few connections exist between hibernation and T2DM, many of the metabolic pathways regulating hibernation are also frequently found to be dysregulated in T2DM. However, these T2DM-like dysregulations are readily reversed in ground squirrels once they arouse from hibernation. The ability to reversibly induce insulin resistance to achieve an obesity-like state suggests a possible mechanism allowing hibernators to actively regulate their endocrine system, and modulate their lipid metabolism. More importantly, during hibernation, ground squirrels provide a unique model that readily reverses the insulin resistance seen in T2DM without detrimental consequences.</p>
+			<p>In this review, we first focus on the biochemical pathways that are frequently altered and contribute to T2DM onset with particular emphasis on the same pathways that may contribute to natural insulin resistance during hibernation. Interestingly, both ground squirrels in hibernation and T2DM patients share differential regulations in a number of identical metabolic pathways that include the Akt signaling pathway, glucose transport pathway, and peroxisome proliferator-activated receptor-γ (PPAR-γ)/PPAR-γ coactivator 1-alpha (PGC-1α) signaling. However, ground squirrels appear to exhibit a different mode of regulation of these pathways during hibernation compared to T2DM patients, implicating the important roles of these pathways in achieving reversible insulin resistance. We aim to profile the three major metabolic pathways mentioned above, and compare their relative modes of regulation during reversible insulin resistance (hibernation), and non-reversible insulin resistance (T2DM). In addition to these models of metabolic signaling pathways, the involvement of a novel regulatory mechanism - non-coding RNA - in hibernation is also discussed along with the possible roles for non-coding RNA in contributing to the pathogenesis of T2DM metabolic dysregulation. Here, we introduce hibernation, a well-documented response to periods of environmental stress, and the potential of reversible insulin resistance using the ground squirrel as an important experimental model.</p>
+		</sec>
+		<sec>
+			<title>Metabolic dysregulation of T2DM and hibernation metabolism</title>
+			<p>The pathogenesis of T2DM begins with defects in the body's basic metabolism. Upon normal feeding, increased glucose levels are balanced through the release of insulin, promoting the uptake of glucose and glycogen synthesis <xref ref-type="bibr" rid="B13">13</xref>. In normal energy metabolism, metabolic fuels (glycogen and triglycerides) are stored, acting as reserves to be broken down during the fasting state. Insulin is a key hormone in metabolic regulation, monitoring and maintaining the glucose balance within the body. However, the maintenance of whole body glucose metabolism involves the coordination of multiple metabolic processes in multiple tissues. Dysregulation of any of these metabolic processes can lead to a disruption in total body glucose homeostasis, followed by the onset of insulin insensitivity and T2DM <xref ref-type="bibr" rid="B14">14</xref>. Previous studies have implicated defects in several cellular processes in the contribution to T2DM; these include the previously mentioned glucose transport pathway, PPAR-γ/PGC-1α signaling pathway, and the Akt signaling pathway <xref ref-type="bibr" rid="B04"/>
+				<xref ref-type="bibr" rid="B05"/>
+				<xref ref-type="bibr" rid="B15"/>
+				<xref ref-type="bibr" rid="B16">4,5,15,16</xref>.</p>
+			<p>Buck et al. <xref ref-type="bibr" rid="B17">17</xref> have previously observed that ground squirrel serum insulin levels are elevated by &#8764;4-fold during September-October (periods of hibernation preparation) compared to summer animals; serum insulin levels continue to be elevated (&#8764;4.5-fold) during the initial months of ground squirrel hibernation. A 2-fold elevation of basal insulin levels is commonly associated with insulin resistance in T2DM in human patients; this could suggest that a dramatic increase in ground squirrel serum insulin may be a result of insulin resistance in the preparatory stages for hibernation, as well as the early months of hibernation. However, serum insulin has been found to return to basal levels in ground squirrels during late hibernation (December-January), suggesting a reversibility of insulin resistance <xref ref-type="bibr" rid="B17">17</xref>. This dramatic reduction of serum insulin levels during hibernation suggests that, although the maximal insulin level is observed before entry in hibernation, the molecular mechanisms that regulate the reversible insulin resistance take place during hibernation, when ground squirrels undergo major changes in physiological actions in order to achieve a state of hypometabolism. Interestingly, not unique to ground squirrels, other hibernating mammals also exhibit patterns of insulin resistance during hibernation. Hibernators such as yellow-bellied marmots showed significant increases in plasma insulin levels during periods of weight gain characterized with peripheral insulin resistance and hyperinsulinemia <xref ref-type="bibr" rid="B18">18</xref>. <italic>In vitro</italic> studies also showed that glucose oxidation of adipose tissue upon insulin stimulation in hibernating dormice was drastically reduced compared to active dormice, suggesting insulin resistance during hibernation <xref ref-type="bibr" rid="B19">19</xref>. Similar results were found in hibernating hedgehogs, where a lack of insulin response was found in adipocytes at low temperature <xref ref-type="bibr" rid="B20">20</xref>. Altogether, the metabolic adaptation of hibernation appears to include not only the regulation of insulin levels, but also of tissue sensitivity to the hormone.</p>
+			<p>Hibernation is an altered physiological state that is characterized by the extreme depression of basal metabolism. This type of metabolic suppression is favorable for organisms inhabiting environments that are subject to drastic temperature changes, as well as fluctuations in food and water availability. A current main model for hibernation studies is the 13-lined ground squirrel, <italic>I. tridecemlineatus</italic>, a rodent that is widespread in North America. A typical annual cycle of these ground squirrels includes a long period of hibernation that averages about 240 days <xref ref-type="bibr" rid="B21">21</xref>. The hibernation season is characterized by long periods of dormancy (up to 1-2 weeks) during which Tb falls to low values that are interspersed with brief arousals (about 24 h) back to euthermia. Hibernation is characterized by an altered approach to cellular energy management. In order to achieve a suppression of &#8764;90% compared to basal metabolic rate in euthermia, the ground squirrel must also suppress thermogenesis to allow Tb to fall to near ambient by overriding the normal homeostatic controls on Tb that are used in euthermia. However, it must be noted that the depression of Tb is a result of suppression of metabolic activities, suggesting that the drop in Tb is a regulated process <xref ref-type="bibr" rid="B22">22</xref>. In order to achieve and maintain a low energy status, selective changes in gene expression have to take place to induce or suppress selected metabolic processes <xref ref-type="bibr" rid="B12">12</xref>. Another mechanism that has previously been shown to play a central role in creating a hypometabolic state is reversible protein phosphorylation (RPP) <xref ref-type="bibr" rid="B12">12</xref>. Since the entry into and arousal from a torpor state is a short process and requires rapid changes in many metabolic processes, RPP has been shown to be a primary mechanism responsible for suppressing and activating a variety of metabolic functions <xref ref-type="bibr" rid="B23">23</xref>. Overall, in order to effectively achieve hibernation, the animals must 1) increase their metabolic fuel reserve in preparation for hibernation, 2) switch to a primary dependence on the catabolism of stored lipid reserves for metabolic fuel, and 3) reversibly suppress all non-essential ATP consuming processes <xref ref-type="bibr" rid="B12">12</xref>. The suppression of non-essential ATP consuming cellular activities includes a wide range of metabolic processes ranging from a reduction in gene transcription, protein translation, cell cycle division, active ion pumps, and carbohydrate metabolism <xref ref-type="bibr" rid="B23"/>
+				<xref ref-type="bibr" rid="B24"/>
+				<xref ref-type="bibr" rid="B25">23-25</xref>.</p>
+		</sec>
+		<sec>
+			<title>Obesity-like pathology: hibernation <italic>vs</italic> T2DM</title>
+			<p>In order to survive over long winter months without eating, hibernators undergo obligatory hyperphagia to increase their adipose storage, which can later be utilized as metabolic fuel. During the process of hyperphagia, induction of insulin resistance assists the hibernators in developing an obese-like state, a condition that is often associated with T2DM. The onset of insulin resistance in hibernators is thought to be induced during the preparation phase of hibernation, a period of hyperinsulinemia (&#8764;4-fold increase in serum insulin) <xref ref-type="bibr" rid="B17">17</xref>. It has also been proposed that a decrease in the levels of leptin is a primary factor that permits hyperphagia <xref ref-type="bibr" rid="B26">26</xref>. Since leptin is an adipose-derived hormone, the strategic suppression of leptin to facilitate hyperphagia suggests that the altered adipose metabolism in ground squirrels is a coordinated process. Although leptin resistance might play a role in the onset of insulin insensitivity, the development of obesity in T2DM is often a result of defects in adipose metabolism, which results in an uncoordinated release of non-esterified fatty acids, adipose-derived hormones, and various cytokines <xref ref-type="bibr" rid="B27">27</xref>. It is possible that the obesity-like state observed in both hibernation and T2DM is a result of hyperinsulinemia, or vice versa; however, the mechanisms utilized by the hibernators to actively regulate adipose metabolism during torpor may provide an understanding of the basis of reversible insulin resistance.</p>
+		</sec>
+		<sec>
+			<title>Glucose transport in T2DM and hibernation</title>
+			<p>Skeletal muscle is the largest insulin-sensitive organ, and acts as one of the primary tissues that are responsible for blood glucose transport <xref ref-type="bibr" rid="B03">3</xref>. The primary mechanism of glucose transport in skeletal muscle mainly involves two isoforms of the glucose transporter protein: glucose transporter type 1 (GLUT-1) and GLUT type 4 (GLUT-4). The central facilitator in insulin-induced glucose transport is GLUT-4, which is responsible for transporting &#8764;80% of the total glucose content from the bloodstream into skeletal muscle <xref ref-type="bibr" rid="B04"/>
+				<xref ref-type="bibr" rid="B28">4,28</xref>. Upon insulin stimulation, GLUT-4 translocates from intracellular pools to the plasma membrane, the site of glucose uptake (<xref ref-type="fig" rid="f01">Figure 1A</xref>) <xref ref-type="bibr" rid="B29">29</xref>. Upon glucose transport into myocytes, the glucose is phosphorylated by hexokinase to become glucose-6-phosphate, and is either immediately catabolized through glycolysis or stored as glycogen <xref ref-type="bibr" rid="B30">30</xref>. Experimental studies have shown that Wistar rats (<italic>Rattus norvegicus</italic>), induced to show diabetic pathology through streptozotocin injection, exhibit a decrease in the expression of GLUT-4 proteins in both the white and red skeletal muscle when compared to non-diabetic controls <xref ref-type="bibr" rid="B04">4</xref>. In a separate study utilizing the same experimental model, the decrease in GLUT-4 expression was also accompanied by a decrease in the V<sub>max</sub> activity of the glucose transporter in the plasma membrane <xref ref-type="bibr" rid="B29">29</xref>. Taken together, these findings suggest that glucose transport is defective due to a decrease in both the expression and activity of GLUT-4 in diabetic-induced rats. However, other studies have shown that the expression levels of GLUT-4 are relatively similar in diabetic and non-diabetic patients, suggesting that the impaired glucose transport activities are mainly due to a defect in the delivery of GLUT-4 to the plasma membrane <xref ref-type="bibr" rid="B31">31</xref>. Nevertheless, evidence strongly suggests that an overall disruption in glucose transport processes can lead to the onset of hyperglycemia in T2DM, where the defects can be attributed to impaired GLUT-4 translocation (<xref ref-type="fig" rid="f01">Figure 1B</xref>), a decrease in GLUT-4 transport activity, downregulation of GLUT-4 expression, or any combination of the three.</p>
+			<fig id="f01">
+				<label>Figure 1</label>
+				<caption>
+					<title>Insulin-signaling pathway. Interactions between insulin molecules and the insulin receptor initiate a signal transduction cascade via the activation of PI3-K. The downstream cascade stimulates the activation of Akt, which facilitates the translocation of GLUT-4 transporter towards the plasma membrane, where active glucose transport takes place. The transcription factor MEF-2 interacts with the <italic>GLUT4</italic> enhancer regions to promote the transcription of <italic>GLUT4</italic>, and upregulate GLUT-4 expression. <italic>A</italic>, Functional glucose transport system, where transported glucose is either stored via glycogenesis, or broken down via glycolysis. <italic>B</italic>, T2DM glucose transport system, where insulin resistance inhibits the activation of PI3-K, and disrupts the signal transduction pathway that facilitates the translocation of GLUT-4 transporter. Accumulation of glucose molecules leads to the onset of hyperglycemia. <italic>C</italic>, Hibernation glucose transport system. Reversible suppression of carbohydrate-based metabolism during hibernation results in the deliberate downregulation of the Akt signal transduction pathway. However, enhanced MEF-2 activity coupled with upregulated <italic>GLUT4</italic> expression during late hibernation suggests the possibility of alternative metabolic pathways that regulate the GLUT-4 transport system.</title>
+				</caption>
+				<graphic mimetype="image" xlink:href="1414-431X-bjmbr-46-01-001-gf01"/>
+			</fig>
+			<p>To date, there has been limited research on the glucose transport system in hibernating ground squirrels. Recently, a study of the roles of myocyte enhancer factor-2 (MEF-2) transcription factor in myogenesis in skeletal muscle of hibernators found that there was an increase in the levels of the active MEF-2 isoform during late torpor <xref ref-type="bibr" rid="B32">32</xref>. MEF-2 regulates a wide range of muscle-related cellular processes such as muscle growth and differentiation <xref ref-type="bibr" rid="B33">33</xref>. More importantly, MEF-2 can regulate muscle glucose homeostasis by enhancing the expression of GLUT-4 via interactions with the <italic>GLUT-4</italic> gene promoter <xref ref-type="bibr" rid="B34">34</xref>. Experiments using transgenic mice have found that MEF-2 DNA binding activity was significantly reduced in insulin-deficient diabetic mice; however, the binding activity was rescued upon insulin treatment <xref ref-type="bibr" rid="B34">34</xref>. This suggests that MEF-2 activity is strongly associated with insulin levels, and plays a critical role in modulating glucose balance. During late hibernation of ground squirrels, an increase in MEF-2 protein expression and DNA-binding activity was correlated with an increase in GLUT-4 expression, suggesting that glucose transport might be enhanced during hibernation (<xref ref-type="fig" rid="f01">Figure 1C</xref>). However, previous studies in T2DM patients have shown that a decrease in glucose transport capacity was associated with a defect in the translocation of GLUT-4 from the intracellular pool to the plasma membrane, rather than the changes in the expression of GLUT-4 <xref ref-type="bibr" rid="B31">31</xref>. Nevertheless, an increase in GLUT-4 expression through MEF-2 activation during hibernation might suggest that MEF-2 plays a more dominant role in regulating glucose transport in hibernators. As well, the coordinated regulation of glucose transport during hibernation is likely a mechanism of reversible insulin resistance, and suggests the potential importance of MEF-2 in rescuing the GLUT-4 protein deficiency observed in T2DM patients.</p>
+		</sec>
+		<sec>
+			<title>PPAR-γ/PGC-1α regulation in T2DM and hibernation</title>
+			<p>Excess fat accumulation in adipose tissue has been considered to be one of the main associations between obesity and diabetes <xref ref-type="bibr" rid="B06">6</xref>. One of the key regulators that modulate adipogenesis is PPAR-γ, a transcription factor that regulates the expression of genes involved in adipose differentiation <xref ref-type="bibr" rid="B35">35</xref>. The activation of PPAR-γ initiates the differentiation of insulin-sensitive fat cells that increases insulin-directed glucose uptake <xref ref-type="bibr" rid="B36">36</xref>. PPAR-γ achieves this control through the downstream regulation of several genes that are involved in insulin sensing, including tumor necrosis factor-α (TNF-α) and leptin. This is in addition to genes involved in fatty acid metabolism such as lipoprotein lipase and adipocyte/heart type fatty-acid binding proteins (<xref ref-type="fig" rid="f02">Figure 2A</xref>) <xref ref-type="bibr" rid="B36">36</xref>. Defects in PPAR-γ have been observed in T2DM patients, with individuals exhibiting deleterious mutations in the <italic>PPAR-γ</italic> gene showing symptoms of severe insulin resistance, likely contributed by dysfunctional adipose metabolism (<xref ref-type="fig" rid="f02">Figure 2B</xref>) <xref ref-type="bibr" rid="B37">37</xref>.</p>
+			<fig id="f02">
+				<label>Figure 2</label>
+				<caption>
+					<title>PPAR-γ/PGC-1α signaling pathways. Activation of PPAR-γ through upstream kinase cascades leads to the nuclear translocation of the transcription factor. The binding of PPAR&#8211;γ onto peroxisome proliferator response elements (PPRE) promotes the expression of genes involved in fatty acid transport such as <italic>a-fabp</italic> and <italic>h-fabp</italic>. Similar to PPAR-γ, activation of PGC-1α via upstream kinases facilitates the nuclear translocation of PGC-1α. Upon interacting with various potential binding partners, PGC-1α stimulates the expression of mitochondrial transcription factor A (mtTFA). mtTFA subsequently translocates into mitochondria and activates expression of <italic>ND-2</italic> and <italic>cox I</italic>, genes that are involved in the mitochondrial fatty acid oxidation process. <italic>A</italic>, Normal PPAR-γ/PGC-1α signaling. <italic>B</italic>, T2DM PPAR-γ/PGC-1α signaling. Downregulation/dysfunctional PPAR&#8211;γ and PGC-1α protein expression in T2DM results in the dysregulation of their respective functions. These defects result in the downregulation of PPAR-γ/PGC-1α downstream target genes, leading to the loss of mitochondrial oxidation capacities. The decrease in mitochondrial fatty acid oxidation results in the dysfunction of fatty acid metabolism, leading to the accumulation of free fatty acids. <italic>C</italic>, Hibernation PPAR-γ/PGC-1α signaling. The reversible activation of lipid-based metabolism during hibernation is supported by an enhanced PPAR-γ and PGC-1α protein expression. Through unidentified regulators, the upregulation of PGC-1α results in the activation of <italic>ND-2</italic> and <italic>cox I</italic>, two mitochondrial genes that are critical in the mitochondrial fatty acid β-oxidation process. The upregulation of PPAR-γ during hibernation leads to the promotion of A-FABP and H-FABP, isoforms of fatty acid-binding proteins that facilitate and enhance lipid transportation during hibernation.</title>
+				</caption>
+				<graphic mimetype="image" xlink:href="1414-431X-bjmbr-46-01-001-gf02"/>
+			</fig>
+			<p>Another transcription factor that is involved in T2DM is the PCG-1α <xref ref-type="bibr" rid="B38">38</xref>. The PGC-1α protein functions mainly as a coactivator that regulates PPAR-γ activity as well as other biological functions including mitochondria biogenesis and fatty acid oxidation <xref ref-type="bibr" rid="B39"/>
+				<xref ref-type="bibr" rid="B40"/>
+				<xref ref-type="bibr" rid="B41">39-41</xref>. It has been well documented that mitochondrial dysfunction is one of the metabolic disorders exhibited by T2DM patients, and it has been hypothesized that these dysfunctions are associated with the dysregulation of PGC-1α <xref ref-type="bibr" rid="B38">38</xref>. Previous studies found that the expression of PGC-1α was downregulated in the adipose tissue and skeletal muscle of individuals with T2DM <xref ref-type="bibr" rid="B42">42</xref>. At the molecular level, a downregulation in PGC-1α expression can lead to a decrease in the expression of crucial genes responsible for mitochondrial β-oxidation of fatty acids (<xref ref-type="fig" rid="f02">Figure 2B</xref>) <xref ref-type="bibr" rid="B38">38</xref>. Indeed, the mitochondrial dysfunctions observed in T2DM individuals consist of a decrease in both oxidative phosphorylation and fatty acid oxidation, which include a reduction in activities of NADH-O<sub>2</sub> oxidoreductase, citrate synthase, and mitochondrial complex I <xref ref-type="bibr" rid="B05"/>
+				<xref ref-type="bibr" rid="B43">5,43</xref>. The decrease in mitochondrial fatty acid oxidation results in an accumulation of free fatty acids (FFA) derivatives such as fatty acyl CoA, diacylglycerol, and ceramides <xref ref-type="bibr" rid="B44">44</xref>. It has been proposed that this buildup of FFA derivatives can lead to insulin resistance through the inactivation of insulin receptor substrate-1 (IRS-1), a protein responsible for activating the insulin-dependent Akt signaling cascade <xref ref-type="bibr" rid="B05"/>
+				<xref ref-type="bibr" rid="B44">5,44</xref>.</p>
+			<p>Due to the primary reliance on lipid catabolism in hibernators, the regulation of PPAR-γ and PGC-1α has been shown to play a major role in the survival of hibernation. In a study by Eddy et al. <xref ref-type="bibr" rid="B45">45</xref>, it was observed that the protein expression of PPAR-γ increased significantly in the brown adipose tissue (BAT) of ground squirrels during hibernation. As well, the protein expression of PGC-1α was upregulated in several tissues including white adipose tissue, BAT, heart, and skeletal muscle <xref ref-type="bibr" rid="B45">45</xref>. The increase in PPAR-γ expression was associated with increased gene expression of adipocyte fatty acid binding proteins (A-FABP) and heart-type FABP (H-FABP) (<xref ref-type="fig" rid="f02">Figure 2C</xref>) <xref ref-type="bibr" rid="B46">46</xref>. FABP is a chaperone protein that is responsible for binding and shuttling fatty acids to various cell compartments. Hibernators are unique in that they retain a high level of BAT, a tissue that is packed with mitochondria specialized for non-shivering thermogenesis <xref ref-type="bibr" rid="B47">47</xref>. Due to the important role of BAT during hibernation, the increase in expression of PPAR-γ is thought to be associated with an increased translocation of lipids, as metabolic fuel, via A-FABP <xref ref-type="bibr" rid="B46">46</xref>. It is likely that most of the lipid is shuttled to the mitochondria, where it is used mainly to fuel the massive increase in non-shivering thermogenesis in BAT that powers the rewarming of the hibernator's body during arousal from torpor. Meanwhile, the increase in the expression of PGC-1α during hibernation has been linked with the upregulation of genes involved in the mitochondrial biogenesis including <italic>NADPH-ubiquinone oxidoreductase chain 2</italic> (<italic>ND-2</italic>) and <italic>cytochrome c oxidase I</italic> (<italic>cox I</italic>) (<xref ref-type="fig" rid="f02">Figure 2C</xref>) <xref ref-type="bibr" rid="B45"/>
+				<xref ref-type="bibr" rid="B48"/>
+				<xref ref-type="bibr" rid="B49">45,48,49</xref>. Although the exact mechanism for the upregulation of mitochondrial genes is not yet identified in ground squirrels, previous studies have shown that PGC-1α activates the expression of mitochondrial transcription factor A (mtTFA), which subsequently translocates into the mitochondria and activates mitochondrial-encoded genes such as <italic>cox I</italic> (<xref ref-type="fig" rid="f02">Figure 2A</xref>) <xref ref-type="bibr" rid="B40">40</xref>. The increase in expression of <italic>ND-2</italic> and <italic>cox I</italic> genes during hibernation suggests an enhanced capacity of mitochondrial β-oxidation of lipids, possibly via an increased mitochondrial count.</p>
+			<p>Although hibernators experience a similar obesity-like condition as T2DM patients, there is a large difference in the regulation of their respective lipid metabolism. The increase in adipose content observed in the hibernators is associated with an enhanced lipid catabolism. In a cellular system where the majority of the metabolic processes are suppressed, an increase in the expression of genes involved in lipid catabolism indicates that adipose metabolism is highly crucial during hibernation. In contrast to hibernation, the lipid-based metabolism of T2DM has been shown to be subject to multiple defects. The primary complication of adipose dysfunction in T2DM is a decrease in the oxidative capacity of lipid metabolism, which is thought to be caused by a dysregulated expression of PPAR-γ and PGC-1α. An overall increase in free fatty acid derivative content has been implicated in the development of insulin resistance <xref ref-type="bibr" rid="B37">37</xref>. The differences in the mechanism of adipose regulation between hibernation and T2DM have provided clues to potential therapeutic targets of interest in reversing insulin resistance. In both conditions, PPAR-γ and PGC-1α are key regulators in determining the functionality of adipose metabolism, where changes in the expression of these two regulators can lead to either an increase or a decrease in mitochondrial β-oxidation of fatty acids. Indeed, the use of PPAR-γ agonists such as the thiazolidinediones has been shown to temporarily increase insulin sensitivity in T2DM <xref ref-type="bibr" rid="B50">50</xref>. However, future research is still required to determine the molecular mechanisms that are responsible for the activation of PPAR-γ and PGC-1α expression during hibernation, since a coordinated fatty acid metabolism is likely a component of reversible insulin resistance.</p>
+		</sec>
+		<sec>
+			<title>Akt signaling pathway regulation in T2DM and hibernation</title>
+			<p>Insulin signaling is initiated with the binding of insulin molecules to receptor ligands on the cell membrane. Ligand binding initiates the autophosphorylation and subsequent activation of the insulin receptors <xref ref-type="bibr" rid="B51">51</xref>. Upon activation, the receptors propagate their biological response by activating IRS via phosphorylation. In total, 12 different IRS isoforms can then interact with their corresponding downstream targets to promote the signal cascade <xref ref-type="bibr" rid="B51">51</xref>. IRS-1, the first to be discovered, contains a binding site for the regulatory subunit of phosphatidylinositol 3-kinase (PI3-K). The docking of the PI3-K regulatory subunit with IRS-1 activates the catalytic site of PI3-K, resulting in the phosphorylation and production of phosphatidylinositol 3,4,5-triphosphate (PIP<sub>3</sub>), a lipid second messenger required for the activation of 3-phosphoinositide-dependent protein kinase-1 (PDK1) (<xref ref-type="fig" rid="f01">Figure 1A</xref>) <xref ref-type="bibr" rid="B52">52</xref>. PDK1 is then responsible for activating Akt, also known as protein kinase B, a serine/threonine kinase that is involved in a diverse number of cellular processes including cellular growth and differentiation, cellular survival, and glucose metabolism <xref ref-type="bibr" rid="B53">53</xref>. Major roles of Akt in carbohydrate metabolism include promoting glucose transport via interaction with GLUT-4 and facilitating glycogenesis through interaction with glycogen synthase 3 kinase-β (GSK3-β) <xref ref-type="bibr" rid="B54">54</xref>. A defect in either process can lead to the pathogenesis of T2DM <xref ref-type="bibr" rid="B54"/>
+				<xref ref-type="bibr" rid="B55">54,55</xref>.</p>
+			<p>Previous studies in obese mouse models (C57BL/KsJ-Lepr<sup>db/db</sup>) have shown that mice exhibiting both insulin resistance and T2DM showed a significant decrease in their content of phosphorylated Akt<sup>Ser473</sup>. The decrease in phospho-Akt<sup>Ser473</sup> indicated a reduction in Akt activation and was coupled with a decrease in Akt activity on GSK3-β <xref ref-type="bibr" rid="B55">55</xref>. Krook et al. <xref ref-type="bibr" rid="B56">56</xref> also showed a reduction of Akt kinase activity in the skeletal muscle of T2DM patients compared to healthy individuals upon high doses of insulin stimulation, suggesting that T2DM patients exhibit impaired insulin-stimulated Akt signaling. The decrease in Akt activity observed in T2DM patients would not only decrease the rate of glucose transport into myocytes via GLUT-4, but also disrupt glycogenesis by activating GSK3-β (<xref ref-type="fig" rid="f01">Figure 1B</xref>). Hence, Akt is a major contributor to a disruption of glucose homeostasis in the skeletal muscle and has become a primary target of therapeutic interest in T2DM.</p>
+			<p>The Akt signaling pathway is a well-studied kinase cascade in hibernating ground squirrels, particularly with respect to its potential role in coordinating suppression of protein synthesis. McMullen and Hallenbeck <xref ref-type="bibr" rid="B57">57</xref> found that the level of phospho-Akt<sup>Ser473</sup> in the liver of <italic>I. tridecemlineatus</italic> decreased significantly by 57 and 77% during early and late stages of hibernation, respectively. Another study examining skeletal muscle of <italic>I. tridecemlineatus</italic> found that the phospho-Akt<sup>Ser473</sup> content was reduced by 55% during the late stages of hibernation, followed by an overall suppression of the downstream mTOR signaling network and contributing to a state of translational arrest <xref ref-type="bibr" rid="B58">58</xref>. Enzymatic studies of Akt in hibernating Richardson's ground squirrels (<italic>I. richardsonii</italic>) have also shown a decrease in Akt kinase activity during torpor in both the skeletal muscle (V<sub>max</sub> decrease of 60%) and the liver (V<sub>max</sub> decrease of 66%) <xref ref-type="bibr" rid="B59">59</xref>. In the same study, a decrease in phospho-Akt<sup>Ser473</sup> content was correlated with a decrease in the enzymatic activity of Akt in both skeletal muscle and liver.</p>
+			<p>This type of Akt inactivation was also observed in patients with T2DM. A decrease in the Akt kinase activity was observed to be associated with a decrease in GSK3-β phosphorylation, and was also linked to a decrease in GLUT-4 activation. The experimental conclusions of multiple Akt studies in hibernators would suggest that the glucose homeostasis and glycogenesis might be affected due to the coordinated suppression of the Akt signaling pathway. Interestingly, in the early arousal stages of torpor, the level of phospho-Akt<sup>Ser473</sup> increased significantly by 3.2-fold <xref ref-type="bibr" rid="B57">57</xref>. As well, during the interbout euthermia between torpor bouts, the levels of phospho-Akt<sup>Ser473</sup> returned to the levels observed in the euthermic control stage. The rapid increase in Akt activity during the arousal from torpor could indicate a re-activation of the insulin signaling pathway and could suggest the reversal of insulin resistance upon the exit of hibernation.</p>
+			<p>Interestingly, unlike the regulation of glucose and fatty acid metabolism, the pattern of Akt regulation in hibernators appears to be similar to the dysregulation that is often observed in T2DM patients. Despite the findings of reversible Akt activation during the arousal stages of the hibernation cycle, little is known about the mechanism that is responsible for such an event. Although it remains unclear whether the suppression of Akt during hibernation is a result of prolonged insulin resistance or a suppression of Akt upstream regulators (PI3-K, IRS-1, etc.), the restoration of Akt phosphorylation during arousal from hibernation could suggest a potential mechanism that rescues Akt kinase activity. The restoration of Akt activity could function to recover cellular process such as glucose metabolism that is often impaired through suppressed Akt activity in T2DM patients. Nonetheless, further investigation into the regulation of Akt upstream regulators such as PI3-K, IRS-1, and insulin receptors during hibernation would provide more insights into the state of insulin signaling during torpor, and its effects on the Akt kinase.</p>
+		</sec>
+		<sec>
+			<title>Future links between T2DM and hibernation: non-coding RNA</title>
+			<p>In the last few decades, few biological disciplines have undergone the growth of small non-coding RNAs, microRNA. These 18-25-nucleotide-long transcripts are able to bind with full or partial complementarity, usually to the 3&#8242; untranslated regions of mRNA targets, resulting in the inhibition of translation or degradation of that target (<xref ref-type="fig" rid="f03">Figure 3</xref>) <xref ref-type="bibr" rid="B60"/>
+				<xref ref-type="bibr" rid="B61"/>
+				<xref ref-type="bibr" rid="B62">60-62</xref>. Simply due to their sequence diversity, and the fact that their microRNAs are predicted to target the majority of mRNAs in mammals, this regulatory pathway is of great importance. In fact, through a myriad of comparative expression analyses and gain- and loss-of-function experiments, microRNAs have been shown to be critically involved in biological development, cell differentiation, apoptosis, cell cycle control, stress response, and disease pathogenesis <xref ref-type="bibr" rid="B60"/>
+				<xref ref-type="bibr" rid="B63"/>
+				<xref ref-type="bibr" rid="B64"/>
+				<xref ref-type="bibr" rid="B65">60,63-65</xref>. Notably, the characteristics of microRNA-induced regulation of gene expression meet the criteria necessary for the mechanisms of metabolic regulation to be broadly applicable, readily coordinated, easily induced, and readily reversed without wholesale reorganization of the cell <xref ref-type="bibr" rid="B66">66</xref>. Although microRNAs are implicated in a variety of disease states, only a handful of studies have demonstrated the involvement of microRNAs in the development of T2DM <xref ref-type="bibr" rid="B67"/>
+				<xref ref-type="bibr" rid="B68"/>
+				<xref ref-type="bibr" rid="B69"/>
+				<xref ref-type="bibr" rid="B70">67-70</xref>. Interestingly, several of the microRNAs found to be differentially expressed in T2DM models are also found to be differentially regulated during metabolic rate depression throughout mammalian hibernation. Although research in this field is only beginning, the extensiveness of gene regulation by non-coding RNA is supported by a finding that only one fifth of transcription across the genome is associated with protein-coding genes, suggesting at least four times more non-coding than coding RNA sequences <xref ref-type="bibr" rid="B71"/>
+				<xref ref-type="bibr" rid="B72">71,72</xref>.</p>
+			<fig id="f03">
+				<label>Figure 3</label>
+				<caption>
+					<title>MicroRNA biogenesis pathway. Primary transcripts are transcribed by RNA polymerase II and excised into single-stranded mature microRNA structures. Mature microRNA structures are then loaded into the microRNA-induced silencing complex and influence mRNA expression through degradation (perfect binding) or translational repression (imperfect binding) through 3-untranslated region binding.</title>
+				</caption>
+				<graphic mimetype="image" xlink:href="1414-431X-bjmbr-46-01-001-gf03"/>
+			</fig>
+		</sec>
+		<sec>
+			<title>MicroRNA: the link between T2DM and hibernation</title>
+			<p>Despite the absence of microRNAs from the current lists of genes shown to be associated with the onset and development of T2DM, an involvement of microRNAs seems likely given the evidence provided by available studies <xref ref-type="bibr" rid="B73">73</xref>. One report documented an altered microRNA pattern, contributing to FFA-induced pancreatic β-cell dysfunction <xref ref-type="bibr" rid="B67">67</xref>. Particularly, it was found that miR-34a is a transcriptional target of p53, a transcription factor capable of inducing apoptosis in several diseases. Additionally, miR-34a is able to induce the degradation of β-cell lymphoma 2 (Bcl2) mRNA, which encodes an anti-apoptotic protein <xref ref-type="bibr" rid="B74"/>
+				<xref ref-type="bibr" rid="B75">74,75</xref>. Most notably, both p53 and the decreased expression of anti-apoptotic Bcl2 mRNA play critical roles in the pancreas involving the apoptosis of insulin-secreting cells <xref ref-type="bibr" rid="B67">67</xref>. Additionally, within the pancreatic islets, miR-34a has been shown to affect hormone secretion through the targeting and mRNA downregulation of vesicle-associated membrane protein 2 (VAMP2), a vesicle protein that is involved in insulin exocytosis. Therefore, the differential regulation of p53-induced miR-34a expression may facilitate some of the negative outcomes induced by FFA in pancreatic function and the survival of β-cells, mimicking the state of obesity- associated T2DM. Furthermore, microRNA regulation of insulin exocytosis has been expanded with the discovery of differentially expressed miR-375 microRNAs in pancreatic endocrine cell lines <xref ref-type="bibr" rid="B76">76</xref>. However, when overexpressed, this particular microRNA resulted in the suppression of glucose-stimulated insulin release, while inhibition of this microRNA restored normal insulin exocytosis. Additionally, miR-375 has also been reported to target PDK1 in the pancreatic islet cells. PDK1, in the presence of PIP<sub>3</sub>, stimulates the insulin-responsive PI3-K/Akt pathway and overexpression of miR-375 would diminish this effect, decreasing PI3-K/Akt signaling <xref ref-type="bibr" rid="B77">77</xref>. This result establishes miR-375 as a potentially important modulator of insulin regulation, further implicating the involvement of microRNAs in T2DM.</p>
+			<p>As mentioned earlier in this review, the phosphorylation state of Akt is a key point of regulation and determines PI3-K/Akt pathway activity or inactivity <xref ref-type="bibr" rid="B78">78</xref>. Protein phosphatases (primarily phosphatase and tensin homolog, PTEN) act to suppress this signal by removing phosphate groups from members of the pathway <xref ref-type="bibr" rid="B78">78</xref>. Numerous microRNAs have been experimentally shown to act as negative regulators of the PI3-K/Akt signaling pathway <xref ref-type="bibr" rid="B79"/>
+				<xref ref-type="bibr" rid="B80">79,80</xref>. Of interest is miR-29, a microRNA shown to negatively affect the activation of the PI3-K/Akt pathway through repression of PI3-K regulatory subunits <xref ref-type="bibr" rid="B80">80</xref>. Importantly, this microRNA was found to be highly elevated in the skeletal muscle of diabetic rats, acting to inhibit the typical insulin response <xref ref-type="bibr" rid="B69">69</xref>. This included a significant repression of insulin-stimulated glucose uptake and the inhibition of insulin-stimulated Akt signaling, most likely mediated through PI3-K regulation. Given the importance of PI3-K/Akt signaling in T2DM, miR-29 has the potential to act as a mechanism to dampen insulin signaling.</p>
+			<p>Apart from their roles in T2DM, the regulation of distinct microRNAs has been well established as part of the typical stress response. To date, thousands of publications have documented their role in a multitude of cell function and dysfunction. A recent study showed that one aspect of metabolic rate depression may be the differential expression of key microRNA species during torpor <xref ref-type="bibr" rid="B71">71</xref>. The first study to characterize microRNAs in hibernation examined the expression of nine microRNA species in tissues from euthermic versus hibernating ground squirrels; several of these were identified to be differentially expressed in kidney, skeletal muscle and heart along with elevated amounts of the microRNA processing enzyme, Dicer, during torpor <xref ref-type="bibr" rid="B81">81</xref>. Although these do not address all differentially expressed microRNAs in hibernators, these experiments begin to examine the critical roles that non-coding RNAs may play during hibernation, and consequently may facilitate reversible insulin resistance. As previously mentioned, two key microRNAs have been identified to be differentially regulated in both hibernation and T2DM, namely, miR-34a and miR-29. miR-34a has been found to increase approximately 2-fold during late torpor in liver from hibernating arctic ground squirrels (<italic>I. parryii</italic>) <xref ref-type="bibr" rid="B82">82</xref>. The increase of miR-34a in the liver of a mammalian hibernator may suggest a regulatory role in apoptosis contributing to glucose secretion. Additionally, preliminary RT-PCR studies, using a modified stem-loop microRNA amplification protocol, conducted in the skeletal muscle of hibernating little brown bats (<italic>Myotis lucifugus</italic>) have identified an increase of 1.3 &#177; 0.1-fold in mature miR-29 during late torpor <xref ref-type="bibr" rid="B83"/>
+				<xref ref-type="bibr" rid="B84">83,84</xref>. An increase of miR-29 in skeletal muscle may be indicative of insulin-stimulated glucose uptake regulating the inactivation of the PI3-K/Akt signaling pathway similar to insulin resistant models. These studies suggest a similar regulation of both the PI3-K/Akt and p53 pathways in hibernators and T2DM, which may provide an indication of the important contributing role of microRNA expression patterns in reversible insulin resistance.</p>
+			<p>Identification of similar microRNA expression patterns between models of reversible and irreversible insulin resistance may identify a mechanism of reversing T2DM, accomplished through the decreased expression of key microRNAs including, perhaps, miR-34a and miR-29. The complexity of the transcriptome, and our evolving understanding of its structure, may inform a re-interpretation of the functional basis for many microRNAs associated with the diabetic state and a comparative approach to hibernating mammals may aid in this discovery.</p>
+		</sec>
+		<sec>
+			<title>Conclusion</title>
+			<p>This review attempts to summarize the current state of T2DM research, and draws parallels to the molecular pathways that may contribute to the reversible insulin resistance in mammalian hibernation. We have considered the relevance of hibernation in ground squirrels to human physiology and insulin resistance. Hibernators are a remarkable model for human obesity-like pathologies, fuelling the torpor cycle with adipocyte hypertrophy, hyperphagia, and reversible insulin resistance. Most notable is the marked insulin resistance during the period of fat storage, followed by its reversal as animals enter hibernation. This mode of action is likely facilitated through post-translational modifications to the key signaling transduction pathways mentioned in this review, with similar pathways commonly seen to be dysregulated in T2DM. The difference, however, lies within the ability of ground squirrels to actively regulate these signaling pathways, in contrast to the dysregulation observed in T2DM patients. Furthermore, the abundance of signal transducer proteins in a network can influence both the direction and strength of signaling and may play a role in remodeling the signaling landscape in the insulin- resistant hibernator. Since microRNAs are known to play roles in altering protein expression, it has been proposed that microRNAs could play crucial roles in the regulation of cellular signaling <xref ref-type="bibr" rid="B85">85</xref>. However, many key areas have not yet been evaluated in hypometabolic systems. The purpose of developing insulin resistance in hibernators, for example, has not been fully explored and may play a role in energy storage or in maintaining glucose stores for brain utilization, while other tissues become insulin resistant. Although this review presents many critical targets likely to contribute to the reversible insulin resistance seen in hibernators, future study will have to focus on the degree of insulin resistance found during different stages of hibernation, validation of the critical pathways contributing to reversible insulin resistance, and the elucidation of microRNAs as key regulators.</p>
+		</sec>
+	</body>
+	<back>
+		<ack>
+			<p>Thanks are due to J.M. Storey and H.A. Holden for editorial review of the manuscript. Research in the K.B. Storey laboratory is supported by a Discovery grant from NSERC. K.B. Storey holds the Canada Research Chair in Molecular Physiology, C.-W. Wu and K.K. Biggar hold NSERC postgraduate fellowships. Research supported by NSERC Canada (Grant #6793).</p>
+		</ack>
+		<ref-list>
+			<title>References</title>
+			<ref id="B01">
+				<label>1</label>
+				<mixed-citation>1. Cummings BP, Strader AD, Stanhope KL, Graham JL, Lee J, Raybould HE, et al. Ileal interposition surgery improves glucose and lipid metabolism and delays diabetes onset in the UCD-T2DM rat. Gastroenterology 2010; 138: 2437-2446, doi: 10.1053/j.gastro.2010.03.005.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Cummings</surname>
+							<given-names>BP</given-names>
+						</name>
+						<name>
+							<surname>Strader</surname>
+							<given-names>AD</given-names>
+						</name>
+						<name>
+							<surname>Stanhope</surname>
+							<given-names>KL</given-names>
+						</name>
+						<name>
+							<surname>Graham</surname>
+							<given-names>JL</given-names>
+						</name>
+						<name>
+							<surname>Lee</surname>
+							<given-names>J</given-names>
+						</name>
+						<name>
+							<surname>Raybould</surname>
+							<given-names>HE</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">Ileal interposition surgery improves glucose and lipid metabolism and delays diabetes onset in the UCD-T2DM rat</article-title>
+					<source xml:lang="en">Gastroenterology</source>
+					<year>2010</year>
+					<volume>138</volume>
+					<fpage>2437</fpage>
+					<lpage>2446</lpage>
+					<comment>doi:10.1053/j.gastro.2010.03.005</comment>
+				</element-citation>
+			</ref>
+			<ref id="B02">
+				<label>2</label>
+				<mixed-citation>2. Kadowaki T. Insights into insulin resistance and type 2 diabetes from knockout mouse models. J Clin Invest 2000; 106: 459-465, doi: 10.1172/JCI10830.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Kadowaki</surname>
+							<given-names>T</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Insights into insulin resistance and type 2 diabetes from knockout mouse models</article-title>
+					<source xml:lang="en">J Clin Invest</source>
+					<year>2000</year>
+					<volume>106</volume>
+					<fpage>459</fpage>
+					<lpage>465</lpage>
+					<comment>doi:10.1172/JCI10830</comment>
+				</element-citation>
+			</ref>
+			<ref id="B03">
+				<label>3</label>
+				<mixed-citation>3. Jin W, Patti ME. Genetic determinants and molecular pathways in the pathogenesis of type 2 diabetes. Clin Sci 2009; 116: 99-111, doi: 10.1042/CS20080090.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Jin</surname>
+							<given-names>W</given-names>
+						</name>
+						<name>
+							<surname>Patti</surname>
+							<given-names>ME</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Genetic determinants and molecular pathways in the pathogenesis of type 2 diabetes</article-title>
+					<source xml:lang="en">Clin Sci</source>
+					<year>2009</year>
+					<volume>116</volume>
+					<fpage>99</fpage>
+					<lpage>111</lpage>
+					<comment>doi:10.1042/CS20080090</comment>
+				</element-citation>
+			</ref>
+			<ref id="B04">
+				<label>4</label>
+				<mixed-citation>4. Camps M, Castello A, Munoz P, Monfar M, Testar X, Palacin M, et al. Effect of diabetes and fasting on GLUT-4 (muscle/fat) glucose-transporter expression in insulin-sensitive tissues. Heterogeneous response in heart, red and white muscle. Biochem J 1992; 282 (Part 3): 765-772.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Camps</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Castello</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Munoz</surname>
+							<given-names>P</given-names>
+						</name>
+						<name>
+							<surname>Monfar</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Testar</surname>
+							<given-names>X</given-names>
+						</name>
+						<name>
+							<surname>Palacin</surname>
+							<given-names>M</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">Effect of diabetes and fasting on GLUT-4 (muscle/fat) glucose-transporter expression in insulin-sensitive tissues. Heterogeneous response in heart, red and white muscle</article-title>
+					<source xml:lang="en">Biochem J</source>
+					<year>1992</year>
+					<volume>282</volume>
+					<issue>(Part 3)</issue>
+					<fpage>765</fpage>
+					<lpage>772</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B05">
+				<label>5</label>
+				<mixed-citation>5. Lowell BB, Shulman GI. Mitochondrial dysfunction and type 2 diabetes. Science 2005; 307: 384-387, doi: 10.1126/science.1104343.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Lowell</surname>
+							<given-names>BB</given-names>
+						</name>
+						<name>
+							<surname>Shulman</surname>
+							<given-names>GI</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Mitochondrial dysfunction and type 2 diabetes</article-title>
+					<source xml:lang="en">Science</source>
+					<year>2005</year>
+					<volume>307</volume>
+					<fpage>384</fpage>
+					<lpage>387</lpage>
+					<comment>doi:10.1126/science.1104343</comment>
+				</element-citation>
+			</ref>
+			<ref id="B06">
+				<label>6</label>
+				<mixed-citation>6. Wang MY, Grayburn P, Chen S, Ravazzola M, Orci L, Unger RH. Adipogenic capacity and the susceptibility to type 2 diabetes and metabolic syndrome. Proc Natl Acad Sci U S A 2008; 105: 6139-6144, doi: 10.1073/pnas.0801981105.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Wang</surname>
+							<given-names>MY</given-names>
+						</name>
+						<name>
+							<surname>Grayburn</surname>
+							<given-names>P</given-names>
+						</name>
+						<name>
+							<surname>Chen</surname>
+							<given-names>S</given-names>
+						</name>
+						<name>
+							<surname>Ravazzola</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Orci</surname>
+							<given-names>L</given-names>
+						</name>
+						<name>
+							<surname>Unger</surname>
+							<given-names>RH</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Adipogenic capacity and the susceptibility to type 2 diabetes and metabolic syndrome</article-title>
+					<source xml:lang="en">Proc Natl Acad Sci U S A</source>
+					<year>2008</year>
+					<volume>105</volume>
+					<fpage>6139</fpage>
+					<lpage>6144</lpage>
+					<comment>doi:10.1073/pnas.0801981105</comment>
+				</element-citation>
+			</ref>
+			<ref id="B07">
+				<label>7</label>
+				<mixed-citation>7. Martin SL. Mammalian hibernation: a naturally reversible model for insulin resistance in man? Diab Vasc Dis Res 2008; 5: 76-81, doi: 10.3132/dvdr.2008.013.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Martin</surname>
+							<given-names>SL</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Mammalian hibernation: a naturally reversible model for insulin resistance in man?</article-title>
+					<source xml:lang="en">Diab Vasc Dis Res</source>
+					<year>2008</year>
+					<volume>5</volume>
+					<fpage>76</fpage>
+					<lpage>81</lpage>
+					<comment>doi:10.3132/dvdr.2008.013</comment>
+				</element-citation>
+			</ref>
+			<ref id="B08">
+				<label>8</label>
+				<mixed-citation>8. Dark J. Annual lipid cycles in hibernators: integration of physiology and behavior. Annu Rev Nutr 2005; 25: 469-497, doi: 10.1146/annurev.nutr.25.050304.092514.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Dark</surname>
+							<given-names>J</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Annual lipid cycles in hibernators: integration of physiology and behavior</article-title>
+					<source xml:lang="en">Annu Rev Nutr</source>
+					<year>2005</year>
+					<volume>25</volume>
+					<fpage>469</fpage>
+					<lpage>497</lpage>
+					<comment>doi:10.1146/annurev.nutr.25.050304.092514</comment>
+				</element-citation>
+			</ref>
+			<ref id="B09">
+				<label>9</label>
+				<mixed-citation>9. Storey KB. Out cold: biochemical regulation of mammalian hibernation - a mini-review. Gerontology 2010; 56: 220-230, doi: 10.1159/000228829.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Storey</surname>
+							<given-names>KB</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Out cold: biochemical regulation of mammalian hibernation - a mini-review</article-title>
+					<source xml:lang="en">Gerontology</source>
+					<year>2010</year>
+					<volume>56</volume>
+					<fpage>220</fpage>
+					<lpage>230</lpage>
+					<comment>doi:10.1159/000228829</comment>
+				</element-citation>
+			</ref>
+			<ref id="B10">
+				<label>10</label>
+				<mixed-citation>10. Wang LCH, Lee TF. Torpor and hibernation in mammals: metabolic, physiological and biochemical adaptations. New York: Oxford University Press; 1996.</mixed-citation>
+				<element-citation publication-type="book">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Wang</surname>
+							<given-names>LCH</given-names>
+						</name>
+						<name>
+							<surname>Lee</surname>
+							<given-names>TF</given-names>
+						</name>
+					</person-group>
+					<source xml:lang="en">Torpor and hibernation in mammals: metabolic, physiological and biochemical adaptations</source>
+					<publisher-loc>New York</publisher-loc>
+					<publisher-name>Oxford University Press</publisher-name>
+					<year>1996</year>
+				</element-citation>
+			</ref>
+			<ref id="B11">
+				<label>11</label>
+				<mixed-citation>11. Guppy M, Withers P. Metabolic depression in animals: physiological perspectives and biochemical generalizations. Biol Rev Camb Philos Soc 1999; 74: 1-40, doi: 10.1017/S0006323198005258.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Guppy</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Withers</surname>
+							<given-names>P</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Metabolic depression in animals: physiological perspectives and biochemical generalizations</article-title>
+					<source xml:lang="en">Biol Rev Camb Philos Soc</source>
+					<year>1999</year>
+					<volume>74</volume>
+					<fpage>1</fpage>
+					<lpage>40</lpage>
+					<comment>doi:10.1017/S0006323198005258</comment>
+				</element-citation>
+			</ref>
+			<ref id="B12">
+				<label>12</label>
+				<mixed-citation>12. Storey KB, Storey JM. Tribute to P.L. Lutz: putting life on &#8216;pause' - molecular regulation of hypometabolism. J Exp Biol 2007; 210: 1700-1714, doi: 10.1242/jeb.02716.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Storey</surname>
+							<given-names>KB</given-names>
+						</name>
+						<name>
+							<surname>Storey</surname>
+							<given-names>JM</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Tribute to P.L. Lutz: putting life on &#8216;pause' - molecular regulation of hypometabolism</article-title>
+					<source xml:lang="en">J Exp Biol</source>
+					<year>2007</year>
+					<volume>210</volume>
+					<fpage>1700</fpage>
+					<lpage>1714</lpage>
+					<comment>doi:10.1242/jeb.02716</comment>
+				</element-citation>
+			</ref>
+			<ref id="B13">
+				<label>13</label>
+				<mixed-citation>13. Shepherd PR, Kahn BB. Glucose transporters and insulin action - implications for insulin resistance and diabetes mellitus. N Engl J Med 1999; 341: 248-257, doi: 10.1056/NEJM199907223410406.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Shepherd</surname>
+							<given-names>PR</given-names>
+						</name>
+						<name>
+							<surname>Kahn</surname>
+							<given-names>BB</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Glucose transporters and insulin action - implications for insulin resistance and diabetes mellitus</article-title>
+					<source xml:lang="en">N Engl J Med</source>
+					<year>1999</year>
+					<volume>341</volume>
+					<fpage>248</fpage>
+					<lpage>257</lpage>
+					<comment>doi:10.1056/NEJM199907223410406</comment>
+				</element-citation>
+			</ref>
+			<ref id="B14">
+				<label>14</label>
+				<mixed-citation>14. Bouche C, Serdy S, Kahn CR, Goldfine AB. The cellular fate of glucose and its relevance in type 2 diabetes. Endocr Rev 2004; 25: 807-830, doi: 10.1210/er.2003-0026.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Bouche</surname>
+							<given-names>C</given-names>
+						</name>
+						<name>
+							<surname>Serdy</surname>
+							<given-names>S</given-names>
+						</name>
+						<name>
+							<surname>Kahn</surname>
+							<given-names>CR</given-names>
+						</name>
+						<name>
+							<surname>Goldfine</surname>
+							<given-names>AB</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">The cellular fate of glucose and its relevance in type 2 diabetes</article-title>
+					<source xml:lang="en">Endocr Rev</source>
+					<year>2004</year>
+					<volume>25</volume>
+					<fpage>807</fpage>
+					<lpage>830</lpage>
+					<comment>doi:10.1210/er.2003-0026</comment>
+				</element-citation>
+			</ref>
+			<ref id="B15">
+				<label>15</label>
+				<mixed-citation>15. Balasubramanyam M, Mohan V. Current concepts of PPAR-gamma signaling in diabetes mellitus. Current Science 2000; 79: 1440-1446.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Balasubramanyam</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Mohan</surname>
+							<given-names>V</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Current concepts of PPAR-gamma signaling in diabetes mellitus</article-title>
+					<source xml:lang="en">Current Science</source>
+					<year>2000</year>
+					<volume>79</volume>
+					<fpage>1440</fpage>
+					<lpage>1446</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B16">
+				<label>16</label>
+				<mixed-citation>16. Kerouz NJ, Horsch D, Pons S, Kahn CR. Differential regulation of insulin receptor substrates-1 and -2 (IRS-1 and IRS-2) and phosphatidylinositol 3-kinase isoforms in liver and muscle of the obese diabetic (ob/ob) mouse. J Clin Invest 1997; 100: 3164-3172, doi: 10.1172/JCI119872.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Kerouz</surname>
+							<given-names>NJ</given-names>
+						</name>
+						<name>
+							<surname>Horsch</surname>
+							<given-names>D</given-names>
+						</name>
+						<name>
+							<surname>Pons</surname>
+							<given-names>S</given-names>
+						</name>
+						<name>
+							<surname>Kahn</surname>
+							<given-names>CR</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Differential regulation of insulin receptor substrates-1 and -2 (IRS-1 and IRS-2) and phosphatidylinositol 3-kinase isoforms in liver and muscle of the obese diabetic (ob/ob) mouse</article-title>
+					<source xml:lang="en">J Clin Invest</source>
+					<year>1997</year>
+					<volume>100</volume>
+					<fpage>3164</fpage>
+					<lpage>3172</lpage>
+					<comment>doi:10.1172/JCI119872</comment>
+				</element-citation>
+			</ref>
+			<ref id="B17">
+				<label>17</label>
+				<mixed-citation>17. Buck MJ, Squire TL, Andrews MT. Coordinate expression of the PDK4 gene: a means of regulating fuel selection in a hibernating mammal. Physiol Genomics 2002; 8: 5-13.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Buck</surname>
+							<given-names>MJ</given-names>
+						</name>
+						<name>
+							<surname>Squire</surname>
+							<given-names>TL</given-names>
+						</name>
+						<name>
+							<surname>Andrews</surname>
+							<given-names>MT</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Coordinate expression of the PDK4 gene: a means of regulating fuel selection in a hibernating mammal</article-title>
+					<source xml:lang="en">Physiol Genomics</source>
+					<year>2002</year>
+					<volume>8</volume>
+					<fpage>5</fpage>
+					<lpage>13</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B18">
+				<label>18</label>
+				<mixed-citation>18. Florant GL, Lawrence AK, Williams K, Bauman WA. Seasonal changes in pancreatic B-cell function in euthermic yellow-bellied marmots. Am J Physiol 1985; 249: R159-R165.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Florant</surname>
+							<given-names>GL</given-names>
+						</name>
+						<name>
+							<surname>Lawrence</surname>
+							<given-names>AK</given-names>
+						</name>
+						<name>
+							<surname>Williams</surname>
+							<given-names>K</given-names>
+						</name>
+						<name>
+							<surname>Bauman</surname>
+							<given-names>WA</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Seasonal changes in pancreatic B-cell function in euthermic yellow-bellied marmots</article-title>
+					<source xml:lang="en">Am J Physiol</source>
+					<year>1985</year>
+					<volume>249</volume>
+					<fpage>R159</fpage>
+					<lpage>R165</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B19">
+				<label>19</label>
+				<mixed-citation>19. Castex C, Tahri A, Hoo-Paris R, Sutter BC. Glucose oxidation by adipose tissue of the edible dormouse (<italic>Glis glis</italic>) during hibernation and arousal: effect of insulin. Comp Biochem Physiol A Comp Physiol 1987; 88: 33-36, doi: 10.1016/0300-9629(87)90094-6.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Castex</surname>
+							<given-names>C</given-names>
+						</name>
+						<name>
+							<surname>Tahri</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Hoo-Paris</surname>
+							<given-names>R</given-names>
+						</name>
+						<name>
+							<surname>Sutter</surname>
+							<given-names>BC</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Glucose oxidation by adipose tissue of the edible dormouse (<italic>Glis glis</italic>) during hibernation and arousal: effect of insulin</article-title>
+					<source xml:lang="en">Comp Biochem Physiol A Comp Physiol</source>
+					<year>1987</year>
+					<volume>88</volume>
+					<fpage>33</fpage>
+					<lpage>36</lpage>
+					<comment>doi:10.1016/0300-9629(87)90094-6</comment>
+				</element-citation>
+			</ref>
+			<ref id="B20">
+				<label>20</label>
+				<mixed-citation>20. Hoo-Paris R, Castex C, Sutter BC. Plasma glucose and insulin in the hibernating hedgehog. Diabete Metab 1978; 4: 13-18.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Hoo-Paris</surname>
+							<given-names>R</given-names>
+						</name>
+						<name>
+							<surname>Castex</surname>
+							<given-names>C</given-names>
+						</name>
+						<name>
+							<surname>Sutter</surname>
+							<given-names>BC</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Plasma glucose and insulin in the hibernating hedgehog</article-title>
+					<source xml:lang="en">Diabete Metab</source>
+					<year>1978</year>
+					<volume>4</volume>
+					<fpage>13</fpage>
+					<lpage>18</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B21">
+				<label>21</label>
+				<mixed-citation>21. McCarley H. Annual cycle population dynamics and adaptive behaviors of <italic>Citellus tridecemlineatus</italic>. J Mammal 1966; 47: 294-316, doi: 10.2307/1378126.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>McCarley</surname>
+							<given-names>H</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Annual cycle population dynamics and adaptive behaviors of <italic>Citellus tridecemlineatus</italic>
+					</article-title>
+					<source xml:lang="en">J Mammal</source>
+					<year>1966</year>
+					<volume>47</volume>
+					<fpage>294</fpage>
+					<lpage>316</lpage>
+					<comment>doi:10.2307/1378126</comment>
+				</element-citation>
+			</ref>
+			<ref id="B22">
+				<label>22</label>
+				<mixed-citation>22. Lowell BB, Spiegelman BM. Towards a molecular understanding of adaptive thermogenesis. Nature 2000; 404: 652-660.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Lowell</surname>
+							<given-names>BB</given-names>
+						</name>
+						<name>
+							<surname>Spiegelman</surname>
+							<given-names>BM</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Towards a molecular understanding of adaptive thermogenesis</article-title>
+					<source xml:lang="en">Nature</source>
+					<year>2000</year>
+					<volume>404</volume>
+					<fpage>652</fpage>
+					<lpage>660</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B23">
+				<label>23</label>
+				<mixed-citation>23. Storey KB. Metabolic regulation in mammalian hibernation: enzyme and protein adaptations. Comp Biochem Physiol A Physiol 1997; 118: 1115-1124, doi: 10.1016/S0300-9629(97)00238-7.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Storey</surname>
+							<given-names>KB</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Metabolic regulation in mammalian hibernation: enzyme and protein adaptations</article-title>
+					<source xml:lang="en">Comp Biochem Physiol A Physiol</source>
+					<year>1997</year>
+					<volume>118</volume>
+					<fpage>1115</fpage>
+					<lpage>1124</lpage>
+					<comment>doi:10.1016/S0300-9629(97)00238-7</comment>
+				</element-citation>
+			</ref>
+			<ref id="B24">
+				<label>24</label>
+				<mixed-citation>24. Wu CW, Storey KB. Pattern of cellular quiescence over the hibernation cycle in liver of thirteen-lined ground squirrels. Cell Cycle 2012; 11: 1714-1726, doi: 10.4161/cc.19799.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Wu</surname>
+							<given-names>CW</given-names>
+						</name>
+						<name>
+							<surname>Storey</surname>
+							<given-names>KB</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Pattern of cellular quiescence over the hibernation cycle in liver of thirteen-lined ground squirrels</article-title>
+					<source xml:lang="en">Cell Cycle</source>
+					<year>2012</year>
+					<volume>11</volume>
+					<fpage>1714</fpage>
+					<lpage>1726</lpage>
+					<comment>doi:10.4161/cc.19799</comment>
+				</element-citation>
+			</ref>
+			<ref id="B25">
+				<label>25</label>
+				<mixed-citation>25. MacDonald JA, Storey KB. Regulation of ground squirrel Na<sup>+</sup>K<sup>+</sup>-ATPase activity by reversible phosphorylation during hibernation. Biochem Biophys Res Commun 1999; 254: 424-429, doi: 10.1006/bbrc.1998.9960.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>MacDonald</surname>
+							<given-names>JA</given-names>
+						</name>
+						<name>
+							<surname>Storey</surname>
+							<given-names>KB</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Regulation of ground squirrel Na<sup>+</sup>K<sup>+</sup>-ATPase activity by reversible phosphorylation during hibernation</article-title>
+					<source xml:lang="en">Biochem Biophys Res Commun</source>
+					<year>1999</year>
+					<volume>254</volume>
+					<fpage>424</fpage>
+					<lpage>429</lpage>
+					<comment>doi:10.1006/bbrc.1998.9960</comment>
+				</element-citation>
+			</ref>
+			<ref id="B26">
+				<label>26</label>
+				<mixed-citation>26. Ormseth OA, Nicolson M, Pelleymounter MA, Boyer BB. Leptin inhibits prehibernation hyperphagia and reduces body weight in arctic ground squirrels. Am J Physiol 1996; 271: R1775-R1779.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Ormseth</surname>
+							<given-names>OA</given-names>
+						</name>
+						<name>
+							<surname>Nicolson</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Pelleymounter</surname>
+							<given-names>MA</given-names>
+						</name>
+						<name>
+							<surname>Boyer</surname>
+							<given-names>BB</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Leptin inhibits prehibernation hyperphagia and reduces body weight in arctic ground squirrels</article-title>
+					<source xml:lang="en">Am J Physiol</source>
+					<year>1996</year>
+					<volume>271</volume>
+					<fpage>R1775</fpage>
+					<lpage>R1779</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B27">
+				<label>27</label>
+				<mixed-citation>27. Shoelson SE, Lee J, Goldfine AB. Inflammation and insulin resistance. J Clin Invest 2006; 116: 1793-1801, doi: 10.1172/JCI29069.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Shoelson</surname>
+							<given-names>SE</given-names>
+						</name>
+						<name>
+							<surname>Lee</surname>
+							<given-names>J</given-names>
+						</name>
+						<name>
+							<surname>Goldfine</surname>
+							<given-names>AB</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Inflammation and insulin resistance</article-title>
+					<source xml:lang="en">J Clin Invest</source>
+					<year>2006</year>
+					<volume>116</volume>
+					<fpage>1793</fpage>
+					<lpage>1801</lpage>
+					<comment>doi:10.1172/JCI29069</comment>
+				</element-citation>
+			</ref>
+			<ref id="B28">
+				<label>28</label>
+				<mixed-citation>28. DeFronzo RA, Bonadonna RC, Ferrannini E. Pathogenesis of NIDDM. A balanced overview. Diabetes Care 1992; 15: 318-368, doi: 10.2337/diacare.15.3.318.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>DeFronzo</surname>
+							<given-names>RA</given-names>
+						</name>
+						<name>
+							<surname>Bonadonna</surname>
+							<given-names>RC</given-names>
+						</name>
+						<name>
+							<surname>Ferrannini</surname>
+							<given-names>E</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Pathogenesis of NIDDM. A balanced overview</article-title>
+					<source xml:lang="en">Diabetes Care</source>
+					<year>1992</year>
+					<volume>15</volume>
+					<fpage>318</fpage>
+					<lpage>368</lpage>
+					<comment>doi:10.2337/diacare.15.3.318</comment>
+				</element-citation>
+			</ref>
+			<ref id="B29">
+				<label>29</label>
+				<mixed-citation>29. Napoli R, Hirshman MF, Horton ES. Mechanisms and time course of impaired skeletal muscle glucose transport activity in streptozocin diabetic rats. J Clin Invest 1995; 96: 427-437, doi: 10.1172/JCI118053.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Napoli</surname>
+							<given-names>R</given-names>
+						</name>
+						<name>
+							<surname>Hirshman</surname>
+							<given-names>MF</given-names>
+						</name>
+						<name>
+							<surname>Horton</surname>
+							<given-names>ES</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Mechanisms and time course of impaired skeletal muscle glucose transport activity in streptozocin diabetic rats</article-title>
+					<source xml:lang="en">J Clin Invest</source>
+					<year>1995</year>
+					<volume>96</volume>
+					<fpage>427</fpage>
+					<lpage>437</lpage>
+					<comment>doi:10.1172/JCI118053</comment>
+				</element-citation>
+			</ref>
+			<ref id="B30">
+				<label>30</label>
+				<mixed-citation>30. Abdul-Ghani MA, DeFronzo RA. Pathogenesis of insulin resistance in skeletal muscle. J Biomed Biotechnol 2010; 2010: 476279.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Abdul-Ghani</surname>
+							<given-names>MA</given-names>
+						</name>
+						<name>
+							<surname>DeFronzo</surname>
+							<given-names>RA</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Pathogenesis of insulin resistance in skeletal muscle</article-title>
+					<source xml:lang="en">J Biomed Biotechnol</source>
+					<year>2010</year>
+					<volume>2010</volume>
+					<fpage>476279</fpage>
+				</element-citation>
+			</ref>
+			<ref id="B31">
+				<label>31</label>
+				<mixed-citation>31. Kennedy JW, Hirshman MF, Gervino EV, Ocel JV, Forse RA, Hoenig SJ, et al. Acute exercise induces GLUT4 translocation in skeletal muscle of normal human subjects and subjects with type 2 diabetes. Diabetes 1999; 48: 1192-1197, doi: 10.2337/diabetes.48.5.1192.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Kennedy</surname>
+							<given-names>JW</given-names>
+						</name>
+						<name>
+							<surname>Hirshman</surname>
+							<given-names>MF</given-names>
+						</name>
+						<name>
+							<surname>Gervino</surname>
+							<given-names>EV</given-names>
+						</name>
+						<name>
+							<surname>Ocel</surname>
+							<given-names>JV</given-names>
+						</name>
+						<name>
+							<surname>Forse</surname>
+							<given-names>RA</given-names>
+						</name>
+						<name>
+							<surname>Hoenig</surname>
+							<given-names>SJ</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">Acute exercise induces GLUT4 translocation in skeletal muscle of normal human subjects and subjects with type 2 diabetes</article-title>
+					<source xml:lang="en">Diabetes</source>
+					<year>1999</year>
+					<volume>48</volume>
+					<fpage>1192</fpage>
+					<lpage>1197</lpage>
+					<comment>doi:10.2337/diabetes.48.5.1192</comment>
+				</element-citation>
+			</ref>
+			<ref id="B32">
+				<label>32</label>
+				<mixed-citation>32. Tessier SN, Storey KB. Expression of myocyte enhancer factor-2 and downstream genes in ground squirrel skeletal muscle during hibernation. Mol Cell Biochem 2010; 344: 151-162, doi: 10.1007/s11010-010-0538-y.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Tessier</surname>
+							<given-names>SN</given-names>
+						</name>
+						<name>
+							<surname>Storey</surname>
+							<given-names>KB</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Expression of myocyte enhancer factor-2 and downstream genes in ground squirrel skeletal muscle during hibernation</article-title>
+					<source xml:lang="en">Mol Cell Biochem</source>
+					<year>2010</year>
+					<volume>344</volume>
+					<fpage>151</fpage>
+					<lpage>162</lpage>
+					<comment>doi:10.1007/s11010-010-0538-y</comment>
+				</element-citation>
+			</ref>
+			<ref id="B33">
+				<label>33</label>
+				<mixed-citation>33. Black BL, Olson EN. Transcriptional control of muscle development by myocyte enhancer factor-2 (MEF2) proteins. Annu Rev Cell Dev Biol 1998; 14: 167-196, doi: 10.1146/annurev.cellbio.14.1.167.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Black</surname>
+							<given-names>BL</given-names>
+						</name>
+						<name>
+							<surname>Olson</surname>
+							<given-names>EN</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Transcriptional control of muscle development by myocyte enhancer factor-2 (MEF2) proteins</article-title>
+					<source xml:lang="en">Annu Rev Cell Dev Biol</source>
+					<year>1998</year>
+					<volume>14</volume>
+					<fpage>167</fpage>
+					<lpage>196</lpage>
+					<comment>doi:10.1146/annurev.cellbio.14.1.167</comment>
+				</element-citation>
+			</ref>
+			<ref id="B34">
+				<label>34</label>
+				<mixed-citation>34. Thai MV, Guruswamy S, Cao KT, Pessin JE, Olson AL. Myocyte enhancer factor 2 (MEF2)-binding site is required for <italic>GLUT4</italic> gene expression in transgenic mice. Regulation of MEF2 DNA binding activity in insulin-deficient diabetes. J Biol Chem 1998; 273: 14285-14292, doi: 10.1074/jbc.273.23.14285.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Thai</surname>
+							<given-names>MV</given-names>
+						</name>
+						<name>
+							<surname>Guruswamy</surname>
+							<given-names>S</given-names>
+						</name>
+						<name>
+							<surname>Cao</surname>
+							<given-names>KT</given-names>
+						</name>
+						<name>
+							<surname>Pessin</surname>
+							<given-names>JE</given-names>
+						</name>
+						<name>
+							<surname>Olson</surname>
+							<given-names>AL</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Myocyte enhancer factor 2 (MEF2)-binding site is required for <italic>GLUT4</italic> gene expression in transgenic mice. Regulation of MEF2 DNA binding activity in insulin-deficient diabetes</article-title>
+					<source xml:lang="en">J Biol Chem</source>
+					<year>1998</year>
+					<volume>273</volume>
+					<fpage>14285</fpage>
+					<lpage>14292</lpage>
+					<comment>doi:10.1074/jbc.273.23.14285</comment>
+				</element-citation>
+			</ref>
+			<ref id="B35">
+				<label>35</label>
+				<mixed-citation>35. Matsusue K, Peters JM, Gonzalez FJ. PPARbeta/delta potentiates PPARgamma-stimulated adipocyte differentiation. FASEB J 2004; 18: 1477-1479.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Matsusue</surname>
+							<given-names>K</given-names>
+						</name>
+						<name>
+							<surname>Peters</surname>
+							<given-names>JM</given-names>
+						</name>
+						<name>
+							<surname>Gonzalez</surname>
+							<given-names>FJ</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">PPARbeta/delta potentiates PPARgamma-stimulated adipocyte differentiation</article-title>
+					<source xml:lang="en">FASEB J</source>
+					<year>2004</year>
+					<volume>18</volume>
+					<fpage>1477</fpage>
+					<lpage>1479</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B36">
+				<label>36</label>
+				<mixed-citation>36. Spiegelman BM. PPAR-gamma: adipogenic regulator and thiazolidinedione receptor. Diabetes 1998; 47: 507-514, doi: 10.2337/diabetes.47.4.507.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Spiegelman</surname>
+							<given-names>BM</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">PPAR-gamma: adipogenic regulator and thiazolidinedione receptor</article-title>
+					<source xml:lang="en">Diabetes</source>
+					<year>1998</year>
+					<volume>47</volume>
+					<fpage>507</fpage>
+					<lpage>514</lpage>
+					<comment>doi:10.2337/diabetes.47.4.507</comment>
+				</element-citation>
+			</ref>
+			<ref id="B37">
+				<label>37</label>
+				<mixed-citation>37. Barroso I, Gurnell M, Crowley VE, Agostini M, Schwabe JW, Soos MA, et al. Dominant negative mutations in human PPARgamma associated with severe insulin resistance, diabetes mellitus and hypertension. Nature 1999; 402: 880-883.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Barroso</surname>
+							<given-names>I</given-names>
+						</name>
+						<name>
+							<surname>Gurnell</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Crowley</surname>
+							<given-names>VE</given-names>
+						</name>
+						<name>
+							<surname>Agostini</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Schwabe</surname>
+							<given-names>JW</given-names>
+						</name>
+						<name>
+							<surname>Soos</surname>
+							<given-names>MA</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">Dominant negative mutations in human PPARgamma associated with severe insulin resistance, diabetes mellitus and hypertension</article-title>
+					<source xml:lang="en">Nature</source>
+					<year>1999</year>
+					<volume>402</volume>
+					<fpage>880</fpage>
+					<lpage>883</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B38">
+				<label>38</label>
+				<mixed-citation>38. Mootha VK, Lindgren CM, Eriksson KF, Subramanian A, Sihag S, Lehar J, et al. PGC-1alpha-responsive genes involved in oxidative phosphorylation are coordinately downregulated in human diabetes. Nat Genet 2003; 34: 267-273, doi: 10.1038/ng1180.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Mootha</surname>
+							<given-names>VK</given-names>
+						</name>
+						<name>
+							<surname>Lindgren</surname>
+							<given-names>CM</given-names>
+						</name>
+						<name>
+							<surname>Eriksson</surname>
+							<given-names>KF</given-names>
+						</name>
+						<name>
+							<surname>Subramanian</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Sihag</surname>
+							<given-names>S</given-names>
+						</name>
+						<name>
+							<surname>Lehar</surname>
+							<given-names>J</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">PGC-1alpha-responsive genes involved in oxidative phosphorylation are coordinately downregulated in human diabetes</article-title>
+					<source xml:lang="en">Nat Genet</source>
+					<year>2003</year>
+					<volume>34</volume>
+					<fpage>267</fpage>
+					<lpage>273</lpage>
+					<comment>doi:10.1038/ng1180</comment>
+				</element-citation>
+			</ref>
+			<ref id="B39">
+				<label>39</label>
+				<mixed-citation>39. Guan HP, Ishizuka T, Chui PC, Lehrke M, Lazar MA. Corepressors selectively control the transcriptional activity of PPARgamma in adipocytes. Genes Dev 2005; 19: 453-461, doi: 10.1101/gad.1263305.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Guan</surname>
+							<given-names>HP</given-names>
+						</name>
+						<name>
+							<surname>Ishizuka</surname>
+							<given-names>T</given-names>
+						</name>
+						<name>
+							<surname>Chui</surname>
+							<given-names>PC</given-names>
+						</name>
+						<name>
+							<surname>Lehrke</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Lazar</surname>
+							<given-names>MA</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Corepressors selectively control the transcriptional activity of PPARgamma in adipocytes</article-title>
+					<source xml:lang="en">Genes Dev</source>
+					<year>2005</year>
+					<volume>19</volume>
+					<fpage>453</fpage>
+					<lpage>461</lpage>
+					<comment>doi:10.1101/gad.1263305</comment>
+				</element-citation>
+			</ref>
+			<ref id="B40">
+				<label>40</label>
+				<mixed-citation>40. Wu Z, Puigserver P, Andersson U, Zhang C, Adelmant G, Mootha V, et al. Mechanisms controlling mitochondrial biogenesis and respiration through the thermogenic coactivator PGC-1. Cell 1999; 98: 115-124, doi: 10.1016/S0092-8674(00)80611-X.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Wu</surname>
+							<given-names>Z</given-names>
+						</name>
+						<name>
+							<surname>Puigserver</surname>
+							<given-names>P</given-names>
+						</name>
+						<name>
+							<surname>Andersson</surname>
+							<given-names>U</given-names>
+						</name>
+						<name>
+							<surname>Zhang</surname>
+							<given-names>C</given-names>
+						</name>
+						<name>
+							<surname>Adelmant</surname>
+							<given-names>G</given-names>
+						</name>
+						<name>
+							<surname>Mootha</surname>
+							<given-names>V</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">Mechanisms controlling mitochondrial biogenesis and respiration through the thermogenic coactivator PGC-1</article-title>
+					<source xml:lang="en">Cell</source>
+					<year>1999</year>
+					<volume>98</volume>
+					<fpage>115</fpage>
+					<lpage>124</lpage>
+					<comment>doi:10.1016/S0092-8674(00)80611-X</comment>
+				</element-citation>
+			</ref>
+			<ref id="B41">
+				<label>41</label>
+				<mixed-citation>41. Puigserver P, Wu Z, Park CW, Graves R, Wright M, Spiegelman BM. A cold-inducible coactivator of nuclear receptors linked to adaptive thermogenesis. Cell 1998; 92: 829-839, doi: 10.1016/S0092-8674(00)81410-5.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Puigserver</surname>
+							<given-names>P</given-names>
+						</name>
+						<name>
+							<surname>Wu</surname>
+							<given-names>Z</given-names>
+						</name>
+						<name>
+							<surname>Park</surname>
+							<given-names>CW</given-names>
+						</name>
+						<name>
+							<surname>Graves</surname>
+							<given-names>R</given-names>
+						</name>
+						<name>
+							<surname>Wright</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Spiegelman</surname>
+							<given-names>BM</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">A cold-inducible coactivator of nuclear receptors linked to adaptive thermogenesis</article-title>
+					<source xml:lang="en">Cell</source>
+					<year>1998</year>
+					<volume>92</volume>
+					<fpage>829</fpage>
+					<lpage>839</lpage>
+					<comment>doi:10.1016/S0092-8674(00)81410-5</comment>
+				</element-citation>
+			</ref>
+			<ref id="B42">
+				<label>42</label>
+				<mixed-citation>42. Semple RK, Crowley VC, Sewter CP, Laudes M, Christodoulides C, Considine RV, et al. Expression of the thermogenic nuclear hormone receptor coactivator PGC-1alpha is reduced in the adipose tissue of morbidly obese subjects. Int J Obes Relat Metab Disord 2004; 28: 176-179, doi: 10.1038/sj.ijo.0802482.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Semple</surname>
+							<given-names>RK</given-names>
+						</name>
+						<name>
+							<surname>Crowley</surname>
+							<given-names>VC</given-names>
+						</name>
+						<name>
+							<surname>Sewter</surname>
+							<given-names>CP</given-names>
+						</name>
+						<name>
+							<surname>Laudes</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Christodoulides</surname>
+							<given-names>C</given-names>
+						</name>
+						<name>
+							<surname>Considine</surname>
+							<given-names>RV</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">Expression of the thermogenic nuclear hormone receptor coactivator PGC-1alpha is reduced in the adipose tissue of morbidly obese subjects</article-title>
+					<source xml:lang="en">Int J Obes Relat Metab Disord</source>
+					<year>2004</year>
+					<volume>28</volume>
+					<fpage>176</fpage>
+					<lpage>179</lpage>
+					<comment>doi:10.1038/sj.ijo.0802482</comment>
+				</element-citation>
+			</ref>
+			<ref id="B43">
+				<label>43</label>
+				<mixed-citation>43. Kelley DE, He J, Menshikova EV, Ritov VB. Dysfunction of mitochondria in human skeletal muscle in type 2 diabetes. Diabetes 2002; 51: 2944-2950, doi: 10.2337/diabetes.51.10.2944.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Kelley</surname>
+							<given-names>DE</given-names>
+						</name>
+						<name>
+							<surname>He</surname>
+							<given-names>J</given-names>
+						</name>
+						<name>
+							<surname>Menshikova</surname>
+							<given-names>EV</given-names>
+						</name>
+						<name>
+							<surname>Ritov</surname>
+							<given-names>VB</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Dysfunction of mitochondria in human skeletal muscle in type 2 diabetes</article-title>
+					<source xml:lang="en">Diabetes</source>
+					<year>2002</year>
+					<volume>51</volume>
+					<fpage>2944</fpage>
+					<lpage>2950</lpage>
+					<comment>doi:10.2337/diabetes.51.10.2944</comment>
+				</element-citation>
+			</ref>
+			<ref id="B44">
+				<label>44</label>
+				<mixed-citation>44. Boden G, Shulman GI. Free fatty acids in obesity and type 2 diabetes: defining their role in the development of insulin resistance and beta-cell dysfunction. Eur J Clin Invest 2002; 32 (Suppl 3): 14-23, doi: 10.1046/j.1365-2362.32.s3.3.x.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Boden</surname>
+							<given-names>G</given-names>
+						</name>
+						<name>
+							<surname>Shulman</surname>
+							<given-names>GI</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Free fatty acids in obesity and type 2 diabetes: defining their role in the development of insulin resistance and beta-cell dysfunction</article-title>
+					<source xml:lang="en">Eur J Clin Invest</source>
+					<year>2002</year>
+					<volume>32</volume>
+					<issue>(Suppl 3)</issue>
+					<fpage>14</fpage>
+					<lpage>23</lpage>
+					<comment>doi:10.1046/j.1365-2362.32.s3.3.x</comment>
+				</element-citation>
+			</ref>
+			<ref id="B45">
+				<label>45</label>
+				<mixed-citation>45. Eddy SF, Morin P Jr, Storey KB. Cloning and expression of PPAR-gamma and PGC-1alpha from the hibernating ground squirrel, Spermophilus tridecemlineatus. Mol Cell Biochem 2005; 269: 175-182, doi: 10.1007/s11010-005-3459-4.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Eddy</surname>
+							<given-names>SF</given-names>
+						</name>
+						<name>
+							<surname>Morin</surname>
+							<given-names>P</given-names>
+							<suffix>Jr</suffix>
+						</name>
+						<name>
+							<surname>Storey</surname>
+							<given-names>KB</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Cloning and expression of PPAR-gamma and PGC-1alpha from the hibernating ground squirrel, Spermophilus tridecemlineatus</article-title>
+					<source xml:lang="en">Mol Cell Biochem</source>
+					<year>2005</year>
+					<volume>269</volume>
+					<fpage>175</fpage>
+					<lpage>182</lpage>
+					<comment>doi:10.1007/s11010-005-3459-4</comment>
+				</element-citation>
+			</ref>
+			<ref id="B46">
+				<label>46</label>
+				<mixed-citation>46. Hittel D, Storey KB. Differential expression of adipose- and heart-type fatty acid binding proteins in hibernating ground squirrels. Biochim Biophys Acta 2001; 1522: 238-243, doi: 10.1016/S0167-4781(01)00338-4.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Hittel</surname>
+							<given-names>D</given-names>
+						</name>
+						<name>
+							<surname>Storey</surname>
+							<given-names>KB</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Differential expression of adipose- and heart-type fatty acid binding proteins in hibernating ground squirrels</article-title>
+					<source xml:lang="en">Biochim Biophys Acta</source>
+					<year>2001</year>
+					<volume>1522</volume>
+					<fpage>238</fpage>
+					<lpage>243</lpage>
+					<comment>doi:10.1016/S0167-4781(01)00338-4</comment>
+				</element-citation>
+			</ref>
+			<ref id="B47">
+				<label>47</label>
+				<mixed-citation>47. Cannon B, Nedergaard J. Brown adipose tissue: function and physiological significance. Physiol Rev 2004; 84: 277-359, doi: 10.1152/physrev.00015.2003.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Cannon</surname>
+							<given-names>B</given-names>
+						</name>
+						<name>
+							<surname>Nedergaard</surname>
+							<given-names>J</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Brown adipose tissue: function and physiological significance</article-title>
+					<source xml:lang="en">Physiol Rev</source>
+					<year>2004</year>
+					<volume>84</volume>
+					<fpage>277</fpage>
+					<lpage>359</lpage>
+					<comment>doi:10.1152/physrev.00015.2003</comment>
+				</element-citation>
+			</ref>
+			<ref id="B48">
+				<label>48</label>
+				<mixed-citation>48. Hittel DS, Storey KB. Differential expression of mitochondria-encoded genes in a hibernating mammal. J Exp Biol 2002; 205: 1625-1631.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Hittel</surname>
+							<given-names>DS</given-names>
+						</name>
+						<name>
+							<surname>Storey</surname>
+							<given-names>KB</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Differential expression of mitochondria-encoded genes in a hibernating mammal</article-title>
+					<source xml:lang="en">J Exp Biol</source>
+					<year>2002</year>
+					<volume>205</volume>
+					<fpage>1625</fpage>
+					<lpage>1631</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B49">
+				<label>49</label>
+				<mixed-citation>49. Fahlman A, Storey JM, Storey KB. Gene up-regulation in heart during mammalian hibernation. Cryobiology 2000; 40: 332-342, doi: 10.1006/cryo.2000.2254.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Fahlman</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Storey</surname>
+							<given-names>JM</given-names>
+						</name>
+						<name>
+							<surname>Storey</surname>
+							<given-names>KB</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Gene up-regulation in heart during mammalian hibernation</article-title>
+					<source xml:lang="en">Cryobiology</source>
+					<year>2000</year>
+					<volume>40</volume>
+					<fpage>332</fpage>
+					<lpage>342</lpage>
+					<comment>doi:10.1006/cryo.2000.2254</comment>
+				</element-citation>
+			</ref>
+			<ref id="B50">
+				<label>50</label>
+				<mixed-citation>50. Smith U, Gogg S, Johansson A, Olausson T, Rotter V, Svalstedt B. Thiazolidinediones (PPARgamma agonists) but not PPARalpha agonists increase IRS-2 gene expression in 3T3-L1 and human adipocytes. FASEB J 2001; 15: 215-220, doi: 10.1096/fj.00-0020com.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Smith</surname>
+							<given-names>U</given-names>
+						</name>
+						<name>
+							<surname>Gogg</surname>
+							<given-names>S</given-names>
+						</name>
+						<name>
+							<surname>Johansson</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Olausson</surname>
+							<given-names>T</given-names>
+						</name>
+						<name>
+							<surname>Rotter</surname>
+							<given-names>V</given-names>
+						</name>
+						<name>
+							<surname>Svalstedt</surname>
+							<given-names>B</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Thiazolidinediones (PPARgamma agonists) but not PPARalpha agonists increase IRS-2 gene expression in 3T3-L1 and human adipocytes</article-title>
+					<source xml:lang="en">FASEB J</source>
+					<year>2001</year>
+					<volume>15</volume>
+					<fpage>215</fpage>
+					<lpage>220</lpage>
+					<comment>doi:10.1096/fj.00-0020com</comment>
+				</element-citation>
+			</ref>
+			<ref id="B51">
+				<label>51</label>
+				<mixed-citation>51. Bjornholm M, Zierath JR. Insulin signal transduction in human skeletal muscle: identifying the defects in Type II diabetes. Biochem Soc Trans 2005; 33: 354-357, doi: 10.1042/BST0330354.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Bjornholm</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Zierath</surname>
+							<given-names>JR</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Insulin signal transduction in human skeletal muscle: identifying the defects in Type II diabetes</article-title>
+					<source xml:lang="en">Biochem Soc Trans</source>
+					<year>2005</year>
+					<volume>33</volume>
+					<fpage>354</fpage>
+					<lpage>357</lpage>
+					<comment>doi:10.1042/BST0330354</comment>
+				</element-citation>
+			</ref>
+			<ref id="B52">
+				<label>52</label>
+				<mixed-citation>52. De Camilli P, Emr SD, McPherson PS, Novick P. Phosphoinositides as regulators in membrane traffic. Science 1996; 271: 1533-1539, doi: 10.1126/science.271.5255.1533.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>De Camilli</surname>
+							<given-names>P</given-names>
+						</name>
+						<name>
+							<surname>Emr</surname>
+							<given-names>SD</given-names>
+						</name>
+						<name>
+							<surname>McPherson</surname>
+							<given-names>PS</given-names>
+						</name>
+						<name>
+							<surname>Novick</surname>
+							<given-names>P</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Phosphoinositides as regulators in membrane traffic</article-title>
+					<source xml:lang="en">Science</source>
+					<year>1996</year>
+					<volume>271</volume>
+					<fpage>1533</fpage>
+					<lpage>1539</lpage>
+					<comment>doi:10.1126/science.271.5255.1533</comment>
+				</element-citation>
+			</ref>
+			<ref id="B53">
+				<label>53</label>
+				<mixed-citation>53. Zdychova J, Komers R. Emerging role of Akt kinase/protein kinase B signaling in pathophysiology of diabetes and its complications. Physiol Res 2005; 54: 1-16.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Zdychova</surname>
+							<given-names>J</given-names>
+						</name>
+						<name>
+							<surname>Komers</surname>
+							<given-names>R</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Emerging role of Akt kinase/protein kinase B signaling in pathophysiology of diabetes and its complications</article-title>
+					<source xml:lang="en">Physiol Res</source>
+					<year>2005</year>
+					<volume>54</volume>
+					<fpage>1</fpage>
+					<lpage>16</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B54">
+				<label>54</label>
+				<mixed-citation>54. Wang Q, Somwar R, Bilan PJ, Liu Z, Jin J, Woodgett JR, et al. Protein kinase B/Akt participates in GLUT4 translocation by insulin in L6 myoblasts. Mol Cell Biol 1999; 19: 4008-4018.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Wang</surname>
+							<given-names>Q</given-names>
+						</name>
+						<name>
+							<surname>Somwar</surname>
+							<given-names>R</given-names>
+						</name>
+						<name>
+							<surname>Bilan</surname>
+							<given-names>PJ</given-names>
+						</name>
+						<name>
+							<surname>Liu</surname>
+							<given-names>Z</given-names>
+						</name>
+						<name>
+							<surname>Jin</surname>
+							<given-names>J</given-names>
+						</name>
+						<name>
+							<surname>Woodgett</surname>
+							<given-names>JR</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">Protein kinase B/Akt participates in GLUT4 translocation by insulin in L6 myoblasts</article-title>
+					<source xml:lang="en">Mol Cell Biol</source>
+					<year>1999</year>
+					<volume>19</volume>
+					<fpage>4008</fpage>
+					<lpage>4018</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B55">
+				<label>55</label>
+				<mixed-citation>55. Shao J, Yamashita H, Qiao L, Friedman JE. Decreased Akt kinase activity and insulin resistance in C57BL/KsJ-Leprdb/db mice. J Endocrinol 2000; 167: 107-115, doi: 10.1677/joe.0.1670107.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Shao</surname>
+							<given-names>J</given-names>
+						</name>
+						<name>
+							<surname>Yamashita</surname>
+							<given-names>H</given-names>
+						</name>
+						<name>
+							<surname>Qiao</surname>
+							<given-names>L</given-names>
+						</name>
+						<name>
+							<surname>Friedman</surname>
+							<given-names>JE</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Decreased Akt kinase activity and insulin resistance in C57BL/KsJ-Leprdb/db mice</article-title>
+					<source xml:lang="en">J Endocrinol</source>
+					<year>2000</year>
+					<volume>167</volume>
+					<fpage>107</fpage>
+					<lpage>115</lpage>
+					<comment>doi:10.1677/joe.0.1670107</comment>
+				</element-citation>
+			</ref>
+			<ref id="B56">
+				<label>56</label>
+				<mixed-citation>56. Krook A, Roth RA, Jiang XJ, Zierath JR, Wallberg-henriksson H. Insulin-stimulated Akt kinase activity is reduced in skeletal muscle from NIDDM subjects. Diabetes 1998; 47: 1281-1286, doi: 10.2337/diabetes.47.8.1281.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Krook</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Roth</surname>
+							<given-names>RA</given-names>
+						</name>
+						<name>
+							<surname>Jiang</surname>
+							<given-names>XJ</given-names>
+						</name>
+						<name>
+							<surname>Zierath</surname>
+							<given-names>JR</given-names>
+						</name>
+						<name>
+							<surname>Wallberg-henriksson</surname>
+							<given-names>H</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Insulin-stimulated Akt kinase activity is reduced in skeletal muscle from NIDDM subjects</article-title>
+					<source xml:lang="en">Diabetes</source>
+					<year>1998</year>
+					<volume>47</volume>
+					<fpage>1281</fpage>
+					<lpage>1286</lpage>
+					<comment>doi:10.2337/diabetes.47.8.1281</comment>
+				</element-citation>
+			</ref>
+			<ref id="B57">
+				<label>57</label>
+				<mixed-citation>57. McMullen DC, Hallenbeck JM. Regulation of Akt during torpor in the hibernating ground squirrel, Ictidomys tridecemlineatus. J Comp Physiol B 2010; 180: 927-934, doi: 10.1007/s00360-010-0468-8.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>McMullen</surname>
+							<given-names>DC</given-names>
+						</name>
+						<name>
+							<surname>Hallenbeck</surname>
+							<given-names>JM</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Regulation of Akt during torpor in the hibernating ground squirrel, Ictidomys tridecemlineatus</article-title>
+					<source xml:lang="en">J Comp Physiol B</source>
+					<year>2010</year>
+					<volume>180</volume>
+					<fpage>927</fpage>
+					<lpage>934</lpage>
+					<comment>doi:10.1007/s00360-010-0468-8</comment>
+				</element-citation>
+			</ref>
+			<ref id="B58">
+				<label>58</label>
+				<mixed-citation>58. Wu CW, Storey KB. Regulation of the mTOR signaling network in hibernating thirteen-lined ground squirrels. J Exp Biol 2012; 215: 1720-1727, doi: 10.1242/jeb.066225.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Wu</surname>
+							<given-names>CW</given-names>
+						</name>
+						<name>
+							<surname>Storey</surname>
+							<given-names>KB</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Regulation of the mTOR signaling network in hibernating thirteen-lined ground squirrels</article-title>
+					<source xml:lang="en">J Exp Biol</source>
+					<year>2012</year>
+					<volume>215</volume>
+					<fpage>1720</fpage>
+					<lpage>1727</lpage>
+					<comment>doi:10.1242/jeb.066225</comment>
+				</element-citation>
+			</ref>
+			<ref id="B59">
+				<label>59</label>
+				<mixed-citation>59. Abnous K, Dieni CA, Storey KB. Regulation of Akt during hibernation in Richardson's ground squirrels. Biochim Biophys Acta 2008; 1780: 185-193, doi: 10.1016/j.bbagen.2007.10.009.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Abnous</surname>
+							<given-names>K</given-names>
+						</name>
+						<name>
+							<surname>Dieni</surname>
+							<given-names>CA</given-names>
+						</name>
+						<name>
+							<surname>Storey</surname>
+							<given-names>KB</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Regulation of Akt during hibernation in Richardson's ground squirrels</article-title>
+					<source xml:lang="en">Biochim Biophys Acta</source>
+					<year>2008</year>
+					<volume>1780</volume>
+					<fpage>185</fpage>
+					<lpage>193</lpage>
+					<comment>doi:10.1016/j.bbagen.2007.10.009</comment>
+				</element-citation>
+			</ref>
+			<ref id="B60">
+				<label>60</label>
+				<mixed-citation>60. Leung AK, Sharp PA. MicroRNA functions in stress responses. Mol Cell 2010; 40: 205-215, doi: 10.1016/j.molcel.2010.09.027.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Leung</surname>
+							<given-names>AK</given-names>
+						</name>
+						<name>
+							<surname>Sharp</surname>
+							<given-names>PA</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">MicroRNA functions in stress responses</article-title>
+					<source xml:lang="en">Mol Cell</source>
+					<year>2010</year>
+					<volume>40</volume>
+					<fpage>205</fpage>
+					<lpage>215</lpage>
+					<comment>doi:10.1016/j.molcel.2010.09.027</comment>
+				</element-citation>
+			</ref>
+			<ref id="B61">
+				<label>61</label>
+				<mixed-citation>61. Grimson A, Farh KK, Johnston WK, Garrett-Engele P, Lim LP, Bartel DP. MicroRNA targeting specificity in mammals: determinants beyond seed pairing. Mol Cell 2007; 27: 91-105, doi: 10.1016/j.molcel.2007.06.017.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Grimson</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Farh</surname>
+							<given-names>KK</given-names>
+						</name>
+						<name>
+							<surname>Johnston</surname>
+							<given-names>WK</given-names>
+						</name>
+						<name>
+							<surname>Garrett-Engele</surname>
+							<given-names>P</given-names>
+						</name>
+						<name>
+							<surname>Lim</surname>
+							<given-names>LP</given-names>
+						</name>
+						<name>
+							<surname>Bartel</surname>
+							<given-names>DP</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">MicroRNA targeting specificity in mammals: determinants beyond seed pairing</article-title>
+					<source xml:lang="en">Mol Cell</source>
+					<year>2007</year>
+					<volume>27</volume>
+					<fpage>91</fpage>
+					<lpage>105</lpage>
+					<comment>doi:10.1016/j.molcel.2007.06.017</comment>
+				</element-citation>
+			</ref>
+			<ref id="B62">
+				<label>62</label>
+				<mixed-citation>62. Schier AF, Giraldez AJ. MicroRNA function and mechanism: insights from zebra fish. Cold Spring Harb Symp Quant Biol 2006; 71: 195-203, doi: 10.1101/sqb.2006.71.055.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Schier</surname>
+							<given-names>AF</given-names>
+						</name>
+						<name>
+							<surname>Giraldez</surname>
+							<given-names>AJ</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">MicroRNA function and mechanism: insights from zebra fish</article-title>
+					<source xml:lang="en">Cold Spring Harb Symp Quant Biol</source>
+					<year>2006</year>
+					<volume>71</volume>
+					<fpage>195</fpage>
+					<lpage>203</lpage>
+					<comment>doi:10.1101/sqb.2006.71.055</comment>
+				</element-citation>
+			</ref>
+			<ref id="B63">
+				<label>63</label>
+				<mixed-citation>63. Shi Y, Jin Y. MicroRNA in cell differentiation and development. Sci China C Life Sci 2010; 52: 205-211.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Shi</surname>
+							<given-names>Y</given-names>
+						</name>
+						<name>
+							<surname>Jin</surname>
+							<given-names>Y</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">MicroRNA in cell differentiation and development</article-title>
+					<source xml:lang="en">Sci China C Life Sci</source>
+					<year>2010</year>
+					<volume>52</volume>
+					<fpage>205</fpage>
+					<lpage>211</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B64">
+				<label>64</label>
+				<mixed-citation>64. Chan JA, Krichevsky AM, Kosik KS. MicroRNA-21 is an antiapoptotic factor in human glioblastoma cells. Cancer Res 2005; 65: 6029-6033, doi: 10.1158/0008-5472.CAN-05-0137.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Chan</surname>
+							<given-names>JA</given-names>
+						</name>
+						<name>
+							<surname>Krichevsky</surname>
+							<given-names>AM</given-names>
+						</name>
+						<name>
+							<surname>Kosik</surname>
+							<given-names>KS</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">MicroRNA-21 is an antiapoptotic factor in human glioblastoma cells</article-title>
+					<source xml:lang="en">Cancer Res</source>
+					<year>2005</year>
+					<volume>65</volume>
+					<fpage>6029</fpage>
+					<lpage>6033</lpage>
+					<comment>doi:10.1158/0008-5472.CAN-05-0137</comment>
+				</element-citation>
+			</ref>
+			<ref id="B65">
+				<label>65</label>
+				<mixed-citation>65. Ivey KN, Srivastava D. MicroRNAs as regulators of differentiation and cell fate decisions. Cell Stem Cell 2010; 7: 36-41, doi: 10.1016/j.stem.2010.06.012.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Ivey</surname>
+							<given-names>KN</given-names>
+						</name>
+						<name>
+							<surname>Srivastava</surname>
+							<given-names>D</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">MicroRNAs as regulators of differentiation and cell fate decisions</article-title>
+					<source xml:lang="en">Cell Stem Cell</source>
+					<year>2010</year>
+					<volume>7</volume>
+					<fpage>36</fpage>
+					<lpage>41</lpage>
+					<comment>doi:10.1016/j.stem.2010.06.012</comment>
+				</element-citation>
+			</ref>
+			<ref id="B66">
+				<label>66</label>
+				<mixed-citation>66. Biggar KK, Storey KB. The emerging roles of microRNAs in the molecular responses of metabolic rate depression. J Mol Cell Biol 2011; 3: 167-175, doi: 10.1093/jmcb/mjq045.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Biggar</surname>
+							<given-names>KK</given-names>
+						</name>
+						<name>
+							<surname>Storey</surname>
+							<given-names>KB</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">The emerging roles of microRNAs in the molecular responses of metabolic rate depression</article-title>
+					<source xml:lang="en">J Mol Cell Biol</source>
+					<year>2011</year>
+					<volume>3</volume>
+					<fpage>167</fpage>
+					<lpage>175</lpage>
+					<comment>doi:10.1093/jmcb/mjq045</comment>
+				</element-citation>
+			</ref>
+			<ref id="B67">
+				<label>67</label>
+				<mixed-citation>67. Lovis P, Roggli E, Laybutt DR, Gattesco S, Yang JY, Widmann C, et al. Alterations in microRNA expression contribute to fatty acid-induced pancreatic beta-cell dysfunction. Diabetes 2008; 57: 2728-2736, doi: 10.2337/db07-1252.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Lovis</surname>
+							<given-names>P</given-names>
+						</name>
+						<name>
+							<surname>Roggli</surname>
+							<given-names>E</given-names>
+						</name>
+						<name>
+							<surname>Laybutt</surname>
+							<given-names>DR</given-names>
+						</name>
+						<name>
+							<surname>Gattesco</surname>
+							<given-names>S</given-names>
+						</name>
+						<name>
+							<surname>Yang</surname>
+							<given-names>JY</given-names>
+						</name>
+						<name>
+							<surname>Widmann</surname>
+							<given-names>C</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">Alterations in microRNA expression contribute to fatty acid-induced pancreatic beta-cell dysfunction</article-title>
+					<source xml:lang="en">Diabetes</source>
+					<year>2008</year>
+					<volume>57</volume>
+					<fpage>2728</fpage>
+					<lpage>2736</lpage>
+					<comment>doi:10.2337/db07-1252</comment>
+				</element-citation>
+			</ref>
+			<ref id="B68">
+				<label>68</label>
+				<mixed-citation>68. Kim WH, Lee JW, Gao B, Jung MH. Synergistic activation of JNK/SAPK induced by TNF-alpha and IFN-gamma: apoptosis of pancreatic beta-cells via the p53 and ROS pathway. Cell Signal 2005; 17: 1516-1532, doi: 10.1016/j.cellsig.2005.03.020.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Kim</surname>
+							<given-names>WH</given-names>
+						</name>
+						<name>
+							<surname>Lee</surname>
+							<given-names>JW</given-names>
+						</name>
+						<name>
+							<surname>Gao</surname>
+							<given-names>B</given-names>
+						</name>
+						<name>
+							<surname>Jung</surname>
+							<given-names>MH</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Synergistic activation of JNK/SAPK induced by TNF-alpha and IFN-gamma: apoptosis of pancreatic beta-cells via the p53 and ROS pathway</article-title>
+					<source xml:lang="en">Cell Signal</source>
+					<year>2005</year>
+					<volume>17</volume>
+					<fpage>1516</fpage>
+					<lpage>1532</lpage>
+					<comment>doi:10.1016/j.cellsig.2005.03.020</comment>
+				</element-citation>
+			</ref>
+			<ref id="B69">
+				<label>69</label>
+				<mixed-citation>69. Poy MN, Spranger M, Stoffel M. microRNAs and the regulation of glucose and lipid metabolism. Diabetes Obes Metab 2007; 9 (Suppl 2): 67-73, doi: 10.1111/j.1463-1326.2007.00775.x.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Poy</surname>
+							<given-names>MN</given-names>
+						</name>
+						<name>
+							<surname>Spranger</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Stoffel</surname>
+							<given-names>M</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">microRNAs and the regulation of glucose and lipid metabolism</article-title>
+					<source xml:lang="en">Diabetes Obes Metab</source>
+					<year>2007</year>
+					<volume>9</volume>
+					<issue>(Suppl 2)</issue>
+					<fpage>67</fpage>
+					<lpage>73</lpage>
+					<comment>doi:10.1111/j.1463-1326.2007.00775.x</comment>
+				</element-citation>
+			</ref>
+			<ref id="B70">
+				<label>70</label>
+				<mixed-citation>70. He A, Zhu L, Gupta N, Chang Y, Fang F. Overexpression of micro ribonucleic acid 29, highly up-regulated in diabetic rats, leads to insulin resistance in 3T3-L1 adipocytes. Mol Endocrinol 2007; 21: 2785-2794, doi: 10.1210/me.2007-0167.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>He</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Zhu</surname>
+							<given-names>L</given-names>
+						</name>
+						<name>
+							<surname>Gupta</surname>
+							<given-names>N</given-names>
+						</name>
+						<name>
+							<surname>Chang</surname>
+							<given-names>Y</given-names>
+						</name>
+						<name>
+							<surname>Fang</surname>
+							<given-names>F</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Overexpression of micro ribonucleic acid 29, highly up-regulated in diabetic rats, leads to insulin resistance in 3T3-L1 adipocytes</article-title>
+					<source xml:lang="en">Mol Endocrinol</source>
+					<year>2007</year>
+					<volume>21</volume>
+					<fpage>2785</fpage>
+					<lpage>2794</lpage>
+					<comment>doi:10.1210/me.2007-0167</comment>
+				</element-citation>
+			</ref>
+			<ref id="B71">
+				<label>71</label>
+				<mixed-citation>71. Kapranov P, Cheng J, Dike S, Nix DA, Duttagupta R, Willingham AT, et al. RNA maps reveal new RNA classes and a possible function for pervasive transcription. Science 2007; 316: 1484-1488, doi: 10.1126/science.1138341.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Kapranov</surname>
+							<given-names>P</given-names>
+						</name>
+						<name>
+							<surname>Cheng</surname>
+							<given-names>J</given-names>
+						</name>
+						<name>
+							<surname>Dike</surname>
+							<given-names>S</given-names>
+						</name>
+						<name>
+							<surname>Nix</surname>
+							<given-names>DA</given-names>
+						</name>
+						<name>
+							<surname>Duttagupta</surname>
+							<given-names>R</given-names>
+						</name>
+						<name>
+							<surname>Willingham</surname>
+							<given-names>AT</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">RNA maps reveal new RNA classes and a possible function for pervasive transcription</article-title>
+					<source xml:lang="en">Science</source>
+					<year>2007</year>
+					<volume>316</volume>
+					<fpage>1484</fpage>
+					<lpage>1488</lpage>
+					<comment>doi:10.1126/science.1138341</comment>
+				</element-citation>
+			</ref>
+			<ref id="B72">
+				<label>72</label>
+				<mixed-citation>72. Cheng J, Kapranov P, Drenkow J, Dike S, Brubaker S, Patel S, et al. Transcriptional maps of 10 human chromosomes at 5-nucleotide resolution. Science 2005; 308: 1149-1154, doi: 10.1126/science.1108625.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Cheng</surname>
+							<given-names>J</given-names>
+						</name>
+						<name>
+							<surname>Kapranov</surname>
+							<given-names>P</given-names>
+						</name>
+						<name>
+							<surname>Drenkow</surname>
+							<given-names>J</given-names>
+						</name>
+						<name>
+							<surname>Dike</surname>
+							<given-names>S</given-names>
+						</name>
+						<name>
+							<surname>Brubaker</surname>
+							<given-names>S</given-names>
+						</name>
+						<name>
+							<surname>Patel</surname>
+							<given-names>S</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">Transcriptional maps of 10 human chromosomes at 5-nucleotide resolution</article-title>
+					<source xml:lang="en">Science</source>
+					<year>2005</year>
+					<volume>308</volume>
+					<fpage>1149</fpage>
+					<lpage>1154</lpage>
+					<comment>doi:10.1126/science.1108625</comment>
+				</element-citation>
+			</ref>
+			<ref id="B73">
+				<label>73</label>
+				<mixed-citation>73. Walker MD. Role of MicroRNA in pancreatic beta-cells: where more is less. Diabetes 2008; 57: 2567-2568, doi: 10.2337/db08-0934.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Walker</surname>
+							<given-names>MD</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Role of MicroRNA in pancreatic beta-cells: where more is less</article-title>
+					<source xml:lang="en">Diabetes</source>
+					<year>2008</year>
+					<volume>57</volume>
+					<fpage>2567</fpage>
+					<lpage>2568</lpage>
+					<comment>doi:10.2337/db08-0934</comment>
+				</element-citation>
+			</ref>
+			<ref id="B74">
+				<label>74</label>
+				<mixed-citation>74. Vousden KH, Lane DP. p53 in health and disease. Nat Rev Mol Cell Biol 2007; 8: 275-283, doi: 10.1038/nrm2147.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Vousden</surname>
+							<given-names>KH</given-names>
+						</name>
+						<name>
+							<surname>Lane</surname>
+							<given-names>DP</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">p53 in health and disease</article-title>
+					<source xml:lang="en">Nat Rev Mol Cell Biol</source>
+					<year>2007</year>
+					<volume>8</volume>
+					<fpage>275</fpage>
+					<lpage>283</lpage>
+					<comment>doi:10.1038/nrm2147</comment>
+				</element-citation>
+			</ref>
+			<ref id="B75">
+				<label>75</label>
+				<mixed-citation>75. Bommer GT, Gerin I, Feng Y, Kaczorowski AJ, Kuick R, Love RE, et al. p53-mediated activation of miRNA34 candidate tumor-suppressor genes. Curr Biol 2007; 17: 1298-1307, doi: 10.1016/j.cub.2007.06.068.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Bommer</surname>
+							<given-names>GT</given-names>
+						</name>
+						<name>
+							<surname>Gerin</surname>
+							<given-names>I</given-names>
+						</name>
+						<name>
+							<surname>Feng</surname>
+							<given-names>Y</given-names>
+						</name>
+						<name>
+							<surname>Kaczorowski</surname>
+							<given-names>AJ</given-names>
+						</name>
+						<name>
+							<surname>Kuick</surname>
+							<given-names>R</given-names>
+						</name>
+						<name>
+							<surname>Love</surname>
+							<given-names>RE</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">p53-mediated activation of miRNA34 candidate tumor-suppressor genes</article-title>
+					<source xml:lang="en">Curr Biol</source>
+					<year>2007</year>
+					<volume>17</volume>
+					<fpage>1298</fpage>
+					<lpage>1307</lpage>
+					<comment>doi:10.1016/j.cub.2007.06.068</comment>
+				</element-citation>
+			</ref>
+			<ref id="B76">
+				<label>76</label>
+				<mixed-citation>76. Poy MN, Eliasson L, Krutzfeldt J, Kuwajima S, Ma X, Macdonald PE, et al. A pancreatic islet-specific microRNA regulates insulin secretion. Nature 2004; 432: 226-230, doi: 10.1038/nature03076.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Poy</surname>
+							<given-names>MN</given-names>
+						</name>
+						<name>
+							<surname>Eliasson</surname>
+							<given-names>L</given-names>
+						</name>
+						<name>
+							<surname>Krutzfeldt</surname>
+							<given-names>J</given-names>
+						</name>
+						<name>
+							<surname>Kuwajima</surname>
+							<given-names>S</given-names>
+						</name>
+						<name>
+							<surname>Ma</surname>
+							<given-names>X</given-names>
+						</name>
+						<name>
+							<surname>Macdonald</surname>
+							<given-names>PE</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">A pancreatic islet-specific microRNA regulates insulin secretion</article-title>
+					<source xml:lang="en">Nature</source>
+					<year>2004</year>
+					<volume>432</volume>
+					<fpage>226</fpage>
+					<lpage>230</lpage>
+					<comment>doi:10.1038/nature03076</comment>
+				</element-citation>
+			</ref>
+			<ref id="B77">
+				<label>77</label>
+				<mixed-citation>77. El Ouaamari A, Baroukh N, Martens GA, Lebrun P, Pipeleers D, van Obberghen E. miR-375 targets 3&#8242;-phosphoinositide-dependent protein kinase-1 and regulates glucose-induced biological responses in pancreatic beta-cells. Diabetes 2008; 57: 2708-2717, doi: 10.2337/db07-1614.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>El Ouaamari</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Baroukh</surname>
+							<given-names>N</given-names>
+						</name>
+						<name>
+							<surname>Martens</surname>
+							<given-names>GA</given-names>
+						</name>
+						<name>
+							<surname>Lebrun</surname>
+							<given-names>P</given-names>
+						</name>
+						<name>
+							<surname>Pipeleers</surname>
+							<given-names>D</given-names>
+						</name>
+						<name>
+							<surname>van Obberghen</surname>
+							<given-names>E</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">miR-375 targets 3&#8242;-phosphoinositide-dependent protein kinase-1 and regulates glucose-induced biological responses in pancreatic beta-cells</article-title>
+					<source xml:lang="en">Diabetes</source>
+					<year>2008</year>
+					<volume>57</volume>
+					<fpage>2708</fpage>
+					<lpage>2717</lpage>
+					<comment>doi:10.2337/db07-1614</comment>
+				</element-citation>
+			</ref>
+			<ref id="B78">
+				<label>78</label>
+				<mixed-citation>78. Manning BD, Cantley LC. AKT/PKB signaling: navigating downstream. Cell 2007; 129: 1261-1274, doi: 10.1016/j.cell.2007.06.009.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Manning</surname>
+							<given-names>BD</given-names>
+						</name>
+						<name>
+							<surname>Cantley</surname>
+							<given-names>LC</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">AKT/PKB signaling: navigating downstream</article-title>
+					<source xml:lang="en">Cell</source>
+					<year>2007</year>
+					<volume>129</volume>
+					<fpage>1261</fpage>
+					<lpage>1274</lpage>
+					<comment>doi:10.1016/j.cell.2007.06.009</comment>
+				</element-citation>
+			</ref>
+			<ref id="B79">
+				<label>79</label>
+				<mixed-citation>79. Yamanaka Y, Tagawa H, Takahashi N, Watanabe A, Guo YM, Iwamoto K, et al. Aberrant overexpression of microRNAs activate AKT signaling via down-regulation of tumor suppressors in natural killer-cell lymphoma/leukemia. Blood 2009; 114: 3265-3275, doi: 10.1182/blood-2009-06-222794.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Yamanaka</surname>
+							<given-names>Y</given-names>
+						</name>
+						<name>
+							<surname>Tagawa</surname>
+							<given-names>H</given-names>
+						</name>
+						<name>
+							<surname>Takahashi</surname>
+							<given-names>N</given-names>
+						</name>
+						<name>
+							<surname>Watanabe</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Guo</surname>
+							<given-names>YM</given-names>
+						</name>
+						<name>
+							<surname>Iwamoto</surname>
+							<given-names>K</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">Aberrant overexpression of microRNAs activate AKT signaling via down-regulation of tumor suppressors in natural killer-cell lymphoma/leukemia</article-title>
+					<source xml:lang="en">Blood</source>
+					<year>2009</year>
+					<volume>114</volume>
+					<fpage>3265</fpage>
+					<lpage>3275</lpage>
+					<comment>doi:10.1182/blood-2009-06-222794</comment>
+				</element-citation>
+			</ref>
+			<ref id="B80">
+				<label>80</label>
+				<mixed-citation>80. Small EM, O'Rourke JR, Moresi V, Sutherland LB, McAnally J, Gerard RD, et al. Regulation of PI3-kinase/Akt signaling by muscle-enriched microRNA-486. Proc Natl Acad Sci U S A 2010; 107: 4218-4223, doi: 10.1073/pnas.1000300107.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Small</surname>
+							<given-names>EM</given-names>
+						</name>
+						<name>
+							<surname>O'Rourke</surname>
+							<given-names>JR</given-names>
+						</name>
+						<name>
+							<surname>Moresi</surname>
+							<given-names>V</given-names>
+						</name>
+						<name>
+							<surname>Sutherland</surname>
+							<given-names>LB</given-names>
+						</name>
+						<name>
+							<surname>McAnally</surname>
+							<given-names>J</given-names>
+						</name>
+						<name>
+							<surname>Gerard</surname>
+							<given-names>RD</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">Regulation of PI3-kinase/Akt signaling by muscle-enriched microRNA-486</article-title>
+					<source xml:lang="en">Proc Natl Acad Sci U S A</source>
+					<year>2010</year>
+					<volume>107</volume>
+					<fpage>4218</fpage>
+					<lpage>4223</lpage>
+					<comment>doi:10.1073/pnas.1000300107</comment>
+				</element-citation>
+			</ref>
+			<ref id="B81">
+				<label>81</label>
+				<mixed-citation>81. Morin P Jr, Dubuc A, Storey KB. Differential expression of microRNA species in organs of hibernating ground squirrels: a role in translational suppression during torpor. Biochim Biophys Acta 2008; 1779: 628-633, doi: 10.1016/j.bbagrm.2008.07.011.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Morin</surname>
+							<given-names>P</given-names>
+							<suffix>Jr</suffix>
+						</name>
+						<name>
+							<surname>Dubuc</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Storey</surname>
+							<given-names>KB</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Differential expression of microRNA species in organs of hibernating ground squirrels: a role in translational suppression during torpor</article-title>
+					<source xml:lang="en">Biochim Biophys Acta</source>
+					<year>2008</year>
+					<volume>1779</volume>
+					<fpage>628</fpage>
+					<lpage>633</lpage>
+					<comment>doi:10.1016/j.bbagrm.2008.07.011</comment>
+				</element-citation>
+			</ref>
+			<ref id="B82">
+				<label>82</label>
+				<mixed-citation>82. Liu Y, Hu W, Wang H, Lu M, Shao C, Menzel C, et al. Genomic analysis of miRNAs in an extreme mammalian hibernator, the Arctic ground squirrel. Physiol Genomics 2010; 42A: 39-51, doi: 10.1152/physiolgenomics.00054.2010.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Liu</surname>
+							<given-names>Y</given-names>
+						</name>
+						<name>
+							<surname>Hu</surname>
+							<given-names>W</given-names>
+						</name>
+						<name>
+							<surname>Wang</surname>
+							<given-names>H</given-names>
+						</name>
+						<name>
+							<surname>Lu</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Shao</surname>
+							<given-names>C</given-names>
+						</name>
+						<name>
+							<surname>Menzel</surname>
+							<given-names>C</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">Genomic analysis of miRNAs in an extreme mammalian hibernator, the Arctic ground squirrel</article-title>
+					<source xml:lang="en">Physiol Genomics</source>
+					<year>2010</year>
+					<volume>42A</volume>
+					<fpage>39</fpage>
+					<lpage>51</lpage>
+					<comment>doi:10.1152/physiolgenomics.00054.2010</comment>
+				</element-citation>
+			</ref>
+			<ref id="B83">
+				<label>83</label>
+				<mixed-citation>83. Kornfeld SF, Biggar KK, Storey KB. Differential expression of mature microRNAs involved in muscle maintenance of hibernating little brown bats, <italic>Myotis lucifugus</italic>: A model of muscle atrophy resistance. Genomics Proteomics Bioinformatics 2012 (in press), doi: 10.1016/j.gpb.2012.09.001.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Kornfeld</surname>
+							<given-names>SF</given-names>
+						</name>
+						<name>
+							<surname>Biggar</surname>
+							<given-names>KK</given-names>
+						</name>
+						<name>
+							<surname>Storey</surname>
+							<given-names>KB</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Differential expression of mature microRNAs involved in muscle maintenance of hibernating little brown bats, <italic>Myotis lucifugus</italic>: A model of muscle atrophy resistance</article-title>
+					<source xml:lang="en">Genomics Proteomics Bioinformatics</source>
+					<year>2012(in press)</year>
+					<comment>doi:10.1016/j.gpb.2012.09.001</comment>
+				</element-citation>
+			</ref>
+			<ref id="B84">
+				<label>84</label>
+				<mixed-citation>84. Biggar KK, Kornfeld SF, Storey KB. Amplification and sequencing of mature microRNAs in uncharacterized animal models using stem-loop reverse transcription-polymerase chain reaction. Anal Biochem 2011; 416: 231-233, doi: 10.1016/j.ab.2011.05.015.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Biggar</surname>
+							<given-names>KK</given-names>
+						</name>
+						<name>
+							<surname>Kornfeld</surname>
+							<given-names>SF</given-names>
+						</name>
+						<name>
+							<surname>Storey</surname>
+							<given-names>KB</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Amplification and sequencing of mature microRNAs in uncharacterized animal models using stem-loop reverse transcription-polymerase chain reaction</article-title>
+					<source xml:lang="en">Anal Biochem</source>
+					<year>2011</year>
+					<volume>416</volume>
+					<fpage>231</fpage>
+					<lpage>233</lpage>
+					<comment>doi:10.1016/j.ab.2011.05.015</comment>
+				</element-citation>
+			</ref>
+			<ref id="B85">
+				<label>85</label>
+				<mixed-citation>85. Cui Q, Yu Z, Purisima EO, Wang E. Principles of microRNA regulation of a human cellular signaling network. Mol Syst Biol 2006; 2: 46, doi: 10.1038/msb4100089.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Cui</surname>
+							<given-names>Q</given-names>
+						</name>
+						<name>
+							<surname>Yu</surname>
+							<given-names>Z</given-names>
+						</name>
+						<name>
+							<surname>Purisima</surname>
+							<given-names>EO</given-names>
+						</name>
+						<name>
+							<surname>Wang</surname>
+							<given-names>E</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Principles of microRNA regulation of a human cellular signaling network</article-title>
+					<source xml:lang="en">Mol Syst Biol</source>
+					<year>2006</year>
+					<volume>2</volume>
+					<fpage>46</fpage>
+					<comment>doi:10.1038/msb4100089</comment>
+				</element-citation>
+			</ref>
+		</ref-list>
+		<fn-group>
+			<fn id="fn1" fn-type="other">
+				<p>Presented at the XLI Annual Meeting of the Sociedade Brasileira de Bioquímica e Biologia Molecular, Foz do Iguaçu, PR, Brazil, May 19-22, 2012.</p>
+			</fn>
+			
+			<fn fn-type="other">
+				<p>First published online January 11, 2013.</p>
+			</fn>
+		</fn-group>
+	</back>
+</article>

@@ -1,0 +1,1641 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE article PUBLIC "-//NLM//DTD Journal Publishing DTD v3.0 20080202//EN" "/bases/xml.000/xmlproc/pmc/v3.0/dtd/journalpublishing3.dtd">
+<article article-type="research-article" dtd-version="3.0" xml:lang="en" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML">
+	<front>
+		<journal-meta>
+			<journal-id journal-id-type="nlm-ta">Braz J Med Biol Res</journal-id>
+			<journal-title-group>
+				<journal-title>Brazilian Journal of Medical and Biological Research</journal-title>
+				<abbrev-journal-title abbrev-type="publisher">Braz. J. Med. Biol. Res.</abbrev-journal-title>
+			</journal-title-group>
+			<issn pub-type="epub">1414-431X</issn>
+			<publisher>
+				<publisher-name>Associação Brasileira de Divulgação Científica</publisher-name>
+			</publisher>
+		</journal-meta>
+		<article-meta>
+			<article-id pub-id-type="doi">10.1590/S0100-879X2012007500157</article-id>
+			<article-categories>
+				<subj-group subj-group-type="heading">
+					<subject>Biomedical Sciences</subject>
+				</subj-group>
+			</article-categories>
+			<title-group>
+				<article-title xml:lang="en">
+					<italic>In vitro</italic> inhibitory effects of imatinib mesylate on stromal cells and hematopoietic progenitors from bone marrow</article-title>
+			</title-group>
+			<contrib-group>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Soares</surname>
+						<given-names>P.B.</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff1">1</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Jeremias</surname>
+						<given-names>T.S.</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff2">2</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Alvarez-Silva</surname>
+						<given-names>M.</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff2">2</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Licínio</surname>
+						<given-names>M.A.</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff3">3</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Santos-Silva</surname>
+						<given-names>M.C.</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff3">3</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Vituri</surname>
+						<given-names>C.L.</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff4">4</xref>
+				</contrib>
+				<aff id="aff1">
+					<label>1</label>
+					<institution content-type="orgname">Universidade Federal de Santa Maria</institution>
+					<institution content-type="orgdiv2">Laboratório de Análises Clínicas</institution>
+					<institution content-type="orgdiv1">Hospital Universitário de Santa Maria</institution>
+					<addr-line>
+						<named-content content-type="city">Santa Maria</named-content>, <named-content content-type="state">RS</named-content>
+					</addr-line>, <country>Brasil</country>
+				</aff>
+				<aff id="aff2">
+					<label>2</label>
+					<institution content-type="orgname">Universidade Federal de Santa Catarina</institution>
+					<institution content-type="orgdiv3">Laboratório de Neurobiologia e Hematologia Celular e Molecular, Departamento de Biologia Celular</institution>
+					<institution content-type="orgdiv2">Embriologia e Genética</institution>
+					<institution content-type="orgdiv1">Centro de Ciências Biológicas</institution>
+					<addr-line>
+						<named-content content-type="city">Florianópolis</named-content>, <named-content content-type="state">SC</named-content>
+					</addr-line>, <country>Brasil</country>
+				</aff>
+				<aff id="aff3">
+					<label>3</label>
+					<institution content-type="orgname">Universidade Federal de Santa Catarina</institution>
+					<institution content-type="orgdiv3">Laboratório de Oncologia Experimental e Hemopatias</institution>
+					<institution content-type="orgdiv2">Departamento de Análises Clínicas</institution>
+					<institution content-type="orgdiv1">Centro de Ciências da Saúde</institution>
+					<addr-line>
+						<named-content content-type="city">Florianópolis</named-content>, <named-content content-type="state">SC</named-content>
+					</addr-line>, <country>Brasil</country>
+				</aff>
+				<aff id="aff4">
+					<label>4</label>
+					<institution content-type="orgname">Universidade Federal de Santa Catarina</institution>
+					<institution content-type="orgdiv3">Laboratório de Citologia Clínica</institution>
+					<institution content-type="orgdiv2">Departamento de Análises Clínicas</institution>
+					<institution content-type="orgdiv1">Centro de Ciências da Saúde</institution>
+					<addr-line>
+						<named-content content-type="city">Florianópolis</named-content>, <named-content content-type="state">SC</named-content>
+					</addr-line>, <country>Brasil</country>
+				</aff>
+			</contrib-group>
+			<author-notes>
+				<corresp>Correspondence: P.B. Soares, Laborátorio de Análises Clínicas, Hospital Universitário de Santa Maria, Universidade Federal de Santa Maria, Av. Roraima, 1000, 97105-900, Bairro Camobi, Santa Maria, RS, Brasil, E-mail: <email>pamisoares@hotmail.com</email>
+				</corresp>
+			</author-notes>
+			<pub-date pub-type="epub">
+				<day>25</day>
+				<month>09</month>
+				<year>2012</year>
+			</pub-date>
+			<pub-date pub-type="collection">
+				<month>1</month>
+				<year>2013</year>
+			</pub-date>
+			<volume>46</volume>
+			<issue>1</issue>
+			<fpage>39</fpage>
+			<lpage>51</lpage>
+			<history>
+				<date date-type="received">
+					<day>23</day>
+					<month>10</month>
+					<year>2011</year>
+				</date>
+				<date date-type="accepted">
+					<day>11</day>
+					<month>09</month>
+					<year>2012</year>
+				</date>
+			</history>
+			<permissions>
+				<license license-type="open-access" xlink:href="http://creativecommons.org/licenses/by-nc/3.0/">
+					<license-p>This is an Open Access article distributed under the terms of the Creative Commons Attribution Non-Commercial License, which permits unrestricted non-commercial use, distribution, and reproduction in any medium, provided the original work is properly cited.</license-p>
+				</license>
+			</permissions>
+			<abstract xml:lang="en">
+				<p>Imatinib mesylate (IM) is used to treat chronic myeloid leukemia (CML) because it selectively inhibits tyrosine kinase, which is a hallmark of CML oncogenesis. Recent studies have shown that IM inhibits the growth of several non-malignant hematopoietic and fibroblast cells from bone marrow (BM). The aim of the present study was to evaluate the effects of IM on stromal and hematopoietic progenitor cells, specifically in the colony-forming units of granulocyte/macrophage (CFU-GM), using BM cultures from 108 1.5- to 2-month-old healthy Swiss mice. The results showed that low concentrations of IM (1.25 &#181;M) reduced the growth of CFU-GM in clonogenic assays. In culture assays with stromal cells, fibroblast proliferation and α-SMA expression by immunocytochemistry analysis were also reduced in a concentration-dependent manner, with a survival rate of approximately 50% with a dose of 2.5 &#181;M. Cell viability and morphology were analyzed using MTT and staining with acrydine orange/ethidium bromide. Most cells were found to be viable after treatment with 5 &#181;M IM, although there was gradual growth inhibition of fibroblastic cells while the number of round cells (macrophage-like cells) increased. At higher concentrations (15 &#181;M), the majority of cells were apoptotic and cell growth ceased completely. Oil red staining revealed the presence of adipocytes only in untreated cells (control). Cell cycle analysis of stromal cells by flow cytometry showed a blockade at the G<sub>0</sub>/G<sub>1</sub> phases in groups treated with 5-15 &#181;M. These results suggest that IM differentially inhibits the survival of different types of BM cells since toxic effects were achieved.</p>
+			</abstract>
+			<kwd-group xml:lang="en">
+				<kwd>Bone marrow stromal cell</kwd>
+				<kwd>Hematopoietic progenitors</kwd>
+				<kwd>Imatinib mesylate</kwd>
+				<kwd>Myelosuppression</kwd>
+			</kwd-group>
+			<counts>
+				<fig-count count="9"/>
+				<table-count count="2"/>
+				<ref-count count="37"/>
+				<page-count count="13"/>
+			</counts>
+		</article-meta>
+	</front>
+	<body>
+		<sec sec-type="intro">
+			<title>Introduction</title>
+			<p>Bone marrow (BM) is composed of functional stroma made up of many cell types and an extracellular matrix, which together form an ideal microenvironment that favors the modulation of quiescence, self-renewal, and commitment of mesenchymal stem cells (MSCs) and the proliferation, differentiation, and apoptosis of hematopoietic cells. These functions correlate with different cell types in the stroma, which consists mainly of macrophages, endothelial cells, fibroblasts, and adipocytes <xref ref-type="bibr" rid="B01">1</xref>. When grown in culture, fibroblasts from different organs are consistently modulated into myofibroblast-like cells with varying degrees of alpha-smooth muscle actin (α-SMA) expression <xref ref-type="bibr" rid="B02">2</xref>. These cells can secrete growth factors, including transforming growth factor, platelet-derived growth factors (PDGF), basic fibroblast growth factor (bFGF), hepatocyte growth factor, keratinocyte growth factor, stem cell factor (SCF), epithelial growth factor (EGF), granulocyte/macrophage colony-stimulating factor (GM-CSF), and other cytokines <xref ref-type="bibr" rid="B03">3</xref>. Bone marrow adipocytes mechanically exert hematopoietic control, which in turn controls the increase in marrow fat inclusions, since the acceleration of hematopoiesis is associated with the loss of fat vacuoles, increasing the physical space required for growth <xref ref-type="bibr" rid="B04">4</xref>. Since these cell types are derived from MSCs resident in BM, the rapid rate of cell renewal and differentiation makes the hematopoietic system a target for antineoplastic therapy <xref ref-type="bibr" rid="B05">5</xref>, which can result both from direct drug effects on hematopoietic progenitors <xref ref-type="bibr" rid="B06">6</xref> and from marrow toxicity <xref ref-type="bibr" rid="B05">5</xref> due to effects on BM stromal cells.</p>
+			<p>Imatinib mesylate (IM) is an oral anticancer agent used primarily to treat chronic myeloid leukemia (CML), and has selective activity against a small number of tyrosine kinases, including the BCR-ABL1 oncogene (present in the Philadelphia (Ph) chromosome), c-Kit, c-Abl, and PDGF receptor. IM acts as a competitive inhibitor by binding with high affinity to the ATP binding site in the kinase domains of these targets. This leads to the inhibition of the phosphorylation of tyrosine residues of the target protein in the signal transduction pathway and, consequently, the excessive cell proliferation occurring in CML is interrupted and apoptosis is induced <xref ref-type="bibr" rid="B07">7</xref>. Blocking the site of action is also the mechanism by which IM interrupts the signaling exacerbated in cells with a c-Kit mutation, which is common in gastrointestinal stromal tumors (GISTs) <xref ref-type="bibr" rid="B08">8</xref>.</p>
+			<p>At the current standard dose of IM for CML in the chronic phase (400 mg), peak plasma levels at steady state were approximately 4.6 &#181;M and trough levels approximately 2.1 &#181;M, with a half-life of 19.3 h <xref ref-type="bibr" rid="B09">9</xref>. Some studies, however, have reported higher plasma levels <xref ref-type="bibr" rid="B10">10</xref>. The maximal recommended dose is 800 mg/day. However, in these patients the high-dose IM (800 mg/day) may be more effective than standard-dose IM (400 mg/day) <xref ref-type="bibr" rid="B11">11</xref>. Initially approved at doses of 400 and 600 mg daily for advanced GIST patients, the use of high-dose IM (800 mg daily) has been shown to benefit patients with advanced or metastatic GIST that progresses while on the standard dose, and has been recommended under these circumstances by the major management guidelines <xref ref-type="bibr" rid="B12">12</xref>. There are few <italic>in vitro</italic> studies that use IM at plasma concentrations achieved with doses of 800 mg/day <xref ref-type="bibr" rid="B10">10</xref>, but it is known that in some cases in which a patient has achieved good hematologic control but has failed to achieve or has lost a cytogenetic response, dose escalation may increase the degree of Ph negativity <xref ref-type="bibr" rid="B13">13</xref>. The duration of exposure of CD34<sup>+</sup> cells to IM showed a greater effect with prolonged exposure <xref ref-type="bibr" rid="B14">14</xref>.</p>
+			<p>While it was initially reported that IM minimally affected normal hematopoiesis, recent studies have shown that IM can inhibit the growth of some non-malignant hematopoietic cells. It was demonstrated that IM may affect the mobilization, proliferation, and differentiation of hematopoietic progenitor cells resulting in myelosuppression in patients receiving treatment. The reversible side effects of IM are dose-dependent and affect all hematopoietic lineages, albeit to varying degrees <xref ref-type="bibr" rid="B15">15</xref>. Data from GIST patients suggest that IM directly suppresses normal hematopoiesis under the assumption that the disease itself has no effect on normal hematopoiesis in these patients. In a phase II study of patients with GIST or other soft tissue sarcomas who received 400 mg IM daily, 92% of patients displayed anemia and 47% displayed granulocytopenia <xref ref-type="bibr" rid="B16">16</xref>.</p>
+			<p>Several studies have described the use of IM, in addition to CML and GIST, as a possible new therapy for fibrotic diseases <xref ref-type="bibr" rid="B17">17</xref> and for diseases that require an angiogenic stimulus <xref ref-type="bibr" rid="B18">18</xref>. With the possibility of IM use for many other non-hematological diseases, assessment of its myelosuppressive effects has become important and necessary in order to determine the proper use and prescription of this drug. However, only a few recent studies have investigated the normal BM stroma of animal or human origin <xref ref-type="bibr" rid="B19">19</xref> after IM treatment, while most have focused mainly on patients with CML in complete cytogenetic response <xref ref-type="bibr" rid="B20">20</xref>.</p>
+			<p>In this study, we used healthy murine BM as a model of the hematopoietic microenvironment to study the effects of IM on marrow stromal and hematopoietic cells, specifically in the colony-forming units (CFU)-GM.</p>
+		</sec>
+		<sec sec-type="materials|methods">
+			<title>Material and Methods</title>
+			<sec>
+				<title>Collection of BM cells from mice</title>
+				<p>Bone marrow cells were harvested from 16 femurs (8 animals/protocol) of 1.5- to 2-month-old male Swiss mice (<italic>Mus musculus</italic>) killed by cervical dislocation by inserting a 21-gauge needle into the shaft of the bone and flushing it with Iscove's modified Dulbecco's medium (IMDM; Sigma-Aldrich, USA) containing 10% fetal bovine serum (FBS; Gibco, USA), 0.5 &#181;M hydrocortisone, 10,000 U/mL penicillin, and 10,000 &#181;g/mL streptomycin. The study was approved by the Ethics Committee of Universidade Federal de Santa Catarina and was conducted on a total number of 108 mice.</p>
+			</sec>
+			<sec>
+				<title>Preparation of imatinib besylate</title>
+				<p>Stock solutions of 10 mM IM were prepared by dissolving IM (Gleevec&#174;, Novartis, Switzerland) in a solution of dimethyl sulfoxide and Mili-Q water (1:1) and stored at -20&#176;C.</p>
+			</sec>
+			<sec>
+				<title>Clonogenic assay of hematopoietic progenitor cells</title>
+				<p>Bone marrow mononuclear cells were separated by density gradient with Histopaque (1.077 g/mL) according to manufacturer instructions and resuspended in culture medium. The progenitor assay was performed in a semisolid medium on sterile 6-well culture plates. The medium was plated as a base layer composed of 0.3 mL 2X concentrated IMDM, 0.3 mL FBS, and 0.4 mL 1.25% agar in a total volume 1 mL/well. The cell layer was prepared in 0.2 mL 2X concentrated IMDM supplemented with 1% bovine serum albumin, 0.3 mL FBS, 0.3 mL 1.25% agar, 0.1 mL mononuclear cells in BM (1 &#215; 10<sup>5</sup> mononuclear cells/mL), 0.1 mL GM-CSF (5 ng/mL; Sigma-Aldrich), and various amounts of IM (1.25-25 &#181;M). All experiments were performed in triplicate. Cells cultured without the drug were used as the control group for the experiments. The plates were incubated for 7 days at 37&#176;C in a humid atmosphere containing 5% CO<sub>2.</sub> After this period, the number of colonies was counted by light microscopy and colony morphology was assessed after staining with May-Grünwald and Giemsa. Cells were considered to have formed a colony when consisting of more than 50 cells, and 10-50 cells were considered to be a cluster.</p>
+			</sec>
+			<sec>
+				<title>Culture of BM stromal cells</title>
+				<p>Originally investigated for their role in the formation of hematopoietic cell microenvironment in BM, MSCs and mesenchymal progenitors have the ability to differentiate into cell types phenotypically unrelated to the cells of their tissue of origin. Due to the large number of similar terms and definitions used <xref ref-type="bibr" rid="B21">21</xref>, we chose to use the term &#8220;bone marrow stromal cell&#8221;, encompassing all types of cells that are present in the microenvironment of BM (except hematopoietic cells) and that grow and are adherent in culture. We cannot refer to MSCs because we did not perform tests to prove this assertion, but these are cells derived from MSCs.</p>
+				<p>The cells obtained from BM were cultivated in IMDM and maintained in culture on 24-well plates or in 75-cm<sup>2</sup> culture flasks. The number of cells used was 2 &#215; 10<sup>6</sup> cells&#183;1 mL<sup>-1</sup>&#183;well<sup>-1</sup> and 6 &#215; 10<sup>7</sup> cells&#183;30 mL<sup>-1</sup>&#183;flask<sup>-1</sup>. The plates and flasks were incubated for 14 days at 37&#176;C in a humid atmosphere containing 5% CO<sub>2</sub>, and were permitted to reach 70-80% confluence. Routine maintenance culture was performed every 3-4 days, when half the volume of the supernatant was removed and replaced with an equal volume of IMDM with IM. This technique assured that suspended hematopoietic cells were removed from the culture medium and only the BM stromal cells adherent to plates/flasks were cultivated. Cells cultured without the drug were used as control. The following experiments were carried out on these cultures: 3,-[4,5-dimethylthiazol-2-yl]-2,5-diphenyltetrazolium bromide (MTT), cytochemistry oil red O, cell cycle, fluorescence of acrydine orange/ethidium bromide (AO/EB), immunocytochemistry for BrdU, and α-SMA. Cultures were evaluated morphologically in parallel after staining with May-Grünwald and Giemsa.</p>
+			</sec>
+			<sec>
+				<title>MTT assay for cell viability</title>
+				<p>Cell viability was determined using MTT, which is an indicator of mitochondrial function. Cells were incubated for 14 days as described above, without IM (control group) and with 5-25 &#181;M IM. After this period, the supernatant from culture wells was removed and IMDM with a 10% MTT solution (Sigma-Aldrich; 5 mg/mL in PBS) was added. After 3 h of incubation at 37&#176;C, the supernatant was removed. The precipitates formed in each well were dissolved in an acid solution of isopropanol (0.04 N HCl) and the supernatant was transferred to a 96-well plate. The absorbance spectrum was determined using a Microwell Systems spectrophotometer (Organon Teknika, Belgium) at a wavelength of 540 nm. The absorbance of the control group (cells without treatment) was considered to correspond to 100% viability.</p>
+			</sec>
+			<sec>
+				<title>AO and EB fluorescence staining of viable cells and apoptotic cells</title>
+				<p>Like the MTT test, AO and EB fluorescence also reveal viable cells, and allow visualization of the morphology of these cells beyond the specific staining of cells in the apoptotic process. Apoptotic cells were visualized using two fluorescent dyes: AO, which is permeable to the membrane, and EB, which is impermeable. First, the cells were cultured on circular coverslips 13 mm in diameter for 14 days without IM (control group) and with 5-20 &#181;M IM (experimental group). After this period, the circular coverslip was placed on a microscope slide. The reagent was prepared at the time of the test by mixing equal volumes of AO (10 mg/mL) and EB (10 mg/mL). The coverslip with cells and fluorescent dyes was covered with another coverslip and incubated for 10 min at room temperature (RT). The slides were observed under an Olympus BX41 immunofluorescence microscope and photographed.</p>
+			</sec>
+			<sec>
+				<title>Cytochemistry to identify adipocytes</title>
+				<p>For the identification of adipocytes in culture, staining was performed using oil red O, a soluble dye. After 14 days of incubation without IM and with 2.5-25 &#181;M IM, whole culture medium was removed. The wells were washed twice with PBS 7.4 and the cells were fixed with 500 &#181;L 10% formalin/well and incubated at RT for 30 min. Formalin was then removed and the cells were washed twice with PBS 7.4. Next, 200 &#181;L 0.3% solution of oil red O (Sigma-Aldrich)/isopropanol diluted with distilled water (3:2) was added to each well and incubated for 10 min at RT. The dye was then removed and the cells were quickly washed with 60% isopropanol followed by washing with distilled water until excess dye was completely removed. After drying, the cells were visualized with the Olympus CX21 light microscope and photographed.</p>
+			</sec>
+			<sec>
+				<title>Cell cycle analysis</title>
+				<p>To evaluate the effects of IM on the phases of the cell cycle, we used a propidium iodide (PI)/RNase Solution Kit (Immunostep, Spain) whose action involves coloring staining nucleic acids with PI after RNA digestion. The cells were initially plated in 75-cm<sup>2</sup> culture flasks and incubated for 14 days without IM (control group) and with 5-20 &#181;M IM (experimental group). After this period, cells were detached with 2 mL 0.25% Trypsin-0.02% EDTA (Sigma-Aldrich) and stirred for about 5 min. Trypsin was then inactivated by adding 2 mL IMDM containing FBS. The PI/RNase procedure was performed according to the instructions of the kit. Briefly, the washed cells were fixed with 200 &#181;L 70% ethanol and incubated for 30 min at a temperature of -4&#176;C. The cells were then washed twice in PBS containing 2% bovine serum albumin and centrifuged at 300 <italic>g</italic> for 10 min. Subsequently, 500 &#181;L PI containing RNase was added to the cell pellet for 15 min at RT. The analysis was performed using the BD FacsCalibur flow cytometer (Becton Dickinson Immunocytometry Systems, USA) and the BD CELLQuest&#8482; software. The negative control was prepared with cells without drug treatment for the characterization of the parameters to be analyzed by flow cytometry. To draw the histograms of the cell cycle, at least 10,000 living cells were necessary. The histograms were analyzed with WinMDI 2.8 (data not shown) and the results are presented in <xref ref-type="table" rid="t01">Table 1</xref>.</p>
+				<p>
+					<table-wrap id="t01">
+						<label>Table 1</label>
+						<caption>
+							<title>Effects of imatinib mesylate (IM) on the cell cycle phases of bone marrow stromal cells of mice.</title>
+						</caption>
+						<graphic mimetype="image" xlink:href="1414-431X-bjmbr-46-01-039-gt01"/>
+						<table-wrap-foot>
+							<fn id="TFN01t01">
+								<p>Data are reported as means &#177; SEM of the percent of live cells. The bone marrow cells of mice were incubated for 14 days in the absence (control) and in the presence of IM. <sup>#</sup>The number of live cells that were in some stage of the cell cycle was insufficient for flow cytometry analysis. Most cells were already dead and detached from the culture flasks.</p>
+							</fn>
+						</table-wrap-foot>
+					</table-wrap>
+				</p>
+			</sec>
+			<sec>
+				<title>Cell proliferation and α-SMA expression</title>
+				<p>The proliferation of cultured cells was evaluated by testing the incorporation of BrdU, a thymidine analogue, into the DNA of proliferating cells during the S phase of the cell cycle. The presence of α-SMA was used for the identification of fibroblasts because, when grown in culture, fibroblasts from different organs change to myofibroblasts and show various degrees of expression of α-SMA. After 14 days of culture, according to the protocol for cultivation of BM stromal cells without IM (control group) and with 5-25 &#181;M IM, cells were incubated for 24 h in a 5% CO<sub>2</sub> incubator with 1 &#181;g/mL BrdU (Invitrogen, USA). After incubation, cells were fixed with 4% paraformaldehyde for 30 min at RT. Next, the cells were washed twice with distilled water and incubated with 2 N HCl for 30 min at 37&#176;C. Cells were rinsed 3 times with PBS 7.4 and cell membranes were permeabilized with 0.25% PBS-Triton X-100 for 30 min at RT. Nonspecific sites were blocked with 5% FBS for 40 min, and the cells were subjected to an immunocytochemical reaction using specific primary and secondary antibodies. Incubation with primary antibodies (anti-BrdU IgG1 1:100, Calbiochem, Germany; anti-α-SMA IgG2a 1:800, Sigma-Aldrich) was performed for 1 h at RT. Cells were then washed 3 times in 0.05% PBS-Tween 20 and incubated for 1 h with secondary antibodies (anti-mouse IgG1, TxRd, 1:75, and anti-mouse IgG2a, FITC, 1:75; Southern Biotech, USA). After 3 further washes with PBS-Tween, cells were incubated with the nuclear stain DAPI (50 ng/mL; Sigma-Aldrich) for 15 s at RT for analysis of total cell nuclei. Fluorescent staining was observed and photographed using the epifluorescence microscope Olympus BX 40. BrdU, DAPI and α-SMA were simultaneously viewed in cells using different microscope filters. All fields were photographed, i.e., the total area of the well culture was photographed. Fields already photographed acquire a change in the fluorescent color; therefore, the fields are not observed more than once. The overlay of images was performed using a picture editor software.</p>
+			</sec>
+			<sec>
+				<title>Statistical analysis</title>
+				<p>Data are reported as means &#177; SEM. One-way analysis of variance (ANOVA) with the Tukey <italic>post hoc</italic> test was performed for statistical analysis. The calculations and graphs were performed and generated using the Statistica 6.0 software (StatSoft Inc., USA). P values &lt;0.05 were considered to be statistically significant.</p>
+			</sec>
+		</sec>
+		<sec sec-type="results">
+			<title>Results</title>
+			<sec>
+				<title>Effects of IM on CFU-GM hematopoietic progenitor cells</title>
+				<p>Cultured BM mononuclear cells were analyzed using an inverted microscope and the presence of colonies composed of granulocytes and/or macrophages was confirmed. As shown in <xref ref-type="fig" rid="f01">Figure 1</xref>, IM inhibited the formation of CFU-GM (CFU-G/CFU-M) colonies at low concentrations (1.25 &#181;M), with approximately 22% inhibition compared to the control group (100%), maintaining a similar inhibitory profile at concentrations up to 20 &#181;M. Moreover, with respect to morphology, there was a gradual decrease in the size of CFU-GM colonies (<xref ref-type="fig" rid="f02">Figure 2</xref>).</p>
+				<fig id="f01">
+					<label>Figure 1</label>
+					<caption>
+						<title>Effects of imatinib mesylate on the growth of colony-forming unit-granulocyte/macrophage (CFU-GM) obtained from mouse bone marrow. Quantification of colonies is reported as percent growth in relation to the control group (100% growth). Data are reported as the mean &#177; SEM obtained from at least 3 independent experiments performed in triplicate under the same conditions. *P &lt; 0.05 compared to control (one-way ANOVA followed by the Tukey test). The same letters indicate no statistically significant difference between groups (P &gt; 0.05).</title>
+					</caption>
+					<graphic mimetype="image" xlink:href="1414-431X-bjmbr-46-01-039-gf01"/>
+				</fig>
+				<fig id="f02">
+					<label>Figure 2</label>
+					<caption>
+						<title>Morphology of colony-forming unit-granulocyte/macrophage colonies in cultures treated with imatinib mesylate (IM). Numerous and large colonies were initially present (<italic>A</italic>, control) and their size decreased between (<italic>B</italic>) 1.25 and (<italic>C</italic>) 20 &#181;M doses of IM. At 25 &#181;M (<italic>D</italic>), colonies were rare and only small clusters were present. Cells were stained with May-Grünwald and Giemsa.</title>
+					</caption>
+					<graphic mimetype="image" xlink:href="1414-431X-bjmbr-46-01-039-gf02"/>
+				</fig>
+			</sec>
+			<sec>
+				<title>Morphology of BM stromal cells</title>
+				<p>After culture with IM for 14 days, mouse BM stromal cells showed an apparent change in general morphology (<xref ref-type="fig" rid="f03">Figure 3</xref>). Many cells in the control group showed fibroblastic features, large nuclei, and an abundant and elongated cytoplasm (<xref ref-type="fig" rid="f03">Figure 3</xref>, Panel A). The cultures treated with IM gradually presented round cells with smaller nuclei and less abundant cytoplasm, features suggestive of macrophages (<xref ref-type="fig" rid="f03">Figure 3</xref>, Panels B and C). This general morphological modification progressed in a concentration-dependent manner.</p>
+				<fig id="f03">
+					<label>Figure 3</label>
+					<caption>
+						<title>Morphology of the cells in the bone marrow of mice after cultivation with imatinib mesylate (IM). <italic>A</italic>, Control cells stained with May-Grünwald and Giemsa; <italic>B</italic>, cells treated with 5 &#181;M IM; <italic>C</italic>, cells treated with 10 &#181;M IM stained with May-Grünwald and Giemsa. The black arrow indicates cells with fibroblastoid features and the white arrow indicates round cells.</title>
+					</caption>
+					<graphic mimetype="image" xlink:href="1414-431X-bjmbr-46-01-039-gf03"/>
+				</fig>
+			</sec>
+			<sec>
+				<title>MTT assay for cell viability</title>
+				<p>The MTT test was performed to assess the viability of BM stromal cells incubated for 14 days with 5-25 &#181;M IM. At doses of 5 and 10 &#181;M IM the number of viable cells increased by 18 and 73%, respectively, compared to the control group (100%). However, after incubation with 15 &#181;M IM, this percentage fell to 89%, and with 25 &#181;M no cells were viable (<xref ref-type="fig" rid="f04">Figure 4</xref>).</p>
+				<fig id="f04">
+					<label>Figure 4</label>
+					<caption>
+						<title>Effects of imatinib mesylate on bone marrow stromal cells from mice. The absorbance of the control group represents 100% cell viability. Data are reported as the mean &#177; SEM obtained from at least 3 independent experiments performed in triplicate under the same conditions. *P &lt; 0.05 compared to control group (one-way ANOVA followed by the Tukey test). The same letters indicate no statistically significant difference between groups (P &gt; 0.05).</title>
+					</caption>
+					<graphic mimetype="image" xlink:href="1414-431X-bjmbr-46-01-039-gf04"/>
+				</fig>
+			</sec>
+			<sec>
+				<title>Cell viability and apoptotic cells - AO/EB</title>
+				<p>The number of viable BM stromal cells from mice decreased with higher IM concentrations (15-25 &#181;M), as demonstrated by the MTT assay. As seen in <xref ref-type="fig" rid="f05">Figure 5</xref>, the control group (Panel A) almost universally showed a greenish color, which is indicative of viable cells. Panels B and C illustrate that cells incubated with 10 and 20 &#181;M IM, respectively, had some orange color, primarily in the nucleus, which is characteristic of apoptotic cells. In cultures treated with IM, there were more rounded cells (macrophages-like) along with the presence of apoptotic cells. At 10 &#181;M IM (<xref ref-type="fig" rid="f05">Figure 5</xref>, Panel B), there were greater numbers of cells compared to control, but a considerable number of them were entering apoptosis (orange color only in the nucleus). At 20 &#181;M (<xref ref-type="fig" rid="f05">Figure 5</xref>, Panel <italic>C</italic>) there were few cells in general, and many apoptotic cells, some containing apoptotic bodies. At 25 &#181;M IM there were no cells.</p>
+				<fig id="f05">
+					<label>Figure 5</label>
+					<caption>
+						<title>Cytomorphological alterations of bone marrow stromal cells from mice treated with imatinib mesylate (IM). <italic>A</italic>, Control; <italic>B</italic>, 10 &#181;M IM; <italic>C</italic>, 20 &#181;M IM. Viable cells showed green fluorescent staining (acrydine orange) and apoptotic cells exhibited orange staining (ethidium bromide; white arrow).</title>
+					</caption>
+					<graphic mimetype="image" xlink:href="1414-431X-bjmbr-46-01-039-gf05"/>
+				</fig>
+			</sec>
+			<sec>
+				<title>Cytochemistry for the identification of adipocytes</title>
+				<p>As shown in <xref ref-type="fig" rid="f06">Figure 6</xref>, the adipose cells showed reddish lipid vacuoles of varying sizes inside the cytoplasm. At concentrations of 2.5-25 &#181;M, IM had a 100% inhibitory effect on adipose cells and only the control group contained cells with lipid content revealed by oil red O staining (<xref ref-type="fig" rid="f06">Figure 6</xref>, Panels A and B), a result repeatedly observed in experiments performed under the same conditions. Quantitative analysis was not performed since the inhibition was complete.</p>
+				<fig id="f06">
+					<label>Figure 6</label>
+					<caption>
+						<title>Identification of adipocytes by staining with oil red O. Bone marrow stromal cells of mice were cultured in the presence of imatinib mesylate for 14 days. Observation of the cultures by light microscopy shows lipid refractile vacuoles (black arrow) (<italic>A</italic>) in the control group with no staining. Cells stained with oil red O reveal reddish lipid vacuoles (black arrow) of different sizes (<italic>B</italic>).</title>
+					</caption>
+					<graphic mimetype="image" xlink:href="1414-431X-bjmbr-46-01-039-gf06"/>
+				</fig>
+			</sec>
+			<sec>
+				<title>Cell cycle</title>
+				<p>As shown in <xref ref-type="table" rid="t01">Table 1</xref>, IM caused a progressive increase in the number of BM stromal cells in the G<sub>0</sub>/G<sub>1</sub> phase of the cell cycle compared to control and consequently reduced the number of cells in the S/G<sub>2</sub>/M phases. Note that even with 5 &#181;M IM, only 50% of cells (compared to control) were entering mitosis. The greatest blocking effect was observed in the G<sub>0</sub>/G<sub>1</sub> phase of the cell cycle with an IM concentration of 15 &#181;M.</p>
+			</sec>
+			<sec>
+				<title>Assessment of cell proliferation by BrdU incorporation</title>
+				<p>The proliferation of BM stromal cells from mice was evaluated by testing BrdU incorporation (nuclei with red color) and the total number of cells was identified by staining with DAPI (nuclei with blue color). The percentage of proliferating cells (<xref ref-type="fig" rid="f07">Figure 7</xref>) was obtained by quantifying cells in the photographed fields (<xref ref-type="fig" rid="f08">Figure 8</xref>) and comparing the count to the control group. <xref ref-type="fig" rid="f07">Figure 7</xref> shows that IM caused a significant decrease in cell proliferation, a reduction of approximately 50, 80, 95, and 100% at concentrations of 2.5, 5.0, 7.5 to 15, and 20 &#181;M, respectively.</p>
+				<fig id="f07">
+					<label>Figure 7</label>
+					<caption>
+						<title>Assessment of cell proliferation by BrdU incorporation into bone marrow stromal cells from mice treated with imatinib mesylate. The cells were cultured for 14 days, quantified according to BrdU incorporation into the nucleus and compared to the control group (100%). Data are reported as the mean &#177; SEM obtained from at least 3 independent experiments performed in triplicate under the same conditions. *P &lt; 0.05 compared to control (one-way ANOVA followed by the Tukey test). The same letters indicate no statistically significant difference between groups (P &gt; 0.05).</title>
+					</caption>
+					<graphic mimetype="image" xlink:href="1414-431X-bjmbr-46-01-039-gf07"/>
+				</fig>
+				<fig id="f08">
+					<label>Figure 8</label>
+					<caption>
+						<title>Analysis of BrdU incorporation and immunofluorescence for alpha-smooth muscle actin (α-SMA) in cells cultured with imatinib mesylate for 14 days. In red, nuclei of cells that incorporated BrdU; in blue, nuclei stained with DAPI; in green, α-SMA-positive cells. Control group cells (<italic>A</italic>, <italic>B</italic>, <italic>C</italic>), cells treated with 5 &#181;M (<italic>D</italic>, <italic>E</italic>, <italic>F</italic>), and 15 &#181;M (<italic>G</italic>, <italic>H</italic>, <italic>I</italic>) imatinib mesylate. No cells treated with 10 &#181;M (<italic>J)</italic> or 20 &#181;M (<italic>L</italic>) incorporated BrdU. <italic>K</italic>, α-SMA-positive cells treated with 10 &#181;M. <italic>C</italic>, <italic>F</italic>, <italic>I</italic>, Representation of the overlapping BrdU, DAPI, and α-SMA images.</title>
+					</caption>
+					<graphic mimetype="image" xlink:href="1414-431X-bjmbr-46-01-039-gf08"/>
+				</fig>
+			</sec>
+			<sec>
+				<title>Evaluation of α-SMA expression</title>
+				<p>α-SMA positivity (<xref ref-type="fig" rid="f09">Figure 9</xref>) was determined by counting all α-SMA-positive cells (green cells) treated with IM present in each culture well (<xref ref-type="fig" rid="f08">Figure 8</xref>) and compared to the control group. <xref ref-type="fig" rid="f09">Figure 9</xref> shows that there was a large decrease in the amount of cells expressing α-SMA in the treated groups. IM caused a decrease in the expression of α-SMA in the stromal cells to 45.74 and 2.51% at concentrations of 2.5 and 7.5 &#181;M, respectively, and completely inhibited expression at 10 &#181;M. By overlaying the images, it was discovered that most α-SMA-positive cells were also positive for BrdU, confirming the anti-proliferative effect of IM in fibroblasts.</p>
+				<fig id="f09">
+					<label>Figure 9</label>
+					<caption>
+						<title>Quantification of alpha-smooth muscle actin (α-SMA)-positive cells. Bone marrow stromal cells of mice were cultured for 14 days and subjected to immunocytochemical reaction to verify α-SMA expression. Data are reported as percentage in relation to the control group (100%).</title>
+					</caption>
+					<graphic mimetype="image" xlink:href="1414-431X-bjmbr-46-01-039-gf09"/>
+				</fig>
+			</sec>
+			<sec>
+				<title>Ratio of fibroblastic cells and round cells</title>
+				<p>By quantifying cells with nuclei stained with DAPI and the overlap of α-SMA-positive cells, a clear difference in the size of the nucleus was observed between cells with characteristics of fibroblastic cells and round cells. Initially, the control exhibited 5.45 times more round cells than fibroblastic cells. As shown in <xref ref-type="table" rid="t02">Table 2</xref>, this rate greatly increased in a dose-dependent manner due to an increase in the number of round cells at the expense of decreasing numbers of fibroblast cells, a fact evident in <xref ref-type="fig" rid="f03">Figures 3</xref> and <xref ref-type="fig" rid="f08">8</xref>.</p>
+				<p>
+					<table-wrap id="t02">
+						<label>Table 2</label>
+						<caption>
+							<title>Ratio of fibroblastic cells to round cells of bone marrow stromal cells from mice.</title>
+						</caption>
+						<graphic mimetype="image" xlink:href="1414-431X-bjmbr-46-01-039-gt02"/>
+						<table-wrap-foot>
+							<fn id="TFN01t02">
+								<p>The ratio of the amount of fibroblastic cells and round cells was determined by the quantification of cells with nuclei stained with DAPI and the overlap of alpha-smooth muscle actin-positive staining cells. IM=Imatinib mesylate.</p>
+							</fn>
+						</table-wrap-foot>
+					</table-wrap>
+				</p>
+			</sec>
+		</sec>
+		<sec>
+			<title>Discussion</title>
+			<p>Bone marrow stromal cells appear to regulate the survival, self-renewal, migration, and differentiation of hematopoietic stem cells through several mechanisms, including cell contact interactions or the production of growth factors, chemokines, and extracellular matrix molecules. Four main cell types of the marrow stromal tissue are known to take part in supporting hematopoiesis: one is of hematopoietic origin (macrophages), whereas the others derive from MSCs (reticular/fibroblastic cells, adipocytes, and osteoblasts) <xref ref-type="bibr" rid="B22">22</xref>. Due to the constant renewal of blood cells, the hematopoietic progenitors/precursors exhibit a high proliferation rate, rendering this system very susceptible to the actions of anticancer drugs, which may directly or indirectly affect hematopoiesis <xref ref-type="bibr" rid="B23"/>
+				<xref ref-type="bibr" rid="B24">23,24</xref>.</p>
+			<p>The observation of the anti-proliferative effects of IM in BCR-ABL1-negative hematopoietic cells is supported by observations in patients with Ph-negative myeloproliferative disorders who were successfully treated with IM <xref ref-type="bibr" rid="B23"/>
+				<xref ref-type="bibr" rid="B24">23,24</xref>. Holtz et al. <xref ref-type="bibr" rid="B14">14</xref> suggested that IM acts mainly by inhibiting the growth of committed progenitor cells (CFCs) and this inhibitory effect increases significantly with prolonged exposure through mechanisms not dependent on BCR-ABL1. In our study, IM reduced the growth of CFU-GM colonies from doses as low as 1.25 &#181;M (<xref ref-type="fig" rid="f01">Figure 1</xref>) and a decrease in colony size was observed, featuring colonies with ever fewer cells in a concentration-dependent manner (<xref ref-type="fig" rid="f02">Figure 2</xref>).</p>
+			<p>Imatinib mesylate selectively inhibits SCF receptor c-Kit cell signaling. Although SCF itself does not promote colony formation <italic>in vitro</italic>, it works in synergy with other growth factors such as GM-CSF, G-CSF, IL-3, IL-6, IL-7, and Epo to stimulate formation of both differentiated progenitor cells and more primitive multilineage progenitor cells of myeloid and erythroid lineages <xref ref-type="bibr" rid="B25">25</xref>. The decrease seen in the CFU-GM clonogenic assay can perhaps be explained by IM c-Kit blocking effects.</p>
+			<p>In order to assess the viability and morphology of stromal cells, we performed both MTT and AO/EB assays. The results were consistent with those observed by light microscopy, showing a change in the total morphology of adherent cells. In untreated cells (<xref ref-type="fig" rid="f03">Figure 3</xref>, Panel A; <xref ref-type="fig" rid="f05">Figure 5</xref>, Panel A) and cells treated with lower concentrations of IM (5 &#181;M; <xref ref-type="fig" rid="f03">Figure 3</xref>, Panel B), the predominant morphology was typically fibroblastic. At 10 &#181;M, an increase was observed in the number of rounded cells with a considerable number of cells entering apoptosis (orange color only in the nucleus) (<xref ref-type="fig" rid="f03">Figure 3</xref>, Panel C; <xref ref-type="fig" rid="f05">Figure 5</xref>, Panel B). The decrease in cell viability was observed only with high concentrations of IM (15-25 &#181;M). At 20 &#181;M (<xref ref-type="fig" rid="f05">Figure 5</xref>, Panel C) there were few cells in general and many apoptotic cells, some containing apoptotic bodies. The evaluation of the results of the MTT and AO/EB assays suggests that cell viability showed a peak (<xref ref-type="fig" rid="f04">Figure 4</xref>) due to the increased number of rounded cells, indicating a possible proliferative effect of IM on these cells, herein referred to as macrophage-like cells (also seen in <xref ref-type="fig" rid="f08">Figure 8</xref>, Panels H and J, with DAPI), and an opposite effect on fibroblast cells confirmed by expression of α-SMA (<xref ref-type="fig" rid="f08">Figure 8</xref>, Panels C, F, I, and K). These results can be related to the data in <xref ref-type="table" rid="t02">Table 2</xref>, which shows that there was a progressive increase in the ratio of round cells to fibroblastic cells. At the 10 &#181;M dose of IM, the number of round cells was 383 times higher than the number of fibroblast cells, and was reduced only at high concentrations (15-25 &#181;M IM).</p>
+			<p>In accordance with other studies <xref ref-type="bibr" rid="B26"/>
+				<xref ref-type="bibr" rid="B27">26,27</xref>, the evaluation of the cell cycle of BM stromal cells with IM showed the blocking of cells in the G<sub>0</sub>/G<sub>1</sub> phases (67.21% in controls and up to 90.21% with 15 &#181;M IM) and a decreased percentage of cells that were in the S (20.29% in controls and up to 6.44% with 15 &#181;M IM) and G<sub>2</sub>/M phases (12.5% in controls and up to 3.35% with 15 &#181;M IM) (<xref ref-type="table" rid="t01">Table 1</xref>). The decrease in cells in the S phase is consistent with the results of BrdU staining (<xref ref-type="fig" rid="f07">Figure 7</xref>), since BrdU is only incorporated into the nucleus of cells that are undergoing proliferation. In this study, we did not assess the mechanisms involved in blocking the cell cycle; however, the blockade in G<sub>0</sub>/G<sub>1</sub> can lead to apoptosis (seen by the presence of apoptotic bodies stained with EB) (<xref ref-type="fig" rid="f05">Figure 5</xref>, Panel C). In addition, there is a decrease in cells undergoing the mitotic process.</p>
+			<p>According to Vittal et al. <xref ref-type="bibr" rid="B28">28</xref>, IM induces a concentration-dependent inhibition of fibroblast proliferation with almost complete inhibition at 20 &#181;M. In our study, the proliferation of stromal cells decreased gradually in the presence of IM (<xref ref-type="fig" rid="f07">Figure 7</xref>), reaching 50, 80, 95, and 100% inhibition at concentrations of 2.5, 5.0, 7.5 to 15, and 20 &#181;M, respectively. Confirming the anti-proliferative effects of IM on fibroblasts, the expression of α-SMA, a myofibroblast marker, in the BM stromal cells on day 14 was strongly inhibited (<xref ref-type="fig" rid="f09">Figure 9</xref>). At 2.5 &#181;M, the expression was reduced by approximately half, at 7.5 &#181;M IM, it decreased to 2.51%, and was almost completely inhibited at 10 &#181;M. By overlapping the images (<xref ref-type="fig" rid="f08">Figure 8</xref>, Panels C, F, I, and K), we noted that most cells expressing α-SMA with large nuclei were also in the process of proliferating (BrdU-positive), an event that occurred in the absence, or at very low concentrations, of IM.</p>
+			<p>It has been demonstrated in the literature that the presence of adipose cells in culture is associated with increased survival of the hematopoietic system, which can serve as a positive indicator of the culture success in maintaining primordial cells <xref ref-type="bibr" rid="B29">29</xref>. Our results demonstrated that adipocytes stained with oil red O only in the control cultures of BM stromal cells (<xref ref-type="fig" rid="f06">Figure 6</xref>, Panels A and B), suggesting that IM has an effect on the differentiation of stromal cells into adipocytes or, perhaps, induces apoptosis of pre-existing adipocytes.</p>
+			<p>Cells morphologically characterized as macrophage-like, which show reduced colony formation by CFU-GM clonogenic assay, seem to increase in numbers in stromal cultures. The mechanism by which this happens is not entirely clear, since studies have shown that IM inhibits c-Kit, but does not inhibit c-fms, the receptor for CSF-M <xref ref-type="bibr" rid="B25">25</xref> and granulocytes/macrophages (CSF-GM) <xref ref-type="bibr" rid="B30">30</xref>, which were used in this experiment. However, studies regarding the origin of resident macrophages in various tissues have shown that local proliferation plays a significant role in the renewal and maintenance of many types of macrophages, whereas in some cases the recruitment of circulating precursors has little or no role <xref ref-type="bibr" rid="B31">31</xref>. Based on these considerations, there may be a local proliferation of macrophages in tissues, and it is believed that this explains the effects occurring in stroma cultures treated with 10-15 &#181;M IM, as can be seen in <xref ref-type="fig" rid="f03">Figures 3</xref> (Panel C), 5 (Panel B), and 8 (Panels I and K), where there was an increase of cells morphologically similar to macrophages at the expense of cells with fibroblastic features. If there was proliferation of macrophage-like cells, it would not have occurred on the 14th day of culture since proliferation assessed by BrdU showed a large decrease in a concentration-dependent manner even at lower IM concentrations. This method evaluates the number of cells that proliferate within 24 h after incubation with BrdU.</p>
+			<p>These results demonstrate that IM is more effective in targeting BM stroma cells, mainly fibroblasts, than hematopoietic cells, since at a dose of 5 &#181;M IM there was growth in only approximately 5% of α-SMA-positive cells while there was 71% growth in CFU-GM cells. These data may be relevant and limiting for IM administration in situations with a large increase in the turnover of cells in the BM stroma due to regeneration after intensive chemotherapy/radiotherapy <xref ref-type="bibr" rid="B15">15</xref>, in addition to the direct effect on hematopoietic progenitors involved in myelosuppression. Imatinib mesylate may interfere with the homing of transplanted stem cells by damaging the BM microenvironment of patients previously treated with IM and increase the side effects such as myelosuppression and liver toxicity <xref ref-type="bibr" rid="B32">32</xref>, although there are studies that contradict this hypothesis.</p>
+			<p>Imatinib mesylate is also being tested for the treatment of several diseases with beneficial results. Studies have shown that IM is a potent inhibitor of PDGF-β signaling and proliferation of fibroblasts and has, therefore, been proposed as a potent antifibrotic therapeutic agent that may not only halt the progression but also induce the regression of tissue fibrosis <xref ref-type="bibr" rid="B17"/>
+				<xref ref-type="bibr" rid="B33"/>
+				<xref ref-type="bibr" rid="B34"/>
+				<xref ref-type="bibr" rid="B35"/>
+				<xref ref-type="bibr" rid="B36">17,33-36</xref>. Imatinib has also demonstrated antiangiogenic effects through inhibition of angiogenesis induced by vascular endothelial growth factor (VEGF), bFGF and PDGF <italic>in vivo</italic>, and by inhibition of tumor growth <xref ref-type="bibr" rid="B18">18</xref>. In previous studies, our group demonstrated that IM acts to decrease the production of reticular fibers produced by stromal cells, suggesting a main activity in fibroblasts. Furthermore, we observed a correlation between fibrosis and vascularization of BM and cytogenetic response in patients with CML <xref ref-type="bibr" rid="B37">37</xref>.</p>
+			<p>The effects of IM on different cell types, likely through mechanisms of inhibition of the PDGF receptor and a series of growth factors and cytokines (VEGF, bFGF, IL-6, and IL-8) that are also directly or indirectly affected by IM, may have influenced the results obtained here. For instance, low levels of growth factors in culture medium alone can induce a decrease in the number of fibroblast cells; however, the low levels of growth factors could be a consequence of the decrease in fibroblasts.</p>
+			<p>This study demonstrates the inhibitory effect exerted by IM on different cell types present in the BM, represented by hematopoietic cells by inhibiting the growth of CFU-GM, as well as in stromal cells, acting mainly on fibroblasts and adipocytes. These data suggest that IM is more effective on stromal cells than on hematopoietic cells. Thus, in view of the numerous studies that have been performed, the present investigation demonstrates the importance of knowing the effects of IM on non-leukemic cells, since it is a drug used as first-line therapy, for prolonged use in CML and GIST, and is being tested in various other Ph-negative pathologies.</p>
+		</sec>
+	</body>
+	<back>
+		<ref-list>
+			<title>References</title>
+			<ref id="B01">
+				<label>1</label>
+				<mixed-citation>1. Hubin F, Humblet C, Belaid Z, Lambert C, Boniver J, Thiry A, et al. Murine bone marrow stromal cells sustain <italic>in vivo</italic> the survival of hematopoietic stem cells and the granulopoietic differentiation of more mature progenitors. Stem Cells 2005; 23: 1626-1633, doi: 10.1634/stemcells.2005-0041.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Hubin</surname>
+							<given-names>F</given-names>
+						</name>
+						<name>
+							<surname>Humblet</surname>
+							<given-names>C</given-names>
+						</name>
+						<name>
+							<surname>Belaid</surname>
+							<given-names>Z</given-names>
+						</name>
+						<name>
+							<surname>Lambert</surname>
+							<given-names>C</given-names>
+						</name>
+						<name>
+							<surname>Boniver</surname>
+							<given-names>J</given-names>
+						</name>
+						<name>
+							<surname>Thiry</surname>
+							<given-names>A</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">Murine bone marrow stromal cells sustain <italic>in vivo</italic> the survival of hematopoietic stem cells and the granulopoietic differentiation of more mature progenitors</article-title>
+					<source xml:lang="en">Stem Cells</source>
+					<year>2005</year>
+					<volume>23</volume>
+					<fpage>1626</fpage>
+					<lpage>1633</lpage>
+					<comment>doi:10.1634/stemcells.2005-0041</comment>
+				</element-citation>
+			</ref>
+			<ref id="B02">
+				<label>2</label>
+				<mixed-citation>2. Hinz B, Celetta G, Tomasek JJ, Gabbiani G, Chaponnier C. Alpha-smooth muscle actin expression upregulates fibroblast contractile activity. Mol Biol Cell 2001; 12: 2730-2741.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Hinz</surname>
+							<given-names>B</given-names>
+						</name>
+						<name>
+							<surname>Celetta</surname>
+							<given-names>G</given-names>
+						</name>
+						<name>
+							<surname>Tomasek</surname>
+							<given-names>JJ</given-names>
+						</name>
+						<name>
+							<surname>Gabbiani</surname>
+							<given-names>G</given-names>
+						</name>
+						<name>
+							<surname>Chaponnier</surname>
+							<given-names>C</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Alpha-smooth muscle actin expression upregulates fibroblast contractile activity</article-title>
+					<source xml:lang="en">Mol Biol Cell</source>
+					<year>2001</year>
+					<volume>12</volume>
+					<fpage>2730</fpage>
+					<lpage>2741</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B03">
+				<label>3</label>
+				<mixed-citation>3. Powell DW, Mifflin RC, Valentich JD, Crowe SE, Saada JI, West AB. Myofibroblasts. I. Paracrine cells important in health and disease. Am J Physiol 1999; 277: C1-C9.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Powell</surname>
+							<given-names>DW</given-names>
+						</name>
+						<name>
+							<surname>Mifflin</surname>
+							<given-names>RC</given-names>
+						</name>
+						<name>
+							<surname>Valentich</surname>
+							<given-names>JD</given-names>
+						</name>
+						<name>
+							<surname>Crowe</surname>
+							<given-names>SE</given-names>
+						</name>
+						<name>
+							<surname>Saada</surname>
+							<given-names>JI</given-names>
+						</name>
+						<name>
+							<surname>West</surname>
+							<given-names>AB</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Myofibroblasts</article-title>
+					<source xml:lang="en">I. Paracrine cells important in health and disease. Am J Physiol</source>
+					<year>1999</year>
+					<volume>277</volume>
+					<fpage>C1</fpage>
+					<lpage>C9</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B04">
+				<label>4</label>
+				<mixed-citation>4. Anjos AR, Alvares-Silva M, Borelli P. Matriz extracelular e leucemia. Rev Bras Hematot Hemoter 2000; 22: 404-412.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Anjos</surname>
+							<given-names>AR</given-names>
+						</name>
+						<name>
+							<surname>Alvares-Silva</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Borelli</surname>
+							<given-names>P</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Matriz extracelular e leucemia</article-title>
+					<source xml:lang="en">Rev Bras Hematot Hemoter</source>
+					<year>2000</year>
+					<volume>22</volume>
+					<fpage>404</fpage>
+					<lpage>412</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B05">
+				<label>5</label>
+				<mixed-citation>5. Parent-Massin D. Relevance of clonogenic assays in hematotoxicology. Cell Biol Toxicol 2001; 17: 87-94, doi: 10.1023/A:1010906104558.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Parent-Massin</surname>
+							<given-names>D</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Relevance of clonogenic assays in hematotoxicology</article-title>
+					<source xml:lang="en">Cell Biol Toxicol</source>
+					<year>2001</year>
+					<volume>17</volume>
+					<fpage>87</fpage>
+					<lpage>94</lpage>
+					<comment>doi:10.1023/A:1010906104558</comment>
+				</element-citation>
+			</ref>
+			<ref id="B06">
+				<label>6</label>
+				<mixed-citation>6. Pessina A, Albella B, Bayo M, Bueren J, Brantom P, Casati S, et al. Application of the CFU-GM assay to predict acute drug-induced neutropenia: an international blind trial to validate a prediction model for the maximum tolerated dose (MTD) of myelosuppressive xenobiotics. Toxicol Sci 2003; 75: 355-367, doi: 10.1093/toxsci/kfg188.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Pessina</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Albella</surname>
+							<given-names>B</given-names>
+						</name>
+						<name>
+							<surname>Bayo</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Bueren</surname>
+							<given-names>J</given-names>
+						</name>
+						<name>
+							<surname>Brantom</surname>
+							<given-names>P</given-names>
+						</name>
+						<name>
+							<surname>Casati</surname>
+							<given-names>S</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">Application of the CFU-GM assay to predict acute drug-induced neutropenia: an international blind trial to validate a prediction model for the maximum tolerated dose (MTD) of myelosuppressive xenobiotics</article-title>
+					<source xml:lang="en">Toxicol Sci</source>
+					<year>2003</year>
+					<volume>75</volume>
+					<fpage>355</fpage>
+					<lpage>367</lpage>
+					<comment>doi:10.1093/toxsci/kfg188</comment>
+				</element-citation>
+			</ref>
+			<ref id="B07">
+				<label>7</label>
+				<mixed-citation>7. Druker BJ, Talpaz M, Resta DJ, Peng B, Buchdunger E, Ford JM, et al. Efficacy and safety of a specific inhibitor of the BCR-ABL tyrosine kinase in chronic myeloid leukemia. N Engl J Med 2001; 344: 1031-1037, doi: 10.1056/NEJM200104053441401.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Druker</surname>
+							<given-names>BJ</given-names>
+						</name>
+						<name>
+							<surname>Talpaz</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Resta</surname>
+							<given-names>DJ</given-names>
+						</name>
+						<name>
+							<surname>Peng</surname>
+							<given-names>B</given-names>
+						</name>
+						<name>
+							<surname>Buchdunger</surname>
+							<given-names>E</given-names>
+						</name>
+						<name>
+							<surname>Ford</surname>
+							<given-names>JM</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">Efficacy and safety of a specific inhibitor of the BCR-ABL tyrosine kinase in chronic myeloid leukemia</article-title>
+					<source xml:lang="en">N Engl J Med</source>
+					<year>2001</year>
+					<volume>344</volume>
+					<fpage>1031</fpage>
+					<lpage>1037</lpage>
+					<comment>doi:10.1056/NEJM200104053441401</comment>
+				</element-citation>
+			</ref>
+			<ref id="B08">
+				<label>8</label>
+				<mixed-citation>8. Joensuu H, Roberts PJ, Sarlomo-Rikala M, Andersson LC, Tervahartiala P, Tuveson D, et al. Effect of the tyrosine kinase inhibitor STI571 in a patient with a metastatic gastrointestinal stromal tumor. N Engl J Med 2001; 344: 1052-1056, doi: 10.1056/NEJM200104053441404.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Joensuu</surname>
+							<given-names>H</given-names>
+						</name>
+						<name>
+							<surname>Roberts</surname>
+							<given-names>PJ</given-names>
+						</name>
+						<name>
+							<surname>Sarlomo-Rikala</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Andersson</surname>
+							<given-names>LC</given-names>
+						</name>
+						<name>
+							<surname>Tervahartiala</surname>
+							<given-names>P</given-names>
+						</name>
+						<name>
+							<surname>Tuveson</surname>
+							<given-names>D</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">Effect of the tyrosine kinase inhibitor STI571 in a patient with a metastatic gastrointestinal stromal tumor</article-title>
+					<source xml:lang="en">N Engl J Med</source>
+					<year>2001</year>
+					<volume>344</volume>
+					<fpage>1052</fpage>
+					<lpage>1056</lpage>
+					<comment>doi:10.1056/NEJM200104053441404</comment>
+				</element-citation>
+			</ref>
+			<ref id="B09">
+				<label>9</label>
+				<mixed-citation>9. Peng B, Hayes M, Racine-Poom A, Druker B. Clinical investigation of the pharmacokinetic/pharmacodynamic relationship for Glivec (STI571): a novel inhibitor of signal transduction. Proc Am Soc Clin Oncol 2001; 20: 280 (Abstract).</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Peng</surname>
+							<given-names>B</given-names>
+						</name>
+						<name>
+							<surname>Hayes</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Racine-Poom</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Druker</surname>
+							<given-names>B</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Clinical investigation of the pharmacokinetic/pharmacodynamic relationship for Glivec (STI571): a novel inhibitor of signal transduction</article-title>
+					<source xml:lang="en">Proc Am Soc Clin Oncol</source>
+					<year>2001</year>
+					<volume>20</volume>
+					<fpage>280(Abstract).</fpage>
+				</element-citation>
+			</ref>
+			<ref id="B10">
+				<label>10</label>
+				<mixed-citation>10. Peng B, Hayes M, Resta D, Racine-Poon A, Druker BJ, Talpaz M, et al. Pharmacokinetics and pharmacodynamics of imatinib in a phase I trial with chronic myeloid leukemia patients. J Clin Oncol 2004; 22: 935-942, doi: 10.1200/JCO.2004.03.050.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Peng</surname>
+							<given-names>B</given-names>
+						</name>
+						<name>
+							<surname>Hayes</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Resta</surname>
+							<given-names>D</given-names>
+						</name>
+						<name>
+							<surname>Racine-Poon</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Druker</surname>
+							<given-names>BJ</given-names>
+						</name>
+						<name>
+							<surname>Talpaz</surname>
+							<given-names>M</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">Pharmacokinetics and pharmacodynamics of imatinib in a phase I trial with chronic myeloid leukemia patients</article-title>
+					<source xml:lang="en">J Clin Oncol</source>
+					<year>2004</year>
+					<volume>22</volume>
+					<fpage>935</fpage>
+					<lpage>942</lpage>
+					<comment>doi:10.1200/JCO.2004.03.050</comment>
+				</element-citation>
+			</ref>
+			<ref id="B11">
+				<label>11</label>
+				<mixed-citation>11. Cortes J, Giles F, O'Brien S, Thomas D, Garcia-Manero G, Rios MB, et al. Result of high-dose imatinib mesylate in patients with Philadelphia chromosome-positive chronic myeloid leukemia after failure of interferon-alpha. Blood 2003; 102: 83-86, doi: 10.1182/blood-2003-01-0025.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Cortes</surname>
+							<given-names>J</given-names>
+						</name>
+						<name>
+							<surname>Giles</surname>
+							<given-names>F</given-names>
+						</name>
+						<name>
+							<surname>O'Brien</surname>
+							<given-names>S</given-names>
+						</name>
+						<name>
+							<surname>Thomas</surname>
+							<given-names>D</given-names>
+						</name>
+						<name>
+							<surname>Garcia-Manero</surname>
+							<given-names>G</given-names>
+						</name>
+						<name>
+							<surname>Rios</surname>
+							<given-names>MB</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">Result of high-dose imatinib mesylate in patients with Philadelphia chromosome-positive chronic myeloid leukemia after failure of interferon-alpha</article-title>
+					<source xml:lang="en">Blood</source>
+					<year>2003</year>
+					<volume>102</volume>
+					<fpage>83</fpage>
+					<lpage>86</lpage>
+					<comment>doi:10.1182/blood-2003-01-0025</comment>
+				</element-citation>
+			</ref>
+			<ref id="B12">
+				<label>12</label>
+				<mixed-citation>12. Gronchi A, Blay JY, Trent JC. The role of high-dose imatinib in the management of patients with gastrointestinal stromal tumor. Cancer 2010; 116: 1847-1858, doi: 10.1002/cncr.24944.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Gronchi</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Blay</surname>
+							<given-names>JY</given-names>
+						</name>
+						<name>
+							<surname>Trent</surname>
+							<given-names>JC</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">The role of high-dose imatinib in the management of patients with gastrointestinal stromal tumor</article-title>
+					<source xml:lang="en">Cancer</source>
+					<year>2010</year>
+					<volume>116</volume>
+					<fpage>1847</fpage>
+					<lpage>1858</lpage>
+					<comment>doi:10.1002/cncr.24944</comment>
+				</element-citation>
+			</ref>
+			<ref id="B13">
+				<label>13</label>
+				<mixed-citation>13. Marin D, Marktel S, Bua M, Armstrong L, Goldman JM, Apperley JF, et al. The use of imatinib (STI571) in chronic myelod leukemia: some practical considerations. Haematologica 2002; 87: 979-988.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Marin</surname>
+							<given-names>D</given-names>
+						</name>
+						<name>
+							<surname>Marktel</surname>
+							<given-names>S</given-names>
+						</name>
+						<name>
+							<surname>Bua</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Armstrong</surname>
+							<given-names>L</given-names>
+						</name>
+						<name>
+							<surname>Goldman</surname>
+							<given-names>JM</given-names>
+						</name>
+						<name>
+							<surname>Apperley</surname>
+							<given-names>JF</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">The use of imatinib (STI571) in chronic myelod leukemia: some practical considerations</article-title>
+					<source xml:lang="en">Haematologica</source>
+					<year>2002</year>
+					<volume>87</volume>
+					<fpage>979</fpage>
+					<lpage>988</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B14">
+				<label>14</label>
+				<mixed-citation>14. Holtz MS, Slovak ML, Zhang F, Sawyers CL, Forman SJ, Bhatia R. Imatinib mesylate (STI571) inhibits growth of primitive malignant progenitors in chronic myelogenous leukemia through reversal of abnormally increased proliferation. Blood 2002; 99: 3792-3800, doi: 10.1182/blood.V99.10.3792.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Holtz</surname>
+							<given-names>MS</given-names>
+						</name>
+						<name>
+							<surname>Slovak</surname>
+							<given-names>ML</given-names>
+						</name>
+						<name>
+							<surname>Zhang</surname>
+							<given-names>F</given-names>
+						</name>
+						<name>
+							<surname>Sawyers</surname>
+							<given-names>CL</given-names>
+						</name>
+						<name>
+							<surname>Forman</surname>
+							<given-names>SJ</given-names>
+						</name>
+						<name>
+							<surname>Bhatia</surname>
+							<given-names>R</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Imatinib mesylate (STI571) inhibits growth of primitive malignant progenitors in chronic myelogenous leukemia through reversal of abnormally increased proliferation</article-title>
+					<source xml:lang="en">Blood</source>
+					<year>2002</year>
+					<volume>99</volume>
+					<fpage>3792</fpage>
+					<lpage>3800</lpage>
+					<comment>doi:10.1182/blood.V99.10.3792</comment>
+				</element-citation>
+			</ref>
+			<ref id="B15">
+				<label>15</label>
+				<mixed-citation>15. Appel S, Balabanov S, Brummendorf TH, Brossart P. Effects of imatinib on normal hematopoiesis and immune activation. Stem Cells 2005; 23: 1082-1088, doi: 10.1634/stemcells.2005-0069.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Appel</surname>
+							<given-names>S</given-names>
+						</name>
+						<name>
+							<surname>Balabanov</surname>
+							<given-names>S</given-names>
+						</name>
+						<name>
+							<surname>Brummendorf</surname>
+							<given-names>TH</given-names>
+						</name>
+						<name>
+							<surname>Brossart</surname>
+							<given-names>P</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Effects of imatinib on normal hematopoiesis and immune activation</article-title>
+					<source xml:lang="en">Stem Cells</source>
+					<year>2005</year>
+					<volume>23</volume>
+					<fpage>1082</fpage>
+					<lpage>1088</lpage>
+					<comment>doi:10.1634/stemcells.2005-0069</comment>
+				</element-citation>
+			</ref>
+			<ref id="B16">
+				<label>16</label>
+				<mixed-citation>16. Verweij J, van Oosterom A, Blay JY, Judson I, Rodenhuis S, van der Graaf W, et al. Imatinib mesylate (STI-571 Glivec, Gleevec) is an active agent for gastrointestinal stromal tumours, but does not yield responses in other soft-tissue sarcomas that are unselected for a molecular target. Results from an EORTC Soft Tissue and Bone Sarcoma Group phase II study. Eur J Cancer 2003; 39: 2006-2011, doi: 10.1016/S0959-8049(02)00836-5.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Verweij</surname>
+							<given-names>J</given-names>
+						</name>
+						<name>
+							<surname>van Oosterom</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Blay</surname>
+							<given-names>JY</given-names>
+						</name>
+						<name>
+							<surname>Judson</surname>
+							<given-names>I</given-names>
+						</name>
+						<name>
+							<surname>Rodenhuis</surname>
+							<given-names>S</given-names>
+						</name>
+						<name>
+							<surname>van der Graaf</surname>
+							<given-names>W</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">Imatinib mesylate (STI-571 Glivec, Gleevec) is an active agent for gastrointestinal stromal tumours, but does not yield responses in other soft-tissue sarcomas that are unselected for a molecular target. Results from an EORTC Soft Tissue and Bone Sarcoma Group phase II study</article-title>
+					<source xml:lang="en">Eur J Cancer</source>
+					<year>2003</year>
+					<volume>39</volume>
+					<fpage>2006</fpage>
+					<lpage>2011</lpage>
+					<comment>doi:10.1016/S0959-8049(02)00836-5</comment>
+				</element-citation>
+			</ref>
+			<ref id="B17">
+				<label>17</label>
+				<mixed-citation>17. Akhmetshina A, Venalis P, Dees C, Busch N, Zwerina J, Schett G, et al. Treatment with imatinib prevents fibrosis in different preclinical models of systemic sclerosis and induces regression of established fibrosis. Arthritis Rheum 2009; 60: 219-224, doi: 10.1002/art.24186.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Akhmetshina</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Venalis</surname>
+							<given-names>P</given-names>
+						</name>
+						<name>
+							<surname>Dees</surname>
+							<given-names>C</given-names>
+						</name>
+						<name>
+							<surname>Busch</surname>
+							<given-names>N</given-names>
+						</name>
+						<name>
+							<surname>Zwerina</surname>
+							<given-names>J</given-names>
+						</name>
+						<name>
+							<surname>Schett</surname>
+							<given-names>G</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">Treatment with imatinib prevents fibrosis in different preclinical models of systemic sclerosis and induces regression of established fibrosis</article-title>
+					<source xml:lang="en">Arthritis Rheum</source>
+					<year>2009</year>
+					<volume>60</volume>
+					<fpage>219</fpage>
+					<lpage>224</lpage>
+					<comment>doi:10.1002/art.24186</comment>
+				</element-citation>
+			</ref>
+			<ref id="B18">
+				<label>18</label>
+				<mixed-citation>18. Buchdunger E, O'Reilly T, Wood J. Pharmacology of imatinib (STI571). Eur J Cancer 2002; 38 (Suppl 5): S28-S36, doi: 10.1016/S0959-8049(02)80600-1.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Buchdunger</surname>
+							<given-names>E</given-names>
+						</name>
+						<name>
+							<surname>O'Reilly</surname>
+							<given-names>T</given-names>
+						</name>
+						<name>
+							<surname>Wood</surname>
+							<given-names>J</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Pharmacology of imatinib (STI571)</article-title>
+					<source xml:lang="en">Eur J Cancer</source>
+					<year>2002</year>
+					<volume>38</volume>
+					<issue>(Suppl 5)</issue>
+					<fpage>S28</fpage>
+					<lpage>S36</lpage>
+					<comment>doi:10.1016/S0959-8049(02)80600-1</comment>
+				</element-citation>
+			</ref>
+			<ref id="B19">
+				<label>19</label>
+				<mixed-citation>19. Melzer D, Neumann U, Ebell W, Seeger K, Neuhaus P, Gaedicke G, et al. Imatinib mesylate (STI571) considerably affects normal human bone marrow stromal cell growth <italic>in vitro</italic>. Blood 2004; 104a.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Melzer</surname>
+							<given-names>D</given-names>
+						</name>
+						<name>
+							<surname>Neumann</surname>
+							<given-names>U</given-names>
+						</name>
+						<name>
+							<surname>Ebell</surname>
+							<given-names>W</given-names>
+						</name>
+						<name>
+							<surname>Seeger</surname>
+							<given-names>K</given-names>
+						</name>
+						<name>
+							<surname>Neuhaus</surname>
+							<given-names>P</given-names>
+						</name>
+						<name>
+							<surname>Gaedicke</surname>
+							<given-names>G</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">Imatinib mesylate (STI571) considerably affects normal human bone marrow stromal cell growth <italic>in vitro</italic>
+					</article-title>
+					<source xml:lang="en">Blood</source>
+					<year>2004</year>
+					<fpage>104a</fpage>
+				</element-citation>
+			</ref>
+			<ref id="B20">
+				<label>20</label>
+				<mixed-citation>20. Sanchez-Guijo FM, Hernandez JM, Lumbreras E, Morais P, Santamaria C, Garcia JL, et al. Effects of imatinib mesylate on normal bone marrow cells from chronic myeloid leukemia patients in complete cytogenetic response. Leuk Res 2009; 33: 170-173, doi: 10.1016/j.leukres.2008.07.014.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Sanchez-Guijo</surname>
+							<given-names>FM</given-names>
+						</name>
+						<name>
+							<surname>Hernandez</surname>
+							<given-names>JM</given-names>
+						</name>
+						<name>
+							<surname>Lumbreras</surname>
+							<given-names>E</given-names>
+						</name>
+						<name>
+							<surname>Morais</surname>
+							<given-names>P</given-names>
+						</name>
+						<name>
+							<surname>Santamaria</surname>
+							<given-names>C</given-names>
+						</name>
+						<name>
+							<surname>Garcia</surname>
+							<given-names>JL</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">Effects of imatinib mesylate on normal bone marrow cells from chronic myeloid leukemia patients in complete cytogenetic response</article-title>
+					<source xml:lang="en">Leuk Res</source>
+					<year>2009</year>
+					<volume>33</volume>
+					<fpage>170</fpage>
+					<lpage>173</lpage>
+					<comment>doi:10.1016/j.leukres.2008.07.014</comment>
+				</element-citation>
+			</ref>
+			<ref id="B21">
+				<label>21</label>
+				<mixed-citation>21. Bianco P, Robey PG, Simmons PJ. Mesenchymal stem cells: revisiting history, concepts, and assays. Cell Stem Cell 2008; 2: 313-319, doi: 10.1016/j.stem.2008.03.002.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Bianco</surname>
+							<given-names>P</given-names>
+						</name>
+						<name>
+							<surname>Robey</surname>
+							<given-names>PG</given-names>
+						</name>
+						<name>
+							<surname>Simmons</surname>
+							<given-names>PJ</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Mesenchymal stem cells: revisiting history, concepts, and assays</article-title>
+					<source xml:lang="en">Cell Stem Cell</source>
+					<year>2008</year>
+					<volume>2</volume>
+					<fpage>313</fpage>
+					<lpage>319</lpage>
+					<comment>doi:10.1016/j.stem.2008.03.002</comment>
+				</element-citation>
+			</ref>
+			<ref id="B22">
+				<label>22</label>
+				<mixed-citation>22. Dazzi F, Ramasamy R, Glennie S, Jones SP, Roberts I. The role of mesenchymal stem cells in haemopoiesis. Blood Rev 2006; 20: 161-171, doi: 10.1016/j.blre.2005.11.002.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Dazzi</surname>
+							<given-names>F</given-names>
+						</name>
+						<name>
+							<surname>Ramasamy</surname>
+							<given-names>R</given-names>
+						</name>
+						<name>
+							<surname>Glennie</surname>
+							<given-names>S</given-names>
+						</name>
+						<name>
+							<surname>Jones</surname>
+							<given-names>SP</given-names>
+						</name>
+						<name>
+							<surname>Roberts</surname>
+							<given-names>I</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">The role of mesenchymal stem cells in haemopoiesis</article-title>
+					<source xml:lang="en">Blood Rev</source>
+					<year>2006</year>
+					<volume>20</volume>
+					<fpage>161</fpage>
+					<lpage>171</lpage>
+					<comment>doi:10.1016/j.blre.2005.11.002</comment>
+				</element-citation>
+			</ref>
+			<ref id="B23">
+				<label>23</label>
+				<mixed-citation>23. Silver RT. Imatinib mesylate (Gleevec (TM)) reduces phlebotomy requirements in polycythemia vera. Leukemia 2003; 17: 1186-1187, doi: 10.1038/sj.leu.2402938.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Silver</surname>
+							<given-names>RT</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Imatinib mesylate (Gleevec (TM)) reduces phlebotomy requirements in polycythemia vera</article-title>
+					<source xml:lang="en">Leukemia</source>
+					<year>2003</year>
+					<volume>17</volume>
+					<fpage>1186</fpage>
+					<lpage>1187</lpage>
+					<comment>doi:10.1038/sj.leu.2402938</comment>
+				</element-citation>
+			</ref>
+			<ref id="B24">
+				<label>24</label>
+				<mixed-citation>24. Jones CM, Dickinson TM. Polycythemia vera responds to imatinib mesylate. Am J Med Sci 2003; 325: 149-152, doi: 10.1097/00000441-200303000-00007.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Jones</surname>
+							<given-names>CM</given-names>
+						</name>
+						<name>
+							<surname>Dickinson</surname>
+							<given-names>TM</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Polycythemia vera responds to imatinib mesylate</article-title>
+					<source xml:lang="en">Am J Med Sci</source>
+					<year>2003</year>
+					<volume>325</volume>
+					<fpage>149</fpage>
+					<lpage>152</lpage>
+					<comment>doi:10.1097/00000441-200303000-00007</comment>
+				</element-citation>
+			</ref>
+			<ref id="B25">
+				<label>25</label>
+				<mixed-citation>25. Buchdunger E, Cioffi CL, Law N, Stover D, Ohno-Jones S, Druker BJ, et al. Abl protein-tyrosine kinase inhibitor STI571 inhibits <italic>in vitro</italic> signal transduction mediated by c-kit and platelet-derived growth factor receptors. J Pharmacol Exp Ther 2000; 295: 139-145.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Buchdunger</surname>
+							<given-names>E</given-names>
+						</name>
+						<name>
+							<surname>Cioffi</surname>
+							<given-names>CL</given-names>
+						</name>
+						<name>
+							<surname>Law</surname>
+							<given-names>N</given-names>
+						</name>
+						<name>
+							<surname>Stover</surname>
+							<given-names>D</given-names>
+						</name>
+						<name>
+							<surname>Ohno-Jones</surname>
+							<given-names>S</given-names>
+						</name>
+						<name>
+							<surname>Druker</surname>
+							<given-names>BJ</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">Abl protein-tyrosine kinase inhibitor STI571 inhibits <italic>in vitro</italic> signal transduction mediated by c-kit and platelet-derived growth factor receptors</article-title>
+					<source xml:lang="en">J Pharmacol Exp Ther</source>
+					<year>2000</year>
+					<volume>295</volume>
+					<fpage>139</fpage>
+					<lpage>145</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B26">
+				<label>26</label>
+				<mixed-citation>26. Fitter S, Dewar AL, Kostakis P, To LB, Hughes TP, Roberts MM, et al. Long-term imatinib therapy promotes bone formation in CML patients. Blood 2008; 111: 2538-2547, doi: 10.1182/blood-2007-07-104281.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Fitter</surname>
+							<given-names>S</given-names>
+						</name>
+						<name>
+							<surname>Dewar</surname>
+							<given-names>AL</given-names>
+						</name>
+						<name>
+							<surname>Kostakis</surname>
+							<given-names>P</given-names>
+						</name>
+						<name>
+							<surname>To</surname>
+							<given-names>LB</given-names>
+						</name>
+						<name>
+							<surname>Hughes</surname>
+							<given-names>TP</given-names>
+						</name>
+						<name>
+							<surname>Roberts</surname>
+							<given-names>MM</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">Long-term imatinib therapy promotes bone formation in CML patients</article-title>
+					<source xml:lang="en">Blood</source>
+					<year>2008</year>
+					<volume>111</volume>
+					<fpage>2538</fpage>
+					<lpage>2547</lpage>
+					<comment>doi:10.1182/blood-2007-07-104281</comment>
+				</element-citation>
+			</ref>
+			<ref id="B27">
+				<label>27</label>
+				<mixed-citation>27. Gioni V, Karampinas T, Voutsinas G, Roussidis AE, Papadopoulos S, Karamanos NK, et al. Imatinib mesylate inhibits proliferation and exerts an antifibrotic effect in human breast stroma fibroblasts. Mol Cancer Res 2008; 6: 706-714, doi: 10.1158/1541-7786.MCR-07-0355.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Gioni</surname>
+							<given-names>V</given-names>
+						</name>
+						<name>
+							<surname>Karampinas</surname>
+							<given-names>T</given-names>
+						</name>
+						<name>
+							<surname>Voutsinas</surname>
+							<given-names>G</given-names>
+						</name>
+						<name>
+							<surname>Roussidis</surname>
+							<given-names>AE</given-names>
+						</name>
+						<name>
+							<surname>Papadopoulos</surname>
+							<given-names>S</given-names>
+						</name>
+						<name>
+							<surname>Karamanos</surname>
+							<given-names>NK</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">Imatinib mesylate inhibits proliferation and exerts an antifibrotic effect in human breast stroma fibroblasts</article-title>
+					<source xml:lang="en">Mol Cancer Res</source>
+					<year>2008</year>
+					<volume>6</volume>
+					<fpage>706</fpage>
+					<lpage>714</lpage>
+					<comment>doi:10.1158/1541-7786.MCR-07-0355</comment>
+				</element-citation>
+			</ref>
+			<ref id="B28">
+				<label>28</label>
+				<mixed-citation>28. Vittal R, Zhang H, Han MK, Moore BB, Horowitz JC, Thannickal VJ. Effects of the protein kinase inhibitor, imatinib mesylate, on epithelial/mesenchymal phenotypes: implications for treatment of fibrotic diseases. J Pharmacol Exp Ther 2007; 321: 35-44, doi: 10.1124/jpet.106.113407.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Vittal</surname>
+							<given-names>R</given-names>
+						</name>
+						<name>
+							<surname>Zhang</surname>
+							<given-names>H</given-names>
+						</name>
+						<name>
+							<surname>Han</surname>
+							<given-names>MK</given-names>
+						</name>
+						<name>
+							<surname>Moore</surname>
+							<given-names>BB</given-names>
+						</name>
+						<name>
+							<surname>Horowitz</surname>
+							<given-names>JC</given-names>
+						</name>
+						<name>
+							<surname>Thannickal</surname>
+							<given-names>VJ</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Effects of the protein kinase inhibitor, imatinib mesylate, on epithelial/mesenchymal phenotypes: implications for treatment of fibrotic diseases</article-title>
+					<source xml:lang="en">J Pharmacol Exp Ther</source>
+					<year>2007</year>
+					<volume>321</volume>
+					<fpage>35</fpage>
+					<lpage>44</lpage>
+					<comment>doi:10.1124/jpet.106.113407</comment>
+				</element-citation>
+			</ref>
+			<ref id="B29">
+				<label>29</label>
+				<mixed-citation>29. Dexter TM, Allen TD. The regulation of growth and development of normal and leukaemic cells. J Pathol 1983; 141: 415-433, doi: 10.1002/path.1711410316.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Dexter</surname>
+							<given-names>TM</given-names>
+						</name>
+						<name>
+							<surname>Allen</surname>
+							<given-names>TD</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">The regulation of growth and development of normal and leukaemic cells</article-title>
+					<source xml:lang="en">J Pathol</source>
+					<year>1983</year>
+					<volume>141</volume>
+					<fpage>415</fpage>
+					<lpage>433</lpage>
+					<comment>doi:10.1002/path.1711410316</comment>
+				</element-citation>
+			</ref>
+			<ref id="B30">
+				<label>30</label>
+				<mixed-citation>30. Helftenbein G, Krusekopf K, Just U, Cross M, Ostertag W, Niemann H, et al. Transcriptional regulation of the c-fms proto-oncogene mediated by granulocyte/macrophage colony-stimulating factor (GM-CSF) in murine cell lines. Oncogene 1996; 12: 931-935.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Helftenbein</surname>
+							<given-names>G</given-names>
+						</name>
+						<name>
+							<surname>Krusekopf</surname>
+							<given-names>K</given-names>
+						</name>
+						<name>
+							<surname>Just</surname>
+							<given-names>U</given-names>
+						</name>
+						<name>
+							<surname>Cross</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Ostertag</surname>
+							<given-names>W</given-names>
+						</name>
+						<name>
+							<surname>Niemann</surname>
+							<given-names>H</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">Transcriptional regulation of the c-fms proto-oncogene mediated by granulocyte/macrophage colony-stimulating factor (GM-CSF) in murine cell lines</article-title>
+					<source xml:lang="en">Oncogene</source>
+					<year>1996</year>
+					<volume>12</volume>
+					<fpage>931</fpage>
+					<lpage>935</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B31">
+				<label>31</label>
+				<mixed-citation>31. Gordon S, Taylor PR. Monocyte and macrophage heterogeneity. Nat Rev Immunol 2005; 5: 953-964, doi: 10.1038/nri1733.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Gordon</surname>
+							<given-names>S</given-names>
+						</name>
+						<name>
+							<surname>Taylor</surname>
+							<given-names>PR</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Monocyte and macrophage heterogeneity</article-title>
+					<source xml:lang="en">Nat Rev Immunol</source>
+					<year>2005</year>
+					<volume>5</volume>
+					<fpage>953</fpage>
+					<lpage>964</lpage>
+					<comment>doi:10.1038/nri1733</comment>
+				</element-citation>
+			</ref>
+			<ref id="B32">
+				<label>32</label>
+				<mixed-citation>32. Zander AR, Zabelina T, Renges H, et al. Pretreatment with Glivec increases transplant-related mortality after allogeneic transplant. Blood 2003; 102: 468a (abstract 1708).</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Zander</surname>
+							<given-names>AR</given-names>
+						</name>
+						<name>
+							<surname>Zabelina</surname>
+							<given-names>T</given-names>
+						</name>
+						<name>
+							<surname>Renges</surname>
+							<given-names>H</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">Pretreatment with Glivec increases transplant-related mortality after allogeneic transplant</article-title>
+					<source xml:lang="en">Blood</source>
+					<year>2003</year>
+					<volume>102</volume>
+					<fpage>468a(abstract 1708).</fpage>
+				</element-citation>
+			</ref>
+			<ref id="B33">
+				<label>33</label>
+				<mixed-citation>33. Distler JH, Jungel A, Huber LC, Schulze-Horsel U, Zwerina J, Gay RE, et al. Imatinib mesylate reduces production of extracellular matrix and prevents development of experimental dermal fibrosis. Arthritis Rheum 2007; 56: 311-322, doi: 10.1002/art.22314.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Distler</surname>
+							<given-names>JH</given-names>
+						</name>
+						<name>
+							<surname>Jungel</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Huber</surname>
+							<given-names>LC</given-names>
+						</name>
+						<name>
+							<surname>Schulze-Horsel</surname>
+							<given-names>U</given-names>
+						</name>
+						<name>
+							<surname>Zwerina</surname>
+							<given-names>J</given-names>
+						</name>
+						<name>
+							<surname>Gay</surname>
+							<given-names>RE</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">Imatinib mesylate reduces production of extracellular matrix and prevents development of experimental dermal fibrosis</article-title>
+					<source xml:lang="en">Arthritis Rheum</source>
+					<year>2007</year>
+					<volume>56</volume>
+					<fpage>311</fpage>
+					<lpage>322</lpage>
+					<comment>doi:10.1002/art.22314</comment>
+				</element-citation>
+			</ref>
+			<ref id="B34">
+				<label>34</label>
+				<mixed-citation>34. Chung L, Fiorentino DF, Benbarak MJ, Adler AS, Mariano MM, Paniagua RT, et al. Molecular framework for response to imatinib mesylate in systemic sclerosis. Arthritis Rheum 2009; 60: 584-591, doi: 10.1002/art.24221.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Chung</surname>
+							<given-names>L</given-names>
+						</name>
+						<name>
+							<surname>Fiorentino</surname>
+							<given-names>DF</given-names>
+						</name>
+						<name>
+							<surname>Benbarak</surname>
+							<given-names>MJ</given-names>
+						</name>
+						<name>
+							<surname>Adler</surname>
+							<given-names>AS</given-names>
+						</name>
+						<name>
+							<surname>Mariano</surname>
+							<given-names>MM</given-names>
+						</name>
+						<name>
+							<surname>Paniagua</surname>
+							<given-names>RT</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">Molecular framework for response to imatinib mesylate in systemic sclerosis</article-title>
+					<source xml:lang="en">Arthritis Rheum</source>
+					<year>2009</year>
+					<volume>60</volume>
+					<fpage>584</fpage>
+					<lpage>591</lpage>
+					<comment>doi:10.1002/art.24221</comment>
+				</element-citation>
+			</ref>
+			<ref id="B35">
+				<label>35</label>
+				<mixed-citation>35. Wang S, Wilkes MC, Leof EB, Hirschberg R. Imatinib mesylate blocks a non-Smad TGF-beta pathway and reduces renal fibrogenesis <italic>in vivo</italic>. FASEB J 2005; 19: 1-11, doi: 10.1096/fj.04-2370com.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Wang</surname>
+							<given-names>S</given-names>
+						</name>
+						<name>
+							<surname>Wilkes</surname>
+							<given-names>MC</given-names>
+						</name>
+						<name>
+							<surname>Leof</surname>
+							<given-names>EB</given-names>
+						</name>
+						<name>
+							<surname>Hirschberg</surname>
+							<given-names>R</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Imatinib mesylate blocks a non-Smad TGF-beta pathway and reduces renal fibrogenesis <italic>in vivo</italic>
+					</article-title>
+					<source xml:lang="en">FASEB J</source>
+					<year>2005</year>
+					<volume>19</volume>
+					<fpage>1</fpage>
+					<lpage>11</lpage>
+					<comment>doi:10.1096/fj.04-2370com</comment>
+				</element-citation>
+			</ref>
+			<ref id="B36">
+				<label>36</label>
+				<mixed-citation>36. Paniagua RT, Sharpe O, Ho PP, Chan SM, Chang A, Higgins JP, et al. Selective tyrosine kinase inhibition by imatinib mesylate for the treatment of autoimmune arthritis. J Clin Invest 2006; 116: 2633-2642.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Paniagua</surname>
+							<given-names>RT</given-names>
+						</name>
+						<name>
+							<surname>Sharpe</surname>
+							<given-names>O</given-names>
+						</name>
+						<name>
+							<surname>Ho</surname>
+							<given-names>PP</given-names>
+						</name>
+						<name>
+							<surname>Chan</surname>
+							<given-names>SM</given-names>
+						</name>
+						<name>
+							<surname>Chang</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Higgins</surname>
+							<given-names>JP</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">Selective tyrosine kinase inhibition by imatinib mesylate for the treatment of autoimmune arthritis</article-title>
+					<source xml:lang="en">J Clin Invest</source>
+					<year>2006</year>
+					<volume>116</volume>
+					<fpage>2633</fpage>
+					<lpage>2642</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B37">
+				<label>37</label>
+				<mixed-citation>37. Jesus CR, I-Ching L, Neiva TJC, Vituri CL. Assessment of fibrosis and vascularization of bone marrow stroma of chronic myeloid leukemia patients treated with imatinib mesylate and their relationship with the cytogenetic response. Braz J Pharm Sci 2011; 47: 313-322, doi: 10.1590/S1984-82502011000200012.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Jesus</surname>
+							<given-names>CR</given-names>
+						</name>
+						<name>
+							<surname>I-Ching</surname>
+							<given-names>L</given-names>
+						</name>
+						<name>
+							<surname>Neiva</surname>
+							<given-names>TJC</given-names>
+						</name>
+						<name>
+							<surname>Vituri</surname>
+							<given-names>CL</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Assessment of fibrosis and vascularization of bone marrow stroma of chronic myeloid leukemia patients treated with imatinib mesylate and their relationship with the cytogenetic response</article-title>
+					<source xml:lang="en">Braz J Pharm Sci</source>
+					<year>2011</year>
+					<volume>47</volume>
+					<fpage>313</fpage>
+					<lpage>322</lpage>
+					<comment>doi:10.1590/S1984-82502011000200012</comment>
+				</element-citation>
+			</ref>
+		</ref-list>
+			<fn-group>
+			<fn fn-type="other">
+				<p>First published online September 25, 2012.</p>
+			</fn>
+		</fn-group>
+	</back>
+</article>

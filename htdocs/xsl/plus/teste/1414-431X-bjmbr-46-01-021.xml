@@ -1,0 +1,1562 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE article PUBLIC "-//NLM//DTD Journal Publishing DTD v3.0 20080202//EN" "/bases/xml.000/xmlproc/pmc/v3.0/dtd/journalpublishing3.dtd">
+<article article-type="research-article" dtd-version="3.0" xml:lang="en" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML">
+	<front>
+		<journal-meta>
+			<journal-id journal-id-type="nlm-ta">Braz J Med Biol Res</journal-id>
+			<journal-title-group>
+				<journal-title>Brazilian Journal of Medical and Biological Research</journal-title>
+				<abbrev-journal-title abbrev-type="publisher">Braz. J. Med. Biol. Res.</abbrev-journal-title>
+			</journal-title-group>
+			<issn pub-type="epub">1414-431X</issn>
+			<publisher>
+				<publisher-name>Associação Brasileira de Divulgação Científica</publisher-name>
+			</publisher>
+		</journal-meta>
+		<article-meta>
+			<article-id pub-id-type="doi">10.1590/1414-431X20122263</article-id>
+			<article-categories>
+				<subj-group subj-group-type="heading">
+					<subject>Biomedical Sciences</subject>
+				</subj-group>
+			</article-categories>
+			<title-group>
+				<article-title xml:lang="en">Role of the extracellular matrix in variations of invasive pathways in lung cancers</article-title>
+			</title-group>
+			<contrib-group>
+				<contrib contrib-type="author">
+					<name>
+						<surname>de Sá</surname>
+						<given-names>V.K.</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff1">1</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Carvalho</surname>
+						<given-names>L.</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff2">2</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Gomes</surname>
+						<given-names>A.</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff2">2</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Alarcão</surname>
+						<given-names>A.</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff2">2</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Silva</surname>
+						<given-names>M.R.</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff2">2</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Couceiro</surname>
+						<given-names>P.</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff2">2</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Sousa</surname>
+						<given-names>V.</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff2">2</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Soares</surname>
+						<given-names>F.A.</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff3">3</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Capelozzi</surname>
+						<given-names>V.L.</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff1">1</xref>
+				</contrib>
+				<aff id="aff1">
+					<label>1</label>
+					<institution content-type="orgname">Universidade de São Paulo</institution>
+					<institution content-type="orgdiv2">Departamento de Patologia</institution>
+					<institution content-type="orgdiv1">Faculdade de Medicina</institution>
+					<addr-line>
+						<named-content content-type="city">São Paulo</named-content>, <named-content content-type="state">SP</named-content>
+					</addr-line>, <country>Brasil</country>
+				</aff>
+				<aff id="aff2">
+					<label>2</label>
+					<institution content-type="orgname">Universidade de Coimbra</institution>
+					<addr-line>
+						<named-content content-type="city">Coimbra</named-content>
+					</addr-line>, <country>Portugal</country>
+				</aff>
+				<aff id="aff3">
+					<label>3</label>
+					<institution content-type="orgname">Hospital A.C. Camargo</institution>
+					<addr-line>
+						<named-content content-type="city">São Paulo</named-content>, <named-content content-type="state">SP</named-content>
+					</addr-line>, <country>Brasil</country>
+				</aff>
+			</contrib-group>
+			<author-notes>
+				<corresp>Correspondence: V.L. Capelozzi, Departamento de Patologia, Faculdade de Medicina, USP, Av. Dr. Arnaldo, 455, sala 1143, 01296-903 São Paulo, SP, Brasil, +55-11-3064-2744, E-mail: <email>vcapelozzi@lim05.fm.usp.br and/or vankaren@usp.br</email>.</corresp>
+			</author-notes>
+			<pub-date pub-type="epub">
+				<day>11</day>
+				<month>01</month>
+				<year>2013</year>
+			</pub-date>
+			<pub-date pub-type="collection">
+				<month>01</month>
+				<year>2013</year>
+			</pub-date>
+			<volume>46</volume>
+			<issue>1</issue>
+			<fpage>21</fpage>
+			<lpage>31</lpage>
+			<history>
+				<date date-type="received">
+					<day>29</day>
+					<month>03</month>
+					<year>2012</year>
+				</date>
+				<date date-type="accepted">
+					<day>6</day>
+					<month>09</month>
+					<year>2012</year>
+				</date>
+			</history>
+			<permissions>
+				<license license-type="open-access" xlink:href="http://creativecommons.org/licenses/by-nc/3.0/">
+					<license-p>This is an Open Access article distributed under the terms of the Creative Commons Attribution Non-Commercial License, which permits unrestricted non-commercial use, distribution, and reproduction in any medium, provided the original work is properly cited.</license-p>
+				</license>
+			</permissions>
+			<abstract xml:lang="en">
+				<p>Among the most common features of highly invasive tumors, such as lung adenocarcinomas (AD) and squamous cell carcinomas (SqCC), is the massive degradation of the extracellular matrix. The remarkable qualitative and quantitative modifications of hyaluronidases (HAases), hyaluronan synthases (HAS), E-cadherin adhesion molecules, and the transforming growth factor β (TGF-β) may favor invasion, cellular motility, and proliferation. We examined HAase proteins (Hyal), HAS, E-cadherin, and TGF-β profiles in lung AD subtypes and SqCC obtained from smokers and non-smokers. Fifty-six patients, median age 64 years, who underwent lobectomy for AD (N = 31) and SqCC (N = 25) were included in the study. HAS-1, -2 and -3, and Hyal-1 and -3 were significantly more expressed by tumor cells than normal and stroma cells (P &lt; 0.01). When stratified according to histologic types, HAS-3 and Hyal-1 immunoreactivity was significantly increased in tumor cells of AD (P = 0.01) and stroma of SqCC (P = 0.002), respectively. Tobacco history in patients with AD was significantly associated with increased HAS-3 immunoreactivity in tumor cells (P &lt; 0.01). Stroma cells of SqCC from non-smokers presented a significant association with HAS-3 (P &lt; 0.01). Hyal, HAS, E-cadherin, and TGF-β modulate a different tumor-induced invasive pathway in lung AD subgroups and SqCC. HAases in resected AD and SqCC were strongly related to the prognosis. Therefore, our findings suggest that strategies aimed at preventing high HAS-3 and Hyal-1 synthesis, or local responses to low TGF-β and E-cadherin, may have a greater impact in lung cancer prognosis.</p>
+			</abstract>
+			<kwd-group xml:lang="en">
+				<kwd>Lung cancer</kwd>
+				<kwd>E-cadherin</kwd>
+				<kwd>TGF-β</kwd>
+				<kwd>HAS-1, HAS-2 and HAS-3</kwd>
+				<kwd>Hyal-1 and Hyal-3</kwd>
+				<kwd>Immunohistochemistry</kwd>
+				<kwd>Prognosis and morphometry</kwd>
+			</kwd-group>
+			<funding-group>
+				<award-group>
+					<funding-source>CNPq</funding-source>
+					<award-id>#474405/2008-7 UNIVERSAL</award-id>
+				</award-group>
+				<award-group>
+					<funding-source>FAPESP</funding-source>
+					<award-id>#08/57911-7</award-id>
+					<award-id>#08/58557-2</award-id>
+				</award-group>
+				<award-group>
+					<funding-source>CAPES</funding-source>
+					<award-id>#1294-10-5</award-id>
+				</award-group>
+			</funding-group>
+			<counts>
+				<fig-count count="4"/>
+				<table-count count="2"/>
+				<ref-count count="37"/>
+				<page-count count="1"/>
+			</counts>
+		</article-meta>
+	</front>
+	<body>
+		<sec sec-type="intro">
+			<title>Introduction</title>
+			<p>Adenocarcinomas (AD) and squamous cell carcinomas (SqCC) are the two most common histological carcinoma subtypes in most countries, accounting for &#8764;90% of all lung cancers <xref ref-type="bibr" rid="B01">1</xref>. SqCC are typically more frequent than AD <xref ref-type="bibr" rid="B01">1</xref>. However, AD appear to occur more frequently in non-smokers. Considering that AD is a heterogeneous group of tumors with a highly variable prognosis, a new classification of lung AD based on the new International Association for the Study of Lung Cancer/American Thoracic Society/European Respiratory Society was proposed. This new classification provides advantages for personalized patient therapy, better patient selection, and stratification for clinical trials and molecular studies.</p>
+			<p>AD histology is a strong predictor of the response to pemetrexed therapy in advanced stage patients <xref ref-type="bibr" rid="B02">2</xref>, whereas SqCC is important because of potential life-threatening hemorrhage in patients with SqCC who receive bevacizumab therapy <xref ref-type="bibr" rid="B03">3</xref>. Despite advances in smoking cessation programs and personalized therapy in the last few years, the death rate by lung cancer has remained almost unchanged, and the main cause of death is invasion and metastasis <xref ref-type="bibr" rid="B04">4</xref>. Thus, there is great interest in ways to identify which histological subtypes of tumors in smokers and non-smokers are likely to invade, metastasize, and shorten the patient's life, to optimize therapeutic efforts for each individual patient <xref ref-type="bibr" rid="B05">5</xref>.</p>
+			<p>Since lung cancer is the phenotypic consequence of the interactions between epithelial and mesenchymal factors (such as extracellular matrix, ECM) for growth, invasion, and metastasis, ongoing studies are currently validating other biomarkers. In this context, remarkable qualitative and quantitative modifications of the epithelium-mesenchymal components, such as hyaluronan (HA), E-cadherin adhesion molecules, and the transforming growth factor β (TGF-β) may favor invasion, cellular motility, and proliferation. HA, a large unsulfated glycosaminoglycan, is expressed by many cell types and contributes to cellular functions. The biosynthesis and turnover of HA is abnormal in many types of diseases and inflammatory processes. Elevated levels of HA in serum and tissues are an important marker for a variety of pathological conditions <xref ref-type="bibr" rid="B06">6</xref>. Migration of tumor cells in a cellular matrix rich in HA occurs after the matrix is degraded into fragments of 2-25 disaccharides and is mediated by specific cell surface receptors, CD44, and receptor for HA-mediated motility <xref ref-type="bibr" rid="B07">7</xref>. Hyaluronan synthase (HAS) consists of a group of isozymes responsible for the synthesis of HA with different chains. There are 3 types of HAS termed HAS-1, HAS-2, and HAS-3 <xref ref-type="bibr" rid="B08">8</xref>. HAS mRNA levels often correspond to the rate of HA synthesis, and are known to influence the content of HA in transplanted tumors <xref ref-type="bibr" rid="B09">9</xref>. Therefore, upregulation of HAS expression is a likely contributor to HA accumulation in tissues, and promotes tumor growth <xref ref-type="bibr" rid="B10">10</xref> and metastasis in experimental animals, especially when coexpressed with Hyal <xref ref-type="bibr" rid="B11">11</xref>. Different types of hyaluronidases (HAases), Hyal-1, Hyal-2, and Hyal-3, can degrade the long chains of alternating units of N-acetylglucosamine and glucuronic acid into different sizes. For example, Hyal-1 is responsible for degrading HA into small fragments of 20-25 disaccharides needed to activate the MAP-kinase pathway <xref ref-type="bibr" rid="B12">12</xref>. The major transcript of Hyal-3 is enzymatically inactive and appears to have only a supportive role in Hyal-1 expression <xref ref-type="bibr" rid="B13">13</xref>. Increased HAase expression has also been reported in colon <xref ref-type="bibr" rid="B14">14</xref> and prostate cancer <xref ref-type="bibr" rid="B15">15</xref>, as well as in breast tumor metastases <xref ref-type="bibr" rid="B16">16</xref>. Notably, the growth of murine lung carcinoma and melanoma cells is influenced by Hyal-1 <xref ref-type="bibr" rid="B17">17</xref>. In lung fibroblasts, HA synthesis and degradation appear to be controlled by TGF-β1 <xref ref-type="bibr" rid="B18">18</xref>. TGF-β has profound growth-suppressive effects on normal epithelial cells, but supports metastasis formation in many tumor types. As opposed to the function of HAases, TGF-β is a potent stimulator of ECM protein <xref ref-type="bibr" rid="B19">19</xref>. The key molecule that maintains epithelial cell-cell adhesion and integrity is E-cadherin. E-cadherin, the prototype member of the classical cadherin family, is a Ca<sup>2+</sup>-dependent transmembrane receptor that mediates cell-cell adhesion at the adherent junctions via hemophilic binding <xref ref-type="bibr" rid="B20">20</xref>. In most, if not all, cancers of epithelial origin, E-cadherin-mediated cell-cell adhesion is lost concomitantly with progression toward tumor malignancy <xref ref-type="bibr" rid="B21">21</xref>.</p>
+			<p>In light of these previous data suggesting different clinical behaviors among AD subtypes, as well as an interaction between epithelial and mesenchymal factors, the objectives of the present study were to evaluate 1) whether Hyal and HAS are over-deposited in epithelial and mesenchymal cells of AD and SqCC; 2) the relationship among Hyal, HAS, E-cadherin, and TGF-β; 3) whether these biomarkers are associated with the new classification of AD, and 4) to verify the impacts of smoking history and tumor staging of the patients. It was hypothesized that in AD and SqCC, tumors with different behaviors, Hyal, HAS, E-cadherin, and TGF-β should modulate different tumor-induced invasive pathways with impact on survival. It was found that SqCC expressed Hyal-3 by mesenchymal cells, whereas acinar predominant AD strongly expressed HAS-3 by epithelial cells. Both histological types and smoking history were associated with tumor epithelial expression of HAS-1 and HAS-3, whereas E-cadherin was more frequent in the samples without lymph node metastasis. An inverse relationship between epithelial and mesenchymal biomarker expression provided a different spectrum of aggressiveness. While an overexpression of HAS-1 and HAS-3 provides aggressiveness to SqCC and AD, an overexpression of TGF-β and E-cadherin plays a protective role for the ECM, by helping it to avoid invasion by tumor cells in both histological types.</p>
+		</sec>
+		<sec sec-type="materials|methods">
+			<title>Material and Methods</title>
+			<p>This research was approved by the Institutional Ethics and Scientific Committee of Coimbra University Hospitals.</p>
+			<sec>
+				<title>Patients</title>
+				<p>Lung specimens from 56 patients with non-small cell lung cancer were selected from a tumor bank of the Coimbra University Hospital and 12 specimens of normal lung tissue were obtained from the same bank.</p>
+				<p>All specimens were classified at clinical stage T<sub>1-3</sub>N<sub>0-2</sub>M<sub>0</sub> and were considered to involve tumors potentially curable by surgical resection. After surgical resection, all patients were followed for at least 2 years. Clinical staging was determined by routine chest X-ray, bronchoscopy, computed tomography of the thorax and upper abdomen, abdominal ultrasound, and bone scans. Mediastinoscopy and lymph node biopsy were additionally performed on patients whose lymph nodes had a short-axis diameter of >1 cm. Other details about these patients are summarized in <xref ref-type="table" rid="t01">Table 1</xref>.</p>
+				<p>
+					<table-wrap id="t01">
+						<label>Table 1</label>
+						<caption>
+							<title>Patient characteristics.</title>
+						</caption>
+						<graphic mimetype="image" xlink:href="1414-431X-bjmbr-46-01-021-gt01"/>
+						<table-wrap-foot>
+							<fn id="TFN01t01">
+								<p>Data are reported as number of patients or median (range).</p>
+							</fn>
+						</table-wrap-foot>
+					</table-wrap>
+				</p>
+				<p>The tumor tissues used in this study were examined and verified for histological diagnosis by 2 investigators (LC and VKS) who classified the tumors as SqCC, AD, or large cell carcinoma types according to the new guidelines for classification of non-small cell carcinomas proposed by Travis et al. <xref ref-type="bibr" rid="B22">22</xref>. Sub-analysis of 56 heterogeneous samples consisting of different histological types and stages and requiring different treatments was also performed.</p>
+			</sec>
+			<sec>
+				<title>Immunohistochemical evaluation</title>
+				<p>Hyal-1 and -3 and HAS-1, -2 and -3 immunostainings were performed as described below. Briefly, antigen retrieval was performed for Hyal-1 and -3, HAS-1, -3, E-cadherin and TGF-β staining by boiling for 3 to 5 min in a citrate buffer. Sections were then treated for 5 min with 1% H<sub>2</sub>O<sub>2</sub> to block endogenous peroxidase activity and incubated with 1% bovine serum albumin in PBS for 30 min to block nonspecific binding. The sections were incubated overnight at 4&#176;C with polyclonal antibodies for Hyal-1 (200 &#181;g/mL, sc-101340, Santa Cruz Biotechnology, Inc., USA), Hyal-3 (200 &#181;g/mL, sc-49211, Santa Cruz), HAS-1 (2 &#181;g/mL, sc-34021, Santa Cruz), HAS-2 (2 &#181;g/mL, sc-34067, Santa Cruz) or HAS-3 (2 &#181;g/mL, sc-34204, Santa Cruz), E-cadherin (200 &#181;g/mL, sc-21791, Santa Cruz), and TGF-β (200 &#181;g/mL, sc-9048), diluted in 1% bovine serum albumin. Sections were incubated for 1 h with biotinylated antigoat antibody (1:100, Vector Laboratories, USA). The bound antibodies were visualized with the avidin biotin peroxidase method (1:200, Vectastain Kit, Vector Laboratories), yielding a brown reaction product. The sections were counterstained with Mayer's hematoxylin. Brownish cytoplasmic staining was considered to be evidence of antigen expression.</p>
+			</sec>
+			<sec>
+				<title>Histomorphometry</title>
+				<p>After the immunohistochemical reaction, the markers were quantified using the Automated Cellular Imaging System (ACIS; DAKO, USA) III instrument. Briefly, ACIS III consists of an automated digital microscope and a computer with a 26-image capture and image processing system. Each immunohistochemically stained slide was scanned and the images were reviewed on the computer screen. The ACIS III is able to detect, count and classify cell types based on levels of hue, saturation and brightness. The signal is then converted to number density measurement. The computer program &#8220;membranes and cytoplasm&#8221;, part of the system, was used to analyze the expression of proteins. This program measures the staining intensity of the cytoplasm and cell membrane adjusting the threshold to the software cells showing immunoreactivity and cells without immunoreactivity. The results are reported in continuous variables ranging from 0 to 256. The areas to be analyzed on each slide were selected manually using the selection tools of the ACIS III. For statistical analyses, we used the average of two regions (stroma and tumor) of each case <xref ref-type="bibr" rid="B23">23</xref>.</p>
+			</sec>
+			<sec>
+				<title>Statistical analysis</title>
+				<p>Data are reported as means &#177; SE with 95% confidence intervals. Statistical analysis was performed by analysis of variance (ANOVA), followed by appropriate <italic>post hoc</italic> tests such as the Bonferroni test, by ANOVA for multiple comparisons, and by the Student <italic>t</italic>-test for comparison of 2 variables between groups. The Pearson test was used to determine the association between the different biomarkers and the clinical database of the patients. Initial analyses were done using Kaplan-Meier curves, and final multivariate analyses were done using the Cox proportional hazard model. In addition, the chi-square test (χ<sup>2</sup>) and the Fisher test were used to test the relationship between a categorical variable and several others, and the residuals were examined to ensure that they were normally distributed. The statistical program used was SPSS 18.0 (SPSS Inc., USA). A P value &lt;0.05 was considered to be significant.</p>
+			</sec>
+		</sec>
+		<sec sec-type="results">
+			<title>Results</title>
+			<p>The patient series consisted of 21 females and 35 males; median age was 64 years (range: 43 to 84 years). All patients were submitted to surgical treatment followed by chemotherapy in 7 and chemotherapy combined with radiotherapy in 4. The pathological T status (pT) was available for all cases, with 17 pT1 (30.3%), 34 (60.7%) pT2 and 5 pT3 (8.9%) tumors. The analysis of lymph nodes, available for 56 patients who had undergone mediastinal lymph node dissection (pN), revealed 41 pN0 (73.2%), 12 pN1 (21.4%), and 2 pN2 (3.5%) cases. By microscopic examination, 25 of 56 cases with histological confirmation were classified as SqCC (44.6%) and 31 cases as AD (55.4%). AD subtyping included 6 <italic>in situ</italic>, 13 acinar, 10 papillary, and 2 solid tumors. The clinicopathological characteristics of all patients are summarized in <xref ref-type="table" rid="t01">Table 1</xref>.</p>
+			<p>Acinar, papillary, and solid SqCC and AD <italic>in situ</italic> were respectively stained with H&amp;E (<xref ref-type="fig" rid="f01">Figure 1A-D</xref>) and by immunohistochemistry for Hyal-1 (<xref ref-type="fig" rid="f02">Figure 2A-C</xref>), Hyal-3 (<xref ref-type="fig" rid="f02">Figure 2D</xref>), HAS-1 (<xref ref-type="fig" rid="f03">Figure 3A</xref>), HAS-2 (<xref ref-type="fig" rid="f03">Figure 3B</xref>) and HAS-3 (<xref ref-type="fig" rid="f03">Figure 3C</xref>). SqCC was characterized by keratinization, pearl formation, intercellular bridges (<xref ref-type="fig" rid="f01">Figure 1A</xref>) and a membranous staining with antibody to Hyal-1 (<xref ref-type="fig" rid="f02">Figure 2A</xref>). AD <italic>in situ</italic> exhibited growth restricted to neoplastic cells along pre-existing alveolar structures (lepidic growth), lacking stroma, vascular, or pleural invasion (<xref ref-type="fig" rid="f01">Figure 1B</xref>), and presented a weak expression of the immunomarkers. Acinar predominant AD revealed a major component of round to oval-shaped glands with a central luminal space surrounded by tumor cells (<xref ref-type="fig" rid="f01">Figure 1C</xref>) in a myofibroblastic stroma. Papillary predominant AD showed a major component consisting of a growth of glandular cells along central fibrovascular cores (<xref ref-type="fig" rid="f01">Figure 1D</xref>). Both acinar and papillary AD also showed a membranous-staining pattern with antibody Hyal-1 (<xref ref-type="fig" rid="f02">Figure 2B and C</xref>) and HAS-1 and -2 (<xref ref-type="fig" rid="f03">Figure 3A and B</xref>). Solid predominant AD exhibited a major component of polygonal tumor cells forming sheets, which lack the recognizable patterns of AD, with mucin detected by histochemistry. Tumor cells from solid AD showed strong Hyal-3 (<xref ref-type="fig" rid="f02">Figure 2D</xref>) and HAS-2 (<xref ref-type="fig" rid="f03">Figure 3C</xref>) immunoreactivity with a cytoplasm-staining pattern. Myofibroblastic cells from stroma of acinar, papillary and solid AD exhibited HAS-2 immunoreactivity with a cytoplasm-staining pattern (<xref ref-type="fig" rid="f03">Figure 3D</xref>). The following positive associations were found between the biomarkers studied: TGF-β in tumor cells and HAS-2 in stroma cells (R = 0.40, P = 0.03), Hyal-3 and HAS-1 in stroma cells (R = 0.58, P = 0.02), Hyal-3 in tumor cells and HAS-1 in stroma cells (R = 0.44, P = 0.01), and Hyal-3 and HAS-1 in tumor cells (R = 0.35, P = 0.01). A negative association was found between TGF-β and HAS-3 (R = -0.54, P = 0.004), and TGF-β and Hyal-1 (R = -0.40, P = 0.03).</p>
+			<fig id="f01">
+				<label>Figure 1</label>
+				<caption>
+					<title>
+						<italic>A</italic>, Squamous cell lung carcinoma: differentiation is evident based on the keratin pearls and prominent keratinization (asterisks). Cytologic atypia with hyperchromatic nuclei indicates cytologic malignancy. <italic>B</italic>, Adenocarcinoma <italic>in situ</italic>, cuboidal to columnar cells grow along the alveolar walls in a lepidic fashion (arrows). <italic>C</italic>, Acinar predominant adenocarcinoma forms irregularly shaped glands with cytologically malignant cells exhibiting hyperchromatic nuclei in a fibroblastic stroma (asterisk). <italic>D</italic>, Papillary predominant adenocarcinoma. Tumor cells show a complex papillary glandular proliferation (arrows) along fibrovascular cores (asterisk).</title>
+				</caption>
+				<graphic mimetype="image" xlink:href="1414-431X-bjmbr-46-01-021-gf01"/>
+			</fig>
+			<fig id="f02">
+				<label>Figure 2</label>
+				<caption>
+					<title>Many tumor cells from squamous cell carcinoma show membranous-staining with antibody to Hyal-1 (<italic>A</italic>: arrows). A similar membranous staining pattern with antibody Hyal-1 is shown by tumor cells from acinar (<italic>B</italic>) and papillary (<italic>C</italic>) adenocarcinomas (arrows). <italic>D</italic>, Tumor cells from a solid adenocarcinoma show strong Hyal-3 immunoreactivity with a cytoplasm-staining pattern (asterisks).</title>
+				</caption>
+				<graphic mimetype="image" xlink:href="1414-431X-bjmbr-46-01-021-gf02"/>
+			</fig>
+			<fig id="f03">
+				<label>Figure 3</label>
+				<caption>
+					<title>Acinar adenocarcinoma (<italic>A</italic>), papillary adenocarcinoma (<italic>B</italic>), and solid adenocarcinoma (<italic>C</italic>). <italic>A</italic>,<italic>B</italic>, Many tumor cells show membranous staining with antibody to HAS-1, -2. <italic>C</italic>, HAS-3 immunoreactivity with a cytoplasm-staining pattern (arrows). <italic>D</italic>, Positive immunohistochemical staining for Hyal-1 in stroma cells of squamous cell carcinoma (asterisks).</title>
+				</caption>
+				<graphic mimetype="image" xlink:href="1414-431X-bjmbr-46-01-021-gf03"/>
+			</fig>
+			<p>
+				<xref ref-type="fig" rid="f04">Figure 4</xref> is a graphic illustration of the morphometric results of immunostaining in normal, stroma and tumor cells (Panels A, B, C) stratified by tobacco history in AD (Panel D) and SqCC (Panel E). Clearly, HAS-1, -2 and -3 (A), and Hyal-1 and -3 (B) were significantly more expressed by tumor cells than normal and stroma cells (P &lt; 0.01). As shown in <xref ref-type="fig" rid="f04">Figure 4C</xref>, the E-cadherin and TGF-β immunostaining indexes were significantly increased in tumor cells compared to stroma cells (P &lt; 0.01). When stratified according to histological types, HAS-3 and Hyal-1 immunoreactivity was significantly increased in tumor cells of AD (P = 0.01) and stroma of SqCC (P = 0.002), respectively. Tobacco history of patients with AD was significantly associated with increased HAS-3 immunoreactivity in tumor cells (P &lt; 0.01) (<xref ref-type="fig" rid="f04">Figure 4D</xref>). Stroma cells of SqCC from non-smoking patients presented a significant association with HAS-3 (P &lt; 0.01) (<xref ref-type="fig" rid="f04">Figure 4E</xref>).</p>
+			<fig id="f04">
+				<label>Figure 4</label>
+				<caption>
+					<title>Hyaluronan synthase (HAS)-1, -2, -3 and HYAL-1, -3 in normal, stroma and tumor cells (<italic>A</italic>,<italic>B</italic>), E-cadherin and TGF-β in stroma and tumor cells (<italic>C</italic>), HAS-1, -2, -3 in an adenocarcinoma (<italic>D</italic>) and a squamous cell carcinoma (<italic>E</italic>) from non-smoking and smoking patients. Data are reported as means &#177; SE. <italic>A</italic>,<italic>B</italic>: *P &lt; 0.01 compared to normal and stroma cells: <italic>C</italic>: *P &lt; 0.01 compared to stroma cells: <italic>D</italic>: *P &lt; 0.01 compared to stroma cells: <italic>E</italic>: *P &lt; 0.01 compared to stroma cells from non-smoking patients (one-way ANOVA). <italic>F</italic>, Regression plots of survival probability versus follow-up time in months for patients with lung cancer show that the patients with expression of HAS-2 &gt;14.6% by the tumors have a significantly lower risk of death than the group with HAS-2 expression &lt;14.6%.</title>
+				</caption>
+				<graphic mimetype="image" xlink:href="1414-431X-bjmbr-46-01-021-gf04"/>
+			</fig>
+			<sec>
+				<title>Survival analysis</title>
+				<p>Several combinations of clinical and morphological variables were analyzed in order to generate a mathematical model relevant to impact on patient survival. The results of the best combination, determined by Cox model analysis, are presented in <xref ref-type="table" rid="t02">Table 2</xref>. Only four variables, age, female, HAS-2 and HAS-3 levels, were significantly associated with survival time. For example, we found that stage increase was not related to survival time decrease in the absence of HAS-2 and HAS-3 (P = 0.001); however, when HAS-2 and HAS-3 were present as a covariate, the relationship of stage with survival was marginally stronger (P = 0.07). Multivariate analyses showed a low risk of death associated with female patients (R = 0.11), aged &lt;69 years (R = 0.02) and stages I and II (R = 0.18 and 0.00, respectively), and a high risk of death associated with HAS-2 &lt;14.6% (R = 8.69) and HAS-3 >7.4%. Individually, histological types, Hyal-1, -3 and HAS-1 were not significant predictors of risk of death, but their presence was important to refine or improve the predictive model. Once they were removed from the model, the other variables lost the significance. Regression plots of survival probability versus follow-up time in months for patients with lung cancer showed that the group with HAS-2 expression >14.6% had better survival than the group with HAS-2 &lt;14.6% (<xref ref-type="fig" rid="f04">Figure 4F</xref>).</p>
+				<p>
+					<table-wrap id="t02">
+						<label>Table 2</label>
+						<caption>
+							<title>Survival model by Cox regression analysis for relative risk of death controlled for age and tumor stage and histological subtypes (log-likelihood = 99.96: P = 0.01).</title>
+						</caption>
+						<graphic mimetype="image" xlink:href="1414-431X-bjmbr-46-01-021-gt02"/>
+						<table-wrap-foot>
+							<fn id="TFN01t02">
+								<p>AD = adenocarcinoma; SqCC = squamous cell carcinoma; Wald = method for regression analysis.</p>
+							</fn>
+						</table-wrap-foot>
+					</table-wrap>
+				</p>
+			</sec>
+		</sec>
+		<sec>
+			<title>Discussion</title>
+			<p>In the present study, it was hypothesized that in AD subtypes and SqCC, tumors with different behavior, Hyal, HAS, E-cadherin, and TGF-β should modulate different tumor-induced invasive pathways with impact on prognosis. Generally, while an overexpression of HAS-1 and HAS-3 confers aggressiveness to SqCC and AD, an overexpression of TGF-β and E-cadherin conferred a protective role to the ECM by helping it to avoid invasion by tumor cells in both histological types.</p>
+			<p>Specifically, it was found that HAS-1, -2, -3, and Hyal-1, -3 were significantly overexpressed by tumor cells compared to stroma cells. In fact, the heterogeneity of hyaluronidase expression has been identified in tumors and shows promise as an indicator of disease progression. In a previous study, our group demonstrated that the expression profile of alternatively spliced mRNA forms of Hyal was associated with histology and outcome <xref ref-type="bibr" rid="B24">24</xref>.</p>
+			<p>We also detected overexpression of HAS-3 and Hyal-1 by AD tumor cells and the stroma of SqCC compared to other biomarkers in the different histological groups. Thus, we documented here for the first time a pathway whereby HAS-3 and Hyal-1 overexpression by neoplastic epithelial and mesenchymal cells, respectively, may favor different invasion pathways in AD and SqCC, respectively. HAS-3 is the most active HAS, responsible for the synthesis of low molecular weight HA (2 &#215; 10<sup>6</sup> Da), which contributes to autonomically pericellular matrix formation. In addition, HAS-3 interacts with HA receptors, activating cellular signaling cascades, and leading to changes in tumor behavior. HAS-3 is known to contribute to the malignant phenotype in many malignancies <xref ref-type="bibr" rid="B25">25</xref>. Tumor metastasis is a complex series of events in which cells migrate beyond tissue compartments and spread to distant organ sites. Hyaluronan has an important role in regulating tumor growth and metastasis through its cell surface CD44 receptor. Hyaluronan-CD44 binding mediates cellular adhesion to the ECM, which is a prerequisite for tumor cell migration <xref ref-type="bibr" rid="B26">26</xref>. Tumor cell invasion involves the active movement of cells across the ECM <xref ref-type="bibr" rid="B27">27</xref>. Both adhesion and loss of adhesion to ECM, a critical initial step in the metastatic process, has been found to be hyaluronan-dependent in several tumors <xref ref-type="bibr" rid="B27">27</xref>. Interestingly, we found that predominant acinar and papillary AD was negatively associated with HAS-1 expression in stroma cells, whereas a positive relationship was found between papillary AD and HAS-3 and Hyal-1 expression in tumor cells. These findings suggest that an overexpression of HAS-1 and -3 by tumor cells confers aggressiveness to acinar and papillary AD. Nevertheless, a negative expression of HAS-1 by stroma cells confers a protective role to the ECM by helping it to avoid invasion by tumor cells in both histological subtypes. Our findings are supported by the recent validation of the new classification of lung AD proposed by IASLC/ATS/ERS in a North American series <xref ref-type="bibr" rid="B28">28</xref> and in a series of Australian patients <xref ref-type="bibr" rid="B29">29</xref>. According to both series, the new subtypes of AD <italic>in situ</italic>, minimally invasive AD and lepidic-predominant AD, had 5-year survival rates approaching 100%. In contrast, micropapillary-predominant and solid with mucin-predominant AD were associated with particularly poor survival, and papillary-predominant and acinar-predominant AD had an intermediate prognosis. As previously mentioned by Golshani et al. <xref ref-type="bibr" rid="B11">11</xref>, upregulation of HAS expression is a likely contributor to HA accumulation in tissues, thus promoting tumor growth and metastasis in experimental carcinogenesis. Our findings indicate that tumor HAS-3 and Hyal-1 overexpression in human AD subtypes and SqCC constitute an important driving force for invasion of tumor cells. Thus, HAS-3 and Hyal-1 expression may form the basis for an important tumor-induced invasive pathway.</p>
+			<p>As expected, E-cadherin index was significantly overexpressed by tumor cells compared to stroma cells, whereas TGF-β occurred at a higher extent in both tumor and stroma cells. These findings are supported by previous reports showing that E-cadherin adhesion molecules and TGF-β favor invasion, cellular motility, and proliferation <xref ref-type="bibr" rid="B18"/>
+				<xref ref-type="bibr" rid="B21">18,21</xref>. More interesting was the clear positive or negative relationship between growth factors in tumor cells (TGF-β) and ECM regulators (HAS-1, -2, -3, Hyal-1, and E-cadherin). One explanation for these findings may be based on the fact that HAS-2 has the capacity to activate latent TGF-β, suggesting an autocrine and a paracrine pathway in which collagen deposition and further invasion may be enhanced <xref ref-type="bibr" rid="B30">30</xref>. Another explanation is that the activation of latent TFG-β also provides an additional pathway for tumor-induced immune suppression <xref ref-type="bibr" rid="B31">31</xref>. In addition, recent studies by Sun et al. <xref ref-type="bibr" rid="B32">32</xref> demonstrated that HA fragments have the capacity to upregulate TFG-β by a CD44-dependent pathway. Concerning E-cadherin, some studies have reported that TGF-β affects the cell adhesion complex mediated by E-cadherin-catenin in tumor cells. However, a study using a culture of pancreatic cells to evaluate the induction of the E-cadherin-catenin complex by the addition of TGF-β to the culture medium demonstrated that the treatment of pancreatic tumor cells with TGF-β resulted in reduced cell adhesion due to dissociation of E-cadherin-catenin from the cytoskeleton <xref ref-type="bibr" rid="B33">33</xref>. Sayo et al. <xref ref-type="bibr" rid="B34">34</xref> demonstrated that TGF-β can also regulate the expression of HAS by suppressing HAS-3 in cultured human keratinocytes. These results are supported by our findings of HAS-3 and Hyal-1 overexpression in the absence of TGF-β, thus suggesting that a decrease in TGF-β expression could also contribute to a more invasive phenotype because HAS-3 and Hyal-1 are upregulated in this situation. As previously mentioned, HAS-3 synthesizes the low molecular weight HA, and interestingly, Hyal-1 is the enzyme responsible for its degradation.</p>
+			<p>Another interesting relationship we found, i.e., co-expression of ECM regulators (HAS-1 and Hyal-1 and -3) by both tumor and stroma cells, may be evidence linking known factors of adverse outcome to the biomarker. In fact, the simultaneous expression of these two enzymes could confer a better prognosis, because of the ability of HAS-1 to synthesize a long chain of HA, while Hyal-3 cleaves it into larger fragments, helping to preserve the ECM structure. Concerning the Hyal-3 immunoreactivity found in mesenchymal cells of SqCC, there are no studies evaluating the expression of this enzyme in lung tumors. However, Lokeshwar et al. <xref ref-type="bibr" rid="B35">35</xref> showed that this protein was expressed in high-grade tumors and metastatic lymph nodes. The expression of this protein in the tumor mesenchymal cells may contribute to the degradation of HA, favoring cell growth and migration, and consequently tumor invasion.</p>
+			<p>Our findings also have an impact on some clinical-pathologic factors. Multivariate analyses revealed a low risk of death associated with female patients aged &lt;69 years, I and II stages, and a high risk of death associated with HAS-2 &lt;14.6% and HAS-3 >7.4%. In addition, a smoking history showed a positive association with ECM regulators by tumor cells (HAS-1 and E-cadherin, respectively). These findings agree with those obtained by Casalino-Matsuda et al. <xref ref-type="bibr" rid="B36">36</xref>, who reported that oxidative stress caused by tobacco (cigarette smoke) <italic>in vivo</italic> or <italic>in vitro</italic> induces activation of the mitogen-activated protein kinase pathway by increasing the interaction between HA and CD44 receptors. Interestingly, and as expected, patients with a smoking history presented a negative correlation with predominant acinar AD. Although this histological variant is most commonly found in women, never-smoking men also demonstrated a higher proportion of AD in our study, suggesting a factor unrelated to gender to justify their predominance in a never-smoking population. Several genetic alterations have been described that may contribute to AD development in non-smokers <xref ref-type="bibr" rid="B37">37</xref>. Although still controversial, the molecular differences between groups may be responsible for distinct clinical manifestations and responses to treatment. Since biomarkers may be used for risk stratification and treatment selection, new pathogenetic pathways are being studied.</p>
+			<p>ECM regulators and growth factors modulate a tumor-induced invasive pathway in lung AD and SqCC subgroups, and different spectra of aggressiveness have been found between SqCC and AD subtypes. An inverse relationship between tumor and stroma biomarker expression provides a different spectrum of aggressiveness. While overexpression of ECM regulators by tumor cells confers aggressiveness to SqCC and AD, overexpression of growth factors and ECM regulators by stroma cells confers a protective role to the ECM, avoiding invasion by tumor cells in both histological types. In addition, HAases in resected AD and SqCC were strongly related to the prognosis. Therefore, our findings suggest that strategies aimed at preventing high HAS-3 and Hyal-1 synthesis, or local responses to low TGF-β and E-cadherin, may have a greater impact on lung cancer prognosis. Proof of this idea will require further study in a randomized, prospective clinical trial.</p>
+		</sec>
+	</body>
+	<back>
+		<ack>
+			<p>Research supported by CNPq (#474405/2008-7 UNIVERSAL), FAPESP (#08/57911-7 and #08/58557-2), and CAPES (#1294-10-5). We thank Edwin Parra, MD, PhD, and Vanessa Martins, MS, for technical assistance with figures and graphs.</p>
+		</ack>
+		<ref-list>
+			<title>References</title>
+			<ref id="B01">
+				<label>1</label>
+				<mixed-citation>1. Curado MP, Edwards B, Shin HR, Storm J, Ferlay M, Heanue M, et al. Cancer incidence in five continents. Vol. IX. Lyon: IARC Scientific Publications: 2007.</mixed-citation>
+				<element-citation publication-type="book">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Curado</surname>
+							<given-names>MP</given-names>
+						</name>
+						<name>
+							<surname>Edwards</surname>
+							<given-names>B</given-names>
+						</name>
+						<name>
+							<surname>Shin</surname>
+							<given-names>HR</given-names>
+						</name>
+						<name>
+							<surname>Storm</surname>
+							<given-names>J</given-names>
+						</name>
+						<name>
+							<surname>Ferlay</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Heanue</surname>
+							<given-names>M</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<source xml:lang="en">Cancer incidence in five continents. Vol. IX</source>
+					<publisher-loc>Lyon</publisher-loc>
+					<publisher-name>IARC Scientific Publications</publisher-name>
+					<year>2007</year>
+				</element-citation>
+			</ref>
+			<ref id="B02">
+				<label>2</label>
+				<mixed-citation>2. Scagliotti GV, Parikh P, von Pawel J, Biesma B, Vansteenkiste J, Manegold C, et al. Phase III study comparing cisplatin plus gemcitabine with cisplatin plus pemetrexed in chemotherapy-naive patients with advanced-stage non-small-cell lung cancer. J Clin Oncol 2008: 26: 3543-3551, doi: 10.1200/JCO.2007.15.0375.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Scagliotti</surname>
+							<given-names>GV</given-names>
+						</name>
+						<name>
+							<surname>Parikh</surname>
+							<given-names>P</given-names>
+						</name>
+						<name>
+							<surname>von Pawel</surname>
+							<given-names>J</given-names>
+						</name>
+						<name>
+							<surname>Biesma</surname>
+							<given-names>B</given-names>
+						</name>
+						<name>
+							<surname>Vansteenkiste</surname>
+							<given-names>J</given-names>
+						</name>
+						<name>
+							<surname>Manegold</surname>
+							<given-names>C</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">Phase III study comparing cisplatin plus gemcitabine with cisplatin plus pemetrexed in chemotherapy-naive patients with advanced-stage non-small-cell lung cancer</article-title>
+					<source xml:lang="en">J Clin Oncol</source>
+					<year>2008</year>
+					<volume>26</volume>
+					<fpage>3543</fpage>
+					<lpage>3551</lpage>
+					<comment>doi:10.1200/JCO.2007.15.0375</comment>
+				</element-citation>
+			</ref>
+			<ref id="B03">
+				<label>3</label>
+				<mixed-citation>3. Johnson DH, Fehrenbacher L, Novotny WF, Herbst RS, Nemunaitis JJ, Jablons DM, et al. Randomized phase II trial comparing bevacizumab plus carboplatin and paclitaxel with carboplatin and paclitaxel alone in previously untreated locally advanced or metastatic non-small-cell lung cancer. J Clin Oncol 2004: 22: 2184-2191, doi: 10.1200/JCO.2004.11.022.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Johnson</surname>
+							<given-names>DH</given-names>
+						</name>
+						<name>
+							<surname>Fehrenbacher</surname>
+							<given-names>L</given-names>
+						</name>
+						<name>
+							<surname>Novotny</surname>
+							<given-names>WF</given-names>
+						</name>
+						<name>
+							<surname>Herbst</surname>
+							<given-names>RS</given-names>
+						</name>
+						<name>
+							<surname>Nemunaitis</surname>
+							<given-names>JJ</given-names>
+						</name>
+						<name>
+							<surname>Jablons</surname>
+							<given-names>DM</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">Randomized phase II trial comparing bevacizumab plus carboplatin and paclitaxel with carboplatin and paclitaxel alone in previously untreated locally advanced or metastatic non-small-cell lung cancer</article-title>
+					<source xml:lang="en">J Clin Oncol</source>
+					<year>2004</year>
+					<volume>22</volume>
+					<fpage>2184</fpage>
+					<lpage>2191</lpage>
+					<comment>doi:10.1200/JCO.2004.11.022</comment>
+				</element-citation>
+			</ref>
+			<ref id="B04">
+				<label>4</label>
+				<mixed-citation>4. Schrump D, Altorki N, Henschke C, Carter D, Turrisi A, Gutierrez M. Non-small cell lung cancer. In: De Vita V, Hellman S, Rosenberg S (Editors), Cancer: principles and practice of oncology. 7th edn. Philadelphia: Lippincott Williams &amp; Wilkins: 2005. p 753-754.</mixed-citation>
+				<element-citation publication-type="book">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Schrump</surname>
+							<given-names>D</given-names>
+						</name>
+						<name>
+							<surname>Altorki</surname>
+							<given-names>N</given-names>
+						</name>
+						<name>
+							<surname>Henschke</surname>
+							<given-names>C</given-names>
+						</name>
+						<name>
+							<surname>Carter</surname>
+							<given-names>D</given-names>
+						</name>
+						<name>
+							<surname>Turrisi</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Gutierrez</surname>
+							<given-names>M</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Non-small cell lung cancer</article-title>
+					<person-group person-group-type="editor">
+						<name>
+							<surname>De Vita</surname>
+							<given-names>V</given-names>
+						</name>
+						<name>
+							<surname>Hellman</surname>
+							<given-names>S</given-names>
+						</name>
+						<name>
+							<surname>Rosenberg</surname>
+							<given-names>S</given-names>
+						</name>
+					</person-group>
+					<source xml:lang="en">Cancer: principles and practice of oncology. 7th edn</source>
+					<publisher-loc>Philadelphia</publisher-loc>
+					<publisher-name>Lippincott Williams &amp; Wilkins</publisher-name>
+					<year>2005</year>
+					<fpage>753</fpage>
+					<lpage>754</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B05">
+				<label>5</label>
+				<mixed-citation>5. Pao W, Kris MG, Iafrate AJ, Ladanyi M, Janne PA, Wistuba II, et al. Integration of molecular profiling into the lung cancer clinic. Clin Cancer Res 2009: 15: 5317-5322, doi: 10.1158/1078-0432.CCR-09-0913.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Pao</surname>
+							<given-names>W</given-names>
+						</name>
+						<name>
+							<surname>Kris</surname>
+							<given-names>MG</given-names>
+						</name>
+						<name>
+							<surname>Iafrate</surname>
+							<given-names>AJ</given-names>
+						</name>
+						<name>
+							<surname>Ladanyi</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Janne</surname>
+							<given-names>PA</given-names>
+						</name>
+						<name>
+							<surname>Wistuba</surname>
+							<given-names>II</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">Integration of molecular profiling into the lung cancer clinic</article-title>
+					<source xml:lang="en">Clin Cancer Res</source>
+					<year>2009</year>
+					<volume>15</volume>
+					<fpage>5317</fpage>
+					<lpage>5322</lpage>
+					<comment>doi:10.1158/1078-0432.CCR-09-0913</comment>
+				</element-citation>
+			</ref>
+			<ref id="B06">
+				<label>6</label>
+				<mixed-citation>6. Pinto CA, Carvalho PE, Antonangelo L, Garippo A, Da Silva AG, Soares F, et al. Morphometric evaluation of tumor matrix metalloproteinase 9 predicts survival after surgical resection of adenocarcinoma of the lung. Clin Cancer Res 2003: 9: 3098-3104.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Pinto</surname>
+							<given-names>CA</given-names>
+						</name>
+						<name>
+							<surname>Carvalho</surname>
+							<given-names>PE</given-names>
+						</name>
+						<name>
+							<surname>Antonangelo</surname>
+							<given-names>L</given-names>
+						</name>
+						<name>
+							<surname>Garippo</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Da Silva</surname>
+							<given-names>AG</given-names>
+						</name>
+						<name>
+							<surname>Soares</surname>
+							<given-names>F</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">Morphometric evaluation of tumor matrix metalloproteinase 9 predicts survival after surgical resection of adenocarcinoma of the lung</article-title>
+					<source xml:lang="en">Clin Cancer Res</source>
+					<year>2003</year>
+					<volume>9</volume>
+					<fpage>3098</fpage>
+					<lpage>3104</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B07">
+				<label>7</label>
+				<mixed-citation>7. Gerdin B, Hallgren R. Dynamic role of hyaluronan (HYA) in connective tissue activation and inflammation. J Intern Med 1997: 242: 49-55, doi: 10.1046/j.1365-2796.1997.00173.x.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Gerdin</surname>
+							<given-names>B</given-names>
+						</name>
+						<name>
+							<surname>Hallgren</surname>
+							<given-names>R</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Dynamic role of hyaluronan (HYA) in connective tissue activation and inflammation</article-title>
+					<source xml:lang="en">J Intern Med</source>
+					<year>1997</year>
+					<volume>242</volume>
+					<fpage>49</fpage>
+					<lpage>55</lpage>
+					<comment>doi:10.1046/j.1365-2796.1997.00173.x</comment>
+				</element-citation>
+			</ref>
+			<ref id="B08">
+				<label>8</label>
+				<mixed-citation>8. Nedvetzki S, Gonen E, Assayag N, Reich R, Williams RO, Thurmond RL, et al. RHAMM, a receptor for hyaluronan-mediated motility, compensates for CD44 in inflamed CD44-knockout mice: a different interpretation of redundancy. Proc Natl Acad Sci U S A 2004: 101: 18081-18086, doi: 10.1073/pnas.0407378102.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Nedvetzki</surname>
+							<given-names>S</given-names>
+						</name>
+						<name>
+							<surname>Gonen</surname>
+							<given-names>E</given-names>
+						</name>
+						<name>
+							<surname>Assayag</surname>
+							<given-names>N</given-names>
+						</name>
+						<name>
+							<surname>Reich</surname>
+							<given-names>R</given-names>
+						</name>
+						<name>
+							<surname>Williams</surname>
+							<given-names>RO</given-names>
+						</name>
+						<name>
+							<surname>Thurmond</surname>
+							<given-names>RL</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">RHAMM, a receptor for hyaluronan-mediated motility, compensates for CD44 in inflamed CD44-knockout mice: a different interpretation of redundancy</article-title>
+					<source xml:lang="en">Proc Natl Acad Sci U S A</source>
+					<year>2004</year>
+					<volume>101</volume>
+					<fpage>18081</fpage>
+					<lpage>18086</lpage>
+					<comment>doi:10.1073/pnas.0407378102</comment>
+				</element-citation>
+			</ref>
+			<ref id="B09">
+				<label>9</label>
+				<mixed-citation>9. Girish KS, Kemparaju K. The magic glue hyaluronan and its eraser hyaluronidase: a biological overview. Life Sci 2007: 80: 1921-1943, doi: 10.1016/j.lfs.2007.02.037.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Girish</surname>
+							<given-names>KS</given-names>
+						</name>
+						<name>
+							<surname>Kemparaju</surname>
+							<given-names>K</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">The magic glue hyaluronan and its eraser hyaluronidase: a biological overview</article-title>
+					<source xml:lang="en">Life Sci</source>
+					<year>2007</year>
+					<volume>80</volume>
+					<fpage>1921</fpage>
+					<lpage>1943</lpage>
+					<comment>doi:10.1016/j.lfs.2007.02.037</comment>
+				</element-citation>
+			</ref>
+			<ref id="B10">
+				<label>10</label>
+				<mixed-citation>10. Jacobson A, Rahmanian M, Rubin K, Heldin P. Expression of hyaluronan synthase 2 or hyaluronidase 1 differentially affect the growth rate of transplantable colon carcinoma cell tumors. Int J Cancer 2002: 102: 212-219, doi: 10.1002/ijc.10683.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Jacobson</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Rahmanian</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Rubin</surname>
+							<given-names>K</given-names>
+						</name>
+						<name>
+							<surname>Heldin</surname>
+							<given-names>P</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Expression of hyaluronan synthase 2 or hyaluronidase 1 differentially affect the growth rate of transplantable colon carcinoma cell tumors</article-title>
+					<source xml:lang="en">Int J Cancer</source>
+					<year>2002</year>
+					<volume>102</volume>
+					<fpage>212</fpage>
+					<lpage>219</lpage>
+					<comment>doi:10.1002/ijc.10683</comment>
+				</element-citation>
+			</ref>
+			<ref id="B11">
+				<label>11</label>
+				<mixed-citation>11. Golshani R, Lopez L, Estrella V, Kramer M, Iida N, Lokeshwar VB. Hyaluronic acid synthase-1 expression regulates bladder cancer growth, invasion, and angiogenesis through CD44. Cancer Res 2008: 68: 483-491, doi: 10.1158/0008-5472.CAN-07-2140.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Golshani</surname>
+							<given-names>R</given-names>
+						</name>
+						<name>
+							<surname>Lopez</surname>
+							<given-names>L</given-names>
+						</name>
+						<name>
+							<surname>Estrella</surname>
+							<given-names>V</given-names>
+						</name>
+						<name>
+							<surname>Kramer</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Iida</surname>
+							<given-names>N</given-names>
+						</name>
+						<name>
+							<surname>Lokeshwar</surname>
+							<given-names>VB</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Hyaluronic acid synthase-1 expression regulates bladder cancer growth, invasion, and angiogenesis through CD44</article-title>
+					<source xml:lang="en">Cancer Res</source>
+					<year>2008</year>
+					<volume>68</volume>
+					<fpage>483</fpage>
+					<lpage>491</lpage>
+					<comment>doi:10.1158/0008-5472.CAN-07-2140</comment>
+				</element-citation>
+			</ref>
+			<ref id="B12">
+				<label>12</label>
+				<mixed-citation>12. Bharadwaj AG, Kovar JL, Loughman E, Elowsky C, Oakley GG, Simpson MA. Spontaneous metastasis of prostate cancer is promoted by excess hyaluronan synthesis and processing. Am J Pathol 2009: 174: 1027-1036, doi: 10.2353/ajpath.2009.080501.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Bharadwaj</surname>
+							<given-names>AG</given-names>
+						</name>
+						<name>
+							<surname>Kovar</surname>
+							<given-names>JL</given-names>
+						</name>
+						<name>
+							<surname>Loughman</surname>
+							<given-names>E</given-names>
+						</name>
+						<name>
+							<surname>Elowsky</surname>
+							<given-names>C</given-names>
+						</name>
+						<name>
+							<surname>Oakley</surname>
+							<given-names>GG</given-names>
+						</name>
+						<name>
+							<surname>Simpson</surname>
+							<given-names>MA</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Spontaneous metastasis of prostate cancer is promoted by excess hyaluronan synthesis and processing</article-title>
+					<source xml:lang="en">Am J Pathol</source>
+					<year>2009</year>
+					<volume>174</volume>
+					<fpage>1027</fpage>
+					<lpage>1036</lpage>
+					<comment>doi:10.2353/ajpath.2009.080501</comment>
+				</element-citation>
+			</ref>
+			<ref id="B13">
+				<label>13</label>
+				<mixed-citation>13. Turley EA, Noble PW, Bourguignon LY. Signaling properties of hyaluronan receptors. J Biol Chem 2002: 277: 4589-4592, doi: 10.1074/jbc.R100038200.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Turley</surname>
+							<given-names>EA</given-names>
+						</name>
+						<name>
+							<surname>Noble</surname>
+							<given-names>PW</given-names>
+						</name>
+						<name>
+							<surname>Bourguignon</surname>
+							<given-names>LY</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Signaling properties of hyaluronan receptors</article-title>
+					<source xml:lang="en">J Biol Chem</source>
+					<year>2002</year>
+					<volume>277</volume>
+					<fpage>4589</fpage>
+					<lpage>4592</lpage>
+					<comment>doi:10.1074/jbc.R100038200</comment>
+				</element-citation>
+			</ref>
+			<ref id="B14">
+				<label>14</label>
+				<mixed-citation>14. Hemming R, Martin DC, Slominski E, Nagy JI, Halayko AJ, Pind S, et al. Mouse Hyal3 encodes a 45- to 56-kDa glycoprotein whose overexpression increases hyaluronidase 1 activity in cultured cells. Glycobiology 2008: 18: 280-289, doi: 10.1093/glycob/cwn006.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Hemming</surname>
+							<given-names>R</given-names>
+						</name>
+						<name>
+							<surname>Martin</surname>
+							<given-names>DC</given-names>
+						</name>
+						<name>
+							<surname>Slominski</surname>
+							<given-names>E</given-names>
+						</name>
+						<name>
+							<surname>Nagy</surname>
+							<given-names>JI</given-names>
+						</name>
+						<name>
+							<surname>Halayko</surname>
+							<given-names>AJ</given-names>
+						</name>
+						<name>
+							<surname>Pind</surname>
+							<given-names>S</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">Mouse Hyal3 encodes a 45- to 56-kDa glycoprotein whose overexpression increases hyaluronidase 1 activity in cultured cells</article-title>
+					<source xml:lang="en">Glycobiology</source>
+					<year>2008</year>
+					<volume>18</volume>
+					<fpage>280</fpage>
+					<lpage>289</lpage>
+					<comment>doi:10.1093/glycob/cwn006</comment>
+				</element-citation>
+			</ref>
+			<ref id="B15">
+				<label>15</label>
+				<mixed-citation>15. Stern R. Hyaluronan metabolism: a major paradox in cancer biology. Pathol Biol 2005: 53: 372-382, doi: 10.1016/j.patbio.2004.12.021.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Stern</surname>
+							<given-names>R</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Hyaluronan metabolism: a major paradox in cancer biology</article-title>
+					<source xml:lang="en">Pathol Biol</source>
+					<year>2005</year>
+					<volume>53</volume>
+					<fpage>372</fpage>
+					<lpage>382</lpage>
+					<comment>doi:10.1016/j.patbio.2004.12.021</comment>
+				</element-citation>
+			</ref>
+			<ref id="B16">
+				<label>16</label>
+				<mixed-citation>16. Lokeshwar VB, Cerwinka WH, Isoyama T, Lokeshwar BL. HYAL1 hyaluronidase in prostate cancer: a tumor promoter and suppressor. Cancer Res 2005: 65: 7782-7789, doi: 10.1158/0008-5472.CAN-04-2805.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Lokeshwar</surname>
+							<given-names>VB</given-names>
+						</name>
+						<name>
+							<surname>Cerwinka</surname>
+							<given-names>WH</given-names>
+						</name>
+						<name>
+							<surname>Isoyama</surname>
+							<given-names>T</given-names>
+						</name>
+						<name>
+							<surname>Lokeshwar</surname>
+							<given-names>BL</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">HYAL1 hyaluronidase in prostate cancer: a tumor promoter and suppressor</article-title>
+					<source xml:lang="en">Cancer Res</source>
+					<year>2005</year>
+					<volume>65</volume>
+					<fpage>7782</fpage>
+					<lpage>7789</lpage>
+					<comment>doi:10.1158/0008-5472.CAN-04-2805</comment>
+				</element-citation>
+			</ref>
+			<ref id="B17">
+				<label>17</label>
+				<mixed-citation>17. Bertrand P, Girard N, Duval C, d'Anjou J, Chauzy C, Menard JF, et al. Increased hyaluronidase levels in breast tumor metastases. Int J Cancer 1997: 73: 327-331, doi: 10.1002/(SICI)1097-0215(19971104)73:3&lt;327::AID-IJC4>3.0.CO;2-1.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Bertrand</surname>
+							<given-names>P</given-names>
+						</name>
+						<name>
+							<surname>Girard</surname>
+							<given-names>N</given-names>
+						</name>
+						<name>
+							<surname>Duval</surname>
+							<given-names>C</given-names>
+						</name>
+						<name>
+							<surname>d'Anjou</surname>
+							<given-names>J</given-names>
+						</name>
+						<name>
+							<surname>Chauzy</surname>
+							<given-names>C</given-names>
+						</name>
+						<name>
+							<surname>Menard</surname>
+							<given-names>JF</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">Increased hyaluronidase levels in breast tumor metastases</article-title>
+					<source xml:lang="en">Int J Cancer</source>
+					<year>1997</year>
+					<volume>73</volume>
+					<fpage>327</fpage>
+					<lpage>331</lpage>
+					<comment>doi:10.1002/(SICI)1097-0215(19971104)73:3&lt;327::AID-IJC4>3.0.CO;2-1</comment>
+				</element-citation>
+			</ref>
+			<ref id="B18">
+				<label>18</label>
+				<mixed-citation>18. Li Y, Rahmanian M, Widstrom C, Lepperdinger G, Frost GI, Heldin P. Irradiation-induced expression of hyaluronan (HA) synthase 2 and hyaluronidase 2 genes in rat lung tissue accompanies active turnover of HA and induction of types I and III collagen gene expression. Am J Respir Cell Mol Biol 2000: 23: 411-418.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Li</surname>
+							<given-names>Y</given-names>
+						</name>
+						<name>
+							<surname>Rahmanian</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Widstrom</surname>
+							<given-names>C</given-names>
+						</name>
+						<name>
+							<surname>Lepperdinger</surname>
+							<given-names>G</given-names>
+						</name>
+						<name>
+							<surname>Frost</surname>
+							<given-names>GI</given-names>
+						</name>
+						<name>
+							<surname>Heldin</surname>
+							<given-names>P</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Irradiation-induced expression of hyaluronan (HA) synthase 2 and hyaluronidase 2 genes in rat lung tissue accompanies active turnover of HA and induction of types I and III collagen gene expression</article-title>
+					<source xml:lang="en">Am J Respir Cell Mol Biol</source>
+					<year>2000</year>
+					<volume>23</volume>
+					<fpage>411</fpage>
+					<lpage>418</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B19">
+				<label>19</label>
+				<mixed-citation>19. Border WA, Noble NA. Transforming growth factor beta in tissue fibrosis. N Engl J Med 1994: 331: 1286-1292, doi: 10.1056/NEJM199411103311907.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Border</surname>
+							<given-names>WA</given-names>
+						</name>
+						<name>
+							<surname>Noble</surname>
+							<given-names>NA</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Transforming growth factor beta in tissue fibrosis</article-title>
+					<source xml:lang="en">N Engl J Med</source>
+					<year>1994</year>
+					<volume>331</volume>
+					<fpage>1286</fpage>
+					<lpage>1292</lpage>
+					<comment>doi:10.1056/NEJM199411103311907</comment>
+				</element-citation>
+			</ref>
+			<ref id="B20">
+				<label>20</label>
+				<mixed-citation>20. Nawrocki-Raby B, Gilles C, Polette M, Bruyneel E, Laronze JY, Bonnet N, et al. Upregulation of MMPs by soluble E-cadherin in human lung tumor cells. Int J Cancer 2003: 105: 790-795, doi: 10.1002/ijc.11168.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Nawrocki-Raby</surname>
+							<given-names>B</given-names>
+						</name>
+						<name>
+							<surname>Gilles</surname>
+							<given-names>C</given-names>
+						</name>
+						<name>
+							<surname>Polette</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Bruyneel</surname>
+							<given-names>E</given-names>
+						</name>
+						<name>
+							<surname>Laronze</surname>
+							<given-names>JY</given-names>
+						</name>
+						<name>
+							<surname>Bonnet</surname>
+							<given-names>N</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">Upregulation of MMPs by soluble E-cadherin in human lung tumor cells</article-title>
+					<source xml:lang="en">Int J Cancer</source>
+					<year>2003</year>
+					<volume>105</volume>
+					<fpage>790</fpage>
+					<lpage>795</lpage>
+					<comment>doi:10.1002/ijc.11168</comment>
+				</element-citation>
+			</ref>
+			<ref id="B21">
+				<label>21</label>
+				<mixed-citation>21. Birchmeier W, Behrens J. Cadherin expression in carcinomas: role in the formation of cell junctions and the prevention of invasiveness. Biochim Biophys Acta 1994: 1198: 11-26.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Birchmeier</surname>
+							<given-names>W</given-names>
+						</name>
+						<name>
+							<surname>Behrens</surname>
+							<given-names>J</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Cadherin expression in carcinomas: role in the formation of cell junctions and the prevention of invasiveness</article-title>
+					<source xml:lang="en">Biochim Biophys Acta</source>
+					<year>1994</year>
+					<volume>1198</volume>
+					<fpage>11</fpage>
+					<lpage>26</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B22">
+				<label>22</label>
+				<mixed-citation>22. Travis W, Brambilla E, Hermelink-Muller HK, Harris CC. Pathology and genetics of tumors of the lung, pleura, thymus and heart. Lyon: IARC Press: 2004.</mixed-citation>
+				<element-citation publication-type="book">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Travis</surname>
+							<given-names>W</given-names>
+						</name>
+						<name>
+							<surname>Brambilla</surname>
+							<given-names>E</given-names>
+						</name>
+						<name>
+							<surname>Hermelink-Muller</surname>
+							<given-names>HK</given-names>
+						</name>
+						<name>
+							<surname>Harris</surname>
+							<given-names>CC</given-names>
+						</name>
+					</person-group>
+					<source xml:lang="en">Pathology and genetics of tumors of the lung, pleura, thymus and heart</source>
+					<publisher-loc>Lyon</publisher-loc>
+					<publisher-name>IARC Press</publisher-name>
+					<year>2004</year>
+				</element-citation>
+			</ref>
+			<ref id="B23">
+				<label>23</label>
+				<mixed-citation>23. Minot DM, Kipp BR, Root RM, Meyer RG, Reynolds CA, Nassar A, et al. Automated cellular imaging system III for assessing HER2 status in breast cancer specimens: development of a standardized scoring method that correlates with FISH. Am J Clin Pathol 2009: 132: 133-138, doi: 10.1309/AJCPJV0SKAF2PCMY.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Minot</surname>
+							<given-names>DM</given-names>
+						</name>
+						<name>
+							<surname>Kipp</surname>
+							<given-names>BR</given-names>
+						</name>
+						<name>
+							<surname>Root</surname>
+							<given-names>RM</given-names>
+						</name>
+						<name>
+							<surname>Meyer</surname>
+							<given-names>RG</given-names>
+						</name>
+						<name>
+							<surname>Reynolds</surname>
+							<given-names>CA</given-names>
+						</name>
+						<name>
+							<surname>Nassar</surname>
+							<given-names>A</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">Automated cellular imaging system III for assessing HER2 status in breast cancer specimens: development of a standardized scoring method that correlates with FISH</article-title>
+					<source xml:lang="en">Am J Clin Pathol</source>
+					<year>2009</year>
+					<volume>132</volume>
+					<fpage>133</fpage>
+					<lpage>138</lpage>
+					<comment>doi:10.1309/AJCPJV0SKAF2PCMY</comment>
+				</element-citation>
+			</ref>
+			<ref id="B24">
+				<label>24</label>
+				<mixed-citation>24. de Sa V, Olivieri E, Parra ER, Ab'Saber AM, Takagaki T, Soares FA, et al. Hyaluronidase splice variants are associated with histology and outcome in adenocarcinoma and squamous cell carcinoma of the lung. Hum Pathol 2012: 43: 675-683, doi: 10.1016/j.humpath.2011.06.010.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>de Sa</surname>
+							<given-names>V</given-names>
+						</name>
+						<name>
+							<surname>Olivieri</surname>
+							<given-names>E</given-names>
+						</name>
+						<name>
+							<surname>Parra</surname>
+							<given-names>ER</given-names>
+						</name>
+						<name>
+							<surname>Ab'Saber</surname>
+							<given-names>AM</given-names>
+						</name>
+						<name>
+							<surname>Takagaki</surname>
+							<given-names>T</given-names>
+						</name>
+						<name>
+							<surname>Soares</surname>
+							<given-names>FA</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">Hyaluronidase splice variants are associated with histology and outcome in adenocarcinoma and squamous cell carcinoma of the lung</article-title>
+					<source xml:lang="en">Hum Pathol</source>
+					<year>2012</year>
+					<volume>43</volume>
+					<fpage>675</fpage>
+					<lpage>683</lpage>
+					<comment>doi:10.1016/j.humpath.2011.06.010</comment>
+				</element-citation>
+			</ref>
+			<ref id="B25">
+				<label>25</label>
+				<mixed-citation>25. Adamia S, Maxwell CA, Pilarski LM. Hyaluronan and hyaluronan synthases: potential therapeutic targets in cancer. Curr Drug Targets Cardiovasc Haematol Disord 2005: 5: 3-14, doi: 10.2174/1568006053005056.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Adamia</surname>
+							<given-names>S</given-names>
+						</name>
+						<name>
+							<surname>Maxwell</surname>
+							<given-names>CA</given-names>
+						</name>
+						<name>
+							<surname>Pilarski</surname>
+							<given-names>LM</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Hyaluronan and hyaluronan synthases: potential therapeutic targets in cancer</article-title>
+					<source xml:lang="en">Curr Drug Targets Cardiovasc Haematol Disord</source>
+					<year>2005</year>
+					<volume>5</volume>
+					<fpage>3</fpage>
+					<lpage>14</lpage>
+					<comment>doi:10.2174/1568006053005056</comment>
+				</element-citation>
+			</ref>
+			<ref id="B26">
+				<label>26</label>
+				<mixed-citation>26. Kohn EC, Liotta LA. Molecular insights into cancer invasion: strategies for prevention and intervention. Cancer Res 1995: 55: 1856-1862.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Kohn</surname>
+							<given-names>EC</given-names>
+						</name>
+						<name>
+							<surname>Liotta</surname>
+							<given-names>LA</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Molecular insights into cancer invasion: strategies for prevention and intervention</article-title>
+					<source xml:lang="en">Cancer Res</source>
+					<year>1995</year>
+					<volume>55</volume>
+					<fpage>1856</fpage>
+					<lpage>1862</lpage>
+				</element-citation>
+			</ref>
+			<ref id="B27">
+				<label>27</label>
+				<mixed-citation>27. Yu Q, Stamenkovic I. Localization of matrix metalloproteinase 9 to the cell surface provides a mechanism for CD44-mediated tumor invasion. Genes Dev 1999: 13: 35-48, doi: 10.1101/gad.13.1.35.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Yu</surname>
+							<given-names>Q</given-names>
+						</name>
+						<name>
+							<surname>Stamenkovic</surname>
+							<given-names>I</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Localization of matrix metalloproteinase 9 to the cell surface provides a mechanism for CD44-mediated tumor invasion</article-title>
+					<source xml:lang="en">Genes Dev</source>
+					<year>1999</year>
+					<volume>13</volume>
+					<fpage>35</fpage>
+					<lpage>48</lpage>
+					<comment>doi:10.1101/gad.13.1.35</comment>
+				</element-citation>
+			</ref>
+			<ref id="B28">
+				<label>28</label>
+				<mixed-citation>28. Yoshizawa A, Motoi N, Riely GJ, Sima CS, Gerald WL, Kris MG, et al. Impact of proposed IASLC/ATS/ERS classification of lung adenocarcinoma: prognostic subgroups and implications for further revision of staging based on analysis of 514 stage I cases. Mod Pathol 2011: 24: 653-664, doi: 10.1038/modpathol.2010.232.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Yoshizawa</surname>
+							<given-names>A</given-names>
+						</name>
+						<name>
+							<surname>Motoi</surname>
+							<given-names>N</given-names>
+						</name>
+						<name>
+							<surname>Riely</surname>
+							<given-names>GJ</given-names>
+						</name>
+						<name>
+							<surname>Sima</surname>
+							<given-names>CS</given-names>
+						</name>
+						<name>
+							<surname>Gerald</surname>
+							<given-names>WL</given-names>
+						</name>
+						<name>
+							<surname>Kris</surname>
+							<given-names>MG</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">Impact of proposed IASLC/ATS/ERS classification of lung adenocarcinoma: prognostic subgroups and implications for further revision of staging based on analysis of 514 stage I cases</article-title>
+					<source xml:lang="en">Mod Pathol</source>
+					<year>2011</year>
+					<volume>24</volume>
+					<fpage>653</fpage>
+					<lpage>664</lpage>
+					<comment>doi:10.1038/modpathol.2010.232</comment>
+				</element-citation>
+			</ref>
+			<ref id="B29">
+				<label>29</label>
+				<mixed-citation>29. Russell PA, Wainer Z, Wright GM, Daniels M, Conron M, Williams RA. Does lung adenocarcinoma subtype predict patient survival?: A clinicopathologic study based on the new International Association for the Study of Lung Cancer/American Thoracic Society/European Respiratory Society international multidisciplinary lung adenocarcinoma classification. J Thorac Oncol 2011: 6: 1496-1504, doi: 10.1097/JTO.0b013e318221f701.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Russell</surname>
+							<given-names>PA</given-names>
+						</name>
+						<name>
+							<surname>Wainer</surname>
+							<given-names>Z</given-names>
+						</name>
+						<name>
+							<surname>Wright</surname>
+							<given-names>GM</given-names>
+						</name>
+						<name>
+							<surname>Daniels</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Conron</surname>
+							<given-names>M</given-names>
+						</name>
+						<name>
+							<surname>Williams</surname>
+							<given-names>RA</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Does lung adenocarcinoma subtype predict patient survival?: A clinicopathologic study based on the new International Association for the Study of Lung Cancer/American Thoracic Society/European Respiratory Society international multidisciplinary lung adenocarcinoma classification</article-title>
+					<source xml:lang="en">J Thorac Oncol</source>
+					<year>2011</year>
+					<volume>6</volume>
+					<fpage>1496</fpage>
+					<lpage>1504</lpage>
+					<comment>doi:10.1097/JTO.0b013e318221f701</comment>
+				</element-citation>
+			</ref>
+			<ref id="B30">
+				<label>30</label>
+				<mixed-citation>30. Taipale J, Saharinen J, Keski-Oja J. Extracellular matrix-associated transforming growth factor-beta: role in cancer cell growth and invasion. Adv Cancer Res 1998: 75: 87-134, doi: 10.1016/S0065-230X(08)60740-X.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Taipale</surname>
+							<given-names>J</given-names>
+						</name>
+						<name>
+							<surname>Saharinen</surname>
+							<given-names>J</given-names>
+						</name>
+						<name>
+							<surname>Keski-Oja</surname>
+							<given-names>J</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Extracellular matrix-associated transforming growth factor-beta: role in cancer cell growth and invasion</article-title>
+					<source xml:lang="en">Adv Cancer Res</source>
+					<year>1998</year>
+					<volume>75</volume>
+					<fpage>87</fpage>
+					<lpage>134</lpage>
+					<comment>doi:10.1016/S0065-230X(08)60740-X</comment>
+				</element-citation>
+			</ref>
+			<ref id="B31">
+				<label>31</label>
+				<mixed-citation>31. Beck C, Schreiber H, Rowley D. Role of TGF-beta in immune-evasion of cancer. Microsc Res Tech 2001: 52: 387-395, doi: 10.1002/1097-0029(20010215)52:4&lt;387::AID-JEMT1023>3.0.CO;2-W.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Beck</surname>
+							<given-names>C</given-names>
+						</name>
+						<name>
+							<surname>Schreiber</surname>
+							<given-names>H</given-names>
+						</name>
+						<name>
+							<surname>Rowley</surname>
+							<given-names>D</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Role of TGF-beta in immune-evasion of cancer</article-title>
+					<source xml:lang="en">Microsc Res Tech</source>
+					<year>2001</year>
+					<volume>52</volume>
+					<fpage>387</fpage>
+					<lpage>395</lpage>
+					<comment>doi:10.1002/1097-0029(20010215)52:4&lt;387::AID-JEMT1023>3.0.CO;2-W</comment>
+				</element-citation>
+			</ref>
+			<ref id="B32">
+				<label>32</label>
+				<mixed-citation>32. Sun LK, Beck-Schimmer B, Oertli B, Wuthrich RP. Hyaluronan-induced cyclooxygenase-2 expression promotes thromboxane A2 production by renal cells. Kidney Int 2001: 59: 190-196, doi: 10.1046/j.1523-1755.2001.00479.x.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Sun</surname>
+							<given-names>LK</given-names>
+						</name>
+						<name>
+							<surname>Beck-Schimmer</surname>
+							<given-names>B</given-names>
+						</name>
+						<name>
+							<surname>Oertli</surname>
+							<given-names>B</given-names>
+						</name>
+						<name>
+							<surname>Wuthrich</surname>
+							<given-names>RP</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Hyaluronan-induced cyclooxygenase-2 expression promotes thromboxane A2 production by renal cells</article-title>
+					<source xml:lang="en">Kidney Int</source>
+					<year>2001</year>
+					<volume>59</volume>
+					<fpage>190</fpage>
+					<lpage>196</lpage>
+					<comment>doi:10.1046/j.1523-1755.2001.00479.x</comment>
+				</element-citation>
+			</ref>
+			<ref id="B33">
+				<label>33</label>
+				<mixed-citation>33. Vogelmann R, Nguyen-Tat MD, Giehl K, Adler G, Wedlich D, Menke A. TGFbeta-induced downregulation of E-cadherin-based cell-cell adhesion depends on PI3-kinase and PTEN. J Cell Sci 2005: 118: 4901-4912, doi: 10.1242/jcs.02594.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Vogelmann</surname>
+							<given-names>R</given-names>
+						</name>
+						<name>
+							<surname>Nguyen-Tat</surname>
+							<given-names>MD</given-names>
+						</name>
+						<name>
+							<surname>Giehl</surname>
+							<given-names>K</given-names>
+						</name>
+						<name>
+							<surname>Adler</surname>
+							<given-names>G</given-names>
+						</name>
+						<name>
+							<surname>Wedlich</surname>
+							<given-names>D</given-names>
+						</name>
+						<name>
+							<surname>Menke</surname>
+							<given-names>A</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">TGFbeta-induced downregulation of E-cadherin-based cell-cell adhesion depends on PI3-kinase and PTEN</article-title>
+					<source xml:lang="en">J Cell Sci</source>
+					<year>2005</year>
+					<volume>118</volume>
+					<fpage>4901</fpage>
+					<lpage>4912</lpage>
+					<comment>doi:10.1242/jcs.02594</comment>
+				</element-citation>
+			</ref>
+			<ref id="B34">
+				<label>34</label>
+				<mixed-citation>34. Sayo T, Sugiyama Y, Takahashi Y, Ozawa N, Sakai S, Ishikawa O, et al. Hyaluronan synthase 3 regulates hyaluronan synthesis in cultured human keratinocytes. J Invest Dermatol 2002: 118: 43-48, doi: 10.1046/j.0022-202x.2001.01613.x.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Sayo</surname>
+							<given-names>T</given-names>
+						</name>
+						<name>
+							<surname>Sugiyama</surname>
+							<given-names>Y</given-names>
+						</name>
+						<name>
+							<surname>Takahashi</surname>
+							<given-names>Y</given-names>
+						</name>
+						<name>
+							<surname>Ozawa</surname>
+							<given-names>N</given-names>
+						</name>
+						<name>
+							<surname>Sakai</surname>
+							<given-names>S</given-names>
+						</name>
+						<name>
+							<surname>Ishikawa</surname>
+							<given-names>O</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">Hyaluronan synthase 3 regulates hyaluronan synthesis in cultured human keratinocytes</article-title>
+					<source xml:lang="en">J Invest Dermatol</source>
+					<year>2002</year>
+					<volume>118</volume>
+					<fpage>43</fpage>
+					<lpage>48</lpage>
+					<comment>doi:10.1046/j.0022-202x.2001.01613.x</comment>
+				</element-citation>
+			</ref>
+			<ref id="B35">
+				<label>35</label>
+				<mixed-citation>35. Lokeshwar VB, Schroeder GL, Carey RI, Soloway MS, Iida N. Regulation of hyaluronidase activity by alternative mRNA splicing. J Biol Chem 2002: 277: 33654-33663, doi: 10.1074/jbc.M203821200.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Lokeshwar</surname>
+							<given-names>VB</given-names>
+						</name>
+						<name>
+							<surname>Schroeder</surname>
+							<given-names>GL</given-names>
+						</name>
+						<name>
+							<surname>Carey</surname>
+							<given-names>RI</given-names>
+						</name>
+						<name>
+							<surname>Soloway</surname>
+							<given-names>MS</given-names>
+						</name>
+						<name>
+							<surname>Iida</surname>
+							<given-names>N</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Regulation of hyaluronidase activity by alternative mRNA splicing</article-title>
+					<source xml:lang="en">J Biol Chem</source>
+					<year>2002</year>
+					<volume>277</volume>
+					<fpage>33654</fpage>
+					<lpage>33663</lpage>
+					<comment>doi:10.1074/jbc.M203821200</comment>
+				</element-citation>
+			</ref>
+			<ref id="B36">
+				<label>36</label>
+				<mixed-citation>36. Casalino-Matsuda SM, Monzon ME, Day AJ, Forteza RM. Hyaluronan fragments/CD44 mediate oxidative stress-induced MUC5B up-regulation in airway epithelium. Am J Respir Cell Mol Biol 2009: 40: 277-285, doi: 10.1165/rcmb.2008-0073OC.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Casalino-Matsuda</surname>
+							<given-names>SM</given-names>
+						</name>
+						<name>
+							<surname>Monzon</surname>
+							<given-names>ME</given-names>
+						</name>
+						<name>
+							<surname>Day</surname>
+							<given-names>AJ</given-names>
+						</name>
+						<name>
+							<surname>Forteza</surname>
+							<given-names>RM</given-names>
+						</name>
+					</person-group>
+					<article-title xml:lang="en">Hyaluronan fragments/CD44 mediate oxidative stress-induced MUC5B up-regulation in airway epithelium</article-title>
+					<source xml:lang="en">Am J Respir Cell Mol Biol</source>
+					<year>2009</year>
+					<volume>40</volume>
+					<fpage>277</fpage>
+					<lpage>285</lpage>
+					<comment>doi:10.1165/rcmb.2008-0073OC</comment>
+				</element-citation>
+			</ref>
+			<ref id="B37">
+				<label>37</label>
+				<mixed-citation>37. Wang G, Dong W, Shen H, Mu X, Li Z, Lin X, et al. A comparison of Twist and E-cadherin protein expression in primary non-small-cell lung carcinoma and corresponding metastases. Eur J Cardiothorac Surg 2011: 39: 1028-1032, doi: 10.1016/j.ejcts.2011.01.023.</mixed-citation>
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>Wang</surname>
+							<given-names>G</given-names>
+						</name>
+						<name>
+							<surname>Dong</surname>
+							<given-names>W</given-names>
+						</name>
+						<name>
+							<surname>Shen</surname>
+							<given-names>H</given-names>
+						</name>
+						<name>
+							<surname>Mu</surname>
+							<given-names>X</given-names>
+						</name>
+						<name>
+							<surname>Li</surname>
+							<given-names>Z</given-names>
+						</name>
+						<name>
+							<surname>Lin</surname>
+							<given-names>X</given-names>
+						</name>
+						<etal/>
+					</person-group>
+					<article-title xml:lang="en">A comparison of Twist and E-cadherin protein expression in primary non-small-cell lung carcinoma and corresponding metastases</article-title>
+					<source xml:lang="en">Eur J Cardiothorac Surg</source>
+					<year>2011</year>
+					<volume>39</volume>
+					<fpage>1028</fpage>
+					<lpage>1032</lpage>
+					<comment>doi:10.1016/j.ejcts.2011.01.023</comment>
+				</element-citation>
+			</ref>
+		</ref-list>
+		<fn-group>
+			<fn id="fn1" fn-type="other">
+				<p>Poster presentation at the 2011 Amsterdam European Respiratory Congress: Poster presentation at the 2011 PPS Biennial Meeting, Memorial Sloan Kettering Cancer Center, New York City, USA.</p>
+			</fn>
+			
+			<fn fn-type="other">
+				<p>First published online January 11, 2013.</p>
+			</fn>
+		</fn-group>
+		</back>
+</article>
