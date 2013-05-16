@@ -5,7 +5,7 @@
 	<xsl:variable name="forceType" select="//CONTROLINFO/ENABLE_FORCETYPE"/>
 	<xsl:variable name="ISSN_AS_ID" select="concat(substring-before(/SERIAL/ISSN_AS_ID,'-'),substring-after(/SERIAL/ISSN_AS_ID,'-'))"/>
 	<xsl:variable name="show_scimago" select="//show_scimago"/>
-	<xsl:variable name="journal_manager" select="//journal_manager"/>
+	
 	<xsl:variable name="scimago_status" select="//scimago_status"/>
 	<xsl:variable name="has_article_pr">
 		<xsl:choose>
