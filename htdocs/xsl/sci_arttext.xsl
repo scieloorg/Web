@@ -4,7 +4,6 @@
 	<xsl:import href="sci_navegation.xsl"/>
 	<xsl:import href="sci_arttext_pmc.xsl"/>
 	<xsl:import href="sci_toolbox.xsl"/>
-	
 	<xsl:variable name="PID" select="//ARTICLE/@PID"/>
 	<xsl:variable name="version">
 		<xsl:choose>

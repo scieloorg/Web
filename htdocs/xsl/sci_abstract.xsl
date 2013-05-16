@@ -53,7 +53,10 @@
                                 <meta name="citation_lastpage" content="{ARTICLE/@LPAGE}"/>
                                 <meta name="citation_id" content="{ARTICLE/@DOI}"/>
 
-				<link rel="stylesheet" type="text/css" href="/xsl/pmc/v3.0/css/scielo.css"/>
+				<link rel="stylesheet" type="text/css" href="/css/screen/general.css"/>
+				<link rel="stylesheet" type="text/css" href="/css/screen/layout.css"/>
+				<link rel="stylesheet" type="text/css" href="/css/screen/styles.css"/>
+				<link rel="stylesheet" type="text/css" href="/xsl/pmc/v3.0/xml.css"/>
 				<script language="javascript" src="applications/scielo-org/js/jquery-1.4.2.min.js"/>
 				<script language="javascript" src="applications/scielo-org/js/toolbox.js"/>
 				<script language="javascript" src="article.js"/>
