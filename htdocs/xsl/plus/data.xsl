@@ -4,13 +4,77 @@
     xmlns:math="http://www.w3.org/2005/xpath-functions/math"
     xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl" exclude-result-prefixes="xs math xd"
     version="3.0">
-    <xd:doc scope="stylesheet">
-        <xd:desc>
-            <xd:p><xd:b>Created on:</xd:b> May 10, 2013</xd:p>
-            <xd:p><xd:b>Author:</xd:b> robertatakenaka</xd:p>
-            <xd:p/>
-        </xd:desc>
-    </xd:doc>
+
+    <xsl:template match="article-meta" mode="plus-issue-label">
+        <xsl:if test="volume">v<xsl:value-of select="volume"/></xsl:if>
+        <xsl:if test="issue">
+            <xsl:choose>
+                <xsl:when test="contains(issue,'Suppl')">
+                    <xsl:variable name="n"><xsl:value-of
+                            select="normalize-space(substring-before(issue,'Suppl'))"
+                        /></xsl:variable>
+                    <xsl:variable name="s"><xsl:value-of
+                            select="normalize-space(substring-after(issue,'Suppl'))"
+                        /></xsl:variable>
+                    <xsl:if test="$n!=''">n<xsl:value-of select="$n"/></xsl:if>s<xsl:value-of
+                        select="$s"/><xsl:if test="$s=''">0</xsl:if>
+                </xsl:when>
+                <xsl:otherwise>n<xsl:value-of select="issue"/></xsl:otherwise>
+            </xsl:choose>
+
+        </xsl:if>
+        <xsl:if test="supplement"><xsl:variable name="s"><xsl:choose>
+                    <xsl:when test="contains(supplement, 'Suppl')"><xsl:value-of
+                            select="substring-after(supplement,'Suppl')"/></xsl:when>
+                    <xsl:otherwise><xsl:value-of select="supplement"/></xsl:otherwise>
+                </xsl:choose></xsl:variable>s<xsl:value-of select="$s"/><xsl:if test="$s=''"
+                >0</xsl:if>
+        </xsl:if>
+    </xsl:template>
+    <xsl:template match="article-meta" mode="bibstrip">
+        <xsl:if test="volume">vol. <xsl:value-of select="volume"/></xsl:if>
+        <xsl:if test="issue">
+            <xsl:choose>
+                <xsl:when test="translate(.,'0','')=''"><xsl:apply-templates select=".//pub-date[@pub-type='epub']" mode="text"></xsl:apply-templates></xsl:when>
+                <xsl:when test="contains(issue,'Suppl')">
+                    <xsl:variable name="n"><xsl:value-of
+                            select="normalize-space(substring-before(issue,'Suppl'))"
+                        /></xsl:variable>
+                    <xsl:variable name="s"><xsl:value-of
+                            select="normalize-space(substring-after(issue,'Suppl'))"
+                        /></xsl:variable>
+                    <xsl:if test="$n!=''">n. <xsl:value-of select="$n"/></xsl:if> Suppl
+                        <xsl:value-of select="$s"/>
+                </xsl:when>
+                <xsl:otherwise>n. <xsl:value-of select="issue"/></xsl:otherwise>
+            </xsl:choose>
+
+        </xsl:if>
+        <xsl:if test="supplement"><xsl:variable name="s"><xsl:choose>
+                    <xsl:when test="contains(supplement, 'Suppl')"><xsl:value-of
+                            select="substring-after(supplement,'Suppl')"/></xsl:when>
+                    <xsl:otherwise><xsl:value-of select="supplement"/></xsl:otherwise>
+                </xsl:choose></xsl:variable>Suppl <xsl:value-of select="$s"/>
+        </xsl:if>
+    </xsl:template>
+    <xsl:variable name="DISPLAY_ARTICLE_TITLE">
+        <xsl:apply-templates
+            select="$doc//front//article-title[@xml:lang=$PAGE_LANG] | $doc//front//subtitle[@xml:lang=$PAGE_LANG]"/>
+        <xsl:apply-templates
+            select="$doc//front//trans-title-group[@xml:lang=$PAGE_LANG]/trans-title| $doc//front//trans-title-group[@xml:lang=$PAGE_LANG]/trans-subtitle"/>
+        <xsl:apply-templates
+            select="$doc//front-stub//article-title[@xml:lang=$PAGE_LANG] | $doc//front-stub//subtitle[@xml:lang=$PAGE_LANG]"
+        />
+    </xsl:variable>
+    <xsl:variable name="ARTICLE_TITLE">
+        <xsl:apply-templates
+            select="$doc//front//article-title[@xml:lang=$PAGE_LANG]//text() | $doc//front//subtitle[@xml:lang=$PAGE_LANG]//text()"/>
+        <xsl:apply-templates
+            select="$doc//front//trans-title-group[@xml:lang=$PAGE_LANG]/trans-title//text()| $doc//front//trans-title-group[@xml:lang=$PAGE_LANG]/trans-subtitle//text()"/>
+        <xsl:apply-templates
+            select="$doc//front-stub//article-title[@xml:lang=$PAGE_LANG]//text() | $doc//front-stub//subtitle[@xml:lang=$PAGE_LANG]//text()"
+        />
+    </xsl:variable>
 
     <xsl:template match="@*" mode="DATA-DISPLAY">
         <xsl:attribute name="{name()}">
@@ -79,19 +143,28 @@
     <xsl:template match="*" mode="DATA-publication-title">
         <xsl:value-of select=".//journal-meta//journal-title"/>
     </xsl:template>
-    <xsl:template match="*" mode="DATA-DISPLAY-ISSN"> Online version ISSN 1414-431X </xsl:template>
-    <xsl:template match="*" mode="DATA-issue-label"> Braz. J. Med. Biol. Res. vol. 46 no. 1 </xsl:template>
-    <xsl:template match="*" mode="DATA-article-categories"> Biomedical Sciences </xsl:template>
+    <xsl:template match="*" mode="DATA-DISPLAY-ISSN">
+        <xsl:apply-templates select=".//journal-meta//issn" mode="DATA-DISPLAY"/>
+    </xsl:template>
+
+    <xsl:template match="issn" mode="DATA-DISPLAY"><xsl:choose>
+            <xsl:when test="@pub-type='epub'">Online version</xsl:when>
+            <xsl:when test="@pub-type='ppub'">Print version</xsl:when><xsl:otherwise><xsl:value-of
+                    select="@pub-type"/></xsl:otherwise>
+        </xsl:choose> ISSN <xsl:value-of select="."/>
+    </xsl:template>
+    <xsl:template match="*" mode="DATA-issue-label">
+        <xsl:value-of select=".//journal-meta//abbrev-journal-title"/>&#160;
+        <xsl:apply-templates select=".//article-meta" mode="bibstrip"/>
+    </xsl:template>
+    <xsl:template match="*" mode="DATA-article-categories">
+        <xsl:value-of select=".//article-categories"/>
+    </xsl:template>
     <xsl:template match="*" mode="DATA-DISPLAY-article-title">
         <xsl:value-of select="$DISPLAY_ARTICLE_TITLE"/>
     </xsl:template>
 
-    <xsl:template match="*" mode="DATA-statistics-service">
-        <xsl:if test="$PID!='' and $COLLECTION_DOMAIN!=''"
-                >/applications/scielo-org/pages/services/articleRequestGraphicPage.php?pid=<xsl:value-of
-                select="$PID"/>&amp;caller=<xsl:value-of select="$COLLECTION_DOMAIN"
-                />&amp;lang=<xsl:value-of select="$INTERFACE_LANG"/></xsl:if>
-    </xsl:template>
+
     <xsl:template match="contrib" mode="DATA-DISPLAY">
         <xsl:apply-templates select=".//name" mode="DATA-DISPLAY"/>
         <xsl:apply-templates select=".//collab" mode="DATA-DISPLAY"/>
@@ -141,10 +214,13 @@
 
     </xsl:template>
     <xsl:template match="person-group" mode="DATA-DISPLAY-ref">
-        <xsl:if test="position()!=1">, </xsl:if>
-        <xsl:apply-templates select="name" mode="DATA-DISPLAY"/>
+        
+        <xsl:apply-templates select="name" mode="DATA-DISPLAY-ref"/>
     </xsl:template>
-
+    <xsl:template match="name" mode="DATA-DISPLAY-ref">
+        <xsl:if test="position()!=1">, </xsl:if>
+        <xsl:apply-templates select="." mode="DATA-DISPLAY"/>
+    </xsl:template>
     <xsl:template match="pub-id" mode="DATA-DISPLAY">
         <xsl:value-of select="@pub-id-type"/>: <xsl:value-of select="."/>
     </xsl:template>
@@ -156,5 +232,53 @@
     </xsl:template>
     <xsl:template match="prefix">
         <xsl:value-of select="concat(', ',.)"/>
+    </xsl:template>
+    <xsl:template match="month" mode="HTML-label-en">
+        <xsl:choose>
+            <xsl:when test="text() = '01' or text() = '1'">January</xsl:when>
+            <xsl:when test="text() = '02' or text() = '2'">February</xsl:when>
+            <xsl:when test="text() = '03' or text() = '3'">March</xsl:when>
+            <xsl:when test="text() = '04' or text() = '4'">April</xsl:when>
+            <xsl:when test="text() = '05' or text() = '5'">May</xsl:when>
+            <xsl:when test="text() = '06' or text() = '6'">June</xsl:when>
+            <xsl:when test="text() = '07' or text() = '7'">July</xsl:when>
+            <xsl:when test="text() = '08' or text() = '8'">August</xsl:when>
+            <xsl:when test="text() = '09' or text() = '9'">September</xsl:when>
+            <xsl:when test="text() = '10'">October</xsl:when>
+            <xsl:when test="text() = '11'">November</xsl:when>
+            <xsl:when test="text() = '12'">December</xsl:when>
+        </xsl:choose>
+    </xsl:template>
+    <xsl:template match="month" mode="HTML-label-es">
+        <xsl:choose>
+            <xsl:when test="text() = '01' or text() = '1'">Enero</xsl:when>
+            <xsl:when test="text() = '02' or text() = '2'">Febrero</xsl:when>
+            <xsl:when test="text() = '03' or text() = '3'">Marzo</xsl:when>
+            <xsl:when test="text() = '04' or text() = '4'">Abril</xsl:when>
+            <xsl:when test="text() = '05' or text() = '5'">Mayo</xsl:when>
+            <xsl:when test="text() = '06' or text() = '6'">Junio</xsl:when>
+            <xsl:when test="text() = '07' or text() = '7'">Julio</xsl:when>
+            <xsl:when test="text() = '08' or text() = '8'">Agosto</xsl:when>
+            <xsl:when test="text() = '09' or text() = '9'">Septiembre</xsl:when>
+            <xsl:when test="text() = '10'">Octubre</xsl:when>
+            <xsl:when test="text() = '11'">Noviembre</xsl:when>
+            <xsl:when test="text() = '12'">Diciembre</xsl:when>
+        </xsl:choose>
+    </xsl:template>
+    <xsl:template match="month" mode="HTML-label-pt">
+        <xsl:choose>
+            <xsl:when test="text() = '01' or text() = '1'">Janeiro</xsl:when>
+            <xsl:when test="text() = '02' or text() = '2'">Fevereiro</xsl:when>
+            <xsl:when test="text() = '03' or text() = '3'">Março</xsl:when>
+            <xsl:when test="text() = '04' or text() = '4'">Abril</xsl:when>
+            <xsl:when test="text() = '05' or text() = '5'">Maio</xsl:when>
+            <xsl:when test="text() = '06' or text() = '6'">Junho</xsl:when>
+            <xsl:when test="text() = '07' or text() = '7'">Julho</xsl:when>
+            <xsl:when test="text() = '08' or text() = '8'">Agosto</xsl:when>
+            <xsl:when test="text() = '09' or text() = '9'">Setembro</xsl:when>
+            <xsl:when test="text() = '10'">Outubro</xsl:when>
+            <xsl:when test="text() = '11'">Novembro</xsl:when>
+            <xsl:when test="text() = '12'">Dezembro</xsl:when>
+        </xsl:choose>
     </xsl:template>
 </xsl:stylesheet>

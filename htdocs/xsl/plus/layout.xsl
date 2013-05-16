@@ -5,7 +5,7 @@
     xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl" exclude-result-prefixes="xs math xd"
     version="3.0">
 
-    
+
     <xsl:template match="*" mode="HTML">
         <html class="no-js" lang="{$PAGE_LANG}">
             <xsl:apply-templates select="." mode="HTML-HEAD"/>
@@ -17,10 +17,11 @@
             <meta charset="utf-8"/>
             <meta Content-math-Type="text/mathml"/>
 
-            <title>Induction of chagasic-like arrhythmias in the isolated beating hearts of healthy
-                rats perfused with Trypanosoma cruzi-conditioned médium</title>
+            <title>
+                <xsl:value-of select="$ARTICLE_TITLE"/>
+            </title>
             <!-- adicionar o link da versão antiga no rel=canonical -->
-            <link rel="canonical" href=""/>
+            <link rel="canonical" href="{$THIS_ARTICLE_URL}"/>
 
             <xsl:apply-templates select="." mode="HTML-HEAD-META"/>
 
@@ -106,32 +107,37 @@
     <xsl:template match="*" mode="HTML-short-link-and-statistics">
         <div class="row link-group">
             <!-- FIXME HTML-NEW -->
-            <div class="span3">
-                <input type="text" name="link-share" class="trans bIcon link"
-                    value="http://ref.scielo.org/y4qccf" data-toggle="tooltip"
-                    title="Click to copy URL to clipboard"/>
-            </div>
-            <div class="dropdown span5">
-                <a href="javascript:void(0);" class="bIcon stats">Article Indicators</a>
-                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                    <!--<li><a tabindex="-1" href="#">Cited by SciELO</a></li>-->
-                    <li>
-                        <a tabindex="-1"
-                            href="http://www.scielo.br/applications/scielo-org/pages/services/articleRequestGraphicPage.php?pid=S0100-879X2013000100058&amp;caller=www.scielo.br&amp;lang=en"
-                            class="iframeModal">Access Statistics</a>
-                    </li>
-                </ul>
-            </div>
+            <xsl:apply-templates select="." mode="HTML-short-link-and-statistics-PARAM"/>
         </div>
     </xsl:template>
-    <xsl:template match="*" mode="HTML-NEW">
+    <xsl:template match="*" mode="HTML-short-link-and-statistics-FAKE">
+        <div class="span3">
+            <input type="text" name="link-share" class="trans bIcon link"
+                value="http://ref.scielo.org/y4qccf" data-toggle="tooltip"
+                title="Click to copy URL to clipboard"/>
+        </div>
+        <div class="dropdown span5">
+            <a href="javascript:void(0);" class="bIcon stats">Article Indicators</a>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                <!--<li><a tabindex="-1" href="#">Cited by SciELO</a></li>-->
+                <li>
+                    <a tabindex="-1"
+                        href="http://www.scielo.br/applications/scielo-org/pages/services/articleRequestGraphicPage.php?pid=S0100-879X2013000100058&amp;caller=www.scielo.br&amp;lang=en"
+                        class="iframeModal">Access Statistics</a>
+                </li>
+            </ul>
+        </div>
+    </xsl:template>
+    <xsl:template match="*" mode="HTML-short-link-and-statistics-PARAM">
 
         <div class="span3">
             <xsl:apply-templates select="." mode="HTML-SHORT-LINK"/>
         </div>
         <div class="dropdown span5">
+
+
             <xsl:variable name="href">
-                <xsl:apply-templates select="." mode="DATA-statistics-service"/>
+                <xsl:value-of select="$SERVICE_ARTICLE_STATISTICS"/>
             </xsl:variable>
             <xsl:if test="$href!=''">
                 <!--TRANSLATE-->
@@ -172,7 +178,7 @@
     <xsl:template match="*" mode="HTML-aff-list">
         <div class="span3">
             <a href="javascript:void(0);" class="bIcon author">Author affiliation</a>
-            <div class="infoContainer author-affiliation hide">
+            <div class="infoContainer author-affiliation ">
                 <a href="javascript:void(0);" class="close pull-right">×</a>
                 <ul class="clearfix">
                     <xsl:apply-templates select=".//aff" mode="HTML"/>
@@ -199,7 +205,7 @@
         </div>
     </xsl:template>
     <xsl:template match="email">
-        <a href="mailto:">
+        <a href="mailto:{.}">
             <xsl:value-of select="."/>
         </a>
     </xsl:template>
@@ -213,6 +219,50 @@
             </div>
         </div>
     </xsl:template>
+    <xsl:template match="*" mode="dates">
+        <xsl:choose>
+            <xsl:when
+                test=".//sub-article[@article-type='translation' and @xml:lang=$PAGE_LANG]//front-stub//pub-date">
+                <xsl:apply-templates
+                    select=".//sub-article[@article-type='translation' and @xml:lang=$PAGE_LANG]//front-stub//pub-date"
+                    mode="HTML-DATES"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select=".//front//pub-date" mode="HTML-DATES"/>
+
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <xsl:template match="pub-date" mode="HTML-DATES">
+        <p>
+            <strong>
+                <xsl:apply-templates select="." mode="text"/>
+            </strong>
+            <br/>
+            <xsl:choose>
+                <xsl:when test="@pub-type='epub'">Electronic publication (usually web, but also
+                    includes CD-ROM or other electronic only distribution) </xsl:when>
+                <xsl:when test="@pub-type='print'">Print</xsl:when>
+            </xsl:choose>
+        </p>
+    </xsl:template>
+    <xsl:template match="pub-date" mode="text">
+        <xsl:choose>
+            <xsl:when test="$PAGE_LANG='es'">
+                <xsl:value-of select="day"/>&#160;
+                <xsl:apply-templates select="season| month" mode="HTML-label-es"/>
+            </xsl:when>
+            <xsl:when test="$PAGE_LANG='pt'">
+                <xsl:value-of select="day"/>&#160;
+                <xsl:apply-templates select="season| month" mode="HTML-label-pt"/>
+            </xsl:when>
+
+            <xsl:otherwise>
+                <xsl:apply-templates select="season|month" mode="HTML-label-en"/>&#160;
+                <xsl:apply-templates select="day"/>, </xsl:otherwise>
+        </xsl:choose>
+        <xsl:apply-templates select="year"/>
+    </xsl:template>
     <xsl:template match="*" mode="HTML-toolbox">
         <!-- FIXME -->
         <ul class="rMenu">
@@ -221,42 +271,38 @@
                     <span>-</span></a>
 
                 <div>
-                    <p>
-                        <strong>October 23, 2013</strong><br/> Electronic publication (usually web,
-                        but also includes CD-ROM or other electronic only distribution) </p>
-                    <p>
-                        <strong>January, 2013</strong><br/> Collection </p>
+                    <xsl:apply-templates select="." mode="dates"/>
                 </div>
             </li>
             <li>
                 <a
-                    href="http://www.scielo.br/scielo.php?script=sci_pdf&amp;pid=S0100-879X2013000100058&amp;lng=en&amp;nrm=iso&amp;tlng=en"
+                    href="{$THIS_PDF_URL}"
                     class="yIcon pdf" target="_blank">Article in PDF</a>
             </li>
             <li>
-                <a
-                    href="http://www.scielo.br/scieloOrg/php/articleXML.php?pid=S0100-879X2013000100058&amp;lang=en"
-                    target="_blank" class="yIcon xml">Article in XML</a>
+                <a href="{$SERVICE_ARTICLE_XML}" target="_blank" class="yIcon xml">Article in
+                    XML</a>
             </li>
             <li>
-                <a
-                    href="http://www.scielo.br/scieloOrg/php/reference.php?pid=S0100-879X2013000100058&amp;caller=www.scielo.br&amp;lang=en"
-                    class="yIcon refs iframeModal">Article references</a>
+                <a href="{$SERVICE_ARTICLE_REFERENCES}" class="yIcon refs iframeModal">Article
+                    references</a>
             </li>
             <li>
-                <a
-                    href="http://www.scielo.br/scieloOrg/php/translate.php?pid=S102-879X2013000100058&amp;caller=www.scielo.br&amp;lang=en&amp;tlang=en&amp;script=sci_arttext"
-                    class="yIcon translate iframeModal">Automatic translation</a>
+                <a href="{$SERVICE_ARTICLE_AUTO_TRANSLATION}" class="yIcon translate iframeModal"
+                    >Automatic translation</a>
             </li>
             <li>
-                <a
-                    href="http://www.scielo.br/applications/scielo-org/pages/services/sendMail.php?pid=S0100-879X2013000100058&amp;caller=www.scielo.br&amp;lang=en"
-                    class="yIcon send iframeModal">Send this article by e-mail</a>
+                <a href="{$SERVICE_ARTICLE_SEND_EMAIL}" class="yIcon send iframeModal">Send this
+                    article by e-mail</a>
             </li>
             <li>
                 <a href="javascript:void(0);" class="yIcon social fold">Share this article
                         <span>+</span></a>
-                <div class="hide"> links </div>
+                <div class="hide">
+                    <a
+                        href="http://www.addthis.com/bookmark.php?v=250&amp;username=xa-4c347ee4422c56df"
+                        class="addthis_button_expanded"> Bookmarks </a>
+                </div>
             </li>
         </ul>
     </xsl:template>
@@ -367,9 +413,12 @@
                                 <span>-</span></a>
                         <div class="link-list">
                             <!--<a href="#">Similar on SciELO</a><br/>-->
-                            <a
-                                href="http://www.ubio.org/tools/linkit.php?url=http://www.scielo.br/scielo.php?script=sci_arttext&amp;pid=S0100-879X2013000100058&amp;lng=en&amp;nrm=iso&amp;tlng=en"
-                                target="_blank">uBio</a>
+
+                            <a href="javascript:void(0);">
+                                <xsl:attribute name="onclick"> window.open('<xsl:value-of
+                                        select="$SERVICE_UBIO"/>') </xsl:attribute>
+                                <img src="http://www.scielo.br/img/btubio.png" border="0"
+                                    width="21px" heigth="21px"/> uBio </a>
                             <br/>
                         </div>
                     </xsl:if>
@@ -381,17 +430,19 @@
         <a>
             <xsl:attribute name="href">#<xsl:value-of select="translate(@sec-type,'|','-')"/>
             </xsl:attribute>
-            <xsl:attribute name="class">goto</xsl:attribute> 
-                <xsl:apply-templates select="title"/>
+            <xsl:attribute name="class">goto</xsl:attribute>
+            <xsl:apply-templates select="title"/>
         </a>
         <br/>
 
     </xsl:template>
     <xsl:template match="sec[@sec-type]" mode="HTML-FLOAT-SECTION">
-        <li><a>
-            <xsl:attribute name="href">#<xsl:value-of select="translate(@sec-type,'|','-')"/>
-            </xsl:attribute>
-            <xsl:attribute name="class">goto</xsl:attribute>       <xsl:apply-templates select="title"/>
+        <li>
+            <a>
+                <xsl:attribute name="href">#<xsl:value-of select="translate(@sec-type,'|','-')"/>
+                </xsl:attribute>
+                <xsl:attribute name="class">goto</xsl:attribute>
+                <xsl:apply-templates select="title"/>
             </a>
         </li>
 
@@ -439,14 +490,39 @@
             </ul>
         </div>
     </xsl:template>
+    <xsl:template match="ref" mode="REFERENCE-LINKS">
+        <xsl:param name="position"/>
+        <xsl:variable name="pos">00000<xsl:value-of select="$position"/></xsl:variable>
+        <xsl:variable name="p">
+            <xsl:value-of select="substring($pos,string-length($pos)-4)"/>
+        </xsl:variable>
+        <xsl:value-of
+            select="concat(substring-before($SERVICE_REFERENCE_LINKS,'REFERENCE_ID'),$p,substring-after($SERVICE_REFERENCE_LINKS,'REFERENCE_ID'))"
+        />
+    </xsl:template>
     <xsl:template match="ref" mode="HTML-TEXT">
-        <li class="clearfix">
+        <xsl:variable name="link">
+            <xsl:apply-templates select="." mode="REFERENCE-LINKS">
+                <xsl:with-param name="position">
+                    <xsl:value-of select="position()"/>
+                </xsl:with-param>
+            </xsl:apply-templates>
+        </xsl:variable>
+        <li class="clearfix"><a name="{@id}"/>
             <sup class="xref big pull-left">
                 <xsl:apply-templates select="label"/>
             </sup>
             <div class="pull-right">
                 <xsl:apply-templates select="mixed-citation"/>
-                <a href="#" class="bIcon miniLink" target="_blank">Link</a>
+                <xsl:if test="not(mixed-citation)">
+                    <xsl:apply-templates select="element-citation" mode="DATA-DISPLAY"/>
+                </xsl:if>
+                <a href="javascript:void(0);" class="bIcon miniLink" target="_blank">
+                    <xsl:attribute name="onclick">javascript: window.open('<xsl:value-of
+                            select="normalize-space($link)"
+                        />','','width=640,height=500,resizable=yes,scrollbars=1,menubar=yes,');</xsl:attribute>
+                    Links</a>
+
             </div>
         </li>
     </xsl:template>
@@ -489,7 +565,9 @@
         <xsl:choose>
             <xsl:when test="../@sec-type">
                 <h1>
-                    <xsl:attribute name="id"><xsl:value-of select="translate(../@sec-type,'|', '-')"></xsl:value-of></xsl:attribute>
+                    <xsl:attribute name="id">
+                        <xsl:value-of select="translate(../@sec-type,'|', '-')"/>
+                    </xsl:attribute>
                     <xsl:apply-templates select="." mode="DATA-DISPLAY"/>
                 </h1>
             </xsl:when>
@@ -538,7 +616,7 @@
             <xsl:value-of select="$parag_id"/>-<xsl:value-of select="@rid"/></xsl:variable>
 
         <sup class="xref {$id}">
-            <xsl:apply-templates/>
+            <xsl:apply-templates/><xsl:if test=".=''"><xsl:value-of select="substring(@rid,2)"/></xsl:if>
         </sup>
     </xsl:template>
     <xsl:template match="bold" mode="HTML-TEXT">
@@ -558,7 +636,7 @@
 
         <li class="clearfix {$parag_id}-{@rid}">
             <sup class="xref big pull-left">
-                <xsl:value-of select="."/>
+                <xsl:value-of select="."/><xsl:if test=".=''"><xsl:value-of select="substring(@rid,2)"/></xsl:if>
             </sup>
             <xsl:apply-templates select="$ref[@id=$rid]" mode="HTML-ref"/>
 
@@ -566,24 +644,31 @@
 
     </xsl:template>
     <xsl:template match="ref" mode="HTML-ref">
+        <xsl:variable name="link">
+            <xsl:apply-templates select="." mode="REFERENCE-LINKS">
+                <xsl:with-param name="position" select="substring(@id,2)"/>
+            </xsl:apply-templates>
+        </xsl:variable>
         <!-- FIXME -->
         <div class="closed pull-right">
-            <xsl:apply-templates select=".//chapter-title"/>
-            <xsl:apply-templates select=".//article-title"/>
+            <xsl:apply-templates select=".//chapter-title | .//article-title"/>
             <div class="source"><xsl:apply-templates select=".//source"/>, <xsl:apply-templates
                     select=".//year"/></div>
 
         </div>
         <div class="opened pull-right hide">
-            <strong>
-                <xsl:apply-templates select=".//chapter-title"/>
-                <xsl:apply-templates select=".//article-title"/>.</strong>
-            <xsl:apply-templates select=".//person-group[1]|.//collab" mode="DATA-DISPLAY-ref"/>.
-                <div class="source"><xsl:apply-templates select=".//source"/>
-                <xsl:apply-templates select=".//year"/>; <xsl:apply-templates select=".//volume"/>:
-                    <xsl:apply-templates select=".//fpage"/>-<xsl:apply-templates select=".//lpage"/>
-                <xsl:apply-templates select=".//pub-id" mode="DATA-DISPLAY"/>
-            </div>
+            <a href="#{@id}"  >
+                
+                <strong>
+                    <xsl:apply-templates select=".//chapter-title | .//article-title"/>.</strong>
+                <xsl:apply-templates select=".//person-group[1]|.//collab" mode="DATA-DISPLAY-ref"
+                />. <div class="source"><xsl:apply-templates select=".//source"/>
+                    <xsl:apply-templates select="concat(' ', .//year)"/>; <xsl:apply-templates select=".//volume"
+                    />: <xsl:apply-templates select=".//fpage"/>-<xsl:apply-templates
+                        select=".//lpage"/>
+                    <xsl:apply-templates select=".//pub-id" mode="DATA-DISPLAY"/>
+                </div>
+            </a>
         </div>
     </xsl:template>
     <xsl:template match="inline-formula|disp-formula" mode="HTML-TEXT">
@@ -605,7 +690,7 @@
                 </xsl:variable>
                 <div class="thumb">
                     <xsl:attribute name="style"> background-image: url(<xsl:value-of
-                            select="$img_filename"/>); );</xsl:attribute> Thumbnail</div>
+                            select="$img_filename"/>); </xsl:attribute> Thumbnail</div>
                 <!-- FIXME -->
                 <div class="preview span9 hide">
                     <img src="{$img_filename}" alt="{caption}"/>
@@ -625,18 +710,41 @@
             <div class="container">
                 <div class="row metaInfo">
                     <div class="span10">
-                        <p> This article was received in May 05, 2012 and accepted in September 03,
+                        <!--p> This article was received in May 05, 2012 and accepted in September 03,
                             2012.<br/> First published online January 11, 2013. </p>
                         <small> This is an Open Access article distributed under the terms of the
                             Creative Commons Attribution Non-Commercial License, which permits
                             unrestricted non-commercial use, distribution, and reproduction in any
-                            medium, provided the original work is properly cited. </small>
+                            medium, provided the original work is properly cited. </small-->
+                        <xsl:comment>history</xsl:comment>
+                        <xsl:apply-templates select=".//history" mode="HTML-BODY-FOOTER"/>
+                        <xsl:comment>fn-group</xsl:comment>
+                        <xsl:apply-templates select=".//back//fn-group//fn" mode="HTML-BODY-FOOTER"/>
+                        <xsl:comment>permissions</xsl:comment>
+                        <xsl:apply-templates select=".//permissions" mode="HTML-BODY-FOOTER"/>
                     </div>
                     <div class="span2 logo"> </div>
                 </div>
                 <p> End of document </p>
             </div>
         </footer>
+    </xsl:template>
+    <xsl:template match="history" mode="HTML-BODY-FOOTER">
+        <p>
+            <xsl:apply-templates select="*" mode="HTML-BODY-FOOTER"/>
+        </p>
+    </xsl:template>
+
+
+    <xsl:template match="permissions" mode="HTML-BODY-FOOTER">
+        <small>
+            <xsl:apply-templates select="." mode="HTML-TEXT"/>
+        </small>
+    </xsl:template>
+    <xsl:template match="fn" mode="HTML-BODY-FOOTER">
+
+        <xsl:apply-templates select="." mode="HTML-TEXT"/>
+
     </xsl:template>
     <xsl:template match="*" mode="HTML-BODY-FLOAT-MENU">
         <div class="floatMenu">
@@ -667,8 +775,8 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="span6"> <xsl:apply-templates select="."
-                            mode="HTML-FLOAT-SECTIONS"/>
+                    <div class="span6">
+                        <xsl:apply-templates select="." mode="HTML-FLOAT-SECTIONS"/>
                         <xsl:apply-templates select="." mode="HTML-FLOAT-toolbox"/>
                         <xsl:apply-templates select="." mode="HTML-CONTRAST"/>
                         <a href="#top" class="main gIcon top goto" title="Go to top">Top</a>
@@ -752,51 +860,107 @@
         </strong>
     </xsl:template>
     <xsl:template match="*" mode="HTML-FLOAT-RELATED">
-        <div class="drop-container">
-            <a href="javascript:void(0);" class="main gIcon related" title="Related links">Related
-                links</a>
-            <ul class="drop menu">
-                <!--
+
+        <xsl:if test="$SERVICE_RELATED='YES'">
+            <div class="drop-container">
+                <a href="javascript:void(0);" class="main gIcon related" title="Related links"
+                    >Related links</a>
+                <ul class="drop menu">
+                    <!--
 								<li>
 									<a href="#">Similar on SciELO</a>
 								</li>
 								-->
-                <li>
-                    <a
-                        href="http://www.ubio.org/tools/linkit.php?url=http://www.scielo.br/scielo.php?script=sci_arttext&amp;pid=S0100-879X2013000100058&amp;lng=en&amp;nrm=iso&amp;tlng=en"
-                        target="_blank">uBio</a>
-                </li>
-            </ul>
-        </div>
+                    <li>
+                        <a href="javascript:void(0);">
+                            <xsl:attribute name="onclick"> window.open('<xsl:value-of
+                                    select="$SERVICE_UBIO"/>') </xsl:attribute>
+                            <img src="http://www.scielo.br/img/btubio.png" border="0" width="21px"
+                                heigth="21px"/> uBio </a>
+
+                    </li>
+                </ul>
+            </div>
+
+        </xsl:if>
+
+
     </xsl:template>
     <xsl:template match="*" mode="HTML-FLOAT-toolbox">
         <!-- FIXME -->
-        <a
-            href="http://www.scielo.br/scielo.php?script=sci_pdf&amp;pid=S0100-879X2013000100058&amp;lng=en&amp;nrm=iso&amp;tlng=en"
-            class="main gIcon pdf" title="Article in PDF" target="_blank">Article in PDF</a>
-        <a
-            href="http://www.scielo.br/scieloOrg/php/articleXML.php?pid=S0100-879X2013000100058&amp;lang=en"
-            class="main gIcon xml" title="Article in XML" target="_blank">Article in XML</a>
-        <a
-            href="http://www.scielo.br/scieloOrg/php/reference.php?pid=S0100-879X2013000100058&amp;caller=www.scielo.br&amp;lang=en"
-            class="main gIcon refs iframeModal" title="Article references">Article references</a>
-        <a
-            href="http://www.scielo.br/scieloOrg/php/translate.php?pid=S0100-879X2013000100058&amp;caller=www.scielo.br&amp;lang=en&amp;tlang=en&amp;script=sci_arttext"
-            class="main gIcon translate iframeModal" title="Article translate">Automatic
-            translation</a>
-        <a
-            href="http://www.scielo.br/applications/scielo-org/pages/services/sendMail.php?pid=S0100-879X2013000100058&amp;caller=www.scielo.br&amp;lang=en"
-            class="main gIcon send iframeModal" title="Send this article by email">Send this article
-            by email</a>
+        <a href="{$THIS_PDF_URL}" class="main gIcon pdf" title="Article in PDF" target="_blank"
+            >Article in PDF</a>
+        <a href="{$SERVICE_ARTICLE_XML}" class="main gIcon xml" title="Article in XML"
+            target="_blank">Article in XML</a>
+        <a href="{$SERVICE_ARTICLE_REFERENCES}" class="main gIcon refs iframeModal"
+            title="Article references">Article references</a>
+        <a href="{$SERVICE_ARTICLE_AUTO_TRANSLATION}" class="main gIcon translate iframeModal"
+            title="Article translate">Automatic translation</a>
+        <a href="{$SERVICE_ARTICLE_SEND_EMAIL}" class="main gIcon send iframeModal"
+            title="Send this article by email">Send this article by email</a>
 
         <div class="drop-container social">
             <a href="javascript:void(0);" class="main gIcon social" title="Share this article">Share
                 this article<!-- TRANSLATE --></a>
             <ul class="drop menu">
                 <li>
-                    <a href="#">Link</a>
+                    <a
+                        href="http://www.addthis.com/bookmark.php?v=250&amp;username=xa-4c347ee4422c56df"
+                        class="addthis_button_expanded"> Bookmarks </a>
+
+                    <!-- AddThis Button END -->
                 </li>
             </ul>
         </div>
     </xsl:template>
+
+    <xsl:template match="history/date/@date-type" mode="HTML-label-en">
+        <xsl:choose>
+            <xsl:when test=". = 'rev-recd'">Revised</xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="translate(substring(.,1,1), 'ar', 'AR')"/>
+                <xsl:value-of select="substring(.,2)"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <xsl:template match="history/date/@date-type" mode="HTML-label-pt">
+        <xsl:choose>
+            <xsl:when test=". = 'rev-recd'">Revisado</xsl:when>
+            <xsl:when test=". = 'accepted'">Aceito</xsl:when>
+            <xsl:when test=". = 'received'">Recebido</xsl:when>
+        </xsl:choose>
+    </xsl:template>
+    <xsl:template match="history/date/@date-type" mode="HTML-label-es">
+        <xsl:choose>
+            <xsl:when test=". = 'rev-recd'">Revisado</xsl:when>
+            <xsl:when test=". = 'accepted'">Aprobado</xsl:when>
+            <xsl:when test=". = 'received'">Recibido</xsl:when>
+        </xsl:choose>
+    </xsl:template>
+    <xsl:template match="history/date" mode="HTML-BODY-FOOTER">
+        <xsl:choose>
+            <xsl:when test="$PAGE_LANG='en'">
+                <xsl:apply-templates select="@date-type" mode="HTML-label-en"/>:
+                    <xsl:apply-templates select="month" mode="HTML-label-en"/><xsl:value-of
+                    select="concat(' ',day)"/>, <xsl:value-of select="year"/>
+            </xsl:when>
+            <xsl:when test="$PAGE_LANG='pt'">
+                <xsl:apply-templates select="@date-type" mode="HTML-label-pt"/>: <xsl:value-of
+                    select="day"/> de <xsl:apply-templates select="month" mode="HTML-label-pt"/> de
+                    <xsl:value-of select="year"/>
+            </xsl:when>
+            <xsl:when test="$PAGE_LANG='es'">
+                <xsl:apply-templates select="@date-type" mode="HTML-label-es"/>: <xsl:value-of
+                    select="day"/> de <xsl:apply-templates select="month" mode="HTML-label-es"/> de
+                    <xsl:value-of select="year"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="@date-type" mode="HTML-label-en"/>:
+                    <xsl:apply-templates select="month" mode="HTML-label-en"/>
+                <xsl:value-of select="concat(' ',day)"/>, <xsl:value-of select="year"/>
+            </xsl:otherwise>
+        </xsl:choose>
+        <xsl:if test="position()!=last()">; </xsl:if>
+    </xsl:template>
+
 </xsl:stylesheet>

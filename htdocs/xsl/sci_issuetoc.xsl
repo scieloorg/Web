@@ -3,7 +3,7 @@
 	<xsl:output method="html" omit-xml-declaration="yes" indent="no"/>
 
 	<xsl:include href="sci_navegation.xsl"/>
-	<xsl:variable name="journal_manager" select="//journal_manager"/>
+	
 	<xsl:variable name="num" select="//ISSUE/@NUM"/>
 	<xsl:variable name="issuetoc_controlInfo" select="//CONTROLINFO"/>
 	<xsl:template match="SERIAL">
