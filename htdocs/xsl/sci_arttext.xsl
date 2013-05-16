@@ -4,7 +4,7 @@
 	<xsl:import href="sci_navegation.xsl"/>
 	<xsl:import href="sci_arttext_pmc.xsl"/>
 	<xsl:import href="sci_toolbox.xsl"/>
-	<xsl:variable name="journal_manager" select="//journal_manager"/><xsl:variable name="PID" select="//ARTICLE/@PID"/>
+	<xsl:variable name="PID" select="//ARTICLE/@PID"/>
 	<xsl:variable name="version">
 		<xsl:choose>
 			<xsl:when test=".//BODY">html</xsl:when>

@@ -3,6 +3,8 @@
 	<xsl:include href="sci_navegation.xsl"/>
 	<xsl:include href="journalStatus.xsl"/>
 	<xsl:output method="html" indent="no"/>
+	
+	<xsl:variable name="PRESENTATION_SORTED_BY_PUBDATE"><xsl:value-of select="//show_issues_sorted_by_pubdate"/></xsl:variable>
 	<xsl:variable name="spaceYear" select="'12%'"/>
 	<xsl:variable name="spaceVol" select="'7%'"/>
 	<xsl:variable name="spaceIssue" select="'5%'"/>
@@ -224,18 +226,28 @@
 					<xsl:otherwise>&#160;</xsl:otherwise>
 				</xsl:choose>
 				<!--xsl:apply-templates select="ISSUE[@NUM or @SUPPL]"/-->
-				<xsl:apply-templates select="ISSUE[@NUM and @NUM!='ahead' and @NUM!='review']">
-				    <xsl:sort select="@PUBDATE" data-type="text" order="ascending"/>
-				</xsl:apply-templates>
-				<xsl:apply-templates select="ISSUE[not(@NUM)]">
-				    <xsl:sort select="@PUBDATE" data-type="text" order="ascending"/>
-				</xsl:apply-templates>
-				<xsl:apply-templates select="ISSUE[@NUM='AHEAD']"/>
-				<xsl:apply-templates select="ISSUE[@NUM='REVIEW']"/>
-				<!-- fixed 20040114 
-					ERRO OCASIONADO APOS CORRIGIR A AUSENCIA DE LINK NO VOLUME QUANDO ESTE NAO TINHA NEM NUMERO NEM VOLUME.
-					EXEMPLO ECLETICA QUIMICA ANO 2002.
-				-->
+				<xsl:choose>
+					<xsl:when test="$PRESENTATION_SORTED_BY_PUBDATE='1'">
+						<xsl:apply-templates select="ISSUE[@NUM and @NUM!='AHEAD' and @NUM!='REVIEW' and not(@SUPPL) and @NUM!='SPE']">
+							<xsl:sort select="@PUBDATE" data-type="text" order="ascending"/>
+						</xsl:apply-templates>
+						<xsl:apply-templates select="ISSUE[not(@NUM) or @SUPPL or @NUM='SPE']">
+							<xsl:sort select="@PUBDATE" data-type="text" order="ascending"/>
+						</xsl:apply-templates>
+						<xsl:apply-templates select="ISSUE[@NUM='AHEAD']"/>
+						<xsl:apply-templates select="ISSUE[@NUM='REVIEW']"/>
+						
+						
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:apply-templates select="ISSUE[@NUM!='AHEAD' and @NUM!='REVIEW']"/>
+						
+						<xsl:apply-templates select="ISSUE[@NUM='AHEAD']"/>
+						<xsl:apply-templates select="ISSUE[@NUM='REVIEW']"/>
+						
+					</xsl:otherwise>
+				</xsl:choose>
+				
 				<xsl:call-template name="AddBlankCells">
 					<xsl:with-param name="ncells" select="$colnumber - $navailissues"/>
 				</xsl:call-template>
@@ -278,7 +290,7 @@
         Parameter: ncells - Number of cells to add -->
 	<xsl:template name="AddBlankCells">
 		<xsl:param name="ncells"/>
-		<xsl:if test="$ncells>0">
+		<xsl:if test="$ncells&gt;0">
 			<TD align="middle" width="{$spaceIssue}" height="35">&#160;</TD>
 			<xsl:call-template name="AddBlankCells">
 				<xsl:with-param name="ncells" select="$ncells - 1"/>
