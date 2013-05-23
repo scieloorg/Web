@@ -12,10 +12,15 @@
    
     <xsl:output method="html" indent="yes" />
 
- 
-    <xsl:variable name="xml_article">file://<xsl:value-of
-            select="concat(substring-before(.//PATH_HTDOCS,'htdocs'),'bases/xml/',.//filename)"
-        /></xsl:variable>
+    <xsl:variable name="xml_article">
+        <xsl:choose>
+            <xsl:when test="//TESTE">file://<xsl:value-of select="//TESTE"/></xsl:when>
+            <xsl:otherwise>file:///<xsl:value-of select="concat(substring-before(.//PATH_HTDOCS,'htdocs'),'bases/xml/',.//filename)"/></xsl:otherwise>
+        </xsl:choose>
+    </xsl:variable>
+     <!--xsl:variable name="xml_article">file://<xsl:value-of
+        select="concat(substring-before(.//PATH_HTDOCS,'htdocs'),'bases/xml/',.//filename)"
+    /></xsl:variable-->
     <xsl:variable name="doc" select="document($xml_article)"/>
     <xsl:variable name="issue_label">
         <xsl:apply-templates select="document($xml_article)//front/article-meta"
@@ -73,6 +78,11 @@
         <xsl:if test="$title_subjects = 'BIOLOGICAL SCIENCES'">YES</xsl:if></xsl:if>
     </xsl:variable>
     <xsl:variable name="SERVICE_REFERENCE_LINKS">/scielo.php?script=sci_nlinks&amp;pid=<xsl:value-of select="$PID"/>REFERENCE_ID&amp;lng=<xsl:value-of select="$INTERFACE_LANG"/></xsl:variable>
+    
+    <xsl:variable name="original" select="document($xml_article)//article"/>
+    <xsl:variable name="trans" select="document($xml_article)//sub-article[@article-type='translation' and @xml:lang=$PAGE_LANG]"/>
+    
+    
     <xsl:template match="/">
         <xsl:choose>
             <xsl:when test="$xml_article">
