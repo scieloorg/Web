@@ -89,55 +89,58 @@
 							<!--
                                 monta a div: rightCol
                             -->
-							<xsl:if test="$journal_manager=0">
-								<div class="rightCol">
-									<xsl:if test="($has_issue_pr = 'false') and ($has_article_pr = 'false')">
-										<xsl:attribute name="style">display: none;</xsl:attribute>
-									</xsl:if>
-									<h2 class="sectionHeading">
-										<xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='press_releases']"/>
-									</h2>
-									<xsl:if test="$has_issue_pr != 'false'">
-										<strong>
-											<xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='numbers']"/>
-										</strong>
-										<ul class="pressReleases">
-											<xsl:apply-templates select="//PRESSRELEASE/issue" mode="pr">
-												<xsl:sort select="@data" order="descending"/>
-											</xsl:apply-templates>
-										</ul>
-									</xsl:if>
-									<xsl:if test="$has_article_pr != 'false'">
-										<strong>
-											<xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='articles']"/>
-										</strong>
-										<ul class="pressReleases">
-											<xsl:apply-templates select="//PRESSRELEASE/article" mode="pr">
-												<xsl:sort select="@data" order="descending"/>
-											</xsl:apply-templates>
-										</ul>
-									</xsl:if>
-								</div>
-							</xsl:if>
-							<xsl:if test="$journal_manager=1">
-								<div class="rightCol" style="display: none;" id="rightCol">
-									<h2 class="sectionHeading">
-										<xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='press_releases']"/>
-									</h2>
-									<span id="pr_issue_area" style="display: none;">
-										<strong>
-											<xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='numbers']"/>
-										</strong>
-										<span class="PressReleases" id="issuePressRelease"></span>
-									</span>
-									<span id="pr_article_area" style="display: none;">
-										<strong>
-											<xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='articles']"/>
-										</strong>
-										<span class="PressReleases" id="articlePressRelease"></span>
-									</span>
-								</div>
-							</xsl:if>
+							<xsl:choose>
+								<xsl:when test="$journal_manager='1'">
+									<div class="rightCol" style="display: none;" id="rightCol">
+										<h2 class="sectionHeading">
+											<xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='press_releases']"/>
+										</h2>
+										<span id="pr_issue_area" style="display: none;">
+											<strong>
+												<xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='numbers']"/>
+											</strong>
+											<span class="PressReleases" id="issuePressRelease"></span>
+										</span>
+										<span id="pr_article_area" style="display: none;">
+											<strong>
+												<xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='articles']"/>
+											</strong>
+											<span class="PressReleases" id="articlePressRelease"></span>
+										</span>
+									</div>
+								</xsl:when>
+								<xsl:otherwise>
+									<div class="rightCol">
+										<xsl:if test="($has_issue_pr = 'false') and ($has_article_pr = 'false')">
+											<xsl:attribute name="style">display: none;</xsl:attribute>
+										</xsl:if>
+										<h2 class="sectionHeading">
+											<xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='press_releases']"/>
+										</h2>
+										<xsl:if test="$has_issue_pr != 'false'">
+											<strong>
+												<xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='numbers']"/>
+											</strong>
+											<ul class="pressReleases">
+												<xsl:apply-templates select="//PRESSRELEASE/issue" mode="pr">
+													<xsl:sort select="@data" order="descending"/>
+												</xsl:apply-templates>
+											</ul>
+										</xsl:if>
+										<xsl:if test="$has_article_pr != 'false'">
+											<strong>
+												<xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='articles']"/>
+											</strong>
+											<ul class="pressReleases">
+												<xsl:apply-templates select="//PRESSRELEASE/article" mode="pr">
+													<xsl:sort select="@data" order="descending"/>
+												</xsl:apply-templates>
+											</ul>
+										</xsl:if>
+									</div>
+								</xsl:otherwise>
+							</xsl:choose>
+							
 						</div>
 						<div class="spacer">&#160;</div>
 						<!--
