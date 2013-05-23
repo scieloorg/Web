@@ -595,29 +595,36 @@
             <xsl:value-of select="../sec/@sec-type"/>
             <xsl:value-of select="position()"/>
         </xsl:param>
-
-        <div class="row paragraph">
-            <div class="span8">
-                <p>
-                    <xsl:apply-templates select="*|text()" mode="HTML-TEXT">
-                        <xsl:with-param name="param_p">
-                            <xsl:value-of select="$parag_id"/>
-                            <xsl:value-of select="position()"/>
-                        </xsl:with-param>
-                    </xsl:apply-templates>
-                </p>
-            </div>
-
-
-            <div class="span4">
-                <xsl:if test=".//xref[@ref-type='bibr']">
-
-                    <ul class="refList">
-                        <xsl:apply-templates select=".//xref[@ref-type='bibr']" mode="HTML-ref"/>
-                    </ul>
-                </xsl:if>
-            </div>
-        </div>
+        <xsl:choose>
+            <xsl:when test=".//fig or .//table-wrap[.//graphic]">
+                <xsl:apply-templates select=".//fig|.//table-wrap" mode="HTML-TEXT"></xsl:apply-templates>
+            </xsl:when>
+            <xsl:otherwise>
+                <div class="row paragraph">
+                    <div class="span8">
+                        <p>
+                            <xsl:apply-templates select="*|text()" mode="HTML-TEXT">
+                                <xsl:with-param name="param_p">
+                                    <xsl:value-of select="$parag_id"/>
+                                    <xsl:value-of select="position()"/>
+                                </xsl:with-param>
+                            </xsl:apply-templates>
+                        </p>
+                    </div>
+                    
+                    
+                    <div class="span4">
+                        <xsl:if test=".//xref[@ref-type='bibr']">
+                            
+                            <ul class="refList">
+                                <xsl:apply-templates select=".//xref[@ref-type='bibr']" mode="HTML-ref"/>
+                            </ul>
+                        </xsl:if>
+                    </div>
+                </div>
+            </xsl:otherwise>
+        </xsl:choose>
+        
     </xsl:template>
     <xsl:template match="p//xref[@ref-type='bibr']" mode="HTML-TEXT">
         <xsl:param name="parag_id"/>
