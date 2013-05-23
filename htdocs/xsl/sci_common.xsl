@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-	<xsl:variable name="journal_manager" select="//journal-manager"/>
+	<xsl:variable name="journal_manager" select="//journal_manager"/>
 	<xsl:variable name="control_info" select="//CONTROLINFO"/>
 	<xsl:variable name="HOME_URL">http://<xsl:value-of select="$control_info/SCIELO_INFO/SERVER"/>
 		<xsl:value-of select="$control_info/SCIELO_INFO/PATH_DATA"/>scielo.php</xsl:variable>
