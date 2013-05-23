@@ -6,9 +6,12 @@
     version="3.0">
 
     <xsl:template match="article-meta" mode="plus-issue-label">
-        <xsl:if test="volume">v<xsl:value-of select="volume"/></xsl:if>
+        <xsl:if test="volume and translate(volume, '0', '')!=''">v<xsl:value-of select="volume"
+            /></xsl:if>
         <xsl:if test="issue">
             <xsl:choose>
+                <xsl:when test="translate(issue, '0', '')=''"><xsl:apply-templates
+                        select=".//pub-date[@pub-type='epub']/year"/>nahead</xsl:when>
                 <xsl:when test="contains(issue,'Suppl')">
                     <xsl:variable name="n"><xsl:value-of
                             select="normalize-space(substring-before(issue,'Suppl'))"
@@ -32,10 +35,12 @@
         </xsl:if>
     </xsl:template>
     <xsl:template match="article-meta" mode="bibstrip">
-        <xsl:if test="volume">vol. <xsl:value-of select="volume"/></xsl:if>
+        <xsl:if test="volume and volume!='00'">vol. <xsl:value-of select="volume"/></xsl:if>
         <xsl:if test="issue">
             <xsl:choose>
-                <xsl:when test="translate(.,'0','')=''"><xsl:apply-templates select=".//pub-date[@pub-type='epub']" mode="text"></xsl:apply-templates></xsl:when>
+                <xsl:when test="translate(.,'0','')=''">
+                    <xsl:apply-templates select=".//pub-date[@pub-type='epub']/year"/>
+                </xsl:when>
                 <xsl:when test="contains(issue,'Suppl')">
                     <xsl:variable name="n"><xsl:value-of
                             select="normalize-space(substring-before(issue,'Suppl'))"
@@ -82,7 +87,7 @@
         </xsl:attribute>
     </xsl:template>
     <xsl:template match="*" mode="DATA-DISPLAY">
-        <xsl:apply-templates select="@* | *|text()" mode="DATA-DISPLAY"/>
+        <xsl:apply-templates select="*|text()" mode="DATA-DISPLAY"/>
     </xsl:template>
     <xsl:template match="sup | sub " mode="DATA-DISPLAY">
         <xsl:element name="{name()}">
@@ -147,15 +152,17 @@
         <xsl:apply-templates select=".//journal-meta//issn" mode="DATA-DISPLAY"/>
     </xsl:template>
 
-    <xsl:template match="issn" mode="DATA-DISPLAY"><xsl:choose>
-            <xsl:when test="@pub-type='epub'">Online version</xsl:when>
-            <xsl:when test="@pub-type='ppub'">Print version</xsl:when><xsl:otherwise><xsl:value-of
-                    select="@pub-type"/></xsl:otherwise>
-        </xsl:choose> ISSN <xsl:value-of select="."/>
+    <xsl:template match="issn" mode="DATA-DISPLAY">
+        <p><xsl:choose>
+                <xsl:when test="@pub-type='epub'">Online version</xsl:when>
+                <xsl:when test="@pub-type='ppub'">Print
+                        version</xsl:when><xsl:otherwise><xsl:value-of select="@pub-type"
+                    /></xsl:otherwise>
+            </xsl:choose> ISSN <xsl:value-of select="."/></p>
     </xsl:template>
     <xsl:template match="*" mode="DATA-issue-label">
-        <xsl:value-of select=".//journal-meta//abbrev-journal-title"/>&#160;
-        <xsl:apply-templates select=".//article-meta" mode="bibstrip"/>
+        <xsl:value-of select=".//journal-meta//abbrev-journal-title"/>&#160; <xsl:apply-templates
+            select=".//article-meta" mode="bibstrip"/>
     </xsl:template>
     <xsl:template match="*" mode="DATA-article-categories">
         <xsl:value-of select=".//article-categories"/>
@@ -214,7 +221,7 @@
 
     </xsl:template>
     <xsl:template match="person-group" mode="DATA-DISPLAY-ref">
-        
+
         <xsl:apply-templates select="name" mode="DATA-DISPLAY-ref"/>
     </xsl:template>
     <xsl:template match="name" mode="DATA-DISPLAY-ref">
@@ -247,6 +254,9 @@
             <xsl:when test="text() = '10'">October</xsl:when>
             <xsl:when test="text() = '11'">November</xsl:when>
             <xsl:when test="text() = '12'">December</xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates></xsl:apply-templates>
+            </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
     <xsl:template match="month" mode="HTML-label-es">
@@ -263,6 +273,9 @@
             <xsl:when test="text() = '10'">Octubre</xsl:when>
             <xsl:when test="text() = '11'">Noviembre</xsl:when>
             <xsl:when test="text() = '12'">Diciembre</xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates></xsl:apply-templates>
+            </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
     <xsl:template match="month" mode="HTML-label-pt">
@@ -279,6 +292,9 @@
             <xsl:when test="text() = '10'">Outubro</xsl:when>
             <xsl:when test="text() = '11'">Novembro</xsl:when>
             <xsl:when test="text() = '12'">Dezembro</xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates></xsl:apply-templates>
+            </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
 </xsl:stylesheet>

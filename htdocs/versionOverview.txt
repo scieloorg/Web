@@ -1,3 +1,10 @@
+v5.25
+[web]
+Fix sci_issues - duplicated ahead of print
+Fix presentation of links to abstracts and texts at the abstract page
+Allow configure sorting of issues in sci_issues, according to publication date or sequential number (default)
+First version of new presentation of article. Currently it is accessible by a menu option in toolbox at the article page. Futurely it will be the article page.  
+
 v5.24
 [web]
 Including Journal Manager API Interface for press releases.

@@ -134,8 +134,6 @@
             <xsl:apply-templates select="." mode="HTML-SHORT-LINK"/>
         </div>
         <div class="dropdown span5">
-
-
             <xsl:variable name="href">
                 <xsl:value-of select="$SERVICE_ARTICLE_STATISTICS"/>
             </xsl:variable>
@@ -158,22 +156,18 @@
         </div>
     </xsl:template>
     <xsl:template match="name" mode="HTML">
-
         <span>
             <xsl:apply-templates select="." mode="DATA-DISPLAY"/>
             <xsl:apply-templates select="..//xref" mode="HTML-author"/>
-
         </span>
         <xsl:text>
             <!-- manter esta quebra de linha -->
         </xsl:text>
-
     </xsl:template>
     <xsl:template match="xref" mode="HTML-author">
         <sup class="xref">
             <xsl:value-of select="."/>
         </sup>
-
     </xsl:template>
     <xsl:template match="*" mode="HTML-aff-list">
         <div class="span3">
@@ -221,15 +215,11 @@
     </xsl:template>
     <xsl:template match="*" mode="dates">
         <xsl:choose>
-            <xsl:when
-                test=".//sub-article[@article-type='translation' and @xml:lang=$PAGE_LANG]//front-stub//pub-date">
-                <xsl:apply-templates
-                    select=".//sub-article[@article-type='translation' and @xml:lang=$PAGE_LANG]//front-stub//pub-date"
-                    mode="HTML-DATES"/>
+            <xsl:when test="$trans//front-stub//pub-date">
+                <xsl:apply-templates select="$trans//front-stub//pub-date" mode="HTML-DATES"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates select=".//front//pub-date" mode="HTML-DATES"/>
-
+                <xsl:apply-templates select="$original/front//pub-date" mode="HTML-DATES"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -249,19 +239,19 @@
     <xsl:template match="pub-date" mode="text">
         <xsl:choose>
             <xsl:when test="$PAGE_LANG='es'">
-                <xsl:value-of select="day"/>&#160;
-                <xsl:apply-templates select="season| month" mode="HTML-label-es"/>
+                <xsl:value-of select="day"/>&#160; <xsl:apply-templates select="season| month"
+                    mode="HTML-label-es"/>
             </xsl:when>
             <xsl:when test="$PAGE_LANG='pt'">
-                <xsl:value-of select="day"/>&#160;
-                <xsl:apply-templates select="season| month" mode="HTML-label-pt"/>
+                <xsl:value-of select="day"/>&#160; <xsl:apply-templates select="season| month"
+                    mode="HTML-label-pt"/>
             </xsl:when>
 
             <xsl:otherwise>
                 <xsl:apply-templates select="season|month" mode="HTML-label-en"/>&#160;
-                <xsl:apply-templates select="day"/>, </xsl:otherwise>
+                    <xsl:apply-templates select="day"/>,</xsl:otherwise>
         </xsl:choose>
-        <xsl:apply-templates select="year"/>
+        <xsl:value-of select="concat(' ', year)"/>
     </xsl:template>
     <xsl:template match="*" mode="HTML-toolbox">
         <!-- FIXME -->
@@ -275,18 +265,17 @@
                 </div>
             </li>
             <li>
-                <a
-                    href="{$THIS_PDF_URL}"
-                    class="yIcon pdf" target="_blank">Article in PDF</a>
+                <a href="{$THIS_PDF_URL}" class="yIcon pdf" target="_blank">Article in PDF</a>
             </li>
             <li>
                 <a href="{$SERVICE_ARTICLE_XML}" target="_blank" class="yIcon xml">Article in
                     XML</a>
             </li>
-            <li>
+            <!--li>
                 <a href="{$SERVICE_ARTICLE_REFERENCES}" class="yIcon refs iframeModal">Article
-                    references</a>
-            </li>
+                    references</a->
+                
+            </li-->
             <li>
                 <a href="{$SERVICE_ARTICLE_AUTO_TRANSLATION}" class="yIcon translate iframeModal"
                     >Automatic translation</a>
@@ -313,25 +302,21 @@
     <xsl:template match="*" mode="HTML-BODY-SECTION-ARTICLE-ABSTRACT">
         <article id="abstract">
             <xsl:choose>
-                <xsl:when
-                    test=".//sub-article[@article-type='translation' and @xml:lang=$PAGE_LANG]//abstract">
-                    <xsl:apply-templates
-                        select=".//sub-article[@article-type='translation' and @xml:lang=$PAGE_LANG]//abstract"
-                        mode="HTML-TEXT">
-                        <xsl:with-param name="art_body"
-                            select=".//sub-article[@article-type='translation' and @xml:lang=$PAGE_LANG]//body"
-                        />
+                <xsl:when test="$trans//abstract">
+                    <xsl:apply-templates select="$trans//abstract" mode="HTML-TEXT">
+                        <xsl:with-param name="art_body" select="$trans//body"/>
                     </xsl:apply-templates>
                 </xsl:when>
-                <xsl:when test=".//front//trans-abstract[@xml:lang=$PAGE_LANG]">
-                    <xsl:apply-templates select=".//front//trans-abstract[@xml:lang=$PAGE_LANG]"
+                <xsl:when test="$original/front//trans-abstract[@xml:lang=$PAGE_LANG]">
+                    <xsl:apply-templates
+                        select="$original/front//trans-abstract[@xml:lang=$PAGE_LANG]"
                         mode="HTML-TEXT">
-                        <xsl:with-param name="art_body" select=".//body[1]"/>
+                        <xsl:with-param name="art_body" select="$original/body[1]"/>
                     </xsl:apply-templates>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:apply-templates select=".//front//abstract" mode="HTML-TEXT">
-                        <xsl:with-param name="art_body" select=".//body[1]"/>
+                    <xsl:apply-templates select="$original/front//abstract" mode="HTML-TEXT">
+                        <xsl:with-param name="art_body" select="$original/body[1]"/>
                     </xsl:apply-templates>
                 </xsl:otherwise>
             </xsl:choose>
@@ -378,14 +363,18 @@
             <a href="javascript:void(0);" class="main gIcon sections" title="Sections">Sections</a>
             <ul class="drop menu">
                 <xsl:choose>
-                    <xsl:when
-                        test=".//sub-article[@article-type='translation' and @xml:lang=$PAGE_LANG]">
-                        <xsl:apply-templates
-                            select=".//sub-article[@article-type='translation' and @xml:lang=$PAGE_LANG]//sec[@sec-type]"
+                    <xsl:when test="$trans">
+                        <xsl:apply-templates select="$trans//sec[@sec-type]"
+                            mode="HTML-FLOAT-SECTION"/>
+                        <xsl:apply-templates select="$trans//ack" mode="HTML-FLOAT-SECTION"/>
+                        <xsl:apply-templates select="$original/back/ref-list"
                             mode="HTML-FLOAT-SECTION"/>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:apply-templates select=".//body//sec[@sec-type]"
+                        <xsl:apply-templates select="$original/body//sec[@sec-type]"
+                            mode="HTML-FLOAT-SECTION"/>
+                        <xsl:apply-templates select="$original/back/ack" mode="HTML-FLOAT-SECTION"/>
+                        <xsl:apply-templates select="$original/back/ref-list"
                             mode="HTML-FLOAT-SECTION"/>
                     </xsl:otherwise>
                 </xsl:choose>
@@ -403,6 +392,8 @@
 
                         <xsl:apply-templates select=".//sec[@sec-type]" mode="HTML-SECTION"/>
 
+                        <xsl:apply-templates select="..//ack" mode="HTML-SECTION"/>
+                        <xsl:apply-templates select="$original//ref-list" mode="HTML-SECTION"/>
 
                     </div>
                 </li>
@@ -426,39 +417,40 @@
             </ul>
         </div>
     </xsl:template>
-    <xsl:template match="sec[@sec-type]" mode="HTML-SECTION">
+    <xsl:template match="ref-list|ack" mode="goto">
+        <a>
+            <xsl:attribute name="href">#<xsl:value-of select="name()"/>
+            </xsl:attribute>
+            <xsl:attribute name="class">goto</xsl:attribute>
+            <xsl:apply-templates select="title"/>
+        </a>
+    </xsl:template>
+    <xsl:template match="sec[@sec-type]" mode="goto">
         <a>
             <xsl:attribute name="href">#<xsl:value-of select="translate(@sec-type,'|','-')"/>
             </xsl:attribute>
             <xsl:attribute name="class">goto</xsl:attribute>
             <xsl:apply-templates select="title"/>
         </a>
+    </xsl:template>
+    <xsl:template match="sec[@sec-type]|ref-list|ack" mode="HTML-SECTION">
+        <xsl:apply-templates select="." mode="goto"/>
         <br/>
 
     </xsl:template>
-    <xsl:template match="sec[@sec-type]" mode="HTML-FLOAT-SECTION">
+    <xsl:template match="sec[@sec-type]|ref-list|ack" mode="HTML-FLOAT-SECTION">
         <li>
-            <a>
-                <xsl:attribute name="href">#<xsl:value-of select="translate(@sec-type,'|','-')"/>
-                </xsl:attribute>
-                <xsl:attribute name="class">goto</xsl:attribute>
-                <xsl:apply-templates select="title"/>
-            </a>
+            <xsl:apply-templates select="." mode="goto"/>
         </li>
-
-
     </xsl:template>
     <xsl:template match="*" mode="HTML-BODY-SECTION-ARTICLE-CONTENT">
         <article id="content">
             <xsl:choose>
-                <xsl:when
-                    test=".//sub-article[@article-type='translation' and @xml:lang=$PAGE_LANG]">
-                    <xsl:apply-templates
-                        select=".//sub-article[@article-type='translation' and @xml:lang=$PAGE_LANG]/body"
-                        mode="HTML-TEXT"/>
+                <xsl:when test="$trans">
+                    <xsl:apply-templates select="$trans/body" mode="HTML-TEXT"/>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:apply-templates select=".//body| .//back" mode="HTML-TEXT"/>
+                    <xsl:apply-templates select="$original/body| $original/back" mode="HTML-TEXT"/>
                 </xsl:otherwise>
             </xsl:choose>
         </article>
@@ -508,7 +500,8 @@
                 </xsl:with-param>
             </xsl:apply-templates>
         </xsl:variable>
-        <li class="clearfix"><a name="{@id}"/>
+        <li class="clearfix">
+            <a name="{@id}"/>
             <sup class="xref big pull-left">
                 <xsl:apply-templates select="label"/>
             </sup>
@@ -522,7 +515,6 @@
                             select="normalize-space($link)"
                         />','','width=640,height=500,resizable=yes,scrollbars=1,menubar=yes,');</xsl:attribute>
                     Links</a>
-
             </div>
         </li>
     </xsl:template>
@@ -546,7 +538,24 @@
             </xsl:apply-templates>
         </strong>
     </xsl:template>
-    <xsl:template match="p//sup | p//sub" mode="HTML-TEXT">
+    <xsl:template match="@*" mode="HTML-TEXT">
+        <xsl:attribute name="{name()}">
+            <xsl:value-of select="."/>
+        </xsl:attribute>
+    </xsl:template>
+    <xsl:template match="table | table//* " mode="HTML-TEXT">
+        <xsl:choose>
+            <xsl:when test=".//xref">
+                <xsl:element name="{name()}">
+                    <xsl:apply-templates select="@*|*|text()" mode="HTML-TEXT"/>
+                </xsl:element>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:copy-of select="."/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <xsl:template match="sup |sub" mode="HTML-TEXT">
         <xsl:param name="parag_id"/>
         <xsl:element name="{name()}">
             <xsl:apply-templates select="*|text()" mode="HTML-TEXT">
@@ -616,7 +625,10 @@
             <xsl:value-of select="$parag_id"/>-<xsl:value-of select="@rid"/></xsl:variable>
 
         <sup class="xref {$id}">
-            <xsl:apply-templates/><xsl:if test=".=''"><xsl:value-of select="substring(@rid,2)"/></xsl:if>
+            <xsl:apply-templates/>
+            <xsl:if test=".=''">
+                <xsl:value-of select="substring(@rid,2)"/>
+            </xsl:if>
         </sup>
     </xsl:template>
     <xsl:template match="bold" mode="HTML-TEXT">
@@ -636,7 +648,10 @@
 
         <li class="clearfix {$parag_id}-{@rid}">
             <sup class="xref big pull-left">
-                <xsl:value-of select="."/><xsl:if test=".=''"><xsl:value-of select="substring(@rid,2)"/></xsl:if>
+                <xsl:value-of select="."/>
+                <xsl:if test=".=''">
+                    <xsl:value-of select="substring(@rid,2)"/>
+                </xsl:if>
             </sup>
             <xsl:apply-templates select="$ref[@id=$rid]" mode="HTML-ref"/>
 
@@ -657,29 +672,62 @@
 
         </div>
         <div class="opened pull-right hide">
-            <a href="#{@id}"  >
-                
-                <strong>
-                    <xsl:apply-templates select=".//chapter-title | .//article-title"/>.</strong>
-                <xsl:apply-templates select=".//person-group[1]|.//collab" mode="DATA-DISPLAY-ref"
-                />. <div class="source"><xsl:apply-templates select=".//source"/>
-                    <xsl:apply-templates select="concat(' ', .//year)"/>; <xsl:apply-templates select=".//volume"
-                    />: <xsl:apply-templates select=".//fpage"/>-<xsl:apply-templates
-                        select=".//lpage"/>
-                    <xsl:apply-templates select=".//pub-id" mode="DATA-DISPLAY"/>
-                </div>
+            <a href="#{@id}">
+                <!-- Monographs:
+Lominandze, DG. Cyclotron waves in plasma. Translated by AN. Dellis; edited by SM. Hamberger. 1st ed. Oxford : Pergamon Press, 1981. 206 p. International series in natural philosophy. Translation of: Ciklotronnye volny v plazme. ISBN 0-08-021680-3.
+Parts of a monograph:
+Parker, TJ. and Haswell, WD. A Text-book of zoology. 5th ed., vol 1. revised by WD. Lang. London : Macmillan 1930. Section 12, Phyllum Mollusca, pp. 663-782.
+Contributions in a monograph:
+Wringley, EA. Parish registers and the historian. In Steel, DJ. National index of parish registers. London : Society of Genealogists, 1968, vol. 1, pp. 155-167.
+Serials:
+Communication equipment manufacturers. Manufacturing a Primary Industries Division, Statistics Canada. Preliminary Edition, 1970- .Ottawa : Statistics Canada, 1971- . Annual census of manufacturers. (English), (French). ISSN 0700-0758.
+Articles in a serial:
+Weaver, William. The Collectors: command performances. Photography by Robert Emmet Bright. Architectural Digest, December 1985, vol. 42, no. 12, pp. 126-133. -->
+                <!--strong><xsl:apply-templates select=".//mixed-citation"></xsl:apply-templates></strong-->
+                <xsl:choose>
+                    <xsl:when test=".//article-title">
+                        <xsl:value-of select="substring-before(.//mixed-citation,.//article-title)"/>
+                        <strong>
+                            <xsl:value-of select=".//article-title"/>
+                        </strong>
+                        <xsl:value-of select="substring-after(.//mixed-citation,.//article-title)"/>
+
+                    </xsl:when>
+                    <xsl:when test=".//chapter-title">
+                        <xsl:value-of select="substring-before(.//mixed-citation,.//chapter-title)"/>
+                        <strong>
+                            <xsl:value-of select=".//chapter-title"/>
+                        </strong>
+                        <xsl:value-of select="substring-after(.//mixed-citation,.//chapter-title)"/>
+
+
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="substring-before(.//mixed-citation,.//source)"/>
+                        <strong>
+                            <xsl:value-of select=".//source"/>
+                        </strong>
+                        <xsl:value-of select="substring-after(.//mixed-citation,.//source)"/>
+
+                    </xsl:otherwise>
+                </xsl:choose>
+
             </a>
         </div>
     </xsl:template>
+    <xsl:template match="inline-graphic|disp-formula/graphic" mode="HTML-TEXT">
+        <img src="{$IMAGE_PATH}/{@xlink:href}.jpg" alt=""/>
+    </xsl:template>
     <xsl:template match="inline-formula|disp-formula" mode="HTML-TEXT">
-        <span class="formula" id="{.//graphic/@id}">
-            <img src="{$IMAGE_PATH}/{.//graphic/@href}.jpg" alt=""/>
+        <span class="formula" id="{.//@id}">
+
             <!-- FIXME -->
+            <xsl:apply-templates select="*" mode="HTML-TEXT"/>
         </span>
     </xsl:template>
-    <xsl:template match="p//xref[@ref-type='fig']" mode="HTML-TEXT">
+    <xsl:template match="p//xref[@ref-type='fig' or @ref-type='table']" mode="HTML-TEXT">
         <a href="#{@rid}" class="bIcon figref goto">
-            <xsl:apply-templates select="."/>
+            <xsl:apply-templates select="*|text()"/>
         </a>
     </xsl:template>
     <xsl:template match="fig" mode="HTML-TEXT">
@@ -704,6 +752,46 @@
                 <xsl:apply-templates select="caption"/>
             </div>
         </div>
+    </xsl:template>
+    <xsl:template match="table-wrap[table]" mode="HTML-TEXT">
+        <div class="row table" id="{@id}">
+            <div class="span8">
+                <strong>
+                    <xsl:value-of select="label"/>
+                </strong>
+                <br/>
+                <xsl:apply-templates select="caption"/>
+            </div>
+            <div class="span8">
+                <xsl:apply-templates select="*[name()!='label' and name()!='caption']|text()" mode="HTML-TEXT"/>
+            </div>
+        </div>
+        
+    </xsl:template>
+    <xsl:template match="table-wrap[not(table)]" mode="HTML-TEXT">
+        <div class="row fig" id="{@id}">
+            <div class="span3">
+                <xsl:variable name="img_filename">
+                    <xsl:value-of select="concat($IMAGE_PATH,'/',.//graphic/@xlink:href,'.jpg')"/>
+                </xsl:variable>
+                <div class="thumb">
+                    <xsl:attribute name="style"> background-image: url(<xsl:value-of
+                            select="$img_filename"/>); </xsl:attribute> Thumbnail</div>
+                <!-- FIXME -->
+                <div class="preview span9 hide">
+                    <img src="{$img_filename}" alt="{caption}"/>
+                </div>
+            </div>
+            <div class="span5">
+                <strong>
+                    <xsl:value-of select="label"/>
+                </strong>
+                <br/>
+                <xsl:apply-templates select="caption"/>
+            </div>
+        </div>
+
+
     </xsl:template>
     <xsl:template match="*" mode="HTML-BODY-FOOTER">
         <footer>
@@ -794,15 +882,15 @@
             <ul class="drop menu">
                 <li>
                     <a href="#soft-contrast" class="changeSkin"><span class="gIcon soft-contrast"
-                            >&amp;#160;</span> Soft contrast<!-- TRANSLATE --></a>
+                            >&#160;</span> Soft contrast<!-- TRANSLATE --></a>
                 </li>
                 <li>
                     <a href="#high-contrast" class="changeSkin"><span class="gIcon high-contrast"
-                            >&amp;#160;</span> High contrast<!-- TRANSLATE --></a>
+                            >&#160;</span> High contrast<!-- TRANSLATE --></a>
                 </li>
                 <li>
                     <a href="#inversed-high-contrast" class="changeSkin"><span
-                            class="gIcon ihigh-contrast">&amp;#160;</span> Inversed high
+                            class="gIcon ihigh-contrast">&#160;</span> Inversed high
                         contrast<!-- TRANSLATE --></a>
                 </li>
             </ul>
@@ -844,7 +932,8 @@
         </li>
     </xsl:template>
 
-    <xsl:template match="sup | sub " mode="HTML-TEXT">
+
+    <xsl:template match="list-item/p | sup | sub " mode="HTML-TEXT">
         <xsl:element name="{name()}">
             <xsl:apply-templates select="@* | *|text()" mode="HTML-TEXT"/>
         </xsl:element>
@@ -892,8 +981,8 @@
             >Article in PDF</a>
         <a href="{$SERVICE_ARTICLE_XML}" class="main gIcon xml" title="Article in XML"
             target="_blank">Article in XML</a>
-        <a href="{$SERVICE_ARTICLE_REFERENCES}" class="main gIcon refs iframeModal"
-            title="Article references">Article references</a>
+        <!--a href="#ref-list" class="main gIcon refs iframeModal" title="Article references">Article
+            references</a-->
         <a href="{$SERVICE_ARTICLE_AUTO_TRANSLATION}" class="main gIcon translate iframeModal"
             title="Article translate">Automatic translation</a>
         <a href="{$SERVICE_ARTICLE_SEND_EMAIL}" class="main gIcon send iframeModal"
@@ -963,4 +1052,14 @@
         <xsl:if test="position()!=last()">; </xsl:if>
     </xsl:template>
 
+    <xsl:template match="table-wrap//fn" mode="HTML-TEXT">
+        <a name="{@id}">
+            <xsl:apply-templates select="*"/>
+        </a>
+    </xsl:template>
+    <xsl:template match="table//xref" mode="HTML-TEXT">
+        <a href="#{@rid}">
+            <xsl:apply-templates/>
+        </a>
+    </xsl:template>
 </xsl:stylesheet>
