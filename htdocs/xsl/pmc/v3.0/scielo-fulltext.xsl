@@ -21,8 +21,8 @@
 		</xsl:choose>
 	</xsl:variable>
 
-
-
+	<xsl:variable name="ref_list_local"><xsl:if test="document($xml_article)//article/back/ref-list/*"><xsl:for-each select="document($xml_article)//article/back/ref-list"><xsl:apply-templates select="preceding-sibling::node()[1]" mode="node-name"/></xsl:for-each></xsl:if></xsl:variable>
+	<xsl:template match="*" mode="node-name"><xsl:value-of select="name()"></xsl:value-of></xsl:template>
 	<xsl:variable name="article_lang">
 		<xsl:choose>
 			<xsl:when test="$TXTLANG!=''">
@@ -47,27 +47,25 @@
 		/>
 	</xsl:template>
 
+	<xsl:variable name="original" select="document($xml_article)//article"/>
+	<xsl:variable name="trans"
+		select="document($xml_article)//sub-article[@article-type='translation' and @xml:lang=$article_lang]"/>
 
 	<xsl:template match="article" mode="text-content">
-
-		
 		<xsl:choose>
-			<xsl:when test="..//sub-article[@article-type='translation' and @xml:lang=$article_lang]">
-				<xsl:for-each select="..//sub-article[@article-type='translation' and @xml:lang=$article_lang]">
-					<xsl:call-template name="scift-make-article"/>
-				</xsl:for-each>
+			<xsl:when test="$trans">
+				<xsl:apply-templates select="$trans" mode="MAIN"/>
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:call-template name="scift-make-article"/>
+				<xsl:apply-templates select="." mode="MAIN"/>
 			</xsl:otherwise>
 		</xsl:choose>
-
-	</xsl:template>
-	<xsl:template match="sub-article | response">
-		<hr class="part-rule"/>
-		<xsl:call-template name="scift-make-article"/>
 	</xsl:template>
 	<xsl:template name="scift-make-article">
+		<xsl:apply-templates select="." mode="MAIN"/>
+	</xsl:template>
+	<xsl:template match="sub-article | response" mode="MORE">
+		<hr class="part-rule"/>
 
 		<!-- Generates a series of (flattened) divs for contents of any
 	       article, sub-article or response -->
@@ -76,22 +74,17 @@
 		<xsl:variable name="this-article">
 			<xsl:apply-templates select="." mode="id"/>
 		</xsl:variable>
-
-
-
 		<div id="{$this-article}-front" class="front">
 			<xsl:apply-templates select="front-stub | front"/>
 		</div>
 		<div id="{$this-article}-body" class="body">
 			<xsl:apply-templates select="body"/>
 		</div>
-
-
 		<xsl:if test="back | $loose-footnotes">
 			<!-- $loose-footnotes is defined below as any footnotes outside
            front matter or fn-group -->
 			<div id="{$this-article}-back" class="back">
-				<xsl:call-template name="make-back"/>
+				<xsl:apply-templates select="back"/>
 			</div>
 		</xsl:if>
 
@@ -107,19 +100,58 @@
 		</xsl:for-each>
 
 		<div class="foot-notes">
-			
-
 			<xsl:apply-templates select=".//history"/>
 			<xsl:apply-templates select=".//author-notes"/>
 		</div>
-		<xsl:apply-templates select="sub-article[@article-type!='translation'] | response"/>
 		<div class="foot-notes">
 			<xsl:apply-templates select=".//permissions"/>
 		</div>
 	</xsl:template>
+	<xsl:template match="sub-article | article" mode="MAIN">
+		<!-- Generates a series of (flattened) divs for contents of any
+	       article, sub-article or response -->
+
+		<!-- variable to be used in div id's to keep them unique -->
+		<xsl:variable name="this-article">
+			<xsl:apply-templates select="." mode="id"/>
+		</xsl:variable>
+		<div id="{$this-article}-front" class="front">
+			<xsl:apply-templates select="front-stub | front"/>
+		</div>
+		<div id="{$this-article}-body" class="body">
+			<xsl:apply-templates select="body"/>
+		</div>
+		<xsl:if test="back | $loose-footnotes">
+			<!-- $loose-footnotes is defined below as any footnotes outside
+           front matter or fn-group -->
+			<div id="{$this-article}-back" class="back">
+				<xsl:apply-templates select="back"/>
+			</div>
+		</xsl:if>
+		<xsl:for-each select="floats-group">
+			<div id="{$this-article}-floats" class="back">
+				<xsl:call-template name="main-title">
+					<xsl:with-param name="contents">
+						<span class="generated">Floating objects</span>
+					</xsl:with-param>
+				</xsl:call-template>
+				<xsl:apply-templates/>
+			</div>
+		</xsl:for-each>
+		<div class="foot-notes">
+			<xsl:apply-templates select=".//front//history"/>
+			<xsl:apply-templates select=".//front//author-notes"/>
+		</div>
+
+		<xsl:apply-templates select="sub-article[@article-type!='translation'] | response"
+			mode="MORE"/>
+		<div class="foot-notes">
+			<xsl:apply-templates select=".//front//permissions"/>
+		</div>
+	</xsl:template>
 
 
-	<xsl:template match="front-stub">
+	<xsl:template match="sub-article[@article-type='translation']//front-stub">
 		<xsl:apply-templates select=".//article-categories"/>
 		<xsl:if test="not(.//article-categories)">
 			<xsl:apply-templates select="../..//front//article-categories"/>
@@ -141,14 +173,25 @@
 			<xsl:apply-templates select="../..//front//abstract  | ../..//front//trans-abstract"/>
 		</xsl:if>
 	</xsl:template>
-	<xsl:template match="front">
+
+	<xsl:template
+		match="sub-article[@article-type!='translation']//front-stub | response//front-stub">
 		<xsl:apply-templates select=".//article-categories"/>
-		
 		<xsl:apply-templates select=".//title-group | .//trans-title"/>
 		<xsl:apply-templates select=".//contrib-group"/>
 		<xsl:apply-templates select=".//aff"/>
 		<xsl:apply-templates select=".//abstract | .//trans-abstract"/>
 	</xsl:template>
+
+
+	<xsl:template match="front">
+		<xsl:apply-templates select=".//article-categories"/>
+		<xsl:apply-templates select=".//title-group | .//trans-title"/>
+		<xsl:apply-templates select=".//contrib-group"/>
+		<xsl:apply-templates select=".//aff"/>
+		<xsl:apply-templates select=".//abstract | .//trans-abstract"/>
+	</xsl:template>
+
 	<xsl:template match="abstract | trans-abstract">
 		<xsl:variable name="lang" select="@xml:lang"/>
 		<div>
@@ -307,8 +350,8 @@
 			<xsl:variable name="text">
 				<xsl:apply-templates select="text() | add-line/text()" mode="aff-text"/>
 			</xsl:variable>
-			<xsl:comment><xsl:value-of select="$text"/></xsl:comment>
-			<xsl:comment><xsl:value-of select="string-length($text)"/></xsl:comment>
+			<!--xsl:comment><xsl:value-of select="$text"/>  ...</xsl:comment>
+			<xsl:comment><xsl:value-of select="string-length($text)"/> </xsl:comment-->
 			<xsl:variable name="parts"
 				select="count(text()[normalize-space(.)!=''] | institution | addr-line | country | email)"/>
 
@@ -417,19 +460,12 @@
 	</xsl:template>
 
 	<xsl:template match="xref">
-
 		<a href="#{@rid}">
-
 			<xsl:apply-templates select="*|text()"/>
 		</a>
-
 	</xsl:template>
 
-
-
-
 	<xsl:template match="xref[@ref-type='bibr']">
-
 		<xsl:choose>
 			<xsl:when test="normalize-space(.//text())=''">
 				<sup>
@@ -520,6 +556,10 @@
 			</table>
 		</div>
 	</xsl:template>
+	<xsl:template match="inline-formula">
+		<xsl:apply-templates select="*"
+			></xsl:apply-templates>
+	</xsl:template>
 	<xsl:template match="disp-formula">
 		<p class="{local-name()} panel">
 			<xsl:apply-templates/>
@@ -604,7 +644,7 @@
 
 	</xsl:template>
 
-	<xsl:template match=" back/ref-list">
+	<xsl:template match="back/ref-list">
 		<div>
 			<a name="references"/>
 			<p class="sec">
@@ -674,7 +714,6 @@
 			</xsl:choose>
 		</xsl:variable>
 		<div class="table">
-
 			<table class="{$class}">
 				<xsl:apply-templates select="@*|*|text()"/>
 			</table>
@@ -695,20 +734,20 @@
 		</xsl:element>
 	</xsl:template>
 
-	<xsl:template match="table-wrap-foot/fn">
-		<p class="fn">
-			<a name="{@id}">
-				<xsl:apply-templates select="* | text()"/>
-			</a>
-		</p>
+	<xsl:template match="table-wrap//fn" mode="footnote">
+		<a name="{@id}"/>
+		<xsl:apply-templates select="* | text()"/>
+
 	</xsl:template>
-	<xsl:template match="table-wrap-foot/fn/label">
+	<xsl:template match="table-wrap//fn//label">
 		<sup>
 			<xsl:value-of select="."/>
 		</sup>
 	</xsl:template>
-	<xsl:template match="table-wrap-foot/fn/p">
-		<xsl:apply-templates/>
+	<xsl:template match="table-wrap//fn/p">
+		<p class="fn">
+			<xsl:apply-templates select="*|text()"/>
+		</p>
 	</xsl:template>
 
 	<xsl:template match="history">
@@ -856,27 +895,68 @@
 	<xsl:template match="sub-article[@article-type!='translation' or not(@article-type)]">
 		<div class="sub-article" id="{@id}">
 			<xsl:apply-templates select=".//title-group"/>
-
-
 			<xsl:apply-templates select=".//abstract"/>
-
 			<xsl:apply-templates select=".//trans-abstract"/>
-
 			<div class="body">
 				<xsl:apply-templates select="body"/>
 			</div>
-
 			<xsl:apply-templates select="back "/>
-
 			<div class="sig-block">
 				<xsl:apply-templates select=".//contrib-group"/>
-
 				<xsl:apply-templates select=".//aff"/>
 			</div>
+		</div>
+	</xsl:template>
+
+	<xsl:template match="sub-article[@article-type='translation']/back">
+		
+		<xsl:variable name="this-article">
+			<xsl:apply-templates select="." mode="id"/>
+		</xsl:variable>
+		<!-- (label?, title*, (ack | app-group | bio | fn-group | glossary | ref-list | notes | sec)*) -->
+		<div id="{$this-article}-back" class="back">
+			<xsl:choose>
+				<xsl:when test="not(ref-list/*) and ($original//ref-list/*)">
+					<!--xsl:apply-templates select="../../back/*" mode="translation-back">
+						<xsl:with-param name="sub-article-back" select="."/>
+					</xsl:apply-templates-->
+					<xsl:comment>local ref<xsl:value-of select="$ref_list_local"/></xsl:comment>
+					
+					<xsl:choose>
+						<xsl:when test="node()[name()=$ref_list_local]">
+							<xsl:apply-templates select="*" mode="translation-back">
+								<xsl:with-param name="after">yes</xsl:with-param>
+							</xsl:apply-templates>
+						</xsl:when>
+						
+						<xsl:otherwise>
+							<xsl:comment>no local ref</xsl:comment>
+							<xsl:apply-templates select="$original//ref-list"/>
+							<xsl:apply-templates select="*"/>
+						</xsl:otherwise>
+					</xsl:choose>
+					
+					
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:apply-templates select="*"/>
+				</xsl:otherwise>
+			</xsl:choose>
 
 		</div>
-
 	</xsl:template>
+	
+	
+	<!--xsl:template match="article/back/*" mode="old-translation-back">
+		<xsl:param name="sub-article-back"/>
+		<xsl:variable name="name"><xsl:value-of select="name()"></xsl:value-of></xsl:variable>
+		<xsl:comment><xsl:value-of select="$name"/></xsl:comment>
+		<xsl:apply-templates select="$sub-article-back/*[name()=$name]"></xsl:apply-templates>
+		<xsl:if test="name()='ref-list' and not($sub-article-back/ref-list)">
+			<xsl:apply-templates select="."></xsl:apply-templates>
+		</xsl:if>
+	</xsl:template-->
+	<xsl:template match="sub-article[@article-type='translation']"> </xsl:template>
 
 	<xsl:template match="sub-article[@article-type='translation']">
 		<!--div class="sub-article" id="{@id}">
@@ -890,5 +970,16 @@
 
 
 		</div-->
+	</xsl:template>
+	
+	<xsl:template match="sub-article[@article-type='translation']/back/*" mode="translation-back">
+		<xsl:param name="after"></xsl:param>
+		<xsl:apply-templates></xsl:apply-templates>
+		<xsl:comment><xsl:value-of select="name()"/></xsl:comment>
+		<xsl:comment><xsl:value-of select="$after"/></xsl:comment>
+		<xsl:comment><xsl:value-of select="$ref_list_local"/></xsl:comment>
+		<xsl:if test="$after='yes' and name()=$ref_list_local">
+			<xsl:apply-templates select="$original//ref-list"></xsl:apply-templates>
+		</xsl:if>
 	</xsl:template>
 </xsl:stylesheet>

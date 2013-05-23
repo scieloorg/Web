@@ -1,8 +1,25 @@
+v5.26
+[web]
+Fix sci_issues - missing supplements
+Fix presentation of fulltext for multilingue articles
+Fix presentation of new page of fulltext
+
+v5.25
+[web]
+Fix sci_issues - duplicated ahead of print
+Fix presentation of links to abstracts and texts at the abstract page
+Allow configure sorting of issues in sci_issues, according to publication date or sequential number (default)
+First version of new presentation of article. Currently it is accessible by a menu option in toolbox at the article page. Futurely it will be the article page.  
+
 v5.24
 [web]
 Including Journal Manager API Interface for press releases.
 Presentation of articles fulltext from XML files (PMC DTD 3.0) - translation/sub-article
 New status for journal history - journal is no longer open access
+Fix generation of PID for issue and article order which have respectively more than 3 and 4 digits
+
+[proc]
+Fix generation of PID for issue and article order which have respectively more than 3 and 4 digits
 
 v5.23
 [web]
