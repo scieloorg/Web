@@ -225,7 +225,7 @@
 					</xsl:when>
 					<xsl:otherwise>&#160;</xsl:otherwise>
 				</xsl:choose>
-				<!--xsl:apply-templates select="ISSUE[@NUM or @SUPPL]"/-->
+				
 				<xsl:choose>
 					<xsl:when test="$PRESENTATION_SORTED_BY_PUBDATE='1'">
 						<xsl:apply-templates select="ISSUE[@NUM and @NUM!='AHEAD' and @NUM!='REVIEW' and not(@SUPPL) and @NUM!='SPE']">
@@ -240,11 +240,11 @@
 						
 					</xsl:when>
 					<xsl:otherwise>
-						<xsl:apply-templates select="ISSUE[@NUM!='AHEAD' and @NUM!='REVIEW']"/>
-						
+						<!--xsl:apply-templates select="ISSUE[@NUM and @NUM!='AHEAD' and @NUM!='REVIEW' and not(@SUPPL) and @NUM!='SPE']"/>
+						<xsl:apply-templates select="ISSUE[not(@NUM) or @NUM='SPE' or @SUPPL]"/>						
 						<xsl:apply-templates select="ISSUE[@NUM='AHEAD']"/>
-						<xsl:apply-templates select="ISSUE[@NUM='REVIEW']"/>
-						
+						<xsl:apply-templates select="ISSUE[@NUM='REVIEW']"/-->
+						<xsl:apply-templates select="ISSUE[@NUM or @SUPPL]"/>
 					</xsl:otherwise>
 				</xsl:choose>
 				
