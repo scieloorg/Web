@@ -118,8 +118,8 @@
 				<xsl:value-of select="$text_issues"/>
 				<xsl:if test="@QTYISS > 1">s</xsl:if>
 			</xsl:if>
-			<xsl:if test=".//current-status/@status!='' and .//current-status/@status!='C' ">
-				<xsl:apply-templates select="." mode="display-status-info"/>
+			<xsl:if test=".//current-status/@status!='' and .//current-status/@status!='C' "> - 
+				<xsl:apply-templates select=".//journal-status-history" mode="display-status-info"/>
 			</xsl:if>
 		</font>
 		<br/>
