@@ -91,7 +91,7 @@
 <call name="showText"><pft>v264</pft></call>
 
 			<call name="TestPDFPresence"><pft>if v8264<>'no' then v880 fi</pft></call>
-			
+			<field action="replace" tag="8000"><pft>if a(v8000) then if v702:'.xml' then 'XML' fi fi</pft></field>
 			<display><pft>'>'/#</pft></display>
 			<display><pft>if p(v264) then '<EMBARGO date="',v264,'" text="',v8264,'"/>'/ fi</pft></display>
 
