@@ -96,6 +96,7 @@
 		   '    <ISSUE'
 				,mpu,if p(v32) then ' NUM="'v32'"' fi,mpl,
 				,| SUPPL="|v131|"|,| SUPPL="|v132|"|,
+				,| PUBDATE="|v65|"|,
 		  ),
  		  ,' SEQ="',v2003,'"/>'/
 		  
