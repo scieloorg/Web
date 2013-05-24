@@ -58,7 +58,7 @@ Installation
         .. code-block:: text
 
             $ wget https://github.com/scieloorg/Web/zipball/<branch_or_tag> 
-            $ unzip <branch_or_tag>
+            $ tar -xvf  <branch_or_tag>
 
 
         A folder named as scieloorg-<randomic_code> will be created.
@@ -171,7 +171,7 @@ Updating
 
         cd /tmp
         wget https://github.com/scieloorg/Web/tarball/<branch_name> --no-check-certificate
-        unzip <branch_name>
+        tar -xvf <branch_name>
 
     A file such as scieloorg-Web-<version-code>.tar.gz will be created. Where <version-code> changes according to the application version.
 

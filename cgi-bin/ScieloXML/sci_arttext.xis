@@ -174,7 +174,7 @@
    <call name="CreateProjetoFAPESP"><pft>if v7052 = '1' then v880 fi</pft></call>
    <call name="CreateClinicalTrials"><pft>v880</pft></call>
 	<call name="isXML"><pft>v702</pft></call>
-	
+	<display><pft>'<filename>'v702'</filename>'</pft></display>
 	<flow action="jump"><pft>if v8000='BODY' then 'yes' fi</pft></flow>
 
 	<display><pft>'<standard>',
