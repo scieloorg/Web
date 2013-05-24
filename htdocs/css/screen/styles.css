@@ -208,3 +208,6 @@ HTML>BODY .content H4 {
 .license img {
 	
 }
+.article-title {
+	font-weight: bold;
+}
