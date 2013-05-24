@@ -46,6 +46,7 @@
 							'JOURNAL_TITLE' => $j['title'],
 							'JOURNAL_ISSN' => $_GET['issn'],
 							'REPORTS_SITE_USAGE_GROUP_LABEL' => 'Site usage reports',
+							'REPORT_JOURNALS_REQUESTS' => 'Journals requests',
 							'REPORT_JOURNAL_REQUESTS' => 'Journal requests',
 							'REPORT_JOURNAL_REQUESTS_LANG' => 'Articles requests by language',
 							'REPORT_ISSUES_REQUESTS' => 'Issue requests',
@@ -74,7 +75,8 @@
 							'JOURNAL_TITLE' => $j['title'],
 							'JOURNAL_ISSN' => $_GET['issn'],
 							'REPORTS_SITE_USAGE_GROUP_LABEL' => 'Informes de uso del sitio',
-							'REPORT_JOURNAL_REQUESTS' => 'Acceso a las revistas',
+							'REPORT_JOURNALS_REQUESTS' => 'Acceso a las revistas',
+							'REPORT_JOURNAL_REQUESTS' => 'Acceso a la revista',
 							'REPORT_JOURNAL_REQUESTS_LANG' => 'Acceso a los artículos por idioma',
 							'REPORT_ISSUES_REQUESTS' => 'Acceso a los números',
 							'REPORT_ARTICLES_REQUESTS' => 'Acceso a los artículos',
@@ -102,7 +104,8 @@
 							'JOURNAL_TITLE' => $j['title'],
 							'JOURNAL_ISSN' => $_GET['issn'],
 							'REPORTS_SITE_USAGE_GROUP_LABEL' => 'Relatórios de uso do site',
-							'REPORT_JOURNAL_REQUESTS' => 'Acessos ao periódicos',
+							'REPORT_JOURNALS_REQUESTS' => 'Acessos aos periódicos',
+							'REPORT_JOURNAL_REQUESTS' => 'Acessos ao periódico',
 							'REPORT_JOURNAL_REQUESTS_LANG' => 'Acessos aos artigos por idioma',
 							'REPORT_ISSUES_REQUESTS' => 'Acessos aos fascículos',
 							'REPORT_ARTICLES_REQUESTS' => 'Acessos aos artigos',
@@ -174,7 +177,13 @@
 						<ul>
 							<li>
 								<a href="http://<?echo $LABELS['SITE_USAGE_PAGES_SERVER'];?>/<?echo $LABELS['SITE_USAGE_PAGES_SERVER_PATH'];?>/scielolog.php?script=sci_journalstat&lng=<?echo $LABELS['LANG'];?>&pid=<?echo $LABELS['JOURNAL_ISSN'];?>&app=<?echo $LABELS['APP_NAME'];?>&server=<?echo $DEF['SCIELO']['SERVER_SCIELO'];?>">
-									<?php echo $LABELS['REPORT_JOURNAL_REQUESTS']; ?>
+									<?php
+									if (strlen($_GET['issn']) == 9) {
+									   echo $LABELS['REPORT_JOURNAL_REQUESTS']; 
+									} else {
+									   echo $LABELS['REPORT_JOURNALS_REQUESTS']; 
+									}
+									?>
 								</a>
 							</li>
 							<?php
