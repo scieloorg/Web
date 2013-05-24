@@ -43,6 +43,7 @@ IsisScript que gera o XML Para a tela de links da referencia bibliografica
 	<call name="CreateControlInfoXML"><pft>'^l',v3000,'^s',v3001,'^fsci_nlinks'</pft></call>
 
     <field action="replace" tag="5012"><pft>ref(['ARTIGO']l(['ARTIGO'],'R='v5000),@PROC_SPLIT_MST.PFT,v12^*,| |v18^*)</pft></field>
+    <field action="replace" tag="5002"><pft>replace(replace(ref(['ARTIGO']l(['ARTIGO'],'R='v5000),@PROC_SPLIT_MST.PFT,v704^*[1]),'<mixed-citation>',''),'</mixed-citation>','')</pft></field>
 
 
 
