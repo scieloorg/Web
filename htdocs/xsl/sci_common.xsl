@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-	<xsl:variable name="HOME_URL">http://<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/SERVER"/>
-		<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_DATA"/>scielo.php</xsl:variable>
-	<xsl:variable name="interfaceLang" select="//CONTROLINFO/LANGUAGE"/>
-	<xsl:variable name="SITE_NAME" select="//CONTROLINFO/SITE_NAME"/>
-	<xsl:variable name="translations" select="document(concat('../xml/',$interfaceLang,'/translation.xml'))/translations"/>
+	<xsl:variable name="journal_manager" select="//journal_manager"/>
+	<xsl:variable name="control_info" select="//CONTROLINFO"/>
+	<xsl:variable name="HOME_URL">http://<xsl:value-of select="$control_info/SCIELO_INFO/SERVER"/>
+		<xsl:value-of select="$control_info/SCIELO_INFO/PATH_DATA"/>scielo.php</xsl:variable>
+	<xsl:variable name="interfaceLang" select="$control_info/LANGUAGE"/>
+	<xsl:variable name="SITE_NAME" select="$control_info/SITE_NAME"/>
+	<xsl:variable name="translations"
+		select="document(concat('../xml/',$interfaceLang,'/translation.xml'))/translations"/>
 	<xsl:variable name="ARTICLE_LICENSE" select="//article-meta/permissions"/>
 	<xsl:variable name="GENERAL_LICENSE" select="//PERMISSIONS/permissions"/>
 	<xsl:variable name="isProvisional">
@@ -12,13 +15,13 @@
 	</xsl:variable>
 	<xsl:variable name="langtext">
 		<xsl:choose>
-			<xsl:when test="//CONTROLINFO/PAGE_NAME='sci_arttext'">
+			<xsl:when test="$control_info/PAGE_NAME='sci_arttext'">
 				<xsl:value-of select="//ISSUE/ARTICLE/@TEXTLANG"/>
 			</xsl:when>
-			<xsl:when test="//CONTROLINFO/PAGE_NAME='sci_abstract'">
+			<xsl:when test="$control_info/PAGE_NAME='sci_abstract'">
 				<xsl:value-of select="//ARTICLE/ABSTRACT/@xml:lang"/>
 			</xsl:when>
-			<xsl:when test="//CONTROLINFO/PAGE_NAME='sci_pdf'">
+			<xsl:when test="$control_info/PAGE_NAME='sci_pdf'">
 				<xsl:value-of select="//ARTICLE/@PDF_LANG"/>
 			</xsl:when>
 		</xsl:choose>
@@ -33,15 +36,18 @@
 			<xsl:attribute name="rel">alternate</xsl:attribute>
 			<xsl:attribute name="type">application/rss+xml</xsl:attribute>
 			<xsl:attribute name="title">SciELO</xsl:attribute>
-			<xsl:attribute name="href"><xsl:value-of select="concat('http://',$server,'/',$script,'?pid=',$pid,'&amp;lang=',$lang)"/></xsl:attribute>
+			<xsl:attribute name="href">
+				<xsl:value-of
+					select="concat('http://',$server,'/',$script,'?pid=',$pid,'&amp;lang=',$lang)"/>
+			</xsl:attribute>
 		</xsl:element>
 	</xsl:template>
 	<!-- Variável de Flag utilizada para log utilizada também no arquivo sci_toolbox -->
 	<xsl:variable name="service_log" select="//services_log"/>
 
-        <xsl:variable name="services" select="document('../xml/services_log.xml')"/>
+	<xsl:variable name="services" select="document('../xml/services_log.xml')"/>
 
-        <!--xsl:if test="$service_log = 1">
+	<!--xsl:if test="$service_log = 1">
                 <services>
                         <service>
                                 <name>minhaColecao</name>
@@ -90,33 +96,46 @@
 				</form>
 				<h3>
 					<span>
-						<xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'reference_manager']"/>
+						<xsl:value-of
+							select="$translations/xslid[@id='sci_common']/text[@find = 'reference_manager']"
+						/>
 					</span>
 				</h3>
 				<ul>
 					<li>
 						<a href="?download&amp;format=BibTex&amp;pid={$pid}">
-							<xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'export_to_bibtex']"/>
+							<xsl:value-of
+								select="$translations/xslid[@id='sci_common']/text[@find = 'export_to_bibtex']"
+							/>
 						</a>
 					</li>
 					<li>
 						<a href="?download&amp;format=RefMan&amp;pid={$pid}">
-							<xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'export_to_reference_manager']"/>
+							<xsl:value-of
+								select="$translations/xslid[@id='sci_common']/text[@find = 'export_to_reference_manager']"
+							/>
 						</a>
 					</li>
 					<li>
 						<a href="?download&amp;format=ProCite&amp;pid={$pid}">
-							<xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'export_to_procite']"/>
+							<xsl:value-of
+								select="$translations/xslid[@id='sci_common']/text[@find = 'export_to_procite']"
+							/>
 						</a>
 					</li>
 					<li>
 						<a href="?download&amp;format=EndNote&amp;pid={$pid}">
-							<xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'export_to_endnote']"/>
+							<xsl:value-of
+								select="$translations/xslid[@id='sci_common']/text[@find = 'export_to_endnote']"
+							/>
 						</a>
 					</li>
 					<li>
-						<a href="javascript:void(0)" onclick="javascript:w =  window.open('','download', '');document.exportCitation.format.value='RefWorks';document.exportCitation.submit();">
-							<xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'export_to_refworks']"/>
+						<a href="javascript:void(0)"
+							onclick="javascript:w =  window.open('','download', '');document.exportCitation.format.value='RefWorks';document.exportCitation.submit();">
+							<xsl:value-of
+								select="$translations/xslid[@id='sci_common']/text[@find = 'export_to_refworks']"
+							/>
 						</a>
 					</li>
 				</ul>
@@ -136,10 +155,28 @@
 		<xsl:choose>
 			<xsl:when test="$script = 'sci_pdf' ">
 				<xsl:attribute name="href">javascript: void(0); </xsl:attribute>
-				<xsl:attribute name="onClick">setTimeout("window.open('http://<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/SERVER"/><xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_DATA"/>scielo.php?script=<xsl:value-of select="$script"/>&amp;<xsl:if test="$seq">pid=<xsl:value-of select="$seq"/>&amp;</xsl:if>lng=<xsl:value-of select="normalize-space(//CONTROLINFO/LANGUAGE)"/>&amp;nrm=<xsl:value-of select="normalize-space(//CONTROLINFO/STANDARD)"/><xsl:if test="$txtlang">&amp;tlng=<xsl:value-of select="normalize-space($txtlang)"/></xsl:if><xsl:if test="$file">&amp;file=<xsl:value-of select="$file"/></xsl:if> ','_self')", 3000);</xsl:attribute>
+				<xsl:attribute name="onClick">setTimeout("window.open('http://<xsl:value-of
+						select="$control_info/SCIELO_INFO/SERVER"/><xsl:value-of
+						select="$control_info/SCIELO_INFO/PATH_DATA"
+						/>scielo.php?script=<xsl:value-of select="$script"/>&amp;<xsl:if test="$seq"
+							>pid=<xsl:value-of select="$seq"/>&amp;</xsl:if>lng=<xsl:value-of
+						select="normalize-space($control_info/LANGUAGE)"/>&amp;nrm=<xsl:value-of
+						select="normalize-space($control_info/STANDARD)"/><xsl:if test="$txtlang"
+							>&amp;tlng=<xsl:value-of select="normalize-space($txtlang)"
+						/></xsl:if><xsl:if test="$file">&amp;file=<xsl:value-of select="$file"
+						/></xsl:if> ','_self')", 3000);</xsl:attribute>
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:attribute name="href"><xsl:call-template name="getScieloLink"><xsl:with-param name="seq" select="$seq"/><xsl:with-param name="script" select="$script"/><xsl:with-param name="txtlang" select="$txtlang"/><xsl:with-param name="file" select="$file"/><xsl:with-param name="date" select="$date"/><xsl:with-param name="page" select="$page"/></xsl:call-template></xsl:attribute>
+				<xsl:attribute name="href">
+					<xsl:call-template name="getScieloLink">
+						<xsl:with-param name="seq" select="$seq"/>
+						<xsl:with-param name="script" select="$script"/>
+						<xsl:with-param name="txtlang" select="$txtlang"/>
+						<xsl:with-param name="file" select="$file"/>
+						<xsl:with-param name="date" select="$date"/>
+						<xsl:with-param name="page" select="$page"/>
+					</xsl:call-template>
+				</xsl:attribute>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
@@ -150,7 +187,10 @@
 		<xsl:param name="file"/>
 		<xsl:param name="date"/>
 		<xsl:param name="page"/>
-		<xsl:value-of select="$HOME_URL"/>?script=<xsl:value-of select="$script"/>&amp;<xsl:if test="$seq">pid=<xsl:value-of select="$seq"/>&amp;</xsl:if>lng=<xsl:value-of select="normalize-space($interfaceLang)"/>&amp;nrm=<xsl:value-of select="normalize-space(//CONTROLINFO/STANDARD)"/>
+		<xsl:value-of select="$HOME_URL"/>?script=<xsl:value-of select="$script"/>&amp;<xsl:if
+			test="$seq">pid=<xsl:value-of select="$seq"/>&amp;</xsl:if>lng=<xsl:value-of
+			select="normalize-space($interfaceLang)"/>&amp;nrm=<xsl:value-of
+			select="normalize-space($control_info/STANDARD)"/>
 		<xsl:if test="$txtlang">&amp;tlng=<xsl:value-of select="normalize-space($txtlang)"/>
 		</xsl:if>
 		<xsl:if test="$file">&amp;file=<xsl:value-of select="$file"/>
@@ -170,7 +210,20 @@
 		<xsl:param name="scope"/>
 		<xsl:param name="base">article</xsl:param>
 		<!-- DIFF REPO X PADRAO -->
-		<xsl:attribute name="href">http://<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/SERVER"/><xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_WXIS"/><xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_DATA_IAH"/>?IsisScript=<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_CGI_IAH"/>iah.xis&amp;base=<xsl:value-of select="$base"/><xsl:if test="$scope">^d<xsl:apply-templates select="." mode="repo_database"><xsl:with-param name="scope" select="$scope"/></xsl:apply-templates></xsl:if>&amp;<xsl:if test="$index">index=<xsl:value-of select="$index"/>&amp;</xsl:if>format=<xsl:value-of select="//CONTROLINFO/STANDARD"/>.pft&amp;lang=<xsl:choose><xsl:when test="//CONTROLINFO/LANGUAGE='en'">i</xsl:when><xsl:when test="//CONTROLINFO/LANGUAGE='es'">e</xsl:when><xsl:when test="//CONTROLINFO/LANGUAGE='pt'">p</xsl:when></xsl:choose><xsl:if test="$scope and $scope!='library'">&amp;limit=<xsl:apply-templates select="." mode="repo_limit"/></xsl:if></xsl:attribute>
+		<xsl:attribute name="href">http://<xsl:value-of select="$control_info/SCIELO_INFO/SERVER"
+				/><xsl:value-of select="$control_info/SCIELO_INFO/PATH_WXIS"/><xsl:value-of
+				select="$control_info/SCIELO_INFO/PATH_DATA_IAH"/>?IsisScript=<xsl:value-of
+				select="$control_info/SCIELO_INFO/PATH_CGI_IAH"/>iah.xis&amp;base=<xsl:value-of
+				select="$base"/><xsl:if test="$scope">^d<xsl:apply-templates select="."
+					mode="repo_database"><xsl:with-param name="scope" select="$scope"
+					/></xsl:apply-templates></xsl:if>&amp;<xsl:if test="$index">index=<xsl:value-of
+					select="$index"/>&amp;</xsl:if>format=<xsl:value-of
+				select="$control_info/STANDARD"/>.pft&amp;lang=<xsl:choose><xsl:when
+					test="$control_info/LANGUAGE='en'">i</xsl:when><xsl:when
+					test="$control_info/LANGUAGE='es'">e</xsl:when><xsl:when
+					test="$control_info/LANGUAGE='pt'">p</xsl:when></xsl:choose><xsl:if
+				test="$scope and $scope!='library'">&amp;limit=<xsl:apply-templates select="."
+					mode="repo_limit"/></xsl:if></xsl:attribute>
 	</xsl:template>
 	<!-- Shows Title Group -->
 	<xsl:template match="TITLEGROUP">
@@ -190,38 +243,29 @@
 			<xsl:when test="../..//LICENSE='cc'">
 				<xsl:apply-templates select="../." mode="license"/>
 				<p>
-					<i>
-						&#160;
-    						<xsl:value-of select="." disable-output-escaping="yes"/>
+					<i> &#160; <xsl:value-of select="." disable-output-escaping="yes"/>
 					</i>
 				</p>
 			</xsl:when>
 			<xsl:when test="../..//LICENSE='site'">
 				<xsl:call-template name="COPYRIGHTSCIELO"/>
 			</xsl:when>
-			<xsl:when test="../..//LICENSE='none'">
-				&#169;&#160;				
-                <i>
-					<xsl:value-of select="@YEAR"/>&#160;
-                </i>
+			<xsl:when test="../..//LICENSE='none'"> &#169;&#160; <i>
+					<xsl:value-of select="@YEAR"/>&#160; </i>
 				<br/>
 			</xsl:when>
 			<xsl:when test="../..//LICENSE='embargo' and ../..//EMBARGO/@text='yes'">
 				<xsl:call-template name="COPYRIGHTSCIELO"/>
 			</xsl:when>
-			<xsl:when test="../..//LICENSE='embargo' and ../..//EMBARGO/@text='no'">
-				&#169;&#160;				
-                <i>
-					<xsl:value-of select="@YEAR"/>&#160;
-                    <xsl:value-of select="." disable-output-escaping="yes"/>
+			<xsl:when test="../..//LICENSE='embargo' and ../..//EMBARGO/@text='no'"> &#169;&#160; <i>
+					<xsl:value-of select="@YEAR"/>&#160; <xsl:value-of select="."
+						disable-output-escaping="yes"/>
 				</i>
 				<br/>
 			</xsl:when>
-			<xsl:otherwise>
-				&#169;&#160;				
-                <i>
-					<xsl:value-of select="@YEAR"/>&#160;
-                    <xsl:value-of select="." disable-output-escaping="yes"/>
+			<xsl:otherwise> &#169;&#160; <i>
+					<xsl:value-of select="@YEAR"/>&#160; <xsl:value-of select="."
+						disable-output-escaping="yes"/>
 				</i>
 				<br/>
 				<br/>
@@ -245,7 +289,8 @@
 	<!-- Shows e-mail links -->
 	<xsl:template match="EMAILS">
 		<IMG>
-			<xsl:attribute name="src"><xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_GENIMG"/><xsl:value-of select="//CONTROLINFO/LANGUAGE"/>/e-mailt.gif</xsl:attribute>
+			<xsl:attribute name="src"><xsl:value-of select="$control_info/SCIELO_INFO/PATH_GENIMG"
+					/><xsl:value-of select="$control_info/LANGUAGE"/>/e-mailt.gif</xsl:attribute>
 			<xsl:attribute name="border">0</xsl:attribute>
 		</IMG>
 		<br/>
@@ -265,18 +310,28 @@
 	<xsl:template name="GET_ISSN_TYPE">
 		<xsl:param name="TYPE"/>
 		<xsl:param name="LANG"/>
+		<xsl:comment><xsl:value-of select="$TYPE"/><xsl:value-of select="$LANG"/></xsl:comment>
 		<xsl:choose>
 			<xsl:when test="($LANG = 'pt') or ($LANG = 'es')">
 				<em>
-					<xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'version']"/>
+					<xsl:value-of
+						select="$translations/xslid[@id='sci_common']/text[@find = 'version']"/>
 					<xsl:choose>
-						<xsl:when test=" $TYPE = 'PRINT' ">&#160;<xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'print']"/>
+						<xsl:when test=" $TYPE = 'PRINT' ">&#160;<xsl:value-of
+								select="$translations/xslid[@id='sci_common']/text[@find = 'print']"
+							/>
 						</xsl:when>
-						<xsl:when test=" $TYPE = 'CDROM' ">&#160;<xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'cdrom']"/>
+						<xsl:when test=" $TYPE = 'CDROM' ">&#160;<xsl:value-of
+								select="$translations/xslid[@id='sci_common']/text[@find = 'cdrom']"
+							/>
 						</xsl:when>
-						<xsl:when test=" $TYPE = 'DISKE' ">&#160;<xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'diskette']"/>
+						<xsl:when test=" $TYPE = 'DISKE' ">&#160;<xsl:value-of
+								select="$translations/xslid[@id='sci_common']/text[@find = 'diskette']"
+							/>
 						</xsl:when>
-						<xsl:when test=" $TYPE = 'ONLIN' ">&#160;<xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'online']"/>
+						<xsl:when test=" $TYPE = 'ONLIN' ">&#160;<xsl:value-of
+								select="$translations/xslid[@id='sci_common']/text[@find = 'online']"
+							/>
 						</xsl:when>
 					</xsl:choose>
 				</em>
@@ -285,15 +340,24 @@
 				<em>
 					<xsl:choose>
 						<xsl:when test=" $TYPE = 'PRINT' ">
-							<xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'print']"/>&#160;</xsl:when>
+							<xsl:value-of
+								select="$translations/xslid[@id='sci_common']/text[@find = 'print']"
+							/>&#160;</xsl:when>
 						<xsl:when test=" $TYPE = 'CDROM' ">
-							<xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'cdrom']"/>&#160;</xsl:when>
+							<xsl:value-of
+								select="$translations/xslid[@id='sci_common']/text[@find = 'cdrom']"
+							/>&#160;</xsl:when>
 						<xsl:when test=" $TYPE = 'DISKE' ">
-							<xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'diskette']"/>&#160;</xsl:when>
+							<xsl:value-of
+								select="$translations/xslid[@id='sci_common']/text[@find = 'diskette']"
+							/>&#160;</xsl:when>
 						<xsl:when test=" $TYPE = 'ONLIN' ">
-							<xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'online']"/>&#160;</xsl:when>
+							<xsl:value-of
+								select="$translations/xslid[@id='sci_common']/text[@find = 'online']"
+							/>&#160;</xsl:when>
 					</xsl:choose>
-					<xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'version']"/>
+					<xsl:value-of
+						select="$translations/xslid[@id='sci_common']/text[@find = 'version']"/>
 				</em>
 			</xsl:when>
 		</xsl:choose>
@@ -306,8 +370,8 @@
 		<xsl:if test="FORMERTITLE/TITLE">
 			<br/>
 			<small>
-				<xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'former_title']"/>:
-			</small>
+				<xsl:value-of
+					select="$translations/xslid[@id='sci_common']/text[@find = 'former_title']"/>: </small>
 			<br/>
 			<font color="#000080">
 				<em>
@@ -318,8 +382,8 @@
 		<xsl:if test="NEWTITLE/TITLE">
 			<br/>
 			<small>
-				<xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'new_title']"/>:
-			</small>
+				<xsl:value-of
+					select="$translations/xslid[@id='sci_common']/text[@find = 'new_title']"/>: </small>
 			<br/>
 			<font color="#000080">
 				<em>
@@ -385,13 +449,15 @@
 								<xsl:call-template name="GET_ISSN_TYPE">
 									<xsl:with-param name="TYPE" select="@TYPE"/>
 									<xsl:with-param name="LANG" select="$LANG"/>
-								</xsl:call-template>&#160;ISSN</font>&#160;<xsl:value-of select="normalize-space(.)"/>
+								</xsl:call-template>&#160;ISSN</font>&#160;<xsl:value-of
+								select="normalize-space(.)"/>
 						</xsl:when>
 						<xsl:otherwise>
 							<xsl:call-template name="GET_ISSN_TYPE">
 								<xsl:with-param name="TYPE" select="@TYPE"/>
 								<xsl:with-param name="LANG" select="$LANG"/>
-							</xsl:call-template>&#160;ISSN&#160;<xsl:value-of select="normalize-space(.)"/>
+							</xsl:call-template>&#160;ISSN&#160;<xsl:value-of
+								select="normalize-space(.)"/>
 						</xsl:otherwise>
 					</xsl:choose>
 				</xsl:when>
@@ -401,7 +467,8 @@
 							<font color="#000000">ISSN</font>
 						</xsl:when>
 						<xsl:otherwise>ISSN</xsl:otherwise>
-					</xsl:choose>&#160;<xsl:value-of select="normalize-space(.)"/>&#160;<xsl:if test="$SERIAL">
+					</xsl:choose>&#160;<xsl:value-of select="normalize-space(.)"/>&#160;<xsl:if
+						test="$SERIAL">
 						<br/>
 					</xsl:if>
 					<xsl:call-template name="GET_ISSN_TYPE">
@@ -415,7 +482,8 @@
 							<font color="#000000">ISSN</font>
 						</xsl:when>
 						<xsl:otherwise>ISSN</xsl:otherwise>
-					</xsl:choose>&#160;<xsl:value-of select="normalize-space(.)"/>&#160;<xsl:if test="$SERIAL">
+					</xsl:choose>&#160;<xsl:value-of select="normalize-space(.)"/>&#160;<xsl:if
+						test="$SERIAL">
 						<br/>
 					</xsl:if>
 					<xsl:call-template name="GET_ISSN_TYPE">
@@ -452,17 +520,21 @@
 			<xsl:if test="$FIRST_LABEL='1'">
 				<xsl:choose>
 					<xsl:when test="$isProvisional='1' and  $TYPE='full' ">
-						<xsl:value-of select="$translations//xslid[@id='sci_issuetoc']//text[@find='abstract']"/>
+						<xsl:value-of
+							select="$translations//xslid[@id='sci_issuetoc']//text[@find='abstract']"
+						/>
 					</xsl:when>
 					<xsl:otherwise>
-						<xsl:value-of select="$translations//xslid[@id='sci_issuetoc']//text[@find=$TYPE]"/>
+						<xsl:value-of
+							select="$translations//xslid[@id='sci_issuetoc']//text[@find=$TYPE]"/>
 					</xsl:otherwise>
 				</xsl:choose>
 			</xsl:if>
-			<xsl:variable name="languages" select="document(concat('../xml/',$INTLANG,'/language.xml'))//language"/>
+			<xsl:variable name="languages"
+				select="document(concat('../xml/',$INTLANG,'/language.xml'))//language"/>
 			<xsl:text> </xsl:text>
 			<xsl:value-of select="$languages[@id=$TXTLANG]"/>
-		<!--	As 2 linhas abaixo foram substituídas pela linha superior.
+			<!--	As 2 linhas abaixo foram substituídas pela linha superior.
 			<xsl:value-of select="translate(substring($languages[@id=$TXTLANG],1,1),'ABCDEFGHJIKLMNOPQRSTUVWXYZ','abcdefghjiklmnopqrstuvwxyz')"/>
 			<xsl:value-of select="substring($languages[@id=$TXTLANG],2)"/>
 		-->
@@ -495,6 +567,7 @@
 				</a>
 			</xsl:otherwise>
 		</xsl:choose>
+
 		<!-- &#160;&#160;&#160; -->
 	</xsl:template>
 	<!-- Invisible Image To Update Log File -->
@@ -504,56 +577,78 @@
 		<xsl:param name="IMG"/>
 		<xsl:param name="URL"/>
 		<xsl:if test="$IMG">
-			<a href="javascript:void(0);" class="nomodel" style="text-decoration: none;" rel="nofollow" onmouseout="status='';" onmouseover="status='{$LABEL}'; return true;">
-				<xsl:attribute name="onclick">OpenArticleInfoWindow (  850, 500, '<xsl:value-of select="$URL"/>');<xsl:if test="$SERVICE_ID!=''">callUpdateArticleLog('<xsl:value-of select="$SERVICE_ID"/>');</xsl:if></xsl:attribute>
+			<a href="javascript:void(0);" class="nomodel" style="text-decoration: none;"
+				rel="nofollow" onmouseout="status='';" onmouseover="status='{$LABEL}'; return true;">
+				<xsl:attribute name="onclick">OpenArticleInfoWindow ( 850, 500, '<xsl:value-of
+						select="$URL"/>');<xsl:if test="$SERVICE_ID!=''"
+							>callUpdateArticleLog('<xsl:value-of select="$SERVICE_ID"
+					/>');</xsl:if></xsl:attribute>
 				<img border="0" align="middle" src="{$IMG}"/>
 			</a>
 		</xsl:if>
 		<xsl:if test="$LABEL">
-			<a href="javascript:void(0);" class="nomodel" style="text-decoration: none;" rel="nofollow" onmouseout="status='';" onmouseover="status='{$LABEL}'; return true;">
-				<xsl:attribute name="onclick">OpenArticleInfoWindow ( 850, 500,  '<xsl:value-of select="$URL"/>');<xsl:if test="$SERVICE_ID!=''">callUpdateArticleLog('<xsl:value-of select="$SERVICE_ID"/>');</xsl:if></xsl:attribute>
+			<a href="javascript:void(0);" class="nomodel" style="text-decoration: none;"
+				rel="nofollow" onmouseout="status='';" onmouseover="status='{$LABEL}'; return true;">
+				<xsl:attribute name="onclick">OpenArticleInfoWindow ( 850, 500, '<xsl:value-of
+						select="$URL"/>');<xsl:if test="$SERVICE_ID!=''"
+							>callUpdateArticleLog('<xsl:value-of select="$SERVICE_ID"
+					/>');</xsl:if></xsl:attribute>
 				<xsl:value-of select="$LABEL"/>
 			</a>
 		</xsl:if>
 	</xsl:template>
 	<!-- Invisible Image To Update Log File -->
 	<xsl:template name="UpdateLog">
-		<xsl:if test="//CONTROLINFO/SCIELO_INFO/SERVER_LOG!=''">
+		<xsl:if test="$control_info/SCIELO_INFO/SERVER_LOG!=''">
 			<img>
-				<xsl:attribute name="src">http://<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/SERVER_LOG"/>/<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/SCRIPT_LOG_NAME"/>?app=<xsl:value-of select="normalize-space(//CONTROLINFO/APP_NAME)"/>&amp;page=<xsl:value-of select="//CONTROLINFO/PAGE_NAME"/>&amp;<xsl:if test="//CONTROLINFO/PAGE_PID">pid=<xsl:value-of select="//CONTROLINFO/PAGE_PID"/>&amp;</xsl:if>lang=<xsl:value-of select="normalize-space(//CONTROLINFO/LANGUAGE)"/>&amp;norm=<xsl:value-of select="normalize-space(//CONTROLINFO/STANDARD)"/>&amp;doctopic=<xsl:value-of select="//ARTICLE/@DOCTOPIC"/>&amp;doctype=<xsl:value-of select="//ARTICLE/@DOCTYPE"/><xsl:if test="$langtext">&amp;tlng=<xsl:value-of select="normalize-space($langtext)"/></xsl:if></xsl:attribute>
+				<xsl:attribute name="src">http://<xsl:value-of
+						select="$control_info/SCIELO_INFO/SERVER_LOG"/>/<xsl:value-of
+						select="$control_info/SCIELO_INFO/SCRIPT_LOG_NAME"/>?app=<xsl:value-of
+						select="normalize-space($control_info/APP_NAME)"/>&amp;page=<xsl:value-of
+						select="$control_info/PAGE_NAME"/>&amp;<xsl:if test="$control_info/PAGE_PID"
+							>pid=<xsl:value-of select="$control_info/PAGE_PID"
+						/>&amp;</xsl:if>lang=<xsl:value-of
+						select="normalize-space($control_info/LANGUAGE)"/>&amp;norm=<xsl:value-of
+						select="normalize-space($control_info/STANDARD)"
+						/>&amp;doctopic=<xsl:value-of select="//ARTICLE/@DOCTOPIC"
+						/>&amp;doctype=<xsl:value-of select="//ARTICLE/@DOCTYPE"/><xsl:if
+						test="$langtext">&amp;tlng=<xsl:value-of select="normalize-space($langtext)"
+						/></xsl:if></xsl:attribute>
 				<xsl:attribute name="border">0</xsl:attribute>
 				<xsl:attribute name="height">1</xsl:attribute>
 				<xsl:attribute name="width">1</xsl:attribute>
-			</img>      
+			</img>
 		</xsl:if>
 		<!-- to use Google Analytics -->
-		<xsl:if test="//CONTROLINFO/SCIELO_INFO/GOOGLE_CODE != ''">
+		<xsl:if test="$control_info/SCIELO_INFO/GOOGLE_CODE != ''">
 			<script type="text/javascript">
 				var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
 				document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
 				</script>
 			<script type="text/javascript">
-				var pageTracker = _gat._getTracker("<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/GOOGLE_CODE"/>");
+				var pageTracker = _gat._getTracker("<xsl:value-of select="$control_info/SCIELO_INFO/GOOGLE_CODE"/>");
 				pageTracker._initData();
 				pageTracker._trackPageview();
 			</script>
 		</xsl:if>
-                
+
 	</xsl:template>
 	<xsl:template name="ImageLogo">
 		<xsl:param name="src"/>
 		<xsl:param name="alt"/>
 		<img>
-			<xsl:attribute name="src"><xsl:value-of select="$src"/></xsl:attribute>
-			<xsl:attribute name="alt"><xsl:value-of select="$alt"/></xsl:attribute>
+			<xsl:attribute name="src">
+				<xsl:value-of select="$src"/>
+			</xsl:attribute>
+			<xsl:attribute name="alt">
+				<xsl:value-of select="$alt"/>
+			</xsl:attribute>
 			<xsl:attribute name="border">0</xsl:attribute>
 		</img>
 	</xsl:template>
 	<xsl:template name="COPYRIGHTSCIELO">
 		<xsl:apply-templates select="." mode="license"/>
-		<center>
-		&#169;&#160;<xsl:value-of select="@YEAR"/>&#160;
-		<i>
+		<center> &#169;&#160;<xsl:value-of select="@YEAR"/>&#160; <i>
 				<font color="#000080">
 					<xsl:choose>
 						<xsl:when test="OWNER-FULLNAME">
@@ -567,7 +662,9 @@
 				<br/>
 			</i>
 			<img>
-				<xsl:attribute name="src"><xsl:value-of select="//PATH_GENIMG"/><xsl:value-of select="normalize-space(//CONTROLINFO/LANGUAGE)"/>/e-mailt.gif</xsl:attribute>
+				<xsl:attribute name="src"><xsl:value-of select="//PATH_GENIMG"/><xsl:value-of
+						select="normalize-space($control_info/LANGUAGE)"
+					/>/e-mailt.gif</xsl:attribute>
 				<xsl:attribute name="alt"><xsl:value-of select="CONTACT"/></xsl:attribute>
 				<xsl:attribute name="border">0</xsl:attribute>
 			</img>
@@ -595,18 +692,34 @@
 		<xsl:param name="maccess"/>
 		<xsl:param name="app"/>
 		<xsl:param name="server"/>
-		<xsl:attribute name="href">http://<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/SERVER_LOG_PROC"/>/<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/SERVER_LOG_PROC_PATH"/>/scielolog.php?script=<xsl:value-of select="$script"/>&amp;lng=<xsl:value-of select="normalize-space(//CONTROLINFO/LANGUAGE)"/>&amp;nrm=<xsl:value-of select="normalize-space(//CONTROLINFO/STANDARD)"/><xsl:if test="$pid">&amp;pid=<xsl:value-of select="$pid"/></xsl:if><xsl:if test="$order">&amp;order=<xsl:value-of select="$order"/></xsl:if><xsl:if test="$dti">&amp;dti=<xsl:value-of select="$dti"/></xsl:if><xsl:if test="$dtf">&amp;dtf=<xsl:value-of select="$dtf"/></xsl:if><xsl:if test="$access">&amp;access=<xsl:value-of select="$access"/></xsl:if><xsl:if test="$cpage">&amp;cpage=<xsl:value-of select="$cpage"/></xsl:if><xsl:if test="$nlines">&amp;nlines=<xsl:value-of select="$nlines"/></xsl:if><xsl:if test="$tpages">&amp;tpages=<xsl:value-of select="$tpages"/></xsl:if><xsl:if test="$maccess">&amp;maccess=<xsl:value-of select="$maccess"/></xsl:if><xsl:if test="$app">&amp;app=<xsl:value-of select="$app"/></xsl:if><xsl:if test="$server">&amp;server=<xsl:value-of select="$server"/></xsl:if></xsl:attribute>
+		<xsl:attribute name="href">http://<xsl:value-of
+				select="$control_info/SCIELO_INFO/SERVER_LOG_PROC"/>/<xsl:value-of
+				select="$control_info/SCIELO_INFO/SERVER_LOG_PROC_PATH"
+				/>/scielolog.php?script=<xsl:value-of select="$script"/>&amp;lng=<xsl:value-of
+				select="normalize-space($control_info/LANGUAGE)"/>&amp;nrm=<xsl:value-of
+				select="normalize-space($control_info/STANDARD)"/><xsl:if test="$pid"
+					>&amp;pid=<xsl:value-of select="$pid"/></xsl:if><xsl:if test="$order"
+					>&amp;order=<xsl:value-of select="$order"/></xsl:if><xsl:if test="$dti"
+					>&amp;dti=<xsl:value-of select="$dti"/></xsl:if><xsl:if test="$dtf"
+					>&amp;dtf=<xsl:value-of select="$dtf"/></xsl:if><xsl:if test="$access"
+					>&amp;access=<xsl:value-of select="$access"/></xsl:if><xsl:if test="$cpage"
+					>&amp;cpage=<xsl:value-of select="$cpage"/></xsl:if><xsl:if test="$nlines"
+					>&amp;nlines=<xsl:value-of select="$nlines"/></xsl:if><xsl:if test="$tpages"
+					>&amp;tpages=<xsl:value-of select="$tpages"/></xsl:if><xsl:if test="$maccess"
+					>&amp;maccess=<xsl:value-of select="$maccess"/></xsl:if><xsl:if test="$app"
+					>&amp;app=<xsl:value-of select="$app"/></xsl:if><xsl:if test="$server"
+					>&amp;server=<xsl:value-of select="$server"/></xsl:if></xsl:attribute>
 	</xsl:template>
 	<!-- Prints message with the log start date (count started at..) 
      Parameters: date - log start date
 -->
 	<xsl:template name="PrintLogStartDate">
-		<xsl:param name="date"/>
-        * &#160;<xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'count_started_in']"/>:
-        <xsl:call-template name="ShowDate">
+		<xsl:param name="date"/> * &#160;<xsl:value-of
+			select="$translations/xslid[@id='sci_common']/text[@find = 'count_started_in']"/>:
+			<xsl:call-template name="ShowDate">
 			<xsl:with-param name="DATEISO" select="$date"/>
 			<xsl:with-param name="LANG">
-				<xsl:value-of select="//CONTROLINFO/LANGUAGE"/>
+				<xsl:value-of select="$control_info/LANGUAGE"/>
 			</xsl:with-param>
 		</xsl:call-template>
 	</xsl:template>
@@ -627,29 +740,45 @@
 		<xsl:param name="script"/>
 		<xsl:param name="pid"/>
 		<xsl:attribute name="name">main_form</xsl:attribute>
-		<xsl:attribute name="action">http://<xsl:value-of select="CONTROLINFO/SCIELO_INFO/SERVER"/><xsl:value-of select="CONTROLINFO/SCIELO_INFO/PATH_DATA"/>scielolog.php</xsl:attribute>
+		<xsl:attribute name="action">http://<xsl:value-of select="$control_info/SCIELO_INFO/SERVER"
+				/><xsl:value-of select="$control_info/SCIELO_INFO/PATH_DATA"
+			/>scielolog.php</xsl:attribute>
 		<xsl:attribute name="method">GET</xsl:attribute>
 		<xsl:attribute name="onSubmit">return validate();</xsl:attribute>
 		<input type="hidden" name="script">
-			<xsl:attribute name="value"><xsl:value-of select="$script"/></xsl:attribute>
+			<xsl:attribute name="value">
+				<xsl:value-of select="$script"/>
+			</xsl:attribute>
 		</input>
 		<input type="hidden" name="pid">
-			<xsl:attribute name="value"><xsl:value-of select="$pid"/></xsl:attribute>
+			<xsl:attribute name="value">
+				<xsl:value-of select="$pid"/>
+			</xsl:attribute>
 		</input>
 		<input type="hidden" name="lng">
-			<xsl:attribute name="value"><xsl:value-of select="//CONTROLINFO/LANGUAGE"/></xsl:attribute>
+			<xsl:attribute name="value">
+				<xsl:value-of select="$control_info/LANGUAGE"/>
+			</xsl:attribute>
 		</input>
 		<input type="hidden" name="nrm">
-			<xsl:attribute name="value"><xsl:value-of select="//CONTROLINFO/STANDARD"/></xsl:attribute>
+			<xsl:attribute name="value">
+				<xsl:value-of select="$control_info/STANDARD"/>
+			</xsl:attribute>
 		</input>
 		<input type="hidden" name="order">
-			<xsl:attribute name="value"><xsl:value-of select="//STATPARAM/FILTER/ORDER"/></xsl:attribute>
+			<xsl:attribute name="value">
+				<xsl:value-of select="//STATPARAM/FILTER/ORDER"/>
+			</xsl:attribute>
 		</input>
 		<input type="hidden" name="dti">
-			<xsl:attribute name="value"><xsl:value-of select="//STATPARAM/FILTER/INITIAL_DATE"/></xsl:attribute>
+			<xsl:attribute name="value">
+				<xsl:value-of select="//STATPARAM/FILTER/INITIAL_DATE"/>
+			</xsl:attribute>
 		</input>
 		<input type="hidden" name="dtf">
-			<xsl:attribute name="value"><xsl:value-of select="//STATPARAM/FILTER/FINAL_DATE"/></xsl:attribute>
+			<xsl:attribute name="value">
+				<xsl:value-of select="//STATPARAM/FILTER/FINAL_DATE"/>
+			</xsl:attribute>
 		</input>
 	</xsl:template>
 	<!-- Prints the Date Selection TextBoxes
@@ -657,7 +786,7 @@
 	<xsl:template name="PrintDateRangeSelection">
 		<script language="javascript">
 			<xsl:comment>
-      setLanguage('<xsl:value-of select="normalize-space(//CONTROLINFO/LANGUAGE)"/>');
+      setLanguage('<xsl:value-of select="normalize-space($control_info/LANGUAGE)"/>');
       setStartDate('<xsl:value-of select="normalize-space(//STATPARAM/START_DATE)"/>');
       setLastDate('<xsl:value-of select="normalize-space(//STATPARAM/CURRENT_DATE)"/>')
 
@@ -668,7 +797,8 @@
 	<!-- Prints the submit button (reload button)
 -->
 	<xsl:template name="PutSubmitButton">
-		<input type="submit" value="{$translations/xslid[@id='sci_common']/text[@find = 'reload']}"/>
+		<input type="submit" value="{$translations/xslid[@id='sci_common']/text[@find = 'reload']}"
+		/>
 	</xsl:template>
 	<!-- Shows empty query message -->
 	<xsl:template name="ShowEmptyQueryResult">
@@ -676,39 +806,39 @@
 		<p>
 			<center>
 				<font color="blue">
-					<xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'there_are_no_statistics_forthat_period']"/>
+					<xsl:value-of
+						select="$translations/xslid[@id='sci_common']/text[@find = 'there_are_no_statistics_forthat_period']"
+					/>
 				</font>
 			</center>
 		</p>
 		<hr/>
 	</xsl:template>
 	<xsl:template match="LANGUAGES">
-		<xsl:param name="LANG" select="//CONTROLINFO/LANGUAGE"/>
+		<xsl:param name="LANG" select="$control_info/LANGUAGE"/>
 		<xsl:param name="PID"/>
 		<xsl:param name="VERIFY"/>
-		<div align="left">
-           &#160;&#160;&#160;
-            <xsl:apply-templates select="*[LANG]">
+		<div align="left"> &#160;&#160;&#160; <xsl:apply-templates select="*[LANG]">
 				<xsl:with-param name="LANG" select="$LANG"/>
 				<xsl:with-param name="PID" select="$PID"/>
 			</xsl:apply-templates>
-			<xsl:if test="$VERIFY">
-                        &#160;&#160;&#160;&#160;
-                        <xsl:call-template name="CREATE_VERIFY_LINK">
+			<xsl:if test="$VERIFY"> &#160;&#160;&#160;&#160; <xsl:call-template
+					name="CREATE_VERIFY_LINK">
 					<xsl:with-param name="PID" select="$PID"/>
 				</xsl:call-template>
 			</xsl:if>
-			<xsl:if test="../EMBARGO/@text='no'">
-				&#160;&#160;&#160;&#160;<font face="Symbol" color="#000080">&#183; </font>
+			<xsl:if test="../EMBARGO/@text='no'"> &#160;&#160;&#160;&#160;<font face="Symbol"
+					color="#000080">&#183; </font>
 				<xsl:apply-templates select="../EMBARGO/@date">
 					<xsl:with-param name="lang" select="$interfaceLang"/>
 				</xsl:apply-templates>
 			</xsl:if>
-			<!--         </td>
-            </tr>
-        </table> -->
+			<xsl:if test="$journal_manager=1">
+				<span id="{concat('pr_',$PID)}" style="display: none;"/>
+			</xsl:if>
 		</div>
 	</xsl:template>
+
 	<xsl:template match="LANGUAGES/*">
 		<xsl:param name="LANG"/>
 		<xsl:param name="PID"/>
@@ -720,19 +850,41 @@
 				<xsl:when test="contains(name(),'PRESS')">pr</xsl:when>
 			</xsl:choose>
 		</xsl:variable>
-       &#160;&#160;&#160;&#160;<font face="Symbol" color="#000080">&#183; </font>
 		<!-- fixed 20040122 - ordem dos idiomas, primeiro o idioma da interface, seguido pelos outros idiomas -->
-		<xsl:apply-templates select="LANG[.=$LANG]" mode="issuetoc">
-			<xsl:with-param name="LANG" select="$LANG"/>
-			<xsl:with-param name="PID" select="$PID"/>
-			<xsl:with-param name="type" select="$type"/>
-		</xsl:apply-templates>
-		<xsl:apply-templates select="LANG[.!=$LANG]" mode="issuetoc">
-			<xsl:with-param name="LANG" select="$LANG"/>
-			<xsl:with-param name="PID" select="$PID"/>
-			<xsl:with-param name="type" select="$type"/>
-			<xsl:with-param name="CONTINUATION" select="(LANG[.=$LANG]!='')"/>
-		</xsl:apply-templates>
+		<xsl:choose>
+			<xsl:when test="$journal_manager=1">
+				<xsl:if test="$type != 'pr'"> &#160;&#160;&#160;&#160;<font face="Symbol"
+					color="#000080">&#183; </font>
+					<xsl:apply-templates select="LANG[.=$LANG]" mode="issuetoc">
+						<xsl:with-param name="LANG" select="$LANG"/>
+						<xsl:with-param name="PID" select="$PID"/>
+						<xsl:with-param name="type" select="$type"/>
+					</xsl:apply-templates>
+					<xsl:apply-templates select="LANG[.!=$LANG]" mode="issuetoc">
+						<xsl:with-param name="LANG" select="$LANG"/>
+						<xsl:with-param name="PID" select="$PID"/>
+						<xsl:with-param name="type" select="$type"/>
+						<xsl:with-param name="CONTINUATION" select="(LANG[.=$LANG]!='')"/>
+					</xsl:apply-templates>
+				</xsl:if>
+			</xsl:when>
+			<xsl:otherwise>
+				&#160;&#160;&#160;&#160;<font face="Symbol"
+					color="#000080">&#183; </font>
+				<xsl:apply-templates select="LANG[.=$LANG]" mode="issuetoc">
+					<xsl:with-param name="LANG" select="$LANG"/>
+					<xsl:with-param name="PID" select="$PID"/>
+					<xsl:with-param name="type" select="$type"/>
+				</xsl:apply-templates>
+				<xsl:apply-templates select="LANG[.!=$LANG]" mode="issuetoc">
+					<xsl:with-param name="LANG" select="$LANG"/>
+					<xsl:with-param name="PID" select="$PID"/>
+					<xsl:with-param name="type" select="$type"/>
+					<xsl:with-param name="CONTINUATION" select="(LANG[.=$LANG]!='')"/>
+				</xsl:apply-templates>
+			</xsl:otherwise>
+		</xsl:choose>
+		
 	</xsl:template>
 	<xsl:template match="LANG" mode="issuetoc">
 		<xsl:param name="LANG"/>
@@ -769,7 +921,11 @@
 		<xsl:param name="PID"/>
 		<font face="Symbol" color="#800000">Ñ </font>
 		<a>
-			<xsl:attribute name="href">http://<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/SERVER"/><xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_verify&amp;pid=<xsl:value-of select="$PID"/></xsl:attribute>see mst o/h/f records</a>
+			<xsl:attribute name="href">http://<xsl:value-of
+					select="$control_info/SCIELO_INFO/SERVER"/><xsl:value-of
+					select="$control_info/SCIELO_INFO/PATH_DATA"
+					/>scielo.php?script=sci_verify&amp;pid=<xsl:value-of select="$PID"
+				/></xsl:attribute>see mst o/h/f records</a>
 	</xsl:template>
 	<!-- Prints Information about authors, title and strip 
    Parameters:
@@ -791,21 +947,21 @@
 			</tr>
 		</table>
 	</xsl:template>
-	<xsl:template match="AUTHOR" mode="LATTES">
-	InsertAuthor("<xsl:value-of select="."/>", "<xsl:value-of select="@HREF"/>");
-</xsl:template>
+	<xsl:template match="AUTHOR" mode="LATTES"> InsertAuthor("<xsl:value-of select="."/>",
+			"<xsl:value-of select="@HREF"/>"); </xsl:template>
 	<xsl:template name="PrintArticleInformationLink">
-		<xsl:variable name="PATH_GENIMG" select="//CONTROLINFO/SCIELO_INFO/PATH_GENIMG"/>
-		<xsl:variable name="CONTROLINFO" select="//CONTROLINFO"/>
-		<xsl:variable name="LANGUAGE" select="$CONTROLINFO/LANGUAGE"/>
+		<xsl:variable name="PATH_GENIMG" select="$control_info/SCIELO_INFO/PATH_GENIMG"/>
+
+		<xsl:variable name="LANGUAGE" select="$control_info/LANGUAGE"/>
 		<xsl:variable name="textLang">
 			<xsl:choose>
-				<xsl:when test="//CONTROLINFO[PAGE_NAME='sci_arttext']">
+				<xsl:when test="$control_info[PAGE_NAME='sci_arttext']">
 					<xsl:value-of select="//ARTICLE/@TEXTLANG"/>
 				</xsl:when>
-				<xsl:when test="//CONTROLINFO[PAGE_NAME='sci_abstract']">
+				<xsl:when test="$control_info[PAGE_NAME='sci_abstract']">
 					<xsl:variable name="abstractLang" select=".//ABSTRACT/@xml:lang"/>
-					<xsl:if test="//ART_TEXT_LANGS[LANG=$abstractLang] or //PDF_LANGS[LANG=$abstractLang]">
+					<xsl:if
+						test="//ART_TEXT_LANGS[LANG=$abstractLang] or //PDF_LANGS[LANG=$abstractLang]">
 						<xsl:value-of select="$abstractLang"/>
 					</xsl:if>
 				</xsl:when>
@@ -815,29 +971,36 @@
 		<xsl:variable name="tlng">
 			<xsl:value-of select="normalize-space($textLang)"/>
 		</xsl:variable>
-		<xsl:variable name="INFOPAGE">http://<xsl:value-of select="$CONTROLINFO/SCIELO_INFO/SERVER"/>
-			<xsl:value-of select="$CONTROLINFO/SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_isoref&amp;pid=<xsl:value-of select="$CONTROLINFO/PAGE_PID"/>&amp;lng=<xsl:value-of select="$LANGUAGE"/>
+		<xsl:variable name="INFOPAGE">http://<xsl:value-of select="$control_info/SCIELO_INFO/SERVER"/>
+			<xsl:value-of select="$control_info/SCIELO_INFO/PATH_DATA"
+				/>scielo.php?script=sci_isoref&amp;pid=<xsl:value-of select="$control_info/PAGE_PID"
+				/>&amp;lng=<xsl:value-of select="$LANGUAGE"/>
 			<xsl:if test="string-length($tlng)&gt;0">&amp;tlng=<xsl:value-of select="$tlng"/>
 			</xsl:if>
 		</xsl:variable>
 		<td valign="middle">
-			<a href="javascript:void(0);" onmouseout="status='';" class="nomodel" style="text-decoration: none;">
-				<xsl:attribute name="onclick">OpenArticleInfoWindow ( 780, 450,  "<xsl:value-of select="$INFOPAGE"/>");
-				<xsl:if test="$service_log  = 1">callUpdateArticleLog('como_citar_este_artigo');</xsl:if></xsl:attribute>
+			<a href="javascript:void(0);" onmouseout="status='';" class="nomodel"
+				style="text-decoration: none;">
+				<xsl:attribute name="onclick">OpenArticleInfoWindow ( 780, 450, "<xsl:value-of
+						select="$INFOPAGE"/>"); <xsl:if test="$service_log  = 1"
+						>callUpdateArticleLog('como_citar_este_artigo');</xsl:if></xsl:attribute>
 				<xsl:attribute name="rel">nofollow</xsl:attribute>
-				<xsl:attribute name="onmouseover">
-				status='<xsl:call-template name="PrintArticleInformationLabel"><xsl:with-param name="LANGUAGE" select="$LANGUAGE"/></xsl:call-template>'; return true;
-			</xsl:attribute>
+				<xsl:attribute name="onmouseover"> status='<xsl:call-template
+						name="PrintArticleInformationLabel"><xsl:with-param name="LANGUAGE"
+							select="$LANGUAGE"/></xsl:call-template>'; return true; </xsl:attribute>
 				<img border="0" align="middle" src="{$PATH_GENIMG}{$LANGUAGE}/fulltxt.gif"/>
 			</a>
 		</td>
 		<td>
-			<a href="javascript:void(0);" onmouseout="status='';" class="nomodel" style="text-decoration: none;">
-				<xsl:attribute name="onclick">OpenArticleInfoWindow ( 780, 450,  "<xsl:value-of select="$INFOPAGE"/>");<xsl:if test="$service_log = 1">callUpdateArticleLog('como_citar_este_artigo');</xsl:if></xsl:attribute>
+			<a href="javascript:void(0);" onmouseout="status='';" class="nomodel"
+				style="text-decoration: none;">
+				<xsl:attribute name="onclick">OpenArticleInfoWindow ( 780, 450, "<xsl:value-of
+						select="$INFOPAGE"/>");<xsl:if test="$service_log = 1"
+						>callUpdateArticleLog('como_citar_este_artigo');</xsl:if></xsl:attribute>
 				<xsl:attribute name="rel">nofollow</xsl:attribute>
-				<xsl:attribute name="onmouseover">
-				status='<xsl:call-template name="PrintArticleInformationLabel"><xsl:with-param name="LANGUAGE" select="$LANGUAGE"/></xsl:call-template>'; return true;
-			</xsl:attribute>
+				<xsl:attribute name="onmouseover"> status='<xsl:call-template
+						name="PrintArticleInformationLabel"><xsl:with-param name="LANGUAGE"
+							select="$LANGUAGE"/></xsl:call-template>'; return true; </xsl:attribute>
 				<xsl:call-template name="PrintArticleInformationLabel">
 					<xsl:with-param name="LANGUAGE" select="$LANGUAGE"/>
 				</xsl:call-template>
@@ -846,17 +1009,18 @@
 	</xsl:template>
 	<xsl:template name="PrintArticleInformationLabel">
 		<xsl:param name="LANGUAGE"/>
-		<xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'how_to_cite_this_article']"/>
+		<xsl:value-of
+			select="$translations/xslid[@id='sci_common']/text[@find = 'how_to_cite_this_article']"
+		/>
 	</xsl:template>
-	<xsl:template match="@DOI">
-	 http://dx.doi.org/<xsl:value-of select="translate(.,' ','')"/>
+	<xsl:template match="@DOI" mode="number">
+		<xsl:value-of select="."/>
 	</xsl:template>
-	<xsl:template match="ARTICLE[@displayDOILink]/@DOI">
-		<xsl:apply-templates select="../@displayDOILink"/>			
+
+	<xsl:template match="@DOI" mode="display"> http://dx.doi.org/<xsl:value-of
+			select="translate(.,' ','')"/>
 	</xsl:template>
-	<xsl:template match="ARTICLE/@displayDOILink">
-		http://dx.doi.org/<xsl:value-of select="translate(.,' ','')"/>
-	</xsl:template>
+
 	<!--
 
 tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
@@ -867,17 +1031,16 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
 	<xsl:template match="fulltext-service-list"/>
 	<xsl:template match="EMBARGO/@date">
 		<xsl:param name="lang"/>
-		<xsl:value-of select="$translations/xslid[@id='sci_common']/text[@find = 'text_available_after']"/>&#160;
-		<xsl:call-template name="ShowDate">
+		<xsl:value-of
+			select="$translations/xslid[@id='sci_common']/text[@find = 'text_available_after']"
+		/>&#160; <xsl:call-template name="ShowDate">
 			<xsl:with-param name="DATEISO" select="."/>
 			<xsl:with-param name="LANG" select="$lang"/>
 		</xsl:call-template>
 	</xsl:template>
 	<xsl:template match="*" mode="license">
 		<xsl:choose>
-			<xsl:when test="$ARTICLE_LICENSE">
-			
-			</xsl:when>
+			<xsl:when test="$ARTICLE_LICENSE"> </xsl:when>
 			<xsl:when test="$GENERAL_LICENSE">
 				<xsl:apply-templates select="$GENERAL_LICENSE"/>
 			</xsl:when>
@@ -895,12 +1058,9 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
 				<xsl:value-of select="../..//LICENSE"/>
 			</xsl:comment>
 			<xsl:choose>
-				<xsl:when test="../..//LICENSE='site'">
-                </xsl:when>
-				<xsl:when test="../..//LICENSE='none'">
-                </xsl:when>
-				<xsl:when test="../..//LICENSE='embargo' and ../..//EMBARGO/@text='yes'">
-                </xsl:when>
+				<xsl:when test="../..//LICENSE='site'"> </xsl:when>
+				<xsl:when test="../..//LICENSE='none'"> </xsl:when>
+				<xsl:when test="../..//LICENSE='embargo' and ../..//EMBARGO/@text='yes'"> </xsl:when>
 				<xsl:otherwise>
 					<xsl:apply-templates select=".//CONTACT"/>
 				</xsl:otherwise>
@@ -914,7 +1074,7 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
 	</xsl:template>
 	<xsl:template match="*" mode="sci_serial">
 		<xsl:choose>
-			<xsl:when test="//CONTROLINFO/NO_SCI_SERIAL='yes'">sci_artlist</xsl:when>
+			<xsl:when test="$control_info/NO_SCI_SERIAL='yes'">sci_artlist</xsl:when>
 			<xsl:otherwise>sci_serial</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
@@ -939,9 +1099,11 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
 			<xsl:when test="//PAGINATION">
 				<xsl:choose>
 					<xsl:when test="//PAGINATION/@rep and //PAGINATION/@journal">
-						<xsl:value-of select="//PAGINATION/@journal"/> and rep=<xsl:value-of select="//PAGINATION/@rep"/>
+						<xsl:value-of select="//PAGINATION/@journal"/> and rep=<xsl:value-of
+							select="//PAGINATION/@rep"/>
 					</xsl:when>
-					<xsl:when test="//PAGINATION/@rep">rep=<xsl:value-of select="//PAGINATION/@rep"/>
+					<xsl:when test="//PAGINATION/@rep">rep=<xsl:value-of select="//PAGINATION/@rep"
+						/>
 					</xsl:when>
 					<xsl:otherwise>
 						<xsl:value-of select="//PAGINATION/@journal"/>
@@ -961,7 +1123,8 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
 	<xsl:template match="*" mode="repo_url_param_scielo">
 		<xsl:apply-templates select="//PAGINATION/@*" mode="repo_url_param_scielo"/>
 	</xsl:template>
-	<xsl:template match="@*" mode="repo_url_param_scielo">&amp;<xsl:value-of select="name()"/>=<xsl:value-of select="."/>
+	<xsl:template match="@*" mode="repo_url_param_scielo">&amp;<xsl:value-of select="name()"
+			/>=<xsl:value-of select="."/>
 	</xsl:template>
 	<xsl:template name="HeadStatJournal">
 		<HEAD>
@@ -970,21 +1133,36 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
 			<TITLE>
 				<xsl:choose>
 					<xsl:when test="//TITLEGROUP">
-						<xsl:value-of select="//TITLEGROUP/SHORTTITLE" disable-output-escaping="yes"/> - <xsl:value-of select="$translations/xslid[@id='sci_statcommon']/text[@find='most_visited']"/>
+						<xsl:value-of select="//TITLEGROUP/SHORTTITLE" disable-output-escaping="yes"
+						/> - <xsl:value-of
+							select="$translations/xslid[@id='sci_statcommon']/text[@find='most_visited']"
+						/>
 					</xsl:when>
 					<xsl:otherwise>
-						<xsl:value-of select="$translations/xslid[@id='sci_statcommon']/text[@find='most_visited']"/>
+						<xsl:value-of
+							select="$translations/xslid[@id='sci_statcommon']/text[@find='most_visited']"
+						/>
 					</xsl:otherwise>
 				</xsl:choose>
-				<xsl:value-of select="$translations/xslid[@id='sci_statcommon']/text[@find='issue']"/>
+				<xsl:value-of select="$translations/xslid[@id='sci_statcommon']/text[@find='issue']"
+				/>
 			</TITLE>
 			<style type="text/css">
-        a { text-decoration: none; }
-       a.email { text-decoration: underline; }
-       a.issue { text-decoration: underline; }
-       a.page { text-decoration: underline; }
-       a.page:visited {color: blue;}
-  </style>
+				a{
+				    text-decoration:none;
+				}
+				a.email{
+				    text-decoration:underline;
+				}
+				a.issue{
+				    text-decoration:underline;
+				}
+				a.page{
+				    text-decoration:underline;
+				}
+				a.page:visited{
+				    color:blue;
+				}</style>
 			<xsl:call-template name="SetLogJavascriptCode"/>
 		</HEAD>
 	</xsl:template>
@@ -1009,8 +1187,23 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
 								</xsl:otherwise>
 							</xsl:choose>
 							<IMG border="0">
-								<xsl:attribute name="src"><xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_SERIMG"/><xsl:choose><xsl:when test="//TITLEGROUP"><xsl:value-of select="//TITLEGROUP/SIGLUM"/>/plogo.gif</xsl:when><xsl:otherwise>fbpelogp.gif</xsl:otherwise></xsl:choose></xsl:attribute>
-								<xsl:attribute name="alt"><xsl:choose><xsl:when test="//TITLEGROUP"><xsl:value-of select="//TITLEGROUP/SHORTTITLE "/></xsl:when><xsl:otherwise>Scientific Electronic Library Online</xsl:otherwise></xsl:choose></xsl:attribute>
+								<xsl:attribute name="src">
+									<xsl:value-of select="$control_info/SCIELO_INFO/PATH_SERIMG"/>
+									<xsl:choose>
+										<xsl:when test="//TITLEGROUP"><xsl:value-of
+												select="//TITLEGROUP/SIGLUM"/>/plogo.gif</xsl:when>
+										<xsl:otherwise>fbpelogp.gif</xsl:otherwise>
+									</xsl:choose>
+								</xsl:attribute>
+								<xsl:attribute name="alt">
+									<xsl:choose>
+										<xsl:when test="//TITLEGROUP">
+											<xsl:value-of select="//TITLEGROUP/SHORTTITLE "/>
+										</xsl:when>
+										<xsl:otherwise>Scientific Electronic Library
+											Online</xsl:otherwise>
+									</xsl:choose>
+								</xsl:attribute>
 							</IMG>
 						</A>
 					</P>
@@ -1022,10 +1215,13 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
 								<xsl:with-param name="text">
 									<xsl:choose>
 										<xsl:when test="//TITLEGROUP">
-											<xsl:value-of select="//TITLEGROUP/TITLE " disable-output-escaping="yes"/>
+											<xsl:value-of select="//TITLEGROUP/TITLE "
+												disable-output-escaping="yes"/>
 										</xsl:when>
 										<xsl:otherwise>
-											<xsl:value-of select="$translations/xslid[@id='sci_statcommon']/text[@find='library_collection']"/>
+											<xsl:value-of
+												select="$translations/xslid[@id='sci_statcommon']/text[@find='library_collection']"
+											/>
 										</xsl:otherwise>
 									</xsl:choose>
 								</xsl:with-param>
@@ -1041,12 +1237,16 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
 				<TD>
 					<BLOCKQUOTE>
 						<FONT face="Verdana" size="2" color="#800000">
-							<xsl:value-of select="$translations/xslid[@id='sci_statcommon']/text[@find='most_visited_issue']"/>
+							<xsl:value-of
+								select="$translations/xslid[@id='sci_statcommon']/text[@find='most_visited_issue']"
+							/>
 						</FONT>
 						<BR/>
 						<P>
 							<FONT face="Verdana" size="2">
-								<xsl:copy-of select="$translations/xslid[@id='sci_statcommon']/text[@find='sentence1']"/>
+								<xsl:copy-of
+									select="$translations/xslid[@id='sci_statcommon']/text[@find='sentence1']"
+								/>
 							</FONT>
 						</P>
 					</BLOCKQUOTE>
@@ -1054,21 +1254,33 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
 			</TR>
 		</TABLE>
 		<TABLE border="0" align="center" cellpadding="2" cellspacing="2">
-			<xsl:attribute name="width"><xsl:value-of select="$table_perc"/></xsl:attribute>
+			<xsl:attribute name="width">
+				<xsl:value-of select="$table_perc"/>
+			</xsl:attribute>
 			<TR>
-				<xsl:attribute name="width"><xsl:value-of select="$table_perc"/></xsl:attribute>
+				<xsl:attribute name="width">
+					<xsl:value-of select="$table_perc"/>
+				</xsl:attribute>
 				<TD align="left" colspan="2">
-					<xsl:attribute name="width"><xsl:value-of select="$table_perc"/></xsl:attribute>
+					<xsl:attribute name="width">
+						<xsl:value-of select="$table_perc"/>
+					</xsl:attribute>
 					<xsl:apply-templates select="STATPARAM"/>
 				</TD>
 			</TR>
 		</TABLE>
 		<TABLE border="0" align="center" cellpadding="2" cellspacing="2">
-			<xsl:attribute name="width"><xsl:value-of select="$table_perc"/></xsl:attribute>
+			<xsl:attribute name="width">
+				<xsl:value-of select="$table_perc"/>
+			</xsl:attribute>
 			<TR>
-				<xsl:attribute name="width"><xsl:value-of select="$table_perc"/></xsl:attribute>
+				<xsl:attribute name="width">
+					<xsl:value-of select="$table_perc"/>
+				</xsl:attribute>
 				<TD align="left" colspan="2">
-					<xsl:attribute name="width"><xsl:value-of select="$table_perc"/></xsl:attribute>
+					<xsl:attribute name="width">
+						<xsl:value-of select="$table_perc"/>
+					</xsl:attribute>
 					<BR/>
 					<xsl:call-template name="PrintLogForm"/>
 				</TD>
@@ -1086,9 +1298,8 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
 		<FONT color="#0000A0">
 			<xsl:call-template name="GET_ISSN_TYPE">
 				<xsl:with-param name="TYPE" select="@TYPE"/>
-				<xsl:with-param name="LANG" select="//CONTROLINFO/LANGUAGE"/>
-			</xsl:call-template>&#160;ISSN
-   </FONT>
+				<xsl:with-param name="LANG" select="$control_info/LANGUAGE"/>
+			</xsl:call-template>&#160;ISSN </FONT>
 		<xsl:value-of select="normalize-space(.)"/>
 	</xsl:template>
 	<xsl:template match="STATPARAM">
@@ -1096,8 +1307,7 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
 			<FONT face="Verdana" size="2">
 				<xsl:call-template name="PrintLogStartDate">
 					<xsl:with-param name="date" select="START_DATE"/>
-				</xsl:call-template>.
-  </FONT>
+				</xsl:call-template>. </FONT>
 		</P>
 	</xsl:template>
 	<xsl:template name="PrintLogForm">
@@ -1106,27 +1316,28 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
 		</FONT>
 		<FORM>
 			<xsl:call-template name="GenerateLogForm">
-				<xsl:with-param name="script" select="//CONTROLINFO/PAGE_NAME"/>
+				<xsl:with-param name="script" select="$control_info/PAGE_NAME"/>
 				<xsl:with-param name="pid" select="ISSN_AS_ID"/>
 			</xsl:call-template>
-			<xsl:apply-templates select="POSSIBLE_NO_ACCESS"/>
-  &#160;&#160;&#160;
-  <xsl:call-template name="PutSubmitButton"/>
+			<xsl:apply-templates select="POSSIBLE_NO_ACCESS"/> &#160;&#160;&#160; <xsl:call-template
+				name="PutSubmitButton"/>
 		</FORM>
 	</xsl:template>
 	<xsl:template match="POSSIBLE_NO_ACCESS">
 		<FONT face="Verdana" size="2">
-			<xsl:value-of select="$translations/xslid[@id='sci_statcommon']/text[@find='display_issue_visited']"/>
+			<xsl:value-of
+				select="$translations/xslid[@id='sci_statcommon']/text[@find='display_issue_visited']"/>
 			<SELECT NAME="access">
 				<xsl:apply-templates select="OPTION"/>
 				<OPTION>
-					<xsl:if test="not(//STATPARAM/FILTER/NUM_ACCESS) or //STATPARAM/FILTER/NUM_ACCESS=1">
+					<xsl:if
+						test="not(//STATPARAM/FILTER/NUM_ACCESS) or //STATPARAM/FILTER/NUM_ACCESS=1">
 						<xsl:attribute name="selected">1</xsl:attribute>
-					</xsl:if>
-   1</OPTION>
+					</xsl:if> 1</OPTION>
 			</SELECT>
-			<xsl:value-of select="$translations/xslid[@id='sci_statcommon']/text[@find='times_or_more']"/>.
-  </FONT>
+			<xsl:value-of
+				select="$translations/xslid[@id='sci_statcommon']/text[@find='times_or_more']"/>.
+		</FONT>
 	</xsl:template>
 	<xsl:template match="OPTION">
 		<xsl:variable name="number" select="."/>
@@ -1149,15 +1360,19 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
 	<xsl:template match="QUERY_RESULT_PAGES">
 		<xsl:param name="table_perc"/>
 		<TABLE align="center" cellpadding="0" cellspacing="0">
-			<xsl:attribute name="width"><xsl:value-of select="$table_perc"/></xsl:attribute>
+			<xsl:attribute name="width">
+				<xsl:value-of select="$table_perc"/>
+			</xsl:attribute>
 			<TR>
 				<TD width="25%">
 					<B>
 						<xsl:if test="@TOTAL>1">
 							<FONT face="Arial" size="2">
-								<xsl:value-of select="$translations/xslid[@id='sci_statcommon']/text[@find='page']"/>
+								<xsl:value-of
+									select="$translations/xslid[@id='sci_statcommon']/text[@find='page']"/>
 								<xsl:value-of select="@CURRENT"/>
-								<xsl:value-of select="$translations/xslid[@id='sci_statcommon']/text[@find='of']"/>
+								<xsl:value-of
+									select="$translations/xslid[@id='sci_statcommon']/text[@find='of']"/>
 								<xsl:value-of select="@TOTAL"/>
 							</FONT>
 						</xsl:if>
@@ -1170,40 +1385,35 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
 		</TABLE>
 	</xsl:template>
 	<xsl:template name="ShowQueryResultPageLink">
-		<FONT face="Arial" size="2">
-    [<xsl:choose>
+		<FONT face="Arial" size="2"> [<xsl:choose>
 				<xsl:when test="@CURRENT!=1">
 					<xsl:call-template name="LinkFirst"/>
 				</xsl:when>
 				<xsl:otherwise>
 					<xsl:call-template name="TextFirst"/>
 				</xsl:otherwise>
-			</xsl:choose>]&#160;
-    [<xsl:choose>
+			</xsl:choose>]&#160; [<xsl:choose>
 				<xsl:when test="@CURRENT!=1">
 					<xsl:call-template name="LinkPrevious"/>
 				</xsl:when>
 				<xsl:otherwise>
 					<xsl:call-template name="TextPrevious"/>
 				</xsl:otherwise>
-			</xsl:choose>]&#160;
-    [<xsl:choose>
+			</xsl:choose>]&#160; [<xsl:choose>
 				<xsl:when test="@CURRENT!=@TOTAL">
 					<xsl:call-template name="LinkNext"/>
 				</xsl:when>
 				<xsl:otherwise>
 					<xsl:call-template name="TextNext"/>
 				</xsl:otherwise>
-			</xsl:choose>]&#160;
-    [<xsl:choose>
+			</xsl:choose>]&#160; [<xsl:choose>
 				<xsl:when test="@CURRENT!=@TOTAL">
 					<xsl:call-template name="LinkLast"/>
 				</xsl:when>
 				<xsl:otherwise>
 					<xsl:call-template name="TextLast"/>
 				</xsl:otherwise>
-			</xsl:choose>]
-  </FONT>
+			</xsl:choose>] </FONT>
 	</xsl:template>
 	<xsl:template name="LinkFirst">
 		<A class="page">
@@ -1252,7 +1462,7 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
 	<xsl:template name="AddScieloLogLinkCall">
 		<xsl:param name="page"/>
 		<xsl:call-template name="AddScieloLogLink">
-			<xsl:with-param name="script" select="//CONTROLINFO/PAGE_NAME"/>
+			<xsl:with-param name="script" select="$control_info/PAGE_NAME"/>
 			<xsl:with-param name="dti" select="//STATPARAM/FILTER/INITIAL_DATE"/>
 			<xsl:with-param name="dtf" select="//STATPARAM/FILTER/FINAL_DATE"/>
 			<xsl:with-param name="access" select="//STATPARAM/FILTER/NUM_ACCESS"/>
@@ -1261,44 +1471,47 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
 			<xsl:with-param name="tpages" select="@TOTAL"/>
 			<xsl:with-param name="maccess" select="//POSSIBLE_NO_ACCESS/@MAX"/>
 			<xsl:with-param name="pid" select="/STATISTICS/ISSN_AS_ID"/>
-			<xsl:with-param name="app" select="//CONTROLINFO/APP_NAME"/>
+			<xsl:with-param name="app" select="$control_info/APP_NAME"/>
 		</xsl:call-template>
 	</xsl:template>
 
 
-        <xsl:template match="AUTHOR" mode="AUTHORS_META">
-          <xsl:element name="meta">
-          	<xsl:attribute name="name">citation_author</xsl:attribute>
-            <xsl:attribute name="content">
-              <xsl:apply-templates select="." mode="AUTHOR_META"/>
-            </xsl:attribute>
-          </xsl:element>
-          <xsl:apply-templates select="AFF" mode="A"/> 
-        </xsl:template>
+	<xsl:template match="AUTHOR" mode="AUTHORS_META">
+		<xsl:element name="meta">
+			<xsl:attribute name="name">citation_author</xsl:attribute>
+			<xsl:attribute name="content">
+				<xsl:apply-templates select="." mode="AUTHOR_META"/>
+			</xsl:attribute>
+		</xsl:element>
+		<xsl:apply-templates select="AFF" mode="A"/>
+	</xsl:template>
 
-        <xsl:template match="AFF" mode="A">
-        	<xsl:variable name="affilid" select="@xref"/>
-        	<xsl:apply-templates select="../../../../AFF[@id=$affilid]" mode="B"/>
-        </xsl:template>
+	<xsl:template match="AFF" mode="A">
+		<xsl:variable name="affilid" select="@xref"/>
+		<xsl:apply-templates select="../../../../AFF[@id=$affilid]" mode="B"/>
+	</xsl:template>
 
-        <xsl:template match="AFF" mode="B">
-          <xsl:element name="meta">
-          	<xsl:attribute name="name">citation_author_institution</xsl:attribute>
-            <xsl:attribute name="content"><xsl:apply-templates select="ORGNAME"/><xsl:if test="CITY">, <xsl:apply-templates select="CITY"/></xsl:if><xsl:if test="COUNTRY">, <xsl:apply-templates select="COUNTRY"/></xsl:if>
-            </xsl:attribute>
-          </xsl:element>
-        </xsl:template>
+	<xsl:template match="AFF" mode="B">
+		<xsl:element name="meta">
+			<xsl:attribute name="name">citation_author_institution</xsl:attribute>
+			<xsl:attribute name="content">
+				<xsl:apply-templates select="ORGNAME"/>
+				<xsl:if test="CITY">, <xsl:apply-templates select="CITY"/></xsl:if>
+				<xsl:if test="COUNTRY">, <xsl:apply-templates select="COUNTRY"/></xsl:if>
+			</xsl:attribute>
+		</xsl:element>
+	</xsl:template>
 
-        <xsl:template match="AUTHOR" mode="AUTHOR_META">
-          <xsl:apply-templates select=".//SURNAME"/>, <xsl:apply-templates select=".//NAME"/>
-        </xsl:template>
+	<xsl:template match="AUTHOR" mode="AUTHOR_META">
+		<xsl:apply-templates select=".//SURNAME"/>, <xsl:apply-templates select=".//NAME"/>
+	</xsl:template>
 
-        <xsl:template match="AUTHORS" mode="AUTHORS_META_DC">
-              <xsl:apply-templates select=".//AUTHOR" mode="AUTHORS_META_DC"/>
-        </xsl:template>
+	<xsl:template match="AUTHORS" mode="AUTHORS_META_DC">
+		<xsl:apply-templates select=".//AUTHOR" mode="AUTHORS_META_DC"/>
+	</xsl:template>
 
-        <xsl:template match="AUTHOR" mode="AUTHORS_META_DC">
-          <meta name="dc.Contributor" content="{concat(.//SURNAME, ', ', .//NAME)}"/>
-        </xsl:template>
+	<xsl:template match="AUTHOR" mode="AUTHORS_META_DC">
+		<meta name="dc.Contributor" content="{concat(.//SURNAME, ', ', .//NAME)}"/>
+	</xsl:template>
 
 </xsl:stylesheet>
