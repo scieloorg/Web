@@ -14,7 +14,7 @@ echo ". crossref_config.sh" >> $conversor_dir/shs/crossref_processSequence.sh
 echo "logDate="$DATE >> $conversor_dir/shs/crossref_processSequence.sh
 
 ## echo "$cisis_dir/mx $database_dir/artigo/artigo \"proc=@$conversor_dir/prc/Article.prc\" \"btell=0\" \"bool=tp=h * HR=S${1}$\" \"lw=999999\" \"pft=@${conversor_dir}/formats/crossref_generateProcessSequence.pft\" now >> $conversor_dir/shs/crossref_processSequence.sh"
-$cisis_dir/mx $database_dir/artigo/artigo "proc=@$conversor_dir/prc/Article.prc" "btell=0" "bool=tp=h * HR=S${1}$" "lw=999999" "proc='a9191{$depositor_prefix{'"  "pft=@${conversor_dir}/formats/crossref_generateProcessSequence.pft" now >> $conversor_dir/shs/crossref_processSequence.sh
+$cisis_dir/mx $database_dir/artigo/artigo "proc=@$conversor_dir/prc/Article.prc" "btell=0" "bool=tp=h * HR=S${1}$" "lw=999999" "proc=if '$depositor_prefix'<>'' then 'd9191a9191{$depositor_prefix{' fi"  "pft=@${conversor_dir}/formats/crossref_generateProcessSequence.pft" now >> $conversor_dir/shs/crossref_processSequence.sh
 echo "--- Done!"
 echo "--- Running crossref_processSequence.sh to Generating toDoList.txt"
 if [ -f toDoList.txt ]
