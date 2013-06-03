@@ -128,6 +128,11 @@
 				<xsl:apply-templates select="back"/>
 			</div>
 		</xsl:if>
+		<xsl:if test="name()='sub-article' and not(back) and $original/back">
+			<div id="{$this-article}-back" class="back">
+				<xsl:apply-templates select="$original/back"/>
+			</div>
+		</xsl:if>
 		<xsl:for-each select="floats-group">
 			<div id="{$this-article}-floats" class="back">
 				<xsl:call-template name="main-title">
