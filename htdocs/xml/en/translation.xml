@@ -280,7 +280,7 @@
         <text find="register_free">Free sign up</text>
         <text find="welcome">welcome</text>
         <text find="logout">logout</text>
-find="en">i</text>
+        <text find="en">i</text>
 		<text find="es">e</text>
 		<text find="pt">p</text>
 		<text find="img_alt">Scientific Electronic Library Online</text>
