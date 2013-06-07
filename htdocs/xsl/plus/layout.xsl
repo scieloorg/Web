@@ -448,6 +448,15 @@
             <xsl:choose>
                 <xsl:when test="$trans">
                     <xsl:apply-templates select="$trans/body" mode="HTML-TEXT"/>
+                    <xsl:choose>
+                        <xsl:when test="$trans/back">
+                            <xsl:apply-templates select="$original/back" mode="HTML-TEXT"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:apply-templates select="$original/back/*" mode="choose"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:apply-templates select="$original/body| $original/back" mode="HTML-TEXT"/>
@@ -459,7 +468,19 @@
     <xsl:template match="body| back " mode="HTML-TEXT">
         <xsl:apply-templates select="*|text()" mode="HTML-TEXT"/>
     </xsl:template>
-
+    
+    <xsl:template match="article/back/*" mode="choose">
+        <xsl:variable name="name" select="name()"></xsl:variable>
+        <xsl:choose>
+            <xsl:when test="$trans/back/*[name()=$name]">
+                <xsl:apply-templates select="$trans/back/*[name()=$name]" mode="HTML-TEXT"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="." mode="HTML-TEXT"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    
     <xsl:template match="fn-group" mode="HTML-TEXT"> </xsl:template>
 
     <xsl:template match="ack" mode="HTML-TEXT">
