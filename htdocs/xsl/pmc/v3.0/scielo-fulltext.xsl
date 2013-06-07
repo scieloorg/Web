@@ -21,8 +21,16 @@
 		</xsl:choose>
 	</xsl:variable>
 
-	<xsl:variable name="ref_list_local"><xsl:if test="document($xml_article)//article/back/ref-list/*"><xsl:for-each select="document($xml_article)//article/back/ref-list"><xsl:apply-templates select="preceding-sibling::node()[1]" mode="node-name"/></xsl:for-each></xsl:if></xsl:variable>
-	<xsl:template match="*" mode="node-name"><xsl:value-of select="name()"></xsl:value-of></xsl:template>
+	<xsl:variable name="ref_list_local">
+		<xsl:if test="document($xml_article)//article/back/ref-list/*">
+			<xsl:for-each select="document($xml_article)//article/back/ref-list">
+				<xsl:apply-templates select="preceding-sibling::node()[1]" mode="node-name"/>
+			</xsl:for-each>
+		</xsl:if>
+	</xsl:variable>
+	<xsl:template match="*" mode="node-name">
+		<xsl:value-of select="name()"/>
+	</xsl:template>
 	<xsl:variable name="article_lang">
 		<xsl:choose>
 			<xsl:when test="$TXTLANG!=''">
@@ -350,67 +358,53 @@
 		<xsl:apply-templates select="given-names"/>&#160;<xsl:apply-templates select="surname"/>
 		<xsl:if test="suffix">&#160;<xsl:apply-templates select="suffix"/></xsl:if>
 	</xsl:template>
+
 	<xsl:template match="aff">
 		<p class="aff">
-			<xsl:variable name="text">
-				<xsl:apply-templates select="text() | add-line/text()" mode="aff-text"/>
-			</xsl:variable>
-			<!--xsl:comment><xsl:value-of select="$text"/>  ...</xsl:comment>
-			<xsl:comment><xsl:value-of select="string-length($text)"/> </xsl:comment-->
-			<xsl:variable name="parts"
-				select="count(text()[normalize-space(.)!=''] | institution | addr-line | country | email)"/>
-
 			<xsl:if test="label">
 				<a name="{@id}">
 					<xsl:apply-templates select="label"/>
 				</a>
 			</xsl:if>
-
-			<xsl:apply-templates
-				select="text()[normalize-space(.)!='' and normalize-space(.)!=','] | institution | addr-line | country | email"
-				mode="aff-insert-separator"/>
-			<!--xsl:choose>
-				<xsl:when test="$text=''">
-					<xsl:comment>aff has no separators = work around to insert separtors</xsl:comment>
-					<xsl:apply-templates select="institution | addr-line | country | email"
-						mode="aff-insert-separator"/>
+			<xsl:variable name="is_full"><xsl:if test="institution"><xsl:apply-templates select="text()"><xsl:with-param name="inst" select="institution[1]"></xsl:with-param></xsl:apply-templates></xsl:if></xsl:variable>
+			<xsl:choose>
+				<xsl:when test="contains($is_full,'yes')">
+					<xsl:apply-templates select="*|text()" mode="full"/>
 				</xsl:when>
-				<xsl:when test="translate($text,',', '')!=''">
-					<xsl:comment>text unlabeled = ok</xsl:comment>
+				<xsl:otherwise>					
 					<xsl:apply-templates
-						select="text()[normalize-space(.)!=''] | institution | addr-line | country | email"
-					/>
-				</xsl:when>
-				<xsl:when test="string-length($text) = $parts - 1">
-					<xsl:comment>aff has <xsl:value-of select="string-length($text)"/> separators</xsl:comment>
-					<xsl:apply-templates
-						select="text()[normalize-space(.)!=''] | institution | addr-line | country | email"
-					/>
-				</xsl:when>
-				<xsl:otherwise>
-					<xsl:comment>aff has <xsl:value-of select="string-length($text)"/> separators. Deberia ter <xsl:value-of select="$parts - 1"/></xsl:comment>
-					<xsl:apply-templates
-						select="text()[normalize-space(.)!=''] | institution | addr-line | country | email"
-						mode="aff-insert-separator"/>
+						select="text()[normalize-space(.)!='' and normalize-space(.)!=','] | institution | addr-line | country | email"
+						mode="aff-insert-separator"/>					
 				</xsl:otherwise>
-			</xsl:choose-->
-
-
+			</xsl:choose>
 		</p>
 	</xsl:template>
-	<xsl:template match="text()" mode="aff-text">
-		<xsl:value-of select="normalize-space(.)"/>
+	<xsl:template match="text()" mode="is_full">
+		<xsl:param name="inst"></xsl:param>
+		<xsl:if test="$inst!='' and contains(text(),$inst)">yes</xsl:if>
 	</xsl:template>
+	<xsl:template match="*" mode="full"></xsl:template>
+	<xsl:template match="text()" mode="full">
+		<xsl:value-of select="."/>
+	</xsl:template>
+	<xsl:template match="country|email" mode="full">
+		<xsl:element name="{name()}"><xsl:value-of select="."/></xsl:element>
+	</xsl:template>
+	
 
 	<xsl:template match="aff/* | addr-line/* " mode="aff-insert-separator">
+		<xsl:comment><xsl:value-of select="name()"/></xsl:comment>
 		<xsl:if test="position()!=1">, </xsl:if>
 		<xsl:apply-templates select="*|text()[normalize-space(.)!='' and normalize-space(.)!=',']"
 			mode="aff-insert-separator"/>
 	</xsl:template>
 
 	<xsl:template match="aff/text() | addr-line/text()" mode="aff-insert-separator">
-		<xsl:if test="position()!=1">, </xsl:if>
 		<xsl:variable name="text" select="normalize-space(.)"/>
+		<xsl:comment><xsl:value-of select="$text"/></xsl:comment>
+		
+		<xsl:if test="position()!=1">, </xsl:if>
+		
 		<xsl:choose>
 			<xsl:when test="substring($text,string-length($text),1)=','">
 				<xsl:value-of select="substring($text,1,string-length($text)-1)"/>
@@ -562,8 +556,7 @@
 		</div>
 	</xsl:template>
 	<xsl:template match="inline-formula">
-		<xsl:apply-templates select="*"
-			></xsl:apply-templates>
+		<xsl:apply-templates select="*"/>
 	</xsl:template>
 	<xsl:template match="disp-formula">
 		<p class="{local-name()} panel">
@@ -914,7 +907,7 @@
 	</xsl:template>
 
 	<xsl:template match="sub-article[@article-type='translation']/back">
-		
+
 		<xsl:variable name="this-article">
 			<xsl:apply-templates select="." mode="id"/>
 		</xsl:variable>
@@ -926,22 +919,22 @@
 						<xsl:with-param name="sub-article-back" select="."/>
 					</xsl:apply-templates-->
 					<xsl:comment>local ref<xsl:value-of select="$ref_list_local"/></xsl:comment>
-					
+
 					<xsl:choose>
 						<xsl:when test="node()[name()=$ref_list_local]">
 							<xsl:apply-templates select="*" mode="translation-back">
 								<xsl:with-param name="after">yes</xsl:with-param>
 							</xsl:apply-templates>
 						</xsl:when>
-						
+
 						<xsl:otherwise>
 							<xsl:comment>no local ref</xsl:comment>
 							<xsl:apply-templates select="$original//ref-list"/>
 							<xsl:apply-templates select="*"/>
 						</xsl:otherwise>
 					</xsl:choose>
-					
-					
+
+
 				</xsl:when>
 				<xsl:otherwise>
 					<xsl:apply-templates select="*"/>
@@ -950,8 +943,8 @@
 
 		</div>
 	</xsl:template>
-	
-	
+
+
 	<!--xsl:template match="article/back/*" mode="old-translation-back">
 		<xsl:param name="sub-article-back"/>
 		<xsl:variable name="name"><xsl:value-of select="name()"></xsl:value-of></xsl:variable>
@@ -976,15 +969,15 @@
 
 		</div-->
 	</xsl:template>
-	
+
 	<xsl:template match="sub-article[@article-type='translation']/back/*" mode="translation-back">
-		<xsl:param name="after"></xsl:param>
-		<xsl:apply-templates></xsl:apply-templates>
+		<xsl:param name="after"/>
+		<xsl:apply-templates/>
 		<xsl:comment><xsl:value-of select="name()"/></xsl:comment>
 		<xsl:comment><xsl:value-of select="$after"/></xsl:comment>
 		<xsl:comment><xsl:value-of select="$ref_list_local"/></xsl:comment>
 		<xsl:if test="$after='yes' and name()=$ref_list_local">
-			<xsl:apply-templates select="$original//ref-list"></xsl:apply-templates>
+			<xsl:apply-templates select="$original//ref-list"/>
 		</xsl:if>
 	</xsl:template>
 </xsl:stylesheet>
