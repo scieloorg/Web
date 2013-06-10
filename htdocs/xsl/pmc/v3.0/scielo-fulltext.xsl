@@ -366,10 +366,15 @@
 					<xsl:apply-templates select="label"/>
 				</a>
 			</xsl:if>
-			<xsl:variable name="is_full"><xsl:if test="institution"><xsl:apply-templates select="text()"><xsl:with-param name="inst" select="institution[1]"></xsl:with-param></xsl:apply-templates></xsl:if></xsl:variable>
+			<xsl:variable name="is_full"><xsl:if test="institution"><xsl:apply-templates select="text()" mode="is_full"><xsl:with-param name="inst" select="institution[1]"></xsl:with-param></xsl:apply-templates></xsl:if></xsl:variable>
+			
+			<xsl:comment>_<xsl:value-of select="$is_full"/> _</xsl:comment>
 			<xsl:choose>
 				<xsl:when test="contains($is_full,'yes')">
-					<xsl:apply-templates select="*|text()" mode="full"/>
+					<xsl:comment>full</xsl:comment>
+					<xsl:apply-templates select="text()" mode="full">
+						<xsl:with-param name="inst" select="institution[1]"></xsl:with-param>
+					</xsl:apply-templates><xsl:apply-templates select="email"></xsl:apply-templates>
 				</xsl:when>
 				<xsl:otherwise>					
 					<xsl:apply-templates
@@ -381,19 +386,24 @@
 	</xsl:template>
 	<xsl:template match="text()" mode="is_full">
 		<xsl:param name="inst"></xsl:param>
-		<xsl:if test="$inst!='' and contains(text(),$inst)">yes</xsl:if>
+		<xsl:if test="$inst!='' and contains(.,$inst)">yes</xsl:if>
 	</xsl:template>
 	<xsl:template match="*" mode="full"></xsl:template>
 	<xsl:template match="text()" mode="full">
-		<xsl:value-of select="."/>
+		<xsl:param name="inst"></xsl:param>
+		<xsl:comment>_<xsl:value-of select="."/>_</xsl:comment>
+		<xsl:comment>_<xsl:value-of select="$inst"/>_</xsl:comment>
+		<xsl:comment>_<xsl:value-of select="contains(.,$inst)"/>_</xsl:comment>
+		<xsl:comment>_<xsl:value-of select="contains($inst,.)"/>_</xsl:comment>
+		<xsl:if test="$inst!='' and contains(.,$inst)"><xsl:value-of select="."/></xsl:if>
+		
 	</xsl:template>
-	<xsl:template match="country|email" mode="full">
+	<xsl:template match="email" mode="full">
 		<xsl:element name="{name()}"><xsl:value-of select="."/></xsl:element>
 	</xsl:template>
 	
 
 	<xsl:template match="aff/* | addr-line/* " mode="aff-insert-separator">
-		<xsl:comment><xsl:value-of select="name()"/></xsl:comment>
 		<xsl:if test="position()!=1">, </xsl:if>
 		<xsl:apply-templates select="*|text()[normalize-space(.)!='' and normalize-space(.)!=',']"
 			mode="aff-insert-separator"/>
@@ -401,7 +411,7 @@
 
 	<xsl:template match="aff/text() | addr-line/text()" mode="aff-insert-separator">
 		<xsl:variable name="text" select="normalize-space(.)"/>
-		<xsl:comment><xsl:value-of select="$text"/></xsl:comment>
+		<xsl:comment>_ <xsl:value-of select="$text"/>  _</xsl:comment>  
 		
 		<xsl:if test="position()!=1">, </xsl:if>
 		
@@ -455,9 +465,7 @@
 			<xsl:value-of select="."/>
 		</a>
 	</xsl:template>
-	<xsl:template match="aff/email">, <a href="mailto:{text()}"><xsl:value-of select="."/></a>
-	</xsl:template>
-
+	
 	<xsl:template match="xref">
 		<a href="#{@rid}">
 			<xsl:apply-templates select="*|text()"/>
@@ -490,7 +498,7 @@
 		</xsl:choose>
 	</xsl:template>
 	<xsl:template match="fig | table-wrap">
-		<xsl:comment><xsl:value-of select="$HOWTODISPLAY"/></xsl:comment>
+		<xsl:comment>_ <xsl:value-of select="$HOWTODISPLAY"/>  _</xsl:comment>  
 		<xsl:choose>
 			<xsl:when test="$HOWTODISPLAY = 'THUMBNAIL'">
 				<!--xsl:apply-templates select="." mode="scift-thumbnail"></xsl:apply-templates-->
@@ -687,7 +695,7 @@
 				<xsl:when test="nlm-citation">
 					<xsl:apply-templates select="nlm-citation"/>
 				</xsl:when-->
-				<xsl:otherwise><xsl:comment>missing mixed-citation</xsl:comment></xsl:otherwise>
+				<xsl:otherwise><xsl:comment>_missing mixed-citation _</xsl:comment>  </xsl:otherwise>
 			</xsl:choose>
 			<xsl:variable name="aref">000000<xsl:apply-templates select="."
 					mode="scift-get_position"/></xsl:variable>
@@ -918,7 +926,7 @@
 					<!--xsl:apply-templates select="../../back/*" mode="translation-back">
 						<xsl:with-param name="sub-article-back" select="."/>
 					</xsl:apply-templates-->
-					<xsl:comment>local ref<xsl:value-of select="$ref_list_local"/></xsl:comment>
+					<xsl:comment>_local ref<xsl:value-of select="$ref_list_local"/>  _</xsl:comment>  
 
 					<xsl:choose>
 						<xsl:when test="node()[name()=$ref_list_local]">
@@ -928,7 +936,7 @@
 						</xsl:when>
 
 						<xsl:otherwise>
-							<xsl:comment>no local ref</xsl:comment>
+							<xsl:comment>_no local ref _</xsl:comment>  
 							<xsl:apply-templates select="$original//ref-list"/>
 							<xsl:apply-templates select="*"/>
 						</xsl:otherwise>
@@ -948,7 +956,7 @@
 	<!--xsl:template match="article/back/*" mode="old-translation-back">
 		<xsl:param name="sub-article-back"/>
 		<xsl:variable name="name"><xsl:value-of select="name()"></xsl:value-of></xsl:variable>
-		<xsl:comment><xsl:value-of select="$name"/></xsl:comment>
+		<xsl:comment>_<xsl:value-of select="$name"/> _</xsl:comment>  
 		<xsl:apply-templates select="$sub-article-back/*[name()=$name]"></xsl:apply-templates>
 		<xsl:if test="name()='ref-list' and not($sub-article-back/ref-list)">
 			<xsl:apply-templates select="."></xsl:apply-templates>
@@ -973,9 +981,9 @@
 	<xsl:template match="sub-article[@article-type='translation']/back/*" mode="translation-back">
 		<xsl:param name="after"/>
 		<xsl:apply-templates/>
-		<xsl:comment><xsl:value-of select="name()"/></xsl:comment>
-		<xsl:comment><xsl:value-of select="$after"/></xsl:comment>
-		<xsl:comment><xsl:value-of select="$ref_list_local"/></xsl:comment>
+		<xsl:comment>_ <xsl:value-of select="name()"/>  _</xsl:comment>  
+		<xsl:comment>_ <xsl:value-of select="$after"/>  _</xsl:comment>  
+		<xsl:comment>_ <xsl:value-of select="$ref_list_local"/>  _</xsl:comment>  
 		<xsl:if test="$after='yes' and name()=$ref_list_local">
 			<xsl:apply-templates select="$original//ref-list"/>
 		</xsl:if>
