@@ -1,3 +1,9 @@
+v5.27
+[web]
+presentation of fulltext - adjustments
+[proc]
+scielo_crs - problem with some files which were in DOS format.
+
 v5.26
 [web]
 Fix sci_issues - missing supplements
