@@ -170,7 +170,7 @@
     <xsl:template match="*" mode="DATA-DISPLAY-article-title">
         <xsl:value-of select="$DISPLAY_ARTICLE_TITLE"/>
     </xsl:template>
-
+    
 
     <xsl:template match="contrib" mode="DATA-DISPLAY">
         <xsl:apply-templates select=".//name" mode="DATA-DISPLAY"/>
@@ -183,24 +183,26 @@
         <xsl:value-of select="label"/>
     </xsl:template>
     <xsl:template match="aff" mode="DATA-DISPLAY">
-        <!-- FIXME -->
         
-        <xsl:variable name="is_full"><xsl:if test="institution"><xsl:apply-templates select="text()" mode="is_full"><xsl:with-param name="inst" select="institution[1]"></xsl:with-param></xsl:apply-templates></xsl:if></xsl:variable>
+            
+            <xsl:variable name="inst"><xsl:value-of select="normalize-space(institution[@content-type='orgname'])"/></xsl:variable>
+            <xsl:variable name="is_full"><xsl:if test="$inst!=''"><xsl:apply-templates select="text()[string-length(normalize-space(.))&gt;=string-length($inst)]" mode="is_full"><xsl:with-param name="inst" select="$inst"></xsl:with-param></xsl:apply-templates></xsl:if></xsl:variable>
+            <xsl:comment>is_full:<xsl:value-of select="$is_full"/> _</xsl:comment>
+            <xsl:choose>
+                <xsl:when test="contains($is_full,'yes')">
+                    <xsl:comment>full</xsl:comment>
+                    <xsl:apply-templates select="text()[string-length(normalize-space(.))&gt;=string-length($inst)]" mode="full">
+                        <xsl:with-param name="inst" select="$inst"></xsl:with-param>
+                    </xsl:apply-templates><xsl:apply-templates select="email"></xsl:apply-templates>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:comment>parts</xsl:comment>					
+                    <xsl:apply-templates
+                        select="text()[normalize-space(.)!='' and normalize-space(.)!=','] | institution | addr-line | country | email"
+                        mode="aff-insert-separator"/>					
+                </xsl:otherwise>
+            </xsl:choose>
         
-        <xsl:comment>_<xsl:value-of select="$is_full"/> _</xsl:comment>
-        <xsl:choose>
-            <xsl:when test="contains($is_full,'yes')">
-                <xsl:comment>full</xsl:comment>
-                <xsl:apply-templates select="text()" mode="full">
-                    <xsl:with-param name="inst" select="institution[1]"></xsl:with-param>
-                </xsl:apply-templates><xsl:apply-templates select="email"></xsl:apply-templates>
-            </xsl:when>
-            <xsl:otherwise>					
-                <xsl:apply-templates
-                    select="text()[normalize-space(.)!='' and normalize-space(.)!=','] | institution | addr-line | country | email"
-                    mode="aff-insert-separator"/>					
-            </xsl:otherwise>
-        </xsl:choose>
     </xsl:template>
     <xsl:template match="text()" mode="is_full">
         <xsl:param name="inst"></xsl:param>
@@ -209,15 +211,11 @@
     <xsl:template match="*" mode="full"></xsl:template>
     <xsl:template match="text()" mode="full">
         <xsl:param name="inst"></xsl:param>
-        <xsl:comment>_<xsl:value-of select="."/>_</xsl:comment>
-        <xsl:comment>_<xsl:value-of select="$inst"/>_</xsl:comment>
-        <xsl:comment>_<xsl:value-of select="contains(.,$inst)"/>_</xsl:comment>
-        <xsl:comment>_<xsl:value-of select="contains($inst,.)"/>_</xsl:comment>
+        <xsl:comment>text():<xsl:value-of select="."/>_</xsl:comment>
+        <xsl:comment>$inst:<xsl:value-of select="$inst"/>_</xsl:comment>
+        <xsl:comment>contains(.,$inst):<xsl:value-of select="contains(.,$inst)"/>_</xsl:comment>
         <xsl:if test="$inst!='' and contains(.,$inst)"><xsl:value-of select="."/></xsl:if>
         
-    </xsl:template>
-    <xsl:template match="email" mode="full">
-        <xsl:element name="{name()}"><xsl:value-of select="."/></xsl:element>
     </xsl:template>
     
     
@@ -242,6 +240,12 @@
             </xsl:otherwise>
         </xsl:choose>
         
+    </xsl:template>
+    <xsl:template match="email" mode="aff-insert-separator">
+        <xsl:if test="position()!=1">, </xsl:if>
+        <a href="mailto:{text()}">
+            <xsl:value-of select="."/>
+        </a>
     </xsl:template>
     <xsl:template match="permissions" mode="DATA-DISPLAY">
         <p>

@@ -84,6 +84,13 @@
                 <h1 class="article-title">
                     <xsl:apply-templates select="." mode="DATA-DISPLAY-article-title"/>
                 </h1>
+                <xsl:for-each select="$original//front//trans-title">
+                    <h2 class="article-title">
+                        <xsl:apply-templates select="."/>
+
+
+                    </h2>
+                </xsl:for-each>
                 <xsl:apply-templates select="." mode="HTML-short-link-and-statistics"/>
                 <xsl:apply-templates select=".//front//contrib-group" mode="HTML"/>
                 <div class="row link-group">
@@ -315,7 +322,9 @@
                     </xsl:apply-templates>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:apply-templates select="$original/front//abstract" mode="HTML-TEXT">
+                    <xsl:apply-templates
+                        select="$original/front//abstract | $original/front//trans-abstract"
+                        mode="HTML-TEXT">
                         <xsl:with-param name="art_body" select="$original/body[1]"/>
                     </xsl:apply-templates>
                 </xsl:otherwise>
@@ -323,7 +332,9 @@
 
         </article>
     </xsl:template>
-
+    <xsl:template match="@id" mode="HTML-TEXT">
+        <a name="{.}"/>
+    </xsl:template>
     <xsl:template match="abstract|trans-abstract" mode="HTML-TEXT">
         <xsl:param name="art_body"/>
         <xsl:variable name="lang" select="@xml:lang"/>
@@ -456,7 +467,7 @@
                             <xsl:apply-templates select="$original/back/*" mode="choose"/>
                         </xsl:otherwise>
                     </xsl:choose>
-                    
+
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:apply-templates select="$original/body| $original/back" mode="HTML-TEXT"/>
@@ -468,9 +479,9 @@
     <xsl:template match="body| back " mode="HTML-TEXT">
         <xsl:apply-templates select="*|text()" mode="HTML-TEXT"/>
     </xsl:template>
-    
+
     <xsl:template match="article/back/*" mode="choose">
-        <xsl:variable name="name" select="name()"></xsl:variable>
+        <xsl:variable name="name" select="name()"/>
         <xsl:choose>
             <xsl:when test="$trans/back/*[name()=$name]">
                 <xsl:apply-templates select="$trans/back/*[name()=$name]" mode="HTML-TEXT"/>
@@ -480,8 +491,26 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    
-    <xsl:template match="fn-group" mode="HTML-TEXT"> </xsl:template>
+
+    <xsl:template match="fn-group" mode="HTML-TEXT">
+        <xsl:apply-templates select="label | title | fn" mode="HTML-TEXT"/>
+    </xsl:template>
+    <xsl:template match="fn-group/label | fn-group/title" mode="HTML-TEXT">
+        <xsl:apply-templates select=" *|text()" mode="HTML-TEXT"/>
+    </xsl:template>
+    <xsl:template match="fn-group/fn" mode="HTML-TEXT">
+        <xsl:apply-templates select="@id| *|text()" mode="HTML-TEXT"/>
+    </xsl:template>
+    <xsl:template match="fn-group/fn/label" mode="HTML-TEXT"><sup class="xref">
+        <a href="#back_{../@id}">
+            <xsl:value-of select="."/>
+        </a></sup>
+    </xsl:template>
+    <xsl:template match="fn-group/fn/p" mode="HTML-TEXT">
+        <p>
+            <xsl:apply-templates select="*|text()" mode="HTML-TEXT"/>
+        </p>
+    </xsl:template>
 
     <xsl:template match="ack" mode="HTML-TEXT">
         <h1 id="ack">
@@ -527,10 +556,25 @@
                 <xsl:apply-templates select="label"/>
             </sup>
             <div class="pull-right">
-                <xsl:apply-templates select="mixed-citation"/>
-                <xsl:if test="not(mixed-citation)">
-                    <xsl:apply-templates select="element-citation" mode="DATA-DISPLAY"/>
-                </xsl:if>
+                <xsl:choose>
+                    
+                <xsl:when test="element-citation[.//ext-link or .//uri] and mixed-citation">
+                    <xsl:apply-templates select="mixed-citation" mode="with-link">
+                        <xsl:with-param name="ext_link" select=".//ext-link"/>
+                        <xsl:with-param name="uri" select=".//uri"/>
+                    </xsl:apply-templates>
+                </xsl:when>
+                    <xsl:when test="mixed-citation">
+                        <xsl:apply-templates select="mixed-citation"/>
+                    </xsl:when>
+                    <xsl:when test="citation">
+                        <xsl:apply-templates select="citation"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:apply-templates select="element-citation" mode="DATA-DISPLAY"/>
+                    </xsl:otherwise>
+               
+                </xsl:choose>
                 <a href="javascript:void(0);" class="bIcon miniLink" target="_blank">
                     <xsl:attribute name="onclick">javascript: window.open('<xsl:value-of
                             select="normalize-space($link)"
@@ -618,7 +662,7 @@
         </xsl:param>
         <xsl:choose>
             <xsl:when test=".//fig or .//table-wrap[.//graphic]">
-                <xsl:apply-templates select=".//fig|.//table-wrap" mode="HTML-TEXT"></xsl:apply-templates>
+                <xsl:apply-templates select=".//fig|.//table-wrap" mode="HTML-TEXT"/>
             </xsl:when>
             <xsl:otherwise>
                 <div class="row paragraph">
@@ -632,20 +676,35 @@
                             </xsl:apply-templates>
                         </p>
                     </div>
-                    
-                    
+
+
                     <div class="span4">
                         <xsl:if test=".//xref[@ref-type='bibr']">
-                            
+
                             <ul class="refList">
-                                <xsl:apply-templates select=".//xref[@ref-type='bibr']" mode="HTML-ref"/>
+                                <xsl:apply-templates select=".//xref[@ref-type='bibr']"
+                                    mode="HTML-ref"/>
                             </ul>
                         </xsl:if>
                     </div>
                 </div>
             </xsl:otherwise>
         </xsl:choose>
-        
+
+    </xsl:template>
+    <xsl:template match="p//xref[@ref-type='fn']" mode="HTML-TEXT">
+        <xsl:param name="parag_id"/>
+        <xsl:variable name="id">
+            <xsl:value-of select="$parag_id"/>-<xsl:value-of select="@rid"/></xsl:variable>
+        <a name="back_{@rid}"/>
+        <sup class="xref {$id}">
+            <a href="#{@rid}">
+                <xsl:apply-templates/>
+                <xsl:if test=".=''">
+                    <xsl:value-of select="substring(@rid,2)"/>
+                </xsl:if>
+            </a>
+        </sup>
     </xsl:template>
     <xsl:template match="p//xref[@ref-type='bibr']" mode="HTML-TEXT">
         <xsl:param name="parag_id"/>
@@ -791,10 +850,11 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
                 <xsl:apply-templates select="caption"/>
             </div>
             <div class="span8">
-                <xsl:apply-templates select="*[name()!='label' and name()!='caption']|text()" mode="HTML-TEXT"/>
+                <xsl:apply-templates select="*[name()!='label' and name()!='caption']|text()"
+                    mode="HTML-TEXT"/>
             </div>
         </div>
-        
+
     </xsl:template>
     <xsl:template match="table-wrap[not(table)]" mode="HTML-TEXT">
         <div class="row fig" id="{@id}">
@@ -834,8 +894,8 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
                             medium, provided the original work is properly cited. </small-->
                         <xsl:comment>history</xsl:comment>
                         <xsl:apply-templates select=".//history" mode="HTML-BODY-FOOTER"/>
-                        <xsl:comment>fn-group</xsl:comment>
-                        <xsl:apply-templates select=".//back//fn-group//fn" mode="HTML-BODY-FOOTER"/>
+                        <xsl:comment>authors fn</xsl:comment>
+                        <xsl:apply-templates select=".//authors-notes" mode="HTML-BODY-FOOTER"/>
                         <xsl:comment>permissions</xsl:comment>
                         <xsl:apply-templates select=".//permissions" mode="HTML-BODY-FOOTER"/>
                     </div>
@@ -1054,21 +1114,23 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
             <xsl:when test=". = 'received'">Recibido</xsl:when>
         </xsl:choose>
     </xsl:template>
+    
+    <xsl:template match="day" mode="date-en">
+        <xsl:value-of select="."/>,		
+    </xsl:template>
+    <xsl:template match="day" mode="date-pt"><xsl:value-of select="."/> de </xsl:template>
     <xsl:template match="history/date" mode="HTML-BODY-FOOTER">
         <xsl:choose>
             <xsl:when test="$PAGE_LANG='en'">
                 <xsl:apply-templates select="@date-type" mode="HTML-label-en"/>:
-                    <xsl:apply-templates select="month" mode="HTML-label-en"/><xsl:value-of
-                    select="concat(' ',day)"/>, <xsl:value-of select="year"/>
+                    <xsl:apply-templates select="month" mode="HTML-label-en"/><xsl:apply-templates select="day" mode="date-en"></xsl:apply-templates><xsl:value-of select="year"/>
             </xsl:when>
             <xsl:when test="$PAGE_LANG='pt'">
-                <xsl:apply-templates select="@date-type" mode="HTML-label-pt"/>: <xsl:value-of
-                    select="day"/> de <xsl:apply-templates select="month" mode="HTML-label-pt"/> de
+                <xsl:apply-templates select="@date-type" mode="HTML-label-pt"/>: <xsl:apply-templates select="day" mode="date-en"></xsl:apply-templates><xsl:apply-templates select="month" mode="HTML-label-pt"/> de
                     <xsl:value-of select="year"/>
             </xsl:when>
             <xsl:when test="$PAGE_LANG='es'">
-                <xsl:apply-templates select="@date-type" mode="HTML-label-es"/>: <xsl:value-of
-                    select="day"/> de <xsl:apply-templates select="month" mode="HTML-label-es"/> de
+                <xsl:apply-templates select="@date-type" mode="HTML-label-es"/>: <xsl:apply-templates select="day" mode="date-en"></xsl:apply-templates><xsl:apply-templates select="month" mode="HTML-label-es"/> de
                     <xsl:value-of select="year"/>
             </xsl:when>
             <xsl:otherwise>
@@ -1089,5 +1151,61 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
         <a href="#{@rid}">
             <xsl:apply-templates/>
         </a>
+    </xsl:template>
+
+    <xsl:template match="disp-quote" mode="HTML-TEXT">
+
+        <div class="row paragraph">
+            <div class="span8">
+                <p>
+                    <blockquote>
+                        <xsl:apply-templates select="*|text()"/>
+                    </blockquote>
+                </p>
+            </div>
+
+
+            <div class="span4"> </div>
+        </div>
+
+    </xsl:template>
+    <xsl:template match="ext-link|uri" mode="HTML-TEXT">
+        <a href="{@xlink:href}" target="_blank"><xsl:value-of select="."/></a>
+    </xsl:template>
+    <xsl:template match="mixed-citation" mode="with-link">
+        <xsl:param name="uri"></xsl:param>
+        <xsl:param name="ext_link"></xsl:param>
+        <xsl:choose>
+            <xsl:when test="$uri">
+                <xsl:choose>
+                    <xsl:when test="contains(.,$uri/text())">
+                        <xsl:value-of select="substring-before(.,$uri/text())"/>
+                        <xsl:apply-templates select="$uri" mode="HTML-TEXT"></xsl:apply-templates>
+                        <xsl:value-of select="substring-after(.,$uri/text())"/>
+                    </xsl:when>
+                    <xsl:when test="contains(.,$uri/@xlink:href)">
+                        <xsl:value-of select="substring-before(.,$uri/@xlink:href)"/>
+                        <xsl:apply-templates select="$uri" mode="HTML-TEXT"></xsl:apply-templates>
+                        <xsl:value-of select="substring-after(.,$uri/@xlink:href)"/>
+                    </xsl:when>
+                </xsl:choose>
+                
+            </xsl:when>
+            <xsl:when test="$ext_link">
+                <xsl:choose>
+                    <xsl:when test="contains(.,$ext_link/text())">
+                        <xsl:value-of select="substring-before(.,$ext_link/text())"/>
+                        <xsl:apply-templates select="$ext_link" mode="HTML-TEXT"></xsl:apply-templates>
+                        <xsl:value-of select="substring-after(.,$ext_link/text())"/>
+                    </xsl:when>
+                    <xsl:when test="contains(.,$ext_link/@xlink:href)">
+                        <xsl:value-of select="substring-before(.,$ext_link/@xlink:href)"/>
+                        <xsl:apply-templates select="$ext_link" mode="HTML-TEXT"></xsl:apply-templates>
+                        <xsl:value-of select="substring-after(.,$ext_link/@xlink:href)"/>
+                    </xsl:when>
+                </xsl:choose>
+            </xsl:when>
+            
+        </xsl:choose>
     </xsl:template>
 </xsl:stylesheet>
