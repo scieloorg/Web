@@ -178,7 +178,14 @@
 						</xsl:if>
 						<table border="0">
 							<tbody>
-								<xsl:apply-templates select="SECTION"/>
+                                                                <xsl:choose>
+                                                                <xsl:when test="$journal_manager=1">
+                                                                        <xsl:apply-templates select="SECTION[NAME != 'Press Release']"/>
+                                                                </xsl:when>
+                                                                <xsl:otherwise>
+                                                                        <xsl:apply-templates select="SECTION"/>
+                                                                </xsl:otherwise>
+                                                                </xsl:choose>
 							</tbody>
 						</table>
 						<xsl:apply-templates select="PAGES"/>
