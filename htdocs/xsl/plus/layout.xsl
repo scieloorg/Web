@@ -49,6 +49,20 @@
     </xsl:template>
     <xsl:template match="*" mode="HTML-BODY-HEADER">
         <header id="top">
+            <!-- ALERT BETA VERSION -->
+            <div id="topmessage">
+                <div class="container">
+                    <div class="span10">
+                        <div class="row link-group">
+                            <div class="infoContainer message ">								
+                                <a href="javascript:void(0);" class="close pull-right"><small>THIS IS A TRIAL VERSION OF ARTICLE PAGE FOR THE NEW VERSION OF SciELO Site
+                                </small>×</a>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- ALERT OF BETA VERSION -->
             <div class="mainHeader">
                 <div class="container">
                     <div class="row">
@@ -179,7 +193,7 @@
     <xsl:template match="*" mode="HTML-aff-list">
         <div class="span3">
             <a href="javascript:void(0);" class="bIcon author">Author affiliation</a>
-            <div class="infoContainer author-affiliation ">
+            <div class="infoContainer author-affiliation hide">
                 <a href="javascript:void(0);" class="close pull-right">×</a>
                 <ul class="clearfix">
                     <xsl:apply-templates select=".//aff" mode="HTML"/>
@@ -501,10 +515,12 @@
     <xsl:template match="fn-group/fn" mode="HTML-TEXT">
         <xsl:apply-templates select="@id| *|text()" mode="HTML-TEXT"/>
     </xsl:template>
-    <xsl:template match="fn-group/fn/label" mode="HTML-TEXT"><sup class="xref">
-        <a href="#back_{../@id}">
-            <xsl:value-of select="."/>
-        </a></sup>
+    <xsl:template match="fn-group/fn/label" mode="HTML-TEXT">
+        <sup class="xref">
+            <a href="#back_{../@id}">
+                <xsl:value-of select="."/>
+            </a>
+        </sup>
     </xsl:template>
     <xsl:template match="fn-group/fn/p" mode="HTML-TEXT">
         <p>
@@ -557,13 +573,13 @@
             </sup>
             <div class="pull-right">
                 <xsl:choose>
-                    
-                <xsl:when test="element-citation[.//ext-link or .//uri] and mixed-citation">
-                    <xsl:apply-templates select="mixed-citation" mode="with-link">
-                        <xsl:with-param name="ext_link" select=".//ext-link"/>
-                        <xsl:with-param name="uri" select=".//uri"/>
-                    </xsl:apply-templates>
-                </xsl:when>
+
+                    <xsl:when test="element-citation[.//ext-link or .//uri] and mixed-citation">
+                        <xsl:apply-templates select="mixed-citation" mode="with-link">
+                            <xsl:with-param name="ext_link" select=".//ext-link"/>
+                            <xsl:with-param name="uri" select=".//uri"/>
+                        </xsl:apply-templates>
+                    </xsl:when>
                     <xsl:when test="mixed-citation">
                         <xsl:apply-templates select="mixed-citation"/>
                     </xsl:when>
@@ -573,7 +589,7 @@
                     <xsl:otherwise>
                         <xsl:apply-templates select="element-citation" mode="DATA-DISPLAY"/>
                     </xsl:otherwise>
-               
+
                 </xsl:choose>
                 <a href="javascript:void(0);" class="bIcon miniLink" target="_blank">
                     <xsl:attribute name="onclick">javascript: window.open('<xsl:value-of
@@ -1114,24 +1130,26 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
             <xsl:when test=". = 'received'">Recibido</xsl:when>
         </xsl:choose>
     </xsl:template>
-    
+
     <xsl:template match="day" mode="date-en">
-        <xsl:value-of select="."/>,		
-    </xsl:template>
+        <xsl:value-of select="."/>, </xsl:template>
     <xsl:template match="day" mode="date-pt"><xsl:value-of select="."/> de </xsl:template>
     <xsl:template match="history/date" mode="HTML-BODY-FOOTER">
         <xsl:choose>
             <xsl:when test="$PAGE_LANG='en'">
                 <xsl:apply-templates select="@date-type" mode="HTML-label-en"/>:
-                    <xsl:apply-templates select="month" mode="HTML-label-en"/><xsl:apply-templates select="day" mode="date-en"></xsl:apply-templates><xsl:value-of select="year"/>
+                    <xsl:apply-templates select="month" mode="HTML-label-en"/><xsl:apply-templates
+                    select="day" mode="date-en"/><xsl:value-of select="year"/>
             </xsl:when>
             <xsl:when test="$PAGE_LANG='pt'">
-                <xsl:apply-templates select="@date-type" mode="HTML-label-pt"/>: <xsl:apply-templates select="day" mode="date-en"></xsl:apply-templates><xsl:apply-templates select="month" mode="HTML-label-pt"/> de
-                    <xsl:value-of select="year"/>
+                <xsl:apply-templates select="@date-type" mode="HTML-label-pt"/>:
+                    <xsl:apply-templates select="day" mode="date-en"/><xsl:apply-templates
+                    select="month" mode="HTML-label-pt"/> de <xsl:value-of select="year"/>
             </xsl:when>
             <xsl:when test="$PAGE_LANG='es'">
-                <xsl:apply-templates select="@date-type" mode="HTML-label-es"/>: <xsl:apply-templates select="day" mode="date-en"></xsl:apply-templates><xsl:apply-templates select="month" mode="HTML-label-es"/> de
-                    <xsl:value-of select="year"/>
+                <xsl:apply-templates select="@date-type" mode="HTML-label-es"/>:
+                    <xsl:apply-templates select="day" mode="date-en"/><xsl:apply-templates
+                    select="month" mode="HTML-label-es"/> de <xsl:value-of select="year"/>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:apply-templates select="@date-type" mode="HTML-label-en"/>:
@@ -1170,42 +1188,44 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
 
     </xsl:template>
     <xsl:template match="ext-link|uri" mode="HTML-TEXT">
-        <a href="{@xlink:href}" target="_blank"><xsl:value-of select="."/></a>
+        <a href="{@xlink:href}" target="_blank">
+            <xsl:value-of select="."/>
+        </a>
     </xsl:template>
     <xsl:template match="mixed-citation" mode="with-link">
-        <xsl:param name="uri"></xsl:param>
-        <xsl:param name="ext_link"></xsl:param>
+        <xsl:param name="uri"/>
+        <xsl:param name="ext_link"/>
         <xsl:choose>
             <xsl:when test="$uri">
                 <xsl:choose>
                     <xsl:when test="contains(.,$uri/text())">
                         <xsl:value-of select="substring-before(.,$uri/text())"/>
-                        <xsl:apply-templates select="$uri" mode="HTML-TEXT"></xsl:apply-templates>
+                        <xsl:apply-templates select="$uri" mode="HTML-TEXT"/>
                         <xsl:value-of select="substring-after(.,$uri/text())"/>
                     </xsl:when>
                     <xsl:when test="contains(.,$uri/@xlink:href)">
                         <xsl:value-of select="substring-before(.,$uri/@xlink:href)"/>
-                        <xsl:apply-templates select="$uri" mode="HTML-TEXT"></xsl:apply-templates>
+                        <xsl:apply-templates select="$uri" mode="HTML-TEXT"/>
                         <xsl:value-of select="substring-after(.,$uri/@xlink:href)"/>
                     </xsl:when>
                 </xsl:choose>
-                
+
             </xsl:when>
             <xsl:when test="$ext_link">
                 <xsl:choose>
                     <xsl:when test="contains(.,$ext_link/text())">
                         <xsl:value-of select="substring-before(.,$ext_link/text())"/>
-                        <xsl:apply-templates select="$ext_link" mode="HTML-TEXT"></xsl:apply-templates>
+                        <xsl:apply-templates select="$ext_link" mode="HTML-TEXT"/>
                         <xsl:value-of select="substring-after(.,$ext_link/text())"/>
                     </xsl:when>
                     <xsl:when test="contains(.,$ext_link/@xlink:href)">
                         <xsl:value-of select="substring-before(.,$ext_link/@xlink:href)"/>
-                        <xsl:apply-templates select="$ext_link" mode="HTML-TEXT"></xsl:apply-templates>
+                        <xsl:apply-templates select="$ext_link" mode="HTML-TEXT"/>
                         <xsl:value-of select="substring-after(.,$ext_link/@xlink:href)"/>
                     </xsl:when>
                 </xsl:choose>
             </xsl:when>
-            
+
         </xsl:choose>
     </xsl:template>
 </xsl:stylesheet>
