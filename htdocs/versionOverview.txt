@@ -1,3 +1,10 @@
+
+future v5.28 
+[web]
+press releases ... 
+fix the label of the link to new article page 
+at the new article page display a message indicating it is a trial version for new SciELO website
+
 v5.27
 [web]
 presentation of fulltext - adjustments
