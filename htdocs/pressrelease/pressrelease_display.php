@@ -54,6 +54,7 @@ if (in_array($_REQUEST['tlng'], $allowed_languages)){
                      rel="nofollow">See the <?=$data['prs']['type']?></a>
                 </h3>
                 <?}?>
+              <?=$data['prs']['title']?>  
               <?=$data['prs']['content']?>
             </div> <!-- content -->
           </div> <!-- collection -->
