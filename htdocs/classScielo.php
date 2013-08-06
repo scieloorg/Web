@@ -143,6 +143,7 @@ class Scielo extends ScieloBase
             $xmlScieloOrg = '';
             if (strpos($this->_IsisScriptUrl, 'script=sci_verify')==false){
                     $elements = array(
+                            "PINGDOM_CODE"=>"PINGDOM_CODE",
                             //adicionando o dominio do Site Regional...
                             "SCIELO_REGIONAL_DOMAIN"=> "SCIELO_REGIONAL_DOMAIN",
                             //exibir o toolbox ?

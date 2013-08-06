@@ -157,7 +157,7 @@ function get_press_releases_by_pid($pid, $lng){
     #$json = json_decode(file_get_contents('fixture_prs.json'), true);
     #$json = json_decode(quering_api('fixture_prs.json'), true);
 
-    $request_url = JM_API_URL.'pressreleases/?format=json&username='.JM_API_USER.'&api_key='.JM_API_TOKEN;
+    $request_url = JM_API_URL.'pressreleases/?format=json&limit=100&username='.JM_API_USER.'&api_key='.JM_API_TOKEN;
     if (preg_match("/^[0-9]{4}-[0-9]{3}[0-9xX]$/", $pid)){
         $request_url .= '&journal_pid='.$pid;
     }elseif (preg_match("/^[0-9]{4}-[0-9]{3}[0-9xX][0-2][0-9]{3}[0-9]{4}$/", $pid)){
