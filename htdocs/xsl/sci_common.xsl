@@ -631,7 +631,19 @@
 				pageTracker._trackPageview();
 			</script>
 		</xsl:if>
-
+                <xsl:if test="$control_info/SCIELO_INFO/PINGDOM_CODE != ''">
+			<script>
+				var _prum = [['id', '<xsl:value-of select="$control_info/SCIELO_INFO/PINGDOM_CODE"/>'],
+             			['mark', 'firstbyte', (new Date()).getTime()]];
+				(function() {
+    					var s = document.getElementsByTagName('script')[0]
+      					, p = document.createElement('script');
+    					p.async = 'async';
+    					p.src = '//rum-static.pingdom.net/prum.min.js';
+    					s.parentNode.insertBefore(p, s);
+				})();
+			</script>
+                </xsl:if>
 	</xsl:template>
 	<xsl:template name="ImageLogo">
 		<xsl:param name="src"/>
