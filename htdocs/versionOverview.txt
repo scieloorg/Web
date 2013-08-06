@@ -1,4 +1,6 @@
-
+v5.29
+[web]
+Incluida tag PINGDOM_CODE no arquivo scielo.def.php para apresentação de javascript de monitoramento do site para clientes do PINGDOM
 v5.28 
 [web]
 pressrelease: Incorporado client de leitura de pressreleases do Journal Manager.
