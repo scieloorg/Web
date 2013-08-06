@@ -631,9 +631,9 @@
 				pageTracker._trackPageview();
 			</script>
 		</xsl:if>
-                <xsl:if test="$control_info/SCIELO_INFO/PINGDOM_CODE != ''">
+                <xsl:if test="//varScieloOrg/PINGDOM_CODE != ''">
 			<script>
-				var _prum = [['id', '<xsl:value-of select="$control_info/SCIELO_INFO/PINGDOM_CODE"/>'],
+				var _prum = [['id', '<xsl:value-of select="//varScieloOrg/PINGDOM_CODE"/>'],
              			['mark', 'firstbyte', (new Date()).getTime()]];
 				(function() {
     					var s = document.getElementsByTagName('script')[0]
