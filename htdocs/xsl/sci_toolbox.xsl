@@ -590,7 +590,7 @@
                       <xsl:with-param name="label"
                         select="$translations/xslid[@id='sci_issuetoc']/text[@find='full']"/>
                     </xsl:apply-templates>
-                    
+
                     <xsl:if test="$tlng!=//ARTICLE/@ORIGINALLANG">
                       <xsl:if test="//LANGUAGES/ART_TEXT_LANGS//LANG[.!=$tlng]"> | </xsl:if>
                       <xsl:apply-templates select="//ARTICLE/@ORIGINALLANG"
@@ -600,7 +600,7 @@
                         <xsl:with-param name="icon">/img/fulltxt.gif</xsl:with-param>
                         <xsl:with-param name="label"/>
                       </xsl:apply-templates>
-                      
+
                     </xsl:if>
                   </li>
                 </xsl:if>
@@ -611,15 +611,24 @@
                     <xsl:when test=".//fulltext/front"/>
                     <xsl:otherwise>
                       <li>
-                        <xsl:apply-templates
+                        <!--xsl:apply-templates
                           select="//ARTICLE/@ORIGINALLANG | //LANGUAGES/ART_TEXT_LANGS//LANG "
+                          mode="display-link-to-new-article-version"-->
+                        <xsl:apply-templates
+                          select="//LANGUAGES/ART_TEXT_LANGS//LANG[.=$tlng] | //ARTICLE/@ORIGINALLANG[.=$tlng]"
                           mode="display-link-to-new-article-version">
                           <xsl:with-param name="pid" select="CONTROLINFO/PAGE_PID"/>
                           <xsl:with-param name="icon">/img/fulltxt.gif</xsl:with-param>
-                          <xsl:with-param name="label"/>
+                          <xsl:with-param name="label">
+                            <xsl:choose>
+                              <xsl:when test="$interfaceLang='en'">new page (beta)</xsl:when>
+                              <xsl:when test="$interfaceLang='es'">nueva página (beta)</xsl:when>
+                              <xsl:when test="$interfaceLang='pt'">nova página (beta)</xsl:when>
+                            </xsl:choose>
+                          </xsl:with-param>
 
                         </xsl:apply-templates>
-                        
+
                       </li>
                     </xsl:otherwise>
                   </xsl:choose>
@@ -1206,17 +1215,11 @@
     <a>
       <xsl:attribute name="href">javascript: void(0);</xsl:attribute>
       <xsl:attribute name="onClick">window.open('<xsl:value-of select="$url"
-        />','','width=800,height=480,resizable=yes,toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1');</xsl:attribute>
+        />','','width=1000,height=480,resizable=yes,toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1');</xsl:attribute>
       <xsl:attribute name="rel">nofollow</xsl:attribute>
+      <img src="{$icon}"/>
 
-      <xsl:choose>
-        <xsl:when test="position()=1">
-          <img src="{$icon}"/> + <xsl:value-of select="$label"/>
-        </xsl:when>
-        <xsl:otherwise> | </xsl:otherwise>
-      </xsl:choose>
-      <xsl:value-of
-        select="document(concat('../xml/',$interfaceLang,'/language.xml'))//language[@id=$lang]"/>
+      <xsl:value-of select="$label"/>
     </a>
 
   </xsl:template>
