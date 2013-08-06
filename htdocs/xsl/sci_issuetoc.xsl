@@ -104,7 +104,8 @@
 					      	for (var item in jdata['article']){
 					      		for (var npid in jdata['article'][item]['pid']){
 						      		var pid = jdata['article'][item]['pid'][npid];
-						      		var url = '/pressrelease/pressrelease_display.php?id='+jdata['article'][item]['id']+'&amp;pid='+jdata['article'][item]['pid']+'&amp;lng='+lng;
+                                                                var url = '/pressrelease/pressrelease_display.php?id='+jdata['article'][item]['id']+'&amp;lng='+lng+'&amp;pid='+jdata['article'][item]['pid'];
+                                                                url = url.replace(/(\r\n|\n|\r)/gm,"");
 						      		var article_html='&#160;&#160;&#160;&#160;<font face="Symbol" color="#000080">&#183; </font><a href="javascript: void(0);" onclick="OpenArticleInfoWindow(850,850,\''+url+'\')">Press Release</a>';
 						      		$("#pr_"+pid).html(article_html);
 						      		$("#pr_"+pid).show();
@@ -178,7 +179,14 @@
 						</xsl:if>
 						<table border="0">
 							<tbody>
-								<xsl:apply-templates select="SECTION"/>
+                                                                <xsl:choose>
+                                                                <xsl:when test="$journal_manager=1">
+                                                                        <xsl:apply-templates select="SECTION[NAME != 'Press Release']"/>
+                                                                </xsl:when>
+                                                                <xsl:otherwise>
+                                                                        <xsl:apply-templates select="SECTION"/>
+                                                                </xsl:otherwise>
+                                                                </xsl:choose>
 							</tbody>
 						</table>
 						<xsl:apply-templates select="PAGES"/>
