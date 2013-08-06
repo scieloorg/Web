@@ -18,6 +18,7 @@
 	font-size: 120%;
 	margin-top: 80px;
 	margin-bottom: 80px;
+	font-weight: bold;
 }
 
 .abstract .sec, .trans-abstract .sec {
@@ -171,8 +172,9 @@ border-top: 1px solid;
 	font-size: 90%;
 	
 }
-.fn {
-    font-size: 80%;
+.fn-label {
+font-size: 80%;
+padding-top: 0px;
 }
 .fn-author {}
 
