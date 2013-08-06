@@ -11,4 +11,3 @@ echo =====================================================X
 echo 
 echo O log do processamento esta armazenado em: $INFORMALOG
 echo Tecle CONTROL-C para sair ou ENTER para continuar ...
-read pause
