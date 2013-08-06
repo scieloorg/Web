@@ -70,6 +70,7 @@ SERVER_LOG_PROC=scielo-log.scielo.br/scielolog/
 SERVER_LOG_PROC_PATH=scielolog
 SCRIPT_LOG_NAME=scielolog/updateLog02.php
 SCRIPT_LOG_RUN=scielo-log.bireme.br/scielolog/scielolog03B2.php
+PINGDOM_CODE=
 ACTIVATE_GOOGLE=1
 GOOGLE_CODE=
 PATH_LOG_CACHE=/home/scielo/www/bases/pages/sci_stat/
