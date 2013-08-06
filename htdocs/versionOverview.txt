@@ -1,3 +1,18 @@
+v5.29
+[web]
+Incluida tag PINGDOM_CODE no arquivo scielo.def.php para apresentação de javascript de monitoramento do site para clientes do PINGDOM
+v5.28 
+[web]
+pressrelease: Incorporado client de leitura de pressreleases do Journal Manager.
+fix the label of the link to new article page 
+at the new article page display a message indicating it is a trial version for new SciELO website
+
+v5.27
+[web]
+presentation of fulltext - adjustments
+[proc]
+scielo_crs - problem with some files which were in DOS format.
+
 v5.26
 [web]
 Fix sci_issues - missing supplements
