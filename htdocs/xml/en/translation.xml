@@ -272,17 +272,41 @@
 		<text find="site_usage">site usage</text>
 		<text find="journal_citation">journal citation</text>
 		<text find="co_authors">co-authors</text>
-		<text find="text_1">The Scientific Electronic Library Online - SciELO is an electronic library covering a selected collection of Brazilian scientific journals.<br/>
-			<br/>The library is an integral part of a project being developed by <a href="http://www.fapesp.br">FAPESP</a> - Fundação de Amparo à Pesquisa do Estado de São Paulo, in partnership with <a href="http://www.bireme.br/bvs/I/ihome.htm">BIREME</a> - the Latin American and Caribbean Center on Health Sciences Information. Since 2002, the Project is also supported by <a href="http://www.cnpq.br">CNPq</a> - Conselho Nacional de Desenvolvimento Científico e Tecnológico.<br/>
-			<br/>The Project envisages the development of a common methodology for the preparation, storage, dissemination and evaluation of scientific literature in electronic format.<br/>
-			<br/>As the project develops, new journal titles are being added in the library collection.</text>
-		<text find="text_2">This is the home page of SciELO Brasil Site.<br/>
-			<br/>The objective of the site is to implement an electronic virtual library, providing full access to a collection of serial titles, a collection of issues from individual serial titles, as well as to the full text of articles. The access to both serial titles and articles is available via indexes and search forms.<br/>
-			<br/>SciELO site is an integral part of the FAPESP/BIREME/CNPq Project and it is an application of the methodology being developed by the project, particularly the Internet Interface module.<br/>
-			<br/>The site will be constantly updated both in form and content, according to the project's advancements.</text>
-		<text find="text_3">SciELO interface provides access to its serials collection via an <i>alphabetic list</i> of titles or a <i>subject list</i> or a <i>search form</i> by word of serial titles, publisher names, city of publication and subject.<br/>
-			<br/>The interface also provides access to the full text of articles via <i>author index</i> or <i>subject index</i>, or by a <i>search form</i> on article elements such as author names, words from title, subject, words from the full text and publication year.<br/>
-			<br/>Click an hypertext link at the <a href="#top">top</a> to call the corresponding access page.</text>
+		<text find="text_1">
+
+            <b>Scientific Electronic Library Online</b> is an online library made up of an Ibero-American network of full-text scientific journal collections, open to all and free of charge.<br/>
+            <br/>The SciELO project is based on the development of a model methodology for the preparation, storage, sharing and evaluation of scientific publications as an electronic support.<br/>
+            <br/>This initiative is the work of <a href="/web/20100820102339/http://www.bireme.br/bvs/I/ihome.htm">BIREME</a>, which since its origins in 1997 has received financing from the São Paulo State Foundation for Research Support (<a href="/web/20100820102339/http://www.fapesp.br/">FAPESP</a>). In 2002 the <a href="/web/20100820102339/http://www.cnpq.br/">CNPq</a> (National Council for Scientific and Technological Development) also began its support of this venture.<br/>
+            <br/>The model collects science journals for developing countries and gives them the visibility that the mainstream does not offer to science communication in the region. As an evaluation instrument the site provides statistical indicators to show the journals' use and impact factor.<br/>
+            <br/>In Argentina this cooperative regional project is part of the scientific policies of the National Council for Scientific and Technical Research (<a href="/web/20100820102339/http://www.conicet.gov.ar/">CONICET</a>) and is administered by the Argentinian Centre for Scientific and Technological Information (<a href="/web/20100820102339/http://www.caicyt.gov.ar/">CAICYT</a>), a centre dependent on the CONICET.<br/>
+            <br/>The journals that make up the SciELO-Argentina collection cover all the knowledge areas and have the reputability of being part of the <a href="/web/20100820102339/http://www.caicyt.gov.ar/nucleo-basico-de-revistas-cientificas">Basic Core of Argentinian Scientific Publications</a>, as well as the scientific rigor of their peer-evaluated articles. These peers are Scientific Consultant Committee members designated by <a href="/web/20100820102339/http://www.conicet.gov.ar/">CONICET</a>. The journals' quality is permanently evaluated at the CAICYT Scientific Publications Department, based on <a href="/web/20100820102339/http://www.latindex.unam.mx/">LATINDEX</a> Excellence Criteria: Level 1/Latindex CATALOGUE.
+		</text>
+		<text find="text_2">
+	            Argentina joined the SciELO project in June 2005, receiving certification to operate regularly as an official site in October 2006.<br/>
+	            <br/>
+	            <b>Mission</b>
+	            <br/>
+	            <br/>To reaffirm its commitment to promoting the right to scientific information, in the form of full texts and with free access, and to endeavour to attain academic and editorial excellence in Argentinian scientific publications.<br/>
+	            <br/>
+	            <b>Goals</b>
+	            <ul>
+	                <li>
+	To build up a collection of scientific publications, of excellent quality (in terms of editorial and content quality), in electronic form and in all knowledge areas (multidisciplinary).</li>
+	                <li>To increase the visibility of national and regional scientific production.</li>
+	                <li>To provide open access, free of charge to the user community.</li>
+	            </ul>
+		</text>
+		<text find="text_3">
+			The SciELO portal is user-friendly and easy to browse. It includes two search options, one for titles and another for articles, thus a journal or article can be brought up using its complete title or with a word from the article. There is also a truncation option.<br/>
+            		<br/>
+			The SciELO Argentina Team holds regular methodology training workshops for journal representatives in order to incorporate new titles into the collection.<br/>
+            		<br/>
+			SciELO interface provides access to its serials collection via an alphabetic list of titles or a subject index or a search by word of serial titles, publisher names, city of publication and subject.<br/>
+            		<br/>
+			The interface also provides access to the full text of articles via author index or subject index or a search form on article elements such as author names, words from title, subject and words from the full text.<br/>
+            		<br/>
+			Click an hypertext link to call the corresponding access page.
+		</text>
 		<text find="phone">Phone</text>
 		<text find="fax">Fax</text>
 		<text find="register_free">Free sign up</text>
