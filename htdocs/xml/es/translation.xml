@@ -272,17 +272,35 @@
 		<text find="site_usage">uso del sitio</text>
 		<text find="journal_citation">citas de revistas</text>
 		<text find="co_authors">co-autoria</text>
-		<text find="text_1">La Scientific Electronic Library Online - SciELO es una biblioteca electrónica que abarca una colección seleccionada de revistas científicas Brasileñas. <br/>
-			<br/>La biblioteca es resultado de un proyecto de investigación de la <a href="http://www.fapesp.br">FAPESP</a> - Fundação de Amparo à Pesquisa do Estado de São Paulo, en colaboración con <a href="http://www.bireme.br/bvs/E/ehome.htm">BIREME</a> - Centro Latinoamericano y del Caribe de Información en Ciencias de la Salud. A partir de 2002, el Proyecto conta con el apoyo del <a href="http://www.cnpq.br">CNPq</a> - Conselho Nacional de Desenvolvimento Científico e Tecnológico.<br/>
-			<br/>El proyecto contempla el desarrollo de una metodología común para la preparación, almacenamiento, diseminación y evaluación de literatura científica en formato electrónico.<br/>
-			<br/>Con el desarrollo del proyecto, nuevos títulos son añadidos a la colección de la biblioteca.</text>
-		<text find="text_2">Esta es la home page del Sitio SciELO Brasil.<br/>
-			<br/>El objetivo del sitio es implementar una biblioteca electrónica, que proporcione acceso completo a una colección de revistas, una colección de números de revistas individuales, así como al texto completo de los artículos. El acceso tanto a las revistas como a los artículos se puede realizar usando índices y formularios de búsqueda.<br/>
-			<br/>El sitio de SciELO es una parte del Proyecto FAPESP/BIREME/CNPq y es una aplicación de la metodología que el proyecto está desarrollando, en particular, el módulo de Interfaz en Internet.<br/>
-			<br/>El sitio será constantemente actualizado tanto en forma como en contenido, en la medida en que el proyecto avance.</text>
-		<text find="text_3">La interfaz SciELO proporciona acceso a su colección de revistas mediante una <i>lista alfabética</i> de títulos, una <i>lista por materia</i>, o una <i>búsqueda de títulos</i> de los periódicos, por palabra del título, materia, nombres de publicadores y ciudad de publicación.<br/>
-			<br/>La interfaz también proporciona acceso al texto completo de los artículos por medio de un <i>índice de autores</i>, un <i>índice de materia</i> o un formulario de <i>búsqueda de artículos</i> por sus elementos, como nombres de autores, palabras del título, materias, palabras del texto completo y año de publicación.<br/>
-			<br/>Clique un enlace hipertexto en el <a href="#top">topo</a> de la página para llamar la correspondiente página de acceso.</text>
+		<text find="text_1">
+			<b>Scientific Electronic Library Online</b> es una biblioteca electrónica que conforma una red iberoamericana de colecciones de revistas científicas en texto completo y con acceso abierto, libre y gratuito.<br/>
+			<br/>El proyecto SciELO está fundado en el desarrollo de una metodología modelo para la preparación, almacenamiento, diseminación y evaluación de la publicación científica en soporte electrónico.<br/>
+			<br/>Es una iniciativa de <a href="/web/20130317235243/http://www.bireme.br/bvs/E/ehome.htm">BIREME</a>, que desde sus inicios en 1997 cuenta con el financiamiento de la Fundación de Apoyo a la Investigación del Estado de São Paulo (<a href="/web/20130317235243/http://www.fapesp.br/">FAPESP</a>). A partir de 2002 se suma a este emprendimiento el <a href="/web/20130317235243/http://www.cnpq.br/">CNPq</a> (Conselho Nacional de Desenvolvimento Científico e Tecnológico).<br/>
+			<br/>El modelo recupera la ciencia de los países en desarrollo y otorga la visibilidad que la corriente principal no ofrece a la comunicación científica de la región. Como instrumento de evaluación el sitio proporciona indicadores estadísticos de uso y factor de impacto de las revistas.<br/>
+			<br/>En Argentina este proyecto cooperativo regional forma parte de las políticas científicas del Consejo Nacional de Investigaciones Científicas y Técnicas (<a href="/web/20130317235243/http://www.conicet.gov.ar/">CONICET</a>) y se gestiona a través del Centro Argentino de Información Científica y Tecnológica (<a href="/web/20130317235243/http://www.caicyt.gov.ar/">CAICYT</a>), organismo dependiente del CONICET.<br/>
+			<br/>Las revistas que integran la colección SciELO-Argentina tienen cobertura en todas las áreas del conocimiento y cuentan con la confiabilidad que les otorga el ser parte del <a href="/web/20130317235243/http://www.caicyt.gov.ar/nucleo-basico-de-revistas-cientificas">Núcleo Básico de Publicaciones Científicas Argentinas</a> y con el rigor científico de sus artículos evaluados por pares; quienes son miembros del Comité Científico Asesor designado por el CONICET. La calidad editorial de las revistas es evaluada permanentemente en el Área de Publicaciones Científicas del CAICYT en base a los Criterios de Excelencia de <a href="/web/20130317235243/http://www.latindex.unam.mx/">LATINDEX</a>: Nivel 1/CATÁLOGO Latindex.
+		</text>
+		<text find="text_2">
+			Argentina se integra al proyecto SciELO en junio de 2005 y en octubre de 2006 obtiene la certificación para operar regularmente como sitio oficial.<br/>
+			<br/>
+			<b>Misión</b>
+			<br/>
+			<br/>Reafirmar el compromiso de propiciar el derecho a la información científica, en texto completo y acceso libre y gratuito, procurando la excelencia académica y editorial de las publicaciones científicas argentinas.
+			<br/><br/>
+			<b>Metas</b>
+			<ul>
+			    <li>Conformar una colección de publicaciones científicas, de excelencia (alta calidad editorial y de contenido) en soporte electrónico y en todas las áreas del conocimiento (multidisciplinar)</li>
+			    <li>Otorgar visibilidad a la producción científica nacional y regional.</li>
+			    <li>Proporcionar acceso abierto, libre y gratuito a la comunidad de usuarios.</li>
+			</ul>
+		</text>
+		<text find="text_3">
+			El portal SciELO es amigable y de fácil navegabilidad, posee dos opciones de búsqueda, una para títulos y otra para artículos, la recuperación de la revista o del artículo puede realizarse por su título completo o por alguna palabra del mismo y también puede optarse por la posibilidad de truncamiento. Para acceder a los títulos de las revistas se dispone de tres opciones: lista alfabética, lista por materias, y búsqueda de títulos.<br/>
+			<br/>La interfaz de búsqueda de artículos permite el acceso a través de índices de autor y materia, y a través de formularios de búsqueda simple y avanzada.<br/>
+			<br/>Los resultados obtenidos pueden ser impresos y/o salvados en formato HTML o ISO 2709.<br/>
+			<br/>Debajo de cada una de las referencias obtenidas como resultado de las búsquedas se encuentran los enlaces a los formatos disponibles (HTML y/o PDF).<br/>
+			<br/>En el formato HTML se brinda información acerca de cómo citar los artículo.
+		</text>
 		<text find="phone">Tel.</text>
 		<text find="fax">Fax</text>
 		<text find="register_free">Regístrese gratuitamente</text>
