@@ -36,7 +36,7 @@
     <xsl:template match="*" mode="HTML-BODY">
         <body class="skin-soft-contrast">
             <xsl:apply-templates select="." mode="HTML-BODY-HEADER"/>
-            <section claas="sec">
+            <section class="sec">
                 <div class="container">
                     <xsl:apply-templates select="." mode="HTML-BODY-SECTION-HEADER"/>
                     <xsl:apply-templates select="." mode="HTML-BODY-SECTION-ARTICLE"/>
