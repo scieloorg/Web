@@ -36,7 +36,7 @@
     <xsl:template match="*" mode="HTML-BODY">
         <body class="skin-soft-contrast">
             <xsl:apply-templates select="." mode="HTML-BODY-HEADER"/>
-            <section>
+            <section class="sec">
                 <div class="container">
                     <xsl:apply-templates select="." mode="HTML-BODY-SECTION-HEADER"/>
                     <xsl:apply-templates select="." mode="HTML-BODY-SECTION-ARTICLE"/>
@@ -90,7 +90,7 @@
         </header>
     </xsl:template>
     <xsl:template match="*" mode="HTML-BODY-SECTION-HEADER">
-        <header class="row">
+        <header class="row header">
             <div class="span8">
                 <h2 class="article-categories">
                     <xsl:apply-templates select="." mode="DATA-article-categories"/>
@@ -321,7 +321,7 @@
         <xsl:apply-templates select="." mode="HTML-BODY-SECTION-ARTICLE-CONTENT"/>
     </xsl:template>
     <xsl:template match="*" mode="HTML-BODY-SECTION-ARTICLE-ABSTRACT">
-        <article id="abstract">
+        <article id="abstract" class="article">
             <xsl:choose>
                 <xsl:when test="$trans//abstract">
                     <xsl:apply-templates select="$trans//abstract" mode="HTML-TEXT">
@@ -469,7 +469,7 @@
         </li>
     </xsl:template>
     <xsl:template match="*" mode="HTML-BODY-SECTION-ARTICLE-CONTENT">
-        <article id="content">
+        <article id="content" class="article">
             <xsl:choose>
                 <xsl:when test="$trans">
                     <xsl:apply-templates select="$trans/body" mode="HTML-TEXT"/>
