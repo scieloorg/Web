@@ -1,7 +1,7 @@
-v5.30 (em desenvolvimento)
+v5.30
 [web]
 bug na página how to cite para ABNT e Vancouver quando existia supplemento (#54, #55)
-...
+página nova do artigo quando afiliação é muito longa
 
 v5.29
 [web]
