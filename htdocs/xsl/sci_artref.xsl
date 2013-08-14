@@ -1332,8 +1332,7 @@ Parameters:
 					<xsl:if test="$SUPPL">
 						Suppl <xsl:if test="$SUPPL&gt;0"> <xsl:value-of select="$SUPPL"/></xsl:if>
 					</xsl:if>
-					):
-				</xsl:if>
+					)</xsl:if>:
 					<xsl:if test="$FPAGE!=0 and $LPAGE!=0">
 						<xsl:value-of select="concat(' ',$FPAGE, '-', $LPAGE)"/>
 					</xsl:if>
