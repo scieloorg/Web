@@ -18,7 +18,7 @@
 	<xsl:variable name="xml_article">
 		<xsl:if test="$version='xml-file'"><xsl:choose>
 			<xsl:when test="//TESTE">file://<xsl:value-of select="//TESTE"/></xsl:when>
-			<xsl:otherwise>file:///<xsl:value-of select="concat(substring-before(.//PATH_HTDOCS,'htdocs'),'bases/xml/',.//filename)"/></xsl:otherwise>
+			<xsl:otherwise>file:///<xsl:value-of select="concat(substring-before(.//PATH_HTDOCS,'htdocs'),'bases/xml/',.//ISSUE/ARTICLE[1]/filename)"/></xsl:otherwise>
 		</xsl:choose></xsl:if>
 	</xsl:variable>
 
