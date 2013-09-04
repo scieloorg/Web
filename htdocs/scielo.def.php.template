@@ -143,6 +143,7 @@ show_ref_links=1
 show_meta_citation_reference=1
 show_ubio=1
 show_new_article_link=0
+show_altmetrics=0
 
 [services_group]
 show_group_article = 1
@@ -188,6 +189,7 @@ LOG_XML_ERROR_FILENAME=/home/scielo/www/logs/xml_error_log.txt
 ENABLE_DIVULGACAO=0
 
 [PRESENTATION]
+LICENSE=cc
 show_issues_sorted_by_pubdate=0
 BEFOREPRINT_ISSUES=splited
 BEFOREPRINT_ISSUETOC=splited
