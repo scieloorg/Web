@@ -158,6 +158,8 @@ class Scielo extends ScieloBase
                             "logoutURL" => "logout_url",
                             //Exibe ou n�o a op��o de Login
                             "show_login" => "show_login",
+                            //Exibe o gráfico do altmetrics caso o artigo possua um DOI
+                            "show_altmetrics" => "show_altmetrics",
                             //Exibe a servico de tradu��o windows live translations
                             "show_article_wltranslation" => "show_article_wltranslation",
                             //Exibe ou n�o a op��o de Envio de Artigo por email
