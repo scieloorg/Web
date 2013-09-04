@@ -1,6 +1,7 @@
 v5.31
 [web]
 Incluindo gráfico de altmetrics para as páginas de artigos
+Página de apresentação do texto press release proveniente de XML
 
 v5.30
 [web]
