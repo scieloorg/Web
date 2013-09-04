@@ -318,7 +318,6 @@
 					<xsl:when test="$version='xml-file' or $version='xml'">
 						<xsl:apply-templates select="." mode="version-body-xml-file"/>
 					</xsl:when>
-
 					<xsl:otherwise>
 						<xsl:apply-templates select="." mode="version-body-html"/>
 					</xsl:otherwise>

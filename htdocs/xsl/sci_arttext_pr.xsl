@@ -1,19 +1,16 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:mml="http://www.w3.org/1998/Math/MathML">
 	<!--xsl:output method="xml" version="1.0" encoding="ISO-8859-1" indent="yes"/-->
-	<xsl:import href="sci_arttext.xsl"/>
+	<xsl:include href="sci_arttext.xsl"/>
 	<xsl:output method="html" omit-xml-declaration="yes" indent="yes" doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 	
 	<xsl:variable name="display">no</xsl:variable>
 	
 	<xsl:template match="/">
-		
-		<xsl:apply-templates select=".//SERIAL" mode="merged"/>
+		<xsl:apply-templates select=".//SERIAL[1]" mode="merged"/>
 	</xsl:template>
+	
 	<xsl:template match="SERIAL" mode="merged">
-		<xsl:if test=".//mml:math">
-			<xsl:processing-instruction name="xml-stylesheet"> type="text/xsl" href="/xsl/mathml.xsl"</xsl:processing-instruction>
-		</xsl:if>
 		<html xmlns="http://www.w3.org/1999/xhtml">
 			<head>
 				<title>
@@ -24,10 +21,7 @@
 				<meta Content-math-Type="text/mathml"/>
 				<!--link rel="stylesheet" type="text/css" href="/css/screen.css"/>
 				<xsl:apply-templates select="." mode="css"/-->
-				<link rel="stylesheet" href="/applications/scielo-org/css/public/style-en.css" type="text/css" media="screen"/>
 				<xsl:apply-templates select="." mode="version-css"/>
-				
-				
 			</head>
 			<body>
 				<div class="container">
@@ -88,7 +82,7 @@
 														<xsl:with-param name="lang" select="$interfaceLang"/>
 													</xsl:apply-templates>
 												</xsl:if>
-												<xsl:if test="$xml_article">
+												<xsl:if test="$xml_article!=''">
 													<xsl:apply-templates select="document($xml_article)" mode="text-content"/>
 												</xsl:if>
 												<div align="left"/>
@@ -101,7 +95,6 @@
 						</div>
 					</div>
 				</div>
-				<script language="javascript" src="applications/scielo-org/js/httpAjaxHandler.js"/>
 				
 				<xsl:apply-templates select="." mode="version-js"/>
 				
@@ -115,5 +108,59 @@
 			<xsl:with-param name="LANG" select="$LANGUAGE"/>
 			<xsl:with-param name="AUTHLINK">0</xsl:with-param>
 		</xsl:call-template>
+	</xsl:template>
+	
+	<xsl:template match="SERIAL" mode="version-css">
+		<xsl:choose>
+			<xsl:when test="$version='xml-file' or $version= 'xml'">
+				<link rel="stylesheet" href="/applications/scielo-org/css/public/style-en.css" type="text/css" media="screen"/>				
+				<link rel="stylesheet" type="text/css" href="/css/screen.css"/>
+				<link rel="stylesheet" type="text/css" href="/xsl/pmc/v3.0/xml.css"/>
+				<style>
+					#toolBox {border:0}
+					HTML>BODY H3 {
+					font-size: 100%
+					}
+				</style>
+				<!--link rel="stylesheet" type="text/css" href="/xsl/pmc/v3.0/css/jpub-preview.css" /-->
+			</xsl:when>
+			<!--xsl:when test="$version='xml'">
+            	<link rel="stylesheet" type="text/css" href="/css/screen.css"/>
+                <link xmlns="" rel="stylesheet" type="text/css" href="/css/pmc/ViewNLM.css"/>
+                <link xmlns="" rel="stylesheet" type="text/css" href="/css/pmc/ViewScielo.css"/>
+                
+            </xsl:when-->
+			<xsl:otherwise>
+				<link rel="stylesheet" href="/applications/scielo-org/css/public/style-en.css" type="text/css" media="screen"/>				
+			
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+	
+	<xsl:template match="SERIAL" mode="version-js">
+		<xsl:choose>
+			<xsl:when test="$version='xml-file'">
+				<script language="javascript" src="applications/scielo-org/js/jquery-1.4.2.min.js"/>
+				<script language="javascript" src="applications/scielo-org/js/toolbox.js"/>
+				<script language="javascript" src="article.js"/>
+				<!--http://www.dynamicdrive.com/dynamicindex5/stickytooltip.htm-->
+				<script type="text/javascript" src="xsl/pmc/v3.0/js/jquery.min.js"/>
+				<script type="text/javascript" src="xsl/pmc/v3.0/js/stickytooltip.js">
+					<!-- 
+				     ***********************************************
+					* Sticky Tooltip script- (c) Dynamic Drive DHTML code library (www.dynamicdrive.com)
+					* This notice MUST stay intact for legal use
+					* Visit Dynamic Drive at http://www.dynamicdrive.com/ for this script and 100s more
+					***********************************************/
+					-->
+				</script>
+				<script type="text/javascript" src="js/executartooltip.js"/>
+				
+			</xsl:when>
+			<xsl:otherwise>
+				<script language="javascript" src="applications/scielo-org/js/httpAjaxHandler.js"/>
+				
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 </xsl:stylesheet>
