@@ -424,6 +424,12 @@
                 </a>
               </xsl:if>
               <!-- CLINICAL TRIALS FIM -->
+              <xsl:if test="//show_altmetrics = 1 and //ARTICLE/@DOI">
+                  <div>
+                      <script type='text/javascript' src='https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js'></script>
+                      <div class='altmetric-embed' data-badge-type='4' data-doi='{//ARTICLE/@DOI}'></div>
+                 </div>
+              </xsl:if>
             </ul>
           </div>
         </xsl:if>
