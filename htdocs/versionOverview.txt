@@ -1,3 +1,7 @@
+v5.32
+[web]
+Corrigindo apresentação do badge do Altmetrics na página do artigo.
+
 v5.31
 [web]
 Incluindo gráfico de altmetrics para as páginas de artigos
