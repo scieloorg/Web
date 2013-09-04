@@ -622,8 +622,8 @@
                           <xsl:with-param name="label">
                             <xsl:choose>
                               <xsl:when test="$interfaceLang='en'">new page (beta)</xsl:when>
-                              <xsl:when test="$interfaceLang='es'">nueva página (beta)</xsl:when>
-                              <xsl:when test="$interfaceLang='pt'">nova página (beta)</xsl:when>
+                              <xsl:when test="$interfaceLang='es'">nueva pï¿½gina (beta)</xsl:when>
+                              <xsl:when test="$interfaceLang='pt'">nova pï¿½gina (beta)</xsl:when>
                             </xsl:choose>
                           </xsl:with-param>
 
@@ -856,6 +856,12 @@
                 </a>
               </xsl:if>
               <!-- CLINICAL TRIALS FIM -->
+              <xsl:if test="//show_altmetrics = 1 and //ARTICLE/@DOI">
+                  <div>
+                      <script type='text/javascript' src='https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js'></script>
+                      <div class='altmetric-embed' data-badge-type='4' data-doi='{//ARTICLE/@DOI}'></div>
+                 </div>
+              </xsl:if>
             </ul>
           </div>
         </xsl:if>
@@ -999,6 +1005,12 @@
         </div>
         <input type="text" name="short-url" id="short-url"/>
       </div>
+      <xsl:if test="//show_altmetrics = 1">
+          <div style="text-align: center;">
+              <script type='text/javascript' src='https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js'></script>
+              <div class='altmetric-embed' data-badge-type='medium-donut' data-doi='{//ARTICLE/@DOI}'></div>
+          </div>
+      </xsl:if>
     </div>
   </xsl:template>
 
@@ -1117,7 +1129,7 @@
   </xsl:template>
 
   <xsl:template name="cited">
-    <img src="/img/{$LANGUAGE}/iconCitedOn.gif" alt="{//ARTICLE/@CITED} artículo(s)"/>
+    <img src="/img/{$LANGUAGE}/iconCitedOn.gif" alt="{//ARTICLE/@CITED} artï¿½culo(s)"/>
     <xsl:value-of select="$translations/xslid[@id='sci_toolbox']/text[@find='cited_by']"/>
   </xsl:template>
 
