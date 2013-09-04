@@ -573,12 +573,6 @@
         </div>
         <input type="text" name="short-url" id="short-url"/>
       </div>
-      <xsl:if test="//show_altmetrics = 1">
-          <div style="text-align: center;">
-              <script type='text/javascript' src='https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js'></script>
-              <div class='altmetric-embed' data-badge-type='medium-donut' data-doi='{//ARTICLE/@DOI}'></div>
-          </div>
-      </xsl:if>
     </div>
   </xsl:template>
 
