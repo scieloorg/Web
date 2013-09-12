@@ -8,6 +8,8 @@ var rateResult = "";
     $('.box').hide();
     //Article show 
     $('.box:eq(0)').show();
+    //Indicators show 
+    $('.box:eq(1)').show();
     //Bookmark show 
     $('.box:last').show();
 
@@ -86,11 +88,11 @@ function httpInit()
 
 
 /**
- * Pega todas as informações possíveis sobre o visitante, alem de incrementar
- * o log de acesso de serviços
+ * Pega todas as informaï¿½ï¿½es possï¿½veis sobre o visitante, alem de incrementar
+ * o log de acesso de serviï¿½os
  *
  * @author Deivid Martins
- * @param serviceName String nome do serviço acessado
+ * @param serviceName String nome do serviï¿½o acessado
  *
  */
 function callUpdateArticleLog( serviceName ) /* modified by Gustavo Fonseca (gustavo.fonseca@bireme.org) */
