@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+/<?xml version="1.0" encoding="iso-8859-1"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
   <xsl:include href="related_documents.xsl"/>
   <xsl:variable name="SHOW_NEW_ARTICLE_LINK" select="//show_new_article_link"/>
@@ -429,6 +429,14 @@
                       <script type='text/javascript' src='https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js'></script>
                       <div class='altmetric-embed' data-badge-type='4' data-doi='{//ARTICLE/@DOI}'></div>
                  </div>
+              </xsl:if>
+              <xsl:if test="//show_readcube = 1 and //ARTICLE/@DOI">
+                  <li>
+                    <a>
+                      <xsl:attribute name="href">http://www.readcube.com/articles/{//ARTICLE/@DOI}?tab=summary</xsl:attribute>
+                      <xsl:attribute name="target">_blank</xsl:attribute>
+                    </a>
+                 </li>
               </xsl:if>
             </ul>
           </div>
