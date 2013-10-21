@@ -433,8 +433,9 @@
               <xsl:if test="//show_readcube = 1 and //ARTICLE/@DOI">
                   <li>
                     <a>
+                      <img src="/img/readcube.png" width="21" heigth="21"/>
                       <xsl:attribute name="href">http://www.readcube.com/articles/{//ARTICLE/@DOI}?tab=summary</xsl:attribute>
-                      <xsl:attribute name="target">_blank</xsl:attribute>
+                      <xsl:attribute name="target">_blank</xsl:attribute<name />
                     </a>
                  </li>
               </xsl:if>
