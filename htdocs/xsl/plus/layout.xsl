@@ -580,7 +580,7 @@
             <div class="pull-right">
                 <xsl:choose>
 
-                    <xsl:when test="element-citation[.//ext-link or .//uri] and mixed-citation">
+                    <xsl:when test="element-citation[.//ext-link] and mixed-citation[not(.//ext-link)] or element-citation[.//uri] and mixed-citation[not(.//uri)] ">
                         <xsl:apply-templates select="mixed-citation" mode="with-link">
                             <xsl:with-param name="ext_link" select=".//ext-link"/>
                             <xsl:with-param name="uri" select=".//uri"/>

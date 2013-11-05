@@ -190,8 +190,8 @@
                           <xsl:with-param name="label">
                             <xsl:choose>
                               <xsl:when test="$interfaceLang='en'">new page (beta)</xsl:when>
-                              <xsl:when test="$interfaceLang='es'">nueva p�gina (beta)</xsl:when>
-                              <xsl:when test="$interfaceLang='pt'">nova p�gina (beta)</xsl:when>
+                              <xsl:when test="$interfaceLang='es'">nueva p&#225;gina (beta)</xsl:when>
+                              <xsl:when test="$interfaceLang='pt'">nova p&#225;gina (beta)</xsl:when>
                             </xsl:choose>
                           </xsl:with-param>
 
