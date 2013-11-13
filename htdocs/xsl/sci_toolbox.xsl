@@ -190,8 +190,8 @@
                           <xsl:with-param name="label">
                             <xsl:choose>
                               <xsl:when test="$interfaceLang='en'">new page (beta)</xsl:when>
-                              <xsl:when test="$interfaceLang='es'">nueva p�gina (beta)</xsl:when>
-                              <xsl:when test="$interfaceLang='pt'">nova p�gina (beta)</xsl:when>
+                              <xsl:when test="$interfaceLang='es'">nueva p&#225;gina (beta)</xsl:when>
+                              <xsl:when test="$interfaceLang='pt'">nova p&#225;gina (beta)</xsl:when>
                             </xsl:choose>
                           </xsl:with-param>
 
@@ -216,7 +216,17 @@
                 </li>
               </xsl:if>
               <!-- ARTICLO IN PDF FIM-->
-
+              <!-- readcube -->
+              <xsl:if test="//show_readcube = 1 and //ARTICLE/@DOI">
+                  <li>
+                      <img src="/img/readcube.png" width="21" heigth="21" />
+                    <a>
+                      <xsl:attribute name="href">http://www.readcube.com/articles/<xsl:value-of select="//ARTICLE/@DOI" />?tab=summary</xsl:attribute>
+                      <xsl:attribute name="target">_blank</xsl:attribute>
+                      ReadCube
+                    </a>
+                 </li>
+              </xsl:if>
               <!-- ARTICLO IN XML INICIO-->
               <li>
                 <a>
@@ -430,16 +440,7 @@
                       <div class='altmetric-embed' data-badge-type='4' data-doi='{//ARTICLE/@DOI}'></div>
                  </div>
               </xsl:if>
-              <xsl:if test="//show_readcube = 1 and //ARTICLE/@DOI">
-                  <li>
-                      <img src="/img/readcube.png" width="21" heigth="21" />
-                    <a>
-                      <xsl:attribute name="href">http://www.readcube.com/articles/<xsl:value-of select="//ARTICLE/@DOI" />?tab=summary</xsl:attribute>
-                      <xsl:attribute name="target">_blank</xsl:attribute>
-                      ReadCube
-                    </a>
-                 </li>
-              </xsl:if>
+              
             </ul>
           </div>
         </xsl:if>
