@@ -184,8 +184,8 @@
     </xsl:template>
     <xsl:template match="aff" mode="DATA-DISPLAY">
         <xsl:choose>
-            <xsl:when test="institution[@content-type='full']">
-                <xsl:value-of select="institution[@content-type='full']"></xsl:value-of>
+            <xsl:when test="institution[@content-type='original']">
+                <xsl:value-of select="institution[@content-type='original']"></xsl:value-of>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:variable name="inst"><xsl:value-of select="normalize-space(institution[@content-type='orgname'])"/></xsl:variable>
@@ -204,13 +204,9 @@
                             select="text()[normalize-space(.)!='' and normalize-space(.)!=','] | institution | addr-line | country | email"
                             mode="aff-insert-separator"/>					
                     </xsl:otherwise>
-                </xsl:choose>
-                
+                </xsl:choose>                
             </xsl:otherwise>
         </xsl:choose>
-        
-            
-        
     </xsl:template>
     <xsl:template match="text()" mode="is_full">
         <xsl:param name="inst"></xsl:param>
