@@ -373,8 +373,8 @@
 				</a>
 			</xsl:if>
 			<xsl:choose>
-				<xsl:when test="institution[@content-type='full']">
-					<xsl:value-of select="institution[@content-type='full']"/>
+				<xsl:when test="institution[@content-type='original']">
+					<xsl:value-of select="institution[@content-type='original']"/>
 				</xsl:when>
 				<xsl:otherwise>
 					<xsl:variable name="inst"><xsl:value-of select="normalize-space(institution[@content-type='orgname'])"/></xsl:variable>
