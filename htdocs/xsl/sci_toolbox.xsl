@@ -565,16 +565,27 @@
                       <xsl:when test="$LANGUAGE='en'">Mendeley</xsl:when>
                     </xsl:choose></xsl:attribute>
                     <img src="http://www.mendeley.com/graphics/mendeley.png"/></a>
-                </div>  
+                  
+                  <a
+                    href="http://www.addthis.com/bookmark.php?v=250&amp;username=xa-4c347ee4422c56df"
+                    class="addthis_button_expanded">
+                    <xsl:value-of
+                      select="$translations/xslid[@id='sci_toolbox']/text[@find='bookmark_more']"/>
+                  </a>
+                </div>
+                <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=xa-4c347ee4422c56df"/>
+                <!-- AddThis Button END -->
               </li>
               <li><div class="addthis_toolbox addthis_default_style">
+                
                 <a
                   href="http://www.addthis.com/bookmark.php?v=250&amp;username=xa-4c347ee4422c56df"
                   class="addthis_button_expanded">
                   <xsl:value-of
                     select="$translations/xslid[@id='sci_toolbox']/text[@find='bookmark_more']"/>
                 </a>
-              </div></li>
+              </div></li><script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=xa-4c347ee4422c56df"/>
+              
             </ul>
           </div>
         </xsl:if>
