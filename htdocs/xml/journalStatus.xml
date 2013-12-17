@@ -18,7 +18,7 @@
 		<term code="interrupted">Indexação interrompida pelo Comitê</term>
 		<term code="in">em </term>
 		<term code="hist">Histórico do periódico na coleção</term>
-		<term code="admitted">Admitido à coleção</term>
+		<term code="admitted">Admitido na coleção</term>
 		<term code="readmitted">Readmitido à coleção pelo Comitê Consultivo</term>
 	</translation>
 	<translation lang="es">
@@ -39,7 +39,7 @@
 		<term code="interrupted">Indización interrumpida por el comité </term>
 		<term code="in">en </term>
 		<term code="hist">Histórico de la revista en la colección</term>
-		<term code="admitted">Admitido a la colección</term>
+		<term code="admitted">Admitido en la colección</term>
 		<term code="readmitted">Readmitido a la colección por el comité</term>
 
 	</translation>
