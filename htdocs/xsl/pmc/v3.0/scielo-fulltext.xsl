@@ -364,7 +364,7 @@
 		<xsl:apply-templates select="given-names"/>&#160;<xsl:apply-templates select="surname"/>
 		<xsl:if test="suffix">&#160;<xsl:apply-templates select="suffix"/></xsl:if>
 	</xsl:template>
-
+    <xsl:template match="text()" mode="normalize"><xsl:value-of select="normalize-space(.)"/></xsl:template>
 	<xsl:template match="aff">
 		<p class="aff">
 			<xsl:if test="label">
@@ -378,15 +378,13 @@
 				</xsl:when>
 				<xsl:otherwise>
 					<xsl:variable name="inst"><xsl:value-of select="normalize-space(institution[@content-type='orgname'])"/></xsl:variable>
-					<xsl:variable name="is_full"><xsl:if test="$inst!=''"><xsl:apply-templates select="text()[string-length(normalize-space(.))&gt;=string-length($inst)]" mode="is_full"><xsl:with-param name="inst" select="$inst"></xsl:with-param></xsl:apply-templates></xsl:if></xsl:variable>
-					<xsl:comment>is_full:<xsl:value-of select="$is_full"/> _</xsl:comment>
-					
+					<xsl:variable name="text"><xsl:apply-templates select="text()[string-length(normalize-space(.))&gt;=string-length($inst)]" mode="normalize"/></xsl:variable>
+					<xsl:comment>inst=<xsl:value-of select="$inst"/></xsl:comment>
+					<xsl:comment>text=<xsl:value-of select="$text"/></xsl:comment>
 					<xsl:choose>
-						<xsl:when test="contains($is_full,'yes')">
+						<xsl:when test="contains($text, $inst)">
 							<xsl:comment>full</xsl:comment>
-							<xsl:apply-templates select="text()[string-length(normalize-space(.))&gt;=string-length($inst)]" mode="full">
-								<xsl:with-param name="inst" select="$inst"></xsl:with-param>
-							</xsl:apply-templates><xsl:apply-templates select="email"></xsl:apply-templates>
+							<xsl:value-of select="$text"/><xsl:apply-templates select="email"></xsl:apply-templates>
 						</xsl:when>
 						<xsl:otherwise>
 							<xsl:comment>parts</xsl:comment>					
@@ -399,20 +397,6 @@
 			</xsl:choose>
 		</p>
 	</xsl:template>
-	<xsl:template match="text()" mode="is_full">
-		<xsl:param name="inst"></xsl:param>
-		<xsl:if test="$inst!='' and contains(.,$inst)">yes</xsl:if>
-	</xsl:template>
-	<xsl:template match="*" mode="full"></xsl:template>
-	<xsl:template match="text()" mode="full">
-		<xsl:param name="inst"></xsl:param>
-		<xsl:comment>text():<xsl:value-of select="."/>_</xsl:comment>
-		<xsl:comment>$inst:<xsl:value-of select="$inst"/>_</xsl:comment>
-		<xsl:comment>contains(.,$inst):<xsl:value-of select="contains(.,$inst)"/>_</xsl:comment>
-		<xsl:if test="$inst!='' and contains(.,$inst)"><xsl:value-of select="."/></xsl:if>
-		
-	</xsl:template>
-	
 	
 	<xsl:template match="aff/* | addr-line/* " mode="aff-insert-separator">
 		<xsl:if test="position()!=1">, </xsl:if>
