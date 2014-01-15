@@ -374,7 +374,7 @@
 			</xsl:if>
 			<xsl:choose>
 				<xsl:when test="institution[@content-type='original']">
-					<xsl:value-of select="institution[@content-type='original']"/>
+					<xsl:apply-templates select="institution[@content-type='original']"/>
 				</xsl:when>
 				<xsl:otherwise>
 					<xsl:variable name="inst"><xsl:value-of select="normalize-space(institution[@content-type='orgname'])"/></xsl:variable>
@@ -396,6 +396,13 @@
 				</xsl:otherwise>
 			</xsl:choose>
 		</p>
+	</xsl:template>
+	
+	<xsl:template match="institution[@content-type='original']">
+		<xsl:apply-templates select="*|text()" mode="aff-original"></xsl:apply-templates>
+	</xsl:template>
+	
+	<xsl:template match="named-content[@content-type='email']" mode="aff-original"><a href="mailto:{.}"><xsl:value-of select="."/></a>
 	</xsl:template>
 	
 	<xsl:template match="aff/* | addr-line/* " mode="aff-insert-separator">
