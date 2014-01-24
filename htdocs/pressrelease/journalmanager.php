@@ -107,7 +107,7 @@ function load_issue_meta($issue_meta){
     return $meta;
 }
 
-function quering_api($url='fixture_prs.json', $ttl=0){
+function quering_api($url='fixture_prs.json', $ttl=600){
     $m = new Memcache();
     $memcache_url = explode(":", JM_MEMCACHED_HOST);
     $memcache_domain = $memcache_url[0];
