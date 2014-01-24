@@ -1,3 +1,11 @@
+v5.33 (em desenvolvimento)
+[web]
+Na caixa de serviços do artigo, trazer o item indicadores expandindo (#64)
+Apresentação de Link para PDF de material suplementar não disponivel no site SciELO (#66) 
+Inclusão de outros item na caixa de serviço: Mendley, ReadCube, etc (#79)
+Ajuste na apresentação de afiliações (#84, #91, #92)
+Troca de texto "Admitido" (#88)
+
 v5.32
 [web]
 Corrigindo apresentação do badge do Altmetrics na página do artigo.
