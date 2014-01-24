@@ -34,13 +34,14 @@
     <xsl:variable name="show_group_related_links" select="//varScieloOrg/show_group_related_links"/>
     <xsl:variable name="show_group_services" select="//varScieloOrg/show_group_services"/>
     <xsl:variable name="show_group_bookmark" select="//varScieloOrg/show_group_bookmark"/>
+    <xsl:variable name="THIS_PAGE_URL" select="concat('http://',//SERIAL/CONTROLINFO/SCIELO_INFO/SERVER,'/applications/scielo-org/scielo.php?script=sci_arttext&amp;pid=',//SERIAL/CONTROLINFO/PAGE_PID,'&amp;lng=',$LANGUAGE,'&amp;nrm=',//SERIAL/CONTROLINFO/STANDARD,'&amp;tlng=',//SERIAL/ISSUE/ARTICLE/@TEXTLANG)"/>
 
     <form name="addToShelf" method="post"
       action="http://{$SCIELO_REGIONAL_DOMAIN}/applications/scielo-org/services/addArticleToShelf.php"
       target="mensagem">
       <input type="hidden" name="PID" value="{//SERIAL/CONTROLINFO/PAGE_PID}"/>
       <input type="hidden" name="url"
-        value="{concat('http://',//SERIAL/CONTROLINFO/SCIELO_INFO/SERVER,'/applications/scielo-org/scielo.php?script=sci_arttext&amp;pid=',//SERIAL/CONTROLINFO/PAGE_PID,'&amp;lng=',$LANGUAGE,'&amp;nrm=',//SERIAL/CONTROLINFO/STANDARD,'&amp;tlng=',//SERIAL/ISSUE/ARTICLE/@TEXTLANG)}"
+        value="{$THIS_PAGE_URL}"
       />
     </form>
     <form name="citedAlert" method="post"
@@ -48,7 +49,7 @@
       target="mensagem">
       <input type="hidden" name="PID" value="{//SERIAL/CONTROLINFO/PAGE_PID}"/>
       <input type="hidden" name="url"
-        value="{concat('http://',//SERIAL/CONTROLINFO/SCIELO_INFO/SERVER,'/applications/scielo-org/scielo.php?script=sci_arttext&amp;pid=',//SERIAL/CONTROLINFO/PAGE_PID,'&amp;lng=',$LANGUAGE,'&amp;nrm=',//SERIAL/CONTROLINFO/STANDARD,'&amp;tlng=',//SERIAL/ISSUE/ARTICLE/@TEXTLANG)}"
+        value="{$THIS_PAGE_URL}"
       />
     </form>
     <form name="accessAlert" method="post"
@@ -56,7 +57,7 @@
       target="mensagem">
       <input type="hidden" name="PID" value="{//SERIAL/CONTROLINFO/PAGE_PID}"/>
       <input type="hidden" name="url"
-        value="{concat('http://',//SERIAL/CONTROLINFO/SCIELO_INFO/SERVER,'/applications/scielo-org/scielo.php?script=sci_arttext&amp;pid=',//SERIAL/CONTROLINFO/PAGE_PID,'&amp;lng=',$LANGUAGE,'&amp;nrm=',//SERIAL/CONTROLINFO/STANDARD,'&amp;tlng=',//SERIAL/ISSUE/ARTICLE/@TEXTLANG)}"
+        value="{$THIS_PAGE_URL}"
       />
     </form>
 
@@ -145,34 +146,31 @@
               <xsl:variable name="tlng" select="//ARTICLE/@TEXTLANG"/>
 
               <xsl:if test="//CONTROLINFO/PAGE_NAME='sci_arttext'">
-                <xsl:if
-                  test="$tlng!=//ARTICLE/@ORIGINALLANG or //LANGUAGES/ART_TEXT_LANGS//LANG[.!=$tlng]">
+                <xsl:if test="//LANGUAGES/ART_TEXT_LANGS//LANG">
                   <li>
-
-
-                    <xsl:apply-templates select="//LANGUAGES/ART_TEXT_LANGS//LANG[.!=$tlng]"
-                      mode="display-link-to-article-version">
-                      <xsl:with-param name="pid" select="CONTROLINFO/PAGE_PID"/>
-                      <xsl:with-param name="script" select="CONTROLINFO/PAGE_NAME"/>
-                      <xsl:with-param name="icon">/img/fulltxt.gif</xsl:with-param>
-                      <xsl:with-param name="label"
-                        select="$translations/xslid[@id='sci_issuetoc']/text[@find='full']"/>
-                    </xsl:apply-templates>
-
-                    <xsl:if test="$tlng!=//ARTICLE/@ORIGINALLANG">
-                      <xsl:if test="//LANGUAGES/ART_TEXT_LANGS//LANG[.!=$tlng]"> | </xsl:if>
-                      <xsl:apply-templates select="//ARTICLE/@ORIGINALLANG"
+                      <img src="/img/fulltxt.gif"/>
+                      <xsl:value-of select="$translations/xslid[@id='sci_issuetoc']/text[@find='full']"/>
+                      <xsl:if test="$tlng!=//ARTICLE/@ORIGINALLANG">
+                        <xsl:apply-templates select="//ARTICLE/@ORIGINALLANG"
+                          mode="display-link-to-article-version">
+                          <xsl:with-param name="pid" select="CONTROLINFO/PAGE_PID"/>
+                          <xsl:with-param name="script" select="CONTROLINFO/PAGE_NAME"/>
+                          <xsl:with-param name="icon"></xsl:with-param>
+                          <xsl:with-param name="label"/>
+                        </xsl:apply-templates>                         
+                        <xsl:if test="//LANGUAGES/ART_TEXT_LANGS//LANG[.!=$tlng]">
+                          | 
+                        </xsl:if>
+                      </xsl:if>
+                      <xsl:apply-templates select="//LANGUAGES/ART_TEXT_LANGS//LANG[.!=$tlng]"
                         mode="display-link-to-article-version">
                         <xsl:with-param name="pid" select="CONTROLINFO/PAGE_PID"/>
                         <xsl:with-param name="script" select="CONTROLINFO/PAGE_NAME"/>
-                        <xsl:with-param name="icon">/img/fulltxt.gif</xsl:with-param>
+                        <xsl:with-param name="icon"></xsl:with-param>
                         <xsl:with-param name="label"/>
-                      </xsl:apply-templates>
-
-                    </xsl:if>
-                  </li>
+                      </xsl:apply-templates>                     
+                  </li>                
                 </xsl:if>
-
                 <xsl:if test="$SHOW_NEW_ARTICLE_LINK='1'">
                   <xsl:choose>
                     <xsl:when test=".//BODY"/>
@@ -189,9 +187,9 @@
                           <xsl:with-param name="icon">/img/fulltxt.gif</xsl:with-param>
                           <xsl:with-param name="label">
                             <xsl:choose>
-                              <xsl:when test="$interfaceLang='en'">new page (beta)</xsl:when>
-                              <xsl:when test="$interfaceLang='es'">nueva p�gina (beta)</xsl:when>
-                              <xsl:when test="$interfaceLang='pt'">nova p�gina (beta)</xsl:when>
+                              <xsl:when test="$interfaceLang='en'">text new page (beta)</xsl:when>
+                              <xsl:when test="$interfaceLang='es'">nueva p&#225;gina del texto (beta)</xsl:when>
+                              <xsl:when test="$interfaceLang='pt'">nova p&#225;gina do texto(beta)</xsl:when>
                             </xsl:choose>
                           </xsl:with-param>
 
@@ -216,7 +214,17 @@
                 </li>
               </xsl:if>
               <!-- ARTICLO IN PDF FIM-->
-
+              <!-- readcube -->
+              <xsl:if test="//show_readcube = 1 and //ARTICLE/@DOI">
+                  <li>
+                      <img src="/img/readcube.png" width="21" heigth="21" />
+                    <a>
+                      <xsl:attribute name="href">http://www.readcube.com/articles/<xsl:value-of select="//ARTICLE/@DOI" />?tab=summary</xsl:attribute>
+                      <xsl:attribute name="target">_blank</xsl:attribute>
+                      ReadCube
+                    </a>
+                 </li>
+              </xsl:if>
               <!-- ARTICLO IN XML INICIO-->
               <li>
                 <a>
@@ -430,6 +438,7 @@
                       <div class='altmetric-embed' data-badge-type='4' data-doi='{//ARTICLE/@DOI}'></div>
                  </div>
               </xsl:if>
+              
             </ul>
           </div>
         </xsl:if>
@@ -530,7 +539,13 @@
         <!-- SECTION BOOKMARK INICIO -->
         <xsl:if test="$show_group_bookmark != 0">
           <div class="toolBoxSection">
-            <h2 class="toolBoxSectionh2">Bookmark</h2>
+            <h2 class="toolBoxSectionh2">
+              <xsl:choose>
+                <xsl:when test="$LANGUAGE='pt'">Compartilhar</xsl:when>
+                <xsl:when test="$LANGUAGE='es'">Compartir</xsl:when>
+                <xsl:when test="$LANGUAGE='en'">Share</xsl:when>
+              </xsl:choose>
+            </h2>
           </div>
           <div class="box">
             <ul>
@@ -541,9 +556,16 @@
                   <a class="addthis_button_google"/>
                   <a class="addthis_button_twitter"/>
                   <a class="addthis_button_digg"/>
-                  <a class="addthis_button_citeulike"/>
+                  <a class="addthis_button_citeulike"/>                  
                   <a class="addthis_button_connotea"/>
-                  <span class="addthis_separator">|</span>
+                  <a href="http://www.mendeley.com/import/?url={$THIS_PAGE_URL}">
+                    <xsl:attribute name="title"><xsl:choose>
+                      <xsl:when test="$LANGUAGE='pt'">Mendeley</xsl:when>
+                      <xsl:when test="$LANGUAGE='es'">Mendeley</xsl:when>
+                      <xsl:when test="$LANGUAGE='en'">Mendeley</xsl:when>
+                    </xsl:choose></xsl:attribute>
+                    <img src="http://www.mendeley.com/graphics/mendeley.png"/></a>
+                  
                   <a
                     href="http://www.addthis.com/bookmark.php?v=250&amp;username=xa-4c347ee4422c56df"
                     class="addthis_button_expanded">
@@ -554,6 +576,16 @@
                 <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=xa-4c347ee4422c56df"/>
                 <!-- AddThis Button END -->
               </li>
+              <li><div class="addthis_toolbox addthis_default_style">
+                
+                <a
+                  href="http://www.addthis.com/bookmark.php?v=250&amp;username=xa-4c347ee4422c56df"
+                  class="addthis_button_expanded">
+                  <xsl:value-of
+                    select="$translations/xslid[@id='sci_toolbox']/text[@find='bookmark_more']"/>
+                </a>
+              </div></li><script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=xa-4c347ee4422c56df"/>
+              
             </ul>
           </div>
         </xsl:if>
@@ -756,8 +788,8 @@
   <xsl:template match="LANG|@ORIGINALLANG" mode="display-link-to-article-version">
     <xsl:param name="pid"/>
     <xsl:param name="label"/>
-    <xsl:param name="script">sci_pdf</xsl:param>
-    <xsl:param name="icon">/img/<xsl:value-of select="."/>/iconPDFDocument.gif</xsl:param>
+    <xsl:param name="script"></xsl:param>
+    <xsl:param name="icon"></xsl:param>
     <xsl:variable name="lang" select="."/>
     <a>
       <xsl:call-template name="AddScieloLink">
@@ -766,7 +798,7 @@
         <xsl:with-param name="txtlang" select="."/>
       </xsl:call-template>
       <xsl:choose>
-        <xsl:when test="position()=1 and name()='LANG'">
+        <xsl:when test="position()=1">
           <img src="{$icon}"/>
           <xsl:value-of select="$label"/>
         </xsl:when>
