@@ -47,7 +47,6 @@
 				<meta http-equiv="Pragma" content="no-cache"/>
 				<meta http-equiv="Expires" content="Mon, 06 Jan 1990 00:00:01 GMT"/>
 				<link rel="STYLESHEET" type="text/css" href="/css/screen2.css"/>
-				<script language="javascript" src="article.js"/>
 			</head>
 			<body>
 				<div class="container">
