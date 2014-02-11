@@ -100,27 +100,32 @@
           "/statjournal.php?lang=pt&amp;issn=0100-879X">estat&iacute;sticas</a></li>
         </ul>
 
+
         <div class="optionsSubMenu">
-          <a href=
+          <li>
+                <strong>Scimago</strong>
+                <a href=
           "http://www.scimagojr.com/journalsearch.php?q=0100879X&amp;tip=iss&amp;exact=yes%3E"
           target="_blank"><img src="http://www.scielo.br/img/scimago/0100879X.gif" alt=
           "SCImago Journal and Country Rank" border="0" /></a>
+          </li>
         </div>
 
-
-        <div id="google_metrics" style="display:none">            
-            <div>
-                <strong>Google Scholar</strong>
-            </div>
-            <div>
-                Índice h5: <span id="h5_index"></span>
-            </div>
-            <div>
-                Mediana h5: <span id="m5_index"></span>
-            </div>
-            <div>
-                <a href="#" id="h5_m5_link" target="_blank">Mais detalhes</a>
-            </div>
+        <div id="google_metrics" style="display:none; margin-top: 20px">
+            <li>
+                <div>
+                    <strong>Google Scholar</strong>
+                </div>
+                <div>
+                    <strong>h5: </strong><span id="h5_index"></span>
+                </div>
+                <div>
+                    <strong>m5: </strong><span id="m5_index"></span>
+                </div>
+                <div>
+                    <a href="#" id="h5_m5_link" target="_blank">Mais detalhes</a>
+                </div>
+            </li>
         </div>
 
       </div>
@@ -258,7 +263,7 @@
         }
 
         var script = document.createElement('script');
-        script.src = "get_h5_m5.php" + '?issn=0100-879x&callback=print_h5_m5';
+        script.src = "get_h5_m5.php" + '?issn=0100-879X&callback=print_h5_m5';
         document.getElementsByTagName('head')[0].appendChild(script);
       </script>
 
