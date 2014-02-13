@@ -244,8 +244,8 @@
 		<text find="enter_search_term">Entre uma ou mais palavras</text>
 		<text find="journal_site">Site do periódico</text>
         <text find="google_scholar_metrics">Google Scholar</text>
-        <text find="google_scholar_h5_index">h5</text>
-        <text find="google_scholar_m5_index">m5</text>
+        <text find="google_scholar_h5_index">índice h5</text>
+        <text find="google_scholar_m5_index">mediana h5</text>
         <text find="more_details">Mais detalhes</text>
 	</xslid>
 	<xslid id="sci_alphabetic">
