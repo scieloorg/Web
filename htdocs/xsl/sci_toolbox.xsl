@@ -274,6 +274,7 @@
 
               <!-- CURRICULUM SCIENTI INICIO-->
               <xsl:if test="ISSUE/ARTICLE/LATTES/AUTHOR">
+                <script language="javascript" src="article.js"/>
                 <li>
                   <xsl:apply-templates select="ISSUE/ARTICLE/LATTES"/>
                 </li>
