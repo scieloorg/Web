@@ -364,7 +364,7 @@
 		<xsl:apply-templates select="given-names"/>&#160;<xsl:apply-templates select="surname"/>
 		<xsl:if test="suffix">&#160;<xsl:apply-templates select="suffix"/></xsl:if>
 	</xsl:template>
-
+    <xsl:template match="text()" mode="normalize"><xsl:value-of select="normalize-space(.)"/></xsl:template>
 	<xsl:template match="aff">
 		<p class="aff">
 			<xsl:if test="label">
@@ -372,39 +372,38 @@
 					<xsl:apply-templates select="label"/>
 				</a>
 			</xsl:if>
-			<xsl:variable name="inst"><xsl:value-of select="normalize-space(institution[@content-type='orgname'])"/></xsl:variable>
-			<xsl:variable name="is_full"><xsl:if test="$inst!=''"><xsl:apply-templates select="text()[string-length(normalize-space(.))&gt;=string-length($inst)]" mode="is_full"><xsl:with-param name="inst" select="$inst"></xsl:with-param></xsl:apply-templates></xsl:if></xsl:variable>
-			<xsl:comment>is_full:<xsl:value-of select="$is_full"/> _</xsl:comment>
 			<xsl:choose>
-				<xsl:when test="contains($is_full,'yes')">
-					<xsl:comment>full</xsl:comment>
-					<xsl:apply-templates select="text()[string-length(normalize-space(.))&gt;=string-length($inst)]" mode="full">
-						<xsl:with-param name="inst" select="$inst"></xsl:with-param>
-					</xsl:apply-templates><xsl:apply-templates select="email"></xsl:apply-templates>
+				<xsl:when test="institution[@content-type='original']">
+					<xsl:apply-templates select="institution[@content-type='original']"/>
 				</xsl:when>
 				<xsl:otherwise>
-					<xsl:comment>parts</xsl:comment>					
-					<xsl:apply-templates
-						select="text()[normalize-space(.)!='' and normalize-space(.)!=','] | institution | addr-line | country | email"
-						mode="aff-insert-separator"/>					
+					<xsl:variable name="inst"><xsl:value-of select="normalize-space(institution[@content-type='orgname'])"/></xsl:variable>
+					<xsl:variable name="text"><xsl:apply-templates select="text()[string-length(normalize-space(.))&gt;=string-length($inst)]" mode="normalize"/></xsl:variable>
+					<xsl:comment>inst=<xsl:value-of select="$inst"/></xsl:comment>
+					<xsl:comment>text=<xsl:value-of select="$text"/></xsl:comment>
+					<xsl:choose>
+						<xsl:when test="contains($text, $inst)">
+							<xsl:comment>full</xsl:comment>
+							<xsl:value-of select="$text"/><xsl:apply-templates select="email"></xsl:apply-templates>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:comment>parts</xsl:comment>					
+							<xsl:apply-templates
+								select="text()[normalize-space(.)!='' and normalize-space(.)!=','] | institution | addr-line | country | email"
+								mode="aff-insert-separator"/>					
+						</xsl:otherwise>
+					</xsl:choose>
 				</xsl:otherwise>
 			</xsl:choose>
 		</p>
 	</xsl:template>
-	<xsl:template match="text()" mode="is_full">
-		<xsl:param name="inst"></xsl:param>
-		<xsl:if test="$inst!='' and contains(.,$inst)">yes</xsl:if>
-	</xsl:template>
-	<xsl:template match="*" mode="full"></xsl:template>
-	<xsl:template match="text()" mode="full">
-		<xsl:param name="inst"></xsl:param>
-		<xsl:comment>text():<xsl:value-of select="."/>_</xsl:comment>
-		<xsl:comment>$inst:<xsl:value-of select="$inst"/>_</xsl:comment>
-		<xsl:comment>contains(.,$inst):<xsl:value-of select="contains(.,$inst)"/>_</xsl:comment>
-		<xsl:if test="$inst!='' and contains(.,$inst)"><xsl:value-of select="."/></xsl:if>
-		
+	
+	<xsl:template match="institution[@content-type='original']">
+		<xsl:apply-templates select="*|text()" mode="aff-original"></xsl:apply-templates>
 	</xsl:template>
 	
+	<xsl:template match="named-content[@content-type='email']" mode="aff-original"><a href="mailto:{.}"><xsl:value-of select="."/></a>
+	</xsl:template>
 	
 	<xsl:template match="aff/* | addr-line/* " mode="aff-insert-separator">
 		<xsl:if test="position()!=1">, </xsl:if>
@@ -691,7 +690,7 @@
 				<!--xsl:otherwise><xsl:value-of select="position()"/>.&#160; </xsl:otherwise-->
 			</xsl:choose>
 			<xsl:choose>
-				<xsl:when test="element-citation[.//ext-link or .//uri] and mixed-citation">
+				<xsl:when test="element-citation[.//ext-link] and mixed-citation[not(.//ext-link)] or element-citation[.//uri] and mixed-citation[not(.//uri)] ">
 					<xsl:apply-templates select="mixed-citation" mode="with-link">
 						<xsl:with-param name="ext_link" select=".//ext-link"/>
 						<xsl:with-param name="uri" select=".//uri"/>
@@ -1070,4 +1069,28 @@
 			
 		</xsl:choose>
 	</xsl:template>
-</xsl:stylesheet>
+	<xsl:template match="media">
+		<xsl:variable name="src"><xsl:value-of select="$var_IMAGE_PATH"/><xsl:value-of select="@xlink:href"/></xsl:variable>
+		
+		<a target="_blank">
+			<xsl:attribute name="href"><xsl:value-of select="$src"/></xsl:attribute>
+			<xsl:if test="normalize-space(text())=''">[View]</xsl:if>
+		</a>
+		
+		<embed width="100%" height="400">
+                <xsl:attribute name="src"><xsl:value-of select="$src"/></xsl:attribute> 
+            </embed>
+	</xsl:template>
+	<xsl:template match="media[@mime-subtype='pdf']">
+		<xsl:variable name="src">/pdf<xsl:value-of select="substring-after($var_IMAGE_PATH,'/img/revistas')"/><xsl:value-of select="@xlink:href"/></xsl:variable>
+            
+           <a target="_blank">
+                <xsl:attribute name="href"><xsl:value-of select="$src"/></xsl:attribute>
+                <xsl:if test="normalize-space(text())=''">[View]</xsl:if>
+           </a>
+       
+           <!--embed width="100%" height="400">
+                <xsl:attribute name="src"><xsl:value-of select="$src"/></xsl:attribute> 
+            </embed-->
+        </xsl:template>
+    </xsl:stylesheet>

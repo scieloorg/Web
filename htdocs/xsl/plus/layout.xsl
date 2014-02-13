@@ -4,8 +4,14 @@
     xmlns:math="http://www.w3.org/2005/xpath-functions/math"
     xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl" exclude-result-prefixes="xs math xd"
     version="3.0">
-
-
+    
+    <xsl:template match="xref" mode="HTML-TEXT">
+        <span class="xref">
+            <a href="#{@rid}">
+                <xsl:value-of select="."/>
+            </a>
+        </span>
+    </xsl:template>
     <xsl:template match="*" mode="HTML">
         <html class="no-js" lang="{$PAGE_LANG}">
             <xsl:apply-templates select="." mode="HTML-HEAD"/>
@@ -491,7 +497,7 @@
     </xsl:template>
 
     <xsl:template match="body| back " mode="HTML-TEXT">
-        <xsl:apply-templates select="*|text()" mode="HTML-TEXT"/>
+        <xsl:apply-templates select="*[name()!='fn-group']|text()" mode="HTML-TEXT"/>
     </xsl:template>
 
     <xsl:template match="article/back/*" mode="choose">
@@ -574,7 +580,7 @@
             <div class="pull-right">
                 <xsl:choose>
 
-                    <xsl:when test="element-citation[.//ext-link or .//uri] and mixed-citation">
+                    <xsl:when test="element-citation[.//ext-link] and mixed-citation[not(.//ext-link)] or element-citation[.//uri] and mixed-citation[not(.//uri)] ">
                         <xsl:apply-templates select="mixed-citation" mode="with-link">
                             <xsl:with-param name="ext_link" select=".//ext-link"/>
                             <xsl:with-param name="uri" select=".//uri"/>
@@ -908,6 +914,7 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
                             Creative Commons Attribution Non-Commercial License, which permits
                             unrestricted non-commercial use, distribution, and reproduction in any
                             medium, provided the original work is properly cited. </small-->
+                        <xsl:apply-templates select=".//back//fn-group" mode="HTML-TEXT"/>
                         <xsl:comment>history</xsl:comment>
                         <xsl:apply-templates select=".//history" mode="HTML-BODY-FOOTER"/>
                         <xsl:comment>authors fn</xsl:comment>
@@ -1228,4 +1235,35 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
 
         </xsl:choose>
     </xsl:template>
+    <xsl:template match="supplementary-material" mode="HTML-TEXT">
+        <xsl:apply-templates select="media"/>
+    </xsl:template>
+    <xsl:template match="back/app-group/supplementary-material" mode="HTML-TEXT">
+        <h1 id="{@id}"><xsl:value-of select="label"/></h1>
+        <xsl:apply-templates select="media"/>
+    </xsl:template>
+
+    <xsl:template match="media">
+        <xsl:variable name="src"><xsl:value-of select="$IMAGE_PATH"/><xsl:value-of select="@xlink:href"/></xsl:variable>
+        <a target="_blank">
+            <xsl:attribute name="href"><xsl:value-of select="$src"/></xsl:attribute>
+            <xsl:if test="normalize-space(text())=''">[View]</xsl:if>
+        </a>
+        
+        <embed width="100%" height="400">
+            <xsl:attribute name="src"><xsl:value-of select="$src"/></xsl:attribute> 
+        </embed>
+    </xsl:template>
+    <xsl:template match="media[@mime-subtype='pdf']">
+        <xsl:variable name="src"><xsl:value-of select="$PDF_PATH"/><xsl:value-of select="@xlink:href"/></xsl:variable>
+        <a target="_blank">
+            <xsl:attribute name="href"><xsl:value-of select="$src"/></xsl:attribute>
+            <xsl:if test="normalize-space(text())=''">[View]</xsl:if>
+        </a>
+        
+        <!--embed width="100%" height="400">
+                <xsl:attribute name="src"><xsl:value-of select="$src"/></xsl:attribute> 
+        </embed-->
+    </xsl:template>
+    
 </xsl:stylesheet>

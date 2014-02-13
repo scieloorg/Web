@@ -12,15 +12,11 @@
 				</title>
 				<meta http-equiv="Pragma" content="no-cache"/>
 				<meta http-equiv="Expires" content="Mon, 06 Jan 1990 00:00:01 GMT"/>
-				<meta>
-					<xsl:attribute name="name">added</xsl:attribute>
-					<xsl:attribute name="content">7;URL=<xsl:value-of select="CONTROLINFO/PDF"/></xsl:attribute>
-					<xsl:attribute name="http-equiv">refresh</xsl:attribute>
-				</meta>
 				<link rel="STYLESHEET" type="text/css" href="/css/scielo.css"/>
 				<style type="text/css">
 				a { text-decoration: none; }
 			</style>
+			<script>setTimeout(function(){ window.location="<xsl:value-of select="CONTROLINFO/PDF"/>";}, 5000);</script>
 			</head>
 			<body bgColor="#ffffff">
 				<table cellspacing="0" border="0" cellpadding="7" width="100%">
