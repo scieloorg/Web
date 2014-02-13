@@ -246,7 +246,7 @@
         <text find="google_scholar_metrics">Google Scholar</text>
         <text find="google_scholar_h5_index">índice h5</text>
         <text find="google_scholar_m5_index">mediana m5</text>
-        <text find="more_details">Más detalles</text>
+        <text find="more_details">más detalles</text>
 	</xslid>
 	<xslid id="sci_alphabetic">
 		<text find="alphabetic_list">Lista alfabética</text>
