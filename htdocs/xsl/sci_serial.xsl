@@ -160,7 +160,7 @@
                             }
 
                             var script = document.createElement('script');
-                            script.src = "get_h5_m5.php" + '?issn=<?xsl:value-of select="/SERIAL/TITLE_ISSN"?>&amp;callback=print_h5_m5';
+                            script.src = "google_metrics/get_h5_m5.php" + '?issn=<xsl:value-of select="//PAGE_PID"/>&amp;callback=print_h5_m5';
                             document.getElementsByTagName('head')[0].appendChild(script);
                         </script>
 
