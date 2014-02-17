@@ -292,8 +292,6 @@
 
 				<script language="javascript" src="applications/scielo-org/js/jquery-1.4.2.min.js"/>
 				<script language="javascript" src="applications/scielo-org/js/toolbox.js"/>
-				<script language="javascript" src="article.js"/>
-
 			</body>
 		</html>
 	</xsl:template>
@@ -370,7 +368,6 @@
 			<xsl:when test="$version='xml-file'">
 				<script language="javascript" src="applications/scielo-org/js/jquery-1.4.2.min.js"/>
 				<script language="javascript" src="applications/scielo-org/js/toolbox.js"/>
-				<script language="javascript" src="article.js"/>
 				<!--http://www.dynamicdrive.com/dynamicindex5/stickytooltip.htm-->
 				<script type="text/javascript" src="xsl/pmc/v3.0/js/jquery.min.js"/>
 				<script type="text/javascript" src="xsl/pmc/v3.0/js/stickytooltip.js">
@@ -386,7 +383,6 @@
 			<xsl:otherwise>
 				<script language="javascript" src="applications/scielo-org/js/jquery-1.4.2.min.js"/>
 				<script language="javascript" src="applications/scielo-org/js/toolbox.js"/>
-				<script language="javascript" src="article.js"/>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
