@@ -51,7 +51,6 @@
 					a{
 					    text-decoration:none;
 					}</style>
-				<script language="javascript" src="article.js"/>
 				<META http-equiv="Pragma" content="no-cache"/>
 				<META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT"/>
 				<!-- link pro RSS aparecer automaticamente no Browser -->
