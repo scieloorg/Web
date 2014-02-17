@@ -1531,17 +1531,12 @@ Parameters:
 		<xsl:variable name="PATH_GENIMG" select="//CONTROLINFO/SCIELO_INFO/PATH_GENIMG"/>
 		<xsl:variable name="LANGUAGE" select="//CONTROLINFO/LANGUAGE"/>
 		<script language="javascript">
-			<xsl:comment>
 		CreateWindowHeader ( "Curriculum ScienTI",
                                                     "<xsl:value-of select="$PATH_GENIMG"/>
 				<xsl:value-of select="$LANGUAGE"/>/lattescv.gif",
-                                                    "<xsl:value-of select=" $LANGUAGE"/>"
-                                                  );
-			
+                                                    "<xsl:value-of select=" $LANGUAGE"/>");
 			<xsl:apply-templates select="AUTHOR" mode="LATTES"/>
-
     		CreateWindowFooter();
-	// </xsl:comment>
 		</script>
 	</xsl:template>
 	<xsl:template match="LATTES">
