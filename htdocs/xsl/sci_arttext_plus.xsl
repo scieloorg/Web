@@ -37,6 +37,15 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:param>
+    <xsl:param name="PDF_PATH">
+        <xsl:choose>
+            <xsl:when test="//PATH_SERIMG and //SIGLUM and //ISSUE">/pdf/<xsl:value-of select="//SIGLUM"/>/<xsl:value-of select="$issue_label"/>/</xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="//image-path"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:param>
+    
     <xsl:param name="PATH">/xsl/plus</xsl:param>
     <xsl:param name="PAGE_LANG" select="//ARTICLE/@TEXTLANG"/>
     <xsl:param name="INTERFACE_LANG" select="//CONTROLINFO/LANGUAGE"/>
