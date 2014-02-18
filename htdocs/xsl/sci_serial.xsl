@@ -56,6 +56,7 @@
 					<xsl:with-param name="script">rss.php</xsl:with-param>
 				</xsl:call-template>
 				<script type="text/javascript" src="/applications/scielo-org/js/functions.js"/>
+				<script type="text/javascript" src="/article.js"/>
 			</head>
 			<body>
 				<xsl:if test="//NO_SCI_SERIAL!='yes' or not(//NO_SCI_SERIAL)">
