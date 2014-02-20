@@ -1,10 +1,14 @@
-v5.33 (em desenvolvimento)
+v5.34 (em desenvolvimento)
+Inclusão de indicadores bibliometricos do Google Scholar (#86)
+
+v5.33
 [web]
 Na caixa de serviços do artigo, trazer o item indicadores expandindo (#64)
 Apresentação de Link para PDF de material suplementar não disponivel no site SciELO (#66) 
 Inclusão de outros item na caixa de serviço: Mendley, ReadCube, etc (#79)
 Ajuste na apresentação de afiliações (#84, #91, #92)
 Troca de texto "Admitido" (#88)
+Correção de bug de abertura de PDF no Chrome
 
 v5.32
 [web]
