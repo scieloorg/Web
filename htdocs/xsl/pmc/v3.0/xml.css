@@ -132,6 +132,13 @@ border-color: gray;
 	max-height: 10%;
 }
 
+.disp-formula {
+    padding: 25px;
+    max-width: 100%;
+    max-height: 10%;
+    text-align: center;
+}
+
 .graphic {
 	padding: 25px;
     width: auto;
