@@ -827,12 +827,19 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
     <xsl:template match="inline-graphic|disp-formula/graphic" mode="HTML-TEXT">
         <img src="{$IMAGE_PATH}/{@xlink:href}.jpg" alt=""/>
     </xsl:template>
-    <xsl:template match="inline-formula|disp-formula" mode="HTML-TEXT">
-        <span class="formula" id="{.//@id}">
+    <xsl:template match="inline-formula" mode="HTML-TEXT">
+        <span class="inline-formula" id="{.//@id}">
 
             <!-- FIXME -->
             <xsl:apply-templates select="*" mode="HTML-TEXT"/>
         </span>
+    </xsl:template>
+    <xsl:template match="disp-formula" mode="HTML-TEXT">
+        <div class="disp-formula" id="{.//@id}">
+            
+            <!-- FIXME -->
+            <xsl:apply-templates select="*" mode="HTML-TEXT"/>
+        </div>
     </xsl:template>
     <xsl:template match="p//xref[@ref-type='fig' or @ref-type='table']" mode="HTML-TEXT">
         <a href="#{@rid}" class="bIcon figref goto">
@@ -1265,5 +1272,7 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
                 <xsl:attribute name="src"><xsl:value-of select="$src"/></xsl:attribute> 
         </embed-->
     </xsl:template>
-    
+    <xsl:template match="mml:math|math" mode="HTML-TEXT">
+        <xsl:copy-of select="."/>
+    </xsl:template>    
 </xsl:stylesheet>
