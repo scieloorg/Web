@@ -1,3 +1,6 @@
+v5.34 (em desenvolvimento)
+Inclusão de indicadores bibliometricos do Google Scholar (#86)
+
 v5.33
 [web]
 Na caixa de serviços do artigo, trazer o item indicadores expandido (#64)
@@ -8,6 +11,7 @@ Troca de texto "Admitido" (#88)
 Apresentação de material suplementar que tem formato de vídeo (#104)
 Ajuste na apresentação da tabela de fascículos, caso que ahead of print aparece no ano 2013, no lugar de 2014. (#107)
 Redirecionamento do link para PDF/Chrome (#95)
+Correção de bug de abertura de PDF no Chrome
 
 v5.32
 [web]
