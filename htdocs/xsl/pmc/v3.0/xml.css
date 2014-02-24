@@ -22,7 +22,6 @@
 }
 
 .abstract .sec, .trans-abstract .sec {
-	
 	text-transform: uppercase;
 	margin-top: 10px;
 }
@@ -31,16 +30,12 @@
 	border-bottom: 1px solid;
 	margin-top: 45px;
 	font-size: 97%;
-
 }
 .trans-abstract {
 	border-bottom: 1px solid;
 	margin-top: 45px;
 	font-size: 97%;
-	
 }
-
-
 .sec {
 	/* clear:both; 
 	font-size: 15pt;*/
@@ -125,7 +120,7 @@ border-color: gray;
 	font-weight: bold;
 }
 
-.formula {
+.inline-formula {
 	padding: 25px;
     max-width: 100%;
     display: inline;
@@ -204,3 +199,7 @@ padding-top: 0px;
     padding-top: 5%;
     padding-bottom: 5%;
 	}
+.ack {
+    padding-top: 2%;
+    padding-bottom: 1%;
+}

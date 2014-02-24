@@ -2,13 +2,7 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML">
 
-	<xsl:template match="back">
-		<xsl:apply-templates/>
-	</xsl:template>
-
-
-	<xsl:template match="back"> </xsl:template>
-
+	
 	<xsl:template match="*" mode="id">
 		<xsl:value-of select="@id"/>
 		<xsl:if test="not(@id)">
@@ -123,14 +117,16 @@
 		<div id="{$this-article}-body" class="body">
 			<xsl:apply-templates select="body"/>
 		</div>
-		<xsl:if test="back | $loose-footnotes">
-			<!-- $loose-footnotes is defined below as any footnotes outside
-           front matter or fn-group -->
+		<xsl:if test="back">
 			<div id="{$this-article}-back" class="back">
 				<xsl:apply-templates select="back"/>
 			</div>
 		</xsl:if>
-
+		<xsl:if test="back | $loose">
+			<div id="{$this-article}-back" class="back">
+				<xsl:apply-templates select="back"/>
+			</div>
+		</xsl:if>
 		<xsl:for-each select="floats-group">
 			<div id="{$this-article}-floats" class="back">
 				<xsl:call-template name="main-title">
@@ -164,9 +160,12 @@
 		<div id="{$this-article}-body" class="body">
 			<xsl:apply-templates select="body"/>
 		</div>
-		<xsl:if test="back | $loose-footnotes">
-			<!-- $loose-footnotes is defined below as any footnotes outside
-           front matter or fn-group -->
+		<xsl:if test="back">
+			<div id="{$this-article}-back" class="back">
+				<xsl:apply-templates select="back"/>
+			</div>
+		</xsl:if>
+		<xsl:if test="back | $loose">
 			<div id="{$this-article}-back" class="back">
 				<xsl:apply-templates select="back"/>
 			</div>
@@ -616,11 +615,13 @@
 		</div>
 	</xsl:template>
 	<xsl:template match="inline-formula">
-		<xsl:apply-templates select="*"/>
+		<div class="inline-formula">
+			<xsl:apply-templates></xsl:apply-templates>
+		</div>
 	</xsl:template>
 	<xsl:template match="disp-formula">
 		<div class="disp-formula">
-			<xsl:copy-of select="*"/>
+			<xsl:apply-templates></xsl:apply-templates>
 		</div>
 	</xsl:template>
 	<xsl:template match="graphic">
@@ -635,7 +636,7 @@
 	<xsl:template match="inline-graphic | disp-formula/graphic">
 		<a target="_blank">
 			<xsl:apply-templates select="@xlink:href" mode="scift-attribute-href"/>
-			<img class="formula">
+			<img class="inline-formula">
 				<xsl:apply-templates select="@xlink:href" mode="scift-attribute-src"/>
 			</img>
 		</a>
@@ -1152,6 +1153,13 @@
             </embed-->
 	</xsl:template>
 
-
-
+	<xsl:template match="mml:math|math">
+		<xsl:copy-of select="."/>
+	</xsl:template>
+	
+	<xsl:template match="ack">
+		<div class="ack">
+			<xsl:apply-templates></xsl:apply-templates>
+		</div>
+	</xsl:template>
 </xsl:stylesheet>
