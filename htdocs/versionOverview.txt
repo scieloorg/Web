@@ -1,5 +1,6 @@
 v5.34 (em desenvolvimento)
 Inclusão de indicadores bibliometricos do Google Scholar (#86)
+Apresentação de MathML na página do artigo e na página nova (#119)
 
 v5.33
 [web]
