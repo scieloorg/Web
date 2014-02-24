@@ -491,15 +491,17 @@
 		<div class="index,{ISSUE/ARTICLE/@TEXTLANG}">
 			<xsl:choose>
 				<xsl:when test="$version='html'">
-					<!-- versao antiga -->
+					<xsl:comment>version=html</xsl:comment>
 					<xsl:apply-templates select="ISSUE/ARTICLE/BODY"/>
 				</xsl:when>
 
 				<xsl:when test="$version='xml'">
+					<xsl:comment>version=xml</xsl:comment>
 					<xsl:apply-templates select="ISSUE/ARTICLE[fulltext]"/>
 
 				</xsl:when>
 				<xsl:when test="$version='xml-file'">
+					<xsl:comment>version=xml-file</xsl:comment>
 					<xsl:comment><xsl:value-of select="$xml_article"/></xsl:comment>
 					<xsl:apply-templates select="document($xml_article)" mode="text-content"/>
 				</xsl:when>
