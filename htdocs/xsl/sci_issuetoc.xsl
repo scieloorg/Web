@@ -180,7 +180,7 @@
 							<tbody>
                                                                 <xsl:choose>
                                                                 <xsl:when test="$journal_manager=1">
-                                                                        <xsl:apply-templates select="SECTION[NAME != 'Press Release']"/>
+                                                                        <xsl:apply-templates select="SECTION[NAME != 'Press Release' or not(NAME)]"/>
                                                                 </xsl:when>
                                                                 <xsl:otherwise>
                                                                         <xsl:apply-templates select="SECTION"/>
