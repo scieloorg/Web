@@ -88,7 +88,8 @@
 					<xsl:apply-templates select="//ISSUE"/>
 				</div>
 				<xsl:apply-templates select="." mode="footer-journal"/>
-			</BODY>
+			
+			<script type="text/javascript" src="/article.js"/>
 			<xsl:if test="$journal_manager=1">
 				<script type="text/javascript" src="/js/jquery-1.9.1.min.js"/>
 				<script type="text/javascript">
@@ -134,6 +135,7 @@
 					  });
 				</script>
 			</xsl:if>
+			</BODY>
 		</HTML>
 	</xsl:template>
 	<xsl:template match="ISSUE">
