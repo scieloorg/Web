@@ -1,6 +1,9 @@
 v5.34 (em desenvolvimento)
 Inclusão de indicadores bibliometricos do Google Scholar (#86)
 Apresentação de MathML na página do artigo e na página nova (#119)
+Reinclusão do article.js na página sci_issuetoc (#125)
+Correção de apresentação de artigos sem seção em sites que adotam scielo manager (#120)
+Apresentação de MathML na página do artigo e na página nova usando MathJax (#121)
 
 v5.33
 [web]

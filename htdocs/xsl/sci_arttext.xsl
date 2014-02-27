@@ -292,6 +292,7 @@
 
 				<script language="javascript" src="applications/scielo-org/js/jquery-1.4.2.min.js"/>
 				<script language="javascript" src="applications/scielo-org/js/toolbox.js"/>
+				
 			</body>
 		</html>
 	</xsl:template>
@@ -307,7 +308,9 @@
 				</title>
 				<xsl:apply-templates select="." mode="meta_names"/>
 				<xsl:apply-templates select="." mode="version-css"/>
-			</head>
+				<xsl:apply-templates select="." mode="version-js"/>
+				
+				</head>
 			<body>
 				<a name="top"/>
 				<xsl:comment><xsl:value-of select="$version"/><xsl:value-of select="$merge"/></xsl:comment>
@@ -320,9 +323,9 @@
 						<xsl:apply-templates select="." mode="version-body-html"/>
 					</xsl:otherwise>
 				</xsl:choose>
-				<xsl:apply-templates select="." mode="version-js"/>
-
+				
 				<xsl:comment><xsl:value-of select="$xml_article"/></xsl:comment>
+				
 			</body>
 		</html>
 	</xsl:template>
@@ -378,7 +381,9 @@
                 ***********************************************/
                 </script>
 				<script type="text/javascript" src="js/executartooltip.js"/>
-
+				<xsl:if test="document($xml_article)//math">
+					<script type="text/javascript" src="/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+				</xsl:if>
 			</xsl:when>
 			<xsl:otherwise>
 				<script language="javascript" src="applications/scielo-org/js/jquery-1.4.2.min.js"/>
@@ -409,7 +414,6 @@
 			<div class="spacer">&#160;</div>
 			<xsl:apply-templates select="." mode="footer-journal"/>
 		</div>
-		<xsl:comment><xsl:value-of select="$issue_label"/><xsl:value-of select="//ISSUE"/></xsl:comment>
 	</xsl:template>
 
 
@@ -498,7 +502,6 @@
 				<xsl:when test="$version='xml'">
 					<xsl:comment>version=xml</xsl:comment>
 					<xsl:apply-templates select="ISSUE/ARTICLE[fulltext]"/>
-
 				</xsl:when>
 				<xsl:when test="$version='xml-file'">
 					<xsl:comment>version=xml-file</xsl:comment>
