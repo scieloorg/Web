@@ -117,12 +117,8 @@
 		<div id="{$this-article}-body" class="body">
 			<xsl:apply-templates select="body"/>
 		</div>
-		<xsl:if test="back">
-			<div id="{$this-article}-back" class="back">
-				<xsl:apply-templates select="back"/>
-			</div>
-		</xsl:if>
-		<xsl:if test="back | $loose">
+		
+		<xsl:if test="back | $loose-footnotes">
 			<div id="{$this-article}-back" class="back">
 				<xsl:apply-templates select="back"/>
 			</div>
@@ -160,12 +156,8 @@
 		<div id="{$this-article}-body" class="body">
 			<xsl:apply-templates select="body"/>
 		</div>
-		<xsl:if test="back">
-			<div id="{$this-article}-back" class="back">
-				<xsl:apply-templates select="back"/>
-			</div>
-		</xsl:if>
-		<xsl:if test="back | $loose">
+		
+		<xsl:if test="back | $loose-footnotes">
 			<div id="{$this-article}-back" class="back">
 				<xsl:apply-templates select="back"/>
 			</div>
