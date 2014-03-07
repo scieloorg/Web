@@ -276,17 +276,26 @@
 		<text find="site_usage">site usage</text>
 		<text find="journal_citation">journal citation</text>
 		<text find="co_authors">co-authors</text>
-		<text find="text_1">The Scientific Electronic Library Online - SciELO is an electronic library covering a selected collection of Brazilian scientific journals.<br/>
-			<br/>The library is an integral part of a project being developed by <a href="http://www.fapesp.br">FAPESP</a> - Fundação de Amparo à Pesquisa do Estado de São Paulo, in partnership with <a href="http://www.bireme.br/bvs/I/ihome.htm">BIREME</a> - the Latin American and Caribbean Center on Health Sciences Information. Since 2002, the Project is also supported by <a href="http://www.cnpq.br">CNPq</a> - Conselho Nacional de Desenvolvimento Científico e Tecnológico.<br/>
-			<br/>The Project envisages the development of a common methodology for the preparation, storage, dissemination and evaluation of scientific literature in electronic format.<br/>
-			<br/>As the project develops, new journal titles are being added in the library collection.</text>
-		<text find="text_2">This is the home page of SciELO Brasil Site.<br/>
-			<br/>The objective of the site is to implement an electronic virtual library, providing full access to a collection of serial titles, a collection of issues from individual serial titles, as well as to the full text of articles. The access to both serial titles and articles is available via indexes and search forms.<br/>
-			<br/>SciELO site is an integral part of the FAPESP/BIREME/CNPq Project and it is an application of the methodology being developed by the project, particularly the Internet Interface module.<br/>
-			<br/>The site will be constantly updated both in form and content, according to the project's advancements.</text>
-		<text find="text_3">SciELO interface provides access to its serials collection via an <i>alphabetic list</i> of titles or a <i>subject list</i> or a <i>search form</i> by word of serial titles, publisher names, city of publication and subject.<br/>
-			<br/>The interface also provides access to the full text of articles via <i>author index</i> or <i>subject index</i>, or by a <i>search form</i> on article elements such as author names, words from title, subject, words from the full text and publication year.<br/>
-			<br/>Click an hypertext link at the <a href="#top">top</a> to call the corresponding access page.</text>
+		<text find="text_1">SciELO-Bolivia is a collection of electronic journals with open and free access to full texts available online.<br/>
+
+This is a joint effort initiated in July 2008 with the participation of several Bolivian institutions including the Universidad Mayor de San Andres, the Program for Strategic Research in Bolivia, the Bolivian Catholic University, the Bolivian Association of Biomedical Magazine Publishers, and the Vice-Ministry for Science and Technology, with support from the Pan American Health Organization’s Bolivia office.<br/>
+
+The site’s Executive Coordination is provided by the Vice-Ministry for Science and Technology through the Bolivian System for Scientific and Technological Information (SIBICyT). Technical Coordination is provided by the Universidad Mayor de San Andres.<br/>
+
+The SciELO project is an initiative of the Foundation for Support to Research of the State of Sao Paulo, Brazil (FAPESP) and the Latin American and Caribbean Center for Information on Health Sciences (BIREME). It will include the development of a common methodology for preparation, storage, dissemination and evaluation of scientific literature in electronic format.<br/>
+
+The www.SciELO.org site integrates and provides access to the network of SciELO sites, where you can browse existing SciELO collections or do searches at the level of a particular country.
+		</text>
+		<text find="text_2">The site's goal is to implement an electronic scientific library that provides full access to a collection of Bolivian journals and a collection of individual journal issues, with full texts of articles. Access to the journals and articles is available via index and search formats.<br/>
+
+The site will be constantly updated in form and content as the project progresses.
+		</text>
+		<text find="text_3">The SciELO interface provides access to its journal collection through an alphabetical list of titles, table of contents, word searches, name of publisher, city of publication, and topic.<br/>
+
+The interface also provides access to the full text of articles via an index of authors, table of contents, or search format by elements of the article such as name of author, words in the title, topics and words of the full text.<br/>
+
+Click an hypertext link at the top to call the corresponding access page.
+		</text>
 		<text find="phone">Phone</text>
 		<text find="fax">Fax</text>
 		<text find="register_free">Free sign up</text>
