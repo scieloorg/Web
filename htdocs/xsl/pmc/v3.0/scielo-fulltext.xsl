@@ -117,12 +117,23 @@
 		<div id="{$this-article}-body" class="body">
 			<xsl:apply-templates select="body"/>
 		</div>
-		
-		<xsl:if test="back | $loose-footnotes">
-			<div id="{$this-article}-back" class="back">
-				<xsl:apply-templates select="back"/>
-			</div>
-		</xsl:if>
+		<div id="{$this-article}-back" class="back">
+			<xsl:choose>
+				<xsl:when test="back | $loose-footnotes">
+					<xsl:apply-templates select="back"/>
+				</xsl:when>
+				<xsl:when test="name()='sub-article' and not(back) and $original/back">
+					<div id="{$this-article}-back" class="back">
+						<xsl:apply-templates select="$original/back"/>
+					</div>
+				</xsl:when>
+				<xsl:when test="name()='response' and not(back) and $original/response/back">
+					<div id="{$this-article}-back" class="back">
+						<xsl:apply-templates select="$original/response/back"/>
+					</div>
+				</xsl:when>
+			</xsl:choose>
+		</div>
 		<xsl:for-each select="floats-group">
 			<div id="{$this-article}-floats" class="back">
 				<xsl:call-template name="main-title">
@@ -157,16 +168,18 @@
 			<xsl:apply-templates select="body"/>
 		</div>
 		
-		<xsl:if test="back | $loose-footnotes">
-			<div id="{$this-article}-back" class="back">
-				<xsl:apply-templates select="back"/>
-			</div>
-		</xsl:if>
-		<xsl:if test="name()='sub-article' and not(back) and $original/back">
-			<div id="{$this-article}-back" class="back">
-				<xsl:apply-templates select="$original/back"/>
-			</div>
-		</xsl:if>
+		<xsl:choose>
+			<xsl:when test="back | $loose-footnotes">
+				<div id="{$this-article}-back" class="back">
+					<xsl:apply-templates select="back"/>
+				</div>
+			</xsl:when>
+			<xsl:when test="not(back) and $original/back">
+				<div id="{$this-article}-back" class="back">
+					<xsl:apply-templates select="$original/back"/>
+				</div></xsl:when>
+		</xsl:choose>
+		
 		<xsl:for-each select="floats-group">
 			<div id="{$this-article}-floats" class="back">
 				<xsl:call-template name="main-title">
@@ -996,7 +1009,7 @@
 		<!-- (label?, title*, (ack | app-group | bio | fn-group | glossary | ref-list | notes | sec)*) -->
 		<div id="{$this-article}-back" class="back">
 			<xsl:choose>
-				<xsl:when test="not(ref-list/*) and ($original//ref-list/*)">
+				<xsl:when test="not(ref-list/*) and ($original/back/ref-list/*)">
 					<!--xsl:apply-templates select="../../back/*" mode="translation-back">
 						<xsl:with-param name="sub-article-back" select="."/>
 					</xsl:apply-templates-->
@@ -1011,7 +1024,7 @@
 
 						<xsl:otherwise>
 							<xsl:comment>_no local ref _</xsl:comment>
-							<xsl:apply-templates select="$original//ref-list"/>
+							<xsl:apply-templates select="$original/back/ref-list"/>
 							<xsl:apply-templates select="*"/>
 						</xsl:otherwise>
 					</xsl:choose>
@@ -1026,7 +1039,44 @@
 		</div>
 	</xsl:template>
 
-
+	<xsl:template match="response/back">
+		
+		<xsl:variable name="this-article">
+			<xsl:apply-templates select="." mode="id"/>
+		</xsl:variable>
+		<!-- (label?, title*, (ack | app-group | bio | fn-group | glossary | ref-list | notes | sec)*) -->
+		<div id="{$this-article}-back" class="back">
+			<xsl:choose>
+				<xsl:when test="not(ref-list/*) and ($original/response/back/ref-list/*)">
+					<!--xsl:apply-templates select="../../back/*" mode="translation-back">
+						<xsl:with-param name="sub-article-back" select="."/>
+					</xsl:apply-templates-->
+					<xsl:comment>_local ref<xsl:value-of select="$ref_list_local"/>  _</xsl:comment>
+					
+					<xsl:choose>
+						<xsl:when test="node()[name()=$ref_list_local]">
+							<xsl:apply-templates select="*" mode="translation-back">
+								<xsl:with-param name="after">yes</xsl:with-param>
+							</xsl:apply-templates>
+						</xsl:when>
+						
+						<xsl:otherwise>
+							<xsl:comment>_no local ref _</xsl:comment>
+							<xsl:apply-templates select="$original/response/back/ref-list"/>
+							<xsl:apply-templates select="*"/>
+						</xsl:otherwise>
+					</xsl:choose>
+					
+					
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:apply-templates select="*"/>
+				</xsl:otherwise>
+			</xsl:choose>
+			
+		</div>
+	</xsl:template>
+	
 	<!--xsl:template match="article/back/*" mode="old-translation-back">
 		<xsl:param name="sub-article-back"/>
 		<xsl:variable name="name"><xsl:value-of select="name()"></xsl:value-of></xsl:variable>
