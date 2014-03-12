@@ -4,6 +4,7 @@ Apresentação de MathML na página do artigo e na página nova (#119)
 Reinclusão do article.js na página sci_issuetoc (#125)
 Correção de apresentação de artigos sem seção em sites que adotam scielo manager (#120)
 Apresentação de MathML na página do artigo e na página nova usando MathJax (#121)
+Ajuste na apresentação de carta com resposta (multilingue) (#133)
 
 v5.33
 [web]
