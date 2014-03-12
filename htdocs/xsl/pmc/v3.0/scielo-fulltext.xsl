@@ -1195,10 +1195,17 @@
             </embed-->
 	</xsl:template>
 
-	<xsl:template match="mml:math|math">
+	<xsl:template match="math">
 		<xsl:copy-of select="."/>
 	</xsl:template>
-	
+	<xsl:template match="mml:*">
+		<xsl:element name="{substring-after(name(),'mml:')}">
+		<xsl:apply-templates select="@*|text()|*"></xsl:apply-templates>
+		</xsl:element>
+	</xsl:template>
+	<xsl:template match="mml:*/@*">
+		<xsl:attribute name="{name()}"><xsl:value-of select="."/></xsl:attribute>
+	</xsl:template>
 	<xsl:template match="ack">
 		<div class="ack">
 			<xsl:apply-templates></xsl:apply-templates>

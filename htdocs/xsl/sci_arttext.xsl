@@ -381,7 +381,7 @@
                 ***********************************************/
                 </script>
 				<script type="text/javascript" src="js/executartooltip.js"/>
-				<xsl:if test="document($xml_article)//math">
+				<xsl:if test="document($xml_article)//math or document($xml_article)//mml:math">
 					<script type="text/javascript" src="/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 				</xsl:if>
 			</xsl:when>
