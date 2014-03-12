@@ -39,7 +39,9 @@
             <link href="{$PATH}/static/css/responsive.css" rel="stylesheet"/>
             <link href="{$PATH}/static/css/style.css" rel="stylesheet"/>
             <xsl:if test=".//math or .//mml:math">
-                <script type="text/javascript" src="/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+                <script type="text/javascript"
+                    src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+                </script>
             </xsl:if>
         </head>
     </xsl:template>
