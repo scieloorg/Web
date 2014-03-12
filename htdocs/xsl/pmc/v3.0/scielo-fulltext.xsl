@@ -1195,7 +1195,7 @@
             </embed-->
 	</xsl:template>
 
-	<xsl:template match="math|mml:math">
+	<xsl:template match="mml:math|math">
 		<xsl:copy-of select="."/>
 	</xsl:template>
 	
