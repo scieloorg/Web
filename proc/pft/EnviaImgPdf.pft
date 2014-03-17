@@ -4,8 +4,7 @@
 'cd  htdocs/img/revistas/',v1,'/',v2/
 'lcd htdocs/img/revistas/',v1,'/',v2/
 'bin'/
-'mput *.g??'/
-'mput *.j??'/
+'mput *.???'/
 /* html */
 'mkdir html'/
 'cd html'/
