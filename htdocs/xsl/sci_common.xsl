@@ -644,7 +644,7 @@
 				})();
 			</script>
         </xsl:if>
-        <xsl:if test="//show_issues_sorted_by_pubdate == '1'">
+        <xsl:if test="//show_flacso_survey == '1'">
 			<script type="text/javascript">
 			$(document).ready(function() {
 			    var options = {
