@@ -371,19 +371,10 @@
 			<xsl:when test="$version='xml-file'">
 				<script language="javascript" src="applications/scielo-org/js/jquery-1.4.2.min.js"/>
 				<script language="javascript" src="applications/scielo-org/js/toolbox.js"/>
-				<!--http://www.dynamicdrive.com/dynamicindex5/stickytooltip.htm-->
-				<script type="text/javascript" src="xsl/pmc/v3.0/js/jquery.min.js"/>
-				<script type="text/javascript" src="xsl/pmc/v3.0/js/stickytooltip.js">
-                /***********************************************
-                * Sticky Tooltip script- (c) Dynamic Drive DHTML code library (www.dynamicdrive.com)
-                * This notice MUST stay intact for legal use
-                * Visit Dynamic Drive at http://www.dynamicdrive.com/ for this script and 100s more
-                ***********************************************/
-                </script>
-				<script type="text/javascript" src="js/executartooltip.js"/>
-				<xsl:if test="document($xml_article)//math">
-					<script type="text/javascript" src="/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-				</xsl:if>
+				<xsl:if test="document($xml_article)//math or document($xml_article)//mml:math">
+					<script type="text/javascript"
+						src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+					</script></xsl:if>
 			</xsl:when>
 			<xsl:otherwise>
 				<script language="javascript" src="applications/scielo-org/js/jquery-1.4.2.min.js"/>
