@@ -631,7 +631,7 @@
 				pageTracker._trackPageview();
 			</script>
 		</xsl:if>
-                <xsl:if test="//varScieloOrg/PINGDOM_CODE != ''">
+        <xsl:if test="//varScieloOrg/PINGDOM_CODE != ''">
 			<script>
 				var _prum = [['id', '<xsl:value-of select="//varScieloOrg/PINGDOM_CODE"/>'],
              			['mark', 'firstbyte', (new Date()).getTime()]];
@@ -643,7 +643,28 @@
     					s.parentNode.insertBefore(p, s);
 				})();
 			</script>
-                </xsl:if>
+        </xsl:if>
+        <xsl:if test="//show_flacso_survey == '1'">
+			<script type="text/javascript">
+			$(document).ready(function() {
+			    var options = {
+			        language: '<xsl:value-of select="$interfaceLang" />', // en|es|pt
+			        popup_absolute_path: '/popup/', // change to absolute path where you've placed this code
+			        get_ip_path: '/popup/whatismyip.php'
+			    }
+
+			    $.getScript(options.popup_absolute_path + 'jquery-1.9.1.min.js', function() {
+			        // Assign the last inserted JQuery version to a new variable, to avoid
+			        // conflicts with the current version in $ variable.
+			        options.jQuery = $;
+			        $.getScript(options.popup_absolute_path + 'pkp_flacso_popup.v2.js', function() {
+			            pkp_flacso_popup(options);
+			            jQuery.noConflict(true);
+			        });
+			    });
+			});
+			</script>
+        </xsl:if>
 	</xsl:template>
 	<xsl:template name="ImageLogo">
 		<xsl:param name="src"/>
