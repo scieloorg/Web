@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>alertify.js - example page</title>
+	 <script type="text/javascript" src="/popup/jquery-1.9.1.min.js"></script>
+
+    </head>
+<body>
+    <script type="text/javascript">
+	$(document).ready(function() { 
+		options = {
+			language: 'es', // en|es|pt
+			popup_absolute_path: '/popup/' // change to absolute path where you've placed this code
+		}
+
+		$.getScript(options.popup_absolute_path + 'pkp_flacso_popup.v2.js', function() {
+			pkp_flacso_popup(options);
+		}); 
+	});
+	</script>
+    <div id="userIP" style="display: none;">0.0.0.0</div>
+</body>
+</html>
