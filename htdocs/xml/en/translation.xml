@@ -229,7 +229,7 @@
 		<text find="editorial_board">editorial board</text>
 		<text find="instructions_to_authors">instructions to authors</text>
 		<text find="subscription">subscription</text>
-		<text find="statistics">statistics</text>
+		<text find="statistics">metrics</text>
 		<text find="online_submission">online submission</text>
 		<text find="press_releases">Press Releases</text>
 		<text find="numbers">Issues</text>
@@ -242,7 +242,11 @@
 		<text find="this_journal">This Journal</text>
 		<text find="scielo_instance">All Collection</text>
 		<text find="enter_search_term">Enter one or more words</text>
-		<text find="journal_site">journal's site</text>
+        <text find="journal_site">journal's site</text>
+        <text find="google_scholar_metrics">Google Scholar</text>
+        <text find="google_scholar_h5_index">h5 index</text>
+        <text find="google_scholar_m5_index">h5 median</text>
+        <text find="more_details">more details</text>
 	</xslid>
 	<xslid id="sci_alphabetic">
 		<text find="alphabetic_list">Alphabetic list</text>
