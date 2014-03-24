@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:mml="http://www.w3.org/1998/Math/MathML"
     xmlns:math="http://www.w3.org/2005/xpath-functions/math"
     xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl" exclude-result-prefixes="xs math xd"
     version="3.0">
@@ -37,6 +38,11 @@
             <link href="{$PATH}/static/css/bootstrap.min.css" rel="stylesheet"/>
             <link href="{$PATH}/static/css/responsive.css" rel="stylesheet"/>
             <link href="{$PATH}/static/css/style.css" rel="stylesheet"/>
+            <xsl:if test=".//math or .//mml:math">
+                <script type="text/javascript"
+                    src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+                </script>
+            </xsl:if>
         </head>
     </xsl:template>
     <xsl:template match="*" mode="HTML-BODY">
@@ -149,7 +155,7 @@
                 <!--<li><a tabindex="-1" href="#">Cited by SciELO</a></li>-->
                 <li>
                     <a tabindex="-1"
-                        href="http://www.scielo.br/applications/scielo-org/pages/services/articleRequestGraphicPage.php?pid=S0100-879X2013000100058&amp;caller=www.scielo.br&amp;lang=en"
+                        href="/applications/scielo-org/pages/services/articleRequestGraphicPage.php?pid=S0100-879X2013000100058&amp;caller=www.scielo.br&amp;lang=en"
                         class="iframeModal">Access Statistics</a>
                 </li>
             </ul>
@@ -330,23 +336,10 @@
         <article id="abstract" class="article">
             <xsl:choose>
                 <xsl:when test="$trans//abstract">
-                    <xsl:apply-templates select="$trans//abstract" mode="HTML-TEXT">
-                        <xsl:with-param name="art_body" select="$trans//body"/>
-                    </xsl:apply-templates>
-                </xsl:when>
-                <xsl:when test="$original/front//trans-abstract[@xml:lang=$PAGE_LANG]">
-                    <xsl:apply-templates
-                        select="$original/front//trans-abstract[@xml:lang=$PAGE_LANG]"
-                        mode="HTML-TEXT">
-                        <xsl:with-param name="art_body" select="$original/body[1]"/>
-                    </xsl:apply-templates>
+                    <xsl:apply-templates select="$trans" mode="ABSTR-AND-SECTIONS"/>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:apply-templates
-                        select="$original/front//abstract | $original/front//trans-abstract"
-                        mode="HTML-TEXT">
-                        <xsl:with-param name="art_body" select="$original/body[1]"/>
-                    </xsl:apply-templates>
+                    <xsl:apply-templates select="$original" mode="ABSTR-AND-SECTIONS"/>
                 </xsl:otherwise>
             </xsl:choose>
 
@@ -355,28 +348,47 @@
     <xsl:template match="@id" mode="HTML-TEXT">
         <a name="{.}"/>
     </xsl:template>
-    <xsl:template match="abstract|trans-abstract" mode="HTML-TEXT">
-        <xsl:param name="art_body"/>
+    <xsl:template match="article|sub-article" mode="ABSTR-AND-SECTIONS">
         <xsl:variable name="lang" select="@xml:lang"/>
         <h1>
-            <xsl:apply-templates select="." mode="DATA-DISPLAY-TITLE"/>
+            <xsl:choose>
+                <xsl:when test="front-stub//abstract">
+                    <xsl:apply-templates select="front-stub//abstract" mode="DATA-DISPLAY-TITLE"/>
+                </xsl:when>
+                <xsl:when test="front//trans-abstract[@xml:lang=$lang]">
+                    <xsl:apply-templates select="front//trans-abstract[@xml:lang=$lang]" mode="DATA-DISPLAY-TITLE"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:apply-templates select="front//abstract" mode="DATA-DISPLAY-TITLE"/>
+                </xsl:otherwise>
+            </xsl:choose>
         </h1>
         <div class="row">
             <div class="span8">
-                <xsl:apply-templates select="." mode="DATA-DISPLAY"/>
                 <xsl:choose>
-                    <xsl:when test="../kwd-group[@xml:lang=$lang]">
-                        <xsl:apply-templates select="../kwd-group[@xml:lang=$lang]" mode="HTML"/>
+                    <xsl:when test="front-stub//abstract">
+                        <xsl:apply-templates select="front-stub//abstract" mode="DATA-DISPLAY"/>
+                    </xsl:when>
+                    <xsl:when test="front//trans-abstract[@xml:lang=$lang]">
+                        <xsl:apply-templates select="front//trans-abstract[@xml:lang=$lang]" mode="DATA-DISPLAY"/>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:apply-templates select="../kwd-group" mode="HTML"/>
+                        <xsl:apply-templates select="front//abstract" mode="DATA-DISPLAY"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <xsl:choose>
+                    <xsl:when test="front-stub//kwd-group">
+                        <xsl:apply-templates select="front-stub//kwd-group" mode="HTML"/>
+                    </xsl:when>
+                    <xsl:when test="front//kwd-group[@xml:lang=$lang]">
+                        <xsl:apply-templates select="front//kwd-group[@xml:lang=$lang]" mode="HTML"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:apply-templates select="front//kwd-group" mode="HTML"/>
                     </xsl:otherwise>
                 </xsl:choose>
             </div>
-            <xsl:if test="$art_body">
-                <xsl:apply-templates select="$art_body" mode="HTML-SECTIONS"/>
-            </xsl:if>
-
+            <xsl:apply-templates select="." mode="HTML-SECTIONS"/>
         </div>
     </xsl:template>
     <xsl:template match="kwd-group" mode="HTML">
@@ -412,20 +424,17 @@
             </ul>
         </div>
     </xsl:template>
-    <xsl:template match="*" mode="HTML-SECTIONS">
-
+    
+    <xsl:template match="article | sub-article | response" mode="HTML-SECTIONS">
         <div class="span4">
             <ul class="rMenu">
                 <li>
                     <a href="javascript:void(0);" class="yIcon section fold">Sections<!-- TRANSLATE -->
                         <span>-</span></a>
                     <div class="link-list">
-
-                        <xsl:apply-templates select=".//sec[@sec-type]" mode="HTML-SECTION"/>
-
-                        <xsl:apply-templates select="..//ack" mode="HTML-SECTION"/>
-                        <xsl:apply-templates select="$original//ref-list" mode="HTML-SECTION"/>
-
+                        <xsl:apply-templates select="body//sec[@sec-type]" mode="HTML-SECTION"/>
+                        <xsl:apply-templates select="back//ack" mode="HTML-SECTION"/>
+                        <xsl:apply-templates select="$original/back/ref-list" mode="HTML-SECTION"/>
                     </div>
                 </li>
                 <li>
@@ -448,6 +457,7 @@
             </ul>
         </div>
     </xsl:template>
+    
     <xsl:template match="ref-list|ack" mode="goto">
         <a>
             <xsl:attribute name="href">#<xsl:value-of select="name()"/>
@@ -478,28 +488,54 @@
         <article id="content" class="article">
             <xsl:choose>
                 <xsl:when test="$trans">
-                    <xsl:apply-templates select="$trans/body" mode="HTML-TEXT"/>
-                    <xsl:choose>
-                        <xsl:when test="$trans/back">
-                            <xsl:apply-templates select="$original/back" mode="HTML-TEXT"/>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:apply-templates select="$original/back/*" mode="choose"/>
-                        </xsl:otherwise>
-                    </xsl:choose>
-
+                    <xsl:apply-templates select="$trans" mode="HTML-BODY-BACK"/>
+                    
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:apply-templates select="$original/body| $original/back" mode="HTML-TEXT"/>
+                    <xsl:apply-templates select="$original" mode="HTML-BODY-BACK"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </article> 
+    </xsl:template>
+    <xsl:template match="article | sub-article | response" mode="HTML-BODY-BACK">
+        <article id="content" class="article">
+            <xsl:apply-templates select="body" mode="HTML-TEXT"/>
+            <xsl:choose>
+                <xsl:when test="back">
+                    <xsl:apply-templates select="back" mode="HTML-TEXT"/>
+                </xsl:when>
+                <xsl:when test="name()='sub-article' and @article-type='translation'">
+                    <xsl:apply-templates select="$original/back" mode="HTML-TEXT"/>
+                </xsl:when>
+                <xsl:when test="name()='response'">
+                    <xsl:apply-templates select="$original/response/back" mode="HTML-TEXT"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    
                 </xsl:otherwise>
             </xsl:choose>
         </article>
+        <xsl:apply-templates select="sub-article[@article-type!='translation'] | response" mode="HTML-BODY-BACK"></xsl:apply-templates>
     </xsl:template>
-
     <xsl:template match="body| back " mode="HTML-TEXT">
         <xsl:apply-templates select="*[name()!='fn-group']|text()" mode="HTML-TEXT"/>
     </xsl:template>
-
+    
+    <xsl:template match="sub-article[@article-type='translation']/back " mode="HTML-TEXT">
+        <xsl:apply-templates select="ack" mode="HTML-TEXT"/>
+        <xsl:if test="not(ref-list)">
+            <xsl:apply-templates select="$original/back/ref-list" mode="HTML-TEXT"/>
+        </xsl:if>
+        <xsl:apply-templates select="*[name()!='fn-group' and name()!='ack']|text()" mode="HTML-TEXT"/>
+    </xsl:template>
+    
+    <xsl:template match="response/back" mode="HTML-TEXT">
+        <xsl:if test="not(ref-list)">
+            <xsl:apply-templates select="$original/response/back/ref-list" mode="HTML-TEXT"/>
+        </xsl:if>
+        <xsl:apply-templates select="*[name()!='fn-group']|text()" mode="HTML-TEXT"/>       
+    </xsl:template>
+    
     <xsl:template match="article/back/*" mode="choose">
         <xsl:variable name="name" select="name()"/>
         <xsl:choose>
@@ -827,12 +863,19 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
     <xsl:template match="inline-graphic|disp-formula/graphic" mode="HTML-TEXT">
         <img src="{$IMAGE_PATH}/{@xlink:href}.jpg" alt=""/>
     </xsl:template>
-    <xsl:template match="inline-formula|disp-formula" mode="HTML-TEXT">
-        <span class="formula" id="{.//@id}">
+    <xsl:template match="inline-formula" mode="HTML-TEXT">
+        <span class="inline-formula" id="{.//@id}">
 
             <!-- FIXME -->
             <xsl:apply-templates select="*" mode="HTML-TEXT"/>
         </span>
+    </xsl:template>
+    <xsl:template match="disp-formula" mode="HTML-TEXT">
+        <div class="disp-formula" id="{.//@id}">
+            
+            <!-- FIXME -->
+            <xsl:apply-templates select="*" mode="HTML-TEXT"/>
+        </div>
     </xsl:template>
     <xsl:template match="p//xref[@ref-type='fig' or @ref-type='table']" mode="HTML-TEXT">
         <a href="#{@rid}" class="bIcon figref goto">
@@ -914,7 +957,14 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
                             Creative Commons Attribution Non-Commercial License, which permits
                             unrestricted non-commercial use, distribution, and reproduction in any
                             medium, provided the original work is properly cited. </small-->
-                        <xsl:apply-templates select=".//back//fn-group" mode="HTML-TEXT"/>
+                        <xsl:choose>
+                            <xsl:when test="$trans">
+                                <xsl:apply-templates select="$trans//fn-group" mode="HTML-TEXT"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:apply-templates select="$original/back//fn-group" mode="HTML-TEXT"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
                         <xsl:comment>history</xsl:comment>
                         <xsl:apply-templates select=".//history" mode="HTML-BODY-FOOTER"/>
                         <xsl:comment>authors fn</xsl:comment>
@@ -1265,5 +1315,7 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
                 <xsl:attribute name="src"><xsl:value-of select="$src"/></xsl:attribute> 
         </embed-->
     </xsl:template>
-    
+    <xsl:template match="mml:math|math" mode="HTML-TEXT">
+        <xsl:copy-of select="."/>
+    </xsl:template>    
 </xsl:stylesheet>
