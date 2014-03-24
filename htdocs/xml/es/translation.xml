@@ -229,7 +229,7 @@
 		<text find="editorial_board">cuerpo editorial</text>
 		<text find="instructions_to_authors">instrucciones a los autores</text>
 		<text find="subscription">subscripción</text>
-		<text find="statistics">estadísticas</text>
+		<text find="statistics">métricas</text>
 		<text find="online_submission">sumisión en línea</text>
 		<text find="press_releases">Press Releases</text>
 		<text find="numbers">Números</text>
@@ -243,6 +243,10 @@
 		<text find="scielo_instance">Toda Coleción</text>
 		<text find="enter_search_term">Introduzca una o más palabras</text>
 		<text find="journal_site">sitio de la revista</text>
+        <text find="google_scholar_metrics">Google Scholar</text>
+        <text find="google_scholar_h5_index">índice h5</text>
+        <text find="google_scholar_m5_index">mediana m5</text>
+        <text find="more_details">más detalles</text>
 	</xslid>
 	<xslid id="sci_alphabetic">
 		<text find="alphabetic_list">Lista alfabética</text>

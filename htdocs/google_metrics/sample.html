@@ -96,32 +96,42 @@
           <li><a href=
           "http://www.scielo.br/revistas/bjmbr/psubscrp.htm">assinaturas</a></li>
 
-          <li><a href=
-          "/statjournal.php?lang=pt&amp;issn=0100-879X">estat&iacute;sticas</a></li>
+
+          <li>
+            <strong>estatísticas</strong>
+            <ul>
+                <li>
+                    <a href="/statjournal.php?lang=pt&amp;issn=0100-879X">SciELO</a>
+                </li>
+                <li>
+                    <strong>
+                        <a href="http://www.scimagojr.com/journalsearch.php?q=0100879X&amp;tip=iss&amp;exact=yes&gt;" target="_blank">Scimago</a>
+                    </strong>
+                    <a href="http://www.scimagojr.com/journalsearch.php?q=0100879X&amp;tip=iss&amp;exact=yes&gt;" target="_blank">
+                        <img src="/img/scimago/0100879X.gif" alt="SCImago Journal and Country Rank" border="0" width="185">
+                    </a>
+                </li>
+                <div id="google_metrics" style="display: block; margin-top: 10px;">
+                    <li>
+                        <div style="margin-bottom: 5px">
+                            <a href="" id="h5_m5_link" target="_blank">Google Scholar</a>
+                        </div>
+                        <div>
+                            <strong>índice h5: </strong>
+                            <span id="h5_index"></span>
+                        </div>
+                        <div>
+                            <strong>mediana h5: </strong>
+                            <span id="m5_index"></span>
+                        </div>
+                        <div style="margin-top: 5px">
+                            <a href="" id="h5_m5_see_more" target="_blank">mais detalhes</a>
+                        </div>
+                    </li>
+                </div>
+            </ul>
+          </li>
         </ul>
-
-        <div class="optionsSubMenu">
-          <a href=
-          "http://www.scimagojr.com/journalsearch.php?q=0100879X&amp;tip=iss&amp;exact=yes%3E"
-          target="_blank"><img src="http://www.scielo.br/img/scimago/0100879X.gif" alt=
-          "SCImago Journal and Country Rank" border="0" /></a>
-        </div>
-
-
-        <div id="google_metrics" style="display:none">            
-            <div>
-                <strong>Google Scholar</strong>
-            </div>
-            <div>
-                Índice h5: <span id="h5_index"></span>
-            </div>
-            <div>
-                Mediana h5: <span id="m5_index"></span>
-            </div>
-            <div>
-                <a href="#" id="h5_m5_link" target="_blank">Mais detalhes</a>
-            </div>
-        </div>
 
       </div>
 
@@ -252,13 +262,14 @@
                 document.getElementById('h5_index').innerHTML = data.h5;
                 document.getElementById('m5_index').innerHTML = data.m5;
                 document.getElementById('h5_m5_link').href = data.url;
+                document.getElementById('h5_m5_see_more').href = data.url;
 
                 document.getElementById('google_metrics').style.display = 'block';
             }
         }
 
         var script = document.createElement('script');
-        script.src = "get_h5_m5.php" + '?issn=0100-879x&callback=print_h5_m5';
+        script.src = "get_h5_m5.php" + '?issn=0100-879X&callback=print_h5_m5';
         document.getElementsByTagName('head')[0].appendChild(script);
       </script>
 
