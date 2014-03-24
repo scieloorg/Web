@@ -1,0 +1,197 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"><html><head><link rel="shortcut icon" href="https://ssl.gstatic.com/docs/spreadsheets/forms/favicon_jfk2.png" type="image/x-icon">
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=10; chrome=1;">
+<meta name="fragment" content="!">
+<base target="_blank">
+<title>Form</title>
+<link rel="stylesheet" type="text/css" href="">
+
+<link href='/static/forms/client/css/2459417934-formview_ltr.css' type='text/css' rel='stylesheet'>
+
+
+
+<link href='/static/forms/client/css/4161705209-mobile_formview_ltr.css' type='text/css' rel='stylesheet' media='screen and (max-device-width: 721px)'>
+<script type="text/javascript">
+        /**
+ * @license
+ *! H5F
+ * https://github.com/ryanseddon/H5F/
+ * Copyright (c) Ryan Seddon | Licensed MIT
+ */
+
+(function(e,t){"function"==typeof define&&define.amd?define(t):e.H5F=t()})(this,function(){var e,t,a,i,n,r,s,l,u,o,c,d,v,f,p,m,h,g,b,y,w,C,N,A,E,$,k=document,x=k.createElement("input"),q=/^[a-zA-Z0-9.!#$%&'*+-\/=?\^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,M=/[a-z][\-\.+a-z]*:\/\//i,L=/^(input|select|textarea)$/i;return r=function(e,t){var a=!e.nodeType||!1,i={validClass:"valid",invalidClass:"error",requiredClass:"required",placeholderClass:"placeholder"};if("object"==typeof t)for(var r in i)t[r]===void 0&&(t[r]=i[r]);if(n=t||i,a)for(var l=0,u=e.length;u>l;l++)s(e[l]);else s(e)},s=function(a){var i,n=a.elements,r=n.length,s=!!a.attributes.novalidate;if(b(a,"invalid",u,!0),b(a,"blur",u,!0),b(a,"input",u,!0),b(a,"keyup",u,!0),b(a,"focus",u,!0),b(a,"change",u,!0),b(a,"click",o,!0),b(a,"submit",function(i){e=!0,t||s||a.checkValidity()||w(i)},!1),!v())for(a.checkValidity=function(){return c(a)};r--;)i=!!n[r].attributes.required,"fieldset"!==n[r].nodeName.toLowerCase()&&l(n[r])},l=function(e){var t=e,a=g(t),n={type:t.getAttribute("type"),pattern:t.getAttribute("pattern"),placeholder:t.getAttribute("placeholder")},r=/^(email|url)$/i,s=/^(input|keyup)$/i,l=r.test(n.type)?n.type:n.pattern?n.pattern:!1,u=f(t,l),o=m(t,"step"),v=m(t,"min"),h=m(t,"max"),b=!(""===t.validationMessage||void 0===t.validationMessage);t.checkValidity=function(){return c.call(this,t)},t.setCustomValidity=function(e){d.call(t,e)},t.validity={valueMissing:a,patternMismatch:u,rangeUnderflow:v,rangeOverflow:h,stepMismatch:o,customError:b,valid:!(a||u||o||v||h||b)},n.placeholder&&!s.test(i)&&p(t)},u=function(e){var t=C(e)||e,a=/^(input|keyup|focusin|focus|change)$/i,r=/^(submit|image|button|reset)$/i,s=/^(checkbox|radio)$/i,o=!0;!L.test(t.nodeName)||r.test(t.type)||r.test(t.nodeName)||(i=e.type,v()||l(t),t.validity.valid&&(""!==t.value||s.test(t.type))||t.value!==t.getAttribute("placeholder")&&t.validity.valid?(A(t,[n.invalidClass,n.requiredClass]),N(t,n.validClass)):a.test(i)?t.validity.valueMissing&&A(t,[n.requiredClass,n.invalidClass,n.validClass]):t.validity.valueMissing?(A(t,[n.invalidClass,n.validClass]),N(t,n.requiredClass)):t.validity.valid||(A(t,[n.validClass,n.requiredClass]),N(t,n.invalidClass)),"input"===i&&o&&(y(t.form,"keyup",u,!0),o=!1))},c=function(t){var a,i,n,r,s=!1;if("form"===t.nodeName.toLowerCase()){a=t.elements;for(var l=0,o=a.length;o>l;l++)i=a[l],n=!!i.attributes.required,r=!!i.attributes.pattern,"fieldset"!==i.nodeName.toLowerCase()&&(n||r&&n)&&(u(i),i.validity.valid||s||(e&&i.focus(),s=!0));return!s}return u(t),t.validity.valid},d=function(e){var t=this;t.validationMessage=e},o=function(e){var a=C(e);a.attributes.formnovalidate&&"submit"===a.type&&(t=!0)},v=function(){return E(x,"validity")&&E(x,"checkValidity")},f=function(e,t){if("email"===t)return!q.test(e.value);if("url"===t)return!M.test(e.value);if(t){var i=e.getAttribute("placeholder"),n=e.value;return a=RegExp("^(?:"+t+")$"),n===i?!1:""===n?!1:!a.test(e.value)}return!1},p=function(e){var t={placeholder:e.getAttribute("placeholder")},a=/^(focus|focusin|submit)$/i,r=/^(input|textarea)$/i,s=/^password$/i,l=!!("placeholder"in x);l||!r.test(e.nodeName)||s.test(e.type)||(""!==e.value||a.test(i)?e.value===t.placeholder&&a.test(i)&&(e.value="",A(e,n.placeholderClass)):(e.value=t.placeholder,b(e.form,"submit",function(){i="submit",p(e)},!0),N(e,n.placeholderClass)))},m=function(e,t){var a=parseInt(e.getAttribute("min"),10)||0,i=parseInt(e.getAttribute("max"),10)||!1,n=parseInt(e.getAttribute("step"),10)||1,r=parseInt(e.value,10),s=(r-a)%n;return g(e)||isNaN(r)?"number"===e.getAttribute("type")?!0:!1:"step"===t?e.getAttribute("step")?0!==s:!1:"min"===t?e.getAttribute("min")?a>r:!1:"max"===t?e.getAttribute("max")?r>i:!1:void 0},h=function(e){var t=!!e.attributes.required;return t?g(e):!1},g=function(e){var t=e.getAttribute("placeholder"),a=/^(checkbox|radio)$/i,i=!!e.attributes.required;return!(!i||""!==e.value&&e.value!==t&&(!a.test(e.type)||$(e)))},b=function(e,t,a,i){E(window,"addEventListener")?e.addEventListener(t,a,i):E(window,"attachEvent")&&window.event!==void 0&&("blur"===t?t="focusout":"focus"===t&&(t="focusin"),e.attachEvent("on"+t,a))},y=function(e,t,a,i){E(window,"removeEventListener")?e.removeEventListener(t,a,i):E(window,"detachEvent")&&window.event!==void 0&&e.detachEvent("on"+t,a)},w=function(e){e=e||window.event,e.stopPropagation&&e.preventDefault?(e.stopPropagation(),e.preventDefault()):(e.cancelBubble=!0,e.returnValue=!1)},C=function(e){return e=e||window.event,e.target||e.srcElement},N=function(e,t){var a;e.className?(a=RegExp("(^|\\s)"+t+"(\\s|$)"),a.test(e.className)||(e.className+=" "+t)):e.className=t},A=function(e,t){var a,i,n="object"==typeof t?t.length:1,r=n;if(e.className)if(e.className===t)e.className="";else for(;n--;)a=RegExp("(^|\\s)"+(r>1?t[n]:t)+"(\\s|$)"),i=e.className.match(a),i&&3===i.length&&(e.className=e.className.replace(a,i[1]&&i[2]?" ":""))},E=function(e,t){var a=typeof e[t],i=RegExp("^function|object$","i");return!!(i.test(a)&&e[t]||"unknown"===a)},$=function(e){for(var t=document.getElementsByName(e.name),a=0;t.length>a;a++)if(t[a].checked)return!0;return!1},{setup:r}});
+
+      </script>
+<link rel="alternate" type="text/xml+oembed" href="https://docs.google.com/forms/d/1uROy1RoJ1n1RPTvSoTT66FAT6kKD05ckgzpX2hX3dkQ/oembed?url=https://docs.google.com/forms/d/1uROy1RoJ1n1RPTvSoTT66FAT6kKD05ckgzpX2hX3dkQ/viewform&amp;format=xml">
+<meta name="viewport" content="width=device-width">
+<meta property="og:title" content="Form"><meta property="og:type" content="article"><meta property="og:site_name" content="Google Docs"><meta property="og:url" content="https://docs.google.com/forms/d/1uROy1RoJ1n1RPTvSoTT66FAT6kKD05ckgzpX2hX3dkQ/viewform"><meta property="og:image" content="https://ssl.gstatic.com/docs/forms/social/social-forms.png"><meta property="og:image:width" content="90"><meta property="og:image:height" content="90"><meta property="og:description" content="Esta encuesta es parte de un projecto de investigación entre FLACSO, PKP, RedALyC, SciELO, y Latindex. Más información se puede ver en http://flacso.org.br/oa/">
+</head>
+<body dir="ltr" class="ss-base-body jfk-scrollbar"><div itemscope itemtype="http://schema.org/CreativeWork/FormObject"><meta itemprop="name" content="Form">
+<meta itemprop="description" content="Esta encuesta es parte de un projecto de investigaci&oacute;n entre FLACSO, PKP, RedALyC, SciELO, y Latindex. M&aacute;s informaci&oacute;n se puede ver en http://flacso.org.br/oa/">
+
+<meta itemprop="url" content="https://docs.google.com/forms/d/1uROy1RoJ1n1RPTvSoTT66FAT6kKD05ckgzpX2hX3dkQ/viewform">
+<meta itemprop="embedUrl" content="https://docs.google.com/forms/d/1uROy1RoJ1n1RPTvSoTT66FAT6kKD05ckgzpX2hX3dkQ/viewform?embedded=true">
+<meta itemprop="faviconUrl" content="https://ssl.gstatic.com/docs/spreadsheets/forms/favicon_jfk2.png">
+
+
+
+
+
+<div class="ss-form-container"><div class="ss-header-image"></div>
+<div class="ss-top-of-page"><div class="ss-form-heading"><h1 class="ss-form-title" dir="ltr">Form</h1>
+<div class="ss-form-desc ss-no-ignore-whitespace">Esta encuesta es parte de un projecto de investigación entre FLACSO, PKP, RedALyC, SciELO, y Latindex. Más información se puede ver en <a href="http://www.google.com/url?q=http%3A%2F%2Fflacso.org.br%2Foa%2F&amp;sa=D&amp;sntz=1&amp;usg=AFQjCNGo3y5pdQ4fgXmA2qzhekd3iP0BEw">http://flacso.org.br/oa/</a></div>
+
+<hr class="ss-email-break" style="display:none;">
+</div></div>
+<div class="ss-form"><form action="https://docs.google.com/forms/d/1uROy1RoJ1n1RPTvSoTT66FAT6kKD05ckgzpX2hX3dkQ/formResponse" method="POST" id="ss-form" target="_self" onsubmit=""><div role="list">
+<div class="ss-form-question errorbox-good" role="listitem">
+<div dir="ltr" class="ss-item jfk-scrollbar ss-scrollable  ss-radio"><div class="ss-form-entry"><label class="ss-q-item-label" for="entry_1588822523"><div class="ss-q-title">Me interesa este artículo para:
+</div>
+<div class="ss-q-help ss-secondary-text" dir="ltr"></div></label>
+
+<ul class="ss-choices" role="radiogroup" aria-label="Me interesa este artículo para:  "><li class="ss-choice-item"><label><span class="ss-choice-item-control goog-inline-block"><input type="radio" name="entry.1433285430" value="mi trabajo en una universidad" id="group_1433285430_1" role="radio" class="ss-q-radio" aria-label="mi trabajo en una universidad"></span>
+<span class="ss-choice-label">mi trabajo en una universidad</span>
+</label></li> <li class="ss-choice-item"><label><span class="ss-choice-item-control goog-inline-block"><input type="radio" name="entry.1433285430" value="para una clase (soy estudiante)" id="group_1433285430_2" role="radio" class="ss-q-radio" aria-label="para una clase (soy estudiante)"></span>
+<span class="ss-choice-label">para una clase (soy estudiante)</span>
+</label></li> <li class="ss-choice-item"><label><span class="ss-choice-item-control goog-inline-block"><input type="radio" name="entry.1433285430" value="pr&aacute;ctica profesional (sector sin fines de lucro)" id="group_1433285430_3" role="radio" class="ss-q-radio" aria-label="pr&aacute;ctica profesional (sector sin fines de lucro)"></span>
+<span class="ss-choice-label">práctica profesional (sector sin fines de lucro)</span>
+</label></li> <li class="ss-choice-item"><label><span class="ss-choice-item-control goog-inline-block"><input type="radio" name="entry.1433285430" value="pr&aacute;ctica profesional (sector p&uacute;blico)" id="group_1433285430_4" role="radio" class="ss-q-radio" aria-label="pr&aacute;ctica profesional (sector p&uacute;blico)"></span>
+<span class="ss-choice-label">práctica profesional (sector público)</span>
+</label></li> <li class="ss-choice-item"><label><span class="ss-choice-item-control goog-inline-block"><input type="radio" name="entry.1433285430" value="pr&aacute;ctica profesional (sector privado)" id="group_1433285430_5" role="radio" class="ss-q-radio" aria-label="pr&aacute;ctica profesional (sector privado)"></span>
+<span class="ss-choice-label">práctica profesional (sector privado)</span>
+</label></li> <li class="ss-choice-item"><label><span class="ss-choice-item-control goog-inline-block"><input type="radio" name="entry.1433285430" value="inter&eacute;s personal" id="group_1433285430_6" role="radio" class="ss-q-radio" aria-label="inter&eacute;s personal"></span>
+<span class="ss-choice-label">interés personal</span>
+</label></li> <li class="ss-choice-item"><label><span class="ss-choice-item-control goog-inline-block"><input type="radio" name="entry.1433285430" value="__other_option__" id="group_1433285430_7" role="radio" class="ss-q-radio ss-q-other-toggle"></span>
+Otros:</label>
+<span class="ss-q-other-container goog-inline-block"><input type="text" name="entry.1433285430.other_option_response" value="" class="ss-q-other" id="entry_1433285430_other_option_response" dir="auto" aria-label="Otros"></span>
+</li></ul>
+<div class="error-message"></div>
+<div class="required-message">Esta pregunta es obligatoria.</div>
+</div></div></div> <div class="ss-form-question errorbox-good" role="listitem">
+<div dir="ltr" class="ss-item jfk-scrollbar ss-scrollable  ss-radio"><div class="ss-form-entry"><label class="ss-q-item-label" for="entry_743756062"><div class="ss-q-title">Estoy interesado en este artículo porque estoy investigando ...
+</div>
+<div class="ss-q-help ss-secondary-text" dir="ltr"></div></label>
+
+<ul class="ss-choices" role="radiogroup" aria-label="Estoy interesado en este artículo porque estoy investigando ...  "><li class="ss-choice-item"><label><span class="ss-choice-item-control goog-inline-block"><input type="radio" name="entry.1240186763" value="por razones acad&eacute;micas" id="group_1240186763_1" role="radio" class="ss-q-radio" aria-label="por razones acad&eacute;micas"></span>
+<span class="ss-choice-label">por razones académicas</span>
+</label></li> <li class="ss-choice-item"><label><span class="ss-choice-item-control goog-inline-block"><input type="radio" name="entry.1240186763" value="por razones profesionales" id="group_1240186763_2" role="radio" class="ss-q-radio" aria-label="por razones profesionales"></span>
+<span class="ss-choice-label">por razones profesionales</span>
+</label></li> <li class="ss-choice-item"><label><span class="ss-choice-item-control goog-inline-block"><input type="radio" name="entry.1240186763" value="por razones personales" id="group_1240186763_3" role="radio" class="ss-q-radio" aria-label="por razones personales"></span>
+<span class="ss-choice-label">por razones personales</span>
+</label></li> <li class="ss-choice-item"><label><span class="ss-choice-item-control goog-inline-block"><input type="radio" name="entry.1240186763" value="no estoy investigando" id="group_1240186763_4" role="radio" class="ss-q-radio" aria-label="no estoy investigando"></span>
+<span class="ss-choice-label">no estoy investigando</span>
+</label></li> <li class="ss-choice-item"><label><span class="ss-choice-item-control goog-inline-block"><input type="radio" name="entry.1240186763" value="__other_option__" id="group_1240186763_5" role="radio" class="ss-q-radio ss-q-other-toggle"></span>
+Otros:</label>
+<span class="ss-q-other-container goog-inline-block"><input type="text" name="entry.1240186763.other_option_response" value="" class="ss-q-other" id="entry_1240186763_other_option_response" dir="auto" aria-label="Otros"></span>
+</li></ul>
+<div class="error-message"></div>
+<div class="required-message">Esta pregunta es obligatoria.</div>
+</div></div></div> <div class="ss-form-question errorbox-good" role="listitem">
+<div dir="ltr" class="ss-item jfk-scrollbar ss-scrollable  ss-radio"><div class="ss-form-entry"><label class="ss-q-item-label" for="entry_1766139508"><div class="ss-q-title">Trabajo en:
+</div>
+<div class="ss-q-help ss-secondary-text" dir="ltr"></div></label>
+
+<ul class="ss-choices" role="radiogroup" aria-label="Trabajo en:  "><li class="ss-choice-item"><label><span class="ss-choice-item-control goog-inline-block"><input type="radio" name="entry.1821438395" value="una universidad" id="group_1821438395_1" role="radio" class="ss-q-radio" aria-label="una universidad"></span>
+<span class="ss-choice-label">una universidad</span>
+</label></li> <li class="ss-choice-item"><label><span class="ss-choice-item-control goog-inline-block"><input type="radio" name="entry.1821438395" value="soy estudiante" id="group_1821438395_2" role="radio" class="ss-q-radio" aria-label="soy estudiante"></span>
+<span class="ss-choice-label">soy estudiante</span>
+</label></li> <li class="ss-choice-item"><label><span class="ss-choice-item-control goog-inline-block"><input type="radio" name="entry.1821438395" value="el sector p&uacute;blico" id="group_1821438395_3" role="radio" class="ss-q-radio" aria-label="el sector p&uacute;blico"></span>
+<span class="ss-choice-label">el sector público</span>
+</label></li> <li class="ss-choice-item"><label><span class="ss-choice-item-control goog-inline-block"><input type="radio" name="entry.1821438395" value="el sector privado" id="group_1821438395_4" role="radio" class="ss-q-radio" aria-label="el sector privado"></span>
+<span class="ss-choice-label">el sector privado</span>
+</label></li> <li class="ss-choice-item"><label><span class="ss-choice-item-control goog-inline-block"><input type="radio" name="entry.1821438395" value="el sector sin fines de lucro" id="group_1821438395_5" role="radio" class="ss-q-radio" aria-label="el sector sin fines de lucro"></span>
+<span class="ss-choice-label">el sector sin fines de lucro</span>
+</label></li> <li class="ss-choice-item"><label><span class="ss-choice-item-control goog-inline-block"><input type="radio" name="entry.1821438395" value="no trabajo" id="group_1821438395_6" role="radio" class="ss-q-radio" aria-label="no trabajo"></span>
+<span class="ss-choice-label">no trabajo</span>
+</label></li> <li class="ss-choice-item"><label><span class="ss-choice-item-control goog-inline-block"><input type="radio" name="entry.1821438395" value="__other_option__" id="group_1821438395_7" role="radio" class="ss-q-radio ss-q-other-toggle"></span>
+Otros:</label>
+<span class="ss-q-other-container goog-inline-block"><input type="text" name="entry.1821438395.other_option_response" value="" class="ss-q-other" id="entry_1821438395_other_option_response" dir="auto" aria-label="Otros"></span>
+</li></ul>
+<div class="error-message"></div>
+<div class="required-message">Esta pregunta es obligatoria.</div>
+</div></div></div> <div class="ss-form-question errorbox-good" role="listitem">
+<div dir="ltr" class="ss-item jfk-scrollbar ss-scrollable  ss-checkbox"><div class="ss-form-entry"><label class="ss-q-item-label" for="entry_1308540084"><div class="ss-q-title">¿Suele compartir artículos científicos en las redes sociales? (puede seleccionar más de una)
+</div>
+<div class="ss-q-help ss-secondary-text" dir="ltr"></div></label>
+
+<ul class="ss-choices" role="group" aria-label="¿Suele compartir artículos científicos en las redes sociales? (puede seleccionar más de una)  "><li class="ss-choice-item"><label><span class="ss-choice-item-control goog-inline-block"><input type="checkbox" name="entry.1122481392" value="NO: nunca o casi nunca lo hago" id="group_1122481392_1" role="checkbox" class="ss-q-checkbox"></span>
+<span class="ss-choice-label">NO: nunca o casi nunca lo hago</span>
+</label></li> <li class="ss-choice-item"><label><span class="ss-choice-item-control goog-inline-block"><input type="checkbox" name="entry.1122481392" value="S&iacute;: en Facebook" id="group_1122481392_2" role="checkbox" class="ss-q-checkbox"></span>
+<span class="ss-choice-label">Sí: en Facebook</span>
+</label></li> <li class="ss-choice-item"><label><span class="ss-choice-item-control goog-inline-block"><input type="checkbox" name="entry.1122481392" value="S&iacute;: en Twitter" id="group_1122481392_3" role="checkbox" class="ss-q-checkbox"></span>
+<span class="ss-choice-label">Sí: en Twitter</span>
+</label></li> <li class="ss-choice-item"><label><span class="ss-choice-item-control goog-inline-block"><input type="checkbox" name="entry.1122481392" value="S&iacute;: en Mendeley" id="group_1122481392_4" role="checkbox" class="ss-q-checkbox"></span>
+<span class="ss-choice-label">Sí: en Mendeley</span>
+</label></li> <li class="ss-choice-item"><label><span class="ss-choice-item-control goog-inline-block"><input type="checkbox" name="entry.1122481392" value="S&iacute;: en blogs" id="group_1122481392_5" role="checkbox" class="ss-q-checkbox"></span>
+<span class="ss-choice-label">Sí: en blogs</span>
+</label></li> <li class="ss-choice-item"><label><span class="ss-choice-item-control goog-inline-block"><input type="checkbox" name="entry.1122481392" value="S&iacute;: en otras redes" id="group_1122481392_6" role="checkbox" class="ss-q-checkbox"></span>
+<span class="ss-choice-label">Sí: en otras redes</span>
+</label></li> <li class="ss-choice-item"><label><span class="ss-choice-item-control goog-inline-block"><input type="checkbox" name="entry.1122481392" value="__other_option__" id="group_1122481392_7" role="checkbox" class="ss-q-checkbox ss-q-other-toggle"></span>
+Otros:</label>
+<span class="ss-q-other-container goog-inline-block"><input type="text" name="entry.1122481392.other_option_response" value="" class="ss-q-other" id="entry_1122481392_other_option_response" dir="auto" aria-label="Otros"></span>
+</li></ul>
+<div class="error-message"></div>
+<div class="required-message">Esta pregunta es obligatoria.</div>
+</div></div></div> <div class="ss-form-question errorbox-good" role="listitem">
+<div dir="ltr" class="ss-item jfk-scrollbar ss-scrollable  ss-text"><div class="ss-form-entry"><label class="ss-q-item-label" for="entry_427127675"><div class="ss-q-title">¿Le interesaría ayudarnos en nuestra investigación? ¿Cual es su correo?
+</div>
+<div class="ss-q-help ss-secondary-text" dir="ltr"></div></label>
+<input type="text" name="entry.427127675" value="" class="ss-q-short" id="entry_427127675" dir="auto" aria-label="¿Le interesaría ayudarnos en nuestra investigación? ¿Cual es su correo?  " title="">
+<div class="error-message"></div>
+<div class="required-message">Esta pregunta es obligatoria.</div>
+
+</div></div></div> <div class="ss-form-question errorbox-good" role="listitem">
+<div dir="ltr" class="ss-item jfk-scrollbar ss-scrollable  ss-text"><div class="ss-form-entry"><label class="ss-q-item-label" for="entry_1119711452"><div class="ss-q-title">URL
+</div>
+<div class="ss-q-help ss-secondary-text" dir="ltr"></div></label>
+<input type="text" name="entry.1119711452" value="" class="ss-q-short" id="entry_1119711452" dir="auto" aria-label="URL  " title="">
+<div class="error-message"></div>
+<div class="required-message">Esta pregunta es obligatoria.</div>
+
+</div></div></div> <div class="ss-form-question errorbox-good" role="listitem">
+<div dir="ltr" class="ss-item jfk-scrollbar ss-scrollable  ss-text"><div class="ss-form-entry"><label class="ss-q-item-label" for="entry_1516328499"><div class="ss-q-title">visitorID
+</div>
+<div class="ss-q-help ss-secondary-text" dir="ltr"></div></label>
+<input type="text" name="entry.1516328499" value="" class="ss-q-short" id="entry_1516328499" dir="auto" aria-label="visitorID  " title="">
+<div class="error-message"></div>
+<div class="required-message">Esta pregunta es obligatoria.</div>
+
+</div></div></div> <div class="ss-form-question errorbox-good" role="listitem">
+<div dir="ltr" class="ss-item jfk-scrollbar ss-scrollable  ss-text"><div class="ss-form-entry"><label class="ss-q-item-label" for="entry_1828203823"><div class="ss-q-title">userIP
+</div>
+<div class="ss-q-help ss-secondary-text" dir="ltr"></div></label>
+<input type="text" name="entry.1828203823" value="" class="ss-q-short" id="entry_1828203823" dir="auto" aria-label="userIP  " title="">
+<div class="error-message"></div>
+<div class="required-message">Esta pregunta es obligatoria.</div>
+
+</div></div></div>
+<input type="hidden" name="draftResponse" value="[,,&quot;7908231617554565605&quot;]
+">
+<input type="hidden" name="pageHistory" value="0">
+<input type="hidden" name="fromEmail" value="false">
+
+<input type="hidden" name="fbzx" value="7908231617554565605">
+
+<div class="ss-item ss-navigate"><table id="navigation-table"><tbody><tr><td class="ss-form-entry goog-inline-block" id="navigation-buttons" dir="ltr">
+<input type="submit" name="submit" value="Enviar" id="ss-submit">
+<div class="ss-password-warning ss-secondary-text">Nunca envíes contraseñas a través de Formularios de Google.</div></td>
+</tr></tbody></table></div></div></form></div>
+<div class="ss-footer"><div class="ss-attribution"></div>
+<div class="ss-legal"><div class="disclaimer-separator"></div>
+<div class="disclaimer" dir="ltr"><div class="powered-by-logo"><span class="powered-by-text">Con la tecnología de</span>
+<a class="ss-logo-link" href="http://drive.google.com"><img class="ss-logo" src="https://ssl.gstatic.com/docs/forms/drive_logo_small.png" alt="Google Drive"></a></div>
+<div class="ss-terms"><span class="disclaimer-msg">Este formulario se creó en el dominio Alperin.ca.</span>
+<br>
+<a href="https://docs.google.com/forms/d/1uROy1RoJ1n1RPTvSoTT66FAT6kKD05ckgzpX2hX3dkQ/reportabuse?source=https://docs.google.com/forms/d/1uROy1RoJ1n1RPTvSoTT66FAT6kKD05ckgzpX2hX3dkQ/viewform">Denunciar abuso</a>
+-
+<a href="http://www.google.com/accounts/TOS">Condiciones del servicio</a>
+-
+<a href="http://www.google.com/google-d-s/terms.html">Condiciones adicionales</a></div></div></div></div>
+
+<div id="docs-aria-speakable" class="docs-a11y-ariascreenreader-speakable docs-offscreen" aria-live="assertive" role="region" aria-atomic></div></div>
+
+
+<script type='text/javascript' src='/static/forms/client/js/2954117620-formviewer_prd__es_419.js'></script>
+<script type="text/javascript">H5F.setup(document.getElementById('ss-form'));_initFormViewer(
+          "[100,,[]\n]\n");
+      </script></div></body></html>
