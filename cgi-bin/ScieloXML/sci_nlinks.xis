@@ -43,6 +43,12 @@ IsisScript que gera o XML Para a tela de links da referencia bibliografica
 	<call name="CreateControlInfoXML"><pft>'^l',v3000,'^s',v3001,'^fsci_nlinks'</pft></call>
 
     <field action="replace" tag="5012"><pft>ref(['ARTIGO']l(['ARTIGO'],'R='v5000),@PROC_SPLIT_MST.PFT,v12^*,| |v18^*)</pft></field>
+    <field action="replace" tag="5013" split="occ"><pft>ref(['ARTIGO']l(['ARTIGO'],'R='v5000),(@PROC_SPLIT_MST.PFT,v10^s| |v10^n,v16^s| |v16^n/))</pft></field>
+    <field action="replace" tag="5014" split="occ"><pft>ref(['ARTIGO']l(['ARTIGO'],'R='v5000),@PROC_SPLIT_MST.PFT,v65.4)</pft></field>
+    <field action="replace" tag="5015" split="occ"><pft>ref(['ARTIGO']l(['ARTIGO'],'R='v5000),@PROC_SPLIT_MST.PFT,v30)</pft></field>
+    <field action="replace" tag="5016" split="occ"><pft>ref(['ARTIGO']l(['ARTIGO'],'R='v5000),@PROC_SPLIT_MST.PFT,v31)</pft></field>
+    <field action="replace" tag="5017" split="occ"><pft>ref(['ARTIGO']l(['ARTIGO'],'R='v5000),@PROC_SPLIT_MST.PFT,v32)</pft></field>
+    <field action="replace" tag="5018" split="occ"><pft>ref(['ARTIGO']l(['ARTIGO'],'R='v5000),@PROC_SPLIT_MST.PFT,v14)</pft></field>
     <field action="replace" tag="5002"><pft>replace(replace(ref(['ARTIGO']l(['ARTIGO'],'R='v5000),@PROC_SPLIT_MST.PFT,v704^*[1]),'<mixed-citation>',''),'</mixed-citation>','')</pft></field>
 
 
@@ -68,9 +74,15 @@ IsisScript que gera o XML Para a tela de links da referencia bibliografica
      -->
     <call name="getReferenceText"><pft>if a(v5002) then '^p'v5000*0.23,'^m',v5001 fi</pft></call>
 
-	<display><pft>'<REFERENCE>',#</pft></display>
+    <display><pft>'<REFERENCE>',#</pft></display>
     <display><pft>'  <TEXT><![CDATA[',v5002,']]></TEXT>',#</pft></display>
-	<display><pft>'  <TITLE><![CDATA[',v5012,']]></TITLE>',#</pft></display>
+	<display><pft>'  <TITLE><![CDATA[',v5012,']]></TITLE>',#</pft></display>    
+    <display><pft>(' <AUTHOR><![CDATA[',v5013,']]></AUTHOR>',#)</pft></display>
+    <display><pft>'  <PUBLICATION_YEAR><![CDATA[',v5014,']]></PUBLICATION_YEAR>',#</pft></display>    
+    <display><pft>|  <JOURNAL><![CDATA[|v5015|]]></JOURNAL>|,#</pft></display>    
+    <display><pft>|  <VOLUME><![CDATA[|v5016|]]></VOLUME>|,#</pft></display>    
+    <display><pft>|  <ISSUE><![CDATA[|v5017|]]></ISSUE>|,#</pft></display>    
+    <display><pft>|  <PAGES><![CDATA[|v5018|]]></PAGES>|,#</pft></display>    
 	<display><pft>'</REFERENCE>'/#</pft></display>
 
     <do task="search">
@@ -219,7 +231,16 @@ IsisScript que gera o XML Para a tela de links da referencia bibliografica
         fi
         '<group id="tryLink">',#
         '   <link>',#
-        '     <url><![CDATA[http://scholar.google.com.br/scholar?q=',v5012,']]></url>',#
+        '     <url><![CDATA[http://scholar.google.com/scholar_lookup?title=',
+                replace(v5012,' ','+'),
+                if p(v5013) then ('&author='replace(v5013,' ','+')), fi,
+                "&publication_year="v5014,
+                if p(v5015) then '&journal=',replace(v5015,' ','+'), fi,
+                "&volume="v5016,
+                "&issue="v5017,
+                "&pages="v5018,
+            ']]></url>',#
+
         '     <label>Google</label>',#
         '     <log>similares_em_google</log>',#
         '     <target>trygoogle',v5000,'</target>',#
