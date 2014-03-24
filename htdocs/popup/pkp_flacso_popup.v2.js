@@ -10,7 +10,7 @@ function pkp_flacso_popup(options) {
 		DELAY_BEFORE_SHOWING = 10,
 		NUM_QUESTIONS_AVAILABLE = 4;
 
-    var formID, userID;
+    var formID, userIP;
 
     var q_number, q_text, q_inputs; // The inputs for the actual poll question
     var q_IP, q_URL, q_visitorID, q_email; // input ID's for user's IP, Location, and VisitID
@@ -114,15 +114,15 @@ function pkp_flacso_popup(options) {
            }
 
            // now that we have the questions, load the rest of the poll
-	   if (options.get_ip_path) {
+		   if (options.get_ip_path) {
 			   $.get(options.get_ip_path, function(ip) {
- 			   userIP = ip;
- 		   loadPoll()
- 	   })
- 	 } else {
- 		userIP = $('#userIP').text();
-  	loadPoll();
- 	}
+				   userIP = ip;
+				   loadPoll()
+			   })
+		   } else {
+				userIP = $('#userIP').text();
+            	loadPoll();
+			}
         });
 	});
 
