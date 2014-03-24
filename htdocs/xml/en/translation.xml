@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <translations>
     <xslid id="sci_artmonthyearstat">
         <text find="journal_articles_requests_by_month_and_year">Journal articles requests by month and year</text>
@@ -196,32 +196,36 @@
     </xslid>
 	<xslid id="sci_serial">
 		<text find="home_page">Home Page</text>
-        <text find="portuguese">Português</text>
-        <text find="spanish">Español</text>
-        <text find="english">English</text>
-        <text find="indicators_scimago">SCImago Indicators</text>
-        <text find="scimago_journal_country_rank">SCImago Journal and Country Rank</text>
-        <text find="mission">Mission</text>
-        <text find="publication_of">Publication of</text>
-        <text find="updated_on">Updated on</text>
-        <text find="about_the_journal">about the journal</text>
-        <text find="editorial_board">editorial board</text>
-        <text find="instructions_to_authors">instructions to authors</text>
-        <text find="subscription">subscription</text>
-        <text find="statistics">statistics</text>
-        <text find="online_submission">online submission</text>
-        <text find="press_releases">Press Releases</text>
-        <text find="numbers">Issues</text>
-        <text find="articles">Articles</text>
-        <text find="search">Search</text>
-        <text find="all_indexes">All indexes</text>
+		<text find="portuguese">Português</text>
+		<text find="spanish">Español</text>
+		<text find="english">English</text>
+		<text find="indicators_scimago">SCImago Indicators</text>
+		<text find="scimago_journal_country_rank">SCImago Journal and Country Rank</text>
+		<text find="mission">Mission</text>
+		<text find="publication_of">Publication of</text>
+		<text find="updated_on">Updated on</text>
+		<text find="about_the_journal">about the journal</text>
+		<text find="editorial_board">editorial board</text>
+		<text find="instructions_to_authors">instructions to authors</text>
+		<text find="subscription">subscription</text>
+		<text find="statistics">metrics</text>
+		<text find="online_submission">online submission</text>
+		<text find="press_releases">Press Releases</text>
+		<text find="numbers">Issues</text>
+		<text find="articles">Articles</text>
+		<text find="search">Search</text>
+		<text find="all_indexes">All indexes</text>
 		<text find="title">Title</text>
 		<text find="author">Author</text>
 		<text find="subject">Subject</text>
 		<text find="this_journal">This Journal</text>
 		<text find="scielo_instance">All Collection</text>
 		<text find="enter_search_term">Enter one or more words</text>
-		<text find="journal_site">journal's site</text>
+        <text find="journal_site">journal's site</text>
+        <text find="google_scholar_metrics">Google Scholar</text>
+        <text find="google_scholar_h5_index">h5 index</text>
+        <text find="google_scholar_m5_index">h5 median</text>
+        <text find="more_details">more details</text>
 	</xslid>
 	<xslid id="sci_alphabetic">
 		<text find="alphabetic_list">Alphabetic list</text>
