@@ -142,18 +142,6 @@
 			<xsl:when test="$version='xml-file'">
 				<script language="javascript" src="applications/scielo-org/js/jquery-1.4.2.min.js"/>
 				<script language="javascript" src="applications/scielo-org/js/toolbox.js"/>
-				<!--http://www.dynamicdrive.com/dynamicindex5/stickytooltip.htm-->
-				<script type="text/javascript" src="xsl/pmc/v3.0/js/jquery.min.js"/>
-				<script type="text/javascript" src="xsl/pmc/v3.0/js/stickytooltip.js">
-					<!-- 
-				     ***********************************************
-					* Sticky Tooltip script- (c) Dynamic Drive DHTML code library (www.dynamicdrive.com)
-					* This notice MUST stay intact for legal use
-					* Visit Dynamic Drive at http://www.dynamicdrive.com/ for this script and 100s more
-					***********************************************/
-					-->
-				</script>
-				<script type="text/javascript" src="js/executartooltip.js"/>
 			</xsl:when>
 			<xsl:otherwise>
 				<script language="javascript" src="applications/scielo-org/js/httpAjaxHandler.js"/>
