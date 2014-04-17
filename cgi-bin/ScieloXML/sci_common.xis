@@ -1537,7 +1537,7 @@
 			'  <SUBTITLE>',v1000^i,v9001,v1000^f,'</SUBTITLE>'/#
 		</pft>
 	</display>
-	<display><pft>if v8000='XML' then ,proc('a7777{',v12^l[1],'{'), (if v7777[1]<>v12^l then ,'  <trans-title xml:lang="',v12^l,'"><![CDATA['v12^*']]></trans-title>'/ fi) fi</pft></display>
+	<display><pft>if v8000='XML' then ,proc('a7777{',v12^l[1],'{'), (if v7777[1]<>v12^l then ,'  <trans-title xml:lang="',v12^l,'">'v12^*'</trans-title>'/ fi) fi</pft></display>
 	
 </function>
 
