@@ -22,7 +22,7 @@
                     <xsl:if test="$n!=''">n<xsl:value-of select="$n"/></xsl:if>s<xsl:value-of
                         select="$s"/><xsl:if test="$s=''">0</xsl:if>
                 </xsl:when>
-                <xsl:otherwise>n<xsl:value-of select="issue"/></xsl:otherwise>
+                <xsl:otherwise>n<xsl:value-of select="string(number(issue))"/></xsl:otherwise>
             </xsl:choose>
 
         </xsl:if>
