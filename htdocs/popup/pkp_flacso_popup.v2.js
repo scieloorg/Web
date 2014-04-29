@@ -115,7 +115,7 @@ function pkp_flacso_popup(options) {
 
            // now that we have the questions, load the rest of the poll
 		   if (options.get_ip_path) {
-			   $.get(options.get_ip_path, function(ip) {
+			   $.get(options.get_ip_path, {}, function(ip) {
 				   userIP = ip;
 				   loadPoll()
 			   })
@@ -154,7 +154,7 @@ function pkp_flacso_popup(options) {
 
 		var userIP = $('#userIP').text();
 
-		if ((!cookie_exists(pollIDprefix) && Math.floor(Math.random() * PROBABILITY_SHOWING) == 0) || (cookie_exists(pollIDprefix) && !cookie_exists(pollID))) {
+		if ((!cookie_exists(pollID) && Math.floor(Math.random() * PROBABILITY_SHOWING) == 0) || (cookie_exists(pollIDprefix) && !cookie_exists(pollID))) {
 			// set the cookie specific to this question
 			document.cookie = pollID + '=1';
 
