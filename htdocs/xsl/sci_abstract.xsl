@@ -59,7 +59,6 @@
 				<link rel="stylesheet" type="text/css" href="/xsl/pmc/v3.0/xml.css"/>
 				<script language="javascript" src="applications/scielo-org/js/jquery-1.4.2.min.js"/>
 				<script language="javascript" src="applications/scielo-org/js/toolbox.js"/>
-				<script language="javascript" src="article.js"/>
 			</head>
 			<body>
 				<div class="container">

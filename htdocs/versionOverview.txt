@@ -1,3 +1,23 @@
+v5.34 (em desenvolvimento)
+Inclusão de indicadores bibliometricos do Google Scholar (#86)
+Apresentação de MathML na página do artigo e na página nova (#119)
+Reinclusão do article.js na página sci_issuetoc (#125)
+Correção de apresentação de artigos sem seção em sites que adotam scielo manager (#120)
+Apresentação de MathML na página do artigo e na página nova usando MathJax (#121)
+Ajuste na apresentação de carta com resposta (multilingue) (#133)
+
+v5.33
+[web]
+Na caixa de serviços do artigo, trazer o item indicadores expandido (#64)
+Apresentação de Link para PDF de material suplementar não disponivel no site SciELO (#66) 
+Inclusão de outros item na caixa de serviço: Mendley, ReadCube, etc (#79)
+Ajuste na apresentação de afiliações (#84, #91, #92)
+Troca de texto "Admitido" (#88)
+Apresentação de material suplementar que tem formato de vídeo (#104)
+Ajuste na apresentação da tabela de fascículos, caso que ahead of print aparece no ano 2013, no lugar de 2014. (#107)
+Redirecionamento do link para PDF/Chrome (#95)
+Correção de bug de abertura de PDF no Chrome
+
 v5.32
 [web]
 Corrigindo apresentação do badge do Altmetrics na página do artigo.
