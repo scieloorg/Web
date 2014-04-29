@@ -644,7 +644,7 @@
                 })();
             </script>
         </xsl:if>
-        <xsl:if test="//show_flacso_survey == '1'">
+        <xsl:if test="//show_flacso_survey = '1'">
             <script type="text/javascript">
             $(document).ready(function() {
                 var lng;
