@@ -47,7 +47,6 @@
 				<meta http-equiv="Pragma" content="no-cache"/>
 				<meta http-equiv="Expires" content="Mon, 06 Jan 1990 00:00:01 GMT"/>
 				<link rel="STYLESHEET" type="text/css" href="/css/screen2.css"/>
-				<script language="javascript" src="article.js"/>
 			</head>
 			<body>
 				<div class="container">
@@ -116,6 +115,22 @@
 				<xsl:comment>fim-MY-REFERENCE</xsl:comment>
 			</xsl:if>
 		</li>
+	</xsl:template>
+	<xsl:template match="standard[@id='apa']">
+		<li>
+			<h5>
+				<xsl:apply-templates select="label[@lang=$LANG]"/>
+			</h5>
+			<xsl:if test="../PRESENTS-ONLY-REF">
+				<xsl:comment>inicio-MY-REFERENCE</xsl:comment>
+			</xsl:if>
+			<xsl:value-of select="$data/APA" disable-output-escaping="yes"/>
+		 <xsl:apply-templates select="$data//@DOI"/>.
+		 <xsl:if test="../PRESENTS-ONLY-REF">
+				<xsl:comment>fim-MY-REFERENCE</xsl:comment>
+			</xsl:if>
+		</li>
+		
 	</xsl:template>
 	<!--xsl:template match="*" mode="print-ref">
 		<xsl:param name="NORM"/>

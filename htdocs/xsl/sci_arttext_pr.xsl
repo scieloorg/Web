@@ -1,25 +1,16 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:mml="http://www.w3.org/1998/Math/MathML">
 	<!--xsl:output method="xml" version="1.0" encoding="ISO-8859-1" indent="yes"/-->
-	<xsl:output method="html" omit-xml-declaration="yes" indent="no" doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
-	<xsl:include href="scielo_pmc_main.xsl"/>
-	<xsl:include href="sci_navegation.xsl"/>
-	<xsl:include href="sci_toolbox.xsl"/>
-	<xsl:variable name="LANGUAGE" select="//LANGUAGE"/>
-	<xsl:variable name="SCIELO_REGIONAL_DOMAIN" select="//SCIELO_REGIONAL_DOMAIN"/>
-	<xsl:variable name="show_toolbox" select="//toolbox"/>
-	<xsl:template match="fulltext-service-list"/>
-	<xsl:variable name="display">
-		<xsl:if test=".//ARTICLE/@is='pr'">no</xsl:if>
-	</xsl:variable>
+	<xsl:include href="sci_arttext.xsl"/>
+	<xsl:output method="html" omit-xml-declaration="yes" indent="yes" doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+	
+	<xsl:variable name="display">no</xsl:variable>
+	
 	<xsl:template match="/">
-		<xsl:apply-templates select="//SERIAL"/>
+		<xsl:apply-templates select=".//SERIAL[1]" mode="merged"/>
 	</xsl:template>
-
-	<xsl:template match="SERIAL">
-		<xsl:if test=".//mml:math">
-			<xsl:processing-instruction name="xml-stylesheet"> type="text/xsl" href="/xsl/mathml.xsl"</xsl:processing-instruction>
-		</xsl:if>
+	
+	<xsl:template match="SERIAL" mode="merged">
 		<html xmlns="http://www.w3.org/1999/xhtml">
 			<head>
 				<title>
@@ -30,9 +21,7 @@
 				<meta Content-math-Type="text/mathml"/>
 				<!--link rel="stylesheet" type="text/css" href="/css/screen.css"/>
 				<xsl:apply-templates select="." mode="css"/-->
-				<link rel="stylesheet" href="/applications/scielo-org/css/public/style-en.css" type="text/css" media="screen"/>
-				<script language="javascript" src="applications/scielo-org/js/httpAjaxHandler.js"/>
-				<script language="javascript" src="article.js"/>
+				<xsl:apply-templates select="." mode="version-css"/>
 			</head>
 			<body>
 				<div class="container">
@@ -80,7 +69,7 @@
 													<xsl:apply-templates select="ISSUE/ARTICLE/related[@type='art' or @type='issue']" mode="link"/>
 												</div>
 												<h4 id="doi">
-													<xsl:apply-templates select="ISSUE/ARTICLE/@DOI"/>&#160;
+													<xsl:apply-templates select="ISSUE/ARTICLE/@DOI" mode="display"/>&#160;
 						</h4>
 												<div class="index,{ISSUE/ARTICLE/@TEXTLANG}">
 													<xsl:apply-templates select="ISSUE/ARTICLE/BODY"/>
@@ -93,6 +82,9 @@
 														<xsl:with-param name="lang" select="$interfaceLang"/>
 													</xsl:apply-templates>
 												</xsl:if>
+												<xsl:if test="$xml_article!=''">
+													<xsl:apply-templates select="document($xml_article)" mode="text-content"/>
+												</xsl:if>
 												<div align="left"/>
 												<div class="spacer">&#160;</div>
 											</TD>
@@ -103,25 +95,11 @@
 						</div>
 					</div>
 				</div>
+				
+				<xsl:apply-templates select="." mode="version-js"/>
+				
 			</body>
 		</html>
-	</xsl:template>
-	<xsl:template match="BODY">
-		<xsl:apply-templates select="*|text()" mode="body-content"/>
-	</xsl:template>
-	<xsl:template match="*|text()" mode="body-content">
-		<xsl:value-of select="." disable-output-escaping="yes"/>
-	</xsl:template>
-	<xsl:template match="STRIP">
-		<xsl:call-template name="SHOWSTRIP">
-			<xsl:with-param name="SHORTTITLE" select="SHORTTITLE"/>
-			<xsl:with-param name="VOL" select="VOL"/>
-			<xsl:with-param name="NUM" select="NUM"/>
-			<xsl:with-param name="SUPPL" select="SUPPL"/>
-			<xsl:with-param name="CITY" select="CITY"/>
-			<xsl:with-param name="MONTH" select="MONTH"/>
-			<xsl:with-param name="YEAR" select="YEAR"/>
-		</xsl:call-template>
 	</xsl:template>
 	<xsl:template match="ARTICLE" mode="subtitle">
 		<xsl:call-template name="PrintAbstractHeaderInformation">
@@ -130,5 +108,44 @@
 			<xsl:with-param name="LANG" select="$LANGUAGE"/>
 			<xsl:with-param name="AUTHLINK">0</xsl:with-param>
 		</xsl:call-template>
+	</xsl:template>
+	
+	<xsl:template match="SERIAL" mode="version-css">
+		<xsl:choose>
+			<xsl:when test="$version='xml-file' or $version= 'xml'">
+				<link rel="stylesheet" href="/applications/scielo-org/css/public/style-en.css" type="text/css" media="screen"/>				
+				<link rel="stylesheet" type="text/css" href="/css/screen.css"/>
+				<link rel="stylesheet" type="text/css" href="/xsl/pmc/v3.0/xml.css"/>
+				<style>
+					#toolBox {border:0}
+					HTML>BODY H3 {
+					font-size: 100%
+					}
+				</style>
+				<!--link rel="stylesheet" type="text/css" href="/xsl/pmc/v3.0/css/jpub-preview.css" /-->
+			</xsl:when>
+			<!--xsl:when test="$version='xml'">
+            	<link rel="stylesheet" type="text/css" href="/css/screen.css"/>
+                <link xmlns="" rel="stylesheet" type="text/css" href="/css/pmc/ViewNLM.css"/>
+                <link xmlns="" rel="stylesheet" type="text/css" href="/css/pmc/ViewScielo.css"/>
+                
+            </xsl:when-->
+			<xsl:otherwise>
+				<link rel="stylesheet" href="/applications/scielo-org/css/public/style-en.css" type="text/css" media="screen"/>				
+			
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+	
+	<xsl:template match="SERIAL" mode="version-js">
+		<xsl:choose>
+			<xsl:when test="$version='xml-file'">
+				<script language="javascript" src="applications/scielo-org/js/jquery-1.4.2.min.js"/>
+				<script language="javascript" src="applications/scielo-org/js/toolbox.js"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<script language="javascript" src="applications/scielo-org/js/httpAjaxHandler.js"/>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 </xsl:stylesheet>

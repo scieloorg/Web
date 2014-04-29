@@ -70,6 +70,7 @@ SERVER_LOG_PROC=scielo-log.scielo.br/scielolog/
 SERVER_LOG_PROC_PATH=scielolog
 SCRIPT_LOG_NAME=scielolog/updateLog02.php
 SCRIPT_LOG_RUN=scielo-log.bireme.br/scielolog/scielolog03B2.php
+PINGDOM_CODE=
 ACTIVATE_GOOGLE=1
 GOOGLE_CODE=
 PATH_LOG_CACHE=/home/scielo/www/bases/pages/sci_stat/
@@ -119,6 +120,7 @@ show_home_scielo_team=1
 show_home_scielo_signature=1
 
 [services]
+journal_manager=1
 sci_artlangs="http://trigramas.bireme.br/cgi-bin/wxis.exe/?IsisScript=ScieloXML/sci_artlangs.xis&def=scielo.def&pid=PARAM_PID"
 show_toolbox=1
 show_datasus=0
@@ -130,10 +132,8 @@ show_cited_scielo=1
 show_cited_google=0
 show_similar_in_scielo=1
 show_similar_in_google=0
-show_semantic_hl=1
 google_last_process=20070201
 show_article_references=1
-show_comments=0
 show_scimago=0
 show_article_wltranslation=1
 show_fapesp_projects=0
@@ -141,6 +141,10 @@ show_press_releases=0
 show_clinical_trials=0
 show_ref_links=1
 show_meta_citation_reference=1
+show_ubio=1
+show_new_article_link=0
+show_altmetrics=0
+show_readcube=0
 
 [services_group]
 show_group_article = 1
@@ -160,6 +164,7 @@ related_service="http://trigramas.bireme.br/cgi-bin/mx/cgi=@scielo/related?pid=P
 send_mail="http://vm.scielo.br/applications/scielo-org/pages/services/sendMail.php?pid=PARAM_PID&caller=PARAM_SERVER"
 windows_live_translator="http://www.windowslivetranslator.com"
 semantic_highlights="http://conceptweblinker.wikiprofessional.org/wikibutton.js?id=BS"
+ubio="http://www.ubio.org/tools/linkit.php?url="
 
 [mimetex]
 mimetex=/cgi-bin/mimetex.cgi
@@ -185,20 +190,12 @@ LOG_XML_ERROR_FILENAME=/home/scielo/www/logs/xml_error_log.txt
 ENABLE_DIVULGACAO=0
 
 [PRESENTATION]
+LICENSE=cc
+show_issues_sorted_by_pubdate=0
 BEFOREPRINT_ISSUES=splited
 BEFOREPRINT_ISSUETOC=splited
 xBEFOREPRINT_ISSUES=together
 xBEFOREPRINT_ISSUETOC=together
 NO_SCI_SERIAL=no
 
-[DATABASES]
-DB_WORDPRESS=
-DB_SCIELO=
-DB_BLOG=
-DB_USER_SCIELO=
-DB_USER_BLOG=
-DB_USER_SCIELO_PASSWORD=
-DB_USER_BLOG_PASSWORD=
-DB_HOST_BLOG =
-DB_HOST_SCIELO =
 ; */ ?>

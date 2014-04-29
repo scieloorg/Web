@@ -8,6 +8,8 @@ var rateResult = "";
     $('.box').hide();
     //Article show 
     $('.box:eq(0)').show();
+    //Indicators show 
+    $('.box:eq(1)').show();
     //Bookmark show 
     $('.box:last').show();
 
@@ -46,6 +48,14 @@ var rateResult = "";
       $(this).next(".box").slideToggle(500);
 
       });
+      $('#permalink').click(function(){
+        $('#permalink_box').toggle();
+	if($('#permalink_box').css('display') != 'none'){
+	    $.getJSON('http://ref.scielo.org/api/v1/shorten?url=' + escape(document.URL) + '&callback=?',function(data){
+      	        $('#short-url').val(data);
+            }); 
+        }
+      });
   });
 
 function httpInit()
@@ -78,11 +88,11 @@ function httpInit()
 
 
 /**
- * Pega todas as informações possíveis sobre o visitante, alem de incrementar
- * o log de acesso de serviços
+ * Pega todas as informaï¿½ï¿½es possï¿½veis sobre o visitante, alem de incrementar
+ * o log de acesso de serviï¿½os
  *
  * @author Deivid Martins
- * @param serviceName String nome do serviço acessado
+ * @param serviceName String nome do serviï¿½o acessado
  *
  */
 function callUpdateArticleLog( serviceName ) /* modified by Gustavo Fonseca (gustavo.fonseca@bireme.org) */

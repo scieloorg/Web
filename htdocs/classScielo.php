@@ -143,6 +143,7 @@ class Scielo extends ScieloBase
             $xmlScieloOrg = '';
             if (strpos($this->_IsisScriptUrl, 'script=sci_verify')==false){
                     $elements = array(
+                            "PINGDOM_CODE"=>"PINGDOM_CODE",
                             //adicionando o dominio do Site Regional...
                             "SCIELO_REGIONAL_DOMAIN"=> "SCIELO_REGIONAL_DOMAIN",
                             //exibir o toolbox ?
@@ -157,6 +158,10 @@ class Scielo extends ScieloBase
                             "logoutURL" => "logout_url",
                             //Exibe ou n�o a op��o de Login
                             "show_login" => "show_login",
+                            //Exibe o gráfico do altmetrics caso o artigo possua um DOI
+                            "show_altmetrics" => "show_altmetrics",
+                            //Exibe o gráfico do altmetrics caso o artigo possua um DOI
+                            "show_readcube" => "show_readcube",
                             //Exibe a servico de tradu��o windows live translations
                             "show_article_wltranslation" => "show_article_wltranslation",
                             //Exibe ou n�o a op��o de Envio de Artigo por email
@@ -196,12 +201,18 @@ class Scielo extends ScieloBase
                             "show_group_related_links" => "show_group_related_links",
                             "show_group_services" => "show_group_services",
                             "show_group_bookmark" => "show_group_bookmark",
-                            "show_meta_citation_reference" => "show_meta_citation_reference"
+                            "show_meta_citation_reference" => "show_meta_citation_reference",
+                            "show_ubio" => "show_ubio",
+                            "journal_manager" => "journal_manager",
+                            "show_new_article_link" => "show_new_article_link",
+                            "show_issues_sorted_by_pubdate" => "show_issues_sorted_by_pubdate",
+                            "show_flacso_survey" => "show_flacso_survey"
                     );
 
                     foreach ($elements as $k => $v) {
                             $xmlScieloOrg .= "<$k>" . $this->_def->getKeyValue($v) . "</$k>";
                     }
+                    $xmlScieloOrg .="<refferer>http://".htmlentities($_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"])."</refferer>";
                     $xmlScieloOrg .=  $this->userInfo();
                     if(($_REQUEST['script']=='sci_serial') and ($this->_def->getKeyValue("show_scimago") == 1)){
                             $xmlScieloOrg.= "<scimago_status>online</scimago_status>";
@@ -212,6 +223,8 @@ class Scielo extends ScieloBase
                     
                     $xmlScieloOrg.="<url_login>".base64_encode("http://".$_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"])."</url_login>";
                     $xmlScieloOrg.="<commentCount>".$commentCount."</commentCount>";
+                    $xmlScieloOrg.="<lng>".$_REQUEST['lng']."</lng>";
+                    $xmlScieloOrg.="<tlng>".$_REQUEST['tlng']."</tlng>";
                     $xmlScieloOrg = "<varScieloOrg>".$xmlScieloOrg."</varScieloOrg>";
 
             }
