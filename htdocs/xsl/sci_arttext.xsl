@@ -292,8 +292,7 @@
 
 				<script language="javascript" src="applications/scielo-org/js/jquery-1.4.2.min.js"/>
 				<script language="javascript" src="applications/scielo-org/js/toolbox.js"/>
-				<script language="javascript" src="article.js"/>
-
+				
 			</body>
 		</html>
 	</xsl:template>
@@ -309,7 +308,9 @@
 				</title>
 				<xsl:apply-templates select="." mode="meta_names"/>
 				<xsl:apply-templates select="." mode="version-css"/>
-			</head>
+				<xsl:apply-templates select="." mode="version-js"/>
+				
+				</head>
 			<body>
 				<a name="top"/>
 				<xsl:comment><xsl:value-of select="$version"/><xsl:value-of select="$merge"/></xsl:comment>
@@ -322,9 +323,9 @@
 						<xsl:apply-templates select="." mode="version-body-html"/>
 					</xsl:otherwise>
 				</xsl:choose>
-				<xsl:apply-templates select="." mode="version-js"/>
-
+				
 				<xsl:comment><xsl:value-of select="$xml_article"/></xsl:comment>
+				
 			</body>
 		</html>
 	</xsl:template>
@@ -370,23 +371,14 @@
 			<xsl:when test="$version='xml-file'">
 				<script language="javascript" src="applications/scielo-org/js/jquery-1.4.2.min.js"/>
 				<script language="javascript" src="applications/scielo-org/js/toolbox.js"/>
-				<script language="javascript" src="article.js"/>
-				<!--http://www.dynamicdrive.com/dynamicindex5/stickytooltip.htm-->
-				<script type="text/javascript" src="xsl/pmc/v3.0/js/jquery.min.js"/>
-				<script type="text/javascript" src="xsl/pmc/v3.0/js/stickytooltip.js">
-                /***********************************************
-                * Sticky Tooltip script- (c) Dynamic Drive DHTML code library (www.dynamicdrive.com)
-                * This notice MUST stay intact for legal use
-                * Visit Dynamic Drive at http://www.dynamicdrive.com/ for this script and 100s more
-                ***********************************************/
-                </script>
-				<script type="text/javascript" src="js/executartooltip.js"/>
-
+				<xsl:if test="document($xml_article)//math or document($xml_article)//mml:math">
+					<script type="text/javascript"
+						src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+					</script></xsl:if>
 			</xsl:when>
 			<xsl:otherwise>
 				<script language="javascript" src="applications/scielo-org/js/jquery-1.4.2.min.js"/>
 				<script language="javascript" src="applications/scielo-org/js/toolbox.js"/>
-				<script language="javascript" src="article.js"/>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
@@ -413,7 +405,6 @@
 			<div class="spacer">&#160;</div>
 			<xsl:apply-templates select="." mode="footer-journal"/>
 		</div>
-		<xsl:comment><xsl:value-of select="$issue_label"/><xsl:value-of select="//ISSUE"/></xsl:comment>
 	</xsl:template>
 
 
@@ -495,15 +486,16 @@
 		<div class="index,{ISSUE/ARTICLE/@TEXTLANG}">
 			<xsl:choose>
 				<xsl:when test="$version='html'">
-					<!-- versao antiga -->
+					<xsl:comment>version=html</xsl:comment>
 					<xsl:apply-templates select="ISSUE/ARTICLE/BODY"/>
 				</xsl:when>
 
 				<xsl:when test="$version='xml'">
+					<xsl:comment>version=xml</xsl:comment>
 					<xsl:apply-templates select="ISSUE/ARTICLE[fulltext]"/>
-
 				</xsl:when>
 				<xsl:when test="$version='xml-file'">
+					<xsl:comment>version=xml-file</xsl:comment>
 					<xsl:comment><xsl:value-of select="$xml_article"/></xsl:comment>
 					<xsl:apply-templates select="document($xml_article)" mode="text-content"/>
 				</xsl:when>
