@@ -237,10 +237,10 @@
 	<do task="search">
 		<parm name="db">ARTIGO</parm>
 		<parm name="expression"><pft>v4900^b,'='v4900^a</pft></parm>		
-		<parm name="reverse">On</parm>		
 		<loop>			
 			<field action="import" tag="list">4903</field>
 			<field action="import" tag="list">4900</field>
+			<field action="import" tag="list">5001</field>
 			<field action="replace" tag="4901">
 				<pft>@PROC_SPLIT_MST.PFT,
 					v35,v65*0.4,s(f(val(s(v36*4.3))+10000,2,0))*1.4</pft>
@@ -256,11 +256,18 @@
 				</loop>	
 			</do>	
 			<!--field action="add" tag="4903"><pft>v4901,if p(v4902) then '^f1' fi,'^t'v4900^b</pft></field-->
-			<field action="add" tag="4903"><pft>if p(v4902) then v4901,'^f1','^t'v4900^b fi</pft></field>
-			<field action="export" tag="list">4903</field>
+
+			<field action="replace" tag="5000"><pft>if p(v4902) then v4901,'^f1','^t'v4900^b fi</pft></field>
+			<field action="replace" tag="5001"><pft>if a(v5001) then v5000 fi</pft></field>
+			<field action="add" tag="4903"><pft>v5000</pft></field>
+			
+			<field action="replace" tag="5001"><pft>if p(v5000) then if val(v5000*9.4)>val(v5001*9.4) then v5000 else v5001 fi fi</pft></field>
+			<display><pft>'<!-- ',v5000*9.4, ' ',v5001*9.4,' -->'</pft></display>
+			<field action="export" tag="list">4903,5001</field>
 		</loop>	
 	</do>
-	<return action="replace" tag="7095"><pft>(v4903/)</pft></return>
+	<!-- em v5001 = ahead/review com data mais recente -->
+	<return action="replace" tag="7095"><pft>v5001/,(if v4903<>v5001[1] then v4903/ fi)</pft></return>
 		
 </function>
 <!-- ============================================================================ -->
@@ -1530,7 +1537,7 @@
 			'  <SUBTITLE>',v1000^i,v9001,v1000^f,'</SUBTITLE>'/#
 		</pft>
 	</display>
-	<display><pft>if v8000='XML' then ,proc('a7777{',v12^l[1],'{'), (if v7777[1]<>v12^l then ,'  <trans-title xml:lang="',v12^l,'">'v12^*'</trans-title>'/ fi) fi</pft></display>
+	<display><pft>if v8000='XML' then ,proc('a7777{',v12^l[1],'{'), (if v7777[1]<>v12^l then ,'  <trans-title xml:lang="',v12^l,'"><![CDATA['v12^*']]></trans-title>'/ fi) fi</pft></display>
 	
 </function>
 

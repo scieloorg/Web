@@ -51,7 +51,6 @@
 					a{
 					    text-decoration:none;
 					}</style>
-				<script language="javascript" src="article.js"/>
 				<META http-equiv="Pragma" content="no-cache"/>
 				<META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT"/>
 				<!-- link pro RSS aparecer automaticamente no Browser -->
@@ -89,7 +88,8 @@
 					<xsl:apply-templates select="//ISSUE"/>
 				</div>
 				<xsl:apply-templates select="." mode="footer-journal"/>
-			</BODY>
+			
+			<script type="text/javascript" src="/article.js"/>
 			<xsl:if test="$journal_manager=1">
 				<script type="text/javascript" src="/js/jquery-1.9.1.min.js"/>
 				<script type="text/javascript">
@@ -135,6 +135,7 @@
 					  });
 				</script>
 			</xsl:if>
+			</BODY>
 		</HTML>
 	</xsl:template>
 	<xsl:template match="ISSUE">
@@ -181,7 +182,7 @@
 							<tbody>
                                                                 <xsl:choose>
                                                                 <xsl:when test="$journal_manager=1">
-                                                                        <xsl:apply-templates select="SECTION[NAME != 'Press Release']"/>
+                                                                        <xsl:apply-templates select="SECTION[NAME != 'Press Release' or not(NAME)]"/>
                                                                 </xsl:when>
                                                                 <xsl:otherwise>
                                                                         <xsl:apply-templates select="SECTION"/>

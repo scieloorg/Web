@@ -2,7 +2,28 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML">
 
-
+	
+	<xsl:template match="*" mode="id">
+		<xsl:value-of select="@id"/>
+		<xsl:if test="not(@id)">
+			<xsl:value-of select="name()"/>
+		</xsl:if>
+	</xsl:template>
+	<xsl:template match="italic">
+		<em>
+			<xsl:apply-templates/>
+		</em>
+	</xsl:template>
+	<xsl:template match="bold">
+		<strong>
+			<xsl:apply-templates/>
+		</strong>
+	</xsl:template>
+	<xsl:template match="sup|sub">
+		<xsl:element name="{name()}">
+			<xsl:apply-templates/>
+		</xsl:element>
+	</xsl:template>
 	<xsl:variable name="HOWTODISPLAY">
 		<xsl:choose>
 			<xsl:when test="//SIGLUM='bjmbr'">STANDARD</xsl:when>
@@ -28,9 +49,11 @@
 			</xsl:for-each>
 		</xsl:if>
 	</xsl:variable>
+
 	<xsl:template match="*" mode="node-name">
 		<xsl:value-of select="name()"/>
 	</xsl:template>
+
 	<xsl:variable name="article_lang">
 		<xsl:choose>
 			<xsl:when test="$TXTLANG!=''">
@@ -45,7 +68,7 @@
 	<xsl:variable name="display_objects">
 		<xsl:value-of select="$xml_display_objects"/>
 	</xsl:variable>
-	
+
 	<xsl:template match="ref" mode="scift-position">{<xsl:value-of select="@id"/>}<xsl:value-of
 			select="position()"/>{/<xsl:value-of select="@id"/>}</xsl:template>
 	<xsl:template match="ref" mode="scift-get_position">
@@ -69,15 +92,15 @@
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
+
 	<xsl:template name="scift-make-article">
 		<xsl:apply-templates select="." mode="MAIN"/>
 	</xsl:template>
-	
+
 	<xsl:template match="@id">
-		<a name="{.}"></a>
+		<a name="{.}"/>
 	</xsl:template>
-	
-	
+
 	<xsl:template match="sub-article | response" mode="MORE">
 		<hr class="part-rule"/>
 
@@ -94,14 +117,23 @@
 		<div id="{$this-article}-body" class="body">
 			<xsl:apply-templates select="body"/>
 		</div>
-		<xsl:if test="back | $loose-footnotes">
-			<!-- $loose-footnotes is defined below as any footnotes outside
-           front matter or fn-group -->
-			<div id="{$this-article}-back" class="back">
-				<xsl:apply-templates select="back"/>
-			</div>
-		</xsl:if>
-
+		<div id="{$this-article}-back" class="back">
+			<xsl:choose>
+				<xsl:when test="back | $loose-footnotes">
+					<xsl:apply-templates select="back"/>
+				</xsl:when>
+				<xsl:when test="name()='sub-article' and not(back) and $original/back">
+					<div id="{$this-article}-back" class="back">
+						<xsl:apply-templates select="$original/back"/>
+					</div>
+				</xsl:when>
+				<xsl:when test="name()='response' and not(back) and $original/response/back">
+					<div id="{$this-article}-back" class="back">
+						<xsl:apply-templates select="$original/response/back"/>
+					</div>
+				</xsl:when>
+			</xsl:choose>
+		</div>
 		<xsl:for-each select="floats-group">
 			<div id="{$this-article}-floats" class="back">
 				<xsl:call-template name="main-title">
@@ -135,18 +167,19 @@
 		<div id="{$this-article}-body" class="body">
 			<xsl:apply-templates select="body"/>
 		</div>
-		<xsl:if test="back | $loose-footnotes">
-			<!-- $loose-footnotes is defined below as any footnotes outside
-           front matter or fn-group -->
-			<div id="{$this-article}-back" class="back">
-				<xsl:apply-templates select="back"/>
-			</div>
-		</xsl:if>
-		<xsl:if test="name()='sub-article' and not(back) and $original/back">
-			<div id="{$this-article}-back" class="back">
-				<xsl:apply-templates select="$original/back"/>
-			</div>
-		</xsl:if>
+		
+		<xsl:choose>
+			<xsl:when test="back | $loose-footnotes">
+				<div id="{$this-article}-back" class="back">
+					<xsl:apply-templates select="back"/>
+				</div>
+			</xsl:when>
+			<xsl:when test="not(back) and $original/back">
+				<div id="{$this-article}-back" class="back">
+					<xsl:apply-templates select="$original/back"/>
+				</div></xsl:when>
+		</xsl:choose>
+		
 		<xsl:for-each select="floats-group">
 			<div id="{$this-article}-floats" class="back">
 				<xsl:call-template name="main-title">
@@ -257,7 +290,7 @@
 					<b>Palavras-Chave: </b>
 				</xsl:when>
 				<xsl:otherwise>
-					<b>Keywords: </b>
+					<b>Key words: </b>
 				</xsl:otherwise>
 			</xsl:choose>
 			<xsl:apply-templates select=".//kwd"/>
@@ -364,7 +397,9 @@
 		<xsl:apply-templates select="given-names"/>&#160;<xsl:apply-templates select="surname"/>
 		<xsl:if test="suffix">&#160;<xsl:apply-templates select="suffix"/></xsl:if>
 	</xsl:template>
-
+	<xsl:template match="text()" mode="normalize">
+		<xsl:value-of select="normalize-space(.)"/>
+	</xsl:template>
 	<xsl:template match="aff">
 		<p class="aff">
 			<xsl:if test="label">
@@ -372,40 +407,50 @@
 					<xsl:apply-templates select="label"/>
 				</a>
 			</xsl:if>
-			<xsl:variable name="inst"><xsl:value-of select="normalize-space(institution[@content-type='orgname'])"/></xsl:variable>
-			<xsl:variable name="is_full"><xsl:if test="$inst!=''"><xsl:apply-templates select="text()[string-length(normalize-space(.))&gt;=string-length($inst)]" mode="is_full"><xsl:with-param name="inst" select="$inst"></xsl:with-param></xsl:apply-templates></xsl:if></xsl:variable>
-			<xsl:comment>is_full:<xsl:value-of select="$is_full"/> _</xsl:comment>
 			<xsl:choose>
-				<xsl:when test="contains($is_full,'yes')">
-					<xsl:comment>full</xsl:comment>
-					<xsl:apply-templates select="text()[string-length(normalize-space(.))&gt;=string-length($inst)]" mode="full">
-						<xsl:with-param name="inst" select="$inst"></xsl:with-param>
-					</xsl:apply-templates><xsl:apply-templates select="email"></xsl:apply-templates>
+				<xsl:when test="institution[@content-type='original']">
+					<xsl:apply-templates select="institution[@content-type='original']"/>
 				</xsl:when>
 				<xsl:otherwise>
-					<xsl:comment>parts</xsl:comment>					
-					<xsl:apply-templates
-						select="text()[normalize-space(.)!='' and normalize-space(.)!=','] | institution | addr-line | country | email"
-						mode="aff-insert-separator"/>					
+					<xsl:variable name="inst">
+						<xsl:value-of select="normalize-space(institution[@content-type='orgname'])"
+						/>
+					</xsl:variable>
+					<xsl:variable name="text">
+						<xsl:apply-templates
+							select="text()[string-length(normalize-space(.))&gt;=string-length($inst)]"
+							mode="normalize"/>
+					</xsl:variable>
+					<xsl:comment>inst=<xsl:value-of select="$inst"/></xsl:comment>
+					<xsl:comment>text=<xsl:value-of select="$text"/></xsl:comment>
+					<xsl:choose>
+						<xsl:when test="contains($text, $inst)">
+							<xsl:comment>full</xsl:comment>
+							<xsl:value-of select="$text"/>
+							<xsl:apply-templates select="email"/>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:comment>parts</xsl:comment>
+							<xsl:apply-templates
+								select="text()[normalize-space(.)!='' and normalize-space(.)!=','] | institution | addr-line | country | email"
+								mode="aff-insert-separator"/>
+						</xsl:otherwise>
+					</xsl:choose>
 				</xsl:otherwise>
 			</xsl:choose>
 		</p>
 	</xsl:template>
-	<xsl:template match="text()" mode="is_full">
-		<xsl:param name="inst"></xsl:param>
-		<xsl:if test="$inst!='' and contains(.,$inst)">yes</xsl:if>
+
+	<xsl:template match="institution[@content-type='original']">
+		<xsl:apply-templates select="*|text()" mode="aff-original"/>
 	</xsl:template>
-	<xsl:template match="*" mode="full"></xsl:template>
-	<xsl:template match="text()" mode="full">
-		<xsl:param name="inst"></xsl:param>
-		<xsl:comment>text():<xsl:value-of select="."/>_</xsl:comment>
-		<xsl:comment>$inst:<xsl:value-of select="$inst"/>_</xsl:comment>
-		<xsl:comment>contains(.,$inst):<xsl:value-of select="contains(.,$inst)"/>_</xsl:comment>
-		<xsl:if test="$inst!='' and contains(.,$inst)"><xsl:value-of select="."/></xsl:if>
-		
+
+	<xsl:template match="named-content[@content-type='email']" mode="aff-original">
+		<a href="mailto:{.}">
+			<xsl:value-of select="."/>
+		</a>
 	</xsl:template>
-	
-	
+
 	<xsl:template match="aff/* | addr-line/* " mode="aff-insert-separator">
 		<xsl:if test="position()!=1">, </xsl:if>
 		<xsl:apply-templates select="*|text()[normalize-space(.)!='' and normalize-space(.)!=',']"
@@ -414,10 +459,10 @@
 
 	<xsl:template match="aff/text() | addr-line/text()" mode="aff-insert-separator">
 		<xsl:variable name="text" select="normalize-space(.)"/>
-		<xsl:comment>_ <xsl:value-of select="$text"/>  _</xsl:comment>  
-		
+		<xsl:comment>_ <xsl:value-of select="$text"/>  _</xsl:comment>
+
 		<xsl:if test="position()!=1">, </xsl:if>
-		
+
 		<xsl:choose>
 			<xsl:when test="substring($text,string-length($text),1)=','">
 				<xsl:value-of select="substring($text,1,string-length($text)-1)"/>
@@ -428,11 +473,11 @@
 		</xsl:choose>
 
 	</xsl:template>
-<xsl:template match="email" mode="aff-insert-separator">
+	<xsl:template match="email" mode="aff-insert-separator">
 		<xsl:if test="position()!=1">, </xsl:if>
-	<a href="mailto:{text()}">
-		<xsl:value-of select="."/>
-	</a>
+		<a href="mailto:{text()}">
+			<xsl:value-of select="."/>
+		</a>
 	</xsl:template>
 
 
@@ -473,7 +518,7 @@
 			<xsl:value-of select="."/>
 		</a>
 	</xsl:template>
-	
+
 	<xsl:template match="xref">
 		<xsl:if test="@ref-type='fn'">
 			<a name="back_{@rid}"/>
@@ -509,7 +554,7 @@
 		</xsl:choose>
 	</xsl:template>
 	<xsl:template match="fig | table-wrap">
-		<xsl:comment>_ <xsl:value-of select="$HOWTODISPLAY"/>  _</xsl:comment>  
+		<xsl:comment>_ <xsl:value-of select="$HOWTODISPLAY"/>  _</xsl:comment>
 		<xsl:choose>
 			<xsl:when test="$HOWTODISPLAY = 'THUMBNAIL'">
 				<!--xsl:apply-templates select="." mode="scift-thumbnail"></xsl:apply-templates-->
@@ -575,12 +620,14 @@
 		</div>
 	</xsl:template>
 	<xsl:template match="inline-formula">
-		<xsl:apply-templates select="*"/>
+		<div class="inline-formula">
+			<xsl:apply-templates></xsl:apply-templates>
+		</div>
 	</xsl:template>
 	<xsl:template match="disp-formula">
-		<p class="{local-name()} panel">
-			<xsl:apply-templates/>
-		</p>
+		<div class="disp-formula">
+			<xsl:apply-templates></xsl:apply-templates>
+		</div>
 	</xsl:template>
 	<xsl:template match="graphic">
 		<a target="_blank">
@@ -594,7 +641,7 @@
 	<xsl:template match="inline-graphic | disp-formula/graphic">
 		<a target="_blank">
 			<xsl:apply-templates select="@xlink:href" mode="scift-attribute-href"/>
-			<img class="formula">
+			<img class="inline-formula">
 				<xsl:apply-templates select="@xlink:href" mode="scift-attribute-src"/>
 			</img>
 		</a>
@@ -641,26 +688,28 @@
 	</xsl:template>
 
 
-	<xsl:template match="sec[@sec-type]">
-		<div class="section">
-			<xsl:call-template name="named-anchor"/>
-			<xsl:apply-templates select="title"/>
-			<xsl:apply-templates select="sec-meta"/>
-			<xsl:apply-templates mode="drop-title"/>
-		</div>
-		<xsl:choose>
-			<xsl:when test="$HOWTODISPLAY= 'STANDARD'"/>
-			<xsl:when test="$HOWTODISPLAY= 'THUMBNAIL'">
-				<xsl:apply-templates select=".//fig|.//table-wrap[.//graphic]"
-					mode="scift-thumbnail">
-					<xsl:sort select="@id"/>
-				</xsl:apply-templates>
-				<hr/>
-			</xsl:when>
-		</xsl:choose>
-
+	<xsl:template match="sec[@sec-type]/title">
+		<p class="sec">
+			<xsl:apply-templates/>
+		</p>
 	</xsl:template>
 
+
+	<xsl:template match="sec[not(@sec-type)]/title">
+		<p class="sub-subsec">
+			<xsl:apply-templates/>
+		</p>
+	</xsl:template>
+
+	<xsl:template match="sec/@sec-type">
+		<a name="{.}"/>
+	</xsl:template>
+
+	<xsl:template match="p">
+		<p>
+			<xsl:apply-templates/>
+		</p>
+	</xsl:template>
 	<xsl:template match="back/ref-list">
 		<div>
 			<a name="references"/>
@@ -691,7 +740,8 @@
 				<!--xsl:otherwise><xsl:value-of select="position()"/>.&#160; </xsl:otherwise-->
 			</xsl:choose>
 			<xsl:choose>
-				<xsl:when test="element-citation[.//ext-link or .//uri] and mixed-citation">
+				<xsl:when
+					test="element-citation[.//ext-link] and mixed-citation[not(.//ext-link)] or element-citation[.//uri] and mixed-citation[not(.//uri)] ">
 					<xsl:apply-templates select="mixed-citation" mode="with-link">
 						<xsl:with-param name="ext_link" select=".//ext-link"/>
 						<xsl:with-param name="uri" select=".//uri"/>
@@ -712,7 +762,8 @@
 				<xsl:when test="nlm-citation">
 					<xsl:apply-templates select="nlm-citation"/>
 				</xsl:when-->
-				<xsl:otherwise><xsl:comment>_missing mixed-citation _</xsl:comment>  </xsl:otherwise>
+				<xsl:otherwise><xsl:comment>_missing mixed-citation _</xsl:comment>
+				</xsl:otherwise>
 			</xsl:choose>
 			<xsl:variable name="aref">000000<xsl:apply-templates select="."
 					mode="scift-get_position"/></xsl:variable>
@@ -852,22 +903,24 @@
 		</xsl:choose>
 	</xsl:template>
 	<xsl:template match="day" mode="date-en">
-		<xsl:value-of select="."/>,		
-	</xsl:template>
+		<xsl:value-of select="."/>, </xsl:template>
 	<xsl:template match="day" mode="date-pt"><xsl:value-of select="."/> de </xsl:template>
 	<xsl:template match="history/date">
 		<xsl:choose>
 			<xsl:when test="$article_lang='en'">
 				<xsl:apply-templates select="@date-type" mode="scift-as-label-en"/>:
-				<xsl:apply-templates select="month" mode="date-month-en"/><xsl:apply-templates select="day" mode="date-en"/>, <xsl:value-of select="year"/>
+					<xsl:apply-templates select="month" mode="date-month-en"/><xsl:apply-templates
+					select="day" mode="date-en"/>, <xsl:value-of select="year"/>
 			</xsl:when>
 			<xsl:when test="$article_lang='pt'">
-				<xsl:apply-templates select="@date-type" mode="scift-as-label-pt"/>: <xsl:apply-templates select="day" mode="date-pt"/><xsl:apply-templates select="month" mode="date-month-pt"/> de
-					<xsl:value-of select="year"/>
+				<xsl:apply-templates select="@date-type" mode="scift-as-label-pt"/>:
+					<xsl:apply-templates select="day" mode="date-pt"/><xsl:apply-templates
+					select="month" mode="date-month-pt"/> de <xsl:value-of select="year"/>
 			</xsl:when>
 			<xsl:when test="$article_lang='es'">
-				<xsl:apply-templates select="@date-type" mode="scift-as-label-es"/>: <xsl:apply-templates select="day" mode="date-pt"/><xsl:apply-templates select="month" mode="date-month-es"/> de
-					<xsl:value-of select="year"/>
+				<xsl:apply-templates select="@date-type" mode="scift-as-label-es"/>:
+					<xsl:apply-templates select="day" mode="date-pt"/><xsl:apply-templates
+					select="month" mode="date-month-es"/> de <xsl:value-of select="year"/>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:apply-templates select="@date-type" mode="scift-as-label-en"/>:
@@ -910,20 +963,17 @@
 			<xsl:apply-templates select="*|text()"/>
 		</p>
 	</xsl:template>
-	<xsl:template match="back/fn-group/fn/@fn-type">
-	</xsl:template>
+	<xsl:template match="back/fn-group/fn/@fn-type"> </xsl:template>
 	<xsl:template match="back/fn-group">
 		<div class="foot-notes">
-		<xsl:apply-templates select="@*| *|text()"/>
+			<xsl:apply-templates select="@*| *|text()"/>
 		</div>
 	</xsl:template>
 	<xsl:template match="back/fn-group/fn">
 		<xsl:apply-templates select="@*| *|text()"/>
 	</xsl:template>
-	<xsl:template match="back/fn-group/fn/label">
-		
-	</xsl:template>
-	
+	<xsl:template match="back/fn-group/fn/label"> </xsl:template>
+
 	<xsl:template match="back/fn-group/fn/p">
 		<p class="fn">
 			<xsl:if test="../label">
@@ -959,11 +1009,11 @@
 		<!-- (label?, title*, (ack | app-group | bio | fn-group | glossary | ref-list | notes | sec)*) -->
 		<div id="{$this-article}-back" class="back">
 			<xsl:choose>
-				<xsl:when test="not(ref-list/*) and ($original//ref-list/*)">
+				<xsl:when test="not(ref-list/*) and ($original/back/ref-list/*)">
 					<!--xsl:apply-templates select="../../back/*" mode="translation-back">
 						<xsl:with-param name="sub-article-back" select="."/>
 					</xsl:apply-templates-->
-					<xsl:comment>_local ref<xsl:value-of select="$ref_list_local"/>  _</xsl:comment>  
+					<xsl:comment>_local ref<xsl:value-of select="$ref_list_local"/>  _</xsl:comment>
 
 					<xsl:choose>
 						<xsl:when test="node()[name()=$ref_list_local]">
@@ -973,8 +1023,8 @@
 						</xsl:when>
 
 						<xsl:otherwise>
-							<xsl:comment>_no local ref _</xsl:comment>  
-							<xsl:apply-templates select="$original//ref-list"/>
+							<xsl:comment>_no local ref _</xsl:comment>
+							<xsl:apply-templates select="$original/back/ref-list"/>
 							<xsl:apply-templates select="*"/>
 						</xsl:otherwise>
 					</xsl:choose>
@@ -989,7 +1039,44 @@
 		</div>
 	</xsl:template>
 
-
+	<xsl:template match="response/back">
+		
+		<xsl:variable name="this-article">
+			<xsl:apply-templates select="." mode="id"/>
+		</xsl:variable>
+		<!-- (label?, title*, (ack | app-group | bio | fn-group | glossary | ref-list | notes | sec)*) -->
+		<div id="{$this-article}-back" class="back">
+			<xsl:choose>
+				<xsl:when test="not(ref-list/*) and ($original/response/back/ref-list/*)">
+					<!--xsl:apply-templates select="../../back/*" mode="translation-back">
+						<xsl:with-param name="sub-article-back" select="."/>
+					</xsl:apply-templates-->
+					<xsl:comment>_local ref<xsl:value-of select="$ref_list_local"/>  _</xsl:comment>
+					
+					<xsl:choose>
+						<xsl:when test="node()[name()=$ref_list_local]">
+							<xsl:apply-templates select="*" mode="translation-back">
+								<xsl:with-param name="after">yes</xsl:with-param>
+							</xsl:apply-templates>
+						</xsl:when>
+						
+						<xsl:otherwise>
+							<xsl:comment>_no local ref _</xsl:comment>
+							<xsl:apply-templates select="$original/response/back/ref-list"/>
+							<xsl:apply-templates select="*"/>
+						</xsl:otherwise>
+					</xsl:choose>
+					
+					
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:apply-templates select="*"/>
+				</xsl:otherwise>
+			</xsl:choose>
+			
+		</div>
+	</xsl:template>
+	
 	<!--xsl:template match="article/back/*" mode="old-translation-back">
 		<xsl:param name="sub-article-back"/>
 		<xsl:variable name="name"><xsl:value-of select="name()"></xsl:value-of></xsl:variable>
@@ -1018,56 +1105,103 @@
 	<xsl:template match="sub-article[@article-type='translation']/back/*" mode="translation-back">
 		<xsl:param name="after"/>
 		<xsl:apply-templates/>
-		<xsl:comment>_ <xsl:value-of select="name()"/>  _</xsl:comment>  
-		<xsl:comment>_ <xsl:value-of select="$after"/>  _</xsl:comment>  
-		<xsl:comment>_ <xsl:value-of select="$ref_list_local"/>  _</xsl:comment>  
+		<xsl:comment>_ <xsl:value-of select="name()"/>  _</xsl:comment>
+		<xsl:comment>_ <xsl:value-of select="$after"/>  _</xsl:comment>
+		<xsl:comment>_ <xsl:value-of select="$ref_list_local"/>  _</xsl:comment>
 		<xsl:if test="$after='yes' and name()=$ref_list_local">
 			<xsl:apply-templates select="$original//ref-list"/>
 		</xsl:if>
 	</xsl:template>
-	
+
 	<xsl:template match="disp-quote">
 		<blockquote>
-			<xsl:apply-templates select="*|text()"></xsl:apply-templates>
+			<xsl:apply-templates select="*|text()"/>
 		</blockquote>
 	</xsl:template>
 	<xsl:template match="ext-link|uri">
-		<a href="{@xlink:href}" target="_blank"><xsl:value-of select="."/></a>
+		<a href="{@xlink:href}" target="_blank">
+			<xsl:value-of select="."/>
+		</a>
 	</xsl:template>
 	<xsl:template match="mixed-citation" mode="with-link">
-		<xsl:param name="uri"></xsl:param>
-		<xsl:param name="ext_link"></xsl:param>
+		<xsl:param name="uri"/>
+		<xsl:param name="ext_link"/>
 		<xsl:choose>
 			<xsl:when test="$uri">
 				<xsl:choose>
 					<xsl:when test="contains(.,$uri/text())">
 						<xsl:value-of select="substring-before(.,$uri/text())"/>
-						<xsl:apply-templates select="$uri"></xsl:apply-templates>
+						<xsl:apply-templates select="$uri"/>
 						<xsl:value-of select="substring-after(.,$uri/text())"/>
 					</xsl:when>
 					<xsl:when test="contains(.,$uri/@xlink:href)">
 						<xsl:value-of select="substring-before(.,$uri/@xlink:href)"/>
-						<xsl:apply-templates select="$uri"></xsl:apply-templates>
+						<xsl:apply-templates select="$uri"/>
 						<xsl:value-of select="substring-after(.,$uri/@xlink:href)"/>
 					</xsl:when>
 				</xsl:choose>
-				
+
 			</xsl:when>
 			<xsl:when test="$ext_link">
 				<xsl:choose>
 					<xsl:when test="contains(.,$ext_link/text())">
 						<xsl:value-of select="substring-before(.,$ext_link/text())"/>
-						<xsl:apply-templates select="$ext_link"></xsl:apply-templates>
+						<xsl:apply-templates select="$ext_link"/>
 						<xsl:value-of select="substring-after(.,$ext_link/text())"/>
 					</xsl:when>
 					<xsl:when test="contains(.,$ext_link/@xlink:href)">
 						<xsl:value-of select="substring-before(.,$ext_link/@xlink:href)"/>
-						<xsl:apply-templates select="$ext_link"></xsl:apply-templates>
+						<xsl:apply-templates select="$ext_link"/>
 						<xsl:value-of select="substring-after(.,$ext_link/@xlink:href)"/>
 					</xsl:when>
 				</xsl:choose>
 			</xsl:when>
-			
+
 		</xsl:choose>
+	</xsl:template>
+	<xsl:template match="media">
+		<xsl:variable name="src">
+			<xsl:value-of select="$var_IMAGE_PATH"/>
+			<xsl:value-of select="@xlink:href"/>
+		</xsl:variable>
+
+		<a target="_blank">
+			<xsl:attribute name="href">
+				<xsl:value-of select="$src"/>
+			</xsl:attribute>
+			<xsl:if test="normalize-space(text())=''">[View]</xsl:if>
+		</a>
+
+		<embed width="100%" height="400">
+			<xsl:attribute name="src">
+				<xsl:value-of select="$src"/>
+			</xsl:attribute>
+		</embed>
+	</xsl:template>
+	<xsl:template match="media[@mime-subtype='pdf']">
+		<xsl:variable name="src">/pdf<xsl:value-of
+				select="substring-after($var_IMAGE_PATH,'/img/revistas')"/><xsl:value-of
+				select="@xlink:href"/></xsl:variable>
+
+		<a target="_blank">
+			<xsl:attribute name="href">
+				<xsl:value-of select="$src"/>
+			</xsl:attribute>
+			<xsl:if test="normalize-space(text())=''">[View]</xsl:if>
+		</a>
+
+		<!--embed width="100%" height="400">
+                <xsl:attribute name="src"><xsl:value-of select="$src"/></xsl:attribute> 
+            </embed-->
+	</xsl:template>
+
+	<xsl:template match="mml:math|math">
+		<xsl:copy-of select="."/>
+	</xsl:template>
+	
+	<xsl:template match="ack">
+		<div class="ack">
+			<xsl:apply-templates></xsl:apply-templates>
+		</div>
 	</xsl:template>
 </xsl:stylesheet>
