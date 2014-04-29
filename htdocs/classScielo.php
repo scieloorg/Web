@@ -160,6 +160,8 @@ class Scielo extends ScieloBase
                             "show_login" => "show_login",
                             //Exibe o gráfico do altmetrics caso o artigo possua um DOI
                             "show_altmetrics" => "show_altmetrics",
+                            //Exibe o gráfico do altmetrics caso o artigo possua um DOI
+                            "show_readcube" => "show_readcube",
                             //Exibe a servico de tradu��o windows live translations
                             "show_article_wltranslation" => "show_article_wltranslation",
                             //Exibe ou n�o a op��o de Envio de Artigo por email
@@ -204,6 +206,7 @@ class Scielo extends ScieloBase
                             "journal_manager" => "journal_manager",
                             "show_new_article_link" => "show_new_article_link",
                             "show_issues_sorted_by_pubdate" => "show_issues_sorted_by_pubdate",
+                            "show_flacso_survey" => "show_flacso_survey"
                     );
 
                     foreach ($elements as $k => $v) {
@@ -220,6 +223,8 @@ class Scielo extends ScieloBase
                     
                     $xmlScieloOrg.="<url_login>".base64_encode("http://".$_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"])."</url_login>";
                     $xmlScieloOrg.="<commentCount>".$commentCount."</commentCount>";
+                    $xmlScieloOrg.="<lng>".$_REQUEST['lng']."</lng>";
+                    $xmlScieloOrg.="<tlng>".$_REQUEST['tlng']."</tlng>";
                     $xmlScieloOrg = "<varScieloOrg>".$xmlScieloOrg."</varScieloOrg>";
 
             }

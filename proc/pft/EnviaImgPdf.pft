@@ -1,69 +1,35 @@
 #
 'pwd'/
-'cd htdocs/img/revistas'/
-'mkdir',x1,v1/
-'mkdir',x1,v1,'/',v2/
-'pwd'/
-'cd',x1,v1,'/',v2/
-'lcd .'/
+'mkdir htdocs/img/revistas/',v1,'/',v2/
+'cd  htdocs/img/revistas/',v1,'/',v2/
 'lcd htdocs/img/revistas/',v1,'/',v2/
 'bin'/
-'mput *.g??'/
-'mput *.G??'/
-'mput *.j??'/
-'mput *.J??'/
+'mput *.???'/
+/* html */
 'mkdir html'/
-'pwd'/
 'cd html'/
-'lcd .'/
 'lcd html'/
 'ascii'/
 'mput *.h??'/
-'mput *.H??'/
 
-/* img/revistas/bjmbr/v30n4/html */
-'lcd .'/
-'lcd ..'/
-/* img/revistas/bjmbr/v30n4 */
-'lcd .'/
-'lcd ..'/
-/* img/revistas/bjmbr */
-'lcd .'/
-'lcd ..'/
-/* img/revistas */
-'lcd .'/
-'lcd ..'/
-/* img */
-'lcd .'/
-'lcd ..'/
-/* htdocs */
-'lcd .'/
-'lcd ..'/
-
+'cd  ../../../../../../'/
+'lcd ../../../../../../'/
 'pwd'/
-'cd ../../../../../../bases/pdf'/
-'mkdir',x1,v1/
-'mkdir',x1,v1,'/',v2/
-'pwd'/
-'cd',x1,v1,'/',v2/
-'lcd .'/
+'mkdir bases/pdf/',v1,'/',v2/
+'cd bases/pdf/',v1,'/',v2/
 'lcd bases/pdf/',v1,'/',v2/
 'bin'/
 'mput *.p??'/
-'mput *.P??'/
 'pwd'/
 'cd ../../../../'/
+'lcd ../../../../'/
 
-/* pdf/bjmbr/v30n4 */
-'lcd .'/
-'lcd ..'/
-/* pdf/bjmbr */
-'lcd .'/
-'lcd ..'/
-/* pdf */
-'lcd .'/
-'lcd ..'/
-/* bases */
-'lcd .'/
-'lcd ..'/
-
+'pwd'/
+'mkdir bases/xml/',v1,'/',v2/
+'cd bases/xml/',v1,'/',v2/
+'lcd bases/xml/',v1,'/',v2/
+'bin'/
+'mput *.xml'/
+'pwd'/
+'cd ../../../../'/
+'lcd ../../../../'/
