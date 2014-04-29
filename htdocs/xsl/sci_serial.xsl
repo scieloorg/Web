@@ -147,6 +147,25 @@
                             monta a div: footer
                         -->
 						<xsl:apply-templates select="." mode="footer-journal"/>
+
+                        <!-- display google scholar metrics (h5 e m5 index) -->
+                        <script type="text/javascript">                            
+                            function print_h5_m5(data) { 
+                                if (data != null) {
+                                    document.getElementById('h5_index').innerHTML = data.h5;
+                                    document.getElementById('m5_index').innerHTML = data.m5;
+                                    document.getElementById('h5_m5_link').href = data.url;
+                                    document.getElementById('h5_m5_see_more').href = data.url;
+
+                                    document.getElementById('google_metrics').style.display = 'block';
+                                }
+                            }
+
+                            var script = document.createElement('script');
+                            script.src = "google_metrics/get_h5_m5.php" + '?issn=<xsl:value-of select="//PAGE_PID"/>&amp;callback=print_h5_m5';
+                            document.getElementsByTagName('head')[0].appendChild(script);
+                        </script>
+
 					</div>
 				</xsl:if>
 				<xsl:if test="$journal_manager=1">
@@ -385,9 +404,58 @@ press release do artigo
 			</xsl:apply-templates>
 			<xsl:if test=" ENABLE_STAT_LINK = 1 or ENABLE_CIT_REP_LINK = 1 ">
 				<li>
-					<a href="{SCIELO_INFO/SERVER_SCIELO}/statjournal.php?lang={LANGUAGE}&amp;issn={/SERIAL/ISSN_AS_ID}">
-						<xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='statistics']"/>
-					</a>
+    				<strong><xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='statistics']"/></strong>
+	                <ul>
+                        <li>
+                            <a href="{SCIELO_INFO/SERVER_SCIELO}/statjournal.php?lang={LANGUAGE}&amp;issn={/SERIAL/ISSN_AS_ID}">SciELO</a>
+                        </li>
+
+                        <!-- monta o grafico scimago -->
+                        
+                        <!--xsl:variable name="graphMago" select="document('file:///../../bases/scimago/scimago.xml')/SCIMAGOLIST/title[@ISSN = $ISSN_AS_ID]/@SCIMAGO_ID"/-->
+                        <xsl:variable name="graphMago" select="document('../../bases/scimago/scimago.xml')/SCIMAGOLIST/title[@ISSN = $ISSN_AS_ID]/@SCIMAGO_ID"/>
+                        <xsl:if test="$show_scimago!=0 and normalize-space($scimago_status) = normalize-space('online')">
+                            <xsl:if test="$graphMago">
+                                <li>
+                                    <strong>
+                                        <a>
+                                            <xsl:attribute name="href">http://www.scimagojr.com/journalsearch.php?q=<xsl:value-of select="$ISSN_AS_ID"/>&amp;tip=iss&amp;exact=yes></xsl:attribute>
+                                            <xsl:attribute name="target">_blank</xsl:attribute>
+                                            Scimago    
+                                        </a>
+                                    </strong>
+                                    <a>
+                                        <xsl:attribute name="href">http://www.scimagojr.com/journalsearch.php?q=<xsl:value-of select="$ISSN_AS_ID"/>&amp;tip=iss&amp;exact=yes></xsl:attribute>
+                                        <xsl:attribute name="target">_blank</xsl:attribute>
+                                        <img>
+                                            <xsl:attribute name="src">/img/scimago/<xsl:value-of select="$ISSN_AS_ID"/>.gif</xsl:attribute>
+                                            <xsl:attribute name="alt"><xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='scimago_journal_country_rank']"/></xsl:attribute>
+                                            <xsl:attribute name="border">0</xsl:attribute>
+                                            <xsl:attribute name="width">185</xsl:attribute>
+                                        </img>
+                                    </a>
+                                </li>
+                            </xsl:if>
+                        </xsl:if>                           
+
+                        <!-- google analytics metrics -->
+                        <div id="google_metrics" style="display:none; margin-top: 10px;">
+                            <li>                
+                                <div style="margin-bottom: 5px">
+                                    <a href="#" id="h5_m5_link" target="_blank"><xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='google_scholar_metrics']"/></a>
+                                </div>
+                                <div>
+                                    <strong><xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='google_scholar_h5_index']"/>: </strong><span id="h5_index"></span>
+                                </div>
+                                <div>
+                                    <strong><xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='google_scholar_m5_index']"/>: </strong><span id="m5_index"></span>
+                                </div>
+                                <div style="margin-top: 5px">
+                                    <a href="#" id="h5_m5_see_more" target="_blank"><xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='more_details']"/></a>
+                                </div>                                
+                            </li>
+                        </div>
+                    </ul>
 				</li>
 			</xsl:if>
 		</ul>
@@ -436,24 +504,8 @@ press release do artigo
 			</span>
 			<xsl:apply-templates select="." mode="change-language"/>
 			<xsl:apply-templates select="." mode="links"/>
-			<!-- monta o grafico scimago -->
-			<div class="optionsSubMenu">
-				<!--xsl:variable name="graphMago" select="document('file:///../../bases/scimago/scimago.xml')/SCIMAGOLIST/title[@ISSN = $ISSN_AS_ID]/@SCIMAGO_ID"/-->
-				<xsl:variable name="graphMago" select="document('../../bases/scimago/scimago.xml')/SCIMAGOLIST/title[@ISSN = $ISSN_AS_ID]/@SCIMAGO_ID"/>
-				<xsl:if test="$show_scimago!=0 and normalize-space($scimago_status) = normalize-space('online')">
-					<xsl:if test="$graphMago">
-						<a>
-							<xsl:attribute name="href">http://www.scimagojr.com/journalsearch.php?q=<xsl:value-of select="$ISSN_AS_ID"/>&amp;tip=iss&amp;exact=yes></xsl:attribute>
-							<xsl:attribute name="target">_blank</xsl:attribute>
-							<img>
-								<xsl:attribute name="src">/img/scimago/<xsl:value-of select="$ISSN_AS_ID"/>.gif</xsl:attribute>
-								<xsl:attribute name="alt"><xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='scimago_journal_country_rank']"/></xsl:attribute>
-								<xsl:attribute name="border">0</xsl:attribute>
-							</img>
-						</a>
-					</xsl:if>
-				</xsl:if>
-			</div>
+
+
 		</div>
 		<div class="mainContent">
 			<xsl:if test="($has_issue_pr = 'false') and ($has_article_pr = 'false')">

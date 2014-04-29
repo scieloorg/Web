@@ -2,7 +2,7 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 	<xsl:output method="html" encoding="utf-8" omit-xml-declaration="yes" indent="yes" doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 	<xsl:variable name="lang" select="//CONTROLINFO/LANGUAGE"/>
-	<xsl:variable name="texts" select="document('file:///var/www/scielo_br/htdocs/applications/scielo-org/xml/texts.xml')/texts/language[@id = $lang]"/>
+	<xsl:variable name="texts" select="document('../applications/scielo-org/xml/texts.xml')/texts/language[@id = $lang]"/>
 	<xsl:variable name="page_title">
 		<xsl:value-of select="//CONTROLINFO/SITE_NAME"/> - <xsl:value-of select="//CONTROLINFO//SCIELO_INFO/SERVER"/>
 	</xsl:variable>

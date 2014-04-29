@@ -129,7 +129,6 @@
 			(if v5001^t='AHEAD' then s(v5001^*)*9.4/ , break,fi),
 			(if v5001^t='REVIEW' then s(v5001^*)*9.4/, break,fi),
 		,fi,
-
 	</pft>
 </field>	
 	<display>
