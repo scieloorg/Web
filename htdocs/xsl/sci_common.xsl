@@ -650,7 +650,7 @@
                 var lng;
                 var browserlanguage = (navigator.language || navigator.systemLanguage || navigator.userLanguage || 'en').substr(0, 2).toLowerCase();
                 var expected_languages = Array('pt', 'es', 'en');
-                if (browserlanguage in expected_languages){
+                if ( $.inArray(browserlanguage, expected_languages) != -1 ){
                     lng = browserlanguage;
                 }else if ('<xsl:value-of select="//tlng" />' in expected_languages){
                     lng = '<xsl:value-of select="//tlng" />';
