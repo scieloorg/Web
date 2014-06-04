@@ -1,7 +1,4 @@
-import os
-import tempfile
 import urllib2
-import shutil
 
 
 username = ''
@@ -10,7 +7,7 @@ url_query_doi = 'http://doi.crossref.org/servlet/query?usr=' + username + '&pwd=
 
 
 def query_doi(xml_query):
-    response = urllib2.urlopen(self.url_query_doi + xml_query)
+    response = urllib2.urlopen(url_query_doi + xml_query)
     return handle_response_doi(response)
 
 

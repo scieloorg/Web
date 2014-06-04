@@ -1,5 +1,6 @@
 import os
 import tempfile
+import shutil
 
 import box as box
 
@@ -20,7 +21,7 @@ def _get_pid_list(limit_date):
     if limit_date is None:
         pft = 'v880/,v881/'
     else:
-        pft = 'if val(ref(mfn-1,v91)) > val(' + limit_date + '),' ',v880/,v881/ fi'
+        pft = 'if val(ref(mfn-1,v91)) >= val(' + limit_date + ') then ,v880/,v881/ fi'
 
     cmd = MX + ' ' + DB + ' btell=0 "tp=h" lw=999 "pft=' + pft + '" now -all > ' + result.name
     print(cmd)
@@ -48,19 +49,28 @@ def _new_xml_file(pid):
     generate_xml_article(pid, box.filename(new_path, pid))
 
 
-def _new_xml_files(pid_list, articles=True, references=False):
-    for pid in pid_list:
-        if articles:
-            _new_xml_file(pid)
-        if references:
-            for ref_pid in _get_article_pid_list(pid):
-                _new_xml_file(ref_pid)
+def new_xml_files(pid_list, articles=True, references=True):
+    if articles or references:
+        for pid in pid_list:
+            if articles:
+                _new_xml_file(pid)
+            if references:
+                for ref_pid in _get_article_pid_list(pid):
+                    _new_xml_file(ref_pid)
 
 
 def generate_xml_article(pid, xml_filename):
+    f = open(xml_filename, 'w')
+    f.write()
+    f.close()
+
     cmd = MX + ' ' + DB + ' btell=0 "hr=' + pid + ' or r=' + pid + '" lw=999 "pft=@' + PFT_QUERY + '" now >> ' + xml_filename
     print(cmd)
     os.system(cmd)
+
+    f = open(xml_filename, 'a')
+    f.write()
+    f.close()
 
 
 def is_processed(pid):
@@ -83,14 +93,19 @@ def delete_pending(pid):
     return os.unlink(box.filename(pending_path, pid))
 
 
-def get_xml_to_process(new=True, pending=False):
+def get_xml_files_list(articles=True, references=True, new=True, pending=True):
     r = []
-    if new:
-        for f in os.listdir(new_path):
-            r.append(new_path + '/' + f)
-    if pending:
-        for f in os.listdir(pending_path):
-            r.append(pending_path + '/' + f)
+    if articles or references:
+        if new:
+            r += box.files(new_path, articles, references)
+        if pending:
+            r += box.files(pending_path, articles, references)
     return r
 
 
+def change_status(xml_filename, pid, status):
+    if status:
+        shutil.move(xml_filename, box.filename(processed_path, pid))
+    else:
+        if box.filename(pending_path, pid) != xml_filename:
+            shutil.move(xml_filename, box.filename(pending_path, pid))
