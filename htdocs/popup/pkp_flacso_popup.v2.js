@@ -154,7 +154,7 @@ function pkp_flacso_popup(options) {
 
 		var userIP = $('#userIP').text();
 
-		if ((!cookie_exists(pollID) && Math.floor(Math.random() * PROBABILITY_SHOWING) == 0) || (cookie_exists(pollIDprefix) && !cookie_exists(pollID))) {
+		if ((!cookie_exists(pollID) && Math.floor(Math.random() * PROBABILITY_SHOWING) == 0)) {
 			// set the cookie specific to this question
 			document.cookie = pollID + '=1';
 
