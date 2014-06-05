@@ -2,7 +2,7 @@ export PATH=$PATH:.
 
 rem ===== Aumentar o espaco de variaveis de ambiente
 rem CONFIG.SYS
-rem 
+rem
 
 rem Envia2Medline
 rem Parametro 1: path da producao da SciELO
@@ -29,12 +29,12 @@ export INFORMALOG=$3
 call batch/InformaLog.bat $0 dh ===Inicio===
 
 call batch/CriaDiretorio.bat temp/transf2medline
-  
+
     call batch/GeraIso.bat     $1/bases/title/title                  temp/transf2medline/title.iso
     call batch/GeraIso.bat     $1/bases/issue/issue                  temp/transf2medline/issue.iso
     call batch/GeraIsoBool.bat $1/bases/artigo/artigo TP=i           temp/transf2medline/issues.iso
     call batch/GeraIsoBool.bat $1/bases/artigo/artigo TP=h           temp/transf2medline/artigo.iso   prc/AddV91.prc
-    call batch/GeraIsoBool.bat $1/bases/artigo/artigo TP=c           temp/transf2medline/bib4cit.iso  prc/bib4cit.prc
+    call batch/GeraIsoBool.bat $1/bases/artigo/artigo TP=c           temp/transf2medline/bib4cit.iso
 rem call batch/GeraIsoBool.bat $1/bases/artigo/artigo TP=l           temp/transf2medline/artigol.iso
 rem call batch/GeraIsoBool.bat $1/bases/artigo/artigo TP=h+TP=c+TP=i temp/transf2medline/artigonp.iso
 
