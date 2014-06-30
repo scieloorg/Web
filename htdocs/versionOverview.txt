@@ -1,4 +1,7 @@
-v5.34 (em desenvolvimento)
+v5.35 (em desenvolvimento)
+Inclusão de atributo setSampleRate para definir proporção de pageviews considerada para registro de logs no Google.
+
+v5.34
 Inclusão de indicadores bibliometricos do Google Scholar (#86)
 Apresentação de MathML na página do artigo e na página nova (#119)
 Reinclusão do article.js na página sci_issuetoc (#125)
