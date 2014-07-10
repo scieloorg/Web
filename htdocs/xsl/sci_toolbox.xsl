@@ -34,7 +34,7 @@
     <xsl:variable name="show_group_related_links" select="//varScieloOrg/show_group_related_links"/>
     <xsl:variable name="show_group_services" select="//varScieloOrg/show_group_services"/>
     <xsl:variable name="show_group_bookmark" select="//varScieloOrg/show_group_bookmark"/>
-    <xsl:variable name="THIS_PAGE_URL" select="concat('http://',//SERIAL/CONTROLINFO/SCIELO_INFO/SERVER,'/applications/scielo-org/scielo.php?script=sci_arttext&amp;pid=',//SERIAL/CONTROLINFO/PAGE_PID,'&amp;lng=',$LANGUAGE,'&amp;nrm=',//SERIAL/CONTROLINFO/STANDARD,'&amp;tlng=',//SERIAL/ISSUE/ARTICLE/@TEXTLANG)"/>
+    <xsl:variable name="THIS_PAGE_URL" select="concat('http://',//SERIAL/CONTROLINFO/SCIELO_INFO/SERVER,'/scielo.php?script=sci_arttext&amp;pid=',//SERIAL/CONTROLINFO/PAGE_PID,'&amp;lng=',$LANGUAGE,'&amp;nrm=',//SERIAL/CONTROLINFO/STANDARD,'&amp;tlng=',//SERIAL/ISSUE/ARTICLE/@TEXTLANG)"/>
 
     <form name="addToShelf" method="post"
       action="http://{$SCIELO_REGIONAL_DOMAIN}/applications/scielo-org/services/addArticleToShelf.php"
