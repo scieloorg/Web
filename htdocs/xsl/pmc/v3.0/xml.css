@@ -121,8 +121,7 @@ border-color: gray;
 }
 
 .inline-formula {
-	padding: 25px;
-    max-width: 100%;
+	max-width: 100%;
     display: inline;
 	max-height: 10%;
 }
@@ -143,10 +142,7 @@ border-color: gray;
 
 .inline-graphic{
 	display: inline;
-    width: auto;
-    
     max-height: 40px;
-	
 }
 
 .figure, .table-wrap {
