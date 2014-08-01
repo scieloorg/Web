@@ -191,7 +191,7 @@
 		return $result;
 	}
 
-    function listRecords ( $set = "", $from = "", $until = "", $control = "", $lang = "en", $nrm = "iso", $count = 30, $debug = false )
+    function listRecords ( $set = "", $from = "", $until = "", $control = "", $lang = "en", $nrm = "iso", $count = 30, $debug = false , $metadataprx = "")
     {
 		global $scielo_xml, $server;
     
@@ -201,6 +201,7 @@
         if ( !empty ( $from ) ) $parameters[ "from" ] = $from;
         if ( !empty ( $until ) ) $parameters[ "until" ] = $until;
         if ( !empty ( $control ) ) $parameters[ "resume" ] = $control;
+        if ( !empty ( $metadataprx ) ) $parameters[ "metadataprefix" ] = $metadataprx;
         $parameters[ "lng" ] = $lang;
         $parameters[ "nrm" ] = $nrm;
         $parameters[ "count" ] = $count;
@@ -214,7 +215,7 @@
 		return $result;
     }
 	
-	function listRecordsAgris ( $set = "", $from = "", $until = "", $control = "", $lang = "en", $nrm = "iso", $count = 30, $debug = false )
+	function listRecordsAgris ( $set = "", $from = "", $until = "", $control = "", $lang = "en", $nrm = "iso", $count = 30, $debug = false , $metadataprx = "")
     {
 		global $scielo_xml, $server;
     
@@ -224,6 +225,7 @@
         if ( !empty ( $from ) ) $parameters[ "from" ] = $from;
         if ( !empty ( $until ) ) $parameters[ "until" ] = $until;
         if ( !empty ( $control ) ) $parameters[ "resume" ] = $control;
+        if ( !empty ( $metadataprx ) ) $parameters[ "metadataprefix" ] = $metadataprx;
         $parameters[ "lng" ] = $lang;
         $parameters[ "nrm" ] = $nrm;
         $parameters[ "count" ] = $count;
@@ -236,6 +238,7 @@
 
 		return $result;
     }
+
 	/*function listRecordsAgris ( $set = "", $from = "", $until = "", $control = "", $lang = "en", $nrm = "iso", $count = 30, $debug = false )
     {
 		global $scielo_xml, $server;
