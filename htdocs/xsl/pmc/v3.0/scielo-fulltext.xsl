@@ -620,9 +620,9 @@
 		</div>
 	</xsl:template>
 	<xsl:template match="inline-formula">
-		<div class="inline-formula">
+		<span class="inline-formula">
 			<xsl:apply-templates></xsl:apply-templates>
-		</div>
+		</span>
 	</xsl:template>
 	<xsl:template match="disp-formula">
 		<div class="disp-formula">
@@ -1204,4 +1204,5 @@
 			<xsl:apply-templates></xsl:apply-templates>
 		</div>
 	</xsl:template>
+	
 </xsl:stylesheet>
