@@ -620,15 +620,19 @@
             </img>
         </xsl:if>
         <!-- to use Google Analytics -->
-        <xsl:if test="$control_info/SCIELO_INFO/GOOGLE_CODE != ''">
+        <xsl:if test="//varScieloOrg/GOOGLE_CODE != ''">
             <script type="text/javascript">
-                var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-                document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-                </script>
-            <script type="text/javascript">
-                var pageTracker = _gat._getTracker("<xsl:value-of select="$control_info/SCIELO_INFO/GOOGLE_CODE"/>");
-                pageTracker._initData();
-                pageTracker._trackPageview();
+              var _gaq = _gaq || [];
+              _gaq.push(['_setAccount', '<xsl:value-of select="//varScieloOrg/GOOGLE_CODE"/>']);
+              _gaq.push(['_trackPageview']);
+              _gaq.push(['_getSampleRate', '<xsl:value-of select="//varScieloOrg/GOOGLE_SAMPLE_RATE"/>']);
+
+              (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+              })();
+
             </script>
         </xsl:if>
         <xsl:if test="//varScieloOrg/PINGDOM_CODE != ''">
