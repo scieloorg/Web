@@ -61,8 +61,6 @@
 						case 'ENABLE_STATISTICS_LINK'	    : 'h17039',
 						case 'ENABLE_CITATION_REPORTS_LINK' : 'h17040',
 						case 'PATH_TRANSLATION'             : 'h17041',
-                        case 'ACTIVATE_GOOGLE'              : 'h17042',
-                        case 'GOOGLE_CODE'                  : 'h17043',
 						case 'PATH_HTDOCS'                  : 'h17044',
 						case 'STAT_SERVER_CITATION'         : 'h17045',
 						/* fixed */
