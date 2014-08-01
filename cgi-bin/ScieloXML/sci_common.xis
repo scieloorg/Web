@@ -1229,10 +1229,7 @@
 		'   <ENABLE_ARTICLE_LANG_LINK>', v7061, '</ENABLE_ARTICLE_LANG_LINK>'/,
 
 		fi,
-                if v7042 = '1' then,
-                '   <GOOGLE_CODE>', v7043, '</GOOGLE_CODE>'/,
-                fi,
-                '  </SCIELO_INFO>'/,
+        '  </SCIELO_INFO>'/,
 		</pft>		
 	</display>
 </function>

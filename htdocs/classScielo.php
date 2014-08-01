@@ -206,7 +206,9 @@ class Scielo extends ScieloBase
                             "journal_manager" => "journal_manager",
                             "show_new_article_link" => "show_new_article_link",
                             "show_issues_sorted_by_pubdate" => "show_issues_sorted_by_pubdate",
-                            "show_flacso_survey" => "show_flacso_survey"
+                            "show_flacso_survey" => "show_flacso_survey",
+                            "GOOGLE_CODE" => "GOOGLE_CODE",
+                            "GOOGLE_SAMPLE_RATE" => "GOOGLE_SAMPLE_RATE"
                     );
 
                     foreach ($elements as $k => $v) {
