@@ -54,20 +54,18 @@ $identifier = cleanParameter($identifier);
     function parseResumptionToken ( $resumptionToken )
     {
         global $metadataPrefix, $control, $set, $from, $until;
-
         if (! preg_match("/HR__S([0-9X]{4}-[0-9X]{4})[0-9]{13}:\\1?:((19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01]))?:(((19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01]))|$)/" , $resumptionToken ) and ! preg_match("/DTH__[0-9]{8}__([0-9X]{4}-[0-9X]{4})[0-9]{8}:\\1?:((19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01]))?:(((19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01]))|$)/" , $resumptionToken )){
-// preg_match("/DTH__[0-9]{8}__([0-9X]{4}-[0-9X]{4})[0-9]{8}:\\1?:((19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01]))?:(((19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01]))|$)/" , $resumptionToken );
             return false;
         }
 
     
         $params = split ( ":", $resumptionToken );
-               
-        $metadataPrefix = "oai_dc"; 
+
         $control = $params[ 0 ];
         $set = $params[ 1 ];
         $from = $params[ 2 ];
         $until = $params[ 3 ];
+        $metadataPrefix = $params[ 4 ];
 
         if ( !$control ) return false;
         
@@ -210,12 +208,12 @@ $identifier = cleanParameter($identifier);
 				}				
 			case "ListRecords":
 				{
-				$response = ListRecords( $set = $parameters["set"], $from = $parameters["from"], $until = $parameters["until"], $control = $parameters["control"], $lang = "en", $nrm = "iso", $count = 30, $debug = false );
+				$response = ListRecords( $set = $parameters["set"], $from = $parameters["from"], $until = $parameters["until"], $control = $parameters["control"], $lang = "en", $nrm = "iso", $count = 30, $debug = false, $metadataprx = $parameters["metadataprefix"] );
 				break;
 				}
 			case "ListRecordsAgris":
 				{
-				$response = ListRecordsAgris( $set = $parameters["set"], $from = $parameters["from"], $until = $parameters["until"], $control = $parameters["control"], $lang = "en", $nrm = "iso", $count = 100, $debug = false );
+				$response = ListRecordsAgris( $set = $parameters["set"], $from = $parameters["from"], $until = $parameters["until"], $control = $parameters["control"], $lang = "en", $nrm = "iso", $count = 100, $debug = false, $metadataprx = $parameters["metadataprefix"] );
 				break;
 				}
 			case "GetRecord":
@@ -443,7 +441,8 @@ $identifier = cleanParameter($identifier);
                 "control" => $control,
                 "lang" => "en",
                 "nrm" => "iso",
-                "count" => 40
+                "count" => 40,
+                "metadataprefix" => $metadataPrefix
             );
 
             if ( $debug ) $parameters[ "debug" ] = true;
@@ -521,7 +520,8 @@ $identifier = cleanParameter($identifier);
 	break;          
         case "ListIdentifiers":
         case "ListRecords":
-	    $metadataPrefix2 = $metadataPrefix; // $metadataPrefix perde seu valor original apos o IF abaixo.
+
+	       //$metadataPrefix2 = $metadataPrefix; // $metadataPrefix perde seu valor original apos o IF abaixo.
             if ( $resumptionToken && !parseResumptionToken ( $resumptionToken ) )
             {
                 $packet = createOAIErrorpacket ( $self, $verb, "badResumptionToken" );
@@ -538,7 +538,7 @@ $identifier = cleanParameter($identifier);
                 $packet = createOAIErrorpacket ( $self, $verb, "badArgument", "Invalid date format" );
                 break;
             }
-            $packet = ListIdOrRecords_OAI ( $verb, $self, $ws_client_url, $xslPath, $metadataPrefix2, $set, $from, $until, $control );
+            $packet = ListIdOrRecords_OAI ( $verb, $self, $ws_client_url, $xslPath, $metadataPrefix, $set, $from, $until, $control );
 			break;
 
         default:
