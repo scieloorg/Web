@@ -35,7 +35,7 @@
 				}
 			}
 			$url .= "&ws=true"; // Parametro que impede erros para registros que nao possuem abstract
-            //die($url);
+
 			@$fd = fopen ( $url,"r" );
 
 			if ( !$fd )
