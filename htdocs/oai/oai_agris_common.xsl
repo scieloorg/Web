@@ -86,7 +86,7 @@
 		
 		<xsl:variable name="resumptionToken">
 			<xsl:if test="@CONTROL">
-				<xsl:value-of select="@CONTROL"/>:<xsl:value-of select="@SET"/>:<xsl:value-of select="$from"/>:<xsl:value-of select="$until"/>
+				<xsl:value-of select="@CONTROL"/>:<xsl:value-of select="@SET"/>:<xsl:value-of select="$from"/>:<xsl:value-of select="$until"/>:<xsl:value-of select="@METADATAPREFIX"/>
 			</xsl:if>
 		</xsl:variable>
 		<resumptionToken><xsl:value-of select="normalize-space($resumptionToken)"/></resumptionToken>
