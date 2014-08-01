@@ -71,8 +71,8 @@ SERVER_LOG_PROC_PATH=scielolog
 SCRIPT_LOG_NAME=scielolog/updateLog02.php
 SCRIPT_LOG_RUN=scielo-log.bireme.br/scielolog/scielolog03B2.php
 PINGDOM_CODE=
-ACTIVATE_GOOGLE=1
 GOOGLE_CODE=
+GOOGLE_SAMPLE_RATE=100
 PATH_LOG_CACHE=/home/scielo/www/bases/pages/sci_stat/
 SCRIPT_TOP_TEN="http://scielo-log.bireme.br/scielolog/ofigraph20.php?app=scielo"
 SCRIPT_ARTICLES_PER_MONTH="http://scielo-log.bireme.br/scielolog/ofigraph21.php?app=scielo"
