@@ -11,9 +11,10 @@
 	    <field action="cgi" tag="3004">resume</field>
 	    <field action="cgi" tag="3005">lng</field>
 	    <field action="cgi" tag="3006">nrm</field>
-            <field action="cgi" tag="3010">debug</field>
+        <field action="cgi" tag="3010">debug</field>
 	    <field action="cgi" tag="3011">def</field>
-    
+        <field action="cgi" tag="3012">metadataprefix</field>
+
         <field action="replace" tag="3011"><pft>if a(v3011) then 'scielo.def.php' fi</pft></field>
 
         <call name="DebugMode"><pft>if a(v3010) then 'OFF' else mpu,v3010,mpl fi</pft></call>
@@ -110,7 +111,7 @@
             <field action=define tag="1003">Isis_Posting</field>
             
             <loop>
-                <field action="import" tag="list">1001,3000/3004,7009/7060</field>
+                <field action="import" tag="list">1001,3000/3004,3012,7009/7060</field>
                                 
                 <flow action="jump">
                     <pft>
@@ -166,7 +167,7 @@
 			<parm name="count">1</parm>
 			
 			<loop>
-                                <field action="import" tag="list">1001,3000/3004,7009/7060</field>
+                <field action="import" tag="list">1001,3000/3004,3012,7009/7060</field>
 				<display><pft>@PROC_SPLIT_MST.PFT,</pft></display>
 				
 				<display><pft>@PROC_XML_AGRIS.PFT</pft></display>
@@ -187,6 +188,7 @@
                                | SET="|v3001|"|,
                                | FROM="|v3002|"|,
                                | UNTIL="|v3003|"|,
+                               | METADATAPREFIX="|v3012|"|,
                         '/>',/
                     </pft>
                 </display>
