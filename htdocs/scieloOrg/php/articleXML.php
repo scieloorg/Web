@@ -26,11 +26,18 @@ $xml1 = "http://".$applServer."/cgi-bin/wxis.exe/?IsisScript=ScieloXML/";
 $xml1 .="sci_xmloutput.xis&database=artigo&search=IV=". $pid ."\$"; 
 $xml1 = file_get_contents($xml1);
 
+if ($_REQUEST['debug'] == 'xml') {
+	die($xml1);
+}
 
 // Contem o elemento <BODY> </BODY>
 $xml2 = "http://".$applServer."/cgi-bin/wxis.exe/?IsisScript=ScieloXML/";
 $xml2 .= "sci_arttext.xis&def=scielo.def.php&pid=".$pid;
 $xml2 = file_get_contents($xml2);
+$xml2 = str_replace("<REFERENCES></REFERENCES>","",$xml2);
+if ($_REQUEST['debug'] == 'body') {
+	die($xml2);
+}
 
 
 // Pegando o conteudo entre as tags <BODY> ... </BODY>
