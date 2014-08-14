@@ -1,4 +1,6 @@
-v5.35 (em desenvolvimento)
+v5.36 (em desenvolvimento)
+
+v5.35
 Inclusão de atributo setSampleRate para definir proporção de pageviews considerada para registro de logs no Google.
 Correção de ResumptionToken no protocolo OAI. O ResumptionToken mantém a navegação no protocolo para o metadataPrefix selecionado. (#159)
 Ajuste em regex de validação do resumptionToken no protocolo OAI (#161)
