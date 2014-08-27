@@ -2091,7 +2091,6 @@ fi
    <field action="replace" tag="3232" split="occ"><pft>(v4901^i/)</pft></field>
    
    	<field action="replace" tag="9005" split="occ"><pft>if v4905[1]='' then ref(['ARTIGO']l(['ARTIGO'],'HR=',mpu,v4901^*[1],mpl),@PROC_SPLIT_MST.PFT,(if p(v601) then '<LANG>',v601,'</LANG>'/ fi)) fi</pft></field>
-	<field action="replace" tag="9005" split="occ"><pft>if v4905[1]='pdf' then ref(['ARTIGO']l(['ARTIGO'],'HR=',mpu,v4901^*[1],mpl),@PROC_SPLIT_MST.PFT,(if p(v740) then '<LANG>',v740,'</LANG>'/ fi)) fi</pft></field>
 	<flow action="jump"><pft>if p(v9005) then 'END_FIND_TRANSLATIONS' fi</pft></flow>
     
     <!-- INICIO TRECHO QUE TRATA DE PDF EXTERNO: V7060 -->
