@@ -412,7 +412,7 @@
 	<pft>
 	'  <PRESSRELEASE_LANGS>'/
 		'<LANG pid="',v4000^*,'">',ref(['ARTIGO']l(['ARTIGO']'hr=',v4000^i),v40),'</LANG>'/
-	v7999
+	,(replace(v7999,'<LANG>',s('<LANG pid="',v4000^*[1],'">'))),
 	'  </PRESSRELEASE_LANGS>'/
 	</pft>
 	</display>
