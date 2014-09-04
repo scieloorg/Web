@@ -3445,7 +3445,7 @@ fi
 	<flow action="jump"><pft>if v4000^c='nd' then 'nd' else v4000^l fi</pft></flow>
 
 	<label>nd</label>
-	<field action="replace" tag="540"><pft>'<!-- nd -->'</pft></field:>
+	<field action="replace" tag="540"><pft>'<!-- nd -->'</pft></field>
 	<flow action="jump">end</flow>
 
 	<label>pt</label>
@@ -3496,10 +3496,10 @@ fi
 	<call name="getLicenseText"><pft>if p(v4000^c) then '^l',v4000^l,'^s',v4000^s,'^c',v4000^c,'^v',v4000^v, fi</pft></call>
 	<flow action="jump"><pft>if p(v9540) then 'license' fi</pft></flow>
 	
+	<label>general</label>
 	<call name="existeFile"><pft>'^p../bases/license/^f',v4000^l,'_general.txt'</pft></call>
 	<flow action="jump"><pft>if a(v7999) then 'end' fi</pft></flow>
 
-	<label>general</label>
 	<field action="replace" tag="1">general</field>
 	<do task="import">
 	    <parm name="file"><pft>'../bases/license/',v4000^l,'_general.txt'</pft></parm>
