@@ -3442,7 +3442,11 @@ fi
 	<field action="replace" tag="4000"><pft>replace(v4000,'NC','nc')</pft></field>
 	<field action="replace" tag="4000"><pft>replace(v4000,'SA','sa')</pft></field>
 
-	<flow action="jump"><pft>v4000^l</pft></flow>
+	<flow action="jump"><pft>if v4000^c='nd' then 'nd' else v4000^l fi</pft></flow>
+
+	<label>nd</label>
+	<field action="replace" tag="540"><pft>'<-- nd -->'</pft></flow>
+	<flow action="jump">end</flow>
 
 	<label>pt</label>
 	<field action="replace" tag="540"><pft>'<a rel="license" href="http://creativecommons.org/licenses/',v4000^c,'/',v4000^v,'/deed.pt"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/',v4000^c,'/',v4000^v,'/80x15.png"/></a> Todo o conteúdo deste site ',v4000^s,', exceto quando identificado, utiliza  uma <a rel="license" href="http://creativecommons.org/licenses/',v4000^c,'/',v4000^v,'/deed.pt">Licença de Atribuição Creative Commons</a>.'</pft></field>
@@ -3488,6 +3492,7 @@ fi
 	
 	<label>site</label>
 	<field action="replace" tag="1">site</field>
+	<field action="replace" tag="541"><pft>v4000^c</pft></field>
 	<call name="getLicenseText"><pft>if p(v4000^c) then '^l',v4000^l,'^s',v4000^s,'^c',v4000^c,'^v',v4000^v, fi</pft></call>
 	<flow action="jump"><pft>if p(v9540) then 'license' fi</pft></flow>
 	
