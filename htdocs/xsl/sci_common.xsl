@@ -1065,7 +1065,9 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
     <xsl:template match="*" mode="license">
         <xsl:if test="../..//LICENSE='cc' or .//LICENSE='cc'">
             <xsl:choose>
-                <xsl:when test="$ARTICLE_LICENSE"><!-- aplicado no scielo-fulltext.xsl --></xsl:when>
+                <xsl:when test="$ARTICLE_LICENSE">
+                    <xsl:apply-templates select="$ARTICLE_LICENSE"/>
+                </xsl:when>
                 <xsl:when test="$GENERAL_LICENSE">
                     <xsl:apply-templates select="$GENERAL_LICENSE"/>
                 </xsl:when>
@@ -1073,9 +1075,26 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
         </xsl:if>
     </xsl:template>
     <xsl:template match="permissions">
-        <span class="license">
-            <xsl:copy-of select=".//license/*"/>
-        </span>
+        <div class="license">
+            <xsl:choose>
+                <xsl:when test=".//license/p">
+                    <xsl:copy-of select=".//license/p"/>
+                </xsl:when>
+                <xsl:when test=".//license/license-p">
+                    <!-- <license license-type="BY-NC"
+                        xlink:href="http://creativecommons.org/licenses/by-nc/3.0/">
+                        <license-p>
+                            <graphic xlink:href="http://i.creativecommons.org/l/by-nc/3.0/88x31.png"/> CC
+                            BY-NC 3.0 nd</license-p>
+                    </license>
+                     -->
+                    <a href="{.//license/@xlink:href}">
+                    <img src="{.//graphic/@xlink:href}"/>
+                    </a>
+                </xsl:when>
+            </xsl:choose>
+        </div>
+        <br/><br/>
     </xsl:template>
     <xsl:template match="*" mode="footer-journal">
         <div class="footer">
