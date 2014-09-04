@@ -3470,7 +3470,7 @@ fi
 	<flow action="jump"><pft>if size(v4000^p)=23 then 'article' fi</pft></flow>
 	<flow action="jump"><pft>if size(v4000^p)=17 then 'issue' fi</pft></flow>
 	<flow action="jump"><pft>if size(v4000^p)=9 then 'journal' fi</pft></flow>
-	<flow action="jump"><pft>if p(v4000^c) then 'site' else 'general' fi</pft></flow>
+	<flow action="jump"><pft>if p(v4000^c) then 'site' else 'other' fi</pft></flow>
 	
 	<label>article</label>
 	<flow action="jump"><pft>if instr(ref(['ARTIGO']l(['ARTIGO'],'hr=',v4000^p),v702),'.xml')>0 then 'end' fi</pft></flow>
@@ -3496,7 +3496,8 @@ fi
 	<call name="getLicenseText"><pft>if p(v4000^c) then '^l',v4000^l,'^s',v4000^s,'^c',v4000^c,'^v',v4000^v, fi</pft></call>
 	<flow action="jump"><pft>if p(v9540) then 'license' fi</pft></flow>
 	
-	<label>general</label>
+	<label>other</label>
+	<field action="replace" tag="1">none</field>
 	<call name="existeFile"><pft>'^p../bases/license/^f',v4000^l,'_general.txt'</pft></call>
 	<flow action="jump"><pft>if a(v7999) then 'end' fi</pft></flow>
 
