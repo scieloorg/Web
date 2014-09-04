@@ -3445,7 +3445,7 @@ fi
 	<flow action="jump"><pft>if v4000^c='nd' then 'nd' else v4000^l fi</pft></flow>
 
 	<label>nd</label>
-	<field action="replace" tag="540"><pft>'<-- nd -->'</pft></flow>
+	<field action="replace" tag="540"><pft>'<!-- nd -->'</pft></field:>
 	<flow action="jump">end</flow>
 
 	<label>pt</label>
