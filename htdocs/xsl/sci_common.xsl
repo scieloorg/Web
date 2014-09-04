@@ -236,41 +236,19 @@
     </xsl:template>
     <!-- Shows copyright information -->
     <xsl:template match="COPYRIGHT">
-        <xsl:comment>
-            <xsl:value-of select="../..//LICENSE"/>
-        </xsl:comment>
-        <xsl:choose>
-            <xsl:when test="../..//LICENSE='cc'">
-                <xsl:apply-templates select="../." mode="license"/>
-                <p>
-                    <i> &#160; <xsl:value-of select="." disable-output-escaping="yes"/>
-                    </i>
-                </p>
-            </xsl:when>
-            <xsl:when test="../..//LICENSE='site'">
-                <xsl:call-template name="COPYRIGHTSCIELO"/>
-            </xsl:when>
-            <xsl:when test="../..//LICENSE='none'"> &#169;&#160; <i>
-                    <xsl:value-of select="@YEAR"/>&#160; </i>
-                <br/>
-            </xsl:when>
-            <xsl:when test="../..//LICENSE='embargo' and ../..//EMBARGO/@text='yes'">
-                <xsl:call-template name="COPYRIGHTSCIELO"/>
-            </xsl:when>
-            <xsl:when test="../..//LICENSE='embargo' and ../..//EMBARGO/@text='no'"> &#169;&#160; <i>
-                    <xsl:value-of select="@YEAR"/>&#160; <xsl:value-of select="."
-                        disable-output-escaping="yes"/>
-                </i>
-                <br/>
-            </xsl:when>
-            <xsl:otherwise> &#169;&#160; <i>
-                    <xsl:value-of select="@YEAR"/>&#160; <xsl:value-of select="."
-                        disable-output-escaping="yes"/>
-                </i>
-                <br/>
-                <br/>
-            </xsl:otherwise>
-        </xsl:choose>
+        <xsl:apply-templates select="." mode="license"/>
+        <p>
+            <xsl:if test="../PERMISSIONS//license/@license-type='nd'">
+            &#169;&#160; <xsl:value-of select="@YEAR"/>&#160; 
+            </xsl:if>
+            <i>
+                <xsl:value-of select="." disable-output-escaping="yes"/>
+            </i>
+        </p>
+        
+        <br/>
+        <br/>
+        <xsl:apply-templates select="../CONTACT"></xsl:apply-templates>
     </xsl:template>
     <!-- Shows contact information -->
     <xsl:template match="CONTACT">
@@ -696,7 +674,8 @@
     </xsl:template>
     <xsl:template name="COPYRIGHTSCIELO">
         <xsl:apply-templates select="." mode="license"/>
-        <center> &#169;&#160;<xsl:value-of select="@YEAR"/>&#160; <i>
+        <center>
+            <i>
                 <font color="#000080">
                     <xsl:choose>
                         <xsl:when test="OWNER-FULLNAME">
@@ -1087,12 +1066,14 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
         </xsl:call-template>
     </xsl:template>
     <xsl:template match="*" mode="license">
-        <xsl:choose>
-            <xsl:when test="$ARTICLE_LICENSE"> </xsl:when>
-            <xsl:when test="$GENERAL_LICENSE">
-                <xsl:apply-templates select="$GENERAL_LICENSE"/>
-            </xsl:when>
-        </xsl:choose>
+        <xsl:if test="../..//LICENSE='cc'">
+            <xsl:choose>
+                <xsl:when test="$ARTICLE_LICENSE"><!-- aplicado no scielo-fulltext.xsl --></xsl:when>
+                <xsl:when test="$GENERAL_LICENSE">
+                    <xsl:apply-templates select="$GENERAL_LICENSE"/>
+                </xsl:when>
+            </xsl:choose>
+        </xsl:if>
     </xsl:template>
     <xsl:template match="permissions">
         <span class="license">
@@ -1101,18 +1082,7 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
     </xsl:template>
     <xsl:template match="*" mode="footer-journal">
         <div class="footer">
-            <xsl:apply-templates select=".//COPYRIGHT"/>
-            <xsl:comment>
-                <xsl:value-of select="../..//LICENSE"/>
-            </xsl:comment>
-            <xsl:choose>
-                <xsl:when test="../..//LICENSE='site'"> </xsl:when>
-                <xsl:when test="../..//LICENSE='none'"> </xsl:when>
-                <xsl:when test="../..//LICENSE='embargo' and ../..//EMBARGO/@text='yes'"> </xsl:when>
-                <xsl:otherwise>
-                    <xsl:apply-templates select=".//CONTACT"/>
-                </xsl:otherwise>
-            </xsl:choose>
+            <xsl:apply-templates select=".//COPYRIGHT"/>                 
         </div>
     </xsl:template>
     <xsl:template match="*" mode="repo_url_param_scielo"/>
