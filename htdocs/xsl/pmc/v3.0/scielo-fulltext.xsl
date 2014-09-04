@@ -1,8 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML">
-
 	
+	<xsl:template match="permissions">
+		<span class="license">
+			<!-- <license license-type="BY-NC"
+                xlink:href="http://creativecommons.org/licenses/by-nc/3.0/">
+                <license-p>
+                    <graphic xlink:href="http://i.creativecommons.org/l/by-nc/3.0/88x31.png"/> CC
+                    BY-NC 3.0 nd</license-p>
+            </license>
+             -->
+			<a href="{.//license/@xlink:href}">
+				<img src="{.//graphic/@xlink:href}"/>
+			</a>
+		</span>
+	</xsl:template>
 	<xsl:template match="*" mode="id">
 		<xsl:value-of select="@id"/>
 		<xsl:if test="not(@id)">
