@@ -245,9 +245,6 @@
                 <xsl:value-of select="." disable-output-escaping="yes"/>
             </i>
         </p>
-        
-        <br/>
-        <br/>
         <xsl:apply-templates select="../CONTACT"></xsl:apply-templates>
     </xsl:template>
     <!-- Shows contact information -->
@@ -1066,7 +1063,7 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
         </xsl:call-template>
     </xsl:template>
     <xsl:template match="*" mode="license">
-        <xsl:if test="../..//LICENSE='cc'">
+        <xsl:if test="../..//LICENSE='cc' or .//LICENSE='cc'">
             <xsl:choose>
                 <xsl:when test="$ARTICLE_LICENSE"><!-- aplicado no scielo-fulltext.xsl --></xsl:when>
                 <xsl:when test="$GENERAL_LICENSE">
