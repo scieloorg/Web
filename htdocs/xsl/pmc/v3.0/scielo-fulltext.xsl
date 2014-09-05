@@ -1173,7 +1173,7 @@
 
 		</xsl:choose>
 	</xsl:template>
-	<xsl:template match="*">
+	<xsl:template match="media">
 		<xsl:variable name="src">
 			<xsl:value-of select="$var_IMAGE_PATH"/>
 			<xsl:value-of select="@xlink:href"/>
@@ -1192,7 +1192,7 @@
 			</xsl:attribute>
 		</embed>
 	</xsl:template>
-	<xsl:template match="*[@mime-subtype='pdf']">
+	<xsl:template match="media[@mime-subtype='pdf']">
 		<xsl:variable name="src">/pdf<xsl:value-of
 				select="substring-after($var_IMAGE_PATH,'/img/revistas')"/><xsl:value-of
 				select="@xlink:href"/></xsl:variable>
