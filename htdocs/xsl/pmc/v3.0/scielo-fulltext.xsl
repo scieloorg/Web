@@ -237,6 +237,7 @@
 		<xsl:if test="not(.//abstract)">
 			<xsl:apply-templates select="../..//front//abstract  | ../..//front//trans-abstract"/>
 		</xsl:if>
+		<xsl:apply-templates select=".//supplementary-material"/>
 	</xsl:template>
 
 	<xsl:template
@@ -246,8 +247,8 @@
 		<xsl:apply-templates select=".//contrib-group"/>
 		<xsl:apply-templates select=".//aff"/>
 		<xsl:apply-templates select=".//abstract | .//trans-abstract"/>
+		<xsl:apply-templates select=".//supplementary-material"/>
 	</xsl:template>
-
 
 	<xsl:template match="front">
 		<xsl:apply-templates select=".//article-categories"/>
@@ -1200,7 +1201,8 @@
 			<xsl:attribute name="href">
 				<xsl:value-of select="$src"/>
 			</xsl:attribute>
-			<xsl:if test="normalize-space(text())=''">[View]</xsl:if>
+			<xsl:if test="normalize-space(text())=''"><xsl:value-of
+				select="@xlink:href"/></xsl:if>
 		</a>
 
 		<!--embed width="100%" height="400">
@@ -1217,5 +1219,31 @@
 			<xsl:apply-templates></xsl:apply-templates>
 		</div>
 	</xsl:template>
-	
+
+	<xsl:template match="supplementary-material">
+		<xsl:choose>
+			<xsl:when test="not(*) and normalize-space(text())=''">
+				<xsl:variable name="src">/pdf<xsl:value-of
+					select="substring-after($var_IMAGE_PATH,'/img/revistas')"/><xsl:value-of
+						select="@xlink:href"/></xsl:variable>
+				<a target="_blank">
+					<xsl:attribute name="href">
+						<xsl:value-of select="$src"/>
+					</xsl:attribute>
+					<xsl:if test="normalize-space(text())=''"><xsl:value-of
+						select="@xlink:href"/></xsl:if>
+				</a>
+				<!--embed width="100%" height="400">
+                <xsl:attribute name="src"><xsl:value-of select="$src"/></xsl:attribute> 
+            	</embed-->
+			</xsl:when>
+			<xsl:otherwise>
+				<div class="panel">
+					<xsl:call-template name="named-anchor"/>
+					<xsl:apply-templates select="." mode="label"/>
+					<xsl:apply-templates/>
+					</div>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
 </xsl:stylesheet>
