@@ -16,7 +16,7 @@ def query_batch_url(usr, pswd, xml_query_batch):
 
 
 def request(url):
-    return urllib2.urlopen(url).read()
+    return urllib2.urlopen(url, timeout=15).read()
 
 
 def registered_pid(query_result):
@@ -52,9 +52,12 @@ def query(user, password, query_file):
 
     if os.path.isfile(query_file):
         result = request(query_batch_url(user, password, open(query_file, 'r').read()))
+        print(result)
         if result is not None:
             doi = registered_doi(result)
+            print(doi)
             pid = registered_pid(result)
+            print(pid)
             if doi != '' and pid != '':
                 open(path + '/' + add_doi_prc_file, 'w').write(add_doi_prc(pid, doi))
 
