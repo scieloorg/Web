@@ -1223,7 +1223,7 @@
 					<xsl:attribute name="href">
 						<xsl:value-of select="$src"/>
 					</xsl:attribute>
-					<<xsl:value-of
+					<xsl:value-of
 						select="@xlink:href"/>
 				</a>
 				<!--embed width="100%" height="400">
