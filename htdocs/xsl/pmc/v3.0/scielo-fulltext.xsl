@@ -1042,19 +1042,15 @@
 							<xsl:apply-templates select="*"/>
 						</xsl:otherwise>
 					</xsl:choose>
-
-
 				</xsl:when>
 				<xsl:otherwise>
 					<xsl:apply-templates select="*"/>
 				</xsl:otherwise>
 			</xsl:choose>
-
 		</div>
 	</xsl:template>
 
-	<xsl:template match="response/back">
-		
+	<xsl:template match="response/back">		
 		<xsl:variable name="this-article">
 			<xsl:apply-templates select="." mode="id"/>
 		</xsl:variable>
@@ -1079,15 +1075,12 @@
 							<xsl:apply-templates select="$original/response/back/ref-list"/>
 							<xsl:apply-templates select="*"/>
 						</xsl:otherwise>
-					</xsl:choose>
-					
-					
+					</xsl:choose>					
 				</xsl:when>
 				<xsl:otherwise>
 					<xsl:apply-templates select="*"/>
 				</xsl:otherwise>
-			</xsl:choose>
-			
+			</xsl:choose>			
 		</div>
 	</xsl:template>
 	
@@ -1230,8 +1223,8 @@
 					<xsl:attribute name="href">
 						<xsl:value-of select="$src"/>
 					</xsl:attribute>
-					<xsl:if test="normalize-space(text())=''"><xsl:value-of
-						select="@xlink:href"/></xsl:if>
+					<<xsl:value-of
+						select="@xlink:href"/>
 				</a>
 				<!--embed width="100%" height="400">
                 <xsl:attribute name="src"><xsl:value-of select="$src"/></xsl:attribute> 
@@ -1245,5 +1238,25 @@
 					</div>
 			</xsl:otherwise>
 		</xsl:choose>
+	</xsl:template>
+	
+	<xsl:template match="inline-supplementary-material">
+		<xsl:variable name="src">/pdf<xsl:value-of
+					select="substring-after($var_IMAGE_PATH,'/img/revistas')"/><xsl:value-of
+						select="@xlink:href"/></xsl:variable>
+		<a target="_blank">
+			<xsl:attribute name="href">
+				<xsl:value-of select="$src"/>
+			</xsl:attribute>
+			<xsl:choose>
+				<xsl:when test="normalize-space(text())=''">
+					<xsl:value-of
+						select="@xlink:href"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="."/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</a>
 	</xsl:template>
 </xsl:stylesheet>
