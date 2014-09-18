@@ -75,7 +75,11 @@
                                         '<identifier id_type="pii">',v9880,'</identifier>',#
                                 '</publisher_item>',#,
                                 '<doi_data>',#,
-					'<doi>',v9038,'/',v9880,'</doi>',#,
+                                ,if p(v237) then 
+                                    ,'<doi>'v237'</doi>', 
+                                ,else 
+                                    ,'<doi>',v9038,'/',v9880,'</doi>'
+                                ,fi,
                                         '<resource>http://',v9037,'/scielo.php?script=sci_arttext&amp;pid=',v880,'&amp;lng=en&amp;nrm=iso&amp;tlng=en</resource>',#
                                 '</doi_data>',#,
                         '</journal_article>',#,
