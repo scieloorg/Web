@@ -14,8 +14,7 @@
 
 		if ( $error = $scielo_xml->getError () )
 		{
-//			return new soap_fault ( "Scielo_WS_Server", "", $error );
-			return new soap_fault ( "Scielo_WS_Server", $error );
+			return new SoapFault( "Scielo_WS_Server", $error );
 		}
 
 		return $result;
@@ -27,8 +26,7 @@
 
 		if ( $pid == "" )
 		{
-//    		return new soap_fault ( 'Scielo_WS_Server','','Client must supply a valid PID.' );
-    		return new soap_fault ( 'Scielo_WS_Server', 'Client must supply a valid PID.' );
+    		return new SoapFault( 'Scielo_WS_Server', 'Client must supply a valid PID.' );
 	    }
 
 		$parameters = array ( "pid" => $pid, "lng" => $lang );
@@ -37,8 +35,7 @@
 
 		if ( $error = $scielo_xml->getError () )
 		{
-//			return new soap_fault ( "Scielo_WS_Server", "", $error );
-			return new soap_fault ( "Scielo_WS_Server", $error );
+			return new SoapFault( "Scielo_WS_Server", $error );
 		}
 
 		return $result;
@@ -50,8 +47,7 @@
 
 		if ( $pid == "" )
 		{
-//    		return new soap_fault ( 'Scielo_WS_Server','','Client must supply a valid PID.' );
-    		return new soap_fault ( 'Scielo_WS_Server','Client must supply a valid PID.' );
+    		return new SoapFault( 'Scielo_WS_Server','Client must supply a valid PID.' );
 	    }
 
 		$parameters = array ( "pid" => $pid, "lng" => $lang );
@@ -59,8 +55,7 @@
 		$result = $scielo_xml->getXML ( "sci_issuetoc", $parameters, $debug );
 		if ( $error = $scielo_xml->getError () )
 		{
-//			return new soap_fault ( "Scielo_WS_Server", "", $error );
-			return new soap_fault ( "Scielo_WS_Server", $error );
+			return new SoapFault( "Scielo_WS_Server", $error );
 		}
 
 		return $result;
@@ -71,8 +66,7 @@
 		global $scielo_xml, $server;
 		if ( $pid == "" )
 		{
-//    		return new soap_fault ( 'Scielo_WS_Server','','Client must supply a valid PID.' );
-    		return new soap_fault ( 'Scielo_WS_Server','Client must supply a valid PID.' );
+    		return new SoapFault( 'Scielo_WS_Server','Client must supply a valid PID.' );
 	    }
 
 		$parameters = array ( "pid" => $pid, "lng" => $lang, "tlng" => $tlng );
@@ -84,8 +78,7 @@
 
 		if ( $error = $scielo_xml->getError () )
 		{
-//			return new soap_fault ( "Scielo_WS_Server", "", $error );
-			return new soap_fault ( "Scielo_WS_Server", $error );
+			return new SoapFault( "Scielo_WS_Server", $error );
 		}
 
 		return $result;
@@ -96,8 +89,7 @@
 		global $scielo_xml, $server;
 		if ( $pid == "" )
 		{
-//    		return new soap_fault ( 'Scielo_WS_Server','','Client must supply a valid PID.' );
-    		return new soap_fault ( 'Scielo_WS_Server','Client must supply a valid PID.' );
+    		return new SoapFault( 'Scielo_WS_Server','Client must supply a valid PID.' );
 	    }
 
 		//$parameters = array ( "pid" => $pid, "lng" => $lang, "tlng" => $tlng ,"database" => "artigo","search=IV" => '$');
@@ -112,8 +104,7 @@
 
 		if ( $error = $scielo_xml->getError () )
 		{
-//			return new soap_fault ( "Scielo_WS_Server", "", $error );
-			return new soap_fault ( "Scielo_WS_Server", $error );
+			return new SoapFault( "Scielo_WS_Server", $error );
 		}
 
 		return $result;
@@ -125,8 +116,7 @@
 
 		if ( $pid == "" )
 		{
-//    		return new soap_fault ( 'Scielo_WS_Server','','Client must supply a valid PID.' );
-    		return new soap_fault ( 'Scielo_WS_Server','Client must supply a valid PID.' );
+    		return new SoapFault( 'Scielo_WS_Server','Client must supply a valid PID.' );
 	    }
 
 		$parameters = array ( "pid" => $pid, "lng" => $lang, "tlng" => $tlng );
@@ -135,8 +125,7 @@
 
 		if ( $error = $scielo_xml->getError () )
 		{
-//			return new soap_fault ( "Scielo_WS_Server", "", $error );
-			return new soap_fault ( "Scielo_WS_Server", $error );
+			return new SoapFault( "Scielo_WS_Server", $error );
 		}
 
 		return $result;
@@ -170,8 +159,7 @@
 
 		if ( $search == "" )
 		{
-//    		return new soap_fault ( 'Scielo_WS_Server','','Client must supply a valid search expression.' );
-    		return new soap_fault ( 'Scielo_WS_Server','Client must supply a valid search expression.' );
+    		return new SoapFault( 'Scielo_WS_Server','Client must supply a valid search expression.' );
 	    }
 
 		$search = stripslashes ( str_replace ( " ", "+", $search ) );
@@ -184,8 +172,7 @@
 
 		if ( $error = $scielo_xml->getError () )
 		{
-//			return new soap_fault ( "Scielo_WS_Server", "", $error );
-			return new soap_fault ( "Scielo_WS_Server", $error );
+			return new SoapFault( "Scielo_WS_Server", $error );
 		}
 
 		return $result;
@@ -208,8 +195,7 @@
 		$result = $scielo_xml->getXML ( "sci_listrecords", $parameters, $debug );
 		if ( $error = $scielo_xml->getError () )
 		{
-//			return new soap_fault ( "Scielo_WS_Server", "", $error );
-			return new soap_fault ( "Scielo_WS_Server", $error );
+			return new SoapFault( "Scielo_WS_Server", $error );
 		}
 
 		return $result;
@@ -232,41 +218,12 @@
 		$result = $scielo_xml->getXML ( "sci_listrecords_agris", $parameters, $debug );
 		if ( $error = $scielo_xml->getError () )
 		{
-//			return new soap_fault ( "Scielo_WS_Server", "", $error );
-			return new soap_fault ( "Scielo_WS_Server", $error );
+			return new SoapFault( "Scielo_WS_Server", $error );
 		}
 
 		return $result;
     }
 
-	/*function listRecordsAgris ( $set = "", $from = "", $until = "", $control = "", $lang = "en", $nrm = "iso", $count = 30, $debug = false )
-    {
-		global $scielo_xml, $server;
-    
-        $parameters = array();
-        
-        //if ( !empty ( $set ) ) $parameters[ "set" ] = $set;
-        if ( !empty ( $from ) ) $parameters[ "from" ] = $from;
-        if ( !empty ( $until ) ) $parameters[ "until" ] = $until;
-        if ( !empty ( $control ) ) $parameters[ "resume" ] = $control;
-        ///$parameters[ "lng" ] = $lang;
-        //$parameters[ "nrm" ] = $nrm;
-        $parameters[ "count" ] = $count;
-		$parameters[ "database" ] = 'artigo';
-		$parameters[ "search" ] = 'HR=S'.$set.'$'; 
-		
-		
-		
-		$result = $scielo_xml->getXML ( "sci_listrecords_agris", $parameters, $debug );
-
-		if ( $error = $scielo_xml->getError () )
-		{
-//			return new soap_fault ( "Scielo_WS_Server", "", $error );
-			return new soap_fault ( "Scielo_WS_Server", $error );
-		}
-
-		return $result;
-    }*/
 	/*********************************** MAIN CODE *****************************************/
 
 	if ( isset ( $_SERVER ) && !isset ( $DOCUMENT_ROOT ) )
