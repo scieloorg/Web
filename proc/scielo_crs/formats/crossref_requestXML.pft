@@ -1,14 +1,18 @@
 ,if a(v41) or v41='' then
 ,proc('d9880a9880{',
-    if p(v891) then
-        v891
-    else
-        if p(v881) then
-        	v881
-        else
-	       v880
-        fi
-   fi
+    ,if p(v9881) then
+      ,v9881,
+    ,else
+      if p(v891) then
+          v891
+      else
+          if p(v881) then
+                  v881
+          else
+                 v880
+          fi
+      fi,
+   ,fi
 ,'{'),
  '<doi_batch xmlns="http://www.crossref.org/schema/4.3.0" version="4.3.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">',#
  '<head>',#
@@ -45,9 +49,9 @@
            fi
          '</titles>',#
        else
-		'<titles>',#           
+                '<titles>',#
              '<title> </title>',#
-	      '</titles>',#
+              '</titles>',#
 
        fi
        if p(v10) then
@@ -65,9 +69,9 @@
          if (mid(v65,7,2)<>'' and mid(v65,7,2)<>'00') then,'<day>',mid(v65,7,2),'</day>',# fi
          if (mid(v65,1,4)<>'' and mid(v65,1,4)<>'00') then,'<year>',mid(v65,1,4),'</year>',# fi
        '</publication_date>',#
-       ,if p(v14) then 
+       ,if p(v14) then
        '<pages>',#
-	   ,|  <first_page>|v14^f|</first_page>|,#
+           ,|  <first_page>|v14^f|</first_page>|,#
        ,|  <last_page>|v14^l|</last_page>|,#
        ,'</pages>',
        ,fi,
@@ -75,12 +79,23 @@
            '<identifier id_type="pii">',v9880,'</identifier>'
        '</publisher_item>',#
        '<doi_data>',#
-         '<doi>10.1590/',v9880,'</doi>'
-         '<resource>http://www.scielo.br/scielo.php?script=sci_arttext&amp;pid=',v880,'&amp;lng=',v40,'&amp;nrm=iso&amp;tlng=en</resource>',#
-         
+         ,'<doi>',
+            ,if p(v9237) then
+              ,v9237,
+            ,else
+              ,if p(v237) then
+                ,v237,
+              ,else
+                ,'10.1590/',v9880,
+              ,fi,
+          ,fi,
+          ,'</doi>'
+          ,'<resource>http://www.scielo.br/scielo.php?script=sci_arttext&amp;pid=',v880,'&amp;lng=',v40,'&amp;nrm=iso&amp;tlng=en</resource>',#
+
        '</doi_data>',#
      '</journal_article>',#
    '</journal>',#
  '</body>',#
  '</doi_batch>',#
 ,fi,
+
