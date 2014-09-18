@@ -198,7 +198,7 @@ $identifier = cleanParameter($identifier);
 				}
 			case "ListIdentifiers":
 				{
-				$response = listRecords( $set = $parameters["set"], $from = $parameters["from"], $until = $parameters["until"], $control = $parameters["control"], $lang = "en", $nrm = "iso", $count = 30, $debug = false );
+				$response = listRecords( $set = $parameters["set"], $from = $parameters["from"], $until = $parameters["until"], $control = $parameters["control"], $lang = "en", $nrm = "iso", $count = 30, $debug = false, $metadataprx = $parameters["metadataprefix"] );
 				break;
 				}
 			case "ListSets":
