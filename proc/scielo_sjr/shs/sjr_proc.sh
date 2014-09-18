@@ -1,4 +1,4 @@
-wget  --output-document=temp.txt 'http://www.scimagojr.com/journalsearch.php?q='$1'&tip=iss&clean=0'
+wget  --output-document=temp.txt 'http://www.scimagojr.com/journalsearch.php?q='$2'&tip=iss&clean=0'
 export scimago_id="`cat temp.txt | grep 'embed_code' | grep -o 'id=[0-9]*' | grep -o '[0-9][0-9]*'`"
 echo "SCIMAGO_ID: "$scimago_id
 
