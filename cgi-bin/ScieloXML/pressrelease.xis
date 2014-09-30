@@ -20,10 +20,10 @@
 	 4001^p - PID 
      4001^t - text language
 -->
-
+    <field action="replace" tag="5000" split="occ"><pft>(replace(v5000,' ^', '^'))</pft></field>
 	<!-- campo v241, presente no registro h de um artigo regular -->
 	<label>RELATED_TO_PRESSRELEASE</label>
-	<field action="replace" tag="241" split="occ"><pft>(if p(v5000^i) then v5000/ fi)</pft></field>
+	<field action="replace" tag="241" split="occ"><pft>(if p(v5000^i) and v5000^t='pr' then v5000/ fi)</pft></field>
 	<flow action="jump"><pft>if p(v241) then 'DONE' fi</pft></flow>
 
 	<!-- campo v880, PID de um artigo press release -->
