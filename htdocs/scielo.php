@@ -48,6 +48,15 @@
     
   //Generate wxis url and set xml url
   $xml = $scielo->GenerateXmlUrl();
+
+  $sxml = simplexml_load_string($xml);
+
+  if (($sxml->getName() == 'ERROR') or ($sxml->ERROR->getName() == 'ERROR')){
+    header("HTTP/1.0 404 Not Found - Archive Empty");
+    require '404.html';
+    exit;
+  }
+
   $scielo->SetXMLUrl ($xml);
 
   //Generate xsl url and set xsl url
