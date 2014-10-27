@@ -7,11 +7,12 @@ function read_h5_m5_csv($csv_file){
     while (!feof($file_handle) ) {
         $csv_fields = fgetcsv($file_handle, 1024);
         $issn = $csv_fields[0];
-        $h5 = $csv_fields[2];
-        $m5 = $csv_fields[3];
-        $url =$csv_fields[4];
+        $year = $csv_fields[1];
+        $h5 = $csv_fields[3];
+        $m5 = $csv_fields[4];
+        $url =$csv_fields[5];
 
-        $lines_of_csv[$issn] = array('h5'=>$h5, 'm5'=>$m5,'url'=>$url);
+        $lines_of_csv[$issn][$year] = array('h5'=>$h5, 'm5'=>$m5,'url'=>$url);
     }
     fclose($file_handle);
     return $lines_of_csv;

@@ -148,23 +148,29 @@
                         -->
 						<xsl:apply-templates select="." mode="footer-journal"/>
 
-                        <!-- display google scholar metrics (h5 e m5 index) -->
-                        <script type="text/javascript">                            
-                            function print_h5_m5(data) { 
-                                if (data != null) {
-                                    document.getElementById('h5_index').innerHTML = data.h5;
-                                    document.getElementById('m5_index').innerHTML = data.m5;
-                                    document.getElementById('h5_m5_link').href = data.url;
-                                    document.getElementById('h5_m5_see_more').href = data.url;
-
-                                    document.getElementById('google_metrics').style.display = 'block';
-                                }
+                    <!-- display google scholar metrics (h5 e m5 index) -->
+                    <script type="text/javascript">                            
+                        function print_h5_m5(data) { 
+                        	var html_data = '';
+                            if (data != null) {
+                            	for (year in data){
+                            		url = data[year]['url'];
+                            		var text_h5 =  '<xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='google_scholar_h5_index']"/>';
+                            		var text_m5 = '<xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='google_scholar_m5_index']"/>';
+                            		html_data +='<div><strong>'+year+'</strong></div>';
+	                                html_data +='<div><strong>'+text_h5+':</strong> '+data[year]['h5']+'</div>';
+	                                html_data +='<div><strong>'+text_m5+':</strong> '+data[year]['m5']+'</div>';
+									html_data +='<div style="margin-top: 5px"><a href="'+url+'" id="h5_m5_see_more" target="_blank"><xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='more_details']"/></a></div>';
+                            	}
+                            	document.getElementById('google_metrics_years').innerHTML = html_data;
+                                document.getElementById('google_metrics').style.display = 'block';
                             }
+                        }
 
-                            var script = document.createElement('script');
-                            script.src = "google_metrics/get_h5_m5.php" + '?issn=<xsl:value-of select="//PAGE_PID"/>&amp;callback=print_h5_m5';
-                            document.getElementsByTagName('head')[0].appendChild(script);
-                        </script>
+                        var script = document.createElement('script');
+                        script.src = "google_metrics/get_h5_m5.php" + '?issn=<xsl:value-of select="//PAGE_PID"/>&amp;callback=print_h5_m5';
+                        document.getElementsByTagName('head')[0].appendChild(script);
+                    </script>
 
 					</div>
 				</xsl:if>
@@ -444,15 +450,8 @@ press release do artigo
                                 <div style="margin-bottom: 5px">
                                     <a href="#" id="h5_m5_link" target="_blank"><xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='google_scholar_metrics']"/></a>
                                 </div>
-                                <div>
-                                    <strong><xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='google_scholar_h5_index']"/>: </strong><span id="h5_index"></span>
+                                <div id="google_metrics_years">BLAUS
                                 </div>
-                                <div>
-                                    <strong><xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='google_scholar_m5_index']"/>: </strong><span id="m5_index"></span>
-                                </div>
-                                <div style="margin-top: 5px">
-                                    <a href="#" id="h5_m5_see_more" target="_blank"><xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='more_details']"/></a>
-                                </div>                                
                             </li>
                         </div>
                     </ul>
