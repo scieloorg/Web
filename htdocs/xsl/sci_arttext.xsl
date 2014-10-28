@@ -30,6 +30,11 @@
 				<xsl:value-of select="substring(//ISSUE/@PUBDATE,1,4)"/>
 				<xsl:if test="//ISSUE/@NUM">nahead</xsl:if>
 			</xsl:when>
+			<xsl:when test="//ISSUE/@NUM or //ISSUE/@VOL">
+				<xsl:if test="//ISSUE/@VOL">v<xsl:value-of select="translate(//ISSUE/@VOL, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')"/></xsl:if>
+				<xsl:if test="//ISSUE/@NUM">n<xsl:value-of select="translate(//ISSUE/@NUM, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')"/></xsl:if>
+				<xsl:if test="//ISSUE/@SUPPL">s<xsl:value-of select="translate(//ISSUE/@SUPPL, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')"/></xsl:if>
+			</xsl:when>
 			<xsl:when test="$version='xml-file'">
 				<xsl:apply-templates select="document($xml_article)//front/article-meta"
 					mode="scift-issue-label"/>
@@ -37,11 +42,7 @@
 			<xsl:when test="$version='xml'">
 				<xsl:apply-templates select=".//front/article-meta" mode="scift-issue-label"/>
 			</xsl:when>
-			<xsl:when test="//ISSUE/@NUM or //ISSUE/@VOL">
-				<xsl:if test="//ISSUE/@VOL">v<xsl:value-of select="//ISSUE/@VOL"/></xsl:if>
-				<xsl:if test="//ISSUE/@NUM">n<xsl:value-of select="//ISSUE/@NUM"/></xsl:if>
-				<xsl:if test="//ISSUE/@SUPPL">s<xsl:value-of select="//ISSUE/@SUPPL"/></xsl:if>
-			</xsl:when>
+			
 			<xsl:otherwise> </xsl:otherwise>
 		</xsl:choose>
 	</xsl:variable>
