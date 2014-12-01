@@ -25,6 +25,8 @@ Network Websites
 +-----------------+---------------------------+-------------------------+
 | Mexico          | www.scielo.org.mx         | scielo_mex              |
 +-----------------+---------------------------+-------------------------+
+| Paraguai        | scielo.iics.una.py        | scielo_pry              |
++-----------------+---------------------------+-------------------------+
 | Portugal        | www.scielo.gpeari.mctes.pt| scielo_prt              |
 +-----------------+---------------------------+-------------------------+
 | South Africa    | www.scielo.org.za         | scielo_sza              |
@@ -34,4 +36,6 @@ Network Websites
 | Public Health   | www.scielosp.org          | scielo_spa              |
 +-----------------+---------------------------+-------------------------+
 | Social Sciences | socialsciences.scielo.org | scielo_sss              |
++-----------------+---------------------------+-------------------------+
+| Uruguai         | www.scielo.edu.uy         | scielo_ury              |
 +-----------------+---------------------------+-------------------------+
