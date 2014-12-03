@@ -276,17 +276,15 @@
 		<text find="site_usage">site usage</text>
 		<text find="journal_citation">journal citation</text>
 		<text find="co_authors">co-authors</text>
-		<text find="text_1">The Scientific Electronic Library Online - SciELO is an electronic library covering a selected collection of Brazilian scientific journals.<br/>
-			<br/>The library is an integral part of a project being developed by <a href="http://www.fapesp.br">FAPESP</a> - Fundação de Amparo à Pesquisa do Estado de São Paulo, in partnership with <a href="http://www.bireme.br/bvs/I/ihome.htm">BIREME</a> - the Latin American and Caribbean Center on Health Sciences Information. Since 2002, the Project is also supported by <a href="http://www.cnpq.br">CNPq</a> - Conselho Nacional de Desenvolvimento Científico e Tecnológico.<br/>
-			<br/>The Project envisages the development of a common methodology for the preparation, storage, dissemination and evaluation of scientific literature in electronic format.<br/>
-			<br/>As the project develops, new journal titles are being added in the library collection.</text>
-		<text find="text_2">This is the home page of SciELO Brasil Site.<br/>
-			<br/>The objective of the site is to implement an electronic virtual library, providing full access to a collection of serial titles, a collection of issues from individual serial titles, as well as to the full text of articles. The access to both serial titles and articles is available via indexes and search forms.<br/>
-			<br/>SciELO site is an integral part of the FAPESP/BIREME/CNPq Project and it is an application of the methodology being developed by the project, particularly the Internet Interface module.<br/>
-			<br/>The site will be constantly updated both in form and content, according to the project's advancements.</text>
-		<text find="text_3">SciELO interface provides access to its serials collection via an <i>alphabetic list</i> of titles or a <i>subject list</i> or a <i>search form</i> by word of serial titles, publisher names, city of publication and subject.<br/>
-			<br/>The interface also provides access to the full text of articles via <i>author index</i> or <i>subject index</i>, or by a <i>search form</i> on article elements such as author names, words from title, subject, words from the full text and publication year.<br/>
-			<br/>Click an hypertext link at the <a href="#top">top</a> to call the corresponding access page.</text>
+		<text find="text_1">
+			The Scientific Electronic Library Online - SciELO Paraguay is a virtual library that allows access to the full text of a selected collection of scientific journals published in Paraguay.<br/><br/>It is a regional project managed in Paraguay by the <a href="http://www.iics.una.py">IICS</a> - Instituto de Investigaciones en Ciencias de la Salud, that depends on the <a href="http://www.una.py">UNA</a> - Universidad Nacional de Asunción.<br/><br/>In Paraguay, SciELO initiative comprises the Instituto de Investigaciones en Ciencias de la Salud, the Pediatrics Paraguayan Society, the Faculty of Medical Sciences of the UNA, the Health National Institute of the Ministry of Public Health and Social Welfare (MSPyBS in Spanish) and the Pan American Health Organization (PAHO/WHO).<br/><br/>SciELO library is the result of the cooperation between BIREME – (Latin American and Caribbean Centre of Information in Health Sciences) and FAPESP – Foundation of research support of  Sao Paulo State since 1997.<br/><br/>The FAPESP/BIREME project is oriented towards the development of a common methodology for the preparation, storing and evaluation of scientific literature in electronic format.<br/><br/>The development of the SciELO Paraguay Project will allow adding new titles of other thematic areas to the library collection.
+		</text>
+		<text find="text_2">
+			This is the home page of  SciELO Paraguay site.<br/><br/>The objective of SciELO Paraguay site is to implement an electronic library that provides complete access to a collection of journals, a collection of numbers of individual journals as well as to the full text of the articles. The access to journals and articles is made by using search indexes and forms.<br/><br/>SciELO Paraguay’s collection includes national scientific journals of the health area previously evaluated by peer review according to quality criteria. The collection includes the following journals: “Anales” of the Faculty of Medical Sciences, “Memorias” of the IICS and “Pediatría”.<br/><br/>The site will be constantly updated in format and content while the project advances.
+		</text>
+		<text find="text_3">
+			SciELO interface provides access to its serials collection via an alphabetic list of titles or a subject index or a search by word of serial titles, publisher names, city of publication and subject.<br/><br/>The interface also provides access to the full text of articles via author index or subject index or a search form on article elements such as author names, words from title, subject and words from the full text.<br/><br/>Click an hypertext link to call the corresponding access page.
+		</text>
 		<text find="phone">Phone</text>
 		<text find="fax">Fax</text>
 		<text find="register_free">Free sign up</text>
