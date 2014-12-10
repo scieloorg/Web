@@ -1,10 +1,32 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-	xmlns:mml="http://www.w3.org/1998/Math/MathML">
+	xmlns:mml="http://www.w3.org/1998/Math/MathML"  xmlns:xlink="http://www.w3.org/1999/xlink">
 
 	<xsl:import href="sci_navegation.xsl"/>
 	<xsl:import href="sci_arttext_pmc.xsl"/>
 	<xsl:import href="sci_toolbox.xsl"/>
+	
+	<xsl:template match="*[@xlink:href]" mode="fix_img_extension">
+		<xsl:variable name="size" select="string-length(@xlink:href)"/>
+		<xsl:variable name="c1" select="substring(@xlink:href,$size - 4,1)"/>
+		<xsl:variable name="c2" select="substring(@xlink:href,$size - 3,1)"/>
+		<xsl:choose>
+			<xsl:when test="$c1='.'"><xsl:value-of select="@xlink:href"/></xsl:when>
+			<xsl:when test="$c2='.'"><xsl:value-of select="@xlink:href"/></xsl:when>
+			<xsl:otherwise><xsl:value-of select="@xlink:href"/>.jpg</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+	<xsl:template match="*[@href]" mode="fix_img_extension">
+		<xsl:variable name="size" select="string-length(@href)"/>
+		<xsl:variable name="c1" select="substring(@xlink:href,$size - 4,1)"/>
+		<xsl:variable name="c2" select="substring(@xlink:href,$size - 3,1)"/>
+		<xsl:choose>
+			<xsl:when test="$c1='.'"><xsl:value-of select="@href"/></xsl:when>
+			<xsl:when test="$c2='.'"><xsl:value-of select="@href"/></xsl:when>
+			<xsl:otherwise><xsl:value-of select="@href"/>.jpg</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+	
 	<xsl:variable name="PID" select="//ARTICLE/@PID"/>
 	<xsl:variable name="version">
 		<xsl:choose>
