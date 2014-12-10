@@ -5,7 +5,26 @@
     xmlns:math="http://www.w3.org/2005/xpath-functions/math"
     xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl" exclude-result-prefixes="xs math xd"
     version="3.0">
-    
+    <xsl:template match="*[@xlink:href]" mode="fix_img_extension">
+        <xsl:variable name="size" select="string-length(@xlink:href)"/>
+        <xsl:variable name="c1" select="substring(@xlink:href,$size - 4,1)"/>
+        <xsl:variable name="c2" select="substring(@xlink:href,$size - 3,1)"/>
+        <xsl:choose>
+            <xsl:when test="$c1='.'"><xsl:value-of select="@xlink:href"/></xsl:when>
+            <xsl:when test="$c2='.'"><xsl:value-of select="@xlink:href"/></xsl:when>
+            <xsl:otherwise><xsl:value-of select="@xlink:href"/>.jpg</xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <xsl:template match="*[@href]" mode="fix_img_extension">
+        <xsl:variable name="size" select="string-length(@href)"/>
+        <xsl:variable name="c1" select="substring(@xlink:href,$size - 4,1)"/>
+        <xsl:variable name="c2" select="substring(@xlink:href,$size - 3,1)"/>
+        <xsl:choose>
+            <xsl:when test="$c1='.'"><xsl:value-of select="@href"/></xsl:when>
+            <xsl:when test="$c2='.'"><xsl:value-of select="@href"/></xsl:when>
+            <xsl:otherwise><xsl:value-of select="@href"/>.jpg</xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
     <xsl:template match="xref" mode="HTML-TEXT">
         <span class="xref">
             <a href="#{@rid}">
@@ -861,7 +880,9 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
         </div>
     </xsl:template>
     <xsl:template match="inline-graphic|disp-formula/graphic" mode="HTML-TEXT">
-        <img src="{$IMAGE_PATH}/{@xlink:href}.jpg" alt=""/>
+        <img>
+            <xsl:attribute name="src"><xsl:value-of select="concat($IMAGE_PATH,'/')"/><xsl:apply-templates select="." mode="fix_img_extension"/></xsl:attribute>
+        </img>
     </xsl:template>
     <xsl:template match="inline-formula" mode="HTML-TEXT">
         <span class="inline-formula" id="{.//@id}">
@@ -885,9 +906,7 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
     <xsl:template match="fig" mode="HTML-TEXT">
         <div class="row fig" id="{@id}">
             <div class="span3">
-                <xsl:variable name="img_filename">
-                    <xsl:value-of select="concat($IMAGE_PATH,'/',.//graphic/@xlink:href,'.jpg')"/>
-                </xsl:variable>
+                <xsl:variable name="img_filename"><xsl:value-of select="concat($IMAGE_PATH,'/')"/><xsl:apply-templates select=".//graphic" mode="fix_img_extension"/></xsl:variable>
                 <div class="thumb">
                     <xsl:attribute name="style"> background-image: url(<xsl:value-of
                             select="$img_filename"/>); </xsl:attribute> Thumbnail</div>
@@ -924,9 +943,8 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
     <xsl:template match="table-wrap[not(table)]" mode="HTML-TEXT">
         <div class="row fig" id="{@id}">
             <div class="span3">
-                <xsl:variable name="img_filename">
-                    <xsl:value-of select="concat($IMAGE_PATH,'/',.//graphic/@xlink:href,'.jpg')"/>
-                </xsl:variable>
+                <xsl:variable name="img_filename"><xsl:value-of select="concat($IMAGE_PATH,'/')"/><xsl:apply-templates select=".//graphic" mode="fix_img_extension"/></xsl:variable>
+                
                 <div class="thumb">
                     <xsl:attribute name="style"> background-image: url(<xsl:value-of
                             select="$img_filename"/>); </xsl:attribute> Thumbnail</div>

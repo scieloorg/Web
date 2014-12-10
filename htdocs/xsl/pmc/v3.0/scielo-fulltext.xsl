@@ -3,18 +3,37 @@
 	xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML">
 	
 	<xsl:template match="permissions">
-		<span class="license">
-			<!-- <license license-type="BY-NC"
-                xlink:href="http://creativecommons.org/licenses/by-nc/3.0/">
-                <license-p>
-                    <graphic xlink:href="http://i.creativecommons.org/l/by-nc/3.0/88x31.png"/> CC
-                    BY-NC 3.0 nd</license-p>
-            </license>
-             -->
-			<a href="{.//license/@xlink:href}">
-				<img src="{.//graphic/@xlink:href}"/>
-			</a>
-		</span>
+		<p>
+			<a rel="license" href="{.//license/@xlink:href}/deed.{$LANGUAGE}">
+			<img alt="Creative Commons License" style="border-width:0">
+				<xsl:attribute name="src">
+					<xsl:choose>
+						<xsl:when test=".//graphic"><xsl:value-of select=".//graphic/@xlink:href"/></xsl:when>
+						<xsl:otherwise>http://i.creativecommons.org/l<xsl:value-of select="substring-after(.//license/@xlink:href,'licenses')"/>/88x31.png</xsl:otherwise>
+					</xsl:choose>
+				</xsl:attribute>
+			</img>
+			</a> 			
+			<xsl:choose>
+				<xsl:when test=".//license-p">
+					<xsl:apply-templates select=".//license-p"></xsl:apply-templates>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:choose>
+						<xsl:when test="$LANGUAGE='en'">All the contents of this journal, except where otherwise noted, is licensed under a </xsl:when>
+						<xsl:when test="$LANGUAGE='es'">Todo el contenido de esta revista, excepto dónde está identificado, está bajo una </xsl:when>
+						<xsl:when test="$LANGUAGE='pt'">Todo o conteúdo deste periódico, exceto onde está identificado, está licenciado sob uma </xsl:when>
+					</xsl:choose>
+					<a href="{.//license/@xlink:href}/deed.{$LANGUAGE}">
+						<xsl:choose>
+							<xsl:when test="$LANGUAGE='en'">Creative Commons Attribution License</xsl:when>
+							<xsl:when test="$LANGUAGE='es'">Licencia Creative Commons</xsl:when>
+							<xsl:when test="$LANGUAGE='pt'">Licença Creative Commons</xsl:when>
+						</xsl:choose>
+					</a>
+				</xsl:otherwise>
+			</xsl:choose>
+		</p>
 	</xsl:template>
 	<xsl:template match="*" mode="id">
 		<xsl:value-of select="@id"/>
@@ -645,50 +664,36 @@
 	</xsl:template>
 	<xsl:template match="graphic">
 		<a target="_blank">
-			<xsl:apply-templates select="@xlink:href" mode="scift-attribute-href"/>
+			<xsl:apply-templates select="." mode="scift-attribute-href"/>
 			<img class="graphic">
-				<xsl:apply-templates select="@xlink:href" mode="scift-attribute-src"/>
+				<xsl:apply-templates select="." mode="scift-attribute-src"/>
 			</img>
 		</a>
 	</xsl:template>
 
 	<xsl:template match="inline-graphic | disp-formula/graphic">
 		<a target="_blank">
-			<xsl:apply-templates select="@xlink:href" mode="scift-attribute-href"/>
+			<xsl:apply-templates select="." mode="scift-attribute-href"/>
 			<img class="inline-formula">
-				<xsl:apply-templates select="@xlink:href" mode="scift-attribute-src"/>
+				<xsl:apply-templates select="." mode="scift-attribute-src"/>
 			</img>
 		</a>
 	</xsl:template>
 	<xsl:template match="graphic" mode="scift-thumbnail">
 		<a target="_blank">
-			<xsl:apply-templates select="@xlink:href" mode="scift-attribute-href"/>
+			<xsl:apply-templates select="." mode="scift-attribute-href"/>
 			<img class="thumbnail">
-				<xsl:apply-templates select="@xlink:href" mode="scift-attribute-src"/>
+				<xsl:apply-templates select="." mode="scift-attribute-src"/>
 			</img>
 		</a>
 	</xsl:template>
-	<xsl:template match="@href | @xlink:href" mode="scift-fix-href">
-		<xsl:variable name="src">
-			<xsl:value-of select="$var_IMAGE_PATH"/>
-			<xsl:choose>
-				<xsl:when test="contains(., '.tif')">
-					<xsl:value-of select="substring-before(.,'.tif')"/>
-				</xsl:when>
-				<xsl:otherwise>
-					<xsl:value-of select="."/>
-				</xsl:otherwise>
-			</xsl:choose>
-		</xsl:variable>
-		<xsl:value-of select="$src"/>
-		<xsl:if test="not(contains($src,'.jpg'))">.jpg</xsl:if>
-	</xsl:template>
-	<xsl:template match="@href | @xlink:href" mode="scift-attribute-href">
+	<xsl:template match="*" mode="scift-fix-href"><xsl:value-of select="$var_IMAGE_PATH"/>/<xsl:apply-templates select="." mode="fix_img_extension"/></xsl:template>
+	<xsl:template match="*" mode="scift-attribute-href">
 		<xsl:attribute name="href">
 			<xsl:apply-templates select="." mode="scift-fix-href"/>
 		</xsl:attribute>
 	</xsl:template>
-	<xsl:template match="@href | @xlink:href" mode="scift-attribute-src">
+	<xsl:template match="*" mode="scift-attribute-src">
 		<xsl:attribute name="src">
 			<xsl:apply-templates select="." mode="scift-fix-href"/>
 		</xsl:attribute>
@@ -700,25 +705,19 @@
 	<xsl:template match="title" mode="scift-label-caption-graphic">
 		<xsl:apply-templates select="text() | *"/>
 	</xsl:template>
-
-
 	<xsl:template match="sec[@sec-type]/title">
 		<p class="sec">
 			<xsl:apply-templates/>
 		</p>
 	</xsl:template>
-
-
 	<xsl:template match="sec[not(@sec-type)]/title">
 		<p class="sub-subsec">
 			<xsl:apply-templates/>
 		</p>
 	</xsl:template>
-
 	<xsl:template match="sec/@sec-type">
 		<a name="{.}"/>
 	</xsl:template>
-
 	<xsl:template match="p">
 		<p>
 			<xsl:apply-templates/>
