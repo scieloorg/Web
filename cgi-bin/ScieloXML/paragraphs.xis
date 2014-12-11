@@ -249,7 +249,8 @@
 
 
            <label>CREATE_REF_LINK</label>
-           <field action="replace" tag="3330"><pft>s(v880,s(f(val(v888)+100000,5,0))*1.5)</pft></field>
+           <field action="replace" tag="9936"><pft>f(val(v888)+100000,5,0)</pft></field>
+            <field action="replace" tag="3330"><pft>v880,v9936*1.5</pft></field>
 
            <!-- Create Reference Link -->
             <field action="replace" tag="703"><pft>mpu,v704^*,mpl</pft></field>

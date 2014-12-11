@@ -6,24 +6,28 @@
 	<xsl:import href="sci_arttext_pmc.xsl"/>
 	<xsl:import href="sci_toolbox.xsl"/>
 	
-	<xsl:template match="*[@xlink:href]" mode="fix_img_extension">
-		<xsl:variable name="size" select="string-length(@xlink:href)"/>
-		<xsl:variable name="c1" select="substring(@xlink:href,$size - 4,1)"/>
-		<xsl:variable name="c2" select="substring(@xlink:href,$size - 3,1)"/>
+	<xsl:template match="*[@xlink:href] | *[@href]" mode="fix_img_extension">
+		<xsl:variable name="href"><xsl:choose>
+			<xsl:when test="@xlink:href"><xsl:value-of select="@xlink:href"/></xsl:when>
+			<xsl:otherwise><xsl:value-of select="@href"/></xsl:otherwise>
+		</xsl:choose></xsl:variable>
+		<xsl:variable name="size" select="string-length($href)"/>
+		<xsl:variable name="c1" select="substring($href,$size - 4)"/>
+		<xsl:variable name="c2" select="substring($href,$size - 3)"/>
 		<xsl:choose>
-			<xsl:when test="$c1='.'"><xsl:value-of select="@xlink:href"/></xsl:when>
-			<xsl:when test="$c2='.'"><xsl:value-of select="@xlink:href"/></xsl:when>
-			<xsl:otherwise><xsl:value-of select="@xlink:href"/>.jpg</xsl:otherwise>
-		</xsl:choose>
-	</xsl:template>
-	<xsl:template match="*[@href]" mode="fix_img_extension">
-		<xsl:variable name="size" select="string-length(@href)"/>
-		<xsl:variable name="c1" select="substring(@xlink:href,$size - 4,1)"/>
-		<xsl:variable name="c2" select="substring(@xlink:href,$size - 3,1)"/>
-		<xsl:choose>
-			<xsl:when test="$c1='.'"><xsl:value-of select="@href"/></xsl:when>
-			<xsl:when test="$c2='.'"><xsl:value-of select="@href"/></xsl:when>
-			<xsl:otherwise><xsl:value-of select="@href"/>.jpg</xsl:otherwise>
+			<xsl:when test="substring($c1,1,1)='.'">
+				<xsl:choose>
+					<xsl:when test="contains($c1,'.tif')"><xsl:value-of select="substring-before($href,'.tif')"/>.jpg</xsl:when>
+					<xsl:otherwise><xsl:value-of select="$href"/></xsl:otherwise>
+				</xsl:choose>
+			</xsl:when>
+			<xsl:when test="substring($c2,1,1)='.'">
+				<xsl:choose>
+					<xsl:when test="contains($c2,'.tif')"><xsl:value-of select="substring-before($href,'.tif')"/>.jpg</xsl:when>
+					<xsl:otherwise><xsl:value-of select="$href"/></xsl:otherwise>
+				</xsl:choose>
+			</xsl:when>
+			<xsl:otherwise><xsl:value-of select="$href"/>.jpg</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
 	
