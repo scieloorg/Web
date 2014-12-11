@@ -22,7 +22,8 @@
 	<include>ScieloXML/sci_cipar.xis</include>	
 	
 	<field action="cgi" tag="2005">rep</field>
-	<field action="replace" tag="2005"><pft>if p(v2005) then s(f(val(v2005)+100000,6,0))*1.5 fi</pft></field>
+	<field action="replace" tag="9936"><pft>if p(v2005) then f(val(v2005)+100000,6,0) fi</pft></field>
+	<field action="replace" tag="2005"><pft>if p(v2005) then v9936*1.5 fi</pft></field>
 	<flow action="jump"><pft>if p(v2005) then 'REPO_TITLES' fi</pft></flow>
 
 	<label>ALL_TITLES</label>
