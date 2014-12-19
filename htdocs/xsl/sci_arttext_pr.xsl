@@ -98,6 +98,21 @@
 				
 				<xsl:apply-templates select="." mode="version-js"/>
 				
+			        <xsl:if test="//varScieloOrg/GOOGLE_CODE != ''">
+			            <script type="text/javascript">
+			              var _gaq = _gaq || [];
+			              _gaq.push(['_setAccount', '<xsl:value-of select="//varScieloOrg/GOOGLE_CODE"/>']);
+			              _gaq.push(['_trackPageview']);
+			              _gaq.push(['_getSampleRate', '<xsl:value-of select="//varScieloOrg/GOOGLE_SAMPLE_RATE"/>']);
+	
+			              (function() {
+			                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+			              })();
+	
+			            </script>
+			        </xsl:if>	
 			</body>
 		</html>
 	</xsl:template>
