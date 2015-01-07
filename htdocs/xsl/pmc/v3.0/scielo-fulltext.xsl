@@ -1215,6 +1215,13 @@
 	
 	<xsl:template match="ack">
 		<div class="ack">
+			<xsl:if test="not(title)"><p class="sec">
+				<xsl:choose>
+					<xsl:when test="$xml_article_lang='pt'">Agradecimentos</xsl:when>
+					<xsl:when test="$xml_article_lang='es'">Agradecimientos</xsl:when>
+					<xsl:otherwise>Acknowledgements</xsl:otherwise>
+				</xsl:choose></p>
+			</xsl:if>
 			<xsl:apply-templates></xsl:apply-templates>
 		</div>
 	</xsl:template>
