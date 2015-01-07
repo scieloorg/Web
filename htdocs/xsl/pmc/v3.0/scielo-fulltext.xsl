@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML">
-	
 	<xsl:template match="permissions">
 		<p>
 			<a rel="license" href="{.//license/@xlink:href}/deed.{$LANGUAGE}">
@@ -278,7 +277,10 @@
 	</xsl:template>
 
 	<xsl:template match="abstract | trans-abstract">
-		<xsl:variable name="lang" select="@xml:lang"/>
+		<xsl:variable name="lang"><xsl:choose>
+			<xsl:when test="@xml:lang"><xsl:value-of select="@xml:lang"/></xsl:when>
+			<xsl:otherwise><xsl:value-of select="$xml_article_lang"/></xsl:otherwise>
+		</xsl:choose></xsl:variable>
 		<div>
 			<!--Apresenta o título da seção conforme a lingua existente-->
 			<xsl:attribute name="class">
@@ -307,6 +309,11 @@
 			<xsl:apply-templates
 				select="..//kwd-group[normalize-space(@xml:lang)=normalize-space($lang)]"
 				mode="keywords-with-abstract"/>
+			<xsl:if test="not(@xml:lang)">
+				<xsl:apply-templates
+					select="..//kwd-group[not(@xml:lang)]"
+					mode="keywords-with-abstract"/>
+			</xsl:if>
 		</div>
 	</xsl:template>
 
