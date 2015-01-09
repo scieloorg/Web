@@ -610,7 +610,7 @@
 		<div class="figure">
 
 			<xsl:call-template name="named-anchor"/>
-			<xsl:apply-templates select="graphic"/>
+			<xsl:apply-templates select="graphic|media"/>
 			<p class="label_caption">
 				<xsl:apply-templates select="label | caption" mode="scift-label-caption-graphic"/>
 
@@ -1182,7 +1182,6 @@
 			<xsl:attribute name="href">
 				<xsl:value-of select="$src"/>
 			</xsl:attribute>
-			<xsl:if test="normalize-space(text())=''">[View]</xsl:if>
 		</a>
 
 		<embed width="100%" height="400">
