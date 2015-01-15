@@ -274,6 +274,7 @@
 		<xsl:apply-templates select=".//contrib-group"/>
 		<xsl:apply-templates select=".//aff"/>
 		<xsl:apply-templates select=".//abstract | .//trans-abstract"/>
+		<p><xsl:apply-templates select=".//product"/></p>
 	</xsl:template>
 
 	<xsl:template match="abstract | trans-abstract">
@@ -1271,5 +1272,29 @@
 				</xsl:otherwise>
 			</xsl:choose>
 		</a>
+	</xsl:template>
+	
+	<xsl:template match="product">
+		<xsl:apply-templates select="person-group"/>. <xsl:apply-templates select="source"/>. <xsl:apply-templates select="year"/>. 
+		<xsl:apply-templates select="publisher-name"/> (<xsl:apply-templates select="publisher-loc"/>). <xsl:apply-templates select="size"/>. 	
+	</xsl:template>
+	<xsl:template match="product[@product-type='book']">
+		<xsl:apply-templates select="source"/>. <xsl:apply-templates select="person-group"/>. (<xsl:apply-templates select="year"/>). <xsl:apply-templates select="publisher-loc"/>: 
+		<xsl:apply-templates select="publisher-name"/>, <xsl:apply-templates select="year"/>, <xsl:apply-templates select="size"/>. <xsl:apply-templates select="isbn"/>		
+	</xsl:template>
+	<xsl:template match="product/person-group">
+		<xsl:apply-templates select="name"/>
+	</xsl:template>
+	<xsl:template match="product/person-group/name">
+		<xsl:if test="position()!=1">; </xsl:if><xsl:apply-templates select="surname"/>, <xsl:apply-templates select="given-names"/>
+	</xsl:template>
+	<xsl:template match="size">
+		<xsl:value-of select="."/>
+		<xsl:choose>
+			<xsl:when test="@units='pages'">p</xsl:when>
+		</xsl:choose>
+	</xsl:template>
+	<xsl:template match="product/isbn">
+		ISBN: <xsl:value-of select="."/>.
 	</xsl:template>
 </xsl:stylesheet>
