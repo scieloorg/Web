@@ -143,7 +143,9 @@
 			<xsl:apply-templates select="." mode="id"/>
 		</xsl:variable>
 		<div id="{$this-article}-front" class="front">
-			<xsl:apply-templates select="front-stub | front"/>
+			<xsl:apply-templates select="front-stub | front">
+				<xsl:with-param name="context_lang"><xsl:value-of select="@xml:lang"/></xsl:with-param>
+			</xsl:apply-templates>
 		</div>
 		<div id="{$this-article}-body" class="body">
 			<xsl:apply-templates select="body"/>
@@ -193,7 +195,9 @@
 			<xsl:apply-templates select="." mode="id"/>
 		</xsl:variable>
 		<div id="{$this-article}-front" class="front">
-			<xsl:apply-templates select="front-stub | front"/>
+			<xsl:apply-templates select="front-stub | front">
+				<xsl:with-param name="context_lang"><xsl:value-of select="@xml:lang"/></xsl:with-param>
+			</xsl:apply-templates>
 		</div>
 		<div id="{$this-article}-body" class="body">
 			<xsl:apply-templates select="body"/>
@@ -235,6 +239,7 @@
 
 
 	<xsl:template match="sub-article[@article-type='translation']//front-stub">
+		<xsl:param name="context_lang"/>
 		<xsl:apply-templates select=".//article-categories"/>
 		<xsl:if test="not(.//article-categories)">
 			<xsl:apply-templates select="../..//front//article-categories"/>
@@ -251,9 +256,11 @@
 		<xsl:if test="not(.//aff)">
 			<xsl:apply-templates select="../..//front//aff"/>
 		</xsl:if>
-		<xsl:apply-templates select=".//abstract | .//trans-abstract"/>
+		<xsl:apply-templates select=".//abstract">
+			<xsl:with-param name="context_lang"><xsl:value-of select="$context_lang"/></xsl:with-param>
+		</xsl:apply-templates>
 		<xsl:if test="not(.//abstract)">
-			<xsl:apply-templates select="../..//front//abstract  | ../..//front//trans-abstract"/>
+			<xsl:apply-templates select="../..//front//trans-abstract[@xml:lang=$context_lang]"/>
 		</xsl:if>
 		<xsl:apply-templates select=".//supplementary-material"/>
 	</xsl:template>
@@ -278,9 +285,10 @@
 	</xsl:template>
 
 	<xsl:template match="abstract | trans-abstract">
+		<xsl:param name="context_lang"></xsl:param>
 		<xsl:variable name="lang"><xsl:choose>
 			<xsl:when test="@xml:lang"><xsl:value-of select="@xml:lang"/></xsl:when>
-			<xsl:otherwise><xsl:value-of select="$xml_article_lang"/></xsl:otherwise>
+			<xsl:otherwise><xsl:value-of select="$context_lang"/></xsl:otherwise>
 		</xsl:choose></xsl:variable>
 		<div>
 			<!--Apresenta o título da seção conforme a lingua existente-->
