@@ -739,6 +739,11 @@
 			<xsl:apply-templates/>
 		</p>
 	</xsl:template>
+	<xsl:template match="boxed-text">
+		<div class="boxed-text">
+			<xsl:apply-templates select="*|text()"></xsl:apply-templates>
+		</div>
+	</xsl:template>
 	<xsl:template match="back/ref-list">
 		<div>
 			<a name="references"/>
