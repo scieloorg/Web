@@ -594,6 +594,27 @@
                 <xsl:attribute name="width">1</xsl:attribute>
             </img>
         </xsl:if>
+
+        <!-- Piwik -->
+        <xsl:if test="//show_piwik = '1'">
+            <script type="text/javascript">
+              var _paq = _paq || [];
+              _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
+              _paq.push(["setCookieDomain", "*.www.scielo.br"]);
+              _paq.push(['trackPageView']);
+              _paq.push(['enableLinkTracking']);
+              (function() {
+                var u="//webanalytics.scielo.org/";
+                _paq.push(['setTrackerUrl', u+'piwik.php']);
+                _paq.push(['setSiteId', 2]);
+                var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+                g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+              })();
+            </script>
+            <noscript><p><img src="//webanalytics.scielo.org/piwik.php?idsite=2" style="border:0;" alt="" /></p></noscript>
+        </xsl:if>
+        <!-- End Piwik Code -->
+
         <!-- to use Google Analytics -->
         <xsl:if test="//varScieloOrg/GOOGLE_CODE != ''">
             <script type="text/javascript">

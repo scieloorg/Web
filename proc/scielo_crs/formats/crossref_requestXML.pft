@@ -1,4 +1,4 @@
-,if a(v41) or v41='' then
+,if (a(v41) or v41='') and v71<>'zz' then
 ,proc('d9880a9880{',
     ,if p(v9881) then
       ,v9881,
