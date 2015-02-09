@@ -1,20 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML">
-	
 	<xsl:template match="permissions">
-		<span class="license">
-			<!-- <license license-type="BY-NC"
-                xlink:href="http://creativecommons.org/licenses/by-nc/3.0/">
-                <license-p>
-                    <graphic xlink:href="http://i.creativecommons.org/l/by-nc/3.0/88x31.png"/> CC
-                    BY-NC 3.0 nd</license-p>
-            </license>
-             -->
-			<a href="{.//license/@xlink:href}">
-				<img src="{.//graphic/@xlink:href}"/>
-			</a>
-		</span>
+		<p>
+			<a rel="license" href="{.//license/@xlink:href}/deed.{$LANGUAGE}">
+			<img alt="Creative Commons License" style="border-width:0">
+				<xsl:attribute name="src">
+					<xsl:choose>
+						<xsl:when test=".//graphic"><xsl:value-of select=".//graphic/@xlink:href"/></xsl:when>
+						<xsl:otherwise>http://i.creativecommons.org/l<xsl:value-of select="substring-after(.//license/@xlink:href,'licenses')"/>/88x31.png</xsl:otherwise>
+					</xsl:choose>
+				</xsl:attribute>
+			</img>
+			</a> 			
+			<xsl:choose>
+				<xsl:when test=".//license-p">
+					<xsl:apply-templates select=".//license-p"></xsl:apply-templates>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:choose>
+						<xsl:when test="$LANGUAGE='en'">All the contents of this journal, except where otherwise noted, is licensed under a </xsl:when>
+						<xsl:when test="$LANGUAGE='es'">Todo el contenido de esta revista, excepto dónde está identificado, está bajo una </xsl:when>
+						<xsl:when test="$LANGUAGE='pt'">Todo o conteúdo deste periódico, exceto onde está identificado, está licenciado sob uma </xsl:when>
+					</xsl:choose>
+					<a href="{.//license/@xlink:href}/deed.{$LANGUAGE}">
+						<xsl:choose>
+							<xsl:when test="$LANGUAGE='en'">Creative Commons Attribution License</xsl:when>
+							<xsl:when test="$LANGUAGE='es'">Licencia Creative Commons</xsl:when>
+							<xsl:when test="$LANGUAGE='pt'">Licença Creative Commons</xsl:when>
+						</xsl:choose>
+					</a>
+				</xsl:otherwise>
+			</xsl:choose>
+		</p>
 	</xsl:template>
 	<xsl:template match="*" mode="id">
 		<xsl:value-of select="@id"/>
@@ -233,10 +251,7 @@
 		<xsl:if test="not(.//aff)">
 			<xsl:apply-templates select="../..//front//aff"/>
 		</xsl:if>
-		<xsl:apply-templates select=".//abstract | .//trans-abstract"/>
-		<xsl:if test="not(.//abstract)">
-			<xsl:apply-templates select="../..//front//abstract  | ../..//front//trans-abstract"/>
-		</xsl:if>
+		<xsl:apply-templates select=".//abstract"/>
 		<xsl:apply-templates select=".//supplementary-material"/>
 	</xsl:template>
 
@@ -256,10 +271,15 @@
 		<xsl:apply-templates select=".//contrib-group"/>
 		<xsl:apply-templates select=".//aff"/>
 		<xsl:apply-templates select=".//abstract | .//trans-abstract"/>
+		<p><xsl:apply-templates select=".//product"/></p>
 	</xsl:template>
 
 	<xsl:template match="abstract | trans-abstract">
-		<xsl:variable name="lang" select="@xml:lang"/>
+		<xsl:variable name="lang"><xsl:choose>
+			<xsl:when test="@xml:lang"><xsl:value-of select="@xml:lang"/></xsl:when>
+			<xsl:when test="$trans"><xsl:value-of select="$trans/@xml:lang"/></xsl:when>
+			<xsl:otherwise><xsl:value-of select="$original/@xml:lang"/></xsl:otherwise>
+		</xsl:choose></xsl:variable>
 		<div>
 			<!--Apresenta o título da seção conforme a lingua existente-->
 			<xsl:attribute name="class">
@@ -288,6 +308,11 @@
 			<xsl:apply-templates
 				select="..//kwd-group[normalize-space(@xml:lang)=normalize-space($lang)]"
 				mode="keywords-with-abstract"/>
+			<xsl:if test="not(@xml:lang)">
+				<xsl:apply-templates
+					select="..//kwd-group[not(@xml:lang)]"
+					mode="keywords-with-abstract"/>
+			</xsl:if>
 		</div>
 	</xsl:template>
 
@@ -584,7 +609,7 @@
 		<div class="figure">
 
 			<xsl:call-template name="named-anchor"/>
-			<xsl:apply-templates select="graphic"/>
+			<xsl:apply-templates select="graphic|media"/>
 			<p class="label_caption">
 				<xsl:apply-templates select="label | caption" mode="scift-label-caption-graphic"/>
 
@@ -645,50 +670,36 @@
 	</xsl:template>
 	<xsl:template match="graphic">
 		<a target="_blank">
-			<xsl:apply-templates select="@xlink:href" mode="scift-attribute-href"/>
+			<xsl:apply-templates select="." mode="scift-attribute-href"/>
 			<img class="graphic">
-				<xsl:apply-templates select="@xlink:href" mode="scift-attribute-src"/>
+				<xsl:apply-templates select="." mode="scift-attribute-src"/>
 			</img>
 		</a>
 	</xsl:template>
 
 	<xsl:template match="inline-graphic | disp-formula/graphic">
 		<a target="_blank">
-			<xsl:apply-templates select="@xlink:href" mode="scift-attribute-href"/>
+			<xsl:apply-templates select="." mode="scift-attribute-href"/>
 			<img class="inline-formula">
-				<xsl:apply-templates select="@xlink:href" mode="scift-attribute-src"/>
+				<xsl:apply-templates select="." mode="scift-attribute-src"/>
 			</img>
 		</a>
 	</xsl:template>
 	<xsl:template match="graphic" mode="scift-thumbnail">
 		<a target="_blank">
-			<xsl:apply-templates select="@xlink:href" mode="scift-attribute-href"/>
+			<xsl:apply-templates select="." mode="scift-attribute-href"/>
 			<img class="thumbnail">
-				<xsl:apply-templates select="@xlink:href" mode="scift-attribute-src"/>
+				<xsl:apply-templates select="." mode="scift-attribute-src"/>
 			</img>
 		</a>
 	</xsl:template>
-	<xsl:template match="@href | @xlink:href" mode="scift-fix-href">
-		<xsl:variable name="src">
-			<xsl:value-of select="$var_IMAGE_PATH"/>
-			<xsl:choose>
-				<xsl:when test="contains(., '.tif')">
-					<xsl:value-of select="substring-before(.,'.tif')"/>
-				</xsl:when>
-				<xsl:otherwise>
-					<xsl:value-of select="."/>
-				</xsl:otherwise>
-			</xsl:choose>
-		</xsl:variable>
-		<xsl:value-of select="$src"/>
-		<xsl:if test="not(contains($src,'.jpg'))">.jpg</xsl:if>
-	</xsl:template>
-	<xsl:template match="@href | @xlink:href" mode="scift-attribute-href">
+	<xsl:template match="*" mode="scift-fix-href"><xsl:value-of select="$var_IMAGE_PATH"/>/<xsl:apply-templates select="." mode="fix_img_extension"/></xsl:template>
+	<xsl:template match="*" mode="scift-attribute-href">
 		<xsl:attribute name="href">
 			<xsl:apply-templates select="." mode="scift-fix-href"/>
 		</xsl:attribute>
 	</xsl:template>
-	<xsl:template match="@href | @xlink:href" mode="scift-attribute-src">
+	<xsl:template match="*" mode="scift-attribute-src">
 		<xsl:attribute name="src">
 			<xsl:apply-templates select="." mode="scift-fix-href"/>
 		</xsl:attribute>
@@ -700,29 +711,28 @@
 	<xsl:template match="title" mode="scift-label-caption-graphic">
 		<xsl:apply-templates select="text() | *"/>
 	</xsl:template>
-
-
 	<xsl:template match="sec[@sec-type]/title">
 		<p class="sec">
 			<xsl:apply-templates/>
 		</p>
 	</xsl:template>
-
-
 	<xsl:template match="sec[not(@sec-type)]/title">
 		<p class="sub-subsec">
 			<xsl:apply-templates/>
 		</p>
 	</xsl:template>
-
 	<xsl:template match="sec/@sec-type">
 		<a name="{.}"/>
 	</xsl:template>
-
 	<xsl:template match="p">
 		<p>
 			<xsl:apply-templates/>
 		</p>
+	</xsl:template>
+	<xsl:template match="boxed-text">
+		<div class="boxed-text">
+			<xsl:apply-templates select="*|text()"></xsl:apply-templates>
+		</div>
 	</xsl:template>
 	<xsl:template match="back/ref-list">
 		<div>
@@ -1176,7 +1186,6 @@
 			<xsl:attribute name="href">
 				<xsl:value-of select="$src"/>
 			</xsl:attribute>
-			<xsl:if test="normalize-space(text())=''">[View]</xsl:if>
 		</a>
 
 		<embed width="100%" height="400">
@@ -1208,7 +1217,18 @@
 	</xsl:template>
 	
 	<xsl:template match="ack">
+		<xsl:variable name="lang"><xsl:choose>
+			<xsl:when test="$trans"><xsl:value-of select="$trans/@xml:lang"/></xsl:when>
+			<xsl:otherwise><xsl:value-of select="$original/@xml:lang"/></xsl:otherwise>
+		</xsl:choose></xsl:variable>
 		<div class="ack">
+			<xsl:if test="not(title)"><p class="sec">
+				<xsl:choose>
+					<xsl:when test="$lang='pt'">Agradecimentos</xsl:when>
+					<xsl:when test="$lang='es'">Agradecimientos</xsl:when>
+					<xsl:otherwise>Acknowledgements</xsl:otherwise>
+				</xsl:choose></p>
+			</xsl:if>
 			<xsl:apply-templates></xsl:apply-templates>
 		</div>
 	</xsl:template>
@@ -1258,5 +1278,29 @@
 				</xsl:otherwise>
 			</xsl:choose>
 		</a>
+	</xsl:template>
+	
+	<xsl:template match="product">
+		<xsl:apply-templates select="person-group"/>. <xsl:apply-templates select="source"/>. <xsl:apply-templates select="year"/>. 
+		<xsl:apply-templates select="publisher-name"/> (<xsl:apply-templates select="publisher-loc"/>). <xsl:apply-templates select="size"/>. 	
+	</xsl:template>
+	<xsl:template match="product[@product-type='book']">
+		<xsl:apply-templates select="source"/>. <xsl:apply-templates select="person-group"/>. (<xsl:apply-templates select="year"/>). <xsl:apply-templates select="publisher-loc"/>: 
+		<xsl:apply-templates select="publisher-name"/>, <xsl:apply-templates select="year"/>, <xsl:apply-templates select="size"/>. <xsl:apply-templates select="isbn"/>		
+	</xsl:template>
+	<xsl:template match="product/person-group">
+		<xsl:apply-templates select="name"/>
+	</xsl:template>
+	<xsl:template match="product/person-group/name">
+		<xsl:if test="position()!=1">; </xsl:if><xsl:apply-templates select="surname"/>, <xsl:apply-templates select="given-names"/>
+	</xsl:template>
+	<xsl:template match="size">
+		<xsl:value-of select="."/>
+		<xsl:choose>
+			<xsl:when test="@units='pages'">p</xsl:when>
+		</xsl:choose>
+	</xsl:template>
+	<xsl:template match="product/isbn">
+		ISBN: <xsl:value-of select="."/>.
 	</xsl:template>
 </xsl:stylesheet>
