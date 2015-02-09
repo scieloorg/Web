@@ -204,7 +204,7 @@
 	</xslid>
 	<xslid id="sci_abstract">
 		<text find="abstract">Resumen</text>
-		<text find="keywords">Palabras llave</text>
+		<text find="keywords">Palabras clave</text>
 	</xslid>
 	<xslid id="sci_issues">
 		<text find="available_issues">Números disponibles</text>
