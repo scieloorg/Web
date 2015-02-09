@@ -300,8 +300,9 @@
   	
 	<field action="cgi" tag="3311">rep</field>
 	<field action="cgi" tag="12">journal</field>
-	<field action="replace" tag="3311"><pft>if p(v3311) then s(f(val(v3311)+100000,6,0))*1.5 fi</pft></field>
-	<display><pft>if p(v3311) then '<PAGINATION rep="',v3311,'" ',|journal="|v12|"|,'/>',/# fi</pft></display>
+	<field action="replace" tag="9936"><pft>if p(v3311) then f(val(v3311)+100000,6,0) fi</pft></field>
+    <field action="replace" tag="3311"><pft>if p(v3311) then v9936*1.5 fi</pft></field>
+    <display><pft>if p(v3311) then '<PAGINATION rep="',v3311,'" ',|journal="|v12|"|,'/>',/# fi</pft></display>
 
   <!-- Close SERIAL -->
   <display><pft>'</SERIAL>'</pft></display>
