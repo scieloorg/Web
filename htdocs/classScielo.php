@@ -207,6 +207,7 @@ class Scielo extends ScieloBase
                             "show_new_article_link" => "show_new_article_link",
                             "show_issues_sorted_by_pubdate" => "show_issues_sorted_by_pubdate",
                             "show_flacso_survey" => "show_flacso_survey",
+                            "show_piwik" => "show_piwik",
                             "GOOGLE_CODE" => "GOOGLE_CODE",
                             "GOOGLE_SAMPLE_RATE" => "GOOGLE_SAMPLE_RATE"
                     );
