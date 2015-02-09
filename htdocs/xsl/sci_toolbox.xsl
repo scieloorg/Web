@@ -799,7 +799,8 @@
       </xsl:call-template>
       <xsl:choose>
         <xsl:when test="position()=1">
-          <img src="{$icon}"/>
+          <xsl:if test="$icon!=''">
+            <img src="{$icon}"/></xsl:if>
           <xsl:value-of select="$label"/>
         </xsl:when>
         <xsl:otherwise> | </xsl:otherwise>
