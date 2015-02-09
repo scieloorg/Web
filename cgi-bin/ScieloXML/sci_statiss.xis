@@ -21,10 +21,13 @@
   </field>
   
   <!-- 2003 - PID of issue -->
-  <field action="replace" tag="2003">
-	 <pft>ref(['NEWISSUE']val(v4001^m),v35,v65*0.4,s(f(val(s(v36*4.3))+10000,2,0))*1.4)</pft>
+  <field action="replace" tag="9936">
+   <pft>ref(['NEWISSUE']val(v4001^m),f(val(v36*4.3)+10000,2,0))</pft>
   </field>
-	 
+  <field action="replace" tag="2003">
+   <pft>if p(v9936) then ref(['NEWISSUE']val(v4001^m),v35,v65*0.4),v9936*1.4 fi</pft>
+  </field>
+   
   <display>
 	<pft>' <ISSUE REQUESTS="'v4001^r'"',
 	       ' SEQ="'v2003'"',

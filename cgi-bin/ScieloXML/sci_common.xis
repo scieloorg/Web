@@ -241,9 +241,13 @@
 			<field action="import" tag="list">4903</field>
 			<field action="import" tag="list">4900</field>
 			<field action="import" tag="list">5001</field>
+			<field action="replace" tag="9936">
+				<pft>@PROC_SPLIT_MST.PFT,
+					f(val(v36*4.3)+10000,2,0)</pft>
+			</field>
 			<field action="replace" tag="4901">
 				<pft>@PROC_SPLIT_MST.PFT,
-					v35,v65*0.4,s(f(val(s(v36*4.3))+10000,2,0))*1.4</pft>
+					v35,v65*0.4,v9936*1.4</pft>
 			</field>
 			<field action="delete" tag="list">4902</field>
 			<do task="search">
@@ -2759,8 +2763,8 @@ fi
  <label>CONTINUE</label>
  <display>
   <pft>'<QUERY_RESULT_PAGES CURRENT="'v4001^c,'"',
-                            if val(v4001^c)>1 then ' PREVIOUS="'f(val(v4001^c)-1,1,0)'"' fi,
-							if val(v4001^c)<val(v4001^t) then ' NEXT="'f(val(v4001^c)+1,1,0)'"' fi,
+                            if val(v4001^c)>1 then ' PREVIOUS="',f(val(v4001^c)-1,1,0),'"' fi,
+							if val(v4001^c)<val(v4001^t) then ' NEXT="',f(val(v4001^c)+1,1,0),'"' fi,
                             ' TOTAL="'v4001^t'"',
 							' NLINES="'v4001^l'"/>'/#</pft>
  </display>
@@ -3419,8 +3423,10 @@ fi
 		<parm name="type">RLine</parm>
     	<loop>
 			<field action="import" tag="list">4000</field>
-			<field action="replace" tag="1"><pft>s(f(val(v1)+100000,6,0))*1.5</pft></field>
-			<field action="replace" tag="1000"><pft>s(f(val(v4000^r)+100000,6,0))*1.5</pft></field>
+			<field action="replace" tag="9936"><pft>f(val(v1)+100000,6,0)</pft></field>
+			<field action="replace" tag="1"><pft>v9936*1.5</pft></field>
+			<field action="replace" tag="9936"><pft>f(val(v4000^r)+100000,6,0)</pft></field>
+			<field action="replace" tag="1000"><pft>v9936*1.5</pft></field>
 			<field action="replace" tag="7047"><pft>if v1=v1000 then v3 fi</pft></field>
 			<field action="replace" tag="7047"><pft>if p(v7047) then v7047,if instr(v7047,'?')>0 then '&amp;' else '?' fi,'lang=',v4000^l,  fi</pft></field>
 			<field action="export" tag="list">7047</field>
@@ -3574,8 +3580,8 @@ fi
 					
 				<display>
 					<pft>
-						'  <ORIGINAL-TITLE>',v1000^i,v9000,v1000^f,'</ORIGINAL-TITLE>'/#
-						if p(v9001) then '  <ORIGINAL-SUBTITLE>',v1000^i,v9001,v1000^f,'</ORIGINAL-SUBTITLE>'/# fi
+						'  <ORIGINAL-TITLE><![CDATA[',v1000^i,v9000,v1000^f,']]></ORIGINAL-TITLE>'/#
+						if p(v9001) then '  <ORIGINAL-SUBTITLE><![CDATA[',v1000^i,v9001,v1000^f,']]></ORIGINAL-SUBTITLE>'/# fi
 					</pft>
 				</display>	
 
@@ -3593,16 +3599,16 @@ fi
 
 				<display>
 					<pft>
-						'  <TRANS-TITLE>',v1000^i,v9000,v1000^f,'</TRANS-TITLE>'/#
-						if p(v9001) then '  <TRANS-SUBTITLE>',v1000^i,v9001,v1000^f,'</TRANS-SUBTITLE>'/# fi
+						'  <TRANS-TITLE><![CDATA[',v1000^i,v9000,v1000^f,']]></TRANS-TITLE>'/#
+						if p(v9001) then '  <TRANS-SUBTITLE><![CDATA[',v1000^i,v9001,v1000^f,']]></TRANS-SUBTITLE>'/# fi
 					</pft>
 				</display>		
 				<label>END_FIND_TRANSLATIONS</label>
 
 				<display>
 					<pft>
-						'  <TITLE>',v1000^i,v9000,v1000^f,'</TITLE>'/#
-						if p(v9001) then '  <SUBTITLE>',v1000^i,v9001,v1000^f,'</SUBTITLE>'/# fi
+						'  <TITLE><![CDATA[',v1000^i,v9000,v1000^f,']]></TITLE>'/#
+						if p(v9001) then '  <SUBTITLE><![CDATA[',v1000^i,v9001,v1000^f,']]></SUBTITLE>'/# fi
 					</pft>
 				</display>	
 
@@ -3610,3 +3616,4 @@ fi
 		</do>
 	</function>
 	
+
