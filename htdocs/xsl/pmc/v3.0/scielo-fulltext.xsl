@@ -277,7 +277,8 @@
 	<xsl:template match="abstract | trans-abstract">
 		<xsl:variable name="lang"><xsl:choose>
 			<xsl:when test="@xml:lang"><xsl:value-of select="@xml:lang"/></xsl:when>
-			<xsl:otherwise><xsl:value-of select="$article_lang"/></xsl:otherwise>
+			<xsl:when test="$trans"><xsl:value-of select="$trans/@xml:lang"/></xsl:when>
+			<xsl:otherwise><xsl:value-of select="$original/@xml:lang"/></xsl:otherwise>
 		</xsl:choose></xsl:variable>
 		<div>
 			<!--Apresenta o título da seção conforme a lingua existente-->
@@ -1216,11 +1217,15 @@
 	</xsl:template>
 	
 	<xsl:template match="ack">
+		<xsl:variable name="lang"><xsl:choose>
+			<xsl:when test="$trans"><xsl:value-of select="$trans/@xml:lang"/></xsl:when>
+			<xsl:otherwise><xsl:value-of select="$original/@xml:lang"/></xsl:otherwise>
+		</xsl:choose></xsl:variable>
 		<div class="ack">
 			<xsl:if test="not(title)"><p class="sec">
 				<xsl:choose>
-					<xsl:when test="$article_lang='pt'">Agradecimentos</xsl:when>
-					<xsl:when test="$article_lang='es'">Agradecimientos</xsl:when>
+					<xsl:when test="$lang='pt'">Agradecimentos</xsl:when>
+					<xsl:when test="$lang='es'">Agradecimientos</xsl:when>
 					<xsl:otherwise>Acknowledgements</xsl:otherwise>
 				</xsl:choose></p>
 			</xsl:if>
