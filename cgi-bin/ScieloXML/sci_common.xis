@@ -3580,8 +3580,8 @@ fi
 					
 				<display>
 					<pft>
-						'  <ORIGINAL-TITLE>',v1000^i,v9000,v1000^f,'</ORIGINAL-TITLE>'/#
-						if p(v9001) then '  <ORIGINAL-SUBTITLE>',v1000^i,v9001,v1000^f,'</ORIGINAL-SUBTITLE>'/# fi
+						'  <ORIGINAL-TITLE><![CDATA[',v1000^i,v9000,v1000^f,']]></ORIGINAL-TITLE>'/#
+						if p(v9001) then '  <ORIGINAL-SUBTITLE><![CDATA[',v1000^i,v9001,v1000^f,']]></ORIGINAL-SUBTITLE>'/# fi
 					</pft>
 				</display>	
 
@@ -3599,16 +3599,16 @@ fi
 
 				<display>
 					<pft>
-						'  <TRANS-TITLE>',v1000^i,v9000,v1000^f,'</TRANS-TITLE>'/#
-						if p(v9001) then '  <TRANS-SUBTITLE>',v1000^i,v9001,v1000^f,'</TRANS-SUBTITLE>'/# fi
+						'  <TRANS-TITLE><![CDATA[',v1000^i,v9000,v1000^f,']]></TRANS-TITLE>'/#
+						if p(v9001) then '  <TRANS-SUBTITLE><![CDATA[',v1000^i,v9001,v1000^f,']]></TRANS-SUBTITLE>'/# fi
 					</pft>
 				</display>		
 				<label>END_FIND_TRANSLATIONS</label>
 
 				<display>
 					<pft>
-						'  <TITLE>',v1000^i,v9000,v1000^f,'</TITLE>'/#
-						if p(v9001) then '  <SUBTITLE>',v1000^i,v9001,v1000^f,'</SUBTITLE>'/# fi
+						'  <TITLE><![CDATA[',v1000^i,v9000,v1000^f,']]></TITLE>'/#
+						if p(v9001) then '  <SUBTITLE><![CDATA[',v1000^i,v9001,v1000^f,']]></SUBTITLE>'/# fi
 					</pft>
 				</display>	
 
