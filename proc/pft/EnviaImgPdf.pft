@@ -1,5 +1,7 @@
 #
 'pwd'/
+'mkdir htdocs/img/revistas/'
+'mkdir htdocs/img/revistas/',v1/
 'mkdir htdocs/img/revistas/',v1,'/',v2/
 'cd  htdocs/img/revistas/',v1,'/',v2/
 'lcd htdocs/img/revistas/',v1,'/',v2/
@@ -15,6 +17,8 @@
 'cd  ../../../../../../'/
 'lcd ../../../../../../'/
 'pwd'/
+'mkdir bases/pdf/'
+'mkdir bases/pdf/',v1/
 'mkdir bases/pdf/',v1,'/',v2/
 'cd bases/pdf/',v1,'/',v2/
 'lcd bases/pdf/',v1,'/',v2/
@@ -25,6 +29,8 @@
 'lcd ../../../../'/
 
 'pwd'/
+'mkdir bases/xml/'
+'mkdir bases/xml/',v1/
 'mkdir bases/xml/',v1,'/',v2/
 'cd bases/xml/',v1,'/',v2/
 'lcd bases/xml/',v1,'/',v2/
