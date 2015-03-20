@@ -595,6 +595,10 @@
             </img>
         </xsl:if>
 
+        <xsl:if test="//show_readcube_epdf = '1'">
+            <script src="http://content.readcube.com/scielo/epdf_linker.js" type="text/javascript" async="true"></script>
+        </xsl:if>
+
         <!-- Piwik -->
         <xsl:if test="//show_piwik = '1'">
             <script type="text/javascript">

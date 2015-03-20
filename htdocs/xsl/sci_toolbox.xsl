@@ -215,14 +215,22 @@
               </xsl:if>
               <!-- ARTICLO IN PDF FIM-->
               <!-- readcube -->
-              <xsl:if test="//show_readcube = 1 and //ARTICLE/@DOI">
-                  <li>
+              <xsl:if test="//show_readcube_epdf = 1 and //ARTICLE/@DOI">
+                  <li class="pdf-link">
                       <img src="/img/readcube.png" width="21" heigth="21" />
                     <a>
                       <xsl:attribute name="href">http://www.readcube.com/articles/<xsl:value-of select="//ARTICLE/@DOI" />?tab=summary</xsl:attribute>
                       <xsl:attribute name="target">_blank</xsl:attribute>
                       ReadCube
                     </a>
+                  </li>                  
+                  <li class="readcube-epdf-link">
+                    <img src="/img/readcube.png" width="21" heigth="21" />
+                    <a>
+                      <xsl:attribute name="href">/readcube/epdf.php<xsl:value-of select="concat('?doi=',//ARTICLE/@DOI,'&amp;pid=',//ARTICLE/@PID,'&amp;pdf_path=',//ARTICLE/LANGUAGES/PDF_LANGS/LANG/@TRANSLATION)"/></xsl:attribute>
+                      <xsl:attribute name="title">Article in epdf format</xsl:attribute>
+                      ReadCube ePDF
+                    </a>                    
                  </li>
               </xsl:if>
               <!-- ARTICLO IN XML INICIO-->

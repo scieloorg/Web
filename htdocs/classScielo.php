@@ -160,8 +160,10 @@ class Scielo extends ScieloBase
                             "show_login" => "show_login",
                             //Exibe o gráfico do altmetrics caso o artigo possua um DOI
                             "show_altmetrics" => "show_altmetrics",
-                            //Exibe o gráfico do altmetrics caso o artigo possua um DOI
+                            //Exibe o icone do readcube na caixa de serviços do artigo
                             "show_readcube" => "show_readcube",
+                            //Exibe o icone do readcube_epdf na caixa de serviços do artigo
+                            "show_readcube_epdf" => "show_readcube_epdf",
                             //Exibe a servico de tradu��o windows live translations
                             "show_article_wltranslation" => "show_article_wltranslation",
                             //Exibe ou n�o a op��o de Envio de Artigo por email
