@@ -3446,6 +3446,7 @@ fi
 	-->
 	<field action="replace" tag="4000"><pft>replace(v4000,'BY','by')</pft></field>
 	<field action="replace" tag="4000"><pft>replace(v4000,'NC','nc')</pft></field>
+	<field action="replace" tag="4000"><pft>replace(v4000,'ND','nd')</pft></field>
 	<field action="replace" tag="4000"><pft>replace(v4000,'SA','sa')</pft></field>
 
 	<flow action="jump"><pft>if v4000^c='nd' then 'nd' else v4000^l fi</pft></flow>
