@@ -661,6 +661,9 @@
 			<xsl:apply-templates></xsl:apply-templates>
 		</span>
 	</xsl:template>
+	<xsl:template match="disp-formula/label">
+		<span class="label"><xsl:value-of select="."/></span>
+	</xsl:template>
 	<xsl:template match="disp-formula">
 		<div class="disp-formula">
 			<xsl:apply-templates></xsl:apply-templates>
