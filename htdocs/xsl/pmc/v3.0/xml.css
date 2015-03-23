@@ -132,7 +132,10 @@ border-color: gray;
     max-height: 10%;
     text-align: center;
 }
-
+.disp-formula .label {
+    padding: 50px;
+    text-align: right;
+    }
 .graphic {
 	padding: 25px;
     width: auto;
