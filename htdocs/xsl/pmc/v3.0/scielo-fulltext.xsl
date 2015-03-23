@@ -1224,11 +1224,14 @@
 	
 	
 	<xsl:template match="app">
+		<xsl:if test="@id">
+			<a name="{@id}"/>
+		</xsl:if>
 		<div class="app">
 			<xsl:apply-templates select="@*|*|text()"></xsl:apply-templates>
 		</div>
 	</xsl:template>
-	<xsl:template match="app/title">
+	<xsl:template match="app/title | app/label">
 		<p class="sec">
 			<xsl:apply-templates></xsl:apply-templates>
 		</p>
@@ -1251,6 +1254,9 @@
 	</xsl:template>
 	
 	<xsl:template match="supplementary-material">
+		<xsl:if test="@id">
+			<a name="{@id}"/>
+		</xsl:if>
 		<xsl:choose>
 			<xsl:when test="not(*) and normalize-space(text())=''">
 				<xsl:variable name="src">/pdf<xsl:value-of
