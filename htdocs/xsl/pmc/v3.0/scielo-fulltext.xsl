@@ -414,12 +414,12 @@
 	<!--Div contendo nome dos autores-->
 	<xsl:template match="contrib-group">
 		<div class="autores">
-			<xsl:apply-templates select="contrib"/>
+			<xsl:apply-templates select="contrib|role"/>
 		</div>
 	</xsl:template>
-	<xsl:template match="role">, <xsl:value-of select="."/>
+	<xsl:template match="contrib/role">, <xsl:value-of select="."/>
 	</xsl:template>
-	<xsl:template match="sub-article//role">
+	<xsl:template match="contrib-group/role">
 		<p class="role">
 			<xsl:value-of select="."/>
 		</p>
