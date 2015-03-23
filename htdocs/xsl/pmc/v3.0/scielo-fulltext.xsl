@@ -740,17 +740,23 @@
 		<div>
 			<a name="references"/>
 			<p class="sec">
-				<xsl:apply-templates select="title"/>
-
-				<xsl:if test="not(title)">
-					<xsl:choose>
-						<xsl:when test="$article_lang='pt'"> REFERÊNCIAS </xsl:when>
-						<xsl:when test="$article_lang='es'"> REFERENCIAS </xsl:when>
-						<xsl:otherwise> REFERENCES </xsl:otherwise>
-					</xsl:choose>
-				</xsl:if>
+				<xsl:choose>
+					<xsl:when test="not(title) or not(../../article)">
+						<xsl:choose>
+							<xsl:when test="$article_lang='pt'"> REFERÊNCIAS </xsl:when>
+							<xsl:when test="$article_lang='es'"> REFERENCIAS </xsl:when>
+							<xsl:otherwise> REFERENCES </xsl:otherwise>
+						</xsl:choose>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:apply-templates select="title"/>
+					</xsl:otherwise>
+				</xsl:choose>
 			</p>
 			<xsl:apply-templates select="ref"/>
+			<xsl:if test="not(ref)">
+				<xsl:apply-templates select="document($xml_article)//article/back/ref-list/ref"/>
+			</xsl:if>
 		</div>
 	</xsl:template>
 
