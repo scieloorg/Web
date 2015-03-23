@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML">
+	
+	
 	<xsl:template match="permissions">
 		<p>
 			<a rel="license" href="{.//license/@xlink:href}/deed.{$LANGUAGE}">
@@ -1216,6 +1218,21 @@
 		<xsl:copy-of select="."/>
 	</xsl:template>
 	
+	<xsl:template match="app-group">
+		<xsl:apply-templates select="*"/>
+	</xsl:template>
+	
+	
+	<xsl:template match="app">
+		<div class="app">
+			<xsl:apply-templates select="@*|*|text()"></xsl:apply-templates>
+		</div>
+	</xsl:template>
+	<xsl:template match="app/title">
+		<p class="sec">
+			<xsl:apply-templates></xsl:apply-templates>
+		</p>
+	</xsl:template>
 	<xsl:template match="ack">
 		<xsl:variable name="lang"><xsl:choose>
 			<xsl:when test="$trans"><xsl:value-of select="$trans/@xml:lang"/></xsl:when>
@@ -1232,7 +1249,7 @@
 			<xsl:apply-templates></xsl:apply-templates>
 		</div>
 	</xsl:template>
-
+	
 	<xsl:template match="supplementary-material">
 		<xsl:choose>
 			<xsl:when test="not(*) and normalize-space(text())=''">
