@@ -63,22 +63,40 @@
         </xsl:if>
     </xsl:template>
     <xsl:variable name="DISPLAY_ARTICLE_TITLE">
-        <xsl:apply-templates
-            select="$doc//front//article-title[@xml:lang=$PAGE_LANG] | $doc//front//subtitle[@xml:lang=$PAGE_LANG]"/>
-        <xsl:apply-templates
-            select="$doc//front//trans-title-group[@xml:lang=$PAGE_LANG]/trans-title| $doc//front//trans-title-group[@xml:lang=$PAGE_LANG]/trans-subtitle"/>
-        <xsl:apply-templates
-            select="$doc//front-stub//article-title[@xml:lang=$PAGE_LANG] | $doc//front-stub//subtitle[@xml:lang=$PAGE_LANG]"
-        />
+        <xsl:choose>
+            <xsl:when test="$doc//front//trans-title-group[@xml:lang=$PAGE_LANG]">
+                <xsl:apply-templates
+                    select="$doc//front//trans-title-group[@xml:lang=$PAGE_LANG]/trans-title| $doc//front//trans-title-group[@xml:lang=$PAGE_LANG]/trans-subtitle"/>
+                
+            </xsl:when>
+            <xsl:when test="$doc//front-stub//article-title[@xml:lang=$PAGE_LANG]">
+                <xsl:apply-templates
+                    select="$doc//front-stub//article-title[@xml:lang=$PAGE_LANG] | $doc//front-stub//subtitle[@xml:lang=$PAGE_LANG]"
+                />
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates
+                    select="$doc//front//article-title | $doc//front//subtitle"/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:variable>
     <xsl:variable name="ARTICLE_TITLE">
-        <xsl:apply-templates
-            select="$doc//front//article-title[@xml:lang=$PAGE_LANG]//text() | $doc//front//subtitle[@xml:lang=$PAGE_LANG]//text()"/>
-        <xsl:apply-templates
-            select="$doc//front//trans-title-group[@xml:lang=$PAGE_LANG]/trans-title//text()| $doc//front//trans-title-group[@xml:lang=$PAGE_LANG]/trans-subtitle//text()"/>
-        <xsl:apply-templates
-            select="$doc//front-stub//article-title[@xml:lang=$PAGE_LANG]//text() | $doc//front-stub//subtitle[@xml:lang=$PAGE_LANG]//text()"
-        />
+        <xsl:choose>
+            <xsl:when test="$doc//front//trans-title-group[@xml:lang=$PAGE_LANG]">
+                <xsl:apply-templates
+                    select="$doc//front//trans-title-group[@xml:lang=$PAGE_LANG]/trans-title//text()| $doc//front//trans-title-group[@xml:lang=$PAGE_LANG]/trans-subtitle//text()"/>
+                
+            </xsl:when>
+            <xsl:when test="$doc//front-stub//article-title[@xml:lang=$PAGE_LANG]">
+                <xsl:apply-templates
+                    select="$doc//front-stub//article-title[@xml:lang=$PAGE_LANG]//text() | $doc//front-stub//subtitle[@xml:lang=$PAGE_LANG]//text()"
+                />
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates
+                    select="$doc//front//article-title//text() | $doc//front//subtitle//text()"/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:variable>
 
     <xsl:template match="@*" mode="DATA-DISPLAY">
