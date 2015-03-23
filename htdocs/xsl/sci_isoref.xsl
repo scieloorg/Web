@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xlink="http://www.w3.org/1999/xlink">
 	<xsl:include href="sci_common.xsl"/>
-	<xsl:output method="html" omit-xml-declaration="yes" indent="no" doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+	<xsl:output method="html" omit-xml-declaration="yes" indent="yes" doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 	<xsl:variable name="LANG" select="normalize-space(//CONTROLINFO/LANGUAGE)"/>
 	<xsl:variable name="XML">
 		<xsl:copy-of select="."/>
@@ -117,6 +117,7 @@
 		</li>
 	</xsl:template>
 	<xsl:template match="standard[@id='apa']">
+		<xsl:param name="data"/>
 		<li>
 			<h5>
 				<xsl:apply-templates select="label[@lang=$LANG]"/>
