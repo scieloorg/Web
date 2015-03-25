@@ -16,6 +16,6 @@ $pdf_path = $_REQUEST['pdf_path'];
     <meta name="PDF_URL" content="/pdf/<?=$pdf_path?>">
     <!-- #4 ReadCube Embedded PDF Script -->
 </head>    
-<body>ReadCube Embedded PDF Endpoint</body>
+<body/>
 <script src="http://content.readcube.com/scielo/epdf.js" type="text/javascript"></script>
 </html>
