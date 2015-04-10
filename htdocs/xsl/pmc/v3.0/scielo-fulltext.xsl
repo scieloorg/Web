@@ -79,6 +79,10 @@
 		<xsl:apply-templates select="following-sibling::node()[1]" mode="node-name"/>
 	</xsl:template>
 	
+	<xsl:template match="back/ref-list" mode="ref_list_after">
+		<xsl:apply-templates select="preceding-sibling::node()[1]" mode="node-name"/>
+	</xsl:template>
+	
 	<xsl:template match="*" mode="node-name">
 		<xsl:value-of select="name()"/>
 	</xsl:template>
@@ -1069,28 +1073,49 @@
 			<xsl:choose>
 				<xsl:when test="not(ref-list/*) and ($original/back/ref-list/*)">
 					<xsl:variable name="before"><xsl:apply-templates select="$original/back/ref-list" mode="ref_list_before"/></xsl:variable>
-					<xsl:comment><xsl:value-of select="$before"/></xsl:comment><xsl:apply-templates select="*" mode="translation-back">
-						<xsl:with-param name="before"><xsl:value-of select="$before"/></xsl:with-param>
-						<xsl:with-param name="ref_list" select="$original/back/ref-list"/>
-						<xsl:with-param name="title">
-							<xsl:choose>
-								<xsl:when test="$article_lang='pt'"> REFERÊNCIAS </xsl:when>
-								<xsl:when test="$article_lang='es'"> REFERENCIAS </xsl:when>
-								<xsl:otherwise> REFERENCES </xsl:otherwise>
-							</xsl:choose>
-						</xsl:with-param>
-					</xsl:apply-templates>
-					<xsl:if test="$before=''">
-						<xsl:apply-templates select="$original/back/ref-list">
-							<xsl:with-param name="title">
-								<xsl:choose>
-									<xsl:when test="$article_lang='pt'"> REFERÊNCIAS </xsl:when>
-									<xsl:when test="$article_lang='es'"> REFERENCIAS </xsl:when>
-									<xsl:otherwise> REFERENCES </xsl:otherwise>
-								</xsl:choose>
-							</xsl:with-param>
-						</xsl:apply-templates>
-					</xsl:if>
+					<xsl:comment><xsl:value-of select="$before"/></xsl:comment>
+					<xsl:variable name="after"><xsl:apply-templates select="$original/back/ref-list" mode="ref_list_after"/></xsl:variable>
+					<xsl:comment><xsl:value-of select="$after"/></xsl:comment>
+					
+					<xsl:choose>
+						<xsl:when test="$before!='' and *[name()=$before]">
+							<xsl:apply-templates select="*" mode="translation-back">
+								<xsl:with-param name="before"><xsl:value-of select="$before"/></xsl:with-param>
+								<xsl:with-param name="ref_list" select="$original/back/ref-list"/>
+								<xsl:with-param name="title">
+									<xsl:choose>
+										<xsl:when test="$article_lang='pt'"> REFERÊNCIAS </xsl:when>
+										<xsl:when test="$article_lang='es'"> REFERENCIAS </xsl:when>
+										<xsl:otherwise> REFERENCES </xsl:otherwise>
+									</xsl:choose>
+								</xsl:with-param>
+							</xsl:apply-templates>
+						</xsl:when>
+						<xsl:when test="$after!='' and *[name()=$after]">
+							<xsl:apply-templates select="*" mode="translation-back">
+								<xsl:with-param name="after"><xsl:value-of select="$after"/></xsl:with-param>
+								<xsl:with-param name="ref_list" select="$original/back/ref-list"/>
+								<xsl:with-param name="title">
+									<xsl:choose>
+										<xsl:when test="$article_lang='pt'"> REFERÊNCIAS </xsl:when>
+										<xsl:when test="$article_lang='es'"> REFERENCIAS </xsl:when>
+										<xsl:otherwise> REFERENCES </xsl:otherwise>
+									</xsl:choose>
+								</xsl:with-param>
+							</xsl:apply-templates>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:apply-templates select="$original/back/ref-list">
+								<xsl:with-param name="title">
+									<xsl:choose>
+										<xsl:when test="$article_lang='pt'"> REFERÊNCIAS </xsl:when>
+										<xsl:when test="$article_lang='es'"> REFERENCIAS </xsl:when>
+										<xsl:otherwise> REFERENCES </xsl:otherwise>
+									</xsl:choose>
+								</xsl:with-param>
+							</xsl:apply-templates>
+						</xsl:otherwise>
+					</xsl:choose>
 				</xsl:when>
 				<xsl:otherwise>
 					<xsl:apply-templates select="*"/>
@@ -1117,28 +1142,49 @@
 			<xsl:choose>
 				<xsl:when test="not(ref-list/*) and ($original/response/back/ref-list/*)">
 					<xsl:variable name="before"><xsl:apply-templates select="$original/response/back/ref-list" mode="ref_list_before"/></xsl:variable>
-					<xsl:comment><xsl:value-of select="$before"/></xsl:comment><xsl:apply-templates select="*" mode="translation-back">
-						<xsl:with-param name="before"><xsl:value-of select="$before"/></xsl:with-param>
-						<xsl:with-param name="ref_list" select="$original/response/back/ref-list"/>
-						<xsl:with-param name="title">
-							<xsl:choose>
-								<xsl:when test="$article_lang='pt'"> REFERÊNCIAS </xsl:when>
-								<xsl:when test="$article_lang='es'"> REFERENCIAS </xsl:when>
-								<xsl:otherwise> REFERENCES </xsl:otherwise>
-							</xsl:choose>
-						</xsl:with-param>
-					</xsl:apply-templates>
-					<xsl:if test="$before=''">
-						<xsl:apply-templates select="$original/response/back/ref-list">
-							<xsl:with-param name="title">
-								<xsl:choose>
-									<xsl:when test="$article_lang='pt'"> REFERÊNCIAS </xsl:when>
-									<xsl:when test="$article_lang='es'"> REFERENCIAS </xsl:when>
-									<xsl:otherwise> REFERENCES </xsl:otherwise>
-								</xsl:choose>
-							</xsl:with-param>
-						</xsl:apply-templates>
-					</xsl:if>
+					<xsl:comment><xsl:value-of select="$before"/></xsl:comment>
+					<xsl:variable name="after"><xsl:apply-templates select="$original/response/back/ref-list" mode="ref_list_after"/></xsl:variable>
+					<xsl:comment><xsl:value-of select="$after"/></xsl:comment>
+					
+					<xsl:choose>
+						<xsl:when test="$before!='' and *[name()=$before]">
+							<xsl:apply-templates select="*" mode="translation-back">
+								<xsl:with-param name="before"><xsl:value-of select="$before"/></xsl:with-param>
+								<xsl:with-param name="ref_list" select="$original/response/back/ref-list"/>
+								<xsl:with-param name="title">
+									<xsl:choose>
+										<xsl:when test="$article_lang='pt'"> REFERÊNCIAS </xsl:when>
+										<xsl:when test="$article_lang='es'"> REFERENCIAS </xsl:when>
+										<xsl:otherwise> REFERENCES </xsl:otherwise>
+									</xsl:choose>
+								</xsl:with-param>
+							</xsl:apply-templates>
+						</xsl:when>
+						<xsl:when test="$after!='' and *[name()=$after]">
+							<xsl:apply-templates select="*" mode="translation-back">
+								<xsl:with-param name="after"><xsl:value-of select="$after"/></xsl:with-param>
+								<xsl:with-param name="ref_list" select="$original/response/back/ref-list"/>
+								<xsl:with-param name="title">
+									<xsl:choose>
+										<xsl:when test="$article_lang='pt'"> REFERÊNCIAS </xsl:when>
+										<xsl:when test="$article_lang='es'"> REFERENCIAS </xsl:when>
+										<xsl:otherwise> REFERENCES </xsl:otherwise>
+									</xsl:choose>
+								</xsl:with-param>
+							</xsl:apply-templates>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:apply-templates select="$original/response/back/ref-list">
+								<xsl:with-param name="title">
+									<xsl:choose>
+										<xsl:when test="$article_lang='pt'"> REFERÊNCIAS </xsl:when>
+										<xsl:when test="$article_lang='es'"> REFERENCIAS </xsl:when>
+										<xsl:otherwise> REFERENCES </xsl:otherwise>
+									</xsl:choose>
+								</xsl:with-param>
+							</xsl:apply-templates>
+						</xsl:otherwise>
+					</xsl:choose>
 				</xsl:when>
 				<xsl:otherwise>
 					<xsl:apply-templates select="*"/>
@@ -1172,7 +1218,9 @@
 	</xsl:template>
 
 	<xsl:template match="back/*" mode="translation-back">
+		<xsl:param name="after"/>
 		<xsl:param name="before"/>
+		
 		<xsl:param name="ref_list"/>
 		<xsl:param name="title"/>
 		
@@ -1182,6 +1230,11 @@
 			</xsl:apply-templates>
 		</xsl:if>
 		<xsl:apply-templates/>
+		<xsl:if test="name()=$after">
+			<xsl:apply-templates select="$ref_list">
+				<xsl:with-param name="title"><xsl:value-of select="$title"/></xsl:with-param>
+			</xsl:apply-templates>
+		</xsl:if>
 	</xsl:template>
 
 	<xsl:template match="disp-quote">
