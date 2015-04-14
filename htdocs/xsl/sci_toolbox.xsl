@@ -781,59 +781,37 @@
     <xsl:param name="script"></xsl:param>
     <xsl:param name="icon"></xsl:param>
     <xsl:variable name="lang" select="."/>
-    <xsl:choose>
-      <xsl:when test="$lang='en'">
-        <a>
-          <xsl:attribute name="class">pdf-link</xsl:attribute>
-          <xsl:call-template name="AddScieloLink">
-            <xsl:with-param name="seq" select="$pid"/>
-            <xsl:with-param name="script" select="$script"/>
-            <xsl:with-param name="txtlang" select="."/>
-          </xsl:call-template>
-          <xsl:choose>
-            <xsl:when test="position()=1">
-              <xsl:if test="$icon!=''">
-                <img src="{$icon}"/></xsl:if>
-              <xsl:value-of select="$label"/>
-            </xsl:when>
-            <xsl:otherwise> | </xsl:otherwise>
-          </xsl:choose>
-          <xsl:value-of select="document(concat('../xml/',$interfaceLang,'/language.xml'))//language[@id=$lang]"/>
-        </a>
-        <a>
-          <xsl:attribute name="class">readcube-epdf-link</xsl:attribute>
-          <xsl:attribute name="href">/readcube/epdf.php<xsl:value-of select="concat('?doi=',//ARTICLE/@DOI,'&amp;pid=',// ARTICLE/@PID,'&amp;pdf_path=',//ARTICLE/LANGUAGES/PDF_LANGS[LANG='en']/LANG/@TRANSLATION)"/></xsl:attribute>
-          <xsl:attribute name="title">Article in epdf format</xsl:attribute>
-          <xsl:choose>
-            <xsl:when test="position()=1">
-              <xsl:if test="$icon!=''">
-                <img src="{$icon}"/></xsl:if>
-              <xsl:value-of select="concat('e', $label)"/>
-            </xsl:when>
-            <xsl:otherwise> | </xsl:otherwise>
-          </xsl:choose>
-          <xsl:value-of select="document(concat('../xml/',$interfaceLang,'/language.xml'))//language[@id=$lang]"/>
-        </a>
-      </xsl:when>
-      <xsl:otherwise>
-        <a>
-          <xsl:call-template name="AddScieloLink">
-            <xsl:with-param name="seq" select="$pid"/>
-            <xsl:with-param name="script" select="$script"/>
-            <xsl:with-param name="txtlang" select="."/>
-          </xsl:call-template>
-          <xsl:choose>
-            <xsl:when test="position()=1">
-              <xsl:if test="$icon!=''">
-                <img src="{$icon}"/></xsl:if>
-              <xsl:value-of select="$label"/>
-            </xsl:when>
-            <xsl:otherwise> | </xsl:otherwise>
-          </xsl:choose>
-          <xsl:value-of select="document(concat('../xml/',$interfaceLang,'/language.xml'))//language[@id=$lang]"/>
-        </a>
-      </xsl:otherwise>
-    </xsl:choose>
+    <a>
+      <xsl:attribute name="class">pdf-link</xsl:attribute>
+      <xsl:call-template name="AddScieloLink">
+        <xsl:with-param name="seq" select="$pid"/>
+        <xsl:with-param name="script" select="$script"/>
+        <xsl:with-param name="txtlang" select="."/>
+      </xsl:call-template>
+      <xsl:choose>
+        <xsl:when test="position()=1">
+          <xsl:if test="$icon!=''">
+            <img src="{$icon}"/></xsl:if>
+          <xsl:value-of select="$label"/>
+        </xsl:when>
+        <xsl:otherwise> | </xsl:otherwise>
+      </xsl:choose>
+      <xsl:value-of select="document(concat('../xml/',$interfaceLang,'/language.xml'))//language[@id=$lang]"/>
+    </a>
+    <a>
+      <xsl:attribute name="class">readcube-epdf-link</xsl:attribute>
+      <xsl:attribute name="href">/readcube/epdf.php<xsl:value-of select="concat('?doi=',//ARTICLE/@DOI,'&amp;pid=',// ARTICLE/@PID,'&amp;pdf_path=',//ARTICLE/LANGUAGES/PDF_LANGS/LANG[.=$lang]/@TRANSLATION)"/></xsl:attribute>
+      <xsl:attribute name="title">Article in epdf format</xsl:attribute>
+      <xsl:choose>
+        <xsl:when test="position()=1">
+          <xsl:if test="$icon!=''">
+            <img src="{$icon}"/></xsl:if>
+          <xsl:value-of select="concat('e', $label)"/>
+        </xsl:when>
+        <xsl:otherwise> | </xsl:otherwise>
+      </xsl:choose>
+      <xsl:value-of select="document(concat('../xml/',$interfaceLang,'/language.xml'))//language[@id=$lang]"/>
+    </a>
   </xsl:template>
 
   <xsl:template match="LANG|@ORIGINALLANG" mode="display-link-to-new-article-version">
