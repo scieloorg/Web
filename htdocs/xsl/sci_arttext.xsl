@@ -209,6 +209,9 @@
 
 				<link rel="stylesheet" type="text/css" href="/css/screen.css"/>
 				<xsl:apply-templates select="." mode="css"/>
+	            <xsl:if test="//show_readcube_epdf = '1'">
+	                <script src="http://content.readcube.com/scielo/epdf_linker.js" type="text/javascript" async="true"></script>
+    	        </xsl:if>
 			</head>
 			<body>
 				<a name="top"/>
@@ -336,7 +339,9 @@
 				<xsl:apply-templates select="." mode="meta_names"/>
 				<xsl:apply-templates select="." mode="version-css"/>
 				<xsl:apply-templates select="." mode="version-js"/>
-				
+	            <xsl:if test="//show_readcube_epdf = '1'">
+	                <script src="http://content.readcube.com/scielo/epdf_linker.js" type="text/javascript" async="true"></script>
+	            </xsl:if>
 				</head>
 			<body>
 				<a name="top"/>

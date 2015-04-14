@@ -142,6 +142,17 @@
             </div>
         </div>
     </xsl:template>
+
+    <xsl:template name="AddScieloLinkEPDF">
+        <xsl:param name="seq"/>
+        <xsl:param name="script"/>
+        <xsl:param name="txtlang"/>
+        <xsl:param name="file"/>
+        <xsl:param name="date"/>
+        <xsl:param name="page"/>
+        <xsl:attribute name="class">readcube-epdf-link</xsl:attribute>
+        <xsl:attribute name="href">/readcube/epdf.php<xsl:value-of select="concat('?doi=',//ARTICLE[@PID=$seq]/@DOI,'&amp;pid=',$seq,'&amp;pdf_path=',//ARTICLE[@PID=$seq]/LANGUAGES/PDF_LANGS/LANG[.=$txtlang]/@TRANSLATION)"/></xsl:attribute>
+    </xsl:template>
     <!-- Adds a link to a SciELO page 
         Parameters: seq - Issue PID
                              script - Name of the script to be called -->
@@ -154,17 +165,9 @@
         <xsl:param name="page"/>
         <xsl:choose>
             <xsl:when test="$script = 'sci_pdf' ">
-                <xsl:attribute name="href">javascript: void(0); </xsl:attribute>
-                <xsl:attribute name="onClick">setTimeout("window.open('http://<xsl:value-of
-                        select="$control_info/SCIELO_INFO/SERVER"/><xsl:value-of
-                        select="$control_info/SCIELO_INFO/PATH_DATA"
-                        />scielo.php?script=<xsl:value-of select="$script"/>&amp;<xsl:if test="$seq"
-                            >pid=<xsl:value-of select="$seq"/>&amp;</xsl:if>lng=<xsl:value-of
-                        select="normalize-space($control_info/LANGUAGE)"/>&amp;nrm=<xsl:value-of
-                        select="normalize-space($control_info/STANDARD)"/><xsl:if test="$txtlang"
-                            >&amp;tlng=<xsl:value-of select="normalize-space($txtlang)"
-                        /></xsl:if><xsl:if test="$file">&amp;file=<xsl:value-of select="$file"
-                        /></xsl:if> ','_self')", 3000);</xsl:attribute>
+                <xsl:attribute name="href">
+                    <xsl:value-of select="$control_info/SCIELO_INFO/PATH_DATA"/>scielo.php?script=<xsl:value-of select="$script"/>&amp;<xsl:if test="$seq">pid=<xsl:value-of select="$seq"/>&amp;</xsl:if>lng=<xsl:value-of select="normalize-space($control_info/LANGUAGE)"/>&amp;nrm=<xsl:value-of select="normalize-space($control_info/STANDARD)"/><xsl:if test="$txtlang">&amp;tlng=<xsl:value-of select="normalize-space($txtlang)"/></xsl:if><xsl:if test="$file">&amp;file=<xsl:value-of select="$file"/></xsl:if>
+                </xsl:attribute>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:attribute name="href">
@@ -509,10 +512,6 @@
                 select="document(concat('../xml/',$INTLANG,'/language.xml'))//language"/>
             <xsl:text> </xsl:text>
             <xsl:value-of select="$languages[@id=$TXTLANG]"/>
-            <!--    As 2 linhas abaixo foram substituídas pela linha superior.
-            <xsl:value-of select="translate(substring($languages[@id=$TXTLANG],1,1),'ABCDEFGHJIKLMNOPQRSTUVWXYZ','abcdefghjiklmnopqrstuvwxyz')"/>
-            <xsl:value-of select="substring($languages[@id=$TXTLANG],2)"/>
-        -->
         </xsl:variable>
         <xsl:choose>
             <xsl:when test="$TYPE='pr'">
@@ -528,6 +527,29 @@
                     <xsl:with-param name="URL" select="$url"/>
                     <xsl:with-param name="LABEL" select="$label"/>
                 </xsl:call-template>
+            </xsl:when>
+            <xsl:when test="$TYPE='pdf'">
+                <a>
+                    <xsl:attribute name="class">pdf-link</xsl:attribute>
+                    <xsl:call-template name="AddScieloLink">
+                        <xsl:with-param name="seq" select="$PID"/>
+                        <xsl:with-param name="script" select="$script"/>
+                        <xsl:with-param name="txtlang" select="$TXTLANG"/>
+                        <xsl:with-param name="file" select="$file"/>
+                    </xsl:call-template>
+                    <!-- o texto do link é o idioma do texto como no sumário -->
+                    <xsl:value-of select="$label"/>
+                </a>
+                <a>
+                    <xsl:call-template name="AddScieloLinkEPDF">
+                        <xsl:with-param name="seq" select="$PID"/>
+                        <xsl:with-param name="script" select="$script"/>
+                        <xsl:with-param name="txtlang" select="$TXTLANG"/>
+                        <xsl:with-param name="file" select="$file"/>
+                    </xsl:call-template>
+                    <!-- o texto do link é o idioma do texto como no sumário -->
+                    <xsl:value-of select="concat('e',$label)"/>
+                </a>
             </xsl:when>
             <xsl:otherwise>
                 <a>
@@ -593,10 +615,6 @@
                 <xsl:attribute name="height">1</xsl:attribute>
                 <xsl:attribute name="width">1</xsl:attribute>
             </img>
-        </xsl:if>
-
-        <xsl:if test="//show_readcube_epdf = '1'">
-            <script src="http://content.readcube.com/scielo/epdf_linker.js" type="text/javascript" async="true"></script>
         </xsl:if>
 
         <!-- Piwik -->
