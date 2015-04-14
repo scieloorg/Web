@@ -806,7 +806,7 @@
         <xsl:when test="position()=1">
           <xsl:if test="$icon!=''">
             <img src="{$icon}"/></xsl:if>
-          <xsl:value-of select="concat('e', $label)"/>
+          <xsl:value-of select="$label"/>
         </xsl:when>
         <xsl:otherwise> | </xsl:otherwise>
       </xsl:choose>

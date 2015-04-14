@@ -548,7 +548,7 @@
                         <xsl:with-param name="file" select="$file"/>
                     </xsl:call-template>
                     <!-- o texto do link é o idioma do texto como no sumário -->
-                    <xsl:value-of select="concat('e',$label)"/>
+                    <xsl:value-of select="$label"/>
                 </a>
             </xsl:when>
             <xsl:otherwise>
