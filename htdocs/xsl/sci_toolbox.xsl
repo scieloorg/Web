@@ -208,8 +208,6 @@
                     <xsl:with-param name="pid" select="CONTROLINFO/PAGE_PID"/>
                     <xsl:with-param name="script">sci_pdf</xsl:with-param>
                     <xsl:with-param name="icon">/img/en/iconPDFDocument.gif</xsl:with-param>
-                    <xsl:with-param name="label"
-                      select="$translations/xslid[@id='sci_issuetoc']/text[@find='pdf']"/>
                   </xsl:apply-templates>
                 </li>
               </xsl:if>
@@ -803,7 +801,6 @@
 
   <xsl:template match="LANG|@ORIGINALLANG" mode="display-link-to-article-version-pdf">
     <xsl:param name="pid"/>
-    <xsl:param name="label"/>
     <xsl:param name="script"></xsl:param>
     <xsl:param name="icon"></xsl:param>
     <xsl:variable name="lang" select="."/>
