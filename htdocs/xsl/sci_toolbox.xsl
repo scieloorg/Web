@@ -821,11 +821,10 @@
         <xsl:when test="position()=1">
           <xsl:if test="$icon!=''">
             <img src="{$icon}"/></xsl:if>
-          <xsl:value-of select="$label"/>
         </xsl:when>
         <xsl:otherwise> | </xsl:otherwise>
       </xsl:choose>
-      <xsl:value-of select="document(concat('../xml/',$interfaceLang,'/language.xml'))//language[@id=$lang]"/>
+      <xsl:value-of select="document(concat('../xml/',$interfaceLang,'/language.xml'))//language[@id=$lang]"/> (pdf)
     </a>
     <xsl:if test="$lang=$origlang">
       <a>
@@ -836,11 +835,10 @@
           <xsl:when test="position()=1">
             <xsl:if test="$icon!=''">
               <img src="{$icon}"/></xsl:if>
-            <xsl:value-of select="$label"/>
           </xsl:when>
           <xsl:otherwise> | </xsl:otherwise>
         </xsl:choose>
-        epdf <xsl:value-of select="document(concat('../xml/',$interfaceLang,'/language.xml'))//language[@id=$lang]"/>
+        <xsl:value-of select="document(concat('../xml/',$interfaceLang,'/language.xml'))//language[@id=$lang]"/> (epdf)
       </a>
   </xsl:if>
   </xsl:template>
