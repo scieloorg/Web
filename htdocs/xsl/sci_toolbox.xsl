@@ -204,7 +204,7 @@
               <xsl:if test="//ARTICLE/@PDF">
                 <li>
                   <xsl:apply-templates select="//LANGUAGES/PDF_LANGS/LANG"
-                    mode="display-link-to-article-version">
+                    mode="display-link-to-article-version-pdf">
                     <xsl:with-param name="pid" select="CONTROLINFO/PAGE_PID"/>
                     <xsl:with-param name="script">sci_pdf</xsl:with-param>
                     <xsl:with-param name="icon">/img/en/iconPDFDocument.gif</xsl:with-param>
@@ -782,7 +782,36 @@
     <xsl:param name="icon"></xsl:param>
     <xsl:variable name="lang" select="."/>
     <a>
-      <xsl:attribute name="class">pdf-link</xsl:attribute>
+      <xsl:call-template name="AddScieloLink">
+        <xsl:with-param name="seq" select="$pid"/>
+        <xsl:with-param name="script" select="$script"/>
+        <xsl:with-param name="txtlang" select="."/>
+      </xsl:call-template>
+      <xsl:choose>
+        <xsl:when test="position()=1">
+          <xsl:if test="$icon!=''">
+            <img src="{$icon}"/></xsl:if>
+          <xsl:value-of select="$label"/>
+        </xsl:when>
+        <xsl:otherwise> | </xsl:otherwise>
+      </xsl:choose>
+      <xsl:value-of
+        select="document(concat('../xml/',$interfaceLang,'/language.xml'))//language[@id=$lang]"/>
+    </a>
+
+  </xsl:template>
+
+  <xsl:template match="LANG|@ORIGINALLANG" mode="display-link-to-article-version-pdf">
+    <xsl:param name="pid"/>
+    <xsl:param name="label"/>
+    <xsl:param name="script"></xsl:param>
+    <xsl:param name="icon"></xsl:param>
+    <xsl:variable name="lang" select="."/>
+    <xsl:variable name="origlang" select="//ARTICLE/@ORIGINALLANG"/>
+    <a> 
+      <xsl:if test="$lang=$origlang">
+        <xsl:attribute name="class">pdf-link</xsl:attribute>
+      </xsl:if>
       <xsl:call-template name="AddScieloLink">
         <xsl:with-param name="seq" select="$pid"/>
         <xsl:with-param name="script" select="$script"/>
@@ -798,20 +827,22 @@
       </xsl:choose>
       <xsl:value-of select="document(concat('../xml/',$interfaceLang,'/language.xml'))//language[@id=$lang]"/>
     </a>
-    <a>
-      <xsl:attribute name="class">readcube-epdf-link</xsl:attribute>
-      <xsl:attribute name="href">/readcube/epdf.php<xsl:value-of select="concat('?doi=',//ARTICLE/@DOI,'&amp;pid=',// ARTICLE/@PID,'&amp;pdf_path=',//ARTICLE/LANGUAGES/PDF_LANGS/LANG[.=$lang]/@TRANSLATION)"/></xsl:attribute>
-      <xsl:attribute name="title">Article in epdf format</xsl:attribute>
-      <xsl:choose>
-        <xsl:when test="position()=1">
-          <xsl:if test="$icon!=''">
-            <img src="{$icon}"/></xsl:if>
-          <xsl:value-of select="$label"/>
-        </xsl:when>
-        <xsl:otherwise> | </xsl:otherwise>
-      </xsl:choose>
-      <xsl:value-of select="document(concat('../xml/',$interfaceLang,'/language.xml'))//language[@id=$lang]"/>
-    </a>
+    <xsl:if test="$lang=$origlang">
+      <a>
+        <xsl:attribute name="class">readcube-epdf-link</xsl:attribute>
+        <xsl:attribute name="href">/readcube/epdf.php<xsl:value-of select="concat('?doi=',//ARTICLE/@DOI,'&amp;pid=',// ARTICLE/@PID,'&amp;pdf_path=',//ARTICLE/LANGUAGES/PDF_LANGS/LANG[.=$lang]/@TRANSLATION)"/></xsl:attribute>
+        <xsl:attribute name="title">Article in epdf format</xsl:attribute>
+        <xsl:choose>
+          <xsl:when test="position()=1">
+            <xsl:if test="$icon!=''">
+              <img src="{$icon}"/></xsl:if>
+            <xsl:value-of select="$label"/>
+          </xsl:when>
+          <xsl:otherwise> | </xsl:otherwise>
+        </xsl:choose>
+        epdf <xsl:value-of select="document(concat('../xml/',$interfaceLang,'/language.xml'))//language[@id=$lang]"/>
+      </a>
+  </xsl:if>
   </xsl:template>
 
   <xsl:template match="LANG|@ORIGINALLANG" mode="display-link-to-new-article-version">
