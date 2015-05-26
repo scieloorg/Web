@@ -503,6 +503,7 @@
                             select="$translations//xslid[@id='sci_issuetoc']//text[@find='abstract']"
                         />
                     </xsl:when>
+                    <xsl:when test="$TYPE='pdf' "></xsl:when>
                     <xsl:otherwise>
                         <xsl:value-of
                             select="$translations//xslid[@id='sci_issuetoc']//text[@find=$TYPE]"/>
@@ -542,7 +543,7 @@
                         <xsl:with-param name="file" select="$file"/>
                     </xsl:call-template>
                     <!-- o texto do link é o idioma do texto como no sumário -->
-                    <xsl:value-of select="$label"/>
+                    <xsl:value-of select="$label"/> (pdf)
                 </a>
                 <xsl:if test="$TXTLANG=$origlang">
                     <a>
@@ -553,7 +554,7 @@
                             <xsl:with-param name="file" select="$file"/>
                         </xsl:call-template>
                         <!-- o texto do link é o idioma do texto como no sumário -->
-                        epdf <xsl:value-of select="$label"/>
+                        <xsl:value-of select="$label"/> (epdf)
                     </a>
                 </xsl:if>
             </xsl:when>
