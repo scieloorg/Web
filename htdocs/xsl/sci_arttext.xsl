@@ -181,18 +181,34 @@
 			content="{concat('http://',CONTROLINFO/SCIELO_INFO/SERVER, '/scielo.php?script=sci_abstract&amp;pid=', ISSUE/ARTICLE/@PID, '&amp;lng=', CONTROLINFO/LANGUAGE , '&amp;nrm=iso&amp;tlng=', ISSUE/ARTICLE/@TEXTLANG)}"/>
 		<meta name="citation_fulltext_html_url"
 			content="{concat('http://',CONTROLINFO/SCIELO_INFO/SERVER, '/scielo.php?script=sci_arttext&amp;pid=', ISSUE/ARTICLE/@PID, '&amp;lng=', CONTROLINFO/LANGUAGE , '&amp;nrm=iso&amp;tlng=', ISSUE/ARTICLE/@TEXTLANG)}"/>
-		<meta name="citation_pdf_url"
-			content="{concat('http://',CONTROLINFO/SCIELO_INFO/SERVER, '/scielo.php?script=sci_pdf&amp;pid=', ISSUE/ARTICLE/@PID, '&amp;lng=', CONTROLINFO/LANGUAGE , '&amp;nrm=iso&amp;tlng=', ISSUE/ARTICLE/@TEXTLANG)}"/>
 		<xsl:apply-templates select="ISSUE/ARTICLE/AUTHORS/AUTH_PERS/AUTHOR" mode="AUTHORS_META"/>
 		<meta name="citation_firstpage" content="{ISSUE/ARTICLE/@FPAGE}"/>
 		<meta name="citation_lastpage" content="{ISSUE/ARTICLE/@LPAGE}"/>
 		<meta name="citation_id" content="{ISSUE/ARTICLE/@DOI}"/>
+
+		<xsl:apply-templates select="ISSUE/ARTICLE/LANGUAGES/PDF_LANGS/LANG" name="meta_citation_pdf_url">
+			<xsl:with-param name="orig_lang" select="ISSUE/ARTICLE/@ORIGINALLANG" />
+		</xsl:apply-templates>
 
 		<!--Reference Citation-->
 		<xsl:if test="$show_meta_citation_reference='1'">
 			<xsl:apply-templates select="ISSUE/ARTICLE/REFERENCES"/>
 		</xsl:if>
 	</xsl:template>
+
+	<xsl:template match="LANG" name="meta_citation_pdf_url">
+		<xsl:param name="orig_lang" />
+		<xsl:variable name="lang" select="." />
+		<meta>
+			<xsl:attribute name="name">citation_pdf_url</xsl:attribute>
+			<xsl:attribute name="language"><xsl:value-of select="$lang" /></xsl:attribute>
+			<xsl:if test="$orig_lang = $lang">
+				<xsl:attribute name="default">true</xsl:attribute>
+			</xsl:if>
+			<xsl:attribute name="content"><xsl:value-of select="concat('http://',//CONTROLINFO/SCIELO_INFO/SERVER,'/pdf/',@TRANSLATION)" /></xsl:attribute>
+		</meta>
+	</xsl:template>
+
 	<xsl:template match="SERIAL">
 
 		<xsl:if test=".//mml:math">
