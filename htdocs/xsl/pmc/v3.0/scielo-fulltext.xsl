@@ -642,14 +642,12 @@
 
 	<xsl:template match="fig" mode="scift-standard">
 		<div class="figure">
-
 			<xsl:call-template name="named-anchor"/>
 			<xsl:apply-templates select="graphic|media"/>
+			<xsl:apply-templates select="attrib"/>
 			<p class="label_caption">
 				<xsl:apply-templates select="label | caption" mode="scift-label-caption-graphic"/>
-
 			</p>
-
 		</div>
 	</xsl:template>
 	<xsl:template match="table-wrap" mode="scift-standard">
@@ -665,7 +663,7 @@
 			<xsl:apply-templates mode="footnote" select=".//fn"/>
 		</div>
 	</xsl:template>
-	<xsl:template match="fig/label | table-wrap/label | fig/caption | table-wrap/caption">
+	<xsl:template match="fig/label | table-wrap/label | fig/caption | table-wrap/caption | attrib">
 		<span class="{name()}">
 			<xsl:apply-templates select="* | text()"/>
 		</span>
@@ -682,6 +680,7 @@
 						<xsl:apply-templates select=".//graphic" mode="scift-thumbnail"/>
 					</td>
 					<td class="td_label_caption">
+						<xsl:apply-templates select="attrib"/>
 						<p class="label_caption">
 							<xsl:apply-templates select="label | caption"
 								mode="scift-label-caption-graphic"/>

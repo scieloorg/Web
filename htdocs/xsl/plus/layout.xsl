@@ -16,17 +16,13 @@
         <xsl:choose>
             <xsl:when test="substring($c1,1,1)='.'">
                 <xsl:choose>
-                    <xsl:when test="contains($c1,'.tif')">
-                        <xsl:value-of select="substring-before($href,'.tif')"/>.jpg
-                    </xsl:when>
+                    <xsl:when test="contains($c1,'.tif')"><xsl:value-of select="substring-before($href,'.tif')"/>.jpg</xsl:when>
                     <xsl:otherwise><xsl:value-of select="$href"/></xsl:otherwise>
                 </xsl:choose>
             </xsl:when>
             <xsl:when test="substring($c2,1,1)='.'">
                 <xsl:choose>
-                    <xsl:when test="contains($c2,'.tif')">
-                        <xsl:value-of select="substring-before($href,'.tif')"/>.jpg
-                    </xsl:when>
+                    <xsl:when test="contains($c2,'.tif')"><xsl:value-of select="substring-before($href,'.tif')"/>.jpg</xsl:when>
                     <xsl:otherwise><xsl:value-of select="$href"/></xsl:otherwise>
                 </xsl:choose>
             </xsl:when>
@@ -950,6 +946,7 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
                 <!-- FIXME -->
                 <div class="preview span9 hide">
                     <img src="{$img_filename}" alt="{caption}"/>
+                    <xsl:apply-templates select="attrib"/>
                 </div>
             </div>
             <div class="span5">
@@ -988,6 +985,7 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
                 <!-- FIXME -->
                 <div class="preview span9 hide">
                     <img src="{$img_filename}" alt="{caption}"/>
+                    <xsl:apply-templates select="attrib"/>
                 </div>
             </div>
             <div class="span5">
