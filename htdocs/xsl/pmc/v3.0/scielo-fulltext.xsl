@@ -4,11 +4,14 @@
 	
 	
 	<xsl:template match="permissions">
+		<xsl:variable name="license_main_url"><xsl:choose><xsl:when test="contains(.//license/@xlink:href,'/deed')"><xsl:value-of select="substring-before(.//license/@xlink:href,'/deed')"/></xsl:when>
+			<xsl:otherwise><xsl:value-of select=".//license/@xlink:href"/></xsl:otherwise>
+		</xsl:choose></xsl:variable>
+		<xsl:variable name="license_url"><xsl:value-of select="$license_main_url"/>/deed.<xsl:value-of select="$LANGUAGE"/></xsl:variable>
 		<xsl:variable name="license_img_src"><xsl:choose>
 			<xsl:when test=".//graphic"><xsl:value-of select=".//graphic/@xlink:href"/></xsl:when>
-			<xsl:otherwise>http://i.creativecommons.org/l<xsl:value-of select="substring-after(.//license/@xlink:href,'licenses')"/>/88x31.png</xsl:otherwise>
+			<xsl:otherwise>http://i.creativecommons.org/l<xsl:value-of select="substring-after($license_main_url,'licenses')"/>/88x31.png</xsl:otherwise>
 		</xsl:choose></xsl:variable>
-		<xsl:variable name="license_url"><xsl:value-of select=".//license/@xlink:href"/><xsl:if test="not(contains(.//license/@xlink:href,'/deed'))">/deed.<xsl:value-of select="$LANGUAGE"/></xsl:if></xsl:variable>
 		<p>
 			<a rel="license" href="{$license_url}">
 				<xsl:if test="$license_img_src!=''">
