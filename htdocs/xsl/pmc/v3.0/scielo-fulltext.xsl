@@ -4,17 +4,18 @@
 	
 	
 	<xsl:template match="permissions">
+		<xsl:variable name="license_img_src"><xsl:choose>
+			<xsl:when test=".//graphic"><xsl:value-of select=".//graphic/@xlink:href"/></xsl:when>
+			<xsl:otherwise>http://i.creativecommons.org/l<xsl:value-of select="substring-after(.//license/@xlink:href,'licenses')"/>/88x31.png</xsl:otherwise>
+		</xsl:choose></xsl:variable>
+		<xsl:variable name="license_url"><xsl:value-of select=".//license/@xlink:href"/><xsl:if test="not(contains(.//license/@xlink:href,'/deed'))">/deed.<xsl:value-of select="$LANGUAGE"/></xsl:if></xsl:variable>
 		<p>
-			<a rel="license" href="{.//license/@xlink:href}/deed.{$LANGUAGE}">
-			<img alt="Creative Commons License" style="border-width:0">
-				<xsl:attribute name="src">
-					<xsl:choose>
-						<xsl:when test=".//graphic"><xsl:value-of select=".//graphic/@xlink:href"/></xsl:when>
-						<xsl:otherwise>http://i.creativecommons.org/l<xsl:value-of select="substring-after(.//license/@xlink:href,'licenses')"/>/88x31.png</xsl:otherwise>
-					</xsl:choose>
-				</xsl:attribute>
-			</img>
-			</a> 			
+			<a rel="license" href="{$license_url}">
+				<xsl:if test="$license_img_src!=''">
+					<img src="{$license_img_src}" alt="Creative Commons License" style="border-width:0"/>
+				</xsl:if>
+			</a>
+			<xsl:if test="$license_img_src=''">
 			<xsl:choose>
 				<xsl:when test=".//license-p">
 					<xsl:apply-templates select=".//license-p"></xsl:apply-templates>
@@ -25,7 +26,7 @@
 						<xsl:when test="$LANGUAGE='es'">Todo el contenido de esta revista, excepto dónde está identificado, está bajo una </xsl:when>
 						<xsl:when test="$LANGUAGE='pt'">Todo o conteúdo deste periódico, exceto onde está identificado, está licenciado sob uma </xsl:when>
 					</xsl:choose>
-					<a href="{.//license/@xlink:href}/deed.{$LANGUAGE}">
+					<a href="{$license_url}">
 						<xsl:choose>
 							<xsl:when test="$LANGUAGE='en'">Creative Commons Attribution License</xsl:when>
 							<xsl:when test="$LANGUAGE='es'">Licencia Creative Commons</xsl:when>
@@ -33,7 +34,7 @@
 						</xsl:choose>
 					</a>
 				</xsl:otherwise>
-			</xsl:choose>
+			</xsl:choose></xsl:if>
 		</p>
 	</xsl:template>
 	<xsl:template match="*" mode="id">
@@ -63,7 +64,6 @@
 			<xsl:otherwise>STANDARD</xsl:otherwise>
 		</xsl:choose>
 	</xsl:variable>
-
 	<xsl:variable name="refpos">
 		<xsl:choose>
 			<xsl:when test="$xml_article">
@@ -224,14 +224,44 @@
 			</div>
 		</xsl:for-each>
 		<div class="foot-notes">
-			<xsl:apply-templates select=".//front//history"/>
-			<xsl:apply-templates select=".//front//author-notes"/>
+			<xsl:choose>
+				<xsl:when test=".//front//history">
+					<xsl:apply-templates select=".//front//history"/>
+				</xsl:when>
+				<xsl:when test=".//history">
+					<xsl:apply-templates select=".//front//history"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:apply-templates select="$original//front//history"/>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:choose>
+				<xsl:when test=".//front//author-notes">
+					<xsl:apply-templates select=".//front//author-notes"/>
+				</xsl:when>
+				<xsl:when test=".//author-notes">
+					<xsl:apply-templates select=".//author-notes"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:apply-templates select="$original//front//author-notes"/>
+				</xsl:otherwise>
+			</xsl:choose>
 		</div>
 
 		<xsl:apply-templates select="sub-article[@article-type!='translation'] | response"
 			mode="MORE"/>
 		<div class="foot-notes">
-			<xsl:apply-templates select=".//front//permissions"/>
+			<xsl:choose>
+				<xsl:when test=".//front//permissions">
+					<xsl:apply-templates select=".//front//permissions"/>
+				</xsl:when>
+				<xsl:when test=".//permissionss">
+					<xsl:apply-templates select=".//permissions"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:apply-templates select="$original//front//permissions"/>
+				</xsl:otherwise>
+			</xsl:choose>
 		</div>
 	</xsl:template>
 
