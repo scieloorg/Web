@@ -134,8 +134,13 @@ border-color: gray;
 }
 .disp-formula .label {
     padding: 50px;
-    text-align: right;
+    display: inline-block;
     }
+.disp-formula .formula {
+    padding: 50px;
+    display: inline-block;
+    }
+
 .graphic {
 	padding: 25px;
     width: auto;
