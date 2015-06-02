@@ -66,6 +66,15 @@
             <link href="{$PATH}/static/css/bootstrap.min.css" rel="stylesheet"/>
             <link href="{$PATH}/static/css/responsive.css" rel="stylesheet"/>
             <link href="{$PATH}/static/css/style.css" rel="stylesheet"/>
+            <style>
+
+                .disp-formula .label {
+                display: inline-block;
+                }
+                .disp-formula .labeled-formula {
+                display: inline-block;
+                }
+            </style>
             <xsl:if test=".//math or .//mml:math">
                 <script type="text/javascript"
                     src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
@@ -721,6 +730,7 @@
 
         <xsl:apply-templates select="*" mode="HTML-TEXT"/>
     </xsl:template>
+    <xsl:template match="sec[title]/label" mode="HTML-TEXT"></xsl:template>
     <xsl:template match="sec/title" mode="HTML-TEXT">
         <xsl:choose>
             <xsl:when test="../@sec-type">
@@ -728,11 +738,13 @@
                     <xsl:attribute name="id">
                         <xsl:value-of select="translate(../@sec-type,'|', '-')"/>
                     </xsl:attribute>
+                    <xsl:value-of select="../label"/>
                     <xsl:apply-templates select="." mode="DATA-DISPLAY"/>
                 </h1>
             </xsl:when>
             <xsl:otherwise>
                 <h2>
+                    <xsl:value-of select="../label"/>
                     <xsl:apply-templates select="." mode="DATA-DISPLAY"/>
                 </h2>
             </xsl:otherwise>
@@ -900,12 +912,28 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
             <xsl:apply-templates select="*" mode="HTML-TEXT"/>
         </span>
     </xsl:template>
+    <xsl:template match="disp-formula/label" mode="HTML-TEXT">
+        <span class="label"><xsl:value-of select="."/></span>
+    </xsl:template>
     <xsl:template match="disp-formula" mode="HTML-TEXT">
         <div class="disp-formula" id="{.//@id}">
-            
             <!-- FIXME -->
-            <xsl:apply-templates select="*" mode="HTML-TEXT"/>
+            <span class="labeled-formula"><xsl:apply-templates select="*[name()!='label']" mode="HTML-TEXT"/></span>
+            <xsl:apply-templates select="label" mode="HTML-TEXT"/>
         </div>
+    </xsl:template>
+    <xsl:template match="alternatives" mode="HTML-TEXT">
+        <xsl:choose>
+            <xsl:when test="mml:math">
+                <xsl:apply-templates select="mml:math"/>
+            </xsl:when>
+            <xsl:when test="graphic">
+                <xsl:apply-templates select="graphic" mode="HTML-TEXT"/>
+            </xsl:when>
+            <xsl:when test="tex-math">
+                <xsl:apply-templates select="tex-math"/>
+            </xsl:when>
+        </xsl:choose>
     </xsl:template>
     <xsl:template match="p//xref[@ref-type='fig' or @ref-type='table']" mode="HTML-TEXT">
         <a href="#{@rid}" class="bIcon figref goto">
