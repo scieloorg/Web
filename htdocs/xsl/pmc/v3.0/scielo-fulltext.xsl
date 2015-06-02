@@ -662,7 +662,7 @@
 	</xsl:template>
 	<xsl:template match="inline-formula">
 		<span class="inline-formula">
-			<xsl:apply-templates></xsl:apply-templates>
+			<xsl:apply-templates/>
 		</span>
 	</xsl:template>
 	<xsl:template match="disp-formula/label">
@@ -670,8 +670,24 @@
 	</xsl:template>
 	<xsl:template match="disp-formula">
 		<div class="disp-formula">
-			<xsl:apply-templates></xsl:apply-templates>
+			<span class="formula">
+				<xsl:apply-templates select="*[name()!='label']"></xsl:apply-templates>
+			</span>
+			<xsl:apply-templates select="label"></xsl:apply-templates>			
 		</div>
+	</xsl:template>
+	<xsl:template match="alternatives">
+		<xsl:choose>
+			<xsl:when test="mml:math">
+				<xsl:apply-templates select="mml:math"/>
+			</xsl:when>
+			<xsl:when test="graphic">
+				<xsl:apply-templates select="graphic"/>
+			</xsl:when>
+			<xsl:when test="tex-math">
+				<xsl:apply-templates select="tex-math"/>
+			</xsl:when>
+		</xsl:choose>
 	</xsl:template>
 	<xsl:template match="graphic">
 		<a target="_blank">
@@ -716,13 +732,16 @@
 	<xsl:template match="title" mode="scift-label-caption-graphic">
 		<xsl:apply-templates select="text() | *"/>
 	</xsl:template>
+	<xsl:template match="sec[title]/label"></xsl:template>
 	<xsl:template match="sec[@sec-type]/title">
 		<p class="sec">
+			<xsl:value-of select="../label"/>
 			<xsl:apply-templates/>
 		</p>
 	</xsl:template>
 	<xsl:template match="sec[not(@sec-type)]/title">
 		<p class="sub-subsec">
+			<xsl:value-of select="../label"/>
 			<xsl:apply-templates/>
 		</p>
 	</xsl:template>
