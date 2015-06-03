@@ -6,9 +6,14 @@
 	<field action=cgi tag=200>script</field>
 	<field action=cgi tag=300>tlng</field> <!-- fixed 20040621 -->
 	<field action=cgi tag=400>path</field> 
+	
+	<field action=replace tag=7009 split="occ"><pft>cat(v400,'/htdocs/scielo.def.php')</pft></field>
+	<field action=replace tag=7009><pft>(if v7009:'SERVER_SCIELO=' then mid(v7009,instr(v7009,'=')+1,size(v7009)) fi)</pft></field>
+
 	<parm name=cipar>
     	<pft>
        		'PII.*=',v400,'/bases/artigo/pii2scid.*'/
+       		'ARTIGO.*=',v400,'/bases/artigo/artigo.*'/
     	</pft>
 	</parm>	
 	
@@ -25,14 +30,19 @@
 			ref(['PII']l(['PII'],'P'v100),v2)
 		</pft>
 	</field>
-
+	<field action=replace tag=100>
+		<pft>if v100:'(' then
+			,replace(replace(v100,')',''),'(','19'),
+			fi
+		</pft>
+	</field>
 	<label>PID_NORMAL</label>
 	
 	<display>
 		<pft>
 			'Content-type:text/html'/#
 			'<HTML><HEAD>'/,
-			'<meta name="added" content="0;URL=http:/scielo.php?script=',v200,
+			'<meta name="added" content="0;URL=http://',v7009,'/scielo.php?script=sci_arttext',
 			'&pid=',v100,
 			'&tlng=',v300,if a(v300) or v300='' then 'en' fi
 			'&lng=en&nrm=iso" http-equiv="refresh">'
