@@ -123,8 +123,7 @@ class Scielo extends ScieloBase
                             $service = str_replace('CURRENT_URL', urlencode("http://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']), $service);
                             //$services_xml[count($services_xml)] = $this->callService($service, $id);
                             $services_xml[count($services_xml)] = $this->getURLService($service, $id);
-                    }
-                    
+                    }                    
                     if (count($services_xml)>0){
                             $xmlList[] = $this->XML_XSL->concatXML($services_xml, "fulltext-service-list");
                     }
