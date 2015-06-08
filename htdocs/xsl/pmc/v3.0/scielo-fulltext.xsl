@@ -1076,24 +1076,23 @@
 			<xsl:apply-templates select="*|text()"/>
 		</p>
 	</xsl:template>
-	<xsl:template match="back/fn-group/fn/@fn-type"> </xsl:template>
 	<xsl:template match="back/fn-group">
 		<div class="foot-notes">
 			<xsl:apply-templates select="@*| *|text()"/>
 		</div>
 	</xsl:template>
 	<xsl:template match="back/fn-group/fn">
-		<xsl:apply-templates select="@*| *|text()"/>
+		<xsl:apply-templates select="@*|*|text()"/>
 	</xsl:template>
-	<xsl:template match="back/fn-group/fn/label"> </xsl:template>
-
+	<xsl:template match="back/fn-group/fn/@fn-type"> </xsl:template>
+	<xsl:template match="back/fn-group/fn/@id">
+		<a name="back_{../@id}"/>
+	</xsl:template>
+	<xsl:template match="back/fn-group/fn/label">
+		<p class="fn-label"><xsl:value-of select="."/></p>
+	</xsl:template>
 	<xsl:template match="back/fn-group/fn/p">
 		<p class="fn">
-			<xsl:if test="../label">
-				<a href="#back_{../@id}" class="fn-label">
-					<xsl:value-of select="../label"/>
-				</a>
-			</xsl:if>
 			<xsl:apply-templates select="*|text()"/>
 		</p>
 	</xsl:template>
