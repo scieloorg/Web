@@ -124,6 +124,7 @@ class Scielo extends ScieloBase
                             //$services_xml[count($services_xml)] = $this->callService($service, $id);
                             $services_xml[count($services_xml)] = $this->getURLService($service, $id);
                     }
+                    
                     if (count($services_xml)>0){
                             $xmlList[] = $this->XML_XSL->concatXML($services_xml, "fulltext-service-list");
                     }
