@@ -377,21 +377,32 @@
         </ul>
     </xsl:template>
     <xsl:template match="*" mode="HTML-BODY-SECTION-ARTICLE">
+        <xsl:apply-templates select="." mode="HTML-PRODUCT"/>
         <xsl:apply-templates select="." mode="HTML-BODY-SECTION-ARTICLE-ABSTRACT"/>
         <xsl:apply-templates select="." mode="HTML-BODY-SECTION-ARTICLE-CONTENT"/>
     </xsl:template>
-    <xsl:template match="*" mode="HTML-BODY-SECTION-ARTICLE-ABSTRACT">
-        <article id="abstract" class="article">
-            <xsl:choose>
-                <xsl:when test="$trans//abstract">
-                    <xsl:apply-templates select="$trans" mode="ABSTR-AND-SECTIONS"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:apply-templates select="$original" mode="ABSTR-AND-SECTIONS"/>
-                </xsl:otherwise>
-            </xsl:choose>
-
+    <xsl:template match="*" mode="HTML-PRODUCT">
+        <article id="content" class="article">
+            <div class="row paragraph">
+                <div class="span8">
+                    <p><xsl:apply-templates select=".//article-meta//product"></xsl:apply-templates></p>
+                </div>
+            </div>
         </article>
+    </xsl:template>
+    <xsl:template match="*" mode="HTML-BODY-SECTION-ARTICLE-ABSTRACT">
+        <xsl:if test="$trans//abstract or $original//abstract or $original//trans-abstract">
+            <article id="abstract" class="article">
+                <xsl:choose>
+                    <xsl:when test="$trans//abstract">
+                        <xsl:apply-templates select="$trans" mode="ABSTR-AND-SECTIONS"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:apply-templates select="$original" mode="ABSTR-AND-SECTIONS"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </article>
+        </xsl:if>      
     </xsl:template>
     <xsl:template match="@id" mode="HTML-TEXT">
         <a name="{.}"/>
@@ -533,17 +544,14 @@
         </li>
     </xsl:template>
     <xsl:template match="*" mode="HTML-BODY-SECTION-ARTICLE-CONTENT">
-        <article id="content" class="article">
-            <xsl:choose>
-                <xsl:when test="$trans">
-                    <xsl:apply-templates select="$trans" mode="HTML-BODY-BACK"/>
-                    
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:apply-templates select="$original" mode="HTML-BODY-BACK"/>
-                </xsl:otherwise>
-            </xsl:choose>
-        </article> 
+        <xsl:choose>
+            <xsl:when test="$trans">
+                <xsl:apply-templates select="$trans" mode="HTML-BODY-BACK"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="$original" mode="HTML-BODY-BACK"/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <xsl:template match="article | sub-article | response" mode="HTML-BODY-BACK">
         <article id="content" class="article">
@@ -1390,5 +1398,28 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
     </xsl:template>
     <xsl:template match="mml:math|math" mode="HTML-TEXT">
         <xsl:copy-of select="."/>
-    </xsl:template>    
+    </xsl:template>   
+    <xsl:template match="article-meta//product">
+        <xsl:apply-templates select="person-group"/>. <xsl:apply-templates select="source"/>. <xsl:apply-templates select="year"/>. 
+        <xsl:apply-templates select="publisher-name"/> (<xsl:apply-templates select="publisher-loc"/>). <xsl:apply-templates select="size"/>. 	
+    </xsl:template>
+    <xsl:template match="article-meta//product[@product-type='book']">
+        <xsl:apply-templates select="source"/>. <xsl:apply-templates select="person-group"/>. (<xsl:apply-templates select="year"/>). <xsl:apply-templates select="publisher-loc"/>: 
+        <xsl:apply-templates select="publisher-name"/>, <xsl:apply-templates select="year"/>, <xsl:apply-templates select="size"/>. <xsl:apply-templates select="isbn"/>		
+    </xsl:template>
+    <xsl:template match="article-meta//product/person-group">
+        <xsl:apply-templates select="name"/>
+    </xsl:template>
+    <xsl:template match="article-meta//product/person-group/name">
+        <xsl:if test="position()!=1">; </xsl:if><xsl:apply-templates select="surname"/>, <xsl:apply-templates select="given-names"/>
+    </xsl:template>
+    <xsl:template match="size">
+        <xsl:value-of select="."/>
+        <xsl:choose>
+            <xsl:when test="@units='pages'">p</xsl:when>
+        </xsl:choose>
+    </xsl:template>
+    <xsl:template match="article-meta//product/isbn">
+        ISBN: <xsl:value-of select="."/>.
+    </xsl:template>
 </xsl:stylesheet>
