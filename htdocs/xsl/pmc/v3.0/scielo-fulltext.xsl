@@ -458,8 +458,10 @@
 		</div>
 		<div class="autores">
 			<xsl:if test="not(role) and contrib[@contrib-type!='author']">
+				<xsl:variable name="contribtype" select=".//contrib[@contrib-type!='author']/@contrib-type"></xsl:variable>
 				<xsl:variable name="lang"><xsl:value-of select="$article_lang"/><xsl:if test="not(contains('en es pt',$article_lang))">en</xsl:if></xsl:variable>
-				<xsl:value-of select="document(concat('../../../xml/',$lang,'/translation.xml'))/translations//text[@find='translator']"/>:
+				<xsl:variable name="label"><xsl:value-of select="document(concat('../../../xml/',$lang,'/translation.xml'))/translations//text[@find=$contribtype]"/></xsl:variable>
+				<xsl:if test="$label!=''"><xsl:value-of select="$label"/>:</xsl:if>
 			</xsl:if>
 			<xsl:apply-templates select="contrib[@contrib-type!='author']"/>
 			<xsl:if test="contrib[@contrib-type!='author']">
