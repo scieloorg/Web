@@ -86,6 +86,7 @@
 	</xslid>
 	<xslid id="sci_arttext-text">
 		<text find="download_article_in_pdf_format">copia do artigo em formato PDF</text>
+		<text find="translator">Tradução</text>
 	</xslid>
 	<xslid id="sci_artlist">
 		<text find="table_of_contents">Sumário</text>
