@@ -451,7 +451,20 @@
 	<!--Div contendo nome dos autores-->
 	<xsl:template match="contrib-group">
 		<div class="autores">
-			<xsl:apply-templates select="contrib|role"/>
+			<xsl:apply-templates select="contrib[not(@contrib-type) or @contrib-type='author']"/>
+			<xsl:if test="not(contrib[@contrib-type!='author'])">
+				<xsl:apply-templates select="role"></xsl:apply-templates>
+			</xsl:if>
+		</div>
+		<div class="autores">
+			<xsl:if test="not(role) and contrib[@contrib-type!='author']">
+				<xsl:variable name="lang"><xsl:value-of select="$article_lang"/><xsl:if test="not(contains('en es pt',$article_lang))">en</xsl:if></xsl:variable>
+				<xsl:value-of select="document(concat('../../../xml/',$lang,'/translation.xml'))/translations//text[@find='translator']"/>:
+			</xsl:if>
+			<xsl:apply-templates select="contrib[@contrib-type!='author']"/>
+			<xsl:if test="contrib[@contrib-type!='author']">
+				<xsl:apply-templates select="role"></xsl:apply-templates>
+			</xsl:if>
 		</div>
 	</xsl:template>
 	<xsl:template match="contrib/role">, <xsl:value-of select="."/>
@@ -464,7 +477,6 @@
 	<xsl:template match="contrib">
 		<xsl:if test="position()!=1">, </xsl:if>
 		<xsl:apply-templates select="*|text()"/>
-
 	</xsl:template>
 	<xsl:template match="contrib/name">
 		<xsl:if test="prefix"><xsl:apply-templates select="prefix"/>&#160;</xsl:if>
