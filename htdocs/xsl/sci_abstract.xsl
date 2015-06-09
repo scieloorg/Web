@@ -46,7 +46,7 @@
                 <meta name="citation_doi" content="{ARTICLE/@DOI}"/>
                 <meta name="citation_abstract_html_url" content="{concat('http://',CONTROLINFO/SCIELO_INFO/SERVER, '/scielo.php?script=sci_abstract&amp;pid=', ARTICLE/@PID, '&amp;lng=', CONTROLINFO/LANGUAGE , '&amp;nrm=iso&amp;tlng=', ARTICLE/@TEXT_LANG)}"/>
                 <meta name="citation_fulltext_html_url" content="{concat('http://',CONTROLINFO/SCIELO_INFO/SERVER, '/scielo.php?script=sci_arttext&amp;pid=', ARTICLE/@PID, '&amp;lng=', CONTROLINFO/LANGUAGE , '&amp;nrm=iso&amp;tlng=', ARTICLE/@TEXT_LANG)}"/>
-                <xsl:apply-templates select=".//AUTHORS" mode="AUTHORS_META"/>
+                <xsl:apply-templates select=".//AUTHORS//AUTHOR" mode="AUTHORS_META"/>
                 <meta name="citation_firstpage" content="{ARTICLE/@FPAGE}"/>
                 <meta name="citation_lastpage" content="{ARTICLE/@LPAGE}"/>
                 <meta name="citation_id" content="{ARTICLE/@DOI}"/>
