@@ -443,7 +443,6 @@
 				</xsl:if>
 				<xsl:apply-templates select="." mode="text-header"/>
 				<xsl:apply-templates select="." mode="text-content"/>
-
 			</div>
 		</div>
 		<!--xsl:value-of select="$xml_article"/-->
