@@ -934,7 +934,14 @@
 			<xsl:apply-templates select="@* | * | text()"/>
 		</xsl:element>
 	</xsl:template>
-
+	<xsl:template match="table//xref">
+		<xsl:if test="@ref-type='fn'">
+			<a name="back_{@rid}"/>
+		</xsl:if>
+		<a href="#{@rid}">
+			<xsl:apply-templates select="*|text()"/>
+		</a>
+	</xsl:template>
 	<xsl:template match="table-wrap//fn" mode="footnote">
 		<a name="{@id}"/>
 		<xsl:apply-templates select="* | text()"/>
