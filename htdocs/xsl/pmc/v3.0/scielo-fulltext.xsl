@@ -1036,35 +1036,29 @@
 			<xsl:when test=". = 'received'">Recibido</xsl:when>
 		</xsl:choose>
 	</xsl:template>
-	<xsl:template match="day" mode="date-en">
-		<xsl:value-of select="."/>, </xsl:template>
-	<xsl:template match="day" mode="date-pt"><xsl:value-of select="."/> de </xsl:template>
 	<xsl:template match="history/date">
 		<xsl:choose>
-			<xsl:when test="$article_lang='en'">
-				<xsl:apply-templates select="@date-type" mode="scift-as-label-en"/>:
-					<xsl:apply-templates select="month" mode="date-month-en"/><xsl:apply-templates
-					select="day" mode="date-en"/>, <xsl:value-of select="year"/>
-			</xsl:when>
 			<xsl:when test="$article_lang='pt'">
 				<xsl:apply-templates select="@date-type" mode="scift-as-label-pt"/>:
-					<xsl:apply-templates select="day" mode="date-pt"/><xsl:apply-templates
+				<xsl:if test="day">
+					<xsl:value-of select="concat(day,' de ')"/>
+				</xsl:if><xsl:apply-templates
 					select="month" mode="date-month-pt"/> de <xsl:value-of select="year"/>
 			</xsl:when>
 			<xsl:when test="$article_lang='es'">
 				<xsl:apply-templates select="@date-type" mode="scift-as-label-es"/>:
-					<xsl:apply-templates select="day" mode="date-pt"/><xsl:apply-templates
+				<xsl:if test="day">
+					<xsl:value-of select="concat(day,' de ')"/>
+				</xsl:if><xsl:apply-templates
 					select="month" mode="date-month-es"/> de <xsl:value-of select="year"/>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:apply-templates select="@date-type" mode="scift-as-label-en"/>:
-					<xsl:apply-templates select="month" mode="date-month-en"/>
-				<xsl:value-of select="concat(' ',day)"/>, <xsl:value-of select="year"/>
+				<xsl:apply-templates select="month" mode="date-month-en"/><xsl:if test="day"><xsl:value-of select="concat(' ',day,',')"/></xsl:if><xsl:value-of select="concat(' ',year)"/>
 			</xsl:otherwise>
 		</xsl:choose>
 		<xsl:if test="position()!=last()">; </xsl:if>
 	</xsl:template>
-
 
 	<xsl:template match="author-notes">
 		<div class="author-notes">
@@ -1338,7 +1332,6 @@
 						<xsl:value-of select="."/>
 					</xsl:otherwise>
 				</xsl:choose>
-
 			</xsl:when>
 			<xsl:when test="$ext_link">
 				<xsl:choose>
@@ -1357,7 +1350,6 @@
 					</xsl:otherwise>
 				</xsl:choose>
 			</xsl:when>
-			
 		</xsl:choose>
 	</xsl:template>
 	<xsl:template match="media">
