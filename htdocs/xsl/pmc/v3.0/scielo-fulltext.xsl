@@ -868,7 +868,7 @@
 			</xsl:choose>
 			<xsl:choose>
 				<xsl:when
-					test="element-citation[.//ext-link] and mixed-citation[not(.//ext-link)] or element-citation[.//uri] and mixed-citation[not(.//uri)] ">
+					test="(element-citation[.//ext-link] and mixed-citation[not(.//ext-link)]) or (element-citation[.//uri] and mixed-citation[not(.//uri)])">
 					<xsl:apply-templates select="mixed-citation" mode="with-link">
 						<xsl:with-param name="ext_link" select=".//ext-link"/>
 						<xsl:with-param name="uri" select=".//uri"/>
@@ -1334,6 +1334,9 @@
 						<xsl:apply-templates select="$uri"/>
 						<xsl:value-of select="substring-after(.,$uri/@xlink:href)"/>
 					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="."/>
+					</xsl:otherwise>
 				</xsl:choose>
 
 			</xsl:when>
@@ -1349,9 +1352,12 @@
 						<xsl:apply-templates select="$ext_link"/>
 						<xsl:value-of select="substring-after(.,$ext_link/@xlink:href)"/>
 					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="."/>
+					</xsl:otherwise>
 				</xsl:choose>
 			</xsl:when>
-
+			
 		</xsl:choose>
 	</xsl:template>
 	<xsl:template match="media">
