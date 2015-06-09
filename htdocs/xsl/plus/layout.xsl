@@ -218,8 +218,17 @@
     </xsl:template>
     <xsl:template match="contrib-group" mode="HTML">
         <div class="contrib-group">
-            <xsl:apply-templates select=".//name" mode="HTML"/>
+            <xsl:apply-templates select="contrib[@contrib-type='author' or not(@contrib-type)]//name" mode="HTML"/>
         </div>
+            <xsl:if test="not(role) and contrib[@contrib-type!='author']">
+                <p>
+                <xsl:variable name="contribtype" select=".//contrib[@contrib-type!='author']/@contrib-type"/>
+                    <xsl:variable name="lang"><xsl:value-of select="$PAGE_LANG"/><xsl:if test="not(contains('en es pt',$PAGE_LANG))">en</xsl:if></xsl:variable>
+                <xsl:variable name="label"><xsl:value-of select="document(concat('../../xml/',$lang,'/translation.xml'))/translations//text[@find=$contribtype]"/></xsl:variable>
+                <xsl:if test="$label!=''"><xsl:value-of select="$label"/>: </xsl:if>
+                    <xsl:apply-templates select="contrib[@contrib-type!='author']//name" mode="HTML"/>
+                </p>
+            </xsl:if>
     </xsl:template>
     <xsl:template match="name" mode="HTML">
         <span>
