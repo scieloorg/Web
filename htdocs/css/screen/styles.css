@@ -199,15 +199,12 @@ HTML>BODY .content H4 {
 }
 .invisible {display: none}
 
-.license P, .license  A, .license  SPAN{
-	text-align: center;
+.license P, .license A, .license  SPAN{
+	text-align: left;
 	font-size: 8pt;
 	color: black
 }
 
-.license img {
-	
-}
 .article-title {
 	font-weight: bold;
 }
