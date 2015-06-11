@@ -151,7 +151,7 @@
         <xsl:param name="date"/>
         <xsl:param name="page"/>
         <xsl:attribute name="class">readcube-epdf-link</xsl:attribute>
-        <xsl:attribute name="href">/readcube/epdf.php<xsl:value-of select="concat('?doi=',//ARTICLE[@PID=$seq]/@DOI,'&amp;pid=',$seq,'&amp;pdf_path=',//ARTICLE[@PID=$seq]/LANGUAGES/PDF_LANGS/LANG[.=$txtlang]/@TRANSLATION)"/></xsl:attribute>
+        <xsl:attribute name="href">/readcube/epdf.php<xsl:value-of select="concat('?doi=',//ARTICLE[@PID=$seq]/@DOI,'&amp;pid=',$seq,'&amp;pdf_path=',//ARTICLE[@PID=$seq]/LANGUAGES/PDF_LANGS/LANG[.=$txtlang]/@TRANSLATION,'&amp;lang=',$txtlang)"/></xsl:attribute>
     </xsl:template>
     <!-- Adds a link to a SciELO page 
         Parameters: seq - Issue PID
@@ -533,9 +533,7 @@
             </xsl:when>
             <xsl:when test="$TYPE='pdf'">
                 <a>
-                    <xsl:if test="$TXTLANG=$origlang">
-                        <xsl:attribute name="class">pdf-link</xsl:attribute>
-                    </xsl:if>
+                    <xsl:attribute name="class">pdf-link</xsl:attribute>
                     <xsl:call-template name="AddScieloLink">
                         <xsl:with-param name="seq" select="$PID"/>
                         <xsl:with-param name="script" select="$script"/>
@@ -545,18 +543,16 @@
                     <!-- o texto do link é o idioma do texto como no sumário -->
                     <xsl:value-of select="$label"/> (pdf)
                 </a>
-                <xsl:if test="$TXTLANG=$origlang">
-                    <a>
-                        <xsl:call-template name="AddScieloLinkEPDF">
-                            <xsl:with-param name="seq" select="$PID"/>
-                            <xsl:with-param name="script" select="$script"/>
-                            <xsl:with-param name="txtlang" select="$TXTLANG"/>
-                            <xsl:with-param name="file" select="$file"/>
-                        </xsl:call-template>
-                        <!-- o texto do link é o idioma do texto como no sumário -->
-                        <xsl:value-of select="$label"/> (epdf)
-                    </a>
-                </xsl:if>
+                <a>
+                    <xsl:call-template name="AddScieloLinkEPDF">
+                        <xsl:with-param name="seq" select="$PID"/>
+                        <xsl:with-param name="script" select="$script"/>
+                        <xsl:with-param name="txtlang" select="$TXTLANG"/>
+                        <xsl:with-param name="file" select="$file"/>
+                    </xsl:call-template>
+                    <!-- o texto do link é o idioma do texto como no sumário -->
+                    <xsl:value-of select="$label"/> (epdf)
+                </a>
             </xsl:when>
             <xsl:otherwise>
                 <a>

@@ -806,9 +806,7 @@
     <xsl:variable name="lang" select="."/>
     <xsl:variable name="origlang" select="//ARTICLE/@ORIGINALLANG"/>
     <a> 
-      <xsl:if test="$lang=$origlang">
-        <xsl:attribute name="class">pdf-link</xsl:attribute>
-      </xsl:if>
+      <xsl:attribute name="class">pdf-link</xsl:attribute>
       <xsl:call-template name="AddScieloLink">
         <xsl:with-param name="seq" select="$pid"/>
         <xsl:with-param name="script" select="$script"/>
@@ -823,21 +821,19 @@
       </xsl:choose>
       <xsl:value-of select="document(concat('../xml/',$interfaceLang,'/language.xml'))//language[@id=$lang]"/> (pdf)
     </a>
-    <xsl:if test="$lang=$origlang">
-      <a>
-        <xsl:attribute name="class">readcube-epdf-link</xsl:attribute>
-        <xsl:attribute name="href">/readcube/epdf.php<xsl:value-of select="concat('?doi=',//ARTICLE/@DOI,'&amp;pid=',// ARTICLE/@PID,'&amp;pdf_path=',//ARTICLE/LANGUAGES/PDF_LANGS/LANG[.=$lang]/@TRANSLATION)"/></xsl:attribute>
-        <xsl:attribute name="title">Article in epdf format</xsl:attribute>
-        <xsl:choose>
-          <xsl:when test="position()=1">
-            <xsl:if test="$icon!=''">
-              <img src="{$icon}"/></xsl:if>
-          </xsl:when>
-          <xsl:otherwise> | </xsl:otherwise>
-        </xsl:choose>
-        <xsl:value-of select="document(concat('../xml/',$interfaceLang,'/language.xml'))//language[@id=$lang]"/> (epdf)
-      </a>
-  </xsl:if>
+    <a>
+      <xsl:attribute name="class">readcube-epdf-link</xsl:attribute>
+      <xsl:attribute name="href">/readcube/epdf.php<xsl:value-of select="concat('?doi=',//ARTICLE/@DOI,'&amp;pid=',// ARTICLE/@PID,'&amp;pdf_path=',//ARTICLE/LANGUAGES/PDF_LANGS/LANG[.=$lang]/@TRANSLATION,'&amp;lang=',$lang)"/></xsl:attribute>
+      <xsl:attribute name="title">Article in epdf format</xsl:attribute>
+      <xsl:choose>
+        <xsl:when test="position()=1">
+          <xsl:if test="$icon!=''">
+            <img src="{$icon}"/></xsl:if>
+        </xsl:when>
+        <xsl:otherwise> | </xsl:otherwise>
+      </xsl:choose>
+      <xsl:value-of select="document(concat('../xml/',$interfaceLang,'/language.xml'))//language[@id=$lang]"/> (epdf)
+    </a>
   </xsl:template>
 
   <xsl:template match="LANG|@ORIGINALLANG" mode="display-link-to-new-article-version">
