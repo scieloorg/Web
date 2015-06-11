@@ -240,11 +240,8 @@
     </xsl:template>
     <!-- Shows copyright information -->
     <xsl:template match="COPYRIGHT">
-        <xsl:apply-templates select="." mode="license"/>
         <p>
-            <xsl:if test="../PERMISSIONS//license/@license-type='nd'">
             &#169;&#160; <xsl:value-of select="@YEAR"/>&#160; 
-            </xsl:if>
             <i>
                 <xsl:value-of select="." disable-output-escaping="yes"/>
             </i>
@@ -1109,43 +1106,98 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
         </xsl:call-template>
     </xsl:template>
     <xsl:template match="*" mode="license">
+        <xsl:comment>mode=license</xsl:comment>
         <xsl:if test="../..//LICENSE='cc' or .//LICENSE='cc'">
             <xsl:choose>
                 <xsl:when test="$ARTICLE_LICENSE">
+                    <xsl:comment>ARTICLE_LICENSE</xsl:comment>
                     <xsl:apply-templates select="$ARTICLE_LICENSE"/>
                 </xsl:when>
                 <xsl:when test="$GENERAL_LICENSE">
+                    <xsl:comment>GENERAL_LICENSE</xsl:comment>
                     <xsl:apply-templates select="$GENERAL_LICENSE"/>
                 </xsl:when>
             </xsl:choose>
         </xsl:if>
     </xsl:template>
+    
     <xsl:template match="permissions">
+        <xsl:comment>sci_common match=permissions</xsl:comment>
         <div class="license">
+            <xsl:variable name="license_href"><xsl:choose>
+                <xsl:when test=".//license/@xlink:href"><xsl:value-of select=".//license/@xlink:href"/></xsl:when>
+                <xsl:when test=".//license//a/@href"><xsl:value-of select=".//license//a/@href"/></xsl:when>
+            </xsl:choose></xsl:variable>
+            <xsl:variable name="default_license_href"><xsl:choose><xsl:when test="contains($license_href,'/deed')"><xsl:value-of select="substring-before($license_href,'/deed')"/></xsl:when>
+                <xsl:when test="substring($license_href,string-length($license_href))='/'"><xsl:value-of select="substring($license_href,1,string-length($license_href)-1)"/></xsl:when>
+                <xsl:otherwise><xsl:value-of select="$license_href"/></xsl:otherwise>
+            </xsl:choose></xsl:variable>
+            <xsl:variable name="license_img_src"><xsl:choose>
+                <xsl:when test=".//graphic/@xlink:href"><xsl:value-of select=".//graphic/@xlink:href"/></xsl:when>
+                <xsl:when test=".//img/@src"><xsl:value-of select=".//img/@src"/></xsl:when>
+                <xsl:otherwise>http://i.creativecommons.org/l<xsl:value-of select="substring-after($default_license_href,'licenses')"/>/88x31.png</xsl:otherwise>
+            </xsl:choose></xsl:variable>
+            <xsl:variable name="lang_license_href"><xsl:value-of select="$default_license_href"/>/deed.<xsl:value-of select="$langtext"/></xsl:variable>
+            
+            <xsl:comment>default_license_href=<xsl:value-of select="$default_license_href"/></xsl:comment>
+            <xsl:comment>lang_license_href=<xsl:value-of select="$lang_license_href"/></xsl:comment>
+            <xsl:comment>license_href=<xsl:value-of select="$license_href"/></xsl:comment>
+            <xsl:comment>license_img_src=<xsl:value-of select="$license_img_src"/></xsl:comment>
+            
             <xsl:choose>
+                <xsl:when test="$lang_license_href!='' and $license_img_src!=''">
+                    <xsl:comment> $lang_license_href!='' and $license_img_src!='' </xsl:comment>
+                   <p>
+                       <a rel="license" href="{$lang_license_href}">
+                            <img src="{$license_img_src}" alt="Creative Commons License" style="border-width:0"/>
+                        </a>
+                    </p>
+                </xsl:when>
+                <xsl:when test="$lang_license_href!=''">
+                    <xsl:comment> $lang_license_href!='' </xsl:comment>
+                    <p>
+                        <xsl:choose>
+                            <xsl:when test="$langtext='en'">All the contents of this journal, except where otherwise noted, is licensed under a </xsl:when>
+                            <xsl:when test="$langtext='es'">Todo el contenido de esta revista, excepto dónde está identificado, está bajo una </xsl:when>
+                            <xsl:when test="$langtext='pt'">Todo o conteúdo deste periódico, exceto onde está identificado, está licenciado sob uma </xsl:when>
+                        </xsl:choose>
+                        <a href="{$lang_license_href}">
+                            <xsl:choose>
+                                <xsl:when test="$langtext='en'">Creative Commons Attribution License</xsl:when>
+                                <xsl:when test="$langtext='es'">Licencia Creative Commons</xsl:when>
+                                <xsl:when test="$langtext='pt'">Licença Creative Commons</xsl:when>
+                            </xsl:choose>
+                        </a>
+                    </p>
+                </xsl:when>
                 <xsl:when test=".//license/p">
+                    <xsl:comment> license/p </xsl:comment>
                     <xsl:copy-of select=".//license/p"/>
                 </xsl:when>
                 <xsl:when test=".//license/license-p">
-                    <!-- <license license-type="BY-NC"
-                        xlink:href="http://creativecommons.org/licenses/by-nc/3.0/">
-                        <license-p>
-                            <graphic xlink:href="http://i.creativecommons.org/l/by-nc/3.0/88x31.png"/> CC
-                            BY-NC 3.0 nd</license-p>
-                    </license>
-                     -->
-                    <a href="{.//license/@xlink:href}">
-                    <img src="{.//graphic/@xlink:href}"/>
-                    </a>
-                </xsl:when>
+                    <xsl:comment> license/license-p </xsl:comment>
+                    <xsl:apply-templates select=".//license/license-p"></xsl:apply-templates>
+                </xsl:when>                
             </xsl:choose>
         </div>
-        <br/><br/>
     </xsl:template>
+    
     <xsl:template match="*" mode="footer-journal">
-        <div class="footer">
-            <xsl:apply-templates select=".//COPYRIGHT"/>                 
-        </div>
+        <xsl:choose>
+            <xsl:when test="../..//LICENSE='cc' or .//LICENSE='cc'">
+                <xsl:comment>cc</xsl:comment>
+                <xsl:apply-templates select="." mode="license"/>
+                <div class="footer">
+                <xsl:apply-templates select=".//CONTACT"/>
+                </div>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:comment>COPYRIGHT</xsl:comment>
+                <div class="footer">
+                <xsl:apply-templates select=".//COPYRIGHT"/>
+                </div>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <xsl:template match="*" mode="repo_url_param_scielo"/>
     <xsl:template match="*" mode="issuetoc">sci_issuetoc<xsl:value-of select="//NAVEGATION_TYPE"/>
