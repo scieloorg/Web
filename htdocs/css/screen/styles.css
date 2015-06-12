@@ -200,7 +200,7 @@ HTML>BODY .content H4 {
 .invisible {display: none}
 
 .license P, .license A, .license  SPAN{
-	text-align: left;
+	text-align: center;
 	font-size: 8pt;
 	color: black
 }
