@@ -7,9 +7,6 @@
   $host = $_SERVER['HTTP_HOST'];
   $scielo = new Scielo($host);
 
-  // This check the pid is old, then redirect to the script can treat it
-  $scielo->loadPreviousUrlWhichContainsOldPid();
-
   $CACHE_STATUS = $scielo->_def->getKeyValue("CACHE_STATUS");
   $MAX_DAYS = $scielo->_def->getKeyValue("MAX_DAYS");
   $MAX_SIZE = $scielo->_def->getKeyValue("MAX_SIZE");
@@ -48,10 +45,15 @@
     
   //Generate wxis url and set xml url
   $xml = $scielo->GenerateXmlUrl();
+  if ((strpos($xml, '</') == 0) or (strpos($xml, '</CONTROLINFO>') == 0)) {
+    $xml = '<ERROR></ERROR>';
+  }
 
   $sxml = simplexml_load_string($xml);
 
-  if (($sxml->getName() == 'ERROR') or ($sxml->ERROR->getName() == 'ERROR')){
+  $error = (($sxml->getName() == 'ERROR') or ($sxml->ERROR->getName() == 'ERROR'));
+  
+  if ($error){
     header("HTTP/1.0 404 Not Found - Archive Empty");
     require '404.html';
     exit;
