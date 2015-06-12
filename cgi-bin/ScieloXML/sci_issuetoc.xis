@@ -167,16 +167,28 @@
 	<label>SAME_SECTION</label>	
     <display><pft>'<ARTICLE ',|PID="|v880|"|,| TEXT_LANG="|v40|"|
 		 ,ref(['ARTIGO']val(v1003^m),@PROC_SPLIT_MST.PFT,,' entrdate="',v265,'"'),
-         
-
 	</pft></display>
-    <display><pft>'>'/</pft></display>
+
+  <field action="import" tag="list">9800</field>
+  <field action="replace" tag="881" split="occ">
+      <pft>
+          ref(['ARTIGO']val(v1003^m),@PROC_SPLIT_MST.PFT,v881)
+      </pft>
+  </field>
+  <field action="replace" tag="237" split="occ">
+      <pft>
+          ref(['ARTIGO']val(v1003^m),@PROC_SPLIT_MST.PFT,v237)
+      </pft>
+  </field>
+  <call name="displayDOIAttribute"><pft>v880</pft></call> 
+  <field action="export" tag="list">9800</field>
+
+
+  <display><pft>'>'/</pft></display>
 
 	<field action="replace" tag="264"><pft>ref(['ARTIGO']val(v1003^m),@PROC_SPLIT_MST.PFT,v264)</pft></field> 
 	<call name="showText"><pft>v264</pft></call>
 	<display><pft>if p(v264) then '<EMBARGO date="',v264,'" text="',v8264,'"/>'/ fi</pft></display>
-
-
 	<call name="insertElementRelatedToDocument"><pft>ref(['ARTIGO']val(v1003^m),@PROC_SPLIT_MST.PFT,if p(v241) or p(v41) then  ,(v880[1],|^a|v241,|^x|v41/) fi)</pft></call>
 	<field action="replace" tag="4040" split="occ"><pft>(v12^l/), if a(v12) then v40 fi</pft></field> 
     
