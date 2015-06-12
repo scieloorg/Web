@@ -1162,14 +1162,28 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
 
         <script type="text/javascript" src="{$PATH}/static/js/scielo-article.js"/>
     </xsl:template>
-
+    
     <xsl:template match="list" mode="HTML-TEXT">
         <ul>
             <xsl:apply-templates select="@* | *|text()" mode="HTML-TEXT"/>
         </ul>
     </xsl:template>
-    <xsl:template match="list[@list-type='ordered' ]" mode="HTML-TEXT">
-        <ol>
+    <xsl:template match="list[@list-type='simple']" mode="HTML-TEXT">
+        <ul style="list-style-type: none">
+            <xsl:apply-templates select="@* | *|text()" mode="HTML-TEXT"/>
+        </ul>
+    </xsl:template>
+    <xsl:template match="list[@list-type='alpha-lower' or @list-type='alpha-upper' or @list-type='roman-lower' or @list-type='roman-upper' or @list-type='order']" mode="HTML-TEXT">
+        <xsl:variable name="type">
+            <xsl:choose>
+                <xsl:when test="@list-type='alpha-lower'">a</xsl:when>
+                <xsl:when test="@list-type='alpha-upper'">A</xsl:when>
+                <xsl:when test="@list-type='roman-lower'">i</xsl:when>
+                <xsl:when test="@list-type='roman-upper'">I</xsl:when>
+                <xsl:otherwise>1</xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <ol type="{$type}">
             <xsl:apply-templates select="@* | *|text()" mode="HTML-TEXT"/>
         </ol>
     </xsl:template>
@@ -1311,7 +1325,7 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
             <div class="span8">
                 <p>
                     <blockquote>
-                        <xsl:apply-templates select="*|text()"/>
+                        <xsl:apply-templates select="*|text()" mode="HTML-TEXT"/>
                     </blockquote>
                 </p>
             </div>
