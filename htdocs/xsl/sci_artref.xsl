@@ -1415,6 +1415,8 @@ Parameters:
 				</xsl:choose>
 				<xsl:if test="$SUPPL">supl. <xsl:if test="$SUPPL!='0'"><xsl:value-of select="$SUPPL"
 						/>,&#160;</xsl:if></xsl:if>
+				
+				<xsl:if test="number(@FPAGE)!=0 and number(@LPAGE)!=0">p. <xsl:value-of select="@FPAGE"/><xsl:if test="@LPAGE!=@FPAGE">-<xsl:value-of select="@LPAGE"/></xsl:if>,&#160;</xsl:if>
 				<xsl:call-template name="GET_MONTH_NAME_ABNT">
 					<xsl:with-param name="LANG" select="$LANG"/>
 					<xsl:with-param name="ABREV" select="1"/>
