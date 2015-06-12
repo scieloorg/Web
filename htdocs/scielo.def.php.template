@@ -145,6 +145,7 @@ show_ubio=1
 show_new_article_link=0
 show_altmetrics=0
 show_readcube=0
+show_readcube_epdf=0
 
 [services_group]
 show_group_article = 1
