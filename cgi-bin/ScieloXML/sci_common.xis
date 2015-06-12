@@ -3446,6 +3446,7 @@ fi
 	-->
 	<field action="replace" tag="4000"><pft>replace(v4000,'BY','by')</pft></field>
 	<field action="replace" tag="4000"><pft>replace(v4000,'NC','nc')</pft></field>
+	<field action="replace" tag="4000"><pft>replace(v4000,'ND','nd')</pft></field>
 	<field action="replace" tag="4000"><pft>replace(v4000,'SA','sa')</pft></field>
 
 	<flow action="jump"><pft>if v4000^c='nd' then 'nd' else v4000^l fi</pft></flow>
@@ -3549,9 +3550,9 @@ fi
 				<display><pft>@PROC_SPLIT_MST.PFT,</pft></display>
 				<field action="import"	tag="list">3100</field>
 				<call name="isXML"><pft>v702</pft></call>
-				<field action="replace"	tag="1000">
+				<!--field action="replace"	tag="1000">
 					<pft>if v8000<>'XML' then '^i<![CDATA[^f]]>' fi</pft>
-				</field>
+				</field-->
 
 				<field action="replace"	tag="9040">
 					<pft>v40</pft>
@@ -3580,8 +3581,8 @@ fi
 					
 				<display>
 					<pft>
-						'  <ORIGINAL-TITLE><![CDATA[',v1000^i,v9000,v1000^f,']]></ORIGINAL-TITLE>'/#
-						if p(v9001) then '  <ORIGINAL-SUBTITLE><![CDATA[',v1000^i,v9001,v1000^f,']]></ORIGINAL-SUBTITLE>'/# fi
+						'  <ORIGINAL-TITLE><![CDATA[',v9000,']]></ORIGINAL-TITLE>'/#
+						if p(v9001) then '  <ORIGINAL-SUBTITLE><![CDATA[',v9001,']]></ORIGINAL-SUBTITLE>'/# fi
 					</pft>
 				</display>	
 
@@ -3599,16 +3600,16 @@ fi
 
 				<display>
 					<pft>
-						'  <TRANS-TITLE><![CDATA[',v1000^i,v9000,v1000^f,']]></TRANS-TITLE>'/#
-						if p(v9001) then '  <TRANS-SUBTITLE><![CDATA[',v1000^i,v9001,v1000^f,']]></TRANS-SUBTITLE>'/# fi
+						'  <TRANS-TITLE><![CDATA[',v9000,']]></TRANS-TITLE>'/#
+						if p(v9001) then '  <TRANS-SUBTITLE><![CDATA[',v9001,']]></TRANS-SUBTITLE>'/# fi
 					</pft>
 				</display>		
 				<label>END_FIND_TRANSLATIONS</label>
 
 				<display>
 					<pft>
-						'  <TITLE><![CDATA[',v1000^i,v9000,v1000^f,']]></TITLE>'/#
-						if p(v9001) then '  <SUBTITLE><![CDATA[',v1000^i,v9001,v1000^f,']]></SUBTITLE>'/# fi
+						'  <TITLE><![CDATA[',v9000,']]></TITLE>'/#
+						if p(v9001) then '  <SUBTITLE><![CDATA[',v9001,']]></SUBTITLE>'/# fi
 					</pft>
 				</display>	
 
