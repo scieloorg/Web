@@ -1335,6 +1335,11 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
         </div>
 
     </xsl:template>
+    <xsl:template match="disp-quote/p" mode="HTML-TEXT">
+        <xsl:element name="{name()}">
+            <xsl:apply-templates select="@* | *|text()" mode="HTML-TEXT"/>
+        </xsl:element>
+    </xsl:template>
     <xsl:template match="ext-link|uri" mode="HTML-TEXT">
         <a href="{@xlink:href}" target="_blank">
             <xsl:value-of select="."/>
