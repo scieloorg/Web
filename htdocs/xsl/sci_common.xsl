@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xlink="http://www.w3.org/1999/xlink">
     <xsl:variable name="journal_manager" select="//journal_manager"/>
     <xsl:variable name="control_info" select="//CONTROLINFO"/>
     <xsl:variable name="HOME_URL">http://<xsl:value-of select="$control_info/SCIELO_INFO/SERVER"/>
@@ -142,6 +142,17 @@
             </div>
         </div>
     </xsl:template>
+
+    <xsl:template name="AddScieloLinkEPDF">
+        <xsl:param name="seq"/>
+        <xsl:param name="script"/>
+        <xsl:param name="txtlang"/>
+        <xsl:param name="file"/>
+        <xsl:param name="date"/>
+        <xsl:param name="page"/>
+        <xsl:attribute name="class">readcube-epdf-link</xsl:attribute>
+        <xsl:attribute name="href">/readcube/epdf.php<xsl:value-of select="concat('?doi=',//ARTICLE[@PID=$seq]/@DOI,'&amp;pid=',$seq,'&amp;pdf_path=',//ARTICLE[@PID=$seq]/LANGUAGES/PDF_LANGS/LANG[.=$txtlang]/@TRANSLATION,'&amp;lang=',$txtlang)"/></xsl:attribute>
+    </xsl:template>
     <!-- Adds a link to a SciELO page 
         Parameters: seq - Issue PID
                              script - Name of the script to be called -->
@@ -154,17 +165,9 @@
         <xsl:param name="page"/>
         <xsl:choose>
             <xsl:when test="$script = 'sci_pdf' ">
-                <xsl:attribute name="href">javascript: void(0); </xsl:attribute>
-                <xsl:attribute name="onClick">setTimeout("window.open('http://<xsl:value-of
-                        select="$control_info/SCIELO_INFO/SERVER"/><xsl:value-of
-                        select="$control_info/SCIELO_INFO/PATH_DATA"
-                        />scielo.php?script=<xsl:value-of select="$script"/>&amp;<xsl:if test="$seq"
-                            >pid=<xsl:value-of select="$seq"/>&amp;</xsl:if>lng=<xsl:value-of
-                        select="normalize-space($control_info/LANGUAGE)"/>&amp;nrm=<xsl:value-of
-                        select="normalize-space($control_info/STANDARD)"/><xsl:if test="$txtlang"
-                            >&amp;tlng=<xsl:value-of select="normalize-space($txtlang)"
-                        /></xsl:if><xsl:if test="$file">&amp;file=<xsl:value-of select="$file"
-                        /></xsl:if> ','_self')", 3000);</xsl:attribute>
+                <xsl:attribute name="href">
+                    <xsl:value-of select="$control_info/SCIELO_INFO/PATH_DATA"/>scielo.php?script=<xsl:value-of select="$script"/>&amp;<xsl:if test="$seq">pid=<xsl:value-of select="$seq"/>&amp;</xsl:if>lng=<xsl:value-of select="normalize-space($control_info/LANGUAGE)"/>&amp;nrm=<xsl:value-of select="normalize-space($control_info/STANDARD)"/><xsl:if test="$txtlang">&amp;tlng=<xsl:value-of select="normalize-space($txtlang)"/></xsl:if><xsl:if test="$file">&amp;file=<xsl:value-of select="$file"/></xsl:if>
+                </xsl:attribute>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:attribute name="href">
@@ -180,6 +183,7 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+
     <xsl:template name="getScieloLink">
         <xsl:param name="seq"/>
         <xsl:param name="script"/>
@@ -236,11 +240,8 @@
     </xsl:template>
     <!-- Shows copyright information -->
     <xsl:template match="COPYRIGHT">
-        <xsl:apply-templates select="." mode="license"/>
         <p>
-            <xsl:if test="../PERMISSIONS//license/@license-type='nd'">
             &#169;&#160; <xsl:value-of select="@YEAR"/>&#160; 
-            </xsl:if>
             <i>
                 <xsl:value-of select="." disable-output-escaping="yes"/>
             </i>
@@ -499,6 +500,7 @@
                             select="$translations//xslid[@id='sci_issuetoc']//text[@find='abstract']"
                         />
                     </xsl:when>
+                    <xsl:when test="$TYPE='pdf' "></xsl:when>
                     <xsl:otherwise>
                         <xsl:value-of
                             select="$translations//xslid[@id='sci_issuetoc']//text[@find=$TYPE]"/>
@@ -509,11 +511,8 @@
                 select="document(concat('../xml/',$INTLANG,'/language.xml'))//language"/>
             <xsl:text> </xsl:text>
             <xsl:value-of select="$languages[@id=$TXTLANG]"/>
-            <!--    As 2 linhas abaixo foram substituídas pela linha superior.
-            <xsl:value-of select="translate(substring($languages[@id=$TXTLANG],1,1),'ABCDEFGHJIKLMNOPQRSTUVWXYZ','abcdefghjiklmnopqrstuvwxyz')"/>
-            <xsl:value-of select="substring($languages[@id=$TXTLANG],2)"/>
-        -->
         </xsl:variable>
+        <xsl:variable name="origlang" select="../../../@TEXT_LANG" />
         <xsl:choose>
             <xsl:when test="$TYPE='pr'">
                 <xsl:variable name="url">
@@ -528,6 +527,29 @@
                     <xsl:with-param name="URL" select="$url"/>
                     <xsl:with-param name="LABEL" select="$label"/>
                 </xsl:call-template>
+            </xsl:when>
+            <xsl:when test="$TYPE='pdf'">
+                <a>
+                    <xsl:attribute name="class">pdf-link</xsl:attribute>
+                    <xsl:call-template name="AddScieloLink">
+                        <xsl:with-param name="seq" select="$PID"/>
+                        <xsl:with-param name="script" select="$script"/>
+                        <xsl:with-param name="txtlang" select="$TXTLANG"/>
+                        <xsl:with-param name="file" select="$file"/>
+                    </xsl:call-template>
+                    <!-- o texto do link é o idioma do texto como no sumário -->
+                    <xsl:value-of select="$label"/> (pdf)
+                </a>
+                <a>
+                    <xsl:call-template name="AddScieloLinkEPDF">
+                        <xsl:with-param name="seq" select="$PID"/>
+                        <xsl:with-param name="script" select="$script"/>
+                        <xsl:with-param name="txtlang" select="$TXTLANG"/>
+                        <xsl:with-param name="file" select="$file"/>
+                    </xsl:call-template>
+                    <!-- o texto do link é o idioma do texto como no sumário -->
+                    <xsl:value-of select="$label"/> (epdf)
+                </a>
             </xsl:when>
             <xsl:otherwise>
                 <a>
@@ -1084,43 +1106,98 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
         </xsl:call-template>
     </xsl:template>
     <xsl:template match="*" mode="license">
+        <xsl:comment>mode=license</xsl:comment>
         <xsl:if test="../..//LICENSE='cc' or .//LICENSE='cc'">
             <xsl:choose>
                 <xsl:when test="$ARTICLE_LICENSE">
+                    <xsl:comment>ARTICLE_LICENSE</xsl:comment>
                     <xsl:apply-templates select="$ARTICLE_LICENSE"/>
                 </xsl:when>
                 <xsl:when test="$GENERAL_LICENSE">
+                    <xsl:comment>GENERAL_LICENSE</xsl:comment>
                     <xsl:apply-templates select="$GENERAL_LICENSE"/>
                 </xsl:when>
             </xsl:choose>
         </xsl:if>
     </xsl:template>
+    
     <xsl:template match="permissions">
+        <xsl:comment>sci_common match=permissions</xsl:comment>
         <div class="license">
+            <xsl:variable name="license_href"><xsl:choose>
+                <xsl:when test=".//license/@xlink:href"><xsl:value-of select=".//license/@xlink:href"/></xsl:when>
+                <xsl:when test=".//license//a/@href"><xsl:value-of select=".//license//a/@href"/></xsl:when>
+            </xsl:choose></xsl:variable>
+            <xsl:variable name="default_license_href"><xsl:choose><xsl:when test="contains($license_href,'/deed')"><xsl:value-of select="substring-before($license_href,'/deed')"/></xsl:when>
+                <xsl:when test="substring($license_href,string-length($license_href))='/'"><xsl:value-of select="substring($license_href,1,string-length($license_href)-1)"/></xsl:when>
+                <xsl:otherwise><xsl:value-of select="$license_href"/></xsl:otherwise>
+            </xsl:choose></xsl:variable>
+            <xsl:variable name="license_img_src"><xsl:choose>
+                <xsl:when test=".//graphic/@xlink:href"><xsl:value-of select=".//graphic/@xlink:href"/></xsl:when>
+                <xsl:when test=".//img/@src"><xsl:value-of select=".//img/@src"/></xsl:when>
+                <xsl:otherwise>http://i.creativecommons.org/l<xsl:value-of select="substring-after($default_license_href,'licenses')"/>/88x31.png</xsl:otherwise>
+            </xsl:choose></xsl:variable>
+            <xsl:variable name="lang_license_href"><xsl:value-of select="$default_license_href"/>/deed.<xsl:value-of select="$langtext"/></xsl:variable>
+            
+            <xsl:comment>default_license_href=<xsl:value-of select="$default_license_href"/></xsl:comment>
+            <xsl:comment>lang_license_href=<xsl:value-of select="$lang_license_href"/></xsl:comment>
+            <xsl:comment>license_href=<xsl:value-of select="$license_href"/></xsl:comment>
+            <xsl:comment>license_img_src=<xsl:value-of select="$license_img_src"/></xsl:comment>
+            
             <xsl:choose>
+                <xsl:when test="$lang_license_href!='' and $license_img_src!=''">
+                    <xsl:comment> $lang_license_href!='' and $license_img_src!='' </xsl:comment>
+                   <p>
+                       <a rel="license" href="{$lang_license_href}">
+                            <img src="{$license_img_src}" alt="Creative Commons License" style="border-width:0"/>
+                        </a>
+                    </p>
+                </xsl:when>
+                <xsl:when test="$lang_license_href!=''">
+                    <xsl:comment> $lang_license_href!='' </xsl:comment>
+                    <p>
+                        <xsl:choose>
+                            <xsl:when test="$langtext='en'">All the contents of this journal, except where otherwise noted, is licensed under a </xsl:when>
+                            <xsl:when test="$langtext='es'">Todo el contenido de esta revista, excepto dónde está identificado, está bajo una </xsl:when>
+                            <xsl:when test="$langtext='pt'">Todo o conteúdo deste periódico, exceto onde está identificado, está licenciado sob uma </xsl:when>
+                        </xsl:choose>
+                        <a href="{$lang_license_href}">
+                            <xsl:choose>
+                                <xsl:when test="$langtext='en'">Creative Commons Attribution License</xsl:when>
+                                <xsl:when test="$langtext='es'">Licencia Creative Commons</xsl:when>
+                                <xsl:when test="$langtext='pt'">Licença Creative Commons</xsl:when>
+                            </xsl:choose>
+                        </a>
+                    </p>
+                </xsl:when>
                 <xsl:when test=".//license/p">
+                    <xsl:comment> license/p </xsl:comment>
                     <xsl:copy-of select=".//license/p"/>
                 </xsl:when>
                 <xsl:when test=".//license/license-p">
-                    <!-- <license license-type="BY-NC"
-                        xlink:href="http://creativecommons.org/licenses/by-nc/3.0/">
-                        <license-p>
-                            <graphic xlink:href="http://i.creativecommons.org/l/by-nc/3.0/88x31.png"/> CC
-                            BY-NC 3.0 nd</license-p>
-                    </license>
-                     -->
-                    <a href="{.//license/@xlink:href}">
-                    <img src="{.//graphic/@xlink:href}"/>
-                    </a>
-                </xsl:when>
+                    <xsl:comment> license/license-p </xsl:comment>
+                    <xsl:apply-templates select=".//license/license-p"></xsl:apply-templates>
+                </xsl:when>                
             </xsl:choose>
         </div>
-        <br/><br/>
     </xsl:template>
+    
     <xsl:template match="*" mode="footer-journal">
-        <div class="footer">
-            <xsl:apply-templates select=".//COPYRIGHT"/>                 
-        </div>
+        <xsl:choose>
+            <xsl:when test="../..//LICENSE='cc' or .//LICENSE='cc'">
+                <xsl:comment>cc</xsl:comment>
+                <xsl:apply-templates select="." mode="license"/>
+                <div class="footer">
+                <xsl:apply-templates select=".//CONTACT"/>
+                </div>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:comment>COPYRIGHT</xsl:comment>
+                <div class="footer">
+                <xsl:apply-templates select=".//COPYRIGHT"/>
+                </div>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <xsl:template match="*" mode="repo_url_param_scielo"/>
     <xsl:template match="*" mode="issuetoc">sci_issuetoc<xsl:value-of select="//NAVEGATION_TYPE"/>
