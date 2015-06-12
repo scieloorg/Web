@@ -35,30 +35,33 @@
 				<meta http-equiv="Pragma" content="no-cache"/>
 				<meta http-equiv="Expires" content="Mon, 06 Jan 1990 00:00:01 GMT"/>
 				<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> 
-
-                                <!--Meta Google Scholar-->
-                                <meta name="citation_journal_title" content="{TITLEGROUP/TITLE}"/>
-                                <meta name="citation_publisher" content="{normalize-space(substring-after(COPYRIGHT,'-'))}"/>
-                                <meta name="citation_title" content="{ARTICLE/NOHTML-TITLE}"/>                                
-                                <meta name="citation_date" content="{concat(ARTICLE/ISSUEINFO/@MONTH,'/',ARTICLE/ISSUEINFO/@YEAR)}"/>
-                                <meta name="citation_volume" content="{ARTICLE/ISSUEINFO/@VOL}"/>
-                                <meta name="citation_issue" content="{ARTICLE/ISSUEINFO/@NUM}"/>
-                                <meta name="citation_issn" content="{ISSN}"/>
-                                <meta name="citation_doi" content="{ARTICLE/@DOI}"/>
-                                <meta name="citation_abstract_html_url" content="{concat('http://',CONTROLINFO/SCIELO_INFO/SERVER, '/scielo.php?script=sci_abstract&amp;pid=', ARTICLE/@PID, '&amp;lng=', CONTROLINFO/LANGUAGE , '&amp;nrm=iso&amp;tlng=', ARTICLE/@TEXT_LANG)}"/>
-                                <meta name="citation_fulltext_html_url" content="{concat('http://',CONTROLINFO/SCIELO_INFO/SERVER, '/scielo.php?script=sci_arttext&amp;pid=', ARTICLE/@PID, '&amp;lng=', CONTROLINFO/LANGUAGE , '&amp;nrm=iso&amp;tlng=', ARTICLE/@TEXT_LANG)}"/>
-                                <meta name="citation_pdf_url" content="{concat('http://',CONTROLINFO/SCIELO_INFO/SERVER, '/scielo.php?script=sci_pdf&amp;pid=', ARTICLE/@PID, '&amp;lng=', CONTROLINFO/LANGUAGE , '&amp;nrm=iso&amp;tlng=', ARTICLE/@TEXT_LANG)}"/>
-                                <xsl:apply-templates select=".//AUTHORS" mode="AUTHORS_META"/>
-                                <meta name="citation_firstpage" content="{ARTICLE/@FPAGE}"/>
-                                <meta name="citation_lastpage" content="{ARTICLE/@LPAGE}"/>
-                                <meta name="citation_id" content="{ARTICLE/@DOI}"/>
-
+                <!--Meta Google Scholar-->
+                <meta name="citation_journal_title" content="{TITLEGROUP/TITLE}"/>
+                <meta name="citation_publisher" content="{normalize-space(substring-after(COPYRIGHT,'-'))}"/>
+                <meta name="citation_title" content="{ARTICLE/NOHTML-TITLE}"/>                                
+                <meta name="citation_date" content="{concat(ARTICLE/ISSUEINFO/@MONTH,'/',ARTICLE/ISSUEINFO/@YEAR)}"/>
+                <meta name="citation_volume" content="{ARTICLE/ISSUEINFO/@VOL}"/>
+                <meta name="citation_issue" content="{ARTICLE/ISSUEINFO/@NUM}"/>
+                <meta name="citation_issn" content="{ISSN}"/>
+                <meta name="citation_doi" content="{ARTICLE/@DOI}"/>
+                <meta name="citation_abstract_html_url" content="{concat('http://',CONTROLINFO/SCIELO_INFO/SERVER, '/scielo.php?script=sci_abstract&amp;pid=', ARTICLE/@PID, '&amp;lng=', CONTROLINFO/LANGUAGE , '&amp;nrm=iso&amp;tlng=', ARTICLE/@TEXT_LANG)}"/>
+                <meta name="citation_fulltext_html_url" content="{concat('http://',CONTROLINFO/SCIELO_INFO/SERVER, '/scielo.php?script=sci_arttext&amp;pid=', ARTICLE/@PID, '&amp;lng=', CONTROLINFO/LANGUAGE , '&amp;nrm=iso&amp;tlng=', ARTICLE/@TEXT_LANG)}"/>
+                <xsl:apply-templates select=".//AUTHORS//AUTHOR" mode="AUTHORS_META"/>
+                <meta name="citation_firstpage" content="{ARTICLE/@FPAGE}"/>
+                <meta name="citation_lastpage" content="{ARTICLE/@LPAGE}"/>
+                <meta name="citation_id" content="{ARTICLE/@DOI}"/>
+				<xsl:apply-templates select="ARTICLE/LANGUAGES/PDF_LANGS/LANG" name="meta_citation_pdf_url">
+					<xsl:with-param name="orig_lang" select="ARTICLE/@TEXT_LANG" />
+				</xsl:apply-templates>
 				<link rel="stylesheet" type="text/css" href="/css/screen/general.css"/>
 				<link rel="stylesheet" type="text/css" href="/css/screen/layout.css"/>
 				<link rel="stylesheet" type="text/css" href="/css/screen/styles.css"/>
 				<link rel="stylesheet" type="text/css" href="/xsl/pmc/v3.0/xml.css"/>
 				<script language="javascript" src="applications/scielo-org/js/jquery-1.4.2.min.js"/>
 				<script language="javascript" src="applications/scielo-org/js/toolbox.js"/>
+	            <xsl:if test="//show_readcube_epdf = '1'">
+	                <script src="http://content.readcube.com/scielo/epdf_linker.js" type="text/javascript" async="true"></script>
+	            </xsl:if>
 			</head>
 			<body>
 				<div class="container">
@@ -106,6 +109,20 @@
 			</body>
 		</html>
 	</xsl:template>
+
+	<xsl:template match="LANG" name="meta_citation_pdf_url">
+		<xsl:param name="orig_lang" />
+		<xsl:variable name="lang" select="." />
+		<meta>
+			<xsl:attribute name="name">citation_pdf_url</xsl:attribute>
+			<xsl:attribute name="language"><xsl:value-of select="$orig_lang" /></xsl:attribute>
+			<xsl:if test="$orig_lang = $lang">
+				<xsl:attribute name="default">true</xsl:attribute>
+			</xsl:if>
+			<xsl:attribute name="content"><xsl:value-of select="concat('http://',//CONTROLINFO/SCIELO_INFO/SERVER,'/pdf/',@TRANSLATION)" /></xsl:attribute>
+		</meta>
+	</xsl:template>
+
 	<xsl:template match="ARTICLE">
 		<xsl:param name="NORM"/>
 		<xsl:param name="LANG"/>
