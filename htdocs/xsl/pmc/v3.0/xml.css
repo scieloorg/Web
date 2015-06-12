@@ -132,6 +132,14 @@ border-color: gray;
     max-height: 10%;
     text-align: center;
 }
+.disp-formula .label {
+    padding: 50px;
+    display: inline-block;
+    }
+.disp-formula .formula {
+    padding: 50px;
+    display: inline-block;
+    }
 
 .graphic {
 	padding: 25px;
@@ -159,8 +167,6 @@ border-color: gray;
     
 .foot-notes {
 	padding-top: 20px;
-	padding-bottom: 40px;
-
 }
 .footnote {
 border-top: 1px solid;
