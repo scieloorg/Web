@@ -86,6 +86,7 @@
 	</xslid>
 	<xslid id="sci_arttext-text">
 		<text find="download_article_in_pdf_format">download article in PDF format</text>
+		<text find="translator">Translation</text>
 	</xslid>
 	<xslid id="sci_artlist">
 		<text find="table_of_contents">Table of contents</text>
@@ -116,7 +117,7 @@
 		<text find="translated_by">Translated by</text>
 		<text find="and">and</text>
 		<text find="lang_iah">i</text>
-		<text find="serial_on_the_internet">serial on the Internet</text>
+		<text find="serial_on_the_internet">Internet</text>
 		<text find="access_on">access on</text>
 		<text find="pre_print">pre-print</text>
 		<text find="curriculum_scienti">Curriculum ScienTI</text>
