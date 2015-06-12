@@ -60,6 +60,9 @@
 					<xsl:with-param name="server" select="CONTROLINFO/SCIELO_INFO/SERVER"/>
 					<xsl:with-param name="script">rss.php</xsl:with-param>
 				</xsl:call-template>
+	            <xsl:if test="//show_readcube_epdf = '1'">
+	                <script src="http://content.readcube.com/scielo/epdf_linker.js" type="text/javascript" async="true"></script>
+	            </xsl:if>
 			</HEAD>
 			<BODY vLink="#800080" bgColor="#ffffff">
 				<xsl:call-template name="NAVBAR">
