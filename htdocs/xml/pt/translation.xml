@@ -77,73 +77,79 @@
         <text find="how_to_cite_this_article">Como citar este artigo</text>
         <text find="text_available_after">texto disponível após</text>
 		<text find="contact">Contato</text>
-    </xslid>
-    <xslid id="sci_subject">
-        <text find="issue">número</text>
-        <text find="subject_list_of_serials">Lista de periódicos por assunto</text>
-        <text find="library_collection">Coleção da biblioteca</text>
-        <text find="subjects">Assuntos</text>
-    </xslid>
-    <xslid id="sci_arttext-text">
-        <text find="download_article_in_pdf_format">copia do artigo em formato PDF</text>
-    </xslid>
-    <xslid id="sci_artlist">
-        <text find="table_of_contents">Sumário</text>
-        <text find="anterior">Anterior</text>
-        <text find="next">Próxima</text>
-        <text find="published_on">Publicado em</text>
-    </xslid>
-    <xslid id="sci_artref">
-        <text find="ahead_of_print">ahead of print</text>
+	</xslid>
+	<xslid id="sci_subject">
+		<text find="issue">número</text>
+		<text find="subject_list_of_serials">Lista de periódicos por assunto</text>
+		<text find="library_collection">Coleção da biblioteca</text>
+		<text find="subjects">Assuntos</text>
+	</xslid>
+	<xslid id="sci_arttext-text">
+		<text find="download_article_in_pdf_format">copia do artigo em formato PDF</text>
+		<text find="translator">Tradução</text>
+	</xslid>
+	<xslid id="sci_artlist">
+		<text find="table_of_contents">Sumário</text>
+		<text find="anterior">Anterior</text>
+		<text find="next">Próxima</text>
+		<text find="published_on">Publicado em</text>
+	</xslid>
+	<xslid id="sci_artref">
+		<text find="ahead_of_print">ahead of print</text>
 		<text find="provisional">provisorio</text>
-        <text find="review_in_progress">em revisão</text>
-        <text find="not_printed">não impresso</text>
-        <text find="special_issue">número especial</text>
-        <text find="special_edition">edição especial</text>
-        <text find="monograph_number">número monográfico</text>
-        <text find="issue">número</text>
-        <text find="suppl.">suppl.</text> <!--supplement abreviation-->
-        <text find="vol.">vol.</text> <!--volume abbreviation-->
-        <text find="ahead_of_print_epub">Epub</text>
-        <text find="in_press">Publicado</text>
-        <text find="n.">n.</text> <!--number abbreviation-->
-        <text find="selected_edition">Selected edition</text>
-        <text find="cited">citado</text>
-        <text find="available_from">Disponível em</text>
-        <text find="translated_by">Traduzido por</text>
-        <text find="and">e</text>
-        <text find="lang_iah">p</text>
-        <text find="serial_on_the_internet">periódico na Internet</text>
-        <text find="access_on">acessos em</text>
-        <text find="pre_print">pre-publicacição</text>
-        <text find="curriculum_scienti">Curriculum ScienTI</text>
-        <text find="authors_list">List de Autores</text>
-        <text find="online">online</text>
-    </xslid>
-    <xslid id="sci_isoref">
-        <text find="scientific_electronic_library_online">SciELO - Scientific Electronic Library Online</text>
-        <text find="how_to_cite">Como citar</text>
-        <text find="bibliographical_formats">Formatos Bibliográficos</text>
-    </xslid>
-    <xslid id="sci_pdf">
-        <text find="-pdf_download-">- PDF Download - Art. ID</text>
-        <text find="scientific_electronic_library_online">SciELO - Scientific Electronic Library Online</text>
-        <text find="pdf_download">PDF Download</text>
-        <text find="sentence_1">Iniciando download de arquivo PDF em 10 segundos. Por favor Aguarde!</text>
-    </xslid>
-    <xslid id="sci_navegation">
-        <text find="articles">artigos</text>
-        <text find="available_issues">números disponibles</text>
-        <text find="scientific_electronic_library_online">SciELO - Scientific Electronic Library Online</text>
-        <text find="author_index">índice de autores</text>
-        <text find="subject_index">índice de assuntos</text>
-        <text find="search_form">pesquisa de artigos</text>
-        <text find="alphabetic_serial_listing">lista alfabética de periódicos</text>
-        <text find="subject_list_of_serials">lista por assunto</text>
-        <text find="serials_search">pesquisa de títulos</text>
-        <text find="browse_scielo">Browse SciELO</text>
-        <text find="scielo_library_error_detector">Detetor de Erros da Biblioteca Scielo</text>
-        <text find="sentence_1">Um erro inesperado ocorreu nos servidores SciELO.<br/><br/>Clique no logo da SciELO para visualizar a Biblioteca SciELO ou use o botão "BACK" do browser para voltar à página anterior.<br/><br/>Por favor envie-nos um email com suas perguntas, comentários ou sugestões usando o link abaixo.</text>
+		<text find="review_in_progress">em revisão</text>
+		<text find="not_printed">não impresso</text>
+		<text find="special_issue">número especial</text>
+		<text find="special_edition">edição especial</text>
+		<text find="monograph_number">número monográfico</text>
+		<text find="issue">número</text>
+		<text find="suppl.">suppl.</text>
+		<!--supplement abreviation-->
+		<text find="vol.">vol.</text>
+		<!--volume abbreviation-->
+		<text find="ahead_of_print_epub">Epub</text>
+		<text find="in_press">Publicado</text>
+		<text find="n.">n.</text>
+		<!--number abbreviation-->
+		<text find="selected_edition">Selected edition</text>
+		<text find="cited">citado</text>
+		<text find="available_from">Disponível em</text>
+		<text find="translated_by">Traduzido por</text>
+		<text find="and">e</text>
+		<text find="lang_iah">p</text>
+		<text find="serial_on_the_internet">Internet</text>
+		<text find="access_on">acessos em</text>
+		<text find="pre_print">pre-publicacição</text>
+		<text find="curriculum_scienti">Curriculum ScienTI</text>
+		<text find="authors_list">List de Autores</text>
+		<text find="online">online</text>
+	</xslid>
+	<xslid id="sci_isoref">
+		<text find="scientific_electronic_library_online">SciELO - Scientific Electronic Library Online</text>
+		<text find="how_to_cite">Como citar</text>
+		<text find="bibliographical_formats">Formatos Bibliográficos</text>
+	</xslid>
+	<xslid id="sci_pdf">
+		<text find="-pdf_download-">- PDF Download - Art. ID</text>
+		<text find="scientific_electronic_library_online">SciELO - Scientific Electronic Library Online</text>
+		<text find="pdf_download">PDF Download</text>
+		<text find="sentence_1">Iniciando download de arquivo PDF em 10 segundos. Por favor Aguarde!</text>
+	</xslid>
+	<xslid id="sci_navegation">
+		<text find="articles">artigos</text>
+		<text find="available_issues">números disponibles</text>
+		<text find="scientific_electronic_library_online">SciELO - Scientific Electronic Library Online</text>
+		<text find="author_index">índice de autores</text>
+		<text find="subject_index">índice de assuntos</text>
+		<text find="search_form">pesquisa de artigos</text>
+		<text find="alphabetic_serial_listing">lista alfabética de periódicos</text>
+		<text find="subject_list_of_serials">lista por assunto</text>
+		<text find="serials_search">pesquisa de títulos</text>
+		<text find="browse_scielo">Browse SciELO</text>
+		<text find="scielo_library_error_detector">Detetor de Erros da Biblioteca Scielo</text>
+		<text find="sentence_1">Um erro inesperado ocorreu nos servidores SciELO.<br/>
+			<br/>Clique no logo da SciELO para visualizar a Biblioteca SciELO ou use o botão "BACK" do browser para voltar à página anterior.<br/>
+			<br/>Por favor envie-nos um email com suas perguntas, comentários ou sugestões usando o link abaixo.</text>
 		<text find="ahead_of_print">ahead of print</text>
 		<text find="provisional">provisorios</text>
 		<text find="buttonAuthor">autor</text>
