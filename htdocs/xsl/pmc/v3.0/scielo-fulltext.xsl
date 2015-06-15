@@ -16,7 +16,7 @@
 				<xsl:when test=".//img/@src"><xsl:value-of select=".//img/@src"/></xsl:when>
 				<xsl:otherwise>http://i.creativecommons.org/l<xsl:value-of select="substring-after($default_license_href,'licenses')"/>/88x31.png</xsl:otherwise>
 			</xsl:choose></xsl:variable>
-			<xsl:variable name="lang_license_href"><xsl:value-of select="$default_license_href"/><xsl:if test="$langtext!=''">/deed.<xsl:value-of select="$langtext"/></xsl:if></xsl:variable>
+			<xsl:variable name="lang_license_href"><xsl:if test="$langtext!='' and $license_href!=''"><xsl:value-of select="$default_license_href"/>/deed.<xsl:value-of select="$langtext"/></xsl:if></xsl:variable>
 			
 			<xsl:choose>
 				<xsl:when test="$lang_license_href!='' and $license_img_src!=''">
