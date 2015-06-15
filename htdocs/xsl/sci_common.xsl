@@ -1137,27 +1137,37 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
                 <xsl:otherwise>http://i.creativecommons.org/l<xsl:value-of select="substring-after($default_license_href,'licenses')"/>/88x31.png</xsl:otherwise>
             </xsl:choose></xsl:variable>
         
-            <xsl:variable name="lang_license_href"><xsl:value-of select="$default_license_href"/><xsl:if test="$interfaceLang!=''">/deed.<xsl:value-of select="$interfaceLang"/></xsl:if></xsl:variable>
-            <p>
-                <xsl:if test="$license_img_src!=''">
-                    <a rel="license" href="{$lang_license_href}">
-                        <img src="{$license_img_src}" alt="Creative Commons License" style="border-width:0"/>
-                    </a>
-                </xsl:if>
-                <xsl:text>&#160;</xsl:text>
-                <xsl:choose>
-                    <xsl:when test="$interfaceLang='es'">Todo el contenido de esta revista, excepto dónde está identificado, está bajo una </xsl:when>
-                    <xsl:when test="$interfaceLang='pt'">Todo o conteúdo deste periódico, exceto onde está identificado, está licenciado sob uma </xsl:when>
-                    <xsl:otherwise>All the contents of this journal, except where otherwise noted, is licensed under a </xsl:otherwise>
-                </xsl:choose>
-                <a href="{$lang_license_href}">
-                    <xsl:choose>
-                        <xsl:when test="$interfaceLang='es'">Licencia Creative Commons</xsl:when>
-                        <xsl:when test="$interfaceLang='pt'">Licença Creative Commons</xsl:when>
-                        <xsl:otherwise>Creative Commons Attribution License</xsl:otherwise>
-                    </xsl:choose>
-                </a>
-             </p>                
+            <xsl:variable name="lang_license_href"><xsl:if test="$interfaceLang!='' and $default_license_href!=''"><xsl:value-of select="$default_license_href"/>/deed.<xsl:value-of select="$interfaceLang"/></xsl:if></xsl:variable>
+            <xsl:choose>
+                <xsl:when test="$lang_license_href!=''">
+                    <p>
+                        <xsl:if test="$license_img_src!=''">
+                            <a rel="license" href="{$lang_license_href}">
+                                <img src="{$license_img_src}" alt="Creative Commons License" style="border-width:0"/>
+                            </a>
+                        </xsl:if>
+                        <xsl:text>&#160;</xsl:text>
+                        <xsl:choose>
+                            <xsl:when test="$interfaceLang='es'">Todo el contenido de esta revista, excepto dónde está identificado, está bajo una </xsl:when>
+                            <xsl:when test="$interfaceLang='pt'">Todo o conteúdo deste periódico, exceto onde está identificado, está licenciado sob uma </xsl:when>
+                            <xsl:otherwise>All the contents of this journal, except where otherwise noted, is licensed under a </xsl:otherwise>
+                        </xsl:choose>
+                        <a href="{$lang_license_href}">
+                            <xsl:choose>
+                                <xsl:when test="$interfaceLang='es'">Licencia Creative Commons</xsl:when>
+                                <xsl:when test="$interfaceLang='pt'">Licença Creative Commons</xsl:when>
+                                <xsl:otherwise>Creative Commons Attribution License</xsl:otherwise>
+                            </xsl:choose>
+                        </a>
+                    </p> 
+                </xsl:when>
+                <xsl:when test=".//license/p">
+                    <xsl:copy-of select=".//license/p"/>
+                </xsl:when>
+                <xsl:when test=".//license/license-p">
+                    <xsl:apply-templates select=".//license/license-p"></xsl:apply-templates>
+                </xsl:when>	
+            </xsl:choose>
         </div>
     </xsl:template>
     
