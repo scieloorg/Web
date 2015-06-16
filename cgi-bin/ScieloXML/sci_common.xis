@@ -1550,8 +1550,8 @@
 
 	<call name="GetLanguage"><pft>v3012/v3003/(|^l|v4001^l/)</pft></call>
 
-	<!-- anteriormente tag="9000", foi substitu�?o por tag="4001", reaproveitando-o, 
-	pois havia um problema de mem�?ia no wxis.exe, reaproveitando o campo, reaproveita-se a mem�?ia -->
+	<!-- anteriormente tag="9000", foi substituï¿?o por tag="4001", reaproveitando-o, 
+	pois havia um problema de memï¿?ia no wxis.exe, reaproveitando o campo, reaproveita-se a memï¿?ia -->
     <field action="replace" tag="4001">
    		<pft>(if s(mpu,v4001^l)=s(mpu,v4010[1]) then mpl,v4001^a,break fi)</pft>
     </field>
@@ -1973,7 +1973,7 @@ fi
  		 excluding the file extension. The only exception is the bjmbr serial.
 	     In this case, the pdf file name is one character shorter.
 	 -->
-	 <!-- fixed 20040622 at�?o final da funcao -->
+	 <!-- fixed 20040622 atï¿?o final da funcao -->
 	<list action="load" type="list"><pft>(v4040/)</pft></list>
 
 	<do task="list">
@@ -2117,7 +2117,7 @@ fi
 	
 
 
-   <!-- fixed 20070119 - inser��o de mais idiomas no texto completo e pdf -->
+   <!-- fixed 20070119 - inserï¿½ï¿½o de mais idiomas no texto completo e pdf -->
    <call name="getAvailableTextLanguages"><pft>if v4905='pdf' or a(v4902) or v4902='' then mid(v4901,2,9) fi</pft></call>
 
    <field action="replace" tag="4902" split="occ"><pft>(v9350/)</pft></field> 	
@@ -2268,7 +2268,7 @@ fi
      4901^o - idioma do texto original
      4901^p - pid 
 	 4901^l - language da interface
-	 4901^d - diret�?io da tradu��o (pdf ou translation)
+	 4901^d - diretï¿?io da traduï¿½ï¿½o (pdf ou translation)
 	-->
 	
 	<flow action="jump"><pft>if v4901^o=v4901^l then 'end' else 'getFileNames' fi</pft></flow>
@@ -2289,8 +2289,8 @@ fi
 <!-- If there is the translations then generate the elements translation
      4901 - pid 
 	 4901^l - language
-	 4901^a - indica se �?o arquivo do trecho do texto completo ap�? as refer�?cias: ausente ou caracter 'b' (back)
-	 4901^d - diret�?io da tradu��o (pdf ou translation)
+	 4901^a - indica se ï¿?o arquivo do trecho do texto completo apï¿? as referï¿?cias: ausente ou caracter 'b' (back)
+	 4901^d - diretï¿?io da traduï¿½ï¿½o (pdf ou translation)
 	 -->
    <field action="replace" tag="4901" split="occ"><pft>(v4901/)</pft></field> 
    <field action="replace" tag="4902" split="occ"><pft>(v4901^l/)</pft></field> 
@@ -3155,7 +3155,7 @@ fi
 </function>
 
 <function name="PROC_SPLIT_MST" action="replace" tag="4001">
-<!-- fixed 20040122 - corrige problema de leitura da base ao executar a proc PROC_SPLIT_MST. A solu��o usada foi criar uma fun��o que faz o mesmo que a proc -->
+<!-- fixed 20040122 - corrige problema de leitura da base ao executar a proc PROC_SPLIT_MST. A soluï¿½ï¿½o usada foi criar uma funï¿½ï¿½o que faz o mesmo que a proc -->
 <!-- fixed 20040910 - melhorado -->
 <flow action="jump"><pft>if p(v4001^m) then 'splited' fi</pft></flow>
  <do task="mfnrange">
@@ -3456,11 +3456,11 @@ fi
 	<flow action="jump">end</flow>
 
 	<label>pt</label>
-	<field action="replace" tag="540"><pft>'<a rel="license" href="http://creativecommons.org/licenses/',v4000^c,'/',v4000^v,'/deed.pt"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/',v4000^c,'/',v4000^v,'/80x15.png"/></a> Todo o conte�do deste site ',v4000^s,', exceto quando identificado, utiliza  uma <a rel="license" href="http://creativecommons.org/licenses/',v4000^c,'/',v4000^v,'/deed.pt">Licen�a de Atribui��o Creative Commons</a>.'</pft></field>
+	<field action="replace" tag="540"><pft>'<a rel="license" href="http://creativecommons.org/licenses/',v4000^c,'/',v4000^v,'/deed.pt"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/',v4000^c,'/',v4000^v,'/80x15.png"/></a> Todo o conteúdo deste site ',v4000^s,', exceto quando identificado, utiliza  uma <a rel="license" href="http://creativecommons.org/licenses/',v4000^c,'/',v4000^v,'/deed.pt">Licença de Atribuição Creative Commons</a>.'</pft></field>
 	<flow action="jump"><pft>if p(v540) then 'end' else 'en' fi</pft></flow>
 	
 	<label>es</label>
-	<field action="replace" tag="540"><pft>'<a rel="license" href="http://creativecommons.org/licenses/',v4000^c,'/',v4000^v,'/deed.es"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/',v4000^c,'/',v4000^v,'/80x15.png"/></a> Todo el contenido de este sitio ',v4000^s,', excepto d�nde est� identificado, est� bajo una <a rel="license" href="http://creativecommons.org/licenses/',v4000^c,'/',v4000^v,'/deed.es">Licencia de Atribuci�n Creative Commons</a>.'</pft></field>
+	<field action="replace" tag="540"><pft>'<a rel="license" href="http://creativecommons.org/licenses/',v4000^c,'/',v4000^v,'/deed.es"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/',v4000^c,'/',v4000^v,'/80x15.png"/></a> Todo el contenido de este sitio ',v4000^s,', excepto dónde está identificado, está bajo una <a rel="license" href="http://creativecommons.org/licenses/',v4000^c,'/',v4000^v,'/deed.es">Licencia de Atribución Creative Commons</a>.'</pft></field>
 	<flow action="jump"><pft>if p(v540) then 'end' fi</pft></flow>
 
 	<label>en</label>
@@ -3484,21 +3484,21 @@ fi
 	<flow action="jump"><pft>if p(v4000^c) then 'site' else 'other' fi</pft></flow>
 	
 	<label>article</label>
-	<flow action="jump"><pft>if instr(ref(['ARTIGO']l(['ARTIGO'],'hr=',v4000^p),v702),'.xml')>0 then 'end' fi</pft></flow>
+	<flow action="jump"><pft>if instr(ref(['ARTIGO']l(['ARTIGO'],'hr=',v8803),v702),'.xml')>0 then 'end' fi</pft></flow>
 
 	<label>issue</label>
 	<field action="replace" tag="1">issue</field>
-	<field action="replace" tag="541"><pft>ref(['NEWISSUE']l(['NEWISSUE'],'Y',v4000^p),v541)</pft></field>
+	<field action="replace" tag="541"><pft>ref(['NEWISSUE']l(['NEWISSUE'],'Y',v8802),v541)</pft></field>
 	<call name="getLicenseText"><pft>if p(v541) then '^l',v4000^l,'^s',v4000^s,'^c',v541,'^v',v4000^v, fi</pft></call>
-	<field action="replace" tag="540" split="occ"><pft>if a(v9540) then ref(['NEWISSUE']l(['NEWISSUE'],'Y',v4000^p),(v540/)) fi</pft></field>
+	<field action="replace" tag="540" split="occ"><pft>if a(v9540) then ref(['NEWISSUE']l(['NEWISSUE'],'Y',v8802),(v540/)) fi</pft></field>
 	<field action="replace" tag="9540"><pft>if p(v540) then (if v540^l=v4000^l[1] then v540^t fi) fi</pft></field>
 	<flow action="jump"><pft>if p(v9540) then 'license' fi</pft></flow>
 	
 	<label>journal</label>
 	<field action="replace" tag="1">journal</field>
-	<field action="replace" tag="541"><pft>ref(['TITLE']l(['TITLE'],'LOC=',v4000^p),v541)</pft></field>
+	<field action="replace" tag="541"><pft>ref(['TITLE']l(['TITLE'],'LOC=',v8801),v541)</pft></field>
 	<call name="getLicenseText"><pft>if p(v541) then '^l',v4000^l,'^s',v4000^s,'^c',v541,'^v',v4000^v, fi</pft></call>
-	<field action="replace" tag="540" split="occ"><pft>if a(v9540) then ref(['TITLE']l(['TITLE'],'LOC=',v4000^p),(v540/)) fi</pft></field>
+	<field action="replace" tag="540" split="occ"><pft>if a(v9540) then ref(['TITLE']l(['TITLE'],'LOC=',v8801),(v540/)) fi</pft></field>
 	<flow action="jump"><pft>if p(v9540) then 'license' fi</pft></flow>
 	
 	<label>site</label>
