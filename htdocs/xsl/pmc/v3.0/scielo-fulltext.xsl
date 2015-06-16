@@ -43,14 +43,9 @@
 					</p>
 				</xsl:when>
 				<xsl:when test=".//license/p">
-					<xsl:comment> license/p </xsl:comment>
 					<xsl:copy-of select=".//license/p"/>
 				</xsl:when>
 				<xsl:when test=".//license/license-p">
-					<xsl:comment> license/license-p </xsl:comment>
-					<xsl:comment> 
-						<xsl:copy-of select=".//license"/>
-					</xsl:comment>
 					<xsl:apply-templates select=".//license/license-p"></xsl:apply-templates>
 				</xsl:when>	
 			</xsl:choose>
