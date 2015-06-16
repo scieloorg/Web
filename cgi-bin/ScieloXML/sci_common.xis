@@ -3474,6 +3474,10 @@ fi
 	<!-- ^llang'^f',lang,'_',page name,|^p|pid da pagina,'^s',site name,^c codigo licenca ^v version-->
 	<field action="replace" tag="4000"><pft>if a(v4000^v) then v4000,'^v4.0' fi</pft></field>
 	
+	<field action="replace" tag="8803"><pft>if size(v4000^p)=23 then v4000^p fi</pft></field>
+	<field action="replace" tag="8802"><pft>if size(v4000^p)=23 then v4000^p*1.17 else if size(v4000^p)=17 then v4000^p fi fi</pft></field>
+	<field action="replace" tag="8801"><pft>if size(v4000^p)=23 then v4000^p*1.9 else if size(v4000^p)=17 then v4000^p*0.9 else v4000^p fi fi</pft></field>
+	
 	<flow action="jump"><pft>if size(v4000^p)=23 then 'article' fi</pft></flow>
 	<flow action="jump"><pft>if size(v4000^p)=17 then 'issue' fi</pft></flow>
 	<flow action="jump"><pft>if size(v4000^p)=9 then 'journal' fi</pft></flow>
