@@ -466,6 +466,7 @@
     <xsl:variable name="show_group_related_links" select="//varScieloOrg/show_group_related_links"/>
     <xsl:variable name="show_group_services" select="//varScieloOrg/show_group_services"/>
     <xsl:variable name="show_group_bookmark" select="//varScieloOrg/show_group_bookmark"/>
+    <xsl:variable name="show_readcube_epdf" select="//varScieloOrg/show_readcube_epdf"/>
     <xsl:variable name="THIS_PAGE_URL" select="concat('http://',//SERIAL/CONTROLINFO/SCIELO_INFO/SERVER,'/scielo.php?script=sci_arttext%26pid=',//SERIAL/CONTROLINFO/PAGE_PID,'%26lng=',$LANGUAGE,'%26nrm=',//SERIAL/CONTROLINFO/STANDARD,'%26tlng=',//SERIAL/ISSUE/ARTICLE/@TEXTLANG)"/>
 
     <form name="addToShelf" method="post"
@@ -642,6 +643,15 @@
                     <xsl:with-param name="icon">/img/en/iconPDFDocument.gif</xsl:with-param>
                   </xsl:apply-templates>
                 </li>
+                <xsl:if test="$show_readcube_epdf='1'">
+                <li>
+                    <xsl:apply-templates select="//LANGUAGES/PDF_LANGS/LANG" mode="display-link-to-article-version-epdf">
+                      <xsl:with-param name="pid" select="CONTROLINFO/PAGE_PID"/>
+                      <xsl:with-param name="script">sci_pdf</xsl:with-param>
+                      <xsl:with-param name="icon">/img/readcube.png</xsl:with-param>
+                    </xsl:apply-templates>
+                  </li>
+                </xsl:if>
               </xsl:if>
               <!-- ARTICLO IN PDF FIM-->
               <!-- ARTICLO IN XML INICIO-->
@@ -1238,7 +1248,6 @@
     <xsl:variable name="lang" select="."/>
     <xsl:variable name="origlang" select="//ARTICLE/@ORIGINALLANG"/>
     <a> 
-      <xsl:attribute name="class">pdf-link</xsl:attribute>
       <xsl:call-template name="AddScieloLink">
         <xsl:with-param name="seq" select="$pid"/>
         <xsl:with-param name="script" select="$script"/>
@@ -1253,14 +1262,21 @@
       </xsl:choose>
       <xsl:value-of select="document(concat('../xml/',$interfaceLang,'/language.xml'))//language[@id=$lang]"/> (pdf)
     </a>
+  </xsl:template>
+
+  <xsl:template match="LANG|@ORIGINALLANG" mode="display-link-to-article-version-epdf">
+    <xsl:param name="pid"/>
+    <xsl:param name="script"></xsl:param>
+    <xsl:param name="icon"></xsl:param>
+    <xsl:variable name="lang" select="."/>
+    <xsl:variable name="origlang" select="//ARTICLE/@ORIGINALLANG"/>
     <a>
-      <xsl:attribute name="class">readcube-epdf-link</xsl:attribute>
       <xsl:attribute name="href">/readcube/epdf.php<xsl:value-of select="concat('?doi=',//ARTICLE/@DOI,'&amp;pid=',// ARTICLE/@PID,'&amp;pdf_path=',//ARTICLE/LANGUAGES/PDF_LANGS/LANG[.=$lang]/@TRANSLATION,'&amp;lang=',$lang)"/></xsl:attribute>
       <xsl:attribute name="title">Article in epdf format</xsl:attribute>
       <xsl:choose>
         <xsl:when test="position()=1">
           <xsl:if test="$icon!=''">
-            <img src="{$icon}"/></xsl:if>
+            <img src="{$icon}" width="18px"/></xsl:if>
         </xsl:when>
         <xsl:otherwise> | </xsl:otherwise>
       </xsl:choose>
