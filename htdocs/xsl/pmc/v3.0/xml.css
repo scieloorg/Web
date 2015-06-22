@@ -210,3 +210,8 @@ padding-top: 0px;
     border: 2px solid black;
     margin: 25px;
 }
+.article-license P, .article-license A, .article-license  SPAN{
+	text-align: left;
+	font-size: 8pt;
+	color: black
+}
