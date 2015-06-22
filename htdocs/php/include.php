@@ -49,7 +49,7 @@
 		$checked['id'] = $_GET["id"];	
 
 	if ( !ereg("^(pt)|(es)|(en)$",$lang) )	
-		die("invalid parameter lang" . $lang);
+		$checked['lang'] = 'en';
 	else 
 		$checked['lang'] = $lang;	
 
