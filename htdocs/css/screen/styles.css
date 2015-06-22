@@ -212,14 +212,3 @@ HTML>BODY .content H4 {
 	font-weight: bold;
 }
 
-.readcube-epdf-link {
-      display: none;
-    }
-
-.readcube-epdf-enabled .pdf-link {
-      display: none;
-    }
-
-.readcube-epdf-enabled .readcube-epdf-link {
-      display: inline;
-    }

@@ -10,6 +10,7 @@
         select="document(concat('../xml/',$interfaceLang,'/translation.xml'))/translations"/>
     <xsl:variable name="ARTICLE_LICENSE" select="//article-meta/permissions"/>
     <xsl:variable name="GENERAL_LICENSE" select="//PERMISSIONS/permissions"/>
+    <xsl:variable name="show_readcube_epdf" select="//varScieloOrg/show_readcube_epdf"/>
     <xsl:variable name="isProvisional">
         <xsl:if test="//ISSUE/@NUM='REVIEW'">1</xsl:if>
     </xsl:variable>
@@ -150,7 +151,6 @@
         <xsl:param name="file"/>
         <xsl:param name="date"/>
         <xsl:param name="page"/>
-        <xsl:attribute name="class">readcube-epdf-link</xsl:attribute>
         <xsl:attribute name="href">/readcube/epdf.php<xsl:value-of select="concat('?doi=',//ARTICLE[@PID=$seq]/@DOI,'&amp;pid=',$seq,'&amp;pdf_path=',//ARTICLE[@PID=$seq]/LANGUAGES/PDF_LANGS/LANG[.=$txtlang]/@TRANSLATION,'&amp;lang=',$txtlang)"/></xsl:attribute>
     </xsl:template>
     <!-- Adds a link to a SciELO page 
@@ -532,8 +532,9 @@
                 </xsl:call-template>
             </xsl:when>
             <xsl:when test="$TYPE='pdf'">
+                <xsl:value-of select="$label"/>
+                (
                 <a>
-                    <xsl:attribute name="class">pdf-link</xsl:attribute>
                     <xsl:call-template name="AddScieloLink">
                         <xsl:with-param name="seq" select="$PID"/>
                         <xsl:with-param name="script" select="$script"/>
@@ -541,18 +542,22 @@
                         <xsl:with-param name="file" select="$file"/>
                     </xsl:call-template>
                     <!-- o texto do link é o idioma do texto como no sumário -->
-                    <xsl:value-of select="$label"/> (pdf)
+                    <img src="/img/en/iconPDFDocument.gif" width="14px"/>pdf
                 </a>
-                <a>
-                    <xsl:call-template name="AddScieloLinkEPDF">
-                        <xsl:with-param name="seq" select="$PID"/>
-                        <xsl:with-param name="script" select="$script"/>
-                        <xsl:with-param name="txtlang" select="$TXTLANG"/>
-                        <xsl:with-param name="file" select="$file"/>
-                    </xsl:call-template>
-                    <!-- o texto do link é o idioma do texto como no sumário -->
-                    <xsl:value-of select="$label"/> (epdf)
-                </a>
+                <xsl:if test="$show_readcube_epdf='1'">
+                    <a>
+                        <xsl:call-template name="AddScieloLinkEPDF">
+                            <xsl:with-param name="seq" select="$PID"/>
+                            <xsl:with-param name="script" select="$script"/>
+                            <xsl:with-param name="txtlang" select="$TXTLANG"/>
+                            <xsl:with-param name="file" select="$file"/>
+                        </xsl:call-template>
+                        <!-- o texto do link é o idioma do texto como no sumário -->
+                        <img src="/img/readcube.png" width="14px"/>epdf
+                    </a>
+                </xsl:if>
+                )
+
             </xsl:when>
             <xsl:otherwise>
                 <a>
