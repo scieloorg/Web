@@ -816,7 +816,6 @@
     <xsl:variable name="lang" select="."/>
     <xsl:variable name="origlang" select="//ARTICLE/@ORIGINALLANG"/>
     <a> 
-      <xsl:attribute name="class">pdf-link</xsl:attribute>
       <xsl:call-template name="AddScieloLink">
         <xsl:with-param name="seq" select="$pid"/>
         <xsl:with-param name="script" select="$script"/>
@@ -840,7 +839,6 @@
     <xsl:variable name="lang" select="."/>
     <xsl:variable name="origlang" select="//ARTICLE/@ORIGINALLANG"/>
     <a>
-      <xsl:attribute name="class">readcube-epdf-link</xsl:attribute>
       <xsl:attribute name="href">/readcube/epdf.php<xsl:value-of select="concat('?doi=',//ARTICLE/@DOI,'&amp;pid=',// ARTICLE/@PID,'&amp;pdf_path=',//ARTICLE/LANGUAGES/PDF_LANGS/LANG[.=$lang]/@TRANSLATION,'&amp;lang=',$lang)"/></xsl:attribute>
       <xsl:attribute name="title">Article in epdf format</xsl:attribute>
       <xsl:choose>
