@@ -1,44 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML">
-	
-	
 	<xsl:template match="permissions">
-		<xsl:variable name="license_main_url"><xsl:choose><xsl:when test="contains(.//license/@xlink:href,'/deed')"><xsl:value-of select="substring-before(.//license/@xlink:href,'/deed')"/></xsl:when>
-			<xsl:otherwise><xsl:value-of select=".//license/@xlink:href"/></xsl:otherwise>
-		</xsl:choose></xsl:variable>
-		<xsl:variable name="license_url"><xsl:value-of select="$license_main_url"/>/deed.<xsl:value-of select="$LANGUAGE"/></xsl:variable>
-		<xsl:variable name="license_img_src"><xsl:choose>
-			<xsl:when test=".//graphic"><xsl:value-of select=".//graphic/@xlink:href"/></xsl:when>
-			<xsl:otherwise>http://i.creativecommons.org/l<xsl:value-of select="substring-after($license_main_url,'licenses')"/>/88x31.png</xsl:otherwise>
-		</xsl:choose></xsl:variable>
-		<p>
-			<a rel="license" href="{$license_url}">
-				<xsl:if test="$license_img_src!=''">
-					<img src="{$license_img_src}" alt="Creative Commons License" style="border-width:0"/>
-				</xsl:if>
-			</a>
-			<xsl:if test="$license_img_src=''">
+		<div class="article-license">
+			<xsl:variable name="license_href"><xsl:choose>
+				<xsl:when test=".//license/@xlink:href"><xsl:value-of select=".//license/@xlink:href"/></xsl:when>
+				<xsl:when test=".//license//a/@href"><xsl:value-of select=".//license//a/@href"/></xsl:when>
+			</xsl:choose></xsl:variable>
+			<xsl:variable name="default_license_href"><xsl:choose><xsl:when test="contains($license_href,'/deed')"><xsl:value-of select="substring-before($license_href,'/deed')"/></xsl:when>
+				<xsl:when test="substring($license_href,string-length($license_href))='/'"><xsl:value-of select="substring($license_href,1,string-length($license_href)-1)"/></xsl:when>
+				<xsl:otherwise><xsl:value-of select="$license_href"/></xsl:otherwise>
+			</xsl:choose></xsl:variable>
+			<xsl:variable name="license_img_src"><xsl:choose>
+				<xsl:when test=".//graphic/@xlink:href"><xsl:value-of select=".//graphic/@xlink:href"/></xsl:when>
+				<xsl:when test=".//img/@src"><xsl:value-of select=".//img/@src"/></xsl:when>
+				<xsl:otherwise>http://i.creativecommons.org/l<xsl:value-of select="substring-after($default_license_href,'licenses')"/>/88x31.png</xsl:otherwise>
+			</xsl:choose></xsl:variable>
+			<xsl:variable name="lang_license_href"><xsl:if test="$langtext!='' and $license_href!=''"><xsl:value-of select="$default_license_href"/>/deed.<xsl:value-of select="$langtext"/></xsl:if></xsl:variable>
+			
 			<xsl:choose>
-				<xsl:when test=".//license-p">
-					<xsl:apply-templates select=".//license-p"></xsl:apply-templates>
+				<xsl:when test="$lang_license_href!='' and $license_img_src!=''">
+					<p>
+						<a rel="license" href="{$lang_license_href}">
+							<img src="{$license_img_src}" alt="Creative Commons License" style="border-width:0"/>
+						</a>
+					</p>
 				</xsl:when>
-				<xsl:otherwise>
-					<xsl:choose>
-						<xsl:when test="$LANGUAGE='en'">All the contents of this journal, except where otherwise noted, is licensed under a </xsl:when>
-						<xsl:when test="$LANGUAGE='es'">Todo el contenido de esta revista, excepto dónde está identificado, está bajo una </xsl:when>
-						<xsl:when test="$LANGUAGE='pt'">Todo o conteúdo deste periódico, exceto onde está identificado, está licenciado sob uma </xsl:when>
-					</xsl:choose>
-					<a href="{$license_url}">
+				<xsl:when test="$lang_license_href!=''">
+					<p>
 						<xsl:choose>
-							<xsl:when test="$LANGUAGE='en'">Creative Commons Attribution License</xsl:when>
-							<xsl:when test="$LANGUAGE='es'">Licencia Creative Commons</xsl:when>
-							<xsl:when test="$LANGUAGE='pt'">Licença Creative Commons</xsl:when>
+							<xsl:when test="$langtext='es'">Todo el contenido de esta revista, excepto dónde está identificado, está bajo una </xsl:when>
+							<xsl:when test="$langtext='pt'">Todo o conteúdo deste periódico, exceto onde está identificado, está licenciado sob uma </xsl:when>
+							<xsl:otherwise>All the contents of this journal, except where otherwise noted, is licensed under a </xsl:otherwise>
 						</xsl:choose>
-					</a>
-				</xsl:otherwise>
-			</xsl:choose></xsl:if>
-		</p>
+						<a href="{$lang_license_href}">
+							<xsl:choose>
+								<xsl:when test="$langtext='es'">Licencia Creative Commons</xsl:when>
+								<xsl:when test="$langtext='pt'">Licença Creative Commons</xsl:when>
+								<xsl:otherwise>Creative Commons Attribution License</xsl:otherwise>
+							</xsl:choose>
+						</a>
+					</p>
+				</xsl:when>
+				<xsl:when test=".//license/p">
+					<xsl:copy-of select=".//license/p"/>
+				</xsl:when>
+				<xsl:when test=".//license/license-p">
+					<xsl:apply-templates select=".//license/license-p"></xsl:apply-templates>
+				</xsl:when>	
+			</xsl:choose>
+		</div>
 	</xsl:template>
 	<xsl:template match="*" mode="id">
 		<xsl:value-of select="@id"/>
@@ -185,9 +196,7 @@
 			<xsl:apply-templates select=".//history"/>
 			<xsl:apply-templates select=".//author-notes"/>
 		</div>
-		<div class="foot-notes">
 			<xsl:apply-templates select=".//permissions"/>
-		</div>
 	</xsl:template>
 	<xsl:template match="sub-article | article" mode="MAIN">
 		<!-- Generates a series of (flattened) divs for contents of any
@@ -253,7 +262,6 @@
 
 		<xsl:apply-templates select="sub-article[@article-type!='translation'] | response"
 			mode="MORE"/>
-		<div class="foot-notes">
 			<xsl:choose>
 				<xsl:when test=".//front//permissions">
 					<xsl:apply-templates select=".//front//permissions"/>
@@ -265,7 +273,6 @@
 					<xsl:apply-templates select="$original//front//permissions"/>
 				</xsl:otherwise>
 			</xsl:choose>
-		</div>
 	</xsl:template>
 
 
