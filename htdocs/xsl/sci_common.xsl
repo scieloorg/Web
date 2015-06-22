@@ -554,7 +554,6 @@
                     </a>
                 </xsl:if>
                 )
-
             </xsl:when>
             <xsl:otherwise>
                 <a>
