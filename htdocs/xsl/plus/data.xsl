@@ -274,8 +274,37 @@
             <xsl:apply-templates select=".//license-p" mode="DATA-DISPLAY"/>
         </p>
         <!--TRANSLATE-->
-        <a href="{license/@xlink:href}" target="_blank">See license permissions</a>
-
+        <xsl:variable name="license_href"><xsl:choose>
+            <xsl:when test=".//license/@xlink:href"><xsl:value-of select=".//license/@xlink:href"/></xsl:when>
+            <xsl:when test=".//license//a/@href"><xsl:value-of select=".//license//a/@href"/></xsl:when>
+        </xsl:choose></xsl:variable>
+        <xsl:variable name="default_license_href"><xsl:choose><xsl:when test="contains($license_href,'/deed')"><xsl:value-of select="substring-before($license_href,'/deed')"/></xsl:when>
+            <xsl:when test="substring($license_href,string-length($license_href))='/'"><xsl:value-of select="substring($license_href,1,string-length($license_href)-1)"/></xsl:when>
+            <xsl:otherwise><xsl:value-of select="$license_href"/></xsl:otherwise>
+        </xsl:choose></xsl:variable>
+        <xsl:variable name="license_img_src"><xsl:choose>
+            <xsl:when test=".//graphic/@xlink:href"><xsl:value-of select=".//graphic/@xlink:href"/></xsl:when>
+            <xsl:when test=".//img/@src"><xsl:value-of select=".//img/@src"/></xsl:when>
+            <xsl:otherwise>http://i.creativecommons.org/l<xsl:value-of select="substring-after($default_license_href,'licenses')"/>/88x31.png</xsl:otherwise>
+        </xsl:choose></xsl:variable>
+        <xsl:variable name="lang_license_href"><xsl:value-of select="$default_license_href"/>/deed.<xsl:value-of select="$PAGE_LANG"/></xsl:variable>
+        
+        <xsl:comment> default_license_href=<xsl:value-of select="$default_license_href"/> </xsl:comment>
+        <xsl:comment> lang_license_href=<xsl:value-of select="$lang_license_href"/> </xsl:comment>
+        <xsl:comment> license_href=<xsl:value-of select="$license_href"/> </xsl:comment>
+        <xsl:comment> license_img_src=<xsl:value-of select="$license_img_src"/> </xsl:comment>
+        <xsl:choose>
+            <xsl:when test="$lang_license_href!='' and $license_img_src!=''">
+                <xsl:comment> $lang_license_href!='' and $license_img_src!='' </xsl:comment>
+                    <a rel="license" href="{$lang_license_href}">
+                        <img src="{$license_img_src}" alt="Creative Commons License" style="border-width:0"/>
+                    </a>
+            </xsl:when>
+            <xsl:when test="$lang_license_href!=''">
+                <xsl:comment> $lang_license_href!='' </xsl:comment>
+                <a href="{$lang_license_href}" target="_blank">See license permissions</a>
+            </xsl:when>            
+        </xsl:choose>
     </xsl:template>
     <xsl:template match="kwd-group" mode="DATA-DISPLAY-TITLE">
         <xsl:apply-templates select="title"/>
