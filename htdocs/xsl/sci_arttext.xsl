@@ -372,7 +372,7 @@
 					</xsl:otherwise>
 				</xsl:choose>
 				
-				<xsl:comment><xsl:value-of select="$xml_article"/></xsl:comment>
+				<!--xsl:comment><xsl:value-of select="$xml_article"/></xsl:comment-->
 				
 			</body>
 		</html>
