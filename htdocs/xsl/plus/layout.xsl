@@ -1168,8 +1168,24 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
             <xsl:apply-templates select="@*[name()!='id'] | *|text()" mode="HTML-TEXT"/>
         </ul>
     </xsl:template>
-    <xsl:template match="list[@list-type='ordered' ]" mode="HTML-TEXT">
-        <a name="{@id}"/><ol>
+    <xsl:template match="list[@list-type='simple']" mode="HTML-TEXT">
+        <a name="{@id}"/>
+        <ul style="list-style-type: none">
+            <xsl:apply-templates select="@*[name()!='id'] | *|text()" mode="HTML-TEXT"/>
+        </ul>
+    </xsl:template>
+    <xsl:template match="list[@list-type='alpha-lower' or @list-type='alpha-upper' or @list-type='roman-lower' or @list-type='roman-upper' or @list-type='order']" mode="HTML-TEXT">
+        <xsl:variable name="type">
+            <xsl:choose>
+                <xsl:when test="@list-type='alpha-lower'">a</xsl:when>
+                <xsl:when test="@list-type='alpha-upper'">A</xsl:when>
+                <xsl:when test="@list-type='roman-lower'">i</xsl:when>
+                <xsl:when test="@list-type='roman-upper'">I</xsl:when>
+                <xsl:otherwise>1</xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <a name="{@id}"/>
+        <ol type="{$type}">
             <xsl:apply-templates select="@*[name()!='id'] | *|text()" mode="HTML-TEXT"/>
         </ol>
     </xsl:template>
@@ -1322,7 +1338,7 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
             <div class="span8">
                 <p>
                     <blockquote>
-                        <xsl:apply-templates select="*|text()"/>
+                        <xsl:apply-templates select="*|text()" mode="HTML-TEXT"/>
                     </blockquote>
                 </p>
             </div>
@@ -1331,6 +1347,11 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
             <div class="span4"> </div>
         </div>
 
+    </xsl:template>
+    <xsl:template match="disp-quote/p" mode="HTML-TEXT">
+        <xsl:element name="{name()}">
+            <xsl:apply-templates select="@* | *|text()" mode="HTML-TEXT"/>
+        </xsl:element>
     </xsl:template>
     <xsl:template match="ext-link|uri" mode="HTML-TEXT">
         <a href="{@xlink:href}" target="_blank">
