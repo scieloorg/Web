@@ -1371,20 +1371,29 @@
 		</xsl:choose>
 	</xsl:template>
 	<xsl:template match="media">
-		<xsl:variable name="src"><xsl:choose>
-			<xsl:when test="not(contains(@xlink:href,':'))">/pdf<xsl:value-of
-				select="substring-after($var_IMAGE_PATH,'/img/revistas')"/><xsl:value-of
-					select="@xlink:href"/></xsl:when><xsl:otherwise><xsl:value-of select="@xlink:href"/></xsl:otherwise>
-		</xsl:choose></xsl:variable>
+		<xsl:variable name="relative_path"><xsl:choose><xsl:when test="contains(@xlink:href,'.pdf')">/pdf<xsl:value-of
+			select="substring-after($var_IMAGE_PATH,'/img/revistas')"/></xsl:when><xsl:otherwise><xsl:value-of select="$var_IMAGE_PATH"/></xsl:otherwise></xsl:choose></xsl:variable>
 		
-		<a target="_blank">
-			<xsl:attribute name="href"><xsl:value-of select="$src"/></xsl:attribute>
-			<xsl:if test="normalize-space(text())=''">[ View ]</xsl:if>
-		</a>
+		<xsl:variable name="src"><xsl:if test="not(contains(@xlink:href,':'))"><xsl:value-of select="$relative_path"/></xsl:if><xsl:value-of
+			select="@xlink:href"/></xsl:variable>
 		
-		<!--embed width="100%" height="400">
-            <xsl:attribute name="src"><xsl:value-of select="$src"/></xsl:attribute> 
-        </embed-->
+		<xsl:choose>
+			<xsl:when test="contains(@xlink:href,'.pdf')">
+				<a target="_blank">
+					<xsl:attribute name="href"><xsl:value-of select="$src"/></xsl:attribute>
+					<xsl:choose>
+						<xsl:when test="normalize-space(text())=''"><xsl:value-of select="@xlink:href"/></xsl:when>
+						<xsl:otherwise><xsl:apply-templates select="*|text()"></xsl:apply-templates></xsl:otherwise>
+					</xsl:choose>
+				</a>
+			</xsl:when>
+			<xsl:otherwise>
+				<embed width="100%" height="400">
+					<xsl:if test="contains(@xlink:href,'.avi')"><xsl:attribute name="type">video/x-msvideo</xsl:attribute></xsl:if>
+					<xsl:attribute name="src"><xsl:value-of select="$src"/></xsl:attribute> 
+				</embed>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 
 	<xsl:template match="mml:math|math">
@@ -1433,11 +1442,11 @@
 				<xsl:apply-templates select="label|media"/>
 			</xsl:when>
 			<xsl:when test="@xlink:href">
-				<xsl:variable name="src"><xsl:choose>
-					<xsl:when test="not(contains(@xlink:href,':'))">/pdf<xsl:value-of
-						select="substring-after($var_IMAGE_PATH,'/img/revistas')"/><xsl:value-of
-							select="@xlink:href"/></xsl:when><xsl:otherwise><xsl:value-of select="@xlink:href"/></xsl:otherwise>
-				</xsl:choose></xsl:variable>
+				<xsl:variable name="relative_path"><xsl:choose><xsl:when test="contains(@xlink:href,'pdf')">/pdf<xsl:value-of
+					select="substring-after($var_IMAGE_PATH,'/img/revistas')"/></xsl:when><xsl:otherwise><xsl:value-of select="$var_IMAGE_PATH"/></xsl:otherwise></xsl:choose></xsl:variable>
+				
+				<xsl:variable name="src"><xsl:if test="not(contains(@xlink:href,':'))"><xsl:value-of select="$relative_path"/></xsl:if><xsl:value-of
+							select="@xlink:href"/></xsl:variable>
 				<a target="_blank">
 					<xsl:attribute name="href">
 						<xsl:value-of select="$src"/>
