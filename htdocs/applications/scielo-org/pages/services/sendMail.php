@@ -1,4 +1,4 @@
-<?php
+	<?php
 
 require_once(dirname(__FILE__)."/../../users/functions.php");
 require_once(dirname(__FILE__)."/../../users/langs.php");	
@@ -90,7 +90,7 @@ switch($acao){
 		$_mail->Subject  = ARTICLE_SUGGESTION." ".$cgi["fromName"];
 		$_mail->Host     = $mailcredentials['host'];
 		$_mail->Port     = $mailcredentials['port'];
-		$_mail->Mailer   = 'smtp';
+		$_mail->Mailer   = 'mail';
 		$_mail->IsHTML(true);
 		$_mail->Body = $msg;
 		$_mail->AltBody  = $msg_no_html;
