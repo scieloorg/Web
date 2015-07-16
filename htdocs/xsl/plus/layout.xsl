@@ -1440,7 +1440,10 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
         
         <a target="_blank">
             <xsl:attribute name="href"><xsl:value-of select="$src"/></xsl:attribute>
-            <xsl:if test="normalize-space(text())=''">[View]</xsl:if>
+            <xsl:choose>
+                <xsl:when test="normalize-space(text())=''"><xsl:value-of select="@xlink:href"/></xsl:when>
+                <xsl:otherwise><xsl:apply-templates select="*|text()"></xsl:apply-templates></xsl:otherwise>
+            </xsl:choose>
         </a>
     </xsl:template>
     <xsl:template match="media[@mime-subtype='pdf']">
@@ -1449,7 +1452,10 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
         </xsl:choose></xsl:variable>
         <a target="_blank">
             <xsl:attribute name="href"><xsl:value-of select="$src"/></xsl:attribute>
-            <xsl:if test="normalize-space(text())=''">[View]</xsl:if>
+            <xsl:choose>
+                <xsl:when test="normalize-space(text())=''"><xsl:value-of select="@xlink:href"/></xsl:when>
+                <xsl:otherwise><xsl:apply-templates select="*|text()"></xsl:apply-templates></xsl:otherwise>
+            </xsl:choose>
         </a>
         
         <!--embed width="100%" height="400">
