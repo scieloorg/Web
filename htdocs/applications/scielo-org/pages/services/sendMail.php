@@ -16,10 +16,11 @@ if($bvsSiteIni['ENVIRONMENT']['LETTER_UNIT'] != null){
 	$baseDir = $bvsSiteIni['ENVIRONMENT']['DATABASE_PATH'];
 }
 
-$scielodef = parse_ini_file($DirName."/../../scielo.def.php", true);
+$scielodef = parse_ini_file(dirname(__FILE__)."/../../scielo.def.php", true);
+$mainscielodef = parse_ini_file(dirname(__FILE__)."/../../../../scielo.def.php", true);
 $site = parse_ini_file(dirname(__FILE__)."/../../../ini/" . $lang . "/bvs.ini", true);
 $home = $scielodef['this']['url'];
-
+$mailcredentials = $mainscielodef['MAIL_CREDENTIALS'];
 $cgi = array_merge($_GET,$_POST);
 
 $acao = $cgi["acao"];
@@ -77,25 +78,31 @@ switch($acao){
 
 
 		$_mail = new PHPMailer();
+		$_mail->isSMTP();
+		$_mail->SMTPAuth = true;
+		$_mail->SMTPSecure = $mailcredentials['secure'];
+		$_mail->Username = $mailcredentials['username'];
+		$_mail->Password = $mailcredentials['password'];
+		$_mail->SetLanguage('en',dirname(__FILE__) . '/../../includes/phpmailer/language/');
 		$_mail->AddReplyTo($cgi["from"],$cgi["fromName"]);
-		$_mail->From     = "appscielo@bireme.org";
+		$_mail->From     = $mailcredentials['sender'];
 		$_mail->FromName = "SciELO";
 		$_mail->Subject  = ARTICLE_SUGGESTION." ".$cgi["fromName"];
-		$_mail->Host     = "esmeralda.bireme.br";
-		$_mail->Password = "x@07sci@";
-		$_mail->Username = "appscielo";
-		$_mail->SMTPAuth =true;
-		$_mail->Mailer   = "smtp";
+		$_mail->Host     = $mailcredentials['host'];
+		$_mail->Port     = $mailcredentials['port'];
+		$_mail->Mailer   = 'smtp';
 		$_mail->IsHTML(true);
 		$_mail->Body = $msg;
 		$_mail->AltBody  = $msg_no_html;
 		$_mail->AddAddress($cgi["to"], $cgi['toName']);
 		$send = $_mail->Send();
-		if(!$send)
-			$message = array("ERROR" => $this->_mail->ErrorInfo);
-		else
+		if(!$send){
+			$acao = "message";
+			$message = $_mail->ErrorInfo;
+		}else{
 			$acao = "message";
 			$message = ARTICLE_SUBMITED_WITH_SUCCESS;
+		}
 	break;
 }
 ?>

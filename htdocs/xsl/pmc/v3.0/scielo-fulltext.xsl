@@ -293,8 +293,9 @@
 		<xsl:if test="not(.//aff)">
 			<xsl:apply-templates select="../..//front//aff"/>
 		</xsl:if>
+		<xsl:apply-templates select="../..//front//supplementary-material"/>
 		<xsl:apply-templates select=".//abstract"/>
-		<xsl:apply-templates select=".//supplementary-material"/>
+		
 	</xsl:template>
 
 	<xsl:template
@@ -312,8 +313,11 @@
 		<xsl:apply-templates select=".//article-title | .//trans-title"/>
 		<xsl:apply-templates select=".//contrib-group"/>
 		<xsl:apply-templates select=".//aff"/>
-		<xsl:apply-templates select=".//abstract | .//trans-abstract"/>
+		
+		<p><xsl:apply-templates select=".//supplementary-material"/></p>
 		<p><xsl:apply-templates select=".//product"/></p>
+		<xsl:apply-templates select=".//abstract | .//trans-abstract"/>
+		
 	</xsl:template>
 
 	<xsl:template match="abstract | trans-abstract">
@@ -615,14 +619,17 @@
 	</xsl:template>
 
 	<xsl:template match="xref">
-		<xsl:if test="@ref-type='fn'">
-			<a name="back_{@rid}"/>
-		</xsl:if>
 		<a href="#{@rid}">
 			<xsl:apply-templates select="*|text()"/>
 		</a>
 	</xsl:template>
-
+	
+	<xsl:template match="xref[@ref-type='fn']">
+		<sup><a href="#back_{@rid}">
+			<xsl:apply-templates select="*|text()"/>
+		</a></sup>
+	</xsl:template>
+	
 	<xsl:template match="xref[@ref-type='bibr']">
 		<xsl:choose>
 			<xsl:when test="normalize-space(.//text())=''">
@@ -715,7 +722,7 @@
 	</xsl:template>
 	<xsl:template match="inline-formula">
 		<span class="inline-formula">
-			<xsl:apply-templates/>
+			<xsl:apply-templates select="*|text()"/>
 		</span>
 	</xsl:template>
 	<xsl:template match="disp-formula/label">
@@ -724,7 +731,7 @@
 	<xsl:template match="disp-formula">
 		<div class="disp-formula">
 			<span class="formula">
-				<xsl:apply-templates select="*[name()!='label']"></xsl:apply-templates>
+				<xsl:apply-templates select="*[name()!='label']|text()"></xsl:apply-templates>
 			</span>
 			<xsl:apply-templates select="label"></xsl:apply-templates>			
 		</div>
@@ -941,6 +948,8 @@
 			<xsl:apply-templates select="@* | * | text()"/>
 		</xsl:element>
 	</xsl:template>
+	<xsl:template match="table//break"><br/>
+	</xsl:template>
 	<xsl:template match="table//xref">
 		<xsl:if test="@ref-type='fn'">
 			<a name="back_{@rid}"/>
@@ -1104,21 +1113,23 @@
 		</div>
 	</xsl:template>
 	<xsl:template match="back/fn-group/fn">
-		<xsl:apply-templates select="@*|*|text()"/>
+		<xsl:apply-templates select="@*|*[name()!='label']|text()"/>
 	</xsl:template>
 	<xsl:template match="back/fn-group/fn/@fn-type"> </xsl:template>
 	<xsl:template match="back/fn-group/fn/@id">
 		<a name="back_{../@id}"/>
 	</xsl:template>
 	<xsl:template match="back/fn-group/fn/label">
-		<p class="fn-label"><xsl:value-of select="."/></p>
+		<span class="fn-label"><xsl:value-of select="."/></span>
 	</xsl:template>
 	<xsl:template match="back/fn-group/fn/p">
 		<p class="fn">
+			<xsl:apply-templates select="../label"/>
 			<xsl:apply-templates select="*|text()"/>
 		</p>
 	</xsl:template>
-
+	
+	
 	<xsl:template match="sub-article[@article-type!='translation' or not(@article-type)]">
 		<div class="sub-article" id="{@id}">
 			<xsl:apply-templates select=".//title-group"/>
@@ -1360,39 +1371,29 @@
 		</xsl:choose>
 	</xsl:template>
 	<xsl:template match="media">
-		<xsl:variable name="src">
-			<xsl:value-of select="$var_IMAGE_PATH"/>
-			<xsl:value-of select="@xlink:href"/>
-		</xsl:variable>
-
-		<a target="_blank">
-			<xsl:attribute name="href">
-				<xsl:value-of select="$src"/>
-			</xsl:attribute>
-		</a>
-
-		<embed width="100%" height="400">
-			<xsl:attribute name="src">
-				<xsl:value-of select="$src"/>
-			</xsl:attribute>
-		</embed>
-	</xsl:template>
-	<xsl:template match="media[@mime-subtype='pdf']">
-		<xsl:variable name="src">/pdf<xsl:value-of
-				select="substring-after($var_IMAGE_PATH,'/img/revistas')"/><xsl:value-of
-				select="@xlink:href"/></xsl:variable>
-
-		<a target="_blank">
-			<xsl:attribute name="href">
-				<xsl:value-of select="$src"/>
-			</xsl:attribute>
-			<xsl:if test="normalize-space(text())=''"><xsl:value-of
-				select="@xlink:href"/></xsl:if>
-		</a>
-
-		<!--embed width="100%" height="400">
-                <xsl:attribute name="src"><xsl:value-of select="$src"/></xsl:attribute> 
-            </embed-->
+		<xsl:variable name="relative_path"><xsl:choose><xsl:when test="contains(@xlink:href,'.pdf')">/pdf<xsl:value-of
+			select="substring-after($var_IMAGE_PATH,'/img/revistas')"/></xsl:when><xsl:otherwise><xsl:value-of select="$var_IMAGE_PATH"/></xsl:otherwise></xsl:choose></xsl:variable>
+		
+		<xsl:variable name="src"><xsl:if test="not(contains(@xlink:href,':'))"><xsl:value-of select="$relative_path"/></xsl:if><xsl:value-of
+			select="@xlink:href"/></xsl:variable>
+		
+		<xsl:choose>
+			<xsl:when test="contains(@xlink:href,'.pdf')">
+				<a target="_blank">
+					<xsl:attribute name="href"><xsl:value-of select="$src"/></xsl:attribute>
+					<xsl:choose>
+						<xsl:when test="normalize-space(text())=''"><xsl:value-of select="@xlink:href"/></xsl:when>
+						<xsl:otherwise><xsl:apply-templates select="*|text()"></xsl:apply-templates></xsl:otherwise>
+					</xsl:choose>
+				</a>
+			</xsl:when>
+			<xsl:otherwise>
+				<embed width="100%" height="400">
+					<xsl:if test="contains(@xlink:href,'.avi')"><xsl:attribute name="type">video/x-msvideo</xsl:attribute></xsl:if>
+					<xsl:attribute name="src"><xsl:value-of select="$src"/></xsl:attribute> 
+				</embed>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 
 	<xsl:template match="mml:math|math">
@@ -1434,55 +1435,44 @@
 		</div>
 	</xsl:template>
 	
-	<xsl:template match="supplementary-material">
-		<xsl:if test="@id">
-			<a name="{@id}"/>
-		</xsl:if>
+	<xsl:template match="supplementary-material|inline-supplementary-material">
+		<a name="{@id}"/>
 		<xsl:choose>
-			<xsl:when test="not(*) and normalize-space(text())=''">
-				<xsl:variable name="src">/pdf<xsl:value-of
-					select="substring-after($var_IMAGE_PATH,'/img/revistas')"/><xsl:value-of
-						select="@xlink:href"/></xsl:variable>
+			<xsl:when test="media">
+				<xsl:apply-templates select="label|media"/>
+			</xsl:when>
+			<xsl:when test="@xlink:href">
+				<xsl:variable name="relative_path"><xsl:choose><xsl:when test="contains(@xlink:href,'pdf')">/pdf<xsl:value-of
+					select="substring-after($var_IMAGE_PATH,'/img/revistas')"/></xsl:when><xsl:otherwise><xsl:value-of select="$var_IMAGE_PATH"/></xsl:otherwise></xsl:choose></xsl:variable>
+				
+				<xsl:variable name="src"><xsl:if test="not(contains(@xlink:href,':'))"><xsl:value-of select="$relative_path"/></xsl:if><xsl:value-of
+							select="@xlink:href"/></xsl:variable>
 				<a target="_blank">
 					<xsl:attribute name="href">
 						<xsl:value-of select="$src"/>
 					</xsl:attribute>
-					<xsl:value-of
-						select="@xlink:href"/>
+					<xsl:choose>
+						<xsl:when test="not(*) and normalize-space(text())=''">
+							<xsl:value-of select="@xlink:href"/>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:apply-templates select="*|text()" mode="HTML-TEXT"/>
+						</xsl:otherwise>
+					</xsl:choose>
 				</a>
-				<!--embed width="100%" height="400">
-                <xsl:attribute name="src"><xsl:value-of select="$src"/></xsl:attribute> 
-            	</embed-->
 			</xsl:when>
-			<xsl:otherwise>
-				<div class="panel">
-					<xsl:call-template name="named-anchor"/>
-					<xsl:apply-templates select="." mode="label"/>
-					<xsl:apply-templates/>
-					</div>
-			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
-	
-	<xsl:template match="inline-supplementary-material">
-		<xsl:variable name="src">/pdf<xsl:value-of
-					select="substring-after($var_IMAGE_PATH,'/img/revistas')"/><xsl:value-of
-						select="@xlink:href"/></xsl:variable>
-		<a target="_blank">
-			<xsl:attribute name="href">
-				<xsl:value-of select="$src"/>
-			</xsl:attribute>
-			<xsl:choose>
-				<xsl:when test="normalize-space(text())=''">
-					<xsl:value-of
-						select="@xlink:href"/>
-				</xsl:when>
-				<xsl:otherwise>
-					<xsl:value-of select="."/>
-				</xsl:otherwise>
-			</xsl:choose>
-		</a>
+	<xsl:template match="supplementary-material/label">
+		<p class="label"><xsl:apply-templates select="*|text()"/></p>
 	</xsl:template>
+	<xsl:template match="supplementary-material/caption">
+		<p class="caption"><xsl:apply-templates select="*|text()"/></p>
+	</xsl:template>
+	<xsl:template match="supplementary-material//title">
+		<span class="caption"><xsl:apply-templates select="*|text()"/></span>
+	</xsl:template>
+	
 	
 	<xsl:template match="product">
 		<xsl:apply-templates select="person-group"/>. <xsl:apply-templates select="source"/>. <xsl:apply-templates select="year"/>. 
@@ -1506,5 +1496,16 @@
 	</xsl:template>
 	<xsl:template match="product/isbn">
 		ISBN: <xsl:value-of select="."/>.
+	</xsl:template>
+	
+	<xsl:template match="list-item[label and p]">
+		<xsl:apply-templates select="p"/>
+	</xsl:template>
+	
+	<xsl:template match="list-item[label]/p">
+		<p>
+			<xsl:value-of select="../label"/>. 
+			<xsl:apply-templates select="*|text()"/>
+		</p>
 	</xsl:template>
 </xsl:stylesheet>
