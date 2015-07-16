@@ -1159,18 +1159,34 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
         <script type="text/javascript" src="{$PATH}/static/js/modernizr.custom.js"/>
         <script type="text/javascript" src="{$PATH}/static/js/jquery.1.9.1.min.js"/>
         <script type="text/javascript" src="{$PATH}/static/js/bootstrap.min.js"/>
-
         <script type="text/javascript" src="{$PATH}/static/js/scielo-article.js"/>
     </xsl:template>
 
     <xsl:template match="list" mode="HTML-TEXT">
+        <a name="{@id}"/>
         <ul>
-            <xsl:apply-templates select="@* | *|text()" mode="HTML-TEXT"/>
+            <xsl:apply-templates select="@*[name()!='id'] | *|text()" mode="HTML-TEXT"/>
         </ul>
     </xsl:template>
-    <xsl:template match="list[@list-type='ordered' ]" mode="HTML-TEXT">
-        <ol>
-            <xsl:apply-templates select="@* | *|text()" mode="HTML-TEXT"/>
+    <xsl:template match="list[@list-type='simple']" mode="HTML-TEXT">
+        <a name="{@id}"/>
+        <ul style="list-style-type: none">
+            <xsl:apply-templates select="@*[name()!='id'] | *|text()" mode="HTML-TEXT"/>
+        </ul>
+    </xsl:template>
+    <xsl:template match="list[@list-type='alpha-lower' or @list-type='alpha-upper' or @list-type='roman-lower' or @list-type='roman-upper' or @list-type='order']" mode="HTML-TEXT">
+        <xsl:variable name="type">
+            <xsl:choose>
+                <xsl:when test="@list-type='alpha-lower'">a</xsl:when>
+                <xsl:when test="@list-type='alpha-upper'">A</xsl:when>
+                <xsl:when test="@list-type='roman-lower'">i</xsl:when>
+                <xsl:when test="@list-type='roman-upper'">I</xsl:when>
+                <xsl:otherwise>1</xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <a name="{@id}"/>
+        <ol type="{$type}">
+            <xsl:apply-templates select="@*[name()!='id'] | *|text()" mode="HTML-TEXT"/>
         </ol>
     </xsl:template>
     <xsl:template match="list-item" mode="HTML-TEXT">
@@ -1178,13 +1194,24 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
             <xsl:apply-templates select="@* | *|text()" mode="HTML-TEXT"/>
         </li>
     </xsl:template>
-
-
+    
+    <xsl:template match="list-item[label and p]" mode="HTML-TEXT">
+        <xsl:apply-templates select="p" mode="HTML-TEXT"/>
+    </xsl:template>
+    
     <xsl:template match="list-item/p | sup | sub " mode="HTML-TEXT">
         <xsl:element name="{name()}">
             <xsl:apply-templates select="@* | *|text()" mode="HTML-TEXT"/>
         </xsl:element>
     </xsl:template>
+    
+    <xsl:template match="list-item[label]/p" mode="HTML-TEXT">
+        <p>
+            <xsl:value-of select="../label"/>.  
+            <xsl:apply-templates select="*|text()" mode="HTML-TEXT"/>
+        </p>
+    </xsl:template>
+    
     <xsl:template match="italic" mode="HTML-TEXT">
         <em>
             <xsl:apply-templates select="@* | *|text()" mode="HTML-TEXT"/>
@@ -1311,7 +1338,7 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
             <div class="span8">
                 <p>
                     <blockquote>
-                        <xsl:apply-templates select="*|text()"/>
+                        <xsl:apply-templates select="*|text()" mode="HTML-TEXT"/>
                     </blockquote>
                 </p>
             </div>
@@ -1320,6 +1347,11 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
             <div class="span4"> </div>
         </div>
 
+    </xsl:template>
+    <xsl:template match="disp-quote/p" mode="HTML-TEXT">
+        <xsl:element name="{name()}">
+            <xsl:apply-templates select="@* | *|text()" mode="HTML-TEXT"/>
+        </xsl:element>
     </xsl:template>
     <xsl:template match="ext-link|uri" mode="HTML-TEXT">
         <a href="{@xlink:href}" target="_blank">
@@ -1367,35 +1399,70 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
         </xsl:choose>
     </xsl:template>
     <xsl:template match="supplementary-material" mode="HTML-TEXT">
-        <xsl:apply-templates select="media"/>
+        <a name="{@id}"/>
+        <xsl:choose>
+            <xsl:when test="media">
+                <h1><xsl:value-of select="label"/></h1>
+                
+                <xsl:apply-templates select="media"/>
+            </xsl:when>
+            <xsl:when test="@xlink:href">
+                <xsl:variable name="src"><xsl:choose>
+                    <xsl:when test="contains(@xlink:href,':')"><xsl:value-of select="@xlink:href"/></xsl:when><xsl:otherwise><xsl:value-of select="$PDF_PATH"/><xsl:value-of select="@xlink:href"/></xsl:otherwise>
+                </xsl:choose></xsl:variable>
+                <a target="_blank">
+                    <xsl:attribute name="href">
+                        <xsl:value-of select="$src"/>
+                    </xsl:attribute>
+                    <xsl:choose>
+                        <xsl:when test="not(*) and normalize-space(text())=''">
+                            <xsl:value-of select="@xlink:href"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:apply-templates select="*|text()" mode="HTML-TEXT"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </a>
+            </xsl:when>
+        </xsl:choose>
     </xsl:template>
-    <xsl:template match="back/app-group/supplementary-material" mode="HTML-TEXT">
-        <h1 id="{@id}"><xsl:value-of select="label"/></h1>
-        <xsl:apply-templates select="media"/>
+    <xsl:template match="supplementary-material/label" mode="HTML-TEXT">
+        <h1><xsl:value-of select="."></xsl:value-of></h1>
     </xsl:template>
-
+    <xsl:template match="supplementary-material/caption" mode="HTML-TEXT">
+        <p><xsl:apply-templates select="*|text()"/></p>
+    </xsl:template>
+    
     <xsl:template match="media">
-        <xsl:variable name="src"><xsl:value-of select="$IMAGE_PATH"/><xsl:value-of select="@xlink:href"/></xsl:variable>
+        <xsl:variable name="src"><xsl:choose>
+            <xsl:when test="contains(@xlink:href,':')"><xsl:value-of select="@xlink:href"/></xsl:when><xsl:otherwise><xsl:value-of select="$IMAGE_PATH"/><xsl:value-of select="@xlink:href"/></xsl:otherwise>
+        </xsl:choose></xsl:variable>
+        
         <a target="_blank">
             <xsl:attribute name="href"><xsl:value-of select="$src"/></xsl:attribute>
-            <xsl:if test="normalize-space(text())=''">[View]</xsl:if>
+            <xsl:choose>
+                <xsl:when test="normalize-space(text())=''"><xsl:value-of select="@xlink:href"/></xsl:when>
+                <xsl:otherwise><xsl:apply-templates select="*|text()"></xsl:apply-templates></xsl:otherwise>
+            </xsl:choose>
         </a>
-        
-        <embed width="100%" height="400">
-            <xsl:attribute name="src"><xsl:value-of select="$src"/></xsl:attribute> 
-        </embed>
     </xsl:template>
     <xsl:template match="media[@mime-subtype='pdf']">
-        <xsl:variable name="src"><xsl:value-of select="$PDF_PATH"/><xsl:value-of select="@xlink:href"/></xsl:variable>
+        <xsl:variable name="src"><xsl:choose>
+            <xsl:when test="contains(@xlink:href,':')"><xsl:value-of select="@xlink:href"/></xsl:when><xsl:otherwise><xsl:value-of select="$PDF_PATH"/><xsl:value-of select="@xlink:href"/></xsl:otherwise>
+        </xsl:choose></xsl:variable>
         <a target="_blank">
             <xsl:attribute name="href"><xsl:value-of select="$src"/></xsl:attribute>
-            <xsl:if test="normalize-space(text())=''">[View]</xsl:if>
+            <xsl:choose>
+                <xsl:when test="normalize-space(text())=''"><xsl:value-of select="@xlink:href"/></xsl:when>
+                <xsl:otherwise><xsl:apply-templates select="*|text()"></xsl:apply-templates></xsl:otherwise>
+            </xsl:choose>
         </a>
         
         <!--embed width="100%" height="400">
                 <xsl:attribute name="src"><xsl:value-of select="$src"/></xsl:attribute> 
         </embed-->
     </xsl:template>
+    
     <xsl:template match="mml:math|math" mode="HTML-TEXT">
         <xsl:copy-of select="."/>
     </xsl:template>   
