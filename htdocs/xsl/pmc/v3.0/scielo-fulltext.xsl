@@ -722,7 +722,7 @@
 	</xsl:template>
 	<xsl:template match="inline-formula">
 		<span class="inline-formula">
-			<xsl:apply-templates/>
+			<xsl:apply-templates select="*|text()"/>
 		</span>
 	</xsl:template>
 	<xsl:template match="disp-formula/label">
@@ -731,7 +731,7 @@
 	<xsl:template match="disp-formula">
 		<div class="disp-formula">
 			<span class="formula">
-				<xsl:apply-templates select="*[name()!='label']"></xsl:apply-templates>
+				<xsl:apply-templates select="*[name()!='label']|text()"></xsl:apply-templates>
 			</span>
 			<xsl:apply-templates select="label"></xsl:apply-templates>			
 		</div>
@@ -1113,21 +1113,23 @@
 		</div>
 	</xsl:template>
 	<xsl:template match="back/fn-group/fn">
-		<xsl:apply-templates select="@*|*|text()"/>
+		<xsl:apply-templates select="@*|*[name()!='label']|text()"/>
 	</xsl:template>
 	<xsl:template match="back/fn-group/fn/@fn-type"> </xsl:template>
 	<xsl:template match="back/fn-group/fn/@id">
 		<a name="back_{../@id}"/>
 	</xsl:template>
 	<xsl:template match="back/fn-group/fn/label">
-		<p class="fn-label"><xsl:value-of select="."/></p>
+		<span class="fn-label"><xsl:value-of select="."/></span>
 	</xsl:template>
 	<xsl:template match="back/fn-group/fn/p">
 		<p class="fn">
+			<xsl:apply-templates select="../label"/>
 			<xsl:apply-templates select="*|text()"/>
 		</p>
 	</xsl:template>
-
+	
+	
 	<xsl:template match="sub-article[@article-type!='translation' or not(@article-type)]">
 		<div class="sub-article" id="{@id}">
 			<xsl:apply-templates select=".//title-group"/>
