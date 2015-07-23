@@ -90,7 +90,7 @@ switch($acao){
 		$_mail->Subject  = ARTICLE_SUGGESTION." ".$cgi["fromName"];
 		$_mail->Host     = $mailcredentials['host'];
 		$_mail->Port     = $mailcredentials['port'];
-		$_mail->Mailer   = 'smtp';
+		$_mail->Mailer   = 'mail';
 		$_mail->IsHTML(true);
 		$_mail->Body = $msg;
 		$_mail->AltBody  = $msg_no_html;
@@ -230,7 +230,7 @@ switch($acao){
 								</TR>								
 								<INPUT type="hidden" name="form" value="1">								
 								<INPUT type="hidden" name="id" value="24039">								
-								<INPUT type="hidden" name="titulo" value="Resolução RE-20060922-3169-">
+								<INPUT type="hidden" name="titulo" value="ResoluÃ§Ã£o RE-20060922-3169-">
 							</TABLE>
 						<?}?>
 						</FORM>
