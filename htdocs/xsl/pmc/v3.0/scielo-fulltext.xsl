@@ -960,8 +960,9 @@
 	</xsl:template>
 	<xsl:template match="table-wrap//fn" mode="footnote">
 		<a name="{@id}"/>
-		<xsl:apply-templates select="* | text()"/>
-
+		<p>
+			<xsl:apply-templates select="* | text()"/>
+		</p>
 	</xsl:template>
 	<xsl:template match="table-wrap//fn//label">
 		<sup>
@@ -969,9 +970,7 @@
 		</sup>
 	</xsl:template>
 	<xsl:template match="table-wrap//fn/p">
-		<p class="fn">
-			<xsl:apply-templates select="*|text()"/>
-		</p>
+		<xsl:apply-templates select="*|text()"/>
 	</xsl:template>
 
 	<xsl:template match="history">
@@ -1113,7 +1112,29 @@
 		</div>
 	</xsl:template>
 	<xsl:template match="back/fn-group/fn">
-		<xsl:apply-templates select="@*|*[name()!='label']|text()"/>
+		<div class="fn">
+			<xsl:apply-templates select="title"/>
+		<xsl:choose>
+			<xsl:when test="count(p)&gt;1">
+				<xsl:choose>
+					<xsl:when test="label">
+						<p>
+							<xsl:apply-templates select="label"/>
+						</p>
+						<div class="fn-block">
+							<xsl:apply-templates select="@*|*[name()!='label' and name()!='title']|text()"/>
+						</div>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:apply-templates select="@*|*[name()!='label' and name()!='title']|text()"/>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:apply-templates select="@*|*[name()!='label' and name()!='title']|text()"/>
+			</xsl:otherwise>
+		</xsl:choose>
+		</div>
 	</xsl:template>
 	<xsl:template match="back/fn-group/fn/@fn-type"> </xsl:template>
 	<xsl:template match="back/fn-group/fn/@id">
@@ -1122,9 +1143,14 @@
 	<xsl:template match="back/fn-group/fn/label">
 		<span class="fn-label"><xsl:value-of select="."/></span>
 	</xsl:template>
+	<xsl:template match="back/fn-group/fn/title">
+		<p class="sub-subsec"><xsl:value-of select="."/></p>
+	</xsl:template>
 	<xsl:template match="back/fn-group/fn/p">
-		<p class="fn">
+		<p>
+			<xsl:if test="count(..//p)=1">
 			<xsl:apply-templates select="../label"/>
+			</xsl:if>
 			<xsl:apply-templates select="*|text()"/>
 		</p>
 	</xsl:template>
