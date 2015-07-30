@@ -215,3 +215,9 @@ padding-top: 0px;
 	font-size: 8pt;
 	color: black
 }
+.fn-block {
+    margin-left: 10px;
+}
+.fn {
+    margin-top: 20px;
+}
