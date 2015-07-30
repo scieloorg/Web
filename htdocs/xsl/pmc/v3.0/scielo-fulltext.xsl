@@ -500,7 +500,7 @@
 		<xsl:value-of select="normalize-space(.)"/>
 	</xsl:template>
 	<xsl:template match="contrib/xref">
-		<sup><xsl:value-of select="."/>
+		<sup><a href="#{@rid}"><xsl:value-of select="."/>
 		<xsl:if test="normalize-space(.)=''">
 				<xsl:variable name="label">
 					<xsl:choose>
@@ -511,7 +511,7 @@
 				<xsl:if test="string(number($label)) != 'NaN'">
 					<xsl:value-of select="string(number($label))"/>
 				</xsl:if>
-		</xsl:if>&#160;</sup>
+		</xsl:if></a>&#160;</sup>
 	</xsl:template>
 	<xsl:template match="aff">
 		<p class="aff"><a name="{@id}"/>
