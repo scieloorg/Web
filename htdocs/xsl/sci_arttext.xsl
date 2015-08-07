@@ -186,7 +186,7 @@
 		<meta name="citation_lastpage" content="{ISSUE/ARTICLE/@LPAGE}"/>
 		<meta name="citation_id" content="{ISSUE/ARTICLE/@DOI}"/>
 
-		<xsl:apply-templates select="ISSUE/ARTICLE/LANGUAGES/PDF_LANGS/LANG" name="meta_citation_pdf_url">
+		<xsl:apply-templates select="ISSUE/ARTICLE/LANGUAGES/PDF_LANGS/LANG" mode="meta_citation_pdf_url">
 			<xsl:with-param name="orig_lang" select="ISSUE/ARTICLE/@ORIGINALLANG" />
 		</xsl:apply-templates>
 
