@@ -1764,7 +1764,7 @@ Parameters:
 				select="$translations/xslid[@id='sci_artref']/text[@find = 'ahead_of_print_epub']"
 				/>&#160;<xsl:call-template name="ShowDate">
 				<xsl:with-param name="DATEISO">
-					
+					<xsl:value-of select="$date"/>
 				</xsl:with-param>
 				<xsl:with-param name="LANG" select="//CONTROLINFO/LANGUAGE"/>
 				<xsl:with-param name="ABREV" select="1"/>
