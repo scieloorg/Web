@@ -165,9 +165,18 @@
         <xsl:param name="page"/>
         <xsl:choose>
             <xsl:when test="$script = 'sci_pdf' ">
-                <xsl:attribute name="href">
-                    <xsl:value-of select="$control_info/SCIELO_INFO/PATH_DATA"/>scielo.php?script=<xsl:value-of select="$script"/>&amp;<xsl:if test="$seq">pid=<xsl:value-of select="$seq"/>&amp;</xsl:if>lng=<xsl:value-of select="normalize-space($control_info/LANGUAGE)"/>&amp;nrm=<xsl:value-of select="normalize-space($control_info/STANDARD)"/><xsl:if test="$txtlang">&amp;tlng=<xsl:value-of select="normalize-space($txtlang)"/></xsl:if><xsl:if test="$file">&amp;file=<xsl:value-of select="$file"/></xsl:if>
-                </xsl:attribute>
+                <xsl:choose>
+                    <xsl:when test="//isgooglebot = 'true'">
+                        <xsl:attribute name="href">
+                            <xsl:value-of select="$control_info/SCIELO_INFO/PATH_DATA"/>pdf/<xsl:value-of select="//ARTICLE[@PID=$seq]/LANGUAGES/PDF_LANGS/LANG[.=$txtlang]/@TRANSLATION"/>
+                        </xsl:attribute>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:attribute name="href">
+                            <xsl:value-of select="$control_info/SCIELO_INFO/PATH_DATA"/>scielo.php?script=<xsl:value-of select="$script"/>&amp;<xsl:if test="$seq">pid=<xsl:value-of select="$seq"/>&amp;</xsl:if>lng=<xsl:value-of select="normalize-space($control_info/LANGUAGE)"/>&amp;nrm=<xsl:value-of select="normalize-space($control_info/STANDARD)"/><xsl:if test="$txtlang">&amp;tlng=<xsl:value-of select="normalize-space($txtlang)"/></xsl:if><xsl:if test="$file">&amp;file=<xsl:value-of select="$file"/></xsl:if>
+                        </xsl:attribute>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:attribute name="href">
