@@ -266,24 +266,28 @@
                         ,fi
                      fi,
                     ,|Epub |v9223|.|
-                    ,if v3000='en' then
-                    	,' Retrieved ',
-                    	
+                    ,if p(v237) then
+                        ,'<a href="https://dx.doi.org/',v237,'">https://dx.doi.org/',v237,'</a>',
+                    ,else
+                        ,if v3000='en' then
+                        	,' Retrieved ',
+                        	
+                        ,fi
+                        ,if v3000='es' then
+                        	,' Recuperado en ',
+                        	
+                        ,fi
+                        ,if v3000='pt' then
+                        	,' Recuperado em ',
+                        ,fi
+                        ,v1000,', ' ,
+                        ,if v3000='en' then 
+                            ,' from ',
+                        ,else 
+                        	,' de ',
+                        ,fi
+                        ,'http://',v7009,'/scielo.php?script=sci_arttext&amp;pid=',v880,'&amp;lng=',v3000,'&amp;tlng=',v3100,'. ',
                     ,fi
-                    ,if v3000='es' then
-                    	,' Recuperado en ',
-                    	
-                    ,fi
-                    ,if v3000='pt' then
-                    	,' Recuperado em ',
-                    ,fi
-                    ,v1000,', ' ,
-                    ,if v3000='en' then 
-                        ,' from ',
-                    ,else 
-                    	,' de ',
-                    ,fi
-                    ,'http://',v7009,'/scielo.php?script=sci_arttext&amp;pid=',v880,'&amp;lng=',v3000,'&amp;tlng=',v3100,'. ',
                     ']]></APA> '
                     
                 </pft>
