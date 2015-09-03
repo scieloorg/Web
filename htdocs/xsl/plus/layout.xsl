@@ -1470,6 +1470,12 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
         <xsl:apply-templates select="person-group"/>. <xsl:apply-templates select="source"/>. <xsl:apply-templates select="year"/>. 
         <xsl:apply-templates select="publisher-name"/> (<xsl:apply-templates select="publisher-loc"/>). <xsl:apply-templates select="size"/>. 	
     </xsl:template>
+    <xsl:template match="article-meta//product[comment]">
+        <xsl:apply-templates select="*|text()"/> 	
+    </xsl:template>
+    <xsl:template match="article-meta//product[comment]/*">
+        <xsl:value-of select="."/><xsl:if test="position()!=last() and not(contains(substring(.,string-length(.)-2),'.'))">. </xsl:if> 
+    </xsl:template>
     <xsl:template match="article-meta//product[@product-type='book']">
         <xsl:apply-templates select="source"/>. <xsl:apply-templates select="person-group"/>. (<xsl:apply-templates select="year"/>). <xsl:apply-templates select="publisher-loc"/>: 
         <xsl:apply-templates select="publisher-name"/>, <xsl:apply-templates select="year"/>, <xsl:apply-templates select="size"/>. <xsl:apply-templates select="isbn"/>		
