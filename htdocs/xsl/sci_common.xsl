@@ -1134,7 +1134,12 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
         </xsl:if>
     </xsl:template>
     
-    <xsl:template match="permissions">
+    <xsl:template match="PERMISSIONS[@source='site']/permissions">
+        <div class="license">
+            <xsl:copy-of select=".//license/p"/>    
+        </div>
+    </xsl:template>
+    <xsl:template match="PERMISSIONS[@source!='site']/permissions">
         <div class="license">
             <xsl:variable name="license_href"><xsl:choose>
                 <xsl:when test=".//license/@xlink:href"><xsl:value-of select=".//license/@xlink:href"/></xsl:when>
@@ -1149,7 +1154,7 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
                 <xsl:when test=".//img/@src"><xsl:value-of select=".//img/@src"/></xsl:when>
                 <xsl:otherwise>http://i.creativecommons.org/l<xsl:value-of select="substring-after($default_license_href,'licenses')"/>/88x31.png</xsl:otherwise>
             </xsl:choose></xsl:variable>
-        
+            
             <xsl:variable name="lang_license_href"><xsl:if test="$interfaceLang!='' and $default_license_href!=''"><xsl:value-of select="$default_license_href"/>/deed.<xsl:value-of select="$interfaceLang"/></xsl:if></xsl:variable>
             <xsl:choose>
                 <xsl:when test="$lang_license_href!=''">
@@ -1183,7 +1188,6 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
             </xsl:choose>
         </div>
     </xsl:template>
-    
     <xsl:template match="*" mode="footer-journal">
         <xsl:choose>
             <xsl:when test="../..//LICENSE='cc' or .//LICENSE='cc'">
