@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML">
+	
+	<xsl:variable name="use_original_aff" select="count($original//institution[@content-type='original'])&gt;0"/>
+	<xsl:variable name="affiliations" select="$original//article-meta//aff"/>
 	<xsl:template match="article-meta/permissions">
 		<div class="article-license">
 			<xsl:variable name="license_href"><xsl:choose>
@@ -500,40 +503,56 @@
 		<xsl:value-of select="normalize-space(.)"/>
 	</xsl:template>
 	<xsl:template match="contrib/xref">
-		<sup><a href="#{@rid}"><xsl:value-of select="."/>
-		<xsl:if test="normalize-space(.)=''">
-				<xsl:variable name="label">
-					<xsl:choose>
-						<xsl:when test="contains(@rid,'aff')"><xsl:value-of select="substring-after(@rid,'aff')"/></xsl:when>
-						<xsl:when test="contains(@rid,'a')"><xsl:value-of select="substring-after(@rid,'a')"/></xsl:when>
-						<xsl:otherwise><xsl:value-of select="@rid"/></xsl:otherwise>
-					</xsl:choose></xsl:variable>
-				<xsl:if test="string(number($label)) != 'NaN'">
-					<xsl:value-of select="string(number($label))"/>
-				</xsl:if>
-		</xsl:if></a>&#160;</sup>
+		<xsl:variable name="rid" select="@rid"/>
+		<xsl:variable name="doit"><xsl:choose>
+			<xsl:when test="normalize-space(.)=''">
+				<xsl:choose>
+					<xsl:when test="$use_original_aff">
+						<xsl:if test="normalize-space($affiliations[@id=$rid]/institution[@content-type='original'])!=''">
+							doit
+						</xsl:if>
+					</xsl:when>
+					<xsl:otherwise>doit</xsl:otherwise>
+				</xsl:choose>
+			</xsl:when>
+			<xsl:otherwise>doit</xsl:otherwise>
+		</xsl:choose></xsl:variable>
+		<xsl:if test="normalize-space($doit)='doit'">
+			<sup>
+				<a href="#{@rid}"><xsl:value-of select="."/>
+					<xsl:if test="normalize-space(.)=''">
+						<xsl:variable name="label">
+							<xsl:choose>
+								<xsl:when test="contains(@rid,'aff')"><xsl:value-of select="substring-after(@rid,'aff')"/></xsl:when>
+								<xsl:when test="contains(@rid,'a')"><xsl:value-of select="substring-after(@rid,'a')"/></xsl:when>
+								<xsl:otherwise><xsl:value-of select="@rid"/></xsl:otherwise>
+							</xsl:choose></xsl:variable>
+						<xsl:if test="string(number($label)) != 'NaN'">
+							<xsl:value-of select="string(number($label))"/>
+						</xsl:if>
+					</xsl:if>
+				</a>&#160;
+			</sup>
+		</xsl:if>
+		
 	</xsl:template>
 	<xsl:template match="aff">
+		<xsl:choose>
+			<xsl:when test="$use_original_aff">
+				<xsl:if test="normalize-space(institution[@content-type='original'])!=''">
+					<xsl:apply-templates select="." mode="aff-parag"/>
+				</xsl:if>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:apply-templates select="." mode="aff-parag"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+	<xsl:template match="aff" mode="aff-parag">
 		<p class="aff"><a name="{@id}"/>
-			<sup><xsl:choose>
-				<xsl:when test="label">	
-					<xsl:apply-templates select="label"/>
-				</xsl:when>
-				<xsl:otherwise>
-					<xsl:variable name="label">
-					<xsl:choose>
-						<xsl:when test="contains(@id,'aff')"><xsl:value-of select="substring-after(@id,'aff')"/></xsl:when>
-						<xsl:when test="contains(@id,'a')"><xsl:value-of select="substring-after(@id,'a')"/></xsl:when>
-						<xsl:otherwise><xsl:value-of select="@id"/></xsl:otherwise>
-					</xsl:choose></xsl:variable>
-					<xsl:if test="string(number($label)) != 'NaN'">
-						<xsl:value-of select="string(number($label))"/>
-					</xsl:if>
-				</xsl:otherwise>
-			</xsl:choose></sup>
-
+			<xsl:apply-templates select="." mode="aff-label"/>
 			<xsl:choose>
-				<xsl:when test="institution[@content-type='original']">
+				<xsl:when test="normalize-space(institution[@content-type='original'])!=''">
 					<xsl:apply-templates select="institution[@content-type='original']"/>
 				</xsl:when>
 				<xsl:otherwise>
@@ -565,7 +584,25 @@
 			</xsl:choose>
 		</p>
 	</xsl:template>
-
+	<xsl:template match="aff" mode="aff-label">
+		<sup><xsl:choose>
+			<xsl:when test="label">	
+				<xsl:apply-templates select="label"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:variable name="label">
+				<xsl:choose>
+					<xsl:when test="contains(@id,'aff')"><xsl:value-of select="substring-after(@id,'aff')"/></xsl:when>
+					<xsl:when test="contains(@id,'a')"><xsl:value-of select="substring-after(@id,'a')"/></xsl:when>
+					<xsl:otherwise><xsl:value-of select="@id"/></xsl:otherwise>
+				</xsl:choose></xsl:variable>
+				<xsl:if test="string(number($label)) != 'NaN'">
+					<xsl:value-of select="string(number($label))"/>
+				</xsl:if>
+			</xsl:otherwise>
+		</xsl:choose></sup>
+	</xsl:template>
+	
 	<xsl:template match="institution[@content-type='original']">
 		<xsl:apply-templates select="*|text()" mode="aff-original"/>
 	</xsl:template>
