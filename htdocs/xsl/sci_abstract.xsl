@@ -179,8 +179,15 @@
 	<xsl:template match="ABSTRACT//*">
 		<xsl:apply-templates select="*|text()"/>
 	</xsl:template>
-	<xsl:template match="ABSTRACT/sec/title"><p class="subsec">
-		<xsl:apply-templates select="*|text()"/></p>
+	<xsl:template match="ABSTRACT//p">
+		<p>
+			<xsl:apply-templates select="*|text()"/>
+		</p>
+	</xsl:template>
+	<xsl:template match="ABSTRACT/title">
+	</xsl:template>
+	<xsl:template match="ABSTRACT/sec/title">
+		<p class="subsec"><xsl:apply-templates select="*|text()"/></p>
 	</xsl:template>
 	<xsl:template match="ABSTRACT/sec"><div>
 		<xsl:apply-templates select="*|text()"/></div>
