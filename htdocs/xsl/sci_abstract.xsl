@@ -16,21 +16,7 @@
 			<html xmlns="http://www.w3.org/1999/xhtml" >
 			<head>
 				<title>
-					<xsl:value-of select="TITLEGROUP/SHORTTITLE" disable-output-escaping="yes"/>&#160;
-				
-					<xsl:call-template name="GetStrip">
-						<xsl:with-param name="vol" select="CONTROLINFO/CURRENTISSUE/@VOL"/>
-						<xsl:with-param name="num" select="CONTROLINFO/CURRENTISSUE/@NUM"/>
-						<xsl:with-param name="suppl" select="CONTROLINFO/CURRENTISSUE/@SUPPL"/>
-						<xsl:with-param name="lang" select="normalize-space(CONTROLINFO/LANGUAGE)"/>
-						<xsl:with-param name="reviewType"><xsl:if test=".//ARTICLE/@hcomment!='1' or not(.//ARTICLE/@hcomment)">provisional</xsl:if></xsl:with-param>
-					</xsl:call-template>;
-				
-					<xsl:call-template name="ABSTR-TR">
-						<xsl:with-param name="LANG" select="normalize-space(CONTROLINFO/LANGUAGE)"/>
-					</xsl:call-template>:
-				
-				<xsl:value-of select="CONTROLINFO/PAGE_PID"/>
+					<xsl:value-of select="ARTICLE/NOHTML-TITLE" />
 				</title>
 				<meta http-equiv="Pragma" content="no-cache"/>
 				<meta http-equiv="Expires" content="Mon, 06 Jan 1990 00:00:01 GMT"/>
