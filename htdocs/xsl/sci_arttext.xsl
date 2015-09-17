@@ -217,9 +217,7 @@
 		<html xmlns="http://www.w3.org/1999/xhtml">
 			<head>
 				<title>
-					<xsl:value-of select="TITLEGROUP/TITLE" disable-output-escaping="yes"/> -
-						<xsl:value-of select="normalize-space(ISSUE/ARTICLE/TITLE)"
-						disable-output-escaping="yes"/>
+					<xsl:value-of select="ISSUE/ARTICLE/NOHTML-TITLE" />
 				</title>
 				<xsl:apply-templates select="." mode="meta_names"/>
 
@@ -350,7 +348,7 @@
 		<html xmlns="http://www.w3.org/1999/xhtml">
 			<head>
 				<title>
-					<xsl:apply-templates select="." mode="version-head-title"/>
+					<xsl:value-of select="ISSUE/ARTICLE/TITLE" />
 				</title>
 				<xsl:apply-templates select="." mode="meta_names"/>
 				<xsl:apply-templates select="." mode="version-css"/>
