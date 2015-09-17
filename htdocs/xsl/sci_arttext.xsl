@@ -217,7 +217,7 @@
 		<html xmlns="http://www.w3.org/1999/xhtml">
 			<head>
 				<title>
-					<xsl:value-of select="ISSUE/ARTICLE/NOHTML-TITLE" />
+					<xsl:value-of select="ISSUE/ARTICLE/TITLE" />
 				</title>
 				<xsl:apply-templates select="." mode="meta_names"/>
 
