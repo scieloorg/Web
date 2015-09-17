@@ -334,26 +334,24 @@
 			<xsl:attribute name="class">
 				<xsl:value-of select="name()"/>
 			</xsl:attribute>
-			<xsl:if test="not(title)">
+			<p class="sec">
 				<xsl:choose>
+					<xsl:when test="title">
+						<a name="{title}"><xsl:value-of select="title"/></a>
+					</xsl:when>
 					<xsl:when test="$lang='pt'">
-						<p class="sec">
-							<a name="resumo">RESUMO</a>
-						</p>
+						<a name="resumo">RESUMO</a>
 					</xsl:when>
 					<xsl:when test="$lang='es'">
-						<p class="sec">
-							<a name="resumen">RESUMEN</a>
-						</p>
+						<a name="resumen">RESUMEN</a>
 					</xsl:when>
 					<xsl:otherwise>
-						<p class="sec">
-							<a name="abstract">ABSTRACT</a>
-						</p>
+						<a name="abstract">ABSTRACT</a>
 					</xsl:otherwise>
 				</xsl:choose>
-			</xsl:if>
-			<xsl:apply-templates select="* | text()"/>
+			</p>
+			
+			<xsl:apply-templates select="*[name()!='title'] | text()"/>
 			<xsl:apply-templates
 				select="..//kwd-group[normalize-space(@xml:lang)=normalize-space($lang)]"
 				mode="keywords-with-abstract"/>
