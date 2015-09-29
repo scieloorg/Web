@@ -1,3 +1,5 @@
+,if v50='C' then
+
 'd942d943',
 'a942{',
 	if l(['temp/NovasDatas']'A=',v68) > 0 then
@@ -17,3 +19,7 @@
 		fi
 	fi
 '{'
+
+,else,
+	,'d*',
+,fi
