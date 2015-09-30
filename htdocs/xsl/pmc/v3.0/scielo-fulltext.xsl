@@ -3,7 +3,7 @@
 	xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML">
 	
 	<xsl:variable name="use_original_aff" select="count($original//institution[@content-type='original'])&gt;0"/>
-	<xsl:variable name="affiliations" select="$original//article-meta//aff"/>
+	<xsl:variable name="affiliations" select="$original//aff"/>
 	<xsl:template match="article-meta/permissions">
 		<div class="article-license">
 			<xsl:variable name="license_href"><xsl:choose>
@@ -1591,8 +1591,6 @@
 		<xsl:variable name="last_char"><xsl:value-of select="substring(.,string-length(.))"/></xsl:variable>
 		<xsl:comment><xsl:value-of select="$last_char"/></xsl:comment>
 		<xsl:value-of select="."/><xsl:if test="position()!=last() and $last_char!='.'">. </xsl:if> 
-	</xsl:template>
-	<xsl:template match="product[comment]/bold">
 	</xsl:template>
 	<xsl:template match="product[comment]/person-group">
 		<xsl:apply-templates select="name"/>.
