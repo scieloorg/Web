@@ -222,5 +222,10 @@ padding-top: 0px;
     margin-top: 20px;
 }
 .product {
-    font-family: Book Antiqua
-}
+    font-family: Book Antiqua;
+    font-size: 10pt;
+    padding: 10px 10px 10px 10px;
+    margin: 5px 5px 5px 5px;
+    background-color: #DADFE5;
+    width:60%;
+ }
