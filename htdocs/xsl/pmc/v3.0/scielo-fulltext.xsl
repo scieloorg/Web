@@ -1562,12 +1562,15 @@
 	
 	
 	<xsl:template match="product">
+		<p class="product">
 		<xsl:apply-templates select="person-group"/>. <xsl:apply-templates select="source"/>. <xsl:apply-templates select="year"/>. 
-		<xsl:apply-templates select="publisher-name"/> (<xsl:apply-templates select="publisher-loc"/>). <xsl:apply-templates select="size"/>. 	
+		<xsl:apply-templates select="publisher-name"/> (<xsl:apply-templates select="publisher-loc"/>). <xsl:apply-templates select="size"/>. </p>	
 	</xsl:template>
 	<xsl:template match="product[@product-type='book']">
+		<p class="product">
 		<xsl:apply-templates select="source"/>. <xsl:apply-templates select="person-group"/>. (<xsl:apply-templates select="year"/>). <xsl:apply-templates select="publisher-loc"/>: 
 		<xsl:apply-templates select="publisher-name"/>, <xsl:apply-templates select="year"/>, <xsl:apply-templates select="size"/>. <xsl:apply-templates select="isbn"/>		
+		</p>
 	</xsl:template>
 	<xsl:template match="product/person-group">
 		<xsl:apply-templates select="name"/>
@@ -1585,7 +1588,9 @@
 		ISBN: <xsl:value-of select="."/>.
 	</xsl:template>
 	<xsl:template match="product[comment]">
-		<xsl:apply-templates select="*|text()"/> 	
+		<p class="product">
+		<xsl:apply-templates select="*|text()"/> 
+		</p>
 	</xsl:template>
 	<xsl:template match="product[comment]/*">
 		<xsl:variable name="last_char"><xsl:value-of select="substring(.,string-length(.))"/></xsl:variable>
