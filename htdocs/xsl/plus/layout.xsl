@@ -76,6 +76,13 @@
                 .disp-formula .labeled-formula {
                 display: inline-block;
                 }
+                .product {
+                font-family: Book Antiqua;
+                font-size: 10pt;
+                padding: 10px 10px 10px 10px;
+                margin: 5px 5px 5px 5px;
+                background-color: #DADFE5;
+                }
             </style>
             <xsl:if test=".//math or .//mml:math">
                 <script type="text/javascript"
@@ -1467,18 +1474,15 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
         <xsl:copy-of select="."/>
     </xsl:template>   
     <xsl:template match="article-meta//product">
-        <xsl:apply-templates select="person-group"/>. <xsl:apply-templates select="source"/>. <xsl:apply-templates select="year"/>. 
-        <xsl:apply-templates select="publisher-name"/> (<xsl:apply-templates select="publisher-loc"/>). <xsl:apply-templates select="size"/>. 	
-    </xsl:template>
-    <xsl:template match="article-meta//product[comment]">
-        <xsl:apply-templates select="*|text()"/> 	
-    </xsl:template>
-    <xsl:template match="article-meta//product[comment]/*">
-        <xsl:value-of select="."/><xsl:if test="position()!=last() and not(contains(substring(.,string-length(.)-2),'.'))">. </xsl:if> 
+        <p class="product">
+            <xsl:apply-templates select="person-group"/>. <xsl:apply-templates select="source"/>. <xsl:apply-templates select="year"/>. 
+            <xsl:apply-templates select="publisher-name"/> (<xsl:apply-templates select="publisher-loc"/>). <xsl:apply-templates select="size"/>. </p>	
     </xsl:template>
     <xsl:template match="article-meta//product[@product-type='book']">
-        <xsl:apply-templates select="source"/>. <xsl:apply-templates select="person-group"/>. (<xsl:apply-templates select="year"/>). <xsl:apply-templates select="publisher-loc"/>: 
-        <xsl:apply-templates select="publisher-name"/>, <xsl:apply-templates select="year"/>, <xsl:apply-templates select="size"/>. <xsl:apply-templates select="isbn"/>		
+        <p class="product">
+            <xsl:apply-templates select="source"/>. <xsl:apply-templates select="person-group"/>. (<xsl:apply-templates select="year"/>). <xsl:apply-templates select="publisher-loc"/>: 
+            <xsl:apply-templates select="publisher-name"/>, <xsl:apply-templates select="year"/>, <xsl:apply-templates select="size"/>. <xsl:apply-templates select="isbn"/>		
+        </p>
     </xsl:template>
     <xsl:template match="article-meta//product/person-group">
         <xsl:apply-templates select="name"/>
@@ -1494,5 +1498,18 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
     </xsl:template>
     <xsl:template match="article-meta//product/isbn">
         ISBN: <xsl:value-of select="."/>.
+    </xsl:template>
+    <xsl:template match="article-meta//product[comment]">
+        <p class="product">
+            <xsl:apply-templates select="*|text()"/> 
+        </p>
+    </xsl:template>
+    <xsl:template match="article-meta//product[comment]/*">
+        <xsl:variable name="last_char"><xsl:value-of select="substring(.,string-length(.))"/></xsl:variable>
+        <xsl:comment><xsl:value-of select="$last_char"/></xsl:comment>
+        <xsl:value-of select="."/><xsl:if test="position()!=last() and $last_char!='.'">. </xsl:if> 
+    </xsl:template>
+    <xsl:template match="article-meta//product[comment]/person-group">
+        <xsl:apply-templates select="name"/>.
     </xsl:template>
 </xsl:stylesheet>
