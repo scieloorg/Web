@@ -1565,12 +1565,6 @@
 		<xsl:apply-templates select="person-group"/>. <xsl:apply-templates select="source"/>. <xsl:apply-templates select="year"/>. 
 		<xsl:apply-templates select="publisher-name"/> (<xsl:apply-templates select="publisher-loc"/>). <xsl:apply-templates select="size"/>. 	
 	</xsl:template>
-	<xsl:template match="product[comment]">
-		<xsl:apply-templates select="*|text()"/> 	
-	</xsl:template>
-	<xsl:template match="product[comment]/*">
-		<xsl:value-of select="."/><xsl:if test="position()!=last() and not(contains(substring(.,string-length(.)-2),'.'))">. </xsl:if> 
-	</xsl:template>
 	<xsl:template match="product[@product-type='book']">
 		<xsl:apply-templates select="source"/>. <xsl:apply-templates select="person-group"/>. (<xsl:apply-templates select="year"/>). <xsl:apply-templates select="publisher-loc"/>: 
 		<xsl:apply-templates select="publisher-name"/>, <xsl:apply-templates select="year"/>, <xsl:apply-templates select="size"/>. <xsl:apply-templates select="isbn"/>		
@@ -1589,6 +1583,19 @@
 	</xsl:template>
 	<xsl:template match="product/isbn">
 		ISBN: <xsl:value-of select="."/>.
+	</xsl:template>
+	<xsl:template match="product[comment]">
+		<xsl:apply-templates select="*|text()"/> 	
+	</xsl:template>
+	<xsl:template match="product[comment]/*">
+		<xsl:variable name="last_char"><xsl:value-of select="substring(.,string-length(.))"/></xsl:variable>
+		<xsl:comment><xsl:value-of select="$last_char"/></xsl:comment>
+		<xsl:value-of select="."/><xsl:if test="position()!=last() and $last_char!='.'">. </xsl:if> 
+	</xsl:template>
+	<xsl:template match="product[comment]/bold">
+	</xsl:template>
+	<xsl:template match="product[comment]/person-group">
+		<xsl:apply-templates select="name"/>.
 	</xsl:template>
 	
 	<xsl:template match="list-item[label and p]">
