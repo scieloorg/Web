@@ -72,6 +72,17 @@ class Scielo extends ScieloBase
       return $url;
     }
 
+    function isgooglebot(){
+        $headers = apache_request_headers();
+        $isgooglebot = strripos(' '.$headers["User-Agent"], 'googlebot');
+
+        if ($isgooglebot === False){
+            return 'false';
+        }
+
+        return 'true';
+    }
+
     function GenerateXmlUrl()
     {
             $this->_IsisScriptUrl = $this->GenerateIsisScriptUrl();
@@ -139,6 +150,7 @@ class Scielo extends ScieloBase
 
             $xmlList[] = $xmlFromIsisScript;
 
+            $headers = apache_request_headers();
 
             $xmlScieloOrg = '';
             if (strpos($this->_IsisScriptUrl, 'script=sci_verify')==false){
@@ -230,8 +242,8 @@ class Scielo extends ScieloBase
                     $xmlScieloOrg.="<commentCount>".$commentCount."</commentCount>";
                     $xmlScieloOrg.="<lng>".$_REQUEST['lng']."</lng>";
                     $xmlScieloOrg.="<tlng>".$_REQUEST['tlng']."</tlng>";
+                    $xmlScieloOrg.="<isgooglebot>".$this->isgooglebot()."</isgooglebot>";
                     $xmlScieloOrg = "<varScieloOrg>".$xmlScieloOrg."</varScieloOrg>";
-
             }
             if (count($xmlList)>1){
                     $xml = $this->XML_XSL->concatXML($xmlList, "root");
