@@ -88,7 +88,9 @@
 				<pft>
 					' <ARTICLE PDF_LANG="',v3012,'" FPAGE="',v14^f,'" LPAGE="',v14^l,'" PID="',v3002,'"',
 					 ,' CURR_DATE="',mid(date,1,8),'"'
-					 ,| ahpdate="|v223|"|
+		 ,if val(mid(v223,7,2))>0 then                 
+            ,' ahpdate="',v223,'"'
+         ,fi
 					 ,| rvpdate="|v224|"|
          ,if v250='1' and v32='review' then
             ' enable-comment="1"'
