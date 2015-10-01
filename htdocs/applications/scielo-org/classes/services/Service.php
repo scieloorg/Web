@@ -29,6 +29,7 @@
 		}
 		function callService($url){
 			$fp = fopen ($url,"r");
+			print '<!--'.$url.'-->';
 			if ($fp) { 
 				$xml = "";
 				do {

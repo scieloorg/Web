@@ -1415,6 +1415,8 @@ Parameters:
 				</xsl:choose>
 				<xsl:if test="$SUPPL">supl. <xsl:if test="$SUPPL!='0'"><xsl:value-of select="$SUPPL"
 						/>,&#160;</xsl:if></xsl:if>
+				
+				<xsl:if test="number(@FPAGE)!=0 and number(@LPAGE)!=0">p. <xsl:value-of select="@FPAGE"/><xsl:if test="@LPAGE!=@FPAGE">-<xsl:value-of select="@LPAGE"/></xsl:if>,&#160;</xsl:if>
 				<xsl:call-template name="GET_MONTH_NAME_ABNT">
 					<xsl:with-param name="LANG" select="$LANG"/>
 					<xsl:with-param name="ABREV" select="1"/>
@@ -1753,18 +1755,16 @@ Parameters:
 	<xsl:template match="*" mode="Epub">
 		<xsl:param name="ahpdate"/>
 		<xsl:param name="rvpdate"/>
-		<xsl:if test="$ahpdate!='' or $rvpdate!=''">&#160;<xsl:value-of
+		<xsl:variable name="date"><xsl:choose>
+			<xsl:when test="$rvpdate!=''"><xsl:value-of select="normalize-space($rvpdate)"/></xsl:when>
+			<xsl:when test="$ahpdate!=''"><xsl:value-of select="normalize-space($ahpdate)"/></xsl:when>
+		</xsl:choose></xsl:variable>
+		<xsl:if test="string-length($date)=8 and substring($date, 7)!='00'">
+			&#160;<xsl:value-of
 				select="$translations/xslid[@id='sci_artref']/text[@find = 'ahead_of_print_epub']"
 				/>&#160;<xsl:call-template name="ShowDate">
 				<xsl:with-param name="DATEISO">
-					<xsl:choose>
-						<xsl:when test="$rvpdate!=''">
-							<xsl:value-of select="$rvpdate"/>
-						</xsl:when>
-						<xsl:when test="$ahpdate!=''">
-							<xsl:value-of select="$ahpdate"/>
-						</xsl:when>
-					</xsl:choose>
+					<xsl:value-of select="$date"/>
 				</xsl:with-param>
 				<xsl:with-param name="LANG" select="//CONTROLINFO/LANGUAGE"/>
 				<xsl:with-param name="ABREV" select="1"/>
