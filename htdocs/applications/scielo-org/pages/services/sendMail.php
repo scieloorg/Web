@@ -1,4 +1,4 @@
-<?php
+	<?php
 
 require_once(dirname(__FILE__)."/../../users/functions.php");
 require_once(dirname(__FILE__)."/../../users/langs.php");	

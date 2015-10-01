@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML">
-	<xsl:template match="permissions">
+	
+	<xsl:variable name="use_original_aff" select="count($original//institution[@content-type='original'])&gt;0"/>
+	<xsl:variable name="affiliations" select="$original//aff"/>
+	<xsl:template match="article-meta/permissions">
 		<div class="article-license">
 			<xsl:variable name="license_href"><xsl:choose>
 				<xsl:when test=".//license/@xlink:href"><xsl:value-of select=".//license/@xlink:href"/></xsl:when>
@@ -331,26 +334,24 @@
 			<xsl:attribute name="class">
 				<xsl:value-of select="name()"/>
 			</xsl:attribute>
-			<xsl:if test="not(title)">
+			<p class="sec">
 				<xsl:choose>
+					<xsl:when test="title">
+						<a name="{title}"><xsl:value-of select="title"/></a>
+					</xsl:when>
 					<xsl:when test="$lang='pt'">
-						<p class="sec">
-							<a name="resumo">RESUMO</a>
-						</p>
+						<a name="resumo">RESUMO</a>
 					</xsl:when>
 					<xsl:when test="$lang='es'">
-						<p class="sec">
-							<a name="resumen">RESUMEN</a>
-						</p>
+						<a name="resumen">RESUMEN</a>
 					</xsl:when>
 					<xsl:otherwise>
-						<p class="sec">
-							<a name="abstract">ABSTRACT</a>
-						</p>
+						<a name="abstract">ABSTRACT</a>
 					</xsl:otherwise>
 				</xsl:choose>
-			</xsl:if>
-			<xsl:apply-templates select="* | text()"/>
+			</p>
+			
+			<xsl:apply-templates select="*[name()!='title'] | text()"/>
 			<xsl:apply-templates
 				select="..//kwd-group[normalize-space(@xml:lang)=normalize-space($lang)]"
 				mode="keywords-with-abstract"/>
@@ -499,15 +500,57 @@
 	<xsl:template match="text()" mode="normalize">
 		<xsl:value-of select="normalize-space(.)"/>
 	</xsl:template>
+	<xsl:template match="contrib/xref">
+		<xsl:variable name="rid" select="@rid"/>
+		<xsl:variable name="doit"><xsl:choose>
+			<xsl:when test="normalize-space(.)=''">
+				<xsl:choose>
+					<xsl:when test="$use_original_aff">
+						<xsl:if test="normalize-space($affiliations[@id=$rid]/institution[@content-type='original'])!=''">
+							doit
+						</xsl:if>
+					</xsl:when>
+					<xsl:otherwise>doit</xsl:otherwise>
+				</xsl:choose>
+			</xsl:when>
+			<xsl:otherwise>doit</xsl:otherwise>
+		</xsl:choose></xsl:variable>
+		<xsl:if test="normalize-space($doit)='doit'">
+			<sup>
+				<a href="#{@rid}"><xsl:value-of select="."/>
+					<xsl:if test="normalize-space(.)=''">
+						<xsl:variable name="label">
+							<xsl:choose>
+								<xsl:when test="contains(@rid,'aff')"><xsl:value-of select="substring-after(@rid,'aff')"/></xsl:when>
+								<xsl:when test="contains(@rid,'a')"><xsl:value-of select="substring-after(@rid,'a')"/></xsl:when>
+								<xsl:otherwise><xsl:value-of select="@rid"/></xsl:otherwise>
+							</xsl:choose></xsl:variable>
+						<xsl:if test="string(number($label)) != 'NaN'">
+							<xsl:value-of select="string(number($label))"/>
+						</xsl:if>
+					</xsl:if>
+				</a>&#160;
+			</sup>
+		</xsl:if>
+		
+	</xsl:template>
 	<xsl:template match="aff">
-		<p class="aff">
-			<xsl:if test="label">
-				<a name="{@id}">
-					<xsl:apply-templates select="label"/>
-				</a>
-			</xsl:if>
+		<xsl:choose>
+			<xsl:when test="$use_original_aff">
+				<xsl:if test="normalize-space(institution[@content-type='original'])!=''">
+					<xsl:apply-templates select="." mode="aff-parag"/>
+				</xsl:if>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:apply-templates select="." mode="aff-parag"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+	<xsl:template match="aff" mode="aff-parag">
+		<p class="aff"><a name="{@id}"/>
+			<xsl:apply-templates select="." mode="aff-label"/>
 			<xsl:choose>
-				<xsl:when test="institution[@content-type='original']">
+				<xsl:when test="normalize-space(institution[@content-type='original'])!=''">
 					<xsl:apply-templates select="institution[@content-type='original']"/>
 				</xsl:when>
 				<xsl:otherwise>
@@ -539,7 +582,25 @@
 			</xsl:choose>
 		</p>
 	</xsl:template>
-
+	<xsl:template match="aff" mode="aff-label">
+		<sup><xsl:choose>
+			<xsl:when test="label">	
+				<xsl:apply-templates select="label"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:variable name="label">
+				<xsl:choose>
+					<xsl:when test="contains(@id,'aff')"><xsl:value-of select="substring-after(@id,'aff')"/></xsl:when>
+					<xsl:when test="contains(@id,'a')"><xsl:value-of select="substring-after(@id,'a')"/></xsl:when>
+					<xsl:otherwise><xsl:value-of select="@id"/></xsl:otherwise>
+				</xsl:choose></xsl:variable>
+				<xsl:if test="string(number($label)) != 'NaN'">
+					<xsl:value-of select="string(number($label))"/>
+				</xsl:if>
+			</xsl:otherwise>
+		</xsl:choose></sup>
+	</xsl:template>
+	
 	<xsl:template match="institution[@content-type='original']">
 		<xsl:apply-templates select="*|text()" mode="aff-original"/>
 	</xsl:template>
@@ -960,8 +1021,9 @@
 	</xsl:template>
 	<xsl:template match="table-wrap//fn" mode="footnote">
 		<a name="{@id}"/>
-		<xsl:apply-templates select="* | text()"/>
-
+		<p>
+			<xsl:apply-templates select="* | text()"/>
+		</p>
 	</xsl:template>
 	<xsl:template match="table-wrap//fn//label">
 		<sup>
@@ -969,9 +1031,7 @@
 		</sup>
 	</xsl:template>
 	<xsl:template match="table-wrap//fn/p">
-		<p class="fn">
-			<xsl:apply-templates select="*|text()"/>
-		</p>
+		<xsl:apply-templates select="*|text()"/>
 	</xsl:template>
 
 	<xsl:template match="history">
@@ -1113,7 +1173,29 @@
 		</div>
 	</xsl:template>
 	<xsl:template match="back/fn-group/fn">
-		<xsl:apply-templates select="@*|*[name()!='label']|text()"/>
+		<div class="fn">
+			<xsl:apply-templates select="title"/>
+		<xsl:choose>
+			<xsl:when test="count(p)&gt;1">
+				<xsl:choose>
+					<xsl:when test="label">
+						<p>
+							<xsl:apply-templates select="label"/>
+						</p>
+						<div class="fn-block">
+							<xsl:apply-templates select="@*|*[name()!='label' and name()!='title']|text()"/>
+						</div>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:apply-templates select="@*|*[name()!='label' and name()!='title']|text()"/>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:apply-templates select="@*|*[name()!='label' and name()!='title']|text()"/>
+			</xsl:otherwise>
+		</xsl:choose>
+		</div>
 	</xsl:template>
 	<xsl:template match="back/fn-group/fn/@fn-type"> </xsl:template>
 	<xsl:template match="back/fn-group/fn/@id">
@@ -1122,9 +1204,14 @@
 	<xsl:template match="back/fn-group/fn/label">
 		<span class="fn-label"><xsl:value-of select="."/></span>
 	</xsl:template>
+	<xsl:template match="back/fn-group/fn/title">
+		<p class="sub-subsec"><xsl:value-of select="."/></p>
+	</xsl:template>
 	<xsl:template match="back/fn-group/fn/p">
-		<p class="fn">
+		<p>
+			<xsl:if test="count(..//p)=1">
 			<xsl:apply-templates select="../label"/>
+			</xsl:if>
 			<xsl:apply-templates select="*|text()"/>
 		</p>
 	</xsl:template>
@@ -1475,12 +1562,15 @@
 	
 	
 	<xsl:template match="product">
+		<p class="product">
 		<xsl:apply-templates select="person-group"/>. <xsl:apply-templates select="source"/>. <xsl:apply-templates select="year"/>. 
-		<xsl:apply-templates select="publisher-name"/> (<xsl:apply-templates select="publisher-loc"/>). <xsl:apply-templates select="size"/>. 	
+		<xsl:apply-templates select="publisher-name"/> (<xsl:apply-templates select="publisher-loc"/>). <xsl:apply-templates select="size"/>. </p>	
 	</xsl:template>
 	<xsl:template match="product[@product-type='book']">
+		<p class="product">
 		<xsl:apply-templates select="source"/>. <xsl:apply-templates select="person-group"/>. (<xsl:apply-templates select="year"/>). <xsl:apply-templates select="publisher-loc"/>: 
 		<xsl:apply-templates select="publisher-name"/>, <xsl:apply-templates select="year"/>, <xsl:apply-templates select="size"/>. <xsl:apply-templates select="isbn"/>		
+		</p>
 	</xsl:template>
 	<xsl:template match="product/person-group">
 		<xsl:apply-templates select="name"/>
@@ -1496,6 +1586,19 @@
 	</xsl:template>
 	<xsl:template match="product/isbn">
 		ISBN: <xsl:value-of select="."/>.
+	</xsl:template>
+	<xsl:template match="product[comment]">
+		<p class="product">
+		<xsl:apply-templates select="*|text()"/> 
+		</p>
+	</xsl:template>
+	<xsl:template match="product[comment]/*">
+		<xsl:variable name="last_char"><xsl:value-of select="substring(.,string-length(.))"/></xsl:variable>
+		<xsl:comment><xsl:value-of select="$last_char"/></xsl:comment>
+		<xsl:value-of select="."/><xsl:if test="position()!=last() and $last_char!='.'">. </xsl:if> 
+	</xsl:template>
+	<xsl:template match="product[comment]/person-group">
+		<xsl:apply-templates select="name"/>.
 	</xsl:template>
 	
 	<xsl:template match="list-item[label and p]">
