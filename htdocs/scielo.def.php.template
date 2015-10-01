@@ -200,4 +200,12 @@ xBEFOREPRINT_ISSUES=together
 xBEFOREPRINT_ISSUETOC=together
 NO_SCI_SERIAL=no
 
+[MAIL_CREDENTIALS]
+sender=
+username=
+password=
+host=smtp.gmail.com
+port=465
+secure=ssl
+
 ; */ ?>
