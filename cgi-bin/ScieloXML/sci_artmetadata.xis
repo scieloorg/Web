@@ -87,8 +87,10 @@
                     if p(v14^l) then
                         ' LPAGE="',v14^l,'"'
                     fi,
-                    | PID="|v880|"|                    
-		 ,' ahpdate="',v223,'"'
+                    | PID="|v880|"|  
+                    ,if val(mid(v223,7,2))>0 then                 
+		                ,' ahpdate="',v223,'"'
+		            ,fi
          ,| rvpdate="|v224|"|
          ,if v250='1' and v32='review' then
             ' enable-comment="1"'
