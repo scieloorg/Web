@@ -39,7 +39,7 @@ call batch/VerifExistemBases.bat $1
 
 call batch/CriaDiretorio.bat ../bases-work/title
 call batch/GeraNovasDatas.bat $2/bases/title/title scilista.lst temp/NovasDatas
-call batch/GeraMaster.bat $1/serial/title/title ../bases-work/title/title prc/GeraDatas.prc
+call batch/GeraMaster.bat $1/serial/title/title ../bases-work/title/title prc/FilterAndGeraDatas.prc
 call batch/OrdenaMaster.bat ../bases-work/title/title 150 pft/OrdTitle.pft
 call batch/GeraNewcodeAux.bat $1/serial temp/
 call batch/GeraInvertido.bat ../bases-work/title/title fst/title.fst ../bases-work/title/title

@@ -186,7 +186,7 @@
 		<meta name="citation_lastpage" content="{ISSUE/ARTICLE/@LPAGE}"/>
 		<meta name="citation_id" content="{ISSUE/ARTICLE/@DOI}"/>
 
-		<xsl:apply-templates select="ISSUE/ARTICLE/LANGUAGES/PDF_LANGS/LANG" name="meta_citation_pdf_url">
+		<xsl:apply-templates select="ISSUE/ARTICLE/LANGUAGES/PDF_LANGS/LANG" mode="meta_citation_pdf_url">
 			<xsl:with-param name="orig_lang" select="ISSUE/ARTICLE/@ORIGINALLANG" />
 		</xsl:apply-templates>
 
@@ -196,7 +196,7 @@
 		</xsl:if>
 	</xsl:template>
 
-	<xsl:template match="LANG" name="meta_citation_pdf_url">
+	<xsl:template match="LANG" mode="meta_citation_pdf_url">
 		<xsl:param name="orig_lang" />
 		<xsl:variable name="lang" select="." />
 		<meta>
@@ -217,9 +217,7 @@
 		<html xmlns="http://www.w3.org/1999/xhtml">
 			<head>
 				<title>
-					<xsl:value-of select="TITLEGROUP/TITLE" disable-output-escaping="yes"/> -
-						<xsl:value-of select="normalize-space(ISSUE/ARTICLE/TITLE)"
-						disable-output-escaping="yes"/>
+					<xsl:value-of select="ISSUE/ARTICLE/TITLE" />
 				</title>
 				<xsl:apply-templates select="." mode="meta_names"/>
 
@@ -350,7 +348,7 @@
 		<html xmlns="http://www.w3.org/1999/xhtml">
 			<head>
 				<title>
-					<xsl:apply-templates select="." mode="version-head-title"/>
+					<xsl:value-of select="ISSUE/ARTICLE/TITLE" />
 				</title>
 				<xsl:apply-templates select="." mode="meta_names"/>
 				<xsl:apply-templates select="." mode="version-css"/>
