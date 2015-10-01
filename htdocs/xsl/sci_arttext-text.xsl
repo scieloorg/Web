@@ -7,7 +7,8 @@
 	<html>
 		<head>
 			<title>
-				<xsl:value-of select="TITLEGROUP/TITLE" disable-output-escaping="yes"/> - <xsl:value-of select="normalize-space(ISSUE/ARTICLE/TITLE)" disable-output-escaping="yes" /></title>
+				<xsl:value-of select="ISSUE/ARTICLE/TITLE" />
+			</title>
 			<meta http-equiv="Pragma" content="no-cache" />
 			<meta http-equiv="Expires" content="Mon, 06 Jan 1990 00:00:01 GMT" />
 			<link rel="STYLESHEET" TYPE="text/css" href="/css/scielo2.css" />
