@@ -107,6 +107,9 @@
     <xsl:template match="*" mode="DATA-DISPLAY">
         <xsl:apply-templates select="*|text()" mode="DATA-DISPLAY"/>
     </xsl:template>
+    <xsl:template match="*[title]" mode="DATA-DISPLAY">
+        <xsl:apply-templates select="*[name()!='title']|text()" mode="DATA-DISPLAY"/>
+    </xsl:template>
     <xsl:template match="sup | sub " mode="DATA-DISPLAY">
         <xsl:element name="{name()}">
             <xsl:apply-templates select="@* | *|text()" mode="DATA-DISPLAY"/>
