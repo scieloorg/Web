@@ -20,7 +20,7 @@
 				<title>SciELO - Scientific electronic library online</title>
 				<meta http-equiv="Pragma" content="no-cache"/>
 				<meta http-equiv="Expires" content="Mon, 06 Jan 1990 00:00:01 GMT"/>
-                                <meta name="keywords" content="arquitectura, ciencias agrícolas, ciencias biológicas, ciencias de la salud, ciencias de la tierra, ciencias jurídicas, ciencias sociales, humanidades, ingeniería, matemáticas, oceanografía, química, ciencias exactas y de la tierra, ciencias sociales aplicadas, linguistica, letras y artes, abioth, actalit, agrtec, ainpat, aisthesis, alpha, amv, andgeol, arq, atenea, bcpar, bmchap, bosque, bres, bscq, cecon, chiljar, chungara, ciagr, cienf, cmoebio, eatacam, ede, efilolo, ejb, estconst, estped, eure, gayana, gbot, historia, idesia, ijmorphol, imar, infotec, ingeniare, iusetp, jcchems, jotmi, jtaer, lajar, lyl, maderas, magallamia, orl, parasitol, pd, polis, proy, psykhe, rca, rchcir, rcher, rchilder, rchilite, rchmnat, rchnp, rchnut, rchog, rchradiol, rci, rcp, rcsuelo, rdpucv, rehj, revbiomar, revcipol, revider, rfacinf, rfilosof, rgch, reong, ric, rla, rmc, rmusic, signos, terpsicol, tv, udecada, universum, acceso en linea, biblioteca cientifica, biblioteca electronica, ciencia y tecnologia, citas de revistas, coleccion cientifica, coleccion SciELO, CONICYT, estadisticas SciELO, informacion cientifica, literatura cientifica, produccion cientifica, red SciELO, revistas cientificas, revistas cientificas chilenas, SciELO, SciELO Chile" />
+                                <meta name="keywords" content="arquitectura, ciencias agrícolas, ciencias biológicas, ciencias de la salud, ciencias de la tierra, ciencias jurídicas, ciencias sociales, humanidades, ingeniería, matemáticas, oceanografía, química, ciencias exactas y de la tierra, ciencias sociales aplicadas, linguistica, letras y artes, abioth, actalit, agrtec, ainpat, aisthesis, alpha, amv, andgeol, arq, atenea, bcpar, bfilol, bmchap, bosque, bres, bscq, byzantion, caledu, cecon, chiljar, chungara, ciagr, cienf, cmoebio, cuadhist, cubo, cyt, eatacam, ede, efilolo, ejb, estconst, estped, eure, formuniv, gayana, gbot, historia, idesia, ijmorphol, ijodontos, imar, infotec, ingeniare, invi, iusetp, izquierda, jcchems, jotmi, jsspn, jtaer, lajar, laje, lyl, maderas, magallamia, orl, oyp, parasitol, pd, piro, polis, politcrim, proy, psicop, psykhe, rae, rca, rchcardiol, rchcir, rchdp, rcher, rchilder, rchilite, rchnat, rchnp, rchnut, rchog, rchradiol, rci, rconst, rcp, rcsuelo, rda, rdpucv, rducn, rehj, rei, revbiomar, revcipol, revider, rfacinf, rfilosof, rgch, rgeong, ric, rla, rmc, rmusic, signos, ssa, terpsicol, tv, udecada, universum, acceso en linea, biblioteca cientifica, biblioteca electronica, ciencia y tecnologia, citas de revistas, coleccion cientifica, coleccion SciELO, CONICYT, estadisticas SciELO, informacion cientifica, literatura cientifica, produccion cientifica, red SciELO, revistas cientificas, revistas cientificas chilenas, SciELO, SciELO Chile" />
 				<xsl:if test="//NEW_HOME">
 					<xsl:variable name="X" select="//NEW_HOME"/>
 					<meta HTTP-EQUIV="REFRESH">
@@ -88,7 +88,7 @@
 					</xsl:if>
 					<xsl:if test="$show_home_journal_evaluation = 1">
 						<a>
-							<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_DATA"/>criterios/<xsl:value-of select="LANGUAGE"/></xsl:attribute>
+							<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_DATA"/>sr_scielocl/postulacion/PostulacionSciELO-Chile.htm</xsl:attribute>
 							<font class="linkado" size="-1">
 								<xsl:value-of select="$translations/xslid[@id='sci_home']/text[@find='journal_evaluation']"/>
 							</font>
@@ -96,8 +96,8 @@
 						<br/>
 					</xsl:if>
 <a>
-<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_DATA"/>sr_scielocl</xsl:attribute>
-<font class="linkado" size="-1">procedimientos SciELO</font>
+<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER"/><xsl:value-of select="SCIELO_INFO/PATH_DATA"/>sr_scielocl/postulacion/GuiaPostulacionSciELO-Chile.pdf</xsl:attribute>
+<font class="linkado" size="-1">Guia de Postulacion SciELO-Chile</font>
 </a><br/>
 
 					<br/>
@@ -160,6 +160,8 @@
 								<xsl:value-of select="$translations/xslid[@id='sci_home']/text[@find='scielo_team']"/>
 							</font>
 						</a-->
+   <br/>
+   <a href="/tutorial/">Tutorial SciELO</a>
 						<br/>
 					</xsl:if>
 				</td>
