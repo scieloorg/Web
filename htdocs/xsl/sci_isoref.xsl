@@ -126,7 +126,6 @@
 				<xsl:comment>inicio-MY-REFERENCE</xsl:comment>
 			</xsl:if>
 			<xsl:value-of select="$data/APA" disable-output-escaping="yes"/>
-		 <xsl:apply-templates select="$data//@DOI"/>.
 		 <xsl:if test="../PRESENTS-ONLY-REF">
 				<xsl:comment>fim-MY-REFERENCE</xsl:comment>
 			</xsl:if>
