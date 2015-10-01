@@ -190,7 +190,8 @@
 						</FONT>
 					</P>
 				</TD>
-				<xsl:variable name="navailissues" select="count(ISSUE[@NUM or @SUPPL])"/>
+				<xsl:variable name="only_volume_count" select="count(ISSUE[not(@NUM) and not(@SUPPL)])"/>
+				<xsl:variable name="navailissues" select="count(ISSUE) - $only_volume_count"/>
 				<!--xsl:variable name="test_vol">
 		<xsl:apply-templates select="//YEARISSUE/VOLISSUE" mode="validation"/>
 	  </xsl:variable-->
@@ -203,13 +204,13 @@
 									<xsl:choose>
 										<xsl:when test="@VOL != '' ">
 											<xsl:choose>
-												<xsl:when test="$navailissues&gt;0">
+												<xsl:when test="$only_volume_count=0">
 													<xsl:value-of select="@VOL"/>
 												</xsl:when>
 												<xsl:otherwise>
 													<A>
 														<xsl:call-template name="AddScieloLink">
-															<xsl:with-param name="seq" select="ISSUE/@SEQ"/>
+															<xsl:with-param name="seq" select="ISSUE[not(@NUM) and not(@SUPPL)]/@SEQ"/>
 															<xsl:with-param name="script">sci_issuetoc</xsl:with-param>
 														</xsl:call-template>
 														<xsl:value-of select="@VOL"/>
