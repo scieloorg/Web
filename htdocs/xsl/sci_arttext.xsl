@@ -47,7 +47,9 @@
 			<xsl:otherwise>file:///<xsl:value-of select="concat(substring-before(.//PATH_HTDOCS,'htdocs'),'bases/xml/',.//ISSUE/ARTICLE[1]/filename)"/></xsl:otherwise>
 		</xsl:choose></xsl:if>
 	</xsl:variable>
-
+	<xsl:variable name="document" select="document($xml_article)"/>
+	<xsl:variable name="original" select="$document//article"/>
+	
 	<xsl:variable name="path_img" select="'/img/revistas/'"/>
 
 	<xsl:variable name="issue_label">
@@ -62,7 +64,7 @@
 				<xsl:if test="//ISSUE/@SUPPL">s<xsl:value-of select="translate(//ISSUE/@SUPPL, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')"/></xsl:if>
 			</xsl:when>
 			<xsl:when test="$version='xml-file'">
-				<xsl:apply-templates select="document($xml_article)//front/article-meta"
+				<xsl:apply-templates select="$document//front/article-meta"
 					mode="scift-issue-label"/>
 			</xsl:when>
 			<xsl:when test="$version='xml'">
@@ -112,20 +114,22 @@
 	<xsl:variable name="merge">true</xsl:variable>
 	<xsl:variable name="xml_display_objects">
 		<xsl:choose>
-			<xsl:when test="document($xml_article)//sec/@sec-type='display-objects'">true</xsl:when>
+			<xsl:when test="$original//sec/@sec-type='display-objects'">true</xsl:when>
 			<xsl:otherwise>false</xsl:otherwise>
 		</xsl:choose>
 	</xsl:variable>
 
-	<xsl:variable name="xml_article_lang">
+	<xsl:variable name="TEXT_LANG">
 		<xsl:choose>
-			<xsl:when test=".//BODY">html</xsl:when>
-			<xsl:when test=".//fulltext/article">xml</xsl:when>
+			<xsl:when test="$TXTLANG!=''">
+				<xsl:value-of select="$TXTLANG"/>
+			</xsl:when>
 			<xsl:otherwise>
-				<xsl:value-of select="document($xml_article)/article/@xml:lang"/>
+				<xsl:value-of select="$original/@xml:lang"/>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:variable>
+	
 	<xsl:variable name="article" select=".//ISSUE/ARTICLE"/>
 	<xsl:variable name="LANGUAGE" select="//LANGUAGE"/>
 	<xsl:variable name="SCIELO_REGIONAL_DOMAIN" select="//SCIELO_REGIONAL_DOMAIN"/>
@@ -359,38 +363,36 @@
 				</head>
 			<body>
 				<a name="top"/>
-				<xsl:comment><xsl:value-of select="$version"/><xsl:value-of select="$merge"/></xsl:comment>
-
-				<xsl:choose>
-					<xsl:when test="$version='xml-file' or $version='xml'">
-						<xsl:apply-templates select="." mode="version-body-xml-file"/>
-					</xsl:when>
-					<xsl:otherwise>
-						<xsl:apply-templates select="." mode="version-body-html"/>
-					</xsl:otherwise>
-				</xsl:choose>
-				
-				<!--xsl:comment><xsl:value-of select="$xml_article"/></xsl:comment-->
-				
+				<div class="container">
+					<div class="top">
+						<div id="issues"/>
+						<xsl:apply-templates select="." mode="common-display-nav-bar"/>
+					</div>
+					<div class="content">
+						<xsl:if test="$show_toolbox = '1'">
+							<xsl:call-template name="tool_box"/>
+						</xsl:if>
+						<xsl:apply-templates select="." mode="text-header"/>
+						<xsl:apply-templates select="." mode="text-content"/>
+					</div>
+					<xsl:if test="$version='html'">
+						<xsl:apply-templates select="." mode="footer-journal"/>
+					</xsl:if>
+				</div>
+				<xsl:if test="$version!='html'">
+					<div class="container">
+						<div align="left"/>
+						<div class="spacer">&#160;</div>
+						<xsl:apply-templates select="." mode="footer-journal"/>
+					</div>
+				</xsl:if>
 			</body>
 		</html>
 	</xsl:template>
 
 	<xsl:template match="SERIAL" mode="version-head-title">
-		<!--xsl:choose>
-			<xsl:when test="$version='xml-file'">
-				<xsl:variable name="xml" select="document($xml_article)"/>
-                <xsl:apply-templates select="$xml//front/journal-meta/journal-id" />
-				<xsl:apply-templates select="$xml//front/article-meta/volume" mode="id-vol"/>
-                <xsl:apply-templates select="$xml//front/article-meta/issue" mode="id-issue"/>
-                <xsl:apply-templates select="$xml//front/article-meta/fpage" mode="id-fp"/>
-                <xsl:apply-templates select="$xml//front/article-meta/lpage" mode="id-lp"/>.
-			</xsl:when>
-		    <xsl:otherwise-->
 		<xsl:value-of select="TITLEGROUP/TITLE" disable-output-escaping="yes"/> - <xsl:value-of
 			select="normalize-space(ISSUE/ARTICLE/TITLE)" disable-output-escaping="yes"/>
-		<!--/xsl:otherwise>
-        </xsl:choose-->
 	</xsl:template>
 
 	<xsl:template match="SERIAL" mode="version-css">
@@ -417,7 +419,7 @@
 			<xsl:when test="$version='xml-file'">
 				<script language="javascript" src="applications/scielo-org/js/jquery-1.4.2.min.js"/>
 				<script language="javascript" src="applications/scielo-org/js/toolbox.js"/>
-				<xsl:if test="document($xml_article)//math or document($xml_article)//mml:math">
+				<xsl:if test="$original//math or $original//mml:math">
 					<script type="text/javascript"
 						src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 					</script></xsl:if>
@@ -429,46 +431,7 @@
 		</xsl:choose>
 	</xsl:template>
 
-	<xsl:template match="SERIAL" mode="version-body-xml-file">
-		<div class="container">
-			<div class="top">
-				<div id="issues"/>
-				<xsl:apply-templates select="." mode="common-display-nav-bar"/>
-			</div>
-			<div class="content">
-				<xsl:if test="$show_toolbox = '1'">
-					<xsl:call-template name="tool_box"/>
-				</xsl:if>
-				<xsl:apply-templates select="." mode="text-header"/>
-				<xsl:apply-templates select="." mode="text-content"/>
-			</div>
-		</div>
-		<!--xsl:value-of select="$xml_article"/-->
-		<!--xsl:apply-templates select="document($xml_article)" mode="sections-navegation"/-->
-		<div class="container">
-			<div align="left"/>
-			<div class="spacer">&#160;</div>
-			<xsl:apply-templates select="." mode="footer-journal"/>
-		</div>
-	</xsl:template>
-
-
-	<xsl:template match="SERIAL" mode="version-body-html">
-		<div class="container">
-			<div class="top">
-				<div id="issues"/>
-				<xsl:apply-templates select="." mode="common-display-nav-bar"/>
-			</div>
-			<div class="content">
-				<xsl:if test="$show_toolbox = '1'">
-					<xsl:call-template name="tool_box"/>
-				</xsl:if>
-				<xsl:apply-templates select="." mode="text-header"/>
-				<xsl:apply-templates select="." mode="text-content"/>
-			</div>
-			<xsl:apply-templates select="." mode="footer-journal"/>
-		</div>
-	</xsl:template>
+	
 	<xsl:template match="SERIAL" mode="common-display-nav-bar">
 		<xsl:call-template name="NAVBAR">
 			<xsl:with-param name="bar1">articles</xsl:with-param>
@@ -541,8 +504,7 @@
 				</xsl:when>
 				<xsl:when test="$version='xml-file'">
 					<xsl:comment>version=xml-file</xsl:comment>
-					<xsl:comment><xsl:value-of select="$xml_article"/></xsl:comment>
-					<xsl:apply-templates select="document($xml_article)" mode="text-content"/>
+					<xsl:apply-templates select="$document" mode="text-content"/>
 				</xsl:when>
 			</xsl:choose>
 		</div>
