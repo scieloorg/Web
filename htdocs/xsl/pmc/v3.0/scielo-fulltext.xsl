@@ -2,6 +2,10 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML">
 	
+	
+	<xsl:variable name="trans"
+		select="$original//sub-article[@article-type='translation' and @xml:lang=$TEXT_LANG]"/>
+	
 	<xsl:variable name="use_original_aff" select="count($original//institution[@content-type='original'])&gt;0"/>
 	<xsl:variable name="affiliations" select="$original//aff"/>
 	<xsl:template match="article-meta/permissions">
@@ -84,7 +88,7 @@
 	<xsl:variable name="refpos">
 		<xsl:choose>
 			<xsl:when test="$xml_article">
-				<xsl:apply-templates select="document($xml_article)//ref" mode="scift-position"/>
+				<xsl:apply-templates select="$original/back/refs/ref" mode="scift-position"/>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:apply-templates select=".//ref" mode="scift-position"/>
@@ -104,16 +108,7 @@
 		<xsl:value-of select="name()"/>
 	</xsl:template>
 
-	<xsl:variable name="article_lang">
-		<xsl:choose>
-			<xsl:when test="$TXTLANG!=''">
-				<xsl:value-of select="$TXTLANG"/>
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:value-of select="$xml_article_lang"/>
-			</xsl:otherwise>
-		</xsl:choose>
-	</xsl:variable>
+	
 
 	<xsl:variable name="display_objects">
 		<xsl:value-of select="$xml_display_objects"/>
@@ -127,10 +122,6 @@
 			select="substring-after(substring-before($refpos,concat('{/',$id,'}')),concat('{',$id,'}'))"
 		/>
 	</xsl:template>
-
-	<xsl:variable name="original" select="document($xml_article)//article"/>
-	<xsl:variable name="trans"
-		select="document($xml_article)//sub-article[@article-type='translation' and @xml:lang=$article_lang]"/>
 
 	<xsl:template match="article" mode="text-content">
 		<xsl:choose>
@@ -352,14 +343,18 @@
 			</p>
 			
 			<xsl:apply-templates select="*[name()!='title'] | text()"/>
-			<xsl:apply-templates
-				select="..//kwd-group[normalize-space(@xml:lang)=normalize-space($lang)]"
-				mode="keywords-with-abstract"/>
-			<xsl:if test="not(@xml:lang)">
-				<xsl:apply-templates
-					select="..//kwd-group[not(@xml:lang)]"
-					mode="keywords-with-abstract"/>
-			</xsl:if>
+			<xsl:choose>
+				<xsl:when test="not(@xml:lang)">
+					<xsl:apply-templates
+						select="..//kwd-group[not(@xml:lang)]"
+						mode="keywords-with-abstract"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:apply-templates
+						select="..//kwd-group[normalize-space(@xml:lang)=normalize-space($lang)]"
+						mode="keywords-with-abstract"/>
+				</xsl:otherwise>
+			</xsl:choose>
 		</div>
 	</xsl:template>
 
@@ -471,7 +466,7 @@
 		<div class="autores">
 			<xsl:if test="not(role) and contrib[@contrib-type!='author']">
 				<xsl:variable name="contribtype" select=".//contrib[@contrib-type!='author']/@contrib-type"></xsl:variable>
-				<xsl:variable name="lang"><xsl:value-of select="$article_lang"/><xsl:if test="not(contains('en es pt',$article_lang))">en</xsl:if></xsl:variable>
+				<xsl:variable name="lang"><xsl:value-of select="$TEXT_LANG"/><xsl:if test="not(contains('en es pt',$TEXT_LANG))">en</xsl:if></xsl:variable>
 				<xsl:variable name="label"><xsl:value-of select="document(concat('../../../xml/',$lang,'/translation.xml'))/translations//text[@find=$contribtype]"/></xsl:variable>
 				<xsl:if test="$label!=''"><xsl:value-of select="$label"/>:</xsl:if>
 			</xsl:if>
@@ -890,8 +885,8 @@
 					</xsl:when>
 					<xsl:when test="not(title)">
 						<xsl:choose>
-							<xsl:when test="$article_lang='pt'"> REFERÊNCIAS </xsl:when>
-							<xsl:when test="$article_lang='es'"> REFERENCIAS </xsl:when>
+							<xsl:when test="$TEXT_LANG='pt'"> REFERÊNCIAS </xsl:when>
+							<xsl:when test="$TEXT_LANG='es'"> REFERENCIAS </xsl:when>
 							<xsl:otherwise> REFERENCES </xsl:otherwise>
 						</xsl:choose>
 					</xsl:when>
@@ -913,7 +908,7 @@
 					<xsl:apply-templates select="$title"></xsl:apply-templates>
 				</xsl:if>
 			</p>
-			<xsl:apply-templates select="document($xml_article)//article/back/ref-list/ref"/>
+			<xsl:apply-templates select="$original/back/ref-list/ref"/>
 		</div>
 	</xsl:template>
 	<xsl:template match="sub-article[@article-type='translation']/response/back/ref-list">
@@ -926,7 +921,7 @@
 					<xsl:apply-templates select="$title"></xsl:apply-templates>
 				</xsl:if>
 			</p>
-			<xsl:apply-templates select="document($xml_article)//article/response/back/ref-list/ref"/>
+			<xsl:apply-templates select="$original/response/back/ref-list/ref"/>
 		</div>
 	</xsl:template>
 	
@@ -1114,14 +1109,14 @@
 	</xsl:template>
 	<xsl:template match="history/date">
 		<xsl:choose>
-			<xsl:when test="$article_lang='pt'">
+			<xsl:when test="$TEXT_LANG='pt'">
 				<xsl:apply-templates select="@date-type" mode="scift-as-label-pt"/>:
 				<xsl:if test="day">
 					<xsl:value-of select="concat(day,' de ')"/>
 				</xsl:if><xsl:apply-templates
 					select="month" mode="date-month-pt"/> de <xsl:value-of select="year"/>
 			</xsl:when>
-			<xsl:when test="$article_lang='es'">
+			<xsl:when test="$TEXT_LANG='es'">
 				<xsl:apply-templates select="@date-type" mode="scift-as-label-es"/>:
 				<xsl:if test="day">
 					<xsl:value-of select="concat(day,' de ')"/>
@@ -1254,8 +1249,8 @@
 								<xsl:with-param name="ref_list" select="$original/back/ref-list"/>
 								<xsl:with-param name="title">
 									<xsl:choose>
-										<xsl:when test="$article_lang='pt'"> REFERÊNCIAS </xsl:when>
-										<xsl:when test="$article_lang='es'"> REFERENCIAS </xsl:when>
+										<xsl:when test="$TEXT_LANG='pt'"> REFERÊNCIAS </xsl:when>
+										<xsl:when test="$TEXT_LANG='es'"> REFERENCIAS </xsl:when>
 										<xsl:otherwise> REFERENCES </xsl:otherwise>
 									</xsl:choose>
 								</xsl:with-param>
@@ -1267,8 +1262,8 @@
 								<xsl:with-param name="ref_list" select="$original/back/ref-list"/>
 								<xsl:with-param name="title">
 									<xsl:choose>
-										<xsl:when test="$article_lang='pt'"> REFERÊNCIAS </xsl:when>
-										<xsl:when test="$article_lang='es'"> REFERENCIAS </xsl:when>
+										<xsl:when test="$TEXT_LANG='pt'"> REFERÊNCIAS </xsl:when>
+										<xsl:when test="$TEXT_LANG='es'"> REFERENCIAS </xsl:when>
 										<xsl:otherwise> REFERENCES </xsl:otherwise>
 									</xsl:choose>
 								</xsl:with-param>
@@ -1278,8 +1273,8 @@
 							<xsl:apply-templates select="$original/back/ref-list">
 								<xsl:with-param name="title">
 									<xsl:choose>
-										<xsl:when test="$article_lang='pt'"> REFERÊNCIAS </xsl:when>
-										<xsl:when test="$article_lang='es'"> REFERENCIAS </xsl:when>
+										<xsl:when test="$TEXT_LANG='pt'"> REFERÊNCIAS </xsl:when>
+										<xsl:when test="$TEXT_LANG='es'"> REFERENCIAS </xsl:when>
 										<xsl:otherwise> REFERENCES </xsl:otherwise>
 									</xsl:choose>
 								</xsl:with-param>
@@ -1323,8 +1318,8 @@
 								<xsl:with-param name="ref_list" select="$original/response/back/ref-list"/>
 								<xsl:with-param name="title">
 									<xsl:choose>
-										<xsl:when test="$article_lang='pt'"> REFERÊNCIAS </xsl:when>
-										<xsl:when test="$article_lang='es'"> REFERENCIAS </xsl:when>
+										<xsl:when test="$TEXT_LANG='pt'"> REFERÊNCIAS </xsl:when>
+										<xsl:when test="$TEXT_LANG='es'"> REFERENCIAS </xsl:when>
 										<xsl:otherwise> REFERENCES </xsl:otherwise>
 									</xsl:choose>
 								</xsl:with-param>
@@ -1336,8 +1331,8 @@
 								<xsl:with-param name="ref_list" select="$original/response/back/ref-list"/>
 								<xsl:with-param name="title">
 									<xsl:choose>
-										<xsl:when test="$article_lang='pt'"> REFERÊNCIAS </xsl:when>
-										<xsl:when test="$article_lang='es'"> REFERENCIAS </xsl:when>
+										<xsl:when test="$TEXT_LANG='pt'"> REFERÊNCIAS </xsl:when>
+										<xsl:when test="$TEXT_LANG='es'"> REFERENCIAS </xsl:when>
 										<xsl:otherwise> REFERENCES </xsl:otherwise>
 									</xsl:choose>
 								</xsl:with-param>
@@ -1347,8 +1342,8 @@
 							<xsl:apply-templates select="$original/response/back/ref-list">
 								<xsl:with-param name="title">
 									<xsl:choose>
-										<xsl:when test="$article_lang='pt'"> REFERÊNCIAS </xsl:when>
-										<xsl:when test="$article_lang='es'"> REFERENCIAS </xsl:when>
+										<xsl:when test="$TEXT_LANG='pt'"> REFERÊNCIAS </xsl:when>
+										<xsl:when test="$TEXT_LANG='es'"> REFERENCIAS </xsl:when>
 										<xsl:otherwise> REFERENCES </xsl:otherwise>
 									</xsl:choose>
 								</xsl:with-param>
