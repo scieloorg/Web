@@ -343,18 +343,14 @@
 			</p>
 			
 			<xsl:apply-templates select="*[name()!='title'] | text()"/>
-			<xsl:choose>
-				<xsl:when test="not(@xml:lang)">
-					<xsl:apply-templates
+			<xsl:apply-templates
+				select="..//kwd-group[normalize-space(@xml:lang)=normalize-space($lang)]"
+				mode="keywords-with-abstract"/>
+			<xsl:if test="not(..//kwd-group[normalize-space(@xml:lang)=normalize-space($lang)])">
+				<xsl:apply-templates
 						select="..//kwd-group[not(@xml:lang)]"
 						mode="keywords-with-abstract"/>
-				</xsl:when>
-				<xsl:otherwise>
-					<xsl:apply-templates
-						select="..//kwd-group[normalize-space(@xml:lang)=normalize-space($lang)]"
-						mode="keywords-with-abstract"/>
-				</xsl:otherwise>
-			</xsl:choose>
+			</xsl:if>
 		</div>
 	</xsl:template>
 
