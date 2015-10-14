@@ -707,7 +707,7 @@
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
-	<xsl:template match="fig | table-wrap">
+	<xsl:template match="fig | table-wrap | fig-group | table-wrap-group">
 		<xsl:comment>_ <xsl:value-of select="$HOWTODISPLAY"/>  _</xsl:comment>
 		<xsl:choose>
 			<xsl:when test="$HOWTODISPLAY = 'THUMBNAIL'">
@@ -719,7 +719,23 @@
 
 		</xsl:choose>
 	</xsl:template>
-
+	
+	<xsl:template match="fig-group" mode="scift-standard">
+		<div class="figure-group">
+			<xsl:call-template name="named-anchor"/>
+			<xsl:apply-templates select="graphic|media"/>
+			<xsl:apply-templates select="attrib"/>
+			<xsl:choose>
+				<xsl:when test="fig[@xml:lang=$TEXT_LANG] and $trans">
+					<xsl:apply-templates select="fig[@xml:lang=$TEXT_LANG] and $trans"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:apply-templates select="fig"/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</div>
+	</xsl:template>
+	
 	<xsl:template match="fig" mode="scift-standard">
 		<div class="figure">
 			<xsl:call-template name="named-anchor"/>
@@ -730,6 +746,22 @@
 			</p>
 		</div>
 	</xsl:template>
+	
+	<xsl:template match="table-wrap-group" mode="scift-standard">
+		<div class="table-wrap-group">
+			<xsl:call-template name="named-anchor"/>
+			<xsl:choose>
+				<xsl:when test="table-wrap[@xml:lang=$TEXT_LANG] and $trans">
+					<xsl:apply-templates select="table-wrap[@xml:lang=$TEXT_LANG] and $trans"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:apply-templates select="table-wrap"/>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:apply-templates select="*[name()!='table-wrap']"/>
+		</div>
+	</xsl:template>
+	
 	<xsl:template match="table-wrap" mode="scift-standard">
 		<div class="table-wrap">
 
