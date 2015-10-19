@@ -771,9 +771,13 @@
 				<xsl:apply-templates select="label | caption" mode="scift-label-caption-graphic"/>
 
 			</p>
-			<xsl:apply-templates select="graphic | table"/>
-			<xsl:apply-templates mode="footnote" select=".//fn"/>
+			<xsl:apply-templates select="graphic | table | table-wrap-foot"/>
+			
 		</div>
+	</xsl:template>
+	<xsl:template match="table-wrap-foot">
+		<xsl:apply-templates select="attrib"/>
+		<xsl:apply-templates mode="footnote" select=".//fn"/>
 	</xsl:template>
 	<xsl:template match="fig/label | table-wrap/label | fig/caption | table-wrap/caption | attrib">
 		<span class="{name()}">
@@ -1633,5 +1637,8 @@
 			<xsl:value-of select="../label"/>. 
 			<xsl:apply-templates select="*|text()"/>
 		</p>
+	</xsl:template>
+	<xsl:template match="attrib">
+		<xsl:apply-templates select="*|text()"></xsl:apply-templates>
 	</xsl:template>
 </xsl:stylesheet>
