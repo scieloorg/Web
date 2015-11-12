@@ -69,9 +69,12 @@
             <link href="{$PATH}/static/css/responsive.css" rel="stylesheet"/>
             <link href="{$PATH}/static/css/style.css" rel="stylesheet"/>
             <style>
-
+                .disp-formula {
+                text-align: center;
+                }
                 .disp-formula .label {
                 display: inline-block;
+                margin-left: 50px;
                 }
                 .disp-formula .labeled-formula {
                 display: inline-block;
