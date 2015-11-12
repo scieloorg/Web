@@ -964,7 +964,7 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
     <xsl:template match="alternatives" mode="HTML-TEXT">
         <xsl:choose>
             <xsl:when test="mml:math">
-                <xsl:apply-templates select="mml:math"/>
+                <xsl:apply-templates select="mml:math" mode="HTML-TEXT"/>
             </xsl:when>
             <xsl:when test="graphic">
                 <xsl:apply-templates select="graphic" mode="HTML-TEXT"/>
