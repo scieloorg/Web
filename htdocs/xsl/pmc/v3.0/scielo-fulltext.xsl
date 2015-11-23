@@ -920,27 +920,32 @@
 			<a name="{@id}"/>
 			<xsl:choose>
 				<xsl:when test="label and mixed-citation">
-					<xsl:if test="substring(mixed-citation,1,string-length(label))!=label">
-						<xsl:value-of select="label"/>.&#160; </xsl:if>
+					<xsl:choose>
+						<xsl:when test="substring(normalize-space(mixed-citation),1,string-length(normalize-space(label)))=normalize-space(label)">
+							<xsl:apply-templates select="mixed-citation"/>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:value-of select="label"/><xsl:if test="not(contains(label,'.')) and substring(normalize-space(mixed-citation),1,1)!='.'">.&#160; </xsl:if><xsl:apply-templates select="mixed-citation"/>
+						</xsl:otherwise>
+					</xsl:choose>
 				</xsl:when>
-				<xsl:when test="label"><xsl:value-of select="label"/>.&#160; </xsl:when>
-				<!--xsl:otherwise><xsl:value-of select="position()"/>.&#160; </xsl:otherwise-->
-			</xsl:choose>
-			<xsl:choose>
-				<xsl:when
-					test="(element-citation[.//ext-link] and mixed-citation[not(.//ext-link)]) or (element-citation[.//uri] and mixed-citation[not(.//uri)])">
-					<xsl:apply-templates select="mixed-citation" mode="with-link">
-						<xsl:with-param name="ext_link" select=".//ext-link"/>
-						<xsl:with-param name="uri" select=".//uri"/>
-					</xsl:apply-templates>
-				</xsl:when>
-				<xsl:when test="mixed-citation">
-					<xsl:apply-templates select="mixed-citation"/>
-				</xsl:when>
-				<xsl:when test="citation">
-					<xsl:apply-templates select="citation"/>
-				</xsl:when>
-				<!--xsl:when test="element-citation">
+				<xsl:otherwise>
+					<xsl:if test="label"><xsl:value-of select="label"/><xsl:if test="not(contains(label,'.'))">.&#160; </xsl:if></xsl:if>
+					<xsl:choose>
+						<xsl:when
+							test="(element-citation[.//ext-link] and mixed-citation[not(.//ext-link)]) or (element-citation[.//uri] and mixed-citation[not(.//uri)])">
+							<xsl:apply-templates select="mixed-citation" mode="with-link">
+								<xsl:with-param name="ext_link" select=".//ext-link"/>
+								<xsl:with-param name="uri" select=".//uri"/>
+							</xsl:apply-templates>
+						</xsl:when>
+						<xsl:when test="mixed-citation">
+							<xsl:apply-templates select="mixed-citation"/>
+						</xsl:when>
+						<xsl:when test="citation">
+							<xsl:apply-templates select="citation"/>
+						</xsl:when>
+						<!--xsl:when test="element-citation">
 					<xsl:apply-templates select="element-citation"/>
 				</xsl:when>
 				<xsl:when test="citation">
@@ -949,9 +954,13 @@
 				<xsl:when test="nlm-citation">
 					<xsl:apply-templates select="nlm-citation"/>
 				</xsl:when-->
-				<xsl:otherwise><xsl:comment>_missing mixed-citation _</xsl:comment>
+						<xsl:otherwise><xsl:comment>_missing mixed-citation _</xsl:comment>
+						</xsl:otherwise>
+					</xsl:choose>
 				</xsl:otherwise>
+			
 			</xsl:choose>
+			
 			<xsl:variable name="aref">000000<xsl:apply-templates select="."
 					mode="scift-get_position"/></xsl:variable>
 			<xsl:variable name="ref"><xsl:value-of
