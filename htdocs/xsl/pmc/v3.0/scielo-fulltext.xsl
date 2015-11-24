@@ -430,7 +430,7 @@
 			</xsl:if>
 		</div>
 	</xsl:template>
-	<xsl:template match="contrib/role">, <xsl:value-of select="."/>
+	<xsl:template match="contrib/role | contrib/degrees"><xsl:value-of select="concat(', ',.)"/>
 	</xsl:template>
 	<xsl:template match="contrib-group/role">
 		<p class="role">
@@ -438,7 +438,11 @@
 		</p>
 	</xsl:template>
 	<xsl:template match="contrib">
-		<xsl:if test="position()!=1">, </xsl:if>
+		<xsl:variable name="sep"><xsl:choose>
+			<xsl:when test="role or degrees">;</xsl:when>
+			<xsl:otherwise>,</xsl:otherwise>
+		</xsl:choose></xsl:variable>
+		<xsl:if test="position()!=1"><xsl:value-of select="concat($sep,' ')"/></xsl:if>
 		<xsl:apply-templates select="*|text()"/>
 	</xsl:template>
 	<xsl:template match="contrib/name">
