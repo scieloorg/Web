@@ -69,9 +69,12 @@
             <link href="{$PATH}/static/css/responsive.css" rel="stylesheet"/>
             <link href="{$PATH}/static/css/style.css" rel="stylesheet"/>
             <style>
-
+                .disp-formula {
+                text-align: center;
+                }
                 .disp-formula .label {
                 display: inline-block;
+                margin-left: 50px;
                 }
                 .disp-formula .labeled-formula {
                 display: inline-block;
@@ -964,7 +967,7 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
     <xsl:template match="alternatives" mode="HTML-TEXT">
         <xsl:choose>
             <xsl:when test="mml:math">
-                <xsl:apply-templates select="mml:math"/>
+                <xsl:apply-templates select="mml:math" mode="HTML-TEXT"/>
             </xsl:when>
             <xsl:when test="graphic">
                 <xsl:apply-templates select="graphic" mode="HTML-TEXT"/>
