@@ -1546,6 +1546,14 @@
 <function name="CreateArticleAbstractXML" action="replace" split="occ" tag="4001">
 <!-- Generate XML for abstract, according to interface language or international language
 	4001 - abstract lines -->
+
+	<!--
+		v3000: interface language
+    	v3003: default language
+    	v3012: (original or translation) text language
+    	v8000: XML ou ausente
+    	v4001: conteudo de abstracts
+    -->
 	<field action="import" tag="list">3000,3003,3012,8000</field>
 
 	<call name="GetLanguage"><pft>v3012/v3003/(|^l|v4001^l/)</pft></call>
@@ -2524,9 +2532,9 @@ fi
    <field action="replace" tag="4003" split="occ"><pft>(v4001/)</pft></field> 
    <field action="replace" tag="4002"><pft>v4003[1]</pft></field>
    <field action="replace" tag="4004"><pft>v4003[2]</pft></field>
-   <field action="delete" tag="4003">1</field>
-   <field action="delete" tag="4003">1</field>
-    
+   <!-- field action="delete" tag="4003">1</field>
+   <field action="delete" tag="4003">1</field -->
+   
    <field action="replace" tag="4011">
     <pft>if not s(mpu,v4003):s(mpu,'^l'v4002) then 
 	      if s(mpu,v4003):s(mpu,'^l'v4004) then mpl,v4004 else mpl,v4003^l[1] fi
