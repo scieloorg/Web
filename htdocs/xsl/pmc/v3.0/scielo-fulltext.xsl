@@ -8,56 +8,14 @@
 	
 	<xsl:variable name="use_original_aff" select="count($original//institution[@content-type='original'])&gt;0"/>
 	<xsl:variable name="affiliations" select="$original//aff"/>
-	<xsl:template match="article-meta/permissions">
-		<div class="article-license">
-			<xsl:variable name="license_href"><xsl:choose>
-				<xsl:when test=".//license/@xlink:href"><xsl:value-of select=".//license/@xlink:href"/></xsl:when>
-				<xsl:when test=".//license//a/@href"><xsl:value-of select=".//license//a/@href"/></xsl:when>
-			</xsl:choose></xsl:variable>
-			<xsl:variable name="default_license_href"><xsl:choose><xsl:when test="contains($license_href,'/deed')"><xsl:value-of select="substring-before($license_href,'/deed')"/></xsl:when>
-				<xsl:when test="substring($license_href,string-length($license_href))='/'"><xsl:value-of select="substring($license_href,1,string-length($license_href)-1)"/></xsl:when>
-				<xsl:otherwise><xsl:value-of select="$license_href"/></xsl:otherwise>
-			</xsl:choose></xsl:variable>
-			<xsl:variable name="license_img_src"><xsl:choose>
-				<xsl:when test=".//graphic/@xlink:href"><xsl:value-of select=".//graphic/@xlink:href"/></xsl:when>
-				<xsl:when test=".//img/@src"><xsl:value-of select=".//img/@src"/></xsl:when>
-				<xsl:otherwise>http://i.creativecommons.org/l<xsl:value-of select="substring-after($default_license_href,'licenses')"/>/88x31.png</xsl:otherwise>
-			</xsl:choose></xsl:variable>
-			<xsl:variable name="lang_license_href"><xsl:if test="$langtext!='' and $license_href!=''"><xsl:value-of select="$default_license_href"/>/deed.<xsl:value-of select="$langtext"/></xsl:if></xsl:variable>
-			
-			<xsl:choose>
-				<xsl:when test="$lang_license_href!='' and $license_img_src!=''">
-					<p>
-						<a rel="license" href="{$lang_license_href}">
-							<img src="{$license_img_src}" alt="Creative Commons License" style="border-width:0"/>
-						</a>
-					</p>
-				</xsl:when>
-				<xsl:when test="$lang_license_href!=''">
-					<p>
-						<xsl:choose>
-							<xsl:when test="$langtext='es'">Todo el contenido de esta revista, excepto dónde está identificado, está bajo una </xsl:when>
-							<xsl:when test="$langtext='pt'">Todo o conteúdo deste periódico, exceto onde está identificado, está licenciado sob uma </xsl:when>
-							<xsl:otherwise>All the contents of this journal, except where otherwise noted, is licensed under a </xsl:otherwise>
-						</xsl:choose>
-						<a href="{$lang_license_href}">
-							<xsl:choose>
-								<xsl:when test="$langtext='es'">Licencia Creative Commons</xsl:when>
-								<xsl:when test="$langtext='pt'">Licença Creative Commons</xsl:when>
-								<xsl:otherwise>Creative Commons Attribution License</xsl:otherwise>
-							</xsl:choose>
-						</a>
-					</p>
-				</xsl:when>
-				<xsl:when test=".//license/p">
-					<xsl:copy-of select=".//license/p"/>
-				</xsl:when>
-				<xsl:when test=".//license/license-p">
-					<xsl:apply-templates select=".//license/license-p"></xsl:apply-templates>
-				</xsl:when>	
-			</xsl:choose>
-		</div>
+	
+	<xsl:template match="article-meta/permissions | PERMISSIONS[@source]/permissions">
+		<xsl:apply-templates select="." mode="permissions-footnote">
+			<xsl:with-param name="style">article-license</xsl:with-param>
+			<xsl:with-param name="text_lang" select="$langtext"/>
+		</xsl:apply-templates>
 	</xsl:template>
+	
 	<xsl:template match="*" mode="id">
 		<xsl:value-of select="@id"/>
 		<xsl:if test="not(@id)">
@@ -472,7 +430,7 @@
 			</xsl:if>
 		</div>
 	</xsl:template>
-	<xsl:template match="contrib/role">, <xsl:value-of select="."/>
+	<xsl:template match="contrib/role | contrib/degrees"><xsl:value-of select="concat(', ',.)"/>
 	</xsl:template>
 	<xsl:template match="contrib-group/role">
 		<p class="role">
@@ -480,7 +438,11 @@
 		</p>
 	</xsl:template>
 	<xsl:template match="contrib">
-		<xsl:if test="position()!=1">, </xsl:if>
+		<xsl:variable name="sep"><xsl:choose>
+			<xsl:when test="role or degrees">;</xsl:when>
+			<xsl:otherwise>,</xsl:otherwise>
+		</xsl:choose></xsl:variable>
+		<xsl:if test="position()!=1"><xsl:value-of select="concat($sep,' ')"/></xsl:if>
 		<xsl:apply-templates select="*|text()"/>
 	</xsl:template>
 	<xsl:template match="contrib/name">
@@ -962,27 +924,32 @@
 			<a name="{@id}"/>
 			<xsl:choose>
 				<xsl:when test="label and mixed-citation">
-					<xsl:if test="substring(mixed-citation,1,string-length(label))!=label">
-						<xsl:value-of select="label"/>.&#160; </xsl:if>
+					<xsl:choose>
+						<xsl:when test="substring(normalize-space(mixed-citation),1,string-length(normalize-space(label)))=normalize-space(label)">
+							<xsl:apply-templates select="mixed-citation"/>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:value-of select="label"/><xsl:if test="not(contains(label,'.')) and substring(normalize-space(mixed-citation),1,1)!='.'">.&#160; </xsl:if><xsl:apply-templates select="mixed-citation"/>
+						</xsl:otherwise>
+					</xsl:choose>
 				</xsl:when>
-				<xsl:when test="label"><xsl:value-of select="label"/>.&#160; </xsl:when>
-				<!--xsl:otherwise><xsl:value-of select="position()"/>.&#160; </xsl:otherwise-->
-			</xsl:choose>
-			<xsl:choose>
-				<xsl:when
-					test="(element-citation[.//ext-link] and mixed-citation[not(.//ext-link)]) or (element-citation[.//uri] and mixed-citation[not(.//uri)])">
-					<xsl:apply-templates select="mixed-citation" mode="with-link">
-						<xsl:with-param name="ext_link" select=".//ext-link"/>
-						<xsl:with-param name="uri" select=".//uri"/>
-					</xsl:apply-templates>
-				</xsl:when>
-				<xsl:when test="mixed-citation">
-					<xsl:apply-templates select="mixed-citation"/>
-				</xsl:when>
-				<xsl:when test="citation">
-					<xsl:apply-templates select="citation"/>
-				</xsl:when>
-				<!--xsl:when test="element-citation">
+				<xsl:otherwise>
+					<xsl:if test="label"><xsl:value-of select="label"/><xsl:if test="not(contains(label,'.'))">.&#160; </xsl:if></xsl:if>
+					<xsl:choose>
+						<xsl:when
+							test="(element-citation[.//ext-link] and mixed-citation[not(.//ext-link)]) or (element-citation[.//uri] and mixed-citation[not(.//uri)])">
+							<xsl:apply-templates select="mixed-citation" mode="with-link">
+								<xsl:with-param name="ext_link" select=".//ext-link"/>
+								<xsl:with-param name="uri" select=".//uri"/>
+							</xsl:apply-templates>
+						</xsl:when>
+						<xsl:when test="mixed-citation">
+							<xsl:apply-templates select="mixed-citation"/>
+						</xsl:when>
+						<xsl:when test="citation">
+							<xsl:apply-templates select="citation"/>
+						</xsl:when>
+						<!--xsl:when test="element-citation">
 					<xsl:apply-templates select="element-citation"/>
 				</xsl:when>
 				<xsl:when test="citation">
@@ -991,9 +958,13 @@
 				<xsl:when test="nlm-citation">
 					<xsl:apply-templates select="nlm-citation"/>
 				</xsl:when-->
-				<xsl:otherwise><xsl:comment>_missing mixed-citation _</xsl:comment>
+						<xsl:otherwise><xsl:comment>_missing mixed-citation _</xsl:comment>
+						</xsl:otherwise>
+					</xsl:choose>
 				</xsl:otherwise>
+			
 			</xsl:choose>
+			
 			<xsl:variable name="aref">000000<xsl:apply-templates select="."
 					mode="scift-get_position"/></xsl:variable>
 			<xsl:variable name="ref"><xsl:value-of

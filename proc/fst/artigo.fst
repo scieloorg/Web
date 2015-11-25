@@ -27,6 +27,6 @@
 50 0 mpl,if v706='i' and v32='ahead' and a(v41) then 'AHEAD=',v35 fi
 50 0 mpl,if v706='i' and v32='review' then 'REVIEW=',v35 fi
 60 0 mpl,if v706='i' then 'IDT',v91/, fi 				/* webservices - new_issues - SciELO.org */
-90 0 mpl,if v706='h' then 'UPDATED=',ref((mfn-1),if p(v93) then v93*0.8 else v91*0.8 fi)/ fi,     /* oai-pmh - new and updated documents - SciELO.org */
+90 0 mpl,if v706='h' then 'OAITS=',ref(mfn-1,if p(v93) then if val(v93*0.8) > val(v91) then v93*0.8 else v91 fi else v91 fi),'=',v880*1 fi
 241 0 mpl,if v706='h' then (v241^t,v241^i/) fi
 770 0 mpl,if v706='h' and v770>'' then ('EC_',v770^*,v770^a/) fi
