@@ -1140,51 +1140,89 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
         </div>
     </xsl:template>
     <xsl:template match="PERMISSIONS[@source!='site']/permissions">
-        <div class="license">
-            <xsl:variable name="license_href"><xsl:choose>
-                <xsl:when test=".//license/@xlink:href"><xsl:value-of select=".//license/@xlink:href"/></xsl:when>
-                <xsl:when test=".//license//a/@href"><xsl:value-of select=".//license//a/@href"/></xsl:when>
-            </xsl:choose></xsl:variable>
-            <xsl:variable name="default_license_href"><xsl:choose><xsl:when test="contains($license_href,'/deed')"><xsl:value-of select="substring-before($license_href,'/deed')"/></xsl:when>
-                <xsl:when test="substring($license_href,string-length($license_href))='/'"><xsl:value-of select="substring($license_href,1,string-length($license_href)-1)"/></xsl:when>
-                <xsl:otherwise><xsl:value-of select="$license_href"/></xsl:otherwise>
-            </xsl:choose></xsl:variable>
-            <xsl:variable name="license_img_src"><xsl:choose>
-                <xsl:when test=".//graphic/@xlink:href"><xsl:value-of select=".//graphic/@xlink:href"/></xsl:when>
-                <xsl:when test=".//img/@src"><xsl:value-of select=".//img/@src"/></xsl:when>
-                <xsl:otherwise>http://i.creativecommons.org/l<xsl:value-of select="substring-after($default_license_href,'licenses')"/>/88x31.png</xsl:otherwise>
-            </xsl:choose></xsl:variable>
-            
-            <xsl:variable name="lang_license_href"><xsl:if test="$interfaceLang!='' and $default_license_href!=''"><xsl:value-of select="$default_license_href"/>/deed.<xsl:value-of select="$interfaceLang"/></xsl:if></xsl:variable>
+        <xsl:apply-templates select="." mode="permissions-footnote">
+            <xsl:with-param name="style">license</xsl:with-param>
+            <xsl:with-param name="t" select="$interfaceLang"/>
+        </xsl:apply-templates>
+    </xsl:template>
+    
+    <xsl:template match="*" mode="license-disclaimer">
+        <xsl:param name="text_lang"/>
+        <xsl:param name="translated_license_href"/>
+        
+        <xsl:choose>
+            <xsl:when test="$text_lang='es'">Todo el contenido de esta revista, excepto dónde está identificado, está bajo una </xsl:when>
+            <xsl:when test="$text_lang='pt'">Todo o conteúdo deste periódico, exceto onde está identificado, está licenciado sob uma </xsl:when>
+            <xsl:otherwise>All the contents of this journal, except where otherwise noted, is licensed under a </xsl:otherwise>
+        </xsl:choose>
+        <a href="{$translated_license_href}">
             <xsl:choose>
-                <xsl:when test="$lang_license_href!=''">
-                    <p>
-                        <xsl:if test="$license_img_src!=''">
-                            <a rel="license" href="{$lang_license_href}">
-                                <img src="{$license_img_src}" alt="Creative Commons License" style="border-width:0"/>
-                            </a>
-                        </xsl:if>
-                        <xsl:text>&#160;</xsl:text>
-                        <xsl:choose>
-                            <xsl:when test="$interfaceLang='es'">Todo el contenido de esta revista, excepto dónde está identificado, está bajo una </xsl:when>
-                            <xsl:when test="$interfaceLang='pt'">Todo o conteúdo deste periódico, exceto onde está identificado, está licenciado sob uma </xsl:when>
-                            <xsl:otherwise>All the contents of this journal, except where otherwise noted, is licensed under a </xsl:otherwise>
-                        </xsl:choose>
-                        <a href="{$lang_license_href}">
-                            <xsl:choose>
-                                <xsl:when test="$interfaceLang='es'">Licencia Creative Commons</xsl:when>
-                                <xsl:when test="$interfaceLang='pt'">Licença Creative Commons</xsl:when>
-                                <xsl:otherwise>Creative Commons Attribution License</xsl:otherwise>
-                            </xsl:choose>
-                        </a>
-                    </p> 
+                <xsl:when test="$text_lang='es'">Licencia Creative Commons</xsl:when>
+                <xsl:when test="$text_lang='pt'">Licença Creative Commons</xsl:when>
+                <xsl:otherwise>Creative Commons Attribution License</xsl:otherwise>
+            </xsl:choose>
+        </a>
+    </xsl:template>
+    
+    <xsl:template match="*" mode="permissions-footnote">
+        <xsl:param name="style"/>
+        <xsl:param name="text_lang"/>
+        
+        <div class="{$style}">
+            <xsl:variable name="license_href"><xsl:choose>
+                <xsl:when test="contains(.//license/@href,'://creativecommons.org/licenses/')"><xsl:value-of select=".//license/@href"/></xsl:when>
+                <xsl:when test="contains(.//license/@xlink:href,'://creativecommons.org/licenses/')"><xsl:value-of select=".//license/@xlink:href"/></xsl:when>
+                <xsl:when test="contains(.//license//a/@href,'://creativecommons.org/licenses/')"><xsl:value-of select=".//license//a/@href"/></xsl:when>
+                <xsl:otherwise>invalid</xsl:otherwise>
+            </xsl:choose></xsl:variable>
+            <xsl:choose>
+                <xsl:when test="$license_href='invalid'">
+                    <xsl:comment>url de license eh invalida</xsl:comment>
+                    <xsl:comment><xsl:value-of select=".//license/@href"/></xsl:comment>
+                    <xsl:comment><xsl:value-of select=".//license/@xlink:href"/></xsl:comment>
+                    <xsl:comment><xsl:value-of select=".//license//a/@href"/></xsl:comment>
                 </xsl:when>
-                <xsl:when test=".//license/p">
-                    <xsl:copy-of select=".//license/p"/>
-                </xsl:when>
-                <xsl:when test=".//license/license-p">
-                    <xsl:apply-templates select=".//license/license-p"></xsl:apply-templates>
-                </xsl:when>	
+                <xsl:otherwise>
+                    <xsl:variable name="main_license_href"><xsl:choose><xsl:when test="contains($license_href,'/deed')"><xsl:value-of select="substring-before($license_href,'/deed')"/></xsl:when>
+                        <xsl:when test="substring($license_href,string-length($license_href))='/'"><xsl:value-of select="substring($license_href,1,string-length($license_href)-1)"/></xsl:when>
+                        <xsl:otherwise><xsl:value-of select="$license_href"/></xsl:otherwise>
+                    </xsl:choose></xsl:variable>
+                    <xsl:variable name="license_img_src"><xsl:choose>
+                        <xsl:when test=".//graphic/@xlink:href"><xsl:value-of select=".//graphic/@xlink:href"/></xsl:when>
+                        <xsl:when test=".//img/@src"><xsl:value-of select=".//img/@src"/></xsl:when>
+                        <xsl:otherwise>http://i.creativecommons.org/l<xsl:value-of select="substring-after($main_license_href,'licenses')"/>/88x31.png</xsl:otherwise>
+                    </xsl:choose></xsl:variable>
+                    <xsl:variable name="translated_license_href"><xsl:value-of select="$main_license_href"/><xsl:if test="$text_lang!='' and $main_license_href!=''">/deed.<xsl:value-of select="$text_lang"/></xsl:if></xsl:variable>
+                    <xsl:choose>
+                        <xsl:when test="$translated_license_href!=''">
+                            <p>
+                                <xsl:choose>
+                                    <xsl:when test="contains($license_img_src, '88x31')">
+                                        <a rel="license" href="{$translated_license_href}">
+                                            <img src="{$license_img_src}" alt="Creative Commons License" style="border-width:0"/>
+                                        </a>
+                                    </xsl:when>
+                                    <xsl:when test="$license_img_src!=''">
+                                        <a rel="license" href="{$translated_license_href}">
+                                            <img src="{$license_img_src}" alt="Creative Commons License" style="border-width:0"/>
+                                        </a>
+                                        <xsl:text>&#160;</xsl:text>
+                                        <xsl:apply-templates select="." mode="license-disclaimer">
+                                            <xsl:with-param name="translated_license_href" select="$translated_license_href"/>
+                                            <xsl:with-param name="text_lang" select="$text_lang"/>
+                                            
+                                        </xsl:apply-templates>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:apply-templates select="." mode="license-disclaimer">
+                                            <xsl:with-param name="translated_license_href" select="$translated_license_href"/>
+                                            <xsl:with-param name="text_lang" select="$text_lang"/></xsl:apply-templates>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </p> 
+                        </xsl:when>
+                    </xsl:choose>
+                </xsl:otherwise>
             </xsl:choose>
         </div>
     </xsl:template>
