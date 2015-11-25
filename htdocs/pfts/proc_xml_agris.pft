@@ -59,6 +59,11 @@
 			'<month>',mid(v65,5,2),'</month>',#
 			'<year>',mid(v65,1,4),'</year>',#
 		'</pub-date>',#
+		'<pub-date pub-type="update">',#
+			'<day>',mid(v3091,7,2),'</day>',#
+			'<month>',mid(v3091,5,2),'</month>',#
+			'<year>',mid(v3091,1,4),'</year>',#
+		'</pub-date>',#
 		|<volume>|v31|</volume>|/,
 		|<numero>|v32|</numero>|/,
 		|<fpage>|v14^f|</fpage>|/,
