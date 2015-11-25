@@ -21,6 +21,9 @@
 
         <include>ScieloXML/sci_cipar.xis</include>	
         
+        <field action="replace" tag="3002"><pft>if p(v3002) then replace(v3002,'-','') fi</pft></field>
+        <field action="replace" tag="3003"><pft>if p(v3003) then replace(v3003,'-','') fi</pft></field>
+
         <field action="replace" tag="3004"><pft>if p(v3004) then replace(v3004,'__','=') fi</pft></field>
         <field action="replace" tag="3007">
             <pft>f(l(['TITLE'],'LOC='v3001),1,0)</pft>
@@ -55,9 +58,28 @@
     	</call>
                 
         <do task="search">
-    		<parm name="db">ARTIGO</parm>	
-    		<parm name="expression">DTH=$</parm>	
-    		<parm name="count">1</parm>	
+            <parm name="db">ARTIGO</parm>   
+            <parm name="expression">OAITS=$</parm>  
+            <parm name="count">1</parm> 
+            
+            <loop>
+                <display><pft>@PROC_SPLIT_MST.PFT,</pft></display>
+                <field action="replace" tag="9000">OAITS</field>
+                <field action="export" tag="list">9000</field>
+            </loop>
+        </do>
+        <flow action="jump">
+            <pft>
+                if v9000='OAITS' then
+                    'LIST'
+                fi
+            </pft>
+        </flow>
+ 
+        <do task="search">
+            <parm name="db">ARTIGO</parm>   
+            <parm name="expression">DTH=$</parm>    
+            <parm name="count">1</parm> 
             
             <loop>
                 <display><pft>@PROC_SPLIT_MST.PFT,</pft></display>
@@ -66,6 +88,7 @@
             </loop>
         </do>
  
+        <label>LIST</label>
         <display><pft>' <LIST>'/</pft></display>
         
         <field action="replace" tag="9001">
@@ -79,10 +102,10 @@
         <field action="replace" tag="3030">
             <pft>
                 if p(v3004) then
-                    v3004
+                    ,replace(v3004,'DTH',v9000),
                 else
                     if v9001 = 'DATE_KEY' then
-                        'DTH=',v3002
+                        v9000,'=',v3002
                     else
                         'HR=S',v3001
                     fi
@@ -93,7 +116,9 @@
         <field action="replace" tag="3031">
             <pft>
                 if v9001 = 'DATE_KEY' then
-                   'DTH=',v3003,'ZZZZZ'
+                    if p(v3003) then
+                        ,v9000,'=',v3003,'ZZZZZ',
+                    fi
                 else
                    'HR=S',v3001,'ZZZZZ'
                 fi
@@ -121,10 +146,10 @@
                     </pft>
                 </flow>
 
-                <field action="replace" tag="1065">
+                <field action="replace" tag="1091">
                     <pft>
-                        ref(['ARTIGO']val(v1003^m),@PROC_SPLIT_MST.PFT,
-                            v65*0.4, if v65*4.2 = '00' then '01' else v65*4.2 fi, '01')
+                        ref(['ARTIGO']val(v1003^m)-1,@PROC_SPLIT_MST.PFT,
+                            if p(v93) then if val(v93*0.8) > val(v91) then v93*0.8 else v91 fi else v91 fi)
                     </pft>
                 </field>
 
@@ -137,7 +162,7 @@
                 <flow action="skip">
                     <pft>
                         /* if From and pub date < from */
-                        if p(v3002) and v1065 < v3002*0.8 then
+                        if p(v3002) and v1091 < v3002*0.8 then
                             'Next'
                         fi
                     </pft>
@@ -146,7 +171,7 @@
                 <flow action="skip">
                     <pft>
                         /* if Until and pub date > until */
-                        if p(v3003) and v1065 > v3003*0.8 then
+                        if p(v3003) and v1091 > v3003*0.8 then
                             'Next'
                         fi
                     </pft>
@@ -169,7 +194,9 @@
 			<loop>
                 <field action="import" tag="list">1001,3000/3004,3012,7009/7060</field>
 				<display><pft>@PROC_SPLIT_MST.PFT,</pft></display>
-				
+				<field action="replace" tag="3091">
+                    <pft>ref(l('OU=',v880),proc(if val(v32701^m) > 0 then,'R../bases/artigo/',v32701^*,',',v32701^m , fi),if p(v93) then if val(v93*0.8) > val(v91) then v93*0.8 else v91 fi else v91 fi)</pft>
+                </field>
 				<display><pft>@PROC_XML_AGRIS.PFT</pft></display>
 			</loop>
 		</do>
@@ -184,7 +211,7 @@
                 
                 <display>
                     <pft>
-                        '  <RESUME CONTROL="',replace(v1002,'=','__'),'"',
+                        '  <RESUME CONTROL="',replace(replace(v1002,'=','__'),'OAITS','DTH'),'"',
                                | SET="|v3001|"|,
                                | FROM="|v3002|"|,
                                | UNTIL="|v3003|"|,
