@@ -69,9 +69,12 @@
             <link href="{$PATH}/static/css/responsive.css" rel="stylesheet"/>
             <link href="{$PATH}/static/css/style.css" rel="stylesheet"/>
             <style>
-
+                .disp-formula {
+                text-align: center;
+                }
                 .disp-formula .label {
                 display: inline-block;
+                margin-left: 50px;
                 }
                 .disp-formula .labeled-formula {
                 display: inline-block;
@@ -795,6 +798,9 @@
             <xsl:value-of select="position()"/>
         </xsl:param>
         <xsl:choose>
+            <xsl:when test=".//fig-group">
+                <xsl:apply-templates select=".//fig-group" mode="HTML-TEXT"/>
+            </xsl:when>
             <xsl:when test=".//fig or .//table-wrap[.//graphic]">
                 <xsl:apply-templates select=".//fig|.//table-wrap" mode="HTML-TEXT"/>
             </xsl:when>
@@ -961,7 +967,7 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
     <xsl:template match="alternatives" mode="HTML-TEXT">
         <xsl:choose>
             <xsl:when test="mml:math">
-                <xsl:apply-templates select="mml:math"/>
+                <xsl:apply-templates select="mml:math" mode="HTML-TEXT"/>
             </xsl:when>
             <xsl:when test="graphic">
                 <xsl:apply-templates select="graphic" mode="HTML-TEXT"/>
@@ -976,7 +982,8 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
             <xsl:apply-templates select="*|text()"/>
         </a>
     </xsl:template>
-    <xsl:template match="fig" mode="HTML-TEXT">
+    
+    <xsl:template match="fig[graphic]" mode="HTML-TEXT">
         <div class="row fig" id="{@id}">
             <div class="span3">
                 <xsl:variable name="img_filename"><xsl:value-of select="concat($IMAGE_PATH,'/')"/><xsl:apply-templates select=".//graphic" mode="fix_img_extension"/></xsl:variable>
@@ -989,6 +996,65 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
                     <xsl:apply-templates select="attrib"/>
                 </div>
             </div>
+            <div class="span5">
+                <strong>
+                    <xsl:value-of select="label"/>
+                </strong>
+                <br/>
+                <xsl:apply-templates select="caption"/>
+            </div>
+        </div>
+    </xsl:template>
+    <xsl:template match="fig[not(graphic)]" mode="HTML-TEXT">
+        <div class="span5">
+            <strong>
+                <xsl:value-of select="label"/>
+            </strong>
+            <br/>
+            <xsl:apply-templates select="caption"/>
+        </div>
+    </xsl:template>
+    <xsl:template match="fig-group" mode="HTML-TEXT">
+        <div class="row fig" id="{@id}">
+            <div class="span3">
+                <xsl:variable name="img_filename"><xsl:value-of select="concat($IMAGE_PATH,'/')"/><xsl:apply-templates select=".//graphic" mode="fix_img_extension"/></xsl:variable>
+                <div class="thumb">
+                    <xsl:attribute name="style"> background-image: url(<xsl:value-of
+                        select="$img_filename"/>); </xsl:attribute> Thumbnail</div>
+                <!-- FIXME -->
+                <div class="preview span9 hide">
+                    <img src="{$img_filename}" alt="{caption}"/>
+                    <xsl:apply-templates select="attrib"/>
+                </div>
+            </div>
+            <xsl:choose>
+                <xsl:when test="fig[@xml:lang=$PAGE_LANG] and $trans">
+                    <xsl:apply-templates select="fig[@xml:lang=$PAGE_LANG] and $trans" mode="HTML-TEXT"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:apply-templates select="fig" mode="HTML-TEXT"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </div>
+    </xsl:template>
+    <xsl:template match="table-wrap-group" mode="HTML-TEXT">
+        <div class="row table" id="{@id}">
+            <xsl:choose>
+                <xsl:when test="table-wrap[@xml:lang=$PAGE_LANG] and $trans">
+                    <xsl:apply-templates select="table-wrap[@xml:lang=$PAGE_LANG] and $trans" mode="HTML-TEXT"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:apply-templates select="table-wrap" mode="HTML-TEXT"/>
+                </xsl:otherwise>
+            </xsl:choose>
+            <div class="span8">
+                <xsl:apply-templates select="*[name()!='table-wrap']|text()"
+                    mode="HTML-TEXT"/>
+            </div>
+        </div>
+    </xsl:template>
+    <xsl:template match="table-wrap[not(graphic) and not(table)]" mode="HTML-TEXT">
+        <div class="row table" id="{@id}">
             <div class="span5">
                 <strong>
                     <xsl:value-of select="label"/>
@@ -1012,16 +1078,15 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
                     mode="HTML-TEXT"/>
             </div>
         </div>
-
     </xsl:template>
-    <xsl:template match="table-wrap[not(table)]" mode="HTML-TEXT">
-        <div class="row fig" id="{@id}">
+    <xsl:template match="table-wrap[graphic]" mode="HTML-TEXT">
+        <div class="row table" id="{@id}">
             <div class="span3">
                 <xsl:variable name="img_filename"><xsl:value-of select="concat($IMAGE_PATH,'/')"/><xsl:apply-templates select=".//graphic" mode="fix_img_extension"/></xsl:variable>
                 
                 <div class="thumb">
                     <xsl:attribute name="style"> background-image: url(<xsl:value-of
-                            select="$img_filename"/>); </xsl:attribute> Thumbnail</div>
+                        select="$img_filename"/>); </xsl:attribute> Thumbnail</div>
                 <!-- FIXME -->
                 <div class="preview span9 hide">
                     <img src="{$img_filename}" alt="{caption}"/>
@@ -1036,8 +1101,6 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
                 <xsl:apply-templates select="caption"/>
             </div>
         </div>
-
-
     </xsl:template>
     <xsl:template match="*" mode="HTML-BODY-FOOTER">
         <footer>

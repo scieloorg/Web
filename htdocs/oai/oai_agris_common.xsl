@@ -92,27 +92,27 @@
 		<resumptionToken><xsl:value-of select="normalize-space($resumptionToken)"/></resumptionToken>
 </xsl:template>
 
-<xsl:template name="FormatDate">
+	<xsl:template name="FormatDate">
 		<xsl:param name="date"/>
 		<xsl:if test="$date">
-			<xsl:choose>
-				<xsl:when test=" substring($date,5,2) = '00' ">
-					<xsl:value-of select="concat(substring($date,1,4),'-01-01') "/>
-				</xsl:when>
-				<xsl:otherwise>
-					<xsl:value-of select="concat(substring($date,1,4), '-', substring($date,5,2), '-01') "/>
-				</xsl:otherwise>
-			</xsl:choose>
+			<xsl:variable name="complete_date"><xsl:value-of select="$date"/>00000000</xsl:variable>
+
+			<xsl:variable name="fixed_month_and_day"><xsl:choose>
+				<xsl:when test="substring($complete_date,5,2)='00'">01</xsl:when><xsl:otherwise><xsl:value-of select="substring($complete_date,5,2)"/></xsl:otherwise>
+			</xsl:choose><xsl:choose>
+				<xsl:when test="substring($complete_date,7,2)='00'">01</xsl:when><xsl:otherwise><xsl:value-of select="substring($complete_date,7,2)"/></xsl:otherwise>
+			</xsl:choose></xsl:variable>
+			<xsl:value-of select="concat(substring($complete_date,1,4), '-', substring($fixed_month_and_day,1,2), '-', substring($fixed_month_and_day,3,2)) "/>
 		</xsl:if>
 	</xsl:template>
-
 
 
 <xsl:template match="front">	
 	<record>
 		<header>
 			<xsl:apply-templates select=".//article-meta/article-id[1]" mode="identifier"/>
-			<xsl:apply-templates select="article-meta/pub-date[@pub-type='pub']" mode="datestamp" />
+			<!--FIXME usar data de atualizacao -->
+			<xsl:apply-templates select="article-meta/pub-date[@pub-type='update']" mode="datestamp" />
 			<xsl:apply-templates select="journal-meta/issn" mode="setSpec" />
 		</header>
 		<metadata>
