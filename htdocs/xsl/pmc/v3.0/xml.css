@@ -107,10 +107,9 @@ border-color: gray;
 }
 
 .label_caption {
-	padding-top: 10px;
+	padding-top: 5px;
 	vertical-align: top;
-	padding-bottom: 10px;
-	
+	padding-bottom: 5px;
 	font-family: arial;
 }
 .caption {
@@ -152,13 +151,25 @@ border-color: gray;
 	display: inline;
     max-height: 40px;
 }
-
-.figure, .table-wrap {
+.figure-group, .table-wrap-group {
 	max-width: 100%;
 	border-color: transparent;
-	padding-top: 10px;
-	padding-bottom: 10px;
-	
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+
+.figure {
+	max-width: 100%;
+	border-color: transparent;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+.table-wrap {
+	max-width: 100%;
+	border-color: transparent;
+	padding-top: 5px;
+	padding-bottom: 5px;
 }
 
 #article-footer {
