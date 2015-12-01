@@ -745,16 +745,10 @@
         </strong>
     </xsl:template>
    <xsl:template match="table | table//* " mode="HTML-TEXT">
-        <xsl:choose>
-            <xsl:when test=".//xref">
-                <xsl:element name="{name()}">
+        <xsl:element name="{name()}">
                     <xsl:apply-templates select="@*|*|text()" mode="HTML-TEXT"/>
                 </xsl:element>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:copy-of select="."/>
-            </xsl:otherwise>
-        </xsl:choose>
+            
     </xsl:template>
     <xsl:template match="sup |sub" mode="HTML-TEXT">
         <xsl:param name="parag_id"/>
@@ -942,7 +936,7 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
             </a>
         </div>
     </xsl:template>
-    <xsl:template match="inline-graphic|disp-formula/graphic" mode="HTML-TEXT">
+    <xsl:template match="table//inline-graphic|inline-graphic|disp-formula/graphic" mode="HTML-TEXT">
         <img>
             <xsl:attribute name="src"><xsl:value-of select="concat($IMAGE_PATH,'/')"/><xsl:apply-templates select="." mode="fix_img_extension"/></xsl:attribute>
         </img>
@@ -1029,7 +1023,7 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
             </div>
             <xsl:choose>
                 <xsl:when test="fig[@xml:lang=$PAGE_LANG] and $trans">
-                    <xsl:apply-templates select="fig[@xml:lang=$PAGE_LANG] and $trans" mode="HTML-TEXT"/>
+                    <xsl:apply-templates select="fig[@xml:lang=$PAGE_LANG]" mode="HTML-TEXT"/>
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:apply-templates select="fig" mode="HTML-TEXT"/>
@@ -1041,7 +1035,7 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
         <div class="row table" id="{@id}">
             <xsl:choose>
                 <xsl:when test="table-wrap[@xml:lang=$PAGE_LANG] and $trans">
-                    <xsl:apply-templates select="table-wrap[@xml:lang=$PAGE_LANG] and $trans" mode="HTML-TEXT"/>
+                    <xsl:apply-templates select="table-wrap[@xml:lang=$PAGE_LANG]" mode="HTML-TEXT"/>
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:apply-templates select="table-wrap" mode="HTML-TEXT"/>
