@@ -669,6 +669,7 @@
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
+	
 	<xsl:template match="fig | table-wrap | fig-group | table-wrap-group">
 		<xsl:comment>_ <xsl:value-of select="$HOWTODISPLAY"/>  _</xsl:comment>
 		<xsl:choose>
@@ -689,7 +690,7 @@
 			<xsl:apply-templates select="attrib"/>
 			<xsl:choose>
 				<xsl:when test="fig[@xml:lang=$TEXT_LANG] and $trans">
-					<xsl:apply-templates select="fig[@xml:lang=$TEXT_LANG] and $trans"/>
+					<xsl:apply-templates select="fig[@xml:lang=$TEXT_LANG]"/>
 				</xsl:when>
 				<xsl:otherwise>
 					<xsl:apply-templates select="fig"/>
@@ -714,7 +715,7 @@
 			<xsl:call-template name="named-anchor"/>
 			<xsl:choose>
 				<xsl:when test="table-wrap[@xml:lang=$TEXT_LANG] and $trans">
-					<xsl:apply-templates select="table-wrap[@xml:lang=$TEXT_LANG] and $trans"/>
+					<xsl:apply-templates select="table-wrap[@xml:lang=$TEXT_LANG]"/>
 				</xsl:when>
 				<xsl:otherwise>
 					<xsl:apply-templates select="table-wrap"/>
@@ -770,6 +771,57 @@
 			</table>
 		</div>
 	</xsl:template>
+	<xsl:template match="table">
+		<xsl:variable name="class">
+			<xsl:choose>
+				<xsl:when test="$version='xml'">dotted_table</xsl:when>
+				<xsl:otherwise>table</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
+		<div class="table">
+			<table class="{$class}">
+				<xsl:apply-templates select="@*|*|text()"/>
+			</table>
+		</div>
+	</xsl:template>
+	<xsl:template match="table//@*">
+		<xsl:attribute name="{name()}">
+			<xsl:value-of select="."/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template match="table//*">
+		<xsl:element name="{name()}">
+			<xsl:if test=" name() = 'td' and $version='xml'">
+				<xsl:attribute name="class">td</xsl:attribute>
+			</xsl:if>
+			
+			<xsl:apply-templates select="@* | * | text()"/>
+		</xsl:element>
+	</xsl:template>
+	<xsl:template match="table//break"><br/>
+	</xsl:template>
+	<xsl:template match="table//xref">
+		<xsl:if test="@ref-type='fn'">
+			<a name="back_{@rid}"/>
+		</xsl:if>
+		<a href="#{@rid}">
+			<xsl:apply-templates select="*|text()"/>
+		</a>
+	</xsl:template>
+	<xsl:template match="table-wrap//fn" mode="footnote">
+		<a name="{@id}"/>
+		<p>
+			<xsl:apply-templates select="* | text()"/>
+		</p>
+	</xsl:template>
+	<xsl:template match="table-wrap//fn//label">
+		<sup>
+			<xsl:value-of select="."/>
+		</sup>
+	</xsl:template>
+	<xsl:template match="table-wrap//fn/p">
+		<xsl:apply-templates select="*|text()"/>
+	</xsl:template>
 	<xsl:template match="inline-formula">
 		<span class="inline-formula">
 			<xsl:apply-templates select="*|text()"/>
@@ -808,7 +860,7 @@
 		</a>
 	</xsl:template>
 
-	<xsl:template match="inline-graphic | disp-formula/graphic">
+	<xsl:template match="table//inline-graphic |inline-graphic | disp-formula/graphic">
 		<a target="_blank">
 			<xsl:apply-templates select="." mode="scift-attribute-href"/>
 			<img class="inline-formula">
@@ -978,58 +1030,6 @@
 
 	<xsl:template match="mixed-citation | element-citation | nlm-citation | citation ">
 		<xsl:apply-templates select="* | text()"/>
-	</xsl:template>
-
-	<xsl:template match="table">
-		<xsl:variable name="class">
-			<xsl:choose>
-				<xsl:when test="$version='xml'">dotted_table</xsl:when>
-				<xsl:otherwise>table</xsl:otherwise>
-			</xsl:choose>
-		</xsl:variable>
-		<div class="table">
-			<table class="{$class}">
-				<xsl:apply-templates select="@*|*|text()"/>
-			</table>
-		</div>
-	</xsl:template>
-	<xsl:template match="table//@*">
-		<xsl:attribute name="{name()}">
-			<xsl:value-of select="."/>
-		</xsl:attribute>
-	</xsl:template>
-	<xsl:template match="table//*">
-		<xsl:element name="{name()}">
-			<xsl:if test=" name() = 'td' and $version='xml'">
-				<xsl:attribute name="class">td</xsl:attribute>
-			</xsl:if>
-
-			<xsl:apply-templates select="@* | * | text()"/>
-		</xsl:element>
-	</xsl:template>
-	<xsl:template match="table//break"><br/>
-	</xsl:template>
-	<xsl:template match="table//xref">
-		<xsl:if test="@ref-type='fn'">
-			<a name="back_{@rid}"/>
-		</xsl:if>
-		<a href="#{@rid}">
-			<xsl:apply-templates select="*|text()"/>
-		</a>
-	</xsl:template>
-	<xsl:template match="table-wrap//fn" mode="footnote">
-		<a name="{@id}"/>
-		<p>
-			<xsl:apply-templates select="* | text()"/>
-		</p>
-	</xsl:template>
-	<xsl:template match="table-wrap//fn//label">
-		<sup>
-			<xsl:value-of select="."/>
-		</sup>
-	</xsl:template>
-	<xsl:template match="table-wrap//fn/p">
-		<xsl:apply-templates select="*|text()"/>
 	</xsl:template>
 
 	<xsl:template match="history">
