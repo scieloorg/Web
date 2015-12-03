@@ -3,7 +3,9 @@
     xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xlink="http://www.w3.org/1999/xlink"
     xmlns:mml="http://www.w3.org/1998/Math/MathML"
     xmlns:math="http://www.w3.org/2005/xpath-functions/math"
-    xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl" exclude-result-prefixes="xs math xd"
+    xmlns:msxsl="urn:schemas-microsoft-com:xslt"
+    xmlns:ext="http://exslt.org/common"
+    xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl" exclude-result-prefixes="xs math xd ext msxsl"
     version="3.0">
     <xsl:template match="*[@xlink:href] | *[@href]" mode="fix_img_extension">
         <xsl:variable name="href"><xsl:choose>
@@ -422,13 +424,19 @@
         <h1>
             <xsl:choose>
                 <xsl:when test="front-stub//abstract">
-                    <xsl:apply-templates select="front-stub//abstract" mode="DATA-DISPLAY-TITLE"/>
+                    <xsl:apply-templates select="front-stub//abstract" mode="DATA-DISPLAY-TITLE">
+                        <xsl:with-param name="lang" select="$lang"></xsl:with-param>
+                    </xsl:apply-templates>
                 </xsl:when>
                 <xsl:when test="front//trans-abstract[@xml:lang=$lang]">
-                    <xsl:apply-templates select="front//trans-abstract[@xml:lang=$lang]" mode="DATA-DISPLAY-TITLE"/>
+                    <xsl:apply-templates select="front//trans-abstract[@xml:lang=$lang]" mode="DATA-DISPLAY-TITLE">
+                        <xsl:with-param name="lang" select="$lang"></xsl:with-param>
+                    </xsl:apply-templates>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:apply-templates select="front//abstract" mode="DATA-DISPLAY-TITLE"/>
+                    <xsl:apply-templates select="front//abstract" mode="DATA-DISPLAY-TITLE">
+                        <xsl:with-param name="lang" select="$lang"></xsl:with-param>
+                    </xsl:apply-templates>
                 </xsl:otherwise>
             </xsl:choose>
         </h1>
@@ -436,13 +444,13 @@
             <div class="span8">
                 <xsl:choose>
                     <xsl:when test="front-stub//abstract">
-                        <xsl:apply-templates select="front-stub//abstract" mode="DATA-DISPLAY"/>
+                        <xsl:apply-templates select="front-stub//abstract/*[name()!='title'] | front-stub//abstract/text()" mode="HTML-TEXT"/>
                     </xsl:when>
                     <xsl:when test="front//trans-abstract[@xml:lang=$lang]">
-                        <xsl:apply-templates select="front//trans-abstract[@xml:lang=$lang]" mode="DATA-DISPLAY"/>
+                        <xsl:apply-templates select="front//trans-abstract[@xml:lang=$lang]/*[name()!='title'] | front//trans-abstract[@xml:lang=$lang]/text()" mode="HTML-TEXT"/>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:apply-templates select="front//abstract" mode="DATA-DISPLAY"/>
+                        <xsl:apply-templates select="front//abstract/*[name()!='title'] | front//abstract/text()" mode="HTML-TEXT"/>
                     </xsl:otherwise>
                 </xsl:choose>
                 <xsl:choose>
@@ -691,6 +699,19 @@
                 </xsl:with-param>
             </xsl:apply-templates>
         </xsl:variable>
+        <xsl:variable name="rtf-mixed-citation">
+            <xsl:choose>
+                <xsl:when test="label">
+                    <xsl:apply-templates select="mixed-citation" mode="without-label">
+                        <xsl:with-param name="label" select="label"/>
+                    </xsl:apply-templates>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:copy-of select="mixed-citation"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:variable name="mixed-citation" select="ext:node-set($rtf-mixed-citation)/node()"/>
         <li class="clearfix">
             <a name="{@id}"/>
             <sup class="xref big pull-left">
@@ -699,14 +720,14 @@
             <div class="pull-right">
                 <xsl:choose>
 
-                    <xsl:when test="element-citation[.//ext-link] and mixed-citation[not(.//ext-link)] or element-citation[.//uri] and mixed-citation[not(.//uri)] ">
-                        <xsl:apply-templates select="mixed-citation" mode="with-link">
+                    <xsl:when test="element-citation[.//ext-link] and $mixed-citation[not(.//ext-link)] or element-citation[.//uri] and $mixed-citation[not(.//uri)] ">
+                        <xsl:apply-templates select="$mixed-citation" mode="with-link">
                             <xsl:with-param name="ext_link" select=".//ext-link"/>
                             <xsl:with-param name="uri" select=".//uri"/>
                         </xsl:apply-templates>
                     </xsl:when>
-                    <xsl:when test="mixed-citation">
-                        <xsl:apply-templates select="mixed-citation"/>
+                    <xsl:when test="$mixed-citation">
+                        <xsl:apply-templates select="$mixed-citation"/>
                     </xsl:when>
                     <xsl:when test="citation">
                         <xsl:apply-templates select="citation"/>
@@ -1421,6 +1442,17 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
         <a href="{@xlink:href}" target="_blank">
             <xsl:value-of select="."/>
         </a>
+    </xsl:template>
+    <xsl:template match="mixed-citation" mode="without-label">
+        <xsl:param name="label"/>
+        <xsl:element name="{name()}">
+            <xsl:choose>
+                <xsl:when test="$label and starts-with(normalize-space(.), normalize-space($label))">
+                    <xsl:value-of select="normalize-space(substring-after(., $label))"/>
+                </xsl:when>
+                <xsl:otherwise><xsl:value-of select="."/></xsl:otherwise>
+            </xsl:choose>
+        </xsl:element>
     </xsl:template>
     <xsl:template match="mixed-citation" mode="with-link">
         <xsl:param name="uri"/>
