@@ -67,15 +67,32 @@
 .table {
     font-family: Helvetica,sans-serif;
     display: table;
-border-collapse: separate;
-border-spacing: 2px;
-border-color: gray;
+	border-collapse: separate;
+	border-spacing: 0;
+	border-color: gray;
+	min-width: 95%;
+	margin: 0 auto;
+}
+
+.table td, .table th{
+	border-bottom: 1px solid #ddd;
+	border-right: 1px solid #ddd;
+	padding: 5px;
+}
+
+.table td:last-child, .table th:last-child{
+	border-right: none;
+}
+
+.table table>tr:last-child td, .table table>tr:last-child th,
+.table tbody>tr:last-child td, .table tbody>tr:last-child th{
+	border-bottom: none;
 }
 
 .td {
-font-size: 8pt;
-border-bottom: 1px solid black;
-border-spacing: 20pt;
+	font-size: 8pt;
+	border-bottom: 1px solid black;
+	border-spacing: 20pt;
 }
 .dotted_table {
     empty-cells: show;
