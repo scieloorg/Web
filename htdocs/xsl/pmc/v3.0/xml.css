@@ -240,3 +240,19 @@ padding-top: 0px;
     background-color: #DADFE5;
     width:60%;
  }
+.label_citation {
+    display: inline-block;
+}
+.citation {
+	padding-left: 5%;
+    display: inline-block;
+}
+.ref-list {
+	padding-left: 0;
+	list-style-type: none;
+}
+.ref-list li{
+ 	border-bottom: 1px dotted #ddd;
+ 	clear: both;
+ 	padding-bottom: 1em;
+}
