@@ -422,13 +422,19 @@
         <h1>
             <xsl:choose>
                 <xsl:when test="front-stub//abstract">
-                    <xsl:apply-templates select="front-stub//abstract" mode="DATA-DISPLAY-TITLE"/>
+                    <xsl:apply-templates select="front-stub//abstract" mode="DATA-DISPLAY-TITLE">
+                        <xsl:with-param name="lang" select="$lang"></xsl:with-param>
+                    </xsl:apply-templates>
                 </xsl:when>
                 <xsl:when test="front//trans-abstract[@xml:lang=$lang]">
-                    <xsl:apply-templates select="front//trans-abstract[@xml:lang=$lang]" mode="DATA-DISPLAY-TITLE"/>
+                    <xsl:apply-templates select="front//trans-abstract[@xml:lang=$lang]" mode="DATA-DISPLAY-TITLE">
+                        <xsl:with-param name="lang" select="$lang"></xsl:with-param>
+                    </xsl:apply-templates>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:apply-templates select="front//abstract" mode="DATA-DISPLAY-TITLE"/>
+                    <xsl:apply-templates select="front//abstract" mode="DATA-DISPLAY-TITLE">
+                        <xsl:with-param name="lang" select="$lang"></xsl:with-param>
+                    </xsl:apply-templates>
                 </xsl:otherwise>
             </xsl:choose>
         </h1>
@@ -436,13 +442,13 @@
             <div class="span8">
                 <xsl:choose>
                     <xsl:when test="front-stub//abstract">
-                        <xsl:apply-templates select="front-stub//abstract" mode="DATA-DISPLAY"/>
+                        <xsl:apply-templates select="front-stub//abstract/*[name()!='title'] | front-stub//abstract/text()" mode="HTML-TEXT"/>
                     </xsl:when>
                     <xsl:when test="front//trans-abstract[@xml:lang=$lang]">
-                        <xsl:apply-templates select="front//trans-abstract[@xml:lang=$lang]" mode="DATA-DISPLAY"/>
+                        <xsl:apply-templates select="front//trans-abstract[@xml:lang=$lang]/*[name()!='title'] | front//trans-abstract[@xml:lang=$lang]/text()" mode="HTML-TEXT"/>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:apply-templates select="front//abstract" mode="DATA-DISPLAY"/>
+                        <xsl:apply-templates select="front//abstract/*[name()!='title'] | front//abstract/text()" mode="HTML-TEXT"/>
                     </xsl:otherwise>
                 </xsl:choose>
                 <xsl:choose>

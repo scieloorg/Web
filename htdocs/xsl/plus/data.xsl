@@ -314,9 +314,15 @@
         <xsl:if test="not(.//title)">Key words</xsl:if>
     </xsl:template>
     <xsl:template match="abstract|trans-abstract" mode="DATA-DISPLAY-TITLE">
-
-        <xsl:apply-templates select="title"/>
-        <xsl:if test="not(.//title)">Abstract</xsl:if>
+        <xsl:param name="lang"/>
+        <xsl:choose>
+            <xsl:when test="title">
+                <xsl:apply-templates select="title"/>
+            </xsl:when>
+            <xsl:when test="$lang='pt'">Resumo</xsl:when>
+            <xsl:when test="$lang='es'">Resumen</xsl:when>
+            <xsl:otherwise>Abstract</xsl:otherwise>
+        </xsl:choose>
         <!-- FIXME -->
 
     </xsl:template>
