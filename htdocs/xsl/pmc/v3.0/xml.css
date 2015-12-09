@@ -257,3 +257,21 @@ padding-top: 0px;
     background-color: #DADFE5;
     width:60%;
  }
+.label_citation {
+    display: inline-block;
+    width: 5%;
+}
+.citation {
+	width: 90%;
+    display: inline-block;
+    vertical-align: top;
+}
+.ref-list {
+	padding-left: 0;
+	list-style-type: none;
+}
+.ref-list li{
+ 	border-bottom: 1px dotted #ddd;
+ 	clear: both;
+ 	padding-bottom: 1em;
+}
