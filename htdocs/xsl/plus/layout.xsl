@@ -684,6 +684,14 @@
             select="concat(substring-before($SERVICE_REFERENCE_LINKS,'REFERENCE_ID'),$p,substring-after($SERVICE_REFERENCE_LINKS,'REFERENCE_ID'))"
         />
     </xsl:template>
+    <xsl:template match="label" mode="display-only-if-number">
+        <xsl:variable name="label">
+            <xsl:value-of select="translate(., '.', '')"/>
+        </xsl:variable>
+        <xsl:if test="number($label) = $label">
+            <xsl:value-of select="."/>
+        </xsl:if>
+    </xsl:template>
     <xsl:template match="ref" mode="HTML-TEXT">
         <xsl:variable name="link">
             <xsl:apply-templates select="." mode="REFERENCE-LINKS">
@@ -708,7 +716,7 @@
         <li class="clearfix">
             <a name="{@id}"/>
             <sup class="xref big pull-left">
-                <xsl:apply-templates select="label"/>
+                <xsl:apply-templates select="label" mode="display-only-if-number"/>
             </sup>
             <div class="pull-right">
                 <xsl:choose>

@@ -978,6 +978,14 @@
 			</ul>
 		</div>
 	</xsl:template>
+	<xsl:template match="label" mode="display-only-if-number">
+		<xsl:variable name="label">
+			<xsl:value-of select="translate(., '.', '')"/>
+		</xsl:variable>
+		<xsl:if test="number($label) = $label">
+			<xsl:value-of select="."/>
+		</xsl:if>
+	</xsl:template>
 	
 	<xsl:template match="ref">
 		<xsl:variable name="rtf-mixed-citation">
@@ -993,10 +1001,13 @@
 			</xsl:choose>
 		</xsl:variable>
 		<xsl:variable name="mixed-citation" select="exsl:node-set($rtf-mixed-citation)/node()"/>
+		<xsl:variable name="label">
+			<xsl:apply-templates select="label" mode="display-only-if-number"/>
+		</xsl:variable>
 		<li class="ref">
 			<a name="{@id}"/>
-			<xsl:if test="label">
-				<div class="label_citation"><xsl:value-of select="label"/><xsl:if test="not(contains(label,'.'))">.&#160; </xsl:if></div>
+			<xsl:if test="$label != ''">
+				<div class="label_citation"><xsl:value-of select="$label"/><xsl:if test="not(contains($label,'.'))">.&#160; </xsl:if></div>
 			</xsl:if>
 			<div class="citation">
 				<xsl:choose>

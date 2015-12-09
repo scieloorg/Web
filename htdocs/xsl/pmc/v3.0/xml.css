@@ -242,10 +242,12 @@ padding-top: 0px;
  }
 .label_citation {
     display: inline-block;
+    width: 5%;
 }
 .citation {
-	padding-left: 5%;
+	width: 90%;
     display: inline-block;
+    vertical-align: top;
 }
 .ref-list {
 	padding-left: 0;
