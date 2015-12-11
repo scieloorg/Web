@@ -707,9 +707,11 @@
         </xsl:variable>
         <a name="{@id}"/>
         <li class="clearfix">
-            <sup class="xref big pull-left" onclick="window.history.back();">
-                <xsl:value-of select="number(substring(@id,2))"/>
-            </sup>
+            <xsl:if test="label">
+                <sup class="xref big pull-left" onclick="window.history.back();">
+                    <xsl:value-of select="label"/>
+                </sup>
+            </xsl:if>
             <div class="pull-right">
                 <xsl:choose>
                     <xsl:when test="mixed-citation">
