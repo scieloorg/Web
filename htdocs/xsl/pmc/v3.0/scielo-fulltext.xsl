@@ -995,14 +995,11 @@
 				>Links</a>&#160;] </p>
 	</xsl:template>
 
-	<xsl:template match="element-citation | nlm-citation | citation ">
+	<xsl:template match="mixed-citation | element-citation | nlm-citation | citation ">
 		<xsl:apply-templates select="* | text()"/>
 	</xsl:template>
 
 	<xsl:template match="label" mode="display-only-if-number">
-		<xsl:comment> <xsl:value-of select="."/> </xsl:comment>
-		<xsl:comment> <xsl:value-of select="translate(., '.', '')"/> </xsl:comment>
-		<xsl:comment> <xsl:value-of select="number(translate(., '.', ''))"/> </xsl:comment>
 		<xsl:if test="number(translate(., '.', '')) = translate(., '.', '')">
 			<xsl:value-of select="."/>
 		</xsl:if>
