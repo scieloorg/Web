@@ -3,6 +3,7 @@
     xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xlink="http://www.w3.org/1999/xlink"
     xmlns:mml="http://www.w3.org/1998/Math/MathML"
     version="3.0">
+    <xsl:variable name="xref" select="//xref"></xsl:variable>
     <xsl:template match="*[@xlink:href] | *[@href]" mode="fix_img_extension">
         <xsl:variable name="href"><xsl:choose>
             <xsl:when test="@xlink:href"><xsl:value-of select="@xlink:href"/></xsl:when>
@@ -253,9 +254,12 @@
             <!-- manter esta quebra de linha -->
         </xsl:text>
     </xsl:template>
+    
     <xsl:template match="xref" mode="HTML-author">
         <sup class="xref">
-            <xsl:value-of select="."/>
+            <a href="#{@rid}">
+                <xsl:value-of select="."/>
+            </a>
         </sup>
     </xsl:template>
     <xsl:template match="*" mode="HTML-aff-list">
@@ -642,9 +646,15 @@
         <xsl:apply-templates select=" *|text()" mode="HTML-TEXT"/>
     </xsl:template>
     <xsl:template match="fn-group/fn" mode="HTML-TEXT">
+        <xsl:if test="not(label) or (label='' and $xref[@rid=$id])">
+            <xsl:variable name="id" select="@id"/>
+            <sup class="xref">
+                <a href="#back_{../@id}"><xsl:apply-templates select="$xref[@rid=$id]"/></a>
+            </sup>
+        </xsl:if>
         <xsl:apply-templates select="@id| *|text()" mode="HTML-TEXT"/>
     </xsl:template>
-    <xsl:template match="fn-group/fn/label" mode="HTML-TEXT">
+    <xsl:template match="fn-group/fn/label[.!='']" mode="HTML-TEXT">
         <sup class="xref">
             <a href="#back_{../@id}">
                 <xsl:value-of select="."/>
