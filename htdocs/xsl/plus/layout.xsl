@@ -697,15 +697,9 @@
         </xsl:variable>
         <a name="{@id}"/>
         <li class="clearfix">
-            
-            
             <sup class="xref big pull-left" onclick="window.history.back();">
-                <xsl:apply-templates select="label"/>
-                <xsl:if test="not(label)">
-                    <xsl:value-of select="number(substring(@id,2))"/>
-                </xsl:if>
+                <xsl:value-of select="number(substring(@id,2))"/>
             </sup>
-            
             <div class="pull-right">
                 <xsl:choose>
                     <xsl:when test="mixed-citation">
@@ -1431,21 +1425,34 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
     <xsl:template match="mixed-citation[*]/*/text()" mode="HTML-TEXT">
         <xsl:value-of select="."/>
     </xsl:template>
-    <xsl:template match="mixed-citation[not(*)] | mixed-citation[*]/text()" mode="HTML-TEXT">
-        <xsl:variable name="text"><xsl:choose>
-            <xsl:when test="position()=1 and starts-with(.,'.')">
-                <xsl:value-of select="substring-after(.,'.')"/>
-            </xsl:when>
-            <xsl:when test="position()=1 and starts-with(., concat(../label,'.'))">
-                <xsl:value-of select="substring-after(.,concat(../label,'.'))"/>
-            </xsl:when>
-            <xsl:when test="position()=1 and starts-with(., ../label)">
-                <xsl:value-of select="substring-after(.,../label)"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:value-of select="."/>
-            </xsl:otherwise>
-        </xsl:choose></xsl:variable>
+    <xsl:template match="mixed-citation/text()" mode="HTML-TEXT">
+        <xsl:variable name="text">
+            <xsl:choose>
+                <xsl:when test="../../label">
+                    <xsl:choose>
+                        <xsl:when test="position()=1 and starts-with(.,'.')">
+                            <xsl:value-of select="substring-after(.,'.')"/>
+                        </xsl:when>
+                        <xsl:when test="position()=1 and starts-with(., concat(../../label,'.'))">
+                            <xsl:value-of select="substring-after(.,concat(../../label,'.'))"/>
+                        </xsl:when>
+                        <xsl:when test="position()=1 and starts-with(., ../../label)">
+                            <xsl:value-of select="substring-after(.,../../label)"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:value-of select="."/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:when>
+                <xsl:when test="position()=1 and starts-with(.,'.')">
+                    <xsl:value-of select="substring-after(.,'.')"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="."/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+ 
         <xsl:choose>
             <xsl:when test="../element-citation/*[@xlink:href]">
                 <xsl:apply-templates select="../element-citation/*[@xlink:href]" mode="insert_link_in_text">
