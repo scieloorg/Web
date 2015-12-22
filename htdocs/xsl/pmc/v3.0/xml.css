@@ -147,14 +147,14 @@ border-color: gray;
 }
 
 .inline-formula {
-    max-width: 100%;
+    max-width: 800px;
     display: inline;
     max-height: 10%;
 }
 
 .disp-formula {
     padding: 25px;
-    max-width: 100%;
+    max-width: 800px;
     max-height: 10%;
     text-align: center;
 }
@@ -170,7 +170,7 @@ border-color: gray;
 .graphic {
     padding: 25px;
     width: auto;
-    max-width: 100%;
+    max-width: 800px;
     
 }
 
@@ -179,21 +179,21 @@ border-color: gray;
     max-height: 40px;
 }
 .figure-group, .table-wrap-group {
-    max-width: 100%;
+    max-width: 800px;
     border-color: transparent;
     padding-top: 15px;
     padding-bottom: 15px;
 }
 
 .figure {
-    max-width: 100%;
+    max-width: 800px;
     border-color: transparent;
     padding-top: 5px;
     padding-bottom: 5px;
 }
 
 .table-wrap {
-    max-width: 100%;
+    max-width: 800px;
     border-color: transparent;
     padding-top: 5px;
     padding-bottom: 5px;
@@ -201,7 +201,7 @@ border-color: gray;
 
 #article-footer {
     display: none;
-    }
+}
     
 .foot-notes {
     padding-top: 20px;
