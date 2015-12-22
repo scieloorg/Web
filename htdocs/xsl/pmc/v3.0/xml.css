@@ -1,98 +1,108 @@
 @charset "utf-8";
 
 .categoria{
-	text-align: right;
-	text-transform: uppercase;
-	font-weight: bold;
+    text-align: right;
+    text-transform: uppercase;
+    font-weight: bold;
 }
 
 /*Títulos do artigo*/
 .title{
-	/* font-size: 16pt; */
-	font-weight: bold;
-	font-size: 135%;
+    /* font-size: 16pt; */
+    font-weight: bold;
+    font-size: 135%;
 }
 
 /*Titulo traduzido do artigo*/
 .trans-title{
-	font-size: 120%;
-	margin-top: 80px;
-	margin-bottom: 80px;
-	font-weight: bold;
+    font-size: 120%;
+    margin-top: 80px;
+    margin-bottom: 80px;
+    font-weight: bold;
 }
 
 .abstract .sec, .trans-abstract .sec {
-	text-transform: uppercase;
-	margin-top: 10px;
+    text-transform: uppercase;
+    margin-top: 10px;
 }
 .abstract {
-	border-top: 1px solid;
-	border-bottom: 1px solid;
-	margin-top: 45px;
-	font-size: 97%;
+    border-top: 1px solid;
+    border-bottom: 1px solid;
+    margin-top: 45px;
+    font-size: 97%;
 }
 .trans-abstract {
-	border-bottom: 1px solid;
-	margin-top: 45px;
-	font-size: 97%;
+    border-bottom: 1px solid;
+    margin-top: 45px;
+    font-size: 97%;
 }
 .sec {
-	/* clear:both; 
-	font-size: 15pt;*/
-	/* border-bottom: #CCC double thick; */
-	margin-top: 40px;
-	font-weight: bold;
-	font-size: 120%;
-	text-transform: uppercase;	
+    /* clear:both; 
+    font-size: 15pt;*/
+    /* border-bottom: #CCC double thick; */
+    margin-top: 40px;
+    font-weight: bold;
+    font-size: 120%;
+    text-transform: uppercase;  
 }
 
 .sub-subsec{
     padding-top: 10px;
-	font-size: 100%;
-	font-weight: bold;
+    font-size: 100%;
+    font-weight: bold;
 }
 
 /*Título das Subseções do artigo*/
 .subsec{
-	font-size: 110%;
-	margin-bottom: 0px;
-	font-weight: bold;
+    font-size: 110%;
+    margin-bottom: 0px;
+    font-weight: bold;
 }
 
 /*Título das Subseções do artigo*/
 .sub-subsec, .subsection-title {
-	font-size: 100%;
-	font-weight: bold;
+    font-size: 100%;
+    font-weight: bold;
 }
 .table {
     font-family: Helvetica,sans-serif;
     display: table;
-	border-collapse: separate;
-	border-spacing: 0;
-	border-color: gray;
-	min-width: 95%;
-	margin: 0 auto;
+    border-collapse: collapse;
+    border-spacing: 0;
+    min-width: 95%;
+    margin: 0 auto;
 }
 
-.table td, .table th{
-	border-bottom: 1px solid #ddd;
-	border-right: 1px solid #ddd;
-	padding: 5px;
-}
 
-.table td:last-child, .table th:last-child{
-	border-right: none;
-}
+.thead{display:table-header-group; border-color:black; vertical-align:middle; border-bottom: 1px solid black; border:black; text-align:center;}
 
-.table table>tr:last-child td, .table table>tr:last-child th,
-.table tbody>tr:last-child td, .table tbody>tr:last-child th{
-	border-bottom: none;
-}
+.thead td, th{border-bottom: 1px solid black; border-top: 1px solid black;}
+
+.tbody{display: table-row-group; border-color:black; vertical-align:middle; border-bottom: 1px solid black; text-align:center; font-size: 15pt;}
+
+.tbody td, tr:last-child{border-bottom: 1px solid black;}
 
 .td {
-	font-size: 8pt;
-	border-bottom: 1px solid black;
-	border-spacing: 20pt;
+    font-size: 8pt;
+        border-spacing: 20pt;
+        border-color: black;
+        border-bottom: 1px solid black;
+}
+
+.col {
+    display: table-column
+}
+
+.colgroup {
+    display: table-column-group
+}
+
+.tfoot {
+    display: table-footer-group;
+    vertical-align: middle;
+    border-color: inherit;
+    text-align:justify;
+    font-size: 8pt;
 }
 .dotted_table {
     empty-cells: show;
@@ -106,8 +116,8 @@ border-color: gray;
 .table_thumbnail {
     padding-top: 25px;
     border-top: 1px solid;
-	min-height: 90px;
-	padding-bottom: 25px;
+    min-height: 90px;
+    padding-bottom: 25px;
 }
 .td_thumbnail {
     vertical-align: top;
@@ -115,31 +125,31 @@ border-color: gray;
 }
 .td_label_caption {
     text-align: justify;
-	vertical-align: top;	
+    vertical-align: top;    
 }
 .thumbnail{
-	width: 120px;
-	max-height: 75px;
-	vertical-align: top;
+    width: 120px;
+    max-height: 75px;
+    vertical-align: top;
 }
 
 .label_caption {
-	padding-top: 5px;
-	vertical-align: top;
-	padding-bottom: 5px;
-	font-family: arial;
+    padding-top: 5px;
+    vertical-align: top;
+    padding-bottom: 5px;
+    font-family: arial;
 }
 .caption {
-	text-align: justify;
+    text-align: justify;
 }
 .label {
-	font-weight: bold;
+    font-weight: bold;
 }
 
 .inline-formula {
-	max-width: 100%;
+    max-width: 100%;
     display: inline;
-	max-height: 10%;
+    max-height: 10%;
 }
 
 .disp-formula {
@@ -158,35 +168,35 @@ border-color: gray;
     }
 
 .graphic {
-	padding: 25px;
+    padding: 25px;
     width: auto;
     max-width: 100%;
-	
+    
 }
 
 .inline-graphic{
-	display: inline;
+    display: inline;
     max-height: 40px;
 }
 .figure-group, .table-wrap-group {
-	max-width: 100%;
-	border-color: transparent;
-	padding-top: 15px;
-	padding-bottom: 15px;
+    max-width: 100%;
+    border-color: transparent;
+    padding-top: 15px;
+    padding-bottom: 15px;
 }
 
 .figure {
-	max-width: 100%;
-	border-color: transparent;
-	padding-top: 5px;
-	padding-bottom: 5px;
+    max-width: 100%;
+    border-color: transparent;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 .table-wrap {
-	max-width: 100%;
-	border-color: transparent;
-	padding-top: 5px;
-	padding-bottom: 5px;
+    max-width: 100%;
+    border-color: transparent;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 #article-footer {
@@ -194,15 +204,15 @@ border-color: gray;
     }
     
 .foot-notes {
-	padding-top: 20px;
+    padding-top: 20px;
 }
 .footnote {
 border-top: 1px solid;
-	padding-top: 10px;
-	vertical-align: top;
-	padding-bottom: 10px;
-	font-size: 90%;
-	
+    padding-top: 10px;
+    vertical-align: top;
+    padding-bottom: 10px;
+    font-size: 90%;
+    
 }
 .fn-label {
 font-size: 80%;
@@ -213,13 +223,13 @@ padding-top: 0px;
 .corresp {}
 
 .sig-block {
-	text-align: right;
-	padding-top: 5%; 
+    text-align: right;
+    padding-top: 5%; 
 }
 .autores{
-	margin-bottom: 25px;
-	font-weight: bold;
-	font-size: 97%;
+    margin-bottom: 25px;
+    font-weight: bold;
+    font-size: 97%;
 }
 .aff {
     margin: 0;
@@ -228,7 +238,7 @@ padding-top: 0px;
     border-top: 1px double #CCC ;
     padding-top: 5%;
     padding-bottom: 5%;
-	}
+    }
 .ack {
     padding-top: 2%;
     padding-bottom: 1%;
@@ -239,9 +249,9 @@ padding-top: 0px;
     margin: 25px;
 }
 .article-license P, .article-license A, .article-license  SPAN{
-	text-align: left;
-	font-size: 8pt;
-	color: black
+    text-align: left;
+    font-size: 8pt;
+    color: black
 }
 .fn-block {
     margin-left: 10px;
