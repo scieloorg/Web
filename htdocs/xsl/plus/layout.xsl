@@ -70,13 +70,16 @@
             <style>
                 .disp-formula {
                 text-align: center;
+                max-width:800px;
                 }
                 .disp-formula .label {
                 display: inline-block;
                 margin-left: 50px;
+                max-width:800px;
                 }
                 .disp-formula .labeled-formula {
                 display: inline-block;
+                max-width:800px;
                 }
                 .product {
                 font-family: Book Antiqua;
