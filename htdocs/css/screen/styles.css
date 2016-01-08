@@ -209,3 +209,30 @@ HTML>BODY .content H4 {
 	font-weight: bold;
 }
 
+.disclaimer {
+    background-color: #F8FAE4;
+    font-family: Arial;
+    font-size: 8pt;
+    padding: 5px 5px 5px 5px;
+    margin-top: 30px;
+    width: 50%;
+    border-radius: 10px;
+    border: 2px solid #F5D431;
+    
+}
+.disclaimer p {
+    padding-left: 10px;
+}
+.fixed-disclaimer {
+    background-color: #F8FAE4;
+    font-family: Arial;
+    font-size: 8pt;
+    margin-top: 30px;
+    width: 10%;
+    border-radius: 10px;
+    border: 2px solid #F5D431;
+    left: 5px;
+    top: 0px;
+    padding: 10px;
+    position: fixed;
+}

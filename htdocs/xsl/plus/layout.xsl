@@ -164,8 +164,6 @@
                 <xsl:for-each select="$original//front//trans-title">
                     <h2 class="article-title">
                         <xsl:apply-templates select="."/>
-
-
                     </h2>
                 </xsl:for-each>
                 <xsl:apply-templates select="." mode="HTML-short-link-and-statistics"/>
