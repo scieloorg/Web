@@ -374,6 +374,7 @@
 							<xsl:call-template name="tool_box"/>
 						</xsl:if>
 						<xsl:apply-templates select="." mode="text-header"/>
+						<xsl:apply-templates select="." mode="text-disclaimer"/>
 						<xsl:apply-templates select="." mode="text-content"/>
 					</div>
 					<xsl:if test="$version='html'">
@@ -390,7 +391,7 @@
 			</body>
 		</html>
 	</xsl:template>
-
+	
 	<xsl:template match="SERIAL" mode="version-head-title">
 		<xsl:value-of select="TITLEGROUP/TITLE" disable-output-escaping="yes"/> - <xsl:value-of
 			select="normalize-space(ISSUE/ARTICLE/TITLE)" disable-output-escaping="yes"/>
@@ -568,6 +569,59 @@
 					<xsl:with-param name="txtlang" select="$article/@TEXTLANG"/>
 				</xsl:call-template>
 				<xsl:value-of select="."/>
+			</a>
+		</p>
+	</xsl:template>
+	
+	<xsl:template match="SERIAL" mode="text-disclaimer">
+		<xsl:if test=".//ARTICLE/RELATED-DOC[@TYPE='correction'] or $original//related-article[@related-article-type='corrected-article']">
+			<div class="disclaimer">
+				<xsl:if test=".//ARTICLE/RELATED-DOC[@TYPE='correction']">
+					<xsl:apply-templates select=".//ARTICLE/RELATED-DOC[@TYPE='correction']"/>			
+				</xsl:if>
+				<xsl:if test="$original//related-article[@related-article-type='corrected-article']">
+					<xsl:apply-templates select="$original//related-article[@related-article-type='corrected-article']"/>
+				</xsl:if>
+			</div>
+		</xsl:if>
+		<xsl:if test=".//ARTICLE/RELATED-DOC[@TYPE='correction']">
+			<div class="fixed-disclaimer">			
+				<xsl:apply-templates select=".//ARTICLE/RELATED-DOC[@TYPE='correction']"/>			
+			</div>
+		</xsl:if>
+	</xsl:template>
+	
+	<xsl:template match="RELATED-DOC[@TYPE='correction']">
+		<p>
+			<strong><xsl:value-of
+				select="$translations/xslid[@id='sci_arttext']/text[@find='this_article_has_been_corrected']"
+			/>: </strong>
+			<a target="_blank">
+				<xsl:call-template name="AddScieloLink">
+					<xsl:with-param name="seq" select="@PID"/>
+					<xsl:with-param name="script">sci_arttext</xsl:with-param>
+					<xsl:with-param name="txtlang" select="$TXTLANG"/>
+				</xsl:call-template><xsl:value-of select="."/>
+			</a>
+		</p>
+	</xsl:template>
+	
+	<xsl:template match="related-article[@related-article-type='corrected-article']">
+		<p>
+			<strong><xsl:value-of
+				select="$translations/xslid[@id='sci_arttext']/text[@find='this_corrects']"
+			/></strong>
+			<a target="_blank">
+				<xsl:choose>
+					<xsl:when test="@ext-link-type='doi'"><xsl:attribute name="href">https://dx.doi.org/<xsl:value-of select="@xlink:href"/></xsl:attribute><xsl:value-of select="@xlink:href"/></xsl:when>
+					<xsl:when test="@ext-link-type='pid'">
+						<xsl:call-template name="AddScieloLink">
+							<xsl:with-param name="seq" select="@PID"/>
+							<xsl:with-param name="script">sci_arttext</xsl:with-param>
+							<xsl:with-param name="txtlang" select="$TXTLANG"/>
+						</xsl:call-template><xsl:value-of select="@xlink:href"/>
+					</xsl:when>					
+				</xsl:choose>
 			</a>
 		</p>
 	</xsl:template>
