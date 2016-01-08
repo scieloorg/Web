@@ -3646,7 +3646,7 @@ fi
 	<call name="FindRelatedKeys"><pft>if a(v41) and p(v241) then (if v241^t<>'pr' then v880[1],break fi) fi</pft></call>
 	<!-- documento: press release | relacionado: artigo -->
 	<field action="add"	tag="9241"><pft>if p(v41) then 'PR'v880 fi</pft></field>
-	<call name="RelatedDocument"><pft>if p(v9241) then '^tmain^e',(v9241+| or |) fi</pft></call>
+	<call name="RelatedDocument"><pft>if a(v41) then if p(v9241) then '^tcorrected-article^e',(v9241+| or |) fi fi</pft></call>
 
 	<!-- documento: artigo | relacionado: errata -->
 	<call name="RelatedDocument"><pft>if a(v241) then '^tcorrection^e','corrected-article'v880,| OR corrected-article|v237 fi</pft></call>
@@ -3673,7 +3673,10 @@ fi
             <display>
                 <pft>
                 '  <RELATED-DOC TYPE="'v4000^t'" PID="',v880,'"',| DOI="|v237|"|,'>'/,
-              	,v30,' ',v65*0.4,';',v31,if p(v31) then |(|v9032|)| else v9032 fi,|: |v9014
+                '	<ISSUE>'
+              		,v30,' ',v65*0.4,';',v31,if p(v31) then |(|v9032|)| else v9032 fi,|: |v9014,
+              	'</ISSUE>'/
+              	'<DOCTITLE>',v12^*[1],'</DOCTITLE>'/
                 '</RELATED-DOC>'/,
                 </pft>
             </display>        
