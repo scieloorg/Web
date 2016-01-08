@@ -161,7 +161,7 @@
 	
 	<call name="insertElementRelatedToDocument"><pft>if p(v241) or p(v41) then  (v880[1],|^x|v41[1],v241,|^v|v31[1],|^w|v131[1],|^n|v32[1],|^y|v132[1],|^d|v65[1]*0.4/) fi</pft></call>
     
-    <call name="RelatedArticles"><pft>v880</pft></call>
+    <call name="AllRelatedDocuments"><pft>v880</pft></call>
     
 	<call name="CreateLanguageXML">
 		<pft>
