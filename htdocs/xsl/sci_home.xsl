@@ -12,6 +12,7 @@
 	<xsl:variable name="show_home_scielo_news" select="//show_home_scielo_news"/>
 	<xsl:variable name="show_home_scielo_team" select="//show_home_scielo_team"/>
 	<xsl:variable name="show_home_scielo_signature" select="//show_home_scielo_signature"/>
+	<xsl:variable name="analytics_code" select="//ANALYTICS_CODE"/>
 	<xsl:output method="html" indent="no"/>
 	<xsl:include href="sci_navegation.xsl"/>
 	<xsl:template match="HOMEPAGE">
@@ -230,16 +231,19 @@
 						<br/>
 					</xsl:if>
 					<xsl:if test="ENABLE_STAT_LINK = 1">
-						<a>
-							<xsl:call-template name="AddScieloLink">
-								<xsl:with-param name="script">sci_stat</xsl:with-param>
-							</xsl:call-template>
+						<a href="http://analytics.scielo.org/w/accesses?collection={$analytics_code}" target="_blank">
 							<font class="linkado" size="-1">
 								<xsl:value-of select="$translations/xslid[@id='sci_home']/text[@find='site_usage']"/>
 							</font>
 						</a>
 						<br/>
 					</xsl:if>
+					<a href="http://analytics.scielo.org/w/publication/article?collection={$analytics_code}" target="_blank">
+						<font class="linkado" size="-1">
+							<xsl:value-of select="$translations/xslid[@id='sci_home']/text[@find='publishing_stats']"/>
+						</font>
+					</a>
+					<br/>
 					<xsl:if test="ENABLE_CIT_REP_LINK= '1'">
 						<!--a>
 			<xsl:attribute name="href">http://<xsl:value-of select="SCIELO_INFO/SERVER" /><xsl:value-of
