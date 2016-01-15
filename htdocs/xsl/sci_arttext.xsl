@@ -5,6 +5,7 @@
 	<xsl:import href="sci_navegation.xsl"/>
 	<xsl:import href="sci_arttext_pmc.xsl"/>
 	<xsl:import href="sci_toolbox.xsl"/>
+	<xsl:output indent="yes"/>
 	
 	<xsl:template match="*[@xlink:href] | *[@href]" mode="fix_img_extension">
 		<xsl:variable name="href"><xsl:choose>

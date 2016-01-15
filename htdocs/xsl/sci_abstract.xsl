@@ -36,7 +36,7 @@
                 <meta name="citation_firstpage" content="{ARTICLE/@FPAGE}"/>
                 <meta name="citation_lastpage" content="{ARTICLE/@LPAGE}"/>
                 <meta name="citation_id" content="{ARTICLE/@DOI}"/>
-				<xsl:apply-templates select="ARTICLE/LANGUAGES/PDF_LANGS/LANG" name="meta_citation_pdf_url">
+				<xsl:apply-templates select="ARTICLE/LANGUAGES/PDF_LANGS/LANG" mode="meta_citation_pdf_url">
 					<xsl:with-param name="orig_lang" select="ARTICLE/@TEXT_LANG" />
 				</xsl:apply-templates>
 				<link rel="stylesheet" type="text/css" href="/css/screen/general.css"/>
@@ -96,7 +96,7 @@
 		</html>
 	</xsl:template>
 
-	<xsl:template match="LANG" name="meta_citation_pdf_url">
+	<xsl:template match="LANG" mode="meta_citation_pdf_url">
 		<xsl:param name="orig_lang" />
 		<xsl:variable name="lang" select="." />
 		<meta>
@@ -212,4 +212,8 @@
 	<xsl:template match="KEYWORD[position()>1]">; <xsl:value-of select="KEY" disable-output-escaping="yes"/>
 		<xsl:if test="SUBKEY"> [<xsl:value-of select="SUBKEY" disable-output-escaping="yes"/>]</xsl:if>
 	</xsl:template>
+	<xsl:template match="ABSTRACT//mml:math| ABSTRACT//math | ABSTRACT//mml:*">
+		<xsl:copy-of select="."/>
+	</xsl:template>
+	
 </xsl:stylesheet>

@@ -8,56 +8,14 @@
 	
 	<xsl:variable name="use_original_aff" select="count($original//institution[@content-type='original'])&gt;0"/>
 	<xsl:variable name="affiliations" select="$original//aff"/>
-	<xsl:template match="article-meta/permissions">
-		<div class="article-license">
-			<xsl:variable name="license_href"><xsl:choose>
-				<xsl:when test=".//license/@xlink:href"><xsl:value-of select=".//license/@xlink:href"/></xsl:when>
-				<xsl:when test=".//license//a/@href"><xsl:value-of select=".//license//a/@href"/></xsl:when>
-			</xsl:choose></xsl:variable>
-			<xsl:variable name="default_license_href"><xsl:choose><xsl:when test="contains($license_href,'/deed')"><xsl:value-of select="substring-before($license_href,'/deed')"/></xsl:when>
-				<xsl:when test="substring($license_href,string-length($license_href))='/'"><xsl:value-of select="substring($license_href,1,string-length($license_href)-1)"/></xsl:when>
-				<xsl:otherwise><xsl:value-of select="$license_href"/></xsl:otherwise>
-			</xsl:choose></xsl:variable>
-			<xsl:variable name="license_img_src"><xsl:choose>
-				<xsl:when test=".//graphic/@xlink:href"><xsl:value-of select=".//graphic/@xlink:href"/></xsl:when>
-				<xsl:when test=".//img/@src"><xsl:value-of select=".//img/@src"/></xsl:when>
-				<xsl:otherwise>http://i.creativecommons.org/l<xsl:value-of select="substring-after($default_license_href,'licenses')"/>/88x31.png</xsl:otherwise>
-			</xsl:choose></xsl:variable>
-			<xsl:variable name="lang_license_href"><xsl:if test="$langtext!='' and $license_href!=''"><xsl:value-of select="$default_license_href"/>/deed.<xsl:value-of select="$langtext"/></xsl:if></xsl:variable>
-			
-			<xsl:choose>
-				<xsl:when test="$lang_license_href!='' and $license_img_src!=''">
-					<p>
-						<a rel="license" href="{$lang_license_href}">
-							<img src="{$license_img_src}" alt="Creative Commons License" style="border-width:0"/>
-						</a>
-					</p>
-				</xsl:when>
-				<xsl:when test="$lang_license_href!=''">
-					<p>
-						<xsl:choose>
-							<xsl:when test="$langtext='es'">Todo el contenido de esta revista, excepto dónde está identificado, está bajo una </xsl:when>
-							<xsl:when test="$langtext='pt'">Todo o conteúdo deste periódico, exceto onde está identificado, está licenciado sob uma </xsl:when>
-							<xsl:otherwise>All the contents of this journal, except where otherwise noted, is licensed under a </xsl:otherwise>
-						</xsl:choose>
-						<a href="{$lang_license_href}">
-							<xsl:choose>
-								<xsl:when test="$langtext='es'">Licencia Creative Commons</xsl:when>
-								<xsl:when test="$langtext='pt'">Licença Creative Commons</xsl:when>
-								<xsl:otherwise>Creative Commons Attribution License</xsl:otherwise>
-							</xsl:choose>
-						</a>
-					</p>
-				</xsl:when>
-				<xsl:when test=".//license/p">
-					<xsl:copy-of select=".//license/p"/>
-				</xsl:when>
-				<xsl:when test=".//license/license-p">
-					<xsl:apply-templates select=".//license/license-p"></xsl:apply-templates>
-				</xsl:when>	
-			</xsl:choose>
-		</div>
+	
+	<xsl:template match="article-meta/permissions | PERMISSIONS[@source]/permissions">
+		<xsl:apply-templates select="." mode="permissions-footnote">
+			<xsl:with-param name="style">article-license</xsl:with-param>
+			<xsl:with-param name="text_lang" select="$langtext"/>
+		</xsl:apply-templates>
 	</xsl:template>
+	
 	<xsl:template match="*" mode="id">
 		<xsl:value-of select="@id"/>
 		<xsl:if test="not(@id)">
@@ -472,7 +430,7 @@
 			</xsl:if>
 		</div>
 	</xsl:template>
-	<xsl:template match="contrib/role">, <xsl:value-of select="."/>
+	<xsl:template match="contrib/role | contrib/degrees"><xsl:value-of select="concat(', ',.)"/>
 	</xsl:template>
 	<xsl:template match="contrib-group/role">
 		<p class="role">
@@ -480,7 +438,11 @@
 		</p>
 	</xsl:template>
 	<xsl:template match="contrib">
-		<xsl:if test="position()!=1">, </xsl:if>
+		<xsl:variable name="sep"><xsl:choose>
+			<xsl:when test="role or degrees">;</xsl:when>
+			<xsl:otherwise>,</xsl:otherwise>
+		</xsl:choose></xsl:variable>
+		<xsl:if test="position()!=1"><xsl:value-of select="concat($sep,' ')"/></xsl:if>
 		<xsl:apply-templates select="*|text()"/>
 	</xsl:template>
 	<xsl:template match="contrib/name">
@@ -707,6 +669,7 @@
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
+	
 	<xsl:template match="fig | table-wrap | fig-group | table-wrap-group">
 		<xsl:comment>_ <xsl:value-of select="$HOWTODISPLAY"/>  _</xsl:comment>
 		<xsl:choose>
@@ -727,7 +690,7 @@
 			<xsl:apply-templates select="attrib"/>
 			<xsl:choose>
 				<xsl:when test="fig[@xml:lang=$TEXT_LANG] and $trans">
-					<xsl:apply-templates select="fig[@xml:lang=$TEXT_LANG] and $trans"/>
+					<xsl:apply-templates select="fig[@xml:lang=$TEXT_LANG]"/>
 				</xsl:when>
 				<xsl:otherwise>
 					<xsl:apply-templates select="fig"/>
@@ -752,7 +715,7 @@
 			<xsl:call-template name="named-anchor"/>
 			<xsl:choose>
 				<xsl:when test="table-wrap[@xml:lang=$TEXT_LANG] and $trans">
-					<xsl:apply-templates select="table-wrap[@xml:lang=$TEXT_LANG] and $trans"/>
+					<xsl:apply-templates select="table-wrap[@xml:lang=$TEXT_LANG]"/>
 				</xsl:when>
 				<xsl:otherwise>
 					<xsl:apply-templates select="table-wrap"/>
@@ -808,6 +771,57 @@
 			</table>
 		</div>
 	</xsl:template>
+	<xsl:template match="table">
+		<xsl:variable name="class">
+			<xsl:choose>
+				<xsl:when test="$version='xml'">dotted_table</xsl:when>
+				<xsl:otherwise>table</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
+		<div class="table">
+			<table class="{$class}">
+				<xsl:apply-templates select="@*|*|text()"/>
+			</table>
+		</div>
+	</xsl:template>
+	<xsl:template match="table//@*">
+		<xsl:attribute name="{name()}">
+			<xsl:value-of select="."/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template match="table//*">
+		<xsl:element name="{name()}">
+			<xsl:if test=" name() = 'td' and $version='xml'">
+				<xsl:attribute name="class">td</xsl:attribute>
+			</xsl:if>
+			
+			<xsl:apply-templates select="@* | * | text()"/>
+		</xsl:element>
+	</xsl:template>
+	<xsl:template match="table//break"><br/>
+	</xsl:template>
+	<xsl:template match="table//xref">
+		<xsl:if test="@ref-type='fn'">
+			<a name="back_{@rid}"/>
+		</xsl:if>
+		<a href="#{@rid}">
+			<xsl:apply-templates select="*|text()"/>
+		</a>
+	</xsl:template>
+	<xsl:template match="table-wrap//fn" mode="footnote">
+		<a name="{@id}"/>
+		<p>
+			<xsl:apply-templates select="* | text()"/>
+		</p>
+	</xsl:template>
+	<xsl:template match="table-wrap//fn//label">
+		<sup>
+			<xsl:value-of select="."/>
+		</sup>
+	</xsl:template>
+	<xsl:template match="table-wrap//fn/p">
+		<xsl:apply-templates select="*|text()"/>
+	</xsl:template>
 	<xsl:template match="inline-formula">
 		<span class="inline-formula">
 			<xsl:apply-templates select="*|text()"/>
@@ -846,7 +860,7 @@
 		</a>
 	</xsl:template>
 
-	<xsl:template match="inline-graphic | disp-formula/graphic">
+	<xsl:template match="table//inline-graphic |inline-graphic | disp-formula/graphic">
 		<a target="_blank">
 			<xsl:apply-templates select="." mode="scift-attribute-href"/>
 			<img class="inline-formula">
@@ -958,39 +972,16 @@
 	</xsl:template>
 	
 	<xsl:template match="ref">
-		<p class="ref">
+		<p class="ref" onclick="window.history.back();">
 			<a name="{@id}"/>
 			<xsl:choose>
-				<xsl:when test="label and mixed-citation">
-					<xsl:if test="substring(mixed-citation,1,string-length(label))!=label">
-						<xsl:value-of select="label"/>.&#160; </xsl:if>
-				</xsl:when>
-				<xsl:when test="label"><xsl:value-of select="label"/>.&#160; </xsl:when>
-				<!--xsl:otherwise><xsl:value-of select="position()"/>.&#160; </xsl:otherwise-->
-			</xsl:choose>
-			<xsl:choose>
-				<xsl:when
-					test="(element-citation[.//ext-link] and mixed-citation[not(.//ext-link)]) or (element-citation[.//uri] and mixed-citation[not(.//uri)])">
-					<xsl:apply-templates select="mixed-citation" mode="with-link">
-						<xsl:with-param name="ext_link" select=".//ext-link"/>
-						<xsl:with-param name="uri" select=".//uri"/>
-					</xsl:apply-templates>
-				</xsl:when>
 				<xsl:when test="mixed-citation">
 					<xsl:apply-templates select="mixed-citation"/>
 				</xsl:when>
 				<xsl:when test="citation">
 					<xsl:apply-templates select="citation"/>
 				</xsl:when>
-				<!--xsl:when test="element-citation">
-					<xsl:apply-templates select="element-citation"/>
-				</xsl:when>
-				<xsl:when test="citation">
-					<xsl:apply-templates select="citation"/>
-				</xsl:when>
-				<xsl:when test="nlm-citation">
-					<xsl:apply-templates select="nlm-citation"/>
-				</xsl:when-->
+				
 				<xsl:otherwise><xsl:comment>_missing mixed-citation _</xsl:comment>
 				</xsl:otherwise>
 			</xsl:choose>
@@ -1004,63 +995,72 @@
 				>Links</a>&#160;] </p>
 	</xsl:template>
 
-
 	<xsl:template match="mixed-citation | element-citation | nlm-citation | citation ">
 		<xsl:apply-templates select="* | text()"/>
 	</xsl:template>
 
-	<xsl:template match="table">
-		<xsl:variable name="class">
-			<xsl:choose>
-				<xsl:when test="$version='xml'">dotted_table</xsl:when>
-				<xsl:otherwise>table</xsl:otherwise>
-			</xsl:choose>
-		</xsl:variable>
-		<div class="table">
-			<table class="{$class}">
-				<xsl:apply-templates select="@*|*|text()"/>
-			</table>
-		</div>
-	</xsl:template>
-	<xsl:template match="table//@*">
-		<xsl:attribute name="{name()}">
+	<xsl:template match="label" mode="display-only-if-number">
+		<xsl:if test="number(translate(., '.', '')) = translate(., '.', '')">
 			<xsl:value-of select="."/>
-		</xsl:attribute>
-	</xsl:template>
-	<xsl:template match="table//*">
-		<xsl:element name="{name()}">
-			<xsl:if test=" name() = 'td' and $version='xml'">
-				<xsl:attribute name="class">td</xsl:attribute>
-			</xsl:if>
-
-			<xsl:apply-templates select="@* | * | text()"/>
-		</xsl:element>
-	</xsl:template>
-	<xsl:template match="table//break"><br/>
-	</xsl:template>
-	<xsl:template match="table//xref">
-		<xsl:if test="@ref-type='fn'">
-			<a name="back_{@rid}"/>
 		</xsl:if>
-		<a href="#{@rid}">
-			<xsl:apply-templates select="*|text()"/>
-		</a>
 	</xsl:template>
-	<xsl:template match="table-wrap//fn" mode="footnote">
-		<a name="{@id}"/>
-		<p>
-			<xsl:apply-templates select="* | text()"/>
-		</p>
+	<xsl:template match="mixed-citation[*]">
+		<xsl:apply-templates select="text()|*"/>
 	</xsl:template>
-	<xsl:template match="table-wrap//fn//label">
-		<sup>
-			<xsl:value-of select="."/>
-		</sup>
+	<xsl:template match="mixed-citation[*]/*/text()">
+		<xsl:value-of select="."/>
 	</xsl:template>
-	<xsl:template match="table-wrap//fn/p">
-		<xsl:apply-templates select="*|text()"/>
+	<xsl:template match="mixed-citation/text()">
+		<xsl:variable name="text">
+			<xsl:if test="position()=1">
+				<xsl:if test="../../label">
+					<xsl:choose>
+						<xsl:when test="starts-with(., concat(../../label,'.'))">				
+						</xsl:when>
+						<xsl:when test="starts-with(., ../../label)">
+						</xsl:when>
+						<xsl:when test="starts-with(.,'.')">
+							<xsl:apply-templates select="../../label" mode="display-only-if-number"/>				
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:apply-templates select="../../label" mode="display-only-if-number"/>
+							<xsl:if test="not(ends-with(../../label,'.'))">.</xsl:if>&#160;
+						</xsl:otherwise>
+					</xsl:choose>
+				</xsl:if>
+			</xsl:if>
+			<xsl:value-of select="."/></xsl:variable>
+		<xsl:choose>
+			<xsl:when test="../../element-citation/*[@xlink:href]">
+				<xsl:apply-templates select="../../element-citation/*[@xlink:href]" mode="insert_link_in_text">
+					<xsl:with-param name="text" select="$text"/>
+				</xsl:apply-templates>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="$text"/>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
-
+	
+	<xsl:template match="*[@xlink:href]" mode="insert_link_in_text">
+		<xsl:param name="text"/>
+		<xsl:choose>
+			<xsl:when test="contains($text,text())">
+				<xsl:value-of select="substring-before($text,text())"/>
+				<xsl:apply-templates select="."/>
+				<xsl:value-of select="substring-after($text,text())"/>
+			</xsl:when>
+			<xsl:when test="contains($text,@xlink:href)">
+				<xsl:value-of select="substring-before($text,@xlink:href)"/>
+				<xsl:apply-templates select="."/>
+				<xsl:value-of select="substring-after($text,@xlink:href)"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="$text"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+	
 	<xsl:template match="history">
 		<div class="history">
 			<p>
@@ -1444,46 +1444,7 @@
 			<xsl:value-of select="."/>
 		</a>
 	</xsl:template>
-	<xsl:template match="mixed-citation" mode="with-link">
-		<xsl:param name="uri"/>
-		<xsl:param name="ext_link"/>
-		<xsl:choose>
-			<xsl:when test="$uri">
-				<xsl:choose>
-					<xsl:when test="contains(.,$uri/text())">
-						<xsl:value-of select="substring-before(.,$uri/text())"/>
-						<xsl:apply-templates select="$uri"/>
-						<xsl:value-of select="substring-after(.,$uri/text())"/>
-					</xsl:when>
-					<xsl:when test="contains(.,$uri/@xlink:href)">
-						<xsl:value-of select="substring-before(.,$uri/@xlink:href)"/>
-						<xsl:apply-templates select="$uri"/>
-						<xsl:value-of select="substring-after(.,$uri/@xlink:href)"/>
-					</xsl:when>
-					<xsl:otherwise>
-						<xsl:value-of select="."/>
-					</xsl:otherwise>
-				</xsl:choose>
-			</xsl:when>
-			<xsl:when test="$ext_link">
-				<xsl:choose>
-					<xsl:when test="contains(.,$ext_link/text())">
-						<xsl:value-of select="substring-before(.,$ext_link/text())"/>
-						<xsl:apply-templates select="$ext_link"/>
-						<xsl:value-of select="substring-after(.,$ext_link/text())"/>
-					</xsl:when>
-					<xsl:when test="contains(.,$ext_link/@xlink:href)">
-						<xsl:value-of select="substring-before(.,$ext_link/@xlink:href)"/>
-						<xsl:apply-templates select="$ext_link"/>
-						<xsl:value-of select="substring-after(.,$ext_link/@xlink:href)"/>
-					</xsl:when>
-					<xsl:otherwise>
-						<xsl:value-of select="."/>
-					</xsl:otherwise>
-				</xsl:choose>
-			</xsl:when>
-		</xsl:choose>
-	</xsl:template>
+	
 	<xsl:template match="media">
 		<xsl:variable name="relative_path"><xsl:choose><xsl:when test="contains(@xlink:href,'.pdf')">/pdf<xsl:value-of
 			select="substring-after($var_IMAGE_PATH,'/img/revistas')"/></xsl:when><xsl:otherwise><xsl:value-of select="$var_IMAGE_PATH"/></xsl:otherwise></xsl:choose></xsl:variable>
