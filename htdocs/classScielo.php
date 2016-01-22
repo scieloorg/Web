@@ -223,7 +223,8 @@ class Scielo extends ScieloBase
                             "show_flacso_survey" => "show_flacso_survey",
                             "show_piwik" => "show_piwik",
                             "GOOGLE_CODE" => "GOOGLE_CODE",
-                            "GOOGLE_SAMPLE_RATE" => "GOOGLE_SAMPLE_RATE"
+                            "GOOGLE_SAMPLE_RATE" => "GOOGLE_SAMPLE_RATE",
+                            "ANALYTICS_CODE" => "ANALYTICS_CODE"
                     );
 
                     foreach ($elements as $k => $v) {
