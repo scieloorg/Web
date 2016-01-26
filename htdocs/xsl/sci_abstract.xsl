@@ -96,7 +96,7 @@
 		</html>
 	</xsl:template>
 
-	<xsl:template match="LANG" name="meta_citation_pdf_url">
+	<xsl:template match="LANG" mode="meta_citation_pdf_url">
 		<xsl:param name="orig_lang" />
 		<xsl:variable name="lang" select="." />
 		<meta>
