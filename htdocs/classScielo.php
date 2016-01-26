@@ -74,12 +74,10 @@ class Scielo extends ScieloBase
 
     function isgooglebot(){
         $headers = apache_request_headers();
-        $isgooglebot = strripos(' '.$headers["User-Agent"], 'googlebot');
-
+        $isgooglebot = strripos(' '.strtolower($headers["User-Agent"]), 'googlebot');
         if ($isgooglebot === False){
             return 'false';
         }
-
         return 'true';
     }
 
