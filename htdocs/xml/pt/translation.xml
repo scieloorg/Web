@@ -1,81 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <translations>
-    <xslid id="sci_artmonthyearstat">
-        <text find="journal_articles_requests_by_month_and_year">Acessos aos artigos dos títulos por mês e ano</text>
-        <text find="library_collection">Coleção da biblioteca</text>
-        <text find="journal">Título</text>
-        <text find="year">Ano</text>
-        <text find="total">Total</text>
-        <text find="all">Todos</text>
-    </xslid>
-    <xslid id="sci_statcommon">
-        <text find="sentence1">(medido através do acesso ao sumário,<br/> aos resumos e aos artigos em HTML e em PDF</text>
-        <text find="most_visited_issue">Fascículo mais visitados</text>
-        <text find="library_collection">Coleção da biblioteca</text>
-        <text find="issue">fascículo</text>
-        <text find="most_visited">mais visitado</text>
-        <text find="display_issue_visited">Mostra os fascículos visitados </text>
-        <text find="times_or_more"> vezes ou mais</text>
-        <text find="page">Página</text>
-        <text find="of"> de </text>
-        <text find="first">Primeira</text>
-        <text find="previous">Anterior</text>
-        <text find="next">Próxima</text>
-        <text find="last">Última</text>
-    </xslid>
-    <xslid id="sci_statiss">
-        <text find="issue">fascículo</text>
-        <text find="nr_of_requests">no. de acessos</text>
-    </xslid>
-    <xslid id="sci_journalstat">
-        <text find="journal_title">journal title</text>
-        <text find="sets_the_order_to_title">Seleciona a ordenação por título</text>
-        <text find="start_date">data inicial</text>
-        <text find="sets_the_order_to_home">Seleciona a ordenação por home</text>
-        <text find="toc">sumário</text>
-        <text find="home">home</text>
-        <text find="sets_the_order_to_toc">Seleciona a ordenação por sumário</text>
-        <text find="articles">artigos</text>
-        <text find="sets_the_order_to_articles">Seleciona a ordenação por artigos</text>
-        <text find="other">outro</text>
-        <text find="sets_the_order_to_other">Seleciona a ordenação por outros</text>
-        <text find="number_of_requests">número de acessos</text>
-        <text find="click_to_select_column_order">clique para selecionar a coluna de ordenação</text>
-        <text find="indicates_current_order">indica a ordem corrente</text>
-        <text find="as_of"> datado de</text>
-        <text find="journal_requests_summary">Resumo de acessos às revistas</text>
-        <text find="site_usage_reports">Relatórios de utilização do site</text>
-        <text find="library_collection">Coleção da biblioteca</text>
-        <text find="journal_requests_summary">Resumo de acessos às revistas</text>
-    </xslid>
-    <xslid id="sci_stat">
-        <text find="library_collection">Coleção da biblioteca</text>
-        <text find="journal_requests">Acessos às revistas</text>
-        <text find="issue_requests">Acessos aos fascículos</text>
-        <text find="top_ten_titles">10 títulos mais visitados</text>
-        <text find="articles_per_month">Artigos visitados por mês</text>
-        <text find="library_site_usage_reports">Relatórios de utilização do site</text>
-		<text find="article_requests_lang">Acesso aos artigos por idioma</text>
-    </xslid>
-    <xslid id="sci_common">
-        <text find="reference_manager">Gerenciadores de referências</text>
-        <text find="export_to_bibtex">Exportar para BibTex</text>
-        <text find="export_to_reference_manager">Exportar para Reference Manager</text>
-        <text find="export_to_procite">Exportar para Pro Cite</text>
-        <text find="export_to_endnote">Exportar para End Note</text>
-        <text find="export_to_refworks">Exportar para Refworks</text>
-        <text find="version">versão</text>
-        <text find="print">impressa</text>
-        <text find="cdrom">em CDROM</text>
-        <text find="diskette">em Disquete</text>
-        <text find="online">On-line</text>
-        <text find="former_title">Título Anterior</text>
-        <text find="new_title">Título Novo</text>
-        <text find="count_started_in">A contagem iniciou-se em</text>
-        <text find="reload">Recarregar</text>
-        <text find="there_are_no_statistics_forthat_period">Não existem estatísticas nesse período</text>
-        <text find="how_to_cite_this_article">Como citar este artigo</text>
-        <text find="text_available_after">texto disponível após</text>
+	<xslid id="sci_artmonthyearstat">
+		<text find="journal_articles_requests_by_month_and_year">Acessos aos artigos dos títulos por mês e ano</text>
+		<text find="library_collection">Coleção da biblioteca</text>
+		<text find="journal">Título</text>
+		<text find="year">Ano</text>
+		<text find="total">Total</text>
+		<text find="all">Todos</text>
+	</xslid>
+	<xslid id="sci_statcommon">
+		<text find="sentence1">(medido através do acesso ao sumário,<br/> aos resumos e aos artigos em HTML e em PDF</text>
+		<text find="most_visited_issue">Fascículo mais visitados</text>
+		<text find="library_collection">Coleção da biblioteca</text>
+		<text find="issue">fascículo</text>
+		<text find="most_visited">mais visitado</text>
+		<text find="display_issue_visited">Mostra os fascículos visitados </text>
+		<text find="times_or_more"> vezes ou mais</text>
+		<text find="page">Página</text>
+		<text find="of"> de </text>
+		<text find="first">Primeira</text>
+		<text find="previous">Anterior</text>
+		<text find="next">Próxima</text>
+		<text find="last">Última</text>
+	</xslid>
+	<xslid id="sci_statiss">
+		<text find="issue">fascículo</text>
+		<text find="nr_of_requests">no. de acessos</text>
+	</xslid>
+	<xslid id="sci_journalstat">
+		<text find="journal_title">journal title</text>
+		<text find="sets_the_order_to_title">Seleciona a ordenação por título</text>
+		<text find="start_date">data inicial</text>
+		<text find="sets_the_order_to_home">Seleciona a ordenação por home</text>
+		<text find="toc">sumário</text>
+		<text find="home">home</text>
+		<text find="sets_the_order_to_toc">Seleciona a ordenação por sumário</text>
+		<text find="articles">artigos</text>
+		<text find="sets_the_order_to_articles">Seleciona a ordenação por artigos</text>
+		<text find="other">outro</text>
+		<text find="sets_the_order_to_other">Seleciona a ordenação por outros</text>
+		<text find="number_of_requests">número de acessos</text>
+		<text find="click_to_select_column_order">clique para selecionar a coluna de ordenação</text>
+		<text find="indicates_current_order">indica a ordem corrente</text>
+		<text find="as_of"> datado de</text>
+		<text find="journal_requests_summary">Resumo de acessos às revistas</text>
+		<text find="site_usage_reports">Relatórios de utilização do site</text>
+		<text find="library_collection">Coleção da biblioteca</text>
+		<text find="journal_requests_summary">Resumo de acessos às revistas</text>
+	</xslid>
+	<xslid id="sci_stat">
+		<text find="library_collection">Coleção da biblioteca</text>
+		<text find="journal_requests">Acessos aos documentos por periódicos</text>
+		<text find="issue_requests">Acessos aos documentos por fascículos (Top 100)</text>
+		<text find="library_site_usage_reports">Relatórios de utilização do site</text>
+		<text find="article_requests">Acesso aos documentos</text>
+		<text find="charts_requests">Gráficos de acessos</text>
+	</xslid>
+	<xslid id="sci_common">
+		<text find="reference_manager">Gerenciadores de referências</text>
+		<text find="export_to_bibtex">Exportar para BibTex</text>
+		<text find="export_to_reference_manager">Exportar para Reference Manager</text>
+		<text find="export_to_procite">Exportar para Pro Cite</text>
+		<text find="export_to_endnote">Exportar para End Note</text>
+		<text find="export_to_refworks">Exportar para Refworks</text>
+		<text find="version">versão</text>
+		<text find="print">impressa</text>
+		<text find="cdrom">em CDROM</text>
+		<text find="diskette">em Disquete</text>
+		<text find="online">On-line</text>
+		<text find="former_title">Título Anterior</text>
+		<text find="new_title">Título Novo</text>
+		<text find="count_started_in">A contagem iniciou-se em</text>
+		<text find="reload">Recarregar</text>
+		<text find="there_are_no_statistics_forthat_period">Não existem estatísticas nesse período</text>
+		<text find="how_to_cite_this_article">Como citar este artigo</text>
+		<text find="text_available_after">texto disponível após</text>
 		<text find="contact">Contato</text>
 	</xslid>
 	<xslid id="sci_subject">
@@ -164,56 +163,58 @@
 		<text find="grp_issues">números</text>
 		<text find="grp_articles">artigos</text>
 		<text find="grp_serials">periódicos</text>
-				<text find="table_of_contents">sumario</text>
-    </xslid>
-    <xslid id="reference">
-        <text find="not_found">this article doesn't have references</text>
-        <text find="findReferenceOnLine">Links</text>
-    </xslid>
-    <xslid id="datasus">
-        <text find="country">país</text>
-        <text find="region">região</text>
-        <text find="state">estado</text>
-        <text find="city">município</text>
-        <text find="not_found">não existem indicadores de saúde para este artigo</text>
-    </xslid>
-    <xslid id="comments">
-        <text find="doesnt_comment">Este artigo ainda não foi comentado</text>
-    </xslid>
-    <xslid id="article_output">
-        <text find="similarity">Similaridade:</text>
-        <text find="full_text">texto completo</text>
-    </xslid>
-    <xslid id="cited">
-        <text find="doesnt_cited">este artigo não possui citações</text>
-    </xslid>
-    <xslid id="related">
-        <text find="doesnt_related">não existe artigo similar a este</text>
-    </xslid>
-    <xslid id="similar">
-        <text find="doesnt_related">não existe artigo similar a este</text>
-        <text find="related_to">Similars</text>
-        <text find="scientific_electronic_library_online">SciELO - Scientific Electronic Library Online</text>
-    </xslid>
-    <xslid id="sci_arttext_pr">
-        <text find="press_release">PRESS RELEASE</text>
-    </xslid>
-    <xslid id="sci_arttext">
-        <text find="original_version_published_in">versão original publicada em</text>
-    </xslid>
-    <xslid id="sci_abstract">
-        <text find="abstract">Resumo</text>
-        <text find="keywords">Palavras-chave</text>
-    </xslid>
-    <xslid id="sci_issues">
-        <text find="available_issues">Números disponíveis</text>
-        <text find="year">Ano</text>
-        <text find="vol.">Vol.</text>
-        <text find="number">Número</text>
-        <text find="not_printed">não impressos</text>
-        <text find="ahead_of_print">ahead of print</text>
-        <text find="review_in_progress">em revisão</text>
-    </xslid>
+		<text find="table_of_contents">sumario</text>
+	</xslid>
+	<xslid id="reference">
+		<text find="not_found">this article doesn't have references</text>
+		<text find="findReferenceOnLine">Links</text>
+	</xslid>
+	<xslid id="datasus">
+		<text find="country">país</text>
+		<text find="region">região</text>
+		<text find="state">estado</text>
+		<text find="city">município</text>
+		<text find="not_found">não existem indicadores de saúde para este artigo</text>
+	</xslid>
+	<xslid id="comments">
+		<text find="doesnt_comment">Este artigo ainda não foi comentado</text>
+	</xslid>
+	<xslid id="article_output">
+		<text find="similarity">Similaridade:</text>
+		<text find="full_text">texto completo</text>
+		<text find="accessat">Acesse em</text>
+	</xslid>
+	<xslid id="cited">
+		<text find="doesnt_cited">este artigo não possui citações</text>
+	</xslid>
+	<xslid id="related">
+		<text find="doesnt_related">não existe artigo similar a este</text>
+	</xslid>
+	<xslid id="similar">
+		<text find="doesnt_related">não existe artigo similar a este</text>
+		<text find="related_to">Similars</text>
+		<text find="scientific_electronic_library_online">SciELO - Scientific Electronic Library Online</text>
+	</xslid>
+	<xslid id="sci_arttext_pr">
+		<text find="press_release">PRESS RELEASE</text>
+	</xslid>
+	<xslid id="sci_arttext">
+		<text find="original_version_published_in">versão original publicada em</text>
+		<text find="fulltext_only_in_pdf">Texto completo somente em PDF</text>
+	</xslid>
+	<xslid id="sci_abstract">
+		<text find="abstract">Resumo</text>
+		<text find="keywords">Palavras-chave</text>
+	</xslid>
+	<xslid id="sci_issues">
+		<text find="available_issues">Números disponíveis</text>
+		<text find="year">Ano</text>
+		<text find="vol.">Vol.</text>
+		<text find="number">Número</text>
+		<text find="not_printed">não impressos</text>
+		<text find="ahead_of_print">ahead of print</text>
+		<text find="review_in_progress">em revisão</text>
+	</xslid>
 	<xslid id="sci_serial">
 		<text find="home_page">Home Page</text>
 		<text find="portuguese">português</text>
@@ -250,11 +251,12 @@
 	</xslid>
 	<xslid id="sci_alphabetic">
 		<text find="alphabetic_list">Lista Alfabética</text>
-        <text find="library_collection">Coleção da Biblioteca</text>
-        <text find="serials_listed">periódicos listados</text>
-        <text find="issue">número</text>
-    </xslid>
+		<text find="library_collection">Coleção da Biblioteca</text>
+		<text find="serials_listed">periódicos listados</text>
+		<text find="issue">número</text>
+	</xslid>
 	<xslid id="sci_home">
+		<text find="publishing_stats">Estatísticas de publicação</text>
 		<text find="journal_evaluation">avaliação de periódicos</text>
         <text find="portuguese">português</text>
         <text find="spanish">español</text>
@@ -287,8 +289,8 @@
 		<text find="en">i</text>
 		<text find="es">e</text>
 		<text find="pt">p</text>
-        <text find="img_alt">Scientific Electronic Library Online</text>
-    </xslid>
+		<text find="img_alt">Scientific Electronic Library Online</text>
+	</xslid>
 	<xslid id="sci_toolbox">
 		<text find="services">Serviços</text>
 		<text find="article">Artigo</text>
@@ -333,6 +335,6 @@
 		<text find="page">página</text>
 		<text find="of">de</text>
 		<text find="gotopage">ir à página</text>
-        <text find="table_of_contents">Sumário</text>
+		<text find="table_of_contents">Sumário</text>
 	</xslid>
 </translations>

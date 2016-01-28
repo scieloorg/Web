@@ -50,12 +50,11 @@
 	</xslid>
 	<xslid id="sci_stat">
 		<text find="library_collection">Colección de la biblioteca</text>
-		<text find="journal_requests">Acceso a las revistas</text>
-		<text find="issue_requests">Acceso a los ejemplares</text>
-		<text find="top_ten_titles">10 títulos más visitados</text>
-		<text find="articles_per_month">Artículos visitados por mes</text>
+		<text find="journal_requests">Acesos a los documentos por revistas</text>
+		<text find="issue_requests">Acesos a los documentos por fascículos (Top 100)</text>
 		<text find="library_site_usage_reports">Informes de uso del sítio</text>
-		<text find="article_requests_lang">Acesso a los artículos por idioma</text>
+		<text find="article_requests">Aceso a los documentos</text>
+		<text find="charts_requests">Gráficas de accesos</text>
 	</xslid>
 	<xslid id="sci_common">
 		<text find="reference_manager">Gestores Bibliográficos</text>
@@ -257,7 +256,8 @@
         <text find="issue">número</text>
     </xslid>
     <xslid id="sci_home">
-	<text find="journal_evaluation">evaluación de revistas</text>
+		<text find="publishing_stats">Estadísticas de publicación</text>
+		<text find="journal_evaluation">evaluación de revistas</text>
         <text find="portuguese">português</text>
         <text find="spanish">español</text>
         <text find="english">english</text>
@@ -289,33 +289,33 @@
         <text find="en">i</text>
 		<text find="es">e</text>
 		<text find="pt">p</text>
-        <text find="img_alt">Scientific Electronic Library Online</text>
-    </xslid>
+		<text find="img_alt">Scientific Electronic Library Online</text>
+	</xslid>
 	<xslid id="sci_toolbox">
 		<text find="services">Servicios</text>
 		<text find="article">Articulo</text>
-        <text find="add_to_my_collection">Añadir a mi colección</text>
-        <text find="alert_me_when_cited">Alérteme cuando sea citado</text>
-        <text find="send_me_access_statistics">Envíeme estadísticas de acceso</text>
-        <text find="custom_services">Servicios personalizados</text>
-        <text find="comments">Comentários</text>
-        <text find="article_in_pdf_format">Articulo en PDF</text>
-        <text find="article_in_xml_format">Articulo en XML</text>
-        <text find="article_references">Referencias del artículo</text>
-        <text find="health_indicators">Indicadores de salud</text>
-        <text find="fapesp_projects">Proyectos FAPESP</text>
-        <text find="automatic_translation">Traducción automática</text>
-        <text find="show_semantic_highlights">Mas detalles sem&#225;nticos</text>
-        <text find="hide_semantic_highlights">Cerrar los detalles sem&#225;nticos</text>
-        <text find="access">Accesos</text>
-        <text find="have_no_cited_article">No hay articulos citados</text>
-        <text find="cited_by">Citado por</text>
-        <text find="indexed_by_google">Indizado por Google</text>
-        <text find="on_index_process">En proceso de indezación</text>
-        <text find="similars_in">Similares en</text>
-        <text find="have_no_similar_article">No hay articulos similares</text>
-        <text find="send_this_article_by_email">Enviar articulo por email</text>
-        <text find="login">Login</text>
+		<text find="add_to_my_collection">Añadir a mi colección</text>
+		<text find="alert_me_when_cited">Alérteme cuando sea citado</text>
+		<text find="send_me_access_statistics">Envíeme estadísticas de acceso</text>
+		<text find="custom_services">Servicios personalizados</text>
+		<text find="comments">Comentários</text>
+		<text find="article_in_pdf_format">Articulo en PDF</text>
+		<text find="article_in_xml_format">Articulo en XML</text>
+		<text find="article_references">Referencias del artículo</text>
+		<text find="health_indicators">Indicadores de salud</text>
+		<text find="fapesp_projects">Proyectos FAPESP</text>
+		<text find="automatic_translation">Traducción automática</text>
+		<text find="show_semantic_highlights">Mas detalles sem&#225;nticos</text>
+		<text find="hide_semantic_highlights">Cerrar los detalles sem&#225;nticos</text>
+		<text find="access">Accesos</text>
+		<text find="have_no_cited_article">No hay articulos citados</text>
+		<text find="cited_by">Citado por</text>
+		<text find="indexed_by_google">Indizado por Google</text>
+		<text find="on_index_process">En proceso de indezación</text>
+		<text find="similars_in">Similares en</text>
+		<text find="have_no_similar_article">No hay articulos similares</text>
+		<text find="send_this_article_by_email">Enviar articulo por email</text>
+		<text find="login">Login</text>
 		<text find="forget_password">Me olbide de la contraseña</text>
 		<text find="related_links">Links relacionados</text>
 		<text find="indicators">Indicadores</text>
