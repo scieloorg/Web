@@ -656,7 +656,7 @@
               var _gaq = _gaq || [];
               _gaq.push(['_setAccount', '<xsl:value-of select="//varScieloOrg/GOOGLE_CODE"/>']);
               _gaq.push(['_trackPageview']);
-              _gaq.push(['_getSampleRate', '<xsl:value-of select="//varScieloOrg/GOOGLE_SAMPLE_RATE"/>']);
+              _gaq.push(['_setSampleRate', '<xsl:value-of select="//varScieloOrg/GOOGLE_SAMPLE_RATE"/>']);
 
               (function() {
                 var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
