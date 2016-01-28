@@ -2,6 +2,7 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 	<xsl:include href="sci_navegation.xsl"/>
 	<xsl:include href="journalStatus.xsl"/>
+	<xsl:variable name="analytics_code" select="//ANALYTICS_CODE"/>
 	<xsl:variable name="forceType" select="//CONTROLINFO/ENABLE_FORCETYPE"/>
 	<xsl:variable name="ISSN_AS_ID" select="concat(substring-before(/SERIAL/ISSN_AS_ID,'-'),substring-after(/SERIAL/ISSN_AS_ID,'-'))"/>
 	<xsl:variable name="show_scimago" select="//show_scimago"/>
@@ -413,7 +414,7 @@ press release do artigo
     				<strong><xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='statistics']"/></strong>
 	                <ul>
                         <li>
-                            <a href="{SCIELO_INFO/SERVER_SCIELO}/statjournal.php?lang={LANGUAGE}&amp;issn={/SERIAL/ISSN_AS_ID}">SciELO</a>
+                            <a href="{SCIELO_INFO/SERVER_SCIELO}/statjournal.php?lang={LANGUAGE}&amp;issn={/SERIAL/ISSN_AS_ID}&amp;collection={$analytics_code}">SciELO</a>
                         </li>
 
                         <!-- monta o grafico scimago -->
@@ -450,7 +451,7 @@ press release do artigo
                                 <div style="margin-bottom: 5px">
                                     <a href="#" id="h5_m5_link" target="_blank"><xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='google_scholar_metrics']"/></a>
                                 </div>
-                                <div id="google_metrics_years">BLAUS
+                                <div id="google_metrics_years">
                                 </div>
                             </li>
                         </div>
