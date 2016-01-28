@@ -51,8 +51,10 @@
 
   $sxml = simplexml_load_string($xml);
 
-  $error = (($sxml->getName() == 'ERROR') or ($sxml->ERROR->getName() == 'ERROR'));
-  
+  if ($sxml != false){
+     $error = (($sxml->getName() == 'ERROR') or ($sxml->ERROR->getName() == 'ERROR'));
+  }
+
   if ($error){
     header("HTTP/1.0 404 Not Found - Archive Empty");
     require '404.html';
@@ -247,24 +249,24 @@ function wxis_exe ($url){
           $chave = sha1($_SERVER['REQUEST_URI']).'XML';
           $chaveNula = '42099b4af021e53fd8fd4e056c2568d7c2e3ffa8XML';
           $result = false;
-          //a chave pode ver como XML por exemplo na home, quanto não há parametros na
-          //URL, para evitar problemas, não colocamos essa chave em cache posis não podemos
-          //prever quando essa situação poderá ocorrer novamente
+          //a chave pode ver como XML por exemplo na home, quanto nÃ£o hÃ¡ parametros na
+          //URL, para evitar problemas, nÃ£o colocamos essa chave em cache posis nÃ£o podemos
+          //prever quando essa situaÃ§Ã£o poderÃ¡ ocorrer novamente
           if($chave != $chaveNula){
                   //pesquisa no cache a chave
                   $result = getFromCache($chave);
 
                   if($result == false){
-                          //se não achou, transforma, coloca no cache e retorna
+                          //se nÃ£o achou, transforma, coloca no cache e retorna
                           $result = wxis_exe_($url);
                           addToCache($chave,$result);
                   }
           }else{
-                  //se chave == XML então retorna o XML, sem passar pelo cache
+                  //se chave == XML entÃ£o retorna o XML, sem passar pelo cache
                   $result = wxis_exe_($url);
           }
   }else{
-          //se cache desligado então retorna a transformação, sem passar pelo cache
+          //se cache desligado entÃ£o retorna a transformaÃ§Ã£o, sem passar pelo cache
           $result = wxis_exe_($url);
   }
 
@@ -279,8 +281,8 @@ function wxis_exe_ ($url){
   $scielo = new Scielo ($host);
 
   /************************************************************************************
-  *	Pegamos o path do htdocs, isso é importante porque deixamos mais configuráveis	*
-  *	os diferentes scielos não precisando mexer na scielo.php, somente no scielo.def.php	*
+  *	Pegamos o path do htdocs, isso Ã© importante porque deixamos mais configurÃ¡veis	*
+  *	os diferentes scielos nÃ£o precisando mexer na scielo.php, somente no scielo.def.php	*
   ************************************************************************************/
   $PATH_HTDOCS = $scielo->_def->getKeyValue("PATH_HTDOCS");
 
@@ -317,7 +319,7 @@ return $url;
 }
 
 /**
-* Inclusão do arquivo gerador de log de usuários autenticados somente se o serviço estiver habilitado no scielo.def, e existir o cookie userID
+* InclusÃ£o do arquivo gerador de log de usuÃ¡rios autenticados somente se o serviÃ§o estiver habilitado no scielo.def, e existir o cookie userID
 */
 if($scielo->_def->getKeyValue("ENABLE_AUTH_USERS_LOG") == 1){
   if(isset($_COOKIE['userID']) && $_COOKIE['userID']!= -2 ){
