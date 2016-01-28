@@ -278,17 +278,16 @@
 		<text find="site_usage">site usage</text>
 		<text find="journal_citation">journal citation</text>
 		<text find="co_authors">co-authors</text>
-		<text find="text_1">The Scientific Electronic Library Online - SciELO is an electronic library covering a selected collection of Brazilian scientific journals.<br/>
-			<br/>The library is an integral part of a project being developed by <a href="http://www.fapesp.br">FAPESP</a> - Fundação de Amparo à Pesquisa do Estado de São Paulo, in partnership with <a href="http://www.bireme.br/bvs/I/ihome.htm">BIREME</a> - the Latin American and Caribbean Center on Health Sciences Information. Since 2002, the Project is also supported by <a href="http://www.cnpq.br">CNPq</a> - Conselho Nacional de Desenvolvimento Científico e Tecnológico.<br/>
-			<br/>The Project envisages the development of a common methodology for the preparation, storage, dissemination and evaluation of scientific literature in electronic format.<br/>
-			<br/>As the project develops, new journal titles are being added in the library collection.</text>
-		<text find="text_2">This is the home page of SciELO Brasil Site.<br/>
-			<br/>The objective of the site is to implement an electronic virtual library, providing full access to a collection of serial titles, a collection of issues from individual serial titles, as well as to the full text of articles. The access to both serial titles and articles is available via indexes and search forms.<br/>
-			<br/>SciELO site is an integral part of the FAPESP/BIREME/CNPq Project and it is an application of the methodology being developed by the project, particularly the Internet Interface module.<br/>
-			<br/>The site will be constantly updated both in form and content, according to the project's advancements.</text>
+		<text find="text_1">The Scientific Electronic Library Online – SciELO Spain is an electronic virtual library covering a collection of Spanish health scientific journals selected following preestablished quality criteria.<br/>
+			<br/>
+			The library is an integral part of a project being developed by <a href="http://www.bireme.br/bvs/I/ihome.htm" target="_blank">BIREME</a> (the Latin American and Caribbean Center on Health Sciences Information), in partnership with <a href="http://www.fapesp.br" target="_blank">FAPESP</a> (Fundação de Amparo à Pesquisa do Estado de São Paulo). In Spain, the SciELO project is result of the collaboration between OPS/OMS and <a href="http://www.isciii.es" target="_blank">Carlos III Health Institute ISCIII</a> and it is been developed by the <a href="http://www.isciii.es/bncs" target="_blank">National Library of Health Sciences</a>. <br /><br />
+			The main aim of the SciELO project is to develop a common methodology for the preparation, storage, dissemination and evaluation of Spanish scientific literature in electronic format.
+			</text>
+		<text find="text_2">The objective of the site is to implement an electronic virtual library, providing full access to a collection of serial titles, as well as to the full text of articles. The access to both serial titles and articles is available via indexes and search forms.<br /><br />SciELO Spain is an integral part of the FAPESP-BIREME Project and it is an application of the methodology being developed by the project, particularly the Internet interface module.<br /><br />
+		The site is updated periodically in both form and content.</text>
 		<text find="text_3">SciELO interface provides access to its serials collection via an <i>alphabetic list</i> of titles or a <i>subject list</i> or a <i>search form</i> by word of serial titles, publisher names, city of publication and subject.<br/>
-			<br/>The interface also provides access to the full text of articles via <i>author index</i> or <i>subject index</i>, or by a <i>search form</i> on article elements such as author names, words from title, subject, words from the full text and publication year.<br/>
-			<br/>Click an hypertext link at the <a href="#top">top</a> to call the corresponding access page.</text>
+			<br/>The interface also provides access to the full text of articles via <i>author index</i> or <i>subject index</i>, or by a <i>search form</i> on article elements such as author names, words from title, subject, words from the full text and publication year.<br /><br />
+			In addition to serials and articles modules, SciELO interface provides access to statistics module, with access to information about site usage and journal citation (bibliometric calculations).</text>
 		<text find="phone">Phone</text>
 		<text find="fax">Fax</text>
 		<text find="register_free">Free sign up</text>
