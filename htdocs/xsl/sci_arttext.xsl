@@ -5,6 +5,7 @@
 	<xsl:import href="sci_navegation.xsl"/>
 	<xsl:import href="sci_arttext_pmc.xsl"/>
 	<xsl:import href="sci_toolbox.xsl"/>
+	<xsl:output indent="yes"/>
 	
 	<xsl:template match="*[@xlink:href] | *[@href]" mode="fix_img_extension">
 		<xsl:variable name="href"><xsl:choose>
@@ -165,6 +166,7 @@
 
 	</xsl:template>
 	<xsl:template match="SERIAL" mode="meta_names">
+		<link rel="canonical" href="{concat('http://',CONTROLINFO/SCIELO_INFO/SERVER, '/scielo.php?script=sci_arttext&amp;pid=', ISSUE/ARTICLE/@PID)}" />
 		<meta http-equiv="Pragma" content="no-cache"/>
 		<meta http-equiv="Expires" content="Mon, 06 Jan 1990 00:00:01 GMT"/>
 		<meta Content-math-Type="text/mathml"/>

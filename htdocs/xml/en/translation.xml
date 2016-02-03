@@ -50,12 +50,11 @@
 	</xslid>
 	<xslid id="sci_stat">
 		<text find="library_collection">Library Collection</text>
-		<text find="journal_requests">Journal requests</text>
-		<text find="issue_requests">Issue requests</text>
-		<text find="top_ten_titles">Top ten titles</text>
-		<text find="articles_per_month">Articles per month</text>
+		<text find="journal_requests">Documents requests by journal</text>
+		<text find="issue_requests">Documents requests by issue (Top 100)</text>
 		<text find="library_site_usage_reports">Library site usage reports</text>
-		<text find="article_requests_lang">Articles requests by language</text>
+		<text find="article_requests">Documents requests</text>
+		<text find="charts_requests">Requests Charts</text>
 	</xslid>
 	<xslid id="sci_common">
 		<text find="reference_manager">Reference Managers</text>
@@ -256,6 +255,7 @@
 		<text find="issue">issue</text>
 	</xslid>
 	<xslid id="sci_home">
+		<text find="publishing_stats">Publishing statistics</text>
 		<text find="journal_evaluation">journals evaluation</text>
 		<text find="criterios_ppegeo">criteria PPeGeo</text>
 		<text find="portuguese">português</text>
