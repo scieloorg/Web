@@ -241,7 +241,6 @@ class Scielo extends ScieloBase
                     $xmlScieloOrg.="<commentCount>".$commentCount."</commentCount>";
                     $xmlScieloOrg.="<lng>".$_REQUEST['lng']."</lng>";
                     $xmlScieloOrg.="<tlng>".$_REQUEST['tlng']."</tlng>";
-                    $xmlScieloOrg.="<isgooglebot>".$this->isgooglebot()."</isgooglebot>";
                     $xmlScieloOrg = "<varScieloOrg>".$xmlScieloOrg."</varScieloOrg>";
             }
             if (count($xmlList)>1){
