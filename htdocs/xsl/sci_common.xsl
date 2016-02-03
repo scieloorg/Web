@@ -165,18 +165,9 @@
         <xsl:param name="page"/>
         <xsl:choose>
             <xsl:when test="$script = 'sci_pdf' ">
-                <xsl:choose>
-                    <xsl:when test="//isgooglebot = 'true'">
-                        <xsl:attribute name="href">
-                            <xsl:value-of select="$control_info/SCIELO_INFO/PATH_DATA"/>pdf/<xsl:value-of select="//ARTICLE[@PID=$seq]/LANGUAGES/PDF_LANGS/LANG[.=$txtlang]/@TRANSLATION"/>
-                        </xsl:attribute>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:attribute name="href">
-                            <xsl:value-of select="$control_info/SCIELO_INFO/PATH_DATA"/>scielo.php?script=<xsl:value-of select="$script"/>&amp;<xsl:if test="$seq">pid=<xsl:value-of select="$seq"/>&amp;</xsl:if>lng=<xsl:value-of select="normalize-space($control_info/LANGUAGE)"/>&amp;nrm=<xsl:value-of select="normalize-space($control_info/STANDARD)"/><xsl:if test="$txtlang">&amp;tlng=<xsl:value-of select="normalize-space($txtlang)"/></xsl:if><xsl:if test="$file">&amp;file=<xsl:value-of select="$file"/></xsl:if>
-                        </xsl:attribute>
-                    </xsl:otherwise>
-                </xsl:choose>
+                <xsl:attribute name="href">
+                    <xsl:value-of select="$control_info/SCIELO_INFO/PATH_DATA"/>pdf/<xsl:value-of select="//ARTICLE[@PID=$seq]/LANGUAGES/PDF_LANGS/LANG[.=$txtlang]/@TRANSLATION"/>
+                </xsl:attribute>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:attribute name="href">
@@ -656,7 +647,7 @@
               var _gaq = _gaq || [];
               _gaq.push(['_setAccount', '<xsl:value-of select="//varScieloOrg/GOOGLE_CODE"/>']);
               _gaq.push(['_trackPageview']);
-              _gaq.push(['_getSampleRate', '<xsl:value-of select="//varScieloOrg/GOOGLE_SAMPLE_RATE"/>']);
+              _gaq.push(['_setSampleRate', '<xsl:value-of select="//varScieloOrg/GOOGLE_SAMPLE_RATE"/>']);
 
               (function() {
                 var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;

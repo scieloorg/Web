@@ -830,7 +830,10 @@
               <!-- REQUESTS GRAFICS INICIO-->
               <xsl:if test="$show_requests = 1">
                 <li>
-                  <xsl:apply-templates select="//fulltext-service[@id='access']" mode="link"/>
+                    <img src="/img/{$LANGUAGE}/iconStatistics.gif"/>
+                    <a href="http://analytics.scielo.org/w/accesses?document={//ARTICLE/@PID}&amp;collection={//ANALYTICS_CODE}" target="_blank">
+                      <xsl:value-of select="$translations/xslid[@id='sci_toolbox']/text[@find='access']"/>
+                    </a>
                 </li>
               </xsl:if>
               <!-- REQUESTS GRAFICS FIM-->
