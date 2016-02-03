@@ -50,12 +50,11 @@
 	</xslid>
 	<xslid id="sci_stat">
 		<text find="library_collection">Colección de la biblioteca</text>
-		<text find="journal_requests">Acceso a las revistas</text>
-		<text find="issue_requests">Acceso a los ejemplares</text>
-		<text find="top_ten_titles">10 títulos más visitados</text>
-		<text find="articles_per_month">Artículos visitados por mes</text>
+		<text find="journal_requests">Acesos a los documentos por revistas</text>
+		<text find="issue_requests">Acesos a los documentos por fascículos (Top 100)</text>
 		<text find="library_site_usage_reports">Informes de uso del sítio</text>
-		<text find="article_requests_lang">Acesso a los artículos por idioma</text>
+		<text find="article_requests">Aceso a los documentos</text>
+		<text find="charts_requests">Gráficas de accesos</text>
 	</xslid>
 	<xslid id="sci_common">
 		<text find="reference_manager">Gestores Bibliográficos</text>
@@ -256,6 +255,7 @@
 		<text find="issue">número</text>
 	</xslid>
 	<xslid id="sci_home">
+		<text find="publishing_stats">Estadísticas de publicación</text>
 		<text find="journal_evaluation">evaluación de revistas</text>
 		<text find="portuguese">português</text>
 		<text find="spanish">español</text>
