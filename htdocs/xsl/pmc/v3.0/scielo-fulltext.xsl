@@ -1288,7 +1288,7 @@
 					
 					<xsl:choose>
 						<xsl:when test="$before!='' and *[name()=$before]">
-							<xsl:apply-templates select="*" mode="translation-back">
+							<xsl:apply-templates select="*" mode="insert-ref-list-in-correct-location">
 								<xsl:with-param name="before"><xsl:value-of select="$before"/></xsl:with-param>
 								<xsl:with-param name="ref_list" select="$original/back/ref-list"/>
 								<xsl:with-param name="title">
@@ -1301,7 +1301,7 @@
 							</xsl:apply-templates>
 						</xsl:when>
 						<xsl:when test="$after!='' and *[name()=$after]">
-							<xsl:apply-templates select="*" mode="translation-back">
+							<xsl:apply-templates select="*" mode="insert-ref-list-in-correct-location">
 								<xsl:with-param name="after"><xsl:value-of select="$after"/></xsl:with-param>
 								<xsl:with-param name="ref_list" select="$original/back/ref-list"/>
 								<xsl:with-param name="title">
@@ -1314,6 +1314,7 @@
 							</xsl:apply-templates>
 						</xsl:when>
 						<xsl:otherwise>
+							<xsl:apply-templates select="*"/>
 							<xsl:apply-templates select="$original/back/ref-list">
 								<xsl:with-param name="title">
 									<xsl:choose>
@@ -1357,7 +1358,7 @@
 					
 					<xsl:choose>
 						<xsl:when test="$before!='' and *[name()=$before]">
-							<xsl:apply-templates select="*" mode="translation-back">
+							<xsl:apply-templates select="*" mode="insert-ref-list-in-correct-location">
 								<xsl:with-param name="before"><xsl:value-of select="$before"/></xsl:with-param>
 								<xsl:with-param name="ref_list" select="$original/response/back/ref-list"/>
 								<xsl:with-param name="title">
@@ -1370,7 +1371,7 @@
 							</xsl:apply-templates>
 						</xsl:when>
 						<xsl:when test="$after!='' and *[name()=$after]">
-							<xsl:apply-templates select="*" mode="translation-back">
+							<xsl:apply-templates select="*" mode="insert-ref-list-in-correct-location">
 								<xsl:with-param name="after"><xsl:value-of select="$after"/></xsl:with-param>
 								<xsl:with-param name="ref_list" select="$original/response/back/ref-list"/>
 								<xsl:with-param name="title">
@@ -1383,6 +1384,7 @@
 							</xsl:apply-templates>
 						</xsl:when>
 						<xsl:otherwise>
+							<xsl:apply-templates select="*"/>
 							<xsl:apply-templates select="$original/response/back/ref-list">
 								<xsl:with-param name="title">
 									<xsl:choose>
@@ -1426,7 +1428,7 @@
 		</div-->
 	</xsl:template>
 
-	<xsl:template match="back/*" mode="translation-back">
+	<xsl:template match="back/*" mode="insert-ref-list-in-correct-location">
 		<xsl:param name="after"/>
 		<xsl:param name="before"/>
 		
