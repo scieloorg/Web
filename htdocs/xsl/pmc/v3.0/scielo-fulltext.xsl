@@ -1241,7 +1241,14 @@
 		<a name="back_{../@id}"/>
 	</xsl:template>
 	<xsl:template match="back/fn-group/fn/label">
-		<span class="fn-label"><xsl:value-of select="."/></span>
+		<xsl:choose>
+			<xsl:when test="number(.)=.">
+				<sup><xsl:value-of select="."/></sup>
+			</xsl:when>
+			<xsl:otherwise>
+				<strong><xsl:value-of select="."/></strong>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 	<xsl:template match="back/fn-group/fn/title">
 		<p class="sub-subsec"><xsl:value-of select="."/></p>

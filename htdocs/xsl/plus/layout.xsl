@@ -664,7 +664,7 @@
         <xsl:apply-templates select=" *|text()" mode="HTML-TEXT"/>
     </xsl:template>
     <xsl:template match="fn-group/fn" mode="HTML-TEXT">
-        <xsl:if test="not(label) or (label='' and $xref[@rid=$id])">
+        <xsl:if test="(not(label) or (label='')) and $xref[@rid=$id]!=''">
             <xsl:variable name="id" select="@id"/>
             <sup class="xref">
                 <a href="#back_{../@id}"><xsl:apply-templates select="$xref[@rid=$id]"/></a>
@@ -673,11 +673,22 @@
         <xsl:apply-templates select="@id| *|text()" mode="HTML-TEXT"/>
     </xsl:template>
     <xsl:template match="fn-group/fn/label[.!='']" mode="HTML-TEXT">
-        <sup class="xref">
-            <a href="#back_{../@id}">
-                <xsl:value-of select="."/>
-            </a>
-        </sup>
+        <xsl:choose>
+            <xsl:when test="number(.)=.">
+                <sup class="xref">
+                    <a href="#back_{../@id}">
+                        <xsl:value-of select="."/>
+                    </a>
+                </sup>
+            </xsl:when>
+            <xsl:otherwise>
+                <strong>
+                    <a href="#back_{../@id}">
+                        <xsl:value-of select="."/>
+                    </a>
+                </strong>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <xsl:template match="fn-group/fn/p" mode="HTML-TEXT">
         <p>
