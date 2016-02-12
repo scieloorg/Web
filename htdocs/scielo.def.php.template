@@ -175,10 +175,10 @@ mimetex=/cgi-bin/mimetex.cgi
 client_charset = utf-8
 
 [CrossRef]
-DOI_PREFIX=10.1590
-DEPOSITOR_NAME=SciELO
-DEPOSITOR_MAIL=bireme.crossref@gmail.com
-DEPOSITOR_DOMAIN=vm.scielo.br
+DOI_PREFIX=
+DEPOSITOR_NAME=
+DEPOSITOR_MAIL=
+DEPOSITOR_DOMAIN=
 
 [XML_ERROR]
 ENABLED_XML_ERROR=0
