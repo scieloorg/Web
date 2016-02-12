@@ -49,7 +49,14 @@
 
    <display>
     <pft>
-        '<ARTICLE TEXTLANG="',v4001^t,'" PID="',v880,'"><filename>',v702,'</filename></ARTICLE>'
+        '<ARTICLE TEXTLANG="',v4001^t,'" PID="',v880,'"><filename>',v702,'</filename>'
+    </pft>
+   </display>
+   
+   <call name="AllRelatedDocuments"><pft>v880</pft></call>
+   <display>
+    <pft>
+        '</ARTICLE>'
     </pft>
    </display>
     
