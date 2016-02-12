@@ -216,7 +216,7 @@ HTML>BODY .content H4 {
     padding: 5px 5px 5px 5px;
     margin-top: 30px;
     width: 50%;
-    border-radius: 10px;
+    /* border-radius: 10px; */
     border: 2px solid #F5D431;
     
 }
@@ -229,7 +229,7 @@ HTML>BODY .content H4 {
     font-size: 8pt;
     margin-top: 30px;
     width: 10%;
-    border-radius: 10px;
+    /* border-radius: 10px; */
     border: 2px solid #F5D431;
     left: 5px;
     top: 0px;
