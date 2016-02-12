@@ -166,6 +166,7 @@
 
 	</xsl:template>
 	<xsl:template match="SERIAL" mode="meta_names">
+		<link rel="canonical" href="{concat('http://',CONTROLINFO/SCIELO_INFO/SERVER, '/scielo.php?script=sci_arttext&amp;pid=', ISSUE/ARTICLE/@PID)}" />
 		<meta http-equiv="Pragma" content="no-cache"/>
 		<meta http-equiv="Expires" content="Mon, 06 Jan 1990 00:00:01 GMT"/>
 		<meta Content-math-Type="text/mathml"/>
