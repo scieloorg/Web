@@ -96,7 +96,7 @@
                 font-family: Arial;
                 font-size: 8pt;
                 padding: 5px 5px 5px 5px;
-                border-radius: 10px;
+                /*border-radius: 10px;*/
                 border: 2px solid #F5D431;
                 
                 }
