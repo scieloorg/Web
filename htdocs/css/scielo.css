@@ -40,11 +40,6 @@ a.email {
     color: blue;
 }
 
-td.section {
-    font-family : Verdana, Arial, Helvetica, sans-serif;
-    font-weight : bold;	
-    font-size : 11pt;
-}
 
 p.nomodel {
     font-family : Verdana, Arial, Helvetica, sans-serif;
@@ -52,6 +47,11 @@ p.nomodel {
 
 TD {
     font-family : Verdana, Arial, Helvetica, sans-serif;
+}
+td.section {
+    font-family : Verdana, Arial, Helvetica, sans-serif;
+    font-weight : bold; 
+    font-size : 11pt;
 }
 TD.isoref {
     font-family : Verdana, Arial, Helvetica, sans-serif;
