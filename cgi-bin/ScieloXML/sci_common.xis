@@ -3452,6 +3452,7 @@ fi
 		^c = codigo
 		^v = version
 	-->
+	<field action="replace" tag="4000"><pft>if instr(v4000^c,'/')>0 then '^l',v4000^l, '^s',v4000^s, '^c',left(v4000^c,instr(v4000^c,'/')-1), '^v',replace(v4000^c, left(v4000^c,instr(v4000^c,'/')), '') else v4000 fi</pft></field>
 	<field action="replace" tag="4000"><pft>replace(v4000,'BY','by')</pft></field>
 	<field action="replace" tag="4000"><pft>replace(v4000,'NC','nc')</pft></field>
 	<field action="replace" tag="4000"><pft>replace(v4000,'ND','nd')</pft></field>
