@@ -3446,40 +3446,6 @@ fi
 <return action="replace" tag="7047"><pft>v7047</pft></return>
 </function>
 
-<function name="getLicenseText" action="replace" tag="4000">
-	<!-- 
-		^l = lang
-		^s = site name
-		^c = codigo
-		^v = version
-	-->
-	<field action="replace" tag="4000"><pft>if instr(v4000^c,'/')>0 then '^l',v4000^l, '^s',v4000^s, '^c',left(v4000^c,instr(v4000^c,'/')-1), '^v',replace(v4000^c, left(v4000^c,instr(v4000^c,'/')), '') else v4000 fi</pft></field>
-	<field action="replace" tag="4000"><pft>replace(v4000,'BY','by')</pft></field>
-	<field action="replace" tag="4000"><pft>replace(v4000,'NC','nc')</pft></field>
-	<field action="replace" tag="4000"><pft>replace(v4000,'ND','nd')</pft></field>
-	<field action="replace" tag="4000"><pft>replace(v4000,'SA','sa')</pft></field>
-
-	<flow action="jump"><pft>if v4000^c='nd' then 'nd' else v4000^l fi</pft></flow>
-
-	<label>nd</label>
-	<field action="replace" tag="540"><pft>'<!-- nd -->'</pft></field>
-	<flow action="jump">end</flow>
-
-	<label>pt</label>
-	<field action="replace" tag="540"><pft>'<a rel="license" href="http://creativecommons.org/licenses/',v4000^c,'/',v4000^v,'/deed.pt"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/',v4000^c,'/',v4000^v,'/80x15.png"/></a> Todo o conteúdo deste site ',v4000^s,', exceto quando identificado, utiliza  uma <a rel="license" href="http://creativecommons.org/licenses/',v4000^c,'/',v4000^v,'/deed.pt">Licença de Atribuição Creative Commons</a>.'</pft></field>
-	<flow action="jump"><pft>if p(v540) then 'end' else 'en' fi</pft></flow>
-	
-	<label>es</label>
-	<field action="replace" tag="540"><pft>'<a rel="license" href="http://creativecommons.org/licenses/',v4000^c,'/',v4000^v,'/deed.es"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/',v4000^c,'/',v4000^v,'/80x15.png"/></a> Todo el contenido de este sitio ',v4000^s,', excepto dónde está identificado, está bajo una <a rel="license" href="http://creativecommons.org/licenses/',v4000^c,'/',v4000^v,'/deed.es">Licencia de Atribución Creative Commons</a>.'</pft></field>
-	<flow action="jump"><pft>if p(v540) then 'end' fi</pft></flow>
-
-	<label>en</label>
-	<field action="replace" tag="540"><pft>'<a rel="license" href="http://creativecommons.org/licenses/',v4000^c,'/',v4000^v,'/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/',v4000^c,'/',v4000^v,'/80x15.png"/></a> All the contents of this site ',v4000^s,', except where otherwise noted, is licensed under a <a rel="license" href="http://creativecommons.org/licenses/',v4000^c,'/',v4000^v,'/">Creative Commons Attribution License</a>.'</pft></field>
-
-	<label>end</label>
-	<return action="replace" tag="9540"><pft>v540</pft></return>
-</function>
-
 <function name="getCreativeCommonsInfo" action="replace" tag="4000">
 	<!-- ^llang'^f',lang,'_',page name,|^p|pid da pagina,'^s',site name,^c codigo licenca ^v version-->
 	<field action="replace" tag="4000"><pft>if a(v4000^v) then v4000,'^v4.0' fi</pft></field>
@@ -3499,47 +3465,77 @@ fi
 	<label>issue</label>
 	<field action="replace" tag="1">issue</field>
 	<field action="replace" tag="541"><pft>ref(['NEWISSUE']l(['NEWISSUE'],'Y',v8802),v541)</pft></field>
-	<call name="getLicenseText"><pft>if p(v541) then '^l',v4000^l,'^s',v4000^s,'^c',v541,'^v',v4000^v, fi</pft></call>
-	<field action="replace" tag="540" split="occ"><pft>if a(v9540) then ref(['NEWISSUE']l(['NEWISSUE'],'Y',v8802),(v540/)) fi</pft></field>
-	<field action="replace" tag="9540"><pft>if p(v540) then (if v540^l=v4000^l[1] then v540^t fi) fi</pft></field>
-	<flow action="jump"><pft>if p(v9540) then 'license' fi</pft></flow>
+	<!-- se ausente v541, tentar o v540 que contém texto/html -->
+	<field action="replace" tag="540" split="occ"><pft>if a(v541) then ref(['NEWISSUE']l(['NEWISSUE'],'Y',v8802),(if v540:':/creativecommons.org/licenses/' then v540,break, else if v540:'</p>' then 'nd',break, fi fi)) fi</pft></field>
+	<flow action="jump"><pft>if p(v541) or p(v540) then 'license' fi</pft></flow>
 	
 	<label>journal</label>
 	<field action="replace" tag="1">journal</field>
 	<field action="replace" tag="541"><pft>ref(['TITLE']l(['TITLE'],'LOC=',v8801),v541)</pft></field>
-	<call name="getLicenseText"><pft>if p(v541) then '^l',v4000^l,'^s',v4000^s,'^c',v541,'^v',v4000^v, fi</pft></call>
-	<field action="replace" tag="540" split="occ"><pft>if a(v9540) then ref(['TITLE']l(['TITLE'],'LOC=',v8801),(v540/)) fi</pft></field>
-	<flow action="jump"><pft>if p(v9540) then 'license' fi</pft></flow>
+	<field action="replace" tag="540" split="occ"><pft>if a(v541) then ref(['TITLE']l(['TITLE'],'LOC=',v8801),(if v540:':/creativecommons.org/licenses/' then v540,break, else if v540:'</p>' then 'nd',break, fi, fi)) fi</pft></field>
+	<flow action="jump"><pft>if p(v541) or p(v540) then 'license' fi</pft></flow>
 	
 	<label>site</label>
 	<field action="replace" tag="1">site</field>
 	<field action="replace" tag="541"><pft>v4000^c</pft></field>
-	<call name="getLicenseText"><pft>if p(v4000^c) then '^l',v4000^l,'^s',v4000^s,'^c',v4000^c,'^v',v4000^v, fi</pft></call>
-	<flow action="jump"><pft>if p(v9540) then 'license' fi</pft></flow>
+	<flow action="jump"><pft>if p(v541) or p(v540) then 'license' fi</pft></flow>
 	
 	<label>other</label>
-	<field action="replace" tag="1">none</field>
+	<field action="replace" tag="1">site</field>
 	<call name="existeFile"><pft>'^p../bases/license/^f',v4000^l,'_general.txt'</pft></call>
-	<flow action="jump"><pft>if a(v7999) then 'end' fi</pft></flow>
+	<flow action="jump"><pft>if a(v7999) then 'license' fi</pft></flow>
 
-	<field action="replace" tag="1">general</field>
 	<do task="import">
 	    <parm name="file"><pft>'../bases/license/',v4000^l,'_general.txt'</pft></parm>
 		<parm name="type">RLine</parm>
     	<loop>
-			<field action="import" tag="list">9540</field>
-			<field action="add" tag="9540"><pft>v1,"|"v2,"|"v3,"|"v4,"|"v5,"|"v6,"|"v7,"|"v8,"|"v9/</pft></field>
-			<field action="export" tag="list">9540</field>
+			<field action="import" tag="list">540</field>
+			<field action="add" tag="540"><pft>v1,"|"v2,"|"v3,"|"v4,"|"v5,"|"v6,"|"v7,"|"v8,"|"v9/</pft></field>
+			<field action="export" tag="list">540</field>
    		</loop>
-		<field action="replace" tag="9540"><pft>(v9540/)</pft></field>
+		<field action="replace" tag="540"><pft>(v540/)</pft></field>
 	</do>
 	
 	<label>license</label>
+	<field action="replace" tag="540">
+		<pft>
+			,if instr(v540,':/creativecommons.org/licenses/')>0 then
+				mid(v540,instr(v540,':/creativecommons.org/licenses/')+size(':/creativecommons.org/licenses/'),size(v540))
+			,fi
+		</pft>
+	</field>
+	<field action="replace" tag="541">
+		<pft>
+			,if v540:'/deed' then
+				,mid(v540,1,instr(v540,'/deed'))
+			,else
+				,if v540:'/"' then
+			 		,mid(v540,1,instr(v540,'/"')),
+				,else
+					v540
+				,fi
+			,fi
+		</pft>
+	</field>
+	<field action="replace" tag="541"><pft>replace(v541,'BY','by')</pft></field>
+	<field action="replace" tag="541"><pft>replace(v541,'NC','nc')</pft></field>
+	<field action="replace" tag="541"><pft>replace(v541,'ND','nd')</pft></field>
+	<field action="replace" tag="541"><pft>replace(v541,'SA','sa')</pft></field>
+	<field action="replace" tag="541"><pft>replace(v541,'IGO','igo')</pft></field>
+	<field action="replace" tag="541"><pft>v541,if v541<>'nd' and v541<>'' and not v541:'/' and not v541:'igo' then '/',v4000^v fi</pft></field>
 	<display>
 		<pft>
 			'<PERMISSIONS source="',v1,'">'/
 			'<permissions>'/
-			'<license license-type="',v541,if a(v541) then 'open-access' fi,'"><p>',v9540,'</p></license>'
+			,if v541='nd' then
+				'<!-- no license Creative Commons -->'
+			,else
+				,if v541<>'' then
+					'<license license-type="open-access" href="http://creativecommons.org/licenses/',v541,'"></license>'
+				,else
+					'<!-- no license found -->'
+				,fi
+			,fi
 			'</permissions>'/
 			'</PERMISSIONS>'/
 		</pft>

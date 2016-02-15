@@ -1124,98 +1124,155 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
             </xsl:choose>
         </xsl:if>
     </xsl:template>
-    
     <xsl:template match="PERMISSIONS[@source='site']/permissions">
         <div class="license">
-            <xsl:copy-of select=".//license/p"/>    
+            <xsl:apply-templates select="." mode="permissions-footnote">
+                <xsl:with-param name="interface_lang" select="$interfaceLang"/>
+                <xsl:with-param name="object" select="$control_info/SCIELO_INFO/SERVER"/>
+            </xsl:apply-templates>
         </div>
     </xsl:template>
     <xsl:template match="PERMISSIONS[@source!='site']/permissions">
         <xsl:apply-templates select="." mode="permissions-footnote">
-            <xsl:with-param name="style">license</xsl:with-param>
-            <xsl:with-param name="t" select="$interfaceLang"/>
+            <xsl:with-param name="interface_lang" select="$interfaceLang"/>
+            <xsl:with-param name="object" select="../@source"/>
         </xsl:apply-templates>
     </xsl:template>
-    
     <xsl:template match="*" mode="license-disclaimer">
-        <xsl:param name="text_lang"/>
-        <xsl:param name="translated_license_href"/>
-        
+        <xsl:param name="lang"/>
+        <xsl:param name="license_href_with_lang"/>
+        <xsl:param name="object"/>
+        <xsl:comment><xsl:value-of select="$object"/></xsl:comment>
         <xsl:choose>
-            <xsl:when test="$text_lang='es'">Todo el contenido de esta revista, excepto dónde está identificado, está bajo una </xsl:when>
-            <xsl:when test="$text_lang='pt'">Todo o conteúdo deste periódico, exceto onde está identificado, está licenciado sob uma </xsl:when>
-            <xsl:otherwise>All the contents of this journal, except where otherwise noted, is licensed under a </xsl:otherwise>
+            <xsl:when test="$object='journal' or $object='issue'">
+                <xsl:choose>
+                    <xsl:when test="$lang='es'">Todo el contenido de esta revista, excepto dónde está identificado, está bajo una </xsl:when>
+                    <xsl:when test="$lang='pt'">Todo o conteúdo deste periódico, exceto onde está identificado, está licenciado sob uma </xsl:when>
+                    <xsl:otherwise>All the contents of this journal, except where otherwise noted, is licensed under a </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:when test="$object='article'">
+                <xsl:choose>
+                    <xsl:when test="$lang='es'">Todo el contenido de este artículo, excepto dónde está identificado, está bajo una </xsl:when>
+                    <xsl:when test="$lang='pt'">Todo o conteúdo deste artigo, exceto onde está identificado, está licenciado sob uma </xsl:when>
+                    <xsl:otherwise>All the contents of this article, except where otherwise noted, is licensed under a </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:when test="$object='site' or $object=''">
+                <xsl:choose>
+                    <xsl:when test="$lang='es'">Todo el contenido de este sitio, excepto dónde está identificado, está bajo una </xsl:when>
+                    <xsl:when test="$lang='pt'">Todo o conteúdo deste Website, exceto onde está identificado, está licenciado sob uma </xsl:when>
+                    <xsl:otherwise>All the contents of this Website, except where otherwise noted, is licensed under a </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:choose>
+                    <xsl:when test="$lang='es'">Todo el contenido de <xsl:value-of select="$object"/>, excepto dónde está identificado, está bajo una </xsl:when>
+                    <xsl:when test="$lang='pt'">Todo o conteúdo de <xsl:value-of select="$object"/>, exceto onde está identificado, está licenciado sob uma </xsl:when>
+                    <xsl:otherwise>All the contents of <xsl:value-of select="$object"/>, except where otherwise noted, is licensed under a </xsl:otherwise>
+                </xsl:choose>
+            </xsl:otherwise>            
         </xsl:choose>
-        <a href="{$translated_license_href}">
+        
+        <a href="{$license_href_with_lang}">
             <xsl:choose>
-                <xsl:when test="$text_lang='es'">Licencia Creative Commons</xsl:when>
-                <xsl:when test="$text_lang='pt'">Licença Creative Commons</xsl:when>
+                <xsl:when test="$lang='es'">Licencia Creative Commons</xsl:when>
+                <xsl:when test="$lang='pt'">Licença Creative Commons</xsl:when>
                 <xsl:otherwise>Creative Commons Attribution License</xsl:otherwise>
             </xsl:choose>
         </a>
     </xsl:template>
     
-    <xsl:template match="*" mode="permissions-footnote">
-        <xsl:param name="style"/>
+    <xsl:template match="permissions" mode="permissions-footnote">
+        <xsl:param name="interface_lang"/>
         <xsl:param name="text_lang"/>
-        
-        <div class="{$style}">
-            <xsl:variable name="license_href"><xsl:choose>
-                <xsl:when test="contains(.//license/@href,'://creativecommons.org/licenses/')"><xsl:value-of select=".//license/@href"/></xsl:when>
-                <xsl:when test="contains(.//license/@xlink:href,'://creativecommons.org/licenses/')"><xsl:value-of select=".//license/@xlink:href"/></xsl:when>
-                <xsl:when test="contains(.//license//a/@href,'://creativecommons.org/licenses/')"><xsl:value-of select=".//license//a/@href"/></xsl:when>
-                <xsl:otherwise>invalid</xsl:otherwise>
-            </xsl:choose></xsl:variable>
+        <xsl:param name="object"/>
+        <div class="license">
             <xsl:choose>
-                <xsl:when test="$license_href='invalid'">
-                    <xsl:comment>url de license eh invalida</xsl:comment>
-                    <xsl:comment><xsl:value-of select=".//license/@href"/></xsl:comment>
-                    <xsl:comment><xsl:value-of select=".//license/@xlink:href"/></xsl:comment>
-                    <xsl:comment><xsl:value-of select=".//license//a/@href"/></xsl:comment>
+                <xsl:when test="license[@xml:lang=$text_lang]">
+                    <xsl:apply-templates select="license[@xml:lang=$text_lang]" mode="permissions-footnote">
+                        <xsl:with-param name="lang" select="$text_lang"/>
+                        <xsl:with-param name="object" select="$object"/>
+                    </xsl:apply-templates>
+                </xsl:when>
+                <xsl:when test="license[@xml:lang=$interface_lang]">
+                    <xsl:apply-templates select="license[@xml:lang=$interface_lang]" mode="permissions-footnote">
+                        <xsl:with-param name="lang" select="$interface_lang"/>
+                        <xsl:with-param name="object" select="$object"/>
+                    </xsl:apply-templates>
+                </xsl:when>
+                <xsl:when test="license[@xml:lang='en']">
+                    <xsl:apply-templates select="license[@xml:lang='en']" mode="permissions-footnote">
+                        <xsl:with-param name="lang" select="'en'"/>
+                        <xsl:with-param name="object" select="$object"/>
+                    </xsl:apply-templates>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:variable name="main_license_href"><xsl:choose><xsl:when test="contains($license_href,'/deed')"><xsl:value-of select="substring-before($license_href,'/deed')"/></xsl:when>
-                        <xsl:when test="substring($license_href,string-length($license_href))='/'"><xsl:value-of select="substring($license_href,1,string-length($license_href)-1)"/></xsl:when>
-                        <xsl:otherwise><xsl:value-of select="$license_href"/></xsl:otherwise>
-                    </xsl:choose></xsl:variable>
-                    <xsl:variable name="license_img_src"><xsl:choose>
-                        <xsl:when test=".//graphic/@xlink:href"><xsl:value-of select=".//graphic/@xlink:href"/></xsl:when>
-                        <xsl:when test=".//img/@src"><xsl:value-of select=".//img/@src"/></xsl:when>
-                        <xsl:otherwise>http://i.creativecommons.org/l<xsl:value-of select="substring-after($main_license_href,'licenses')"/>/88x31.png</xsl:otherwise>
-                    </xsl:choose></xsl:variable>
-                    <xsl:variable name="translated_license_href"><xsl:value-of select="$main_license_href"/><xsl:if test="$text_lang!='' and $main_license_href!=''">/deed.<xsl:value-of select="$text_lang"/></xsl:if></xsl:variable>
-                    <xsl:choose>
-                        <xsl:when test="$translated_license_href!=''">
-                            <p>
-                                <xsl:choose>
-                                    <xsl:when test="contains($license_img_src, '88x31')">
-                                        <a rel="license" href="{$translated_license_href}">
-                                            <img src="{$license_img_src}" alt="Creative Commons License" style="border-width:0"/>
-                                        </a>
-                                    </xsl:when>
-                                    <xsl:when test="$license_img_src!=''">
-                                        <a rel="license" href="{$translated_license_href}">
-                                            <img src="{$license_img_src}" alt="Creative Commons License" style="border-width:0"/>
-                                        </a>
-                                        <xsl:text>&#160;</xsl:text>
-                                        <xsl:apply-templates select="." mode="license-disclaimer">
-                                            <xsl:with-param name="translated_license_href" select="$translated_license_href"/>
-                                            <xsl:with-param name="text_lang" select="$text_lang"/>
-                                            
-                                        </xsl:apply-templates>
-                                    </xsl:when>
-                                    <xsl:otherwise>
-                                        <xsl:apply-templates select="." mode="license-disclaimer">
-                                            <xsl:with-param name="translated_license_href" select="$translated_license_href"/>
-                                            <xsl:with-param name="text_lang" select="$text_lang"/></xsl:apply-templates>
-                                    </xsl:otherwise>
-                                </xsl:choose>
-                            </p> 
-                        </xsl:when>
-                    </xsl:choose>
+                    <xsl:apply-templates select="license[1]" mode="permissions-footnote">
+                        <xsl:with-param name="lang" select="$interface_lang"/>
+                        <xsl:with-param name="object" select="$object"/>
+                    </xsl:apply-templates>
                 </xsl:otherwise>
             </xsl:choose>
         </div>
+    </xsl:template>
+    
+    <xsl:template match="permissions/license" mode="permissions-footnote">
+        <xsl:param name="lang"/>
+        <xsl:param name="object"/>
+        <xsl:variable name="license_href"><xsl:choose>
+            <xsl:when test="contains(@xlink:href,'://creativecommons.org/licenses/')"><xsl:value-of select="@xlink:href"/></xsl:when>
+            <xsl:when test="contains(@href,'://creativecommons.org/licenses/')"><xsl:value-of select="@href"/></xsl:when>
+            <xsl:otherwise>invalid</xsl:otherwise>
+        </xsl:choose></xsl:variable>
+        <xsl:if test="$license_href='invalid'">
+            <xsl:comment>url de license eh invalida</xsl:comment>
+            <xsl:comment><xsl:value-of select="@xlink:href"/></xsl:comment>
+            <xsl:comment><xsl:value-of select="@href"/></xsl:comment>
+        </xsl:if>
+        
+        <xsl:if test="$license_href!='invalid'">
+            <xsl:variable name="main_license_href"><xsl:choose><xsl:when test="contains($license_href,'/deed')"><xsl:value-of select="substring-before($license_href,'/deed')"/></xsl:when>
+                <xsl:when test="substring($license_href,string-length($license_href))='/'"><xsl:value-of select="substring($license_href,1,string-length($license_href)-1)"/></xsl:when>
+                <xsl:otherwise><xsl:value-of select="$license_href"/></xsl:otherwise>
+            </xsl:choose></xsl:variable>
+            <xsl:variable name="license_img_src"><xsl:choose>
+                <xsl:when test=".//graphic/@xlink:href"><xsl:value-of select=".//graphic/@xlink:href"/></xsl:when>
+                <xsl:when test=".//img/@src"><xsl:value-of select=".//img/@src"/></xsl:when>
+                <xsl:otherwise>http://i.creativecommons.org/l<xsl:value-of select="substring-after($main_license_href,'licenses')"/>/80x15.png</xsl:otherwise>
+            </xsl:choose></xsl:variable>
+            <xsl:variable name="license_href_with_lang"><xsl:value-of select="$main_license_href"/><xsl:if test="$lang!='' and $main_license_href!=''">/deed.<xsl:value-of select="$lang"/></xsl:if></xsl:variable>
+            <xsl:if test="$license_href_with_lang!=''">
+                <p>
+                    <xsl:if test="$license_img_src!=''">
+                        <a rel="license" href="{$license_href_with_lang}">
+                            <img src="{$license_img_src}" alt="Creative Commons License" style="border-width:0"/>
+                        </a>
+                        <xsl:text>&#160;</xsl:text>
+                    </xsl:if>
+                    <xsl:choose>
+                        <xsl:when test="license-p[not(.//a)]">
+                            <a rel="license" href="{$license_href_with_lang}">
+                                <xsl:apply-templates select="license-p" mode="license-disclaimer"/>
+                            </a>
+                        </xsl:when>
+                        <xsl:when test="license-p[.//a]">
+                            <xsl:apply-templates select="license-p" mode="license-disclaimer"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:apply-templates select="." mode="license-disclaimer">
+                                <xsl:with-param name="license_href_with_lang" select="$license_href_with_lang"/>
+                                <xsl:with-param name="lang" select="$lang"/>
+                                <xsl:with-param name="object" select="$object"/>
+                            </xsl:apply-templates>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </p> 
+            </xsl:if>
+        </xsl:if>
+    </xsl:template>
+    <xsl:template match="license-p" mode="license-disclaimer">
+        <xsl:apply-templates select="*|text()"/>
     </xsl:template>
     <xsl:template match="*" mode="footer-journal">
         <xsl:choose>

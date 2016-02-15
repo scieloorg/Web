@@ -11,8 +11,8 @@
 	
 	<xsl:template match="article-meta/permissions | PERMISSIONS[@source]/permissions">
 		<xsl:apply-templates select="." mode="permissions-footnote">
-			<xsl:with-param name="style">article-license</xsl:with-param>
-			<xsl:with-param name="text_lang" select="$langtext"/>
+			<xsl:with-param name="text_lang" select="$TEXT_LANG"/>
+			<xsl:with-param name="interface_lang" select="$interfaceLang"/>
 		</xsl:apply-templates>
 	</xsl:template>
 	
