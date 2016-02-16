@@ -5,6 +5,8 @@
     <xsl:variable name="HOME_URL">http://<xsl:value-of select="$control_info/SCIELO_INFO/SERVER"/>
         <xsl:value-of select="$control_info/SCIELO_INFO/PATH_DATA"/>scielo.php</xsl:variable>
     <xsl:variable name="interfaceLang" select="$control_info/LANGUAGE"/>
+    <xsl:variable name="articleLang" select="//ARTICLE/@TEXTLANG"/>
+
     <xsl:variable name="SITE_NAME" select="$control_info/SITE_NAME"/>
     <xsl:variable name="translations"
         select="document(concat('../xml/',$interfaceLang,'/translation.xml'))/translations"/>
@@ -1124,20 +1126,11 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
             </xsl:choose>
         </xsl:if>
     </xsl:template>
-    <xsl:template match="PERMISSIONS[@source='site']/permissions">
-        <div class="license">
-            <xsl:apply-templates select="." mode="permissions-footnote">
-                <xsl:with-param name="interface_lang" select="$interfaceLang"/>
-                <xsl:with-param name="object" select="$control_info/SCIELO_INFO/SERVER"/>
-            </xsl:apply-templates>
-        </div>
+
+    <xsl:template match="PERMISSIONS/permissions">
+        <xsl:apply-templates select="." mode="permissions-disclaimer"/>
     </xsl:template>
-    <xsl:template match="PERMISSIONS[@source!='site']/permissions">
-        <xsl:apply-templates select="." mode="permissions-footnote">
-            <xsl:with-param name="interface_lang" select="$interfaceLang"/>
-            <xsl:with-param name="object" select="../@source"/>
-        </xsl:apply-templates>
-    </xsl:template>
+    
     <xsl:template match="*" mode="license-disclaimer">
         <xsl:param name="lang"/>
         <xsl:param name="license_href_with_lang"/>
@@ -1183,32 +1176,33 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
         </a>
     </xsl:template>
     
-    <xsl:template match="permissions" mode="permissions-footnote">
-        <xsl:param name="interface_lang"/>
-        <xsl:param name="text_lang"/>
-        <xsl:param name="object"/>
+    <xsl:template match="permissions" mode="permissions-disclaimer">
+        <xsl:param name="object"><xsl:choose>
+            <xsl:when test="../@source='site' and $control_info/SCIELO_INFO/SERVER!=''"><xsl:value-of select="$control_info/SCIELO_INFO/SERVER"/></xsl:when>
+            <xsl:otherwise><xsl:value-of select="../@source"/></xsl:otherwise>
+        </xsl:choose></xsl:param>
         <div class="license">
             <xsl:choose>
-                <xsl:when test="license[@xml:lang=$text_lang]">
-                    <xsl:apply-templates select="license[@xml:lang=$text_lang]" mode="permissions-footnote">
-                        <xsl:with-param name="lang" select="$text_lang"/>
+                <xsl:when test="license[@xml:lang=$articleLang]">
+                    <xsl:apply-templates select="license[@xml:lang=$articleLang]" mode="permissions-disclaimer">
+                        <xsl:with-param name="lang" select="$articleLang"/>
                         <xsl:with-param name="object" select="$object"/>
                     </xsl:apply-templates>
                 </xsl:when>
-                <xsl:when test="license[@xml:lang=$interface_lang]">
-                    <xsl:apply-templates select="license[@xml:lang=$interface_lang]" mode="permissions-footnote">
-                        <xsl:with-param name="lang" select="$interface_lang"/>
+                <xsl:when test="license[@xml:lang=$interfaceLang]">
+                    <xsl:apply-templates select="license[@xml:lang=$interfaceLang]" mode="permissions-disclaimer">
+                        <xsl:with-param name="lang" select="$interfaceLang"/>
                         <xsl:with-param name="object" select="$object"/>
                     </xsl:apply-templates>
                 </xsl:when>
                 <xsl:when test="license[@xml:lang='en']">
-                    <xsl:apply-templates select="license[@xml:lang='en']" mode="permissions-footnote">
+                    <xsl:apply-templates select="license[@xml:lang='en']" mode="permissions-disclaimer">
                         <xsl:with-param name="lang" select="'en'"/>
                         <xsl:with-param name="object" select="$object"/>
                     </xsl:apply-templates>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:apply-templates select="license[1]" mode="permissions-footnote">
+                    <xsl:apply-templates select="license[1]" mode="permissions-disclaimer">
                         <xsl:with-param name="lang" select="$interface_lang"/>
                         <xsl:with-param name="object" select="$object"/>
                     </xsl:apply-templates>
@@ -1217,7 +1211,7 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
         </div>
     </xsl:template>
     
-    <xsl:template match="permissions/license" mode="permissions-footnote">
+    <xsl:template match="permissions/license" mode="permissions-disclaimer">
         <xsl:param name="lang"/>
         <xsl:param name="object"/>
         <xsl:variable name="license_href"><xsl:choose>
