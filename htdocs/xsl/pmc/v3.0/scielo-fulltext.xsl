@@ -10,10 +10,7 @@
 	<xsl:variable name="affiliations" select="$original//aff"/>
 	
 	<xsl:template match="article-meta/permissions | PERMISSIONS[@source]/permissions">
-		<xsl:apply-templates select="." mode="permissions-footnote">
-			<xsl:with-param name="text_lang" select="$TEXT_LANG"/>
-			<xsl:with-param name="interface_lang" select="$interfaceLang"/>
-		</xsl:apply-templates>
+		<xsl:apply-templates select="." mode="permissions-disclaimer"/>
 	</xsl:template>
 	
 	<xsl:template match="*" mode="id">
