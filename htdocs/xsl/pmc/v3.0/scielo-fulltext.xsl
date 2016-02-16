@@ -9,7 +9,7 @@
 	<xsl:variable name="use_original_aff" select="count($original//institution[@content-type='original'])&gt;0"/>
 	<xsl:variable name="affiliations" select="$original//aff"/>
 	
-	<xsl:template match="article-meta/permissions | PERMISSIONS[@source]/permissions">
+	<xsl:template match="article-meta/permissions | PERMISSIONS[@source]/permissions | body//*/permissions">
 		<xsl:apply-templates select="." mode="permissions-disclaimer"/>
 	</xsl:template>
 	
@@ -695,12 +695,11 @@
 			</xsl:choose>
 		</div>
 	</xsl:template>
-	
 	<xsl:template match="fig" mode="scift-standard">
 		<div class="figure">
 			<xsl:call-template name="named-anchor"/>
 			<xsl:apply-templates select="graphic|media"/>
-			<xsl:apply-templates select="attrib"/>
+			<xsl:apply-templates select="." mode="object-properties"/>
 			<p class="label_caption">
 				<xsl:apply-templates select="label | caption" mode="scift-label-caption-graphic"/>
 			</p>
@@ -732,7 +731,7 @@
 
 			</p>
 			<xsl:apply-templates select="graphic | table | table-wrap-foot"/>
-			
+			<xsl:apply-templates select="." mode="object-properties"/>
 		</div>
 	</xsl:template>
 	<xsl:template match="table-wrap-foot">
@@ -1620,4 +1619,12 @@
 	<xsl:template match="attrib">
 		<xsl:apply-templates select="*|text()"></xsl:apply-templates>
 	</xsl:template>
+	
+	<xsl:template match="fig" mode="object-properties">
+		<xsl:apply-templates select="attrib | permissions"/>
+	</xsl:template>
+	<xsl:template match="table-wrap | table-wrap//*[permissions]" mode="object-properties">
+		<xsl:apply-templates select="permissions"/>
+	</xsl:template>
+	
 </xsl:stylesheet>

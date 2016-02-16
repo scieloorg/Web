@@ -1151,19 +1151,25 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
                     <xsl:otherwise>All the contents of this article, except where otherwise noted, is licensed under a </xsl:otherwise>
                 </xsl:choose>
             </xsl:when>
-            <xsl:when test="$object='site' or $object=''">
+            <xsl:when test="$object='site'">
                 <xsl:choose>
-                    <xsl:when test="$lang='es'">Todo el contenido de este sitio, excepto dónde está identificado, está bajo una </xsl:when>
-                    <xsl:when test="$lang='pt'">Todo o conteúdo deste Website, exceto onde está identificado, está licenciado sob uma </xsl:when>
-                    <xsl:otherwise>All the contents of this Website, except where otherwise noted, is licensed under a </xsl:otherwise>
+                    <xsl:when test="$control_info/SCIELO_INFO/SERVER!=''">
+                        <xsl:choose>
+                            <xsl:when test="$lang='es'">Todo el contenido de <xsl:value-of select="$control_info/SCIELO_INFO/SERVER"/>, excepto dónde está identificado, está bajo una </xsl:when>
+                            <xsl:when test="$lang='pt'">Todo o conteúdo de <xsl:value-of select="$control_info/SCIELO_INFO/SERVER"/>, exceto onde está identificado, está licenciado sob uma </xsl:when>
+                            <xsl:otherwise>All the contents of <xsl:value-of select="$control_info/SCIELO_INFO/SERVER"/>, except where otherwise noted, is licensed under a </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:choose>
+                            <xsl:when test="$lang='es'">Todo el contenido de este sitio, excepto dónde está identificado, está bajo una </xsl:when>
+                            <xsl:when test="$lang='pt'">Todo o conteúdo deste Website, exceto onde está identificado, está licenciado sob uma </xsl:when>
+                            <xsl:otherwise>All the contents of this Website, except where otherwise noted, is licensed under a </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:otherwise>
                 </xsl:choose>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:choose>
-                    <xsl:when test="$lang='es'">Todo el contenido de <xsl:value-of select="$object"/>, excepto dónde está identificado, está bajo una </xsl:when>
-                    <xsl:when test="$lang='pt'">Todo o conteúdo de <xsl:value-of select="$object"/>, exceto onde está identificado, está licenciado sob uma </xsl:when>
-                    <xsl:otherwise>All the contents of <xsl:value-of select="$object"/>, except where otherwise noted, is licensed under a </xsl:otherwise>
-                </xsl:choose>
             </xsl:otherwise>            
         </xsl:choose>
         
@@ -1177,10 +1183,20 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
     </xsl:template>
     
     <xsl:template match="permissions" mode="permissions-disclaimer">
-        <xsl:param name="object"><xsl:choose>
-            <xsl:when test="../@source='site' and $control_info/SCIELO_INFO/SERVER!=''"><xsl:value-of select="$control_info/SCIELO_INFO/SERVER"/></xsl:when>
-            <xsl:otherwise><xsl:value-of select="../@source"/></xsl:otherwise>
-        </xsl:choose></xsl:param>
+        <xsl:variable name="object"><xsl:choose>
+            <xsl:when test="../@source"><xsl:value-of select="../@source"/></xsl:when>
+            <xsl:otherwise><xsl:value-of select="name(../node())"/></xsl:otherwise>
+        </xsl:choose></xsl:variable>
+        
+        <xsl:if test="copyright-statement or (copyright-year and copyright-holder)">
+            <div class="copyright">
+                <xsl:apply-templates select="copyright-statement" mode="permissions-disclaimer"/>
+                <xsl:if test="not(copyright-statement) and copyright-holder and copyright-holder">
+                    <xsl:apply-templates select="copyright-year" mode="permissions-disclaimer"/>
+                    <xsl:apply-templates select="copyright-holder" mode="permissions-disclaimer"/>
+                </xsl:if>
+            </div>
+        </xsl:if>
         <div class="license">
             <xsl:choose>
                 <xsl:when test="license[@xml:lang=$articleLang]">
@@ -1203,7 +1219,7 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:apply-templates select="license[1]" mode="permissions-disclaimer">
-                        <xsl:with-param name="lang" select="$interface_lang"/>
+                        <xsl:with-param name="lang" select="$interfaceLang"/>
                         <xsl:with-param name="object" select="$object"/>
                     </xsl:apply-templates>
                 </xsl:otherwise>
@@ -1217,6 +1233,8 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
         <xsl:variable name="license_href"><xsl:choose>
             <xsl:when test="contains(@xlink:href,'://creativecommons.org/licenses/')"><xsl:value-of select="@xlink:href"/></xsl:when>
             <xsl:when test="contains(@href,'://creativecommons.org/licenses/')"><xsl:value-of select="@href"/></xsl:when>
+            <xsl:when test="@href"><xsl:value-of select="@href"/></xsl:when>
+            <xsl:when test="@xlink:href"><xsl:value-of select="@xlink:href"/></xsl:when>
             <xsl:otherwise>invalid</xsl:otherwise>
         </xsl:choose></xsl:variable>
         <xsl:if test="$license_href='invalid'">
@@ -1233,9 +1251,10 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
             <xsl:variable name="license_img_src"><xsl:choose>
                 <xsl:when test=".//graphic/@xlink:href"><xsl:value-of select=".//graphic/@xlink:href"/></xsl:when>
                 <xsl:when test=".//img/@src"><xsl:value-of select=".//img/@src"/></xsl:when>
-                <xsl:otherwise>http://i.creativecommons.org/l<xsl:value-of select="substring-after($main_license_href,'licenses')"/>/80x15.png</xsl:otherwise>
+                <xsl:when test="contains($license_href,'://creativecommons.org/licenses/')">http://i.creativecommons.org/l<xsl:value-of select="substring-after($main_license_href,'licenses')"/>/80x15.png</xsl:when>
+                <xsl:otherwise></xsl:otherwise>
             </xsl:choose></xsl:variable>
-            <xsl:variable name="license_href_with_lang"><xsl:value-of select="$main_license_href"/><xsl:if test="$lang!='' and $main_license_href!=''">/deed.<xsl:value-of select="$lang"/></xsl:if></xsl:variable>
+            <xsl:variable name="license_href_with_lang"><xsl:value-of select="$main_license_href"/><xsl:if test="$lang!='' and contains($main_license_href,'://creativecommons.org/licenses/')">/deed.<xsl:value-of select="$lang"/></xsl:if></xsl:variable>
             <xsl:if test="$license_href_with_lang!=''">
                 <p>
                     <xsl:if test="$license_img_src!=''">
@@ -1245,12 +1264,12 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
                         <xsl:text>&#160;</xsl:text>
                     </xsl:if>
                     <xsl:choose>
-                        <xsl:when test="license-p[not(.//a)]">
+                        <xsl:when test="license-p[not(.//a)] and $license_img_src=''">
                             <a rel="license" href="{$license_href_with_lang}">
                                 <xsl:apply-templates select="license-p" mode="license-disclaimer"/>
                             </a>
                         </xsl:when>
-                        <xsl:when test="license-p[.//a]">
+                        <xsl:when test="license-p">
                             <xsl:apply-templates select="license-p" mode="license-disclaimer"/>
                         </xsl:when>
                         <xsl:otherwise>
