@@ -3466,13 +3466,13 @@ fi
 	<field action="replace" tag="1">issue</field>
 	<field action="replace" tag="541"><pft>ref(['NEWISSUE']l(['NEWISSUE'],'Y',v8802),v541)</pft></field>
 	<!-- se ausente v541, tentar o v540 que contém texto/html -->
-	<field action="replace" tag="540" split="occ"><pft>if a(v541) then ref(['NEWISSUE']l(['NEWISSUE'],'Y',v8802),(if v540:':/creativecommons.org/licenses/' then v540,break, else if v540:'</p>' then 'nd',break, fi fi)) fi</pft></field>
+	<field action="replace" tag="540" split="occ"><pft>if a(v541) then ref(['NEWISSUE']l(['NEWISSUE'],'Y',v8802),(if v540:':/creativecommons.org/licenses/' then v540,break, else if v540<>'' then 'nd',break, fi fi)) fi</pft></field>
 	<flow action="jump"><pft>if p(v541) or p(v540) then 'license' fi</pft></flow>
 	
 	<label>journal</label>
 	<field action="replace" tag="1">journal</field>
 	<field action="replace" tag="541"><pft>ref(['TITLE']l(['TITLE'],'LOC=',v8801),v541)</pft></field>
-	<field action="replace" tag="540" split="occ"><pft>if a(v541) then ref(['TITLE']l(['TITLE'],'LOC=',v8801),(if v540:':/creativecommons.org/licenses/' then v540,break, else if v540:'</p>' then 'nd',break, fi, fi)) fi</pft></field>
+	<field action="replace" tag="540" split="occ"><pft>if a(v541) then ref(['TITLE']l(['TITLE'],'LOC=',v8801),(if v540:':/creativecommons.org/licenses/' then v540,break, else if v540<>'' then 'nd',break, fi, fi)) fi</pft></field>
 	<flow action="jump"><pft>if p(v541) or p(v540) then 'license' fi</pft></flow>
 	
 	<label>site</label>
