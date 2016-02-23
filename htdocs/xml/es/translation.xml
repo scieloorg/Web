@@ -94,6 +94,7 @@
 		<text find="published_on">Publicado en</text>
 	</xslid>
 	<xslid id="sci_artref">
+		<text find="In press">In press</text>
 		<text find="ahead_of_print">ahead of print</text>
 		<text find="provisional">provisorio</text>
 		<text find="review_in_progress">en revisión</text>
