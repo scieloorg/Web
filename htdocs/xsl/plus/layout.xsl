@@ -1505,7 +1505,7 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
             <xsl:when test="media">
                 <h1><xsl:value-of select="label"/></h1>
                 
-                <xsl:apply-templates select="media"/>
+                <xsl:apply-templates select="media" mode="HTML-TEXT"/>
             </xsl:when>
             <xsl:when test="@xlink:href">
                 <xsl:variable name="src"><xsl:choose>
@@ -1534,20 +1534,49 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
         <p><xsl:apply-templates select="*|text()"/></p>
     </xsl:template>
     
-    <xsl:template match="media">
+    <xsl:template match="media" mode="HTML-TEXT">
         <xsl:variable name="src"><xsl:choose>
             <xsl:when test="contains(@xlink:href,':')"><xsl:value-of select="@xlink:href"/></xsl:when><xsl:otherwise><xsl:value-of select="$IMAGE_PATH"/><xsl:value-of select="@xlink:href"/></xsl:otherwise>
         </xsl:choose></xsl:variable>
         
-        <a target="_blank">
-            <xsl:attribute name="href"><xsl:value-of select="$src"/></xsl:attribute>
-            <xsl:choose>
-                <xsl:when test="normalize-space(text())=''"><xsl:value-of select="@xlink:href"/></xsl:when>
-                <xsl:otherwise><xsl:apply-templates select="*|text()"></xsl:apply-templates></xsl:otherwise>
-            </xsl:choose>
-        </a>
+        <xsl:choose>
+            <xsl:when test="contains(@xlink:href,'.pdf')">
+                <a target="_blank">
+                    <xsl:attribute name="href"><xsl:value-of select="$src"/></xsl:attribute>
+                    <xsl:choose>
+                        <xsl:when test="normalize-space(text())=''"><xsl:value-of select="@xlink:href"/></xsl:when>
+                        <xsl:otherwise><xsl:apply-templates select="*|text()"></xsl:apply-templates></xsl:otherwise>
+                    </xsl:choose>
+                </a>
+            </xsl:when>
+            <xsl:when test="@mimetype='video'">
+                <video width="100%" controls="1">
+                    <source src="{$src}" type="{@mimetype}/{@mime-subtype}"/>
+                    Your browser does not support the video element.
+                </video>
+            </xsl:when>
+            <xsl:when test="@mimetype='audio'">
+                <audio width="100%" controls="1">
+                    <source src="{$src}" type="{@mimetype}/{@mime-subtype}"/>
+                    Your browser does not support the audio element.
+                </audio>
+            </xsl:when>
+            <xsl:otherwise>
+                <a target="_blank">
+                    <xsl:attribute name="href"><xsl:value-of select="$src"/></xsl:attribute>
+                    <xsl:choose>
+                        <xsl:when test="normalize-space(text())=''"><xsl:value-of select="@xlink:href"/></xsl:when>
+                        <xsl:otherwise><xsl:apply-templates select="*|text()"></xsl:apply-templates></xsl:otherwise>
+                    </xsl:choose>
+                </a>
+                <embed width="100%" height="400" >
+                    <xsl:attribute name="type"><xsl:value-of select="@mimetype"/>/<xsl:value-of select="@mime-subtype"/></xsl:attribute>
+                    <xsl:attribute name="src"><xsl:value-of select="$src"/></xsl:attribute> 
+                </embed>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
-    <xsl:template match="media[@mime-subtype='pdf']">
+    <xsl:template match="media[@mime-subtype='pdf']" mode="HTML-TEXT">
         <xsl:variable name="src"><xsl:choose>
             <xsl:when test="contains(@xlink:href,':')"><xsl:value-of select="@xlink:href"/></xsl:when><xsl:otherwise><xsl:value-of select="$PDF_PATH"/><xsl:value-of select="@xlink:href"/></xsl:otherwise>
         </xsl:choose></xsl:variable>
@@ -1558,10 +1587,6 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
                 <xsl:otherwise><xsl:apply-templates select="*|text()"></xsl:apply-templates></xsl:otherwise>
             </xsl:choose>
         </a>
-        
-        <!--embed width="100%" height="400">
-                <xsl:attribute name="src"><xsl:value-of select="$src"/></xsl:attribute> 
-        </embed-->
     </xsl:template>
     
     <xsl:template match="mml:math|math" mode="HTML-TEXT">
