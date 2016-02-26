@@ -9,11 +9,8 @@
 	<xsl:variable name="use_original_aff" select="count($original//institution[@content-type='original'])&gt;0"/>
 	<xsl:variable name="affiliations" select="$original//aff"/>
 	
-	<xsl:template match="article-meta/permissions | PERMISSIONS[@source]/permissions">
-		<xsl:apply-templates select="." mode="permissions-footnote">
-			<xsl:with-param name="style">article-license</xsl:with-param>
-			<xsl:with-param name="text_lang" select="$langtext"/>
-		</xsl:apply-templates>
+	<xsl:template match="article-meta/permissions | PERMISSIONS[@source]/permissions | body//*/permissions">
+		<xsl:apply-templates select="." mode="permissions-disclaimer"/>
 	</xsl:template>
 	
 	<xsl:template match="*" mode="id">
@@ -698,12 +695,11 @@
 			</xsl:choose>
 		</div>
 	</xsl:template>
-	
 	<xsl:template match="fig" mode="scift-standard">
 		<div class="figure">
 			<xsl:call-template name="named-anchor"/>
 			<xsl:apply-templates select="graphic|media"/>
-			<xsl:apply-templates select="attrib"/>
+			<xsl:apply-templates select="." mode="object-properties"/>
 			<p class="label_caption">
 				<xsl:apply-templates select="label | caption" mode="scift-label-caption-graphic"/>
 			</p>
@@ -735,7 +731,7 @@
 
 			</p>
 			<xsl:apply-templates select="graphic | table | table-wrap-foot"/>
-			
+			<xsl:apply-templates select="." mode="object-properties"/>
 		</div>
 	</xsl:template>
 	<xsl:template match="table-wrap-foot">
@@ -1241,7 +1237,14 @@
 		<a name="back_{../@id}"/>
 	</xsl:template>
 	<xsl:template match="back/fn-group/fn/label">
-		<span class="fn-label"><xsl:value-of select="."/></span>
+		<xsl:choose>
+			<xsl:when test="number(.)=.">
+				<sup><xsl:value-of select="."/></sup>
+			</xsl:when>
+			<xsl:otherwise>
+				<strong><xsl:value-of select="."/></strong>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 	<xsl:template match="back/fn-group/fn/title">
 		<p class="sub-subsec"><xsl:value-of select="."/></p>
@@ -1288,7 +1291,7 @@
 					
 					<xsl:choose>
 						<xsl:when test="$before!='' and *[name()=$before]">
-							<xsl:apply-templates select="*" mode="translation-back">
+							<xsl:apply-templates select="*" mode="insert-ref-list-in-correct-location">
 								<xsl:with-param name="before"><xsl:value-of select="$before"/></xsl:with-param>
 								<xsl:with-param name="ref_list" select="$original/back/ref-list"/>
 								<xsl:with-param name="title">
@@ -1301,7 +1304,7 @@
 							</xsl:apply-templates>
 						</xsl:when>
 						<xsl:when test="$after!='' and *[name()=$after]">
-							<xsl:apply-templates select="*" mode="translation-back">
+							<xsl:apply-templates select="*" mode="insert-ref-list-in-correct-location">
 								<xsl:with-param name="after"><xsl:value-of select="$after"/></xsl:with-param>
 								<xsl:with-param name="ref_list" select="$original/back/ref-list"/>
 								<xsl:with-param name="title">
@@ -1314,6 +1317,7 @@
 							</xsl:apply-templates>
 						</xsl:when>
 						<xsl:otherwise>
+							<xsl:apply-templates select="*"/>
 							<xsl:apply-templates select="$original/back/ref-list">
 								<xsl:with-param name="title">
 									<xsl:choose>
@@ -1357,7 +1361,7 @@
 					
 					<xsl:choose>
 						<xsl:when test="$before!='' and *[name()=$before]">
-							<xsl:apply-templates select="*" mode="translation-back">
+							<xsl:apply-templates select="*" mode="insert-ref-list-in-correct-location">
 								<xsl:with-param name="before"><xsl:value-of select="$before"/></xsl:with-param>
 								<xsl:with-param name="ref_list" select="$original/response/back/ref-list"/>
 								<xsl:with-param name="title">
@@ -1370,7 +1374,7 @@
 							</xsl:apply-templates>
 						</xsl:when>
 						<xsl:when test="$after!='' and *[name()=$after]">
-							<xsl:apply-templates select="*" mode="translation-back">
+							<xsl:apply-templates select="*" mode="insert-ref-list-in-correct-location">
 								<xsl:with-param name="after"><xsl:value-of select="$after"/></xsl:with-param>
 								<xsl:with-param name="ref_list" select="$original/response/back/ref-list"/>
 								<xsl:with-param name="title">
@@ -1383,6 +1387,7 @@
 							</xsl:apply-templates>
 						</xsl:when>
 						<xsl:otherwise>
+							<xsl:apply-templates select="*"/>
 							<xsl:apply-templates select="$original/response/back/ref-list">
 								<xsl:with-param name="title">
 									<xsl:choose>
@@ -1426,7 +1431,7 @@
 		</div-->
 	</xsl:template>
 
-	<xsl:template match="back/*" mode="translation-back">
+	<xsl:template match="back/*" mode="insert-ref-list-in-correct-location">
 		<xsl:param name="after"/>
 		<xsl:param name="before"/>
 		
@@ -1633,4 +1638,12 @@
 	<xsl:template match="attrib">
 		<xsl:apply-templates select="*|text()"></xsl:apply-templates>
 	</xsl:template>
+	
+	<xsl:template match="fig" mode="object-properties">
+		<xsl:apply-templates select="attrib | permissions"/>
+	</xsl:template>
+	<xsl:template match="table-wrap | table-wrap//*[permissions]" mode="object-properties">
+		<xsl:apply-templates select="permissions"/>
+	</xsl:template>
+	
 </xsl:stylesheet>
