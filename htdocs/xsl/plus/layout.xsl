@@ -3,6 +3,9 @@
     xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xlink="http://www.w3.org/1999/xlink"
     xmlns:mml="http://www.w3.org/1998/Math/MathML"
     version="3.0">
+    <xsl:variable name="translated"
+        select="document(concat('../../xml/',$PAGE_LANG,'/translation.xml'))/translations"/>
+    
     <xsl:variable name="xref" select="//xref"></xsl:variable>
     <xsl:template match="*[@xlink:href] | *[@href]" mode="fix_img_extension">
         <xsl:variable name="href"><xsl:choose>
@@ -88,6 +91,19 @@
                 margin: 5px 5px 5px 5px;
                 background-color: #DADFE5;
                 }
+                .disclaimer {
+                background-color: #F8FAE4;
+                font-family: Arial;
+                font-size: 8pt;
+                padding: 5px 5px 5px 5px;
+                /*border-radius: 10px;*/
+                border: 2px solid #F5D431;
+                
+                }
+                .disclaimer p {
+                padding-left: 10px;
+                line-height: normal;
+                }
             </style>
             <xsl:if test=".//math or .//mml:math">
                 <script type="text/javascript"
@@ -155,6 +171,7 @@
     <xsl:template match="*" mode="HTML-BODY-SECTION-HEADER">
         <header class="row header">
             <div class="span8">
+                <xsl:apply-templates select="." mode="text-disclaimer"/>
                 <h2 class="article-categories">
                     <xsl:apply-templates select="." mode="DATA-article-categories"/>
                 </h2>
@@ -164,8 +181,6 @@
                 <xsl:for-each select="$original//front//trans-title">
                     <h2 class="article-title">
                         <xsl:apply-templates select="."/>
-
-
                     </h2>
                 </xsl:for-each>
                 <xsl:apply-templates select="." mode="HTML-short-link-and-statistics"/>
@@ -649,7 +664,7 @@
         <xsl:apply-templates select=" *|text()" mode="HTML-TEXT"/>
     </xsl:template>
     <xsl:template match="fn-group/fn" mode="HTML-TEXT">
-        <xsl:if test="not(label) or (label='' and $xref[@rid=$id])">
+        <xsl:if test="(not(label) or (label='')) and $xref[@rid=$id]!=''">
             <xsl:variable name="id" select="@id"/>
             <sup class="xref">
                 <a href="#back_{../@id}"><xsl:apply-templates select="$xref[@rid=$id]"/></a>
@@ -658,11 +673,22 @@
         <xsl:apply-templates select="@id| *|text()" mode="HTML-TEXT"/>
     </xsl:template>
     <xsl:template match="fn-group/fn/label[.!='']" mode="HTML-TEXT">
-        <sup class="xref">
-            <a href="#back_{../@id}">
-                <xsl:value-of select="."/>
-            </a>
-        </sup>
+        <xsl:choose>
+            <xsl:when test="number(.)=.">
+                <sup class="xref">
+                    <a href="#back_{../@id}">
+                        <xsl:value-of select="."/>
+                    </a>
+                </sup>
+            </xsl:when>
+            <xsl:otherwise>
+                <strong>
+                    <a href="#back_{../@id}">
+                        <xsl:value-of select="."/>
+                    </a>
+                </strong>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <xsl:template match="fn-group/fn/p" mode="HTML-TEXT">
         <p>
@@ -1630,5 +1656,53 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
     </xsl:template>
     <xsl:template match="article-meta//product[comment]/person-group">
         <xsl:apply-templates select="name"/>.
+    </xsl:template>
+
+    <xsl:template match="*" mode="text-disclaimer">
+        <xsl:if test="$RELATED-DOC[@TYPE='correction'] or $RELATED-DOC[@TYPE='corrected-article']">
+            <div class="disclaimer">
+                <xsl:if test="$RELATED-DOC[@TYPE='correction']">
+                    <xsl:apply-templates select="$RELATED-DOC[@TYPE='correction']"/>			
+                </xsl:if>
+                <xsl:if test="$RELATED-DOC[@TYPE='corrected-article']">
+                    <xsl:apply-templates select="$RELATED-DOC[@TYPE='corrected-article']"/>
+                </xsl:if>
+            </div>
+        </xsl:if>
+        <!--xsl:if test=".//ARTICLE/RELATED-DOC[@TYPE='correction']">
+			<div class="fixed-disclaimer">			
+				<xsl:apply-templates select=".//ARTICLE/RELATED-DOC[@TYPE='correction']"/>			
+			</div>
+		</xsl:if-->
+    </xsl:template>
+    
+    <xsl:template match="RELATED-DOC[@TYPE='correction']">
+        <p>
+            <strong><xsl:value-of
+                select="$translated/xslid[@id='sci_arttext']/text[@find='this_article_has_been_corrected']"
+            />: </strong>
+            <a>
+                <xsl:call-template name="AddScieloLink">
+                    <xsl:with-param name="seq" select="@PID"/>
+                    <xsl:with-param name="script">sci_arttext_plus</xsl:with-param>
+                    <xsl:with-param name="txtlang" select="$PAGE_LANG"/>
+                </xsl:call-template><xsl:value-of select="ISSUE"/>
+            </a>
+        </p>
+    </xsl:template>
+    
+    <xsl:template match="RELATED-DOC[@TYPE='corrected-article']">
+        <p>
+            <strong><xsl:value-of
+                select="$translated/xslid[@id='sci_arttext']/text[@find='this_corrects']"
+            /></strong>
+            <a>
+                <xsl:call-template name="AddScieloLink">
+                    <xsl:with-param name="seq" select="@PID"/>
+                    <xsl:with-param name="script">sci_arttext_plus</xsl:with-param>
+                    <xsl:with-param name="txtlang" select="$PAGE_LANG"/>
+                </xsl:call-template><xsl:value-of select="DOCTITLE"/>. <xsl:value-of select="ISSUE"/>
+            </a>
+        </p>
     </xsl:template>
 </xsl:stylesheet>

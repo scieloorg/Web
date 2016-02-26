@@ -3305,6 +3305,7 @@ fi
 	<display><pft>| DOI="|v237|"|,| displayDOILink="|v9237|"|</pft></display>
 	<display><pft>| oldpid="|v881|"|</pft></display>
 	<field action="export" tag="9800">9800</field>
+	<field action="export" tag="list">237</field>
 
  </function>
 <function name="getDOI" action="replace" tag="880">
@@ -3445,39 +3446,6 @@ fi
 <return action="replace" tag="7047"><pft>v7047</pft></return>
 </function>
 
-<function name="getLicenseText" action="replace" tag="4000">
-	<!-- 
-		^l = lang
-		^s = site name
-		^c = codigo
-		^v = version
-	-->
-	<field action="replace" tag="4000"><pft>replace(v4000,'BY','by')</pft></field>
-	<field action="replace" tag="4000"><pft>replace(v4000,'NC','nc')</pft></field>
-	<field action="replace" tag="4000"><pft>replace(v4000,'ND','nd')</pft></field>
-	<field action="replace" tag="4000"><pft>replace(v4000,'SA','sa')</pft></field>
-
-	<flow action="jump"><pft>if v4000^c='nd' then 'nd' else v4000^l fi</pft></flow>
-
-	<label>nd</label>
-	<field action="replace" tag="540"><pft>'<!-- nd -->'</pft></field>
-	<flow action="jump">end</flow>
-
-	<label>pt</label>
-	<field action="replace" tag="540"><pft>'<a rel="license" href="http://creativecommons.org/licenses/',v4000^c,'/',v4000^v,'/deed.pt"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/',v4000^c,'/',v4000^v,'/80x15.png"/></a> Todo o conteúdo deste site ',v4000^s,', exceto quando identificado, utiliza  uma <a rel="license" href="http://creativecommons.org/licenses/',v4000^c,'/',v4000^v,'/deed.pt">Licença de Atribuição Creative Commons</a>.'</pft></field>
-	<flow action="jump"><pft>if p(v540) then 'end' else 'en' fi</pft></flow>
-	
-	<label>es</label>
-	<field action="replace" tag="540"><pft>'<a rel="license" href="http://creativecommons.org/licenses/',v4000^c,'/',v4000^v,'/deed.es"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/',v4000^c,'/',v4000^v,'/80x15.png"/></a> Todo el contenido de este sitio ',v4000^s,', excepto dónde está identificado, está bajo una <a rel="license" href="http://creativecommons.org/licenses/',v4000^c,'/',v4000^v,'/deed.es">Licencia de Atribución Creative Commons</a>.'</pft></field>
-	<flow action="jump"><pft>if p(v540) then 'end' fi</pft></flow>
-
-	<label>en</label>
-	<field action="replace" tag="540"><pft>'<a rel="license" href="http://creativecommons.org/licenses/',v4000^c,'/',v4000^v,'/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/',v4000^c,'/',v4000^v,'/80x15.png"/></a> All the contents of this site ',v4000^s,', except where otherwise noted, is licensed under a <a rel="license" href="http://creativecommons.org/licenses/',v4000^c,'/',v4000^v,'/">Creative Commons Attribution License</a>.'</pft></field>
-
-	<label>end</label>
-	<return action="replace" tag="9540"><pft>v540</pft></return>
-</function>
-
 <function name="getCreativeCommonsInfo" action="replace" tag="4000">
 	<!-- ^llang'^f',lang,'_',page name,|^p|pid da pagina,'^s',site name,^c codigo licenca ^v version-->
 	<field action="replace" tag="4000"><pft>if a(v4000^v) then v4000,'^v4.0' fi</pft></field>
@@ -3497,47 +3465,77 @@ fi
 	<label>issue</label>
 	<field action="replace" tag="1">issue</field>
 	<field action="replace" tag="541"><pft>ref(['NEWISSUE']l(['NEWISSUE'],'Y',v8802),v541)</pft></field>
-	<call name="getLicenseText"><pft>if p(v541) then '^l',v4000^l,'^s',v4000^s,'^c',v541,'^v',v4000^v, fi</pft></call>
-	<field action="replace" tag="540" split="occ"><pft>if a(v9540) then ref(['NEWISSUE']l(['NEWISSUE'],'Y',v8802),(v540/)) fi</pft></field>
-	<field action="replace" tag="9540"><pft>if p(v540) then (if v540^l=v4000^l[1] then v540^t fi) fi</pft></field>
-	<flow action="jump"><pft>if p(v9540) then 'license' fi</pft></flow>
+	<!-- se ausente v541, tentar o v540 que contém texto/html -->
+	<field action="replace" tag="540" split="occ"><pft>if a(v541) then ref(['NEWISSUE']l(['NEWISSUE'],'Y',v8802),(if v540:':/creativecommons.org/licenses/' then v540,break, else if v540<>'' then 'nd',break, fi fi)) fi</pft></field>
+	<flow action="jump"><pft>if p(v541) or p(v540) then 'license' fi</pft></flow>
 	
 	<label>journal</label>
 	<field action="replace" tag="1">journal</field>
 	<field action="replace" tag="541"><pft>ref(['TITLE']l(['TITLE'],'LOC=',v8801),v541)</pft></field>
-	<call name="getLicenseText"><pft>if p(v541) then '^l',v4000^l,'^s',v4000^s,'^c',v541,'^v',v4000^v, fi</pft></call>
-	<field action="replace" tag="540" split="occ"><pft>if a(v9540) then ref(['TITLE']l(['TITLE'],'LOC=',v8801),(v540/)) fi</pft></field>
-	<flow action="jump"><pft>if p(v9540) then 'license' fi</pft></flow>
+	<field action="replace" tag="540" split="occ"><pft>if a(v541) then ref(['TITLE']l(['TITLE'],'LOC=',v8801),(if v540:':/creativecommons.org/licenses/' then v540,break, else if v540<>'' then 'nd',break, fi, fi)) fi</pft></field>
+	<flow action="jump"><pft>if p(v541) or p(v540) then 'license' fi</pft></flow>
 	
 	<label>site</label>
 	<field action="replace" tag="1">site</field>
 	<field action="replace" tag="541"><pft>v4000^c</pft></field>
-	<call name="getLicenseText"><pft>if p(v4000^c) then '^l',v4000^l,'^s',v4000^s,'^c',v4000^c,'^v',v4000^v, fi</pft></call>
-	<flow action="jump"><pft>if p(v9540) then 'license' fi</pft></flow>
+	<flow action="jump"><pft>if p(v541) or p(v540) then 'license' fi</pft></flow>
 	
 	<label>other</label>
-	<field action="replace" tag="1">none</field>
+	<field action="replace" tag="1">site</field>
 	<call name="existeFile"><pft>'^p../bases/license/^f',v4000^l,'_general.txt'</pft></call>
-	<flow action="jump"><pft>if a(v7999) then 'end' fi</pft></flow>
+	<flow action="jump"><pft>if a(v7999) then 'license' fi</pft></flow>
 
-	<field action="replace" tag="1">general</field>
 	<do task="import">
 	    <parm name="file"><pft>'../bases/license/',v4000^l,'_general.txt'</pft></parm>
 		<parm name="type">RLine</parm>
     	<loop>
-			<field action="import" tag="list">9540</field>
-			<field action="add" tag="9540"><pft>v1,"|"v2,"|"v3,"|"v4,"|"v5,"|"v6,"|"v7,"|"v8,"|"v9/</pft></field>
-			<field action="export" tag="list">9540</field>
+			<field action="import" tag="list">540</field>
+			<field action="add" tag="540"><pft>v1,"|"v2,"|"v3,"|"v4,"|"v5,"|"v6,"|"v7,"|"v8,"|"v9/</pft></field>
+			<field action="export" tag="list">540</field>
    		</loop>
-		<field action="replace" tag="9540"><pft>(v9540/)</pft></field>
+		<field action="replace" tag="540"><pft>(v540/)</pft></field>
 	</do>
 	
 	<label>license</label>
+	<field action="replace" tag="540">
+		<pft>
+			,if instr(v540,':/creativecommons.org/licenses/')>0 then
+				mid(v540,instr(v540,':/creativecommons.org/licenses/')+size(':/creativecommons.org/licenses/'),size(v540))
+			,fi
+		</pft>
+	</field>
+	<field action="replace" tag="541">
+		<pft>
+			,if v540:'/deed' then
+				,mid(v540,1,instr(v540,'/deed'))
+			,else
+				,if v540:'/"' then
+			 		,mid(v540,1,instr(v540,'/"')),
+				,else
+					v540
+				,fi
+			,fi
+		</pft>
+	</field>
+	<field action="replace" tag="541"><pft>replace(v541,'BY','by')</pft></field>
+	<field action="replace" tag="541"><pft>replace(v541,'NC','nc')</pft></field>
+	<field action="replace" tag="541"><pft>replace(v541,'ND','nd')</pft></field>
+	<field action="replace" tag="541"><pft>replace(v541,'SA','sa')</pft></field>
+	<field action="replace" tag="541"><pft>replace(v541,'IGO','igo')</pft></field>
+	<field action="replace" tag="541"><pft>v541,if v541<>'nd' and v541<>'' and not v541:'/' and not v541:'igo' then '/',v4000^v fi</pft></field>
 	<display>
 		<pft>
 			'<PERMISSIONS source="',v1,'">'/
 			'<permissions>'/
-			'<license license-type="',v541,if a(v541) then 'open-access' fi,'"><p>',v9540,'</p></license>'
+			,if v541='nd' then
+				'<!-- no license Creative Commons -->'
+			,else
+				,if v541<>'' then
+					'<license license-type="open-access" href="http://creativecommons.org/licenses/',v541,'"></license>'
+				,else
+					'<!-- no license found -->'
+				,fi
+			,fi
 			'</permissions>'/
 			'</PERMISSIONS>'/
 		</pft>
@@ -3628,5 +3626,153 @@ fi
 			</loop>
 		</do>
 	</function>
+	
+<function name="ArticleHasCorrections" action="replace" tag="4000">
+	<field action="replace"	tag="880"><pft>v4000[1]</pft></field>
+	<field action="import"	tag="list">241,237,41</field>
+
+	<!-- documento: artigo | relacionado: errata -->
+	<call name="RelatedDocument"><pft>if a(v241) then '^tcorrection^e','corrected-article'v880,| OR corrected-article|v237 fi</pft></call>
+</function>
+
+<function name="AllRelatedDocuments" action="replace" tag="4000">
+	<field action="replace"	tag="880"><pft>v4000[1]</pft></field>
+	<field action="import"	tag="list">241,237,41</field>
+
+	<!-- documento: errata | relacionado: artigo -->
+	<call name="FindRelatedKeys"><pft>if a(v41) and p(v241) then (if v241^t<>'pr' then v880[1],break fi) fi</pft></call>
+	<!-- documento: press release | relacionado: artigo -->
+	<field action="add"	tag="9241"><pft>if p(v41) then 'PR'v880 fi</pft></field>
+	<call name="RelatedDocument"><pft>if a(v41) then if p(v9241) then '^tcorrected-article^e',(v9241+| or |) fi fi</pft></call>
+
+	<!-- documento: artigo | relacionado: errata -->
+	<call name="RelatedDocument"><pft>if a(v241) then '^tcorrection^e','corrected-article'v880,| OR corrected-article|v237 fi</pft></call>
+
+	<!-- documento: artigo | relacionado: press release -->
+	<call name="RelatedDocument"><pft>(if v241^t='pr' then '^tpress-release^e',|HR=|v241^i/ fi)</pft></call>
+</function>
+
+<function name="RelatedDocument" action="replace" tag="4000">
+	<display><pft>'<!-- RelatedDocument: ',v4000,' -->'/</pft></display>
+
+    <do task="search">
+		<parm name="db">ARTIGO</parm>
+		<parm name="expression"><pft>v4000^e</pft></parm>
+
+        <loop>
+        	<display><pft>@PROC_SPLIT_MST.PFT,</pft></display>
+            <field action="import" tag="list">4000</field>
+            <field action="replace" tag="9132"><pft>v131,v132</pft></field>
+            <field action="replace" tag="9032"><pft>v32,if p(v9132) then ' Suppl',if v9132<>'0' then  ' ',v9132, fi, fi</pft></field>
+            <field action="replace" tag="9032"><pft>if v9032='ahead' then 'In press' fi</pft></field>
+            <field action="replace" tag="9014"><pft>if v9032='ahead' then '' else if p(v14^e) then v14^e else v14^f,if v14^l<>v14^f then |-|v14^l, fi fi fi</pft></field>
+            <!-- Acta Ortop Bras. 2015;23(6):287-9 -->
+            <display>
+                <pft>
+                '  <RELATED-DOC TYPE="'v4000^t'" PID="',v880,'"',| DOI="|v237|"|,'>'/,
+                '	<ISSUE>'
+              		,v30,' ',v65*0.4,';',v31,if p(v31) then |(|v9032|)| else v9032 fi,|: |v9014,
+              	'</ISSUE>'/
+              	'<DOCTITLE>',v12^*[1],'</DOCTITLE>'/
+                '</RELATED-DOC>'/,
+                </pft>
+            </display>        
+            <field action="export" tag="list">880</field>
+        </loop>
+    </do>
+    <field action="import" tag="list">241</field>
+    <display>
+        <pft>
+        	if a(v880) then
+        		if v4000^t<>'correction' then
+	        		'  <NOT-FOUND-RELATED-DOC-ERROR>',v4000,'</NOT-FOUND-RELATED-DOC-ERROR>'/
+	        	fi
+        	fi
+        </pft>
+    </display> 
+</function>
+
+<function name="FindRelatedKeys" action="replace" tag="4000">
+	<field action="replace"	tag="880"><pft>v4000</pft></field>
+	<field action="import"	tag="list">241</field>
+
+	<call name="FindRelatedKeysByDOI">
+        <pft>
+        	(if v241^n='doi' then v241/ fi)
+        </pft>
+    </call>
+    
+	<field action="replace"	tag="9241" split="occ"><pft>(v9241/),(if v241^n='doi' then 'DOI='v241^i/ else if v241^n='pid' then |HR=|v241^i/ fi fi)</pft></field>
+	
+    <field action="export" tag="list">9241</field>
+</function>
+
+<function name="FindRelatedKeysByDOI" action="replace" tag="241">
+	<field action="import" tag="list">880</field>
+	<do task="search">
+		<parm name="db">ARTIGO</parm>
+		<parm name="expression">DOI=$</parm>
+		<parm name="count">1</parm>
+
+        <loop>
+        	<display><pft>@PROC_SPLIT_MST.PFT,</pft></display>
+        	<field action="replace"	tag="9999">DOI_IS_INDEXED</field>
+            <field action="export" tag="list">9999</field>
+        </loop>
+    </do>
+    <flow action="jump"><pft>v9999</pft></flow>
+	
+	<label>DOI_IS_NOT_INDEXED</label>
+    <call name="FindNotIndexedDOI"><pft>v880</pft></call>
+
+    <label>DOI_IS_INDEXED</label>
+    <field action="export" tag="list">9241</field>
+</function>
+
+<function name="FindNotIndexedDOI" action="replace" tag="4000">
+	<field action="replace"	tag="880"><pft>v4000[1]</pft></field>
+	<field action="import"	tag="list">241</field>
+
+	<field action="replace" tag="8241" split="occ">
+		<pft>(v241/)</pft>
+	</field>
+	<display><pft>('<!-- v8241: ',v8241,' -->'/)</pft></display>
+			
+    <do task="keyrange">
+		<parm name="db">ARTIGO</parm>
+		<parm name="from"><pft>'HR=',v880</pft></parm>
+		<parm name="to"><pft>'HR=',v880*0.10</pft></parm>
+		<parm name="reverse">On</parm>
+
+		<field action="define" tag="4880">Isis_Key</field>
+		<loop>
+			<field action="import" tag="list">8241,9241</field>
+			<field action="replace" tag="237">
+				<pft>ref(['ARTIGO']l(['ARTIGO'],v4880),@PROC_SPLIT_MST.PFT,v237)</pft>
+			</field>
+			<field action="delete" tag="9880">ALL</field>
+			<field action="replace" tag="9880">
+				<pft>
+					(if v237[1]=v8241^i then 
+						v4880[1]*3,break
+					fi)
+				</pft>
+			</field>
+			<flow action="skip"><pft>if a(v9880) then 'Next' fi</pft></flow>
+
+			<field action="add" tag="9241"><pft>|HR=|v9880</pft></field>
+			
+			<field action="replace" tag="7241" split="occ"><pft>(v8241/)</pft></field>
+			<field action="delete" tag="8241">ALL</field>
+			<field action="replace" tag="8241" split="occ">
+				<pft>(if v237[1]=v7241^i then else v7241/ fi)</pft>
+			</field>
+
+			<field action="export" tag="list">8241,9241</field>
+			<flow action="skip"><pft>if a(v8241) then 'Quit' fi</pft></flow>
+		</loop>	
+	</do>
+	<field action="export" tag="list">9241</field>
+</function>
 	
 
