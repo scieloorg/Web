@@ -1479,9 +1479,28 @@
 					</xsl:choose>
 				</a>
 			</xsl:when>
+			<xsl:when test="@mimetype='video'">
+				<video width="100%" controls="1">
+					<source src="{$src}" type="{@mimetype}/{@mime-subtype}"/>
+					Your browser does not support the video element.
+				</video>
+			</xsl:when>
+			<xsl:when test="@mimetype='audio'">
+				<audio width="100%" controls="1">
+					<source src="{$src}" type="{@mimetype}/{@mime-subtype}"/>
+					Your browser does not support the audio element.
+				</audio>
+			</xsl:when>
 			<xsl:otherwise>
-				<embed width="100%" height="400">
-					<xsl:if test="contains(@xlink:href,'.avi')"><xsl:attribute name="type">video/x-msvideo</xsl:attribute></xsl:if>
+				<a target="_blank">
+					<xsl:attribute name="href"><xsl:value-of select="$src"/></xsl:attribute>
+					<xsl:choose>
+						<xsl:when test="normalize-space(text())=''"><xsl:value-of select="@xlink:href"/></xsl:when>
+						<xsl:otherwise><xsl:apply-templates select="*|text()"></xsl:apply-templates></xsl:otherwise>
+					</xsl:choose>
+				</a>
+				<embed width="100%" height="400" >
+					<xsl:attribute name="type"><xsl:value-of select="@mimetype"/>/<xsl:value-of select="@mime-subtype"/></xsl:attribute>
 					<xsl:attribute name="src"><xsl:value-of select="$src"/></xsl:attribute> 
 				</embed>
 			</xsl:otherwise>
