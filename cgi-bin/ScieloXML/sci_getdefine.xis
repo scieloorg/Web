@@ -82,6 +82,7 @@
 						case 'ENABLE_ARTICLE_LANG_LINK'     : 'h17061',
 						case 'show_ref_links'				: 'h17062',
 						case 'CC_AND_VERSION'				: 'h17063',
+						case 'BLOCK_FUTURE_EPUB'			: 'h17064',
 						case 'show_meta_citation_reference'	: 'h17070',
                         
 						elsecase 'h4903'
