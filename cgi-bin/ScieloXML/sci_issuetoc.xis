@@ -112,10 +112,6 @@
     <field action="import" tag="list">2000,4001,7009/7060</field> <!--fixed-->
     <field action="import" tag="list">5010</field> <!--fixed-->
 	<field action="replace" tag="1005"><pft>f(val(v1003^m)+1,1,0)</pft></field>
-
-	<field action="replace" tag="223"><pft>'0',ref(['ARTIGO']val(v1003^m),@PROC_SPLIT_MST.PFT,v223)</pft></field>
-  <display><pft>if p(v223) then if val(v223) > val(s(date)*0.8) then '<!-- SKIP? ',ref(['ARTIGO']val(v1003^m),@PROC_SPLIT_MST.PFT,v880),' ',v223,' -->'/ fi fi</pft></display>
-  <flow action="skip"><pft>if p(v223) then if val(v223) > val(s(date)*0.8) then 'Next' fi fi</pft></flow>
   <flow action="skip">
                 <pft>
         ref(['ARTIGO']val(v1003^m),@PROC_SPLIT_MST.PFT,if p(v222) then 'Next' fi)
