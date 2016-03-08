@@ -63,6 +63,7 @@
 				<xsl:if test="//ISSUE/@VOL">v<xsl:value-of select="translate(//ISSUE/@VOL, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')"/></xsl:if>
 				<xsl:if test="//ISSUE/@NUM">n<xsl:value-of select="translate(//ISSUE/@NUM, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')"/></xsl:if>
 				<xsl:if test="//ISSUE/@SUPPL">s<xsl:value-of select="translate(//ISSUE/@SUPPL, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')"/></xsl:if>
+				<xsl:if test="//ISSUE/@is"><xsl:value-of select="//ISSUE/@is"/></xsl:if>
 			</xsl:when>
 			<xsl:when test="$version='xml-file'">
 				<xsl:apply-templates select="$document//front/article-meta"
@@ -89,6 +90,7 @@
 					<xsl:if test="$n!=''">n<xsl:value-of select="$n"/></xsl:if>s<xsl:value-of
 						select="$s"/><xsl:if test="$s=''">0</xsl:if>
 				</xsl:when>
+				<xsl:when test="contains(issue,' pr')">n<xsl:value-of select="substring-before(issue,' pr')"/>pr</xsl:when>
 				<xsl:otherwise>n<xsl:value-of select="issue"/></xsl:otherwise>
 			</xsl:choose>
 
