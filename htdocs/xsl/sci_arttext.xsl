@@ -63,7 +63,7 @@
 				<xsl:if test="//ISSUE/@VOL">v<xsl:value-of select="translate(//ISSUE/@VOL, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')"/></xsl:if>
 				<xsl:if test="//ISSUE/@NUM">n<xsl:value-of select="translate(//ISSUE/@NUM, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')"/></xsl:if>
 				<xsl:if test="//ISSUE/@SUPPL">s<xsl:value-of select="translate(//ISSUE/@SUPPL, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')"/></xsl:if>
-				<xsl:if test="//ISSUE/@is"><xsl:value-of select="//ISSUE/@is"/></xsl:if>
+				<xsl:if test="//ISSUE/@COMPL"><xsl:value-of select="//ISSUE/@COMPL"/></xsl:if>
 			</xsl:when>
 			<xsl:when test="$version='xml-file'">
 				<xsl:apply-templates select="$document//front/article-meta"
