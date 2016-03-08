@@ -100,7 +100,8 @@
   <loop>	
     <call name="skip_epub"><pft>mfn</pft></call>
     <flow action="skip"><pft>v9990</pft></flow>
-
+   <display><pft>@PROC_SPLIT_MST.PFT</pft></display>
+    
    <field action="import" tag="list">4001,7009/7070</field> <!-- fixed -->
 
    <!-- fixed 20040607 - solucao para email solange 07/06/2004 - verifica se existe a traduï¿?o antes -->

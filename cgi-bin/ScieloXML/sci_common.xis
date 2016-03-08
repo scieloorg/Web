@@ -2888,8 +2888,7 @@ fi
     		<flow action="skip"><pft>v9990</pft></flow>
 
             <display><pft>@PROC_SPLIT_MST.PFT,</pft></display>
-            
-            <field action="import" tag="list">3000,3003,3012</field>
+			<field action="import" tag="list">3000,3003,3012</field>
         
             <flow action="jump">
                 <pft>if a(v12) then 'SECTION' fi</pft>

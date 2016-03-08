@@ -48,7 +48,6 @@
     <flow action="skip"><pft>v9990</pft></flow>
     
    <display><pft>@PROC_SPLIT_MST.PFT</pft></display>
-   
    <field action="import" tag="list">4001,7009/7070</field> <!-- fixed -->
 
    <display>
