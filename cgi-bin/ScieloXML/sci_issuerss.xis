@@ -33,6 +33,9 @@
    <field action="replace" tag="2000"><pft>'-'</pft></field>
   
    <loop>
+      <call name="skip_epub"><pft>v1003^m</pft></call>
+      <flow action="skip"><pft>v9990</pft></flow>
+
    <!-- 2000 - Section Code -->
     <field action="import" tag="list">2000,4001,7009/7060</field> <!--fixed-->
     <field action="import" tag="list">5010</field> <!--fixed-->

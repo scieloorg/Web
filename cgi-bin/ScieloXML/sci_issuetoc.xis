@@ -34,6 +34,9 @@
 	<parm name="count">1</parm>
 	<field action="define" tag="1001">Isis_Total</field>
 	<loop>
+      <call name="skip_epub"><pft>mfn</pft></call>
+      <flow action="skip"><pft>v9990</pft></flow>
+
 		<field action="export" tag="list">1001</field>
    
 	</loop>
@@ -63,7 +66,10 @@
    <field action="replace" tag="1000">0</field>
    <field action="replace" tag="2000">0</field>
    <loop>
-		<field action="import" tag="list">1000,2000,4001,7053</field>
+      <call name="skip_epub"><pft>v1003^m</pft></call>
+      <flow action="skip"><pft>v9990</pft></flow>
+
+    <field action="import" tag="list">1000,2000,4001,7053</field>
 <display><pft>
 '<!--'/
 'v2000:',v2000/
@@ -98,11 +104,15 @@
    <field action="replace" tag="2000"><pft>'-'</pft></field>
   
    <loop>
+      <call name="skip_epub"><pft>v1003^m</pft></call>
+      <flow action="skip"><pft>v9990</pft></flow>
+
    <!-- 2000 - Section Code -->
+
     <field action="import" tag="list">2000,4001,7009/7060</field> <!--fixed-->
     <field action="import" tag="list">5010</field> <!--fixed-->
 	<field action="replace" tag="1005"><pft>f(val(v1003^m)+1,1,0)</pft></field>
-	<flow action="skip">
+  <flow action="skip">
                 <pft>
         ref(['ARTIGO']val(v1003^m),@PROC_SPLIT_MST.PFT,if p(v222) then 'Next' fi)
                 </pft>
