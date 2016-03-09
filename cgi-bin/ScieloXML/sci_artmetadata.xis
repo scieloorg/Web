@@ -73,6 +73,9 @@
 		<parm name="count">1</parm>
 			
 		<loop>
+			<call name="skip_epub"><pft>mfn</pft></call>
+            <flow action="skip"><pft>v9990</pft></flow>
+
             <field action="import" tag="list">7009/7060</field>
             <field action="replace" tag="3006"><pft>f(mfn,1,0)</pft></field>
             <display><pft>@PROC_SPLIT_MST.PFT,</pft></display>

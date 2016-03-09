@@ -182,8 +182,12 @@
 		<parm name="count">1</parm>
         
 		<loop>
+            <call name="skip_epub"><pft>mfn</pft></call>
+            <flow action="skip"><pft>v9990</pft></flow>
 	
             <display><pft>@PROC_SPLIT_MST.PFT,</pft></display>
+
+
 			<field action="import" tag="list">3000/3012,7009/7060</field> <!-- fixed -->
             <field action="import"	tag="list">3100</field>
             <field action="replace"	tag="9012"><pft>(if v12^l=v3100[1] then v12^*,|: |v12^s fi)</pft></field>
