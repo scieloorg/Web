@@ -67,23 +67,51 @@
             <link rel="shortcut icon" href="{$PATH}/static/img/favicon.ico"/>
             <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
 
-            <link href="{$PATH}/static/css/bootstrap.min.css" rel="stylesheet"/>
-            <link href="{$PATH}/static/css/responsive.css" rel="stylesheet"/>
-            <link href="{$PATH}/static/css/style.css" rel="stylesheet"/>
             <style>
+                .inline-formula {
+                display: inline;
+                max-height: 16px;
+                }
+                .inline-formula-graphic {
+                display: inline;
+                max-height: 16px;
+                }
+                
                 .disp-formula {
+                display: block;
+                vertical-align: top;
                 text-align: center;
-                max-width:800px;
                 }
                 .disp-formula .label {
-                display: inline-block;
-                margin-left: 50px;
-                max-width:800px;
+                padding: 10px;
+                display: inline;
+                vertical-align: top;
                 }
-                .disp-formula .labeled-formula {
-                display: inline-block;
-                max-width:800px;
+                .disp-formula .formula {
+                padding: 10px;
+                text-align: center;
                 }
+                .disp-formula .formula-labeled {
+                padding: 10px;
+                max-width: 80%;
+                }
+                .disp-formula-graphic {
+                padding: 25px;
+                height: auto;
+                max-width: 100%;
+                max-height: 45px;
+                }
+                .graphic {
+                padding: 25px;
+                height: auto;
+                max-width: 100%;
+                max-height: 300px;
+                }
+                .inline-graphic {
+                display: inline;
+                max-height: 16px;
+                }
+                
                 .product {
                 font-family: Book Antiqua;
                 font-size: 10pt;
@@ -105,6 +133,10 @@
                 line-height: normal;
                 }
             </style>
+            <link href="{$PATH}/static/css/bootstrap.min.css" rel="stylesheet"/>
+            <link href="{$PATH}/static/css/responsive.css" rel="stylesheet"/>
+            <link href="{$PATH}/static/css/style.css" rel="stylesheet"/>
+   
             <xsl:if test=".//math or .//mml:math">
                 <script type="text/javascript"
                     src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
@@ -973,15 +1005,26 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
             </a>
         </div>
     </xsl:template>
-    <xsl:template match="table//inline-graphic|inline-graphic|disp-formula/graphic" mode="HTML-TEXT">
-        <img>
+    <xsl:template match="table//inline-graphic|inline-graphic" mode="HTML-TEXT">
+        <img class="inline-graphic">
             <xsl:attribute name="src"><xsl:value-of select="concat($IMAGE_PATH,'/')"/><xsl:apply-templates select="." mode="fix_img_extension"/></xsl:attribute>
         </img>
     </xsl:template>
+    <xsl:template match="disp-formula/graphic" mode="HTML-TEXT">
+        <img class="disp-formula-graphic">
+            <xsl:attribute name="src"><xsl:value-of select="concat($IMAGE_PATH,'/')"/><xsl:apply-templates select="." mode="fix_img_extension"/></xsl:attribute>
+        </img>
+    </xsl:template>
+    
+    <xsl:template match="inline-formula/graphic" mode="HTML-TEXT">
+        <img class="inline-formula-graphic">
+            <xsl:attribute name="src"><xsl:value-of select="concat($IMAGE_PATH,'/')"/><xsl:apply-templates select="." mode="fix_img_extension"/></xsl:attribute>
+        </img>
+    </xsl:template>
+    
     <xsl:template match="inline-formula" mode="HTML-TEXT">
-        <span class="inline-formula" id="{.//@id}">
-
-            <!-- FIXME -->
+        <span class="inline-formula">
+            <xsl:apply-templates select="@id"/>
             <xsl:apply-templates select="*" mode="HTML-TEXT"/>
         </span>
     </xsl:template>
@@ -989,9 +1032,13 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
         <span class="label"><xsl:value-of select="."/></span>
     </xsl:template>
     <xsl:template match="disp-formula" mode="HTML-TEXT">
-        <div class="disp-formula" id="{.//@id}">
-            <!-- FIXME -->
-            <span class="labeled-formula"><xsl:apply-templates select="*[name()!='label']" mode="HTML-TEXT"/></span>
+        <div class="disp-formula">
+            <xsl:apply-templates select="@id"/>
+            <span>
+                <xsl:attribute name="class"><xsl:choose>
+                    <xsl:when test="label">formula-labeled</xsl:when><xsl:otherwise>formula</xsl:otherwise>
+                </xsl:choose></xsl:attribute>
+                <xsl:apply-templates select="*[name()!='label']" mode="HTML-TEXT"/></span>
             <xsl:apply-templates select="label" mode="HTML-TEXT"/>
         </div>
     </xsl:template>
