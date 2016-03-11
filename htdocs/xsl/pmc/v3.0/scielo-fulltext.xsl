@@ -823,15 +823,32 @@
 			<xsl:apply-templates select="*|text()"/>
 		</span>
 	</xsl:template>
+	<xsl:template match="inline-formula/graphic">
+		<a target="_blank">
+			<xsl:apply-templates select="." mode="scift-attribute-href"/>
+			<img class="inline-formula-graphic">
+				<xsl:apply-templates select="." mode="scift-attribute-src"/>
+			</img>
+		</a>
+	</xsl:template>
 	<xsl:template match="disp-formula/label">
 		<span class="label"><xsl:value-of select="."/></span>
 	</xsl:template>
 	<xsl:template match="disp-formula">
 		<div class="disp-formula">
-			<span class="formula">
-				<xsl:apply-templates select="*[name()!='label']|text()"></xsl:apply-templates>
-			</span>
-			<xsl:apply-templates select="label"></xsl:apply-templates>			
+			<xsl:choose>
+				<xsl:when test="label">
+					<span class="formula-labeled">
+						<xsl:apply-templates select="*[name()!='label']|text()"></xsl:apply-templates>
+					</span>
+					<span class="label"><xsl:value-of select="label"/></span>			
+				</xsl:when>
+				<xsl:otherwise>
+					<span class="formula">
+						<xsl:apply-templates select="*[name()!='label']|text()"></xsl:apply-templates>
+					</span>
+				</xsl:otherwise>
+			</xsl:choose>
 		</div>
 	</xsl:template>
 	<xsl:template match="alternatives">
@@ -856,10 +873,18 @@
 		</a>
 	</xsl:template>
 
-	<xsl:template match="table//inline-graphic |inline-graphic | disp-formula/graphic">
+	<xsl:template match="table//inline-graphic |inline-graphic">
 		<a target="_blank">
 			<xsl:apply-templates select="." mode="scift-attribute-href"/>
-			<img class="inline-formula">
+			<img class="inline-graphic">
+				<xsl:apply-templates select="." mode="scift-attribute-src"/>
+			</img>
+		</a>
+	</xsl:template>
+	<xsl:template match="disp-formula/graphic">
+		<a target="_blank">
+			<xsl:apply-templates select="." mode="scift-attribute-href"/>
+			<img class="disp-formula-graphic">
 				<xsl:apply-templates select="." mode="scift-attribute-src"/>
 			</img>
 		</a>
