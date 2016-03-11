@@ -67,6 +67,10 @@
             <link rel="shortcut icon" href="{$PATH}/static/img/favicon.ico"/>
             <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
 
+            <link href="{$PATH}/static/css/bootstrap.min.css" rel="stylesheet"/>
+            <link href="{$PATH}/static/css/responsive.css" rel="stylesheet"/>
+            <link href="{$PATH}/static/css/style.css" rel="stylesheet"/>
+            
             <style>
                 .inline-formula {
                 display: inline;
@@ -133,10 +137,6 @@
                 line-height: normal;
                 }
             </style>
-            <link href="{$PATH}/static/css/bootstrap.min.css" rel="stylesheet"/>
-            <link href="{$PATH}/static/css/responsive.css" rel="stylesheet"/>
-            <link href="{$PATH}/static/css/style.css" rel="stylesheet"/>
-   
             <xsl:if test=".//math or .//mml:math">
                 <script type="text/javascript"
                     src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
