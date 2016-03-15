@@ -98,10 +98,7 @@
 	<parm name="buffersize">400000</parm>
 
   <loop>	
-    <call name="skip_epub"><pft>mfn</pft></call>
-    <flow action="skip"><pft>v9990</pft></flow>
    <display><pft>@PROC_SPLIT_MST.PFT</pft></display>
-    
    <field action="import" tag="list">4001,7009/7070</field> <!-- fixed -->
 
    <!-- fixed 20040607 - solucao para email solange 07/06/2004 - verifica se existe a traduï¿?o antes -->
@@ -212,10 +209,8 @@
 	<parm name="expression"><pft>|R=|v4001^p</pft></parm>
 	
 	<loop>
-		<call name="skip_epub"><pft>mfn</pft></call>
-        <flow action="skip"><pft>v9990</pft></flow>
-        <call name="PROC_SPLIT_MST"><pft>v32701</pft></call>
-        <display>
+		<call name="PROC_SPLIT_MST"><pft>v32701</pft></call>
+		<display>
 			<pft>
 				'<REFERENCE>'
 					if p(v12) then '<TITLE_REFERENCE><![CDATA[',v12^*,']]></TITLE_REFERENCE>' fi
