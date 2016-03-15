@@ -255,8 +255,6 @@
 			   <parm name="expression"><pft>'SM='v4901,'$'</pft></parm>
 			   <parm name="count">1</parm>
 			   <loop>
-			   		<call name="skip_epub"><pft>mfn</pft></call>
-    				<flow action="skip"><pft>v9990</pft></flow>
 					<field action="replace" tag="4902"><pft>v880</pft></field>
 					<field action="export" tag="list">4902</field>
 				</loop>	
@@ -327,12 +325,8 @@
 		<parm name="reverse">On</parm>
 
 		<field action="define" tag="4901">Isis_Key</field>
-		<field action="define" tag="1003">Isis_Posting</field>
 		
 		<loop>
-			<call name="skip_epub"><pft>1003^m</pft></call>
-    		<flow action="skip"><pft>v9990</pft></flow>
-
 			<field action="import" tag="4900">4900</field>
 			<display><pft>'<!-- '/,'from:',v4900/</pft></display>
 			<display><pft>'curr: ',v4901/,'-->'/</pft></display>
@@ -375,12 +369,8 @@
 		<parm name="count">1</parm>
 
 		<field action="define" tag="4901">Isis_Key</field>
-		<field action="define" tag="1003">Isis_Posting</field>
 		
 		<loop>
-			<call name="skip_epub"><pft>1003^m</pft></call>
-    		<flow action="skip"><pft>v9990</pft></flow>
-
 			<field action="import" tag="4900">4900</field>
 			<display><pft>'<!-- ',v4900/</pft></display>
 			<display><pft>'left(v4900, size(v4900) - 5)',left(v4900, size(v4900) - 5)/</pft></display>
@@ -427,12 +417,8 @@
 		<!--parm name="count">1</parm-->
 		
 		<field action="define" tag="4901">Isis_Key</field>
-		<field action="define" tag="1003">Isis_Posting</field>
 		
 		<loop>
-			<call name="skip_epub"><pft>1003^m</pft></call>
-    		<flow action="skip"><pft>v9990</pft></flow>
-
 			<field action="import" tag="4900">4900</field>
 			<display><pft>'<!-- '/,'from:',v4900/</pft></display>
 			<display><pft>'curr: ',v4901/,'-->'/</pft></display>
@@ -471,13 +457,8 @@
 		<parm name="count">1</parm>
 
 		<field action="define" tag="4901">Isis_Key</field>
-		<field action="define" tag="1003">Isis_Posting</field>
 		
 		<loop>
-			<call name="skip_epub"><pft>1003^m</pft></call>
-    		<flow action="skip"><pft>v9990</pft></flow>
-
-
 			<field action="import" tag="4900">4900</field>
 			<display><pft>'<!-- '/,'from:',v4900/</pft></display>
 			<display><pft>'curr: ',v4901/,'-->'/</pft></display>
@@ -553,7 +534,6 @@
 					,replace(replace(v7047,'"',''),'&','&amp;') 
 		'</NEW_HOME>'/,
 		fi
-		|<BLOCK_FUTURE_EPUB>|v7064|</BLOCK_FUTURE_EPUB>|
 		|<LICENSE>|v7051|</LICENSE>|
 
 	</pft></display>
@@ -2884,11 +2864,8 @@ fi
         <parm name="count">1</parm>
 
         <loop>
-			<call name="skip_epub"><pft>mfn</pft></call>
-    		<flow action="skip"><pft>v9990</pft></flow>
-
             <display><pft>@PROC_SPLIT_MST.PFT,</pft></display>
-			<field action="import" tag="list">3000,3003,3012</field>
+        	<field action="import" tag="list">3000,3003,3012</field>
         
             <flow action="jump">
                 <pft>if a(v12) then 'SECTION' fi</pft>
@@ -3176,9 +3153,6 @@ fi
 
       <display><pft>'<CLINICALTRIALS>'</pft></display>
       <loop>
-      	<call name="skip_epub"><pft>mfn</pft></call>
-    	<flow action="skip"><pft>v9990</pft></flow>
-
          <display>
             <pft>
                ,if p(v770) then,
@@ -3401,14 +3375,11 @@ fi
            <parm name="expression"><pft>'SM='v4901,'$'</pft></parm>
            <parm name="count">1</parm>
 
-           	<loop>
-				<call name="skip_epub"><pft>mfn</pft></call>
-	    		<flow action="skip"><pft>v9990</pft></flow>
-
-				<display><pft>@PROC_SPLIT_MST.PFT</pft></display>
-				<field action="replace" tag="4902"><pft>v121</pft></field>
-				<field action="export" tag="4902">4902</field>
-            </loop>
+           <loop>
+                        <display><pft>@PROC_SPLIT_MST.PFT</pft></display>
+                        <field action="replace" tag="4902"><pft>v121</pft></field>
+                        <field action="export" tag="4902">4902</field>
+                </loop>
         </do>
 
         <field action="replace" tag="9036"><pft>if p(v4902) then v4901, fi,</pft></field>
@@ -3589,11 +3560,7 @@ fi
 			<parm name="count">1</parm>
 
 			<loop>
-				<call name="skip_epub"><pft>mfn</pft></call>
-	    		<flow action="skip"><pft>v9990</pft></flow>
-
 				<display><pft>@PROC_SPLIT_MST.PFT,</pft></display>
-
 				<field action="import"	tag="list">3100</field>
 				<call name="isXML"><pft>v702</pft></call>
 				<!--field action="replace"	tag="1000">
@@ -3696,11 +3663,7 @@ fi
 		<parm name="expression"><pft>v4000^e</pft></parm>
 
         <loop>
-			<call name="skip_epub"><pft>mfn</pft></call>
-    		<flow action="skip"><pft>v9990</pft></flow>
-
         	<display><pft>@PROC_SPLIT_MST.PFT,</pft></display>
-        	
             <field action="import" tag="list">4000</field>
             <field action="replace" tag="9132"><pft>v131,v132</pft></field>
             <field action="replace" tag="9032"><pft>v32,if p(v9132) then ' Suppl',if v9132<>'0' then  ' ',v9132, fi, fi</pft></field>
@@ -3755,11 +3718,7 @@ fi
 		<parm name="count">1</parm>
 
         <loop>
-			<call name="skip_epub"><pft>mfn</pft></call>
-    		<flow action="skip"><pft>v9990</pft></flow>
-
         	<display><pft>@PROC_SPLIT_MST.PFT,</pft></display>
-
         	<field action="replace"	tag="9999">DOI_IS_INDEXED</field>
             <field action="export" tag="list">9999</field>
         </loop>
@@ -3789,11 +3748,7 @@ fi
 		<parm name="reverse">On</parm>
 
 		<field action="define" tag="4880">Isis_Key</field>
-		<field action="define" tag="1003">Isis_Posting</field>
 		<loop>
-			<call name="skip_epub"><pft>v1003^m</pft></call>
-    		<flow action="skip"><pft>v9990</pft></flow>
-			
 			<field action="import" tag="list">8241,9241</field>
 			<field action="replace" tag="237">
 				<pft>ref(['ARTIGO']l(['ARTIGO'],v4880),@PROC_SPLIT_MST.PFT,v237)</pft>
@@ -3824,35 +3779,3 @@ fi
 </function>
 	
 
-<function name="configuration_var" action="replace" tag="9999">
-	<field action="statusfile" tag="1101">../htdocs/scielo.def.php</field>
-
-	<field action="replace" tag="1111"><pft>if v1101^s:'e' then cat('../htdocs/scielo.def.php') fi</pft></field>
-	<field action="replace" tag="1000" split="occ"><pft>if v1111:s(v9999,'=') then mid(v1111,instr(v1111,s(v9999,'='))+size(s(v9999,'=')),size(v1111)) fi</pft></field>
-	<field action="replace" tag="7979"><pft>if p(v1000) then v1000[1] fi</pft></field>
-	<field action="export" tag="list">7979</field>
-</function>
-	
-
-<function name="skip_epub" action="replace" tag="9999">
-	<field action="import" tag="list">7064</field>
-	<call name="configuration_var"><pft>if a(v7064) then 'BLOCK_FUTURE_EPUB' fi</pft></call>
-
-	<display><pft>'<!-- ',v7979,' ',v7064,' -->'</pft></display>
-	<flow action="jump"><pft>if v7064='1' or v7979='1' then else 'END-skip_epub' fi</pft></flow>
-
-	<do task="mfnrange">
-		<parm name="db">ARTIGO</parm>
-		<parm name="from"><pft>v9999</pft></parm>
-		<parm name="count">1</parm>
-		
-		<loop>	
-			<display><pft>@PROC_SPLIT_MST.PFT</pft></display>
-			<field action="replace" tag="9990"><pft>if p(v223) then if val(v223) > val(s(date)*0.8) then 'Next' fi fi</pft></field>
-			<display><pft>if v9990='Next' then '<!-- SKIP ',v880,' ',v223,'-->' fi</pft></display>
-			<field action="export" tag="list">9990</field>
-		</loop>
-	</do>
-	<field action="export" tag="list">9990</field>
-	<label>END-skip_epub</label>
-</function>
