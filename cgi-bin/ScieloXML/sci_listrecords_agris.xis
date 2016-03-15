@@ -63,9 +63,6 @@
             <parm name="count">1</parm> 
             
             <loop>
-                <call name="skip_epub"><pft>mfn</pft></call>
-                <flow action="skip"><pft>v9990</pft></flow>
-
                 <display><pft>@PROC_SPLIT_MST.PFT,</pft></display>
                 <field action="replace" tag="9000">OAITS</field>
                 <field action="export" tag="list">9000</field>
@@ -85,8 +82,6 @@
             <parm name="count">1</parm> 
             
             <loop>
-                <call name="skip_epub"><pft>mfn</pft></call>
-                <flow action="skip"><pft>v9990</pft></flow>
                 <display><pft>@PROC_SPLIT_MST.PFT,</pft></display>
                 <field action="replace" tag="9000">1</field>
                 <field action="export" tag="list">9000</field>
@@ -141,8 +136,6 @@
             <field action=define tag="1003">Isis_Posting</field>
             
             <loop>
-                <call name="skip_epub"><pft>v1003^m</pft></call>
-                <flow action="skip"><pft>v9990</pft></flow>
                 <field action="import" tag="list">1001,3000/3004,3012,7009/7060</field>
                                 
                 <flow action="jump">
@@ -199,9 +192,6 @@
 			<parm name="count">1</parm>
 			
 			<loop>
-                <call name="skip_epub"><pft>mfn</pft></call>
-                <flow action="skip"><pft>v9990</pft></flow>
-
                 <field action="import" tag="list">1001,3000/3004,3012,7009/7060</field>
 				<display><pft>@PROC_SPLIT_MST.PFT,</pft></display>
 				<field action="replace" tag="3091">
