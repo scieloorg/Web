@@ -199,6 +199,9 @@
                     if p(v14^l) then
                         ' LPAGE="',v14^l,'"'
                     fi
+                    ,if p(v14^e) then
+                        ,| ELOCATIONID="|v14^e|"|
+                    ,fi
                     ' CURR_DATE="',mid(date,1,8),'"'
                      ,if val(mid(v223,7,2))>0 then                 
                         ,' ahpdate="',v223,'"'
@@ -254,15 +257,19 @@
                     ,fi
                     
                     ,if p(v14) then
-                        ,if v14^f='0' and v14^l='0' then
-                        	
+                        ,if v14^e<>'' then
+                            ,|, |v14^e|. |,
                         ,else
-                        	,if v14^f<>v14^l then
-                        		,|, |v14^f,|-|v14^l,
-                        	,else 
-                        		,', ',v14^f,
-                        	,fi
-                        	,'. ',
+                            ,if v14^f='0' and v14^l='0' then
+                            	
+                            ,else
+                            	,if v14^f<>v14^l then
+                            		,|, |v14^f,|-|v14^l,
+                            	,else 
+                            		,', ',v14^f,
+                            	,fi
+                            	,'. ',
+                            ,fi
                         ,fi
                      fi,
                     ,|Epub |v9223|.|
