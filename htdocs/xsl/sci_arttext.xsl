@@ -63,6 +63,7 @@
 				<xsl:if test="//ISSUE/@VOL">v<xsl:value-of select="translate(//ISSUE/@VOL, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')"/></xsl:if>
 				<xsl:if test="//ISSUE/@NUM">n<xsl:value-of select="translate(//ISSUE/@NUM, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')"/></xsl:if>
 				<xsl:if test="//ISSUE/@SUPPL">s<xsl:value-of select="translate(//ISSUE/@SUPPL, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')"/></xsl:if>
+				<xsl:if test="//ISSUE/@COMPL"><xsl:value-of select="//ISSUE/@COMPL"/></xsl:if>
 			</xsl:when>
 			<xsl:when test="$version='xml-file'">
 				<xsl:apply-templates select="$document//front/article-meta"
@@ -89,6 +90,7 @@
 					<xsl:if test="$n!=''">n<xsl:value-of select="$n"/></xsl:if>s<xsl:value-of
 						select="$s"/><xsl:if test="$s=''">0</xsl:if>
 				</xsl:when>
+				<xsl:when test="contains(issue,' pr')">n<xsl:value-of select="substring-before(issue,' pr')"/>pr</xsl:when>
 				<xsl:otherwise>n<xsl:value-of select="issue"/></xsl:otherwise>
 			</xsl:choose>
 
@@ -375,6 +377,7 @@
 							<xsl:call-template name="tool_box"/>
 						</xsl:if>
 						<xsl:apply-templates select="." mode="text-header"/>
+						<xsl:apply-templates select="." mode="text-disclaimer"/>
 						<xsl:apply-templates select="." mode="text-content"/>
 					</div>
 					<xsl:if test="$version='html'">
@@ -391,7 +394,7 @@
 			</body>
 		</html>
 	</xsl:template>
-
+	
 	<xsl:template match="SERIAL" mode="version-head-title">
 		<xsl:value-of select="TITLEGROUP/TITLE" disable-output-escaping="yes"/> - <xsl:value-of
 			select="normalize-space(ISSUE/ARTICLE/TITLE)" disable-output-escaping="yes"/>
@@ -569,6 +572,54 @@
 					<xsl:with-param name="txtlang" select="$article/@TEXTLANG"/>
 				</xsl:call-template>
 				<xsl:value-of select="."/>
+			</a>
+		</p>
+	</xsl:template>
+	
+	<xsl:template match="SERIAL" mode="text-disclaimer">
+		<xsl:if test=".//ARTICLE/RELATED-DOC[@TYPE='correction'] or .//ARTICLE/RELATED-DOC[@TYPE='corrected-article']">
+			<div class="disclaimer">
+				<xsl:if test=".//ARTICLE/RELATED-DOC[@TYPE='correction']">
+					<xsl:apply-templates select=".//ARTICLE/RELATED-DOC[@TYPE='correction']"/>			
+				</xsl:if>
+				<xsl:if test=".//ARTICLE/RELATED-DOC[@TYPE='corrected-article']">
+					<xsl:apply-templates select=".//ARTICLE/RELATED-DOC[@TYPE='corrected-article']"/>
+				</xsl:if>
+			</div>
+		</xsl:if>
+		<!--xsl:if test=".//ARTICLE/RELATED-DOC[@TYPE='correction']">
+			<div class="fixed-disclaimer">			
+				<xsl:apply-templates select=".//ARTICLE/RELATED-DOC[@TYPE='correction']"/>			
+			</div>
+		</xsl:if-->
+	</xsl:template>
+	
+	<xsl:template match="RELATED-DOC[@TYPE='correction']">
+		<p>
+			<strong><xsl:value-of
+				select="$translations/xslid[@id='sci_arttext']/text[@find='this_article_has_been_corrected']"
+			/>: </strong>
+			<a target="_blank">
+				<xsl:call-template name="AddScieloLink">
+					<xsl:with-param name="seq" select="@PID"/>
+					<xsl:with-param name="script">sci_arttext</xsl:with-param>
+					<xsl:with-param name="txtlang" select="$TXTLANG"/>
+				</xsl:call-template><xsl:value-of select="ISSUE"/>
+			</a>
+		</p>
+	</xsl:template>
+	
+	<xsl:template match="RELATED-DOC[@TYPE='corrected-article']">
+		<p>
+			<strong><xsl:value-of
+				select="$translations/xslid[@id='sci_arttext']/text[@find='this_corrects']"
+			/></strong>
+			<a target="_blank">
+				<xsl:call-template name="AddScieloLink">
+					<xsl:with-param name="seq" select="@PID"/>
+					<xsl:with-param name="script">sci_arttext</xsl:with-param>
+					<xsl:with-param name="txtlang" select="$TXTLANG"/>
+				</xsl:call-template><xsl:value-of select="DOCTITLE"/>. <xsl:value-of select="ISSUE"/>
 			</a>
 		</p>
 	</xsl:template>
