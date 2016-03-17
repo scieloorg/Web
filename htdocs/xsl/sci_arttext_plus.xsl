@@ -5,7 +5,8 @@
     xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl" exclude-result-prefixes="xs math xd"
     version="3.0">
 
-
+    <xsl:import href="sci_common.xsl"/>
+    
     <xsl:import href="plus/layout.xsl"/>
     <xsl:import href="plus/data.xsl"/>
 
@@ -18,6 +19,8 @@
             <xsl:otherwise>file:///<xsl:value-of select="concat(substring-before(.//PATH_HTDOCS,'htdocs'),'bases/xml/',.//filename)"/></xsl:otherwise>
         </xsl:choose>
     </xsl:variable>
+    <xsl:variable name="RELATED-DOC" select=".//ARTICLE//RELATED-DOC[@TYPE='correction' or @TYPE='corrected-article']"/>
+    
      <!--xsl:variable name="xml_article">file://<xsl:value-of
         select="concat(substring-before(.//PATH_HTDOCS,'htdocs'),'bases/xml/',.//filename)"
     /></xsl:variable-->
@@ -26,7 +29,7 @@
         <xsl:apply-templates select="document($xml_article)//front/article-meta"
             mode="plus-issue-label"/>
     </xsl:variable>
-
+    
     <xsl:param name="IMAGE_PATH">
         <xsl:choose>
             <xsl:when test="//PATH_SERIMG and //SIGLUM and //ISSUE">
@@ -96,7 +99,6 @@
         <xsl:choose>
             <xsl:when test="$xml_article">
                 <xsl:apply-templates select="document($xml_article)//article" mode="HTML"/>
-
             </xsl:when>
             <xsl:otherwise>
                 <xsl:apply-templates select=".//article" mode="HTML"/>
