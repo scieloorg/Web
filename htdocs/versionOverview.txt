@@ -10,6 +10,7 @@ Correção do código do idioma chinês (correto = zh, no lugar de ch)
 Atualização norma APA em como citar
 Corrige palavras (trocar "deste periódico" para "deste site") no texto de licença da home do site 
 Corrige apresentação da citação do "product" em artigos de revisão 
+Inibe apresentação de artigo quando data epub está no futuro
 
 v5.35
 Inclusão de atributo setSampleRate para definir proporção de pageviews considerada para registro de logs no Google.
