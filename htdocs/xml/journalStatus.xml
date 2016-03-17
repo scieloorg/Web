@@ -3,7 +3,7 @@
 	<translation lang="pt">
 		<term code="CURRENT-SITUATION">Situação atual do periódico na coleção: </term>
 		<term code="D">Terminado </term>
-		<term code="S">Indexação interrompida pelo Comitê</term>
+		<term code="S">Indexação interrompida</term>
 		<term code="E">Deixou de publicar em acesso aberto</term>
 		<term code="C">Corrente </term>
 		<term code="">Corrente </term>
@@ -24,7 +24,7 @@
 	<translation lang="es">
 		<term code="CURRENT-SITUATION">Estado actual de la revista en la colección: </term>
 		<term code="D">Terminado </term>
-		<term code="S">Indización interrumpida por el comité</term>
+		<term code="S">Indización interrumpida</term>
 		<term code="E">Se interrumpió la publicación en acceso abierto</term>
 		<term code="C">Vigente </term>
 		<term code="">Vigente </term>
@@ -46,7 +46,7 @@
 	<translation lang="en">
 		<term code="CURRENT-SITUATION">Current status of the journal in the collection: </term>
 		<term code="D">Deceased </term>
-		<term code="S">Indexing interrupted by committee </term>
+		<term code="S">Indexing interrupted</term>
 		<term code="E">No longer open access</term>
 		
 		<term code="C">Current </term>
