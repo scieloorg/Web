@@ -60,7 +60,7 @@
 	<!-- pid do press release do n�mero -->
 	<do task="search">
 		<parm name="db">ARTIGO</parm>
-		<parm name="expression"><pft>'PR_LK='v5000</pft></parm>		
+		<parm name="expression"><pft>'PR'v5000</pft></parm>		
 
 		<loop>			
 			<field action="export" tag="list">880</field>
@@ -142,7 +142,7 @@
 					<!-- VERIFICA SE EH PRESSRELEASE DE ARTIGO OU NUMERO -->
 					<do task="search">
 						<parm name="db">ARTIGO</parm>
-						<parm name="expression"><pft>'PR_LK=',v880</pft></parm>
+						<parm name="expression"><pft>'PR',v880</pft></parm>
 						
 						<loop>
 							<field action="import" tag="list">3000</field>
