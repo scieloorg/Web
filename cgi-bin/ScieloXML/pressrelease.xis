@@ -63,8 +63,6 @@
 		<parm name="expression"><pft>'PR'v5000</pft></parm>		
 
 		<loop>			
-            <call name="skip_epub"><pft>mfn</pft></call>
-            <flow action="skip"><pft>v9990</pft></flow>
 			<field action="export" tag="list">880</field>
 		</loop>	
 	</do>
@@ -131,9 +129,6 @@
 		<field action="define" tag="1004">Isis_Postings</field>
 
 		<loop>
-            <call name="skip_epub"><pft>v1003^m</pft></call>
-            <flow action="skip"><pft>v9990</pft></flow>
-
 			<field action="import" tag="list">3000</field>
 			<!-- PRESS RELEASE -->
 			<do task="mfnrange">
@@ -141,7 +136,6 @@
 				<parm name="from"><pft>v1003^m</pft></parm>
 				<parm name="count">1</parm>
 				<loop>
-
 					<field action="import" tag="list">3000</field>
 					<!-- <display><pft>v880</pft></display> -->
 
@@ -151,9 +145,6 @@
 						<parm name="expression"><pft>'PR',v880</pft></parm>
 						
 						<loop>
-                            <call name="skip_epub"><pft>mfn</pft></call>
-                            <flow action="skip"><pft>v9990</pft></flow>
-
 							<field action="import" tag="list">3000</field>
 							<display><pft>
 								proc('a9241{',(if v241^t='pr' then v241^i,break fi),'{')
@@ -213,10 +204,7 @@
         <field action="define" tag="1003">Isis_Posting</field>
         <field action="define" tag="1004">Isis_Postings</field>
 
-        <loop>
-            <call name="skip_epub"><pft>v1003^m</pft></call>
-            <flow action="skip"><pft>v9990</pft></flow>
-
+          <loop>
             <field action="import" tag="list">3000</field>
             <field action="import" tag="list">7009</field>
 
@@ -269,10 +257,7 @@
         <field action="define" tag="1003">Isis_Posting</field>
         <field action="define" tag="1004">Isis_Postings</field>
 
-        <loop>
-            <call name="skip_epub"><pft>v1003^m</pft></call>
-            <flow action="skip"><pft>v9990</pft></flow>
-
+          <loop>
             <field action="import" tag="list">3000</field>
             <field action="import" tag="list">7009</field>
 
@@ -324,9 +309,6 @@
 		<parm name="reverse">On</parm>		
 
 		<loop>			
-            <call name="skip_epub"><pft>mfn</pft></call>
-            <flow action="skip"><pft>v9990</pft></flow>
-
 			<field action="import" tag="list">4001</field>
 			
             <field action="replace" tag="9936"><pft>f(val(v36*4)+10000,2,0)</pft></field>
@@ -342,6 +324,9 @@
 		<parm name="db">ARTIGO</parm>
 		<parm name="from"><pft>'HR=S',v241</pft></parm>		
 		<parm name="to"><pft>'HR=S',v241,'9999999999'</pft></parm>		
+
+
+
 		<parm name="posting"><pft>'ALL'</pft></parm>
 
 		<field action="define" tag="1001">Isis_Current</field>
@@ -350,10 +335,7 @@
 		<field action="define" tag="1004">Isis_Postings</field>
 
 		<loop>
-            <call name="skip_epub"><pft>v1003^m</pft></call>
-            <flow action="skip"><pft>v9990</pft></flow>
-
-            <display><pft>'<!-- ',v4901,' -->'/</pft></display>
+			<display><pft>'<!-- ',v4901,' -->'/</pft></display>
 			<field action="import" tag="list">4001</field>		
             <field action="import" tag="list">7009/7060</field>
 			<field action="delete" tag="list">9241</field>
@@ -363,10 +345,7 @@
 				<parm name="expression"><pft>|PR_LK=|v1002*3</pft></parm>		
 				<parm name="count">1</parm>		
 
-				<loop>
-                    <call name="skip_epub"><pft>mfn</pft></call>
-                    <flow action="skip"><pft>v9990</pft></flow>
-
+				<loop>			
 					<field action="replace" tag="9241"><pft>v241</pft></field>
 					<field action="export" tag="list">9241</field>
 				</loop>	
