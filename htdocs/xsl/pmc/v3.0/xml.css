@@ -149,10 +149,12 @@ border-color: gray;
 .inline-formula {
     display: inline;
     max-height: 16px;
+    min-height: 16px;
 }
 .inline-formula-graphic {
     display: inline;
     max-height: 16px;
+    min-height: 16px;
 }
 
 .disp-formula {
@@ -177,34 +179,42 @@ border-color: gray;
     padding: 25px;
     height: auto;
     max-width: 100%;
+    min-height: 16px;
     max-height: 45px;
 }
 .graphic {
     padding: 25px;
     height: auto;
+    min-height: 16px;
     max-width: 100%;
-    max-height: 300px;
 }
 .inline-graphic {
     display: inline;
+    min-height: 16px;
     max-height: 16px;
 }
 .figure-group, .table-wrap-group {
-    max-width: 800px;
+    max-width: 100%;
+    height: auto;
+    width: auto;
     border-color: transparent;
     padding-top: 15px;
     padding-bottom: 15px;
 }
 
 .figure {
-    max-width: 800px;
+    max-width: 100%;
+    height: auto;
+    width: auto;
     border-color: transparent;
     padding-top: 5px;
     padding-bottom: 5px;
 }
 
 .table-wrap {
-    max-width: 800px;
+    max-width: 100%;
+    height: auto;
+    width: auto;
     border-color: transparent;
     padding-top: 5px;
     padding-bottom: 5px;
