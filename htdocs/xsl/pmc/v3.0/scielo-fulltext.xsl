@@ -1053,7 +1053,7 @@
 						<xsl:apply-templates select="text()|*"/>
 					</xsl:when>
 					<xsl:otherwise>
-						<xsl:apply-templates select="../label" mode="display-only-if-number"/>. 
+						<xsl:apply-templates select="../label" mode="display-only-if-number"/>
 						<xsl:apply-templates select="text()|*"/>
 					</xsl:otherwise>
 				</xsl:choose>
