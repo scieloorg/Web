@@ -21,4 +21,4 @@ if [ -d "xml" ]; then
 fi
 
 cd ../proc
-cisis/mx ../bases/issue/issue "pft=if p(v49) then (v35[1],v65[1]*0.4,s(f(val(s(v36[1]*4))+10000,2,0))*1.4,'|',v49^l,'|',v49^c,'|',v49^t,/) fi" lw=0 -all now > ../htdocs/static_section_catalog.txt
+cisis/mx ../bases/issue/issue "pft=if p(v49) then (v35[1],v65[1]*0.4,s(f(val(s(v36[1]*4.3))+10000,2,0))*1.4,'|',v49^l,'|',v49^c,'|',v49^t,/) fi" lw=0 -all now > ../htdocs/static_section_catalog.txt

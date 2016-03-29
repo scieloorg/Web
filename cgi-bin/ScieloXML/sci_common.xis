@@ -243,7 +243,7 @@
 			<field action="import" tag="list">5001</field>
 			<field action="replace" tag="9936">
 				<pft>@PROC_SPLIT_MST.PFT,
-					f(val(v36*4)+10000,2,0)</pft>
+					f(val(v36*4.3)+10000,2,0)</pft>
 			</field>
 			<field action="replace" tag="4901">
 				<pft>@PROC_SPLIT_MST.PFT,
