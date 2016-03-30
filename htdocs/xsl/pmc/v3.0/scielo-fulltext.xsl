@@ -1042,10 +1042,6 @@
 		</xsl:choose>
 	</xsl:template>
 	<xsl:template match="mixed-citation[*]">
-		<xsl:comment>
-			<xsl:value-of select="text()"/>
-		</xsl:comment>
-	
 		<xsl:choose>
 			<xsl:when test="../label">
 				<xsl:choose>
