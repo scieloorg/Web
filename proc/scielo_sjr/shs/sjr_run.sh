@@ -33,7 +33,7 @@ mkdir -p $database_dir/scimago
 mv meuXML.xml $database_dir/scimago/scimago.xml
 echo "MOVENDO IMAGENS PARA htdocs/img/scimago"
 mkdir -p $scielo_dir/htdocs/img/scimago
-mv -r images/* $scielo_dir/htdocs/img/scimago
+mv images/* $scielo_dir/htdocs/img/scimago
 
 #---------------------------------------------------------------#
 # removendo arquivos temporarios.
