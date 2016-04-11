@@ -996,6 +996,9 @@
 		<p class="ref" onclick="window.history.back();">
 			<a name="{@id}"/>
 			<xsl:choose>
+				<xsl:when test="mixed-citation[*]">
+					<xsl:apply-templates select="mixed-citation[*]"/>
+				</xsl:when>
 				<xsl:when test="mixed-citation">
 					<xsl:apply-templates select="mixed-citation"/>
 				</xsl:when>
@@ -1026,53 +1029,41 @@
 			<xsl:if test="not(contains(.,'.'))">.</xsl:if>&#160;
 		</xsl:if>
 	</xsl:template>
+	<xsl:template match="mixed-citation">
+		<xsl:choose>
+			<xsl:when test="count(../element-citation/*[@xlink:href])=1">
+				<xsl:apply-templates select="../element-citation/*[@xlink:href]" mode="insert_link_in_text">
+					<xsl:with-param name="text" select="text()"/>
+				</xsl:apply-templates>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="text()"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
 	<xsl:template match="mixed-citation[*]">
-		<xsl:apply-templates select="text()|*"/>
+		<xsl:choose>
+			<xsl:when test="../label">
+				<xsl:choose>
+					<xsl:when test="starts-with(text(),../label)">
+						<xsl:apply-templates select="text()|*"/>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:apply-templates select="../label" mode="display-only-if-number"/>
+						<xsl:apply-templates select="text()|*"/>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:apply-templates select="text()|*"/>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 	<xsl:template match="mixed-citation[*]/*/text()">
 		<xsl:value-of select="."/>
 	</xsl:template>
 	<xsl:template match="mixed-citation/text()">
-		<xsl:variable name="text">
-			<xsl:choose>
-				<xsl:when test="../../label">
-					<xsl:choose>
-						<xsl:when test="position()=1 and starts-with(.,'.')">
-							<xsl:apply-templates select="../../label" mode="display-only-if-number"/>
-							<xsl:value-of select="substring-after(.,'.')"/>
-						</xsl:when>
-						<xsl:when test="position()=1 and starts-with(., concat(../../label,'.'))">
-							<xsl:apply-templates select="../../label" mode="display-only-if-number"/>
-							<xsl:value-of select="substring-after(.,concat(../../label,'.'))"/>
-						</xsl:when>
-						<xsl:when test="position()=1 and starts-with(., ../../label)">
-							<xsl:apply-templates select="../../label" mode="display-only-if-number"/>
-							<xsl:value-of select="substring-after(.,../../label)"/>
-						</xsl:when>
-						<xsl:otherwise>
-							<xsl:apply-templates select="../../label" mode="display-only-if-number"/>
-							<xsl:value-of select="."/>
-						</xsl:otherwise>
-					</xsl:choose>
-				</xsl:when>
-				<xsl:when test="position()=1 and starts-with(.,'.')">
-					<xsl:value-of select="substring-after(.,'.')"/>
-				</xsl:when>
-				<xsl:otherwise>
-					<xsl:value-of select="."/>
-				</xsl:otherwise>
-			</xsl:choose>
-		</xsl:variable>
-		<xsl:choose>
-			<xsl:when test="../../element-citation/*[@xlink:href]">
-				<xsl:apply-templates select="../../element-citation/*[@xlink:href]" mode="insert_link_in_text">
-					<xsl:with-param name="text" select="$text"/>
-				</xsl:apply-templates>
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:value-of select="$text"/>
-			</xsl:otherwise>
-		</xsl:choose>
+		<xsl:value-of select="."/>
 	</xsl:template>
 	
 	<xsl:template match="*[@xlink:href]" mode="insert_link_in_text">
