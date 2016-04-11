@@ -15,7 +15,7 @@ REQUIREMENTS
             - XML
     - vim
     - Git client
-    - basic knowledge of Linux Administration
+    - knowledge of Linux Administration
     - wget
 
 
@@ -52,6 +52,7 @@ Installation
                 Check the `branch name of each collection <network.html>`_.
 
         <randomic_code>
+
             a code generated after unzip execution
 
 
@@ -59,7 +60,8 @@ Installation
 
             $ wget https://github.com/scieloorg/Web/zipball/<branch_or_tag> 
             $ tar -xvf  <branch_or_tag> (when the package is a tar file but generally is zip)
-        If not works with tar command run as:
+
+        If it not works with tar command run as:
 
         .. code-block:: text
 
@@ -78,7 +80,7 @@ Installation
 
         .. warning::
 
-            Change <branch_or_tag> according to the latest version or the branch of the collection
+            Change <branch_or_tag> according to the latest version or the branch of the collection. If your SciELO site do not have an exclusive branch, you must use the branch name **master**.
 
 
         The created directory structure at /var/www/scielo must be 
@@ -282,8 +284,9 @@ Configuring scielo.def.php
             E_MAIL=scielo@bireme.br
             STANDARD_LANG=en
             APP_NAME=scielo
+            ANALYTICS_CODE=scl
 
-        The **APP_NAME** parameter value is provided by the SciELO Team.  
+        The **APP_NAME** and **ANALYTICS_CODE** parameter value are provided by the SciELO Team.  
 
         .. code-block:: text
 
@@ -316,9 +319,6 @@ Configuring scielo.def.php
 
             [CACHE]
             PATH_CACHE=/var/www/scielo/bases/pages/
-
-            [SOCKET]
-            ACCESS_LOG_FILE=/var/www/scielo/logs/socket_access_log.log
 
             [XML_ERROR]
             LOG_XML_ERROR_FILENAME=/var/www/scielo/logs/xml_error_log.txt
