@@ -15,7 +15,7 @@ REQUIREMENTS
             - XML
     - vim
     - Git client
-    - basic knowledge of Linux Administration
+    - knowledge of Linux Administration
     - wget
 
 
@@ -52,6 +52,7 @@ Installation
                 Check the `branch name of each collection <network.html>`_.
 
         <randomic_code>
+
             a code generated after unzip execution
 
 
@@ -59,7 +60,8 @@ Installation
 
             $ wget https://github.com/scieloorg/Web/zipball/<branch_or_tag> 
             $ tar -xvf  <branch_or_tag> (when the package is a tar file but generally is zip)
-        If not works with tar command run as:
+
+        If it not works with tar command run as:
 
         .. code-block:: text
 
@@ -78,7 +80,7 @@ Installation
 
         .. warning::
 
-            Change <branch_or_tag> according to the latest version or the branch of the collection
+            Change <branch_or_tag> according to the latest version or the branch of the collection. If your SciELO site do not have an exclusive branch, you must use the branch name **master**.
 
 
         The created directory structure at /var/www/scielo must be 
@@ -282,8 +284,9 @@ Configuring scielo.def.php
             E_MAIL=scielo@bireme.br
             STANDARD_LANG=en
             APP_NAME=scielo
+            ANALYTICS_CODE=scl
 
-        The **APP_NAME** parameter value is provided by the SciELO Team.  
+        The **APP_NAME** and **ANALYTICS_CODE** parameter value are provided by the SciELO Team.  
 
         .. code-block:: text
 
@@ -308,17 +311,6 @@ Configuring scielo.def.php
             PATH_HTDOCS=/var/www/scielo/htdocs/
             PATH_OAI=/var/www/scielo/htdocs/oai/
             PATH_PROC=/var/www/scielo/proc/
-
-            [LOG]
-            SERVICES_LOG_DIRECTORY=/var/www/scielo/logs/services
-            ACCESSSTAT_LOG_DIRECTORY=/var/www/scielo/bases/accesstat
-            PATH_LOG_CACHE=/var/www/scielo/bases/pages/sci_stat/
-
-            [CACHE]
-            PATH_CACHE=/var/www/scielo/bases/pages/
-
-            [SOCKET]
-            ACCESS_LOG_FILE=/var/www/scielo/logs/socket_access_log.log
 
             [XML_ERROR]
             LOG_XML_ERROR_FILENAME=/var/www/scielo/logs/xml_error_log.txt
@@ -508,12 +500,13 @@ Edit the configuration file.
         
         #var/www/scielo/htdocs$> vi scielo.def.php
 
-Ask SciELO team for your **APP_NAME**.
+Ask SciELO team for your **APP_NAME** and **ANALYTICS_CODE**.
 
     .. code-block:: text
 
         [SITE_INFO]
         APP_NAME=scielo
+        ANALYTICS_CODE=scl
 
 
 Indicate the domain for Bibliometric reports website editing STAT_SERVER_CITATION and STAT_SERVER_COAUTH.
@@ -536,15 +529,6 @@ Indicate the domain for Bibliometric reports website editing STAT_SERVER_CITATIO
         [LOG]
         ENABLE_STATISTICS_LINK=1
         ENABLE_CITATION_REPORTS_LINK=1
-        SERVER_LOG=scielo-log.scielo.br
-        SERVER_LOG_PROC=scielo-log.scielo.br/
-        SERVER_LOG_PROC_PATH=scielolog
-        SCRIPT_LOG_NAME=scielolog/updateLog02.php
-        SCRIPT_LOG_RUN=scielo-log.scielo.br/scielolog/scielolog03B2.php
-        SCRIPT_TOP_TEN="http://scielo-log.scielo.br/scielolog/ofigraph20.php?app=APP_NAME"
-        SCRIPT_ARTICLES_PER_MONTH="http://scielo-log.scielo.br/scielolog/ofigraph21.php?app=APP_NAME"
-
-
 
 Access Statistics
 -----------------
@@ -560,27 +544,17 @@ Edit the configuration file.
         #var/www/scielo/htdocs$> vi scielo.def.php
 
 
-Ask SciELO team for your **APP_NAME**.
-
-Set **SCRIPT_TOP_TEN** and **SCRIPT_ARTICLES_PER_MONTH**, replacing app=scielo by app=\< same as APP_NAME \>.
+Ask SciELO team for your **APP_NAME** and **ANALYTICS_CODE**.
 
     .. code-block:: text
-    
+
         [SITE_INFO]
-        APP_NAME=scielo 
+        APP_NAME=scielo
+        ANALYTICS_CODE=scl
 
         [LOG]
         ACTIVATE_LOG=1
         ENABLE_STATISTICS_LINK=1
-        ACCESSSTAT_LOG_DIRECTORY=/var/www/scielo/bases/accesstat
-        SERVER_LOG=scielo-log.scielo.br
-        SERVER_LOG_PROC=scielo-log.scielo.br/
-        SERVER_LOG_PROC_PATH=scielolog
-        SCRIPT_LOG_NAME=scielolog/updateLog02.php
-        SCRIPT_LOG_RUN=scielo-log.scielo.br/scielolog/scielolog03B2.php
-        SCRIPT_TOP_TEN="http://scielo-log.scielo.br/scielolog/ofigraph20.php?app=scielo"
-        SCRIPT_ARTICLES_PER_MONTH="http://scielo-log.scielo.br/scielolog/ofigraph21.php?app=scielo"
-        ENABLE_ARTICLE_LANG_LINK=1
 
 Set show_requests to 1, to enable the Access Statistics link.
 
@@ -591,32 +565,6 @@ Set show_requests to 1, to enable the Access Statistics link.
         show_requests=1
         ...
 
-Chart of Access statistics
---------------------------
-
-Edit the configuration file.
-
-    .. code-block:: text
-        
-        #var/www/scielo/htdocs$> vi applications/scielo-org/scielo.def.php
-
-At the block named  *[requests_server]* set *url*
-
-    .. code-block:: text
-
-        [requests_server]
-        url="http://scielo-log.scielo.br/"
-
-
-    .. warning:: 
-
-        Check if the configuration is correct, looking for the following line in any SciELO website page. 
-
-
-    .. code-block:: text
-
-        <img src="http://scielo-log.scielo.br/scielolog/updateLog02.php?app=scielo&amp;page=sci_home&amp;lang=en&amp;norm=iso&amp;doctopic=&amp;doctype=&amp;tlng=" border="0" height="1" width="1">
-
 SCIMAGO
 -------
 
@@ -625,7 +573,6 @@ The root directory for this processing is **/var/www/scielo/proc/scielo_sjr**
 The following steps run at the directory proc/scielo_sjr.
 
 Copying the config file.
-
 
     .. code-block:: text
 
@@ -652,12 +599,6 @@ Editing the config file and changing the paths if necessary.
         export cisis_dir="$scielo_dir/proc/cisis"
         # ------------------------------------------------------------------------- #
 
-**Out of use**
-
-    .. code-block:: text
-
-        #JAVA RUNTIME ENVIRONMENT VARS
-        export JAVA_HOME=/usr/local/jdk1.5.0_06
 
 Run the script to harvest the SCIMAGO charts.
 
@@ -665,76 +606,3 @@ Run the script to harvest the SCIMAGO charts.
 
         #var/www/scielo/proc/scielo_sjr$> cd shs/
         #var/www/scielo/proc/scielo_sjr$> ./sjr_run.sh
-
-XML Files
----------
-
-Those XML files was used before by Google Scholar indexing tools. Now these XML files are mainly used to publish SciELO Sites metadata to any other institution, project our person interested in the SciELO Metadata.
-
-The root directory for this processing is **/var/www/scielo/proc/scielo_gsc**
-
-The following steps run at the directory proc/scielo_gsc.
-
-Copying the config file.
-
-
-    .. code-block:: text
-
-        #var/www/scielo/proc/scielo_gsc$> cp shs/googleSchoolar_config.sh.template shs/googleSchoolar_config.sh
-
-Editing the config file and changing the paths if necessary.
-
-    .. code-block:: text
-
-        #var/www/scielo/proc/scielo_gsc$> vi shs/googleSchoolar_config.sh
-
-**Config file sample**. If you are already using /var/www/scielo as the application path, so no changes are need.
-
-    .. code-block:: text
-
-        ##################
-        # variáveis com caminho para bases de dados utilizadas no processmento.
-        ##################
-        export database_title="/var/www/scielo/bases/title/title"
-        export database_article="/var/www/scielo/bases/artigo/artigo"
-        export database_issue="/var/www/scielo/bases/issue/issue"
-        export cisis_dir="/var/www/scielo/proc/cisis"
-
-Editing the XML template file.
-
-    .. code-block:: text
-
-        #var/www/scielo/proc/scielo_gsc$> vi formats/googleSchoolar_XMLPubMed.pft
-
-    Where are "localhost", change to your site domain.
-
-Run the script to generate de XML files.
-
-    .. code-block:: text
-
-        #var/www/scielo/proc/scielo_gsc$> cd shs/
-        #var/www/scielo/proc/scielo_gsc/shs$> ./googleSchoolar_run.sh
-
-The XML files will be available at /var/www/scielo/proc/scielo_gsc/output/googlescholar
-
-    .. warning::
-
-        All the content available at /var/www/scielo/proc/scielo_gsc/output/googlescholar must be published in the internet. The publication pattern is:
-
-        artigos.<your scielo site domain>
-
-        Ex:
-
-        artigos.scielo.br
-        artigos.scielo.org.ar
-        artigos.scielo.cl
-        artigos.scielo.org.mx
-        artigos.scielo.org.ve
-        artigos.scielo.isciii.es
-        ...
-
-DOI Request
------------
-
-DOAJ
-----
