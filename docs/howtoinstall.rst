@@ -4,9 +4,9 @@ Installation and updating
 
 REQUIREMENTS
 ============
-    - CentOS release 5.6
-    - Apache 2.2.3 or later
-    - PHP 5.2.10 (required)
+    - CentOS release 6.7
+    - Apache 2.2.15 or later
+    - PHP 5.2.10 or 5.2.17 (required)
         - PHP Modules
             - libpng
             - soap
@@ -58,7 +58,12 @@ Installation
         .. code-block:: text
 
             $ wget https://github.com/scieloorg/Web/zipball/<branch_or_tag> 
-            $ tar -xvf  <branch_or_tag>
+            $ tar -xvf  <branch_or_tag> (when the package is a tar file but generally is zip)
+        If not works with tar command run as:
+
+        .. code-block:: text
+
+            $ unzip  <branch_or_tag>
 
 
         A folder named as scieloorg-<randomic_code> will be created.
@@ -66,7 +71,7 @@ Installation
         .. code-block:: text
 
             $ mv scieloorg-<randomic_code>/* .
-            $ rmdir scieloorg-<randomic_code>
+            $ rm -Rf scieloorg-<randomic_code>
             $ rm <branch_or_tag>
 
 
@@ -99,15 +104,19 @@ Installation
 
         **CISIS Package**
 
-        inside /var/www/scielo/proc/cisis
+        inside /var/www/scielo/proc/
 
-        Download the `CISIS package <http://bvsmodelo.bvsalud.org/php/level.php?lang=es&component=28&item=1>`_ from the BIREME products website.
+        Download the `CISIS package LindG4 version <ftp://produtos-scielo:produtos@scielo@ftp.scielo.br/cisis-product/cisis-64bits-5.7c-lind.tar.gz>`_ from the SciELO FTP products.
+        
+        Extrating cisis package using the follow command:
 
-        Set permissions to execute mx.
+        .. code-block:: text
 
-        The recommended version is **LINDG4**
+            #/var/www/scielo/proc/$>tar zxvf cisis-64bits-5.7c-lind.tar.gz
 
-        To check the CISIS version, after unzip the donwloaded file at /var/www/scielo/proc/cisis, run: 
+        The cisis directory will be created.
+
+        To check the CISIS version, after extract the downloaded file at /var/www/scielo/proc/cisis, run: 
 
         .. code-block:: text
 
@@ -117,25 +126,19 @@ Installation
 
         .. code-block:: text
 
-            CISIS Interface v5.2b/GC/W/L/M/32767/16/60/I - Utility MX
-            CISIS Interface v5.2b/.iy0/Z/4GB/GIZ/DEC/ISI/UTL/INVX/B7/FAT/CIP/CGI/MX/W
-            Copyright (c)BIREME/PAHO 2006. [!http://www.bireme.br/products/cisis]
+            CISIS Interface v5.7c/G/PC/512G/W/L4/M/32767/16/60/I/64bits - Utility MX
+            CISIS Interface v5.7c/.iy0/Z/GIZ/DEC/ISI/UTL/INVX/B7/FAT/CIP/CGI/MX/W
+            Copyright (c)BIREME/PAHO 2010. [http://reddes.bvsalud.org/projects/cisis]
 
         **WWWISIS Package**
 
-        at /var/www/scielo/cgi-bin
-
-        Download the `WWWISIS package <http://bvsmodelo.bvsalud.org/php/level.php?lang=es&component=28&item=1>`_ from the BIREME products website.
-        
-        Set permission to execute wxis.
-
-        The recommended version is **LINDG4**
+        at /var/www/scielo/cgi-bin copy the wxis file from /var/www/scielo/proc/cisis rename it to wxis.exe
 
         To check the WWWISIS version, at /var/www/scielo/cgi-bin/, run:
 
         .. code-block:: text
 
-            #/var/www/scielo/cgi-bin$>wxis hello
+            #/var/www/scielo/cgi-bin$>wxis.exe hello
 
         If you have already configured the virtual host, you can check WWWISIS version by accessing the url:
 
@@ -149,13 +152,13 @@ Installation
 
         .. code-block:: text
         
-            CISIS Interface v5.4.02_p5/GC/512G/W/L4/M/32767/16/60/I - XML !IsisScript WWWISIS 7.1d
-            CISIS Interface v5.4.02_p5/.iy0/Z/GIZ/DEC/ISI/UTL/INVX/B7/FAT/CIP/CGI/MX/W
-            Copyright (c)BIREME/PAHO 2008. [!http://www.bireme.br/products/cisis]
-            Copyright (c)BIREME/PAHO 2008. [!http://bvsmodelo.bvsalud.org/php/index.php?lang=pt]
-            Copyright (c)BIREME/PAHO 2008. [!http://bvsmodelo.bvsalud.org/php/level.php?lang=pt&component=28&item=1]
+            CISIS Interface v5.7c/G/PC/512G/W/L4/M/32767/16/60/I/64bits - XML IsisScript WWWISIS 7.1f
+            CISIS Interface v5.7c/.iy0/Z/GIZ/DEC/ISI/UTL/INVX/B7/FAT/CIP/CGI/MX/W
+            Copyright (c)BIREME/PAHO 2010. [http://reddes.bvsalud.org/projects/cisis]
 
-            WXIS release date: Sep 24 2008
+            WXIS release date: Jun 26 2012
+
+            WXIS|missing error|parameter|IsisScript|
 
 
 Updating
@@ -287,6 +290,12 @@ Configuring scielo.def.php
             [SCIELO]
             SERVER_SCIELO=vm.scielo.br
 
+            [FULLTEXT_SERVICES]
+            access="http://vm.scielo.br/applications/scielo-org/pages/services/articleRequestGraphicPage.php?pid=PARAM_PID&caller=PARAM_SERVER"
+            cited_SciELO="http://vm.scielo.br/scieloOrg/php/citedScielo.php?pid=PARAM_PID"
+            send_mail="http://vm.scielo.br/applications/scielo-org/pages/services/sendMail.php?pid=PARAM_PID&caller=PARAM_SERVER"
+
+
         Set SERVER_SCIELO to domain of your SciELO Site installation. 
 
         .. code-block:: text
@@ -299,6 +308,20 @@ Configuring scielo.def.php
             PATH_HTDOCS=/var/www/scielo/htdocs/
             PATH_OAI=/var/www/scielo/htdocs/oai/
             PATH_PROC=/var/www/scielo/proc/
+
+            [LOG]
+            SERVICES_LOG_DIRECTORY=/var/www/scielo/logs/services
+            ACCESSSTAT_LOG_DIRECTORY=/var/www/scielo/bases/accesstat
+            PATH_LOG_CACHE=/var/www/scielo/bases/pages/sci_stat/
+
+            [CACHE]
+            PATH_CACHE=/var/www/scielo/bases/pages/
+
+            [SOCKET]
+            ACCESS_LOG_FILE=/var/www/scielo/logs/socket_access_log.log
+
+            [XML_ERROR]
+            LOG_XML_ERROR_FILENAME=/var/www/scielo/logs/xml_error_log.txt
 
 Configuring iah.def
 -------------------
@@ -325,6 +348,9 @@ Configuring iah.def
             [PATH]
             PATH_CGI-BIN=/var/www/scielo/cgi-bin/iah/
             PATH_DATABASE=/var/www/scielo/bases/
+
+            [IAH]
+            LOG_DATABASE=/var/www/scielo/bases/logdia/iahlog
     
      The value for **LOGO URL** must be changed to the application path previously configured for the virtual host on the APACHE Server.
 
