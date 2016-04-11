@@ -178,9 +178,8 @@ border-color: gray;
 .disp-formula-graphic {
     padding: 25px;
     height: auto;
-    max-width: 100%;
+    max-width: 80%;
     min-height: 16px;
-    max-height: 45px;
 }
 .graphic {
     padding: 25px;
