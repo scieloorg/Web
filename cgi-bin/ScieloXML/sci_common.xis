@@ -3302,10 +3302,9 @@ fi
  </function>
  <function name="displayDOIAttribute" action="replace" tag="880">
 	<field action="import" tag="list">7011,237,881,9800</field>
-    <field action="replace" tag="9237"><pft>v237</pft></field>
-	<call name="getDOI"><pft>v880</pft></call>
+    <call name="getDOI"><pft>v880</pft></call>
 	
-	<display><pft>| DOI="|v237|"|,| displayDOILink="|v9237|"|</pft></display>
+	<display><pft>| DOI="|v237|"|,</pft></display>
 	<display><pft>| oldpid="|v881|"|</pft></display>
 	<field action="export" tag="9800">9800</field>
 	<field action="export" tag="list">237</field>
