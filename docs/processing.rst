@@ -86,60 +86,105 @@ Execute
        ./GeraPadrao.bat
 
 
-
-
 Exporting the databases for SciELO Network processing
 =====================================================
 
-Configuration
--------------
+This process is made through the utilitary **Paperboy**. Paperboy is a 
+Python utilitary developed to replace the scripts:
 
-Access the processing directory
+    * Envia2MedlinePadrao.bat
+    * static_files_catalog.sh
 
-    .. code-block:: text
+Installing
+----------
 
-        #>cd /var/www/scielo/proc 
+Install guide: https://github.com/scieloorg/paperboy
 
-Copy the FTP account configuration file.
 
-    .. code-block:: text
+Configuring
+-----------
 
-        #var/www/scielo/proc$> cp transf/Envia2MedlineLogOn-exemplo.txt transf/Envia2MedlineLogOn.txt
+After install the paperboy you must create a config.ini file to configure the
+source and destiny resources, and the ssh account that will be used to send data
+to the server.
 
-Edit the FTP account configuration file
 
-    .. code-block:: text
+Creating config.ini file
+````````````````````````
 
-        #var/www/scielo/proc> vi transf/Envia2MedlineLogOn.txt
+Access the directory /var/www/scielo/proc
 
-Change the FTP parameters, from:
+.. code-block:: text
 
-    .. code-block:: text
+    cd /var/www/scielo/proc
 
-        open ftp.scielo.br
-        user user_id user_passwd
+Create a text file named **paperboy_envia_to_scielo_config.ini** in the **proc**
+directory, the file must follow the bellow format:
 
-to:
+.. note::
 
-    .. code-block:: text
+    You may also use a file name of your preference for the config file, having
+    in mind you must to replace the name of the config file in the following
+    guidances.
 
-        open ftp.scielo.br
-        user <scielo.code> <password>
+.. code-block:: text
 
-Execution
----------
+    [app:main]
+    source_dir=c:/var/www/scielo
+    cisis_dir=c:/var/www/scielo/proc/cisis
+    ssh_server=localhost
+    ssh_port=22
+    ssh_user=anonymous
+    ssh_password=anonymous
 
-    .. code-block:: text
+**source_dir:** Absolute path to the directory where the SciELO website was installed.
 
-        #var/www/scielo/proc$>./Envia2MedlinePadrao.bat 
+**cisis_dir:** Absolute path to the directory where CISIS utilitary was installed
+
+**ssh_server:** Domain of the server where the SciELO Site was installed
+
+**ssh_port:** The SSH port (default 22)
+
+**ssh_user:** A valid SSH username 
+
+**ssh_password:** A valid SSH password for the given username
+
+.. tip::
+
+    Ask your SSH credentials to the SciELO team.
+
+Creating envia.bat file
+```````````````````````
+
+Create a text file named **paperboy_envia_to_scielo.bat** in the **proc**
+directory.
+
+.. note::
+
+    You may also use a file name of your preference for the batch file, having
+    in mind you must to replace the name of the config file in the following
+    guidances.
+
+The content of the .bat file must be::
+
+    set PAPERBOY_SETTINGS_FILE=/var/www/scielo/proc/paperboy_envia_to_scielo_config.ini
+    paperboy -m -o /var/www/scielo/proc/log/paperboy_envia_to_scielo_config.log
+
+Running
+-------
+
+Run the script **paperboy_envia_to_scielo_config.bat** to send databases and 
+reports to SciELO.
+
+.. code-block:: text
+
+    paperboy_envia_to_scielo_config.bat
 
 
 Notes
 `````
 
-* Ask SciELO team for the scielo.code and password to configure the ftp account.
-* Configure a **cron** to run periodically the processing. (Preferable Weekly)
+* Ask the SciELO team for you SSH credentials.
+* You must configure a **CRON** to run periodically the processing. (Preferable Weekly or after all the database updates)
 * The log files are:
-    * /var/www/proc/log/envia2medlineFTP.log
-    * /var/www/proc/log/envia2medline.log
-
+    * /var/www/scielo/proc/log/paperboy_envia_to_scielo_config.log
