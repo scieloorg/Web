@@ -1,6 +1,7 @@
 1 0 mpl,'TP=',v706/
 2 0 mpl,'IV=',v880,'=',v706/
 3 0 mpl,if v706='h' and a(v222) then 'SM=',v880*1.17,'-',v880*18/, fi,
+4 0 mpl,'PII=',v880,'=',v700/
 5 0 mpl,if v706='o' then 'OU=',v880 fi,
 6 0 mpl,if v706='f' then 'SF=',v880/, fi,
 6 0 mpl,if v706='h' then 'HR=',v880/,|HR=|v881/,|HR=|v891/, fi,
