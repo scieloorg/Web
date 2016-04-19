@@ -758,11 +758,14 @@ This pre processing identifies the records which status in crossref_DOIReport da
      <acron> <issue_id> <issue_PID>
      <acron> <issue_id> <issue_PID>
 
+
 Example:
+
 
   .. code::
     neuro v19n6 S1130-147320080006
     neuro v20n1 S1130-147320090001
+
 
 
   .. attention:: Last line must be empty
@@ -777,9 +780,11 @@ Example:
 
    where <scilista> is the scilista file to be created.
 
+
 Example:
 
   .. code::
+
     ./doi/scilista/scilista4art.bat scilista_doi.txt
 
 
@@ -818,7 +823,7 @@ Example:
 3. Updating the Website
 ```````````````````````
 
-1. Copy the bases-work/doi to bases/doi of the production server (Website).
+Copy the bases-work/doi to bases/doi of the production server (Website).
 
 
 Questions about cisis and wxis versions
@@ -860,10 +865,14 @@ The files extensions that must be kept are:
     The *.iy0 files must be remove from the public server too.
 
 
+
 Find the files to delete
 ------------------------
 
   .. code::
     find . -name "*.iy0"
+
+
+
 
 
