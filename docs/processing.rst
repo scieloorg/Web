@@ -867,13 +867,5 @@ The files extensions that must be kept are:
 
 
 
-Find the files to delete
-------------------------
-
-  .. code::
-    find . -name "*.iy0"
-
-
-
 
 
