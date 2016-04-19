@@ -753,6 +753,7 @@ How to execute
 This pre processing identifies the records which status in crossref_DOIReport database is not "error" and generates the scilista file according to the format:
 
   .. code::
+
      <acron> <issue_id> <issue_PID>
      <acron> <issue_id> <issue_PID>
      <acron> <issue_id> <issue_PID>
@@ -761,13 +762,12 @@ This pre processing identifies the records which status in crossref_DOIReport da
 
 Example:
 
-
   .. code::
     neuro v19n6 S1130-147320080006
     neuro v20n1 S1130-147320090001
+             
 
-
-
+                
   .. attention:: Last line must be empty
 
 
