@@ -761,10 +761,11 @@ This pre processing identifies the records which status in crossref_DOIReport da
 
 Example:
 
-  .. code::
 
+  .. code::
     neuro v19n6 S1130-147320080006
     neuro v20n1 S1130-147320090001
+
 
 
   .. attention:: Last line must be empty
@@ -864,12 +865,13 @@ The files extensions that must be kept are:
     The *.iy0 files must be remove from the public server too.
 
 
+
 Find the files to delete
 ------------------------
 
   .. code::
-    
     find . -name "*.iy0"
+
 
 
 
