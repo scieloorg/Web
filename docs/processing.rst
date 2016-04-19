@@ -763,12 +763,13 @@ This pre processing identifies the records which status in crossref_DOIReport da
 Example:
 
   .. code::
+
     neuro v19n6 S1130-147320080006
     neuro v20n1 S1130-147320090001
              
 
-                
-  .. attention:: Last line must be empty
+
+**ATTENTION**: Last line must be empty
 
 
 1. Go to proc directory
