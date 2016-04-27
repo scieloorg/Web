@@ -19,16 +19,7 @@
 			<xsl:value-of select="name()"/>
 		</xsl:if>
 	</xsl:template>
-	<xsl:template match="italic">
-		<em>
-			<xsl:apply-templates/>
-		</em>
-	</xsl:template>
-	<xsl:template match="bold">
-		<strong>
-			<xsl:apply-templates/>
-		</strong>
-	</xsl:template>
+	
 	<xsl:template match="sup|sub">
 		<xsl:element name="{name()}">
 			<xsl:apply-templates/>
@@ -794,8 +785,7 @@
 			<xsl:apply-templates select="@* | * | text()"/>
 		</xsl:element>
 	</xsl:template>
-	<xsl:template match="table//break"><br/>
-	</xsl:template>
+	
 	<xsl:template match="table//xref">
 		<xsl:if test="@ref-type='fn'">
 			<a name="back_{@rid}"/>
@@ -1661,5 +1651,22 @@
 	<xsl:template match="table-wrap | table-wrap//*[permissions]" mode="object-properties">
 		<xsl:apply-templates select="permissions"/>
 	</xsl:template>
-	
+	<xsl:template match="underline | table//underline">
+		<u>
+			<xsl:apply-templates/>
+		</u>
+	</xsl:template>
+	<xsl:template match="italic | table//italic">
+		<em>
+			<xsl:apply-templates/>
+		</em>
+	</xsl:template>
+	<xsl:template match="bold | table//bold">
+		<strong>
+			<xsl:apply-templates/>
+		</strong>
+	</xsl:template>
+	<xsl:template match="break | table//break">
+		<br/>
+	</xsl:template>
 </xsl:stylesheet>
