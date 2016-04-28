@@ -1597,10 +1597,23 @@
 		<xsl:apply-templates select="publisher-name"/> (<xsl:apply-templates select="publisher-loc"/>). <xsl:apply-templates select="size"/>. </p>	
 	</xsl:template>
 	<xsl:template match="product[@product-type='book']">
-		<p class="product">
-		<xsl:apply-templates select="source"/>. <xsl:apply-templates select="person-group"/>. (<xsl:apply-templates select="year"/>). <xsl:apply-templates select="publisher-loc"/>: 
-		<xsl:apply-templates select="publisher-name"/>, <xsl:apply-templates select="year"/>, <xsl:apply-templates select="size"/>. <xsl:apply-templates select="isbn"/>		
-		</p>
+		<div class="product">
+			<xsl:if test="inline-graphic or graphic">
+				<div><xsl:apply-templates select="inline-graphic | graphic"/></div>
+			</xsl:if>
+			<div class="product-text">
+				<xsl:apply-templates select="source"/>. <xsl:apply-templates select="person-group"/>. (<xsl:apply-templates select="year"/>). <xsl:apply-templates select="publisher-loc"/>: 
+				<xsl:apply-templates select="publisher-name"/>, <xsl:apply-templates select="year"/>, <xsl:apply-templates select="size"/>. <xsl:apply-templates select="isbn"/>		
+			</div>
+		</div>
+	</xsl:template>
+	<xsl:template match="product/inline-graphic | product/graphic">
+		<a target="_blank">
+			<xsl:apply-templates select="." mode="scift-attribute-href"/>
+			<img class="product-graphic">
+				<xsl:apply-templates select="." mode="scift-attribute-src"/>
+			</img>
+		</a>
 	</xsl:template>
 	<xsl:template match="product/person-group">
 		<xsl:apply-templates select="name"/>
