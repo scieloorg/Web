@@ -1,0 +1,23 @@
+/*
+$FIRST_YEAR_OF_RECENT_FEE: v8100
+$BACKFILES_FEE: v8101
+$RECENT_FEE: v8102
+*/
+
+
+,if v9880<>'' then 
+	,v880,'|',v65*0.4,'|',v9030,if v9030='' then '|', fi,'|',
+	,if v9002<>'' then 
+		,v9002 
+	,else 
+		,'*',s(date)*0.4,'|',
+		,if val(v65*0.4) <  val(v8100) then 
+			,v8101
+		,else 
+			,v8102
+		,fi,
+	,fi
+	,'|',v9237
+	,if v9237='' then '|' fi
+	,#
+,fi
