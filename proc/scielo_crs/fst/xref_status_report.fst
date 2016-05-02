@@ -1,0 +1,8 @@
+1 0 mpl,'PID='v1
+2 0 mpl,'PUBDATE='v2
+3 0 mpl,'DEPOSIT_DATE='v3
+4 0 mpl,'DEPOSIT_STATUS='v4
+5 0 mpl,'BILL_DATE='v5
+6 0 mpl,'BILL_PRICE='v6
+7 0 mpl,'DISPLAY_DATE='v7
+8 0 mpl,'DISPLAY_DOI='v8
