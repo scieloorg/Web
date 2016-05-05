@@ -88,7 +88,7 @@
 		<a name="{.}"/>
 	</xsl:template>
 
-	<xsl:template match="sub-article | response" mode="MORE">
+	<xsl:template match="sub-article[@article-type!='translation'] | response" mode="MORE">
 		<hr class="part-rule"/>
 
 		<!-- Generates a series of (flattened) divs for contents of any
@@ -109,7 +109,7 @@
 				<xsl:when test="back | $loose-footnotes">
 					<xsl:apply-templates select="back"/>
 				</xsl:when>
-				<xsl:when test="name()='sub-article' and not(back) and $original/back">
+				<!-- xsl:when test="name()='sub-article' and not(back) and $original/back">
 					<div id="{$this-article}-back" class="back">
 						<xsl:apply-templates select="$original/back"/>
 					</div>
@@ -118,6 +118,12 @@
 					<div id="{$this-article}-back" class="back">
 						<xsl:apply-templates select="$original/response/back"/>
 					</div>
+				</xsl:when -->
+				<xsl:when test="name()='sub-article' and not(back) and $original/back">
+					
+				</xsl:when>
+				<xsl:when test="name()='response' and not(back) and $original/response/back">
+					
 				</xsl:when>
 			</xsl:choose>
 		</div>
