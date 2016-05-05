@@ -1,23 +1,32 @@
 /*
-$FIRST_YEAR_OF_RECENT_FEE: v8100
-$BACKFILES_FEE: v8101
-$RECENT_FEE: v8102
+$depositor_prefix: v8000
+$XREF_DOI_REPORT: v8001
+$DB_BILL: v8002
+$MYTEMP/doi: v8003
+$FIRST_YEAR_OF_RECENT_FEE: v8004
+$BACKFILES_FEE: v8005
+$RECENT_FEE: v8006
 */
 
 
 ,if v9880<>'' then 
-	,v880,'|',v65*0.4,'|',v9030,if v9030='' then '|', fi,'|',
+	,v880,'|',v65*0.4,'|',
+	,if v9001<>'' then
+		,v9001,
+	,else
+		,'|||'
+	,fi
+	,'|'
 	,if v9002<>'' then 
 		,v9002 
-	,else 
-		,'*',s(date)*0.4,'|',
-		,if val(v65*0.4) <  val(v8100) then 
-			,v8101
-		,else 
-			,v8102
-		,fi,
+	,else
+		,'|'
 	,fi
-	,'|',v9237
-	,if v9237='' then '|' fi
+	,'|'
+	,if v9003<>'' then 
+		,v9003 
+	,else
+		,'|'
+	,fi
 	,#
 ,fi
