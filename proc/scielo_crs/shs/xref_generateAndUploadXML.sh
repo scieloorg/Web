@@ -26,6 +26,10 @@ then
     mkdir -p $MYXMLPATH
 fi
 
+#    $conversor_dir/shs/xref_evaluateReturn.sh crossref_sent_$logDate$PID.log $PID $PID update-new 
+#    $conversor_dir/shs/xref_evaluateReturn.sh validationErrors_$logDate$PID.log $PID $PID error 
+#    $conversor_dir/shs/xref_evaluateReturn.sh crossref_sentError_$logDate$PID.log $PID $PID error 
+
 if [ ! -f $MYXML -o  "$REPROC" = "DO" -o ! "$PROCESS_ONLY_NEW" = "DO" ]
 then
     $cisis_dir/mx cipar=$MYCIPFILE ARTIGO_DB  "btell=0" "hr=$PID" "proc=('G$conversor_dir/gizmo/crossref')" lw=99999 "proc='a9038{$depositor_prefix{a9037{$depositor_url{a9040{$depositor_institution{a9041{$depositor_email{" pft=@$conversor_dir/pft/xref_requestXML.pft "tell=1000" -all now | iconv --from-code=ISO-8859-1 --to-code=UTF-8 > $MYXML
@@ -47,17 +51,21 @@ then
         
         $cisis_dir/mx seq=$MYTEMP/${PID}_validation_status0.txt count=1 "pft=if v1:'submitted' then 'submitted' else 'error' fi" now > $MYTEMP/${PID}_submission_status.txt
         rm $MYTEMP/${PID}_validation_status0.txt
+
         SUBMISSION_STATUS=`cat $MYTEMP/${PID}_submission_status.txt`
         rm $MYTEMP/${PID}_submission_status.txt
 
         if [ "$SUBMISSION_STATUS" = "submitted" ]
         then
-            $conversor_dir/shs/xref_evaluateReturn.sh $LOG_PATH/${PID}_submission.log $PID OK
+            mv $LOG_PATH/${PID}_submission.log $LOG_PATH/crossref_sent_$logDate$PID.log
+            $conversor_dir/shs/xref_evaluateReturn.sh $LOG_PATH/crossref_sent_$logDate$PID.log $PID OK
         else
+            mv $LOG_PATH/${PID}_submission.log $LOG_PATH/crossref_sentError_$logDate$PID.log
             $conversor_dir/shs/xref_evaluateReturn.sh $LOG_PATH/${PID}_submission.log $PID error
         fi
     else
-        $conversor_dir/shs/xref_evaluateReturn.sh $LOG_PATH/${PID}_validation.log $PID error 
+        mv $LOG_PATH/${PID}_validation.log $LOG_PATH/validationErrors_$logDate$PID.log
+        $conversor_dir/shs/xref_evaluateReturn.sh $LOG_PATH/validationErrors_$logDate$PID.log $PID error 
     fi
 fi
 
