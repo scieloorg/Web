@@ -733,7 +733,7 @@ Description:
 CrossRef - Display DOI on SciELO Website
 ========================================
 
-This processing generates, for each journals issue, one database which is used by SciELO Website to display the articles DOI.
+This processing generates one database of DOI data for each journal issue in bases-work/doi and join all these database in one single database: bases/doi/doi, which is used by SciELO Website to display the articles DOI.
 
 Input: crossref_DOIReport database
 
@@ -747,84 +747,26 @@ Execute after DOI deposit processing.
 How to execute
 --------------
 
-1. scilista creation
-````````````````````
-
-This pre processing identifies the records which status in crossref_DOIReport database is not "error" and generates the scilista file according to the format:
-
-  .. code::
-
-     <acron> <issue_id> <issue_PID>
-     <acron> <issue_id> <issue_PID>
-     <acron> <issue_id> <issue_PID>
-     <acron> <issue_id> <issue_PID>
-
-
-Example:
-
-  .. code::
-
-    neuro v19n6 S1130-147320080006
-    neuro v20n1 S1130-147320090001
-             
-
-
-**ATTENTION**: Last line must be empty
-
-
-1. Go to proc directory
+1. Go to proc/scielo_crs/shs directory
 2. Execute the command:
 
   .. code::
-    ./doi/scilista/scilista4art.bat <scilista>
-
-
-   where <scilista> is the scilista file to be created.
-
-
-Example:
-
-  .. code::
-
-    ./doi/scilista/scilista4art.bat scilista_doi.txt
-
-
-2. doi database creation
-````````````````````````
-
-1. Go to proc directory
-2. Execute the command:
-
-  .. code::
-
-    ./doi/create/doi4art.bat <scilista>
-
-
-Example:
-
-  .. code::
-
-    ./doi/create/doi4art.bat scilista_doi.txt
+    ./xref_display_doi.sh
 
 
 Results
 -------
 
-This processing generates the databases in bases-work/doi/<acron>/<issue_id>/<issue_id>.*
-
-
-Example:
-
-  .. code::
-
-    bases-work/doi/neuro/v20n1/v20n1
-    bases-work/doi/neuro/v19n1/v19n1
+This processing generates:
+ 
+ * the databases in bases-work/doi/<acron>/<issue_id>/<issue_id>.*
+ * the databases in bases/doi/doi.*
 
 
 3. Updating the Website
 ```````````````````````
 
-Copy the bases-work/doi to bases/doi of the production server (Website).
+Copy the bases/doi/doi.* of stage server to bases/doi of the production server (Website).
 
 
 Questions about cisis and wxis versions
