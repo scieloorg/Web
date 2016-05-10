@@ -751,7 +751,9 @@ How to execute
 2. Execute the command:
 
   .. code::
+  
     ./xref_display_doi.sh
+
 
 
 Results
