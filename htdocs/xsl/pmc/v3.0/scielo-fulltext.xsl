@@ -1518,9 +1518,20 @@
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
-
-	<xsl:template match="mml:math|math">
-		<xsl:copy-of select="."/>
+	
+	<xsl:template match="mml:math//text()|math//text()"><xsl:value-of select="."/>
+	</xsl:template>
+	
+	<xsl:template match="mml:math/@*|math/@*|mml:math//*/@*|math//*/@*">
+		<xsl:attribute name="{name()}">
+			<xsl:value-of select="."/>
+		</xsl:attribute>
+	</xsl:template>
+	
+	<xsl:template match="mml:math|math|mml:math//*|math//*">
+		<xsl:element name="{name()}">
+			<xsl:apply-templates select="@*|*|text()"></xsl:apply-templates>
+		</xsl:element>
 	</xsl:template>
 	
 	<xsl:template match="app-group">
