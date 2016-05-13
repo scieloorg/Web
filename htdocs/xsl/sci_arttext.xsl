@@ -577,14 +577,12 @@
 	</xsl:template>
 	
 	<xsl:template match="SERIAL" mode="text-disclaimer">
-		<xsl:if test=".//ARTICLE/RELATED-DOC[@TYPE='correction'] or .//ARTICLE/RELATED-DOC[@TYPE='corrected-article']">
+		<xsl:if test=".//ARTICLE/RELATED-DOC[@TYPE='correction'] or .//ARTICLE/RELATED-DOC[@TYPE='corrected-article'] or .//ARTICLE/RELATED-DOC[@TYPE='retraction'] or .//ARTICLE/RELATED-DOC[@TYPE='retracted-article']">
 			<div class="disclaimer">
-				<xsl:if test=".//ARTICLE/RELATED-DOC[@TYPE='correction']">
-					<xsl:apply-templates select=".//ARTICLE/RELATED-DOC[@TYPE='correction']"/>			
-				</xsl:if>
-				<xsl:if test=".//ARTICLE/RELATED-DOC[@TYPE='corrected-article']">
-					<xsl:apply-templates select=".//ARTICLE/RELATED-DOC[@TYPE='corrected-article']"/>
-				</xsl:if>
+				<xsl:apply-templates select=".//ARTICLE/RELATED-DOC[@TYPE='correction']"/>			
+				<xsl:apply-templates select=".//ARTICLE/RELATED-DOC[@TYPE='corrected-article']"/>
+				<xsl:apply-templates select=".//ARTICLE/RELATED-DOC[@TYPE='retraction']"/>			
+				<xsl:apply-templates select=".//ARTICLE/RELATED-DOC[@TYPE='retracted-article']"/>
 			</div>
 		</xsl:if>
 		<!--xsl:if test=".//ARTICLE/RELATED-DOC[@TYPE='correction']">
@@ -594,33 +592,48 @@
 		</xsl:if-->
 	</xsl:template>
 	
-	<xsl:template match="RELATED-DOC[@TYPE='correction']">
+	<xsl:template match="RELATED-DOC[@TYPE='corrected-article']" mode="label">
+		<xsl:value-of
+			select="$translations/xslid[@id='sci_arttext']/text[@find='this_corrects']"
+		/>
+	</xsl:template>
+	<xsl:template match="RELATED-DOC[@TYPE='correction']" mode="label">
+		<xsl:value-of
+			select="$translations/xslid[@id='sci_arttext']/text[@find='this_article_has_been_corrected']"
+		/>
+	</xsl:template>
+	
+	<xsl:template match="RELATED-DOC[@TYPE='retraction']" mode="label">
+		<xsl:value-of
+			select="$translations/xslid[@id='sci_arttext']/text[@find='this_article_has_been_retracted']"
+		/>
+	</xsl:template>
+	<xsl:template match="RELATED-DOC[@TYPE='retracted-article']" mode="label">
+		<xsl:value-of
+			select="$translations/xslid[@id='sci_arttext']/text[@find='this_retracts']"
+		/>
+	</xsl:template>
+	
+	<xsl:template match="RELATED-DOC">
 		<p>
-			<strong><xsl:value-of
-				select="$translations/xslid[@id='sci_arttext']/text[@find='this_article_has_been_corrected']"
-			/>: </strong>
-			<a target="_blank">
-				<xsl:call-template name="AddScieloLink">
-					<xsl:with-param name="seq" select="@PID"/>
-					<xsl:with-param name="script">sci_arttext</xsl:with-param>
-					<xsl:with-param name="txtlang" select="$TXTLANG"/>
-				</xsl:call-template><xsl:value-of select="ISSUE"/>
+			<strong><xsl:apply-templates select="." mode="label"/>: </strong>
+			<a target="_blank"><xsl:choose>
+				<xsl:when test="@PID">
+					<xsl:call-template name="AddScieloLink">
+						<xsl:with-param name="seq" select="@PID"/>
+						<xsl:with-param name="script">sci_arttext</xsl:with-param>
+						<xsl:with-param name="txtlang" select="$TXTLANG"/>
+					</xsl:call-template><xsl:if test="DOCTITLE"><xsl:value-of select="DOCTITLE"/>. </xsl:if><xsl:value-of select="ISSUE"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:attribute name="href"><xsl:if test="not(starts-with(@DOI,'http'))">https://dx.doi.org/</xsl:if><xsl:value-of select="@DOI"/></xsl:attribute>
+					<xsl:value-of select="@DOI"/>
+				</xsl:otherwise>
+			</xsl:choose>
+			
+				
 			</a>
 		</p>
 	</xsl:template>
 	
-	<xsl:template match="RELATED-DOC[@TYPE='corrected-article']">
-		<p>
-			<strong><xsl:value-of
-				select="$translations/xslid[@id='sci_arttext']/text[@find='this_corrects']"
-			/></strong>
-			<a target="_blank">
-				<xsl:call-template name="AddScieloLink">
-					<xsl:with-param name="seq" select="@PID"/>
-					<xsl:with-param name="script">sci_arttext</xsl:with-param>
-					<xsl:with-param name="txtlang" select="$TXTLANG"/>
-				</xsl:call-template><xsl:value-of select="DOCTITLE"/>. <xsl:value-of select="ISSUE"/>
-			</a>
-		</p>
-	</xsl:template>
 </xsl:stylesheet>
