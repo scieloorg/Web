@@ -1699,4 +1699,9 @@
 	<xsl:template match="break | table//break">
 		<br/>
 	</xsl:template>
+	<xsl:template match="glossary">
+		<div class="bloco">
+			<xsl:apply-templates/>
+		</div>
+	</xsl:template>
 </xsl:stylesheet>
