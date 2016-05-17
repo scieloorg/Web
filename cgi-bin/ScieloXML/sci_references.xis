@@ -18,7 +18,7 @@
 <section name="search">
 
 	<field action="cgi" tag="5">xml_header</field>
-	<display>
+	<!--display>
 		<pft>
 			if v5 = 'no' then
 				'Content-type:text/plain'##
@@ -27,7 +27,7 @@
 				'<?xml version="1.0" encoding="ISO-8859-1"?>'/
 			fi
 		</pft>
-	</display>
+	</display-->
 
 
 	<field action="replace" tag="1"><pft>getenv('PATH_TRANSLATED')</pft></field>
