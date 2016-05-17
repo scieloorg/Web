@@ -989,8 +989,8 @@
 	</xsl:template>
 	
 	<xsl:template match="ref">
-		<p class="ref" onclick="window.history.back();">
-			<a name="{@id}"/>
+		<p class="ref">
+			<a name="{@id}" onclick="window.history.back();"> </a>
 			<xsl:choose>
 				<xsl:when test="mixed-citation[*]">
 					<xsl:apply-templates select="mixed-citation[*]"/>
@@ -1005,12 +1005,11 @@
 				<xsl:otherwise><xsl:comment>_missing mixed-citation _</xsl:comment>
 				</xsl:otherwise>
 			</xsl:choose>
-			<xsl:variable name="aref">000000<xsl:apply-templates select="."
-					mode="scift-get_position"/></xsl:variable>
-			<xsl:variable name="ref"><xsl:value-of
-					select="substring($aref, string-length($aref) - 5)"/></xsl:variable>
-			<xsl:variable name="pid"><xsl:value-of select="$PID"/><xsl:value-of
-					select="substring($ref,2)"/></xsl:variable> [&#160;<a href="javascript:void(0);"
+			<xsl:variable name="aref">000000<xsl:value-of select="position()"/></xsl:variable>
+			<xsl:variable name="ref"><xsl:value-of select="substring($aref, string-length($aref) - 4)"/></xsl:variable>
+			<xsl:variable name="pid"><xsl:value-of select="$PID"/><xsl:value-of select="$ref"/></xsl:variable>
+			
+			[&#160;<a href="javascript:void(0);"
 				onclick="javascript: window.open('/scielo.php?script=sci_nlinks&amp;pid={$pid}&amp;lng=en','','width=640,height=500,resizable=yes,scrollbars=1,menubar=yes,');"
 				>Links</a>&#160;] </p>
 	</xsl:template>
