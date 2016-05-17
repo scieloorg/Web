@@ -7,6 +7,7 @@
 	<xsl:import href="sci_toolbox.xsl"/>
 	<xsl:output indent="yes"/>
 	
+	<xsl:variable name="pdf_links" select="//PDF_LANGS/LANG"/>
 	<xsl:template match="*[@xlink:href] | *[@href]" mode="fix_img_extension">
 		<xsl:variable name="href"><xsl:choose>
 			<xsl:when test="@xlink:href"><xsl:value-of select="@xlink:href"/></xsl:when>
@@ -636,4 +637,53 @@
 		</p>
 	</xsl:template>
 	
+	
+	<xsl:template match="body/p[contains(text(),'Texto completo') and contains(text(),'apenas em PDF')]">
+		<xsl:choose>
+			<xsl:when test="count($pdf_links)=1">
+				<xsl:apply-templates select="$pdf_links" mode="only_pdf">
+					<xsl:with-param name="label" select="."/>
+				</xsl:apply-templates>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:if test="$pdf_links[.='pt']">
+					<xsl:apply-templates select="$pdf_links[.='pt']" mode="only_pdf">
+						<xsl:with-param name="label" select="."/>
+					</xsl:apply-templates>
+				</xsl:if>
+				<xsl:if test="$pdf_links[.!='en' and .!='pt']">
+					<xsl:apply-templates select="$pdf_links[.!='en' and .!='pt']" mode="only_pdf">
+						<xsl:with-param name="label" select="."/>
+					</xsl:apply-templates>
+				</xsl:if>
+			</xsl:otherwise>
+		</xsl:choose>		
+	</xsl:template>
+	<xsl:template match="body/p[contains(text(),'Full text available only in PDF format')]">
+		<xsl:choose>
+			<xsl:when test="count($pdf_links)=1">
+				<xsl:apply-templates select="$pdf_links" mode="only_pdf">
+					<xsl:with-param name="label" select="."/>
+				</xsl:apply-templates>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:if test="$pdf_links[.='en']">
+					<xsl:apply-templates select="$pdf_links[.='en']" mode="only_pdf">
+						<xsl:with-param name="label" select="."/>
+					</xsl:apply-templates>
+				</xsl:if>
+				<xsl:if test="$pdf_links[.!='en' and .!='pt']">
+					<xsl:apply-templates select="$pdf_links[.!='en' and .!='pt']" mode="only_pdf">
+						<xsl:with-param name="label" select="."/>
+					</xsl:apply-templates>
+				</xsl:if>
+			</xsl:otherwise>
+		</xsl:choose>			
+	</xsl:template>
+	<xsl:template match="*" mode="only_pdf">
+		<xsl:param name="label"/>
+		<p>
+			<a href="/pdf/{@TRANSLATION}"><xsl:value-of select="$label"/></a>
+		</p>
+	</xsl:template>
 </xsl:stylesheet>
