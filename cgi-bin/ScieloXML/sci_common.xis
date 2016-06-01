@@ -1392,7 +1392,14 @@
      4001 - Title MFN in the TITLE DB -->
 
   <display>
-   <pft>ref(['TITLE']val(v4001),' <TITLE_ISSN',| TYPE="|v35|"|,'>',if p(v935) then v935 else v400 fi,'</TITLE_ISSN>'/#)</pft>
+   <pft>
+   ref(['TITLE']val(v4001),
+   ,if p(v435) then
+   		,(' <TITLE_ISSN',| TYPE="|v435^t|"|,'>',v435^*,'</TITLE_ISSN>')
+   ,else
+   ' <TITLE_ISSN',| TYPE="|v35|"|,'>',if p(v935) then v935 else v400 fi,'</TITLE_ISSN>'/
+   ,fi
+   ,#)</pft>
   </display>
 </function>
 <function name="CreateISSN4ISSUEXML" action="replace" tag=4001>
