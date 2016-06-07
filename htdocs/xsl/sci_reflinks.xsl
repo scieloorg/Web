@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="iso-8859-1"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-	<xsl:output method="html" encoding="ISO-8859-1" omit-xml-declaration="yes" indent="yes" doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+	<xsl:output method="html" omit-xml-declaration="yes" encoding="iso-8859-1" indent="yes" doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 	<xsl:variable name="lang" select="//vars/lang"/>
 	<xsl:variable name="pathhtdocs" select="/root/vars/htdocs"/>
 	<xsl:variable name="texts" select="document(concat('file://',$pathhtdocs,'applications/scielo-org/xml/texts.xml'))/texts/language[@id = $lang]"/>
@@ -12,7 +12,6 @@
 		<html>
 			<head>
 				<link rel="stylesheet" href="/applications/scielo-org/css/public/style-{$lang}.css" type="text/css" media="screen"/>
-				<!-- Adicionado script para passa a utilizar o serviço de log comentado por Jamil Atta Junior (jamil.atta@bireme.org)-->
 				<script language="javascript" src="/../../applications/scielo-org/js/httpAjaxHandler.js"/>
 				<title>SciELO.org - Scientific Electronic Library Online</title>
 			</head>
@@ -124,6 +123,7 @@
 			</body>
 		</html>
 	</xsl:template>
+	
 	<xsl:template match="similar">
 		<xsl:apply-templates select="article">
 			<xsl:with-param name="s" select="@s"/>
