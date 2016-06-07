@@ -1661,7 +1661,8 @@
 	</xsl:template>
 	
 	<xsl:template match="list-item[label and p]">
-		<xsl:apply-templates select="p"/>
+		<xsl:apply-templates select="p | def-list | list"/>
+		comment
 	</xsl:template>
 	
 	<xsl:template match="list-item[label]/p">
