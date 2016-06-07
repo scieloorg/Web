@@ -1403,14 +1403,18 @@
   </display>
 </function>
 <function name="CreateISSN4ISSUEXML" action="replace" tag=4001>
-<!-- Generate XML for ISSN
+        <!-- Generate XML for ISSN
      4001 - Issue MFN in the Issue DB -->
-  <field action="replace" tag="1935"><pft>ref(['TITLE']val(v4001^*),'^t',v35,'^i',v935,if a(v935) then v400 fi)</pft></field>
-  <field action="replace" tag="2935"><pft>ref(['NEWISSUE']val(v4001^i),if size(v935)>0 then v935 else v400 fi)</pft></field>
-  <field action="replace" tag="935"><pft>if a(v2935) or v2935=v1935^i then v1935 else '^i',v2935,'^t',if v1935^t='PRINT' then 'ONLIN' else 'PRINT' fi  fi</pft></field>  
-  <display>
-   <pft>' <ISSUE_ISSN',| TYPE="|v935^t|"|,'>'v935^i'</ISSUE_ISSN>'/</pft>
-  </display>
+        <field action="replace" tag="435" split="occ"><pft>ref(['NEWISSUE']val(v4001^i),(v435/),if a(v435) then v935 fi)</pft></field>
+
+        <field action="replace" tag="1435" split="occ"><pft>if a(v435^t) then ref(['TITLE']val(v4001^*),(v435/),if a(v435) then if p(v935) then v935,'^t',v35/ else v400,'^t',v35/ fi fi)  fi</pft></field>
+
+        <field action="replace" tag="435" split="occ"><pft>if p(v435) and a(v435^t) then (if v435[1]=v1435^* then v1435 fi) fi</pft></field>
+        <field action="replace" tag="435" split="occ"><pft>if a(v435) or a(v435^t) then (v1435/) fi</pft></field>
+
+        <display>
+                <pft>(' <ISSUE_ISSN',| TYPE="|v435^t|"|,'>'v435^*'</ISSUE_ISSN>'/)</pft>
+        </display>
 </function>
 <function name="CreateCopyrightXML" action="replace" tag=4001>
 <!-- Generate XML for Copyright
