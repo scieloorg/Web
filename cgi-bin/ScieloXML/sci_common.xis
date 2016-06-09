@@ -3667,9 +3667,18 @@ fi
 	<!-- artigo => pr -->
 	<call name="RelatedDocument"><pft>if v241^t='pr' then v241^i fi,|^t|v241^t</pft></call>
 
-	<!-- ? => artigo -->
-	<call name="FindPIDbyDOI"><pft>if v241^t<>'pr' and v241^n='doi' then v241^i,'^p'v880 fi</pft></call>
-	<call name="RelatedDocument"><pft>v9880,if a(v9880) then v241^i fi,|^t|v241^t</pft></call>
+	<!-- * => artigo -->
+    <list action="load" type="list"><pft>(v241/)</pft></list>
+    <do task="list">
+        <field action=define tag="1001">Isis_Current</field>
+        <field action=define tag="1002">Isis_Items</field>
+        <field action=define tag="1">Isis_Item</field>
+        <loop>
+            <field action="import" tag="list">880</field>
+            <call name="FindPIDbyDOI"><pft>if v1^t<>'pr' and v1^n='doi' then v1^i,'^p'v880 fi</pft></call>
+            <call name="RelatedDocument"><pft>v9880,if a(v9880) then v1^i fi,|^t|v1^t</pft></call>
+        </loop>
+    </do>
 	<field action="delete" tag="list">9880</field>
 
 </function>
