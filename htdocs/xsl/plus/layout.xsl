@@ -113,7 +113,7 @@
                 }
                 .inline-graphic {
                 display: inline;
-                
+                max-height: 16px;
                 }
                 
                 .product {
