@@ -782,14 +782,12 @@
 			<xsl:value-of select="."/>
 		</xsl:attribute>
 	</xsl:template>
-	<xsl:template match="table/*/tr | table/thead | table/thead/tr/th | table/tbody | table/tbody/tr/td//p">
+	<xsl:template match="table//*">
 		<xsl:element name="{name()}">
-			<xsl:apply-templates select="@* | * | text()"/>
-		</xsl:element>
-	</xsl:template>
-	<xsl:template match="table/tbody/tr/td">
-		<xsl:element name="{name()}">
-			<xsl:attribute name="class">td</xsl:attribute>
+			<xsl:if test=" name() = 'td' and $version='xml'">
+				<xsl:attribute name="class">td</xsl:attribute>
+			</xsl:if>
+			
 			<xsl:apply-templates select="@* | * | text()"/>
 		</xsl:element>
 	</xsl:template>
@@ -862,7 +860,14 @@
 			</xsl:when>
 		</xsl:choose>
 	</xsl:template>
-	
+	<xsl:template match="graphic">
+		<a target="_blank">
+			<xsl:apply-templates select="." mode="scift-attribute-href"/>
+			<img class="graphic">
+				<xsl:apply-templates select="." mode="scift-attribute-src"/>
+			</img>
+		</a>
+	</xsl:template>
 
 	<xsl:template match="table//inline-graphic |inline-graphic">
 		<a target="_blank">
@@ -1698,13 +1703,4 @@
 			<xsl:apply-templates/>
 		</div>
 	</xsl:template>
-	<xsl:template match="graphic | td/graphic">
-		<a target="_blank">
-			<xsl:apply-templates select="." mode="scift-attribute-href"/>
-			<img class="graphic">
-				<xsl:apply-templates select="." mode="scift-attribute-src"/>
-			</img>
-		</a>
-	</xsl:template>
-	
 </xsl:stylesheet>
