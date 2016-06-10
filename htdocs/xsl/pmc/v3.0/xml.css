@@ -189,8 +189,8 @@ border-color: gray;
 }
 .inline-graphic {
     display: inline;
-    min-height: 16px;
-    max-height: 16px;
+    max-height: 100%;
+    max-width: 100%;
 }
 .figure-group, .table-wrap-group {
     max-width: 100%;
