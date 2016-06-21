@@ -1674,9 +1674,9 @@
 					'<ORGDIV><![CDATA['v70^3']]></ORGDIV>'/
 				fi,
 				,'<E-MAIL><![CDATA['v70^e']]></E-MAIL>'/
-			,'<CITY>'v70^c'</CITY>'/
-			,'<STATE>'v70^s'</STATE>'/
-			,'<COUNTRY>'v70^p'</COUNTRY>'/
+			,'<CITY><![CDATA['v70^c']]></CITY>'/
+			,'<STATE><![CDATA['v70^s']]></STATE>'/
+			,'<COUNTRY><![CDATA['v70^p']]></COUNTRY>'/
 			,'</AFFILIATION>'/)
 		</pft>
 	</display>	
