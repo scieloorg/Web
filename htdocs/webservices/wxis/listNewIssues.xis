@@ -138,7 +138,7 @@
 						,fi,
 						'<pubYear>',v7*0.4,'</pubYear>',#
 						'<updateDate>',v9,'</updateDate>',#
-						'<pid>',v5,v7*0.4,right(s('0000',v7*4),4),'</pid>',#
+						'<pid>',v5,v7*0.4,right(s('0000',v7*4.3),4),'</pid>',#
 						'</record>',#
 					</pft>
 					
