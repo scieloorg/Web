@@ -7,6 +7,8 @@ export database_dir="$scielo_dir/bases"
 export conversor_dir="$scielo_dir/proc/scielo_crs"
 export cisis_dir="$scielo_dir/proc/cisis" 
 
+#http://xmlsoft.org/xmllint.html
+
 #JAVA RUNTIME ENVIRONMENT VARS
 export JAVA_HOME=/usr/local/jdk1.5.0_06
 
@@ -17,6 +19,7 @@ depositor_institution=BIREME/PAHO/WHO
 depositor_prefix=10.1590
 depositor_email=bireme.crossref@gmail.com
 depositor_url=www.scielo.br
+crossref_xsd="crossref4.3.0.xsd"
 
 # 
 MYCIPFILE=$conversor_dir/shs/xref.cip
