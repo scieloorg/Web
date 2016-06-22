@@ -94,6 +94,7 @@
 		<text find="published_on">Publicado en</text>
 	</xslid>
 	<xslid id="sci_artref">
+		<text find="In press">In press</text>
 		<text find="ahead_of_print">ahead of print</text>
 		<text find="provisional">provisorio</text>
 		<text find="review_in_progress">en revisión</text>
@@ -201,6 +202,10 @@
 	<xslid id="sci_arttext">
 		<text find="original_version_published_in">versión original publicada en</text>
 		<text find="fulltext_only_in_pdf">texto completo solamente en formato PDF</text>
+		<text find="this_article_has_been_corrected">Este artículo fue corregido</text>
+		<text find="this_corrects">Corrige el artículo</text>
+		<text find="this_article_has_been_retracted">Este artículo fue retractado</text>
+		<text find="this_retracts">Retracta el artículo</text>
 	</xslid>
 	<xslid id="sci_abstract">
 		<text find="abstract">Resumen</text>

@@ -9,11 +9,8 @@
 	<xsl:variable name="use_original_aff" select="count($original//institution[@content-type='original'])&gt;0"/>
 	<xsl:variable name="affiliations" select="$original//aff"/>
 	
-	<xsl:template match="article-meta/permissions | PERMISSIONS[@source]/permissions">
-		<xsl:apply-templates select="." mode="permissions-footnote">
-			<xsl:with-param name="style">article-license</xsl:with-param>
-			<xsl:with-param name="text_lang" select="$langtext"/>
-		</xsl:apply-templates>
+	<xsl:template match="article-meta/permissions | PERMISSIONS[@source]/permissions | body//*/permissions">
+		<xsl:apply-templates select="." mode="permissions-disclaimer"/>
 	</xsl:template>
 	
 	<xsl:template match="*" mode="id">
@@ -22,16 +19,7 @@
 			<xsl:value-of select="name()"/>
 		</xsl:if>
 	</xsl:template>
-	<xsl:template match="italic">
-		<em>
-			<xsl:apply-templates/>
-		</em>
-	</xsl:template>
-	<xsl:template match="bold">
-		<strong>
-			<xsl:apply-templates/>
-		</strong>
-	</xsl:template>
+	
 	<xsl:template match="sup|sub">
 		<xsl:element name="{name()}">
 			<xsl:apply-templates/>
@@ -100,7 +88,7 @@
 		<a name="{.}"/>
 	</xsl:template>
 
-	<xsl:template match="sub-article | response" mode="MORE">
+	<xsl:template match="sub-article[@article-type!='translation'] | response" mode="MORE">
 		<hr class="part-rule"/>
 
 		<!-- Generates a series of (flattened) divs for contents of any
@@ -121,7 +109,7 @@
 				<xsl:when test="back | $loose-footnotes">
 					<xsl:apply-templates select="back"/>
 				</xsl:when>
-				<xsl:when test="name()='sub-article' and not(back) and $original/back">
+				<!-- xsl:when test="name()='sub-article' and not(back) and $original/back">
 					<div id="{$this-article}-back" class="back">
 						<xsl:apply-templates select="$original/back"/>
 					</div>
@@ -130,6 +118,12 @@
 					<div id="{$this-article}-back" class="back">
 						<xsl:apply-templates select="$original/response/back"/>
 					</div>
+				</xsl:when -->
+				<xsl:when test="name()='sub-article' and not(back) and $original/back">
+					
+				</xsl:when>
+				<xsl:when test="name()='response' and not(back) and $original/response/back">
+					
 				</xsl:when>
 			</xsl:choose>
 		</div>
@@ -698,12 +692,11 @@
 			</xsl:choose>
 		</div>
 	</xsl:template>
-	
 	<xsl:template match="fig" mode="scift-standard">
 		<div class="figure">
 			<xsl:call-template name="named-anchor"/>
 			<xsl:apply-templates select="graphic|media"/>
-			<xsl:apply-templates select="attrib"/>
+			<xsl:apply-templates select="." mode="object-properties"/>
 			<p class="label_caption">
 				<xsl:apply-templates select="label | caption" mode="scift-label-caption-graphic"/>
 			</p>
@@ -735,7 +728,7 @@
 
 			</p>
 			<xsl:apply-templates select="graphic | table | table-wrap-foot"/>
-			
+			<xsl:apply-templates select="." mode="object-properties"/>
 		</div>
 	</xsl:template>
 	<xsl:template match="table-wrap-foot">
@@ -789,17 +782,18 @@
 			<xsl:value-of select="."/>
 		</xsl:attribute>
 	</xsl:template>
-	<xsl:template match="table//*">
+	<xsl:template match="table/*/tr | table/thead | table/thead/tr/th | table/tbody | table/tbody/tr/td//p">
 		<xsl:element name="{name()}">
-			<xsl:if test=" name() = 'td' and $version='xml'">
-				<xsl:attribute name="class">td</xsl:attribute>
-			</xsl:if>
-			
 			<xsl:apply-templates select="@* | * | text()"/>
 		</xsl:element>
 	</xsl:template>
-	<xsl:template match="table//break"><br/>
+	<xsl:template match="table/tbody/tr/td">
+		<xsl:element name="{name()}">
+			<xsl:attribute name="class">td</xsl:attribute>
+			<xsl:apply-templates select="@* | * | text()"/>
+		</xsl:element>
 	</xsl:template>
+	
 	<xsl:template match="table//xref">
 		<xsl:if test="@ref-type='fn'">
 			<a name="back_{@rid}"/>
@@ -827,15 +821,32 @@
 			<xsl:apply-templates select="*|text()"/>
 		</span>
 	</xsl:template>
+	<xsl:template match="inline-formula/graphic">
+		<a target="_blank">
+			<xsl:apply-templates select="." mode="scift-attribute-href"/>
+			<img class="inline-formula-graphic">
+				<xsl:apply-templates select="." mode="scift-attribute-src"/>
+			</img>
+		</a>
+	</xsl:template>
 	<xsl:template match="disp-formula/label">
 		<span class="label"><xsl:value-of select="."/></span>
 	</xsl:template>
 	<xsl:template match="disp-formula">
 		<div class="disp-formula">
-			<span class="formula">
-				<xsl:apply-templates select="*[name()!='label']|text()"></xsl:apply-templates>
-			</span>
-			<xsl:apply-templates select="label"></xsl:apply-templates>			
+			<xsl:choose>
+				<xsl:when test="label">
+					<span class="formula-labeled">
+						<xsl:apply-templates select="*[name()!='label']|text()"></xsl:apply-templates>
+					</span>
+					<span class="label"><xsl:value-of select="label"/></span>			
+				</xsl:when>
+				<xsl:otherwise>
+					<span class="formula">
+						<xsl:apply-templates select="*[name()!='label']|text()"></xsl:apply-templates>
+					</span>
+				</xsl:otherwise>
+			</xsl:choose>
 		</div>
 	</xsl:template>
 	<xsl:template match="alternatives">
@@ -851,19 +862,20 @@
 			</xsl:when>
 		</xsl:choose>
 	</xsl:template>
-	<xsl:template match="graphic">
+	
+
+	<xsl:template match="table//inline-graphic |inline-graphic">
 		<a target="_blank">
 			<xsl:apply-templates select="." mode="scift-attribute-href"/>
-			<img class="graphic">
+			<img class="inline-graphic">
 				<xsl:apply-templates select="." mode="scift-attribute-src"/>
 			</img>
 		</a>
 	</xsl:template>
-
-	<xsl:template match="table//inline-graphic |inline-graphic | disp-formula/graphic">
+	<xsl:template match="disp-formula/graphic">
 		<a target="_blank">
 			<xsl:apply-templates select="." mode="scift-attribute-href"/>
-			<img class="inline-formula">
+			<img class="disp-formula-graphic">
 				<xsl:apply-templates select="." mode="scift-attribute-src"/>
 			</img>
 		</a>
@@ -972,9 +984,12 @@
 	</xsl:template>
 	
 	<xsl:template match="ref">
-		<p class="ref" onclick="window.history.back();">
-			<a name="{@id}"/>
+		<p class="ref">
+			<a name="{@id}" onclick="window.history.back();"> </a>
 			<xsl:choose>
+				<xsl:when test="mixed-citation[*]">
+					<xsl:apply-templates select="mixed-citation[*]"/>
+				</xsl:when>
 				<xsl:when test="mixed-citation">
 					<xsl:apply-templates select="mixed-citation"/>
 				</xsl:when>
@@ -985,12 +1000,11 @@
 				<xsl:otherwise><xsl:comment>_missing mixed-citation _</xsl:comment>
 				</xsl:otherwise>
 			</xsl:choose>
-			<xsl:variable name="aref">000000<xsl:apply-templates select="."
-					mode="scift-get_position"/></xsl:variable>
-			<xsl:variable name="ref"><xsl:value-of
-					select="substring($aref, string-length($aref) - 5)"/></xsl:variable>
-			<xsl:variable name="pid"><xsl:value-of select="$PID"/><xsl:value-of
-					select="substring($ref,2)"/></xsl:variable> [&#160;<a href="javascript:void(0);"
+			<xsl:variable name="aref">000000<xsl:value-of select="position()"/></xsl:variable>
+			<xsl:variable name="ref"><xsl:value-of select="substring($aref, string-length($aref) - 4)"/></xsl:variable>
+			<xsl:variable name="pid"><xsl:value-of select="$PID"/><xsl:value-of select="$ref"/></xsl:variable>
+			
+			[&#160;<a href="javascript:void(0);"
 				onclick="javascript: window.open('/scielo.php?script=sci_nlinks&amp;pid={$pid}&amp;lng=en','','width=640,height=500,resizable=yes,scrollbars=1,menubar=yes,');"
 				>Links</a>&#160;] </p>
 	</xsl:template>
@@ -1005,53 +1019,41 @@
 			<xsl:if test="not(contains(.,'.'))">.</xsl:if>&#160;
 		</xsl:if>
 	</xsl:template>
+	<xsl:template match="mixed-citation">
+		<xsl:choose>
+			<xsl:when test="count(../element-citation/*[@xlink:href])=1">
+				<xsl:apply-templates select="../element-citation/*[@xlink:href]" mode="insert_link_in_text">
+					<xsl:with-param name="text" select="text()"/>
+				</xsl:apply-templates>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="text()"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
 	<xsl:template match="mixed-citation[*]">
-		<xsl:apply-templates select="text()|*"/>
+		<xsl:choose>
+			<xsl:when test="../label">
+				<xsl:choose>
+					<xsl:when test="starts-with(text(),../label)">
+						<xsl:apply-templates select="text()|*"/>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:apply-templates select="../label" mode="display-only-if-number"/>
+						<xsl:apply-templates select="text()|*"/>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:apply-templates select="text()|*"/>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 	<xsl:template match="mixed-citation[*]/*/text()">
 		<xsl:value-of select="."/>
 	</xsl:template>
 	<xsl:template match="mixed-citation/text()">
-		<xsl:variable name="text">
-			<xsl:choose>
-				<xsl:when test="../../label">
-					<xsl:choose>
-						<xsl:when test="position()=1 and starts-with(.,'.')">
-							<xsl:apply-templates select="../../label" mode="display-only-if-number"/>
-							<xsl:value-of select="substring-after(.,'.')"/>
-						</xsl:when>
-						<xsl:when test="position()=1 and starts-with(., concat(../../label,'.'))">
-							<xsl:apply-templates select="../../label" mode="display-only-if-number"/>
-							<xsl:value-of select="substring-after(.,concat(../../label,'.'))"/>
-						</xsl:when>
-						<xsl:when test="position()=1 and starts-with(., ../../label)">
-							<xsl:apply-templates select="../../label" mode="display-only-if-number"/>
-							<xsl:value-of select="substring-after(.,../../label)"/>
-						</xsl:when>
-						<xsl:otherwise>
-							<xsl:apply-templates select="../../label" mode="display-only-if-number"/>
-							<xsl:value-of select="."/>
-						</xsl:otherwise>
-					</xsl:choose>
-				</xsl:when>
-				<xsl:when test="position()=1 and starts-with(.,'.')">
-					<xsl:value-of select="substring-after(.,'.')"/>
-				</xsl:when>
-				<xsl:otherwise>
-					<xsl:value-of select="."/>
-				</xsl:otherwise>
-			</xsl:choose>
-		</xsl:variable>
-		<xsl:choose>
-			<xsl:when test="../../element-citation/*[@xlink:href]">
-				<xsl:apply-templates select="../../element-citation/*[@xlink:href]" mode="insert_link_in_text">
-					<xsl:with-param name="text" select="$text"/>
-				</xsl:apply-templates>
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:value-of select="$text"/>
-			</xsl:otherwise>
-		</xsl:choose>
+		<xsl:value-of select="."/>
 	</xsl:template>
 	
 	<xsl:template match="*[@xlink:href]" mode="insert_link_in_text">
@@ -1241,7 +1243,14 @@
 		<a name="back_{../@id}"/>
 	</xsl:template>
 	<xsl:template match="back/fn-group/fn/label">
-		<span class="fn-label"><xsl:value-of select="."/></span>
+		<xsl:choose>
+			<xsl:when test="number(.)=.">
+				<sup><xsl:value-of select="."/></sup>
+			</xsl:when>
+			<xsl:otherwise>
+				<strong><xsl:value-of select="."/></strong>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 	<xsl:template match="back/fn-group/fn/title">
 		<p class="sub-subsec"><xsl:value-of select="."/></p>
@@ -1288,7 +1297,7 @@
 					
 					<xsl:choose>
 						<xsl:when test="$before!='' and *[name()=$before]">
-							<xsl:apply-templates select="*" mode="translation-back">
+							<xsl:apply-templates select="*" mode="insert-ref-list-in-correct-location">
 								<xsl:with-param name="before"><xsl:value-of select="$before"/></xsl:with-param>
 								<xsl:with-param name="ref_list" select="$original/back/ref-list"/>
 								<xsl:with-param name="title">
@@ -1301,7 +1310,7 @@
 							</xsl:apply-templates>
 						</xsl:when>
 						<xsl:when test="$after!='' and *[name()=$after]">
-							<xsl:apply-templates select="*" mode="translation-back">
+							<xsl:apply-templates select="*" mode="insert-ref-list-in-correct-location">
 								<xsl:with-param name="after"><xsl:value-of select="$after"/></xsl:with-param>
 								<xsl:with-param name="ref_list" select="$original/back/ref-list"/>
 								<xsl:with-param name="title">
@@ -1314,6 +1323,7 @@
 							</xsl:apply-templates>
 						</xsl:when>
 						<xsl:otherwise>
+							<xsl:apply-templates select="*"/>
 							<xsl:apply-templates select="$original/back/ref-list">
 								<xsl:with-param name="title">
 									<xsl:choose>
@@ -1357,7 +1367,7 @@
 					
 					<xsl:choose>
 						<xsl:when test="$before!='' and *[name()=$before]">
-							<xsl:apply-templates select="*" mode="translation-back">
+							<xsl:apply-templates select="*" mode="insert-ref-list-in-correct-location">
 								<xsl:with-param name="before"><xsl:value-of select="$before"/></xsl:with-param>
 								<xsl:with-param name="ref_list" select="$original/response/back/ref-list"/>
 								<xsl:with-param name="title">
@@ -1370,7 +1380,7 @@
 							</xsl:apply-templates>
 						</xsl:when>
 						<xsl:when test="$after!='' and *[name()=$after]">
-							<xsl:apply-templates select="*" mode="translation-back">
+							<xsl:apply-templates select="*" mode="insert-ref-list-in-correct-location">
 								<xsl:with-param name="after"><xsl:value-of select="$after"/></xsl:with-param>
 								<xsl:with-param name="ref_list" select="$original/response/back/ref-list"/>
 								<xsl:with-param name="title">
@@ -1383,6 +1393,7 @@
 							</xsl:apply-templates>
 						</xsl:when>
 						<xsl:otherwise>
+							<xsl:apply-templates select="*"/>
 							<xsl:apply-templates select="$original/response/back/ref-list">
 								<xsl:with-param name="title">
 									<xsl:choose>
@@ -1426,7 +1437,7 @@
 		</div-->
 	</xsl:template>
 
-	<xsl:template match="back/*" mode="translation-back">
+	<xsl:template match="back/*" mode="insert-ref-list-in-correct-location">
 		<xsl:param name="after"/>
 		<xsl:param name="before"/>
 		
@@ -1474,17 +1485,47 @@
 					</xsl:choose>
 				</a>
 			</xsl:when>
+			<xsl:when test="@mimetype='video'">
+				<video width="100%" controls="1">
+					<source src="{$src}" type="{@mimetype}/{@mime-subtype}"/>
+					Your browser does not support the video element.
+				</video>
+			</xsl:when>
+			<xsl:when test="@mimetype='audio'">
+				<audio width="100%" controls="1">
+					<source src="{$src}" type="{@mimetype}/{@mime-subtype}"/>
+					Your browser does not support the audio element.
+				</audio>
+			</xsl:when>
 			<xsl:otherwise>
-				<embed width="100%" height="400">
-					<xsl:if test="contains(@xlink:href,'.avi')"><xsl:attribute name="type">video/x-msvideo</xsl:attribute></xsl:if>
+				<a target="_blank">
+					<xsl:attribute name="href"><xsl:value-of select="$src"/></xsl:attribute>
+					<xsl:choose>
+						<xsl:when test="normalize-space(text())=''"><xsl:value-of select="@xlink:href"/></xsl:when>
+						<xsl:otherwise><xsl:apply-templates select="*|text()"></xsl:apply-templates></xsl:otherwise>
+					</xsl:choose>
+				</a>
+				<embed width="100%" height="400" >
+					<xsl:attribute name="type"><xsl:value-of select="@mimetype"/>/<xsl:value-of select="@mime-subtype"/></xsl:attribute>
 					<xsl:attribute name="src"><xsl:value-of select="$src"/></xsl:attribute> 
 				</embed>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
-
-	<xsl:template match="mml:math|math">
-		<xsl:copy-of select="."/>
+	
+	<xsl:template match="mml:math//text()|math//text()"><xsl:value-of select="."/>
+	</xsl:template>
+	
+	<xsl:template match="mml:math/@*|math/@*|mml:math//*/@*|math//*/@*">
+		<xsl:attribute name="{name()}">
+			<xsl:value-of select="."/>
+		</xsl:attribute>
+	</xsl:template>
+	
+	<xsl:template match="mml:math|math|mml:math//*|math//*">
+		<xsl:element name="{name()}">
+			<xsl:apply-templates select="@*|*|text()"></xsl:apply-templates>
+		</xsl:element>
 	</xsl:template>
 	
 	<xsl:template match="app-group">
@@ -1567,10 +1608,23 @@
 		<xsl:apply-templates select="publisher-name"/> (<xsl:apply-templates select="publisher-loc"/>). <xsl:apply-templates select="size"/>. </p>	
 	</xsl:template>
 	<xsl:template match="product[@product-type='book']">
-		<p class="product">
-		<xsl:apply-templates select="source"/>. <xsl:apply-templates select="person-group"/>. (<xsl:apply-templates select="year"/>). <xsl:apply-templates select="publisher-loc"/>: 
-		<xsl:apply-templates select="publisher-name"/>, <xsl:apply-templates select="year"/>, <xsl:apply-templates select="size"/>. <xsl:apply-templates select="isbn"/>		
-		</p>
+		<div class="product">
+			<xsl:if test="inline-graphic or graphic">
+				<div><xsl:apply-templates select="inline-graphic | graphic"/></div>
+			</xsl:if>
+			<div class="product-text">
+				<xsl:apply-templates select="source"/>. <xsl:apply-templates select="person-group"/>. (<xsl:apply-templates select="year"/>). <xsl:apply-templates select="publisher-loc"/>: 
+				<xsl:apply-templates select="publisher-name"/>, <xsl:apply-templates select="year"/>, <xsl:apply-templates select="size"/>. <xsl:apply-templates select="isbn"/>		
+			</div>
+		</div>
+	</xsl:template>
+	<xsl:template match="product/inline-graphic | product/graphic">
+		<a target="_blank">
+			<xsl:apply-templates select="." mode="scift-attribute-href"/>
+			<img class="product-graphic">
+				<xsl:apply-templates select="." mode="scift-attribute-src"/>
+			</img>
+		</a>
 	</xsl:template>
 	<xsl:template match="product/person-group">
 		<xsl:apply-templates select="name"/>
@@ -1602,7 +1656,7 @@
 	</xsl:template>
 	
 	<xsl:template match="list-item[label and p]">
-		<xsl:apply-templates select="p"/>
+		<xsl:apply-templates select="p | def-list | list"/>
 	</xsl:template>
 	
 	<xsl:template match="list-item[label]/p">
@@ -1614,4 +1668,43 @@
 	<xsl:template match="attrib">
 		<xsl:apply-templates select="*|text()"></xsl:apply-templates>
 	</xsl:template>
+	
+	<xsl:template match="fig" mode="object-properties">
+		<xsl:apply-templates select="attrib | permissions"/>
+	</xsl:template>
+	<xsl:template match="table-wrap | table-wrap//*[permissions]" mode="object-properties">
+		<xsl:apply-templates select="permissions"/>
+	</xsl:template>
+	<xsl:template match="underline | table//underline">
+		<u>
+			<xsl:apply-templates/>
+		</u>
+	</xsl:template>
+	<xsl:template match="italic | table//italic">
+		<em>
+			<xsl:apply-templates/>
+		</em>
+	</xsl:template>
+	<xsl:template match="bold | table//bold">
+		<strong>
+			<xsl:apply-templates/>
+		</strong>
+	</xsl:template>
+	<xsl:template match="break | table//break">
+		<br/>
+	</xsl:template>
+	<xsl:template match="glossary">
+		<div class="bloco">
+			<xsl:apply-templates/>
+		</div>
+	</xsl:template>
+	<xsl:template match="graphic | td/graphic">
+		<a target="_blank">
+			<xsl:apply-templates select="." mode="scift-attribute-href"/>
+			<img class="graphic">
+				<xsl:apply-templates select="." mode="scift-attribute-src"/>
+			</img>
+		</a>
+	</xsl:template>
+	
 </xsl:stylesheet>
