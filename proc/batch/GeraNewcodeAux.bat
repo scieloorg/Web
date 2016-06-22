@@ -8,9 +8,6 @@ call batch/VerifPresencaParametro.bat $0 @$2 diretorio temporario
 
 call batch/InformaLog.bat $0 x GeraNewcodeAux Gera Serarea para cada idioma
 
-call batch/VerifExisteBase.bat $1/code/newcode
-call batch/GeraInvertido.bat $1/code/newcode fst/newcode.fst $1/code/newcode
-
 if [ -f gizmo/subject.iso ]
 then
     call batch/Iso2Master.bat gizmo/subject.iso $2/subject
