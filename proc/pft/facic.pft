@@ -6,6 +6,6 @@
     ,'||',mfn,'|',
     ,if p(v131) then if size(v131)>0 then ,v131, else ,'0', fi, else '0' fi,'|',
     ,if p(v132) then if size(v132)>0 then ,v132, else ,'0', fi, else '0' fi,'|',
-	v36*4.4,/
+	v36*4.3,/
 	,fi,
 ,fi,
