@@ -474,9 +474,15 @@ press release do artigo
 					<xsl:attribute name="id">btn_submission</xsl:attribute>
 				</xsl:if>
 				<a href="{.}" target="{$t}">
-					<xsl:if test="$t != 'online_submission'">
+					<xsl:choose>
+					<xsl:when test="$t != 'online_submission'">
 						<xsl:value-of select="$label"/>
-					</xsl:if>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:attribute name="class"><xsl:value-of select="$interfaceLang"/>_button</xsl:attribute>
+					</xsl:otherwise>
+					
+					</xsl:choose>
 				</a>
 				<br/>
 			</li>
