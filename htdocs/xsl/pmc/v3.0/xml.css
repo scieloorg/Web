@@ -149,10 +149,12 @@ border-color: gray;
 .inline-formula {
     display: inline;
     max-height: 16px;
+    min-height: 16px;
 }
 .inline-formula-graphic {
     display: inline;
     max-height: 16px;
+    min-height: 16px;
 }
 
 .disp-formula {
@@ -176,35 +178,42 @@ border-color: gray;
 .disp-formula-graphic {
     padding: 25px;
     height: auto;
-    max-width: 100%;
-    max-height: 45px;
+    max-width: 80%;
+    min-height: 16px;
 }
 .graphic {
     padding: 25px;
     height: auto;
+    min-height: 16px;
     max-width: 100%;
-    max-height: 300px;
 }
 .inline-graphic {
     display: inline;
+    min-height: 16px;
     max-height: 16px;
 }
 .figure-group, .table-wrap-group {
-    max-width: 800px;
+    max-width: 100%;
+    height: auto;
+    width: auto;
     border-color: transparent;
     padding-top: 15px;
     padding-bottom: 15px;
 }
 
 .figure {
-    max-width: 800px;
+    max-width: 100%;
+    height: auto;
+    width: auto;
     border-color: transparent;
     padding-top: 5px;
     padding-bottom: 5px;
 }
 
 .table-wrap {
-    max-width: 800px;
+    max-width: 100%;
+    height: auto;
+    width: auto;
     border-color: transparent;
     padding-top: 5px;
     padding-bottom: 5px;
@@ -218,7 +227,7 @@ border-color: gray;
     padding-top: 20px;
 }
 .footnote {
-border-top: 1px solid;
+    border-top: 1px solid;
     padding-top: 10px;
     vertical-align: top;
     padding-bottom: 10px;
@@ -268,10 +277,27 @@ border-top: 1px solid;
     margin-top: 20px;
 }
 .product {
-    font-family: Book Antiqua;
-    font-size: 10pt;
-    padding: 10px 10px 10px 10px;
     margin: 5px 5px 5px 5px;
+    padding: 15px 15px 15px 15px;
     background-color: #DADFE5;
     width:60%;
+    height: 100%;
  }
+
+.product-text {
+    font-family: Book Antiqua;
+    font-size: 10pt;
+    background-color: #DADFE5;
+}
+
+.product-graphic {
+    height: 80%;
+    width: 10%;
+    float: left;
+    padding-right: 30px;
+    background-color: #DADFE5;
+}
+
+.bloco {
+    margin-top: 40px
+}
