@@ -106,10 +106,9 @@
                 max-height: 45px;
                 }
                 .graphic {
-                padding: 25px;
                 height: auto;
                 max-width: 100%;
-                max-height: 300px;
+                max-height: 100%;
                 }
                 .inline-graphic {
                 display: inline;
@@ -117,10 +116,21 @@
                 }
                 
                 .product {
+                margin: 5px 5px 5px 5px;
+                padding: 15px 15px 15px 15px;
+                background-color: #DADFE5;
+                }
+                
+                .product-text {
                 font-family: Book Antiqua;
                 font-size: 10pt;
-                padding: 10px 10px 10px 10px;
-                margin: 5px 5px 5px 5px;
+                background-color: #DADFE5;
+                }
+                
+                .product-graphic {
+                width: 10%;
+                float: left;
+                padding-right: 30px;
                 background-color: #DADFE5;
                 }
                 .disclaimer {
@@ -813,7 +823,7 @@
             </xsl:apply-templates>
         </strong>
     </xsl:template>
-   <xsl:template match="table | table//* " mode="HTML-TEXT">
+    <xsl:template match="table | table//* " mode="HTML-TEXT">
         <xsl:element name="{name()}">
                     <xsl:apply-templates select="@*|*|text()" mode="HTML-TEXT"/>
                 </xsl:element>
@@ -1015,7 +1025,11 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
             <xsl:attribute name="src"><xsl:value-of select="concat($IMAGE_PATH,'/')"/><xsl:apply-templates select="." mode="fix_img_extension"/></xsl:attribute>
         </img>
     </xsl:template>
-    
+    <xsl:template match="graphic" mode="HTML-TEXT">
+        <img class="graphic">
+            <xsl:attribute name="src"><xsl:value-of select="concat($IMAGE_PATH,'/')"/><xsl:apply-templates select="." mode="fix_img_extension"/></xsl:attribute>
+        </img>
+    </xsl:template>
     <xsl:template match="inline-formula/graphic" mode="HTML-TEXT">
         <img class="inline-formula-graphic">
             <xsl:attribute name="src"><xsl:value-of select="concat($IMAGE_PATH,'/')"/><xsl:apply-templates select="." mode="fix_img_extension"/></xsl:attribute>
@@ -1670,11 +1684,24 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
             <xsl:apply-templates select="person-group"/>. <xsl:apply-templates select="source"/>. <xsl:apply-templates select="year"/>. 
             <xsl:apply-templates select="publisher-name"/> (<xsl:apply-templates select="publisher-loc"/>). <xsl:apply-templates select="size"/>. </p>	
     </xsl:template>
-    <xsl:template match="article-meta//product[@product-type='book']">
-        <p class="product">
-            <xsl:apply-templates select="source"/>. <xsl:apply-templates select="person-group"/>. (<xsl:apply-templates select="year"/>). <xsl:apply-templates select="publisher-loc"/>: 
-            <xsl:apply-templates select="publisher-name"/>, <xsl:apply-templates select="year"/>, <xsl:apply-templates select="size"/>. <xsl:apply-templates select="isbn"/>		
-        </p>
+    <xsl:template match="product[@product-type='book']">
+        <div class="product">
+            <xsl:if test="inline-graphic or graphic">
+                <div><xsl:apply-templates select="inline-graphic | graphic"/></div>
+            </xsl:if>
+            <div class="product-text">
+                <xsl:apply-templates select="source"/>. <xsl:apply-templates select="person-group"/>. (<xsl:apply-templates select="year"/>). <xsl:apply-templates select="publisher-loc"/>: 
+                <xsl:apply-templates select="publisher-name"/>, <xsl:apply-templates select="year"/>, <xsl:apply-templates select="size"/>. <xsl:apply-templates select="isbn"/>		
+            </div>
+        </div>
+    </xsl:template>
+    <xsl:template match="product/inline-graphic | product/graphic">
+        <a target="_blank">
+            <xsl:attribute name="href"><xsl:value-of select="concat($IMAGE_PATH,'/')"/><xsl:apply-templates select="." mode="fix_img_extension"/></xsl:attribute>
+            <img class="product-graphic">
+                <xsl:attribute name="src"><xsl:value-of select="concat($IMAGE_PATH,'/')"/><xsl:apply-templates select="." mode="fix_img_extension"/></xsl:attribute>
+            </img>
+        </a>
     </xsl:template>
     <xsl:template match="article-meta//product/person-group">
         <xsl:apply-templates select="name"/>
@@ -1751,5 +1778,10 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
                 </xsl:call-template><xsl:value-of select="DOCTITLE"/>. <xsl:value-of select="ISSUE"/>
             </a>
         </p>
+    </xsl:template>
+    <xsl:template match="graphic" mode="HTML-TEXT">
+        <img class="graphic">
+            
+        </img>
     </xsl:template>
 </xsl:stylesheet>

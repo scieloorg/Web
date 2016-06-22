@@ -426,7 +426,7 @@
 	<field action="replace" tag="6126"><pft>if val(v3005)>0 then f(val(v6126)+val(v3005),1,0) fi</pft></field>
 
 	<!-- L -->
-	<field action="replace" tag="880"><pft>'S',v35,v65*0.4,s(f(10000+val(v36*4),5,0))*1.4,s(f(100000+val(v9121),6,0))*1.5</pft></field>
+	<field action="replace" tag="880"><pft>'S',v35,v65*0.4,s(f(10000+val(v36*4.3),5,0))*1.4,s(f(100000+val(v9121),6,0))*1.5</pft></field>
 
 	<field action="add" tag="8"><pft>'Internet^ihttp://',v4012,'/scielo.php?script=sci_pdf&pid='v880</pft></field>
 	<!--field action="add" tag="8"><pft>'Internet^ihttp://',v4012,'/scielo.php?script=sci_pdf&definition=l&pid='v880</pft></field-->
