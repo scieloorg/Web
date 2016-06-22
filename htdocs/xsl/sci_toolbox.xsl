@@ -497,7 +497,7 @@
     <div id="group">
 
       <!-- MY SCIELO INICIO -->
-      <xsl:if test="$show_login != 0">
+      <xsl:if test="$show_login = 1">
         <div id="toolBox">
           <h2 id="toolsSection">
             <xsl:value-of select="$translations/xslid[@id='sci_toolbox']/text[@find='my_scielo']"/>
