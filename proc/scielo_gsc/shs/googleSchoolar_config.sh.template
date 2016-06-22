@@ -1,7 +1,0 @@
-##################
-# variáveis com caminho para bases de dados utilizadas no processmento.
-##################
-export database_title="/var/www/scielo/bases/title/title"
-export database_article="/var/www/scielo/bases/artigo/artigo"
-export database_issue="/var/www/scielo/bases/issue/issue"
-export cisis_dir="/var/www/scielo/proc/cisis"
