@@ -106,10 +106,9 @@
                 max-height: 45px;
                 }
                 .graphic {
-                padding: 25px;
                 height: auto;
                 max-width: 100%;
-                max-height: 300px;
+                max-height: 100%;
                 }
                 .inline-graphic {
                 display: inline;
@@ -813,7 +812,7 @@
             </xsl:apply-templates>
         </strong>
     </xsl:template>
-   <xsl:template match="table | table//* " mode="HTML-TEXT">
+    <xsl:template match="table | table//* " mode="HTML-TEXT">
         <xsl:element name="{name()}">
                     <xsl:apply-templates select="@*|*|text()" mode="HTML-TEXT"/>
                 </xsl:element>
@@ -1015,7 +1014,11 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
             <xsl:attribute name="src"><xsl:value-of select="concat($IMAGE_PATH,'/')"/><xsl:apply-templates select="." mode="fix_img_extension"/></xsl:attribute>
         </img>
     </xsl:template>
-    
+    <xsl:template match="graphic" mode="HTML-TEXT">
+        <img class="graphic">
+            <xsl:attribute name="src"><xsl:value-of select="concat($IMAGE_PATH,'/')"/><xsl:apply-templates select="." mode="fix_img_extension"/></xsl:attribute>
+        </img>
+    </xsl:template>
     <xsl:template match="inline-formula/graphic" mode="HTML-TEXT">
         <img class="inline-formula-graphic">
             <xsl:attribute name="src"><xsl:value-of select="concat($IMAGE_PATH,'/')"/><xsl:apply-templates select="." mode="fix_img_extension"/></xsl:attribute>
@@ -1751,5 +1754,10 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
                 </xsl:call-template><xsl:value-of select="DOCTITLE"/>. <xsl:value-of select="ISSUE"/>
             </a>
         </p>
+    </xsl:template>
+    <xsl:template match="graphic" mode="HTML-TEXT">
+        <img class="graphic">
+            
+        </img>
     </xsl:template>
 </xsl:stylesheet>
