@@ -29,10 +29,11 @@ echo "</SCIMAGOLIST>" >> meuXML.xml
 # movendo arquivos para diretorio de bases
 #---------------------------------------------------------------#
 echo "MOVENDO PARA DIRETORIO DE BASES"
+mkdir -p $database_dir/scimago
 mv meuXML.xml $database_dir/scimago/scimago.xml
 echo "MOVENDO IMAGENS PARA htdocs/img/scimago"
 mkdir -p $scielo_dir/htdocs/img/scimago
-cp -r images/* $database_dir/scimago/images/
+mv images/* $scielo_dir/htdocs/img/scimago
 
 #---------------------------------------------------------------#
 # removendo arquivos temporarios.
