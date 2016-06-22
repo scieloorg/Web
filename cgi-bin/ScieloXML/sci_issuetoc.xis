@@ -175,6 +175,7 @@
           ref(['ARTIGO']val(v1003^m),@PROC_SPLIT_MST.PFT,v881)
       </pft>
   </field>
+  <field action="delete" tag="list">237</field>
   <field action="replace" tag="237" split="occ">
       <pft>
           ref(['ARTIGO']val(v1003^m),@PROC_SPLIT_MST.PFT,v237)
