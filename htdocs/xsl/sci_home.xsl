@@ -234,10 +234,16 @@
 						<a href="http://analytics.scielo.org/w/accesses?collection={$analytics_code}" target="_blank">
 							<font class="linkado" size="-1">
 								<xsl:value-of select="$translations/xslid[@id='sci_home']/text[@find='site_usage']"/>
-							</font>
+							</font> (Analytics)
 						</a>
 						<br/>
 					</xsl:if>
+					<a href="http://www.scielo.cl/estadisticas" target="_blank">
+						<font class="linkado" size="-1">
+							<xsl:value-of select="$translations/xslid[@id='sci_home']/text[@find='site_usage']"/>
+						</font> (datos Chile)
+					</a>
+					<br/>
 					<a href="http://analytics.scielo.org/w/publication/article?collection={$analytics_code}" target="_blank">
 						<font class="linkado" size="-1">
 							<xsl:value-of select="$translations/xslid[@id='sci_home']/text[@find='publishing_stats']"/>
