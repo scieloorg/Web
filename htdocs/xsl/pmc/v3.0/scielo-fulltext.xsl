@@ -782,7 +782,7 @@
 			<xsl:value-of select="."/>
 		</xsl:attribute>
 	</xsl:template>
-	<xsl:template match="table/*/tr | table/thead | table/thead/tr/th | table/tbody | table/tbody/tr/td//p">
+	<xsl:template match="table/*/tr | table/thead | table/thead/tr/th | table/tbody | table/tbody/tr/td//p | table//*[name()!='td']">
 		<xsl:element name="{name()}">
 			<xsl:apply-templates select="@* | * | text()"/>
 		</xsl:element>
