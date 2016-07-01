@@ -867,7 +867,7 @@
 	<xsl:template match="table//inline-graphic |inline-graphic">
 		<a target="_blank">
 			<xsl:apply-templates select="." mode="scift-attribute-href"/>
-			<img class="inline-graphic">
+			<img class="inline-graphic" onload="smaller(this);">
 				<xsl:apply-templates select="." mode="scift-attribute-src"/>
 			</img>
 		</a>
