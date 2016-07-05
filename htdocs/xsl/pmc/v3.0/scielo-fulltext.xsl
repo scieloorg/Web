@@ -8,6 +8,7 @@
 	
 	<xsl:variable name="use_original_aff" select="count($original//institution[@content-type='original'])&gt;0"/>
 	<xsl:variable name="affiliations" select="$original//aff"/>
+	<xsl:variable name="RESIZE"><xsl:if test="number($original//article-meta//pub-date[1]/year)&lt;2015">true</xsl:if></xsl:variable>
 	
 	<xsl:template match="article-meta/permissions | PERMISSIONS[@source]/permissions | body//*/permissions">
 		<xsl:apply-templates select="." mode="permissions-disclaimer"/>
@@ -867,7 +868,10 @@
 	<xsl:template match="table//inline-graphic |inline-graphic">
 		<a target="_blank">
 			<xsl:apply-templates select="." mode="scift-attribute-href"/>
-			<img class="inline-graphic" onload="smaller(this);">
+			<img class="inline-graphic">
+				<xsl:if test="$RESIZE='true'">
+					<xsl:attribute name="onload">smaller(this);</xsl:attribute>
+				</xsl:if>
 				<xsl:apply-templates select="." mode="scift-attribute-src"/>
 			</img>
 		</a>

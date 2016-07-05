@@ -5,6 +5,7 @@
     version="3.0">
     <xsl:variable name="translated"
         select="document(concat('../../xml/',$PAGE_LANG,'/translation.xml'))/translations"/>
+    <xsl:variable name="RESIZE"><xsl:if test="number($original//article-meta//pub-date[1]/year)&lt;2015">true</xsl:if></xsl:variable>
     
     <xsl:variable name="xref" select="//xref"></xsl:variable>
     <xsl:template match="*[@xlink:href] | *[@href]" mode="fix_img_extension">
@@ -1040,7 +1041,10 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
         </div>
     </xsl:template>
     <xsl:template match="table//inline-graphic|inline-graphic" mode="HTML-TEXT">
-        <img class="inline-graphic" onload="smaller(this)">
+        <img class="inline-graphic">
+            <xsl:if test="$RESIZE='true'">
+                <xsl:attribute name="onload">smaller(this);</xsl:attribute>
+            </xsl:if>
             <xsl:attribute name="src"><xsl:value-of select="concat($IMAGE_PATH,'/')"/><xsl:apply-templates select="." mode="fix_img_extension"/></xsl:attribute>
         </img>
     </xsl:template>
