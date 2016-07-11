@@ -3681,6 +3681,8 @@ fi
             <call name="RelatedDocument"><pft>v9880,if a(v9880) then v1^i fi,|^t|v1^t</pft></call>
         </loop>
     </do>
+    <list action="delete">now</list>
+
 	<field action="delete" tag="list">9880</field>
 
 </function>
