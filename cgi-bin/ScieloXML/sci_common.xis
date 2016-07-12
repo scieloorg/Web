@@ -3760,7 +3760,7 @@ fi
 	
     <do task="keyrange">
 		<parm name="db">ARTIGO</parm>
-		<parm name="from"><pft>'HR=',v4000^p</pft></parm>
+		<parm name="from"><pft>'HR=',v4000^p*0.14,'9'</pft></parm>
 		<parm name="to"><pft>'HR=',v4000^p*0.10</pft></parm>
 		<parm name="reverse">On</parm>
 
