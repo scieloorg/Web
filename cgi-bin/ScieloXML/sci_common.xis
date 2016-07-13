@@ -1767,7 +1767,7 @@
         			|<9999>|v9810|</9999>|/
         		</pft>
         	</proc>
-
+			
             <flow action="jump">
                 <pft>
                     if v9901^s : 'e' and v9902^s : 'e' then '' else 'NOUC1' fi
@@ -1778,10 +1778,12 @@
             
             <label>NOUC1</label>
             
+            <field action="replace" tag="9999" split="occ"><pft>mpu,replace(s(v9999^s,|,+|v9999^n),' ','+'),mpl</pft></field>
+            <field action="replace" tag="9999" split="occ"><pft>replace(v9999,'"','&quot;')</pft></field>
             <display>
                 <pft>
                     if p(v9810^s) or p(v9810^n) then
-			        '   <',v1111^b,v1111^c,' SEARCH="', mpu,replace(s(v9999^s,|,+|v9999^n),' ','+'),mpl,'">'/
+			        '   <',v1111^b,v1111^c,' SEARCH="',v9999,'">'/
 					if p(v1300) then
 						('<AFF xref="',v1300,'"/>'/)
 					fi
@@ -3679,6 +3681,8 @@ fi
             <call name="RelatedDocument"><pft>v9880,if a(v9880) then v1^i fi,|^t|v1^t</pft></call>
         </loop>
     </do>
+    <list action="delete">now</list>
+
 	<field action="delete" tag="list">9880</field>
 
 </function>
@@ -3756,7 +3760,7 @@ fi
 	
     <do task="keyrange">
 		<parm name="db">ARTIGO</parm>
-		<parm name="from"><pft>'HR=',v4000^p</pft></parm>
+		<parm name="from"><pft>'HR=',v4000^p*0.14,'9'</pft></parm>
 		<parm name="to"><pft>'HR=',v4000^p*0.10</pft></parm>
 		<parm name="reverse">On</parm>
 
