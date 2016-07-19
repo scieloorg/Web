@@ -203,9 +203,7 @@
 		<text find="original_version_published_in">versión original publicada en</text>
 		<text find="fulltext_only_in_pdf">texto completo solamente en formato PDF</text>
 		<text find="this_article_has_been_corrected">Este artículo fue corregido</text>
-		<text find="this_corrects">Corrige el artículo</text>
-		<text find="this_article_has_been_retracted">Este artículo fue retractado</text>
-		<text find="this_retracts">Retracta el artículo</text>
+		<text find="this_corrects">Corrige el artículo: </text>
 	</xslid>
 	<xslid id="sci_abstract">
 		<text find="abstract">Resumen</text>

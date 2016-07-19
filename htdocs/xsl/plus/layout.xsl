@@ -5,6 +5,7 @@
     version="3.0">
     <xsl:variable name="translated"
         select="document(concat('../../xml/',$PAGE_LANG,'/translation.xml'))/translations"/>
+    <xsl:variable name="RESIZE"><xsl:if test="number($original//article-meta//pub-date[1]/year)&lt;2015">true</xsl:if></xsl:variable>
     
     <xsl:variable name="xref" select="//xref"></xsl:variable>
     <xsl:template match="*[@xlink:href] | *[@href]" mode="fix_img_extension">
@@ -102,8 +103,7 @@
                 .disp-formula-graphic {
                 padding: 25px;
                 height: auto;
-                max-width: 100%;
-                max-height: 45px;
+                max-width: 80%;
                 }
                 .graphic {
                 height: auto;
@@ -112,25 +112,15 @@
                 }
                 .inline-graphic {
                 display: inline;
-                max-height: 16px;
+                min-height: 20px;
+                max-width: 80%;
                 }
                 
                 .product {
-                margin: 5px 5px 5px 5px;
-                padding: 15px 15px 15px 15px;
-                background-color: #DADFE5;
-                }
-                
-                .product-text {
                 font-family: Book Antiqua;
                 font-size: 10pt;
-                background-color: #DADFE5;
-                }
-                
-                .product-graphic {
-                width: 10%;
-                float: left;
-                padding-right: 30px;
+                padding: 10px 10px 10px 10px;
+                margin: 5px 5px 5px 5px;
                 background-color: #DADFE5;
                 }
                 .disclaimer {
@@ -146,12 +136,36 @@
                 padding-left: 10px;
                 line-height: normal;
                 }
+                .inline-graphic-limited {
+                display: inline;
+                min-height: 20px;
+                max-height: 60px;
+                max-width: 80%;
+                }
+                .inline-graphic-more-limited {
+                display: inline;
+                min-height: 20px;
+                max-height: 20px;
+                max-width: 80%;
+                
+                }
             </style>
             <xsl:if test=".//math or .//mml:math">
                 <script type="text/javascript"
                     src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
                 </script>
             </xsl:if>
+            <script language="javascript">
+                function smaller(elem_img) {
+                    if ((elem_img.height &gt; elem_img.width) &amp;&amp; (elem_img.height &gt; 100)) {
+                        elem_img.className="inline-graphic-more-limited";
+                    } else if (elem_img.width &gt; 300) {
+                
+                    } else if ((elem_img.height &gt; elem_img.width) &amp;&amp; (elem_img.height &gt; 70)) {
+                        elem_img.className="inline-graphic-limited";
+                    } 
+                }
+            </script>
         </head>
     </xsl:template>
     <xsl:template match="*" mode="HTML-BODY">
@@ -1017,6 +1031,9 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
     </xsl:template>
     <xsl:template match="table//inline-graphic|inline-graphic" mode="HTML-TEXT">
         <img class="inline-graphic">
+            <xsl:if test="$RESIZE='true'">
+                <xsl:attribute name="onload">smaller(this);</xsl:attribute>
+            </xsl:if>
             <xsl:attribute name="src"><xsl:value-of select="concat($IMAGE_PATH,'/')"/><xsl:apply-templates select="." mode="fix_img_extension"/></xsl:attribute>
         </img>
     </xsl:template>
@@ -1684,24 +1701,11 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
             <xsl:apply-templates select="person-group"/>. <xsl:apply-templates select="source"/>. <xsl:apply-templates select="year"/>. 
             <xsl:apply-templates select="publisher-name"/> (<xsl:apply-templates select="publisher-loc"/>). <xsl:apply-templates select="size"/>. </p>	
     </xsl:template>
-    <xsl:template match="product[@product-type='book']">
-        <div class="product">
-            <xsl:if test="inline-graphic or graphic">
-                <div><xsl:apply-templates select="inline-graphic | graphic"/></div>
-            </xsl:if>
-            <div class="product-text">
-                <xsl:apply-templates select="source"/>. <xsl:apply-templates select="person-group"/>. (<xsl:apply-templates select="year"/>). <xsl:apply-templates select="publisher-loc"/>: 
-                <xsl:apply-templates select="publisher-name"/>, <xsl:apply-templates select="year"/>, <xsl:apply-templates select="size"/>. <xsl:apply-templates select="isbn"/>		
-            </div>
-        </div>
-    </xsl:template>
-    <xsl:template match="product/inline-graphic | product/graphic">
-        <a target="_blank">
-            <xsl:attribute name="href"><xsl:value-of select="concat($IMAGE_PATH,'/')"/><xsl:apply-templates select="." mode="fix_img_extension"/></xsl:attribute>
-            <img class="product-graphic">
-                <xsl:attribute name="src"><xsl:value-of select="concat($IMAGE_PATH,'/')"/><xsl:apply-templates select="." mode="fix_img_extension"/></xsl:attribute>
-            </img>
-        </a>
+    <xsl:template match="article-meta//product[@product-type='book']">
+        <p class="product">
+            <xsl:apply-templates select="source"/>. <xsl:apply-templates select="person-group"/>. (<xsl:apply-templates select="year"/>). <xsl:apply-templates select="publisher-loc"/>: 
+            <xsl:apply-templates select="publisher-name"/>, <xsl:apply-templates select="year"/>, <xsl:apply-templates select="size"/>. <xsl:apply-templates select="isbn"/>		
+        </p>
     </xsl:template>
     <xsl:template match="article-meta//product/person-group">
         <xsl:apply-templates select="name"/>
