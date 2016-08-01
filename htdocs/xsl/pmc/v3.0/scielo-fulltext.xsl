@@ -1622,6 +1622,16 @@
 			</div>
 		</div>
 	</xsl:template>
+	<xsl:template match="product[@product-type='article']">
+		<div class="product">
+			<div class="product-text">
+				<xsl:apply-templates select="person-group"/>, "<xsl:apply-templates select="article-title"/>", <xsl:apply-templates select="source"/>, <xsl:if test="volume">v. <xsl:value-of select="volume"/>, </xsl:if>
+				<xsl:if test="issue and substring(translate(issue,'S','s'),1,1)!='s'">n. <xsl:value-of select="issue"/>, </xsl:if>
+				<xsl:if test="fpage or lpage">p. <xsl:value-of select="fpage"/><xsl:if test="lpage and fpage">-</xsl:if><xsl:if test="lpage"><xsl:value-of select="lpage"/></xsl:if>, </xsl:if>
+				<xsl:apply-templates select="year"/>.		
+			</div>
+		</div>
+	</xsl:template>
 	<xsl:template match="product/inline-graphic | product/graphic">
 		<a target="_blank">
 			<xsl:apply-templates select="." mode="scift-attribute-href"/>
