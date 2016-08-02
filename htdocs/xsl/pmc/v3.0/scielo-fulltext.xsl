@@ -8,6 +8,7 @@
 	
 	<xsl:variable name="use_original_aff" select="count($original//institution[@content-type='original'])&gt;0"/>
 	<xsl:variable name="affiliations" select="$original//aff"/>
+	<xsl:variable name="RESIZE"><xsl:if test="number($original//article-meta//pub-date[1]/year)&lt;2015">true</xsl:if></xsl:variable>
 	
 	<xsl:template match="article-meta/permissions | PERMISSIONS[@source]/permissions | body//*/permissions">
 		<xsl:apply-templates select="." mode="permissions-disclaimer"/>
@@ -782,7 +783,7 @@
 			<xsl:value-of select="."/>
 		</xsl:attribute>
 	</xsl:template>
-	<xsl:template match="table/*/tr | table/thead | table/thead/tr/th | table/tbody | table/tbody/tr/td//p">
+	<xsl:template match="table/*/tr | table/thead | table/thead/tr/th | table/tbody | table/tbody/tr/td//p | table//*[name()!='td']">
 		<xsl:element name="{name()}">
 			<xsl:apply-templates select="@* | * | text()"/>
 		</xsl:element>
@@ -868,6 +869,9 @@
 		<a target="_blank">
 			<xsl:apply-templates select="." mode="scift-attribute-href"/>
 			<img class="inline-graphic">
+				<xsl:if test="$RESIZE='true'">
+					<xsl:attribute name="onload">smaller(this);</xsl:attribute>
+				</xsl:if>
 				<xsl:apply-templates select="." mode="scift-attribute-src"/>
 			</img>
 		</a>
@@ -1615,6 +1619,16 @@
 			<div class="product-text">
 				<xsl:apply-templates select="source"/>. <xsl:apply-templates select="person-group"/>. (<xsl:apply-templates select="year"/>). <xsl:apply-templates select="publisher-loc"/>: 
 				<xsl:apply-templates select="publisher-name"/>, <xsl:apply-templates select="year"/>, <xsl:apply-templates select="size"/>. <xsl:apply-templates select="isbn"/>		
+			</div>
+		</div>
+	</xsl:template>
+	<xsl:template match="product[@product-type='article']">
+		<div class="product">
+			<div class="product-text">
+				<xsl:apply-templates select="person-group"/>, "<xsl:apply-templates select="article-title"/>", <xsl:apply-templates select="source"/>, <xsl:if test="volume">v. <xsl:value-of select="volume"/>, </xsl:if>
+				<xsl:if test="issue and substring(translate(issue,'S','s'),1,1)!='s'">n. <xsl:value-of select="issue"/>, </xsl:if>
+				<xsl:if test="fpage or lpage">p. <xsl:value-of select="fpage"/><xsl:if test="lpage and fpage">-</xsl:if><xsl:if test="lpage"><xsl:value-of select="lpage"/></xsl:if>, </xsl:if>
+				<xsl:apply-templates select="year"/>.		
 			</div>
 		</div>
 	</xsl:template>
