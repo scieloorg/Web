@@ -187,10 +187,24 @@ border-color: gray;
     min-height: 16px;
     max-width: 100%;
 }
+
 .inline-graphic {
     display: inline;
-    min-height: 16px;
-    max-height: 16px;
+    min-height: 20px;
+    max-width: 80%;
+}
+.inline-graphic-limited {
+    display: inline;
+    min-height: 20px;
+    max-height: 60px;
+    max-width: 80%;
+}
+.inline-graphic-more-limited {
+    display: inline;
+    min-height: 20px;
+    max-height: 20px;
+    max-width: 80%;
+
 }
 .figure-group, .table-wrap-group {
     max-width: 100%;
