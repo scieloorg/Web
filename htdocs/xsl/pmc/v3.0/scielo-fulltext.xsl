@@ -1628,7 +1628,10 @@
 				<xsl:apply-templates select="person-group"/>, "<xsl:apply-templates select="article-title"/>", <xsl:apply-templates select="source"/>, <xsl:if test="volume">v. <xsl:value-of select="volume"/>, </xsl:if>
 				<xsl:if test="issue and substring(translate(issue,'S','s'),1,1)!='s'">n. <xsl:value-of select="issue"/>, </xsl:if>
 				<xsl:if test="fpage or lpage">p. <xsl:value-of select="fpage"/><xsl:if test="lpage and fpage">-</xsl:if><xsl:if test="lpage"><xsl:value-of select="lpage"/></xsl:if>, </xsl:if>
-				<xsl:apply-templates select="year"/>.		
+				<xsl:if test="month"><xsl:apply-templates select="month"/><xsl:choose>
+					<xsl:when test="contains('0123456789',substring(month,1,1))">/</xsl:when>
+					<xsl:otherwise>&#160;</xsl:otherwise>
+				</xsl:choose></xsl:if><xsl:apply-templates select="year"/>.		
 			</div>
 		</div>
 	</xsl:template>
