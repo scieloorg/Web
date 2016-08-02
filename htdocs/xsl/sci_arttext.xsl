@@ -429,6 +429,17 @@
 					<script type="text/javascript"
 						src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 					</script></xsl:if>
+				<script language="javascript">
+					function smaller(elem_img) {
+						if ((elem_img.height &gt; elem_img.width) &amp;&amp; (elem_img.height &gt; 100)) {
+							elem_img.className="inline-graphic-more-limited";
+						} else if (elem_img.width &gt; 300) {
+				
+						} else if ((elem_img.height &gt; elem_img.width) &amp;&amp; (elem_img.height &gt; 70)) {
+							elem_img.className="inline-graphic-limited";
+						} 
+					}
+				</script>
 			</xsl:when>
 			<xsl:otherwise>
 				<script language="javascript" src="applications/scielo-org/js/jquery-1.4.2.min.js"/>
