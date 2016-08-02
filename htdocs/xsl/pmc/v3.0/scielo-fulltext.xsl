@@ -8,6 +8,7 @@
 	
 	<xsl:variable name="use_original_aff" select="count($original//institution[@content-type='original'])&gt;0"/>
 	<xsl:variable name="affiliations" select="$original//aff"/>
+	<xsl:variable name="RESIZE"><xsl:if test="number($original//article-meta//pub-date[1]/year)&lt;2015">true</xsl:if></xsl:variable>
 	
 	<xsl:template match="article-meta/permissions | PERMISSIONS[@source]/permissions | body//*/permissions">
 		<xsl:apply-templates select="." mode="permissions-disclaimer"/>
@@ -19,16 +20,7 @@
 			<xsl:value-of select="name()"/>
 		</xsl:if>
 	</xsl:template>
-	<xsl:template match="italic">
-		<em>
-			<xsl:apply-templates/>
-		</em>
-	</xsl:template>
-	<xsl:template match="bold">
-		<strong>
-			<xsl:apply-templates/>
-		</strong>
-	</xsl:template>
+	
 	<xsl:template match="sup|sub">
 		<xsl:element name="{name()}">
 			<xsl:apply-templates/>
@@ -97,7 +89,7 @@
 		<a name="{.}"/>
 	</xsl:template>
 
-	<xsl:template match="sub-article | response" mode="MORE">
+	<xsl:template match="sub-article[@article-type!='translation'] | response" mode="MORE">
 		<hr class="part-rule"/>
 
 		<!-- Generates a series of (flattened) divs for contents of any
@@ -118,7 +110,7 @@
 				<xsl:when test="back | $loose-footnotes">
 					<xsl:apply-templates select="back"/>
 				</xsl:when>
-				<xsl:when test="name()='sub-article' and not(back) and $original/back">
+				<!-- xsl:when test="name()='sub-article' and not(back) and $original/back">
 					<div id="{$this-article}-back" class="back">
 						<xsl:apply-templates select="$original/back"/>
 					</div>
@@ -127,6 +119,12 @@
 					<div id="{$this-article}-back" class="back">
 						<xsl:apply-templates select="$original/response/back"/>
 					</div>
+				</xsl:when -->
+				<xsl:when test="name()='sub-article' and not(back) and $original/back">
+					
+				</xsl:when>
+				<xsl:when test="name()='response' and not(back) and $original/response/back">
+					
 				</xsl:when>
 			</xsl:choose>
 		</div>
@@ -785,17 +783,18 @@
 			<xsl:value-of select="."/>
 		</xsl:attribute>
 	</xsl:template>
-	<xsl:template match="table//*">
+	<xsl:template match="table/*/tr | table/thead | table/thead/tr/th | table/tbody | table/tbody/tr/td//p | table//*[name()!='td']">
 		<xsl:element name="{name()}">
-			<xsl:if test=" name() = 'td' and $version='xml'">
-				<xsl:attribute name="class">td</xsl:attribute>
-			</xsl:if>
-			
 			<xsl:apply-templates select="@* | * | text()"/>
 		</xsl:element>
 	</xsl:template>
-	<xsl:template match="table//break"><br/>
+	<xsl:template match="table/tbody/tr/td">
+		<xsl:element name="{name()}">
+			<xsl:attribute name="class">td</xsl:attribute>
+			<xsl:apply-templates select="@* | * | text()"/>
+		</xsl:element>
 	</xsl:template>
+	
 	<xsl:template match="table//xref">
 		<xsl:if test="@ref-type='fn'">
 			<a name="back_{@rid}"/>
@@ -864,19 +863,15 @@
 			</xsl:when>
 		</xsl:choose>
 	</xsl:template>
-	<xsl:template match="graphic">
-		<a target="_blank">
-			<xsl:apply-templates select="." mode="scift-attribute-href"/>
-			<img class="graphic">
-				<xsl:apply-templates select="." mode="scift-attribute-src"/>
-			</img>
-		</a>
-	</xsl:template>
+	
 
 	<xsl:template match="table//inline-graphic |inline-graphic">
 		<a target="_blank">
 			<xsl:apply-templates select="." mode="scift-attribute-href"/>
 			<img class="inline-graphic">
+				<xsl:if test="$RESIZE='true'">
+					<xsl:attribute name="onload">smaller(this);</xsl:attribute>
+				</xsl:if>
 				<xsl:apply-templates select="." mode="scift-attribute-src"/>
 			</img>
 		</a>
@@ -993,8 +988,8 @@
 	</xsl:template>
 	
 	<xsl:template match="ref">
-		<p class="ref" onclick="window.history.back();">
-			<a name="{@id}"/>
+		<p class="ref">
+			<a name="{@id}" onclick="window.history.back();"> </a>
 			<xsl:choose>
 				<xsl:when test="mixed-citation[*]">
 					<xsl:apply-templates select="mixed-citation[*]"/>
@@ -1009,12 +1004,11 @@
 				<xsl:otherwise><xsl:comment>_missing mixed-citation _</xsl:comment>
 				</xsl:otherwise>
 			</xsl:choose>
-			<xsl:variable name="aref">000000<xsl:apply-templates select="."
-					mode="scift-get_position"/></xsl:variable>
-			<xsl:variable name="ref"><xsl:value-of
-					select="substring($aref, string-length($aref) - 5)"/></xsl:variable>
-			<xsl:variable name="pid"><xsl:value-of select="$PID"/><xsl:value-of
-					select="substring($ref,2)"/></xsl:variable> [&#160;<a href="javascript:void(0);"
+			<xsl:variable name="aref">000000<xsl:value-of select="position()"/></xsl:variable>
+			<xsl:variable name="ref"><xsl:value-of select="substring($aref, string-length($aref) - 4)"/></xsl:variable>
+			<xsl:variable name="pid"><xsl:value-of select="$PID"/><xsl:value-of select="$ref"/></xsl:variable>
+			
+			[&#160;<a href="javascript:void(0);"
 				onclick="javascript: window.open('/scielo.php?script=sci_nlinks&amp;pid={$pid}&amp;lng=en','','width=640,height=500,resizable=yes,scrollbars=1,menubar=yes,');"
 				>Links</a>&#160;] </p>
 	</xsl:template>
@@ -1522,9 +1516,20 @@
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
-
-	<xsl:template match="mml:math|math">
-		<xsl:copy-of select="."/>
+	
+	<xsl:template match="mml:math//text()|math//text()"><xsl:value-of select="."/>
+	</xsl:template>
+	
+	<xsl:template match="mml:math/@*|math/@*|mml:math//*/@*|math//*/@*">
+		<xsl:attribute name="{name()}">
+			<xsl:value-of select="."/>
+		</xsl:attribute>
+	</xsl:template>
+	
+	<xsl:template match="mml:math|math|mml:math//*|math//*">
+		<xsl:element name="{name()}">
+			<xsl:apply-templates select="@*|*|text()"></xsl:apply-templates>
+		</xsl:element>
 	</xsl:template>
 	
 	<xsl:template match="app-group">
@@ -1607,10 +1612,33 @@
 		<xsl:apply-templates select="publisher-name"/> (<xsl:apply-templates select="publisher-loc"/>). <xsl:apply-templates select="size"/>. </p>	
 	</xsl:template>
 	<xsl:template match="product[@product-type='book']">
-		<p class="product">
-		<xsl:apply-templates select="source"/>. <xsl:apply-templates select="person-group"/>. (<xsl:apply-templates select="year"/>). <xsl:apply-templates select="publisher-loc"/>: 
-		<xsl:apply-templates select="publisher-name"/>, <xsl:apply-templates select="year"/>, <xsl:apply-templates select="size"/>. <xsl:apply-templates select="isbn"/>		
-		</p>
+		<div class="product">
+			<xsl:if test="inline-graphic or graphic">
+				<div><xsl:apply-templates select="inline-graphic | graphic"/></div>
+			</xsl:if>
+			<div class="product-text">
+				<xsl:apply-templates select="source"/>. <xsl:apply-templates select="person-group"/>. (<xsl:apply-templates select="year"/>). <xsl:apply-templates select="publisher-loc"/>: 
+				<xsl:apply-templates select="publisher-name"/>, <xsl:apply-templates select="year"/>, <xsl:apply-templates select="size"/>. <xsl:apply-templates select="isbn"/>		
+			</div>
+		</div>
+	</xsl:template>
+	<xsl:template match="product[@product-type='article']">
+		<div class="product">
+			<div class="product-text">
+				<xsl:apply-templates select="person-group"/>, "<xsl:apply-templates select="article-title"/>", <xsl:apply-templates select="source"/>, <xsl:if test="volume">v. <xsl:value-of select="volume"/>, </xsl:if>
+				<xsl:if test="issue and substring(translate(issue,'S','s'),1,1)!='s'">n. <xsl:value-of select="issue"/>, </xsl:if>
+				<xsl:if test="fpage or lpage">p. <xsl:value-of select="fpage"/><xsl:if test="lpage and fpage">-</xsl:if><xsl:if test="lpage"><xsl:value-of select="lpage"/></xsl:if>, </xsl:if>
+				<xsl:apply-templates select="year"/>.		
+			</div>
+		</div>
+	</xsl:template>
+	<xsl:template match="product/inline-graphic | product/graphic">
+		<a target="_blank">
+			<xsl:apply-templates select="." mode="scift-attribute-href"/>
+			<img class="product-graphic">
+				<xsl:apply-templates select="." mode="scift-attribute-src"/>
+			</img>
+		</a>
 	</xsl:template>
 	<xsl:template match="product/person-group">
 		<xsl:apply-templates select="name"/>
@@ -1642,7 +1670,7 @@
 	</xsl:template>
 	
 	<xsl:template match="list-item[label and p]">
-		<xsl:apply-templates select="p"/>
+		<xsl:apply-templates select="p | def-list | list"/>
 	</xsl:template>
 	
 	<xsl:template match="list-item[label]/p">
@@ -1660,6 +1688,37 @@
 	</xsl:template>
 	<xsl:template match="table-wrap | table-wrap//*[permissions]" mode="object-properties">
 		<xsl:apply-templates select="permissions"/>
+	</xsl:template>
+	<xsl:template match="underline | table//underline">
+		<u>
+			<xsl:apply-templates/>
+		</u>
+	</xsl:template>
+	<xsl:template match="italic | table//italic">
+		<em>
+			<xsl:apply-templates/>
+		</em>
+	</xsl:template>
+	<xsl:template match="bold | table//bold">
+		<strong>
+			<xsl:apply-templates/>
+		</strong>
+	</xsl:template>
+	<xsl:template match="break | table//break">
+		<br/>
+	</xsl:template>
+	<xsl:template match="glossary">
+		<div class="bloco">
+			<xsl:apply-templates/>
+		</div>
+	</xsl:template>
+	<xsl:template match="graphic | td/graphic">
+		<a target="_blank">
+			<xsl:apply-templates select="." mode="scift-attribute-href"/>
+			<img class="graphic">
+				<xsl:apply-templates select="." mode="scift-attribute-src"/>
+			</img>
+		</a>
 	</xsl:template>
 	
 </xsl:stylesheet>

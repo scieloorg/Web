@@ -1,4 +1,12 @@
-v5.36 (em desenvolvimento)
+v5.37 (em desenvolvimento)
+
+v5.36.2
+Correção de bugs relacionados a versão de CISIS e linguagem de formato para geração de PID's.
+
+v5.36.1
+Ajustes em documentação de instalação e atualização do site SciELO
+
+v5.36
 Ajustes do OAI-PMH metadataPrefix oai_dc (#164)
 Retorno de mensagem de erro 404 quando um documento não é encontrado na base do SciELO
 Inclusão de configuração do Piwik (apenas para SciELO BR)
@@ -11,6 +19,9 @@ Atualização norma APA em como citar
 Corrige palavras (trocar "deste periódico" para "deste site") no texto de licença da home do site 
 Corrige apresentação da citação do "product" em artigos de revisão 
 Inibe apresentação de artigo quando data epub está no futuro
+Mudanças em IssueToc para maximizar indexação do Google Scholar
+Limpeza em arquivo de configuração scielo.def.php
+Vínculo com ferramenta analytics.scielo.org
 
 v5.35
 Inclusão de atributo setSampleRate para definir proporção de pageviews considerada para registro de logs no Google.
