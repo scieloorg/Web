@@ -418,24 +418,22 @@ press release do artigo
                         </li>
 
                         <!-- monta o grafico scimago -->
-                        
-                        <!--xsl:variable name="graphMago" select="document('file:///../../bases/scimago/scimago.xml')/SCIMAGOLIST/title[@ISSN = $ISSN_AS_ID]/@SCIMAGO_ID"/-->
                         <xsl:variable name="graphMago" select="document('../../bases/scimago/scimago.xml')/SCIMAGOLIST/title[@ISSN = $ISSN_AS_ID]/@SCIMAGO_ID"/>
                         <xsl:if test="$show_scimago!=0 and normalize-space($scimago_status) = normalize-space('online')">
                             <xsl:if test="$graphMago">
-                                <li>
+                                <li> 
                                     <strong>
                                         <a>
-                                            <xsl:attribute name="href">http://www.scimagojr.com/journalsearch.php?q=<xsl:value-of select="$ISSN_AS_ID"/>&amp;tip=iss&amp;exact=yes></xsl:attribute>
+                                            <xsl:attribute name="href">http://www.scimagojr.com/journalsearch.php?q=<xsl:value-of select="$graphMago"/>&amp;tip=sid&amp;clean=0</xsl:attribute>
                                             <xsl:attribute name="target">_blank</xsl:attribute>
                                             Scimago    
                                         </a>
                                     </strong>
                                     <a>
-                                        <xsl:attribute name="href">http://www.scimagojr.com/journalsearch.php?q=<xsl:value-of select="$ISSN_AS_ID"/>&amp;tip=iss&amp;exact=yes></xsl:attribute>
+                                        <xsl:attribute name="href">http://www.scimagojr.com/journalsearch.php?q=<xsl:value-of select="$graphMago"/>&amp;tip=sid&amp;clean=0</xsl:attribute>
                                         <xsl:attribute name="target">_blank</xsl:attribute>
                                         <img>
-                                            <xsl:attribute name="src">/img/scimago/<xsl:value-of select="$ISSN_AS_ID"/>.gif</xsl:attribute>
+                                            <xsl:attribute name="src">http://www.scimagojr.com/journal_img.php?id=<xsl:value-of select="$graphMago"/></xsl:attribute>
                                             <xsl:attribute name="alt"><xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='scimago_journal_country_rank']"/></xsl:attribute>
                                             <xsl:attribute name="border">0</xsl:attribute>
                                             <xsl:attribute name="width">185</xsl:attribute>
