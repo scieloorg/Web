@@ -22,78 +22,51 @@
 
 
 	// XML que tem as informações se determinado artigo tem referência no Medline, Lilacs, etc.
-	$req = "http://" . $applServer . "/cgi-bin/wxis.exe/?IsisScript=ScieloXML/sci_reflinks.xis&def=scielo.def.php&lng=".$lang."&pid=" . $refPid . "";
-	$xml_reflinks = file_get_contents($req);
-
-	if($_REQUEST['debug1'] == 'on')
-	{
-		echo '<!-- ' . $req . ' -->' . "\n";
-		die($xml_reflinks);
-	}
+	$xml2 = "http://" . $applServer . "/cgi-bin/wxis.exe/?IsisScript=ScieloXML/sci_reflinks.xis&def=scielo.def.php&lng=".$lang."&pid=" . $refPid . "";
+	$xml2 = file_get_contents($xml2);
 
 	if (! $_REQUEST['refid']){
 		// XML que tem o Título completo do artigo
-		$req = "http://" . $applServer . "/cgi-bin/wxis.exe/?IsisScript=ScieloXML/sci_references.xis&database=artigo&gizmo=GIZMO_XML_REF&search=rp=" . $pid . "$";
-		$xml_references = file_get_contents($req);
-		if($_REQUEST['debug2'] == 'on')
-		{
-			echo '<!-- ' . $req . ' -->' . "\n";
-			die($xml_references);
-		}
+		$xml1 = "http://" . $applServer . "/cgi-bin/wxis.exe/?IsisScript=ScieloXML/sci_references.xis&database=artigo&gizmo=GIZMO_XML_REF&search=rp=" . $pid . "$";
+		$xml1 = file_get_contents($xml1);
 
 		// XML da primeira transformação para conseguirmos o titulo completo
 		//Adicionado teg <service_log> 23/10/2007
-		$xml_article_title = '<?xml version="1.0" encoding="ISO-8859-1"?>';
-		$xml_article_title .='<root>';
-		$xml_article_title .='<vars><refId>'.number_format(substr($refPid, 23)).'</refId><applserver>'. $applServer .'</applserver><lang>'.$lang.'</lang></vars>';
-		$xml_article_title .= str_replace('<?xml version="1.0" encoding="ISO-8859-1"?>','',$xml_references);
-		$xml_article_title .='</root>';
-		if($_REQUEST['debug3'] == 'on')
+		$xml = '<?xml version="1.0" encoding="ISO-8859-1"?>';
+		$xml .='<root>';
+		$xml .='<vars><refId>'.number_format(substr($refPid, 23, 27),0,"","").'</refId><applserver>'. $applServer .'</applserver><lang>'.$lang.'</lang></vars>';
+		$xml .= str_replace('<?xml version="1.0" encoding="ISO-8859-1"?>','',$xml1);
+		$xml .='</root>';
+		if($_REQUEST['debug1'] == 'on')
 		{
-			die($xml_article_title);
+			die($xml);
 		}
 		$xsl = $pathHtdocs."/xsl/getReferencebyId.xsl";
 		$transformer = new XSLTransformer();
 
 		//die("socket = true");
 		$transformer->setXslBaseUri(dirname(__FILE__));
-		$transformer->setXml($xml_article_title);
+		$transformer->setXml($xml);
 		$transformer->setXslFile($xsl);
 		$transformer->transform();
-		$fullTitle = $transformer->getOutput();
-
-		if (strpos($fullTitle, '<!--transformed by') > 0) {
-			$fullTitle = substr($fullTitle, 0, strpos($fullTitle, '<!--transformed by'));
-		}
+		$output = $transformer->getOutput();
 		// Pegamos o título completo da referência do artigo
+		$fullTitle = $output;
 
 		if($transformer->transformedBy == "PHP"){
 			//PHP
 			$fullTitle = utf8_decode($fullTitle);
 		}
-		if($_REQUEST['debug4'] == 'on')
-		{
-			echo '<!-- fullTitle -->' . "\n";
-			die($fullTitle);
-		}
 	}
 
 	// XML Final que contem os dados que precisamos do XML1 e XML2
 	$xmlFinal = '<?xml version="1.0" encoding="ISO-8859-1"?>';
+	$xmlFinal .= substr($xml2, strpos($xml2, "<root>"), strpos($xml2, "<ref_TITLE>") - strpos($xml2, "<root>")).'<vars><refid>'.$_REQUEST['refid'].'</refid><htdocs>'.$pathHtdocs.'</htdocs><service_log>'.$flagLog.'</service_log></vars>';
+	$xmlFinal .= " <ref_TITLE><![CDATA[".$fullTitle."]]></ref_TITLE>";
+	$xmlFinal .= substr($xml2, strpos($xml2, "<TITLE>"));
 
-	$pos_root = strpos($xml_reflinks, '<root>');
-	$pos_reftitle = strpos($xml_reflinks, '<ref_TITLE>');
-
-	$xmlFinal .= substr($xml_reflinks, $pos_root, $pos_reftitle - $pos_root);
-	$xmlFinal .= '<vars><refid>'.$_REQUEST['refid'].'</refid>';
-	$xmlFinal .= '<htdocs>'.$pathHtdocs.'</htdocs>';
-	$xmlFinal .= '<service_log>'.$flagLog.'</service_log></vars>';
-	$xmlFinal .= ' <ref_TITLE><![CDATA['.$fullTitle.']]></ref_TITLE>';
-	$xmlFinal .= substr($xml_reflinks, strpos($xml_reflinks, '<TITLE>'));
-
-	if($_REQUEST['debug5'] == 'on')
+	if($_REQUEST['debug2'] == 'on')
 	{
-		echo '<!-- xmlFinal -->' . "\n";
 		die($xmlFinal);
 	}
 
@@ -111,11 +84,6 @@
 	if($transformer->transformedBy == "PHP"){
 		//PHP
 		$output = utf8_decode($output);
-	}
-	if($_REQUEST['debug6'] == 'on')
-	{
-		echo '<!-- debug6 -->' . "\n";
-		die($output);
 	}
 
 	if($transformerFinal->getError())

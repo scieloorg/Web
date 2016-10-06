@@ -16,7 +16,7 @@
 10 0 mpl,if v706='h' and v10>'' then ('AU=',v10^s|, |,v10^n/) fi,
 11 0 mpl,if v706='c' then 'MDL=',v880,'=',v701/, fi,
 12 0 mpl,if v706='h' and v11>'' then ('AU=',v11^*|, |,v11^d/) fi,
-13 0 mpl,if v706='i' then if p(v41) then 'P' else 'Y' fi,ref(mfn+1,v880*1.17)/,if v32='ahead' or v32='review' then v32*0.1,ref(mfn+1,v880*1.17)/, fi, fi
+13 0 mpl,if v706='i' then if p(v41) then 'P' else 'Y' fi,if ref(mfn+1,v880)<>'' then ref(mfn+1,v880*1.17) else v35,v65*0.4,s(f(val(v36*4.3)+10000,2,0))*1.4 fi/,if v32='ahead' or v32='review' then v32*0.1,v35,v65*0.4,s(f(val(v36*4.3)+10000,2,0))*1.4/, fi, fi
 14 0 mpl,if v706='h' then 'TLN=',v880,v40/,if p(v601) then ('TLN=',v880[1],v601/) fi fi,
 15 0 mpl,if v706='h' then 'DTH=',v65*0.4, if v65*4.2 = '00' then, '01', else v65*4.2, fi, '01=',v880*1.9,v880*14 fi,
 16 0 mpl,if v706='c' then 'R=',v880/, fi,
