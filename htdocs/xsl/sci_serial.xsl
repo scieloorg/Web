@@ -394,7 +394,7 @@ press release do artigo
                         </li>
 
                         <!-- monta o grafico scimago -->
-                        <xsl:variable name="graphMago" select="document('../../bases/scimago/scimago.xml')/SCIMAGOLIST/title[@ISSN = $ISSN_AS_ID]/@SCIMAGO_ID"/>
+                        <xsl:variable name="graphMago" select="document('../scimago/scimago.xml')/SCIMAGOLIST/title[@ISSN = $ISSN_AS_ID]/@SCIMAGO_ID"/>
                         <xsl:if test="$show_scimago!=0 and normalize-space($scimago_status) = normalize-space('online')">
                             <xsl:if test="$graphMago">
                                 <li> 
