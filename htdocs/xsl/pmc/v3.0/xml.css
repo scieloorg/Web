@@ -291,27 +291,10 @@ border-color: gray;
     margin-top: 20px;
 }
 .product {
-    margin: 5px 5px 5px 5px;
-    padding: 15px 15px 15px 15px;
-    background-color: #DADFE5;
-    width:60%;
-    height: 100%;
- }
-
-.product-text {
     font-family: Book Antiqua;
     font-size: 10pt;
+    padding: 10px 10px 10px 10px;
+    margin: 5px 5px 5px 5px;
     background-color: #DADFE5;
-}
-
-.product-graphic {
-    height: 80%;
-    width: 10%;
-    float: left;
-    padding-right: 30px;
-    background-color: #DADFE5;
-}
-
-.bloco {
-    margin-top: 40px
-}
+    width:60%;
+ }
