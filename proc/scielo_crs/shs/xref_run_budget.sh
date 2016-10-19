@@ -20,9 +20,7 @@ $cisis_dir/mx "seq=db_presupuestos.txt " create=$DB_PRESUPUESTOS  now -all
 $cisis_dir/mx $DB_PRESUPUESTOS fst=@$conversor_dir/fst/budget.fst fullinv=$DB_PRESUPUESTOS 
 
 
-SORTEDLIST=$MYTEMP/sortedlist
-LIST=$MYTEMP/list
-
+SORTEDLIST=$MYTEMP/list
 
 echo Este procesamiento hara un deposito de XML en CrossRef
 echo 
@@ -148,26 +146,38 @@ else
 	then
 		mv $SORTEDLIST.txt $MYTEMP/lixo
 	fi
-	echo>$LIST.txt
+
 	###################
 	# GENERATE THE SORTED LIST
 	#
     # Formato da lista 19881200 S0074-02761988000400023 0.20
     echo Generando el listado, aguarde...
 
-    if [ "@$ISSNYEAR" == "@" ]
-    then
-        $cisis_dir/mx cipar=$MYCIPFILE ARTIGO_DB btell=0  "tp=h" "proc='a9001{$FIRST_YEAR_OF_RECENT_FEE{a9002{$RECENT_FEE{a9003{$BACKFILES_FEE{a9005{$BUDGETID{a9055{$SELECTIONTYPE{'" lw=9999 "pft=@$conversor_dir/pft/xref_generateList.pft" now > $LIST.txt
-    else
-    	echo "$cisis_dir/mx cipar=$MYCIPFILE ARTIGO_DB btell=0  \"hr=S$ISSNYEAR$\" \"proc='a9001{$FIRST_YEAR_OF_RECENT_FEE{a9002{$RECENT_FEE{a9003{$BACKFILES_FEE{a9005{$BUDGETID{a9055{$SELECTIONTYPE{'\" lw=9999 \"pft=@$conversor_dir/pft/xref_generateList.pft\" now > $LIST.txt"
-        $cisis_dir/mx cipar=$MYCIPFILE ARTIGO_DB btell=0  "hr=S$ISSNYEAR$" "proc='a9001{$FIRST_YEAR_OF_RECENT_FEE{a9002{$RECENT_FEE{a9003{$BACKFILES_FEE{a9005{$BUDGETID{a9055{$SELECTIONTYPE{'" lw=9999 "pft=@$conversor_dir/pft/xref_generateList.pft" now > $LIST.txt
-    fi
-
-	if [ "@$ORDER" == "@Ascending" ]
+	if [ "@$ORDER" == "@Descending" ]
 	then
-		cat $LIST.txt | sort -u > $SORTEDLIST.txt
+        if [ "@$ISSNYEAR" == "@" ]
+        then
+            $cisis_dir/mx cipar=$MYCIPFILE ARTIGO_DB btell=0  "tp=h" "proc='a9001{$FIRST_YEAR_OF_RECENT_FEE{a9002{$RECENT_FEE{a9003{$BACKFILES_FEE{a9005{$BUDGETID{a9055{$SELECTIONTYPE{'" lw=9999 "pft=@$conversor_dir/pft/xref_generateList.pft" now | sort -u -r > $SORTEDLIST.txt
+        else
+            $cisis_dir/mx cipar=$MYCIPFILE ARTIGO_DB btell=0  "hr=S$ISSNYEAR$" "proc='a9001{$FIRST_YEAR_OF_RECENT_FEE{a9002{$RECENT_FEE{a9003{$BACKFILES_FEE{a9005{$BUDGETID{a9055{$SELECTIONTYPE{'" lw=9999 "pft=@$conversor_dir/pft/xref_generateList.pft" now | sort -u -r > $SORTEDLIST.txt
+        fi
 	else
-		cat $LIST.txt | sort -u -r > $SORTEDLIST.txt
+		if [ "@$ORDER" == "@Ascending" ]
+		then			
+            if [ "@$ISSNYEAR" == "@" ]
+            then
+                $cisis_dir/mx cipar=$MYCIPFILE ARTIGO_DB btell=0  "tp=h" "proc='a9001{$FIRST_YEAR_OF_RECENT_FEE{a9002{$RECENT_FEE{a9003{$BACKFILES_FEE{a9005{$BUDGETID{a9055{$SELECTIONTYPE{'" lw=9999 "pft=@$conversor_dir/pft/xref_generateList.pft" now | sort -u > $SORTEDLIST.txt
+            else
+                $cisis_dir/mx cipar=$MYCIPFILE ARTIGO_DB btell=0  "hr=S$ISSNYEAR$" "proc='a9001{$FIRST_YEAR_OF_RECENT_FEE{a9002{$RECENT_FEE{a9003{$BACKFILES_FEE{a9005{$BUDGETID{a9055{$SELECTIONTYPE{'" lw=9999 "pft=@$conversor_dir/pft/xref_generateList.pft" now | sort -u > $SORTEDLIST.txt
+            fi
+		else
+            if [ "@$ISSNYEAR" == "@" ]
+            then
+    			$cisis_dir/mx cipar=$MYCIPFILE ARTIGO_DB btell=0  "tp=h" "proc='a9001{$FIRST_YEAR_OF_RECENT_FEE{a9002{$RECENT_FEE{a9003{$BACKFILES_FEE{a9005{$BUDGETID{a9055{$SELECTIONTYPE{'" lw=9999 "pft=@$conversor_dir/pft/xref_generateList.pft" now | sort -u -r > $SORTEDLIST.txt
+            else
+                $cisis_dir/mx cipar=$MYCIPFILE ARTIGO_DB btell=0  "hr=S$ISSNYEAR$" "proc='a9001{$FIRST_YEAR_OF_RECENT_FEE{a9002{$RECENT_FEE{a9003{$BACKFILES_FEE{a9005{$BUDGETID{a9055{$SELECTIONTYPE{'" lw=9999 "pft=@$conversor_dir/pft/xref_generateList.pft" now | sort -u -r > $SORTEDLIST.txt
+            fi
+		fi
 	fi
 
 echo
