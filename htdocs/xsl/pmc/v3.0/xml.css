@@ -147,53 +147,87 @@ border-color: gray;
 }
 
 .inline-formula {
-    max-width: 800px;
     display: inline;
-    max-height: 10%;
+    max-height: 16px;
+    min-height: 16px;
+}
+.inline-formula-graphic {
+    display: inline;
+    max-height: 16px;
+    min-height: 16px;
 }
 
 .disp-formula {
-    padding: 25px;
-    max-width: 800px;
-    max-height: 10%;
+    display: block;
+    vertical-align: top;
     text-align: center;
 }
 .disp-formula .label {
-    padding: 50px;
-    display: inline-block;
-    }
+    padding: 10px;
+    display: inline;
+    vertical-align: top;
+}
 .disp-formula .formula {
-    padding: 50px;
-    display: inline-block;
-    }
-
+    padding: 10px;
+    text-align: center;
+}
+.disp-formula .formula-labeled {
+    padding: 10px;
+    max-width: 80%;
+}
+.disp-formula-graphic {
+    padding: 25px;
+    height: auto;
+    max-width: 80%;
+    min-height: 16px;
+}
 .graphic {
     padding: 25px;
-    width: auto;
-    max-width: 800px;
-    
+    height: auto;
+    min-height: 16px;
+    max-width: 100%;
 }
 
-.inline-graphic{
+.inline-graphic {
     display: inline;
-    max-height: 40px;
+    min-height: 20px;
+    max-width: 80%;
+}
+.inline-graphic-limited {
+    display: inline;
+    min-height: 20px;
+    max-height: 60px;
+    max-width: 80%;
+}
+.inline-graphic-more-limited {
+    display: inline;
+    min-height: 20px;
+    max-height: 20px;
+    max-width: 80%;
+
 }
 .figure-group, .table-wrap-group {
-    max-width: 800px;
+    max-width: 100%;
+    height: auto;
+    width: auto;
     border-color: transparent;
     padding-top: 15px;
     padding-bottom: 15px;
 }
 
 .figure {
-    max-width: 800px;
+    max-width: 100%;
+    height: auto;
+    width: auto;
     border-color: transparent;
     padding-top: 5px;
     padding-bottom: 5px;
 }
 
 .table-wrap {
-    max-width: 800px;
+    max-width: 100%;
+    height: auto;
+    width: auto;
     border-color: transparent;
     padding-top: 5px;
     padding-bottom: 5px;
@@ -207,17 +241,14 @@ border-color: gray;
     padding-top: 20px;
 }
 .footnote {
-border-top: 1px solid;
+    border-top: 1px solid;
     padding-top: 10px;
     vertical-align: top;
     padding-bottom: 10px;
     font-size: 90%;
     
 }
-.fn-label {
-font-size: 80%;
-padding-top: 0px;
-}
+
 .fn-author {}
 
 .corresp {}

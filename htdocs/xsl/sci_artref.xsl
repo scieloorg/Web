@@ -262,6 +262,7 @@
 					<xsl:with-param name="ISSN" select="$ISSUE_ISSN"/>
 					<xsl:with-param name="FPAGE" select="@FPAGE"/>
 					<xsl:with-param name="LPAGE" select="@LPAGE"/>
+					<xsl:with-param name="ELOCATIONID" select="@ELOCATIONID"/>
 					<xsl:with-param name="SHORTTITLE" select="ISSUEINFO/STRIP/SHORTTITLE"/>
 					<xsl:with-param name="reviewType" select="$reviewType"/>
 				</xsl:call-template>
@@ -283,6 +284,7 @@
 					<xsl:with-param name="ISSN" select="../..//ISSUE_ISSN"/>
 					<xsl:with-param name="FPAGE" select="@FPAGE"/>
 					<xsl:with-param name="LPAGE" select="@LPAGE"/>
+					<xsl:with-param name="ELOCATIONID" select="@ELOCATIONID"/>
 					<xsl:with-param name="SHORTTITLE" select="ISSUEINFO/STRIP/SHORTTITLE"/>
 				</xsl:call-template>
 			</xsl:when>
@@ -303,6 +305,7 @@
 					<xsl:with-param name="ISSN" select="../..//ISSUE_ISSN"/>
 					<xsl:with-param name="FPAGE" select="@FPAGE"/>
 					<xsl:with-param name="LPAGE" select="@LPAGE"/>
+					<xsl:with-param name="ELOCATIONID" select="@ELOCATIONID"/>
 					<xsl:with-param name="SHORTTITLE" select="ISSUEINFO/STRIP/SHORTTITLE"/>
 					<xsl:with-param name="LOCAL" select="ISSUEINFO/STRIP/CITY"/>
 				</xsl:call-template>
@@ -321,6 +324,7 @@
 					<xsl:with-param name="ISSN" select="ISSUEINFO/ISSUE_ISSN"/>
 					<xsl:with-param name="FPAGE" select="@FPAGE"/>
 					<xsl:with-param name="LPAGE" select="@LPAGE"/>
+					<xsl:with-param name="ELOCATIONID" select="@ELOCATIONID"/>
 					<xsl:with-param name="SHORTTITLE" select="ISSUEINFO/STRIP/SHORTTITLE"/>
 				</xsl:call-template>
 			</xsl:when>
@@ -399,6 +403,7 @@
 		<xsl:param name="ISSN"/>
 		<xsl:param name="FPAGE"/>
 		<xsl:param name="LPAGE"/>
+		<xsl:param name="ELOCATIONID"/>
 		<xsl:param name="TEXTLINK"/>
 		<xsl:param name="SHORTTITLE" select="//TITLEGROUP/SHORTTITLE"/>
 		<xsl:param name="BOLD">1</xsl:param>
@@ -455,9 +460,17 @@
 					<xsl:if test="$SUPPL>0">.<xsl:value-of select="$SUPPL"/>
 					</xsl:if>
 				</xsl:if>
-				<xsl:if test="$FPAGE and $LPAGE">
-					<xsl:value-of select="concat(', p.', $FPAGE, '-', $LPAGE)"/>
-				</xsl:if>
+				<xsl:choose>
+					<xsl:when test="$ELOCATIONID!=''">
+						<xsl:value-of select="concat(', ', $ELOCATIONID)"/>
+					</xsl:when>
+					<xsl:when test="($FPAGE='' or $FPAGE='0') and ($LPAGE='' or $LPAGE='0')">
+						
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="concat(', p.', $FPAGE, '-', $LPAGE)"/>
+					</xsl:otherwise>
+				</xsl:choose>
 			</xsl:otherwise>
 		</xsl:choose>
 		<xsl:value-of select="concat('. ISSN ', $ISSN, '.')"/>
@@ -511,6 +524,7 @@
 		<xsl:param name="ISSN"/>
 		<xsl:param name="FPAGE"/>
 		<xsl:param name="LPAGE"/>
+		<xsl:param name="ELOCATIONID"/>
 		<xsl:param name="SHORTTITLE" select="//TITLEGROUP/TITLE"/>
 		<xsl:param name="reviewType"/>
 		<xsl:variable name="url">
@@ -591,7 +605,7 @@
 			</xsl:when>
 			<xsl:when test="$NUM='ahead'">
 				<xsl:value-of
-					select="$translations/xslid[@id='sci_artref']/text[@find = 'ahead_of_print']"/>
+					select="$translations/xslid[@id='sci_artref']/text[@find = 'In press']"/>.
 			</xsl:when>
 			<xsl:when test="$NUM='review'">
 				<xsl:choose>
@@ -615,14 +629,31 @@
 						<xsl:value-of select="substring($CURR_DATE,1,4)"/>-<xsl:value-of
 						select="substring($CURR_DATE,5,2)"/>-<xsl:value-of
 						select="substring($CURR_DATE,7,2)"/>]</xsl:if>
-				<xsl:if test="$FPAGE!='' and $LPAGE!=''">
-					<xsl:value-of select="concat(', pp. ', $FPAGE, '-', $LPAGE)"/>
-				</xsl:if> . <xsl:value-of
+				<xsl:choose>
+					<xsl:when test="$ELOCATIONID!=''">
+						<xsl:value-of select="concat(', ', $ELOCATIONID)"/>
+					</xsl:when>
+					<xsl:when test="($FPAGE='' or $FPAGE='0') and ($LPAGE='' or $LPAGE='0')">
+						
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="concat(', pp.', $FPAGE, '-', $LPAGE)"/>
+					</xsl:otherwise>
+				</xsl:choose>. <xsl:value-of
 					select="$translations/xslid[@id='sci_artref']/text[@find = 'available_from']"/>:
 					&lt;<xsl:value-of select="$url"/>&gt;.</xsl:when>
 			<xsl:otherwise>
-				<xsl:if test="$FPAGE!='' and $LPAGE!=''">
-					<xsl:value-of select="concat(', pp. ', $FPAGE, '-', $LPAGE)"/>. </xsl:if>
+				<xsl:choose>
+					<xsl:when test="$ELOCATIONID!=''">
+						<xsl:value-of select="concat(', ', $ELOCATIONID)"/>
+					</xsl:when>
+					<xsl:when test="($FPAGE='' or $FPAGE='0') and ($LPAGE='' or $LPAGE='0')">
+						
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="concat(', pp.', $FPAGE, '-', $LPAGE)"/>
+					</xsl:otherwise>
+				</xsl:choose>. 
 			</xsl:otherwise>
 		</xsl:choose>
 		<xsl:apply-templates select="." mode="Epub">
@@ -1274,6 +1305,7 @@ Parameters:
 		<xsl:param name="ISSN"/>
 		<xsl:param name="FPAGE"/>
 		<xsl:param name="LPAGE"/>
+		<xsl:param name="ELOCATIONID"/>
 		<xsl:param name="SHORTTITLE" select="//TITLEGROUP/SHORTTITLE-MEDLINE"/>
 		<xsl:apply-templates select="$AUTHORS" mode="ref">
 			<xsl:with-param name="LANG" select="$LANG"/>
@@ -1332,11 +1364,18 @@ Parameters:
 					<xsl:if test="$SUPPL">
 						Suppl <xsl:if test="$SUPPL&gt;0"> <xsl:value-of select="$SUPPL"/></xsl:if>
 					</xsl:if>
-					)</xsl:if>:
-					<xsl:if test="$FPAGE!=0 and $LPAGE!=0">
-						<xsl:value-of select="concat(' ',$FPAGE, '-', $LPAGE)"/>
-					</xsl:if>
-				
+					)</xsl:if>
+				<xsl:choose>
+					<xsl:when test="$ELOCATIONID!=''">
+						<xsl:value-of select="concat(': ', $ELOCATIONID)"/>
+					</xsl:when>
+					<xsl:when test="($FPAGE='' or $FPAGE='0') and ($LPAGE='' or $LPAGE='0')">
+						
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="concat(': ', $FPAGE, '-', $LPAGE)"/>
+					</xsl:otherwise>
+				</xsl:choose>
 			</xsl:otherwise>
 		</xsl:choose>. 
 		<xsl:if test="$FORMAT!='short'">
@@ -1378,6 +1417,7 @@ Parameters:
 		<xsl:param name="ISSN"/>
 		<xsl:param name="FPAGE"/>
 		<xsl:param name="LPAGE"/>
+		<xsl:param name="ELOCATIONID"/>
 		<xsl:param name="SHORTTITLE" select="//TITLEGROUP/TITLE"/>
 		<xsl:param name="LOCAL"/>
 		<xsl:apply-templates select="$AUTHORS" mode="ref">
@@ -1416,8 +1456,17 @@ Parameters:
 				<xsl:if test="$SUPPL">supl. <xsl:if test="$SUPPL!='0'"><xsl:value-of select="$SUPPL"
 						/>,&#160;</xsl:if></xsl:if>
 				
-				<xsl:if test="number(@FPAGE)!=0 and number(@LPAGE)!=0">p. <xsl:value-of select="@FPAGE"/><xsl:if test="@LPAGE!=@FPAGE">-<xsl:value-of select="@LPAGE"/></xsl:if>,&#160;</xsl:if>
-				<xsl:call-template name="GET_MONTH_NAME_ABNT">
+				<xsl:choose>
+					<xsl:when test="$ELOCATIONID!=''">
+						<xsl:value-of select="concat(' ', $ELOCATIONID)"/>,&#160;
+					</xsl:when>
+					<xsl:when test="($FPAGE='' or $FPAGE='0') and ($LPAGE='' or $LPAGE='0')">
+						
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="concat('p. ', $FPAGE)"/><xsl:if test="$FPAGE!=$LPAGE"><xsl:value-of select="concat('-', $LPAGE)"/></xsl:if>,&#160;
+					</xsl:otherwise>
+				</xsl:choose><xsl:call-template name="GET_MONTH_NAME_ABNT">
 					<xsl:with-param name="LANG" select="$LANG"/>
 					<xsl:with-param name="ABREV" select="1"/>
 					<xsl:with-param name="MONTH" select="$MONTH"/>

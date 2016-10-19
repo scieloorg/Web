@@ -86,60 +86,791 @@ Execute
        ./GeraPadrao.bat
 
 
-
-
 Exporting the databases for SciELO Network processing
 =====================================================
 
-Configuration
--------------
+This process is made through the utilitary **Paperboy**. Paperboy is a 
+Python utilitary developed to replace the scripts:
 
-Access the processing directory
+    * Envia2MedlinePadrao.bat
+    * static_files_catalog.sh
 
-    .. code-block:: text
+Installing
+----------
 
-        #>cd /var/www/scielo/proc 
+Install guide: https://github.com/scieloorg/paperboy
 
-Copy the FTP account configuration file.
 
-    .. code-block:: text
+Configuring
+-----------
 
-        #var/www/scielo/proc$> cp transf/Envia2MedlineLogOn-exemplo.txt transf/Envia2MedlineLogOn.txt
+After install the paperboy you must create a config.ini file to configure the
+source and destiny resources, and the ssh account that will be used to send data
+to the server.
 
-Edit the FTP account configuration file
 
-    .. code-block:: text
+Creating config.ini file
+````````````````````````
 
-        #var/www/scielo/proc> vi transf/Envia2MedlineLogOn.txt
+Access the directory /var/www/scielo/proc
 
-Change the FTP parameters, from:
+.. code-block:: text
 
-    .. code-block:: text
+    cd /var/www/scielo/proc
 
-        open ftp.scielo.br
-        user user_id user_passwd
+Create a text file named **paperboy_envia_to_scielo_config.ini** in the **proc**
+directory, the file must follow the bellow format:
 
-to:
+.. note::
 
-    .. code-block:: text
+    You may also use a file name of your preference for the config file, having
+    in mind you must to replace the name of the config file in the following
+    guidances.
 
-        open ftp.scielo.br
-        user <scielo.code> <password>
+.. code-block:: text
 
-Execution
----------
+    [app:main]
+    source_dir=c:/var/www/scielo
+    cisis_dir=c:/var/www/scielo/proc/cisis
+    ssh_server=localhost
+    ssh_port=22
+    ssh_user=anonymous
+    ssh_password=anonymous
 
-    .. code-block:: text
+**source_dir:** Absolute path to the directory where the SciELO website was installed.
 
-        #var/www/scielo/proc$>./Envia2MedlinePadrao.bat 
+**cisis_dir:** Absolute path to the directory where CISIS utilitary was installed
+
+**ssh_server:** Domain of the server where the SciELO Site was installed
+
+**ssh_port:** The SSH port (default 22)
+
+**ssh_user:** A valid SSH username 
+
+**ssh_password:** A valid SSH password for the given username
+
+.. tip::
+
+    Ask your SSH credentials to the SciELO team.
+
+Creating envia.bat file
+```````````````````````
+
+Create a text file named **paperboy_envia_to_scielo.bat** in the **proc**
+directory.
+
+.. note::
+
+    You may also use a file name of your preference for the batch file, having
+    in mind you must to replace the name of the config file in the following
+    guidances.
+
+The content of the .bat file must be::
+
+    set PAPERBOY_SETTINGS_FILE=/var/www/scielo/proc/paperboy_envia_to_scielo_config.ini
+    paperboy -m -o /var/www/scielo/proc/log/paperboy_envia_to_scielo_config.log
+
+Running
+-------
+
+Run the script **paperboy_envia_to_scielo_config.bat** to send databases and 
+reports to SciELO.
+
+.. code-block:: text
+
+    paperboy_envia_to_scielo_config.bat
 
 
 Notes
 `````
 
-* Ask SciELO team for the scielo.code and password to configure the ftp account.
-* Configure a **cron** to run periodically the processing. (Preferable Weekly)
+* Ask the SciELO team for you SSH credentials.
+* You must configure a **CRON** to run periodically the processing. (Preferable Weekly or after all the database updates)
 * The log files are:
-    * /var/www/proc/log/envia2medlineFTP.log
-    * /var/www/proc/log/envia2medline.log
+    * /var/www/scielo/proc/log/paperboy_envia_to_scielo_config.log
+
+
+CrossRef: Deposit with budget control
+=====================================
+
+This processing selects the articles and generate the XML files to deposit on CrossRef, according to some conditions:
+
+ * budget
+ * current articles price
+ * backfiles price
+ * articles publication date
+ * priority order: most recent to older, or older to most recent
+
+Check deposit fees `<http://www.crossref.org/02publishers/20pub_fees.html>`_
+
+
+
+Configuration
+-------------
+
+Configure proc/scielo_crs/shs/crossRef_config.sh
+````````````````````````````````````````````````
+
+.. code::
+
+    # CrossRef connection
+    crossrefUserName=
+    crossrefPassword=
+    depositor_institution=
+    depositor_prefix=
+    depositor_email=
+    depositor_url=
+
+    # BUDGET
+    # current articles fee
+    RECENT_FEE=
+
+    # Firs year of articles considered current
+    # All Current records (2007-2009). So, 2007
+    FIRST_YEAR_OF_RECENT_FEE=
+
+    # backfiles fee
+    BACKFILES_FEE=
+
+
+
++--------------------------+--------------------------------------------------------------------+
+| crossrefUserName         | username given by CrossRef                                         |
++--------------------------+--------------------------------------------------------------------+
+| crossrefPassword         | password given by CrossRef                                         |
++--------------------------+--------------------------------------------------------------------+
+| depositor_institution    | depositor institution name                                         |
++--------------------------+--------------------------------------------------------------------+
+| depositor_prefix         | depositor prefix given by CrossRef                                 |
++--------------------------+--------------------------------------------------------------------+
+| depositor_email          | e-mail to receive processing results from CrossRef                 |
++--------------------------+--------------------------------------------------------------------+
+| depositor_url            | SciELO Website URL                                                 |
++--------------------------+--------------------------------------------------------------------+
+| RECENT_FEE               | check at `<http://www.crossref.org/02publishers/20pub_fees.html>`_ |
+|                          | E.g.: 1.0, for $1.00                                               |
++--------------------------+--------------------------------------------------------------------+
+| FIRST_YEAR_OF_RECENT_FEE | check at `<http://www.crossref.org/02publishers/20pub_fees.html>`_ |
+|                          | E.g.: 2014 for (2014-2016)                                         |
++--------------------------+--------------------------------------------------------------------+
+| BACKFILES_FEE            | check at `<http://www.crossref.org/02publishers/20pub_fees.html>`_ |
+|                          | E.g.: 0.25, for $0.25                                              |
++--------------------------+--------------------------------------------------------------------+
+
+
+ 
+Configure proc/scielo_crs/shs/xref.cip
+``````````````````````````````````````
+
+Use the template proc/scielo_crs/shs/xref.cip.template to create xref.cip or edit it.
+
+Replace all **/home/scielo/www/proc** by the **proc** path. E.g.: /var/www/scielo/proc
+
+  .. code::
+
+    BIREME_TABS_GCHARENT.*=/home/scielo/www/proc/scielo_crs/databases/tabs/gcharent.*
+    Y.*=/home/scielo/www/bases/title/title.*
+    ARTICLE_DB.*=/home/scielo/www/bases/artigo/artigo.*
+    ARTIGO_DB.*=/home/scielo/www/bases/artigo/artigo.*
+    DB_BILL.*=/home/scielo/www/proc/scielo_crs/databases/budget/bill.*
+
+    DB_BILL_BKP.*=/home/scielo/www/proc/scielo_crs/databases/budget/bill_BKP.*
+
+    DB_BG.*=/home/scielo/www/proc/scielo_crs/databases/crossref/budget.*
+    XREF_DOI_REPORT.*=/home/scielo/www/proc/scielo_crs/databases/crossref/crossref_DOIReport.*
+    DB_PRESUPUESTOS.*=/home/scielo/www/proc/scielo_crs/databases/budget/presupuestos.*
+
+    DB_BATCH_RUN_BUDGET.*=/home/scielo/www/proc/scielo_crs/databases/budget/batch_run_budget.*
+    DB_BATCH_RUN.*=/home/scielo/www/proc/scielo_crs/databases/budget/batch_run.*
+    DB_CTRL_BG.*=/home/scielo/www/proc/scielo_crs/databases/budget/budgetctrl.*
+
+
+
+Configure proc/scielo_crs/shs/db_presupuestos.txt
+`````````````````````````````````````````````````
+
+It is a table in which each line is a budget.
+
+Keep the first line which is a commentary.
+
+Use SPACE character to separate each column.
+
+This file must be edited whenever there is new budget.
+
+First column:
+    ID - unique identified
+
+Second column:
+    budget amount
+
+Third column:
+    budget ISO date (YYYYMMDD, that is, 4 digits year, 2 digits month, 2 digits day) 
+
+
+E.g.:
+
+In Jan 4, 2015, there is $150.00 (one hundred fifty dollars) and in Feb 4, 2015, there is $250.00 (two hundred fifty dollars): 
+
+
+  .. code::
+
+    1 150.00 20150104
+    2 250.00 20150204
+
+
+
+In March 10, 2015, new budget: $100.00
+
+
+  .. code::
+
+    3 100.00 20150310
+
+
+
+**db_presupuestos.txt contents:**
+
+
+  .. code::
+
+    1 150.00 20150104
+    2 250.00 20150204
+    3 100.00 20150310
+
+
+When to execute 
+---------------
+
+Execute it ONLY after finishing GeraPadrao.bat.
+
+
+How to execute
+---------------
+
+Go to the corresponding path. E.g.:
+
+   .. code::
+
+       cd /var/www/scielo/proc/scielo_crs/shs/
+
+
+Execute:
+
+   .. code::
+
+       ./xref_run_budget.sh <budget ID> <Order> <processing mode> <Count> <ISSNYEAR>
+
+
+Parameters description:
+
+<budget ID>
+    budget ID will be spent
+
+<Order>
+    Descending for most recent to older articles
+    Ascending for older articles to most recent
+
+<processing mode>
+    * ALL = select all the articles, including the articles previously processed.  
+    * ONLY_NEVER_PROCESSED = select the articles never processed before.  
+    * ONLY_NEVER_SUBMITTED = select the articles which failed to submit the XML or failed to register the DOI.
+
+<Count>
+    Limit the amount of articles to be process
+    Use a number to the amount of articles or 
+    use ALL to process all
+
+<ISSNYEAR>
+    Optional.
+    Select the articles by ISSN and year.
+    Use ALL for all the articles
+    Use ISSN and year to a specific selection: E.g.: 1020-30402008
+
+
+Examples:
+
+  .. code::
+
+    ./xref_run_budget.sh 2 Descending ONLY_NEVER_PROCESSED 100
+
+
+  .. code::
+
+    ./xref_run_budget.sh 2 Descending ONLY_NEVER_PROCESSED ALL 1020-30402008
+
+
+ 
+Results
+-------
+
+In **proc/scielo_crs/databases/budget**, there are:
+
+ * presupuestos – database generated from db_presupuestos.txt (budget registration)
+
+ * budgetctrl – database which registers the budget consumption
+
+ * bill – database which registers the expenses of each article
+
+ * batch_run_budget – database which registers the data of each execution
+
+
+bill database
+`````````````
+
+  .. code::
+
+    ../../cisis/mx ../databases/budget/bill 
+
+
+**Contents:**
+
+  .. code::
+
+    mfn=     2 
+    880  "S0717-73562009000100008"
+     65  "20090600"
+      4  "requested"
+      2  "1.0"
+      3  "20090714 110457 2 194"
+      1  "1"
+    121  "000001"
+    100  "20090714_110450_2_194"
+    30  "new^xcrossRef_sent_200907141104S0717-73562009000100008.log"
+
+
+**Description:**
+
++-----+----------------------------------------------------------------------------------------+
+| 880 | article PID                                                                            |
++-----+----------------------------------------------------------------------------------------+
+|  65 | article publication date                                                               |
++-----+----------------------------------------------------------------------------------------+
+|   4 | status: requested (success) or dont (not registered, failure)                          |
++-----+----------------------------------------------------------------------------------------+
+|   2 | DOI price                                                                              |
++-----+----------------------------------------------------------------------------------------+
+|   3 | processing date/time                                                                   |
++-----+----------------------------------------------------------------------------------------+
+|   1 | budget ID                                                                              |
++-----+----------------------------------------------------------------------------------------+
+|   4 | processing order number                                                                |
++-----+----------------------------------------------------------------------------------------+
+| 100 | execution ID                                                                           |
++-----+----------------------------------------------------------------------------------------+
+|  30 | status; same as v30 and v930 of CrossRef_DOIReport database                            |
++-----+----------------------------------------------------------------------------------------+
+
+
+batch_run_budget database
+`````````````````````````
+
+Add one register for each execution.
+
+  .. code::
+
+    ../../cisis/mx ../databases/budget/batch_run_budget 
+
+
+**Contents:**
+
+  .. code::
+
+    mfn=     1 
+      1  "1"
+    100  "20090714_110450_2_194"
+    190  "20090714 110450 2 194"
+    102  "0"
+    200  "2007"
+    201  "1.0"
+    202  "0.15"
+    121  "000001"
+      2  "1.00"
+     90  "20090714 110457 2 194"
+
+
+**Description:**
+
++-----+----------------------------------------------------------------------------------------+
+|   1 | budget ID                                                                              |
++-----+----------------------------------------------------------------------------------------+
+| 100 | execution ID                                                                           |
++-----+----------------------------------------------------------------------------------------+
+| 190 | Start Date and time                                                                    |
++-----+----------------------------------------------------------------------------------------+
+| 190 | Finish Date and time                                                                   |
++-----+----------------------------------------------------------------------------------------+
+| 102 | initial budget, before the ejecution                                                   |
++-----+----------------------------------------------------------------------------------------+
+| 200 | initial year of current articles                                                       |
++-----+----------------------------------------------------------------------------------------+
+| 201 | DOI price for current articles                                                         |
++-----+----------------------------------------------------------------------------------------+
+| 202 | DOI price for backfiles                                                                |
++-----+----------------------------------------------------------------------------------------+
+| 121 | quantity of selected articles in this execution                                        |
++-----+----------------------------------------------------------------------------------------+
+|   2 | expenses in this execution                                                             |
++-----+----------------------------------------------------------------------------------------+
+
+
+XML for DOI deposit
+```````````````````
+The XML files are generated in proc/scielo_crs/output/crossref/.
+The structure below is:
+
+      -- <ISSN>/ANO/NUMERO/ARTIGO/xml.
+          `-- <YEAR>
+               `-- <ISSUE>
+                    `-- <ARTICLE>
+                         `-- <filename>.xml
+
+
+LOG
+```
+proc/scielo_crs/output/crossref/report_error.txt contains the processing errors.
+
+Example:
+
+  .. code::
+
+    PID=S0717-73562009000100001
+    log file: ../output/crossref/log/validationErrors_200907151502S0717-73562009000100001.log
+    data de processamento: 2009000100001
+
+
+crossref_DOIReport
+``````````````````
+proc/scielo_crs/databases/crossref/crossref_DOIReport contains the result of the processing of each article / DOI.
+  
+  .. code::
+
+    ../../cisis/mx ../databases/crossref/crossref_DOIReport 
+
+
+Contents:
+  
+  .. code::
+
+    mfn=     2 
+     30  "new"
+    930  "crossref_sent_200907141104S0717-73562009000100008.log"
+    880  "S0717-73562009000100008"
+     10  "20090714 110457 2 194"
+
+
+Description:
+
++-----+-----------------------------------------------------------------------------------------+
+|  30 | Status of the registration                                                              |
++-----+-----------------------------------------------------------------------------------------+
+| 930 | DTD validation result                                                                   |
++-----+-----------------------------------------------------------------------------------------+
+| 880 | article PID                                                                             |
++-----+-----------------------------------------------------------------------------------------+
+|  10 | date and time of the registration                                                       |
++-----+-----------------------------------------------------------------------------------------+
+
+CrossRef: Deposit without budget control
+========================================
+
+This processing generates CrossRef Deposit XML files and submit them to register articles DOI.
+
+
+Configuration
+-------------
+
+Configure proc/scielo_crs/shs/crossRef_config.sh
+````````````````````````````````````````````````
+
+.. code::
+
+    # CrossRef connection
+    crossrefUserName=
+    crossrefPassword=
+    depositor_institution=
+    depositor_prefix=
+    depositor_email=
+    depositor_url=
+
+
++--------------------------+--------------------------------------------------------------------+
+| crossrefUserName         | username given by CrossRef                                         |
++--------------------------+--------------------------------------------------------------------+
+| crossrefPassword         | password given by CrossRef                                         |
++--------------------------+--------------------------------------------------------------------+
+| depositor_institution    | depositor institution name                                         |
++--------------------------+--------------------------------------------------------------------+
+| depositor_prefix         | depositor prefix given by CrossRef                                 |
++--------------------------+--------------------------------------------------------------------+
+| depositor_email          | e-mail to receive processing results from CrossRef                 |
++--------------------------+--------------------------------------------------------------------+
+| depositor_url            | SciELO Website URL                                                 |
++--------------------------+--------------------------------------------------------------------+
+
+ 
+Configure proc/scielo_crs/shs/xref.cip
+``````````````````````````````````````
+
+Use the template proc/scielo_crs/shs/xref.cip.template to create xref.cip or edit it.
+
+Replace all **/home/scielo/www/proc** by the **proc** path. E.g.: /var/www/scielo/proc
+
+  .. code::
+
+    BIREME_TABS_GCHARENT.*=/home/scielo/www/proc/scielo_crs/databases/tabs/gcharent.*
+    Y.*=/home/scielo/www/bases/title/title.*
+    ARTICLE_DB.*=/home/scielo/www/bases/artigo/artigo.*
+    ARTIGO_DB.*=/home/scielo/www/bases/artigo/artigo.*
+    XREF_DOI_REPORT.*=/home/scielo/www/proc/scielo_crs/databases/crossref/crossref_DOIReport.*
+
+
+When to execute 
+---------------
+
+Execute it ONLY after finishing GeraPadrao.bat.
+
+
+How to execute
+---------------
+
+Go to the corresponding path. E.g.:
+
+   .. code::
+
+       cd /var/www/scielo/proc/scielo_crs/shs/
+
+
+Execute:
+
+   .. code::
+
+       ./xref_run.sh <ISSN_OR_PID>
+
+
+Parameters description:
+
+<ISSN_OR_PID>
+    optional
+    Use no value to process all the articles which have not be processed before.
+    Use PID of an issue or an article
+    Use ISSN of a journal
+
+
+Examples:
+
+  .. code::
+
+    ./xref_run.sh 
+
+
+  .. code::
+
+    ./xref_run.sh 1020-30402008
+
+
+ 
+Results
+-------
+
+XML for DOI deposit
+```````````````````
+The XML files are generated in proc/scielo_crs/output/crossref/.
+The structure below is:
+
+      -- <ISSN>/ANO/NUMERO/ARTIGO/xml.
+          `-- <YEAR>
+               `-- <ISSUE>
+                    `-- <ARTICLE>
+                         `-- <filename>.xml
+
+
+LOG
+```
+proc/scielo_crs/output/crossref/report_error.txt contains the processing errors.
+
+Example:
+
+  .. code::
+
+    PID=S0717-73562009000100001
+    log file: ../output/crossref/log/validationErrors_200907151502S0717-73562009000100001.log
+    data de processamento: 2009000100001
+
+
+crossref_DOIReport
+``````````````````
+proc/scielo_crs/databases/crossref/crossref_DOIReport contains the result of the processing of each article / DOI.
+  
+  .. code::
+
+    ../../cisis/mx ../databases/crossref/crossref_DOIReport 
+
+
+Contents:
+  
+  .. code::
+
+    mfn=     2 
+     30  "new"
+    930  "crossref_sent_200907141104S0717-73562009000100008.log"
+    880  "S0717-73562009000100008"
+     10  "20090714 110457 2 194"
+
+
+Description:
+
++-----+-----------------------------------------------------------------------------------------+
+|  30 | Status of the registration                                                              |
++-----+-----------------------------------------------------------------------------------------+
+| 930 | DTD validation result                                                                   |
++-----+-----------------------------------------------------------------------------------------+
+| 880 | article PID                                                                             |
++-----+-----------------------------------------------------------------------------------------+
+|  10 | date and time of the registration                                                       |
++-----+-----------------------------------------------------------------------------------------+
+
+
+CrossRef - Display DOI on SciELO Website
+========================================
+
+This processing generates, for each journals issue, one database which is used by SciELO Website to display the articles DOI.
+
+Input: crossref_DOIReport database
+
+
+When to execute
+---------------
+
+Execute after DOI deposit processing.
+
+
+How to execute
+--------------
+
+1. scilista creation
+````````````````````
+
+This pre processing identifies the records which status in crossref_DOIReport database is not "error" and generates the scilista file according to the format:
+
+  .. code::
+     <acron> <issue_id> <issue_PID>
+     <acron> <issue_id> <issue_PID>
+     <acron> <issue_id> <issue_PID>
+     <acron> <issue_id> <issue_PID>
+
+
+Example:
+
+  .. code::
+
+    neuro v19n6 S1130-147320080006
+    neuro v20n1 S1130-147320090001
+
+
+  .. attention:: Last line must be empty
+
+
+1. Go to proc directory
+2. Execute the command:
+
+  .. code::
+    ./doi/scilista/scilista4art.bat <scilista>
+
+
+   where <scilista> is the scilista file to be created.
+
+
+Example:
+
+  .. code::
+
+    ./doi/scilista/scilista4art.bat scilista_doi.txt
+
+
+2. doi database creation
+````````````````````````
+
+1. Go to proc directory
+2. Execute the command:
+
+  .. code::
+
+    ./doi/create/doi4art.bat <scilista>
+
+
+Example:
+
+  .. code::
+
+    ./doi/create/doi4art.bat scilista_doi.txt
+
+
+Results
+-------
+
+This processing generates the databases in bases-work/doi/<acron>/<issue_id>/<issue_id>.*
+
+
+Example:
+
+  .. code::
+
+    bases-work/doi/neuro/v20n1/v20n1
+    bases-work/doi/neuro/v19n1/v19n1
+
+
+3. Updating the Website
+```````````````````````
+
+Copy the bases-work/doi to bases/doi of the production server (Website).
+
+
+Questions about cisis and wxis versions
+=======================================
+
+The commands must display the "same version":
+
+  .. code::
+
+    cisis/what
+
+
+  .. code::
+
+    wxis hello
+
+
+Migration from Lind to LindG4
+-----------------------------
+
+If the cisis and wxis versions were migrated from Lind to LindG4, the files which extension is *.iy0 must be delete, otherwise the indexes will be generated, but they will not be properly read.
+
+The files extensions that must be kept are:
+
+  * indexes files:
+    * .cnt
+    * .iyp
+    * .ly1
+    * .ly2
+    * .n01
+    * .n02
+  * database files:
+    * .mst
+    * .xrf
+
+
+  .. attention::
+
+    The *.iy0 files must be remove from the public server too.
+
+
+Find the files to delete
+------------------------
+
+  .. code::
+    
+    find . -name "*.iy0"
+
+
+
 
