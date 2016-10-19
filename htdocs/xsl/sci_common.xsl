@@ -1537,7 +1537,7 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
                 <xsl:with-param name="TYPE" select="@TYPE"/>
                 <xsl:with-param name="LANG" select="$control_info/LANGUAGE"/>
             </xsl:call-template>&#160;ISSN </FONT>
-        <xsl:value-of select="normalize-space(.)"/><br/>
+        <xsl:value-of select="normalize-space(.)"/>
     </xsl:template>
     <xsl:template match="STATPARAM">
         <P>
