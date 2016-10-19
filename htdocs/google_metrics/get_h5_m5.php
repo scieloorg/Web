@@ -19,7 +19,7 @@ function read_h5_m5_csv($csv_file){
 
 $serial_json = '';
 
-$issn = strtolower($_GET['issn']);
+$issn = strtoupper($_GET['issn']);
 $callback_function = $_GET['callback'];
 
 if ( isset($issn) ){
