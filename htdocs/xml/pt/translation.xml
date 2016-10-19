@@ -301,6 +301,7 @@
 	</xslid>
 	<xslid id="sci_toolbox">
 		<text find="services">Serviços</text>
+		<text find="journal">Journal</text>
 		<text find="article">Artigo</text>
 		<text find="add_to_my_collection">Adicionar a minha coleção</text>
 		<text find="alert_me_when_cited">Alerte-me quando for citado</text>

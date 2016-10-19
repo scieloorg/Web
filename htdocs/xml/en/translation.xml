@@ -303,6 +303,7 @@
 	</xslid>
 	<xslid id="sci_toolbox">
 		<text find="services">Services</text>
+		<text find="journal">Journal</text>
 		<text find="article">Article</text>
 		<text find="add_to_my_collection">Add to my collection</text>
 		<text find="alert_me_when_cited">Alert me when cited</text>
