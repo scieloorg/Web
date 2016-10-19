@@ -85,14 +85,8 @@
 	background: none;
 }
 
-.middle .leftCol LI a.pt_button {
+.middle .leftCol LI#btn_submission A {
 	background: url(../img/pt/btn_submission.gif) no-repeat;
-}
-.middle .leftCol LI a.es_button {
-	background: url(../img/btn_submission_es.gif) no-repeat;
-}
-.middle .leftCol LI a.en_button {
-	background: url(../img/btn_submission_en.gif) no-repeat;
 }
 
 .middle .leftCol LI#btn_submission SPAN {
