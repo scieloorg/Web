@@ -433,11 +433,7 @@
 				<xsl:apply-templates select="role"></xsl:apply-templates>
 			</xsl:if>
 		</div>
-		<xsl:if test=".//contrib-id">
-			<div>
-			<xsl:apply-templates select="contrib" mode="contrib-id"></xsl:apply-templates>
-			</div>
-		</xsl:if>
+		
 	</xsl:template>
 	<xsl:template match="contrib/role | contrib/degrees"><xsl:value-of select="concat(', ',.)"/>
 	</xsl:template>
@@ -458,6 +454,7 @@
 		<xsl:if test="prefix"><xsl:apply-templates select="prefix"/>&#160;</xsl:if>
 		<xsl:apply-templates select="given-names"/>&#160;<xsl:apply-templates select="surname"/>
 		<xsl:if test="suffix">&#160;<xsl:apply-templates select="suffix"/></xsl:if>
+		<xsl:if test="../contrib-id"> (<xsl:apply-templates select="..//contrib-id" mode="contrib-id"></xsl:apply-templates>)</xsl:if>
 	</xsl:template>
 	<xsl:template match="text()" mode="normalize">
 		<xsl:value-of select="normalize-space(.)"/>
@@ -478,9 +475,10 @@
 			<xsl:when test="@contrib-id-type='researchid'">http://www.researcherid.com/rid/</xsl:when>
 		</xsl:choose></xsl:variable>
 		<xsl:variable name="location"><xsl:value-of select="$url"/><xsl:value-of select="."/></xsl:variable>
+		
 		<a target="_blank" onclick="javascript: w = window.open('{$location}','','width=640,height=500,resizable=yes,scrollbars=1,menubar=yes,'); ">
-			<xsl:value-of select="$location"/>
-		</a><br/>
+			<xsl:value-of select="@contrib-id-type"/>: <xsl:value-of select="."/>
+		</a><xsl:if test="position()!=last()">; </xsl:if>
 	</xsl:template>
 	<xsl:template match="contrib/xref">
 		<xsl:variable name="rid" select="@rid"/>
