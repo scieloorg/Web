@@ -254,7 +254,7 @@
 		<xsl:if test="not(.//aff)">
 			<xsl:apply-templates select="../..//front//aff"/>
 		</xsl:if>
-		<xsl:apply-templates select="../..//front//supplementary-material"/>
+		<xsl:apply-templates select="../..//front//supplementary-material|../..//front//product"/>
 		<xsl:apply-templates select=".//abstract"/>
 		<xsl:if test="not(.//abstract)">
 			<xsl:apply-templates select=".//kwd-group" mode="keywords"></xsl:apply-templates>
