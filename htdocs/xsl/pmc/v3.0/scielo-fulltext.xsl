@@ -674,7 +674,7 @@
 	</xsl:template>
 	
 	<xsl:template match="xref[@ref-type='fn']">
-		<sup><a href="#back_{@rid}">
+		<sup><a href="#{@rid}">
 			<xsl:apply-templates select="*|text()"/>
 		</a></sup>
 	</xsl:template>
