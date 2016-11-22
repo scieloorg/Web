@@ -175,10 +175,15 @@
 					<xsl:apply-templates select="back"/>
 				</div>
 			</xsl:when>
-			<xsl:when test="not(back) and $original/back">
-				<div id="{$this-article}-back" class="back">
+			<xsl:when test="not(back) and $original/back/ref-list">
+			<!--	<div id="{$this-article}-back" class="back">
 					<xsl:apply-templates select="$original/back"/>
-				</div></xsl:when>
+				</div>
+				-->
+				<div id="{$this-article}-back" class="back">
+					<xsl:apply-templates select="$original/back/ref-list"/>
+				</div>
+				</xsl:when>
 		</xsl:choose>
 		
 		<xsl:for-each select="floats-group">
@@ -207,11 +212,11 @@
 				<xsl:when test=".//front//author-notes">
 					<xsl:apply-templates select=".//front//author-notes"/>
 				</xsl:when>
-				<xsl:when test=".//author-notes">
-					<xsl:apply-templates select=".//author-notes"/>
+				<xsl:when test=".//front-stub/author-notes">
+					<xsl:apply-templates select=".//front-stub/author-notes"/>
 				</xsl:when>
 				<xsl:otherwise>
-					<xsl:apply-templates select="$original//front//author-notes"/>
+					<!-- <xsl:apply-templates select="$original//front//author-notes"/> -->
 				</xsl:otherwise>
 			</xsl:choose>
 		</div>
@@ -1362,7 +1367,6 @@
 							</xsl:apply-templates>
 						</xsl:when>
 						<xsl:otherwise>
-							<xsl:apply-templates select="*"/>
 							<xsl:apply-templates select="$original/back/ref-list">
 								<xsl:with-param name="title">
 									<xsl:choose>
@@ -1372,6 +1376,7 @@
 									</xsl:choose>
 								</xsl:with-param>
 							</xsl:apply-templates>
+							<xsl:apply-templates select="*"/>
 						</xsl:otherwise>
 					</xsl:choose>
 				</xsl:when>
