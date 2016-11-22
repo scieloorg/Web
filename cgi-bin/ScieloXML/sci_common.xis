@@ -3164,17 +3164,20 @@ fi
       <parm name="expression"><pft>'HR=',v4001</pft></parm>
       <parm name="count">1</parm>
 
-      <display><pft>'<CLINICALTRIALS>'</pft></display>
+
       <loop>
+         <field action="replace" tag="770"><pft>if v770:'&' and not v770:'&amp;' then eeplace(v770,'&', '&amp;') fi</pft></field>
          <display>
             <pft>
                ,if p(v770) then,
+                  '<CLINICALTRIALS>',
                   ,('<trial provider="',v770^*,'" id="',v770^a,'" url="',replace(replace(v770^u,'&amp;','&'),'&','&amp;'),'"/>'),
+                  ,'</CLINICALTRIALS>'
                ,fi,
             </pft>
          </display>
       </loop>
-      <display><pft>'</CLINICALTRIALS>'</pft></display>
+      
    </do>
 </function>
 
