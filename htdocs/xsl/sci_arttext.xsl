@@ -631,44 +631,24 @@
 						/>:
 					</xsl:otherwise>
 				</xsl:choose>
-				</strong>
-			<a target="_blank">
-				<xsl:call-template name="AddScieloLink">
-					<xsl:with-param name="seq" select="@PID"/>
-					<xsl:with-param name="script">sci_arttext</xsl:with-param>
-					<xsl:with-param name="txtlang" select="$TXTLANG"/>
-				</xsl:call-template><xsl:value-of select="ISSUE"/>
-			</a>
+			</strong>
+			<xsl:choose>
+				<xsl:when test="@DOI">
+					<a href="https://doi.org/{@DOI}"><xsl:value-of select="@DOI"/></a>
+				</xsl:when>
+				<xsl:otherwise>
+					<a target="_blank">
+						<xsl:call-template name="AddScieloLink">
+							<xsl:with-param name="seq" select="@PID"/>
+							<xsl:with-param name="script">sci_arttext</xsl:with-param>
+							<xsl:with-param name="txtlang" select="$TXTLANG"/>
+						</xsl:call-template><xsl:value-of select="ISSUE"/>
+					</a>
+				</xsl:otherwise>
+			</xsl:choose>
+			
 		</p>
 	</xsl:template>
 	
-	<xsl:template match="RELATED-DOC[@TYPE='correction']">
-		<p>
-			<strong><xsl:value-of
-				select="$translations/xslid[@id='sci_arttext']/text[@find='this_article_has_been_corrected']"
-			/>: </strong>
-			<a target="_blank">
-				<xsl:call-template name="AddScieloLink">
-					<xsl:with-param name="seq" select="@PID"/>
-					<xsl:with-param name="script">sci_arttext</xsl:with-param>
-					<xsl:with-param name="txtlang" select="$TXTLANG"/>
-				</xsl:call-template><xsl:value-of select="ISSUE"/>
-			</a>
-		</p>
-	</xsl:template>
 	
-	<xsl:template match="RELATED-DOC[@TYPE='corrected-article']">
-		<p>
-			<strong><xsl:value-of
-				select="$translations/xslid[@id='sci_arttext']/text[@find='this_corrects']"
-			/></strong>
-			<a target="_blank">
-				<xsl:call-template name="AddScieloLink">
-					<xsl:with-param name="seq" select="@PID"/>
-					<xsl:with-param name="script">sci_arttext</xsl:with-param>
-					<xsl:with-param name="txtlang" select="$TXTLANG"/>
-				</xsl:call-template><xsl:value-of select="DOCTITLE"/>. <xsl:value-of select="ISSUE"/>
-			</a>
-		</p>
-	</xsl:template>
 </xsl:stylesheet>
