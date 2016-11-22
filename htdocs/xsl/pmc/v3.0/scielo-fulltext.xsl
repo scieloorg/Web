@@ -322,6 +322,9 @@
 		<p>
 			<!--Define o nome a ser exibido a frente das palavras-chave conforme o idioma-->
 			<xsl:choose>
+				<xsl:when test="title">
+					<b><xsl:value-of select="title"/>&#160;</b>
+				</xsl:when>
 				<xsl:when test="$lang='es'">
 					<b>Palabras-clave: </b>
 				</xsl:when>
@@ -1667,7 +1670,7 @@
 		</p>
 	</xsl:template>
 	<xsl:template match="attrib">
-		<xsl:apply-templates select="*|text()"></xsl:apply-templates>
+		<p><xsl:apply-templates select="*|text()"></xsl:apply-templates></p>
 	</xsl:template>
 	
 	<xsl:template match="fig" mode="object-properties">
