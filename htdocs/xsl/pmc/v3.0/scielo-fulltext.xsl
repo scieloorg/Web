@@ -1645,7 +1645,7 @@
 		</p>
 	</xsl:template>
 	<xsl:template match="attrib">
-		<xsl:apply-templates select="*|text()"></xsl:apply-templates>
+		<p><xsl:apply-templates select="*|text()"></xsl:apply-templates></p>
 	</xsl:template>
 	
 	<xsl:template match="fig" mode="object-properties">
