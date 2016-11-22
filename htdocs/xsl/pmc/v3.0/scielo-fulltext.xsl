@@ -256,6 +256,9 @@
 		</xsl:if>
 		<xsl:apply-templates select="../..//front//supplementary-material"/>
 		<xsl:apply-templates select=".//abstract"/>
+		<xsl:if test="not(.//abstract)">
+			<xsl:apply-templates select=".//kwd-group" mode="keywords"></xsl:apply-templates>
+		</xsl:if>
 		
 	</xsl:template>
 
@@ -266,6 +269,9 @@
 		<xsl:apply-templates select=".//contrib-group"/>
 		<xsl:apply-templates select=".//aff"/>
 		<xsl:apply-templates select=".//abstract | .//trans-abstract"/>
+		<xsl:if test="not(.//abstract) and not(.//trans-abstract)">
+			<xsl:apply-templates select=".//kwd-group" mode="keywords"></xsl:apply-templates>
+		</xsl:if>
 		<xsl:apply-templates select=".//supplementary-material"/>
 	</xsl:template>
 
@@ -278,7 +284,9 @@
 		<p><xsl:apply-templates select=".//supplementary-material"/></p>
 		<p><xsl:apply-templates select=".//product"/></p>
 		<xsl:apply-templates select=".//abstract | .//trans-abstract"/>
-		
+		<xsl:if test="not(.//abstract) and not(.//trans-abstract)">
+			<xsl:apply-templates select=".//kwd-group" mode="keywords"></xsl:apply-templates>
+		</xsl:if>
 	</xsl:template>
 
 	<xsl:template match="abstract | trans-abstract">
@@ -312,16 +320,16 @@
 			<xsl:apply-templates select="*[name()!='title'] | text()"/>
 			<xsl:apply-templates
 				select="..//kwd-group[normalize-space(@xml:lang)=normalize-space($lang)]"
-				mode="keywords-with-abstract"/>
+				mode="keywords"/>
 			<xsl:if test="not(..//kwd-group[normalize-space(@xml:lang)=normalize-space($lang)])">
 				<xsl:apply-templates
 						select="..//kwd-group[not(@xml:lang)]"
-						mode="keywords-with-abstract"/>
+						mode="keywords"/>
 			</xsl:if>
 		</div>
 	</xsl:template>
 
-	<xsl:template match="kwd-group" mode="keywords-with-abstract">
+	<xsl:template match="kwd-group" mode="keywords">
 		<xsl:variable name="lang" select="normalize-space(@xml:lang)"/>
 		<!--xsl:param name="test" select="1"/>     <xsl:value-of select="$test"/-->
 		<p>
@@ -1314,6 +1322,9 @@
 			<xsl:apply-templates select=".//title-group"/>
 			<xsl:apply-templates select=".//abstract"/>
 			<xsl:apply-templates select=".//trans-abstract"/>
+			<xsl:if test="not(.//abstract) and not(.//trans-abstract)">
+				<xsl:apply-templates select=".//kwd-group" mode="keywords"></xsl:apply-templates>
+			</xsl:if>
 			<div class="body">
 				<xsl:apply-templates select="body"/>
 			</div>
