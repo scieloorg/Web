@@ -203,7 +203,10 @@
 		<text find="original_version_published_in">original version published in</text>
 		<text find="fulltext_only_in_pdf">Full text available only in PDF format</text>
 		<text find="this_article_has_been_corrected">This article has been corrected</text>
-		<text find="this_corrects">This corrects the article: </text>
+		<text find="this_corrects">This corrects the article</text>
+		<text find="related_to">Related to</text>
+		<text find="this_retracts">Retracts the article</text>
+		<text find="this_retracts_partially">Retracts partially the article</text>
 	</xslid>
 	<xslid id="sci_abstract">
 		<text find="abstract">Abstract</text>
