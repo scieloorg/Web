@@ -1675,7 +1675,7 @@
 		<xsl:apply-templates select="attrib | permissions"/>
 	</xsl:template>
 	<xsl:template match="table-wrap | table-wrap//*[permissions]" mode="object-properties">
-		<xsl:apply-templates select="permissions"/>
+		<xsl:apply-templates select="permissions|attrib"/>
 	</xsl:template>
 	<xsl:template match="underline | table//underline">
 		<u>
