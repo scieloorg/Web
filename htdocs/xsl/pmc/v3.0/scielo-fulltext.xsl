@@ -1764,7 +1764,7 @@
 	</xsl:template>
 	
 	<xsl:template match="article-meta//product/person-group/name">
-		<xsl:if test="position()!=1">; </xsl:if><xsl:apply-templates select="surname"/>, <xsl:apply-templates select="given-names"/>
+		<xsl:if test="position()!=1">; </xsl:if><xsl:apply-templates select="surname"/><xsl:if test="suffix"><xsl:value-of select="concat(' ',suffix)"/></xsl:if>, <xsl:apply-templates select="given-names"/>
 	</xsl:template>
 	<xsl:template match="size">
 		<xsl:value-of select="."/>
