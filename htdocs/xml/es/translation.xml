@@ -202,10 +202,11 @@
 	<xslid id="sci_arttext">
 		<text find="original_version_published_in">versión original publicada en</text>
 		<text find="fulltext_only_in_pdf">texto completo solamente en formato PDF</text>
-		<text find="this_article_has_been_corrected">Este artículo fue corregido</text>
+		<text find="this_article_has_been_corrected">Este artículo fue corregido por</text>
 		<text find="this_corrects">Corrige el artículo</text>
-		<text find="this_article_has_been_retracted">Este artículo fue retractado</text>
+		<text find="related_to">Relacionado con</text>
 		<text find="this_retracts">Retracta el artículo</text>
+		<text find="this_retracts_partially">Retracta parcialmente el artículo</text>
 	</xslid>
 	<xslid id="sci_abstract">
 		<text find="abstract">Resumen</text>
@@ -297,6 +298,7 @@
 	</xslid>
 	<xslid id="sci_toolbox">
 		<text find="services">Servicios</text>
+		<text find="journal">Revista</text>
 		<text find="article">Articulo</text>
 		<text find="add_to_my_collection">Añadir a mi colección</text>
 		<text find="alert_me_when_cited">Alérteme cuando sea citado</text>

@@ -1707,33 +1707,44 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
     <xsl:template match="mml:math|math" mode="HTML-TEXT">
         <xsl:copy-of select="."/>
     </xsl:template>   
+    
     <xsl:template match="article-meta//product">
-        <p class="product">
-            <xsl:apply-templates select="person-group"/>. <xsl:apply-templates select="source"/>. <xsl:apply-templates select="year"/>. 
-            <xsl:apply-templates select="publisher-name"/> (<xsl:apply-templates select="publisher-loc"/>). <xsl:apply-templates select="size"/>. </p>	
-    </xsl:template>
-    <xsl:template match="product[@product-type='book']">
         <div class="product">
             <xsl:if test="inline-graphic or graphic">
-                <div><xsl:apply-templates select="inline-graphic | graphic"/></div>
+                <div><xsl:apply-templates select="inline-graphic | graphic"  mode="product"/></div>
             </xsl:if>
             <div class="product-text">
-                <xsl:apply-templates select="source"/>. <xsl:apply-templates select="person-group"/>. (<xsl:apply-templates select="year"/>). <xsl:apply-templates select="publisher-loc"/>: 
-                <xsl:apply-templates select="publisher-name"/>, <xsl:apply-templates select="year"/>, <xsl:apply-templates select="size"/>. <xsl:apply-templates select="isbn"/>		
+                <xsl:apply-templates select="*|text()"/>	
             </div>
         </div>
     </xsl:template>
-    <xsl:template match="product/inline-graphic | product/graphic">
-        <a target="_blank">
-            <xsl:attribute name="href"><xsl:value-of select="concat($IMAGE_PATH,'/')"/><xsl:apply-templates select="." mode="fix_img_extension"/></xsl:attribute>
-            <img class="product-graphic">
-                <xsl:attribute name="src"><xsl:value-of select="concat($IMAGE_PATH,'/')"/><xsl:apply-templates select="." mode="fix_img_extension"/></xsl:attribute>
-            </img>
-        </a>
+    <xsl:template match="article-meta//product/text()"></xsl:template>
+    <xsl:template match="article-meta//product/*"><xsl:apply-templates select="*|text()"/><xsl:if test="position()!=last()">, </xsl:if> 
     </xsl:template>
     <xsl:template match="article-meta//product/person-group">
-        <xsl:apply-templates select="name"/>
+        <xsl:apply-templates select="name"></xsl:apply-templates>. 
     </xsl:template>
+    <xsl:template match="article-meta//product/article-title | product[@product-type!='article']/source">
+        <xsl:apply-templates select="*|text()"/>. 
+    </xsl:template>
+    <xsl:template match="article-meta//product/edition | article-meta//product/year | article-meta//product/month">
+        <xsl:value-of select="text()"/>. 
+    </xsl:template>
+    <xsl:template match="article-meta//product[@product-type='book']/publisher-loc"><xsl:value-of select="*|text()"/>: 
+    </xsl:template>
+    <xsl:template match="article-meta//product/volume">v. <xsl:value-of select="text()"/>,  
+    </xsl:template>
+    <xsl:template match="article-meta//product/issue"><xsl:if test="not(starts-with(.,'n.'))">n. </xsl:if><xsl:value-of select="text()"/>,  
+    </xsl:template>
+    <xsl:template match="article-meta//product/fpage">p. <xsl:value-of select="text()"/></xsl:template>
+    <xsl:template match="article-meta//product/lpage">-<xsl:value-of select="text()"/>, 
+    </xsl:template>
+    <xsl:template match="article-meta//product/size"><xsl:value-of select="text()"/>p.
+    </xsl:template>
+    
+    <xsl:template match="article-meta//product/inline-graphic | product/graphic">
+    </xsl:template>
+    
     <xsl:template match="article-meta//product/person-group/name">
         <xsl:if test="position()!=1">; </xsl:if><xsl:apply-templates select="surname"/>, <xsl:apply-templates select="given-names"/>
     </xsl:template>
@@ -1746,20 +1757,16 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
     <xsl:template match="article-meta//product/isbn">
         ISBN: <xsl:value-of select="."/>.
     </xsl:template>
-    <xsl:template match="article-meta//product[comment]">
-        <p class="product">
-            <xsl:apply-templates select="*|text()"/> 
-        </p>
-    </xsl:template>
-    <xsl:template match="article-meta//product[comment]/*">
-        <xsl:variable name="last_char"><xsl:value-of select="substring(.,string-length(.))"/></xsl:variable>
-        <xsl:comment><xsl:value-of select="$last_char"/></xsl:comment>
-        <xsl:value-of select="."/><xsl:if test="position()!=last() and $last_char!='.'">. </xsl:if> 
-    </xsl:template>
-    <xsl:template match="article-meta//product[comment]/person-group">
-        <xsl:apply-templates select="name"/>.
-    </xsl:template>
 
+    <xsl:template match="article-meta//product/inline-graphic | product/graphic" mode="product">
+        <a target="_blank">
+            <xsl:attribute name="href"><xsl:value-of select="concat($IMAGE_PATH,'/')"/><xsl:apply-templates select="." mode="fix_img_extension"/></xsl:attribute>
+            <img class="product-graphic">
+                <xsl:attribute name="src"><xsl:value-of select="concat($IMAGE_PATH,'/')"/><xsl:apply-templates select="." mode="fix_img_extension"/></xsl:attribute>
+            </img>
+        </a>
+    </xsl:template>
+    
     <xsl:template match="*" mode="text-disclaimer">
         <xsl:if test="$RELATED-DOC[@TYPE='correction'] or $RELATED-DOC[@TYPE='corrected-article']">
             <div class="disclaimer">
