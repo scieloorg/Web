@@ -204,8 +204,9 @@
 		<text find="fulltext_only_in_pdf">Full text available only in PDF format</text>
 		<text find="this_article_has_been_corrected">This article has been corrected</text>
 		<text find="this_corrects">This corrects the article</text>
-		<text find="this_article_has_been_retracted">This article has been retracted</text>
-		<text find="this_retracts">This retracts the article</text>
+		<text find="related_to">Related to</text>
+		<text find="this_retracts">Retracts the article</text>
+		<text find="this_retracts_partially">Retracts partially the article</text>
 	</xslid>
 	<xslid id="sci_abstract">
 		<text find="abstract">Abstract</text>
@@ -305,6 +306,7 @@
 	</xslid>
 	<xslid id="sci_toolbox">
 		<text find="services">Services</text>
+		<text find="journal">Journal</text>
 		<text find="article">Article</text>
 		<text find="add_to_my_collection">Add to my collection</text>
 		<text find="alert_me_when_cited">Alert me when cited</text>
