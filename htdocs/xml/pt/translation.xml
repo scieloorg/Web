@@ -202,8 +202,11 @@
 	<xslid id="sci_arttext">
 		<text find="original_version_published_in">versão original publicada em</text>
 		<text find="fulltext_only_in_pdf">Texto completo somente em PDF</text>
-		<text find="this_article_has_been_corrected">Este artigo foi corrigido</text>
-		<text find="this_corrects">Corrige o artigo: </text>
+		<text find="this_article_has_been_corrected">Este artigo foi corrigido por</text>
+		<text find="this_corrects">Corrige o artigo</text>
+		<text find="related_to">Relacionado com</text>
+		<text find="this_retracts">Retrata o artigo</text>
+		<text find="this_retracts_partially">Retrata parcialmente o artigo</text>
 	</xslid>
 	<xslid id="sci_abstract">
 		<text find="abstract">Resumo</text>
