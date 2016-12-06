@@ -58,6 +58,7 @@
 				</xsl:call-template>
 				<script type="text/javascript" src="/applications/scielo-org/js/functions.js"/>
 				<script type="text/javascript" src="/article.js"/>
+				<script type="text/javascript" src="/js/jquery-1.9.1.min.js" />
 			</head>
 			<body>
 				<xsl:if test="//NO_SCI_SERIAL!='yes' or not(//NO_SCI_SERIAL)">
@@ -149,34 +150,9 @@
                         -->
 						<xsl:apply-templates select="." mode="footer-journal"/>
 
-                    <!-- display google scholar metrics (h5 e m5 index) -->
-                    <script type="text/javascript">                            
-                        function print_h5_m5(data) { 
-                        	var html_data = '';
-                            if (data != null) {
-                            	for (year in data){
-                            		url = data[year]['url'];
-                            		var text_h5 =  '<xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='google_scholar_h5_index']"/>';
-                            		var text_m5 = '<xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='google_scholar_m5_index']"/>';
-                            		html_data +='<div><strong>'+year+'</strong></div>';
-	                                html_data +='<div><strong>'+text_h5+':</strong> '+data[year]['h5']+'</div>';
-	                                html_data +='<div><strong>'+text_m5+':</strong> '+data[year]['m5']+'</div>';
-									html_data +='<div style="margin-top: 5px"><a href="'+url+'" id="h5_m5_see_more" target="_blank"><xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='more_details']"/></a></div>';
-                            	}
-                            	document.getElementById('google_metrics_years').innerHTML = html_data;
-                                document.getElementById('google_metrics').style.display = 'block';
-                            }
-                        }
-
-                        var script = document.createElement('script');
-                        script.src = "google_metrics/get_h5_m5.php" + '?issn=<xsl:value-of select="//PAGE_PID"/>&amp;callback=print_h5_m5';
-                        document.getElementsByTagName('head')[0].appendChild(script);
-                    </script>
-
 					</div>
 				</xsl:if>
 				<xsl:if test="$journal_manager=1">
-				  <script type="text/javascript" src="/js/jquery-1.9.1.min.js" />
 				  <script type="text/javascript">
 				  var lng = '<xsl:value-of select="CONTROLINFO/LANGUAGE"/>';
 				  var pid = '<xsl:value-of select="//PAGE_PID"/>';
@@ -418,24 +394,22 @@ press release do artigo
                         </li>
 
                         <!-- monta o grafico scimago -->
-                        
-                        <!--xsl:variable name="graphMago" select="document('file:///../../bases/scimago/scimago.xml')/SCIMAGOLIST/title[@ISSN = $ISSN_AS_ID]/@SCIMAGO_ID"/-->
-                        <xsl:variable name="graphMago" select="document('../../bases/scimago/scimago.xml')/SCIMAGOLIST/title[@ISSN = $ISSN_AS_ID]/@SCIMAGO_ID"/>
+                        <xsl:variable name="graphMago" select="document('../scimago/scimago.xml')/SCIMAGOLIST/title[@ISSN = $ISSN_AS_ID]/@SCIMAGO_ID"/>
                         <xsl:if test="$show_scimago!=0 and normalize-space($scimago_status) = normalize-space('online')">
                             <xsl:if test="$graphMago">
-                                <li>
+                                <li> 
                                     <strong>
                                         <a>
-                                            <xsl:attribute name="href">http://www.scimagojr.com/journalsearch.php?q=<xsl:value-of select="$ISSN_AS_ID"/>&amp;tip=iss&amp;exact=yes></xsl:attribute>
+                                            <xsl:attribute name="href">http://www.scimagojr.com/journalsearch.php?q=<xsl:value-of select="$graphMago"/>&amp;tip=sid&amp;clean=0</xsl:attribute>
                                             <xsl:attribute name="target">_blank</xsl:attribute>
                                             Scimago    
                                         </a>
                                     </strong>
                                     <a>
-                                        <xsl:attribute name="href">http://www.scimagojr.com/journalsearch.php?q=<xsl:value-of select="$ISSN_AS_ID"/>&amp;tip=iss&amp;exact=yes></xsl:attribute>
+                                        <xsl:attribute name="href">http://www.scimagojr.com/journalsearch.php?q=<xsl:value-of select="$graphMago"/>&amp;tip=sid&amp;clean=0</xsl:attribute>
                                         <xsl:attribute name="target">_blank</xsl:attribute>
                                         <img>
-                                            <xsl:attribute name="src">/img/scimago/<xsl:value-of select="$ISSN_AS_ID"/>.gif</xsl:attribute>
+                                            <xsl:attribute name="src">http://www.scimagojr.com/journal_img.php?id=<xsl:value-of select="$graphMago"/></xsl:attribute>
                                             <xsl:attribute name="alt"><xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='scimago_journal_country_rank']"/></xsl:attribute>
                                             <xsl:attribute name="border">0</xsl:attribute>
                                             <xsl:attribute name="width">185</xsl:attribute>
@@ -454,6 +428,23 @@ press release do artigo
                                 <div id="google_metrics_years">
                                 </div>
                             </li>
+				                    <!-- display google scholar metrics (h5 e m5 index) -->
+				                    <script type="text/javascript">    
+								              $(document).ready(function() {
+								                  var url =  "/google_metrics/get_h5_m5.php?issn=<xsl:value-of select="//SERIAL/ISSN_AS_ID"/>&amp;callback=?";
+								                  $.getJSON(url,  function(data) {
+								                  		var url_h5m5 = data['url']
+					                        		var text_h5 =  '<xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='google_scholar_h5_index']"/>';
+					                        		var text_m5 = '<xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='google_scholar_m5_index']"/>';
+					                        		html_data ='<div><strong>'+data['year']+'</strong></div>';
+					                            html_data +='<div><strong>'+text_h5+':</strong> '+data['h5']+'</div>';
+					                            html_data +='<div><strong>'+text_m5+':</strong> '+data['m5']+'</div>';
+																			html_data +='<div style="margin-top: 5px"><a href="'+url_h5m5+'" id="h5_m5_see_more" target="_blank"><xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='more_details']"/></a></div>';
+					                            $("#google_metrics_years").html(html_data);
+								                      $("#google_metrics").show();
+								                  });
+								              });
+				                    </script>
                         </div>
                     </ul>
 				</li>
@@ -474,15 +465,9 @@ press release do artigo
 					<xsl:attribute name="id">btn_submission</xsl:attribute>
 				</xsl:if>
 				<a href="{.}" target="{$t}">
-					<xsl:choose>
-					<xsl:when test="$t != 'online_submission'">
+					<xsl:if test="$t != 'online_submission'">
 						<xsl:value-of select="$label"/>
-					</xsl:when>
-					<xsl:otherwise>
-						<xsl:attribute name="class"><xsl:value-of select="$interfaceLang"/>_button</xsl:attribute>
-					</xsl:otherwise>
-					
-					</xsl:choose>
+					</xsl:if>
 				</a>
 				<br/>
 			</li>

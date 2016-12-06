@@ -222,8 +222,7 @@
                     fi
                 </pft>
            </flow>
-           <field action="replace" tag="704" split="occ"><pft>if v704:'^cY' then if replace(replace(replace(v704,'^',''),'cY',''),' ','')='' then ' ^cY' fi fi</pft></field>
-           <field action="replace" tag="704" split="occ"><pft>if v704*0.1= '^' then ' ',v704 fi</pft></field>
+
            <display>
                 <pft>
                     if v704^*:'http:' and not v704^*:'http://' then
