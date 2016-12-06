@@ -206,6 +206,7 @@
 		<text find="this_corrects">Corrige o artigo</text>
 		<text find="this_article_has_been_retracted">Este artigo foi retratado</text>
 		<text find="this_retracts">Retrata o artigo</text>
+		<text find="this_retracts_partially">Retrata parcialmente o artigo</text>
 	</xslid>
 	<xslid id="sci_abstract">
 		<text find="abstract">Resumo</text>
@@ -341,6 +342,7 @@ Av. Prof. Mello Moraes, 1721- Bl C<br/>
 	</xslid>
 	<xslid id="sci_toolbox">
 		<text find="services">Serviços</text>
+		<text find="journal">Journal</text>
 		<text find="article">artigo</text>
 		<text find="add_to_my_collection">Adicionar a minha coleção</text>
 		<text find="alert_me_when_cited">Alerte-me quando for citado</text>

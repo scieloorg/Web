@@ -5,14 +5,13 @@ function read_h5_m5_csv($csv_file){
     $file_handle = fopen($csv_file, 'r');
     $lines_of_csv = array();
     while (!feof($file_handle) ) {
-        $csv_fields = fgetcsv($file_handle, 1024);
+        $csv_fields = fgetcsv($file_handle, 1024, ",", '"');
         $issn = $csv_fields[0];
         $year = $csv_fields[1];
         $h5 = $csv_fields[3];
         $m5 = $csv_fields[4];
         $url =$csv_fields[5];
-
-        $lines_of_csv[$issn][$year] = array('h5'=>$h5, 'm5'=>$m5,'url'=>$url);
+        $lines_of_csv[$issn] = array('year'=>$year, 'h5'=>$h5, 'm5'=>$m5,'url'=>$url);
     }
     fclose($file_handle);
     return $lines_of_csv;
@@ -20,7 +19,7 @@ function read_h5_m5_csv($csv_file){
 
 $serial_json = '';
 
-$issn = strtolower($_GET['issn']);
+$issn = strtoupper($_GET['issn']);
 $callback_function = $_GET['callback'];
 
 if ( isset($issn) ){

@@ -18,7 +18,7 @@
 <section name="search">
 
 	<field action="cgi" tag="5">xml_header</field>
-	<!--display>
+	<display>
 		<pft>
 			if v5 = 'no' then
 				'Content-type:text/plain'##
@@ -27,16 +27,13 @@
 				'<?xml version="1.0" encoding="ISO-8859-1"?>'/
 			fi
 		</pft>
-	</display-->
+	</display>
 
 
 	<field action="replace" tag="1"><pft>getenv('PATH_TRANSLATED')</pft></field>
 	<field action="cgi" tag="2">IsisScript</field>
         <field action="cgi" tag="3011">def</field>
 	<field action="replace" tag="3011"><pft>'scielo.def.php'</pft></field>
-
-	<field action="cgi" tag="10">debug</field>
-	<call name="DebugMode"><pft>if a(v10) then 'OFF' else mpu,v10,mpl fi</pft></call>
 
 	<include>ScieloXML/sci_cipar.xis</include>
 
@@ -56,13 +53,11 @@
 
 
 	
-	<flow action="jump"><pft>if ref([v2001]l([v2001],'HR=',v880),@PROC_SPLIT_MST.PFT,mid(v702,size(v702)-3,size(v702)))<>'.xml' then 'HTML_REFERENCES' fi</pft></flow>
+	<flow action="jump"><pft>if ref([v2001]l([v2001],'HR=',v880),@PROC_SPLIT_MST.PFT,mid(v702,size(v702)-3,size(v702)))<>'.xml' then 'REFERENCES_FROM_HTML' fi</pft></flow>
 
-	<label>XML_REFERENCES</label>
+
+	<label>REFERENCES_FROM_XML</label>
     <call name="getParagraphsRange"><pft>v880</pft></call>
-    <flow action="jump"><pft>if s(v9901^s,v9901^e)='' then 'XML_REFERENCES_FROM_FILE' else 'XML_REFERENCES_FROM_P_RECORDS' fi</pft></flow>
-
-    <label>XML_REFERENCES_FROM_P_RECORDS</label>
 	<do task="mfnrange">
 		<parm name="db"><pft>v9901^d</pft></parm>
 		<parm name="from"><pft>v9901^s</pft></parm>
@@ -79,16 +74,7 @@
 	</do>
 	<flow action="jump">sci_references_fim</flow>
 	
-	<label>XML_REFERENCES_FROM_FILE</label>
-	<display><pft>'<root  xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML">'/</pft></display>
-		<display><pft>'<nlm-xsl-file-path>../../xsl/</nlm-xsl-file-path>'/,
-					'<ARTICLE PID="',v880,'"/>'</pft></display>
-		<display><pft>'<references-from-xml file="',ref([v2001]l([v2001],'HR=',v880),@PROC_SPLIT_MST.PFT,v702),'">'</pft></display>
-		
-	<display><pft>'</references-from-xml></root>'</pft></display>
-	<flow action="jump">sci_references_fim</flow>
-
-	<label>HTML_REFERENCES</label>
+	<label>REFERENCES_FROM_HTML</label>
 
     <!-- gizmos ???? -->
 	<field action="replace" tag="4000"><pft>ref([v2001]l([v2001],replace(v2005,'$','00001')),v32701)</pft></field>
@@ -96,14 +82,12 @@
     <field action="replace" tag="2007" split="occ"><pft>(v2007/)</pft></field>
 
 
-    <call name="getReferencesRange"><pft>v1880</pft></call>
-    <flow action="jump"><pft>if s(v9901^s,v9901^e)='' then 'sci_references_fim' fi</pft></flow>
-
+    <call name="getReferencesRange"><pft>v880</pft></call>
 	<do task="mfnrange">
 		<parm name="db"><pft>v9901^d</pft></parm>
 		<parm name="from"><pft>v9901^s</pft></parm>
 		<parm name="to"><pft>v9901^e</pft></parm>
-		<!-- parm name="gizmo"><pft>if v4000<>'' then '' else (v2007) fi</pft></parm -->
+		<parm name="gizmo"><pft>if v4000<>'' then '' else (v2007) fi</pft></parm>
 
 
 		<field action="define" tag="1001">Isis_Current</field>
@@ -133,8 +117,7 @@
 			<flow action="jump"><pft>if val(v32701^m) > 0 then 'proc_split' fi</pft></flow>
 
             <!-- imprime xml -->
-            <field action="replace" tag="704"><pft>'<![CDATA[',v704^*,']]>',mid(v704,instr(v704,'^')-1,size(v704))</pft></field>
-            <display><isisxml>*</isisxml></display>
+			<display><isisxml>*</isisxml></display>
 
             <!-- proximo -->
 			<flow action="skip">Next</flow>
@@ -145,7 +128,7 @@
 				<parm name="db"><pft>v32701^*</pft></parm>
 				<parm name="from"><pft>v32701^m</pft></parm>
 				<parm name="count">1</parm>
-				<!-- parm name="gizmo"><pft>(v2007)</pft></parm -->
+				<parm name="gizmo"><pft>(v2007)</pft></parm>
 				<field action="define" tag="1001">Isis_Current</field>
 				<field action="define" tag="1002">Isis_Total</field>
 				<field action="define" tag="1102">Isis_Status</field>
@@ -158,8 +141,7 @@
 				</parm>
 		
 				<loop>
-					<field action="replace" tag="704"><pft>'<![CDATA[',v704^*,']]>',mid(v704,instr(v704,'^')-1,size(v704))</pft></field>
-            		<display><isisxml>*</isisxml></display>
+					<display><isisxml>*</isisxml></display>
 				</loop>
 			</do>
 			<file action="close" type="database"><pft>v32701^*</pft></file>
