@@ -146,11 +146,8 @@ IsisScript que gera o XML Para a tela de links da referencia bibliografica
    </do>
    <file action="close" type="database">NLINKS</file>
  
-   <field action="replace" tag="9010" split="occ"><pft>ref(['ARTIGO']l(['ARTIGO'],'R='v3002),@PROC_SPLIT_MST.PFT,(v10/),(v16/))</pft></field>
 
-   <field action="replace" tag="3333"><pft>if p(v9010) then (| author:|v9010^n,| OR author:|v9010^s,' OR ') fi</pft></field> 
-
-   <!--('%22author:'v10^n' ','author:'v10^s'%22'), colocar antes do intitle se quiser incluir autores no try google--> 
+   <field action="replace" tag="3333"><pft>ref(['ARTIGO']l(['ARTIGO'],'R='v3002),@PROC_SPLIT_MST.PFT,(' author:',v10^n,' OR author:',v10^s,' OR '))</pft></field> <!--('%22author:'v10^n' ','author:'v10^s'%22'), colocar antes do intitle se quiser incluir autores no try google--> 
    <field action="replace" tag="3334"><pft>ref(['ARTIGO']l(['ARTIGO'],'R='v3002),@PROC_SPLIT_MST.PFT,v12^*)</pft></field>    
    <field action="replace" tag="3335"><pft>ref(['ARTIGO']l(['ARTIGO'],'R='v3002),@PROC_SPLIT_MST.PFT,v18^*)</pft></field>    
    

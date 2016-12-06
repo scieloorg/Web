@@ -7,7 +7,6 @@
 	<xsl:import href="sci_toolbox.xsl"/>
 	<xsl:output indent="yes"/>
 	
-	<xsl:variable name="pdf_links" select="//PDF_LANGS/LANG"/>
 	<xsl:template match="*[@xlink:href] | *[@href]" mode="fix_img_extension">
 		<xsl:variable name="href"><xsl:choose>
 			<xsl:when test="@xlink:href"><xsl:value-of select="@xlink:href"/></xsl:when>
@@ -589,12 +588,10 @@
 	</xsl:template>
 	
 	<xsl:template match="SERIAL" mode="text-disclaimer">
-		<xsl:if test=".//ARTICLE/RELATED-DOC[@TYPE='correction'] or .//ARTICLE/RELATED-DOC[@TYPE='corrected-article'] or .//ARTICLE/RELATED-DOC[@TYPE='retraction'] or .//ARTICLE/RELATED-DOC[@TYPE='retracted-article']">
+		<xsl:if test=".//ARTICLE/RELATED-DOC">
 			<div class="disclaimer">
-				<xsl:apply-templates select=".//ARTICLE/RELATED-DOC[@TYPE='correction']"/>			
-				<xsl:apply-templates select=".//ARTICLE/RELATED-DOC[@TYPE='corrected-article']"/>
-				<xsl:apply-templates select=".//ARTICLE/RELATED-DOC[@TYPE='retraction']"/>			
-				<xsl:apply-templates select=".//ARTICLE/RELATED-DOC[@TYPE='retracted-article']"/>
+					<xsl:apply-templates select=".//ARTICLE/RELATED-DOC"/>			
+				
 			</div>
 		</xsl:if>
 		<!--xsl:if test=".//ARTICLE/RELATED-DOC[@TYPE='correction']">
@@ -604,97 +601,54 @@
 		</xsl:if-->
 	</xsl:template>
 	
-	<xsl:template match="RELATED-DOC[@TYPE='corrected-article']" mode="label">
-		<xsl:value-of
-			select="$translations/xslid[@id='sci_arttext']/text[@find='this_corrects']"
-		/>
-	</xsl:template>
-	<xsl:template match="RELATED-DOC[@TYPE='correction']" mode="label">
-		<xsl:value-of
-			select="$translations/xslid[@id='sci_arttext']/text[@find='this_article_has_been_corrected']"
-		/>
-	</xsl:template>
-	
-	<xsl:template match="RELATED-DOC[@TYPE='retraction']" mode="label">
-		<xsl:value-of
-			select="$translations/xslid[@id='sci_arttext']/text[@find='this_article_has_been_retracted']"
-		/>
-	</xsl:template>
-	<xsl:template match="RELATED-DOC[@TYPE='retracted-article']" mode="label">
-		<xsl:value-of
-			select="$translations/xslid[@id='sci_arttext']/text[@find='this_retracts']"
-		/>
-	</xsl:template>
-	
 	<xsl:template match="RELATED-DOC">
 		<p>
-			<strong><xsl:apply-templates select="." mode="label"/>: </strong>
-			<a target="_blank"><xsl:choose>
-				<xsl:when test="@PID">
-					<xsl:call-template name="AddScieloLink">
-						<xsl:with-param name="seq" select="@PID"/>
-						<xsl:with-param name="script">sci_arttext</xsl:with-param>
-						<xsl:with-param name="txtlang" select="$TXTLANG"/>
-					</xsl:call-template><xsl:if test="DOCTITLE"><xsl:value-of select="DOCTITLE"/>. </xsl:if><xsl:value-of select="ISSUE"/>
+			<strong>
+				<xsl:choose>
+					<xsl:when test="@TYPE='correction'">
+						<xsl:value-of
+							select="$translations/xslid[@id='sci_arttext']/text[@find='this_article_has_been_corrected']"
+						/>: 
+					</xsl:when>
+					<xsl:when test="@TYPE='corrected-article'">
+						<xsl:value-of
+							select="$translations/xslid[@id='sci_arttext']/text[@find='this_corrects']"
+						/>: 
+					</xsl:when>
+					<xsl:when test="@TYPE='retracted-article'">
+						<xsl:value-of
+							select="$translations/xslid[@id='sci_arttext']/text[@find='this_retracts']"
+						/>: 
+					</xsl:when>
+					<xsl:when test="@TYPE='partial-retraction' or @TYPE='partial-retracted'">
+						<xsl:value-of
+							select="$translations/xslid[@id='sci_arttext']/text[@find='this_retracts_partially']"
+						/>: 
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of
+							select="$translations/xslid[@id='sci_arttext']/text[@find='related_to']"
+						/>:
+					</xsl:otherwise>
+				</xsl:choose>
+			</strong>
+			<xsl:choose>
+				<xsl:when test="@DOI">
+					<a href="https://doi.org/{@DOI}"><xsl:value-of select="@DOI"/></a>
 				</xsl:when>
 				<xsl:otherwise>
-					<xsl:attribute name="href"><xsl:if test="not(starts-with(@DOI,'http'))">https://dx.doi.org/</xsl:if><xsl:value-of select="@DOI"/></xsl:attribute>
-					<xsl:value-of select="@DOI"/>
+					<a target="_blank">
+						<xsl:call-template name="AddScieloLink">
+							<xsl:with-param name="seq" select="@PID"/>
+							<xsl:with-param name="script">sci_arttext</xsl:with-param>
+							<xsl:with-param name="txtlang" select="$TXTLANG"/>
+						</xsl:call-template><xsl:value-of select="ISSUE"/>
+					</a>
 				</xsl:otherwise>
 			</xsl:choose>
 			
-				
-			</a>
 		</p>
 	</xsl:template>
 	
 	
-	<xsl:template match="body/p[contains(text(),'Texto completo') and contains(text(),'apenas em PDF')]">
-		<xsl:choose>
-			<xsl:when test="count($pdf_links)=1">
-				<xsl:apply-templates select="$pdf_links" mode="only_pdf">
-					<xsl:with-param name="label" select="."/>
-				</xsl:apply-templates>
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:if test="$pdf_links[.='pt']">
-					<xsl:apply-templates select="$pdf_links[.='pt']" mode="only_pdf">
-						<xsl:with-param name="label" select="."/>
-					</xsl:apply-templates>
-				</xsl:if>
-				<xsl:if test="$pdf_links[.!='en' and .!='pt']">
-					<xsl:apply-templates select="$pdf_links[.!='en' and .!='pt']" mode="only_pdf">
-						<xsl:with-param name="label" select="."/>
-					</xsl:apply-templates>
-				</xsl:if>
-			</xsl:otherwise>
-		</xsl:choose>		
-	</xsl:template>
-	<xsl:template match="body/p[contains(text(),'Full text available only in PDF format')]">
-		<xsl:choose>
-			<xsl:when test="count($pdf_links)=1">
-				<xsl:apply-templates select="$pdf_links" mode="only_pdf">
-					<xsl:with-param name="label" select="."/>
-				</xsl:apply-templates>
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:if test="$pdf_links[.='en']">
-					<xsl:apply-templates select="$pdf_links[.='en']" mode="only_pdf">
-						<xsl:with-param name="label" select="."/>
-					</xsl:apply-templates>
-				</xsl:if>
-				<xsl:if test="$pdf_links[.!='en' and .!='pt']">
-					<xsl:apply-templates select="$pdf_links[.!='en' and .!='pt']" mode="only_pdf">
-						<xsl:with-param name="label" select="."/>
-					</xsl:apply-templates>
-				</xsl:if>
-			</xsl:otherwise>
-		</xsl:choose>			
-	</xsl:template>
-	<xsl:template match="*" mode="only_pdf">
-		<xsl:param name="label"/>
-		<p>
-			<a href="/pdf/{@TRANSLATION}"><xsl:value-of select="$label"/></a>
-		</p>
-	</xsl:template>
 </xsl:stylesheet>
