@@ -175,10 +175,15 @@
 					<xsl:apply-templates select="back"/>
 				</div>
 			</xsl:when>
-			<xsl:when test="not(back) and $original/back">
-				<div id="{$this-article}-back" class="back">
+			<xsl:when test="not(back) and $original/back/ref-list">
+			<!--	<div id="{$this-article}-back" class="back">
 					<xsl:apply-templates select="$original/back"/>
-				</div></xsl:when>
+				</div>
+				-->
+				<div id="{$this-article}-back" class="back">
+					<xsl:apply-templates select="$original/back/ref-list"/>
+				</div>
+				</xsl:when>
 		</xsl:choose>
 		
 		<xsl:for-each select="floats-group">
@@ -207,11 +212,11 @@
 				<xsl:when test=".//front//author-notes">
 					<xsl:apply-templates select=".//front//author-notes"/>
 				</xsl:when>
-				<xsl:when test=".//author-notes">
-					<xsl:apply-templates select=".//author-notes"/>
+				<xsl:when test=".//front-stub/author-notes">
+					<xsl:apply-templates select=".//front-stub/author-notes"/>
 				</xsl:when>
 				<xsl:otherwise>
-					<xsl:apply-templates select="$original//front//author-notes"/>
+					<!-- <xsl:apply-templates select="$original//front//author-notes"/> -->
 				</xsl:otherwise>
 			</xsl:choose>
 		</div>
@@ -249,8 +254,11 @@
 		<xsl:if test="not(.//aff)">
 			<xsl:apply-templates select="../..//front//aff"/>
 		</xsl:if>
-		<xsl:apply-templates select="../..//front//supplementary-material"/>
+		<xsl:apply-templates select="../..//front//supplementary-material|../..//front//product"/>
 		<xsl:apply-templates select=".//abstract"/>
+		<xsl:if test="not(.//abstract)">
+			<xsl:apply-templates select=".//kwd-group" mode="keywords"></xsl:apply-templates>
+		</xsl:if>
 		
 	</xsl:template>
 
@@ -261,6 +269,9 @@
 		<xsl:apply-templates select=".//contrib-group"/>
 		<xsl:apply-templates select=".//aff"/>
 		<xsl:apply-templates select=".//abstract | .//trans-abstract"/>
+		<xsl:if test="not(.//abstract) and not(.//trans-abstract)">
+			<xsl:apply-templates select=".//kwd-group" mode="keywords"></xsl:apply-templates>
+		</xsl:if>
 		<xsl:apply-templates select=".//supplementary-material"/>
 	</xsl:template>
 
@@ -273,7 +284,9 @@
 		<p><xsl:apply-templates select=".//supplementary-material"/></p>
 		<p><xsl:apply-templates select=".//product"/></p>
 		<xsl:apply-templates select=".//abstract | .//trans-abstract"/>
-		
+		<xsl:if test="not(.//abstract) and not(.//trans-abstract)">
+			<xsl:apply-templates select=".//kwd-group" mode="keywords"></xsl:apply-templates>
+		</xsl:if>
 	</xsl:template>
 
 	<xsl:template match="abstract | trans-abstract">
@@ -307,16 +320,16 @@
 			<xsl:apply-templates select="*[name()!='title'] | text()"/>
 			<xsl:apply-templates
 				select="..//kwd-group[normalize-space(@xml:lang)=normalize-space($lang)]"
-				mode="keywords-with-abstract"/>
+				mode="keywords"/>
 			<xsl:if test="not(..//kwd-group[normalize-space(@xml:lang)=normalize-space($lang)])">
 				<xsl:apply-templates
 						select="..//kwd-group[not(@xml:lang)]"
-						mode="keywords-with-abstract"/>
+						mode="keywords"/>
 			</xsl:if>
 		</div>
 	</xsl:template>
 
-	<xsl:template match="kwd-group" mode="keywords-with-abstract">
+	<xsl:template match="kwd-group" mode="keywords">
 		<xsl:variable name="lang" select="normalize-space(@xml:lang)"/>
 		<!--xsl:param name="test" select="1"/>     <xsl:value-of select="$test"/-->
 		<p>
@@ -436,11 +449,7 @@
 				<xsl:apply-templates select="role"></xsl:apply-templates>
 			</xsl:if>
 		</div>
-		<xsl:if test=".//contrib-id">
-			<div>
-			<xsl:apply-templates select="contrib" mode="contrib-id"></xsl:apply-templates>
-			</div>
-		</xsl:if>
+		
 	</xsl:template>
 	<xsl:template match="contrib/role | contrib/degrees"><xsl:value-of select="concat(', ',.)"/>
 	</xsl:template>
@@ -461,6 +470,7 @@
 		<xsl:if test="prefix"><xsl:apply-templates select="prefix"/>&#160;</xsl:if>
 		<xsl:apply-templates select="given-names"/>&#160;<xsl:apply-templates select="surname"/>
 		<xsl:if test="suffix">&#160;<xsl:apply-templates select="suffix"/></xsl:if>
+		<xsl:if test="../contrib-id"> (<xsl:apply-templates select="..//contrib-id" mode="contrib-id"></xsl:apply-templates>)</xsl:if>
 	</xsl:template>
 	<xsl:template match="text()" mode="normalize">
 		<xsl:value-of select="normalize-space(.)"/>
@@ -481,9 +491,10 @@
 			<xsl:when test="@contrib-id-type='researchid'">http://www.researcherid.com/rid/</xsl:when>
 		</xsl:choose></xsl:variable>
 		<xsl:variable name="location"><xsl:value-of select="$url"/><xsl:value-of select="."/></xsl:variable>
+		
 		<a target="_blank" onclick="javascript: w = window.open('{$location}','','width=640,height=500,resizable=yes,scrollbars=1,menubar=yes,'); ">
-			<xsl:value-of select="$location"/>
-		</a><br/>
+			<xsl:value-of select="@contrib-id-type"/>: <xsl:value-of select="."/>
+		</a><xsl:if test="position()!=last()">; </xsl:if>
 	</xsl:template>
 	<xsl:template match="contrib/xref">
 		<xsl:variable name="rid" select="@rid"/>
@@ -671,7 +682,7 @@
 	</xsl:template>
 	
 	<xsl:template match="xref[@ref-type='fn']">
-		<sup><a href="#back_{@rid}">
+		<sup><a href="#{@rid}">
 			<xsl:apply-templates select="*|text()"/>
 		</a></sup>
 	</xsl:template>
@@ -1311,6 +1322,9 @@
 			<xsl:apply-templates select=".//title-group"/>
 			<xsl:apply-templates select=".//abstract"/>
 			<xsl:apply-templates select=".//trans-abstract"/>
+			<xsl:if test="not(.//abstract) and not(.//trans-abstract)">
+				<xsl:apply-templates select=".//kwd-group" mode="keywords"></xsl:apply-templates>
+			</xsl:if>
 			<div class="body">
 				<xsl:apply-templates select="body"/>
 			</div>
@@ -1364,7 +1378,6 @@
 							</xsl:apply-templates>
 						</xsl:when>
 						<xsl:otherwise>
-							<xsl:apply-templates select="*"/>
 							<xsl:apply-templates select="$original/back/ref-list">
 								<xsl:with-param name="title">
 									<xsl:choose>
@@ -1374,6 +1387,7 @@
 									</xsl:choose>
 								</xsl:with-param>
 							</xsl:apply-templates>
+							<xsl:apply-templates select="*"/>
 						</xsl:otherwise>
 					</xsl:choose>
 				</xsl:when>
@@ -1677,7 +1691,7 @@
 		<xsl:apply-templates select="attrib | permissions"/>
 	</xsl:template>
 	<xsl:template match="table-wrap | table-wrap//*[permissions]" mode="object-properties">
-		<xsl:apply-templates select="permissions"/>
+		<xsl:apply-templates select="permissions|attrib"/>
 	</xsl:template>
 	<xsl:template match="underline | table//underline">
 		<u>
@@ -1750,7 +1764,7 @@
 	</xsl:template>
 	
 	<xsl:template match="article-meta//product/person-group/name">
-		<xsl:if test="position()!=1">; </xsl:if><xsl:apply-templates select="surname"/>, <xsl:apply-templates select="given-names"/>
+		<xsl:if test="position()!=1">; </xsl:if><xsl:apply-templates select="surname"/><xsl:if test="suffix"><xsl:value-of select="concat(' ',suffix)"/></xsl:if>, <xsl:apply-templates select="given-names"/>
 	</xsl:template>
 	<xsl:template match="size">
 		<xsl:value-of select="."/>
