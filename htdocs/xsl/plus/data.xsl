@@ -10,7 +10,7 @@
             /></xsl:if>
         <xsl:if test="issue">
             <xsl:choose>
-                <xsl:when test="translate(issue, '0', '')=''"><xsl:apply-templates
+                <xsl:when test="translate(concat(volume,issue), '0', '')=''"><xsl:apply-templates
                         select=".//pub-date[@pub-type='epub']/year"/>nahead</xsl:when>
                 <xsl:when test="contains(issue,'Suppl')">
                     <xsl:variable name="n"><xsl:value-of
@@ -22,9 +22,9 @@
                     <xsl:if test="$n!=''">n<xsl:value-of select="$n"/></xsl:if>s<xsl:value-of
                         select="$s"/><xsl:if test="$s=''">0</xsl:if>
                 </xsl:when>
-                <xsl:otherwise>n<xsl:value-of select="string(number(issue))"/></xsl:otherwise>
+                <xsl:when test="number(issue)!=0">n<xsl:value-of select="issue"/></xsl:when>
+                <xsl:otherwise></xsl:otherwise>
             </xsl:choose>
-
         </xsl:if>
         <xsl:if test="supplement"><xsl:variable name="s"><xsl:choose>
                     <xsl:when test="contains(supplement, 'Suppl')"><xsl:value-of
