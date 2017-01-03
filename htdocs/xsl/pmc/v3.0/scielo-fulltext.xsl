@@ -459,18 +459,17 @@
 		</p>
 	</xsl:template>
 	<xsl:template match="contrib">
-		<xsl:variable name="sep"><xsl:choose>
-			<xsl:when test="role or degrees">;</xsl:when>
-			<xsl:otherwise>,</xsl:otherwise>
-		</xsl:choose></xsl:variable>
-		<xsl:if test="position()!=1"><xsl:value-of select="concat($sep,' ')"/></xsl:if>
-		<xsl:apply-templates select="*|text()"/>
+		<p class="author">
+			<xsl:apply-templates select="*[name()!='contrib-id']|text()"/>
+			<xsl:if test="contrib-id"><br/><span class="contribid"><xsl:apply-templates select=".//contrib-id" mode="contrib-id"></xsl:apply-templates></span></xsl:if>
+		</p>
 	</xsl:template>
 	<xsl:template match="contrib/name">
+		<span class="author-name">
 		<xsl:if test="prefix"><xsl:apply-templates select="prefix"/>&#160;</xsl:if>
 		<xsl:apply-templates select="given-names"/>&#160;<xsl:apply-templates select="surname"/>
-		<xsl:if test="suffix">&#160;<xsl:apply-templates select="suffix"/></xsl:if>
-		<xsl:if test="../contrib-id"> (<xsl:apply-templates select="..//contrib-id" mode="contrib-id"></xsl:apply-templates>)</xsl:if>
+			<xsl:if test="suffix">&#160;<xsl:apply-templates select="suffix"/></xsl:if>
+		</span>
 	</xsl:template>
 	<xsl:template match="text()" mode="normalize">
 		<xsl:value-of select="normalize-space(.)"/>
@@ -491,10 +490,17 @@
 			<xsl:when test="@contrib-id-type='researchid'">http://www.researcherid.com/rid/</xsl:when>
 		</xsl:choose></xsl:variable>
 		<xsl:variable name="location"><xsl:value-of select="$url"/><xsl:value-of select="."/></xsl:variable>
-		
-		<a target="_blank" onclick="javascript: w = window.open('{$location}','','width=640,height=500,resizable=yes,scrollbars=1,menubar=yes,'); ">
-			<xsl:value-of select="@contrib-id-type"/>: <xsl:value-of select="."/>
-		</a><xsl:if test="position()!=last()">; </xsl:if>
+		<xsl:choose>
+			<xsl:when test="@contrib-id-type='orcid'">
+				<span style="vertical-align: middle">
+					<span style="margin:4px"><img src="/img/orcid.png" /></span><a href="" target="_blank" onclick="javascript: w = window.open('{$location}','','width=640,height=500,resizable=yes,scrollbars=1,menubar=yes,'); "><xsl:value-of select="$location"/></a>
+				</span>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="@contrib-id-type"/>: <a href="" target="_blank" onclick="javascript: w = window.open('{$location}','','width=640,height=500,resizable=yes,scrollbars=1,menubar=yes,'); "><xsl:value-of select="."/></a>
+			</xsl:otherwise>
+		</xsl:choose>
+		<xsl:if test="position()!=last()">; </xsl:if>
 	</xsl:template>
 	<xsl:template match="contrib/xref">
 		<xsl:variable name="rid" select="@rid"/>

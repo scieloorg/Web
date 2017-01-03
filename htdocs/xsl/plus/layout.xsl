@@ -160,6 +160,9 @@
                 max-width: 80%;
                 
                 }
+                .contribid {
+                font-size: 70%
+                }
             </style>
             <xsl:if test=".//math or .//mml:math">
                 <script type="text/javascript"
@@ -330,6 +333,28 @@
                 </p>
             </xsl:if>
     </xsl:template>
+    <xsl:template match="contrib-id" mode="HTML">
+        <xsl:variable name="url"><xsl:choose>
+            <xsl:when test="@contrib-id-type='orcid'">http://orcid.org/</xsl:when>
+            <xsl:when test="@contrib-id-type='lattes'">http://lattes.cnpq.br/</xsl:when>
+            <xsl:when test="@contrib-id-type='scopus'">https://www.scopus.com/authid/detail.uri?authorId=</xsl:when>
+            <xsl:when test="@contrib-id-type='researchid'">http://www.researcherid.com/rid/</xsl:when>
+        </xsl:choose></xsl:variable>
+        <xsl:variable name="location"><xsl:value-of select="$url"/><xsl:value-of select="."/></xsl:variable>
+        <span class="contribid">
+        <xsl:choose>
+            <xsl:when test="@contrib-id-type='orcid'">
+                <span style="vertical-align: middle">
+                    <span style="margin:4px"><img src="/img/orcid.png" /></span><a href="" target="_blank" onclick="javascript: w = window.open('{$location}','','width=640,height=500,resizable=yes,scrollbars=1,menubar=yes,'); "><xsl:value-of select="$location"/></a>
+                </span>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="@contrib-id-type"/>: <a href="" target="_blank" onclick="javascript: w = window.open('{$location}','','width=640,height=500,resizable=yes,scrollbars=1,menubar=yes,'); "><xsl:value-of select="."/></a>
+            </xsl:otherwise>
+        </xsl:choose>
+            <xsl:if test="position()!=last()">; </xsl:if>
+        </span>
+    </xsl:template>
     <xsl:template match="name" mode="HTML">
         <span>
             <xsl:apply-templates select="." mode="DATA-DISPLAY"/>
@@ -338,6 +363,9 @@
         <xsl:text>
             <!-- manter esta quebra de linha -->
         </xsl:text>
+        <br/>
+        <xsl:apply-templates select="../contrib-id" mode="HTML"></xsl:apply-templates>
+        <br/>
     </xsl:template>
     
     <xsl:template match="xref" mode="HTML-author">
