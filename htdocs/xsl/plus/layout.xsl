@@ -1077,21 +1077,60 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
         </img>
     </xsl:template>
     <xsl:template match="disp-formula/graphic" mode="HTML-TEXT">
-        <img class="disp-formula-graphic">
-            <xsl:attribute name="src"><xsl:value-of select="concat($IMAGE_PATH,'/')"/><xsl:apply-templates select="." mode="fix_img_extension"/></xsl:attribute>
-        </img>
+        <xsl:variable name="href">
+            <xsl:choose>
+                <xsl:when test="@xlink:href"><xsl:value-of select="@xlink:href"/></xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="@href"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:variable name="size" select="string-length($href)"/>
+        <xsl:variable name="c1" select="substring($href,$size - 2)"/>
+        <xsl:choose>
+            <xsl:when  test="$c1='svg'">
+               <object type="image/svg+xml" class="disp-formula-graphic">
+                   <xsl:attribute name="data"><xsl:value-of select="concat($IMAGE_PATH,'/')"/><xsl:apply-templates select="." mode="fix_img_extension"/></xsl:attribute>
+               </object>
+            </xsl:when>
+            <xsl:otherwise>
+                <img class="disp-formula-graphic">
+                    <xsl:attribute name="src"><xsl:value-of select="concat($IMAGE_PATH,'/')"/><xsl:apply-templates select="." mode="fix_img_extension"/></xsl:attribute>
+                </img>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <xsl:template match="graphic" mode="HTML-TEXT">
         <img class="graphic">
             <xsl:attribute name="src"><xsl:value-of select="concat($IMAGE_PATH,'/')"/><xsl:apply-templates select="." mode="fix_img_extension"/></xsl:attribute>
         </img>
     </xsl:template>
+
     <xsl:template match="inline-formula/graphic" mode="HTML-TEXT">
-        <img class="inline-formula-graphic">
-            <xsl:attribute name="src"><xsl:value-of select="concat($IMAGE_PATH,'/')"/><xsl:apply-templates select="." mode="fix_img_extension"/></xsl:attribute>
-        </img>
+        <xsl:variable name="href">
+            <xsl:choose>
+                <xsl:when test="@xlink:href"><xsl:value-of select="@xlink:href"/></xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="@href"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:variable name="size" select="string-length($href)"/>
+        <xsl:variable name="c1" select="substring($href,$size - 2)"/>
+        <xsl:choose>
+            <xsl:when  test="$c1='svg'">
+               <object type="image/svg+xml" class="inline-formula-graphic">
+                   <xsl:attribute name="data"><xsl:value-of select="concat($IMAGE_PATH,'/')"/><xsl:apply-templates select="." mode="fix_img_extension"/></xsl:attribute>
+               </object>
+            </xsl:when>
+            <xsl:otherwise>
+                <img class="inline-formula-graphic">
+                    <xsl:attribute name="src"><xsl:value-of select="concat($IMAGE_PATH,'/')"/><xsl:apply-templates select="." mode="fix_img_extension"/></xsl:attribute>
+                </img>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
-    
+
     <xsl:template match="inline-formula" mode="HTML-TEXT">
         <span class="inline-formula">
             <xsl:apply-templates select="@id"/>
@@ -1848,3 +1887,4 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
         </img>
     </xsl:template>
 </xsl:stylesheet>
+
