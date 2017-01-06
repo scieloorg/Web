@@ -931,12 +931,31 @@
 		</a>
 	</xsl:template>
 	<xsl:template match="disp-formula/graphic">
-		<a target="_blank">
+        <xsl:variable name="href">
+            <xsl:choose>
+                <xsl:when test="@xlink:href"><xsl:value-of select="@xlink:href"/></xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="@href"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:variable name="size" select="string-length($href)"/>
+        <xsl:variable name="c1" select="substring($href,$size - 2)"/>
+	    <a target="_blank">
 			<xsl:apply-templates select="." mode="scift-attribute-href"/>
-			<img class="disp-formula-graphic">
-				<xsl:apply-templates select="." mode="scift-attribute-src"/>
-			</img>
-		</a>
+            <xsl:choose>
+                <xsl:when  test="$c1='svg'">
+                   <object type="image/svg+xml" class="disp-formula-graphic">
+                       <xsl:apply-templates select="." mode="scift-attribute-data"/>
+                   </object>
+                </xsl:when>
+                <xsl:otherwise>
+					<img class="disp-formula-graphic">
+		            	<xsl:apply-templates select="." mode="scift-attribute-src"/>
+					</img>
+                </xsl:otherwise>
+            </xsl:choose>
+	    </a>
 	</xsl:template>
 	<xsl:template match="graphic" mode="scift-thumbnail">
 		<a target="_blank">
@@ -957,6 +976,11 @@
 			<xsl:apply-templates select="." mode="scift-fix-href"/>
 		</xsl:attribute>
 	</xsl:template>
+        <xsl:template match="*" mode="scift-attribute-data">
+                <xsl:attribute name="data">
+                        <xsl:apply-templates select="." mode="scift-fix-href"/>
+                </xsl:attribute>
+        </xsl:template>
 	<xsl:template match="label|caption" mode="scift-label-caption-graphic">
 		<span class="{name()}"><xsl:apply-templates select="text() | *"
 				mode="scift-label-caption-graphic"/>&#160;</span>
@@ -1790,3 +1814,4 @@
 	
 	
 </xsl:stylesheet>
+
