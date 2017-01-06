@@ -1512,8 +1512,7 @@
 		<xsl:comment> posterior: <xsl:value-of select="$next_elem_name"/> </xsl:comment>
 		
 		<xsl:if test="name()=$before">
-
-			<xsl:if test="$previous_elem_name!=$before">
+			<xsl:if test="string($previous_elem_name)!=string($before)">
 				<xsl:apply-templates select="$ref_list">
 					<xsl:with-param name="title"><xsl:value-of select="$title"/></xsl:with-param>
 				</xsl:apply-templates>
@@ -1521,8 +1520,7 @@
 		</xsl:if>
 		<xsl:apply-templates/>
 		<xsl:if test="name()=$after">
-
-			<xsl:if test="$next_elem_name!=$after">
+			<xsl:if test="string($next_elem_name)!=string($after)">
 				<xsl:apply-templates select="$ref_list">
 					<xsl:with-param name="title"><xsl:value-of select="$title"/></xsl:with-param>
 				</xsl:apply-templates>
