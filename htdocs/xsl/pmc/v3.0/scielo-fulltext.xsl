@@ -851,7 +851,7 @@
 	
 	<xsl:template match="table//xref">
 		<xsl:if test="@ref-type='fn'">
-			<a name="{@rid}"/>
+			<a name="back_{@rid}"/>
 		</xsl:if>
 		<a href="#{@rid}">
 			<xsl:apply-templates select="*|text()"/>
@@ -939,14 +939,33 @@
 	
 
 	<xsl:template match="table//inline-graphic |inline-graphic">
+            <xsl:variable name="href">
+                <xsl:choose>
+                    <xsl:when test="@xlink:href"><xsl:value-of select="@xlink:href"/></xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="@href"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:variable>
+            <xsl:variable name="size" select="string-length($href)"/>
+            <xsl:variable name="c1" select="substring($href,$size - 2)"/>
 		<a target="_blank">
-			<xsl:apply-templates select="." mode="scift-attribute-href"/>
-			<img class="inline-graphic">
+		    <xsl:apply-templates select="." mode="scift-attribute-href"/>
+                    <xsl:choose>
+                        <xsl:when  test="$c1='svg'">
+                            <object type="image/svg+xml">
+                                <xsl:apply-templates select="." mode="scift-attribute-data"/>
+                            </object>
+                        </xsl:when>
+                        <xsl:otherwise>
+			    <img class="inline-graphic">
 				<xsl:if test="$RESIZE='true'">
 					<xsl:attribute name="onload">smaller(this);</xsl:attribute>
 				</xsl:if>
 				<xsl:apply-templates select="." mode="scift-attribute-src"/>
-			</img>
+			    </img>
+                         </xsl:otherwise>
+                     </xsl:choose>
 		</a>
 	</xsl:template>
 	<xsl:template match="disp-formula/graphic">
@@ -1363,7 +1382,7 @@
 	</xsl:template>
 	<xsl:template match="back/fn-group/fn/@fn-type"> </xsl:template>
 	<xsl:template match="back/fn-group/fn/@id">
-		<a name="{../@id}"/>
+		<a name="back_{../@id}"/>
 	</xsl:template>
 	<xsl:template match="back/fn-group/fn/label">
 		<xsl:choose>
