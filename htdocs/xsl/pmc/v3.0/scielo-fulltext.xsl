@@ -851,7 +851,7 @@
 	
 	<xsl:template match="table//xref">
 		<xsl:if test="@ref-type='fn'">
-			<a name="back_{@rid}"/>
+			<a name="{@rid}"/>
 		</xsl:if>
 		<a href="#{@rid}">
 			<xsl:apply-templates select="*|text()"/>
@@ -1363,7 +1363,7 @@
 	</xsl:template>
 	<xsl:template match="back/fn-group/fn/@fn-type"> </xsl:template>
 	<xsl:template match="back/fn-group/fn/@id">
-		<a name="back_{../@id}"/>
+		<a name="{../@id}"/>
 	</xsl:template>
 	<xsl:template match="back/fn-group/fn/label">
 		<xsl:choose>
