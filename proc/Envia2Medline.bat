@@ -35,6 +35,7 @@ call batch/CriaDiretorio.bat temp/transf2medline
     call batch/GeraIsoBool.bat $1/bases/artigo/artigo TP=i           temp/transf2medline/issues.iso
     call batch/GeraIsoBool.bat $1/bases/artigo/artigo TP=h           temp/transf2medline/artigo.iso   prc/AddV91.prc
     call batch/GeraIsoBool.bat $1/bases/artigo/artigo TP=c           temp/transf2medline/bib4cit.iso
+    call batch/GeraIsoBool.bat $1/bases/artigo/artigo RP=$           temp/transf2medline/mixed.iso    prc/mixed.prc
 rem call batch/GeraIsoBool.bat $1/bases/artigo/artigo TP=l           temp/transf2medline/artigol.iso
 rem call batch/GeraIsoBool.bat $1/bases/artigo/artigo TP=h+TP=c+TP=i temp/transf2medline/artigonp.iso
 
@@ -44,4 +45,3 @@ ftp -n < $2 >> $INFORMALOG
 batch/ifErrorLevel.bat $? batch/AchouErro.bat $0 ftp: $2
 
 call batch/InformaLog.bat $0 dh ===Fim=== LOG gravado em: $INFORMALOG
-

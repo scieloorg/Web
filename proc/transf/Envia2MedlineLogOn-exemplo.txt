@@ -10,6 +10,7 @@ put issue.iso
 put issues.iso
 put artigo.iso
 put bib4cit.iso
+put mixed.iso
 
 close
 bye
