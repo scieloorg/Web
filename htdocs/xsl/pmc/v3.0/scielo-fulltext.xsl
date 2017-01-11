@@ -877,12 +877,31 @@
 		</span>
 	</xsl:template>
 	<xsl:template match="inline-formula/graphic">
-		<a target="_blank">
+            <xsl:variable name="href">
+                <xsl:choose>
+                    <xsl:when test="@xlink:href"><xsl:value-of select="@xlink:href"/></xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="@href"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:variable>
+            <xsl:variable name="size" select="string-length($href)"/>
+            <xsl:variable name="c1" select="substring($href,$size - 2)"/>
+            <xsl:choose>
+                <xsl:when  test="$c1='svg'">
+                   <object type="image/svg+xml">
+                       <xsl:attribute name="data"><xsl:value-of select="concat($_varIMAGE_PATH,'/')"/><xsl:apply-templates select="." mode="fix_img_extension"/></xsl:attribute>
+                   </object>
+                </xsl:when>
+                <xsl:otherwise>
+		    <a target="_blank">
 			<xsl:apply-templates select="." mode="scift-attribute-href"/>
 			<img class="inline-formula-graphic">
 				<xsl:apply-templates select="." mode="scift-attribute-src"/>
 			</img>
-		</a>
+		    </a>
+                </xsl:otherwise>
+            </xsl:choose>
 	</xsl:template>
 	<xsl:template match="disp-formula/label">
 		<span class="label"><xsl:value-of select="."/></span>
@@ -931,39 +950,61 @@
 		</a>
 	</xsl:template>
 	<xsl:template match="disp-formula/graphic">
-        <xsl:variable name="href">
-            <xsl:choose>
-                <xsl:when test="@xlink:href"><xsl:value-of select="@xlink:href"/></xsl:when>
-                <xsl:otherwise>
-                    <xsl:value-of select="@href"/>
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:variable>
-        <xsl:variable name="size" select="string-length($href)"/>
-        <xsl:variable name="c1" select="substring($href,$size - 2)"/>
+            <xsl:variable name="href">
+                <xsl:choose>
+                    <xsl:when test="@xlink:href"><xsl:value-of select="@xlink:href"/></xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="@href"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:variable>
+            <xsl:variable name="size" select="string-length($href)"/>
+            <xsl:variable name="c1" select="substring($href,$size - 2)"/>
 	    <a target="_blank">
-			<xsl:apply-templates select="." mode="scift-attribute-href"/>
-            <xsl:choose>
-                <xsl:when  test="$c1='svg'">
-                   <object type="image/svg+xml" class="disp-formula-graphic">
-                       <xsl:apply-templates select="." mode="scift-attribute-data"/>
-                   </object>
-                </xsl:when>
-                <xsl:otherwise>
-					<img class="disp-formula-graphic">
-		            	<xsl:apply-templates select="." mode="scift-attribute-src"/>
-					</img>
-                </xsl:otherwise>
-            </xsl:choose>
+		<xsl:apply-templates select="." mode="scift-attribute-href"/>
+                <xsl:choose>
+                    <xsl:when  test="$c1='svg'">
+                       <object type="image/svg+xml">
+                           <xsl:apply-templates select="." mode="scift-attribute-data"/>
+                       </object>
+                    </xsl:when>
+                    <xsl:otherwise>
+		        <img class="disp-formula-graphic">
+		            <xsl:apply-templates select="." mode="scift-attribute-src"/>
+		        </img>
+                    </xsl:otherwise>
+                </xsl:choose>
 	    </a>
 	</xsl:template>
 	<xsl:template match="graphic" mode="scift-thumbnail">
-		<a target="_blank">
+            <xsl:variable name="href">
+                <xsl:choose>
+                    <xsl:when test="@xlink:href"><xsl:value-of select="@xlink:href"/></xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="@href"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:variable>
+            <xsl:variable name="size" select="string-length($href)"/>
+            <xsl:variable name="c1" select="substring($href,$size - 2)"/>
+            <xsl:choose>
+                <xsl:when  test="$c1='svg'">
+                    <a target="_blank">
+                        <xsl:attribute name='href'><xsl:value-of select="concat($var_IMAGE_PATH,'/')"/><xsl:apply-templates select="." mode="fix_img_extension"/></xsl:attribute>
+                        <object type="image/svg+xml">
+                            <xsl:attribute name="data"><xsl:value-of select="concat($var_IMAGE_PATH,'/')"/><xsl:apply-templates select="." mode="fix_img_extension"/></xsl:attribute>
+                        </object>
+                    </a>
+                </xsl:when>
+                <xsl:otherwise>
+                    <a target="_blank">
 			<xsl:apply-templates select="." mode="scift-attribute-href"/>
 			<img class="thumbnail">
 				<xsl:apply-templates select="." mode="scift-attribute-src"/>
 			</img>
-		</a>
+		    </a>
+                </xsl:otherwise>
+            </xsl:choose>
 	</xsl:template>
 	<xsl:template match="*" mode="scift-fix-href"><xsl:value-of select="$var_IMAGE_PATH"/>/<xsl:apply-templates select="." mode="fix_img_extension"/></xsl:template>
 	<xsl:template match="*" mode="scift-attribute-href">
@@ -1745,12 +1786,34 @@
 		</div>
 	</xsl:template>
 	<xsl:template match="graphic | td/graphic">
-		<a target="_blank">
-			<xsl:apply-templates select="." mode="scift-attribute-href"/>
-			<img class="graphic">
-				<xsl:apply-templates select="." mode="scift-attribute-src"/>
-			</img>
-		</a>
+            <xsl:variable name="href">
+                <xsl:choose>
+                    <xsl:when test="@xlink:href"><xsl:value-of select="@xlink:href"/></xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="@href"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:variable>
+            <xsl:variable name="size" select="string-length($href)"/>
+            <xsl:variable name="c1" select="substring($href,$size - 2)"/>
+            <xsl:choose>
+                <xsl:when  test="$c1='svg'">
+                    <a target="_blank">
+                        <xsl:attribute name='href'><xsl:value-of select="concat($var_IMAGE_PATH,'/')"/><xsl:apply-templates select="." mode="fix_img_extension"/></xsl:attribute>
+                        <object type="image/svg+xml">
+                            <xsl:attribute name="data"><xsl:value-of select="concat($var_IMAGE_PATH,'/')"/><xsl:apply-templates select="." mode="fix_img_extension"/></xsl:attribute>
+                        </object>
+                    </a>
+                </xsl:when>
+                <xsl:otherwise>            
+	            <a target="_blank">
+	    	        <xsl:apply-templates select="." mode="scift-attribute-href"/>
+	    	        <img class="graphic">
+		            <xsl:apply-templates select="." mode="scift-attribute-src"/>
+		        </img>
+		    </a>
+                </xsl:otherwise>
+            </xsl:choose>
 	</xsl:template>
 	
 	<!-- PRODUCT -->

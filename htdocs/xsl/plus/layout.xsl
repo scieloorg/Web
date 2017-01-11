@@ -1089,7 +1089,7 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
         <xsl:variable name="c1" select="substring($href,$size - 2)"/>
         <xsl:choose>
             <xsl:when  test="$c1='svg'">
-               <object type="image/svg+xml" class="disp-formula-graphic">
+               <object type="image/svg+xml">
                    <xsl:attribute name="data"><xsl:value-of select="concat($IMAGE_PATH,'/')"/><xsl:apply-templates select="." mode="fix_img_extension"/></xsl:attribute>
                </object>
             </xsl:when>
@@ -1119,7 +1119,7 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
         <xsl:variable name="c1" select="substring($href,$size - 2)"/>
         <xsl:choose>
             <xsl:when  test="$c1='svg'">
-               <object type="image/svg+xml" class="inline-formula-graphic">
+               <object type="image/svg+xml">
                    <xsl:attribute name="data"><xsl:value-of select="concat($IMAGE_PATH,'/')"/><xsl:apply-templates select="." mode="fix_img_extension"/></xsl:attribute>
                </object>
             </xsl:when>
