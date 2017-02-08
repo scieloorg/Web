@@ -7,6 +7,6 @@ for journal in $journals; do
         database_path=${issue%?}
         database_name=`echo $database_path | sed 's#.*/##'`
         mst=$database_path'/'$database_name
-        $BASEDIR/../../cisis/mx $mst fst=@$BASEDIR/../fst/doi.fst fullinv/ansi=$mst
+        $BASEDIR/../../cisis/mx $mst fst=@$BASEDIR/../../doi/fst/doi.fst fullinv/ansi=$mst
     done
 done

@@ -160,6 +160,9 @@
                 max-width: 80%;
                 
                 }
+                .contribid {
+                font-size: 70%
+                }
             </style>
             <xsl:if test=".//math or .//mml:math">
                 <script type="text/javascript"
@@ -330,6 +333,28 @@
                 </p>
             </xsl:if>
     </xsl:template>
+    <xsl:template match="contrib-id" mode="HTML">
+        <xsl:variable name="url"><xsl:choose>
+            <xsl:when test="@contrib-id-type='orcid'">http://orcid.org/</xsl:when>
+            <xsl:when test="@contrib-id-type='lattes'">http://lattes.cnpq.br/</xsl:when>
+            <xsl:when test="@contrib-id-type='scopus'">https://www.scopus.com/authid/detail.uri?authorId=</xsl:when>
+            <xsl:when test="@contrib-id-type='researchid'">http://www.researcherid.com/rid/</xsl:when>
+        </xsl:choose></xsl:variable>
+        <xsl:variable name="location"><xsl:value-of select="$url"/><xsl:value-of select="."/></xsl:variable>
+        <span class="contribid">
+        <xsl:choose>
+            <xsl:when test="@contrib-id-type='orcid'">
+                <span style="vertical-align: middle">
+                    <span style="margin:4px"><img src="/img/orcid.png" /></span><a href="" target="_blank" onclick="javascript: w = window.open('{$location}','','width=640,height=500,resizable=yes,scrollbars=1,menubar=yes,'); "><xsl:value-of select="$location"/></a>
+                </span>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="@contrib-id-type"/>: <a href="" target="_blank" onclick="javascript: w = window.open('{$location}','','width=640,height=500,resizable=yes,scrollbars=1,menubar=yes,'); "><xsl:value-of select="."/></a>
+            </xsl:otherwise>
+        </xsl:choose>
+            <xsl:if test="position()!=last()">; </xsl:if>
+        </span>
+    </xsl:template>
     <xsl:template match="name" mode="HTML">
         <span>
             <xsl:apply-templates select="." mode="DATA-DISPLAY"/>
@@ -338,6 +363,9 @@
         <xsl:text>
             <!-- manter esta quebra de linha -->
         </xsl:text>
+        <br/>
+        <xsl:apply-templates select="../contrib-id" mode="HTML"></xsl:apply-templates>
+        <br/>
     </xsl:template>
     
     <xsl:template match="xref" mode="HTML-author">
@@ -1049,21 +1077,60 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
         </img>
     </xsl:template>
     <xsl:template match="disp-formula/graphic" mode="HTML-TEXT">
-        <img class="disp-formula-graphic">
-            <xsl:attribute name="src"><xsl:value-of select="concat($IMAGE_PATH,'/')"/><xsl:apply-templates select="." mode="fix_img_extension"/></xsl:attribute>
-        </img>
+        <xsl:variable name="href">
+            <xsl:choose>
+                <xsl:when test="@xlink:href"><xsl:value-of select="@xlink:href"/></xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="@href"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:variable name="size" select="string-length($href)"/>
+        <xsl:variable name="c1" select="substring($href,$size - 2)"/>
+        <xsl:choose>
+            <xsl:when  test="$c1='svg'">
+               <object type="image/svg+xml">
+                   <xsl:attribute name="data"><xsl:value-of select="concat($IMAGE_PATH,'/')"/><xsl:apply-templates select="." mode="fix_img_extension"/></xsl:attribute>
+               </object>
+            </xsl:when>
+            <xsl:otherwise>
+                <img class="disp-formula-graphic">
+                    <xsl:attribute name="src"><xsl:value-of select="concat($IMAGE_PATH,'/')"/><xsl:apply-templates select="." mode="fix_img_extension"/></xsl:attribute>
+                </img>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <xsl:template match="graphic" mode="HTML-TEXT">
         <img class="graphic">
             <xsl:attribute name="src"><xsl:value-of select="concat($IMAGE_PATH,'/')"/><xsl:apply-templates select="." mode="fix_img_extension"/></xsl:attribute>
         </img>
     </xsl:template>
+
     <xsl:template match="inline-formula/graphic" mode="HTML-TEXT">
-        <img class="inline-formula-graphic">
-            <xsl:attribute name="src"><xsl:value-of select="concat($IMAGE_PATH,'/')"/><xsl:apply-templates select="." mode="fix_img_extension"/></xsl:attribute>
-        </img>
+        <xsl:variable name="href">
+            <xsl:choose>
+                <xsl:when test="@xlink:href"><xsl:value-of select="@xlink:href"/></xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="@href"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:variable name="size" select="string-length($href)"/>
+        <xsl:variable name="c1" select="substring($href,$size - 2)"/>
+        <xsl:choose>
+            <xsl:when  test="$c1='svg'">
+               <object type="image/svg+xml">
+                   <xsl:attribute name="data"><xsl:value-of select="concat($IMAGE_PATH,'/')"/><xsl:apply-templates select="." mode="fix_img_extension"/></xsl:attribute>
+               </object>
+            </xsl:when>
+            <xsl:otherwise>
+                <img class="inline-formula-graphic">
+                    <xsl:attribute name="src"><xsl:value-of select="concat($IMAGE_PATH,'/')"/><xsl:apply-templates select="." mode="fix_img_extension"/></xsl:attribute>
+                </img>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
-    
+
     <xsl:template match="inline-formula" mode="HTML-TEXT">
         <span class="inline-formula">
             <xsl:apply-templates select="@id"/>
@@ -1820,3 +1887,4 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
         </img>
     </xsl:template>
 </xsl:stylesheet>
+
