@@ -259,8 +259,10 @@ border-color: gray;
 }
 .autores{
     margin-bottom: 25px;
-    font-weight: bold;
     font-size: 97%;
+}
+.author{
+    font-weight: bold;
 }
 .aff {
     margin: 0;

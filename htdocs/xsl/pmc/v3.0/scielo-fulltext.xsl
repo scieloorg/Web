@@ -459,18 +459,17 @@
 		</p>
 	</xsl:template>
 	<xsl:template match="contrib">
-		<xsl:variable name="sep"><xsl:choose>
-			<xsl:when test="role or degrees">;</xsl:when>
-			<xsl:otherwise>,</xsl:otherwise>
-		</xsl:choose></xsl:variable>
-		<xsl:if test="position()!=1"><xsl:value-of select="concat($sep,' ')"/></xsl:if>
-		<xsl:apply-templates select="*|text()"/>
+		<p class="author">
+			<xsl:apply-templates select="*[name()!='contrib-id']|text()"/>
+			<xsl:if test="contrib-id"><br/><span class="contribid"><xsl:apply-templates select=".//contrib-id" mode="contrib-id"></xsl:apply-templates></span></xsl:if>
+		</p>
 	</xsl:template>
 	<xsl:template match="contrib/name">
+		<span class="author-name">
 		<xsl:if test="prefix"><xsl:apply-templates select="prefix"/>&#160;</xsl:if>
 		<xsl:apply-templates select="given-names"/>&#160;<xsl:apply-templates select="surname"/>
-		<xsl:if test="suffix">&#160;<xsl:apply-templates select="suffix"/></xsl:if>
-		<xsl:if test="../contrib-id"> (<xsl:apply-templates select="..//contrib-id" mode="contrib-id"></xsl:apply-templates>)</xsl:if>
+			<xsl:if test="suffix">&#160;<xsl:apply-templates select="suffix"/></xsl:if>
+		</span>
 	</xsl:template>
 	<xsl:template match="text()" mode="normalize">
 		<xsl:value-of select="normalize-space(.)"/>
@@ -491,10 +490,17 @@
 			<xsl:when test="@contrib-id-type='researchid'">http://www.researcherid.com/rid/</xsl:when>
 		</xsl:choose></xsl:variable>
 		<xsl:variable name="location"><xsl:value-of select="$url"/><xsl:value-of select="."/></xsl:variable>
-		
-		<a target="_blank" onclick="javascript: w = window.open('{$location}','','width=640,height=500,resizable=yes,scrollbars=1,menubar=yes,'); ">
-			<xsl:value-of select="@contrib-id-type"/>: <xsl:value-of select="."/>
-		</a><xsl:if test="position()!=last()">; </xsl:if>
+		<xsl:choose>
+			<xsl:when test="@contrib-id-type='orcid'">
+				<span style="vertical-align: middle">
+					<span style="margin:4px"><img src="/img/orcid.png" /></span><a href="" target="_blank" onclick="javascript: w = window.open('{$location}','','width=640,height=500,resizable=yes,scrollbars=1,menubar=yes,'); "><xsl:value-of select="$location"/></a>
+				</span>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="@contrib-id-type"/>: <a href="" target="_blank" onclick="javascript: w = window.open('{$location}','','width=640,height=500,resizable=yes,scrollbars=1,menubar=yes,'); "><xsl:value-of select="."/></a>
+			</xsl:otherwise>
+		</xsl:choose>
+		<xsl:if test="position()!=last()">; </xsl:if>
 	</xsl:template>
 	<xsl:template match="contrib/xref">
 		<xsl:variable name="rid" select="@rid"/>
@@ -871,12 +877,31 @@
 		</span>
 	</xsl:template>
 	<xsl:template match="inline-formula/graphic">
-		<a target="_blank">
+            <xsl:variable name="href">
+                <xsl:choose>
+                    <xsl:when test="@xlink:href"><xsl:value-of select="@xlink:href"/></xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="@href"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:variable>
+            <xsl:variable name="size" select="string-length($href)"/>
+            <xsl:variable name="c1" select="substring($href,$size - 2)"/>
+            <xsl:choose>
+                <xsl:when  test="$c1='svg'">
+                   <object type="image/svg+xml">
+                       <xsl:attribute name="data"><xsl:value-of select="concat($_varIMAGE_PATH,'/')"/><xsl:apply-templates select="." mode="fix_img_extension"/></xsl:attribute>
+                   </object>
+                </xsl:when>
+                <xsl:otherwise>
+		    <a target="_blank">
 			<xsl:apply-templates select="." mode="scift-attribute-href"/>
 			<img class="inline-formula-graphic">
 				<xsl:apply-templates select="." mode="scift-attribute-src"/>
 			</img>
-		</a>
+		    </a>
+                </xsl:otherwise>
+            </xsl:choose>
 	</xsl:template>
 	<xsl:template match="disp-formula/label">
 		<span class="label"><xsl:value-of select="."/></span>
@@ -914,31 +939,91 @@
 	
 
 	<xsl:template match="table//inline-graphic |inline-graphic">
+            <xsl:variable name="href">
+                <xsl:choose>
+                    <xsl:when test="@xlink:href"><xsl:value-of select="@xlink:href"/></xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="@href"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:variable>
+            <xsl:variable name="size" select="string-length($href)"/>
+            <xsl:variable name="c1" select="substring($href,$size - 2)"/>
 		<a target="_blank">
-			<xsl:apply-templates select="." mode="scift-attribute-href"/>
-			<img class="inline-graphic">
+		    <xsl:apply-templates select="." mode="scift-attribute-href"/>
+                    <xsl:choose>
+                        <xsl:when  test="$c1='svg'">
+                            <object type="image/svg+xml">
+                                <xsl:apply-templates select="." mode="scift-attribute-data"/>
+                            </object>
+                        </xsl:when>
+                        <xsl:otherwise>
+			    <img class="inline-graphic">
 				<xsl:if test="$RESIZE='true'">
 					<xsl:attribute name="onload">smaller(this);</xsl:attribute>
 				</xsl:if>
 				<xsl:apply-templates select="." mode="scift-attribute-src"/>
-			</img>
+			    </img>
+                         </xsl:otherwise>
+                     </xsl:choose>
 		</a>
 	</xsl:template>
 	<xsl:template match="disp-formula/graphic">
-		<a target="_blank">
-			<xsl:apply-templates select="." mode="scift-attribute-href"/>
-			<img class="disp-formula-graphic">
-				<xsl:apply-templates select="." mode="scift-attribute-src"/>
-			</img>
-		</a>
+            <xsl:variable name="href">
+                <xsl:choose>
+                    <xsl:when test="@xlink:href"><xsl:value-of select="@xlink:href"/></xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="@href"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:variable>
+            <xsl:variable name="size" select="string-length($href)"/>
+            <xsl:variable name="c1" select="substring($href,$size - 2)"/>
+	    <a target="_blank">
+		<xsl:apply-templates select="." mode="scift-attribute-href"/>
+                <xsl:choose>
+                    <xsl:when  test="$c1='svg'">
+                       <object type="image/svg+xml">
+                           <xsl:apply-templates select="." mode="scift-attribute-data"/>
+                       </object>
+                    </xsl:when>
+                    <xsl:otherwise>
+		        <img class="disp-formula-graphic">
+		            <xsl:apply-templates select="." mode="scift-attribute-src"/>
+		        </img>
+                    </xsl:otherwise>
+                </xsl:choose>
+	    </a>
 	</xsl:template>
 	<xsl:template match="graphic" mode="scift-thumbnail">
-		<a target="_blank">
+            <xsl:variable name="href">
+                <xsl:choose>
+                    <xsl:when test="@xlink:href"><xsl:value-of select="@xlink:href"/></xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="@href"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:variable>
+            <xsl:variable name="size" select="string-length($href)"/>
+            <xsl:variable name="c1" select="substring($href,$size - 2)"/>
+            <xsl:choose>
+                <xsl:when  test="$c1='svg'">
+                    <a target="_blank">
+                        <xsl:attribute name='href'><xsl:value-of select="concat($var_IMAGE_PATH,'/')"/><xsl:apply-templates select="." mode="fix_img_extension"/></xsl:attribute>
+                        <object type="image/svg+xml">
+                            <xsl:attribute name="data"><xsl:value-of select="concat($var_IMAGE_PATH,'/')"/><xsl:apply-templates select="." mode="fix_img_extension"/></xsl:attribute>
+                        </object>
+                    </a>
+                </xsl:when>
+                <xsl:otherwise>
+                    <a target="_blank">
 			<xsl:apply-templates select="." mode="scift-attribute-href"/>
 			<img class="thumbnail">
 				<xsl:apply-templates select="." mode="scift-attribute-src"/>
 			</img>
-		</a>
+		    </a>
+                </xsl:otherwise>
+            </xsl:choose>
 	</xsl:template>
 	<xsl:template match="*" mode="scift-fix-href"><xsl:value-of select="$var_IMAGE_PATH"/>/<xsl:apply-templates select="." mode="fix_img_extension"/></xsl:template>
 	<xsl:template match="*" mode="scift-attribute-href">
@@ -951,6 +1036,11 @@
 			<xsl:apply-templates select="." mode="scift-fix-href"/>
 		</xsl:attribute>
 	</xsl:template>
+        <xsl:template match="*" mode="scift-attribute-data">
+                <xsl:attribute name="data">
+                        <xsl:apply-templates select="." mode="scift-fix-href"/>
+                </xsl:attribute>
+        </xsl:template>
 	<xsl:template match="label|caption" mode="scift-label-caption-graphic">
 		<span class="{name()}"><xsl:apply-templates select="text() | *"
 				mode="scift-label-caption-graphic"/>&#160;</span>
@@ -1506,8 +1596,7 @@
 		<xsl:comment> posterior: <xsl:value-of select="$next_elem_name"/> </xsl:comment>
 		
 		<xsl:if test="name()=$before">
-
-			<xsl:if test="$previous_elem_name!=$before">
+			<xsl:if test="string($previous_elem_name)!=string($before)">
 				<xsl:apply-templates select="$ref_list">
 					<xsl:with-param name="title"><xsl:value-of select="$title"/></xsl:with-param>
 				</xsl:apply-templates>
@@ -1515,8 +1604,7 @@
 		</xsl:if>
 		<xsl:apply-templates/>
 		<xsl:if test="name()=$after">
-
-			<xsl:if test="$next_elem_name!=$after">
+			<xsl:if test="string($next_elem_name)!=string($after)">
 				<xsl:apply-templates select="$ref_list">
 					<xsl:with-param name="title"><xsl:value-of select="$title"/></xsl:with-param>
 				</xsl:apply-templates>
@@ -1717,12 +1805,34 @@
 		</div>
 	</xsl:template>
 	<xsl:template match="graphic | td/graphic">
-		<a target="_blank">
-			<xsl:apply-templates select="." mode="scift-attribute-href"/>
-			<img class="graphic">
-				<xsl:apply-templates select="." mode="scift-attribute-src"/>
-			</img>
-		</a>
+            <xsl:variable name="href">
+                <xsl:choose>
+                    <xsl:when test="@xlink:href"><xsl:value-of select="@xlink:href"/></xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="@href"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:variable>
+            <xsl:variable name="size" select="string-length($href)"/>
+            <xsl:variable name="c1" select="substring($href,$size - 2)"/>
+            <xsl:choose>
+                <xsl:when  test="$c1='svg'">
+                    <a target="_blank">
+                        <xsl:attribute name='href'><xsl:value-of select="concat($var_IMAGE_PATH,'/')"/><xsl:apply-templates select="." mode="fix_img_extension"/></xsl:attribute>
+                        <object type="image/svg+xml">
+                            <xsl:attribute name="data"><xsl:value-of select="concat($var_IMAGE_PATH,'/')"/><xsl:apply-templates select="." mode="fix_img_extension"/></xsl:attribute>
+                        </object>
+                    </a>
+                </xsl:when>
+                <xsl:otherwise>            
+	            <a target="_blank">
+	    	        <xsl:apply-templates select="." mode="scift-attribute-href"/>
+	    	        <img class="graphic">
+		            <xsl:apply-templates select="." mode="scift-attribute-src"/>
+		        </img>
+		    </a>
+                </xsl:otherwise>
+            </xsl:choose>
 	</xsl:template>
 	
 	<!-- PRODUCT -->
@@ -1764,7 +1874,7 @@
 	</xsl:template>
 	
 	<xsl:template match="article-meta//product/person-group/name">
-		<xsl:if test="position()!=1">; </xsl:if><xsl:apply-templates select="surname"/><xsl:if test="suffix"><xsl:value-of select="concat(' ',suffix)"/></xsl:if>, <xsl:apply-templates select="given-names"/>
+		<xsl:if test="position()!=1">; </xsl:if><xsl:apply-templates select="surname"/><xsl:if test="suffix"><xsl:value-of select="concat(' ',suffix)"/></xsl:if>, <xsl:if test="prefix"><xsl:value-of select="concat(prefix,' ')"/></xsl:if><xsl:apply-templates select="given-names"/>
 	</xsl:template>
 	<xsl:template match="size">
 		<xsl:value-of select="."/>
@@ -1786,3 +1896,4 @@
 	
 	
 </xsl:stylesheet>
+
