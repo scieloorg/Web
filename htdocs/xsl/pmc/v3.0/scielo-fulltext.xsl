@@ -837,7 +837,7 @@
 			<xsl:value-of select="."/>
 		</xsl:attribute>
 	</xsl:template>
-	<xsl:template match="table/*/tr | table/thead | table/thead/tr/th | table/tbody | table/tbody/tr/td//p | table//*[name()!='td']">
+	<xsl:template match="table/* | table/*/* | table/thead/tr/th ">
 		<xsl:element name="{name()}">
 			<xsl:apply-templates select="@* | * | text()"/>
 		</xsl:element>
@@ -925,14 +925,17 @@
 	</xsl:template>
 	<xsl:template match="alternatives">
 		<xsl:choose>
+			<xsl:when test="contains(*/@xlink:href,'.svg')">
+				<xsl:apply-templates select="inline-graphic|graphic"/>
+			</xsl:when>
 			<xsl:when test="mml:math">
 				<xsl:apply-templates select="mml:math"/>
 			</xsl:when>
-			<xsl:when test="graphic">
-				<xsl:apply-templates select="graphic"/>
-			</xsl:when>
 			<xsl:when test="tex-math">
 				<xsl:apply-templates select="tex-math"/>
+			</xsl:when>
+			<xsl:when test="*[@xlink:href]">
+				<xsl:apply-templates select="*[@xlink:href]"/>
 			</xsl:when>
 		</xsl:choose>
 	</xsl:template>
