@@ -925,14 +925,14 @@
 	</xsl:template>
 	<xsl:template match="alternatives">
 		<xsl:choose>
-			<xsl:when test="contains(*/@xlink:href,'.svg')">
-				<xsl:apply-templates select="inline-graphic|graphic"/>
-			</xsl:when>
 			<xsl:when test="mml:math">
 				<xsl:apply-templates select="mml:math"/>
 			</xsl:when>
 			<xsl:when test="tex-math">
 				<xsl:apply-templates select="tex-math"/>
+			</xsl:when>
+			<xsl:when test="contains(*/@xlink:href,'.svg')">
+				<xsl:apply-templates select="inline-graphic|graphic"/>
 			</xsl:when>
 			<xsl:when test="*[@xlink:href]">
 				<xsl:apply-templates select="*[@xlink:href]"/>
