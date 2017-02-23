@@ -876,7 +876,7 @@
 			<xsl:apply-templates select="*|text()"/>
 		</span>
 	</xsl:template>
-	<xsl:template match="inline-formula/graphic">
+	<xsl:template match="inline-formula/*[@xlink:href]">
             <xsl:variable name="href">
                 <xsl:choose>
                     <xsl:when test="@xlink:href"><xsl:value-of select="@xlink:href"/></xsl:when>
@@ -890,7 +890,7 @@
             <xsl:choose>
                 <xsl:when  test="$c1='svg'">
                    <object type="image/svg+xml">
-                       <xsl:attribute name="data"><xsl:value-of select="concat($_varIMAGE_PATH,'/')"/><xsl:apply-templates select="." mode="fix_img_extension"/></xsl:attribute>
+                       <xsl:attribute name="data"><xsl:value-of select="concat($var_IMAGE_PATH,'/')"/><xsl:apply-templates select="." mode="fix_img_extension"/></xsl:attribute>
                    </object>
                 </xsl:when>
                 <xsl:otherwise>
