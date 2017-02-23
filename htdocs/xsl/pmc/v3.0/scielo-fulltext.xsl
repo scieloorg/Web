@@ -837,7 +837,7 @@
 			<xsl:value-of select="."/>
 		</xsl:attribute>
 	</xsl:template>
-	<xsl:template match="table/*/tr | table/thead | table/thead/tr/th | table/tbody | table/tbody/tr/td//p | table//*[name()!='td']">
+	<xsl:template match="table/* | table/*/* | table/thead/tr/th ">
 		<xsl:element name="{name()}">
 			<xsl:apply-templates select="@* | * | text()"/>
 		</xsl:element>
@@ -876,7 +876,7 @@
 			<xsl:apply-templates select="*|text()"/>
 		</span>
 	</xsl:template>
-	<xsl:template match="inline-formula/graphic">
+	<xsl:template match="inline-formula/*[@xlink:href]">
             <xsl:variable name="href">
                 <xsl:choose>
                     <xsl:when test="@xlink:href"><xsl:value-of select="@xlink:href"/></xsl:when>
@@ -890,7 +890,7 @@
             <xsl:choose>
                 <xsl:when  test="$c1='svg'">
                    <object type="image/svg+xml">
-                       <xsl:attribute name="data"><xsl:value-of select="concat($_varIMAGE_PATH,'/')"/><xsl:apply-templates select="." mode="fix_img_extension"/></xsl:attribute>
+                       <xsl:attribute name="data"><xsl:value-of select="concat($var_IMAGE_PATH,'/')"/><xsl:apply-templates select="." mode="fix_img_extension"/></xsl:attribute>
                    </object>
                 </xsl:when>
                 <xsl:otherwise>
@@ -928,11 +928,14 @@
 			<xsl:when test="mml:math">
 				<xsl:apply-templates select="mml:math"/>
 			</xsl:when>
-			<xsl:when test="graphic">
-				<xsl:apply-templates select="graphic"/>
-			</xsl:when>
 			<xsl:when test="tex-math">
 				<xsl:apply-templates select="tex-math"/>
+			</xsl:when>
+			<xsl:when test="contains(*/@xlink:href,'.svg')">
+				<xsl:apply-templates select="inline-graphic|graphic"/>
+			</xsl:when>
+			<xsl:when test="*[@xlink:href]">
+				<xsl:apply-templates select="*[@xlink:href]"/>
 			</xsl:when>
 		</xsl:choose>
 	</xsl:template>
