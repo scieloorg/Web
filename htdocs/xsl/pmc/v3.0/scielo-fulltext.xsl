@@ -735,7 +735,7 @@
 	<xsl:template match="fig-group" mode="scift-standard">
 		<div class="figure-group">
 			<xsl:call-template name="named-anchor"/>
-			<xsl:apply-templates select="graphic|media"/>
+			<xsl:apply-templates select="*[name()!='attrib' and name()!='fig']"/>
 			<xsl:apply-templates select="attrib"/>
 			<xsl:choose>
 				<xsl:when test="fig[@xml:lang=$TEXT_LANG] and $trans">
@@ -1359,6 +1359,7 @@
 		</div>
 	</xsl:template>
 	<xsl:template match="back/fn-group/fn">
+		<a name="{@id}"/>
 		<div class="fn">
 			<xsl:apply-templates select="title"/>
 		<xsl:choose>
@@ -1384,9 +1385,6 @@
 		</div>
 	</xsl:template>
 	<xsl:template match="back/fn-group/fn/@fn-type"> </xsl:template>
-	<xsl:template match="back/fn-group/fn/@id">
-		<a name="back_{../@id}"/>
-	</xsl:template>
 	<xsl:template match="back/fn-group/fn/label">
 		<xsl:choose>
 			<xsl:when test="number(.)=.">
