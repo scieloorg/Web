@@ -95,14 +95,14 @@ Python utilitary developed to replace the scripts:
     * Envia2MedlinePadrao.bat
     * static_files_catalog.sh
 
-Installing
-----------
+Installing Paperboy
+-------------------
 
 Install guide: https://github.com/scieloorg/paperboy
 
 
-Configuring
------------
+Configuring Paperboy
+--------------------
 
 After install the paperboy you must create a config.ini file to configure the
 source and destiny resources, and the ssh account that will be used to send data
@@ -132,10 +132,10 @@ directory, the file must follow the bellow format:
     [app:main]
     source_dir=c:/var/www/scielo
     cisis_dir=c:/var/www/scielo/proc/cisis
-    ssh_server=localhost
-    ssh_port=22
-    ssh_user=anonymous
-    ssh_password=anonymous
+    server=localhost
+    port=22
+    user=anonymous
+    password=anonymous
 
 **source_dir:** Absolute path to the directory where the SciELO website was installed.
 
@@ -143,20 +143,20 @@ directory, the file must follow the bellow format:
 
 **ssh_server:** Domain of the server where the SciELO Site was installed
 
-**ssh_port:** The SSH port (default 22)
+**ssh_port:** The FTP port (default 21)
 
-**ssh_user:** A valid SSH username 
+**ssh_user:** A valid FTP username 
 
-**ssh_password:** A valid SSH password for the given username
+**ssh_password:** A valid FTP password for the given username
 
 .. tip::
 
-    Ask your SSH credentials to the SciELO team.
+    Ask your FTP credentials to the SciELO team.
 
-Creating envia.bat file
-```````````````````````
+Creating envia.sh file
+``````````````````````
 
-Create a text file named **paperboy_envia_to_scielo.bat** in the **proc**
+Create a text file named **paperboy_envia_to_scielo.sh** in the **proc**
 directory.
 
 .. note::
@@ -165,20 +165,20 @@ directory.
     in mind you must to replace the name of the config file in the following
     guidances.
 
-The content of the .bat file must be::
+The content of the .sh file must be::
 
-    set PAPERBOY_SETTINGS_FILE=/var/www/scielo/proc/paperboy_envia_to_scielo_config.ini
-    paperboy -m -o /var/www/scielo/proc/log/paperboy_envia_to_scielo_config.log
+    export PAPERBOY_SETTINGS_FILE=/var/www/scielo/proc/paperboy_envia_to_scielo_config.ini
+    paperboy_delivery_to_scielo
 
 Running
 -------
 
-Run the script **paperboy_envia_to_scielo_config.bat** to send databases and 
+Run the script **paperboy_envia_to_scielo_config.sh** to send databases and 
 reports to SciELO.
 
 .. code-block:: text
 
-    paperboy_envia_to_scielo_config.bat
+    ./paperboy_envia_to_scielo_config.sh > /var/www/scielo/proc/log/paperboy_envia_to_scielo_config.log
 
 
 Notes
