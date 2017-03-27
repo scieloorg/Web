@@ -133,7 +133,7 @@ directory, the file must follow the bellow format:
     source_dir=c:/var/www/scielo
     cisis_dir=c:/var/www/scielo/proc/cisis
     server=localhost
-    port=22
+    port=21
     user=anonymous
     password=anonymous
 
