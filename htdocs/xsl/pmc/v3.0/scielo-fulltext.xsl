@@ -1077,55 +1077,55 @@
 			<xsl:apply-templates select="*|text()"></xsl:apply-templates>
 		</div>
 	</xsl:template>
-	<xsl:template match="back/ref-list">
+	<xsl:template match="ref-list" mode="title">
 		<xsl:param name="title"></xsl:param>
-		<div>
-			<a name="references"/>
-			<p class="sec">
-				<xsl:choose>
-					<xsl:when test="$title">
-						<xsl:value-of select="$title"/>
-					</xsl:when>
-					<xsl:when test="not(title)">
-						<xsl:choose>
-							<xsl:when test="$TEXT_LANG='pt'"> REFERÊNCIAS </xsl:when>
-							<xsl:when test="$TEXT_LANG='es'"> REFERENCIAS </xsl:when>
-							<xsl:otherwise> REFERENCES </xsl:otherwise>
-						</xsl:choose>
-					</xsl:when>
-					<xsl:otherwise>
-						<xsl:apply-templates select="title"/>
-					</xsl:otherwise>
-				</xsl:choose>
-			</p>
-			<xsl:apply-templates select="ref"/>
-		</div>
+		<a name="references"/>
+		<p class="sec">
+			<xsl:choose>
+				<xsl:when test="normalize-space($title)!=''">
+					<xsl:value-of select="$title"/>
+				</xsl:when>
+				<xsl:when test="title">
+					<xsl:apply-templates select="title"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:choose>
+						<xsl:when test="$TEXT_LANG='pt'"> REFERÊNCIAS </xsl:when>
+						<xsl:when test="$TEXT_LANG='es'"> REFERENCIAS </xsl:when>
+						<xsl:otherwise> REFERENCES </xsl:otherwise>
+					</xsl:choose>
+				</xsl:otherwise>
+			</xsl:choose>
+		</p>
 	</xsl:template>
-	<xsl:template match="sub-article[@article-type='translation']/back/ref-list">
+	
+	<xsl:template match="ref-list">
 		<xsl:param name="title"></xsl:param>
-		<div>
-			<a name="references"/>
-			<p class="sec">
-				<xsl:apply-templates select="title"/>
-				<xsl:if test="not(title)">
-					<xsl:apply-templates select="$title"></xsl:apply-templates>
-				</xsl:if>
-			</p>
-			<xsl:apply-templates select="$original/back/ref-list/ref"/>
-		</div>
+		<xsl:choose>
+			<xsl:when test="ref-list">
+				<xsl:apply-templates select="*"></xsl:apply-templates>
+			</xsl:when>
+			<xsl:otherwise>
+				<div>
+					<xsl:apply-templates select="." mode="title">
+						<xsl:with-param name="title"><xsl:value-of select="$title"/></xsl:with-param>
+					</xsl:apply-templates>
+					<xsl:apply-templates select="." mode="ref-items"/>
+				</div>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
-	<xsl:template match="sub-article[@article-type='translation']/response/back/ref-list">
-		<xsl:param name="title"></xsl:param>
-		<div>
-			<a name="references"/>
-			<p class="sec">
-				<xsl:apply-templates select="title"/>
-				<xsl:if test="not(title)">
-					<xsl:apply-templates select="$title"></xsl:apply-templates>
-				</xsl:if>
-			</p>
-			<xsl:apply-templates select="$original/response/back/ref-list/ref"/>
-		</div>
+	
+	<xsl:template match="ref-list" mode="ref-items">
+		<xsl:apply-templates select="ref"></xsl:apply-templates>
+	</xsl:template>
+	
+	<xsl:template match="sub-article[@article-type='translation']/back//ref-list[ref]" mode="ref-items">
+		<xsl:apply-templates select="$original/back/ref-list/ref"/>
+	</xsl:template>
+	
+	<xsl:template match="sub-article[@article-type='translation']/response/back//ref-list[ref]" mode="ref-items">
+		<xsl:apply-templates select="$original/response/back/ref-list/ref"/>
 	</xsl:template>
 	
 	<xsl:template match="ref">
