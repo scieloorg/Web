@@ -1,9 +1,0 @@
-,if p(v11) or p(v9) then
-,if size(v11)>0 and size(v12)>0 then 
-	'sh scripts/archive.sh ',v9000,' ',v11*1.9,'/',v11*10.4,'/',v11*14.4,'/'v11*18.4,' ',v11,'.xml',#
-, else 
-	,if size(v9)>0 and size(v10)>0 then 
-		'sh scripts/archive.sh ',v9000,' ',v9*1.9,'/',v9*10.4,'/',v9*14.4,'/'v9*18.4,' ',v9,'.xml',#
-  	,fi 	
-,fi
-,fi
