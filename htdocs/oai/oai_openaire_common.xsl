@@ -2,7 +2,7 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 	
 	<xsl:variable name="CONTROLINFO" select="//CONTROLINFO[1]" />
-	
+	<xsl:variable name="doc_type_conversor" select="document('doc_types_openaire.xml')/doc_types" />
 	<xsl:template match="text()" mode="cdata">
 		<xsl:value-of select=" concat( '&lt;![CDATA[', . ,  ']]&gt;' ) " disable-output-escaping="yes"/>
 	</xsl:template>
@@ -10,8 +10,9 @@
 	<xsl:template name="escaped_element">
 		<xsl:param name="name"/>
 		<xsl:param name="value"/>		
-		
-		<xsl:value-of select=" concat( '&lt;', $name, '&gt;', $value,  '&lt;/', $name, '&gt;' )" disable-output-escaping="yes"/>
+		<xsl:if test="$value != ''">
+			<xsl:value-of select=" concat( '&lt;', $name, '&gt;', $value,  '&lt;/', $name, '&gt;' )" disable-output-escaping="yes"/>
+		</xsl:if>
 	</xsl:template>
 	
 	<xsl:template match="ISSUEINFO" mode="datestamp">
@@ -196,11 +197,11 @@
 					<xsl:with-param name="year"><xsl:value-of select="ISSUEINFO/@YEAR"/></xsl:with-param>
 				</xsl:apply-templates>
 				<xsl:apply-templates select="ISSUEINFO" mode="pubdate" />
-				<xsl:call-template name="escaped_element">
-					<xsl:with-param name="name">dc:type</xsl:with-param>
-					<xsl:with-param name="value">journal article</xsl:with-param>						
-				</xsl:call-template>
-				<xsl:call-template name="escaped_element">
+                <xsl:call-template name="escaped_element">
+                        <xsl:with-param name="name">dc:type</xsl:with-param>
+                        <xsl:with-param name="value"><xsl:value-of select="$doc_type_conversor/item[@key = $doctype]" /></xsl:with-param>
+                </xsl:call-template>
+                <xsl:call-template name="escaped_element">
 					<xsl:with-param name="name">dc:format</xsl:with-param>
 					<xsl:with-param name="value">text/html</xsl:with-param>						
 				</xsl:call-template>
@@ -210,6 +211,10 @@
 				<xsl:call-template name="escaped_element">
 					<xsl:with-param name="name">dc:language</xsl:with-param>
 					<xsl:with-param name="value" select="@TEXT_LANG"/>						
+				</xsl:call-template>
+				<xsl:call-template name="escaped_element">
+					<xsl:with-param name="name">dc:relation</xsl:with-param>
+					<xsl:with-param name="value" select="@DOI"/>
 				</xsl:call-template>
 				<xsl:call-template name="OAI_DC_Footer" />			
 			</metadata>
