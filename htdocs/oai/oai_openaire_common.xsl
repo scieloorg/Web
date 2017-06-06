@@ -172,6 +172,7 @@
 	</xsl:template>
 	
 	<xsl:template match="ARTICLE">
+		<xsl:variable name="doctype" select="@DOC_TYPE" />
 		<record>
 			<header>
 				<xsl:apply-templates select="@PID" mode="identifier"/>
