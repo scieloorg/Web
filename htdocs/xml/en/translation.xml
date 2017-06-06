@@ -267,8 +267,8 @@
 		<text find="spanish">Español</text>
 		<text find="english">English</text>
 		<text find="help">help</text>
-		<text find="app_name">SciELO</text>
-		<text find="about_this_site">about this site</text>
+		<text find="app_name">RevTur</text>
+		<text find="about_this_site">Criteria</text>
 		<text find="scielo_news">SciELO news</text>
 		<text find="scielo_team">SciELO team</text>
 		<text find="serial_browsing">serial browsing</text>
@@ -283,15 +283,18 @@
 		<text find="site_usage">site usage</text>
 		<text find="journal_citation">journal citation</text>
 		<text find="co_authors">co-authors</text>
-		<text find="text_1">The Scientific Electronic Library Online - SciELO is an electronic library covering a selected collection of Brazilian scientific journals.<br/>
-			<br/>The library is an integral part of a project being developed by <a href="http://www.fapesp.br">FAPESP</a> - Fundação de Amparo à Pesquisa do Estado de São Paulo, in partnership with <a href="http://www.bireme.br/bvs/I/ihome.htm">BIREME</a> - the Latin American and Caribbean Center on Health Sciences Information. Since 2002, the Project is also supported by <a href="http://www.cnpq.br">CNPq</a> - Conselho Nacional de Desenvolvimento Científico e Tecnológico.<br/>
-			<br/>The Project envisages the development of a common methodology for the preparation, storage, dissemination and evaluation of scientific literature in electronic format.<br/>
-			<br/>As the project develops, new journal titles are being added in the library collection.</text>
-		<text find="text_2">This is the home page of SciELO Brasil Site.<br/>
-			<br/>The objective of the site is to implement an electronic virtual library, providing full access to a collection of serial titles, a collection of issues from individual serial titles, as well as to the full text of articles. The access to both serial titles and articles is available via indexes and search forms.<br/>
-			<br/>SciELO site is an integral part of the FAPESP/BIREME/CNPq Project and it is an application of the methodology being developed by the project, particularly the Internet Interface module.<br/>
-			<br/>The site will be constantly updated both in form and content, according to the project's advancements.</text>
-		<text find="text_3">SciELO interface provides access to its serials collection via an <i>alphabetic list</i> of titles or a <i>subject list</i> or a <i>search form</i> by word of serial titles, publisher names, city of publication and subject.<br/>
+		<text find="text_1">The electronic journal portal Rev@tur is an online electronic library of scientific journals aimed at contributing to increasing the visibility of scientific production in the area of Tourism and its interfaces.<br/><br/>
+		The purpose of the Rev@tur archive is to disseminate research and original studies in the area, promoting analysis, discussion and reflection, through universal and integrated access to scientific journals in the area.<br/><br/>
+		For inclusion in the journal archive, the scope of the publication must be in the field of Tourism, Hospitality, Gastronomy, Hotel Management, Events, Leisure or Entertainment. <br/><br/>
+		The first journals to be added to the archive were selected in 2016, based on the criteria of representativeness within the area of Tourism in Brazil. These journals were: Revista Brasileira de Pesquisa em Turismo – RBTUR/ANPTUR, Revista Turismo em Análise/USP and Revista Turismo: visão e ação/UNIVALI. <br/><br/>
+
+		The National Association for Research and Postgraduate Studies in Tourism (Associação Nacional de Pesquisa e Pós-Graduação em Turismo - ANPTUR) is responsible for deciding on the policy of new titles and the management of Rev@tur.
+		</text>
+		<text find="text_2">The criteria for inclusion in the archive are: representativeness of the area of knowledge in Brazil and worldwide, frequency at least four times as year, indicators demonstrating that the journal is expanding its internationalization, unpublished articles, and at least five years of uninterrupted publication. For e-journals with a continuous flow of articles, only those that publish a minimum of 24 articles per year will be accepted.<br/><br/>
+
+		In the coming years, the Association will make an annual call for the inclusion of new journals, according to the availability of structuring.
+		</text>
+		<text find="text_3">This website provides access to its serials collection via an <i>alphabetic list</i> of titles or a <i>subject list</i> or a <i>search form</i> by word of serial titles, publisher names, city of publication and subject.<br/>
 			<br/>The interface also provides access to the full text of articles via <i>author index</i> or <i>subject index</i>, or by a <i>search form</i> on article elements such as author names, words from title, subject, words from the full text and publication year.<br/>
 			<br/>Click an hypertext link at the <a href="#top">top</a> to call the corresponding access page.</text>
 		<text find="phone">Phone</text>

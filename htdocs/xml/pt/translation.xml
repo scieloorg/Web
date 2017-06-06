@@ -267,8 +267,8 @@
 		<text find="spanish">español</text>
 		<text find="english">english</text>
 		<text find="help">Ajuda</text>
-		<text find="app_name">SciELO</text>
-		<text find="about_this_site">sobre este site</text>
+		<text find="app_name">RevTur</text>
+		<text find="about_this_site">Critérios</text>
 		<text find="scielo_news">SciELO news</text>
 		<text find="scielo_team">equipe SciELO</text>
 		<text find="serial_browsing">periódicos</text>
@@ -283,15 +283,17 @@
 		<text find="site_usage">uso do site</text>
 		<text find="journal_citation">citações de revistas</text>
 		<text find="co_authors">co-autoria</text>
-		<text find="text_1">A Scientific Electronic Library Online - SciELO é uma biblioteca eletrônica que abrange uma coleção selecionada de periódicos científicos brasileiros.<br/>
-			<br/>A SciELO é o resultado de um projeto de pesquisa da <a href="http://www.fapesp.br">FAPESP</a> - Fundação de Amparo à Pesquisa do Estado de São Paulo, em parceria com a <a href="http://www.bireme.br">BIREME</a> - Centro Latino-Americano e do Caribe de Informação em Ciências da Saúde. A partir de 2002, o Projeto conta com o apoio do <a href="http://www.cnpq.br">CNPq</a> - Conselho Nacional de Desenvolvimento Científico e Tecnológico.<br/>
-			<br/>O Projeto tem por objetivo o desenvolvimento de uma metodologia comum para a preparação, armazenamento, disseminação e avaliação da produção científica em formato eletrônico.<br/>
-			<br/>Com o avanço das atividades do projeto, novos títulos de periódicos estão sendo incorporados à coleção da biblioteca.</text>
-		<text find="text_2">Esta é a home page do site SciELO Brasil.<br/>
-			<br/>O objetivo deste site é implementar uma biblioteca eletrônica que possa proporcionar um amplo acesso a coleções de periódicos como um todo, aos fascículos de cada título de periódico, assim como aos textos completos dos artigos. O acesso aos títulos dos periódicos e aos artigos pode ser feito através de índices e de formulários de busca.<br/>
-			<br/>O site da SciELO é parte do Projeto FAPESP/BIREME/CNPq e um dos produtos da aplicação da metodologia para preparação de publicações eletrônicas em desenvolvimento, especialmente o módulo de interface Internet.<br/>
-			<br/>Este site é constantemente atualizado tanto no seu formato como no seu conteúdo, de acordo com os avanços e os resultados do projeto.</text>
-		<text find="text_3">A interface SciELO proporciona acesso à sua coleção de periódicos através de uma <i>lista alfabética</i> de títulos, ou por meio de uma <i>lista de assuntos</i>, ou ainda através de um módulo de <i>pesquisa de títulos</i> dos periódicos, por assunto, pelos nomes das instituições publicadoras e pelo local de publicação.<br/>
+		<text find="text_1">O portal de periódicos eletrônicos Rev@tur é uma biblioteca eletrônica online de revistas científicas voltadas a contribuir com o aumento da visibilidade da produção científica da área de Turismo e suas interfaces.<br/><br/>
+		A coleção Rev@tur tem por objetivo disseminar pesquisas e estudos originais da área promovendo a sua análise, discussão e reflexão através do acesso universal e integrado às revistas científicas da área.
+		Para fazer parte da coleção as revistas deverão ter escopo no campo do Turismo, Hospitalidade, Gastronomia, Hotelaria, Eventos, Lazer ou do Entretenimento. <br/><br/>
+		Em 2016, as primeiras revistas inseridas nesta coleção foram selecionadas de acordo com o critério de representatividade dentro da área de Turismo no Brasil, a saber: Revista Brasileira de Pesquisa em Turismo – RBTUR/ANPTUR, Revista Turismo em Análise/USP e Revista Turismo: visão e ação/UNIVALI. <br/><br/>
+
+		A Associação Nacional de Pesquisa e Pós-Graduação em Turismo (ANPTUR) é responsável pela política de novos títulos e gestão do Rev@tur.
+		.</text>
+		<text find="text_2">Os requisitos para integração a coleção serão de representatividade para a área no Brasil e no mundo, periodicidade no mínimo quadrimestral, indicadores de ampliação do processo de internacionalização, ineditismo dos documentos publicados e no mínimo cinco anos de publicação ininterrupta. Para as revistas de fluxo contínuo, será reconhecido um mínimo de 24 artigos por ano.<br/><br/>
+		Para os próximos anos, a Associação fará uma chamada anual para inclusão de novas revistas de acordo com a disponibilidade de estruturação.
+		</text>
+		<text find="text_3">Este site proporciona acesso à sua coleção de periódicos através de uma <i>lista alfabética</i> de títulos, ou por meio de uma <i>lista de assuntos</i>, ou ainda através de um módulo de <i>pesquisa de títulos</i> dos periódicos, por assunto, pelos nomes das instituições publicadoras e pelo local de publicação.<br/>
 			<br/>A interface também propicia acesso aos textos completos dos artigos através de um <i>índice de autor</i> e um <i>índice de assuntos</i>, ou por meio de um formulário de <i>pesquisa de artigos</i>, que busca os elementos que o compõem, tais como autor, palavras do título, assunto, palavras do texto e ano de publicação.<br/>
 			<br/>Clique nas opções marcadas com links no <a href="#top">topo</a> da página para ter acesso às páginas correspondentes.</text>
 		<text find="phone">Tel.</text>
