@@ -10,7 +10,10 @@
     $metadataPrefixList = array ( "oai_dc" => array( "ns" => "http://www.openarchives.org/OAI/2.0/oai_dc/",
                                                      "schema" => "http://www.openarchives.org/OAI/2.0/oai_dc.xsd"),
 								  "oai_dc_agris" => array("ns" => "http://www.purl.org/agmes/agrisap/schema/",
-								  							"schema" => "http://www.purl.org/agmes/agrisap/schema/agris.xsd"));
+								  							"schema" => "http://www.purl.org/agmes/agrisap/schema/agris.xsd"),
+                                  "oai_dc_openaire" => array( "ns" => "http://www.openarchives.org/OAI/2.0/oai_dc/",
+                                                     "schema" => "http://www.openarchives.org/OAI/2.0/oai_dc.xsd")
+                                  );
 /*
 	$repositoryName = "SciELO Online Library Collection";
 	$earliestDatestamp = "1996-01-01";
@@ -208,7 +211,7 @@ $identifier = cleanParameter($identifier);
 				}				
 			case "ListRecords":
 				{
-				$response = ListRecords( $set = $parameters["set"], $from = $parameters["from"], $until = $parameters["until"], $control = $parameters["control"], $lang = "en", $nrm = "iso", $count = 30, $debug = false, $metadataprx = $parameters["metadataprefix"] );
+				$response = listRecords( $set = $parameters["set"], $from = $parameters["from"], $until = $parameters["until"], $control = $parameters["control"], $lang = "en", $nrm = "iso", $count = 30, $debug = false, $metadataprx = $parameters["metadataprefix"] );
 				break;
 				}
 			case "ListRecordsAgris":
@@ -281,6 +284,10 @@ $identifier = cleanParameter($identifier);
 			 if($metadataPrefix == 'oai_dc_agris'){
 			 	$xsl = 'GetRecord_agris.xsl';
 			 	$result = generatePayload ( $ws_client_url, "getAbstractArticleAgris", "GetRecordAgris", $parameters, $xsl );
+            }
+             else if($metadataPrefix == 'oai_dc_openaire'){
+                $xsl = 'GetRecord_openaire.xsl';
+                $result = generatePayload ( $ws_client_url, "getAbstractArticle", "GetRecord", $parameters, $xsl );                
 			 }else{
 			 	$xsl = 'GetRecord.xsl';
 			 	$result = generatePayload ( $ws_client_url, "getAbstractArticle", "GetRecord", $parameters, $xsl );			
@@ -453,7 +460,10 @@ $identifier = cleanParameter($identifier);
 				if($metadataPrefix == 'oai_dc_agris'){
 				 	$xsl = 'ListRecords_agris.xsl';
 				 	$result = generatePayload ( $ws_client_url, "listRecordsAgris", "ListRecordsAgris", $parameters, $xsl );
-				 }else{
+				}else if($metadataPrefix == 'oai_dc_openaire'){
+                    $xsl = 'ListRecords_openaire.xsl';
+                    $result = generatePayload ( $ws_client_url, "listRecords", "ListRecords", $parameters, $xsl );                
+                }else{
 					$xsl = "$verb.xsl";
 					$result = generatePayload ( $ws_client_url, "listRecords", $verb, $parameters, $xsl ); 	
 				 }
