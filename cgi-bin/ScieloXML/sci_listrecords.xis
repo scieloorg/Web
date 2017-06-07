@@ -28,7 +28,10 @@
         <field action="replace" tag="3004"><pft>if p(v3004) then replace(v3004,'__','=') fi</pft></field>
     
         <field action="replace" tag="3007">
-            <pft>f(l(['TITLE'],'LOC='v3001),1,0)</pft>
+            <pft>if v3001<>'openaire' then f(l(['TITLE'],'LOC='v3001),1,0) fi</pft>
+        </field>
+        <field action="replace" tag="3400">
+            <pft>if v3001<>'openaire' then v3001 fi</pft>
         </field>
         
         <field action="replace" tag="3008">
@@ -44,9 +47,11 @@
 		    	if p(v3004) and p(v3008) and val(v3008)<=0 then
 			    	'^l'v3005,'^p'v3004*3'^c0003' 
     			else
-    		    	if p(v3001) and val(v3007)<=0 then
-					   	'^l'v3005,'^p'v3001'^c0001'
-    				fi
+    		    	if v3001<>'openaire' then
+                        if p(v3001) and val(v3007)<=0 then
+    					   	'^l'v3005,'^p'v3001'^c0001'
+        				fi
+                    fi
 	    		fi
 		    </pft>
     	</call>
@@ -92,7 +97,7 @@
         
         <field action="replace" tag="9001">
             <pft>
-                if p(v9000) and a(v3001) and (p(v3002) or p(v3003)) then
+                if p(v9000) and a(v3400) and (p(v3002) or p(v3003)) then
                     'DATE_KEY'
                 fi
             </pft>
@@ -106,7 +111,7 @@
                     if v9001 = 'DATE_KEY' then
                         v9000,'=',v3002
                     else
-                        'HR=S',v3001
+                        'HR=S',v3400
                     fi
                 fi
             </pft>
@@ -119,11 +124,18 @@
                         ,v9000,'=',v3003,'ZZZZZ'
                     ,fi
                 else
-                   'HR=S',v3001,'ZZZZZ'
+                   'HR=S',v3400,'ZZZZZ'
                 fi
             </pft>
         </field>
-                
+        <!-- 
+            v3030 inicio dos termos
+            v3031 fim dos termos
+            se ausente v3400 que usado para montar o v3030 e v3031 
+            o inicio seria HR=S (ok)
+            fim seria HR=SZZZZZ (estou na duvida se funciona: 
+            a duvida eh que se Z vem antes de numeros entao nunca retornara nada
+        -->
         <do task="keyrange">
     		<parm name="db">ARTIGO</parm>	
     		<parm name="from"><pft>v3030</pft></parm>
