@@ -57,13 +57,19 @@ $identifier = cleanParameter($identifier);
     function parseResumptionToken ( $resumptionToken )
     {
         global $metadataPrefix, $control, $set, $from, $until;
-        if (! preg_match("/^HR__S([0-9X]{4}-[0-9X]{4})[0-9]{13}:([0-9X]{4}-[0-9X]{4})?:((19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01]))?:((19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01]))?:(oai_dc)(_agris)?$/" , $resumptionToken ) and ! preg_match("/DTH__((19|20)\d\d(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01]))__([0-9X]{4}-[0-9X]{4})([0-9]{9}|[0-9]{13}):([0-9X]{4}-[0-9X]{4})?:((19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01]))?:((19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01]))?:(oai_dc)(_agris)?$/" , $resumptionToken )){
-            return false;
+      
+        $hregex = "/^HR__S([0-9X]{4}-[0-9X]{4})[0-9]{13}:([0-9X]{4}-[0-9X]{4}|openaire)?:((19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01]))?:((19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01]))?:(oai_dc)(_agris|_openaire)?$/";
+        $dregex = "/DTH__((19|20)\d\d(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01]))__([0-9X]{4}-[0-9X]{4})([0-9]{9}|[0-9]{13}):([0-9X]{4}-[0-9X]{4}|openaire)?:((19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01]))?:((19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01]))?:(oai_dc)(_agris|_openaire)?$/";
+
+        if (substr($resumptionToken, 0, 1) == 'H'){
+            $result_hregex = preg_match($hregex , $resumptionToken );
+            if ( !$result_hregex ) return false;
         }
-
-    
+	if (substr($resumptionToken, 0, 1) == "D"){
+            $result_dregex = preg_match($dregex , $resumptionToken );
+            if ( !$result_dregex ) return false;
+        }
         $params = split ( ":", $resumptionToken );
-
         $control = $params[ 0 ];
         $set = $params[ 1 ];
         $from = $params[ 2 ];
@@ -71,7 +77,7 @@ $identifier = cleanParameter($identifier);
         $metadataPrefix = $params[ 4 ];
 
         if ( !$control ) return false;
-        
+
         if ( $from && !isDatestamp ( $from ) ) return false;
 
         if ( $until && !isDatestamp ( $until ) ) return false;
@@ -85,7 +91,7 @@ $identifier = cleanParameter($identifier);
 
     function is_Set ( $set )
     {
-        return eregi ( "^[0-9a-z]{4}-[0-9a-z]{4}$", $set );
+        return eregi ( "^([0-9a-z]{4}-[0-9a-z]{4}|openaire)$", $set );
     }
 
 	/******************************************* isDatestamp **********************************************/
