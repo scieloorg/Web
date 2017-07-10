@@ -1,0 +1,13 @@
+open ftp.scielo.br
+user user_id user_passwd
+
+bin
+
+lcd temp/transf2scielofast
+
+put title_full.iso
+put issue_full.iso
+put artigo_full.iso
+
+close
+bye
