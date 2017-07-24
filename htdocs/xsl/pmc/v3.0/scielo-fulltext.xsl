@@ -782,7 +782,7 @@
 				<xsl:apply-templates select="label | caption" mode="scift-label-caption-graphic"/>
 
 			</p>
-			<xsl:apply-templates select="graphic | table | table-wrap-foot"/>
+			<xsl:apply-templates select="alternatives | graphic | table | table-wrap-foot"/>
 			<xsl:apply-templates select="." mode="object-properties"/>
 		</div>
 	</xsl:template>
