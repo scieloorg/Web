@@ -1848,10 +1848,10 @@
 		</div>
 	</xsl:template>
 	<xsl:template match="article-meta//product/text()"></xsl:template>
-	<xsl:template match="article-meta//product/*"><xsl:apply-templates select="*|text()"/><xsl:if test="position()!=last()">, </xsl:if> 
+	<xsl:template match="article-meta//product//*"><xsl:apply-templates select="*|text()"/><xsl:if test="position()!=last()">, </xsl:if> 
 	</xsl:template>
 	<xsl:template match="article-meta//product/person-group">
-		<xsl:apply-templates select="name"></xsl:apply-templates>. 
+		<xsl:apply-templates select="*"></xsl:apply-templates>. 
 	</xsl:template>
 	<xsl:template match="article-meta//product/article-title | product[@product-type!='article']/source">
 		<xsl:apply-templates select="*|text()"/>. 
