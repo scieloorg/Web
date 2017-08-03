@@ -31,11 +31,10 @@ call batch/InformaLog.bat $0 dh ===Inicio===
 call batch/CriaDiretorio.bat temp/transf2scielofast
 
 call batch/GeraIso.bat     $1/title/title                  temp/transf2scielofast/title_full.iso
-call batch/GeraIso.bat     $1/issue/issue                  temp/transf2scielofast/issue_full.iso
 call batch/GeraIso.bat     $1/artigo/artigo                temp/transf2scielofast/artigo_full.iso
 
 
-call batch/InformaLog.bat $0 x FTP artigo_full, issue_full, title_full
+call batch/InformaLog.bat $0 x FTP artigo_full, title_full
 ftp -n < $2 >> $INFORMALOG
 
 call batch/ifErrorLevel.bat $? batch/AchouErro.bat $0 ftp: $2
