@@ -426,8 +426,9 @@
 				<script language="javascript" src="applications/scielo-org/js/toolbox.js"/>
 				<xsl:if test="$original//math or $original//mml:math">
 					<script type="text/javascript"
-						src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-					</script></xsl:if>
+						src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+					</script>
+				</xsl:if>
 				<script language="javascript">
 					function smaller(elem_img) {
 						if ((elem_img.height &gt; elem_img.width) &amp;&amp; (elem_img.height &gt; 100)) {
