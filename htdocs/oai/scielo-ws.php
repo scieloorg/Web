@@ -200,7 +200,7 @@
 
 		return $result;
     }
-	
+
 	function listRecordsAgris ( $set = "", $from = "", $until = "", $control = "", $lang = "en", $nrm = "iso", $count = 30, $debug = false , $metadataprx = "")
     {
 		global $scielo_xml, $server;
