@@ -1,5 +1,8 @@
 v5.37 (em desenvolvimento)
 Inclusão de link de métricas do Google Scholar na home do artigo.
+Ajustes em protocolo OAI-PMH para inclusão de MetadataPrefix oai_dc_openaire
+Ajustes em processamento para inclusão de envio de bases para ArticleMeta proc/Envia2SciELOFast.bat
+Inclusão de metricas atualizadas do Google Scholar.
 
 v5.36.3
 Adaptação de integração com SCIMAGO de acordo com o funcionamento do novo site do SCIMAGO. Não é mais necessário executar processamentos de atualização de gráficos do SCIMAGO. Os ids de periódicos SciELO no SCIMAGO serão atualizados periódicamente em atualizações da metodologia SciELO.
