@@ -735,7 +735,7 @@
 	<xsl:template match="fig-group" mode="scift-standard">
 		<div class="figure-group">
 			<xsl:call-template name="named-anchor"/>
-			<xsl:apply-templates select="graphic|media"/>
+			<xsl:apply-templates select="*[name()!='attrib' and name()!='fig']"/>
 			<xsl:apply-templates select="attrib"/>
 			<xsl:choose>
 				<xsl:when test="fig[@xml:lang=$TEXT_LANG] and $trans">
@@ -782,7 +782,7 @@
 				<xsl:apply-templates select="label | caption" mode="scift-label-caption-graphic"/>
 
 			</p>
-			<xsl:apply-templates select="graphic | table | table-wrap-foot"/>
+			<xsl:apply-templates select="alternatives | graphic | table | table-wrap-foot"/>
 			<xsl:apply-templates select="." mode="object-properties"/>
 		</div>
 	</xsl:template>
@@ -837,7 +837,7 @@
 			<xsl:value-of select="."/>
 		</xsl:attribute>
 	</xsl:template>
-	<xsl:template match="table/*/tr | table/thead | table/thead/tr/th | table/tbody | table/tbody/tr/td//p | table//*[name()!='td']">
+	<xsl:template match="table/* | table/*/* | table/thead/tr/th ">
 		<xsl:element name="{name()}">
 			<xsl:apply-templates select="@* | * | text()"/>
 		</xsl:element>
@@ -876,7 +876,7 @@
 			<xsl:apply-templates select="*|text()"/>
 		</span>
 	</xsl:template>
-	<xsl:template match="inline-formula/graphic">
+	<xsl:template match="inline-formula/*[@xlink:href]">
             <xsl:variable name="href">
                 <xsl:choose>
                     <xsl:when test="@xlink:href"><xsl:value-of select="@xlink:href"/></xsl:when>
@@ -890,7 +890,7 @@
             <xsl:choose>
                 <xsl:when  test="$c1='svg'">
                    <object type="image/svg+xml">
-                       <xsl:attribute name="data"><xsl:value-of select="concat($_varIMAGE_PATH,'/')"/><xsl:apply-templates select="." mode="fix_img_extension"/></xsl:attribute>
+                       <xsl:attribute name="data"><xsl:value-of select="concat($var_IMAGE_PATH,'/')"/><xsl:apply-templates select="." mode="fix_img_extension"/></xsl:attribute>
                    </object>
                 </xsl:when>
                 <xsl:otherwise>
@@ -928,11 +928,14 @@
 			<xsl:when test="mml:math">
 				<xsl:apply-templates select="mml:math"/>
 			</xsl:when>
-			<xsl:when test="graphic">
-				<xsl:apply-templates select="graphic"/>
-			</xsl:when>
 			<xsl:when test="tex-math">
 				<xsl:apply-templates select="tex-math"/>
+			</xsl:when>
+			<xsl:when test="contains(*/@xlink:href,'.svg')">
+				<xsl:apply-templates select="inline-graphic|graphic"/>
+			</xsl:when>
+			<xsl:when test="*[@xlink:href]">
+				<xsl:apply-templates select="*[@xlink:href]"/>
 			</xsl:when>
 		</xsl:choose>
 	</xsl:template>
@@ -1074,55 +1077,55 @@
 			<xsl:apply-templates select="*|text()"></xsl:apply-templates>
 		</div>
 	</xsl:template>
-	<xsl:template match="back/ref-list">
+	<xsl:template match="ref-list" mode="title">
 		<xsl:param name="title"></xsl:param>
-		<div>
-			<a name="references"/>
-			<p class="sec">
-				<xsl:choose>
-					<xsl:when test="$title">
-						<xsl:value-of select="$title"/>
-					</xsl:when>
-					<xsl:when test="not(title)">
-						<xsl:choose>
-							<xsl:when test="$TEXT_LANG='pt'"> REFERÊNCIAS </xsl:when>
-							<xsl:when test="$TEXT_LANG='es'"> REFERENCIAS </xsl:when>
-							<xsl:otherwise> REFERENCES </xsl:otherwise>
-						</xsl:choose>
-					</xsl:when>
-					<xsl:otherwise>
-						<xsl:apply-templates select="title"/>
-					</xsl:otherwise>
-				</xsl:choose>
-			</p>
-			<xsl:apply-templates select="ref"/>
-		</div>
+		<a name="references"/>
+		<p class="sec">
+			<xsl:choose>
+				<xsl:when test="normalize-space($title)!=''">
+					<xsl:value-of select="$title"/>
+				</xsl:when>
+				<xsl:when test="title">
+					<xsl:apply-templates select="title"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:choose>
+						<xsl:when test="$TEXT_LANG='pt'"> REFERÊNCIAS </xsl:when>
+						<xsl:when test="$TEXT_LANG='es'"> REFERENCIAS </xsl:when>
+						<xsl:otherwise> REFERENCES </xsl:otherwise>
+					</xsl:choose>
+				</xsl:otherwise>
+			</xsl:choose>
+		</p>
 	</xsl:template>
-	<xsl:template match="sub-article[@article-type='translation']/back/ref-list">
+	
+	<xsl:template match="ref-list">
 		<xsl:param name="title"></xsl:param>
-		<div>
-			<a name="references"/>
-			<p class="sec">
-				<xsl:apply-templates select="title"/>
-				<xsl:if test="not(title)">
-					<xsl:apply-templates select="$title"></xsl:apply-templates>
-				</xsl:if>
-			</p>
-			<xsl:apply-templates select="$original/back/ref-list/ref"/>
-		</div>
+		<xsl:choose>
+			<xsl:when test="ref-list">
+				<xsl:apply-templates select="*"></xsl:apply-templates>
+			</xsl:when>
+			<xsl:otherwise>
+				<div>
+					<xsl:apply-templates select="." mode="title">
+						<xsl:with-param name="title"><xsl:value-of select="$title"/></xsl:with-param>
+					</xsl:apply-templates>
+					<xsl:apply-templates select="." mode="ref-items"/>
+				</div>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
-	<xsl:template match="sub-article[@article-type='translation']/response/back/ref-list">
-		<xsl:param name="title"></xsl:param>
-		<div>
-			<a name="references"/>
-			<p class="sec">
-				<xsl:apply-templates select="title"/>
-				<xsl:if test="not(title)">
-					<xsl:apply-templates select="$title"></xsl:apply-templates>
-				</xsl:if>
-			</p>
-			<xsl:apply-templates select="$original/response/back/ref-list/ref"/>
-		</div>
+	
+	<xsl:template match="ref-list" mode="ref-items">
+		<xsl:apply-templates select="ref"></xsl:apply-templates>
+	</xsl:template>
+	
+	<xsl:template match="sub-article[@article-type='translation']/back//ref-list[ref]" mode="ref-items">
+		<xsl:apply-templates select="$original/back/ref-list/ref"/>
+	</xsl:template>
+	
+	<xsl:template match="sub-article[@article-type='translation']/response/back//ref-list[ref]" mode="ref-items">
+		<xsl:apply-templates select="$original/response/back/ref-list/ref"/>
 	</xsl:template>
 	
 	<xsl:template match="ref">
@@ -1356,6 +1359,7 @@
 		</div>
 	</xsl:template>
 	<xsl:template match="back/fn-group/fn">
+		<a name="{@id}"/>
 		<div class="fn">
 			<xsl:apply-templates select="title"/>
 		<xsl:choose>
@@ -1381,9 +1385,6 @@
 		</div>
 	</xsl:template>
 	<xsl:template match="back/fn-group/fn/@fn-type"> </xsl:template>
-	<xsl:template match="back/fn-group/fn/@id">
-		<a name="back_{../@id}"/>
-	</xsl:template>
 	<xsl:template match="back/fn-group/fn/label">
 		<xsl:choose>
 			<xsl:when test="number(.)=.">
@@ -1847,10 +1848,10 @@
 		</div>
 	</xsl:template>
 	<xsl:template match="article-meta//product/text()"></xsl:template>
-	<xsl:template match="article-meta//product/*"><xsl:apply-templates select="*|text()"/><xsl:if test="position()!=last()">, </xsl:if> 
+	<xsl:template match="article-meta//product//*"><xsl:apply-templates select="*|text()"/><xsl:if test="position()!=last()">, </xsl:if> 
 	</xsl:template>
 	<xsl:template match="article-meta//product/person-group">
-		<xsl:apply-templates select="name"></xsl:apply-templates>. 
+		<xsl:apply-templates select="*"></xsl:apply-templates>. 
 	</xsl:template>
 	<xsl:template match="article-meta//product/article-title | product[@product-type!='article']/source">
 		<xsl:apply-templates select="*|text()"/>. 
