@@ -11,5 +11,9 @@ batch/ifErrorLevel.bat $? batch/AchouErro.bat $0 mx $1/serial/title/title lw:900
 chmod 700 temp/GeraArtigo.bat
 call temp/GeraArtigo.bat
 
+echo "Envia de bases title e artigo do bases-work para FTP para carga em ArticleMeta"
+call Envia2SciELOPadraoFast.bat
+echo "Fim de envio de bases"
+
 call batch/GeraInvertido.bat ../bases-work/artigo/artigo fst/artigo.fst ../bases-work/artigo/artigo
 call batch/GeraInvertido.bat ../bases-work/artigo/artigo fst/author.fst ../bases-work/artigo/author
