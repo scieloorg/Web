@@ -6,7 +6,7 @@
 	<xsl:import href="sci_arttext_pmc.xsl"/>
 	<xsl:import href="sci_toolbox.xsl"/>
 	<xsl:output indent="yes"/>
-	
+	<xsl:variable name="LANGUAGES_ELEM" select="//ARTICLE/LANGUAGES"/>
 	<xsl:template match="*[@xlink:href] | *[@href]" mode="fix_img_extension">
 		<xsl:variable name="href"><xsl:choose>
 			<xsl:when test="@xlink:href"><xsl:value-of select="@xlink:href"/></xsl:when>
@@ -426,8 +426,9 @@
 				<script language="javascript" src="applications/scielo-org/js/toolbox.js"/>
 				<xsl:if test="$original//math or $original//mml:math">
 					<script type="text/javascript"
-						src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-					</script></xsl:if>
+						src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+					</script>
+				</xsl:if>
 				<script language="javascript">
 					function smaller(elem_img) {
 						if ((elem_img.height &gt; elem_img.width) &amp;&amp; (elem_img.height &gt; 100)) {
@@ -576,17 +577,23 @@
 
 	<xsl:template match="p[contains(.,'apenas em PDF')] | p[contains(.,'available only in PDF')] ">
 		<p>
-			<a>
-				<xsl:call-template name="AddScieloLink">
-					<xsl:with-param name="seq" select="$article/@PID"/>
-					<xsl:with-param name="script">sci_pdf</xsl:with-param>
-					<xsl:with-param name="txtlang" select="$article/@TEXTLANG"/>
-				</xsl:call-template>
-				<xsl:value-of select="."/>
-			</a>
+			<xsl:apply-templates select="$LANGUAGES_ELEM//PDF_LANGS/LANG[.=$TEXT_LANG]" mode="link">
+				<xsl:with-param name="text" select="."/>
+			</xsl:apply-templates>
+			<xsl:if test="not($LANGUAGES_ELEM//PDF_LANGS/LANG[.=$TEXT_LANG])">
+				<xsl:apply-templates select="$LANGUAGES_ELEM//PDF_LANGS/LANG[1]" mode="link">
+					<xsl:with-param name="text" select="."/>
+				</xsl:apply-templates>
+			</xsl:if>
 		</p>
 	</xsl:template>
-	
+	<xsl:template match="PDF_LANGS/LANG" mode="link">
+		<xsl:param name="text"></xsl:param>
+		<a>
+			<xsl:attribute name="href">/pdf/<xsl:value-of select="@TRANSLATION"/></xsl:attribute>
+			<xsl:value-of select="$text"/>
+		</a>
+	</xsl:template>
 	<xsl:template match="SERIAL" mode="text-disclaimer">
 		<xsl:if test=".//ARTICLE/RELATED-DOC">
 			<div class="disclaimer">
