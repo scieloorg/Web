@@ -3285,6 +3285,7 @@ fi
 <function name="getDOIDB" action="replace" tag="880">
 	<field action="import" tag="7011">7011</field>
 	<field action="replace" tag="9000"><pft>ref(['ARTIGO']l(['ARTIGO'],'Y',v880*1.17),@PROC_SPLIT_MST.PFT,|v|v31,|s|v131,|n|v32,|s|v132)</pft></field>
+	<field action="replace" tag="9000"><pft>if a(v9000) then ref(['NEWISSUE']l(['NEWISSUE'],'Y',v880*1.17),@PROC_SPLIT_MST.PFT,|v|v31,|s|v131,|n|v32,|s|v132) fi</pft></field>
 	<field action="replace" tag="9001"><pft>ref(['TITLE']l(['TITLE'],s('LOC=',v880*1.9)),v68)</pft></field>
 	<field action="replace" tag="9800"><pft>v7011,'doi/',v9001|/|,v9000|/|,v9000,</pft></field>
 
