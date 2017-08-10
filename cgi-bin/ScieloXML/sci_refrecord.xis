@@ -68,6 +68,9 @@
                     if p(v14^e) then
                         | ELOCATIONID="|v14^e|"|
                     fi,
+                    if p(v71) then
+                        ' DOC_TYPE="',v71,'"'
+                    fi,
                     | PID="|v880|"|,
                     | REQUESTS="|v4001^r|"|
 		 ,' CURR_DATE="',mid(date,1,8),'"'
