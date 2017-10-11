@@ -13,5 +13,5 @@ echo Envia2SciELOFast.bat ../bases-work transf/Envia2SciELOFastLogOn.txt log/env
 echo
 echo Tecle CONTROL-C para sair ou ENTER para continuar...
 
-call Envia2Medline.bat ../bases-work transf/envia2SciELOFastLogOn.txt log/envia2SciELOFast.log cria
+call Envia2SciELOFast.bat ../bases-work transf/Envia2SciELOFastLogOn.txt log/envia2SciELOFast.log cria
 
