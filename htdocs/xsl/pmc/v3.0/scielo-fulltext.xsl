@@ -931,6 +931,16 @@
 			<xsl:when test="tex-math">
 				<xsl:apply-templates select="tex-math"/>
 			</xsl:when>
+			<xsl:when test="table">
+				<xsl:apply-templates select="table"/>
+				<xsl:if test="graphic">
+					<p style="font-size: 200%;">
+					<a target="_blank">
+						<xsl:apply-templates select="graphic" mode="scift-attribute-href"/>
+						&#8659;</a>
+					</p>
+				</xsl:if>
+			</xsl:when>
 			<xsl:when test="contains(*/@xlink:href,'.svg')">
 				<xsl:apply-templates select="inline-graphic|graphic"/>
 			</xsl:when>
