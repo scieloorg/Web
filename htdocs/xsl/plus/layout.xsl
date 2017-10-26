@@ -1156,12 +1156,16 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
             <xsl:when test="mml:math">
                 <xsl:apply-templates select="mml:math" mode="HTML-TEXT"/>
             </xsl:when>
-            <xsl:when test="graphic">
-                <xsl:apply-templates select="graphic" mode="HTML-TEXT"/>
-            </xsl:when>
             <xsl:when test="tex-math">
                 <xsl:apply-templates select="tex-math"/>
             </xsl:when>
+            <xsl:when test="table">
+                <xsl:apply-templates select="table" mode="HTML-TEXT"/>
+            </xsl:when>
+            <xsl:when test="graphic">
+                <xsl:apply-templates select="graphic" mode="HTML-TEXT"/>
+            </xsl:when>
+            
         </xsl:choose>
     </xsl:template>
     <xsl:template match="p//xref[@ref-type='fig' or @ref-type='table']" mode="HTML-TEXT">
@@ -1251,7 +1255,7 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
             </div>
         </div>
     </xsl:template>
-    <xsl:template match="table-wrap[table]" mode="HTML-TEXT">
+    <xsl:template match="table-wrap[table or alternatives]" mode="HTML-TEXT">
         <div class="row table" id="{@id}">
             <div class="span8">
                 <strong>
