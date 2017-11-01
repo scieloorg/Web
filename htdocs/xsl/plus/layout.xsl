@@ -164,7 +164,7 @@
                 font-size: 70%
                 }
             </style>
-            <xsl:if test=".//math or .//mml:math">
+            <xsl:if test=".//math or .//mml:math or .//tex-math">
                 <script type="text/javascript"
                     src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
                 </script>
@@ -1166,6 +1166,19 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
                 <xsl:apply-templates select="graphic" mode="HTML-TEXT"/>
             </xsl:when>
             
+        </xsl:choose>
+    </xsl:template>
+    <xsl:template match="tex-math" mode="HTML-TEXT">
+        <xsl:apply-templates select="."/>
+    </xsl:template>
+    <xsl:template match="tex-math">
+        <xsl:choose>
+            <xsl:when test="contains(.,'\begin{document}') and contains(.,'\end{document}')">
+                <xsl:value-of select="substring-after(substring-before(.,'\end{document}'),'\begin{document}')"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="."/>
+            </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
     <xsl:template match="p//xref[@ref-type='fig' or @ref-type='table']" mode="HTML-TEXT">

@@ -950,6 +950,16 @@
 		</xsl:choose>
 	</xsl:template>
 	
+	<xsl:template match="tex-math">
+		<xsl:choose>
+			<xsl:when test="contains(.,'\begin{document}') and contains(.,'\end{document}')">
+				<xsl:value-of select="substring-after(substring-before(.,'\end{document}'),'\begin{document}')"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="."/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
 
 	<xsl:template match="table//inline-graphic |inline-graphic">
             <xsl:variable name="href">
