@@ -953,7 +953,7 @@
 	<xsl:template match="tex-math">
 		<xsl:choose>
 			<xsl:when test="contains(.,'\begin{document}') and contains(.,'\end{document}')">
-				
+				<xsl:value-of select="substring-after(substring-before(.,'\end{document}'),'\begin{document}')"/>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:value-of select="."/>
