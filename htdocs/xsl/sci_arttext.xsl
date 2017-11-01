@@ -424,7 +424,7 @@
 			<xsl:when test="$version='xml-file'">
 				<script language="javascript" src="applications/scielo-org/js/jquery-1.4.2.min.js"/>
 				<script language="javascript" src="applications/scielo-org/js/toolbox.js"/>
-				<xsl:if test="$original//math or $original//mml:math">
+				<xsl:if test="$original//math or $original//mml:math or $original//tex-math">
 					<script type="text/javascript"
 						src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 					</script>
