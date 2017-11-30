@@ -1186,9 +1186,18 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
             <xsl:apply-templates select="*|text()"/>
         </a>
     </xsl:template>
-    
-    <xsl:template match="fig[graphic]" mode="HTML-TEXT">
+    <xsl:template match="fig[not(graphic)]" mode="HTML-TEXT">
+        <div class="span5">
+            <strong>
+                <xsl:value-of select="label"/>
+            </strong>
+            <br/>
+            <xsl:apply-templates select="caption"/>
+        </div>
+    </xsl:template>
+    <xsl:template match="fig[graphic or disp-formula]" mode="HTML-TEXT">
         <div class="row fig" id="{@id}">
+            <xsl:if test="graphic">
             <div class="span3">
                 <xsl:variable name="img_filename"><xsl:value-of select="concat($IMAGE_PATH,'/')"/><xsl:apply-templates select=".//graphic" mode="fix_img_extension"/></xsl:variable>
                 <div class="thumb">
@@ -1200,6 +1209,15 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
                     <xsl:apply-templates select="attrib"/>
                 </div>
             </div>
+            </xsl:if>
+            <xsl:if test="disp-formula">
+                <xsl:apply-templates select="disp-formula" mode="HTML-TEXT"/>
+                
+                <div class="span8">
+                       <xsl:apply-templates select="attrib"/>
+                    
+                </div>
+            </xsl:if>
             <div class="span5">
                 <strong>
                     <xsl:value-of select="label"/>
@@ -1209,15 +1227,7 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
             </div>
         </div>
     </xsl:template>
-    <xsl:template match="fig[not(graphic)]" mode="HTML-TEXT">
-        <div class="span5">
-            <strong>
-                <xsl:value-of select="label"/>
-            </strong>
-            <br/>
-            <xsl:apply-templates select="caption"/>
-        </div>
-    </xsl:template>
+    
     <xsl:template match="fig-group" mode="HTML-TEXT">
         <div class="row fig" id="{@id}">
             <div class="span3">
