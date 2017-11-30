@@ -750,7 +750,7 @@
 	<xsl:template match="fig" mode="scift-standard">
 		<div class="figure">
 			<xsl:call-template name="named-anchor"/>
-			<xsl:apply-templates select="graphic|media"/>
+			<xsl:apply-templates select="graphic|media|disp-formula"/>
 			<xsl:apply-templates select="." mode="object-properties"/>
 			<p class="label_caption">
 				<xsl:apply-templates select="label | caption" mode="scift-label-caption-graphic"/>
