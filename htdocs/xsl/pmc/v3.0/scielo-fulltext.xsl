@@ -449,7 +449,7 @@
 				<xsl:apply-templates select="role"></xsl:apply-templates>
 			</xsl:if>
 		</div>
-		
+		<xsl:apply-templates select="on-behalf-of"/>
 	</xsl:template>
 	<xsl:template match="contrib/role | contrib/degrees"><xsl:value-of select="concat(', ',.)"/>
 	</xsl:template>
