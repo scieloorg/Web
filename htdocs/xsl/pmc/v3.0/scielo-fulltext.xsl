@@ -448,8 +448,8 @@
 			<xsl:if test="contrib[@contrib-type!='author']">
 				<xsl:apply-templates select="role"></xsl:apply-templates>
 			</xsl:if>
-		</div>
 		<xsl:apply-templates select="on-behalf-of"/>
+		</div>
 	</xsl:template>
 	<xsl:template match="contrib/role | contrib/degrees"><xsl:value-of select="concat(', ',.)"/>
 	</xsl:template>
