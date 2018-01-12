@@ -23,20 +23,30 @@ print '----------------------------------------------\n'
 #Builds a list from scilistxml.lst
 lst = []
 f = open('../serial/scilistaxml.lst', 'r')
-
 for row in f:
     lst.append(row.split())
 f.close()
 
 #Test issues in scilistaxml.lst
+n = 0
 for issue in lst:
-    print 'Checking line> ' + str(issue)
+    n += 1
+    linha = ' '.join(issue)
+    print linha
+    if len(issue) == 0:
+        print('Error: Linha {}: remover linha vazia\n'.format(n))
+        fbug.write('Error: Linha {}: remover linha vazia\n'.format(n))
+        continue
+    elif len(issue) not in [2, 3]:
+        print('Error: Linha {}: corrigir {} \n'.format(n, linha))
+        fbug.write('Error: Linha {}: corrigir {} \n'.format(n, linha))
+        continue
+    print('Executar')
     try:
         acron = issue[0]
         acron = issue[1]
-        print 'Issue OK'
         if os.path.exists('/bases/xml.000/serial/' + issue[0] + '/' + issue[1]):
-            print 'Copying...\n'
+            print 'Issue OK\n'
         else:
             print      '%s %s \t%s\n' % (issue[0],issue[1],'fasciculo nao localizado - verificar')
             fbug.write('%s %s \t%s\n' % (issue[0],issue[1],'fasciculo nao localizado - verificar'))
