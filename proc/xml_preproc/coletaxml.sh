@@ -1,5 +1,7 @@
 #!/bin/bash
-echo Processamento SciELO Brasil
+. xml_preproc.ini
+
+echo Processamento $XMLPREPROC_COLLECTION_NAME
 echo Ordenando scilistas
 #remove duplicidades das scilistas
 #scilistaxml.lst
