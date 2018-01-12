@@ -1,5 +1,7 @@
 #!/bin/bash
 
+. xml_preproc.ini
+
 issuehtm=0
 issuexml=0
 
@@ -38,7 +40,7 @@ echo Analisando scilistas...
 
 #Vefica se os issues da scilistaxml existem na base 
 # ../serial/issue que chegou para processamento.
-ISSUES=$(python checkissue.py)
+ISSUES=`cat ./NOT_REGISTERED.txt`
 
 if [ "$(ls -l scilista-erros.txt | cut -d' ' -f5)" -ge "5" ]; then
 
@@ -47,7 +49,7 @@ echo "Envia e-mail para avisar de erros na scilistaxml.lst"
 cat >msg-erro.txt <<!
 Prezados,
 
-Foram encontrados erros na scilistaxml.lst do processamento SciELO BR de $(date '+%d/%m/%Y'). Por favor verifiquem:
+Foram encontrados erros na scilistaxml.lst do processamento $XMLPREPROC_COLLECTION_NAME de $(date '+%d/%m/%Y'). Por favor verifiquem:
 
 !
 
@@ -89,7 +91,7 @@ FAPESP CNPq FapUnifesp BIREME
 
 !
 
-mailx marcacao@scielo.org -b "renata.almeida@scielo.org, ednilson.gesseff@scielo.org" -c "infra@scielo.org" -s "Erros na scilistaxml.lst - SciELO BR - $(date '+%d/%m/%Y')" < msg-erro.txt
+mailx $XMLPREPROC_MAILTO -c "$XMLPREPROC_MAILTOCC" -s "Erros na scilistaxml.lst - $XMLPREPROC_COLLECTION_NAME - $(date '+%d/%m/%Y')" < msg-erro.txt
 
 else
 
@@ -98,7 +100,7 @@ echo "Envia e-mail para avisar que esta tudo ok"
 cat >msg-ok.txt <<!
 Prezados,
 
-A scilistaxml.lst do processamento SciELO BR de $(date '+%d/%m/%Y') esta correta.
+A scilistaxml.lst do processamento $XMLPREPROC_COLLECTION_NAME de $(date '+%d/%m/%Y') esta correta.
 
 Data e hora da scilistaxml.lst testada: $(stat -c %z ../serial/scilistaxml.lst | cut -c 1-16)
 
@@ -111,7 +113,7 @@ cat >>msg-ok.txt <<!
 
 
 
-Inicaremos o processamento em breve.
+Iniciaremos o processamento em breve.
 
 obrigado,
 
@@ -123,6 +125,6 @@ FAPESP CNPq FapUnifesp BIREME
 
 !
 
-mailx marcacao@scielo.org -b "renata.almeida@scielo.org, ednilson.gesseff@scielo.org" -c "infra@scielo.org" -s "Scilistaxml.lst - SciELO BR - $(date '+%d/%m/%Y') esta OK" < msg-ok.txt
+mailx $XMLPREPROC_MAILTO -c "$XMLPREPROC_MAILTOCC" -s "Scilistaxml.lst - $XMLPREPROC_COLLECTION_NAME - $(date '+%d/%m/%Y') esta OK" < msg-ok.txt
 
 fi
