@@ -3,26 +3,39 @@
 import os
 
 
-PARAMETERS = {}
-for item in open('xml_preproc.ini').readlines():
-    item = item.strip()
-    if '=' in item:
-        NAME, VALUE = item.split('=')
-        PARAMETERS[NAME] = VALUE
+def read_ini_file():
+    PARAMETERS = {}
+    for item in open('xml_preproc.ini').readlines():
+        item = item.strip()
+        if '=' in item:
+            NAME, VALUE = item.split('=')
+            PARAMETERS[NAME] = VALUE
+    return PARAMETERS
 
+
+def get_registered_issues():
+    REGISTERED_ISSUES = '../serial/registered.txt'
+    ISSUE_DB = '../serial/issue/issue'
+    PFT = "v930,' ',if v32='ahead' then v65*0.4, fi,|v|v31,|s|v131,|n|v32,|s|v132,v41/ "
+    CMD = 'mx {} "pft={}" now | sort -u > {}'.format(ISSUE_DB, PFT, REGISTERED_ISSUES)
+    os.system(CMD)
+
+    registered_issues = None
+    if os.path.isfile(REGISTERED_ISSUES):
+        registered_issues = open(REGISTERED_ISSUES, 'r').read()
+        registered_issues = registered_issues.lower()
+    return registered_issues
+
+
+def inform_error(fbug, msg):
+    print(msg)
+    fbug.write(msg)
+
+
+PARAMETERS = read_ini_file()
 XMLPREPROC_XML_SERIAL_PATH = PARAMETERS.get('XMLPREPROC_XML_SERIAL_PATH')
-
+registered_issues = get_registered_issues()
 SCILISTA_XML = '../serial/scilistaxml.lst'
-REGISTERED_ISSUES = '../serial/registered.txt'
-ISSUE_DB = '../serial/issue/issue'
-PFT = "v930,' ',if v32='ahead' then v65*0.4, fi,|v|v31,|s|v131,|n|v32,|s|v132,v41/ "
-CMD = 'mx {} "pft={}" now | sort -u > {}'.format(ISSUE_DB, PFT, REGISTERED_ISSUES)
-os.system(CMD)
-
-registered_issues = None
-if os.path.isfile(REGISTERED_ISSUES):
-    registered_issues = open(REGISTERED_ISSUES, 'r').read()
-    registered_issues = registered_issues.lower()
 
 # Show directory local
 print('dir local: {}'.format(os.getcwd()))
@@ -68,12 +81,11 @@ for row in open(SCILISTA_XML, 'r').readlines():
                     NOT_REGISTERED.append(issue)
             else:
                 msg = 'Error: Fasciculo nao localizado: {}'.format(path)
-                print(msg)
-                fbug.write(msg)
+                inform_error(fbug, msg)
+
     if valid is False:
         msg = 'Error: Conteudo invalido da linha {}: {}'.format(n, row)
-        print(msg)
-        fbug.write(msg)
+        inform_error(fbug, msg)
 fbug.close()
 
 
