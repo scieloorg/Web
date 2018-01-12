@@ -2,92 +2,57 @@
 # coding: utf-8
 import os
 
+#Show directory local
+print 'dir local: %s\n' % os.getcwd()
 
-def read_ini_file():
-    PARAMETERS = {}
-    for item in open('xml_preproc.ini').readlines():
-        item = item.strip()
-        if '=' in item:
-            NAME, VALUE = item.split('=')
-            PARAMETERS[NAME] = VALUE
-    return PARAMETERS
-
-
-def get_registered_issues():
-    REGISTERED_ISSUES = '../serial/registered.txt'
-    ISSUE_DB = '../serial/issue/issue'
-    PFT = "v930,' ',if v32='ahead' then v65*0.4, fi,|v|v31,|s|v131,|n|v32,|s|v132,v41/ "
-    CMD = 'mx {} "pft={}" now | sort -u > {}'.format(ISSUE_DB, PFT, REGISTERED_ISSUES)
-    os.system(CMD)
-
-    registered_issues = None
-    if os.path.isfile(REGISTERED_ISSUES):
-        registered_issues = open(REGISTERED_ISSUES, 'r').read()
-        registered_issues = registered_issues.lower()
-    return registered_issues
-
-
-def inform_error(fbug, msg):
-    print(msg)
-    fbug.write(msg)
-
-
-PARAMETERS = read_ini_file()
-XMLPREPROC_XML_SERIAL_PATH = PARAMETERS.get('XMLPREPROC_XML_SERIAL_PATH')
-registered_issues = get_registered_issues()
-SCILISTA_XML = '../serial/scilistaxml.lst'
-
-# Show directory local
-print('dir local: {}'.format(os.getcwd()))
-
-# Create error file
+#Create error file
+os.system('rm scilista-erros.txt')
 fbug = open('scilista-erros.txt', 'w')
-fbug.write('')
 
-# Check if exists scilistaxml.lst
-if not os.path.exists(SCILISTA_XML):
+#Check if exists scilistaxml.lst
+if os.path.exists("../serial/scilistaxml.lst"):
+    print 'Content of ../serial/scilistaxml.lst'
+    os.system('cat ../serial/scilistaxml.lst')
+else:
+    print "Error: scilistaxml.lst not exists in ../serial "
+    fbug.write('Erro: scilistaxml.lst nao existe em ../serial\n')
+    exit("check ../serial/scilistaxml.lst")
 
-    print('Error: Not found {}'.format(SCILISTA_XML))
-    fbug.write('Error: Not found {}\n'.format(SCILISTA_XML))
-    exit('check {}'.format(SCILISTA_XML))
+print '----------------------------------------------\n'
 
-print('----------------------------------------------\n')
+#Builds a list from scilistxml.lst
+lst = []
+f = open('../serial/scilistaxml.lst', 'r')
+for row in f:
+    lst.append(row.split())
+f.close()
 
-# Builds a list from scilistxml.lst
-
-NOT_REGISTERED = []
+#Test issues in scilistaxml.lst
 n = 0
-for row in open(SCILISTA_XML, 'r').readlines():
+for issue in lst:
     n += 1
-    row = row.strip()
-    print('Checking line {}'.format(row))
-    acron = None
-    issueid = None
-    _del = None
-    if len(row) > 0:
-        items = row.split(' ')
-        if len(items) == 2:
-            acron, issueid = items
-        elif len(items) == 3:
-            acron, issueid, _del = items
-    valid = False
-    if acron is not None and issueid is not None:
-        if _del in [None, 'del']:
-            path = '{}/{}/{}'.format(XMLPREPROC_XML_SERIAL_PATH, acron, issueid)
-            if os.path.exists(path):
-                valid = True
-                issue = '{} {}'.format(acron, issueid)
-                if issue not in registered_issues:
-                    NOT_REGISTERED.append(issue)
-            else:
-                msg = 'Error: Fasciculo nao localizado: {}'.format(path)
-                inform_error(fbug, msg)
+    linha = ' '.join(issue)
+    print linha
+    if len(issue) == 0:
+        print('Error: Linha {}: remover linha vazia\n'.format(n))
+        fbug.write('Error: Linha {}: remover linha vazia\n'.format(n))
+        continue
+    elif len(issue) not in [2, 3]:
+        print('Error: Linha {}: corrigir {} \n'.format(n, linha))
+        fbug.write('Error: Linha {}: corrigir {} \n'.format(n, linha))
+        continue
+    print('Executar')
+    try:
+        acron = issue[0]
+        acron = issue[1]
+        if os.path.exists('/bases/xml.000/serial/' + issue[0] + '/' + issue[1]):
+            print 'Issue OK\n'
+        else:
+            print      '%s %s \t%s\n' % (issue[0],issue[1],'fasciculo nao localizado - verificar')
+            fbug.write('%s %s \t%s\n' % (issue[0],issue[1],'fasciculo nao localizado - verificar'))
+    except IndexError:
+        print       '%s \t%s\n' % (issue[0], 'fasciculo ilegivel - corrigir')
+        fbug.write('%s \t%s\n' % (issue[0], 'fasciculo ilegivel - corrigir'))
+        continue
 
-    if valid is False:
-        msg = 'Error: Conteudo invalido da linha {}: {}'.format(n, row)
-        inform_error(fbug, msg)
 fbug.close()
-
-
-not_registered = '\n'.join(NOT_REGISTERED) if len(NOT_REGISTERED) > 0 else ''
-open('./NOT_REGISTERED.txt', 'w').write(not_registered)

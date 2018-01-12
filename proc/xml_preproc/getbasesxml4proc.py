@@ -27,7 +27,19 @@ for row in f:
 f.close()
 
 #Copy Bases
+n = 0
 for issue in lst:
+    n += 1
+    linha = ' '.join(issue)
+    print linha
+    if len(issue) == 0:
+        print('Error: Linha {}: remover linha vazia\n'.format(n))
+        # fbug.write('Error: Linha {}: remover linha vazia\n'.format(n))
+        continue
+    elif len(issue) not in [2, 3]:
+        print('Error: Linha {}: corrigir {} \n'.format(n, linha))
+        # fbug.write('Error: Linha {}: corrigir {} \n'.format(n, linha))
+        continue
     try:
         print "\nWorking Issue > "+issue[0]+" "+issue[1]
         if os.path.exists('../serial/'+issue[0]):
