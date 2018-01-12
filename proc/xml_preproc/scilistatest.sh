@@ -40,7 +40,6 @@ echo Analisando scilistas...
 
 #Vefica se os issues da scilistaxml existem na base 
 # ../serial/issue que chegou para processamento.
-ISSUES=`cat ./NOT_REGISTERED.txt`
 
 if [ "$(ls -l scilista-erros.txt | cut -d' ' -f5)" -ge "5" ]; then
 
@@ -60,17 +59,6 @@ cat >>msg-erro.txt <<!
 Apos a correcao reenviar a scilista para processamento.
 
 !
-
-if [ ! -z "$ISSUES" ]; then
-cat >>msg-erro.txt <<!
-Ha fasciculos na scilista que nao estao na base ISSUE recebida para o processamento.
-Por favor, verificar e reenviar a base para o processamento (EnviaBasesSciELOPadrao.bat).
-Fasciculos ausentes na base:
-
-$ISSUES
-
-!
-fi
 
 cat >>msg-erro.txt <<!
 Data e hora da scilistaxml.lst testada: $(stat -c %z ../serial/scilistaxml.lst | cut -c 1-16)
