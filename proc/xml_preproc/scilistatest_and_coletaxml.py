@@ -440,6 +440,9 @@ msg_filename = create_msg_file(SCILISTA_DATETIME, PROC_DATETIME, errors)
 
 send_mail(MAIL_TO, MAIL_BCC, MAIL_CC, subject, SCILISTA_DATETIME, msg_filename)
 
+print("\n"*3)
+print("="*30)
+
 print("Proximo passo:")
 print('Executar processar.sh')
 
