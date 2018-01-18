@@ -29,22 +29,16 @@ ISSUE_DB = '{}/issue/issue'.format(PROC_SERIAL_LOCATION)
 XML_ISSUE_DB = '{}/issue/issue'.format(XML_SERIAL_LOCATION)
 
 
-SCILISTA_DATETIME = datetime.fromtimestamp(
-                        os.path.getmtime(SCILISTA_XML)).isoformat()[:-7].replace('T', ' ')
-
-PROC_DATETIME = datetime.now().isoformat()[:-7].replace('T', ' ')
+PROC_DATETIME = datetime.now().isoformat().replace('T', ' ')[:-7]
 
 
 def os_system(cmd):
     print('Executando: \n>>>{}'.format(cmd))
     try:
-        parts = cmd.split(' ')
-        if os.path.exists(parts[0]):
-            os.system(cmd)
-        else:
-            print('>>> Error: Command not found')
+        os.system(cmd)
+        return True
     except:
-        print('>>> Error: Executing cmd')
+        print('>>> Error: Command not found')
 
 
 def check_issue_db(filename):
@@ -54,6 +48,7 @@ def check_issue_db(filename):
 
 
 def select_title_issue_code_databases():
+    inform_step('XMLPREPROC: Seleciona as bases title, issue e code', '')
     x, x_size = check_issue_db(XML_ISSUE_DB+'.mst')
     h, h_size = check_issue_db(ISSUE_DB+'.mst')
     doit = False
@@ -93,6 +88,9 @@ def print_local_dir():
 
 
 def file_create(filename):
+    path = os.path.dirname(filename)
+    if path != '' and not os.path.isdir(path):
+        os.makedirs(path)
     open(filename, 'w').write('')
 
 
@@ -115,18 +113,23 @@ def validate_line_format(parts):
 
 
 def get_registered_issues():
+    registered_issues = []
+    if os.path.isfile(REGISTERED_ISSUES_FILENAME):
+        registered_issues = open(REGISTERED_ISSUES_FILENAME, 'r').readlines()
+    print(registered_issues)
     PFT = "v930,' ',if v32='ahead' then v65*0.4, fi,|v|v31,|s|v131,|n|v32,|s|v132,v41/"
     cmd = 'mx {} "pft={}" now | sort -u > {}'.format(
             ISSUE_DB,
             PFT,
             REGISTERED_ISSUES_FILENAME)
-    os_system(cmd)
     items = []
-    if os.path.isfile(REGISTERED_ISSUES_FILENAME):
-        registered_issues = open(REGISTERED_ISSUES_FILENAME, 'r').readlines()
-        for item in registered_issues:
-            parts = item.strip().split()
-            items.append(parts[0].lower() + ' ' + parts[1])
+    if os_system(cmd) is True:
+        if os.path.isfile(REGISTERED_ISSUES_FILENAME):
+            registered_issues = open(REGISTERED_ISSUES_FILENAME, 'r').readlines()
+    print(registered_issues)
+    for item in registered_issues:
+        parts = item.strip().split()
+        items.append(parts[0].lower() + ' ' + parts[1])
     return items
 
 
@@ -248,13 +251,15 @@ def coletaxml(xml_item, proc_item):
     return msg
 
 
-def join_scilistas():
+def read_scilista(scilista_filename):
     items = []
-    if os.path.isfile(SCILISTA):
-        shutil.copyfile(SCILISTA, SCILISTA.replace('.lst', '.ori.lst'))
-        items.extend(open(SCILISTA, 'r').readlines())
-    if os.path.isfile(SCILISTA_XML):
-        items.extend(open(SCILISTA_XML, 'r').readlines())
+    if os.path.isfile(scilista_filename):
+        items = [item.strip() for item in open(scilista_filename, 'r').readlines()]
+    return items
+
+
+def sort_scilista(scilista_items):
+    items = []
     dellist = []
     prlist = []
     naheadlist = []
@@ -268,7 +273,16 @@ def join_scilistas():
             naheadlist.append(item)
         else:
             issuelist.append(item)
-    items = dellist + prlist + naheadlist + issuelist
+    return sorted(dellist) + sorted(prlist) + sorted(naheadlist) + sorted(issuelist)
+
+
+def join_scilistas():
+    items = []
+    items = list(set(read_scilista(SCILISTA)+read_scilista(SCILISTA_XML)))
+    return sort_scilista(items)
+
+
+def save_new_scilista(items):
     content = '\n'.join(items)+'\n'
     open(SCILISTA, 'w').write(content)
     inform_step('JOIN SCILISTAS', SCILISTA + '+' + SCILISTA_XML)
@@ -303,7 +317,7 @@ def create_msg_instructions(errors=None):
     return instructions, fim
 
 
-def get_email_message(scilista_date, proc_date, instructions, scilista_content, fim):
+def get_email_message(scilista_date, proc_date, instructions, scilista_content, fim, comments):
     return """
 
     ATENCAO: Mensagem automatica. Nao responder a este e-mail.
@@ -317,23 +331,26 @@ Data de inicio:   {}
 
 {}
 
+{}
+
 Conteudo da scilistaxml.lst
 ---------------------------
 {}
-
 ----
+
 {}
     """.format(
         COLLECTION,
         scilista_date,
         proc_date,
+        comments,
         instructions,
         scilista_content,
         fim
         )
 
 
-def create_msg_file(scilista_date, proc_date, errors=None):
+def create_msg_file(scilista_date, proc_date, errors=None, comments=None):
     for f in [MSG_OK_FILE, MSG_ERROR_FILE]:
         if os.path.isfile(f):
             try:
@@ -342,71 +359,75 @@ def create_msg_file(scilista_date, proc_date, errors=None):
                 file_create(f)
     errors = errors or ''
     msg_file = MSG_ERROR_FILE if len(errors) > 0 else MSG_OK_FILE
-    scilista_content = open(SCILISTA_XML, 'r').read()
-
+    scilista_content = open(SCILISTA_XML).read() if os.path.isfile(SCILISTA_XML) else 'Not found {}'.format(SCILISTA_XML)
     instructions, fim = create_msg_instructions(errors)
-    msg = get_email_message(scilista_date, proc_date, instructions, scilista_content, fim)
+    msg = get_email_message(scilista_date, proc_date, instructions, scilista_content, fim, comments)
 
     open(msg_file, 'w').write(msg)
     print(msg)
     return msg_file
 
 
-inform_step('XMLPREPROC: INICIO', '{} {} {}'.format(COLLECTION, SCILISTA_DATETIME, PROC_DATETIME))
-os_system('dos2unix {}'.format(SCILISTA_XML))
-
-inform_step('XMLPREPROC: Seleciona as bases title, issue e code', '')
-select_title_issue_code_databases()
-
-if not os.path.isfile(SCILISTA):
-    file_create(SCILISTA)
+inform_step('XMLPREPROC: INICIO', '{} {}'.format(COLLECTION, PROC_DATETIME))
 
 print_local_dir()
 file_create(ERROR_FILE)
+if not os.path.isfile(SCILISTA):
+    file_create(SCILISTA)
 
-if not os.path.exists(SCILISTA_XML):
-    inform_error(ERROR_FILE, '{} not exists'.format(SCILISTA_XML))
-    exit('check {}'.format(SCILISTA_XML))
-
-
-inform_step('XMLPREPROC: SCILISTA TESTE', 'Content of {}'.format(SCILISTA_XML))
-os_system('cat {}'.format(SCILISTA_XML))
-
-print('-'*20 + '\n')
-
-registered_issues = get_registered_issues()
-
-scilista_ok = True
+scilista_ok = False
+SCILISTA_DATETIME = 'NONE'
+SCILISTAXML_ITEMS = []
+SCILISTA_ITEMS = read_scilista(SCILISTA)
 coletar_copy_items = []
 coletar_append_commands = []
 arquivos_esperados_para_processar = []
-n = 0
-for item in open(SCILISTA_XML, 'r').readlines():
-    n += 1
-    parts = item.strip().split()
-    if validate_line_format(parts) is not True:
-        inform_error(ERROR_FILE, 'Linha {}: "{}" tem formato invalido'.format(n, item))
-        scilista_ok = False
-    else:
-        acron, issueid = parts[0], parts[1]
-        issue = '{} {}'.format(acron, issueid)
-        if issue not in registered_issues:
-            inform_error(ERROR_FILE, 'Linha {}: "{}" nao esta registrado'.format(n, issue))
-            scilista_ok = False
-        elif not exist_base(XML_SERIAL_LOCATION, acron, issueid):
-            bfilename = mst_filename(XML_SERIAL_LOCATION, acron, issueid)
-            inform_error(ERROR_FILE, 'Linha {}: "{}" nao localizado'.format(n, bfilename))
+
+if os.path.exists(SCILISTA_XML):
+    scilista_ok = True
+
+    SCILISTA_DATETIME = datetime.fromtimestamp(
+                            os.path.getmtime(SCILISTA_XML)).isoformat().replace('T', ' ')
+    os_system('dos2unix {}'.format(SCILISTA_XML))
+    SCILISTAXML_ITEMS = read_scilista(SCILISTA_XML)
+
+    inform_step('XMLPREPROC: SCILISTA', '{}'.format(SCILISTA_DATETIME))
+
+    select_title_issue_code_databases()
+    REGISTERED_ISSUES = get_registered_issues()
+
+    inform_step('XMLPREPROC: SCILISTA TESTE', '')
+    n = 0
+    for item in SCILISTAXML_ITEMS:
+        n += 1
+        parts = item.split()
+        if validate_line_format(parts) is not True:
+            inform_error(ERROR_FILE, 'Linha {}: "{}" tem formato invalido'.format(n, item))
             scilista_ok = False
         else:
-            copy_items, append_commands, msg, para_processar = verificar_bases_para_coletar(acron, issueid)
-            arquivos_esperados_para_processar.extend(para_processar)
-            if msg is None:
-                coletar_append_commands.extend(append_commands)
-                coletar_copy_items.extend(copy_items)
-            else:
+            acron, issueid = parts[0], parts[1]
+            issue = '{} {}'.format(acron, issueid)
+            if issue not in REGISTERED_ISSUES:
+                inform_error(ERROR_FILE, 'Linha {}: "{}" nao esta registrado'.format(n, issue))
                 scilista_ok = False
-                inform_error(ERROR_FILE, msg)
+            elif not exist_base(XML_SERIAL_LOCATION, acron, issueid):
+                bfilename = mst_filename(XML_SERIAL_LOCATION, acron, issueid)
+                inform_error(ERROR_FILE, 'Linha {}: "{}" nao localizado'.format(n, bfilename))
+                scilista_ok = False
+            else:
+                copy_items, append_commands, msg, para_processar = verificar_bases_para_coletar(acron, issueid)
+                arquivos_esperados_para_processar.extend(para_processar)
+                if msg is None:
+                    coletar_append_commands.extend(append_commands)
+                    coletar_copy_items.extend(copy_items)
+                else:
+                    scilista_ok = False
+                    inform_error(ERROR_FILE, msg)
+else:
+    inform_error(ERROR_FILE, '{} not found'.format(SCILISTA_XML))
 
+
+comments = ''
 coletaxml_ok = False
 if scilista_ok is True:
     coletaxml_ok = True
@@ -422,13 +443,25 @@ if scilista_ok is True:
                 coletaxml_ok = False
                 inform_error(ERROR_FILE, 'Coleta incompleta. Falta {}'.format(file))
     if coletaxml_ok is True:
-        for command in coletar_append_commands:
-            inform_step('XMLPREPROC: COLETA XML', command)
-            os_system(command)
-        for delitem in DELLIST:
-            print(delitem)
-            os.unlink(delitem)
-        join_scilistas()
+        SCILISTA_ITEMS = join_scilistas()
+        for item in SCILISTAXML_ITEMS:
+            if item not in SCILISTA_ITEMS:
+                coletaxml_ok = False
+                inform_error(ERROR_FILE, 'Nova scilista. Falta {}'.format(item))
+        if coletaxml_ok is True:
+            for command in coletar_append_commands:
+                inform_step('XMLPREPROC: COLETA XML', command)
+                os_system(command)
+            for delitem in DELLIST:
+                print('Deleted {}'.format(delitem))
+                os.unlink(delitem)
+            save_new_scilista(SCILISTA_ITEMS)
+
+comments = '{}: {} itens\n{}: {} itens\n'.format(
+        SCILISTA_XML,
+        len(SCILISTAXML_ITEMS),
+        SCILISTA,
+        len(SCILISTA_ITEMS))
 
 subject = 'Erros encontrados'
 errors = None
@@ -436,7 +469,7 @@ if coletaxml_ok is True:
     subject = 'OK'
 else:
     errors = open(ERROR_FILE, 'r').read()
-msg_filename = create_msg_file(SCILISTA_DATETIME, PROC_DATETIME, errors)
+msg_filename = create_msg_file(SCILISTA_DATETIME, PROC_DATETIME, errors, comments)
 
 send_mail(MAIL_TO, MAIL_BCC, MAIL_CC, subject, SCILISTA_DATETIME, msg_filename)
 
