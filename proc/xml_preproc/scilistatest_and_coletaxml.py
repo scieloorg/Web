@@ -6,39 +6,39 @@ import shutil
 from datetime import datetime
 
 
-def default_config():
-    """
-    CISIS_DIR = '/usr/local/bireme/cisis/5.5.pre02/linux/lindG4/'
-    """
-    config = {}
-    config['COLLECTION'] = 'Nome da Colecao'
-    config['CISIS_DIR'] = 'Caminhdo do mx, por exemplo: /usr/local/bireme/cisis/5.5.pre02/linux/lindG4/'
-    config['XML_SERIAL_LOCATION'] = 'Caminho do serial onde estao os XML, por exemplo: /bases/xml.000/serial'
-    config['MAIL_TO'] = 'Email para (pessoal da producao). Ex.: to@exemplo.com'
-    config['MAIL_CC'] = 'Email CC (infra). Ex.: cc@exemplo.com'
-    config['MAIL_TO_ALT'] = 'Email para alternativo (desenv). Ex.: altto@exemplo.com'
-    config['MAIL_BCC'] = 'Email BCC. Ex: bcc@exemplo.com'
-    config['PROC_SERIAL_LOCATION'] = 'Caminho do processamento. Ex.: ../serial'
-    config['DESENV'] = 'True para desenvolvimento. False para producao'
-    return config
+def default_config_vars():
+    return [
+            'COLLECTION',
+            'CISIS_DIR',
+            'XML_SERIAL_LOCATION',
+            'MAIL_TO',
+            'MAIL_CC',
+            'MAIL_TO_ALT',
+            'MAIL_BCC',
+            'PROC_SERIAL_LOCATION',
+            'DESENV',
+        ]
 
 
 def read_config(default):
     config = None
     if os.path.isfile('xmlpreproc.config'):
         config = {}
-        for item in open('xmlpreproc.config', 'r').readlines():
+        items = open('xmlpreproc.config', 'r').readlines()
+        for item in items:
             item = item.strip()
             if '=' in item:
                 k, v = item.split('=')
-                if k in default.keys():
+                if k in default:
                     k = k.strip()
                     v = v.strip()
                 config[k] = v
         d = config.get('DESENV', 'true')
         config['DESENV'] = d.lower() != 'false'
-        if set(config.keys()) == set(default.keys()):
+        if set(config.keys()) == set(default):
             return config
+        else:
+            print('\n'.join(items))
 
 
 LOG_FILE = 'xmlpreproc.log'
@@ -47,7 +47,7 @@ MSG_ERROR_FILE = 'msg-erro.txt'
 MSG_OK_FILE = 'msg-ok.txt'
 PROC_DATETIME = datetime.now().isoformat().replace('T', ' ')[:-7]
 
-default = default_config()
+default = default_config_vars()
 CONFIG = read_config(default)
 if CONFIG is None:
     print('####')
