@@ -4,53 +4,97 @@ import os
 import shutil
 
 from datetime import datetime
-import xmlpreproc_config
 
 
-COLLECTION = xmlpreproc_config.COLLECTION
-CISIS_DIR = xmlpreproc_config.CISIS_DIR
-XML_SERIAL_LOCATION = xmlpreproc_config.XML_SERIAL_LOCATION
-MAIL_TO = xmlpreproc_config.MAIL_TO
-MAIL_CC = xmlpreproc_config.MAIL_CC
-MAIL_BCC = xmlpreproc_config.MAIL_BCC
-PROC_SERIAL_LOCATION = xmlpreproc_config.PROC_SERIAL_LOCATION
+def default_config():
+    """
+    CISIS_DIR = '/usr/local/bireme/cisis/5.5.pre02/linux/lindG4/'
+    """
+    config = {}
+    config['COLLECTION'] = 'Nome da Colecao'
+    config['CISIS_DIR'] = 'Caminhdo do mx, por exemplo: /usr/local/bireme/cisis/5.5.pre02/linux/lindG4/'
+    config['XML_SERIAL_LOCATION'] = 'Caminho do serial onde estao os XML, por exemplo: /bases/xml.000/serial'
+    config['MAIL_TO'] = 'Email para (pessoal da producao). Ex.: to@exemplo.com'
+    config['MAIL_CC'] = 'Email CC (infra). Ex.: cc@exemplo.com'
+    config['MAIL_TO_ALT'] = 'Email para alternativo (desenv). Ex.: altto@exemplo.com'
+    config['MAIL_BCC'] = 'Email BCC. Ex: bcc@exemplo.com'
+    config['PROC_SERIAL_LOCATION'] = 'Caminho do processamento. Ex.: ../serial'
+    config['DESENV'] = 'True para desenvolvimento. False para producao'
+    return config
 
+
+def read_config(default):
+    config = None
+    if os.path.isfile('xmlpreproc.config'):
+        config = {}
+        for item in open('xmlpreproc.config', 'r').readlines():
+            item = item.strip()
+            if '=' in item:
+                k, v = item.split('=')
+                if k in default.keys():
+                    k = k.strip()
+                    v = v.strip()
+                config[k] = v
+        d = config.get('DESENV', 'true')
+        config['DESENV'] = d.lower() != 'false'
+        if set(config.keys()) == set(default.keys()):
+            return config
+
+
+LOG_FILE = 'xmlpreproc.log'
 ERROR_FILE = 'scilista-erros.txt'
 MSG_ERROR_FILE = 'msg-erro.txt'
 MSG_OK_FILE = 'msg-ok.txt'
-
-SAVED_AOP = '{}/aop'.format(PROC_SERIAL_LOCATION)
-DELLIST = []
-
-REGISTERED_ISSUES_FILENAME = '{}/registered_issues.txt'.format(PROC_SERIAL_LOCATION)
-SCILISTA_XML = '{}/scilistaxml.lst'.format(PROC_SERIAL_LOCATION)
-SCILISTA = '{}/scilista.lst'.format(PROC_SERIAL_LOCATION)
-ISSUE_DB = '{}/issue/issue'.format(PROC_SERIAL_LOCATION)
-XML_ISSUE_DB = '{}/issue/issue'.format(XML_SERIAL_LOCATION)
-
-
 PROC_DATETIME = datetime.now().isoformat().replace('T', ' ')[:-7]
+
+default = default_config()
+CONFIG = read_config(default)
+if CONFIG is None:
+    print('####')
+    print('')
+    print('    ERROR')
+    print('')
+    print('####')
+    content = open('xmlpreproc.config.template').read()
+
+    errors = '========\n  ERROR: Ausencia de arquivo de configuracao ou formato invalido\n    Criar o arquivo xmlpreproc.config que contenha a seguinte configuracao\n========\n{}'.format(content)
+    exit(errors)
+
+
+REGISTERED_ISSUES_FILENAME = '{}/registered_issues.txt'.format(CONFIG.get('PROC_SERIAL_LOCATION'))
+SCILISTA_XML = '{}/scilistaxml.lst'.format(CONFIG.get('PROC_SERIAL_LOCATION'))
+SCILISTA = '{}/scilista.lst'.format(CONFIG.get('PROC_SERIAL_LOCATION'))
+ISSUE_DB = '{}/issue/issue'.format(CONFIG.get('PROC_SERIAL_LOCATION'))
+XML_ISSUE_DB = '{}/issue/issue'.format(CONFIG.get('XML_SERIAL_LOCATION'))
 
 
 def os_system(cmd):
-    print('Executando: \n>>>{}'.format(cmd))
-    try:
-        os.system(cmd)
-        return True
-    except:
-        print('>>> Error: Command not found')
+    """
+    Execute a command
+    """
+    inform_step('Executando: \n >>> {}'.format(cmd))
+    os.system(cmd)
 
 
-def check_issue_db(filename):
+def fileinfo(filename):
+    """
+    Return mtime, size of a file
+    """
     if os.path.isfile(filename):
         return os.path.getmtime(filename), os.path.getsize(filename)
     return None, None
 
 
-def select_title_issue_code_databases():
-    inform_step('XMLPREPROC: Seleciona as bases title, issue e code', '')
-    x, x_size = check_issue_db(XML_ISSUE_DB+'.mst')
-    h, h_size = check_issue_db(ISSUE_DB+'.mst')
+def get_more_recent_title_issue_code_databases():
+    """
+    Check which title/issue/code bases are more recent:
+        - from serial
+        - from XML serial
+    if from XML, copy the databases to serial folder
+    """
+    inform_step('XMLPREPROC: Seleciona as bases title, issue e code mais atualizada', '')
+    x, x_size = fileinfo(XML_ISSUE_DB+'.mst')
+    h, h_size = fileinfo(ISSUE_DB+'.mst')
     doit = False
     if x is not None:
         if h is not None:
@@ -59,17 +103,23 @@ def select_title_issue_code_databases():
         else:
             doit = True
     if doit:
+        inform_step('XMLPREPROC: Copia as bases title, issue e code de {}'.format(CONFIG.get('XML_SERIAL_LOCATION')), '')
         for folder in ['title', 'issue', 'code']:
             os_system(
                 'cp -r {}/{} {}'.format(
-                    XML_SERIAL_LOCATION,
+                    CONFIG.get('XML_SERIAL_LOCATION'),
                     folder,
-                    PROC_SERIAL_LOCATION
+                    CONFIG.get('PROC_SERIAL_LOCATION')
                     )
                 )
+    else:
+        inform_step('XMLPREPROC: Use as bases title, issue e code de {}'.format(CONFIG.get('PROC_SERIAL_LOCATION')), '')
 
 
 def get_instructions(errors):
+    """
+    Return a error message with instructions
+    """
     return """
 Foram encontrados erros no procedimento de coleta de XML.
 Veja abaixo.
@@ -84,7 +134,7 @@ Erros
 
 
 def print_local_dir():
-    print('dir local: {}'.format(os.getcwd()))
+    inform_step('dir local: {}'.format(os.getcwd()))
 
 
 def file_create(filename):
@@ -100,130 +150,144 @@ def inform_error(filename, msg):
     open(filename, 'a').write(texto)
 
 
-def inform_step(step, msg):
+def inform_step(step, msg=''):
     text = '{}: {}\n'.format(step, msg)
+    if msg == '':
+        text = step + '\n'
     print(text)
+    open(LOG_FILE, 'a').write(text)
 
 
-def validate_line_format(parts):
+def validate_scilista_item_format(parts):
     if len(parts) == 2:
         return True
     if len(parts) == 3 and parts[2] == 'del':
         return True
 
 
-def get_registered_issues():
-    registered_issues = []
-    if os.path.isfile(REGISTERED_ISSUES_FILENAME):
-        registered_issues = open(REGISTERED_ISSUES_FILENAME, 'r').readlines()
-    print(registered_issues)
-    PFT = "v930,' ',if v32='ahead' then v65*0.4, fi,|v|v31,|s|v131,|n|v32,|s|v132,v41/"
+# mx_pft(ISSUE_DB, PFT, REGISTERED_ISSUES_FILENAME)
+def mx_pft(base, PFT):
+    """
+    Check the issue database
+    Return a list of registered issues
+    """
+    result = './mx_pft.tmp'
+    if os.path.isfile(result):
+        os.unlink(result)
     cmd = 'mx {} "pft={}" now | sort -u > {}'.format(
-            ISSUE_DB,
+            base,
             PFT,
-            REGISTERED_ISSUES_FILENAME)
+            result)
+    os_system(cmd)
+    if os.path.isfile(result):
+        r = [item.strip() for item in open(result, 'r').readlines()]
+        os.unlink(result)
+    return r or []
+
+
+def get_registered_issues():
+    """
+    Check the issue database
+    Return a list of registered issues
+    """
+    PFT = "v930,' ',if v32='ahead' then v65*0.4, fi,|v|v31,|s|v131,|n|v32,|s|v132,v41/"
+    registered_issues =  mx_pft(
+                            ISSUE_DB,
+                            PFT)
+    open(REGISTERED_ISSUES_FILENAME, 'w').write('\n'.join(REGISTERED_ISSUES_FILENAME))
     items = []
-    if os_system(cmd) is True:
-        if os.path.isfile(REGISTERED_ISSUES_FILENAME):
-            registered_issues = open(REGISTERED_ISSUES_FILENAME, 'r').readlines()
-    print(registered_issues)
     for item in registered_issues:
         parts = item.strip().split()
-        items.append(parts[0].lower() + ' ' + parts[1])
+        if len(parts) == 2:
+            items.append(parts[0].lower() + ' ' + parts[1])
     return items
 
 
-def mst_filename(local, acron, issueid):
-    return '{}/{}/{}/base/{}.mst'.format(
+def base_filename(local, acron, issueid, extension=''):
+    return '{}/{}/{}/base/{}{}'.format(
             local,
             acron,
             issueid,
-            issueid
+            issueid,
+            extension
             )
 
 
-def base_filename(local, acron, issueid):
-    return mst_filename(
-            local,
-            acron,
-            issueid
-            )[:-4]
+def get_articles(base):
+    """
+    Check the issue database
+    Return a list of registered issues
+    """
+    PFT = "if v706='h' then v702/ fi"
+    return mx_pft(base, PFT) or []
 
 
-def exist_base(local, acron, issueid):
-    return os.path.exists(
-        mst_filename(local, acron, issueid)
-        )
+def check_ahead(proc_base_filename, xml_base_filename):
+    inform_step(
+        'COLETA XML',
+        'Encontradas duas bases nahead:\n  {}\n  {}\n'.format(
+            xml_base_filename, proc_base_filename))
+
+    done = False
+    xml_aop = sorted(get_articles(xml_base_filename))
+    proc_aop = sorted(get_articles(proc_base_filename))
+
+    t = len(proc_aop)
+    if t > len(list(set(proc_aop))):
+        inform_error(ERROR_FILE, 'Found duplication in {}'.format(proc_base_filename))
+
+    for item in xml_aop:
+        if item in proc_aop:
+            done = True
+            break
+    if done is False:
+        # fazer append
+        inform_step(
+            'COLETA XML',
+            'Executar: append {} {}'.format(
+            xml_base_filename, proc_base_filename))
+        return '{}mx {} from=2 append={} -all now'.format(
+                    CONFIG.get('CISIS_DIR'),
+                    xml_base_filename,
+                    proc_base_filename
+                )
+    inform_step(
+            'COLETA XML',
+            'Nao executar: append {} {}'.format(
+                xml_base_filename, proc_base_filename))
 
 
-def verificar_bases_para_coletar(acron, issueid):
-    xml_mst_filename = mst_filename(XML_SERIAL_LOCATION, acron, issueid)
-    proc_mst_filename = mst_filename(PROC_SERIAL_LOCATION, acron, issueid)
-    xml_base_filename = base_filename(XML_SERIAL_LOCATION, acron, issueid)
-    proc_base_filename = base_filename(PROC_SERIAL_LOCATION, acron, issueid)
+def check_data_for_coleta(acron, issueid):
+    """
+    Check the existence of acron/issue databases in XML serial
+    Copy this databases to serial folder
+    If the database is ahead and it exists in serial folder, they should be merged
+    Return a tuple items_to_copy, mx_append_db_commands, error_msg, expected_db_files_in_serial
+        items_to_copy: bases to copy from XML serial to serial
+        mx_append_db_commands: commands to merge aop
+        error_msg: error message
+        expected_db_files_in_serial: list of files which have to be in serial
+    """
+    xml_mst_filename = base_filename(CONFIG.get('XML_SERIAL_LOCATION'), acron, issueid, '.mst')
+    proc_mst_filename = base_filename(CONFIG.get('PROC_SERIAL_LOCATION'), acron, issueid, '.mst')
+    xml_base_filename = base_filename(CONFIG.get('XML_SERIAL_LOCATION'), acron, issueid)
+    proc_base_filename = base_filename(CONFIG.get('PROC_SERIAL_LOCATION'), acron, issueid)
 
-    append_commands = []
-    copy_items = []
-    para_processar = [proc_mst_filename, proc_base_filename+'.xrf']
-    msg = None
-    inform_step('XMLPREPROC: COLETA XML', 'Verificar dados para coleta de {} {}'.format(acron, issue))
+    mx_append_db_commands = None
+    items_to_copy = None
+    expected_db_files_in_serial = [proc_mst_filename, proc_base_filename+'.xrf']
+    error_msg = None
+    inform_step('COLETA XML', 'Verificar dados para coleta de {} {}'.format(acron, issueid))
     if os.path.exists(xml_mst_filename):
         if 'nahead' in issueid and os.path.exists(proc_mst_filename):
-            inform_step(
-                'COLETA XML',
-                'Encontradas duas bases nahead {} {}:\n  {}\n  {}\n'.format(
-                    acron, issue,
-                    xml_mst_filename, proc_mst_filename))
-            saved_aop_mst_filename = mst_filename(SAVED_AOP, acron, issueid)
-            saved_aop_base_filename = base_filename(SAVED_AOP, acron, issueid)
-            if os.path.exists(saved_aop_mst_filename):
-                if os.path.getsize(saved_aop_mst_filename) < os.path.getsize(proc_mst_filename):
-                    inform_step('XMLPREPROC: COLETA XML', saved_aop_base_filename)
-                    shutil.copyfile(saved_aop_mst_filename, proc_mst_filename)
-                    shutil.copyfile(saved_aop_base_filename+'.xrf', proc_base_filename+'.xrf')
-                    DELLIST.append(saved_aop_base_filename+'.mst')
-                    DELLIST.append(saved_aop_base_filename+'.xrf')
-            else:
-                inform_step('XMLPREPROC: COLETA XML', proc_base_filename)
-                saved_aop_path = os.path.dirname(saved_aop_mst_filename)
-                if not os.path.isdir(saved_aop_path):
-                    os.makedirs(saved_aop_path)
-                try:
-                    shutil.copyfile(proc_mst_filename, saved_aop_mst_filename)
-                    shutil.copyfile(proc_base_filename+'.xrf', saved_aop_base_filename+'.xrf')
-                except:
-                    pass
-            append_nahead = '{}mx {} from=2 append={} -all now tell=1'.format(
-                        CISIS_DIR,
-                        xml_base_filename,
-                        proc_base_filename
-                    )
-            append_commands.append(append_nahead)
-            #print('Comando para juntar as bases nahead:\n{}'.format(append_nahead))
-            """
-            resp = raw_input('Tecle J para juntar as duas.\nTecle X para usar {}.\nTecle H para usar {}\nTecle E para indicar erro\n'.format(xml_base_filename, proc_base_filename))
-            if resp.upper() == 'J':
-                append_commands.append(append_nahead)
-            elif resp.upper() == 'X':
-                copy_items.append((xml_base_filename, proc_base_filename))
-            elif resp.upper() == 'H':
-                pass
-            else:
-                msg = 'Nenhuma decisao tomada para as duas bases nahead {} {}:\n  {}\n  {}\n'.format(
-                    acron, issue,
-                    xml_mst_filename, proc_mst_filename)
-            """
+            mx_append_db_commands = check_ahead(proc_base_filename, xml_base_filename)
+            if mx_append_db_commands is None:
+                items_to_copy = (xml_base_filename, proc_base_filename)
         else:
-            copy_items.append((xml_base_filename, proc_base_filename))
-        if len(copy_items) > 0:
-            path = os.path.dirname(proc_mst_filename)
-            if not os.path.isdir(path):
-                os.makedirs(path)
-            if not os.path.isdir(path):
-                msg = 'Nao foi possivel criar {}'.format(path)
+            items_to_copy = (xml_base_filename, proc_base_filename)
     else:
-        msg = 'Not found {}'.format(xml_mst_filename)
-    return (copy_items, append_commands, msg, para_processar)
+        error_msg = 'Not found {}'.format(xml_mst_filename)
+    return (items_to_copy, mx_append_db_commands, error_msg, expected_db_files_in_serial)
 
 
 def coletaxml(xml_item, proc_item):
@@ -232,8 +296,8 @@ def coletaxml(xml_item, proc_item):
     xml_xrf_filename = xml_item+'.xrf'
     proc_xrf_filename = proc_item+'.xrf'
 
-    msg = []
-    inform_step('XMLPREPROC: COLETA XML', 'Coletar {}'.format(xml_item))
+    errors = []
+    inform_step('COLETA XML', 'Coletar {}'.format(xml_item))
     if os.path.exists(xml_mst_filename):
         path = os.path.dirname(proc_mst_filename)
         if not os.path.isdir(path):
@@ -242,13 +306,15 @@ def coletaxml(xml_item, proc_item):
             shutil.copyfile(xml_mst_filename, proc_mst_filename)
             shutil.copyfile(xml_xrf_filename, proc_xrf_filename)
         else:
-            msg.append('Nao foi possivel criar {}'.format(path))
+            errors.append('Nao foi possivel criar {}'.format(path))
     if not os.path.exists(proc_mst_filename):
-        msg.append('Nao foi possivel criar {}'.format(proc_mst_filename))
+        errors.append('Nao foi possivel criar {}'.format(proc_mst_filename))
     if not os.path.exists(proc_xrf_filename):
-        msg.append('Nao foi possivel criar {}'.format(proc_xrf_filename))
-
-    return msg
+        errors.append('Nao foi possivel criar {}'.format(proc_xrf_filename))
+    if len(errors) > 0:
+        inform_error(ERROR_FILE, '\n'.join(errors))
+        return False
+    return True
 
 
 def read_scilista(scilista_filename):
@@ -259,12 +325,12 @@ def read_scilista(scilista_filename):
 
 
 def sort_scilista(scilista_items):
-    items = []
+    items = list(set([item.strip() for item in scilista_items]))
     dellist = []
     prlist = []
     naheadlist = []
     issuelist = []
-    for item in list(set([item.strip() for item in items])):
+    for item in items:
         if item.endswith('del'):
             dellist.append(item)
         elif item.endswith('pr'):
@@ -276,9 +342,9 @@ def sort_scilista(scilista_items):
     return sorted(dellist) + sorted(prlist) + sorted(naheadlist) + sorted(issuelist)
 
 
-def join_scilistas():
+def merge_scilistas(scilistaxml_items, scilista_items):
     items = []
-    items = list(set(read_scilista(SCILISTA)+read_scilista(SCILISTA_XML)))
+    items = list(set(scilistaxml_items+scilista_items))
     return sort_scilista(items)
 
 
@@ -286,16 +352,24 @@ def save_new_scilista(items):
     content = '\n'.join(items)+'\n'
     open(SCILISTA, 'w').write(content)
     inform_step('JOIN SCILISTAS', SCILISTA + '+' + SCILISTA_XML)
-    print('===\n'+content+'===')
+    inform_step('===\n'+content+'===')
 
 
 def send_mail(mailto, mailbcc, mailcc, subject, scilista_date, msg_filename):
+    if CONFIG.get('DESENV') is True:
+        mailto = CONFIG.get('MAIL_TO_ALT')
+        mailcc = CONFIG.get('MAIL_TO_ALT')
+        mailbcc = CONFIG.get('MAIL_TO_ALT')
+
+    d = scilista_date
+    if d is not None:
+        d = scilista_date[:10]
     _mailbcc = ''
     if mailbcc is not None:
         _mailbcc = '-b "{}"'.format(mailbcc)
     _subject = '[XML PREPROC][{}][{}] {}'.format(
-            COLLECTION,
-            scilista_date[:10],
+            CONFIG.get('COLLECTION'),
+            d,
             subject
         )
     cmd = 'mailx {} {} -c "{}" -s "{}" < {}'.format(
@@ -309,7 +383,7 @@ def send_mail(mailto, mailbcc, mailcc, subject, scilista_date, msg_filename):
 
 
 def create_msg_instructions(errors=None):
-    instructions = "Nenhum erro encontrado. Colecao sera iniciado em breve."
+    instructions = "Nenhum erro encontrado. Processamento sera iniciado em breve."
     fim = '[pok]'
     if len(errors) > 0:
         fim = ''
@@ -340,7 +414,7 @@ Conteudo da scilistaxml.lst
 
 {}
     """.format(
-        COLLECTION,
+        CONFIG.get('COLLECTION'),
         scilista_date,
         proc_date,
         comments,
@@ -364,118 +438,134 @@ def create_msg_file(scilista_date, proc_date, errors=None, comments=None):
     msg = get_email_message(scilista_date, proc_date, instructions, scilista_content, fim, comments)
 
     open(msg_file, 'w').write(msg)
-    print(msg)
+    inform_step(msg)
     return msg_file
 
 
-inform_step('XMLPREPROC: INICIO', '{} {}'.format(COLLECTION, PROC_DATETIME))
-
-print_local_dir()
-file_create(ERROR_FILE)
-if not os.path.isfile(SCILISTA):
-    file_create(SCILISTA)
-
-scilista_ok = False
-SCILISTA_DATETIME = 'NONE'
-SCILISTAXML_ITEMS = []
-SCILISTA_ITEMS = read_scilista(SCILISTA)
-coletar_copy_items = []
-coletar_append_commands = []
-arquivos_esperados_para_processar = []
-
-if os.path.exists(SCILISTA_XML):
+def check_scilista(scilistaxml_items, registered_issues):
+    inform_step('SCILISTA TESTE', '')
+    coleta_items = []
     scilista_ok = True
-
-    SCILISTA_DATETIME = datetime.fromtimestamp(
-                            os.path.getmtime(SCILISTA_XML)).isoformat().replace('T', ' ')
-    os_system('dos2unix {}'.format(SCILISTA_XML))
-    SCILISTAXML_ITEMS = read_scilista(SCILISTA_XML)
-
-    inform_step('XMLPREPROC: SCILISTA', '{}'.format(SCILISTA_DATETIME))
-
-    select_title_issue_code_databases()
-    REGISTERED_ISSUES = get_registered_issues()
-
-    inform_step('XMLPREPROC: SCILISTA TESTE', '')
     n = 0
-    for item in SCILISTAXML_ITEMS:
+    for item in scilistaxml_items:
         n += 1
         parts = item.split()
-        if validate_line_format(parts) is not True:
+        if validate_scilista_item_format(parts) is not True:
             inform_error(ERROR_FILE, 'Linha {}: "{}" tem formato invalido'.format(n, item))
             scilista_ok = False
         else:
             acron, issueid = parts[0], parts[1]
             issue = '{} {}'.format(acron, issueid)
-            if issue not in REGISTERED_ISSUES:
+            if issue not in registered_issues:
                 inform_error(ERROR_FILE, 'Linha {}: "{}" nao esta registrado'.format(n, issue))
                 scilista_ok = False
-            elif not exist_base(XML_SERIAL_LOCATION, acron, issueid):
-                bfilename = mst_filename(XML_SERIAL_LOCATION, acron, issueid)
-                inform_error(ERROR_FILE, 'Linha {}: "{}" nao localizado'.format(n, bfilename))
-                scilista_ok = False
             else:
-                copy_items, append_commands, msg, para_processar = verificar_bases_para_coletar(acron, issueid)
-                arquivos_esperados_para_processar.extend(para_processar)
-                if msg is None:
-                    coletar_append_commands.extend(append_commands)
-                    coletar_copy_items.extend(copy_items)
+                items_to_copy, mx_append_db_commands, error_msg, expected_db_files_in_serial = check_data_for_coleta(acron, issueid)    
+                if error_msg is None:
+                    coleta_items.append((items_to_copy, mx_append_db_commands, expected_db_files_in_serial))
                 else:
                     scilista_ok = False
-                    inform_error(ERROR_FILE, msg)
+                    inform_error(ERROR_FILE, 'Linha {}: {}'.format(n, error_msg))
+    if scilista_ok is True:
+        return coleta_items
+
+
+def coletar_items(coleta_items):
+    expected = []
+    for items_to_copy, mx_append_db_command, expected_db_files_in_serial in coleta_items:
+        expected.extend(expected_db_files_in_serial)
+        done = True
+        if items_to_copy is not None:
+            xml_item, proc_item = items_to_copy
+            done = coletaxml(xml_item, proc_item)
+        if done and mx_append_db_command is not None:
+            inform_step('COLETA XML', mx_append_db_command)
+            os_system(mx_append_db_command)
+    return expected
+
+
+def check_expected(expected):
+    coletaxml_ok = True
+    inform_step('COLETA XML', 'Verifica se ha arquivos nao coletados')
+    for file in expected:
+        if not os.path.exists(file):
+            coletaxml_ok = False
+            inform_error(ERROR_FILE, 'Coleta incompleta. Falta {}'.format(file))
+    return coletaxml_ok
+
+
+def get_new_scilista(scilistaxml_items, scilista_items):
+    error = False
+    scilista_items = merge_scilistas(scilistaxml_items, scilista_items)
+    for item in scilistaxml_items:
+        if item not in scilista_items:
+            error = True
+            inform_error(ERROR_FILE, 'Nova scilista. Falta {}'.format(item))
+    if error is False:
+        save_new_scilista(scilista_items)
+        return scilista_items
+    return False
+
+
+inform_step('XMLPREPROC: INICIO', '{} {}'.format(CONFIG.get('COLLECTION'), PROC_DATETIME))
+
+print_local_dir()
+file_create(ERROR_FILE)
+file_create(LOG_FILE)
+if not os.path.isfile(SCILISTA):
+    file_create(SCILISTA)
+
+
+result = False
+expected = []
+comments = ''
+SCILISTA_DATETIME = None
+
+if os.path.exists(SCILISTA_XML):
+    SCILISTA_ITEMS = read_scilista(SCILISTA)
+
+    SCILISTA_DATETIME = datetime.fromtimestamp(
+                os.path.getmtime(SCILISTA_XML)).isoformat().replace('T', ' ')
+    os_system('dos2unix {}'.format(SCILISTA_XML))
+    SCILISTAXML_ITEMS = read_scilista(SCILISTA_XML)
+
+    inform_step('XMLPREPROC: SCILISTA', '{}'.format(SCILISTA_DATETIME))
+    get_more_recent_title_issue_code_databases()
+
+    if os.path.isfile(ISSUE_DB+'.mst'):
+        REGISTERED_ISSUES = get_registered_issues()
+        coleta_items = check_scilista(SCILISTAXML_ITEMS, REGISTERED_ISSUES)
+        if coleta_items is not None:
+            expected = coletar_items(coleta_items)
+            if check_expected(expected):
+                SCILISTA_ITEMS = get_new_scilista(SCILISTAXML_ITEMS, SCILISTA_ITEMS)
+                if SCILISTA_ITEMS is not False:
+                    result = True
+        comments = '{}: {} itens\n{}: {} itens\n'.format(
+            SCILISTA_XML,
+            len(SCILISTAXML_ITEMS),
+            SCILISTA,
+            len(SCILISTA_ITEMS))
+    else:
+        inform_error(ERROR_FILE, '{} not found'.format(ISSUE_DB))
 else:
     inform_error(ERROR_FILE, '{} not found'.format(SCILISTA_XML))
 
 
-comments = ''
-coletaxml_ok = False
-if scilista_ok is True:
-    coletaxml_ok = True
-    for xml_item, proc_item in coletar_copy_items:
-        errors = coletaxml(xml_item, proc_item)
-        if len(errors) > 0:
-            inform_error(ERROR_FILE, '\n'.join(errors))
-            coletaxml_ok = False
-    if coletaxml_ok is True:
-        inform_step('XMLPREPROC: COLETA XML', 'Verifica se ha arquivos nao coletados')
-        for file in arquivos_esperados_para_processar:
-            if not os.path.exists(file):
-                coletaxml_ok = False
-                inform_error(ERROR_FILE, 'Coleta incompleta. Falta {}'.format(file))
-    if coletaxml_ok is True:
-        SCILISTA_ITEMS = join_scilistas()
-        for item in SCILISTAXML_ITEMS:
-            if item not in SCILISTA_ITEMS:
-                coletaxml_ok = False
-                inform_error(ERROR_FILE, 'Nova scilista. Falta {}'.format(item))
-        if coletaxml_ok is True:
-            for command in coletar_append_commands:
-                inform_step('XMLPREPROC: COLETA XML', command)
-                os_system(command)
-            for delitem in DELLIST:
-                print('Deleted {}'.format(delitem))
-                os.unlink(delitem)
-            save_new_scilista(SCILISTA_ITEMS)
-
-comments = '{}: {} itens\n{}: {} itens\n'.format(
-        SCILISTA_XML,
-        len(SCILISTAXML_ITEMS),
-        SCILISTA,
-        len(SCILISTA_ITEMS))
-
 subject = 'Erros encontrados'
 errors = None
-if coletaxml_ok is True:
+if result is True:
     subject = 'OK'
 else:
     errors = open(ERROR_FILE, 'r').read()
+
 msg_filename = create_msg_file(SCILISTA_DATETIME, PROC_DATETIME, errors, comments)
+send_mail(CONFIG.get('MAIL_TO'), CONFIG.get('MAIL_BCC'), CONFIG.get('MAIL_CC'), subject, SCILISTA_DATETIME, msg_filename)
 
-send_mail(MAIL_TO, MAIL_BCC, MAIL_CC, subject, SCILISTA_DATETIME, msg_filename)
-
-print("\n"*3)
-print("="*30)
-
-print("Proximo passo:")
-print('Executar processar.sh')
-
+inform_step("\n"*3)
+inform_step("="*30)
+inform_step("Proximo passo:")
+if result is True:
+    inform_step('Executar processar.sh')
+else:
+    inform_step('Fazer correcoes')
