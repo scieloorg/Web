@@ -13,7 +13,8 @@
 # Ao localizar mais de uma base ahead (proc/serial e "serial do XML"), verifica se sao bases diferentes ou igual, evitando duplicacao de registros
 # Em caso de erro em qualquer etapa, interrompe e envia email indicando os erros.
 # Em caso de sucesso em todas as etapas, envia email indicando que foi bem sucedido
-# e avisa que pode ser executar o processa.sh
+# (conteudo da mensagem do email mudou para incluir mais informacao)
+#
 # Entrada:
 #  - arquivo de configuracao chamado xmlpreproc_config_<diretorio da colecao>.ini 
 #    (Exemplo: xmlpreproc_config_scl.000.ini)
