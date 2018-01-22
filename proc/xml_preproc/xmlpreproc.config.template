@@ -12,10 +12,7 @@ XML_SERIAL_LOCATION=../bases_xml.000/serial
 MAIL_TO=marca@example.com
 MAIL_CC=infras@example.com, prod@example.com
 MAIL_BCC=roberta@example.com
-MAIL_TO_ALT=roberta.takenaka@example.com
-
-# Caminho do serial do processamento
-PROC_SERIAL_LOCATION=../_serial
+MAIL_TO_TEST=roberta.takenaka@example.com
 
 # modo desenvolvimento ou producao. Preencher com False se for para producao
 DESENV=True
