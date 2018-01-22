@@ -108,6 +108,7 @@ def fileinfo(filename):
 
 
 def get_more_recent_title_issue_code_databases():
+    # v1.0 scilistatest.sh [8-32]
     """
     Check which title/issue/code bases are more recent:
         - from serial
@@ -460,6 +461,8 @@ def create_msg_file(scilista_date, proc_date, errors=None, comments=None, diffs=
 
 
 def check_scilista(scilistaxml_items, registered_issues):
+    # v1.0 scilistatest.sh [36] (scilistatest.py)
+    # v1.0 scilistatest.sh [41] (checkissue.py)
     inform_step('SCILISTA TESTE', '{} itens'.format(len(scilista_items)))
     coleta_items = []
     scilista_ok = True
@@ -473,6 +476,8 @@ def check_scilista(scilistaxml_items, registered_issues):
         else:
             acron, issueid = parts[0], parts[1]
             issue = '{} {}'.format(acron, issueid)
+
+            # v1.0 scilistatest.sh [41] (checkissue.py)
             if issue not in registered_issues:
                 inform_error(ERROR_FILE, 'Linha {}: "{}" nao esta registrado'.format(n, issue))
                 scilista_ok = False
@@ -488,6 +493,7 @@ def check_scilista(scilistaxml_items, registered_issues):
 
 
 def coletar_items(coleta_items):
+    # v1.0 coletaxml.sh [16] (getbasesxml4proc.py)
     expected = []
     coleta_items = coleta_items or []
     inform_step('COLETA XML', 'Coletar {} itens'.format(len(coleta_items)))
@@ -514,6 +520,7 @@ def check_coletados(expected):
 
 
 def get_new_scilista(scilistaxml_items, scilista_items):
+    # v1.0 coletaxml.sh [20] (joinlist.py)
     error = False
     scilista_items = merge_scilistas(scilistaxml_items, scilista_items)
     for item in scilistaxml_items:
@@ -552,7 +559,10 @@ if os.path.exists(SCILISTA_XML):
 
     SCILISTA_DATETIME = datetime.fromtimestamp(
                 os.path.getmtime(SCILISTA_XML)).isoformat().replace('T', ' ')
+
+    # v1.0 scilistatest.sh [6]
     os_system('dos2unix {}'.format(SCILISTA_XML))
+
     scilistaxml_items = read_file_lines(SCILISTA_XML)
     q_scilistaxml_items = len(scilistaxml_items)
 
@@ -560,8 +570,10 @@ if os.path.exists(SCILISTA_XML):
     get_more_recent_title_issue_code_databases()
 
     if os.path.isfile(ISSUE_DB+'.mst') or CONFIG.get('TEST') is True:
+        # v1.0 scilistatest.sh
         registered_issues = get_registered_issues()
         coleta_items = check_scilista(scilistaxml_items, registered_issues)
+        # v1.0 coletaxml.sh
         expected = coletar_items(coleta_items)
         if check_coletados(expected):
             scilista_items = get_new_scilista(scilistaxml_items, scilista_items)
@@ -589,9 +601,12 @@ comments = '{}: {} itens\n{}: {} itens ({} nao XML)'.format(
 
 diffs = '' if len(diffs) == 0 else 'Conteudo de scilista.lst nao XML ({})\n{}\n'.format(len(diffs), '-'*len('Conteudo de scilista.lst nao XML')) + '\n'.join(diffs) + '\n'
 
+# v1.0 scilistatest.sh [43-129]
 msg_filename = create_msg_file(SCILISTA_DATETIME, PROC_DATETIME, errors, comments, diffs)
 send_mail(CONFIG.get('MAIL_TO'), CONFIG.get('MAIL_BCC'), CONFIG.get('MAIL_CC'), subject, SCILISTA_DATETIME, msg_filename)
 
+
+# v1.0 coletaxml.sh [21-25]
 inform_step("\n"*3)
 inform_step("="*30)
 inform_step("Proximo passo:")
