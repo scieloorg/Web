@@ -22,7 +22,7 @@ def default_config_vars():
 def get_config_filename():
     curr = os.getcwd()
     folders = curr.split('/')
-    return 'xmlpreproc.'+folders[2]+'.config'
+    return 'xmlpreproc_config_'+folders[2]+'.ini'
 
 
 def read_config(config_filename, default):
@@ -48,7 +48,7 @@ def read_config(config_filename, default):
         return None, 'Not found {}'.format(config_filename)
 
 
-def check_config(config, msg):
+def check_config(config, msg, name):
     errors = None
     if config is None:
         print('####')
@@ -56,8 +56,8 @@ def check_config(config, msg):
         print('    ERROR')
         print('')
         print('####')
-        content = open('xmlpreproc.config.template').read()
-        errors = '========\n  ERROR: {}\n    Criar o arquivo xmlpreproc.config que contenha a seguinte configuracao\n========\n{}'.format(msg, content)
+        content = open('xmlpreproc_config.ini.template').read()
+        errors = '========\n  ERROR: {}\n    Criar o arquivo {} que contenha a seguinte configuracao\n========\n{}'.format(msg, name, content)
     else:
         if not 'issue' in os.listdir(config.get('XML_SERIAL_LOCATION')):
             errors = 'Not valid value for XML_SERIAL_LOCATION: {}'.format(config.get('XML_SERIAL_LOCATION'))
@@ -66,16 +66,16 @@ def check_config(config, msg):
     return errors
 
 
-LOG_FILE = 'xmlpreproc.log'
-ERROR_FILE = 'scilista-erros.txt'
-MSG_ERROR_FILE = 'msg-erro.txt'
-MSG_OK_FILE = 'msg-ok.txt'
+LOG_FILE = 'xmlpreproc_outs.log'
+ERROR_FILE = 'xmlpreproc_outs_scilista-erros.txt'
+MSG_ERROR_FILE = 'xmlpreproc_outs_msg-erro.txt'
+MSG_OK_FILE = 'xmlpreproc_outs_msg-ok.txt'
 PROC_DATETIME = datetime.now().isoformat().replace('T', ' ')[:-7]
 
 default = default_config_vars()
 config_filename = get_config_filename()
 CONFIG, msg = read_config(config_filename, default)
-errors = check_config(CONFIG, msg)
+errors = check_config(CONFIG, msg, config_filename)
 if errors is not None:
     exit(errors)
 
