@@ -1,9 +1,6 @@
 
 # Nome da colecao
-COLLECTION=SciELO Brasil
-
-# Caminho do mx
-CISIS_DIR=/usr/local/bireme/cisis/5.5.pre02/linux/lindG4/
+COLLECTION=SciELO TESTE
 
 # Caminho do serial do XML
 XML_SERIAL_LOCATION=../bases_xml.000/serial
@@ -15,4 +12,4 @@ MAIL_BCC=roberta@example.com
 MAIL_TO_TEST=roberta.takenaka@example.com
 
 # modo desenvolvimento ou producao. Preencher com False se for para producao
-DESENV=True
+TEST=True
