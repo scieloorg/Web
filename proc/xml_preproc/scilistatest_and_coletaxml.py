@@ -9,7 +9,6 @@ from datetime import datetime
 def default_config_vars():
     return [
             'COLLECTION',
-            'CISIS_DIR',
             'XML_SERIAL_LOCATION',
             'MAIL_TO',
             'MAIL_CC',
@@ -40,7 +39,7 @@ def read_config(config_filename, default):
                 config[k] = v
         d = config.get('TEST', 'true')
         config['TEST'] = d.lower() != 'false'
-        if set(config.keys()) == set(default):
+        if set(default).issubset(set(config.keys())):
             return config, None
         else:
             return None, 'Invalid format \n{}'.format(open(config_filename).read())
@@ -59,10 +58,20 @@ def check_config(config, msg, name):
         content = open('xmlpreproc_config.ini.template').read()
         errors = '========\n  ERROR: {}\n    Criar o arquivo {} que contenha a seguinte configuracao\n========\n{}'.format(msg, name, content)
     else:
-        if not 'issue' in os.listdir(config.get('XML_SERIAL_LOCATION')):
-            errors = 'Not valid value for XML_SERIAL_LOCATION: {}'.format(config.get('XML_SERIAL_LOCATION'))
-        if config.get('CISIS_DIR') != '' and not os.path.isfile(config.get('CISIS_DIR')+'/mx'):
-            errors = 'Not valid value for CISIS_DIR: {}'.format(config.get('CISIS_DIR'))
+        curr = os.getcwd()
+        folders = curr.split('/')
+        motivos = []
+        if '/'+folders[2]+'/serial' not in config.get('XML_SERIAL_LOCATION'):
+            motivos.append('Esperado a pasta {} em {}'.format(
+                folders[2]+'/serial', config.get('XML_SERIAL_LOCATION')))
+        if not os.path.isdir(config.get('XML_SERIAL_LOCATION')+'/issue'):
+            motivos.append('Esperado a pasta issue em {}'.format(
+                config.get('XML_SERIAL_LOCATION')))
+        if len(motivos) > 0:
+            errors = 'Valor invalido de XML_SERIAL_LOCATION {} para {}. {}.'.format(
+                config.get('XML_SERIAL_LOCATION'),
+                config.get('COLLECTION'),
+                ' e '.join(motivos))
     return errors
 
 
@@ -107,7 +116,7 @@ def fileinfo(filename):
     return None, None
 
 
-def get_more_recent_title_issue_code_databases():
+def get_more_recent_title_issue_databases():
     # v1.0 scilistatest.sh [8-32]
     """
     Check which title/issue/code bases are more recent:
@@ -115,7 +124,7 @@ def get_more_recent_title_issue_code_databases():
         - from XML serial
     if from XML, copy the databases to serial folder
     """
-    inform_step('XMLPREPROC: Seleciona as bases title, issue e code mais atualizada', '')
+    inform_step('XMLPREPROC: Seleciona as bases title e issue mais atualizada', '')
     x, x_size = fileinfo(XML_ISSUE_DB+'.mst')
     h, h_size = fileinfo(ISSUE_DB+'.mst')
     doit = False
@@ -126,8 +135,8 @@ def get_more_recent_title_issue_code_databases():
         else:
             doit = True
     if doit:
-        inform_step('XMLPREPROC: Copia as bases title, issue e code de {}'.format(CONFIG.get('XML_SERIAL_LOCATION')), '')
-        for folder in ['title', 'issue', 'code']:
+        inform_step('XMLPREPROC: Copia as bases title e issue de {}'.format(CONFIG.get('XML_SERIAL_LOCATION')), '')
+        for folder in ['title', 'issue']:
             os_system(
                 'cp -r {}/{} {}'.format(
                     CONFIG.get('XML_SERIAL_LOCATION'),
@@ -136,7 +145,7 @@ def get_more_recent_title_issue_code_databases():
                     )
                 )
     else:
-        inform_step('XMLPREPROC: Use as bases title, issue e code de {}'.format(PROC_SERIAL_LOCATION), '')
+        inform_step('XMLPREPROC: Use as bases title e issue de {}'.format(PROC_SERIAL_LOCATION), '')
 
 
 def file_delete(filename):
@@ -258,8 +267,7 @@ def check_ahead(proc_db_filename, xml_db_filename):
         inform_step(
             'COLETA XML',
             '{}\nExecutara o append'.format(msg))
-        return '{}mx {} from=2 append={} -all now'.format(
-                    CONFIG.get('CISIS_DIR'),
+        return 'mx {} from=2 append={} -all now'.format(
                     xml_db_filename,
                     proc_db_filename
                 )
@@ -567,7 +575,7 @@ if os.path.exists(SCILISTA_XML):
     q_scilistaxml_items = len(scilistaxml_items)
 
     inform_step('XMLPREPROC: SCILISTA', '{}'.format(SCILISTA_DATETIME))
-    get_more_recent_title_issue_code_databases()
+    get_more_recent_title_issue_databases()
 
     if os.path.isfile(ISSUE_DB+'.mst') or CONFIG.get('TEST') is True:
         # v1.0 scilistatest.sh
