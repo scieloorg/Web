@@ -396,10 +396,7 @@ def send_mail(mailto, mailbcc, mailcc, subject, scilista_date, msg_filename):
             _subject,
             msg_filename
         )
-    if CONFIG.get('TEST') is False:
-        os_system(cmd)
-    else:
-        print(cmd)
+    os_system(cmd)
 
 
 def create_msg_instructions(errors=None):
