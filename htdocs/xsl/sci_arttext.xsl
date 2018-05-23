@@ -575,7 +575,7 @@
 		</xsl:call-template>
 	</xsl:template>
 
-	<xsl:template match="p[contains(.,'en PDF')] | p[contains(.,'apenas em PDF')] | p[contains(.,'available only in PDF')] ">
+	<xsl:template match="p[contains(.,'en PDF') and contains(., 'disponible')] | p[contains(.,'apenas em PDF')] | p[contains(.,'available only in PDF')] ">
 		<p>
 			<xsl:apply-templates select="$LANGUAGES_ELEM//PDF_LANGS/LANG[.=$TEXT_LANG]" mode="link">
 				<xsl:with-param name="text" select="."/>
