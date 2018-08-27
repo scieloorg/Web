@@ -3714,7 +3714,7 @@ fi
                 '	<ISSUE>'
               		,v30,' ',v65*0.4,';',v31,if p(v31) then |(|v9032|)| else v9032 fi,|: |v9014,
               	'</ISSUE>'/
-              	'<DOCTITLE>',v12^*[1],'</DOCTITLE>'/
+              	'<DOCTITLE><![CDATA[',v12^*[1],']]></DOCTITLE>'/
                 '</RELATED-DOC>'/,
                 </pft>
             </display>        
