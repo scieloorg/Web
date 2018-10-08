@@ -1,5 +1,8 @@
+#!/usr/bin/env python2.7
 import os
 import logging
+import shutil
+import urllib2
 
 
 logging.basicConfig(
@@ -13,23 +16,20 @@ def info(msg):
 
 
 def read_lines(filename):
-    f = open(filename)
-    r = f.readlines()
-    f.close()
+    with open(filename) as f:
+        r = f.readlines()
     return r
 
 
 def read_filename(filename):
-    f = open(filename)
-    r = f.read()
-    f.close()
+    with open(filename) as f:
+        r = f.read()
     return r
 
 
 def write_filename(filename, content, mode='w'):
-    f = open(filename, mode)
-    f.write(content)
-    f.close()
+    with open(filename, mode) as f:
+        f.write(content)
 
 
 def read_scielo_issn_lists(input_file):
@@ -58,7 +58,7 @@ def read_scimago_list(scimago_list_file):
 def write_scimago_list(scimago_journals, scimago_list_file):
     items = sorted([k+'|'+v for k, v in scimago_journals.items()])
     info('Total de SCIMAGO ID (FIM): ' + str(len(items)))
-    os.system('cp '+scimago_list_file+' '+scimago_list_file+'.bkp')
+    shutil.copy2(scimago_list_file, scimago_list_file+'.bkp')
     write_filename(scimago_list_file, '\n'.join(items))
 
 
@@ -96,16 +96,16 @@ def url_journal_img(scimago_id):
         '&title=false'
 
 
-def wget(url, parameter):
-    cmd = 'wget ' + parameter + ' "' + url + '" --no-check-certificate'
-    info(cmd)
-    os.system(cmd)
+def get_url(url):
+    req = urllib2.urlopen(url)
+    return req.read()
 
 
 def get_scimago_id(issn, scrap_error_file):
     alt_issn = issn.replace('-', '')
     url = url_journal_search(alt_issn)
-    wget(url, '--output-document=temp_scimago_id.txt')
+    with open('temp_scimago_id.txt', 'wb') as f:
+        f.write(get_url(url))
     if os.path.isfile('temp_scimago_id.txt'):
         s = read_filename('temp_scimago_id.txt')
         if 'no results were found' in s:
@@ -126,8 +126,8 @@ def get_scimago_id(issn, scrap_error_file):
 def download_graphic(issn_pid, scimago_id, images_path):
     alt_issn_pid = issn_pid.replace('-', '')
     image_filename = images_path+'/'+alt_issn_pid+'.gif'
-    image = '-O '+image_filename
-    wget(url_journal_img(scimago_id), image)
+    with open(image_filename, 'wb') as f:
+        f.write(get_url(url_journal_img(scimago_id)))
     if os.path.isfile(image_filename):
         return image_filename
 
