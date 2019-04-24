@@ -2466,6 +2466,7 @@ fi
 <!-- Generate XML for Title of Article
      ^r - MFN 
 	 ^l - Interface Language 
+	 ^t - Text Language 
 	 ^i - International Language 
 	 ^f - Flag: 0 - preserve Html tags in title (absent - default: preserve)
 	            1 - remove Html tags from title
@@ -2499,6 +2500,8 @@ fi
   </proc>
 
   <call name="CreateArticleTitleXML"><pft>(v9999/)</pft></call>
+    <call name="citation_title"><pft>v4001^r,'^l',v4001^t</pft></call>
+
 </function>
 
 <function name="CreateIssueInfoXML" action="replace" tag="4001">
@@ -3564,6 +3567,26 @@ fi
 	
 </function>
 
+<function name="citation_title" action="replace" tag="4000">
+    <do task="mfnrange">
+        <parm name="db">ARTIGO</parm>
+        <parm name="from"><pft>v4000^*</pft></parm>
+        <parm name="count">1</parm>
+
+        <loop>
+			<field action="import"  tag="list">4000</field>
+            <display><pft>@PROC_SPLIT_MST.PFT,</pft></display>
+            <display><pft>
+            if v706='h' then 
+            	(if v4000^l[1]=v12^l then ,
+            		'<citation_title lang="',v12^l,'">',v12^*,| |v12^s,'</citation_title>',
+            	fi)
+            fi
+            </pft></display>
+        </loop>
+    </do>
+</function>
+
 	<function name="CreateArticleTitleForReference" action="replace" tag="4000">
 		<!--
 		Prints article title if present. Otherwise section name.
@@ -3601,12 +3624,14 @@ fi
 					      '  <NOHTML-TITLE><![CDATA[',
 					          ,v12^*[1],| |v12^s[1],
 						    ,']]></NOHTML-TITLE>'/,
+
+
                           fi
                           )		
                     fi
 				   </pft>
 				</display>	
-
+				<call name="citation_title"><pft>if v706='f' then f(mfn-1,1,0),'^l',v3100 fi</pft></call>
 					
 				<display>
 					<pft>
