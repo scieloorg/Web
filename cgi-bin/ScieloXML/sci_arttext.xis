@@ -170,8 +170,7 @@
 		</pft>
 	</call>
 
-   <call name="CreateArticleTitle1XML"><pft>'^r'v4001^a'^l'v4001^l'^i'v4001^i'^h1'</pft></call>
-
+   <call name="CreateArticleTitle1XML"><pft>'^r'v4001^a'^l'v4001^l'^t'v4001^t'^i'v4001^i'^h1'</pft></call>
 
    <call name="CreateAuthorsGroupXML"><pft>v880</pft></call>
    <call name="CreateLattesGroupXML"><pft>v880</pft></call>	   
