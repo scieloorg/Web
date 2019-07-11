@@ -1,4 +1,7 @@
-v5.37 (em desenvolvimento)
+v.5.38
+Corrigi bug no OPI-PMH, Bug: https://github.com/scieloorg/Web/pull/686
+
+v5.37
 Inclusão de link de métricas do Google Scholar na home do artigo.
 Ajustes em protocolo OAI-PMH para inclusão de MetadataPrefix oai_dc_openaire
 Ajustes em processamento para inclusão de envio de bases para ArticleMeta proc/Envia2SciELOFast.bat
@@ -268,3 +271,5 @@ controle de verba; gera��o da lista de PID.
 v4.43
 #201 bug: a lista de press releases  n�o estava aparecendo completa na 
 p�gina do t�tulo
+
+
