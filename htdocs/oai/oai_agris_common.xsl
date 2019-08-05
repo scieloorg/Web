@@ -63,7 +63,7 @@
 
 <xsl:template match="article-meta" mode="identifier">
         <!--dc:identifier scheme="dcterms:URI"><xsl:text disable-output-escaping="yes">&lt;![CDATA[http://www.scielo.br/scielo.php?script=sci_arttext&amp;pid=</xsl:text><xsl:value-of select="article-id"/><xsl:text disable-output-escaping="yes">]]&gt;</xsl:text></dc:identifier-->
-<dc:identifier scheme="dcterms:URI">&lt;![CDATA[<xsl:value-of select=".//self-uri[1]/@xlink:href"/>]]&gt;</dc:identifier>
+<dc:identifier scheme="dcterms:URI"><xsl:text disable-output-escaping="yes">&lt;![CDATA[</xsl:text><xsl:value-of select=".//self-uri[1]/@xlink:href"/><xsl:text disable-output-escaping="yes">]]&gt;</xsl:text></dc:identifier>
 	<dc:identifier scheme="ags:DOI"><xsl:value-of select=".//article-id[@pub-id-type='doi']"/></dc:identifier>
 </xsl:template>
 
