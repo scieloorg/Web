@@ -63,7 +63,7 @@ with open('scielonetwork.csv', 'rb') as infile:
         writer.writeheader()
         for row in reader:
             for issn in row['ISSN'].split(','):
-                writer.writerow({'issn': issn, 'year': '2018', 
+                writer.writerow({'issn': issn.upper(), 'year': '2018', 
                                  'title': row['Title'], 'h5': row['H5-index'], 
                                  'm5': row['H5-median'], 'url': row['URL']})
 ```
