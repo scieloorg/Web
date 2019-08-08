@@ -1,5 +1,9 @@
-v.5.38
-Corrigi bug no OPI-PMH, Bug: https://github.com/scieloorg/Web/pull/686
+v5.39
+Corrige bug no OAI-PMH (#690)
+Atualiza métricas do Google Scholar (#692)
+
+v5.38
+Corrige bug no OAI-PMH, Bug: https://github.com/scieloorg/Web/pull/686
 
 v5.37
 Inclusão de link de métricas do Google Scholar na home do artigo.
