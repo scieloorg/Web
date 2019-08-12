@@ -150,7 +150,7 @@
     </pft>
    </display>
     
-   	<call name="displayDOIAttribute"><pft>v880</pft></call> 
+   	<call name="displayDOIAttribute"><pft>v880,|^l|v4001^t</pft></call>
 	<!-- fixed 20040622 -->
 	<field action="replace" tag="4040" split="occ"><pft>v4001^t</pft></field> 
 	<call name="showText"><pft>v264</pft></call>
