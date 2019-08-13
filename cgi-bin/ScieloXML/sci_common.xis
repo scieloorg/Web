@@ -3333,12 +3333,27 @@ fi
 <function name="getDOI" action="replace" tag="880">
     <field action="import" tag="list">7011,237,9800</field>
 
+    <field action="replace" tag="9012"><pft>v880^l</pft></field>
+    <field action="replace" tag="880"><pft>if p(v880^l) then v880^* fi</pft></field>
+     
+    <field action="replace" tag="337" split="occ"><pft>
+    	ref(['ARTIGO']l(['ARTIGO'],'HR=',v880),@PROC_SPLIT_MST.PFT,(v337/))
+    </pft></field>
+    <field action="replace" tag="237"><pft>
+    	if p(v9012) and nocc(v337) > 1 then
+            (if v9012[1]=v337^l then v337^d, break fi)
+        fi
+    </pft></field>
+    <field action="replace" tag="237"><pft>
+    if a(v237) then
+		ref(['ARTIGO']l(['ARTIGO'],'HR=',v880),@PROC_SPLIT_MST.PFT, v237)
+	fi
+    </pft></field>
     <flow action="jump"><pft>if p(v237) then 'ok' fi</pft></flow>
     
     <!-- consulta a base doi/query -->
     <field action="replace" tag="237"><pft>if a(v237) then ref(['DOI']l(['DOI'],'pid=',v880),v237^*) fi</pft></field>
 	<field action="replace" tag="237"><pft>if a(v237) then ref(['DOIQUERY']l(['DOIQUERY'],'PID=',v880),v237) fi</pft></field>
-	
 	
     <flow action="jump"><pft>if p(v237) then 'ok' fi</pft></flow>
 	<field action="replace" tag="881"><pft>ref(['ARTIGO']l(['ARTIGO'],'HR=',v880),@PROC_SPLIT_MST.PFT,v881)</pft></field>
