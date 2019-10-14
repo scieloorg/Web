@@ -201,6 +201,9 @@
 				<xsl:when test=".//front//history">
 					<xsl:apply-templates select=".//front//history"/>
 				</xsl:when>
+				<xsl:when test=".//front-stub//history">
+					<xsl:apply-templates select=".//front-stub//history"/>
+				</xsl:when>
 				<xsl:when test=".//history">
 					<xsl:apply-templates select=".//front//history"/>
 				</xsl:when>
