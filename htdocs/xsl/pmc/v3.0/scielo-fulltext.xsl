@@ -1301,6 +1301,7 @@
 	<xsl:template match="history/date/@date-type" mode="scift-as-label-en">
 		<xsl:choose>
 			<xsl:when test=". = 'rev-recd'">Revised</xsl:when>
+			<xsl:when test=". = 'pub'">Published</xsl:when>
 			<xsl:otherwise>
 				<xsl:value-of select="translate(substring(.,1,1), 'ar', 'AR')"/>
 				<xsl:value-of select="substring(.,2)"/>
@@ -1312,6 +1313,7 @@
 			<xsl:when test=". = 'rev-recd'">Revisado</xsl:when>
 			<xsl:when test=". = 'accepted'">Aceito</xsl:when>
 			<xsl:when test=". = 'received'">Recebido</xsl:when>
+			<xsl:when test=". = 'pub'">Publicado</xsl:when>
 		</xsl:choose>
 	</xsl:template>
 	<xsl:template match="history/date/@date-type" mode="scift-as-label-es">
@@ -1319,6 +1321,7 @@
 			<xsl:when test=". = 'rev-recd'">Revisado</xsl:when>
 			<xsl:when test=". = 'accepted'">Aprobado</xsl:when>
 			<xsl:when test=". = 'received'">Recibido</xsl:when>
+			<xsl:when test=". = 'pub'">Publicado</xsl:when>
 		</xsl:choose>
 	</xsl:template>
 	<xsl:template match="history/date">
