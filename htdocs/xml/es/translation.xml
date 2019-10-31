@@ -283,11 +283,12 @@
 		<text find="site_usage">uso del sitio</text>
 		<text find="journal_citation">citas de revistas</text>
 		<text find="co_authors">co-autoria</text>
-		<text find="text_1">La Scientific Electronic Library Online - SciELO es una biblioteca electrónica que abarca una colección seleccionada de revistas científicas Brasileñas. <br/>
+		<text find="text_1">La gestión y operación de la colección SciELO-Ecuador está a cargo de la Secretaría de Educación Superior, Ciencia, Tecnología e Innovación, como institución nacional coordinadora. <br/>
+		    <br/>SciELO (Scientific Electronic Library Online) es una biblioteca electrónica que abarca una colección seleccionada de revistas científicas en texto completo y de acceso abierto y gratuito.<br/>
 			<br/>La biblioteca es resultado de un proyecto de investigación de la <a href="http://www.fapesp.br">FAPESP</a> - Fundação de Amparo à Pesquisa do Estado de São Paulo, en colaboración con <a href="http://www.bireme.br/bvs/E/ehome.htm">BIREME</a> - Centro Latinoamericano y del Caribe de Información en Ciencias de la Salud. A partir de 2002, el Proyecto conta con el apoyo del <a href="http://www.cnpq.br">CNPq</a> - Conselho Nacional de Desenvolvimento Científico e Tecnológico.<br/>
 			<br/>El proyecto contempla el desarrollo de una metodología común para la preparación, almacenamiento, diseminación y evaluación de literatura científica en formato electrónico.<br/>
 			<br/>Con el desarrollo del proyecto, nuevos títulos son añadidos a la colección de la biblioteca.</text>
-		<text find="text_2">Esta es la home page del Sitio SciELO Brasil.<br/>
+		<text find="text_2">Este es el home page del sitio SciELO Ecuador.<br/>
 			<br/>El objetivo del sitio es implementar una biblioteca electrónica, que proporcione acceso completo a una colección de revistas, una colección de números de revistas individuales, así como al texto completo de los artículos. El acceso tanto a las revistas como a los artículos se puede realizar usando índices y formularios de búsqueda.<br/>
 			<br/>SciELO Ecuador, es parte de las políticas de <a href="http://www.senescyt.gob.ec">SENESCYT</a> de fomento a la investigación y difusión de sus resultados.<br/>
 			<br/>El sitio será constantemente actualizado tanto en forma como en contenido, en la medida en que el proyecto avance.</text>

@@ -283,7 +283,8 @@
 		<text find="site_usage">uso do site</text>
 		<text find="journal_citation">citações de revistas</text>
 		<text find="co_authors">co-autoria</text>
-		<text find="text_1">A Scientific Electronic Library Online - SciELO é uma biblioteca eletrônica que abrange uma coleção selecionada de periódicos científicos brasileiros.<br/>
+		<text find="text_1">A gestão e operação da coleção SciELO-Equador está a cargo da Secretaria de Educação Superior, Ciência, Tecnologia e Inovação, como instituição nacional coordenadora.<br/>
+		    <br/>SciELO (Scientific Electronic Library Online) é uma biblioteca eletrônica que abrange uma coleção selecionada de periódicos científicos em texto completo e acesso livre e aberto.<br/>
 			<br/>A SciELO é o resultado de um projeto de pesquisa da <a href="http://www.fapesp.br">FAPESP</a> - Fundação de Amparo à Pesquisa do Estado de São Paulo, em parceria com a <a href="http://www.bireme.br">BIREME</a> - Centro Latino-Americano e do Caribe de Informação em Ciências da Saúde. A partir de 2002, o Projeto conta com o apoio do <a href="http://www.cnpq.br">CNPq</a> - Conselho Nacional de Desenvolvimento Científico e Tecnológico.<br/>
 			<br/>O Projeto tem por objetivo o desenvolvimento de uma metodologia comum para a preparação, armazenamento, disseminação e avaliação da produção científica em formato eletrônico.<br/>
 			<br/>Com o avanço das atividades do projeto, novos títulos de periódicos estão sendo incorporados à coleção da biblioteca.</text>

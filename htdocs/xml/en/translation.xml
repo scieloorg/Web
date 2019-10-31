@@ -283,7 +283,8 @@
 		<text find="site_usage">site usage</text>
 		<text find="journal_citation">journal citation</text>
 		<text find="co_authors">co-authors</text>
-		<text find="text_1">The Scientific Electronic Library Online - SciELO is an electronic library covering a selected collection of Brazilian scientific journals.<br/>
+		<text find="text_1">The Secretariat of Higher Education, Science, Technology and Innovation is in charge of managing and operating SciELO-Ecuador, as its national coordination institution.<br/>
+		    <br/>SciELO (Scientific Electronic Library Online) is an electronic library covering a selected collection of scientific journals in full text with open and free access.<br/>
 			<br/>The library is an integral part of a project being developed by <a href="http://www.fapesp.br">FAPESP</a> - Fundação de Amparo à Pesquisa do Estado de São Paulo, in partnership with <a href="http://www.bireme.br/bvs/I/ihome.htm">BIREME</a> - the Latin American and Caribbean Center on Health Sciences Information. Since 2002, the Project is also supported by <a href="http://www.cnpq.br">CNPq</a> - Conselho Nacional de Desenvolvimento Científico e Tecnológico.<br/>
 			<br/>The Project envisages the development of a common methodology for the preparation, storage, dissemination and evaluation of scientific literature in electronic format.<br/>
 			<br/>As the project develops, new journal titles are being added in the library collection.</text>
