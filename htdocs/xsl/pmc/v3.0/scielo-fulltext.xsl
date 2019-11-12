@@ -316,8 +316,8 @@
 	<xsl:template match="abstract | trans-abstract">
 		<xsl:variable name="lang"><xsl:choose>
 			<xsl:when test="@xml:lang"><xsl:value-of select="@xml:lang"/></xsl:when>
-			<xsl:when test="$trans"><xsl:value-of select="$trans/@xml:lang"/></xsl:when>
-			<xsl:otherwise><xsl:value-of select="$original/@xml:lang"/></xsl:otherwise>
+			<xsl:when test="../../../@xml:lang"><xsl:value-of select="../../../@xml:lang"/></xsl:when>
+			<xsl:when test="../../@xml:lang"><xsl:value-of select="../../@xml:lang"/></xsl:when>
 		</xsl:choose></xsl:variable>
 		<div>
 			<!--Apresenta o título da seção conforme a lingua existente-->
@@ -341,12 +341,8 @@
 			
 			<xsl:apply-templates select="*[name()!='title'] | text()"/>
 			<xsl:apply-templates
-				select="..//kwd-group[normalize-space(@xml:lang)=normalize-space($lang)]"
+				select="$original//kwd-group[normalize-space(@xml:lang)=normalize-space($lang)]"
 				mode="keywords"/>
-			<xsl:if test="not(..//kwd-group[normalize-space(@xml:lang)=normalize-space($lang)])">
-				<xsl:apply-templates
-						select="..//kwd-group[not(@xml:lang)]"
-						mode="keywords"/>
 			</xsl:if>
 		</div>
 	</xsl:template>
