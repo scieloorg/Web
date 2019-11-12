@@ -20,4 +20,3 @@ Indique uma issue ao qual o pull request faz relacionamento.
 ### Referências
 Indique as referências utilizadas para a elaboração do pull request.
 
-
