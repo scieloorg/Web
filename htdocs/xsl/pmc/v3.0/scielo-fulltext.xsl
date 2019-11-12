@@ -292,6 +292,17 @@
 		</xsl:if>
 	</xsl:template>
 
+	<xsl:template match="front" mode="all-the-abstracts-and-keywords">
+		<xsl:apply-templates select="article-meta" mode="abstract-and-keywords"/>
+		<xsl:apply-templates select="$original//sub-article[@article-type='translation']/front-stub" mode="abstract-and-keywords"/>
+	</xsl:template>
+
+	<xsl:template match="front-stub" mode="all-the-abstracts-and-keywords">
+		<xsl:apply-templates select="." mode="abstract-and-keywords"/>
+		<xsl:apply-templates select="$original//article-meta" mode="abstract-and-keywords"/>
+		<xsl:apply-templates select="$original//sub-article[@article-type='translation' and @xml:lang!=$lang]/front-stub" mode="abstract-and-keywords"/>
+	</xsl:template>
+
 	<xsl:template match="article-meta | front-stub" mode="abstract-and-keywords">
 		<xsl:apply-templates select="abstract"/>
 		<xsl:apply-templates select="trans-abstract"/>
