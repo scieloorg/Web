@@ -292,6 +292,14 @@
 		</xsl:if>
 	</xsl:template>
 
+	<xsl:template match="article-meta | front-stub" mode="abstract-and-keywords">
+		<xsl:apply-templates select="abstract"/>
+		<xsl:apply-templates select="trans-abstract"/>
+		<xsl:if test="not(abstract) and not(trans-abstract)">
+			<xsl:apply-templates select="kwd-group" mode="keywords"></xsl:apply-templates>
+		</xsl:if>
+	</xsl:template>
+
 	<xsl:template match="abstract | trans-abstract">
 		<xsl:variable name="lang"><xsl:choose>
 			<xsl:when test="@xml:lang"><xsl:value-of select="@xml:lang"/></xsl:when>
