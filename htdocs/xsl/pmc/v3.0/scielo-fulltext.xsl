@@ -339,7 +339,6 @@
 			<xsl:apply-templates
 				select="$original//kwd-group[normalize-space(@xml:lang)=normalize-space($lang)]"
 				mode="keywords"/>
-			</xsl:if>
 		</div>
 	</xsl:template>
 
