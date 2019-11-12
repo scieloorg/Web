@@ -293,11 +293,13 @@
 	</xsl:template>
 
 	<xsl:template match="front" mode="all-the-abstracts-and-keywords">
+		<hr/>
 		<xsl:apply-templates select="article-meta" mode="abstract-and-keywords"/>
 		<xsl:apply-templates select="$original//sub-article[@article-type='translation']/front-stub" mode="abstract-and-keywords"/>
 	</xsl:template>
 
 	<xsl:template match="front-stub" mode="all-the-abstracts-and-keywords">
+		<hr/>
 		<xsl:apply-templates select="." mode="abstract-and-keywords"/>
 		<xsl:apply-templates select="$original//article-meta" mode="abstract-and-keywords"/>
 		<xsl:apply-templates select="$original//sub-article[@article-type='translation' and @xml:lang!=$lang]/front-stub" mode="abstract-and-keywords"/>
@@ -319,9 +321,7 @@
 		</xsl:choose></xsl:variable>
 		<div>
 			<!--Apresenta o título da seção conforme a lingua existente-->
-			<xsl:attribute name="class">
-				<xsl:value-of select="name()"/>
-			</xsl:attribute>
+			<xsl:attribute name="class">trans-abstract</xsl:attribute>
 			<p class="sec">
 				<xsl:choose>
 					<xsl:when test="title">
