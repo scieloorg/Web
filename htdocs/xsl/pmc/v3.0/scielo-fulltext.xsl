@@ -258,10 +258,8 @@
 			<xsl:apply-templates select="../..//front//aff"/>
 		</xsl:if>
 		<xsl:apply-templates select="../..//front//supplementary-material|../..//front//product"/>
-		<xsl:apply-templates select=".//abstract"/>
-		<xsl:if test="not(.//abstract)">
-			<xsl:apply-templates select=".//kwd-group" mode="keywords"></xsl:apply-templates>
-		</xsl:if>
+		
+		<xsl:apply-templates select="." mode="all-the-abstracts-and-keywords"/>
 		
 	</xsl:template>
 
@@ -286,10 +284,8 @@
 		
 		<p><xsl:apply-templates select=".//supplementary-material"/></p>
 		<p><xsl:apply-templates select=".//product"/></p>
-		<xsl:apply-templates select=".//abstract | .//trans-abstract"/>
-		<xsl:if test="not(.//abstract) and not(.//trans-abstract)">
-			<xsl:apply-templates select=".//kwd-group" mode="keywords"></xsl:apply-templates>
-		</xsl:if>
+		<xsl:apply-templates select="." mode="all-the-abstracts-and-keywords"/>
+
 	</xsl:template>
 
 	<xsl:template match="front" mode="all-the-abstracts-and-keywords">
