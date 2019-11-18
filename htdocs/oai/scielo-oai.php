@@ -153,10 +153,17 @@ $identifier = cleanParameter($identifier);
             $entity_start_pos = strpos($string, "&", $start_search_pos);
             $entity_end_pos = strpos($string, ";", $entity_start_pos) + 1;
             $entity = substr($string, $entity_start_pos, $entity_end_pos - $entity_start_pos);
-            $html_entity = html_entity_decode($entity, ENT_QUOTES, "UTF-8");
 
-            if (!in_array($entity, $cannot_convert) && $entity != $html_entity) {
-                $string = str_replace($entity, $html_entity, $string);
+            if (!strrpos($entity, " ")) {
+                // texto pode ser uma entidade, pois nao contem espaco
+                if (!in_array($entity, $cannot_convert)) {
+                    // entidade que nao esta' na lista $cannot_convert
+                    $html_entity = html_entity_decode($entity, ENT_QUOTES, "UTF-8");
+                    if ($entity != $html_entity) {
+                        // conseguiu converter
+                        $string = str_replace($entity, $html_entity, $string);
+                    }
+                }
             }
 
             $start_search_pos = $entity_end_pos;
