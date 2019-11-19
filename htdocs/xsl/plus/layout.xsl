@@ -164,7 +164,7 @@
                 font-size: 70%
                 }
             </style>
-            <xsl:if test=".//math or .//mml:math">
+            <xsl:if test=".//math or .//mml:math or .//tex-math">
                 <script type="text/javascript"
                     src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
                 </script>
@@ -1156,12 +1156,29 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
             <xsl:when test="mml:math">
                 <xsl:apply-templates select="mml:math" mode="HTML-TEXT"/>
             </xsl:when>
-            <xsl:when test="graphic">
-                <xsl:apply-templates select="graphic" mode="HTML-TEXT"/>
-            </xsl:when>
             <xsl:when test="tex-math">
                 <xsl:apply-templates select="tex-math"/>
             </xsl:when>
+            <xsl:when test="table">
+                <xsl:apply-templates select="table" mode="HTML-TEXT"/>
+            </xsl:when>
+            <xsl:when test="graphic">
+                <xsl:apply-templates select="graphic" mode="HTML-TEXT"/>
+            </xsl:when>
+            
+        </xsl:choose>
+    </xsl:template>
+    <xsl:template match="tex-math" mode="HTML-TEXT">
+        <xsl:apply-templates select="."/>
+    </xsl:template>
+    <xsl:template match="tex-math">
+        <xsl:choose>
+            <xsl:when test="contains(.,'\begin{document}') and contains(.,'\end{document}')">
+                <xsl:value-of select="substring-after(substring-before(.,'\end{document}'),'\begin{document}')"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="."/>
+            </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
     <xsl:template match="p//xref[@ref-type='fig' or @ref-type='table']" mode="HTML-TEXT">
@@ -1169,9 +1186,18 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
             <xsl:apply-templates select="*|text()"/>
         </a>
     </xsl:template>
-    
-    <xsl:template match="fig[graphic]" mode="HTML-TEXT">
+    <xsl:template match="fig[not(graphic)]" mode="HTML-TEXT">
+        <div class="span5">
+            <strong>
+                <xsl:value-of select="label"/>
+            </strong>
+            <br/>
+            <xsl:apply-templates select="caption"/>
+        </div>
+    </xsl:template>
+    <xsl:template match="fig[graphic or disp-formula]" mode="HTML-TEXT">
         <div class="row fig" id="{@id}">
+            <xsl:if test="graphic">
             <div class="span3">
                 <xsl:variable name="img_filename"><xsl:value-of select="concat($IMAGE_PATH,'/')"/><xsl:apply-templates select=".//graphic" mode="fix_img_extension"/></xsl:variable>
                 <div class="thumb">
@@ -1183,6 +1209,15 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
                     <xsl:apply-templates select="attrib"/>
                 </div>
             </div>
+            </xsl:if>
+            <xsl:if test="disp-formula">
+                <xsl:apply-templates select="disp-formula" mode="HTML-TEXT"/>
+                
+                <div class="span8">
+                       <xsl:apply-templates select="attrib"/>
+                    
+                </div>
+            </xsl:if>
             <div class="span5">
                 <strong>
                     <xsl:value-of select="label"/>
@@ -1192,15 +1227,7 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
             </div>
         </div>
     </xsl:template>
-    <xsl:template match="fig[not(graphic)]" mode="HTML-TEXT">
-        <div class="span5">
-            <strong>
-                <xsl:value-of select="label"/>
-            </strong>
-            <br/>
-            <xsl:apply-templates select="caption"/>
-        </div>
-    </xsl:template>
+    
     <xsl:template match="fig-group" mode="HTML-TEXT">
         <div class="row fig" id="{@id}">
             <div class="span3">
@@ -1251,7 +1278,7 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
             </div>
         </div>
     </xsl:template>
-    <xsl:template match="table-wrap[table]" mode="HTML-TEXT">
+    <xsl:template match="table-wrap[table or alternatives]" mode="HTML-TEXT">
         <div class="row table" id="{@id}">
             <div class="span8">
                 <strong>

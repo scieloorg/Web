@@ -201,6 +201,9 @@
 				<xsl:when test=".//front//history">
 					<xsl:apply-templates select=".//front//history"/>
 				</xsl:when>
+				<xsl:when test=".//front-stub//history">
+					<xsl:apply-templates select=".//front-stub//history"/>
+				</xsl:when>
 				<xsl:when test=".//history">
 					<xsl:apply-templates select=".//front//history"/>
 				</xsl:when>
@@ -448,8 +451,8 @@
 			<xsl:if test="contrib[@contrib-type!='author']">
 				<xsl:apply-templates select="role"></xsl:apply-templates>
 			</xsl:if>
+		<xsl:apply-templates select="on-behalf-of"/>
 		</div>
-		
 	</xsl:template>
 	<xsl:template match="contrib/role | contrib/degrees"><xsl:value-of select="concat(', ',.)"/>
 	</xsl:template>
@@ -750,7 +753,7 @@
 	<xsl:template match="fig" mode="scift-standard">
 		<div class="figure">
 			<xsl:call-template name="named-anchor"/>
-			<xsl:apply-templates select="graphic|media"/>
+			<xsl:apply-templates select="graphic|media|disp-formula"/>
 			<xsl:apply-templates select="." mode="object-properties"/>
 			<p class="label_caption">
 				<xsl:apply-templates select="label | caption" mode="scift-label-caption-graphic"/>
@@ -931,6 +934,16 @@
 			<xsl:when test="tex-math">
 				<xsl:apply-templates select="tex-math"/>
 			</xsl:when>
+			<xsl:when test="table">
+				<xsl:apply-templates select="table"/>
+				<xsl:if test="graphic">
+					<p style="font-size: 200%;">
+					<a target="_blank">
+						<xsl:apply-templates select="graphic" mode="scift-attribute-href"/>
+						&#8659;</a>
+					</p>
+				</xsl:if>
+			</xsl:when>
 			<xsl:when test="contains(*/@xlink:href,'.svg')">
 				<xsl:apply-templates select="inline-graphic|graphic"/>
 			</xsl:when>
@@ -940,6 +953,16 @@
 		</xsl:choose>
 	</xsl:template>
 	
+	<xsl:template match="tex-math">
+		<xsl:choose>
+			<xsl:when test="contains(.,'\begin{document}') and contains(.,'\end{document}')">
+				<xsl:value-of select="substring-after(substring-before(.,'\end{document}'),'\begin{document}')"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="."/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
 
 	<xsl:template match="table//inline-graphic |inline-graphic">
             <xsl:variable name="href">
@@ -1278,6 +1301,7 @@
 	<xsl:template match="history/date/@date-type" mode="scift-as-label-en">
 		<xsl:choose>
 			<xsl:when test=". = 'rev-recd'">Revised</xsl:when>
+			<xsl:when test=". = 'pub'">Published</xsl:when>
 			<xsl:otherwise>
 				<xsl:value-of select="translate(substring(.,1,1), 'ar', 'AR')"/>
 				<xsl:value-of select="substring(.,2)"/>
@@ -1289,6 +1313,7 @@
 			<xsl:when test=". = 'rev-recd'">Revisado</xsl:when>
 			<xsl:when test=". = 'accepted'">Aceito</xsl:when>
 			<xsl:when test=". = 'received'">Recebido</xsl:when>
+			<xsl:when test=". = 'pub'">Publicado</xsl:when>
 		</xsl:choose>
 	</xsl:template>
 	<xsl:template match="history/date/@date-type" mode="scift-as-label-es">
@@ -1296,6 +1321,7 @@
 			<xsl:when test=". = 'rev-recd'">Revisado</xsl:when>
 			<xsl:when test=". = 'accepted'">Aprobado</xsl:when>
 			<xsl:when test=". = 'received'">Recibido</xsl:when>
+			<xsl:when test=". = 'pub'">Publicado</xsl:when>
 		</xsl:choose>
 	</xsl:template>
 	<xsl:template match="history/date">

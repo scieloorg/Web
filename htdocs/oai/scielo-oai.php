@@ -132,6 +132,46 @@ $identifier = cleanParameter($identifier);
     
 	/**************************************** generateOAI_packet ****************************************/
 
+    /**
+     * Converts HTML entities codes to their HTML representation
+     * 
+     * This function search in the $string for HTML entity codes
+     * then tries to convert into their HTML representation 
+     * if they aren't in blacklist conversion ($cannot_convert).
+     * 
+     * @param string $string Represents the OAI results from XLST.
+     * 
+     * @return string String with html entities codes converted.
+     */
+    function convert_html_entities($string) {
+        $quantity = substr_count($string, "&");
+        $start_search_pos = 0;
+        $cannot_convert = array("&amp;", "&gt;", "&lt;");
+
+        while($quantity-- > 0) {
+            
+            $entity_start_pos = strpos($string, "&", $start_search_pos);
+            $entity_end_pos = strpos($string, ";", $entity_start_pos) + 1;
+            $entity = substr($string, $entity_start_pos, $entity_end_pos - $entity_start_pos);
+
+            if (!strrpos($entity, " ")) {
+                // texto pode ser uma entidade, pois nao contem espaco
+                if (!in_array($entity, $cannot_convert)) {
+                    // entidade que nao esta' na lista $cannot_convert
+                    $html_entity = html_entity_decode($entity, ENT_QUOTES, "UTF-8");
+                    if ($entity != $html_entity) {
+                        // conseguiu converter
+                        $string = str_replace($entity, $html_entity, $string);
+                    }
+                }
+            }
+
+            $start_search_pos = $entity_end_pos;
+        }
+
+        return $string;        
+    }
+
     function generateOAI_packet ( $request_uri, $verb, $payload )
     {
         global $identifier, $metadataPrefix, $from, $until, $set, $resumptionToken;
@@ -257,7 +297,7 @@ $identifier = cleanParameter($identifier);
         }
         
 		
-	    return $result;
+	    return convert_html_entities($result);
     }
 
 	/**************************************** verbo GetRecord **************************************/

@@ -100,7 +100,25 @@
               $lng = $scielo->_def->getKeyValue ( "STANDARD_LANG" );
           }
   if ($DIVULGA){
-          echo showDivulgacao($lng,$scielo->_script);
+          $html_divulgacao = showDivulgacao($lng,$scielo->_script);
+          if (strlen($html_divulgacao) > 0) {
+            $p = strpos(strtolower($pageContent), '<body');
+            if ($p > 0) {
+              $body = substr($pageContent, $p);
+              $p2 = strpos($body, '>');
+              if ($p2 > 0) {
+                $body = substr($body, 0, $p2+1);
+                $p3 = strpos(strtolower($pageContent), strtolower($body));
+                if ($p3 > 0) {
+                  $p3 = $p3 + strlen($body);
+                  $newPageContent = substr($pageContent, 0, $p3).'<!-- start divulgacao -->';
+                  $newPageContent .= $html_divulgacao.'<!-- end divulgacao -->';
+                  $newPageContent .= substr($pageContent, $p3);
+                  $pageContent = $newPageContent;
+                }
+              }
+            }
+          }
   }
   if (strpos($pageContent,'<?xml-stylesheet')>0) {
   /* nao retirar isso, senao a conversao de formulas matematicas nao funcionara */
@@ -117,6 +135,19 @@ function showDivulgacao($lang, $script){
            if ($fp){
                $pageContent = fread($fp, 9999);
                    fclose($fp);
+              $p = strpos($pageContent, '<body');
+              if ($p > 0) {
+                $body = substr($pageContent, $p);
+                $p = strpos($body, '>');
+                if ($p > 0) {
+                  $body = substr($body, $p+1);
+                  $p = strpos($body, '</body>');
+                  if ($p > 0){
+                    $body = substr($body, 0, $p-1);
+                    $pageContent = $body;
+                  }
+                }
+              }
            }
    return $pageContent;
 }
@@ -281,8 +312,8 @@ function wxis_exe_ ($url){
   $scielo = new Scielo ($host);
 
   /************************************************************************************
-  *	Pegamos o path do htdocs, isso é importante porque deixamos mais configuráveis	*
-  *	os diferentes scielos não precisando mexer na scielo.php, somente no scielo.def.php	*
+  * Pegamos o path do htdocs, isso é importante porque deixamos mais configuráveis  *
+  * os diferentes scielos não precisando mexer na scielo.php, somente no scielo.def.php *
   ************************************************************************************/
   $PATH_HTDOCS = $scielo->_def->getKeyValue("PATH_HTDOCS");
 
