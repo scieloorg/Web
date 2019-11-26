@@ -313,8 +313,8 @@
 	<xsl:template match="abstract | trans-abstract">
 		<xsl:variable name="lang"><xsl:choose>
 			<xsl:when test="@xml:lang"><xsl:value-of select="@xml:lang"/></xsl:when>
-			<xsl:when test="../../../@xml:lang"><xsl:value-of select="../../../@xml:lang"/></xsl:when>
-			<xsl:when test="../../@xml:lang"><xsl:value-of select="../../@xml:lang"/></xsl:when>
+			<xsl:when test="../../front-stub"><xsl:value-of select="../../@xml:lang"/></xsl:when>
+			<xsl:when test="../../article-meta"><xsl:value-of select="../../../@xml:lang"/></xsl:when>
 		</xsl:choose></xsl:variable>
 		<div>
 			<!--Apresenta o título da seção conforme a lingua existente-->
