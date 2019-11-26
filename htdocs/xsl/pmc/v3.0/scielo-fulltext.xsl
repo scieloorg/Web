@@ -295,6 +295,7 @@
 	</xsl:template>
 
 	<xsl:template match="front-stub" mode="all-the-abstracts-and-keywords">
+		<xsl:variable name="lang" select="../@xml:lang"/>
 		<hr/>
 		<xsl:apply-templates select="." mode="abstract-and-keywords"/>
 		<xsl:apply-templates select="$original//article-meta" mode="abstract-and-keywords"/>
