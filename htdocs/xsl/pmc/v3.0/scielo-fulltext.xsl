@@ -258,10 +258,8 @@
 			<xsl:apply-templates select="../..//front//aff"/>
 		</xsl:if>
 		<xsl:apply-templates select="../..//front//supplementary-material|../..//front//product"/>
-		<xsl:apply-templates select=".//abstract"/>
-		<xsl:if test="not(.//abstract)">
-			<xsl:apply-templates select=".//kwd-group" mode="keywords"></xsl:apply-templates>
-		</xsl:if>
+		
+		<xsl:apply-templates select="." mode="all-the-abstracts-and-keywords"/>
 		
 	</xsl:template>
 
@@ -286,23 +284,41 @@
 		
 		<p><xsl:apply-templates select=".//supplementary-material"/></p>
 		<p><xsl:apply-templates select=".//product"/></p>
-		<xsl:apply-templates select=".//abstract | .//trans-abstract"/>
-		<xsl:if test="not(.//abstract) and not(.//trans-abstract)">
-			<xsl:apply-templates select=".//kwd-group" mode="keywords"></xsl:apply-templates>
+		<xsl:apply-templates select="." mode="all-the-abstracts-and-keywords"/>
+
+	</xsl:template>
+
+	<xsl:template match="front" mode="all-the-abstracts-and-keywords">
+		<hr/>
+		<xsl:apply-templates select="article-meta" mode="abstract-and-keywords"/>
+		<xsl:apply-templates select="$original//sub-article[@article-type='translation']/front-stub" mode="abstract-and-keywords"/>
+	</xsl:template>
+
+	<xsl:template match="front-stub" mode="all-the-abstracts-and-keywords">
+		<xsl:variable name="lang" select="../@xml:lang"/>
+		<hr/>
+		<xsl:apply-templates select="." mode="abstract-and-keywords"/>
+		<xsl:apply-templates select="$original//article-meta" mode="abstract-and-keywords"/>
+		<xsl:apply-templates select="$original//sub-article[@article-type='translation' and @xml:lang!=$lang]/front-stub" mode="abstract-and-keywords"/>
+	</xsl:template>
+
+	<xsl:template match="article-meta | front-stub" mode="abstract-and-keywords">
+		<xsl:apply-templates select="abstract"/>
+		<xsl:apply-templates select="trans-abstract"/>
+		<xsl:if test="not(abstract) and not(trans-abstract)">
+			<xsl:apply-templates select="kwd-group" mode="keywords"></xsl:apply-templates>
 		</xsl:if>
 	</xsl:template>
 
 	<xsl:template match="abstract | trans-abstract">
 		<xsl:variable name="lang"><xsl:choose>
 			<xsl:when test="@xml:lang"><xsl:value-of select="@xml:lang"/></xsl:when>
-			<xsl:when test="$trans"><xsl:value-of select="$trans/@xml:lang"/></xsl:when>
-			<xsl:otherwise><xsl:value-of select="$original/@xml:lang"/></xsl:otherwise>
+			<xsl:when test="../../front-stub"><xsl:value-of select="../../@xml:lang"/></xsl:when>
+			<xsl:when test="../../article-meta"><xsl:value-of select="../../../@xml:lang"/></xsl:when>
 		</xsl:choose></xsl:variable>
 		<div>
 			<!--Apresenta o título da seção conforme a lingua existente-->
-			<xsl:attribute name="class">
-				<xsl:value-of select="name()"/>
-			</xsl:attribute>
+			<xsl:attribute name="class">trans-abstract</xsl:attribute>
 			<p class="sec">
 				<xsl:choose>
 					<xsl:when test="title">
@@ -322,13 +338,8 @@
 			
 			<xsl:apply-templates select="*[name()!='title'] | text()"/>
 			<xsl:apply-templates
-				select="..//kwd-group[normalize-space(@xml:lang)=normalize-space($lang)]"
+				select="$original//kwd-group[normalize-space(@xml:lang)=normalize-space($lang)]"
 				mode="keywords"/>
-			<xsl:if test="not(..//kwd-group[normalize-space(@xml:lang)=normalize-space($lang)])">
-				<xsl:apply-templates
-						select="..//kwd-group[not(@xml:lang)]"
-						mode="keywords"/>
-			</xsl:if>
 		</div>
 	</xsl:template>
 
