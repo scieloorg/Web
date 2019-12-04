@@ -1154,12 +1154,18 @@
 		<xsl:apply-templates select="ref"></xsl:apply-templates>
 	</xsl:template>
 	
-	<xsl:template match="sub-article[@article-type='translation']/back//ref-list[ref]" mode="ref-items">
-		<xsl:apply-templates select="$original/back/ref-list/ref"/>
+	<xsl:template match="sub-article[@article-type='translation']/back//ref-list" mode="ref-items">
+		<xsl:choose>
+			<xsl:when test="ref"><xsl:apply-templates select="ref"></xsl:apply-templates></xsl:when>
+			<xsl:otherwise><xsl:apply-templates select="$original/back/ref-list/ref"/></xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 	
-	<xsl:template match="sub-article[@article-type='translation']/response/back//ref-list[ref]" mode="ref-items">
-		<xsl:apply-templates select="$original/response/back/ref-list/ref"/>
+	<xsl:template match="sub-article[@article-type='translation']/response/back//ref-list" mode="ref-items">
+		<xsl:choose>
+			<xsl:when test="ref"><xsl:apply-templates select="ref"></xsl:apply-templates></xsl:when>
+			<xsl:otherwise><xsl:apply-templates select="$original/response/back/ref-list/ref"/></xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 	
 	<xsl:template match="ref">
