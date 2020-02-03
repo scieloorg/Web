@@ -286,15 +286,15 @@
 		<text find="text_1">The scientific library - SciELO Ecuador, is an electronic library that includes a selected collection of Ecuadorian scientific journals, in all areas of knowledge, in full text and open and free access.<br/>
             <br/>The SciELO-Ecuador collection is in charge of the Ministry of Higher Education, Science, Technology and Innovation (SENESCYT), as the national coordinating institution.<br/>
             <br/>The library is the result of a research project of the FAPESP - Fundação de Amparo à Pesquisa do Estado de São Paulo, in collaboration with BIREME - Latin American and Caribbean Center for Information on Health Sciences. As of 2002, the Project has the support of the CNPq - National Council of Scientific and Technological Development.<br/>
-            <br/>The project contemplates the development of a common methodology for the preparation, storage, dissemination and evaluation of scientific literature in electronic format.</text>
+            <br/>The project contemplates the development of a common methodology for the preparation, storage, dissemination and evaluation of scientific literature in electronic format.<br/>
             <br/>As the project develops, new journal titles are being added in the library collection.</text>
 		<text find="text_2">This is the home page of SciELO Equator Site.<br/>
             <br/>The objective of the site is to implement an electronic virtual library, providing full access to a collection of serial titles, a collection of issues from individual serial titles, as well as to the full text of articles. The access to both, serial titles and articles is available via indexes and search forms.<br/>
             <br/>SciELO site is an integral part of the FAPESP/BIREME/CNPq Project and it is an application of the methodology developed by the project, particularly the Internet Interface module.<br/>
             <br/>This site will be in constant update, both in form and in content, according to the project's advancements.</text>
-		<text find="text_3">SciELO interface provides access to its serials collection via an <i>alphabetic list</i> of titles or a <i>subject list</i> or a <i>search form</i> by word of serial titles, publisher names, city of publication and subject.<br/>
-			<br/>The interface also provides access to the full text of articles via <i>author index</i> or <i>subject index</i>, or by a <i>search form</i> on article elements such as author names, words from title, subject, words from the full text and publication year.<br/>
-			<br/>Click an hypertext link at the <a href="#top">top</a> to call the corresponding access page.</text>
+		<text find="text_3">The SciELO interface provides access to your magazine collection through an alphabetical list of titles, a list by subject, or a search for magazine titles, by title word, subject, publisher names and city of publication.<br/>
+			<br/>The interface also provides access to the full text of the articles through an author index, a subject index or an article search form for its elements, such as author names, title words, subjects, full text words and year of publication.<br/>
+			<br/>Click on the link at the <a href="#top">top of the page</a> to access the page of your interest.</text>
 		<text find="phone">Phone</text>
 		<text find="fax">Fax</text>
 		<text find="register_free">Free sign up</text>

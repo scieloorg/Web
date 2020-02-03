@@ -291,9 +291,9 @@
             <br/>O objetivo deste site é implementar uma biblioteca eletrônica que possa proporcionar um amplo acesso a coleções de periódicos como um todo, aos fascículos de cada título de periódico, assim como aos textos completos dos artigos. O acesso aos títulos dos periódicos e aos artigos pode ser feito através de índices e de formulários de busca.<br/>
             <br/>O site da SciELO é parte do Projeto FAPESP/BIREME/CNPq e um dos produtos da aplicação da metodologia para preparação de publicações eletrônicas em desenvolvimento, especialmente o módulo de interface Internet.<br/>
             <br/>Este site é constantemente atualizado tanto no seu formato como no seu conteúdo, de acordo com os avanços e os resultados do projeto.</text>
-		<text find="text_3">A interface SciELO proporciona acesso à sua coleção de periódicos através de uma <i>lista alfabética</i> de títulos, ou por meio de uma <i>lista de assuntos</i>, ou ainda através de um módulo de <i>pesquisa de títulos</i> dos periódicos, por assunto, pelos nomes das instituições publicadoras e pelo local de publicação.<br/>
-			<br/>A interface também propicia acesso aos textos completos dos artigos através de um <i>índice de autor</i> e um <i>índice de assuntos</i>, ou por meio de um formulário de <i>pesquisa de artigos</i>, que busca os elementos que o compõem, tais como autor, palavras do título, assunto, palavras do texto e ano de publicação.<br/>
-			<br/>Clique nas opções marcadas com links no <a href="#top">topo</a> da página para ter acesso às páginas correspondentes.</text>
+		<text find="text_3">A interface SciELO fornece acesso à sua coleção de periódicos por meio de uma lista alfabética de títulos, uma lista por assunto ou uma pesquisa por títulos de periódicos, por palavra de título, assunto, nomes de editores e cidade de publicação.<br/>
+			<br/>A interface também fornece acesso ao texto completo dos artigos por meio de um índice de autores, um índice de assunto ou um formulário de pesquisa de artigos para seus elementos, como nomes de autores, palavras de título, assuntos, palavras de texto completo e ano de publicação.<br/>
+			<br/>Clique no link na <a href="#top">parte superior</a> da página para acessar a página de seu interesse.</text>
 		<text find="phone">Tel.</text>
 		<text find="fax">Fax</text>
 		<text find="register_free">Registre-se Gratuitamente</text>

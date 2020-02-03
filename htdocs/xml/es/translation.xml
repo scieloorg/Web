@@ -291,9 +291,9 @@
             <br/>El objetivo del sitio es implementar una biblioteca electrónica, que proporcione acceso completo a una colección de revistas, una colección de números de revistas individuales, así como al texto completo de los artículos. El acceso tanto a las revistas como a los artículos se puede realizar usando índices y formularios de búsqueda.<br/>
             <br/>El sitio de SciELO es una parte del Proyecto FAPESP/BIREME/CNPq y es una aplicación de la metodología que el proyecto está desarrollando, en particular, el módulo de Interfaz en Internet.<br/>
             <br/>El sitio será constantemente actualizado tanto en forma como en contenido, en la medida en que el proyecto avance.</text>
-		<text find="text_3">La interfaz SciELO proporciona acceso a su colección de revistas mediante una <i>lista alfabética</i> de títulos, una <i>lista por materia</i>, o una <i>búsqueda de títulos</i> de los periódicos, por palabra del título, materia, nombres de publicadores y ciudad de publicación.<br/>
-			<br/>La interfaz también proporciona acceso al texto completo de los artículos por medio de un <i>índice de autores</i>, un <i>índice de materia</i> o un formulario de <i>búsqueda de artículos</i> por sus elementos, como nombres de autores, palabras del título, materias, palabras del texto completo y año de publicación.<br/>
-			<br/>Click un enlace hipertexto en el <a href="#top">topo</a> de la página para llamar la correspondiente página de acceso.</text>
+		<text find="text_3">La interfaz SciELO proporciona acceso a su colección de revistas mediante una lista alfabética de títulos, una lista por materia, o una búsqueda de títulos de las revistas, por palabra del título, materia, nombres de editores y ciudad de publicación.<br/>
+			<br/>La interfaz también proporciona acceso al texto completo de los artículos por medio de un índice de autores, un índice de materia o un formulario de búsqueda de artículos por sus elementos, como nombres de autores, palabras del título, materias, palabras del texto completo y año de publicación.<br/>
+			<br/>Clic en el enlace de la <a href="#top">parte superior</a> de la página para acceder a la página de su interés.</text>
 		<text find="phone">Tel.</text>
 		<text find="fax">Fax</text>
 		<text find="register_free">Regístrese gratuitamente</text>
