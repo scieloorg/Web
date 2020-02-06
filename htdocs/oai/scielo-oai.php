@@ -159,7 +159,7 @@ $identifier = cleanParameter($identifier);
                 if (!in_array($entity, $cannot_convert)) {
                     // entidade que nao esta' na lista $cannot_convert
                     $html_entity = html_entity_decode($entity, ENT_QUOTES, "UTF-8");
-                    if ($entity != $html_entity) {
+                    if ($entity != $html_entity && (ctype_print($html_entity) || preg_match("//u", $html_entity))) {
                         // conseguiu converter
                         $string = str_replace($entity, $html_entity, $string);
                     }
