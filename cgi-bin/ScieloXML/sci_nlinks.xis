@@ -194,9 +194,9 @@ IsisScript que gera o XML Para a tela de links da referencia bibliografica
       <pft>if p(v9352) then
         if not v9352:'http' then
            if s(mpu,v9352,mpl):'DOI:' then
-               'http://dx.doi.org/',mid(v9352,instr(v9352,':')+1,size(v9352))
+               'https://doi.org/',mid(v9352,instr(v9352,':')+1,size(v9352))
            else
-               'http://dx.doi.org/',v9352
+               'https://doi.org/',v9352
            fi
         fi fi
       </pft>
