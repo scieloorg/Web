@@ -231,8 +231,8 @@
                         <xsl:apply-templates select="." mode="DATA-issue-label"/>
                     </div>
                     <div class="span4 doi-url hidden-tablet hidden-phone">
-                            http://dx.doi.org/<xsl:apply-templates
-                            select=".//article-meta//*[@pub-id-type='doi']"/>
+                        <xsl:variable name="doi-link">https://doi.org/<xsl:apply-templates select=".//article-meta//*[@pub-id-type='doi']"/></xsl:variable>
+                        <a href='{$doi-link}'><xsl:value-of select="$doi-link"/></a>
                     </div>
                 </div>
             </div>
