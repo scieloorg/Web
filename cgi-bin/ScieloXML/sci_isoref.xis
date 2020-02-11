@@ -274,7 +274,7 @@
                      fi,
                     ,|Epub |v9223|.|
                     ,if p(v237) then
-                        ,'<a href="https://dx.doi.org/',v237,'">https://dx.doi.org/',v237,'</a>',
+                        ,'<a href="https://doi.org/',v237,'">https://doi.org/',v237,'</a>',
                     ,else
                         ,if v3000='en' then
                         	,' Retrieved ',
