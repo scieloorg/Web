@@ -51,6 +51,43 @@
 
   $sxml = simplexml_load_string($xml);
 
+  function xml_tostring($value) {
+      return (string)$value;
+  }
+  function is_requested_language_available($sxml) {
+      $availableLanguages = array_merge(
+          $sxml->xpath('/root/SERIAL/ISSUE/ARTICLE/@ORIGINALLANG'), 
+          $sxml->xpath('/root/SERIAL/ISSUE/ARTICLE/LANGUAGES/ART_TEXT_LANGS/LANG')
+      );
+      $availableLanguages = array_map('xml_tostring', $availableLanguages);
+      $requestedLanguage = array_pop(
+          array_map(
+              'xml_tostring', 
+              $sxml->xpath('/root/SERIAL/ISSUE/ARTICLE/@TEXTLANG')
+          )
+      );
+      
+      return in_array($requestedLanguage, $availableLanguages);
+  }
+
+  /*
+   * Quando o texto não estiver disponível no idioma solicitado o site deve
+   * redirecionar (HTTP 302) o cliente para o idioma padrão.
+   */
+  if ($_REQUEST['script'] == 'sci_arttext') {
+      if (!is_requested_language_available($sxml)) {
+          $documentPID = array_pop(
+              array_map(
+                  'xml_tostring', 
+                  $sxml->xpath('/root/SERIAL/ISSUE/ARTICLE/@PID')
+              )
+          );
+          header('Location: /scielo.php?script=sci_arttext&pid='.$documentPID);
+          exit;
+      }
+  }
+
+  
   if ($sxml != false){
      $error = (($sxml->getName() == 'ERROR') or ($sxml->ERROR->getName() == 'ERROR'));
   }
