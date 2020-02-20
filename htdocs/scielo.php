@@ -82,7 +82,7 @@
                   $sxml->xpath('/root/SERIAL/ISSUE/ARTICLE/@PID')
               )
           );
-          header('Location: /scielo.php?script=sci_arttext&pid='.$documentPID);
+          header('Location: /scielo.php?script=sci_arttext&pid='.$documentPID, true, 301);
           exit;
       }
   }
