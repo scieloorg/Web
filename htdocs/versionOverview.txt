@@ -1,3 +1,9 @@
+v5.41
+Modifica fallback para requisições a documentos em idiomas indisponíveis (#710)
+
+v5.40
+Passa a exibir DOI de acordo com as diretivas atualizadas do Crossref (#708)
+
 v5.39
 Corrige bug no OAI-PMH (#690)
 Atualiza métricas do Google Scholar (#692)
