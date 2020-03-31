@@ -33,7 +33,15 @@ call batch/InformaLog.bat $0 dh ===Inicio===
 call batch/VerifExisteArquivo.bat $1/serial/scilista.lst
 call batch/VerifExisteBase.bat $1/serial/title/title
 call batch/VerifExisteBase.bat $1/serial/issue/issue
-
 call batch/VerifExistemBases.bat $1
 
+call batch/MostraQuantidadeRegistros.bat ../bases-work/title/title
+call batch/MostraQuantidadeRegistros.bat $1/serial/title/title
+
+call batch/MostraQuantidadeRegistros.bat ../bases-work/issue/issue
+call batch/MostraQuantidadeRegistros.bat $1/serial/issue/issue
+
 call batch/InformaLog.bat $0 dh ===Fim=== LOG gravado em: $INFORMALOG
+
+echo Consulte $INFORMALOG antes de executar GeraPadrao
+
