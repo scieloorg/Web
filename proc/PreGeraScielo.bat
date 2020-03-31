@@ -4,7 +4,7 @@ rem ===== Aumentar o espaco de variaveis de ambiente
 rem CONFIG.SYS
 rem 
 
-rem GeraSciELO
+rem PreGeraSciELO
 rem Parametro 1: path da producao da SciELO
 rem Parametro 2: path do site da Scielo
 rem Parametro 3: arquivo de log
@@ -12,7 +12,7 @@ rem Parametro 4: cria / adiciona
 
 rem Inicializa variaveis
 
-export INFORMALOG=log/GeraScielo.log
+export INFORMALOG=log/PreGeraScielo.log
 export CISIS_DIR=cisis
 export CIPAR=tabs/GIGA032.cip
 
