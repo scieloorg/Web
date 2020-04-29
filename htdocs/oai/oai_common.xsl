@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:dc="http://purl.org/dc/elements/1.1/">
 	
 	<xsl:variable name="CONTROLINFO" select="//CONTROLINFO[1]" />
 	<xsl:variable name="doc_type_conversor" select="document('doc_types_openaire.xml')/doc_types" />
@@ -141,10 +141,9 @@
 	
 	<xsl:template match="CONTROLINFO" mode="identifier">
 		<xsl:param name="PID" select="PAGE_PID" />
-		<xsl:call-template name="escaped_element">
-			<xsl:with-param name="name">dc:identifier</xsl:with-param>
-			<xsl:with-param name="value">http://<xsl:value-of select="concat(SCIELO_INFO/SERVER, SCIELO_INFO/PATH_DATA)"/>scielo.php?script=sci_arttext&amp;amp;pid=<xsl:value-of select="$PID"/></xsl:with-param>			
-		</xsl:call-template>
+
+		<dc:identifier>http://<xsl:value-of select="concat(SCIELO_INFO/SERVER, SCIELO_INFO/PATH_DATA)"/>scielo.php?script=sci_arttext<xsl:text  disable-output-escaping="no">&amp;</xsl:text>pid=<xsl:value-of select="$PID"/></dc:identifier>
+
 	</xsl:template>
 	
 	<xsl:template match="PUBLISHER">
