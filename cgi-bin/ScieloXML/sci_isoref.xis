@@ -212,7 +212,7 @@
                     ,fi
                 </pft>
             </display>
-			<call name="displayDOIAttribute"><pft>v880</pft></call>
+			<call name="displayDOIAttribute"><pft>v880,|^l|v3100</pft></call>
 			
 			<call name="formatDate"><pft>s(date)*0.8,'^l',v3000</pft></call>
 			<field action="replace"	tag="1000"><pft>v4444</pft></field>
@@ -274,7 +274,7 @@
                      fi,
                     ,|Epub |v9223|.|
                     ,if p(v237) then
-                        ,'<a href="https://dx.doi.org/',v237,'">https://dx.doi.org/',v237,'</a>',
+                        ,'<a href="https://doi.org/',v237,'">https://doi.org/',v237,'</a>',
                     ,else
                         ,if v3000='en' then
                         	,' Retrieved ',

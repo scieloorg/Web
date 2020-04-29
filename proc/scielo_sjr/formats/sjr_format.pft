@@ -1,2 +1,6 @@
-'./sjr_proc.sh ',v400,' ',v400#
-'./sjr_proc.sh ',v400,' ',v935#
+,if p(v435) then
+  ,('./sjr_proc.sh ',v400[1],' ',v435^*,#),
+,else
+  ,'./sjr_proc.sh ',v400,' ',v400#,
+  ,if v400<>v935 then './sjr_proc.sh ',v400,' ',v935# fi,
+,fi
