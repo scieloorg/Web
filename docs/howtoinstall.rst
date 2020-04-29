@@ -237,6 +237,14 @@ Updating
 
         #var/www/scielo$> rm scielo_tmp.tgz
 
+9. Ensure script permissions on the proc directory
+
+    .. code-block:: text
+
+        # sudo find proc/ -name “*.sh” -type f -exec chmod -R 755 "{}" \;
+        # sudo find proc/ -name “*.bat” -type f -exec chmod -R 755 "{}" \;
+        # chmod 755 proc/call
+        # chmod 755 proc/rem
 
 ==============
 Configurations
