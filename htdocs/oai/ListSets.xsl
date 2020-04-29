@@ -11,6 +11,10 @@
 	
 	<xsl:template match="LIST">
 		<ListSets>
+			<set>
+				<setSpec>openaire</setSpec>
+				<setName>OpenAIRE</setName>
+			</set>
 			<xsl:apply-templates/>
 		</ListSets>
 	</xsl:template>

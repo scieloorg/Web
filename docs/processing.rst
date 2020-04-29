@@ -95,14 +95,14 @@ Python utilitary developed to replace the scripts:
     * Envia2MedlinePadrao.bat
     * static_files_catalog.sh
 
-Installing
-----------
+Installing Paperboy
+-------------------
 
 Install guide: https://github.com/scieloorg/paperboy
 
 
-Configuring
------------
+Configuring Paperboy
+--------------------
 
 After install the paperboy you must create a config.ini file to configure the
 source and destiny resources, and the ssh account that will be used to send data
@@ -132,10 +132,10 @@ directory, the file must follow the bellow format:
     [app:main]
     source_dir=c:/var/www/scielo
     cisis_dir=c:/var/www/scielo/proc/cisis
-    ssh_server=localhost
-    ssh_port=22
-    ssh_user=anonymous
-    ssh_password=anonymous
+    server=localhost
+    port=21
+    user=anonymous
+    password=anonymous
 
 **source_dir:** Absolute path to the directory where the SciELO website was installed.
 
@@ -143,20 +143,20 @@ directory, the file must follow the bellow format:
 
 **ssh_server:** Domain of the server where the SciELO Site was installed
 
-**ssh_port:** The SSH port (default 22)
+**ssh_port:** The FTP port (default 21)
 
-**ssh_user:** A valid SSH username 
+**ssh_user:** A valid FTP username 
 
-**ssh_password:** A valid SSH password for the given username
+**ssh_password:** A valid FTP password for the given username
 
 .. tip::
 
-    Ask your SSH credentials to the SciELO team.
+    Ask your FTP credentials to the SciELO team.
 
-Creating envia.bat file
-```````````````````````
+Creating envia.sh file
+``````````````````````
 
-Create a text file named **paperboy_envia_to_scielo.bat** in the **proc**
+Create a text file named **paperboy_envia_to_scielo.sh** in the **proc**
 directory.
 
 .. note::
@@ -165,20 +165,20 @@ directory.
     in mind you must to replace the name of the config file in the following
     guidances.
 
-The content of the .bat file must be::
+The content of the .sh file must be::
 
-    set PAPERBOY_SETTINGS_FILE=/var/www/scielo/proc/paperboy_envia_to_scielo_config.ini
-    paperboy -m -o /var/www/scielo/proc/log/paperboy_envia_to_scielo_config.log
+    export PAPERBOY_SETTINGS_FILE=/var/www/scielo/proc/paperboy_envia_to_scielo_config.ini
+    paperboy_delivery_to_scielo
 
 Running
 -------
 
-Run the script **paperboy_envia_to_scielo_config.bat** to send databases and 
+Run the script **paperboy_envia_to_scielo_config.sh** to send databases and 
 reports to SciELO.
 
 .. code-block:: text
 
-    paperboy_envia_to_scielo_config.bat
+    ./paperboy_envia_to_scielo_config.sh > /var/www/scielo/proc/log/paperboy_envia_to_scielo_config.log
 
 
 Notes
@@ -733,7 +733,7 @@ Description:
 CrossRef - Display DOI on SciELO Website
 ========================================
 
-This processing generates one database of DOI data for each journal issue in bases-work/doi and join all these database in one single database: bases/doi/doi, which is used by SciELO Website to display the articles DOI.
+This processing generates, for each journals issue, one database which is used by SciELO Website to display the articles DOI.
 
 Input: crossref_DOIReport database
 
@@ -747,28 +747,82 @@ Execute after DOI deposit processing.
 How to execute
 --------------
 
-1. Go to proc/scielo_crs/shs directory
+1. scilista creation
+````````````````````
+
+This pre processing identifies the records which status in crossref_DOIReport database is not "error" and generates the scilista file according to the format:
+
+  .. code::
+     <acron> <issue_id> <issue_PID>
+     <acron> <issue_id> <issue_PID>
+     <acron> <issue_id> <issue_PID>
+     <acron> <issue_id> <issue_PID>
+
+
+Example:
+
+  .. code::
+
+    neuro v19n6 S1130-147320080006
+    neuro v20n1 S1130-147320090001
+
+
+  .. attention:: Last line must be empty
+
+
+1. Go to proc directory
 2. Execute the command:
 
   .. code::
-  
-    ./xref_display_doi.sh
+    ./doi/scilista/scilista4art.bat <scilista>
 
+
+   where <scilista> is the scilista file to be created.
+
+
+Example:
+
+  .. code::
+
+    ./doi/scilista/scilista4art.bat scilista_doi.txt
+
+
+2. doi database creation
+````````````````````````
+
+1. Go to proc directory
+2. Execute the command:
+
+  .. code::
+
+    ./doi/create/doi4art.bat <scilista>
+
+
+Example:
+
+  .. code::
+
+    ./doi/create/doi4art.bat scilista_doi.txt
 
 
 Results
 -------
 
-This processing generates:
- 
- * the databases in bases-work/doi/<acron>/<issue_id>/<issue_id>.*
- * the databases in bases/doi/doi.*
+This processing generates the databases in bases-work/doi/<acron>/<issue_id>/<issue_id>.*
+
+
+Example:
+
+  .. code::
+
+    bases-work/doi/neuro/v20n1/v20n1
+    bases-work/doi/neuro/v19n1/v19n1
 
 
 3. Updating the Website
 ```````````````````````
 
-Copy the bases/doi/doi.* of stage server to bases/doi of the production server (Website).
+Copy the bases-work/doi to bases/doi of the production server (Website).
 
 
 Questions about cisis and wxis versions
@@ -809,6 +863,13 @@ The files extensions that must be kept are:
 
     The *.iy0 files must be remove from the public server too.
 
+
+Find the files to delete
+------------------------
+
+  .. code::
+    
+    find . -name "*.iy0"
 
 
 

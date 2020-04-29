@@ -2466,6 +2466,7 @@ fi
 <!-- Generate XML for Title of Article
      ^r - MFN 
 	 ^l - Interface Language 
+	 ^t - Text Language 
 	 ^i - International Language 
 	 ^f - Flag: 0 - preserve Html tags in title (absent - default: preserve)
 	            1 - remove Html tags from title
@@ -2499,6 +2500,8 @@ fi
   </proc>
 
   <call name="CreateArticleTitleXML"><pft>(v9999/)</pft></call>
+    <call name="citation_title"><pft>v4001^r,'^l',v4001^t</pft></call>
+
 </function>
 
 <function name="CreateIssueInfoXML" action="replace" tag="4001">
@@ -3164,17 +3167,20 @@ fi
       <parm name="expression"><pft>'HR=',v4001</pft></parm>
       <parm name="count">1</parm>
 
-      <display><pft>'<CLINICALTRIALS>'</pft></display>
+
       <loop>
+         <field action="replace" tag="770" split="occ"><pft>if v770:'&' and not v770:'&amp;' then replace(v770,'&', '&amp;') fi</pft></field>
          <display>
             <pft>
                ,if p(v770) then,
-                  ,('<trial provider="',v770^*,'" id="',v770^a,'" url="',replace(replace(v770^u,'&amp;','&'),'&','&amp;'),'"/>'),
+                  '<CLINICALTRIALS>',
+                  ,('<trial provider="',v770^*,'" id="',v770^a,'" url="',v770^u,'"/>'),
+                  ,'</CLINICALTRIALS>'
                ,fi,
             </pft>
          </display>
       </loop>
-      <display><pft>'</CLINICALTRIALS>'</pft></display>
+      
    </do>
 </function>
 
@@ -3282,6 +3288,7 @@ fi
 <function name="getDOIDB" action="replace" tag="880">
 	<field action="import" tag="7011">7011</field>
 	<field action="replace" tag="9000"><pft>ref(['ARTIGO']l(['ARTIGO'],'Y',v880*1.17),@PROC_SPLIT_MST.PFT,|v|v31,|s|v131,|n|v32,|s|v132)</pft></field>
+	<field action="replace" tag="9000"><pft>if a(v9000) then ref(['NEWISSUE']l(['NEWISSUE'],'Y',v880*1.17),@PROC_SPLIT_MST.PFT,|v|v31,|s|v131,|n|v32,|s|v132) fi</pft></field>
 	<field action="replace" tag="9001"><pft>ref(['TITLE']l(['TITLE'],s('LOC=',v880*1.9)),v68)</pft></field>
 	<field action="replace" tag="9800"><pft>v7011,'doi/',v9001|/|,v9000|/|,v9000,</pft></field>
 
@@ -3326,12 +3333,27 @@ fi
 <function name="getDOI" action="replace" tag="880">
     <field action="import" tag="list">7011,237,9800</field>
 
+    <field action="replace" tag="9012"><pft>v880^l</pft></field>
+    <field action="replace" tag="880"><pft>if p(v880^l) then v880^* fi</pft></field>
+     
+    <field action="replace" tag="337" split="occ"><pft>
+    	ref(['ARTIGO']l(['ARTIGO'],'HR=',v880),@PROC_SPLIT_MST.PFT,(v337/))
+    </pft></field>
+    <field action="replace" tag="237"><pft>
+    	if p(v9012) and nocc(v337) > 1 then
+            (if v9012[1]=v337^l then v337^d, break fi)
+        fi
+    </pft></field>
+    <field action="replace" tag="237"><pft>
+    if a(v237) then
+		ref(['ARTIGO']l(['ARTIGO'],'HR=',v880),@PROC_SPLIT_MST.PFT, v237)
+	fi
+    </pft></field>
     <flow action="jump"><pft>if p(v237) then 'ok' fi</pft></flow>
     
     <!-- consulta a base doi/query -->
     <field action="replace" tag="237"><pft>if a(v237) then ref(['DOI']l(['DOI'],'pid=',v880),v237^*) fi</pft></field>
 	<field action="replace" tag="237"><pft>if a(v237) then ref(['DOIQUERY']l(['DOIQUERY'],'PID=',v880),v237) fi</pft></field>
-	
 	
     <flow action="jump"><pft>if p(v237) then 'ok' fi</pft></flow>
 	<field action="replace" tag="881"><pft>ref(['ARTIGO']l(['ARTIGO'],'HR=',v880),@PROC_SPLIT_MST.PFT,v881)</pft></field>
@@ -3560,6 +3582,26 @@ fi
 	
 </function>
 
+<function name="citation_title" action="replace" tag="4000">
+    <do task="mfnrange">
+        <parm name="db">ARTIGO</parm>
+        <parm name="from"><pft>v4000^*</pft></parm>
+        <parm name="count">1</parm>
+
+        <loop>
+			<field action="import"  tag="list">4000</field>
+            <display><pft>@PROC_SPLIT_MST.PFT,</pft></display>
+            <display><pft>
+            if v706='h' then 
+            	(if v4000^l[1]=v12^l then ,
+            		'<citation_title lang="',v12^l,'">',v12^*,| |v12^s,'</citation_title>',
+            	fi)
+            fi
+            </pft></display>
+        </loop>
+    </do>
+</function>
+
 	<function name="CreateArticleTitleForReference" action="replace" tag="4000">
 		<!--
 		Prints article title if present. Otherwise section name.
@@ -3597,12 +3639,14 @@ fi
 					      '  <NOHTML-TITLE><![CDATA[',
 					          ,v12^*[1],| |v12^s[1],
 						    ,']]></NOHTML-TITLE>'/,
+
+
                           fi
                           )		
                     fi
 				   </pft>
 				</display>	
-
+				<call name="citation_title"><pft>if v706='f' then f(mfn-1,1,0),'^l',v3100 fi</pft></call>
 					
 				<display>
 					<pft>
@@ -3710,7 +3754,7 @@ fi
                 '	<ISSUE>'
               		,v30,' ',v65*0.4,';',v31,if p(v31) then |(|v9032|)| else v9032 fi,|: |v9014,
               	'</ISSUE>'/
-              	'<DOCTITLE>',v12^*[1],'</DOCTITLE>'/
+              	'<DOCTITLE><![CDATA[',v12^*[1],']]></DOCTITLE>'/
                 '</RELATED-DOC>'/,
                 </pft>
             </display>        

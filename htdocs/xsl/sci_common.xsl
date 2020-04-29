@@ -167,8 +167,13 @@
         <xsl:param name="page"/>
         <xsl:choose>
             <xsl:when test="$script = 'sci_pdf' ">
+                <xsl:variable name="location"><xsl:choose>
+                    <xsl:when test="//ARTICLE[@PID=$seq]"><xsl:value-of select="//ARTICLE[@PID=$seq]/LANGUAGES/PDF_LANGS/LANG[.=$txtlang]/@TRANSLATION"/></xsl:when>
+                    <xsl:when test="//ARTICLE/LANGUAGES/PDF_LANGS/LANG"><xsl:value-of select="//ARTICLE[@PID=$seq]/LANGUAGES/PDF_LANGS/LANG[.=$txtlang]/@TRANSLATION"/></xsl:when>
+                    <xsl:otherwise><xsl:value-of select="$article/LANGUAGES/PDF_LANGS/LANG[.=$txtlang]/@TRANSLATION"/></xsl:otherwise>
+                </xsl:choose></xsl:variable>
                 <xsl:attribute name="href">
-                    <xsl:value-of select="$control_info/SCIELO_INFO/PATH_DATA"/>pdf/<xsl:value-of select="//ARTICLE[@PID=$seq]/LANGUAGES/PDF_LANGS/LANG[.=$txtlang]/@TRANSLATION"/>
+                    <xsl:value-of select="$control_info/SCIELO_INFO/PATH_DATA"/>pdf/<xsl:value-of select="$location"/>
                 </xsl:attribute>
             </xsl:when>
             <xsl:otherwise>
@@ -1090,8 +1095,9 @@
         <xsl:value-of select="."/>
     </xsl:template>
 
-    <xsl:template match="@DOI" mode="display"> http://dx.doi.org/<xsl:value-of
-            select="translate(.,' ','')"/>
+    <xsl:template match="@DOI" mode="display">
+        <xsl:variable name="doi-link">https://doi.org/<xsl:value-of select="translate(.,' ','')"/></xsl:variable>
+        <a href='{$doi-link}'><xsl:value-of select="$doi-link"/></a>
     </xsl:template>
 
     <!--
@@ -1537,7 +1543,7 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
                 <xsl:with-param name="TYPE" select="@TYPE"/>
                 <xsl:with-param name="LANG" select="$control_info/LANGUAGE"/>
             </xsl:call-template>&#160;ISSN </FONT>
-        <xsl:value-of select="normalize-space(.)"/><br/>
+        <xsl:value-of select="normalize-space(.)"/>
     </xsl:template>
     <xsl:template match="STATPARAM">
         <P>

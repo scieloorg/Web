@@ -68,6 +68,9 @@
                     if p(v14^e) then
                         | ELOCATIONID="|v14^e|"|
                     fi,
+                    if p(v71) then
+                        ' DOC_TYPE="',v71,'"'
+                    fi,
                     | PID="|v880|"|,
                     | REQUESTS="|v4001^r|"|
 		 ,' CURR_DATE="',mid(date,1,8),'"'
@@ -92,7 +95,7 @@
         </pft>
     </display>
             
-<call name="displayDOIAttribute"><pft>v880</pft></call>
+<call name="displayDOIAttribute"><pft>v880,|^l|v4001^o</pft></call>
 <call name="showText"><pft>v264</pft></call>
 
 			<call name="TestPDFPresence"><pft>if v8264<>'no' then v880 fi</pft></call>

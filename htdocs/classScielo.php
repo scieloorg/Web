@@ -208,6 +208,7 @@ class Scielo extends ScieloBase
                             "show_home_scielo_news" => "show_home_scielo_news",
                             "show_home_scielo_team" => "show_home_scielo_team",
                             "show_home_scielo_signature" => "show_home_scielo_signature",
+                            "show_group_journal"  => "show_group_journal",
                             "show_group_article"  => "show_group_article",
                             "show_group_indicators" => "show_group_indicators",
                             "show_group_related_links" => "show_group_related_links",
