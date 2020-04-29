@@ -95,7 +95,7 @@
         </pft>
     </display>
             
-<call name="displayDOIAttribute"><pft>v880</pft></call>
+<call name="displayDOIAttribute"><pft>v880,|^l|v4001^o</pft></call>
 <call name="showText"><pft>v264</pft></call>
 
 			<call name="TestPDFPresence"><pft>if v8264<>'no' then v880 fi</pft></call>
