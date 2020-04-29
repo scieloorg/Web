@@ -6,7 +6,7 @@
 	<xsl:import href="sci_arttext_pmc.xsl"/>
 	<xsl:import href="sci_toolbox.xsl"/>
 	<xsl:output indent="yes"/>
-	
+	<xsl:variable name="LANGUAGES_ELEM" select="//ARTICLE/LANGUAGES"/>
 	<xsl:template match="*[@xlink:href] | *[@href]" mode="fix_img_extension">
 		<xsl:variable name="href"><xsl:choose>
 			<xsl:when test="@xlink:href"><xsl:value-of select="@xlink:href"/></xsl:when>
@@ -178,7 +178,9 @@
 		<meta name="citation_journal_title" content="{TITLEGROUP/TITLE}"/>
 		<meta name="citation_journal_title_abbrev" content="{TITLEGROUP/SHORTTITLE}"/>
 		<meta name="citation_publisher" content="{normalize-space(COPYRIGHT)}"/>
-		<meta name="citation_title" content="{ISSUE/ARTICLE/TITLE}"/>
+		<meta name="citation_title" content="{ISSUE/ARTICLE/citation_title}"/>
+		<meta name="citation_language"
+			content="{ISSUE/ARTICLE/citation_title/@lang}"/>
 		<meta name="citation_date"
 			content="{concat(substring(ISSUE/@PUBDATE,5,2),'/',substring(ISSUE/@PUBDATE,1,4))}"/>
 		<meta name="citation_volume" content="{ISSUE/@VOL}"/>
@@ -225,7 +227,7 @@
 		<html xmlns="http://www.w3.org/1999/xhtml">
 			<head>
 				<title>
-					<xsl:value-of select="ISSUE/ARTICLE/TITLE" />
+					<xsl:value-of select="ISSUE/ARTICLE/citation_title" />
 				</title>
 				<xsl:apply-templates select="." mode="meta_names"/>
 
@@ -356,7 +358,7 @@
 		<html xmlns="http://www.w3.org/1999/xhtml">
 			<head>
 				<title>
-					<xsl:value-of select="ISSUE/ARTICLE/TITLE" />
+					<xsl:value-of select="ISSUE/ARTICLE/citation_title" />
 				</title>
 				<xsl:apply-templates select="." mode="meta_names"/>
 				<xsl:apply-templates select="." mode="version-css"/>
@@ -397,7 +399,7 @@
 	
 	<xsl:template match="SERIAL" mode="version-head-title">
 		<xsl:value-of select="TITLEGROUP/TITLE" disable-output-escaping="yes"/> - <xsl:value-of
-			select="normalize-space(ISSUE/ARTICLE/TITLE)" disable-output-escaping="yes"/>
+			select="normalize-space(ISSUE/ARTICLE/citation_title)" disable-output-escaping="yes"/>
 	</xsl:template>
 
 	<xsl:template match="SERIAL" mode="version-css">
@@ -424,10 +426,22 @@
 			<xsl:when test="$version='xml-file'">
 				<script language="javascript" src="applications/scielo-org/js/jquery-1.4.2.min.js"/>
 				<script language="javascript" src="applications/scielo-org/js/toolbox.js"/>
-				<xsl:if test="$original//math or $original//mml:math">
+				<xsl:if test="$original//math or $original//mml:math or $original//tex-math">
 					<script type="text/javascript"
-						src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-					</script></xsl:if>
+						src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+					</script>
+				</xsl:if>
+				<script language="javascript">
+					function smaller(elem_img) {
+						if ((elem_img.height &gt; elem_img.width) &amp;&amp; (elem_img.height &gt; 100)) {
+							elem_img.className="inline-graphic-more-limited";
+						} else if (elem_img.width &gt; 300) {
+				
+						} else if ((elem_img.height &gt; elem_img.width) &amp;&amp; (elem_img.height &gt; 70)) {
+							elem_img.className="inline-graphic-limited";
+						} 
+					}
+				</script>
 			</xsl:when>
 			<xsl:otherwise>
 				<script language="javascript" src="applications/scielo-org/js/jquery-1.4.2.min.js"/>
@@ -563,28 +577,30 @@
 		</xsl:call-template>
 	</xsl:template>
 
-	<xsl:template match="p[contains(.,'apenas em PDF')] | p[contains(.,'available only in PDF')] ">
+	<xsl:template match="p[contains(.,'en PDF') and contains(., 'disponible')] | p[contains(.,'apenas em PDF')] | p[contains(.,'available only in PDF')] ">
 		<p>
-			<a>
-				<xsl:call-template name="AddScieloLink">
-					<xsl:with-param name="seq" select="$article/@PID"/>
-					<xsl:with-param name="script">sci_pdf</xsl:with-param>
-					<xsl:with-param name="txtlang" select="$article/@TEXTLANG"/>
-				</xsl:call-template>
-				<xsl:value-of select="."/>
-			</a>
+			<xsl:apply-templates select="$LANGUAGES_ELEM//PDF_LANGS/LANG[.=$TEXT_LANG]" mode="link">
+				<xsl:with-param name="text" select="."/>
+			</xsl:apply-templates>
+			<xsl:if test="not($LANGUAGES_ELEM//PDF_LANGS/LANG[.=$TEXT_LANG])">
+				<xsl:apply-templates select="$LANGUAGES_ELEM//PDF_LANGS/LANG[1]" mode="link">
+					<xsl:with-param name="text" select="."/>
+				</xsl:apply-templates>
+			</xsl:if>
 		</p>
 	</xsl:template>
-	
+	<xsl:template match="PDF_LANGS/LANG" mode="link">
+		<xsl:param name="text"></xsl:param>
+		<a>
+			<xsl:attribute name="href">/pdf/<xsl:value-of select="@TRANSLATION"/></xsl:attribute>
+			<xsl:value-of select="$text"/>
+		</a>
+	</xsl:template>
 	<xsl:template match="SERIAL" mode="text-disclaimer">
-		<xsl:if test=".//ARTICLE/RELATED-DOC[@TYPE='correction'] or .//ARTICLE/RELATED-DOC[@TYPE='corrected-article']">
+		<xsl:if test=".//ARTICLE/RELATED-DOC">
 			<div class="disclaimer">
-				<xsl:if test=".//ARTICLE/RELATED-DOC[@TYPE='correction']">
-					<xsl:apply-templates select=".//ARTICLE/RELATED-DOC[@TYPE='correction']"/>			
-				</xsl:if>
-				<xsl:if test=".//ARTICLE/RELATED-DOC[@TYPE='corrected-article']">
-					<xsl:apply-templates select=".//ARTICLE/RELATED-DOC[@TYPE='corrected-article']"/>
-				</xsl:if>
+					<xsl:apply-templates select=".//ARTICLE/RELATED-DOC"/>			
+				
 			</div>
 		</xsl:if>
 		<!--xsl:if test=".//ARTICLE/RELATED-DOC[@TYPE='correction']">
@@ -594,33 +610,54 @@
 		</xsl:if-->
 	</xsl:template>
 	
-	<xsl:template match="RELATED-DOC[@TYPE='correction']">
+	<xsl:template match="RELATED-DOC">
 		<p>
-			<strong><xsl:value-of
-				select="$translations/xslid[@id='sci_arttext']/text[@find='this_article_has_been_corrected']"
-			/>: </strong>
-			<a target="_blank">
-				<xsl:call-template name="AddScieloLink">
-					<xsl:with-param name="seq" select="@PID"/>
-					<xsl:with-param name="script">sci_arttext</xsl:with-param>
-					<xsl:with-param name="txtlang" select="$TXTLANG"/>
-				</xsl:call-template><xsl:value-of select="ISSUE"/>
-			</a>
+			<strong>
+				<xsl:choose>
+					<xsl:when test="@TYPE='correction'">
+						<xsl:value-of
+							select="$translations/xslid[@id='sci_arttext']/text[@find='this_article_has_been_corrected']"
+						/>: 
+					</xsl:when>
+					<xsl:when test="@TYPE='corrected-article'">
+						<xsl:value-of
+							select="$translations/xslid[@id='sci_arttext']/text[@find='this_corrects']"
+						/>: 
+					</xsl:when>
+					<xsl:when test="@TYPE='retracted-article'">
+						<xsl:value-of
+							select="$translations/xslid[@id='sci_arttext']/text[@find='this_retracts']"
+						/>: 
+					</xsl:when>
+					<xsl:when test="@TYPE='partial-retraction' or @TYPE='partial-retracted'">
+						<xsl:value-of
+							select="$translations/xslid[@id='sci_arttext']/text[@find='this_retracts_partially']"
+						/>: 
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of
+							select="$translations/xslid[@id='sci_arttext']/text[@find='related_to']"
+						/>:
+					</xsl:otherwise>
+				</xsl:choose>
+			</strong>
+			<xsl:choose>
+				<xsl:when test="@DOI">
+					<a href="https://doi.org/{@DOI}"><xsl:value-of select="@DOI"/></a>
+				</xsl:when>
+				<xsl:otherwise>
+					<a target="_blank">
+						<xsl:call-template name="AddScieloLink">
+							<xsl:with-param name="seq" select="@PID"/>
+							<xsl:with-param name="script">sci_arttext</xsl:with-param>
+							<xsl:with-param name="txtlang" select="$TXTLANG"/>
+						</xsl:call-template><xsl:value-of select="ISSUE"/>
+					</a>
+				</xsl:otherwise>
+			</xsl:choose>
+			
 		</p>
 	</xsl:template>
 	
-	<xsl:template match="RELATED-DOC[@TYPE='corrected-article']">
-		<p>
-			<strong><xsl:value-of
-				select="$translations/xslid[@id='sci_arttext']/text[@find='this_corrects']"
-			/></strong>
-			<a target="_blank">
-				<xsl:call-template name="AddScieloLink">
-					<xsl:with-param name="seq" select="@PID"/>
-					<xsl:with-param name="script">sci_arttext</xsl:with-param>
-					<xsl:with-param name="txtlang" select="$TXTLANG"/>
-				</xsl:call-template><xsl:value-of select="DOCTITLE"/>. <xsl:value-of select="ISSUE"/>
-			</a>
-		</p>
-	</xsl:template>
+	
 </xsl:stylesheet>

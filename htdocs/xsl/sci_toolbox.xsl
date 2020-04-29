@@ -29,6 +29,7 @@
     <xsl:variable name="show_fapesp_projects" select="//varScieloOrg/show_fapesp_projects"/>
     <xsl:variable name="show_clinical_trials" select="//varScieloOrg/show_clinical_trials"/>
     <xsl:variable name="url_login" select="//varScieloOrg/url_login"/>
+    <xsl:variable name="show_group_journal" select="//varScieloOrg/show_group_journal"/>
     <xsl:variable name="show_group_article" select="//varScieloOrg/show_group_article"/>
     <xsl:variable name="show_group_indicators" select="//varScieloOrg/show_group_indicators"/>
     <xsl:variable name="show_group_related_links" select="//varScieloOrg/show_group_related_links"/>
@@ -65,7 +66,7 @@
     <div id="group">
 
       <!-- MY SCIELO INICIO -->
-      <xsl:if test="$show_login != 0">
+      <xsl:if test="$show_login = 1">
         <div id="toolBox">
           <h2 id="toolsSection">
             <xsl:value-of select="$translations/xslid[@id='sci_toolbox']/text[@find='my_scielo']"/>
@@ -131,6 +132,38 @@
           <xsl:value-of
             select="$translations/xslid[@id='sci_toolbox']/text[@find='personal_services']"/>
         </h2>
+        <!-- SECTION JOURNAL INICIO -->
+        <xsl:if test="$show_group_journal != 0">
+          <div class="toolBoxSection">
+            <h2 class="toolBoxSectionh2">
+              <xsl:value-of select="$translations/xslid[@id='sci_toolbox']/text[@find='journal']"/>
+            </h2>
+          </div>
+          <div class="box">
+            <ul>
+              <li>
+                <img src="/img/{$LANGUAGE}/iconStatistics.gif"/>
+                <a href="http://analytics.scielo.org/?journal={$current_issn}&amp;collection={//ANALYTICS_CODE}" target="_blank">SciELO Analytics</a>
+              </li>
+              <li id="google_metrics_link_li" style="display: none;">
+                <img src="/img/{$LANGUAGE}/iconStatistics.gif"/>
+                <a id="google_metrics_link" target="_blank">Google Scholar H5M5 (<span id="google_metrics_year"></span>)</a>
+              </li>
+            </ul>
+            <!-- display google scholar metrics (h5 e m5 index) -->
+            <script type="text/javascript"> 
+              $(document).ready(function() {
+                  var url =  "/google_metrics/get_h5_m5.php?issn=<xsl:value-of select="$current_issn"/>&amp;callback=?";
+                  $.getJSON(url,  function(data) {
+                      $("#google_metrics_year").html(data['year']);
+                      $('#google_metrics_link').attr('href', data['url']);
+                      $("#google_metrics_link_li").show();
+                  });
+              });
+            </script>
+          </div>
+        </xsl:if>
+        <!-- SECTION JOURNAL FIM -->
         <!-- SECTION ARTICLE INICIO -->
         <xsl:if test="$show_group_article != 0">
 
@@ -268,6 +301,12 @@
                 <xsl:call-template name="PrintArticleInformationLink"/>
               </li>
               <!-- HOW TO CITE THIS ARTICLE FIM-->
+              <!-- ANALYTICS INICIO-->
+              <li>
+                <img src="/img/{$LANGUAGE}/iconStatistics.gif"/>
+                <a href="http://analytics.scielo.org/?document={//ARTICLE/@PID}&amp;collection={//ANALYTICS_CODE}" target="_blank">SciELO Analytics</a>
+              </li>
+              <!-- ANALYTICS FIM-->
               <script language="javascript" src="article.js"/>
               <!-- CURRICULUM SCIENTI INICIO-->
               <xsl:if test="ISSUE/ARTICLE/LATTES/AUTHOR">
@@ -327,20 +366,6 @@
                 </li>
               </xsl:if>
               <!-- TRANSLATION SERVICES FIM -->
-
-              <!-- SEMANTIC HIGHLIGHTS INICIO -->
-              <xsl:if test="($show_semantic_hl = 1)">
-                <xsl:if test="//ARTICLE/@TEXTLANG='en' or //ABSTRACT/@xml:lang='en'">
-                  <xsl:if
-                    test="$title_subjects = 'HEALTH SCIENCES' or $title_subjects = 'BIOLOGICAL SCIENCES'">
-                    <li>
-                      <xsl:apply-templates select="//fulltext-service[@id='semantic_highlights']"
-                        mode="semanticHighlights"/>
-                    </li>
-                  </xsl:if>
-                </xsl:if>
-              </xsl:if>
-              <!-- SEMANTIC HIGHLIGHTS FIM -->
 
               <!-- SEND BY E-MAIL INICIO -->
               <xsl:if test="$show_send_by_email = 1">
@@ -455,7 +480,7 @@
           <div class="box">
             <ul>
 
-              <!-- CITED GOOGLE INICIO -->
+              <!-- CITED  INICIO -->
               <xsl:if test="$show_cited_google = 1">
                 <li>
                   <xsl:apply-templates select="//fulltext-service[@id='cited_Google']"

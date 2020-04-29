@@ -10,7 +10,7 @@
             /></xsl:if>
         <xsl:if test="issue">
             <xsl:choose>
-                <xsl:when test="translate(issue, '0', '')=''"><xsl:apply-templates
+                <xsl:when test="translate(concat(volume,issue), '0', '')=''"><xsl:apply-templates
                         select=".//pub-date[@pub-type='epub']/year"/>nahead</xsl:when>
                 <xsl:when test="contains(issue,'Suppl')">
                     <xsl:variable name="n"><xsl:value-of
@@ -22,9 +22,9 @@
                     <xsl:if test="$n!=''">n<xsl:value-of select="$n"/></xsl:if>s<xsl:value-of
                         select="$s"/><xsl:if test="$s=''">0</xsl:if>
                 </xsl:when>
-                <xsl:otherwise>n<xsl:value-of select="string(number(issue))"/></xsl:otherwise>
+                <xsl:when test="number(issue)!=0">n<xsl:value-of select="issue"/></xsl:when>
+                <xsl:otherwise></xsl:otherwise>
             </xsl:choose>
-
         </xsl:if>
         <xsl:if test="supplement"><xsl:variable name="s"><xsl:choose>
                     <xsl:when test="contains(supplement, 'Suppl')"><xsl:value-of
@@ -67,11 +67,15 @@
             <xsl:when test="$doc//front//trans-title-group[@xml:lang=$PAGE_LANG]">
                 <xsl:apply-templates
                     select="$doc//front//trans-title-group[@xml:lang=$PAGE_LANG]/trans-title| $doc//front//trans-title-group[@xml:lang=$PAGE_LANG]/trans-subtitle" mode="DATA-DISPLAY"/>
-                
             </xsl:when>
-            <xsl:when test="$doc//front-stub//article-title[@xml:lang=$PAGE_LANG]">
+            <xsl:when test="$doc//sub-article[@xml:lang=$PAGE_LANG]//front-stub">
                 <xsl:apply-templates
-                    select="$doc//front-stub//article-title[@xml:lang=$PAGE_LANG] | $doc//front-stub//subtitle[@xml:lang=$PAGE_LANG]"
+                    select="$doc//sub-article[@xml:lang=$PAGE_LANG]//front-stub//article-title | $doc//sub-article[@xml:lang=$PAGE_LANG]//front-stub//subtitle"
+                    mode="DATA-DISPLAY"/>
+            </xsl:when>
+            <xsl:when test="$doc//sub-article[@xml:lang=$PAGE_LANG]//front">
+                <xsl:apply-templates
+                    select="$doc//sub-article[@xml:lang=$PAGE_LANG]//front//article-title | $doc//sub-article[@xml:lang=$PAGE_LANG]//front//subtitle"
                     mode="DATA-DISPLAY"/>
             </xsl:when>
             <xsl:otherwise>
@@ -122,6 +126,7 @@
         <meta name="citation_journal_title_abbrev" content="{.//journal-meta//abbrev-journal-title}"/>
         <meta name="citation_publisher" content="{.//journal-meta//publisher-name}"/>
         <meta name="citation_title" content="{$ARTICLE_TITLE}"/>
+        <meta name="citation_language" content="{$PAGE_LANG}"/>
 
         <meta name="citation_date"
             content="{.//article-meta//pub-date[1]//month}/{.//article-meta//pub-date[1]//year}"/>
@@ -178,22 +183,7 @@
         <xsl:value-of select=".//article-categories"/>
     </xsl:template>
     <xsl:template match="*" mode="DATA-DISPLAY-article-title">
-        <xsl:choose>
-            <xsl:when test="$doc//front//trans-title-group[@xml:lang=$PAGE_LANG]">
-                <xsl:apply-templates
-                    select="$doc//front//trans-title-group[@xml:lang=$PAGE_LANG]/trans-title| $doc//front//trans-title-group[@xml:lang=$PAGE_LANG]/trans-subtitle"  mode="DATA-DISPLAY"/>
-                
-            </xsl:when>
-            <xsl:when test="$doc//front-stub//article-title[@xml:lang=$PAGE_LANG]">
-                <xsl:apply-templates
-                    select="$doc//front-stub//article-title[@xml:lang=$PAGE_LANG] | $doc//front-stub//subtitle[@xml:lang=$PAGE_LANG]"  mode="DATA-DISPLAY"
-                />
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:apply-templates
-                    select="$doc//front//article-title | $doc//front//subtitle" mode="DATA-DISPLAY"/>
-            </xsl:otherwise>
-        </xsl:choose>
+        <xsl:value-of select="$ARTICLE_TITLE"/>
     </xsl:template>
     
 
@@ -357,7 +347,7 @@
         <xsl:value-of select="@pub-id-type"/>: <xsl:value-of select="."/>
     </xsl:template>
     <xsl:template match="pub-id[@pub-id-type='doi']| comment[contains(.,'doi:')]"
-        mode="DATA-DISPLAY"> http://dx.doi.org/<xsl:value-of select="."/>
+        mode="DATA-DISPLAY"> https://doi.org/<xsl:value-of select="."/>
     </xsl:template>
     <xsl:template match="suffix">
         <xsl:value-of select="concat(' ',.)"/>

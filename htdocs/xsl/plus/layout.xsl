@@ -5,6 +5,7 @@
     version="3.0">
     <xsl:variable name="translated"
         select="document(concat('../../xml/',$PAGE_LANG,'/translation.xml'))/translations"/>
+    <xsl:variable name="RESIZE"><xsl:if test="number($original//article-meta//pub-date[1]/year)&lt;2015">true</xsl:if></xsl:variable>
     
     <xsl:variable name="xref" select="//xref"></xsl:variable>
     <xsl:template match="*[@xlink:href] | *[@href]" mode="fix_img_extension">
@@ -102,25 +103,35 @@
                 .disp-formula-graphic {
                 padding: 25px;
                 height: auto;
-                max-width: 100%;
-                max-height: 45px;
+                max-width: 80%;
                 }
                 .graphic {
-                padding: 25px;
                 height: auto;
                 max-width: 100%;
-                max-height: 300px;
+                max-height: 100%;
                 }
                 .inline-graphic {
                 display: inline;
-                max-height: 16px;
+                min-height: 20px;
+                max-width: 80%;
                 }
                 
                 .product {
+                margin: 5px 5px 5px 5px;
+                padding: 15px 15px 15px 15px;
+                background-color: #DADFE5;
+                }
+                
+                .product-text {
                 font-family: Book Antiqua;
                 font-size: 10pt;
-                padding: 10px 10px 10px 10px;
-                margin: 5px 5px 5px 5px;
+                background-color: #DADFE5;
+                }
+                
+                .product-graphic {
+                width: 10%;
+                float: left;
+                padding-right: 30px;
                 background-color: #DADFE5;
                 }
                 .disclaimer {
@@ -136,12 +147,39 @@
                 padding-left: 10px;
                 line-height: normal;
                 }
+                .inline-graphic-limited {
+                display: inline;
+                min-height: 20px;
+                max-height: 60px;
+                max-width: 80%;
+                }
+                .inline-graphic-more-limited {
+                display: inline;
+                min-height: 20px;
+                max-height: 20px;
+                max-width: 80%;
+                
+                }
+                .contribid {
+                font-size: 70%
+                }
             </style>
-            <xsl:if test=".//math or .//mml:math">
+            <xsl:if test=".//math or .//mml:math or .//tex-math">
                 <script type="text/javascript"
-                    src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+                    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
                 </script>
             </xsl:if>
+            <script language="javascript">
+                function smaller(elem_img) {
+                    if ((elem_img.height &gt; elem_img.width) &amp;&amp; (elem_img.height &gt; 100)) {
+                        elem_img.className="inline-graphic-more-limited";
+                    } else if (elem_img.width &gt; 300) {
+                
+                    } else if ((elem_img.height &gt; elem_img.width) &amp;&amp; (elem_img.height &gt; 70)) {
+                        elem_img.className="inline-graphic-limited";
+                    } 
+                }
+            </script>
         </head>
     </xsl:template>
     <xsl:template match="*" mode="HTML-BODY">
@@ -193,8 +231,8 @@
                         <xsl:apply-templates select="." mode="DATA-issue-label"/>
                     </div>
                     <div class="span4 doi-url hidden-tablet hidden-phone">
-                            http://dx.doi.org/<xsl:apply-templates
-                            select=".//article-meta//*[@pub-id-type='doi']"/>
+                        <xsl:variable name="doi-link">https://doi.org/<xsl:apply-templates select=".//article-meta//*[@pub-id-type='doi']"/></xsl:variable>
+                        <a href='{$doi-link}'><xsl:value-of select="$doi-link"/></a>
                     </div>
                 </div>
             </div>
@@ -295,6 +333,28 @@
                 </p>
             </xsl:if>
     </xsl:template>
+    <xsl:template match="contrib-id" mode="HTML">
+        <xsl:variable name="url"><xsl:choose>
+            <xsl:when test="@contrib-id-type='orcid'">http://orcid.org/</xsl:when>
+            <xsl:when test="@contrib-id-type='lattes'">http://lattes.cnpq.br/</xsl:when>
+            <xsl:when test="@contrib-id-type='scopus'">https://www.scopus.com/authid/detail.uri?authorId=</xsl:when>
+            <xsl:when test="@contrib-id-type='researchid'">http://www.researcherid.com/rid/</xsl:when>
+        </xsl:choose></xsl:variable>
+        <xsl:variable name="location"><xsl:value-of select="$url"/><xsl:value-of select="."/></xsl:variable>
+        <span class="contribid">
+        <xsl:choose>
+            <xsl:when test="@contrib-id-type='orcid'">
+                <span style="vertical-align: middle">
+                    <span style="margin:4px"><img src="/img/orcid.png" /></span><a href="" target="_blank" onclick="javascript: w = window.open('{$location}','','width=640,height=500,resizable=yes,scrollbars=1,menubar=yes,'); "><xsl:value-of select="$location"/></a>
+                </span>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="@contrib-id-type"/>: <a href="" target="_blank" onclick="javascript: w = window.open('{$location}','','width=640,height=500,resizable=yes,scrollbars=1,menubar=yes,'); "><xsl:value-of select="."/></a>
+            </xsl:otherwise>
+        </xsl:choose>
+            <xsl:if test="position()!=last()">; </xsl:if>
+        </span>
+    </xsl:template>
     <xsl:template match="name" mode="HTML">
         <span>
             <xsl:apply-templates select="." mode="DATA-DISPLAY"/>
@@ -303,6 +363,9 @@
         <xsl:text>
             <!-- manter esta quebra de linha -->
         </xsl:text>
+        <br/>
+        <xsl:apply-templates select="../contrib-id" mode="HTML"></xsl:apply-templates>
+        <br/>
     </xsl:template>
     
     <xsl:template match="xref" mode="HTML-author">
@@ -813,7 +876,7 @@
             </xsl:apply-templates>
         </strong>
     </xsl:template>
-   <xsl:template match="table | table//* " mode="HTML-TEXT">
+    <xsl:template match="table | table//* " mode="HTML-TEXT">
         <xsl:element name="{name()}">
                     <xsl:apply-templates select="@*|*|text()" mode="HTML-TEXT"/>
                 </xsl:element>
@@ -1007,21 +1070,67 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
     </xsl:template>
     <xsl:template match="table//inline-graphic|inline-graphic" mode="HTML-TEXT">
         <img class="inline-graphic">
+            <xsl:if test="$RESIZE='true'">
+                <xsl:attribute name="onload">smaller(this);</xsl:attribute>
+            </xsl:if>
             <xsl:attribute name="src"><xsl:value-of select="concat($IMAGE_PATH,'/')"/><xsl:apply-templates select="." mode="fix_img_extension"/></xsl:attribute>
         </img>
     </xsl:template>
     <xsl:template match="disp-formula/graphic" mode="HTML-TEXT">
-        <img class="disp-formula-graphic">
+        <xsl:variable name="href">
+            <xsl:choose>
+                <xsl:when test="@xlink:href"><xsl:value-of select="@xlink:href"/></xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="@href"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:variable name="size" select="string-length($href)"/>
+        <xsl:variable name="c1" select="substring($href,$size - 2)"/>
+        <xsl:choose>
+            <xsl:when  test="$c1='svg'">
+               <object type="image/svg+xml">
+                   <xsl:attribute name="data"><xsl:value-of select="concat($IMAGE_PATH,'/')"/><xsl:apply-templates select="." mode="fix_img_extension"/></xsl:attribute>
+               </object>
+            </xsl:when>
+            <xsl:otherwise>
+                <img class="disp-formula-graphic">
+                    <xsl:attribute name="src"><xsl:value-of select="concat($IMAGE_PATH,'/')"/><xsl:apply-templates select="." mode="fix_img_extension"/></xsl:attribute>
+                </img>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <xsl:template match="graphic" mode="HTML-TEXT">
+        <img class="graphic">
             <xsl:attribute name="src"><xsl:value-of select="concat($IMAGE_PATH,'/')"/><xsl:apply-templates select="." mode="fix_img_extension"/></xsl:attribute>
         </img>
     </xsl:template>
-    
+
     <xsl:template match="inline-formula/graphic" mode="HTML-TEXT">
-        <img class="inline-formula-graphic">
-            <xsl:attribute name="src"><xsl:value-of select="concat($IMAGE_PATH,'/')"/><xsl:apply-templates select="." mode="fix_img_extension"/></xsl:attribute>
-        </img>
+        <xsl:variable name="href">
+            <xsl:choose>
+                <xsl:when test="@xlink:href"><xsl:value-of select="@xlink:href"/></xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="@href"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:variable name="size" select="string-length($href)"/>
+        <xsl:variable name="c1" select="substring($href,$size - 2)"/>
+        <xsl:choose>
+            <xsl:when  test="$c1='svg'">
+               <object type="image/svg+xml">
+                   <xsl:attribute name="data"><xsl:value-of select="concat($IMAGE_PATH,'/')"/><xsl:apply-templates select="." mode="fix_img_extension"/></xsl:attribute>
+               </object>
+            </xsl:when>
+            <xsl:otherwise>
+                <img class="inline-formula-graphic">
+                    <xsl:attribute name="src"><xsl:value-of select="concat($IMAGE_PATH,'/')"/><xsl:apply-templates select="." mode="fix_img_extension"/></xsl:attribute>
+                </img>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
-    
+
     <xsl:template match="inline-formula" mode="HTML-TEXT">
         <span class="inline-formula">
             <xsl:apply-templates select="@id"/>
@@ -1047,12 +1156,29 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
             <xsl:when test="mml:math">
                 <xsl:apply-templates select="mml:math" mode="HTML-TEXT"/>
             </xsl:when>
-            <xsl:when test="graphic">
-                <xsl:apply-templates select="graphic" mode="HTML-TEXT"/>
-            </xsl:when>
             <xsl:when test="tex-math">
                 <xsl:apply-templates select="tex-math"/>
             </xsl:when>
+            <xsl:when test="table">
+                <xsl:apply-templates select="table" mode="HTML-TEXT"/>
+            </xsl:when>
+            <xsl:when test="graphic">
+                <xsl:apply-templates select="graphic" mode="HTML-TEXT"/>
+            </xsl:when>
+            
+        </xsl:choose>
+    </xsl:template>
+    <xsl:template match="tex-math" mode="HTML-TEXT">
+        <xsl:apply-templates select="."/>
+    </xsl:template>
+    <xsl:template match="tex-math">
+        <xsl:choose>
+            <xsl:when test="contains(.,'\begin{document}') and contains(.,'\end{document}')">
+                <xsl:value-of select="substring-after(substring-before(.,'\end{document}'),'\begin{document}')"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="."/>
+            </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
     <xsl:template match="p//xref[@ref-type='fig' or @ref-type='table']" mode="HTML-TEXT">
@@ -1060,9 +1186,18 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
             <xsl:apply-templates select="*|text()"/>
         </a>
     </xsl:template>
-    
-    <xsl:template match="fig[graphic]" mode="HTML-TEXT">
+    <xsl:template match="fig[not(graphic)]" mode="HTML-TEXT">
+        <div class="span5">
+            <strong>
+                <xsl:value-of select="label"/>
+            </strong>
+            <br/>
+            <xsl:apply-templates select="caption"/>
+        </div>
+    </xsl:template>
+    <xsl:template match="fig[graphic or disp-formula]" mode="HTML-TEXT">
         <div class="row fig" id="{@id}">
+            <xsl:if test="graphic">
             <div class="span3">
                 <xsl:variable name="img_filename"><xsl:value-of select="concat($IMAGE_PATH,'/')"/><xsl:apply-templates select=".//graphic" mode="fix_img_extension"/></xsl:variable>
                 <div class="thumb">
@@ -1074,6 +1209,15 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
                     <xsl:apply-templates select="attrib"/>
                 </div>
             </div>
+            </xsl:if>
+            <xsl:if test="disp-formula">
+                <xsl:apply-templates select="disp-formula" mode="HTML-TEXT"/>
+                
+                <div class="span8">
+                       <xsl:apply-templates select="attrib"/>
+                    
+                </div>
+            </xsl:if>
             <div class="span5">
                 <strong>
                     <xsl:value-of select="label"/>
@@ -1083,15 +1227,7 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
             </div>
         </div>
     </xsl:template>
-    <xsl:template match="fig[not(graphic)]" mode="HTML-TEXT">
-        <div class="span5">
-            <strong>
-                <xsl:value-of select="label"/>
-            </strong>
-            <br/>
-            <xsl:apply-templates select="caption"/>
-        </div>
-    </xsl:template>
+    
     <xsl:template match="fig-group" mode="HTML-TEXT">
         <div class="row fig" id="{@id}">
             <div class="span3">
@@ -1142,7 +1278,7 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
             </div>
         </div>
     </xsl:template>
-    <xsl:template match="table-wrap[table]" mode="HTML-TEXT">
+    <xsl:template match="table-wrap[table or alternatives]" mode="HTML-TEXT">
         <div class="row table" id="{@id}">
             <div class="span8">
                 <strong>
@@ -1665,20 +1801,44 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
     <xsl:template match="mml:math|math" mode="HTML-TEXT">
         <xsl:copy-of select="."/>
     </xsl:template>   
+    
     <xsl:template match="article-meta//product">
-        <p class="product">
-            <xsl:apply-templates select="person-group"/>. <xsl:apply-templates select="source"/>. <xsl:apply-templates select="year"/>. 
-            <xsl:apply-templates select="publisher-name"/> (<xsl:apply-templates select="publisher-loc"/>). <xsl:apply-templates select="size"/>. </p>	
+        <div class="product">
+            <xsl:if test="inline-graphic or graphic">
+                <div><xsl:apply-templates select="inline-graphic | graphic"  mode="product"/></div>
+            </xsl:if>
+            <div class="product-text">
+                <xsl:apply-templates select="*|text()"/>	
+            </div>
+        </div>
     </xsl:template>
-    <xsl:template match="article-meta//product[@product-type='book']">
-        <p class="product">
-            <xsl:apply-templates select="source"/>. <xsl:apply-templates select="person-group"/>. (<xsl:apply-templates select="year"/>). <xsl:apply-templates select="publisher-loc"/>: 
-            <xsl:apply-templates select="publisher-name"/>, <xsl:apply-templates select="year"/>, <xsl:apply-templates select="size"/>. <xsl:apply-templates select="isbn"/>		
-        </p>
+    <xsl:template match="article-meta//product/text()"></xsl:template>
+    <xsl:template match="article-meta//product/*"><xsl:apply-templates select="*|text()"/><xsl:if test="position()!=last()">, </xsl:if> 
     </xsl:template>
     <xsl:template match="article-meta//product/person-group">
-        <xsl:apply-templates select="name"/>
+        <xsl:apply-templates select="name"></xsl:apply-templates>. 
     </xsl:template>
+    <xsl:template match="article-meta//product/article-title | product[@product-type!='article']/source">
+        <xsl:apply-templates select="*|text()"/>. 
+    </xsl:template>
+    <xsl:template match="article-meta//product/edition | article-meta//product/year | article-meta//product/month">
+        <xsl:value-of select="text()"/>. 
+    </xsl:template>
+    <xsl:template match="article-meta//product[@product-type='book']/publisher-loc"><xsl:value-of select="*|text()"/>: 
+    </xsl:template>
+    <xsl:template match="article-meta//product/volume">v. <xsl:value-of select="text()"/>,  
+    </xsl:template>
+    <xsl:template match="article-meta//product/issue"><xsl:if test="not(starts-with(.,'n.'))">n. </xsl:if><xsl:value-of select="text()"/>,  
+    </xsl:template>
+    <xsl:template match="article-meta//product/fpage">p. <xsl:value-of select="text()"/></xsl:template>
+    <xsl:template match="article-meta//product/lpage">-<xsl:value-of select="text()"/>, 
+    </xsl:template>
+    <xsl:template match="article-meta//product/size"><xsl:value-of select="text()"/>p.
+    </xsl:template>
+    
+    <xsl:template match="article-meta//product/inline-graphic | product/graphic">
+    </xsl:template>
+    
     <xsl:template match="article-meta//product/person-group/name">
         <xsl:if test="position()!=1">; </xsl:if><xsl:apply-templates select="surname"/>, <xsl:apply-templates select="given-names"/>
     </xsl:template>
@@ -1691,20 +1851,16 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
     <xsl:template match="article-meta//product/isbn">
         ISBN: <xsl:value-of select="."/>.
     </xsl:template>
-    <xsl:template match="article-meta//product[comment]">
-        <p class="product">
-            <xsl:apply-templates select="*|text()"/> 
-        </p>
-    </xsl:template>
-    <xsl:template match="article-meta//product[comment]/*">
-        <xsl:variable name="last_char"><xsl:value-of select="substring(.,string-length(.))"/></xsl:variable>
-        <xsl:comment><xsl:value-of select="$last_char"/></xsl:comment>
-        <xsl:value-of select="."/><xsl:if test="position()!=last() and $last_char!='.'">. </xsl:if> 
-    </xsl:template>
-    <xsl:template match="article-meta//product[comment]/person-group">
-        <xsl:apply-templates select="name"/>.
-    </xsl:template>
 
+    <xsl:template match="article-meta//product/inline-graphic | product/graphic" mode="product">
+        <a target="_blank">
+            <xsl:attribute name="href"><xsl:value-of select="concat($IMAGE_PATH,'/')"/><xsl:apply-templates select="." mode="fix_img_extension"/></xsl:attribute>
+            <img class="product-graphic">
+                <xsl:attribute name="src"><xsl:value-of select="concat($IMAGE_PATH,'/')"/><xsl:apply-templates select="." mode="fix_img_extension"/></xsl:attribute>
+            </img>
+        </a>
+    </xsl:template>
+    
     <xsl:template match="*" mode="text-disclaimer">
         <xsl:if test="$RELATED-DOC[@TYPE='correction'] or $RELATED-DOC[@TYPE='corrected-article']">
             <div class="disclaimer">
@@ -1752,4 +1908,10 @@ Weaver, William. The Collectors: command performances. Photography by Robert Emm
             </a>
         </p>
     </xsl:template>
+    <xsl:template match="graphic" mode="HTML-TEXT">
+        <img class="graphic">
+            
+        </img>
+    </xsl:template>
 </xsl:stylesheet>
+

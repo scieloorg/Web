@@ -4,9 +4,9 @@ Installation and updating
 
 REQUIREMENTS
 ============
-    - CentOS release 5.6
-    - Apache 2.2.3 or later
-    - PHP 5.2.10 (required)
+    - CentOS release 6.7
+    - Apache 2.2.15 or later
+    - PHP 5.2.10 or 5.2.17 (required)
         - PHP Modules
             - libpng
             - soap
@@ -15,7 +15,7 @@ REQUIREMENTS
             - XML
     - vim
     - Git client
-    - basic knowledge of Linux Administration
+    - knowledge of Linux Administration
     - wget
 
 
@@ -52,13 +52,20 @@ Installation
                 Check the `branch name of each collection <network.html>`_.
 
         <randomic_code>
+
             a code generated after unzip execution
 
 
         .. code-block:: text
 
             $ wget https://github.com/scieloorg/Web/zipball/<branch_or_tag> 
-            $ tar -xvf  <branch_or_tag>
+            $ tar -xvf  <branch_or_tag> (when the package is a tar file but generally is zip)
+
+        If it not works with tar command run as:
+
+        .. code-block:: text
+
+            $ unzip  <branch_or_tag>
 
 
         A folder named as scieloorg-<randomic_code> will be created.
@@ -66,14 +73,14 @@ Installation
         .. code-block:: text
 
             $ mv scieloorg-<randomic_code>/* .
-            $ rmdir scieloorg-<randomic_code>
+            $ rm -Rf scieloorg-<randomic_code>
             $ rm <branch_or_tag>
 
 
 
         .. warning::
 
-            Change <branch_or_tag> according to the latest version or the branch of the collection
+            Change <branch_or_tag> according to the latest version or the branch of the collection. If your SciELO site do not have an exclusive branch, you must use the branch name **master**.
 
 
         The created directory structure at /var/www/scielo must be 
@@ -99,15 +106,19 @@ Installation
 
         **CISIS Package**
 
-        inside /var/www/scielo/proc/cisis
+        inside /var/www/scielo/proc/
 
-        Download the `CISIS package <http://bvsmodelo.bvsalud.org/php/level.php?lang=es&component=28&item=1>`_ from the BIREME products website.
+        Download the `CISIS package LindG4 version <ftp://produtos-scielo:produtos@scielo@ftp.scielo.br/cisis-product/cisis-64bits-5.7c-lind.tar.gz>`_ from the SciELO FTP products.
+        
+        Extrating cisis package using the follow command:
 
-        Set permissions to execute mx.
+        .. code-block:: text
 
-        The recommended version is **LINDG4**
+            #/var/www/scielo/proc/$>tar zxvf cisis-64bits-5.7c-lind.tar.gz
 
-        To check the CISIS version, after unzip the donwloaded file at /var/www/scielo/proc/cisis, run: 
+        The cisis directory will be created.
+
+        To check the CISIS version, after extract the downloaded file at /var/www/scielo/proc/cisis, run: 
 
         .. code-block:: text
 
@@ -117,25 +128,19 @@ Installation
 
         .. code-block:: text
 
-            CISIS Interface v5.2b/GC/W/L/M/32767/16/60/I - Utility MX
-            CISIS Interface v5.2b/.iy0/Z/4GB/GIZ/DEC/ISI/UTL/INVX/B7/FAT/CIP/CGI/MX/W
-            Copyright (c)BIREME/PAHO 2006. [!http://www.bireme.br/products/cisis]
+            CISIS Interface v5.7c/G/PC/512G/W/L4/M/32767/16/60/I/64bits - Utility MX
+            CISIS Interface v5.7c/.iy0/Z/GIZ/DEC/ISI/UTL/INVX/B7/FAT/CIP/CGI/MX/W
+            Copyright (c)BIREME/PAHO 2010. [http://reddes.bvsalud.org/projects/cisis]
 
         **WWWISIS Package**
 
-        at /var/www/scielo/cgi-bin
-
-        Download the `WWWISIS package <http://bvsmodelo.bvsalud.org/php/level.php?lang=es&component=28&item=1>`_ from the BIREME products website.
-        
-        Set permission to execute wxis.
-
-        The recommended version is **LINDG4**
+        at /var/www/scielo/cgi-bin copy the wxis file from /var/www/scielo/proc/cisis rename it to wxis.exe
 
         To check the WWWISIS version, at /var/www/scielo/cgi-bin/, run:
 
         .. code-block:: text
 
-            #/var/www/scielo/cgi-bin$>wxis hello
+            #/var/www/scielo/cgi-bin$>wxis.exe hello
 
         If you have already configured the virtual host, you can check WWWISIS version by accessing the url:
 
@@ -149,13 +154,13 @@ Installation
 
         .. code-block:: text
         
-            CISIS Interface v5.4.02_p5/GC/512G/W/L4/M/32767/16/60/I - XML !IsisScript WWWISIS 7.1d
-            CISIS Interface v5.4.02_p5/.iy0/Z/GIZ/DEC/ISI/UTL/INVX/B7/FAT/CIP/CGI/MX/W
-            Copyright (c)BIREME/PAHO 2008. [!http://www.bireme.br/products/cisis]
-            Copyright (c)BIREME/PAHO 2008. [!http://bvsmodelo.bvsalud.org/php/index.php?lang=pt]
-            Copyright (c)BIREME/PAHO 2008. [!http://bvsmodelo.bvsalud.org/php/level.php?lang=pt&component=28&item=1]
+            CISIS Interface v5.7c/G/PC/512G/W/L4/M/32767/16/60/I/64bits - XML IsisScript WWWISIS 7.1f
+            CISIS Interface v5.7c/.iy0/Z/GIZ/DEC/ISI/UTL/INVX/B7/FAT/CIP/CGI/MX/W
+            Copyright (c)BIREME/PAHO 2010. [http://reddes.bvsalud.org/projects/cisis]
 
-            WXIS release date: Sep 24 2008
+            WXIS release date: Jun 26 2012
+
+            WXIS|missing error|parameter|IsisScript|
 
 
 Updating
@@ -232,6 +237,14 @@ Updating
 
         #var/www/scielo$> rm scielo_tmp.tgz
 
+9. Ensure script permissions on the proc directory
+
+    .. code-block:: text
+
+        # sudo find proc/ -name “*.sh” -type f -exec chmod -R 755 "{}" \;
+        # sudo find proc/ -name “*.bat” -type f -exec chmod -R 755 "{}" \;
+        # chmod 755 proc/call
+        # chmod 755 proc/rem
 
 ==============
 Configurations
@@ -279,13 +292,20 @@ Configuring scielo.def.php
             E_MAIL=scielo@bireme.br
             STANDARD_LANG=en
             APP_NAME=scielo
+            ANALYTICS_CODE=scl
 
-        The **APP_NAME** parameter value is provided by the SciELO Team.  
+        The **APP_NAME** and **ANALYTICS_CODE** parameter value are provided by the SciELO Team.  
 
         .. code-block:: text
 
             [SCIELO]
             SERVER_SCIELO=vm.scielo.br
+
+            [FULLTEXT_SERVICES]
+            access="http://vm.scielo.br/applications/scielo-org/pages/services/articleRequestGraphicPage.php?pid=PARAM_PID&caller=PARAM_SERVER"
+            cited_SciELO="http://vm.scielo.br/scieloOrg/php/citedScielo.php?pid=PARAM_PID"
+            send_mail="http://vm.scielo.br/applications/scielo-org/pages/services/sendMail.php?pid=PARAM_PID&caller=PARAM_SERVER"
+
 
         Set SERVER_SCIELO to domain of your SciELO Site installation. 
 
@@ -299,6 +319,9 @@ Configuring scielo.def.php
             PATH_HTDOCS=/var/www/scielo/htdocs/
             PATH_OAI=/var/www/scielo/htdocs/oai/
             PATH_PROC=/var/www/scielo/proc/
+
+            [XML_ERROR]
+            LOG_XML_ERROR_FILENAME=/var/www/scielo/logs/xml_error_log.txt
 
 Configuring iah.def
 -------------------
@@ -325,6 +348,9 @@ Configuring iah.def
             [PATH]
             PATH_CGI-BIN=/var/www/scielo/cgi-bin/iah/
             PATH_DATABASE=/var/www/scielo/bases/
+
+            [IAH]
+            LOG_DATABASE=/var/www/scielo/bases/logdia/iahlog
     
      The value for **LOGO URL** must be changed to the application path previously configured for the virtual host on the APACHE Server.
 
@@ -482,12 +508,13 @@ Edit the configuration file.
         
         #var/www/scielo/htdocs$> vi scielo.def.php
 
-Ask SciELO team for your **APP_NAME**.
+Ask SciELO team for your **APP_NAME** and **ANALYTICS_CODE**.
 
     .. code-block:: text
 
         [SITE_INFO]
         APP_NAME=scielo
+        ANALYTICS_CODE=scl
 
 
 Indicate the domain for Bibliometric reports website editing STAT_SERVER_CITATION and STAT_SERVER_COAUTH.
@@ -510,15 +537,6 @@ Indicate the domain for Bibliometric reports website editing STAT_SERVER_CITATIO
         [LOG]
         ENABLE_STATISTICS_LINK=1
         ENABLE_CITATION_REPORTS_LINK=1
-        SERVER_LOG=scielo-log.scielo.br
-        SERVER_LOG_PROC=scielo-log.scielo.br/
-        SERVER_LOG_PROC_PATH=scielolog
-        SCRIPT_LOG_NAME=scielolog/updateLog02.php
-        SCRIPT_LOG_RUN=scielo-log.scielo.br/scielolog/scielolog03B2.php
-        SCRIPT_TOP_TEN="http://scielo-log.scielo.br/scielolog/ofigraph20.php?app=APP_NAME"
-        SCRIPT_ARTICLES_PER_MONTH="http://scielo-log.scielo.br/scielolog/ofigraph21.php?app=APP_NAME"
-
-
 
 Access Statistics
 -----------------
@@ -534,27 +552,17 @@ Edit the configuration file.
         #var/www/scielo/htdocs$> vi scielo.def.php
 
 
-Ask SciELO team for your **APP_NAME**.
-
-Set **SCRIPT_TOP_TEN** and **SCRIPT_ARTICLES_PER_MONTH**, replacing app=scielo by app=\< same as APP_NAME \>.
+Ask SciELO team for your **APP_NAME** and **ANALYTICS_CODE**.
 
     .. code-block:: text
-    
+
         [SITE_INFO]
-        APP_NAME=scielo 
+        APP_NAME=scielo
+        ANALYTICS_CODE=scl
 
         [LOG]
         ACTIVATE_LOG=1
         ENABLE_STATISTICS_LINK=1
-        ACCESSSTAT_LOG_DIRECTORY=/var/www/scielo/bases/accesstat
-        SERVER_LOG=scielo-log.scielo.br
-        SERVER_LOG_PROC=scielo-log.scielo.br/
-        SERVER_LOG_PROC_PATH=scielolog
-        SCRIPT_LOG_NAME=scielolog/updateLog02.php
-        SCRIPT_LOG_RUN=scielo-log.scielo.br/scielolog/scielolog03B2.php
-        SCRIPT_TOP_TEN="http://scielo-log.scielo.br/scielolog/ofigraph20.php?app=scielo"
-        SCRIPT_ARTICLES_PER_MONTH="http://scielo-log.scielo.br/scielolog/ofigraph21.php?app=scielo"
-        ENABLE_ARTICLE_LANG_LINK=1
 
 Set show_requests to 1, to enable the Access Statistics link.
 
@@ -565,32 +573,6 @@ Set show_requests to 1, to enable the Access Statistics link.
         show_requests=1
         ...
 
-Chart of Access statistics
---------------------------
-
-Edit the configuration file.
-
-    .. code-block:: text
-        
-        #var/www/scielo/htdocs$> vi applications/scielo-org/scielo.def.php
-
-At the block named  *[requests_server]* set *url*
-
-    .. code-block:: text
-
-        [requests_server]
-        url="http://scielo-log.scielo.br/"
-
-
-    .. warning:: 
-
-        Check if the configuration is correct, looking for the following line in any SciELO website page. 
-
-
-    .. code-block:: text
-
-        <img src="http://scielo-log.scielo.br/scielolog/updateLog02.php?app=scielo&amp;page=sci_home&amp;lang=en&amp;norm=iso&amp;doctopic=&amp;doctype=&amp;tlng=" border="0" height="1" width="1">
-
 SCIMAGO
 -------
 
@@ -599,7 +581,6 @@ The root directory for this processing is **/var/www/scielo/proc/scielo_sjr**
 The following steps run at the directory proc/scielo_sjr.
 
 Copying the config file.
-
 
     .. code-block:: text
 
@@ -626,12 +607,6 @@ Editing the config file and changing the paths if necessary.
         export cisis_dir="$scielo_dir/proc/cisis"
         # ------------------------------------------------------------------------- #
 
-**Out of use**
-
-    .. code-block:: text
-
-        #JAVA RUNTIME ENVIRONMENT VARS
-        export JAVA_HOME=/usr/local/jdk1.5.0_06
 
 Run the script to harvest the SCIMAGO charts.
 
@@ -639,76 +614,3 @@ Run the script to harvest the SCIMAGO charts.
 
         #var/www/scielo/proc/scielo_sjr$> cd shs/
         #var/www/scielo/proc/scielo_sjr$> ./sjr_run.sh
-
-XML Files
----------
-
-Those XML files was used before by Google Scholar indexing tools. Now these XML files are mainly used to publish SciELO Sites metadata to any other institution, project our person interested in the SciELO Metadata.
-
-The root directory for this processing is **/var/www/scielo/proc/scielo_gsc**
-
-The following steps run at the directory proc/scielo_gsc.
-
-Copying the config file.
-
-
-    .. code-block:: text
-
-        #var/www/scielo/proc/scielo_gsc$> cp shs/googleSchoolar_config.sh.template shs/googleSchoolar_config.sh
-
-Editing the config file and changing the paths if necessary.
-
-    .. code-block:: text
-
-        #var/www/scielo/proc/scielo_gsc$> vi shs/googleSchoolar_config.sh
-
-**Config file sample**. If you are already using /var/www/scielo as the application path, so no changes are need.
-
-    .. code-block:: text
-
-        ##################
-        # variáveis com caminho para bases de dados utilizadas no processmento.
-        ##################
-        export database_title="/var/www/scielo/bases/title/title"
-        export database_article="/var/www/scielo/bases/artigo/artigo"
-        export database_issue="/var/www/scielo/bases/issue/issue"
-        export cisis_dir="/var/www/scielo/proc/cisis"
-
-Editing the XML template file.
-
-    .. code-block:: text
-
-        #var/www/scielo/proc/scielo_gsc$> vi formats/googleSchoolar_XMLPubMed.pft
-
-    Where are "localhost", change to your site domain.
-
-Run the script to generate de XML files.
-
-    .. code-block:: text
-
-        #var/www/scielo/proc/scielo_gsc$> cd shs/
-        #var/www/scielo/proc/scielo_gsc/shs$> ./googleSchoolar_run.sh
-
-The XML files will be available at /var/www/scielo/proc/scielo_gsc/output/googlescholar
-
-    .. warning::
-
-        All the content available at /var/www/scielo/proc/scielo_gsc/output/googlescholar must be published in the internet. The publication pattern is:
-
-        artigos.<your scielo site domain>
-
-        Ex:
-
-        artigos.scielo.br
-        artigos.scielo.org.ar
-        artigos.scielo.cl
-        artigos.scielo.org.mx
-        artigos.scielo.org.ve
-        artigos.scielo.isciii.es
-        ...
-
-DOI Request
------------
-
-DOAJ
-----

@@ -1392,18 +1392,29 @@
      4001 - Title MFN in the TITLE DB -->
 
   <display>
-   <pft>ref(['TITLE']val(v4001),' <TITLE_ISSN',| TYPE="|v35|"|,'>',if p(v935) then v935 else v400 fi,'</TITLE_ISSN>'/#)</pft>
+   <pft>
+   ref(['TITLE']val(v4001),
+   ,if p(v435) then
+   		,(' <TITLE_ISSN',| TYPE="|v435^t|"|,'>',v435^*,'</TITLE_ISSN>')
+   ,else
+   ' <TITLE_ISSN',| TYPE="|v35|"|,'>',if p(v935) then v935 else v400 fi,'</TITLE_ISSN>'/
+   ,fi
+   ,#)</pft>
   </display>
 </function>
 <function name="CreateISSN4ISSUEXML" action="replace" tag=4001>
-<!-- Generate XML for ISSN
+        <!-- Generate XML for ISSN
      4001 - Issue MFN in the Issue DB -->
-  <field action="replace" tag="1935"><pft>ref(['TITLE']val(v4001^*),'^t',v35,'^i',v935,if a(v935) then v400 fi)</pft></field>
-  <field action="replace" tag="2935"><pft>ref(['NEWISSUE']val(v4001^i),if size(v935)>0 then v935 else v400 fi)</pft></field>
-  <field action="replace" tag="935"><pft>if a(v2935) or v2935=v1935^i then v1935 else '^i',v2935,'^t',if v1935^t='PRINT' then 'ONLIN' else 'PRINT' fi  fi</pft></field>  
-  <display>
-   <pft>' <ISSUE_ISSN',| TYPE="|v935^t|"|,'>'v935^i'</ISSUE_ISSN>'/</pft>
-  </display>
+        <field action="replace" tag="435" split="occ"><pft>ref(['NEWISSUE']val(v4001^i),(v435/),if a(v435) then v935 fi)</pft></field>
+
+        <field action="replace" tag="1435" split="occ"><pft>if a(v435^t) then ref(['TITLE']val(v4001^*),(v435/),if a(v435) then if p(v935) then v935,'^t',v35/ else v400,'^t',v35/ fi fi)  fi</pft></field>
+
+        <field action="replace" tag="435" split="occ"><pft>if p(v435) and a(v435^t) then (if v435[1]=v1435^* then v1435 fi) fi</pft></field>
+        <field action="replace" tag="435" split="occ"><pft>if a(v435) or a(v435^t) then (v1435/) fi</pft></field>
+
+        <display>
+                <pft>(' <ISSUE_ISSN',| TYPE="|v435^t|"|,'>'v435^*'</ISSUE_ISSN>'/)</pft>
+        </display>
 </function>
 <function name="CreateCopyrightXML" action="replace" tag=4001>
 <!-- Generate XML for Copyright
@@ -1663,9 +1674,9 @@
 					'<ORGDIV><![CDATA['v70^3']]></ORGDIV>'/
 				fi,
 				,'<E-MAIL><![CDATA['v70^e']]></E-MAIL>'/
-			,'<CITY>'v70^c'</CITY>'/
-			,'<STATE>'v70^s'</STATE>'/
-			,'<COUNTRY>'v70^p'</COUNTRY>'/
+			,'<CITY><![CDATA['v70^c']]></CITY>'/
+			,'<STATE><![CDATA['v70^s']]></STATE>'/
+			,'<COUNTRY><![CDATA['v70^p']]></COUNTRY>'/
 			,'</AFFILIATION>'/)
 		</pft>
 	</display>	
@@ -1756,7 +1767,7 @@
         			|<9999>|v9810|</9999>|/
         		</pft>
         	</proc>
-
+			
             <flow action="jump">
                 <pft>
                     if v9901^s : 'e' and v9902^s : 'e' then '' else 'NOUC1' fi
@@ -1767,10 +1778,12 @@
             
             <label>NOUC1</label>
             
+            <field action="replace" tag="9999" split="occ"><pft>mpu,replace(s(v9999^s,|,+|v9999^n),' ','+'),mpl</pft></field>
+            <field action="replace" tag="9999" split="occ"><pft>replace(v9999,'"','&quot;')</pft></field>
             <display>
                 <pft>
                     if p(v9810^s) or p(v9810^n) then
-			        '   <',v1111^b,v1111^c,' SEARCH="', mpu,replace(s(v9999^s,|,+|v9999^n),' ','+'),mpl,'">'/
+			        '   <',v1111^b,v1111^c,' SEARCH="',v9999,'">'/
 					if p(v1300) then
 						('<AFF xref="',v1300,'"/>'/)
 					fi
@@ -2453,6 +2466,7 @@ fi
 <!-- Generate XML for Title of Article
      ^r - MFN 
 	 ^l - Interface Language 
+	 ^t - Text Language 
 	 ^i - International Language 
 	 ^f - Flag: 0 - preserve Html tags in title (absent - default: preserve)
 	            1 - remove Html tags from title
@@ -2486,6 +2500,8 @@ fi
   </proc>
 
   <call name="CreateArticleTitleXML"><pft>(v9999/)</pft></call>
+    <call name="citation_title"><pft>v4001^r,'^l',v4001^t</pft></call>
+
 </function>
 
 <function name="CreateIssueInfoXML" action="replace" tag="4001">
@@ -3151,17 +3167,20 @@ fi
       <parm name="expression"><pft>'HR=',v4001</pft></parm>
       <parm name="count">1</parm>
 
-      <display><pft>'<CLINICALTRIALS>'</pft></display>
+
       <loop>
+         <field action="replace" tag="770" split="occ"><pft>if v770:'&' and not v770:'&amp;' then replace(v770,'&', '&amp;') fi</pft></field>
          <display>
             <pft>
                ,if p(v770) then,
-                  ,('<trial provider="',v770^*,'" id="',v770^a,'" url="',replace(replace(v770^u,'&amp;','&'),'&','&amp;'),'"/>'),
+                  '<CLINICALTRIALS>',
+                  ,('<trial provider="',v770^*,'" id="',v770^a,'" url="',v770^u,'"/>'),
+                  ,'</CLINICALTRIALS>'
                ,fi,
             </pft>
          </display>
       </loop>
-      <display><pft>'</CLINICALTRIALS>'</pft></display>
+      
    </do>
 </function>
 
@@ -3269,6 +3288,7 @@ fi
 <function name="getDOIDB" action="replace" tag="880">
 	<field action="import" tag="7011">7011</field>
 	<field action="replace" tag="9000"><pft>ref(['ARTIGO']l(['ARTIGO'],'Y',v880*1.17),@PROC_SPLIT_MST.PFT,|v|v31,|s|v131,|n|v32,|s|v132)</pft></field>
+	<field action="replace" tag="9000"><pft>if a(v9000) then ref(['NEWISSUE']l(['NEWISSUE'],'Y',v880*1.17),@PROC_SPLIT_MST.PFT,|v|v31,|s|v131,|n|v32,|s|v132) fi</pft></field>
 	<field action="replace" tag="9001"><pft>ref(['TITLE']l(['TITLE'],s('LOC=',v880*1.9)),v68)</pft></field>
 	<field action="replace" tag="9800"><pft>v7011,'doi/',v9001|/|,v9000|/|,v9000,</pft></field>
 
@@ -3302,10 +3322,9 @@ fi
  </function>
  <function name="displayDOIAttribute" action="replace" tag="880">
 	<field action="import" tag="list">7011,237,881,9800</field>
-    <field action="replace" tag="9237"><pft>v237</pft></field>
-	<call name="getDOI"><pft>v880</pft></call>
+    <call name="getDOI"><pft>v880</pft></call>
 	
-	<display><pft>| DOI="|v237|"|,| displayDOILink="|v9237|"|</pft></display>
+	<display><pft>| DOI="|v237|"|,</pft></display>
 	<display><pft>| oldpid="|v881|"|</pft></display>
 	<field action="export" tag="9800">9800</field>
 	<field action="export" tag="list">237</field>
@@ -3314,12 +3333,27 @@ fi
 <function name="getDOI" action="replace" tag="880">
     <field action="import" tag="list">7011,237,9800</field>
 
+    <field action="replace" tag="9012"><pft>v880^l</pft></field>
+    <field action="replace" tag="880"><pft>if p(v880^l) then v880^* fi</pft></field>
+     
+    <field action="replace" tag="337" split="occ"><pft>
+    	ref(['ARTIGO']l(['ARTIGO'],'HR=',v880),@PROC_SPLIT_MST.PFT,(v337/))
+    </pft></field>
+    <field action="replace" tag="237"><pft>
+    	if p(v9012) and nocc(v337) > 1 then
+            (if v9012[1]=v337^l then v337^d, break fi)
+        fi
+    </pft></field>
+    <field action="replace" tag="237"><pft>
+    if a(v237) then
+		ref(['ARTIGO']l(['ARTIGO'],'HR=',v880),@PROC_SPLIT_MST.PFT, v237)
+	fi
+    </pft></field>
     <flow action="jump"><pft>if p(v237) then 'ok' fi</pft></flow>
     
     <!-- consulta a base doi/query -->
     <field action="replace" tag="237"><pft>if a(v237) then ref(['DOI']l(['DOI'],'pid=',v880),v237^*) fi</pft></field>
 	<field action="replace" tag="237"><pft>if a(v237) then ref(['DOIQUERY']l(['DOIQUERY'],'PID=',v880),v237) fi</pft></field>
-	
 	
     <flow action="jump"><pft>if p(v237) then 'ok' fi</pft></flow>
 	<field action="replace" tag="881"><pft>ref(['ARTIGO']l(['ARTIGO'],'HR=',v880),@PROC_SPLIT_MST.PFT,v881)</pft></field>
@@ -3548,6 +3582,26 @@ fi
 	
 </function>
 
+<function name="citation_title" action="replace" tag="4000">
+    <do task="mfnrange">
+        <parm name="db">ARTIGO</parm>
+        <parm name="from"><pft>v4000^*</pft></parm>
+        <parm name="count">1</parm>
+
+        <loop>
+			<field action="import"  tag="list">4000</field>
+            <display><pft>@PROC_SPLIT_MST.PFT,</pft></display>
+            <display><pft>
+            if v706='h' then 
+            	(if v4000^l[1]=v12^l then ,
+            		'<citation_title lang="',v12^l,'">',v12^*,| |v12^s,'</citation_title>',
+            	fi)
+            fi
+            </pft></display>
+        </loop>
+    </do>
+</function>
+
 	<function name="CreateArticleTitleForReference" action="replace" tag="4000">
 		<!--
 		Prints article title if present. Otherwise section name.
@@ -3585,12 +3639,14 @@ fi
 					      '  <NOHTML-TITLE><![CDATA[',
 					          ,v12^*[1],| |v12^s[1],
 						    ,']]></NOHTML-TITLE>'/,
+
+
                           fi
                           )		
                     fi
 				   </pft>
 				</display>	
-
+				<call name="citation_title"><pft>if v706='f' then f(mfn-1,1,0),'^l',v3100 fi</pft></call>
 					
 				<display>
 					<pft>
@@ -3638,29 +3694,51 @@ fi
 	<call name="RelatedDocument"><pft>if a(v241) then '^tcorrection^e','corrected-article'v880,| OR corrected-article|v237 fi</pft></call>
 </function>
 
+
+
 <function name="AllRelatedDocuments" action="replace" tag="4000">
 	<field action="replace"	tag="880"><pft>v4000[1]</pft></field>
 	<field action="import"	tag="list">241,237,41</field>
 
-	<!-- documento: errata | relacionado: artigo -->
-	<call name="FindRelatedKeys"><pft>if a(v41) and p(v241) then (if v241^t<>'pr' then v880[1],break fi) fi</pft></call>
-	<!-- documento: press release | relacionado: artigo -->
-	<field action="add"	tag="9241"><pft>if p(v41) then 'PR'v880 fi</pft></field>
-	<call name="RelatedDocument"><pft>if a(v41) then if p(v9241) then '^tcorrected-article^e',(v9241+| or |) fi fi</pft></call>
+	<!-- documento => retratacao ->
+	<call name="FindPIDbyExpression"><pft>'corrected-article'v880,| OR corrected-article|v237</pft></call>
+	<call name="RelatedDocument"><pft>v9880,|^t|v241^t</pft></call>
+	<field action="delete" tag="list">9880</field>
 
-	<!-- documento: artigo | relacionado: errata -->
-	<call name="RelatedDocument"><pft>if a(v241) then '^tcorrection^e','corrected-article'v880,| OR corrected-article|v237 fi</pft></call>
+	<!-- documento => errata ->
+	<call name="FindPIDbyExpression"><pft>'retracted-article'v880,| OR retracted-article|v237</pft></call>
+	<call name="RelatedDocument"><pft>v9880,|^t|v241^t</pft></call>
+	<field action="delete" tag="list">9880</field>
 
-	<!-- documento: artigo | relacionado: press release -->
-	<call name="RelatedDocument"><pft>(if v241^t='pr' then '^tpress-release^e',|HR=|v241^i/ fi)</pft></call>
+	<!-- artigo => pr -->
+	<call name="RelatedDocument"><pft>if v241^t='pr' then v241^i fi,|^t|v241^t</pft></call>
+
+	<!-- * => artigo -->
+    <list action="load" type="list"><pft>(v241/)</pft></list>
+    <do task="list">
+        <field action=define tag="1001">Isis_Current</field>
+        <field action=define tag="1002">Isis_Items</field>
+        <field action=define tag="1">Isis_Item</field>
+        <loop>
+            <field action="import" tag="list">880</field>
+            <call name="FindPIDbyDOI"><pft>if v1^t<>'pr' and v1^n='doi' then v1^i,'^p'v880 fi</pft></call>
+            <call name="RelatedDocument"><pft>v9880,if a(v9880) then v1^i fi,|^t|v1^t</pft></call>
+        </loop>
+    </do>
+    <list action="delete">now</list>
+
+	<field action="delete" tag="list">9880</field>
+
 </function>
 
 <function name="RelatedDocument" action="replace" tag="4000">
 	<display><pft>'<!-- RelatedDocument: ',v4000,' -->'/</pft></display>
+	<flow action="jump"><pft>if v4000*0.1='^' then 'END' fi</pft></flow>
 
     <do task="search">
 		<parm name="db">ARTIGO</parm>
-		<parm name="expression"><pft>v4000^e</pft></parm>
+		<parm name="expression"><pft>'HR='v4000^*</pft></parm>
+		<parm name="count">1</parm>
 
         <loop>
         	<display><pft>@PROC_SPLIT_MST.PFT,</pft></display>
@@ -3676,106 +3754,79 @@ fi
                 '	<ISSUE>'
               		,v30,' ',v65*0.4,';',v31,if p(v31) then |(|v9032|)| else v9032 fi,|: |v9014,
               	'</ISSUE>'/
-              	'<DOCTITLE>',v12^*[1],'</DOCTITLE>'/
+              	'<DOCTITLE><![CDATA[',v12^*[1],']]></DOCTITLE>'/
                 '</RELATED-DOC>'/,
                 </pft>
             </display>        
             <field action="export" tag="list">880</field>
         </loop>
     </do>
-    <field action="import" tag="list">241</field>
+    
     <display>
         <pft>
-        	if a(v880) then
-        		if v4000^t<>'correction' then
-	        		'  <NOT-FOUND-RELATED-DOC-ERROR>',v4000,'</NOT-FOUND-RELATED-DOC-ERROR>'/
-	        	fi
-        	fi
+        	,if a(v880) then
+        		,'  <RELATED-DOC TYPE="',v4000^t,'"',' DOI="',v4000^*,'"/>'/,
+        	,fi
         </pft>
     </display> 
+    <label>END</label>
 </function>
 
-<function name="FindRelatedKeys" action="replace" tag="4000">
-	<field action="replace"	tag="880"><pft>v4000</pft></field>
-	<field action="import"	tag="list">241</field>
-
-	<call name="FindRelatedKeysByDOI">
-        <pft>
-        	(if v241^n='doi' then v241/ fi)
-        </pft>
-    </call>
-    
-	<field action="replace"	tag="9241" split="occ"><pft>(v9241/),(if v241^n='doi' then 'DOI='v241^i/ else if v241^n='pid' then |HR=|v241^i/ fi fi)</pft></field>
-	
-    <field action="export" tag="list">9241</field>
-</function>
-
-<function name="FindRelatedKeysByDOI" action="replace" tag="241">
-	<field action="import" tag="list">880</field>
+<function name="FindPIDbyExpression" action="replace" tag="4000">
 	<do task="search">
 		<parm name="db">ARTIGO</parm>
-		<parm name="expression">DOI=$</parm>
+		<parm name="expression"><pft>v4000</pft></parm>
 		<parm name="count">1</parm>
 
         <loop>
         	<display><pft>@PROC_SPLIT_MST.PFT,</pft></display>
-        	<field action="replace"	tag="9999">DOI_IS_INDEXED</field>
-            <field action="export" tag="list">9999</field>
+        	<field action="replace"	tag="9880"><pft>v880</pft></field>
+            <field action="export" tag="list">9880</field>
         </loop>
     </do>
-    <flow action="jump"><pft>v9999</pft></flow>
-	
-	<label>DOI_IS_NOT_INDEXED</label>
-    <call name="FindNotIndexedDOI"><pft>v880</pft></call>
-
-    <label>DOI_IS_INDEXED</label>
-    <field action="export" tag="list">9241</field>
+    <field action="export" tag="list">9880</field>
 </function>
 
-<function name="FindNotIndexedDOI" action="replace" tag="4000">
-	<field action="replace"	tag="880"><pft>v4000[1]</pft></field>
-	<field action="import"	tag="list">241</field>
+<function name="FindPIDbyDOI" action="replace" tag="4000">
+	<display><pft>'<!-- FindPIDbyDOI: ',v4000,' -->'/</pft></display>
+	<do task="search">
+		<parm name="db">ARTIGO</parm>
+		<parm name="expression">|DOI=|v4000^*</parm>
+		<parm name="count">1</parm>
 
-	<field action="replace" tag="8241" split="occ">
-		<pft>(v241/)</pft>
-	</field>
-	<display><pft>('<!-- v8241: ',v8241,' -->'/)</pft></display>
-			
+        <loop>
+        	<display><pft>@PROC_SPLIT_MST.PFT,</pft></display>
+        	<field action="replace"	tag="9880"><pft>v880</pft></field>
+            <field action="export" tag="list">9880</field>
+        </loop>
+    </do>
+    <flow action="jump"><pft>if p(v9880) then 'FIM' fi</pft></flow>
+	
     <do task="keyrange">
 		<parm name="db">ARTIGO</parm>
-		<parm name="from"><pft>'HR=',v880</pft></parm>
-		<parm name="to"><pft>'HR=',v880*0.10</pft></parm>
+		<parm name="from"><pft>'HR=',v4000^p*0.14,'9'</pft></parm>
+		<parm name="to"><pft>'HR=',v4000^p*0.10</pft></parm>
 		<parm name="reverse">On</parm>
 
 		<field action="define" tag="4880">Isis_Key</field>
+		<field action="define" tag="1003">Isis_Posting</field>
 		<loop>
-			<field action="import" tag="list">8241,9241</field>
+			<field action="import" tag="list">4000</field>
 			<field action="replace" tag="237">
 				<pft>ref(['ARTIGO']l(['ARTIGO'],v4880),@PROC_SPLIT_MST.PFT,v237)</pft>
 			</field>
-			<field action="delete" tag="9880">ALL</field>
+			
 			<field action="replace" tag="9880">
 				<pft>
-					(if v237[1]=v8241^i then 
-						v4880[1]*3,break
-					fi)
+					if v237=v4000^* then ref(['ARTIGO']l(['ARTIGO'],v4880),@PROC_SPLIT_MST.PFT,v880) fi
 				</pft>
 			</field>
-			<flow action="skip"><pft>if a(v9880) then 'Next' fi</pft></flow>
-
-			<field action="add" tag="9241"><pft>|HR=|v9880</pft></field>
-			
-			<field action="replace" tag="7241" split="occ"><pft>(v8241/)</pft></field>
-			<field action="delete" tag="8241">ALL</field>
-			<field action="replace" tag="8241" split="occ">
-				<pft>(if v237[1]=v7241^i then else v7241/ fi)</pft>
-			</field>
-
-			<field action="export" tag="list">8241,9241</field>
-			<flow action="skip"><pft>if a(v8241) then 'Quit' fi</pft></flow>
+			<field action="export" tag="list"><pft>if p(v9880) then '9880' fi</pft></field>
+			<flow action="skip"><pft>if p(v9880) then 'Quit' fi</pft></flow>
 		</loop>	
 	</do>
-	<field action="export" tag="list">9241</field>
+
+    <label>FIM</label>
+    <field action="export" tag="list">9880</field>
 </function>
-	
 
