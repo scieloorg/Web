@@ -16,7 +16,7 @@
 			<html xmlns="http://www.w3.org/1999/xhtml" >
 			<head>
 				<title>
-					<xsl:value-of select="ARTICLE/NOHTML-TITLE" />
+					<xsl:value-of select="ARTICLE/citation_title" />
 				</title>
 				<meta http-equiv="Pragma" content="no-cache"/>
 				<meta http-equiv="Expires" content="Mon, 06 Jan 1990 00:00:01 GMT"/>
@@ -24,7 +24,8 @@
                 <!--Meta Google Scholar-->
                 <meta name="citation_journal_title" content="{TITLEGROUP/TITLE}"/>
                 <meta name="citation_publisher" content="{normalize-space(substring-after(COPYRIGHT,'-'))}"/>
-                <meta name="citation_title" content="{ARTICLE/NOHTML-TITLE}"/>                                
+                <meta name="citation_title" content="{ARTICLE/citation_title}"/>
+                <meta name="citation_language" content="{ARTICLE/citation_title/@lang}"/>                                
                 <meta name="citation_date" content="{concat(ARTICLE/ISSUEINFO/@MONTH,'/',ARTICLE/ISSUEINFO/@YEAR)}"/>
                 <meta name="citation_volume" content="{ARTICLE/ISSUEINFO/@VOL}"/>
                 <meta name="citation_issue" content="{ARTICLE/ISSUEINFO/@NUM}"/>
