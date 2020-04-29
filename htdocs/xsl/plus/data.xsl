@@ -347,7 +347,7 @@
         <xsl:value-of select="@pub-id-type"/>: <xsl:value-of select="."/>
     </xsl:template>
     <xsl:template match="pub-id[@pub-id-type='doi']| comment[contains(.,'doi:')]"
-        mode="DATA-DISPLAY"> http://dx.doi.org/<xsl:value-of select="."/>
+        mode="DATA-DISPLAY"> https://doi.org/<xsl:value-of select="."/>
     </xsl:template>
     <xsl:template match="suffix">
         <xsl:value-of select="concat(' ',.)"/>
