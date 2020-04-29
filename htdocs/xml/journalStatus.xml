@@ -45,7 +45,7 @@
 	</translation>
 	<translation lang="en">
 		<term code="CURRENT-SITUATION">Current status of the journal in the collection: </term>
-		<term code="D">Deceased </term>
+		<term code="D">Ceased </term>
 		<term code="S">Indexing interrupted</term>
 		<term code="E">No longer open access</term>
 		
