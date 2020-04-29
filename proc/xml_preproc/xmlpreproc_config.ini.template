@@ -1,0 +1,15 @@
+
+# Nome da colecao
+COLLECTION=SciELO TESTE
+
+# Caminho do serial do XML
+XML_SERIAL_LOCATION=../bases_xml.000/serial
+
+# Emails para as mensagens
+MAIL_TO=marca@example.com
+MAIL_CC=infras@example.com, prod@example.com
+MAIL_BCC=roberta@example.com
+MAIL_TO_TEST=roberta.takenaka@example.com
+
+# modo desenvolvimento ou producao. Preencher com False se for para producao
+TEST=True
