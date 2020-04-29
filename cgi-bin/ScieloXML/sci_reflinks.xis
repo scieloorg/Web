@@ -164,7 +164,7 @@ IsisScript que gera o XML Para a tela de links da referencia bibliografica
 
 	<!-- Se o doi vier via cgi ou existir no registro c ou r n�o h� necessidade de consultar a base doi -->
 	<call name="getDOILink"><pft>if a(v9352) then v3002 fi</pft></call>
-	<field action="replace" tag="9999"><pft>if p(v9352) then '<a href="http://dx.doi.org/',v9352,'">CrossRef</a>' fi</pft></field>
+	<field action="replace" tag="9999"><pft>if p(v9352) then '<a href="https://doi.org/',v9352,'">CrossRef</a>' fi</pft></field>
 	
 	
 
