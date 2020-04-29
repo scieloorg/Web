@@ -150,7 +150,7 @@
     </pft>
    </display>
     
-   	<call name="displayDOIAttribute"><pft>v880</pft></call> 
+   	<call name="displayDOIAttribute"><pft>v880,|^l|v4001^t</pft></call>
 	<!-- fixed 20040622 -->
 	<field action="replace" tag="4040" split="occ"><pft>v4001^t</pft></field> 
 	<call name="showText"><pft>v264</pft></call>
@@ -159,7 +159,7 @@
 	<display><pft>'>'/</pft></display>
 	<display><pft>if p(v264) then '<EMBARGO date="',v264,'" text="',v8264,'"/>'/ fi</pft></display>
 	
-	<call name="insertElementRelatedToDocument"><pft>if p(v241) or p(v41) then  (v880[1],|^x|v41[1],v241,|^v|v31[1],|^w|v131[1],|^n|v32[1],|^y|v132[1],|^d|v65[1]*0.4/) fi</pft></call>
+	<!-- <call name="insertElementRelatedToDocument"><pft>if p(v241) or p(v41) then  (v880[1],|^x|v41[1],v241,|^v|v31[1],|^w|v131[1],|^n|v32[1],|^y|v132[1],|^d|v65[1]*0.4/) fi</pft></call> -->
     
     <call name="AllRelatedDocuments"><pft>v880</pft></call>
     
@@ -170,8 +170,7 @@
 		</pft>
 	</call>
 
-   <call name="CreateArticleTitle1XML"><pft>'^r'v4001^a'^l'v4001^l'^i'v4001^i'^h1'</pft></call>
-
+   <call name="CreateArticleTitle1XML"><pft>'^r'v4001^a'^l'v4001^l'^t'v4001^t'^i'v4001^i'^h1'</pft></call>
 
    <call name="CreateAuthorsGroupXML"><pft>v880</pft></call>
    <call name="CreateLattesGroupXML"><pft>v880</pft></call>	   
