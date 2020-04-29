@@ -178,7 +178,9 @@
 		<meta name="citation_journal_title" content="{TITLEGROUP/TITLE}"/>
 		<meta name="citation_journal_title_abbrev" content="{TITLEGROUP/SHORTTITLE}"/>
 		<meta name="citation_publisher" content="{normalize-space(COPYRIGHT)}"/>
-		<meta name="citation_title" content="{ISSUE/ARTICLE/TITLE}"/>
+		<meta name="citation_title" content="{ISSUE/ARTICLE/citation_title}"/>
+		<meta name="citation_language"
+			content="{ISSUE/ARTICLE/citation_title/@lang}"/>
 		<meta name="citation_date"
 			content="{concat(substring(ISSUE/@PUBDATE,5,2),'/',substring(ISSUE/@PUBDATE,1,4))}"/>
 		<meta name="citation_volume" content="{ISSUE/@VOL}"/>
@@ -225,7 +227,7 @@
 		<html xmlns="http://www.w3.org/1999/xhtml">
 			<head>
 				<title>
-					<xsl:value-of select="ISSUE/ARTICLE/TITLE" />
+					<xsl:value-of select="ISSUE/ARTICLE/citation_title" />
 				</title>
 				<xsl:apply-templates select="." mode="meta_names"/>
 
@@ -356,7 +358,7 @@
 		<html xmlns="http://www.w3.org/1999/xhtml">
 			<head>
 				<title>
-					<xsl:value-of select="ISSUE/ARTICLE/TITLE" />
+					<xsl:value-of select="ISSUE/ARTICLE/citation_title" />
 				</title>
 				<xsl:apply-templates select="." mode="meta_names"/>
 				<xsl:apply-templates select="." mode="version-css"/>
@@ -397,7 +399,7 @@
 	
 	<xsl:template match="SERIAL" mode="version-head-title">
 		<xsl:value-of select="TITLEGROUP/TITLE" disable-output-escaping="yes"/> - <xsl:value-of
-			select="normalize-space(ISSUE/ARTICLE/TITLE)" disable-output-escaping="yes"/>
+			select="normalize-space(ISSUE/ARTICLE/citation_title)" disable-output-escaping="yes"/>
 	</xsl:template>
 
 	<xsl:template match="SERIAL" mode="version-css">
@@ -424,7 +426,7 @@
 			<xsl:when test="$version='xml-file'">
 				<script language="javascript" src="applications/scielo-org/js/jquery-1.4.2.min.js"/>
 				<script language="javascript" src="applications/scielo-org/js/toolbox.js"/>
-				<xsl:if test="$original//math or $original//mml:math">
+				<xsl:if test="$original//math or $original//mml:math or $original//tex-math">
 					<script type="text/javascript"
 						src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 					</script>
@@ -575,7 +577,7 @@
 		</xsl:call-template>
 	</xsl:template>
 
-	<xsl:template match="p[contains(.,'apenas em PDF')] | p[contains(.,'available only in PDF')] ">
+	<xsl:template match="p[contains(.,'en PDF') and contains(., 'disponible')] | p[contains(.,'apenas em PDF')] | p[contains(.,'available only in PDF')] ">
 		<p>
 			<xsl:apply-templates select="$LANGUAGES_ELEM//PDF_LANGS/LANG[.=$TEXT_LANG]" mode="link">
 				<xsl:with-param name="text" select="."/>
