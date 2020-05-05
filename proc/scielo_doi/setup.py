@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 import os
 import setuptools
 
@@ -33,15 +32,11 @@ setuptools.setup(
     install_requires=requires,
     # dependency_links=[
     # ],
-    python_requires=">=3.6",
     test_suite="tests",
     classifiers=[
         "Development Status :: 2 - Pre-Alpha",
         "Environment :: Other Environment",
         "License :: OSI Approved :: BSD License",
-        "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.6",
-        "Programming Language :: Python :: 3 :: Only",
     ],
 
     # entry_points="",

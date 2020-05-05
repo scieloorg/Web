@@ -1,6 +1,5 @@
 # coding=utf-8
 import os
-from datetime import datetime
 
 
 CISIS = "cisis/mx"
@@ -20,6 +19,8 @@ def update_command(db, mfn, count, proc):
 
 
 def execute(cmd):
+    # TODO usar subprocess
+    # TODO remover esta funcao deste modulo
     os.system(cmd)
 
 
@@ -43,15 +44,12 @@ def proc_update_doi(file_path, doi, doi_items):
         )
 
 
-def proc_update_datetime(file_path):
+def proc_update_datetime(file_path, update_date, update_time):
     """
     Retorna a "proc" que atualiza
     os campos v91 (data) e v92 (hora) da atualização
     """
-    now = datetime.now().isoformat()
-    d = now[:10].replace("-", "")
-    t = now[11:16].replace(":", "")
-    proc = "'d91d92a91~{}~a92~{}~'".format(d, t)
+    proc = "'d91d92a91~{}~a92~{}~'".format(update_date, update_time)
     return "if v706='o' and v702='{}' then {} fi".format(
             file_path,
             proc
@@ -59,14 +57,14 @@ def proc_update_datetime(file_path):
 
 
 def get_commands_to_update_ohf_records_of_a_doc(
-        db, file_path, h_mfn, doi, doi_items):
+        db, file_path, h_mfn, doi, doi_items, update_date, update_time):
     """
     Gera dois comandos para atualizar 1 documento os registros:
     - h e f: os campos v237 com DOI original e 337 todos os DOI com idioma
     - o: os campos v91 (data) e v92 (hora) da atualização
     """
     o_mfn = str(int(h_mfn) - 1)
-    o_proc = proc_update_datetime(file_path)
+    o_proc = proc_update_datetime(file_path, update_date, update_time)
     o_cmd = update_command(db, o_mfn, 1, o_proc)
     hf_proc = proc_update_doi(file_path, doi, doi_items)
     hf_cmd = update_command(db, h_mfn, 2, hf_proc)
