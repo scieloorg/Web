@@ -27,7 +27,7 @@ class TestCisis(TestCase):
         ]
         result = cisis.proc_update_doi(file_path, doi, doi_items)
         expected = ("if 'hf':v706 and v702='xml/abc/v1n1/a.xml' then "
-                    "'d337d237a237~10.1590/1809-4392201902421.1~',"
+                    "'d337d237a237~10.1590/1809-4392201902421~',"
                     "'a337~^lpt^d10.1590/1809-4392201902421.1~',"
                     "'a337~^len^d10.1590/1809-4392201902421.2~',"
                     "'a337~^les^d10.1590/1809-4392201902421.3~' fi")
