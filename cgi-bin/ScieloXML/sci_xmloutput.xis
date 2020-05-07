@@ -53,7 +53,8 @@
 
 		<field action="cgi" tag="2005">search</field>
 		<call name="error"><pft>"missing parameter: expression"n2005</pft></call>
-		<parm name="expression"><pft>v2005</pft></parm>
+		<field action="replace" tag="2880"><pft>if v2005*0.3='IV=' then v2005*3.26 fi</pft></field>
+		<parm name="expression"><pft>|HR=|v2880,| or R=|v2880|$|,| or OU=|v2880,if a(v2880) then v2005 fi</pft></parm>
 
 		<field action="cgi" tag="2002">from</field>
 		<parm name="from"><pft>v2002</pft></parm>
