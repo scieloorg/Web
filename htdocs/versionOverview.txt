@@ -1,3 +1,6 @@
+v5.42
+Altera exibição de ISSN no abstract e no como citar do artigo para exibir o online (#719)
+
 v5.41
 Modifica fallback para requisições a documentos em idiomas indisponíveis (#710)
 
