@@ -9,7 +9,7 @@
 	<xsl:variable name="PATH_CGI_IAH" select="//PATH_CGI_IAH"/>
 	<xsl:variable name="ISSUE_ISSN">
 		<xsl:choose>
-			<xsl:when test="//ISSUE_ISSN/@TYPE='ONLIN'">
+			<xsl:when test="//ISSUE_ISSN[@TYPE='ONLIN']">
 				<xsl:value-of select="//ISSUE_ISSN[@TYPE='ONLIN']"/>
 			</xsl:when>
 			<xsl:otherwise>
