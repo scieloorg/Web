@@ -1,3 +1,10 @@
+v5.43
+Cria módulo cisis e testes para gerar comandos para atualizar uma dada base com dados de DOI
+Altera exibição de ISSN no abstract e no como citar do artigo
+Considerar a formatação "italic" nas palavras-chave
+Ajusta o script para identificar o arquivo de configuração baseado na instância em que está instalado
+Atualiza indicadores H do Google para o ano 2020
+
 v5.42
 Altera exibição de ISSN no abstract e no como citar do artigo para exibir o online (#719)
 
