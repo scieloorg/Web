@@ -3594,7 +3594,7 @@ fi
             <display><pft>
             if v706='h' then 
             	(if v4000^l[1]=v12^l then ,
-            		'<citation_title lang="',v12^l,'">',v12^*,| |v12^s,'</citation_title>',
+            		'<citation_title lang="',v12^l,'"><![CDATA[',v12^*,| |v12^s,']]></citation_title>',
             	fi)
             fi
             </pft></display>
