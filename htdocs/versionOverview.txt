@@ -1,3 +1,6 @@
+v5.43
+Resolve problema de indisponibilidade de algumas páginas de resumo por conter problema na geração do `<citation_title/>` (#733)
+
 v5.42
 Cria módulo cisis e testes para gerar comandos para atualizar uma dada base com dados de DOI
 Altera exibição de ISSN no abstract e no como citar do artigo para exibir o online (#719)
