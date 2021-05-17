@@ -249,6 +249,34 @@
 						(|<ORGNAME><![CDATA[|v17^*|]]></ORGNAME>|),
 						'</AUTHORS_REFERENCE>'
 					fi
+
+					proc('a9070~',
+						if p(v30) then
+							,'journal',
+						else
+							,if p(v53) then
+								,'conference',
+							else
+								if p(v51) then
+									,'thesis',
+								else
+									if p(v150) then
+										,'patent',
+									else
+										if p(v18) then
+											,'book',
+										else
+											if p(v18) then
+												,'link',
+											else
+												,'undefined',
+											fi
+										fi
+									fi
+								fi
+							fi
+						fi
+					,'~')
 				'</REFERENCE>' 
 			</pft>
 		</display>
