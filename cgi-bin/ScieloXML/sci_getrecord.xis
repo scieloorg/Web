@@ -313,7 +313,7 @@
 						(
 							|<CITY><![CDATA[|v56^*|]]></CITY>|,
 							|<STATE><![CDATA[|v56^e|]]></STATE>|,
-							|<COUNTRY><![CDATA[|v57|]]></COUNTRY>|,
+							|<COUNTRY><![CDATA[|v57^*|]]></COUNTRY>|,
 						)
 						'</CONFERENCE_ADDRESS_REFERENCE>'
 					fi
