@@ -208,7 +208,6 @@
 		<call name="PROC_SPLIT_MST"><pft>v32701</pft></call>
 		<display>
 			<pft>
-					if p(v30) or p(v18) then '<JOURNAL_OR_BOOK_REFERENCE><![CDATA[' ,v30,v18, ']]></JOURNAL_OR_BOOK_REFERENCE>' fi
 					if p(v31) then '<VOLUME_REFERENCE><![CDATA[',v31^*,']]></VOLUME_REFERENCE>' fi
 					if p(v14) then '<PAGE_REFERENCE><![CDATA[',v14^*,']]></PAGE_REFERENCE>' fi
 					if p(v65) then '<YEAR_REFERENCE><![CDATA[',v65*0.4,']]></YEAR_REFERENCE>' fi
@@ -277,6 +276,10 @@
 							fi
 						fi
 					,'~')
+
+					if p(v18) or p(v30) then 
+						'<SOURCE_REFERENCE LANG="',v18^l,'" TYPE="',v9070,'"><![CDATA[',v18^*,v30,']]></SOURCE_REFERENCE>',
+					fi				
 				'</REFERENCE>' 
 			</pft>
 		</display>
