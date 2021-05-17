@@ -196,7 +196,6 @@
    <field action="export" tag="list">40,8000,8264</field>   
   </loop>
  </do>
- <call name="display_fulltext"><pft>if v8264<>'no' then v4001,'^x',v8000 fi</pft></call>
  
 <!--################################REFERENCE##############################################-->
 
