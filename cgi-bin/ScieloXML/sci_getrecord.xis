@@ -248,6 +248,17 @@
 						'</AUTHORS_REFERENCE>'
 					fi
 
+					if p(v94) then
+						'<AUTHORS_REFERENCE TYPE="94">',
+						(
+							'<AUTHOR LANG_OR_ROLE="'v94^r'">'
+							|<NAME><![CDATA[|v94^n|]]></NAME>|,
+							|<SURNAME><![CDATA[|v94^s|]]></SURNAME>|,
+							'</AUTHOR>'
+						)
+						'</AUTHORS_REFERENCE>'
+					fi
+
 					proc('a9070~',
 						if p(v30) then
 							,'journal',
