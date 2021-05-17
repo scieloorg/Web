@@ -300,6 +300,9 @@
 						)
 						'</CONFERENCE_ADDRESS_REFERENCE>'
 					fi
+
+					,|<EDITION_REFERENCE><![CDATA[|v63|]]></EDITION_REFERENCE>|,
+					
 				'</REFERENCE>' 
 			</pft>
 		</display>
