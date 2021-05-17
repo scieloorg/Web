@@ -303,6 +303,19 @@
 
 					,|<EDITION_REFERENCE><![CDATA[|v63|]]></EDITION_REFERENCE>|,
 					
+					,|<THESIS_DATE_REFERENCE><![CDATA[|v45|]]></THESIS_DATE_REFERENCE>|,
+					,|<THESIS_INSTITUTION_REFERENCE><![CDATA[|v50|]]></THESIS_INSTITUTION_REFERENCE>|,
+					,|<THESIS_DEGREE_REFERENCE><![CDATA[|v51|]]></THESIS_DEGREE_REFERENCE>|,
+					if p(v46) then
+						'<THESIS_ADDRESS_REFERENCE>',
+						(
+							|<CITY><![CDATA[|v46^*|]]></CITY>|,
+							|<STATE><![CDATA[|v46^e|]]></STATE>|,
+							|<COUNTRY><![CDATA[|v47|]]></COUNTRY>|,
+						)
+						'</THESIS_ADDRESS_REFERENCE>'
+					fi
+
 				'</REFERENCE>' 
 			</pft>
 		</display>
