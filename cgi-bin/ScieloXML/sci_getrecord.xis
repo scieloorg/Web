@@ -210,6 +210,7 @@
 			<pft>
 				'<REFERENCE NUM="',v118,'">'
 					if p(v12) then '<TITLE_REFERENCE LANG="',v12^l,'"><![CDATA[',v12^*,']]></TITLE_REFERENCE>' fi
+
 					if p(v10) then 
 						'<AUTHORS_REFERENCE TYPE="10">',
 						(
@@ -339,6 +340,9 @@
 						'</PUBLISHER_ADDRESS_REFERENCE>'
 					fi
 					
+					,|<SPONSOR_REFERENCE><![CDATA[|v58|]]></SPONSOR_REFERENCE>|,
+					,|<EDITOR_REFERENCE><![CDATA[|v29|]]></EDITOR_REFERENCE>|,
+					,|<COMMENT_REFERENCE><![CDATA[|v61|]]></COMMENT_REFERENCE>|,
 				'</REFERENCE>' 
 			</pft>
 		</display>
