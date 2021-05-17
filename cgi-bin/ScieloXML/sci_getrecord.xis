@@ -138,6 +138,9 @@
     fi
         ,' AREASGEO="',ref(['areasgeo']l(['areasgeo']v880),f(nocc(v880),2,0)),'"',
         ,' PROCESSDATE="',ref(l('OU=',v880),proc(if val(v32701^m) > 0 then,'R../bases/artigo/',v32701^*,',',v32701^m , fi),v91),'"',
+        ,' RECEIVED_DATE="'v112'" ',
+        ,' ACCEPTED_DATE="'v114'" ',
+        ,' REVIEWED_DATE="'v116'" ',
         ,' CURR_DATE="',mid(date,1,8),'"'
         ,if val(mid(v223,7,2))>0 then                 
                         ,' ahpdate="',v223,'"'
