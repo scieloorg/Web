@@ -208,10 +208,6 @@
 		<call name="PROC_SPLIT_MST"><pft>v32701</pft></call>
 		<display>
 			<pft>
-					if p(v10) then '<AUTHORS_REFERENCE><![CDATA[',(if iocc>1 then ', ' fi,v10^s| |,v10^n),']]></AUTHORS_REFERENCE>' fi
-					if p(v11) then '<AUTHORS_REFERENCE><![CDATA[',(s(v11^*)+|, |),']]></AUTHORS_REFERENCE>' fi
-					if p(v16) then '<AUTHORS_REFERENCE><![CDATA[',(if iocc>1 then ', ' fi,v16^s| |,v16^n),']]></AUTHORS_REFERENCE>' fi
-					if p(v17) then '<AUTHORS_REFERENCE><![CDATA[',(s(v17^*)+|, |),']]></AUTHORS_REFERENCE>' fi
 					if p(v30) or p(v18) then '<JOURNAL_OR_BOOK_REFERENCE><![CDATA[' ,v30,v18, ']]></JOURNAL_OR_BOOK_REFERENCE>' fi
 					if p(v31) then '<VOLUME_REFERENCE><![CDATA[',v31^*,']]></VOLUME_REFERENCE>' fi
 					if p(v14) then '<PAGE_REFERENCE><![CDATA[',v14^*,']]></PAGE_REFERENCE>' fi
@@ -220,6 +216,39 @@
 					if p(v880) then '<PID_REFERENCE><![CDATA[',v880,']]></PID_REFERENCE>' fi
 				'<REFERENCE NUM="',v118,'">'
 					if p(v12) then '<TITLE_REFERENCE LANG="',v12^l,'"><![CDATA[',v12^*,']]></TITLE_REFERENCE>' fi
+					if p(v10) then 
+						'<AUTHORS_REFERENCE TYPE="10">',
+						(
+							'<AUTHOR>'
+							|<NAME><![CDATA[|v10^n|]]></NAME>|,
+							|<SURNAME><![CDATA[|v10^s|]]></SURNAME>|,
+							'</AUTHOR>'
+						)
+						'</AUTHORS_REFERENCE>'
+					fi
+					
+					if p(v11) then
+						'<AUTHORS_REFERENCE TYPE="11">',
+						(|<ORGNAME><![CDATA[|v11^*|]]></ORGNAME>|),
+						'</AUTHORS_REFERENCE>'
+					fi
+
+					if p(v16) then 
+						'<AUTHORS_REFERENCE TYPE="16">',
+						(
+							'<AUTHOR>'
+							|<NAME><![CDATA[|v16^n|]]></NAME>|,
+							|<SURNAME><![CDATA[|v16^s|]]></SURNAME>|,
+							'</AUTHOR>'
+						)
+						'</AUTHORS_REFERENCE>'
+					fi
+
+					if p(v17) then
+						'<AUTHORS_REFERENCE TYPE="17">',
+						(|<ORGNAME><![CDATA[|v17^*|]]></ORGNAME>|),
+						'</AUTHORS_REFERENCE>'
+					fi
 				'</REFERENCE>' 
 			</pft>
 		</display>
