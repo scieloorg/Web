@@ -325,6 +325,8 @@
 					,|<ISSUE_TITLE_REFERENCE><![CDATA[|v33|]]></ISSUE_TITLE_REFERENCE>|,
 					,|<ISSUE_PART_REFERENCE><![CDATA[|v34|]]></ISSUE_PART_REFERENCE>|,
 					
+					,|<SERIE_REFERENCE><![CDATA[|v25|]]></SERIE_REFERENCE>|,
+					
 				'</REFERENCE>' 
 			</pft>
 		</display>
