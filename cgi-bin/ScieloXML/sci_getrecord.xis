@@ -208,7 +208,6 @@
 		<call name="PROC_SPLIT_MST"><pft>v32701</pft></call>
 		<display>
 			<pft>
-					if p(v12) then '<TITLE_REFERENCE><![CDATA[',v12^*,']]></TITLE_REFERENCE>' fi
 					if p(v10) then '<AUTHORS_REFERENCE><![CDATA[',(if iocc>1 then ', ' fi,v10^s| |,v10^n),']]></AUTHORS_REFERENCE>' fi
 					if p(v11) then '<AUTHORS_REFERENCE><![CDATA[',(s(v11^*)+|, |),']]></AUTHORS_REFERENCE>' fi
 					if p(v16) then '<AUTHORS_REFERENCE><![CDATA[',(if iocc>1 then ', ' fi,v16^s| |,v16^n),']]></AUTHORS_REFERENCE>' fi
@@ -220,6 +219,7 @@
 					if p(v37) then '<URL_REFERENCE><![CDATA[',v37^*,']]></URL_REFERENCE>' fi
 					if p(v880) then '<PID_REFERENCE><![CDATA[',v880,']]></PID_REFERENCE>' fi
 				'<REFERENCE NUM="',v118,'">'
+					if p(v12) then '<TITLE_REFERENCE LANG="',v12^l,'"><![CDATA[',v12^*,']]></TITLE_REFERENCE>' fi
 				'</REFERENCE>' 
 			</pft>
 		</display>
