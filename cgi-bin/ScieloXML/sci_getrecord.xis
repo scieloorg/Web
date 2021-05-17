@@ -199,8 +199,6 @@
  
 <!--################################REFERENCE##############################################-->
 
-
- <flow action="jump"><pft>if v7070<>'1' then 'CLOSE_ARTICLE' fi</pft></flow>
  <display><pft>'<REFERENCES>'</pft></display>
  <do task="search">
  	<parm name="db">ARTIGO</parm>
