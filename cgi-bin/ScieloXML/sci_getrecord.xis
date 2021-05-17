@@ -202,7 +202,7 @@
  <display><pft>'<REFERENCES>'</pft></display>
  <do task="search">
  	<parm name="db">ARTIGO</parm>
-	<parm name="expression"><pft>|R=|v4001^p</pft></parm>
+	<parm name="expression"><pft>|R=|v4001^p|$|</pft></parm>
 	
 	<loop>
 		<call name="PROC_SPLIT_MST"><pft>v32701</pft></call>
