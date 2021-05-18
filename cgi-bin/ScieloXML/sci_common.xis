@@ -1788,7 +1788,8 @@
 						('<AFF xref="',v1300,'"/>'/)
 					fi
       			    |    <NAME><![CDATA[|v9810^n|]]></NAME>|,/
-		    	    |    <SURNAME><![CDATA[|v9810^s|]]></SURNAME>|/                    
+		    	    |    <SURNAME><![CDATA[|v9810^s|]]></SURNAME>|,/
+		    	    |    <ORCID><![CDATA[|v9810^k|]]></ORCID>|/                    
                     fi 
                 </pft>
             </display>
