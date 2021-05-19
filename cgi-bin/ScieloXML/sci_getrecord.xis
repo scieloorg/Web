@@ -24,6 +24,26 @@
 		</pft>
 	</display>
 </function>
+
+<function name="CreateKeywordsGroupAllLangsXML" action="replace" tag="4001">
+<!-- Generate XML for Publishers Groups 4001 - Publishers -->
+    <field action="replace" tag="85" split="occ"><pft>(v4001/)</pft></field>
+ 		
+	<display>
+		<pft>
+			(
+				if p(v85^k) then
+					'  <KEYWORD LANG="',v85^l,'">'/,
+						'   <KEY><![CDATA[',v85^k,']]></KEY>'/,
+						|   <SUBKEY><![CDATA[|v85^s|]]></SUBKEY>|/,
+					'  </KEYWORD>'/,
+				fi
+			)
+		</pft>
+	</display>	
+</function>
+
+
 <function name="CreateArticleAllTitlesXML" action="replace" tag="4001">
 <!-- Generate XML for Title of Article
      ^r - MFN 
@@ -182,6 +202,13 @@
             (v83/)
         </pft>
     </call>
+		
+	<call name="CreateKeywordsGroupAllLangsXML">
+        <pft>
+        	(v85/)
+        </pft>
+    </call>
+
 	<display><pft>if p(v264) then '<EMBARGO date="',v264,'" text="',v8264,'"/>'/ fi</pft></display>
 	
 	<!-- <call name="insertElementRelatedToDocument"><pft>if p(v241) or p(v41) then  (v880[1],|^x|v41[1],v241,|^v|v31[1],|^w|v131[1],|^n|v32[1],|^y|v132[1],|^d|v65[1]*0.4/) fi</pft></call> -->
