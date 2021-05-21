@@ -265,9 +265,7 @@
 	else
 		,ref(['TITLE']l(['TITLE'],'LOC=',v880*1.9),v117),
 	fi
-	,'</standard>'/</pft></display>
-
-	<call name="CreateAuthorsAffXML"><pft>v880</pft></call>   
+	,'</standard>'/</pft></display> 
 	
 	<label>yes</label>
 
