@@ -252,7 +252,6 @@
 
    <call name="CreateArticleTitle1XML"><pft>'^r'v4001^a'^l'v4001^l'^t'v4001^t'^i'v4001^i'^h1'</pft></call>
 
-   <call name="CreateAuthorsGroupXML"><pft>v880</pft></call>
    <call name="CreateLattesGroupXML"><pft>v880</pft></call>	   
    <call name="CreateProjetoFAPESP"><pft>if v7052 = '1' then v880 fi</pft></call>
    <call name="CreateClinicalTrials"><pft>v880</pft></call>
@@ -268,7 +267,6 @@
 	fi
 	,'</standard>'/</pft></display>
 
-	<call name="CreateAuthorsGroupXML"><pft>v880</pft></call>   
 	<call name="CreateAuthorsAffXML"><pft>v880</pft></call>   
 	
 	<label>yes</label>
