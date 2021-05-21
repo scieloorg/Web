@@ -8,6 +8,34 @@
 <include>ScieloXML/sci_getdefine.xis</include>
 
 
+<function name="CreateAuthorsGroupNoAffXML" action="replace" tag="4001">
+<!-- Generate XML for Authors Group without affiliation
+	 4001 - pid 
+     4001^n - Don't print uppercase names
+     -->
+	<field action="replace" tag="4001"><pft>mpu,v4001,mpl</pft></field>
+
+	<field action="replace" tag="10" split="occ"><pft>ref(['ARTIGO']l(['ARTIGO'],'HR=',v4001^*),@PROC_SPLIT_MST.PFT,(v10/))</pft></field>
+    <field action="replace" tag="11" split="occ"><pft>ref(['ARTIGO']l(['ARTIGO'],'HR=',v4001^*),@PROC_SPLIT_MST.PFT,(v11/))</pft></field>
+	
+	<display><pft>if p(v10) or p(v11) then ' <AUTHORS>'/ fi</pft></display>
+	
+    <!-- Defines tag 19988 to prevent CreateArticleAuthorsXML and CreateCorporativeAuthorsXML functions of printing uppercase names -->
+    <field action="replace" tag="19988"><pft>if p(v4001^n) then v4001^n fi</pft></field>
+    
+	<!-- fixed_20051026 tradutor -->
+	<call name="CreateArticleAuthorsXML"><pft>(if v10^r='ND' or v10^r='author' then replace(v10,'author','ND')/ fi)</pft></call>
+	<call name="CreateArticleAuthorsXML"><pft>(if v10^r='TR' then v10/ fi)</pft></call>
+	<call name="CreateArticleAuthorsXML"><pft>(if v10^r='ED' then v10/ fi)</pft></call>
+	<call name="CreateArticleAuthorsXML"><pft>(if v10^r='COORD' then v10/ fi)</pft></call>
+	<call name="CreateArticleAuthorsXML"><pft>(if v10^r='ORG' then v10/ fi)</pft></call>
+
+	<call name="CreateCorporativeAuthorsXML"><pft>(v11/)</pft></call>
+
+	<display><pft>if p(v10) or p(v11) then ' </AUTHORS>'/# fi</pft></display>
+</function>
+
+
 <function name="CreateArticleAbstractAllLangsXML" action="replace" split="occ" tag="4001">
 <!-- Generate XML for abstract in available languages -->
 	<!--
@@ -224,7 +252,8 @@
 
    <call name="CreateArticleTitle1XML"><pft>'^r'v4001^a'^l'v4001^l'^t'v4001^t'^i'v4001^i'^h1'</pft></call>
 
-   <call name="CreateAuthorsGroupXML"><pft>v880</pft></call>
+   <call name="CreateAuthorsGroupNoAffXML"><pft>v880</pft></call>   
+   <call name="CreateAuthorsAffXML"><pft>v880</pft></call>  
    <call name="CreateLattesGroupXML"><pft>v880</pft></call>	   
    <call name="CreateProjetoFAPESP"><pft>if v7052 = '1' then v880 fi</pft></call>
    <call name="CreateClinicalTrials"><pft>v880</pft></call>
@@ -238,10 +267,7 @@
 	else
 		,ref(['TITLE']l(['TITLE'],'LOC=',v880*1.9),v117),
 	fi
-	,'</standard>'/</pft></display>
-
-	<call name="CreateAuthorsGroupXML"><pft>v880</pft></call>   
-	<call name="CreateAuthorsAffXML"><pft>v880</pft></call>   
+	,'</standard>'/</pft></display> 
 	
 	<label>yes</label>
 
