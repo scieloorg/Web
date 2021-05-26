@@ -454,6 +454,9 @@
 					,|<COMMENT_REFERENCE><![CDATA[|v61|]]></COMMENT_REFERENCE>|,
 
 					,|<VERSION_REFERENCE><![CDATA[|v95|]]></VERSION_REFERENCE>|,
+
+					,|<PMID_REFERENCE><![CDATA[|v238|]]></PMID_REFERENCE>|,
+					,|<PMCID_REFERENCE><![CDATA[|v239|]]></PMCID_REFERENCE>|,
 				'</REFERENCE>' 
 			</pft>
 		</display>
