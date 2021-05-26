@@ -1,0 +1,233 @@
+<IsisScript>
+
+    <include>ScieloXML/sci_common.xis</include>
+    <include>ScieloXML/sci_refrecord.xis</include>
+    <include>ScieloXML/pressrelease.xis</include>
+
+    <section>
+	    <field action="cgi" tag="3000">count</field>	
+	    <field action="cgi" tag="3001">set</field>	
+	    <field action="cgi" tag="3002">from</field>
+	    <field action="cgi" tag="3003">until</field>
+	    <field action="cgi" tag="3004">resume</field>
+	    <field action="cgi" tag="3005">lng</field>
+	    <field action="cgi" tag="3006">nrm</field>
+        <field action="cgi" tag="3010">debug</field>
+	    <field action="cgi" tag="3011">def</field>
+        <field action="cgi" tag="3012">metadataprefix</field>        
+    
+        <field action="replace" tag="3011"><pft>if a(v3011) then 'scielo.def.php' fi</pft></field>
+
+        <call name="DebugMode"><pft>if a(v3010) then 'OFF' else mpu,v3010,mpl fi</pft></call>
+
+        <include>ScieloXML/sci_cipar.xis</include>	
+        
+        <field action="replace" tag="3002"><pft>if p(v3002) then replace(v3002,'-','') fi</pft></field>
+        <field action="replace" tag="3003"><pft>if p(v3003) then replace(v3003,'-','') fi</pft></field>
+    
+        <field action="replace" tag="3004"><pft>if p(v3004) then replace(v3004,'__','=') fi</pft></field>
+    
+        <field action="replace" tag="3007">
+            <pft>if v3001<>'openaire' then f(l(['TITLE'],'LOC='v3001),1,0) fi</pft>
+        </field>
+        <field action="replace" tag="3400">
+            <pft>if v3001<>'openaire' then v3001 fi</pft>
+        </field>
+        
+        <field action="replace" tag="3008">
+            <pft>if v3004*0.3 = 'HR=' then
+                    f(l(['ARTIGO'],v3004),1,0)
+                fi</pft>
+        </field>
+        
+        <field action="replace" tag="3000"><pft>if a(v3000) then '40' fi</pft></field>
+        
+        <call name="CreateErrorXML">
+	    	<pft>
+		    	if p(v3004) and p(v3008) and val(v3008)<=0 then
+			    	'^l'v3005,'^p'v3004*3'^c0003' 
+    			else
+    		    	if v3001<>'openaire' then
+                        if p(v3001) and val(v3007)<=0 then
+    					   	'^l'v3005,'^p'v3001'^c0001'
+        				fi
+                    fi
+	    		fi
+		    </pft>
+    	</call>
+        
+        <display><pft>'<LIST_RECORDS>'/</pft></display>
+
+    	<call name="CreateControlInfoXML">
+	    	<pft>'^l'v3005,'^s'v3006,'^fsci_listrecords'</pft>
+    	</call>
+                
+        <do task="search">
+            <parm name="db">ARTIGO</parm>   
+            <parm name="expression">OAITS=$</parm>  
+            <parm name="count">1</parm> 
+            
+            <loop>
+                <display><pft>@PROC_SPLIT_MST.PFT,</pft></display>
+                <field action="replace" tag="9000">OAITS</field>
+                <field action="export" tag="list">9000</field>
+            </loop>
+        </do>
+        <flow action="jump">
+            <pft>
+                if v9000='OAITS' then
+                    'LIST'
+                fi
+            </pft>
+        </flow>
+        <do task="search">
+            <parm name="db">ARTIGO</parm>   
+            <parm name="expression">DTH=$</parm>    
+            <parm name="count">1</parm> 
+            
+            <loop>
+                <display><pft>@PROC_SPLIT_MST.PFT,</pft></display>
+                <field action="replace" tag="9000">DTH</field>
+                <field action="export" tag="list">9000</field>
+            </loop>
+        </do>
+        
+        <label>LIST</label>
+        <display><pft>' <LIST>'/</pft></display>
+        
+        <field action="replace" tag="9001">
+            <pft>
+                if p(v9000) and a(v3400) and (p(v3002) or p(v3003)) then
+                    'DATE_KEY'
+                fi
+            </pft>
+        </field>
+        
+        <field action="replace" tag="3030">
+            <pft>
+                if p(v3004) then
+                    ,replace(v3004,'DTH',v9000),
+                else
+                    if v9001 = 'DATE_KEY' then
+                        v9000,'=',v3002
+                    else
+                        'HR=S',v3400
+                    fi
+                fi
+            </pft>
+        </field>
+        
+        <field action="replace" tag="3031">
+            <pft>
+                if v9001 = 'DATE_KEY' then
+                    ,if p(v3003) then
+                        ,v9000,'=',v3003,'ZZZZZ'
+                    ,fi
+                else
+                   'HR=S',v3400,'ZZZZZ'
+                fi
+            </pft>
+        </field>
+        <!-- 
+            v3030 inicio dos termos
+            v3031 fim dos termos
+            se ausente v3400 que usado para montar o v3030 e v3031 
+            o inicio seria HR=S (ok)
+            fim seria HR=SZZZZZ (estou na duvida se funciona: 
+            a duvida eh que se Z vem antes de numeros entao nunca retornara nada
+        -->
+        <do task="keyrange">
+    		<parm name="db">ARTIGO</parm>	
+    		<parm name="from"><pft>v3030</pft></parm>
+    		<parm name="to"><pft>v3031</pft></parm>            
+            <parm name="posting">All</parm>
+            
+            <field action="replace" tag="1001">1</field>
+            <field action=define tag="1002">Isis_Key</field>
+            <field action=define tag="1003">Isis_Posting</field>
+            
+            <loop>
+                <field action="import" tag="list">1001,3000/3004,3012,7009/7060</field>
+                                
+                <flow action="jump">
+                    <pft>
+                        if val(v1001) > val(v3000) then
+                            'RESUMPTION_TOKEN'
+                        fi
+                    </pft>
+                </flow>
+
+                <field action="replace" tag="1091">
+                    <pft>
+                        ref(['ARTIGO']val(v1003^m)-1,@PROC_SPLIT_MST.PFT,
+                            if p(v93) then if val(v93*0.8) > val(v91) then v93*0.8 else v91 fi else v91 fi)
+                    </pft>
+                </field>
+
+                <field action="replace" tag="1880">
+                    <pft>
+                        ref(['ARTIGO']val(v1003^m),@PROC_SPLIT_MST.PFT,v880)
+                    </pft>
+                </field>
+                <flow action="skip">
+                    <pft>
+                        /* if From and processing date < from */
+                        if p(v3002) and v1091 < v3002*0.8 then
+                            'Next'
+                        fi
+                    </pft>
+                </flow>
+                
+                <flow action="skip">
+                    <pft>
+                        /* if Until and processing date > until */
+                        if p(v3003) and v1091 > v3003*0.8 then
+                            'Next'
+                        fi
+                    </pft>
+                </flow>
+                
+                <call name="CreateArticleReferenceXML">
+                    <pft>
+                        '^t'f(l(['TITLE']'LOC=',mid(v1880,2,9)),1,0),
+                        '^i'f(l(['NEWISSUE']'Y',mid(v1880,2,17)),1,0), 
+                        '^a'v1003^m, 
+                        '^fsws'
+                    </pft>
+                </call>
+                
+                <field action="replace" tag="1001"><pft>f(val(v1001)+1,1,0)</pft></field>
+
+                <field action="export" tag="list">1001</field>
+                
+                <flow action="skip">Next</flow>
+
+                <label>RESUMPTION_TOKEN</label>
+                
+                <display>
+                    <pft>
+                        '  <RESUME CONTROL="',replace(replace(v1002,'=','__'),'OAITS','DTH'),'"',
+                               | SET="|v3001|"|,
+                               | FROM="|v3002|"|,
+                               | UNTIL="|v3003|"|,
+                               | METADATAPREFIX="|v3012|"|,
+                        '/>',/
+                    </pft>
+                </display>
+                
+                <field action="replace" tag="9002">1</field>
+                
+                <field action="export" tag="list">9002</field>
+                <flow action="skip">Quit</flow>
+            </loop>
+
+            <display><pft>if p(v3004) and a(v9002) then '<RESUME/>'/ fi</pft></display>
+
+        </do>
+
+        <display><pft>' </LIST>'/</pft></display>            
+
+        <display><pft>'</LIST_RECORDS>'/</pft></display>
+        
+    </section>
+</IsisScript>
