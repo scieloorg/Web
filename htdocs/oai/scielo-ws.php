@@ -247,6 +247,27 @@
 		return $result;
     }
 
+	function listRecordsScielo ( $set = "", $from = "", $until = "", $control = "", $count = 100, $debug = false, $metadataprx = "")
+	{
+		global $scielo_xml, $server;
+
+		$parameters = array();
+
+		if ( !empty ( $set ) ) $parameters[ "set" ] = $set;
+		if ( !empty ( $from ) ) $parameters[ "from" ] = $from;
+		if ( !empty ( $until ) ) $parameters[ "until" ] = $until;
+		if ( !empty ( $control ) ) $parameters[ "resume" ] = $control;
+		if ( !empty ( $metadataprx ) ) $parameters[ "metadataprefix" ] = $metadataprx;
+		$parameters[ "count" ] = $count;
+		$result = $scielo_xml->getXML ( "sci_listrecords_scielo", $parameters, $debug );
+		if ( $error = $scielo_xml->getError () )
+		{
+			return new SoapFault( "Scielo_WS_Server", $error );
+		}
+
+		return $result;
+	}
+
 	/*********************************** MAIN CODE *****************************************/
 
 	if ( isset ( $_SERVER ) && !isset ( $DOCUMENT_ROOT ) )
