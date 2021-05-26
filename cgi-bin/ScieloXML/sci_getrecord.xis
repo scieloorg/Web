@@ -373,8 +373,8 @@
 					,'~')
 
 					if p(v18) or p(v30) then 
-						'<SOURCE_REFERENCE LANG="',v18^l,'" TYPE="',v9070,'"><![CDATA[',v18^*,v30,']]></SOURCE_REFERENCE>',
-					fi				
+						'<SOURCE_REFERENCE LANG="',v18^l,'"><![CDATA[',v18^*,v30,']]></SOURCE_REFERENCE>',
+					fi
 
 					,|<VOLUME_REFERENCE><![CDATA[|v31^*|]]></VOLUME_REFERENCE>|,
 					,|<PAGE_REFERENCE><![CDATA[|v14^*|]]></PAGE_REFERENCE>|,
