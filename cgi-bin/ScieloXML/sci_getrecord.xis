@@ -300,7 +300,7 @@
 					if p(v12) then '<TITLE_REFERENCE LANG="',v12^l,'"><![CDATA[',v12^*,']]></TITLE_REFERENCE>' fi
 
 					if p(v10) then 
-						'<AUTHORS_REFERENCE TYPE="10">',
+						'<AUTHORS_REFERENCE TYPE="analytic">',
 						(
 							'<AUTHOR>'
 							|<NAME><![CDATA[|v10^n|]]></NAME>|,
@@ -311,13 +311,13 @@
 					fi
 					
 					if p(v11) then
-						'<AUTHORS_REFERENCE TYPE="11">',
+						'<AUTHORS_REFERENCE TYPE="corporative">',
 						(|<ORGNAME><![CDATA[|v11^*|]]></ORGNAME>|),
 						'</AUTHORS_REFERENCE>'
 					fi
 
 					if p(v16) then 
-						'<AUTHORS_REFERENCE TYPE="16">',
+						'<AUTHORS_REFERENCE TYPE="monographic-person">',
 						(
 							'<AUTHOR>'
 							|<NAME><![CDATA[|v16^n|]]></NAME>|,
@@ -328,13 +328,13 @@
 					fi
 
 					if p(v17) then
-						'<AUTHORS_REFERENCE TYPE="17">',
+						'<AUTHORS_REFERENCE TYPE="monographic-institution">',
 						(|<ORGNAME><![CDATA[|v17^*|]]></ORGNAME>|),
 						'</AUTHORS_REFERENCE>'
 					fi
 
 					if p(v94) then
-						'<AUTHORS_REFERENCE TYPE="94">',
+						'<AUTHORS_REFERENCE TYPE="secondary">',
 						(
 							'<AUTHOR LANG_OR_ROLE="'v94^r'">'
 							|<NAME><![CDATA[|v94^n|]]></NAME>|,
