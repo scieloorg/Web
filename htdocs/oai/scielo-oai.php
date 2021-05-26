@@ -272,6 +272,11 @@ $identifier = cleanParameter($identifier);
 				$response = getAbstractArticle( $pid = $parameters["pid"],$lang = "en", $ws = $parameters["ws_oai"], $debug = false );
 				break;
 				}
+            case "GetRecordScielo":
+                {
+                $response = getRecord( $pid = $parameters["pid"], $ws = $parameters["ws_oai"], $debug = false );
+                break;
+                }
 			case "GetRecordAgris":
 				{
 				$response = getAbstractArticleAgris( $pid = $parameters["pid"],$lang = "en", $ws = $parameters["ws_oai"], $debug = false );
