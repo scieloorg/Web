@@ -228,6 +228,12 @@
    
 	<display><pft>'>'/</pft></display>
 
+	<display>
+		<pft>
+			if p(v60) then '<CONTRACT><![CDATA[',v60,']]></CONTRACT>' fi
+		</pft>
+	</display>
+
 	<call name="CreateArticleAbstractAllLangsXML">
         <pft>
             (v83/)
