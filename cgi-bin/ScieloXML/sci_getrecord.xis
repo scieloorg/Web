@@ -183,6 +183,9 @@
         if p(v14^l) then
             ' LPAGE="',v14^l,'"'
         fi
+        if p(v14^e) then
+            ' ELOCATION_ID="',v14^e,'"'
+        fi
         | PID="|v880|"|,
         if p(v14^l) then
             ' DOCTOPIC="',v71,'"'
