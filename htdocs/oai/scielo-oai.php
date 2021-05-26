@@ -93,7 +93,7 @@ $identifier = cleanParameter($identifier);
 
     function is_Set ( $set )
     {
-        return eregi ( "^([0-9a-z]{4}-[0-9a-z]{4}|openaire)$", $set );
+        return eregi ( "^([0-9a-z]{4}-[0-9a-z]{4}|openaire|scielo)$", $set );
     }
 
 	/******************************************* isDatestamp **********************************************/
