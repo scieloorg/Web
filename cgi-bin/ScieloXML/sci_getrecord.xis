@@ -360,7 +360,7 @@
 										if p(v18) then
 											,'book',
 										else
-											if p(v18) then
+											if p(v37) then
 												,'link',
 											else
 												,'undefined',
