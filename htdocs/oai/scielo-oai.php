@@ -340,8 +340,11 @@ $identifier = cleanParameter($identifier);
             }
              else if($metadataPrefix == 'oai_dc_openaire'){
                 $xsl = 'GetRecord_openaire.xsl';
-                $result = generatePayload ( $ws_client_url, "getAbstractArticle", "GetRecord", $parameters, $xsl );                
-			 }else{
+                $result = generatePayload ( $ws_client_url, "getAbstractArticle", "GetRecord", $parameters, $xsl );
+             } else if($metadataPrefix == 'oai_dc_scielo'){
+                $xsl = 'GetRecord_scielo.xsl';
+                $result = generatePayload ( $ws_client_url, "getRecord", "GetRecordScielo", $parameters, $xsl );
+             } else {
 			 	$xsl = 'GetRecord.xsl';
 			 	$result = generatePayload ( $ws_client_url, "getAbstractArticle", "GetRecord", $parameters, $xsl );			
 			 }
