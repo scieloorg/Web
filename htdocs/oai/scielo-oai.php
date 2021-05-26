@@ -524,7 +524,10 @@ $identifier = cleanParameter($identifier);
 				}else if($metadataPrefix == 'oai_dc_openaire'){
                     $xsl = 'ListRecords_openaire.xsl';
                     $result = generatePayload ( $ws_client_url, "listRecords", "ListRecords", $parameters, $xsl );                
-                }else{
+                }else if($metadataPrefix == 'oai_dc_scielo'){
+                    $xsl = 'ListRecords_scielo.xsl';
+                    $result = generatePayload ( $ws_client_url, "listRecordsScielo", "ListRecordsScielo", $parameters, $xsl );
+				}else{
 					$xsl = "$verb.xsl";
 					$result = generatePayload ( $ws_client_url, "listRecords", $verb, $parameters, $xsl ); 	
 				 }
