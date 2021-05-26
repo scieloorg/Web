@@ -267,6 +267,11 @@ $identifier = cleanParameter($identifier);
 				$response = ListRecordsAgris( $set = $parameters["set"], $from = $parameters["from"], $until = $parameters["until"], $control = $parameters["control"], $lang = "en", $nrm = "iso", $count = 100, $debug = false, $metadataprx = $parameters["metadataprefix"] );
 				break;
 				}
+            case "ListRecordsScielo":
+                {
+                $response = listRecordsScielo( $set = $parameters["set"], $from = $parameters["from"], $until = $parameters["until"], $control = $parameters["control"], $count = 100, $debug = false, $metadataprx = $parameters["metadataprefix"]);
+                break;
+                }
 			case "GetRecord":
 				{
 				$response = getAbstractArticle( $pid = $parameters["pid"],$lang = "en", $ws = $parameters["ws_oai"], $debug = false );
