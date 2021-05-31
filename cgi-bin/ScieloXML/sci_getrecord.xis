@@ -183,6 +183,9 @@
         if p(v14^l) then
             ' LPAGE="',v14^l,'"'
         fi
+        if p(v14^e) then
+            ' ELOCATION_ID="',v14^e,'"'
+        fi
         | PID="|v880|"|,
         if p(v14^l) then
             ' DOCTOPIC="',v71,'"'
@@ -224,6 +227,12 @@
 	<call name="TestPDFPresence"><pft>if v8264<>'no' then v4001^p fi</pft></call>
    
 	<display><pft>'>'/</pft></display>
+
+	<display>
+		<pft>
+			if p(v60) then '<CONTRACT><![CDATA[',v60,']]></CONTRACT>' fi
+		</pft>
+	</display>
 
 	<call name="CreateArticleAbstractAllLangsXML">
         <pft>
@@ -291,7 +300,7 @@
 					if p(v12) then '<TITLE_REFERENCE LANG="',v12^l,'"><![CDATA[',v12^*,']]></TITLE_REFERENCE>' fi
 
 					if p(v10) then 
-						'<AUTHORS_REFERENCE TYPE="10">',
+						'<AUTHORS_REFERENCE TYPE="analytic">',
 						(
 							'<AUTHOR>'
 							|<NAME><![CDATA[|v10^n|]]></NAME>|,
@@ -302,13 +311,13 @@
 					fi
 					
 					if p(v11) then
-						'<AUTHORS_REFERENCE TYPE="11">',
+						'<AUTHORS_REFERENCE TYPE="corporative">',
 						(|<ORGNAME><![CDATA[|v11^*|]]></ORGNAME>|),
 						'</AUTHORS_REFERENCE>'
 					fi
 
 					if p(v16) then 
-						'<AUTHORS_REFERENCE TYPE="16">',
+						'<AUTHORS_REFERENCE TYPE="monographic-person">',
 						(
 							'<AUTHOR>'
 							|<NAME><![CDATA[|v16^n|]]></NAME>|,
@@ -319,13 +328,13 @@
 					fi
 
 					if p(v17) then
-						'<AUTHORS_REFERENCE TYPE="17">',
+						'<AUTHORS_REFERENCE TYPE="monographic-institution">',
 						(|<ORGNAME><![CDATA[|v17^*|]]></ORGNAME>|),
 						'</AUTHORS_REFERENCE>'
 					fi
 
 					if p(v94) then
-						'<AUTHORS_REFERENCE TYPE="94">',
+						'<AUTHORS_REFERENCE TYPE="secondary">',
 						(
 							'<AUTHOR LANG_OR_ROLE="'v94^r'">'
 							|<NAME><![CDATA[|v94^n|]]></NAME>|,
@@ -351,7 +360,7 @@
 										if p(v18) then
 											,'book',
 										else
-											if p(v18) then
+											if p(v37) then
 												,'link',
 											else
 												,'undefined',
@@ -364,8 +373,10 @@
 					,'~')
 
 					if p(v18) or p(v30) then 
-						'<SOURCE_REFERENCE LANG="',v18^l,'" TYPE="',v9070,'"><![CDATA[',v18^*,v30,']]></SOURCE_REFERENCE>',
-					fi				
+						'<SOURCE_REFERENCE LANG="',v18^l,'"><![CDATA[',v18^*,v30,']]></SOURCE_REFERENCE>',
+					fi
+
+					,|<PUBLICATION_TYPE_REFERENCE><![CDATA[|v9070|]]></PUBLICATION_TYPE_REFERENCE>|,
 
 					,|<VOLUME_REFERENCE><![CDATA[|v31^*|]]></VOLUME_REFERENCE>|,
 					,|<PAGE_REFERENCE><![CDATA[|v14^*|]]></PAGE_REFERENCE>|,
@@ -445,6 +456,9 @@
 					,|<COMMENT_REFERENCE><![CDATA[|v61|]]></COMMENT_REFERENCE>|,
 
 					,|<VERSION_REFERENCE><![CDATA[|v95|]]></VERSION_REFERENCE>|,
+
+					,|<PMID_REFERENCE><![CDATA[|v238|]]></PMID_REFERENCE>|,
+					,|<PMCID_REFERENCE><![CDATA[|v239|]]></PMCID_REFERENCE>|,
 				'</REFERENCE>' 
 			</pft>
 		</display>
