@@ -752,6 +752,7 @@
 
 				<xsl:apply-templates select="KEYWORD"/>
 
+				<xsl:apply-templates select="LANGUAGES/PDF_LANGS"/>
 			</metadata>
 		</record>
 	</xsl:template>
