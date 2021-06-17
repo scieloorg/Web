@@ -23,12 +23,7 @@
 			<xsl:value-of select=" concat( '&lt;', $name, ' ', $param_name, '= &quot;', $param_value, '&quot; &gt;', $value,  '&lt;/', $name, '&gt;' )" disable-output-escaping="yes"/>
 		</xsl:if>
 	</xsl:template>
-	<xsl:template match="@PROCESSDATE" mode="datestamp">
-		<datestamp>
-			<xsl:call-template name="FormatDate">
-				<xsl:with-param name="date" select="."/>
-			</xsl:call-template>
-		</datestamp>
+
 	</xsl:template>
 	
 	<xsl:template match="ISSN" mode="setSpec">
