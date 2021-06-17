@@ -72,20 +72,49 @@
 	</xsl:template>
 
 	<xsl:template match="AUTHOR" mode="pers">
-		<xsl:call-template name="escaped_element">
-			<xsl:with-param name="name">dc:creator</xsl:with-param>
-			<xsl:with-param name="value" select="concat( '&lt;![CDATA[', SURNAME , ',' , NAME ,  ']]&gt;' )"></xsl:with-param>			
-		</xsl:call-template>
+		<contrib contrib-type="author">
+			<name><xsl:value-of select="NAME"/></name>
+			<surname><xsl:value-of select="SURNAME"/></surname>
+			<xsl:if test="ORCID">
+				<name-content content-type="orcid">
+					<xsl:value-of select="ORCID"/>
+				</name-content>
+			</xsl:if>
+			<xsl:if test="AFF">
+				<xref ref-type="aff">
+					<xsl:attribute name="rid">
+						<xsl:value-of select="AFF/@xref"/>
+					</xsl:attribute>
+				</xref>
+			</xsl:if>
+		</contrib>
 	</xsl:template>
-	
-	<xsl:template match="KEYWORD">
-		<xsl:call-template name="escaped_element">
-			<xsl:with-param name="name">dc:subject</xsl:with-param>
-			<xsl:with-param name="value"><xsl:apply-templates select="KEY" /><xsl:if test="SUBKEY">/</xsl:if><xsl:apply-templates select="SUBKEY" /></xsl:with-param>			
-		</xsl:call-template>
+
+	<xsl:template match="AUTHOR" mode="lattes">
+		<named-content content-type="lattes-identifier">
+			<xsl:attribute name="fullname">
+				<xsl:value-of select="."/>
+			</xsl:attribute>
+			<xsl:value-of select="concat( '&lt;![CDATA[', @HREF ,']]&gt;' )"/>
+		</named-content>
 	</xsl:template>
-	
-	<xsl:template match="KEY | SUBKEY">		
+
+	<xsl:template match="AUTHOR" mode="reference">
+		<xsl:param name="type"/>
+		<person-group>
+			<xsl:attribute name="person-group-type">
+				<xsl:value-of select="$type"/>
+			</xsl:attribute>
+			<name><xsl:value-of select="NAME"/></name>
+			<surname><xsl:value-of select="SURNAME"/></surname>
+		</person-group>
+	</xsl:template>
+
+	<xsl:template match="ORGNAME" mode="reference">
+		<collab-group collab-group-type="author">
+			<xsl:value-of select="concat( '&lt;![CDATA[ ', ., ' ]]&gt;' )"/>
+		</collab-group>
+	</xsl:template>
 		<xsl:apply-templates select="text()" mode="cdata"/>
 	</xsl:template>
 	
