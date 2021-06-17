@@ -57,14 +57,6 @@
 			<xsl:otherwise><xsl:value-of select="$type"/></xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
-	
-	<xsl:template name="OAI_DC_Header">
-		<xsl:variable name="oai-dc">xmlns:oai-dc="http://www.openarchives.org/OAI/2.0/oai_dc/"</xsl:variable>
-		<xsl:variable name="dc">xmlns:dc="http://purl.org/dc/elements/1.1/"</xsl:variable>
-		<xsl:variable name="xsi">xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"</xsl:variable>
-		<xsl:variable name="schemaLocation">xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd"</xsl:variable>
-		
-		<xsl:value-of select=" concat( '&lt;oai-dc:dc ', $oai-dc, ' ', $dc, ' ', $xsi, ' ', $schemaLocation, '&gt;' )" disable-output-escaping="yes" />	
 	</xsl:template>
 	
 	<xsl:template name="OAI_DC_Footer">
