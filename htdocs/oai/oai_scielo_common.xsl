@@ -192,6 +192,15 @@
 			<xsl:value-of select="@TRANSLATION"/>
 		</named-content>
 	</xsl:template>
+
+	<xsl:template match="ARTICLE/trans-title">
+		<article-title>
+			<xsl:attribute name="xml:lang">
+				<xsl:value-of select="@xml:lang"/>
+			</xsl:attribute>
+			<xsl:apply-templates mode="cdata" select="."/>
+		</article-title>
+	</xsl:template>
 	<xsl:template match="RESUME">
 		<xsl:variable name="from">
 			<xsl:call-template name="FormatDate">
