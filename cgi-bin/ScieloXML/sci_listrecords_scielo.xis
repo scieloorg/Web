@@ -175,22 +175,25 @@
                     </pft>
                 </flow>
 
+                <field action="replace" tag="6"><pft>f(l(['NEWISSUE'],mid(v1880,2,17)),1,0)</pft></field>
+                <field action="replace" tag="11"><pft>if a(v11) then ref(['ARTIGO']val(v1003^m),@PROC_SPLIT_MST.PFT,v40) fi</pft></field>
+
+                <call name="CreateArticleXML">
                     <pft>
-                        '^t'f(l(['TITLE']'LOC=',mid(v1880,2,9)),1,0),
-                        '^i'f(l(['NEWISSUE']'Y',mid(v1880,2,17)),1,0), 
-                        '^a'v1003^m, 
-                        '^fsws'
+                        '^p'v1880,
+                        '^a'v1003^m,
+                        '^t'v11,
+                        '^l'v3005,
+                        '^i'v3005,
+                        '^s'v6
                     </pft>
                 </call>
                 
                 <field action="replace" tag="1001"><pft>f(val(v1001)+1,1,0)</pft></field>
-
                 <field action="export" tag="list">1001</field>
-                
                 <flow action="skip">Next</flow>
 
                 <label>RESUMPTION_TOKEN</label>
-                
                 <display>
                     <pft>
                         '  <RESUME CONTROL="',replace(replace(v1002,'=','__'),'OAITS','DTH'),'"',
@@ -203,18 +206,14 @@
                 </display>
                 
                 <field action="replace" tag="9002">1</field>
-                
                 <field action="export" tag="list">9002</field>
                 <flow action="skip">Quit</flow>
             </loop>
 
             <display><pft>if p(v3004) and a(v9002) then '<RESUME/>'/ fi</pft></display>
-
         </do>
 
         <display><pft>' </LIST>'/</pft></display>            
-
         <display><pft>'</LIST_RECORDS>'/</pft></display>
-        
     </section>
 </IsisScript>
