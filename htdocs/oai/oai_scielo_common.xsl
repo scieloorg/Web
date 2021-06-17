@@ -762,6 +762,9 @@
 
 				<xsl:apply-templates select="AFFILIATIONS" />
 
+				<ref-list>
+					<xsl:apply-templates select="REFERENCES" />
+				</ref-list>
 			</metadata>
 		</record>
 	</xsl:template>
