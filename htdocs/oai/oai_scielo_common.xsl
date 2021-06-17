@@ -201,6 +201,351 @@
 			<xsl:apply-templates mode="cdata" select="."/>
 		</article-title>
 	</xsl:template>
+
+	<xsl:template match="ARTICLE/REFERENCES/REFERENCE">
+		<ref>
+			<xsl:if test="@NUM != ''">
+				<xsl:attribute name="id"><xsl:value-of select="@NUM"/></xsl:attribute>
+			</xsl:if>
+
+			<element-citation>
+				<xsl:attribute name="publication-type">
+					<xsl:value-of select="PUBLICATION_TYPE_REFERENCE"/>
+				</xsl:attribute>
+
+				<xsl:if test="TITLE_REFERENCE">
+					<xsl:variable name="ref_title">
+						<xsl:choose>
+							<xsl:when test="PUBLICATION_TYPE_REFERENCE = 'book'">chapter-title</xsl:when>
+							<xsl:otherwise>article-title</xsl:otherwise>
+						</xsl:choose>
+					</xsl:variable>
+
+					<xsl:call-template name="parameterized_escaped_element">
+						<xsl:with-param name="name"><xsl:value-of select="$ref_title"/></xsl:with-param>
+						<xsl:with-param name="param_name">xml:lang</xsl:with-param>
+						<xsl:with-param name="param_value">
+							<xsl:value-of select="TITLE_REFERENCE/@LANG"/>
+						</xsl:with-param>
+						<xsl:with-param name="value">
+							<xsl:apply-templates mode="cdata" select="TITLE_REFERENCE"/>
+						</xsl:with-param>
+					</xsl:call-template>
+				</xsl:if>
+
+				<xsl:for-each select="AUTHORS_REFERENCE">
+					<xsl:variable name="author_type"><xsl:value-of select="@TYPE"/></xsl:variable>
+					<xsl:for-each select="AUTHOR">
+						<xsl:apply-templates select="." mode="reference">
+							<xsl:with-param name="type">
+								<xsl:value-of select="$author_type"/>
+							</xsl:with-param>
+						</xsl:apply-templates>
+					</xsl:for-each>
+				</xsl:for-each>
+
+				<xsl:apply-templates select="AUTHORS_REFERENCE/ORGNAME" mode="reference">
+					<xsl:with-param name="type">
+						<xsl:value-of select="AUTHORS_REFERENCE/@TYPE"/>
+					</xsl:with-param>
+				</xsl:apply-templates>
+
+				<xsl:call-template name="parameterized_escaped_element">
+					<xsl:with-param name="param_name">xml:lang</xsl:with-param>
+					<xsl:with-param name="param_value"><xsl:value-of select="SOURCE_REFERENCE/@LANG"/></xsl:with-param>
+					<xsl:with-param name="name">source</xsl:with-param>
+					<xsl:with-param name="value"><xsl:apply-templates mode="cdata" select="SOURCE_REFERENCE" /></xsl:with-param>
+				</xsl:call-template>
+
+				<xsl:call-template name="escaped_element">
+					<xsl:with-param name="name">volume</xsl:with-param>
+					<xsl:with-param name="value"><xsl:apply-templates select="VOLUME_REFERENCE" mode="cdata"/></xsl:with-param>
+				</xsl:call-template>
+
+				<xsl:call-template name="escaped_element">
+					<xsl:with-param name="name">page-range</xsl:with-param>
+					<xsl:with-param name="value"><xsl:apply-templates select="PAGE_REFERENCE" mode="cdata"/></xsl:with-param>
+				</xsl:call-template>
+
+				<xsl:call-template name="escaped_element">
+					<xsl:with-param name="name">year</xsl:with-param>
+					<xsl:with-param name="value"><xsl:apply-templates select="YEAR_REFERENCE" mode="cdata"/></xsl:with-param>
+				</xsl:call-template>
+
+				<xsl:call-template name="escaped_element">
+					<xsl:with-param name="name">uri</xsl:with-param>
+					<xsl:with-param name="value"><xsl:apply-templates select="URL_REFERENCE" mode="cdata"/></xsl:with-param>
+				</xsl:call-template>
+
+				<xsl:call-template name="escaped_element">
+					<xsl:with-param name="name">issn</xsl:with-param>
+					<xsl:with-param name="value"><xsl:apply-templates select="ISSN_REFERENCE" mode="cdata"/></xsl:with-param>
+				</xsl:call-template>
+
+				<xsl:call-template name="escaped_element">
+					<xsl:with-param name="name">isbn</xsl:with-param>
+					<xsl:with-param name="value"><xsl:apply-templates select="ISBN_REFERENCE" mode="cdata"/></xsl:with-param>
+				</xsl:call-template>
+
+				<xsl:call-template name="parameterized_escaped_element">
+					<xsl:with-param name="name">object-id</xsl:with-param>
+					<xsl:with-param name="param_name">pub-id-type</xsl:with-param>
+					<xsl:with-param name="param_value">doi</xsl:with-param>
+					<xsl:with-param name="value"><xsl:apply-templates select="DOI_REFERENCE" mode="cdata"/></xsl:with-param>
+				</xsl:call-template>
+
+				<xsl:call-template name="parameterized_escaped_element">
+					<xsl:with-param name="name">date</xsl:with-param>
+					<xsl:with-param name="param_name">date-type</xsl:with-param>
+					<xsl:with-param name="param_value">access-date</xsl:with-param>
+					<xsl:with-param name="value"><xsl:apply-templates select="ACCESS_DATE_REFERENCE" mode="cdata"/></xsl:with-param>
+				</xsl:call-template>
+
+				<xsl:call-template name="parameterized_escaped_element">
+					<xsl:with-param name="name">date</xsl:with-param>
+					<xsl:with-param name="param_name">date-type</xsl:with-param>
+					<xsl:with-param name="param_value">link-access-date</xsl:with-param>
+					<xsl:with-param name="value"><xsl:apply-templates select="LINK_ACCESS_DATE_REFERENCE" mode="cdata"/></xsl:with-param>
+				</xsl:call-template>
+
+				<xsl:call-template name="escaped_element">
+					<xsl:with-param name="name">conf-sponsor</xsl:with-param>
+					<xsl:with-param name="value"><xsl:apply-templates select="CONFERENCE_SPONSOR_REFERENCE" mode="cdata"/></xsl:with-param>
+				</xsl:call-template>
+
+				<xsl:call-template name="escaped_element">
+					<xsl:with-param name="name">conf-name</xsl:with-param>
+					<xsl:with-param name="value"><xsl:apply-templates select="CONFERENCE_NAME_REFERENCE" mode="cdata"/></xsl:with-param>
+				</xsl:call-template>
+
+				<xsl:call-template name="escaped_element">
+					<xsl:with-param name="name">conf-num</xsl:with-param>
+					<xsl:with-param name="value"><xsl:apply-templates select="CONFERENCE_EDITION_REFERENCE" mode="cdata"/></xsl:with-param>
+				</xsl:call-template>
+
+				<xsl:call-template name="escaped_element">
+					<xsl:with-param name="name">conf-date</xsl:with-param>
+					<xsl:with-param name="value"><xsl:apply-templates select="CONFERENCE_DATE_REFERENCE" mode="cdata"/></xsl:with-param>
+				</xsl:call-template>
+
+				<xsl:if test="CONFERENCE_ADDRESS_REFERENCE">
+					<conf-loc>
+						<xsl:call-template name="escaped_element" >
+							<xsl:with-param name="name">city</xsl:with-param>
+							<xsl:with-param name="value"><xsl:apply-templates select="CONFERENCE_ADDRESS_REFERENCE/CITY" mode="cdata"/></xsl:with-param>
+						</xsl:call-template>
+
+						<xsl:call-template name="escaped_element">
+							<xsl:with-param name="name">state</xsl:with-param>
+							<xsl:with-param name="value"><xsl:apply-templates select="CONFERENCE_ADDRESS_REFERENCE/STATE" mode="cdata"/></xsl:with-param>
+						</xsl:call-template>
+
+						<xsl:call-template name="escaped_element">
+							<xsl:with-param name="name">country</xsl:with-param>
+							<xsl:with-param name="value"><xsl:apply-templates select="CONFERENCE_ADDRESS_REFERENCE/COUNTRY" mode="cdata"/></xsl:with-param>
+						</xsl:call-template>
+					</conf-loc>
+				</xsl:if>
+
+				<xsl:call-template name="escaped_element">
+					<xsl:with-param name="name">edition</xsl:with-param>
+					<xsl:with-param name="value"><xsl:apply-templates select="EDITION_REFERENCE" mode="cdata"/></xsl:with-param>
+				</xsl:call-template>
+
+					<xsl:call-template name="parameterized_escaped_element">
+						<xsl:with-param name="name">named-content</xsl:with-param>
+						<xsl:with-param name="param_name">content-type</xsl:with-param>
+						<xsl:with-param name="param_value">thesis-date</xsl:with-param>
+						<xsl:with-param name="value"><xsl:apply-templates select="THESIS_DATE_REFERENCE" mode="cdata"/></xsl:with-param>
+					</xsl:call-template>
+
+					<xsl:call-template name="parameterized_escaped_element">
+						<xsl:with-param name="name">named-content</xsl:with-param>
+						<xsl:with-param name="param_name">content-type</xsl:with-param>
+						<xsl:with-param name="param_value">thesis-institution</xsl:with-param>
+						<xsl:with-param name="value"><xsl:apply-templates select="THESIS_INSTITUTION_REFERENCE" mode="cdata"/></xsl:with-param>
+					</xsl:call-template>
+
+					<xsl:call-template name="parameterized_escaped_element">
+						<xsl:with-param name="name">named-content</xsl:with-param>
+						<xsl:with-param name="param_name">content-type</xsl:with-param>
+						<xsl:with-param name="param_value">thesis-institution-department</xsl:with-param>
+						<xsl:with-param name="value"><xsl:apply-templates select="THESIS_INSTITUTION_DEPARTMENT" mode="cdata"/></xsl:with-param>
+					</xsl:call-template>
+
+					<xsl:call-template name="parameterized_escaped_element">
+						<xsl:with-param name="name">named-content</xsl:with-param>
+						<xsl:with-param name="param_name">content-type</xsl:with-param>
+						<xsl:with-param name="param_value">thesis-degree</xsl:with-param>
+						<xsl:with-param name="value"><xsl:apply-templates select="THESIS_DEGREE_REFERENCE" mode="cdata"/></xsl:with-param>
+					</xsl:call-template>
+
+					<xsl:if test="THESIS_ADDRESS_REFERENCE">
+						<named-content content-type="thesis-publisher-loc">
+							<xsl:call-template name="escaped_element">
+								<xsl:with-param name="name">city</xsl:with-param>
+								<xsl:with-param name="value"><xsl:apply-templates mode="cdata" select="THESIS_ADDRESS_REFERENCE/CITY"/></xsl:with-param>
+							</xsl:call-template>
+
+							<xsl:call-template name="escaped_element">
+								<xsl:with-param name="name">state</xsl:with-param>
+								<xsl:with-param name="value"><xsl:apply-templates mode="cdata" select="THESIS_ADDRESS_REFERENCE/STATE"/></xsl:with-param>
+							</xsl:call-template>
+
+							<xsl:call-template name="escaped_element">
+								<xsl:with-param name="name">country</xsl:with-param>
+								<xsl:with-param name="value"><xsl:apply-templates mode="cdata" select="THESIS_ADDRESS_REFERENCE/COUNTRY"/></xsl:with-param>
+							</xsl:call-template>
+						</named-content>
+					</xsl:if>
+
+					<xsl:call-template name="parameterized_escaped_element">
+						<xsl:with-param name="name">patent</xsl:with-param>
+						<xsl:with-param name="param_name">country</xsl:with-param>
+						<xsl:with-param name="param_value"><xsl:value-of select="PATENT_COUNTRY_REFERENCE"/></xsl:with-param>
+						<xsl:with-param name="value"><xsl:apply-templates select="PATENT_NAME_REFERENCE" mode="cdata"/></xsl:with-param>
+					</xsl:call-template>
+
+					<xsl:call-template name="parameterized_escaped_element">
+						<xsl:with-param name="name">named-content</xsl:with-param>
+						<xsl:with-param name="param_name">content-type</xsl:with-param>
+						<xsl:with-param name="param_value">patent-source</xsl:with-param>
+						<xsl:with-param name="value">
+							<xsl:apply-templates select="PATENT_ORGNAME_REFERENCE" mode="cdata"/>
+						</xsl:with-param>
+					</xsl:call-template>
+
+					<xsl:call-template name="parameterized_escaped_element">
+						<xsl:with-param name="name">named-content</xsl:with-param>
+						<xsl:with-param name="param_name">content-type</xsl:with-param>
+						<xsl:with-param name="param_value">patent-date</xsl:with-param>
+						<xsl:with-param name="value"><xsl:apply-templates select="PATENT_DATE_REFERENCE" mode="cdata"/></xsl:with-param>
+					</xsl:call-template>
+
+				<xsl:call-template name="escaped_element">
+					<xsl:with-param name="name">issue</xsl:with-param>
+					<xsl:with-param name="value"><xsl:apply-templates select="ISSUE_REFERENCE" mode="cdata"/></xsl:with-param>
+				</xsl:call-template>
+
+				<xsl:call-template name="escaped_element">
+					<xsl:with-param name="name">issue-title</xsl:with-param>
+					<xsl:with-param name="value"><xsl:apply-templates select="ISSUE_TITLE_REFERENCE" mode="cdata"/></xsl:with-param>
+				</xsl:call-template>
+
+				<xsl:call-template name="escaped_element">
+					<xsl:with-param name="name">issue-part</xsl:with-param>
+					<xsl:with-param name="value"><xsl:apply-templates select="ISSUE_PART_REFERENCE" mode="cdata"/></xsl:with-param>
+				</xsl:call-template>
+
+				<xsl:call-template name="escaped_element">
+					<xsl:with-param name="name">series</xsl:with-param>
+					<xsl:with-param name="value"><xsl:apply-templates select="SERIE_REFERENCE" mode="cdata"/></xsl:with-param>
+				</xsl:call-template>
+
+				<xsl:call-template name="escaped_element">
+					<xsl:with-param name="name">volume-series</xsl:with-param>
+					<xsl:with-param name="value"><xsl:apply-templates select="SERIE_VOLUME" mode="cdata"/></xsl:with-param>
+				</xsl:call-template>
+
+
+				<xsl:call-template name="parameterized_escaped_element">
+					<xsl:with-param name="name">volume</xsl:with-param>
+					<xsl:with-param name="param_name">type</xsl:with-param>
+					<xsl:with-param name="param_value">analytic-volume</xsl:with-param>
+					<xsl:with-param name="value"><xsl:apply-templates select="ANALYTIC_VOLUME" mode="cdata"/></xsl:with-param>
+				</xsl:call-template>
+
+				<xsl:call-template name="parameterized_escaped_element">
+					<xsl:with-param name="name">volume</xsl:with-param>
+					<xsl:with-param name="param_name">type</xsl:with-param>
+					<xsl:with-param name="param_value">monographic-volume</xsl:with-param>
+					<xsl:with-param name="value"><xsl:apply-templates select="MONOGRAPHIC_VOLUME" mode="cdata"/></xsl:with-param>
+				</xsl:call-template>
+
+				<xsl:if test="EXTENT_REFERENCE">
+					<size>
+						<xsl:if test="EXTENT_REFERENCE/@TYPE != ''">
+							<xsl:attribute name="units"><xsl:value-of select="EXTENT_REFERENCE/@TYPE"/></xsl:attribute>
+						</xsl:if>
+						<xsl:apply-templates mode="cdata" select="EXTENT_REFERENCE"/>
+					</size>
+				</xsl:if>
+
+				<xsl:call-template name="parameterized_escaped_element">
+					<xsl:with-param name="name">named-content</xsl:with-param>
+					<xsl:with-param name="param_name">content-type</xsl:with-param>
+					<xsl:with-param name="param_value">tome</xsl:with-param>
+					<xsl:with-param name="value"><xsl:apply-templates select="TOME_REFERENCE" mode="cdata"/></xsl:with-param>
+				</xsl:call-template>
+
+				<xsl:if test="PUBLISHER_REFERENCE != ''">
+					<xsl:call-template name="escaped_element">
+						<xsl:with-param name="name">publisher-name</xsl:with-param>
+						<xsl:with-param name="value"><xsl:apply-templates select="PUBLISHER_REFERENCE" mode="cdata"/></xsl:with-param>
+					</xsl:call-template>
+				</xsl:if>
+
+				<xsl:if test="PUBLISHER_ADDRESS_REFERENCE != ''">
+					<publisher-loc>
+						<xsl:if test="PUBLISHER_ADDRESS_REFERENCE">
+							<xsl:call-template name="escaped_element">
+								<xsl:with-param name="name">city</xsl:with-param>
+								<xsl:with-param name="value"><xsl:apply-templates mode="cdata" select="PUBLISHER_ADDRESS_REFERENCE/CITY"/></xsl:with-param>
+							</xsl:call-template>
+
+							<xsl:call-template name="escaped_element">
+								<xsl:with-param name="name">state</xsl:with-param>
+								<xsl:with-param name="value"><xsl:apply-templates mode="cdata" select="PUBLISHER_ADDRESS_REFERENCE/STATE"/></xsl:with-param>
+							</xsl:call-template>
+
+							<xsl:call-template name="escaped_element">
+								<xsl:with-param name="name">country</xsl:with-param>
+								<xsl:with-param name="value"><xsl:apply-templates mode="cdata" select="PUBLISHER_ADDRESS_REFERENCE/COUNTRY"/></xsl:with-param>
+							</xsl:call-template>
+						</xsl:if>
+					</publisher-loc>
+				</xsl:if>
+
+				<xsl:call-template name="escaped_element">
+					<xsl:with-param name="name">sponsor</xsl:with-param>
+					<xsl:with-param name="value"><xsl:apply-templates select="SPONSOR_REFERENCE" mode="cdata"/></xsl:with-param>
+				</xsl:call-template>
+
+				<xsl:call-template name="parameterized_escaped_element">
+					<xsl:with-param name="name">named-content</xsl:with-param>
+					<xsl:with-param name="param_name">content-type</xsl:with-param>
+					<xsl:with-param name="param_value">editor</xsl:with-param>
+					<xsl:with-param name="value"><xsl:apply-templates select="EDITOR_REFERENCE" mode="cdata"/></xsl:with-param>
+				</xsl:call-template>
+
+				<xsl:call-template name="escaped_element">
+					<xsl:with-param name="name">comment</xsl:with-param>
+					<xsl:with-param name="value"><xsl:apply-templates select="COMMENT_REFERENCE" mode="cdata"/></xsl:with-param>
+				</xsl:call-template>
+
+
+				<xsl:call-template name="escaped_element">
+					<xsl:with-param name="name">version</xsl:with-param>
+					<xsl:with-param name="value"><xsl:apply-templates select="VERSION_REFERENCE" mode="cdata"/></xsl:with-param>
+				</xsl:call-template>
+
+				<xsl:call-template name="parameterized_escaped_element">
+					<xsl:with-param name="name">named-content</xsl:with-param>
+					<xsl:with-param name="param_name">content-type</xsl:with-param>
+					<xsl:with-param name="param_value">pmid</xsl:with-param>
+					<xsl:with-param name="value"><xsl:apply-templates select="PMID_REFERENCE" mode="cdata"/></xsl:with-param>
+				</xsl:call-template>
+
+				<xsl:call-template name="parameterized_escaped_element">
+					<xsl:with-param name="name">named-content</xsl:with-param>
+					<xsl:with-param name="param_name">content-type</xsl:with-param>
+					<xsl:with-param name="param_value">pmcid</xsl:with-param>
+					<xsl:with-param name="value"><xsl:apply-templates select="PMCID_REFERENCE" mode="cdata"/></xsl:with-param>
+				</xsl:call-template>
+			</element-citation>
+		</ref>
+	</xsl:template>
+
 	<xsl:template match="RESUME">
 		<xsl:variable name="from">
 			<xsl:call-template name="FormatDate">
