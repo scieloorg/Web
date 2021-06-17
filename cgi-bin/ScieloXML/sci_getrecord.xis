@@ -1,11 +1,6 @@
 <IsisScript>
 
 <!-- Common functions -->
-<include>ScieloXML/sci_common.xis</include>
-<include>ScieloXML/pressrelease.xis</include>
-<include>ScieloXML/paragraphs.xis</include>
-<include>ScieloXML/sci_refrecord.xis</include>
-<include>ScieloXML/sci_getdefine.xis</include>
 
 
 <function name="CreateAuthorsGroupNoAffXML" action="replace" tag="4001">
