@@ -48,9 +48,6 @@
 			<xsl:value-of select="concat(substring($complete_date,1,4), '-', substring($fixed_month_and_day,1,2), '-', substring($fixed_month_and_day,3,2)) "/>
 		</xsl:if>
 	</xsl:template>
-	
-	<xsl:template match="ISSN" mode="setSpec">
-		<setSpec><xsl:value-of select="."/></setSpec>
 	</xsl:template>
 	
 	<xsl:template name="OAI_DC_Header">
