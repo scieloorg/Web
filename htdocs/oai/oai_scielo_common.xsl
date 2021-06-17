@@ -115,6 +115,18 @@
 			<xsl:value-of select="concat( '&lt;![CDATA[ ', ., ' ]]&gt;' )"/>
 		</collab-group>
 	</xsl:template>
+
+	<xsl:template match="ARTICLE/KEYWORD">
+		<kwd>
+			<xsl:attribute name="xml:lang">
+				<xsl:value-of select="@LANG"/>
+			</xsl:attribute>
+			<xsl:apply-templates select="KEY" />
+			<xsl:if test="SUBKEY">/</xsl:if>
+			<xsl:apply-templates select="SUBKEY" />
+		</kwd>
+	</xsl:template>
+
 		<xsl:apply-templates select="text()" mode="cdata"/>
 	</xsl:template>
 	
