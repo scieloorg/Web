@@ -170,6 +170,8 @@
 			</xsl:if>
 		</aff>
 	</xsl:template>
+
+	<xsl:template match="KEY | SUBKEY">
 		<xsl:apply-templates select="text()" mode="cdata"/>
 	</xsl:template>
 	
