@@ -67,6 +67,7 @@
                 <field action="export" tag="list">9000</field>
             </loop>
         </do>
+
         <flow action="jump">
             <pft>
                 if v9000='OAITS' then
@@ -74,6 +75,7 @@
                 fi
             </pft>
         </flow>
+
         <do task="search">
             <parm name="db">ARTIGO</parm>   
             <parm name="expression">DTH=$</parm>    
@@ -122,18 +124,11 @@
                 fi
             </pft>
         </field>
-        <!-- 
-            v3030 inicio dos termos
-            v3031 fim dos termos
-            se ausente v3400 que usado para montar o v3030 e v3031 
-            o inicio seria HR=S (ok)
-            fim seria HR=SZZZZZ (estou na duvida se funciona: 
-            a duvida eh que se Z vem antes de numeros entao nunca retornara nada
-        -->
+        
         <do task="keyrange">
-    		<parm name="db">ARTIGO</parm>	
-    		<parm name="from"><pft>v3030</pft></parm>
-    		<parm name="to"><pft>v3031</pft></parm>            
+            <parm name="db">ARTIGO</parm>   
+            <parm name="from"><pft>v3030</pft></parm>
+            <parm name="to"><pft>v3031</pft></parm>            
             <parm name="posting">All</parm>
             
             <field action="replace" tag="1001">1</field>
@@ -163,9 +158,9 @@
                         ref(['ARTIGO']val(v1003^m),@PROC_SPLIT_MST.PFT,v880)
                     </pft>
                 </field>
+
                 <flow action="skip">
                     <pft>
-                        /* if From and processing date < from */
                         if p(v3002) and v1091 < v3002*0.8 then
                             'Next'
                         fi
@@ -174,14 +169,12 @@
                 
                 <flow action="skip">
                     <pft>
-                        /* if Until and processing date > until */
                         if p(v3003) and v1091 > v3003*0.8 then
                             'Next'
                         fi
                     </pft>
                 </flow>
-                
-                <call name="CreateArticleReferenceXML">
+
                     <pft>
                         '^t'f(l(['TITLE']'LOC=',mid(v1880,2,9)),1,0),
                         '^i'f(l(['NEWISSUE']'Y',mid(v1880,2,17)),1,0), 
