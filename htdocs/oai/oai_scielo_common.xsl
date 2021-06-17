@@ -664,6 +664,19 @@
 				<dc:format>text/html</dc:format>
 
 				<dc:rights>info:eu-repo/semantics/openAccess</dc:rights>
+
+				<xsl:if test="@DOI">
+					<article-id pub-id-type="doi">
+						<xsl:value-of select="@DOI"/>
+					</article-id>
+				</xsl:if>
+
+				<xsl:if test="@oldpid">
+					<article-id pub-id-type="old-publisher-id">
+						<xsl:value-of select="@oldpid"/>
+					</article-id>
+				</xsl:if>
+
 			</metadata>
 		</record>
 	</xsl:template>
