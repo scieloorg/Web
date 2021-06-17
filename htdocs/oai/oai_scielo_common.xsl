@@ -548,17 +548,17 @@
 
 	<xsl:template match="RESUME">
 		<xsl:variable name="from">
-			<xsl:call-template name="FormatDate">
+			<xsl:call-template name="format_date">
 				<xsl:with-param name="date" select="@FROM"/>
 			</xsl:call-template>
 		</xsl:variable>
-		
+
 		<xsl:variable name="until">
-			<xsl:call-template name="FormatDate">
+			<xsl:call-template name="format_date">
 				<xsl:with-param name="date" select="@UNTIL"/>
 			</xsl:call-template>
 		</xsl:variable>
-		
+
 		<xsl:variable name="resumptionToken">
 			<xsl:if test="@CONTROL">
 				<xsl:value-of select="@CONTROL"/>:<xsl:value-of select="@SET"/>:<xsl:value-of select="$from"/>:<xsl:value-of select="$until"/>:<xsl:value-of select="@METADATAPREFIX"/>
