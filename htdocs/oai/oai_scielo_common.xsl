@@ -127,6 +127,49 @@
 		</kwd>
 	</xsl:template>
 
+	<xsl:template match="ARTICLE/AFFILIATIONS/AFFILIATION">
+		<aff>
+			<xsl:attribute name="id">
+				<xsl:value-of select="@ID"/>
+			</xsl:attribute>
+
+			<xsl:if test="E-MAIL != ''">
+				<email>
+					<xsl:apply-templates mode="cdata" select="E-MAIL"/>
+				</email>
+			</xsl:if>
+
+			<xsl:if test="ORGNAME != ''">
+				<institution>
+					<xsl:apply-templates mode="cdata" select="ORGNAME"/>
+				</institution>
+			</xsl:if>
+
+			<xsl:if test="ORDDIV != ''">
+				<named-content content-type="orgdiv">
+					<xsl:apply-templates mode="cdata" select="ORDDIV"/>
+				</named-content>
+			</xsl:if>
+
+			<xsl:if test="CITY != ''">
+				<city>
+					<xsl:apply-templates mode="cdata" select="CITY"/>
+				</city>
+			</xsl:if>
+
+			<xsl:if test="STATE != ''">
+				<state>
+					<xsl:apply-templates mode="cdata" select="STATE"/>
+				</state>
+			</xsl:if>
+
+			<xsl:if test="COUNTRY != ''">
+				<country>
+					<xsl:apply-templates mode="cdata" select="COUNTRY"/>
+				</country>
+			</xsl:if>
+		</aff>
+	</xsl:template>
 		<xsl:apply-templates select="text()" mode="cdata"/>
 	</xsl:template>
 	
