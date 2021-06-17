@@ -1,0 +1,485 @@
+<IsisScript>
+
+<!-- Common functions -->
+<include>ScieloXML/sci_common.xis</include>
+<include>ScieloXML/pressrelease.xis</include>
+<include>ScieloXML/paragraphs.xis</include>
+<include>ScieloXML/sci_refrecord.xis</include>
+<include>ScieloXML/sci_getdefine.xis</include>
+
+
+<function name="CreateAuthorsGroupNoAffXML" action="replace" tag="4001">
+<!-- Generate XML for Authors Group without affiliation -->
+	<!--
+ 	4001 - pid 
+    4001^n - Don't print uppercase names
+	-->
+	
+	<field action="replace" tag="4001"><pft>mpu,v4001,mpl</pft></field>
+	<field action="replace" tag="10" split="occ"><pft>ref(['ARTIGO']l(['ARTIGO'],'HR=',v4001^*),@PROC_SPLIT_MST.PFT,(v10/))</pft></field>
+	<field action="replace" tag="11" split="occ"><pft>ref(['ARTIGO']l(['ARTIGO'],'HR=',v4001^*),@PROC_SPLIT_MST.PFT,(v11/))</pft></field>
+	
+	<display><pft>if p(v10) or p(v11) then ' <AUTHORS>'/ fi</pft></display>
+
+	<field action="replace" tag="19988"><pft>if p(v4001^n) then v4001^n fi</pft></field>
+    
+	<call name="CreateArticleAuthorsXML"><pft>(if v10^r='ND' or v10^r='author' then replace(v10,'author','ND')/ fi)</pft></call>
+	<call name="CreateArticleAuthorsXML"><pft>(if v10^r='TR' then v10/ fi)</pft></call>
+	<call name="CreateArticleAuthorsXML"><pft>(if v10^r='ED' then v10/ fi)</pft></call>
+	<call name="CreateArticleAuthorsXML"><pft>(if v10^r='COORD' then v10/ fi)</pft></call>
+	<call name="CreateArticleAuthorsXML"><pft>(if v10^r='ORG' then v10/ fi)</pft></call>
+	<call name="CreateCorporativeAuthorsXML"><pft>(v11/)</pft></call>
+
+	<display><pft>if p(v10) or p(v11) then ' </AUTHORS>'/# fi</pft></display>
+</function>
+
+
+<function name="CreateArticleAbstractAllLangsXML" action="replace" split="occ" tag="4001">
+<!-- Generate XML for abstract in available languages -->
+	<!--
+	v8000: XML ou ausente
+	v4001: conteudo de abstracts
+	-->
+	
+	<field action="replace"	tag="1000">
+		<pft>if v8000='BODY' or a(v8000) then '^i<![CDATA[^f]]>' fi</pft>
+	</field>
+	
+	<display>
+		<pft>
+			('  <ABSTRACT LANG="',v4001^l,'">',v1000^i[1],v4001^a,v1000^f[1],'</ABSTRACT>'/#)
+		</pft>
+	</display>
+</function>
+
+
+<function name="CreateKeywordsGroupAllLangsXML" action="replace" tag="4001">
+<!-- Generate XML for keywords in available languages -->
+	<field action="replace" tag="85" split="occ"><pft>(v4001/)</pft></field>
+ 		
+	<display>
+		<pft>
+			(
+				if p(v85^k) then
+					'  <KEYWORD LANG="',v85^l,'">'/,
+						'   <KEY><![CDATA[',v85^k,']]></KEY>'/,
+						|   <SUBKEY><![CDATA[|v85^s|]]></SUBKEY>|/,
+					'  </KEYWORD>'/,
+				fi
+			)
+		</pft>
+	</display>	
+</function>
+
+
+<function name="CreateArticleAllTitlesXML" action="replace" tag="4001">
+<!-- Generate XML for Title of Article -->
+	<!--
+    ^r - MFN 
+	^l - Interface Language 
+	^i - International Language 
+	^f - Flag: 0 - preserve Html tags in title (absent - default: preserve)
+	           1 - remove Html tags from title
+	-->
+	
+	<field action="replace" tag="3000"><pft>v4001^l</pft></field>
+	<field action="replace" tag="3003"><pft>v4001^i</pft></field>
+	<field action="import" tag="list">880</field>
+	<field action="import" tag="list">12</field>
+
+	<proc>
+		<pft>
+			'd9999',
+			if p(v4001^f) and v4001^f = '1' then 
+				(|<9999>|v12|</9999>|/)
+			else
+				if instr(v12,'~')=0 then 
+					(|a9999~|v12|~|/) 
+				else 
+					if instr(v12,'{')=0 then 
+						(|a9999{|v12|{|/) 
+					else 
+						('a9999~Invalid caracter in article title~'/) 
+					fi 
+				fi		
+			fi, 
+		</pft>  
+	</proc>
+
+	<call name="GetLanguage"><pft>v3000/v3003/(|^l|v12/)</pft></call>
+
+	<field action="replace"	tag="9000">
+		<pft>(if s(mpu,v12^l)=s(mpu,v4010[1]) then mpl,v12^*,break fi)</pft>
+	</field>
+
+	<field action="replace"	tag="9001">
+		<pft>(if s(mpu,v12^l)=s(mpu,v4010[1]) then mpl,v12^s,break fi)</pft>
+	</field>
+
+	<display>
+		<pft>
+			'  <TITLE><![CDATA['v9000']]></TITLE>'/#
+			'  <SUBTITLE><![CDATA['v9001']]></SUBTITLE>'/#
+		</pft>
+	</display>
+	<display><pft>(if v12^l<>v4010[1]  then '  <trans-title xml:lang="',v12^l,'">'v12^*'</trans-title>'/ fi)</pft></display>
+</function>
+
+
+<function name="PROC_SPLIT_MST" action="replace" tag=4001>
+	<do task="mfnrange">
+		<parm name="db"><pft>v4001^*</pft></parm>
+		<parm name="from"><pft>v4001^m</pft></parm>
+		<parm name="count">1</parm>
+  		<loop>
+			<return action="replace" tag="list">1/999</return>   
+		</loop>
+	</do>
+</function>
+
+
+<function name="CreateArticleXML" action="replace" tag=4001>
+<!-- Get Article Information From DB and Generate XML -->
+	<!--
+    4001^s - MFN Issue
+	4001^a - MFN Article (header)
+	4001^l - Interface Language
+	4001^i - International Language
+	4001^p - PID
+	4001^t - text language
+	--> 
+
+	<field action="import" tag="list">7000/7070</field>  	
+	 
+	<do task="mfnrange">
+		<parm name="db">ARTIGO</parm>
+		<parm name="from"><pft>v4001^a</pft></parm>
+		<parm name="count">1</parm>
+		<parm name="buffersize">400000</parm>
+
+		<loop>	
+			<display><pft>@PROC_SPLIT_MST.PFT</pft></display>
+			<field action="import" tag="list">4001,7009/7070</field>
+
+			<call name="GetTranslationFileNames"><pft>'^o',v40,'^p',v4001^p,'^l'v4001^t,'^d',v7041</pft></call>
+		 	<field action="export" tag="list">7999</field>
+
+			<display>
+			    <pft>
+			        '<ARTICLE TEXTLANG="',v4001^t,'" ORIGINALLANG="',v40,'"',
+					if v7999<>'' then
+						' TRANSLATION="',v4001^t,'"', /* fixed */
+					fi
+			        if p(v14^f) then
+			            ' FPAGE="',v14^f,'"'
+			        fi
+			        if p(v14^l) then
+			            ' LPAGE="',v14^l,'"'
+			        fi
+			        if p(v14^e) then
+			            ' ELOCATION_ID="',v14^e,'"'
+			        fi
+			        | PID="|v880|"|,
+			        if p(v14^l) then
+			            ' DOCTOPIC="',v71,'"'
+			        fi
+					if p(v72) and val(v72)>0 then
+					    ' DOCTYPE="article"'
+					else
+					    ' DOCTYPE="text"'
+					fi
+					,' RELATED="',ref(['related']l(['related']v880),f(nocc(v88),2,0)),'"',
+				        ,' CITED="',ref(['cited']l(['cited']v880),f(nocc(v88),2,0)),'"',
+					if v7052 = '1' then
+						,' PROJFAPESP="',ref(['PROJFAPESP']l(['PROJFAPESP'],'SCI=',v880),f(nocc(v88),2,0)),'"',
+					fi
+				    if v7055 = '1' then
+				        ,' CLINICALTRIALS="',f(nocc(v770),2,0),'"',
+				    fi
+			        ,' AREASGEO="',ref(['areasgeo']l(['areasgeo']v880),f(nocc(v880),2,0)),'"',
+			        ,' PROCESSDATE="',ref(l('OU=',v880),proc(if val(v32701^m) > 0 then,'R../bases/artigo/',v32701^*,',',v32701^m , fi),v91),'"',
+			        ,' RECEIVED_DATE="'v112'" ',
+			        ,' ACCEPTED_DATE="'v114'" ',
+			        ,' REVIEWED_DATE="'v116'" ',
+			        ,' CURR_DATE="',mid(date,1,8),'"'
+			        ,if val(mid(v223,7,2))>0 then                 
+			                        ,' ahpdate="',v223,'"'
+			                     ,fi
+			        ,| rvpdate="|v224|"|
+			        ,if v250='1' and v32='review' then
+			            ' enable-comment="1"'
+			        ,fi
+					,| is="|v41|"| 
+			    </pft>
+			</display>
+	    
+	   		<call name="displayDOIAttribute"><pft>v880,|^l|v4001^t</pft></call>
+		
+			<field action="replace" tag="4040" split="occ"><pft>v4001^t</pft></field> 
+			<call name="showText"><pft>v264</pft></call>
+			<call name="TestPDFPresence"><pft>if v8264<>'no' then v4001^p fi</pft></call>
+	   
+			<display><pft>'>'/</pft></display>
+
+			<field action="replace" tag="5"><pft>f(l(['TITLE']'LOC='mid(v880,2,9)),1,0)</pft></field>
+			<field action="replace" tag="6"><pft>f(l(['NEWISSUE']v3331,mid(v880,2,17)),1,0)</pft></field>
+
+			<call name="CreateTitleGroupXML"><pft>v5</pft></call>
+			<call name="CreateChangesInfoXML"><pft>v5</pft></call>
+
+			<call name="CreateIssueInfoXML"><pft>v4001^s</pft></call>
+ 			<call name="CreateIssueStripXML"><pft>'^r'v4001^s'^l'v4001^l'^i'v4001^i</pft></call>
+
+			<display>
+				<pft>
+					'</ISSUE>'
+				</pft>
+			</display>
+
+			<call name="CreateISSN4IDXML"><pft>v5</pft></call>
+			<call name="CreateISSN4ISSUEXML"><pft>v5</pft></call>
+			<call name="CreateCopyrightXML"><pft>v5</pft></call>
+			<call name="CreateContactXML"><pft>v5</pft></call>
+
+			<display>
+				<pft>
+					if p(v60) then '<CONTRACT><![CDATA[',v60,']]></CONTRACT>' fi
+				</pft>
+			</display>
+
+			<call name="CreateArticleAbstractAllLangsXML">
+		        <pft>
+		            (v83/)
+		        </pft>
+			</call>
+				
+			<call name="CreateKeywordsGroupAllLangsXML">
+		        <pft>
+		        	(v85/)
+		        </pft>
+			</call>
+
+			<display><pft>if p(v264) then '<EMBARGO date="',v264,'" text="',v8264,'"/>'/ fi</pft></display>
+
+			<call name="AllRelatedDocuments"><pft>v880</pft></call>
+		    
+			<call name="CreateLanguageXML">
+				<pft>
+					'^l'v3000'^i'v3003'^m',mfn,"^t"v3012,
+					if v4001^f = 'abs' then '^ssci_abstract' fi
+				</pft>
+			</call>
+
+			<call name="CreateArticleTitle1XML"><pft>'^r'v4001^a'^l'v4001^l'^t'v4001^t'^i'v4001^i'^h1'</pft></call>
+			<call name="CreateAuthorsGroupNoAffXML"><pft>v880</pft></call>   
+			<call name="CreateAuthorsAffXML"><pft>v880</pft></call>  
+			<call name="CreateLattesGroupXML"><pft>v880</pft></call>	   
+			<call name="CreateProjetoFAPESP"><pft>if v7052 = '1' then v880 fi</pft></call>
+			<call name="CreateClinicalTrials"><pft>v880</pft></call>
+			<call name="isXML"><pft>v702</pft></call>
+			<display><pft>'<filename>'v702'</filename>'</pft></display>
+		
+			<flow action="jump"><pft>if v8000='BODY' then 'yes' fi</pft></flow>
+
+			<display><pft>'<standard>',
+			if ref(['TITLE']l(['TITLE'],'LOC=',v880*1.9),v117)='other' then
+				,ref(['TITLE']l(['TITLE'],'LOC=',v880*1.9),v68),
+			else
+				,ref(['TITLE']l(['TITLE'],'LOC=',v880*1.9),v117),
+			fi
+			,'</standard>'/</pft></display> 
+		
+			<label>yes</label>
+
+		   <field action="export" tag="list">40,8000,8264</field>   
+		</loop>
+	</do>
+	 
+	<display><pft>'<REFERENCES>'</pft></display>
+
+	<do task="search">
+	 	<parm name="db">ARTIGO</parm>
+	 	<!-- obtém os registros de referências com a chave `R=<pid>$` -->
+		<parm name="expression"><pft>|R=|v4001^p|$|</pft></parm>
+		
+		<loop>
+			<call name="PROC_SPLIT_MST"><pft>v32701</pft></call>
+			<display>
+				<pft>
+					'<REFERENCE NUM="',v118,'">'
+						if p(v12) then '<TITLE_REFERENCE LANG="',v12^l,'"><![CDATA[',v12^*,']]></TITLE_REFERENCE>' fi
+
+						if p(v10) then 
+							'<AUTHORS_REFERENCE TYPE="analytic">',
+							(
+								'<AUTHOR>'
+								|<NAME><![CDATA[|v10^n|]]></NAME>|,
+								|<SURNAME><![CDATA[|v10^s|]]></SURNAME>|,
+								'</AUTHOR>'
+							)
+							'</AUTHORS_REFERENCE>'
+						fi
+						
+						if p(v11) then
+							'<AUTHORS_REFERENCE TYPE="corporative">',
+							(|<ORGNAME><![CDATA[|v11^*|]]></ORGNAME>|),
+							'</AUTHORS_REFERENCE>'
+						fi
+
+						if p(v16) then 
+							'<AUTHORS_REFERENCE TYPE="monographic-person">',
+							(
+								'<AUTHOR>'
+								|<NAME><![CDATA[|v16^n|]]></NAME>|,
+								|<SURNAME><![CDATA[|v16^s|]]></SURNAME>|,
+								'</AUTHOR>'
+							)
+							'</AUTHORS_REFERENCE>'
+						fi
+
+						if p(v17) then
+							'<AUTHORS_REFERENCE TYPE="monographic-institution">',
+							(|<ORGNAME><![CDATA[|v17^*|]]></ORGNAME>|),
+							'</AUTHORS_REFERENCE>'
+						fi
+
+						if p(v94) then
+							'<AUTHORS_REFERENCE TYPE="secondary">',
+							(
+								'<AUTHOR LANG_OR_ROLE="'v94^r'">'
+								|<NAME><![CDATA[|v94^n|]]></NAME>|,
+								|<SURNAME><![CDATA[|v94^s|]]></SURNAME>|,
+								'</AUTHOR>'
+							)
+							'</AUTHORS_REFERENCE>'
+						fi
+
+						proc('a9070~',
+							if p(v30) then
+								,'journal',
+							else
+								,if p(v53) then
+									,'conference',
+								else
+									if p(v51) then
+										,'thesis',
+									else
+										if p(v150) then
+											,'patent',
+										else
+											if p(v18) then
+												,'book',
+											else
+												if p(v37) then
+													,'link',
+												else
+													,'undefined',
+												fi
+											fi
+										fi
+									fi
+								fi
+							fi
+						,'~')
+
+						if p(v18) or p(v30) then 
+							'<SOURCE_REFERENCE LANG="',v18^l,'"><![CDATA[',v18^*,v30,']]></SOURCE_REFERENCE>',
+						fi
+
+						,|<PUBLICATION_TYPE_REFERENCE><![CDATA[|v9070|]]></PUBLICATION_TYPE_REFERENCE>|,
+
+						,|<VOLUME_REFERENCE><![CDATA[|v31^*|]]></VOLUME_REFERENCE>|,
+						,|<PAGE_REFERENCE><![CDATA[|v14^*|]]></PAGE_REFERENCE>|,
+						,|<YEAR_REFERENCE><![CDATA[|v65*0.4|]]></YEAR_REFERENCE>|,
+						,|<URL_REFERENCE><![CDATA[|v37^*|]]></URL_REFERENCE>|,
+
+						,|<ISSN_REFERENCE><![CDATA[|v35|]]></ISSN_REFERENCE>|,
+						,|<ISBN_REFERENCE><![CDATA[|v69|]]></ISBN_REFERENCE>|,
+						,|<PID_REFERENCE><![CDATA[|v880|]]></PID_REFERENCE>|,
+						,|<DOI_REFERENCE><![CDATA[|v237|]]></DOI_REFERENCE>|,
+
+						,|<ACCESS_DATE_REFERENCE><![CDATA[|v109|]]></ACCESS_DATE_REFERENCE>|,
+						,|<LINK_ACCESS_DATE_REFERENCE><![CDATA[|v110|]]></LINK_ACCESS_DATE_REFERENCE>|,
+						
+						,|<CONFERENCE_SPONSOR_REFERENCE><![CDATA[|v52^*|]]></CONFERENCE_SPONSOR_REFERENCE>|,
+						,|<CONFERENCE_NAME_REFERENCE><![CDATA[|v53^*|]]></CONFERENCE_NAME_REFERENCE>|,
+						,|<CONFERENCE_EDITION_REFERENCE><![CDATA[|v53^n|]]></CONFERENCE_EDITION_REFERENCE>|,
+						,|<CONFERENCE_DATE_REFERENCE><![CDATA[|v55^*|]]></CONFERENCE_DATE_REFERENCE>|,
+						if p(v56) or p(v57) then
+							'<CONFERENCE_ADDRESS_REFERENCE>',
+							(
+								|<CITY><![CDATA[|v56^*|]]></CITY>|,
+								|<STATE><![CDATA[|v56^e|]]></STATE>|,
+								|<COUNTRY><![CDATA[|v57^*|]]></COUNTRY>|,
+							)
+							'</CONFERENCE_ADDRESS_REFERENCE>'
+						fi
+
+						,|<EDITION_REFERENCE><![CDATA[|v63|]]></EDITION_REFERENCE>|,
+						
+						,|<THESIS_DATE_REFERENCE><![CDATA[|v45|]]></THESIS_DATE_REFERENCE>|,
+						,|<THESIS_INSTITUTION_REFERENCE><![CDATA[|v50^*|]]></THESIS_INSTITUTION_REFERENCE>|,
+						,|<THESIS_INSTITUTION_DEPARTMENT_REFERENCE><![CDATA[|v50^d|]]></THESIS_INSTITUTION_DEPARTMENT_REFERENCE>|,
+						,|<THESIS_DEGREE_REFERENCE><![CDATA[|v51|]]></THESIS_DEGREE_REFERENCE>|,
+						if p(v46) or p(v47) then
+							'<THESIS_ADDRESS_REFERENCE>',
+							(
+								|<CITY><![CDATA[|v46^*|]]></CITY>|,
+								|<STATE><![CDATA[|v46^e|]]></STATE>|,
+								|<COUNTRY><![CDATA[|v47|]]></COUNTRY>|,
+							)
+							'</THESIS_ADDRESS_REFERENCE>'
+						fi
+
+						,|<PATENT_COUNTRY_REFERENCE><![CDATA[|v150^*|]]></PATENT_COUNTRY_REFERENCE>|,
+						,|<PATENT_NAME_REFERENCE><![CDATA[|v150^a|]]></PATENT_NAME_REFERENCE>|,
+						,|<PATENT_ORGNAME_REFERENCE><![CDATA[|v150^d|]]></PATENT_ORGNAME_REFERENCE>|,
+						,|<PATENT_DATE_REFERENCE><![CDATA[|v150^c|]]></PATENT_DATE_REFERENCE>|,
+
+						,|<ISSUE_REFERENCE><![CDATA[|v32^*|]]></ISSUE_REFERENCE>|
+						,|<ISSUE_TITLE_REFERENCE><![CDATA[|v33|]]></ISSUE_TITLE_REFERENCE>|,
+						,|<ISSUE_PART_REFERENCE><![CDATA[|v34|]]></ISSUE_PART_REFERENCE>|,
+						
+						,|<SERIE_REFERENCE><![CDATA[|v25|]]></SERIE_REFERENCE>|,
+						,|<SERIE_VOLUME_REFERENCE><![CDATA[|v26|]]></SERIE_VOLUME_REFERENCE>|,
+
+						,|<ANALYTIC_VOLUME_REFERENCE><![CDATA[|v15|]]></ANALYTIC_VOLUME_REFERENCE>|,
+						,|<MONOGRAPH_VOLUME_REFERENCE><![CDATA[|v21|]]></MONOGRAPH_VOLUME_REFERENCE>|,
+
+						if p(v20) then '<EXTENT_REFERENCE TYPE="',v20^u,'"><![CDATA[',v20^*,']]></EXTENT_REFERENCE>' fi
+
+						,|<TOME_REFERENCE><![CDATA[|v22|]]></TOME_REFERENCE>|,
+						
+						,|<PUBLISHER_REFERENCE><![CDATA[|v62|]]></PUBLISHER_REFERENCE>|,
+						if p(v66) or p(v67) then
+							'<PUBLISHER_ADDRESS_REFERENCE>',
+							(
+								|<CITY><![CDATA[|v66^*|]]></CITY>|,
+								|<STATE><![CDATA[|v66^e|]]></STATE>|,
+								|<COUNTRY><![CDATA[|v67|]]></COUNTRY>|,
+							)
+							'</PUBLISHER_ADDRESS_REFERENCE>'
+						fi
+						
+						,|<SPONSOR_REFERENCE><![CDATA[|v58|]]></SPONSOR_REFERENCE>|,
+						,|<EDITOR_REFERENCE><![CDATA[|v29|]]></EDITOR_REFERENCE>|,
+						,|<COMMENT_REFERENCE><![CDATA[|v61|]]></COMMENT_REFERENCE>|,
+
+						,|<VERSION_REFERENCE><![CDATA[|v95|]]></VERSION_REFERENCE>|,
+
+						,|<PMID_REFERENCE><![CDATA[|v238|]]></PMID_REFERENCE>|,
+						,|<PMCID_REFERENCE><![CDATA[|v239|]]></PMCID_REFERENCE>|,
+					'</REFERENCE>' 
+				</pft>
+			</display>
+	  	</loop>
+	</do>	
+	<display><pft>'</REFERENCES>'</pft></display>
+	
+	<label>CLOSE_ARTICLE</label>
+	<display>
+		<pft>'</ARTICLE>'</pft>
+	</display>	
+</function>
+
+</IsisScript>

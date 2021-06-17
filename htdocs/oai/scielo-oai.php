@@ -12,7 +12,9 @@
 								  "oai_dc_agris" => array("ns" => "http://www.purl.org/agmes/agrisap/schema/",
 								  							"schema" => "http://www.purl.org/agmes/agrisap/schema/agris.xsd"),
                                   "oai_dc_openaire" => array( "ns" => "http://www.openarchives.org/OAI/2.0/oai_dc/",
-                                                     "schema" => "http://www.openarchives.org/OAI/2.0/oai_dc.xsd")
+                                                     "schema" => "http://www.openarchives.org/OAI/2.0/oai_dc.xsd"),
+                                  "oai_dc_scielo" => array( "ns" => "http://www.openarchives.org/OAI/2.0/oai_dc/",
+                                                            "schema" => "http://www.openarchives.org/OAI/2.0/oai_dc.xsd")
                                   );
 /*
 	$repositoryName = "SciELO Online Library Collection";
@@ -58,8 +60,8 @@ $identifier = cleanParameter($identifier);
     {
         global $metadataPrefix, $control, $set, $from, $until;
       
-        $hregex = "/^HR__S([0-9X]{4}-[0-9X]{4})[0-9]{13}:([0-9X]{4}-[0-9X]{4}|openaire)?:((19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01]))?:((19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01]))?:(oai_dc)(_agris|_openaire)?$/";
-        $dregex = "/DTH__((19|20)\d\d(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01]))__([0-9X]{4}-[0-9X]{4})([0-9]{9}|[0-9]{13}):([0-9X]{4}-[0-9X]{4}|openaire)?:((19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01]))?:((19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01]))?:(oai_dc)(_agris|_openaire)?$/";
+        $hregex = "/^HR__S([0-9X]{4}-[0-9X]{4})[0-9]{13}:([0-9X]{4}-[0-9X]{4}|openaire|scielo)?:((19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01]))?:((19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01]))?:(oai_dc)(_agris|_openaire|_scielo)?$/";
+        $dregex = "/DTH__((19|20)\d\d(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01]))__([0-9X]{4}-[0-9X]{4})([0-9]{9}|[0-9]{13}):([0-9X]{4}-[0-9X]{4}|openaire|scielo)?:((19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01]))?:((19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01]))?:(oai_dc)(_agris|_openaire|_scielo)?$/";
 
         if (substr($resumptionToken, 0, 1) == 'H'){
             $result_hregex = preg_match($hregex , $resumptionToken );
@@ -91,7 +93,7 @@ $identifier = cleanParameter($identifier);
 
     function is_Set ( $set )
     {
-        return eregi ( "^([0-9a-z]{4}-[0-9a-z]{4}|openaire)$", $set );
+        return eregi ( "^([0-9a-z]{4}-[0-9a-z]{4}|openaire|scielo)$", $set );
     }
 
 	/******************************************* isDatestamp **********************************************/
@@ -265,11 +267,21 @@ $identifier = cleanParameter($identifier);
 				$response = ListRecordsAgris( $set = $parameters["set"], $from = $parameters["from"], $until = $parameters["until"], $control = $parameters["control"], $lang = "en", $nrm = "iso", $count = 100, $debug = false, $metadataprx = $parameters["metadataprefix"] );
 				break;
 				}
+            case "ListRecordsScielo":
+                {
+                $response = listRecordsScielo( $set = $parameters["set"], $from = $parameters["from"], $until = $parameters["until"], $control = $parameters["control"], $count = 10, $debug = false, $metadataprx = $parameters["metadataprefix"]);
+                break;
+                }
 			case "GetRecord":
 				{
 				$response = getAbstractArticle( $pid = $parameters["pid"],$lang = "en", $ws = $parameters["ws_oai"], $debug = false );
 				break;
 				}
+            case "GetRecordScielo":
+                {
+                $response = getRecord( $pid = $parameters["pid"], $ws = $parameters["ws_oai"], $debug = false );
+                break;
+                }
 			case "GetRecordAgris":
 				{
 				$response = getAbstractArticleAgris( $pid = $parameters["pid"],$lang = "en", $ws = $parameters["ws_oai"], $debug = false );
@@ -333,8 +345,11 @@ $identifier = cleanParameter($identifier);
             }
              else if($metadataPrefix == 'oai_dc_openaire'){
                 $xsl = 'GetRecord_openaire.xsl';
-                $result = generatePayload ( $ws_client_url, "getAbstractArticle", "GetRecord", $parameters, $xsl );                
-			 }else{
+                $result = generatePayload ( $ws_client_url, "getAbstractArticle", "GetRecord", $parameters, $xsl );
+             } else if($metadataPrefix == 'oai_dc_scielo'){
+                $xsl = 'GetRecord_scielo.xsl';
+                $result = generatePayload ( $ws_client_url, "getRecord", "GetRecordScielo", $parameters, $xsl );
+             } else {
 			 	$xsl = 'GetRecord.xsl';
 			 	$result = generatePayload ( $ws_client_url, "getAbstractArticle", "GetRecord", $parameters, $xsl );			
 			 }
@@ -509,7 +524,10 @@ $identifier = cleanParameter($identifier);
 				}else if($metadataPrefix == 'oai_dc_openaire'){
                     $xsl = 'ListRecords_openaire.xsl';
                     $result = generatePayload ( $ws_client_url, "listRecords", "ListRecords", $parameters, $xsl );                
-                }else{
+                }else if($metadataPrefix == 'oai_dc_scielo'){
+                    $xsl = 'ListRecords_scielo.xsl';
+                    $result = generatePayload ( $ws_client_url, "listRecordsScielo", "ListRecordsScielo", $parameters, $xsl );
+				}else{
 					$xsl = "$verb.xsl";
 					$result = generatePayload ( $ws_client_url, "listRecords", $verb, $parameters, $xsl ); 	
 				 }
