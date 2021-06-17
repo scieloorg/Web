@@ -587,43 +587,6 @@
 			</header>
 
 			<metadata>
-				<xsl:call-template name="OAI_DC_Header" />
-				<xsl:apply-templates select="TITLE" />
-				<xsl:apply-templates select="AUTHORS" />
-				<xsl:apply-templates select="KEYWORDS" />
-				<xsl:apply-templates select="ABSTRACT" />
-				<xsl:call-template name="escaped_element">
-					<xsl:with-param name="name">dc:rights</xsl:with-param>
-					<xsl:with-param name="value">info:eu-repo/semantics/openAccess</xsl:with-param>			
-				</xsl:call-template>
-				<xsl:apply-templates select="PUBLISHERS/PUBLISHER" />
-				<xsl:apply-templates select="TITLEGROUP" mode="source">
-					<xsl:with-param name="vol"><xsl:value-of select="ISSUEINFO/@VOL"/></xsl:with-param>
-					<xsl:with-param name="num"><xsl:value-of select="ISSUEINFO/@NUM"/></xsl:with-param>
-					<xsl:with-param name="suppl"><xsl:value-of select="ISSUEINFO/@SUPPL"/></xsl:with-param>
-					<xsl:with-param name="year"><xsl:value-of select="ISSUEINFO/@YEAR"/></xsl:with-param>
-				</xsl:apply-templates>
-				<xsl:apply-templates select="ISSUEINFO" mode="pubdate" />
-                <xsl:call-template name="escaped_element">
-                        <xsl:with-param name="name">dc:type</xsl:with-param>
-                        <xsl:with-param name="value"><xsl:value-of select="$doc_type_conversor/item[@key = $doctype]" /></xsl:with-param>
-                </xsl:call-template>
-                <xsl:call-template name="escaped_element">
-					<xsl:with-param name="name">dc:format</xsl:with-param>
-					<xsl:with-param name="value">text/html</xsl:with-param>						
-				</xsl:call-template>
-				<xsl:apply-templates select="$CONTROLINFO" mode="identifier">
-					<xsl:with-param name="PID" select="@PID"/>
-				</xsl:apply-templates>
-				<xsl:call-template name="escaped_element">
-					<xsl:with-param name="name">dc:language</xsl:with-param>
-					<xsl:with-param name="value" select="@TEXT_LANG"/>						
-				</xsl:call-template>
-				<xsl:call-template name="escaped_element">
-					<xsl:with-param name="name">dc:relation</xsl:with-param>
-					<xsl:with-param name="value" select="@DOI"/>
-				</xsl:call-template>
-				<xsl:call-template name="OAI_DC_Footer" />			
 			</metadata>
 		</record>
 	</xsl:template>
