@@ -704,6 +704,11 @@
 						<xsl:with-param name="value"><xsl:value-of select="@ahpdate"/></xsl:with-param>
 					</xsl:apply-templates>
 				</xsl:if>
+
+				<xsl:if test="CONTRACT != ''">
+					<award-id><xsl:value-of select="CONTRACT"/></award-id>
+				</xsl:if>
+
 			</metadata>
 		</record>
 	</xsl:template>
