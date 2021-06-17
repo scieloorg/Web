@@ -567,6 +567,7 @@
 		<resumptionToken><xsl:value-of select="normalize-space($resumptionToken)"/></resumptionToken>
 	</xsl:template>
 
+	<xsl:template match="ARTICLE" name="format_article">
 		<record>
 			<header>
 				<xsl:apply-templates select="@PID" mode="identifier"/>
