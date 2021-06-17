@@ -566,70 +566,7 @@
 		</xsl:variable>
 		<resumptionToken><xsl:value-of select="normalize-space($resumptionToken)"/></resumptionToken>
 	</xsl:template>
-	
-	<xsl:template name="FormatDate">
-		<xsl:param name="date"/>
-		<xsl:if test="$date">
-			<xsl:variable name="complete_date"><xsl:value-of select="$date"/>00000000</xsl:variable>
-			
-			<xsl:variable name="fixed_month_and_day"><xsl:choose>
-				<xsl:when test="substring($complete_date,5,2)='00'">01</xsl:when><xsl:otherwise><xsl:value-of select="substring($complete_date,5,2)"/></xsl:otherwise>
-			</xsl:choose><xsl:choose>
-				<xsl:when test="substring($complete_date,7,2)='00'">01</xsl:when><xsl:otherwise><xsl:value-of select="substring($complete_date,7,2)"/></xsl:otherwise>
-			</xsl:choose></xsl:variable>
-			<xsl:value-of select="concat(substring($complete_date,1,4), '-', substring($fixed_month_and_day,1,2), '-', substring($fixed_month_and_day,3,2)) "/>
-		</xsl:if>
-	</xsl:template>
-	
-	<xsl:template match="ISSUEINFO" mode="pubdate">
-		<xsl:call-template name="escaped_element">
-			<xsl:with-param name="name">dc:date</xsl:with-param>
-			<xsl:with-param name="value">
-				<xsl:call-template name="FormatDate">
-					<xsl:with-param name="date">
-						<xsl:choose>
-							<xsl:when test="@MONTH"><xsl:value-of select=" concat(@YEAR, @MONTH) "/></xsl:when>
-							<xsl:otherwise><xsl:value-of select=" concat(@YEAR, '01') "/></xsl:otherwise>
-						</xsl:choose>
-					</xsl:with-param>
-				</xsl:call-template>
-			</xsl:with-param>							
-		</xsl:call-template>
-	</xsl:template>
-	
-	<xsl:template match="CONTROLINFO" mode="identifier">
-		<xsl:param name="PID" select="PAGE_PID" />
 
-		<dc:identifier>http://<xsl:value-of select="concat(SCIELO_INFO/SERVER, SCIELO_INFO/PATH_DATA)"/>scielo.php?script=sci_arttext<xsl:text  disable-output-escaping="no">&amp;</xsl:text>pid=<xsl:value-of select="$PID"/></dc:identifier>
-
-	</xsl:template>
-	
-	<xsl:template match="PUBLISHER">
-		<xsl:call-template name="escaped_element">
-			<xsl:with-param name="name">dc:publisher</xsl:with-param>
-			<xsl:with-param name="value"><xsl:apply-templates select="NAME/text()" mode="cdata"/></xsl:with-param>		
-		</xsl:call-template>
-	</xsl:template>
-	
-	<xsl:template match="TITLEGROUP" mode="source">
-		<xsl:param name="vol" />
-		<xsl:param name="num" />
-		<xsl:param name="suppl" />
-		<xsl:param name="year" />
-		<xsl:param name="source">
-			<xsl:if test="$vol != ''"><xsl:value-of select="concat(' v.',$vol)"/></xsl:if>
-			<xsl:if test="$num != ''"><xsl:value-of select="concat(' n.',$num)"/></xsl:if>
-			<xsl:if test="$suppl != ''"><xsl:value-of select="concat(' suppl.',$suppl)"/></xsl:if>
-			<xsl:if test="$year != ''"><xsl:value-of select="concat(' ',$year)"/></xsl:if>
-		</xsl:param>
-		<xsl:call-template name="escaped_element">
-			<xsl:with-param name="name">dc:source</xsl:with-param>
-			<xsl:with-param name="value"><xsl:value-of select="concat('&lt;![CDATA[',TITLE/text(),' ',$source,']]&gt;')"/> </xsl:with-param>		
-		</xsl:call-template>
-	</xsl:template>
-	
-	<xsl:template match="ARTICLE">
-		<xsl:variable name="doctype" select="@DOC_TYPE" />
 		<record>
 			<header>
 				<xsl:apply-templates select="@PID" mode="identifier"/>
@@ -678,9 +615,5 @@
 			</metadata>
 		</record>
 	</xsl:template>
-	
-	<xsl:template match="@PID" mode="identifier">
-		<identifier>oai:scielo:<xsl:value-of select="."/></identifier>
-	</xsl:template>
-	
+
 </xsl:stylesheet>
