@@ -12,6 +12,16 @@
 			<xsl:value-of select=" concat( '&lt;', $name, '&gt;', $value,  '&lt;/', $name, '&gt;' )" disable-output-escaping="yes"/>
 		</xsl:if>
 	</xsl:template>
+
+	<xsl:template name="parameterized_escaped_element">
+		<xsl:param name="name"/>
+		<xsl:param name="value"/>
+		<xsl:param name="param_name"/>
+		<xsl:param name="param_value"/>
+
+		<xsl:if test="$value != ''">
+			<xsl:value-of select=" concat( '&lt;', $name, ' ', $param_name, '= &quot;', $param_value, '&quot; &gt;', $value,  '&lt;/', $name, '&gt;' )" disable-output-escaping="yes"/>
+		</xsl:if>
 	</xsl:template>
 	<xsl:template match="@PROCESSDATE" mode="datestamp">
 		<datestamp>
