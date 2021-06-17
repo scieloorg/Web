@@ -41,18 +41,18 @@
         <field action="replace" tag="3000"><pft>if a(v3000) then '10' fi</pft></field>
         
         <call name="CreateErrorXML">
-	    	<pft>
-		    	if p(v3004) and p(v3008) and val(v3008)<=0 then
-			    	'^l'v3005,'^p'v3004*3'^c0003' 
-    			else
-    		    	if v3001<>'openaire' then
+            <pft>
+                if p(v3004) and p(v3008) and val(v3008)<=0 then
+                    '^l'v3005,'^p'v3004*3'^c0003' 
+                else
+                    if v3001<>'openaire' then
                         if p(v3001) and val(v3007)<=0 then
-    					   	'^l'v3005,'^p'v3001'^c0001'
-        				fi
+                            '^l'v3005,'^p'v3001'^c0001'
+                        fi
                     fi
-	    		fi
-		    </pft>
-    	</call>
+                fi
+            </pft>
+        </call>
         
         <display><pft>'<LIST_RECORDS>'/</pft></display>
 
