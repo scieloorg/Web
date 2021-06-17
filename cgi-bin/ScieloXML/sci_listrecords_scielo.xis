@@ -8,7 +8,6 @@
 	    <field action="cgi" tag="3003">until</field>
 	    <field action="cgi" tag="3004">resume</field>
 	    <field action="cgi" tag="3005">lng</field>
-	    <field action="cgi" tag="3006">nrm</field>
         <field action="cgi" tag="3010">debug</field>
 	    <field action="cgi" tag="3011">def</field>
         <field action="cgi" tag="3012">metadataprefix</field>        
