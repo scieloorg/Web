@@ -174,14 +174,16 @@
 	<xsl:template match="KEY | SUBKEY">
 		<xsl:apply-templates select="text()" mode="cdata"/>
 	</xsl:template>
-	
-	<xsl:template match="ABSTRACT">
-		<xsl:call-template name="escaped_element">
-			<xsl:with-param name="name">dc:description</xsl:with-param>
-			<xsl:with-param name="value"><xsl:apply-templates select="text()" mode="cdata"/></xsl:with-param>
-		</xsl:call-template>
+
+	<xsl:template match="ARTICLE/ABSTRACT">
+		<abstract>
+			<xsl:attribute name="xml:lang">
+				<xsl:value-of select="@LANG"/>
+			</xsl:attribute>
+			<xsl:value-of disable-output-escaping="yes" select="concat( '&lt;![CDATA[', . ,  ']]&gt;' )"/>
+		</abstract>
 	</xsl:template>
-	
+
 	<xsl:template match="RESUME">
 		<xsl:variable name="from">
 			<xsl:call-template name="FormatDate">
