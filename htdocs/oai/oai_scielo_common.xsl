@@ -48,6 +48,14 @@
 			<xsl:value-of select="concat(substring($complete_date,1,4), '-', substring($fixed_month_and_day,1,2), '-', substring($fixed_month_and_day,3,2)) "/>
 		</xsl:if>
 	</xsl:template>
+
+	<xsl:template name="format_issue_type">
+		<xsl:param name="type"/>
+		<xsl:choose>
+			<xsl:when test="$type = 'PRINT'">print</xsl:when>
+			<xsl:when test="$type = 'ONLIN'">online</xsl:when>
+			<xsl:otherwise><xsl:value-of select="$type"/></xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 	
 	<xsl:template name="OAI_DC_Header">
