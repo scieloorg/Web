@@ -12,18 +12,6 @@
 			<xsl:value-of select=" concat( '&lt;', $name, '&gt;', $value,  '&lt;/', $name, '&gt;' )" disable-output-escaping="yes"/>
 		</xsl:if>
 	</xsl:template>
-	
-	<xsl:template match="ISSUEINFO" mode="datestamp">
-		<datestamp>
-			<xsl:call-template name="FormatDate">
-				<xsl:with-param name="date">
-					<xsl:choose>
-						<xsl:when test="@MONTH"><xsl:value-of select=" concat(@YEAR, @MONTH) "/></xsl:when>
-						<xsl:otherwise><xsl:value-of select=" concat(@YEAR, '01') "/></xsl:otherwise>
-					</xsl:choose>
-				</xsl:with-param>
-			</xsl:call-template>
-		</datestamp>
 	</xsl:template>
 	<xsl:template match="@PROCESSDATE" mode="datestamp">
 		<datestamp>
