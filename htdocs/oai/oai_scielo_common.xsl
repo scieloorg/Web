@@ -677,6 +677,33 @@
 					</article-id>
 				</xsl:if>
 
+				<xsl:if test="@RECEIVED_DATE != ''">
+					<xsl:apply-templates select="@RECEIVED_DATE" mode="date">
+						<xsl:with-param name="date_type">received-date</xsl:with-param>
+						<xsl:with-param name="value"><xsl:value-of select="@RECEIVED_DATE"/></xsl:with-param>
+					</xsl:apply-templates>
+				</xsl:if>
+
+				<xsl:if test="@ACCEPTED_DATE != ''">
+					<xsl:apply-templates select="@ACCEPTED_DATE" mode="date">
+						<xsl:with-param name="date_type">accepted-date</xsl:with-param>
+						<xsl:with-param name="value"><xsl:value-of select="@ACCEPTED_DATE"/></xsl:with-param>
+					</xsl:apply-templates>
+				</xsl:if>
+
+				<xsl:if test="@REVIEWED_DATE != ''">
+					<xsl:apply-templates select="@REVIEWED_DATE" mode="date">
+						<xsl:with-param name="date_type">reviewed-date</xsl:with-param>
+						<xsl:with-param name="value"><xsl:value-of select="@REVIEWED_DATE"/></xsl:with-param>
+					</xsl:apply-templates>
+				</xsl:if>
+
+				<xsl:if test="@ahpdate != ''">
+					<xsl:apply-templates select="@ahpdate" mode="date">
+						<xsl:with-param name="date_type">ahead-of-print-date</xsl:with-param>
+						<xsl:with-param name="value"><xsl:value-of select="@ahpdate"/></xsl:with-param>
+					</xsl:apply-templates>
+				</xsl:if>
 			</metadata>
 		</record>
 	</xsl:template>
