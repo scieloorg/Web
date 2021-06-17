@@ -66,22 +66,11 @@
 			<xsl:call-template name="format_date"><xsl:with-param name="date" select="$value"/></xsl:call-template>
 		</date>
 	</xsl:template>
-	
-	<xsl:template name="OAI_DC_Footer">
-		<xsl:value-of select=" '&lt;/oai-dc:dc&gt;' " disable-output-escaping="yes" />
-	</xsl:template>
-	
-	<xsl:template match="TITLE">		
-		<xsl:call-template name="escaped_element">
-			<xsl:with-param name="name">dc:title</xsl:with-param>
-			<xsl:with-param name="value"><xsl:apply-templates select="text()" mode="cdata"/></xsl:with-param>	
-		</xsl:call-template>
-	</xsl:template>
-	
+
 	<xsl:template match="AUTHORS">
 		<xsl:apply-templates select="AUTH_PERS/AUTHOR" mode="pers"/>
 	</xsl:template>
-	
+
 	<xsl:template match="AUTHOR" mode="pers">
 		<xsl:call-template name="escaped_element">
 			<xsl:with-param name="name">dc:creator</xsl:with-param>
