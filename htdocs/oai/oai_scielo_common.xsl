@@ -709,6 +709,27 @@
 					<award-id><xsl:value-of select="CONTRACT"/></award-id>
 				</xsl:if>
 
+				<xsl:if test="TITLE != ''">
+					<article-title>
+						<xsl:if test="@ORIGINALLANG != ''">
+							<xsl:attribute name="xml:lang">
+								<xsl:value-of select="@ORIGINALLANG"/>
+							</xsl:attribute>
+						</xsl:if>
+						<xsl:apply-templates mode="cdata" select="TITLE"/>
+					</article-title>
+				</xsl:if>
+
+				<xsl:if test="trans-title != ''">
+					<xsl:apply-templates select="trans-title" />
+				</xsl:if>
+
+				<xsl:if test="SUBTITLE != ''">
+					<subtitle>
+						<xsl:apply-templates mode="cdata" select="SUBTITLE" />
+					</subtitle>
+				</xsl:if>
+
 			</metadata>
 		</record>
 	</xsl:template>
