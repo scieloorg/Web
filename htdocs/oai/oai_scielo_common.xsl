@@ -652,6 +652,18 @@
 						<xsl:with-param name="value"><xsl:apply-templates mode="cdata" select="ISSUE/@PUBDATE"/></xsl:with-param>
 					</xsl:call-template>
 				</journal>
+
+				<dc:language>
+					<xsl:value-of select="@ORIGINALLANG"/>
+				</dc:language>
+
+				<dc:type>
+					<xsl:value-of select="@DOCTYPE"/>
+				</dc:type>
+
+				<dc:format>text/html</dc:format>
+
+				<dc:rights>info:eu-repo/semantics/openAccess</dc:rights>
 			</metadata>
 		</record>
 	</xsl:template>
