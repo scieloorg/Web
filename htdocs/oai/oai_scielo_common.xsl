@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:dc="http://purl.org/dc/elements/1.1/">
-	
-	<xsl:variable name="CONTROLINFO" select="//CONTROLINFO[1]" />
-	<xsl:variable name="doc_type_conversor" select="document('doc_types_openaire.xml')/doc_types" />
+
 	<xsl:template match="text()" mode="cdata">
 		<xsl:value-of select=" concat( '&lt;![CDATA[', . ,  ']]&gt;' ) " disable-output-escaping="yes"/>
 	</xsl:template>
-	
+
 	<xsl:template name="escaped_element">
 		<xsl:param name="name"/>
 		<xsl:param name="value"/>		
