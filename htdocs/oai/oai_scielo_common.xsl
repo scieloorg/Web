@@ -57,6 +57,14 @@
 			<xsl:otherwise><xsl:value-of select="$type"/></xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
+
+	<xsl:template match="@PROCESSDATE|@REVIEWED_DATE|@ACCEPTED_DATE|@RECEIVED_DATE|@ahpdate|@PUBDATE" mode="date">
+		<xsl:param name="date_type"/>
+		<xsl:param name="value"/>
+		<date>
+			<xsl:attribute name="date-type"><xsl:value-of select="$date_type"/></xsl:attribute>
+			<xsl:call-template name="format_date"><xsl:with-param name="date" select="$value"/></xsl:call-template>
+		</date>
 	</xsl:template>
 	
 	<xsl:template name="OAI_DC_Footer">
