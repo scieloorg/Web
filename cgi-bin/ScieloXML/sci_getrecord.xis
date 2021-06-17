@@ -5,73 +5,57 @@
 
 
 <section>
-  <!-- Get CGI Parameters -->
-  <field action="cgi" tag="1">pid</field>
-  <field action="cgi" tag="2">lng</field>
-  <field action="cgi" tag="3">nrm</field>
-  <field action="cgi" tag="4">sln</field>
-  <field action="cgi" tag="10">debug</field>
-  <field action="cgi" tag="11">tlng</field>
-  <field action="cgi" tag="3011">def</field>
-	
-  <field action="replace" tag="3011"><pft>if a(v3011) then 'scielo.def.php' fi</pft></field>
+	<!-- Get CGI Parameters -->
+	<field action="cgi" tag="1">pid</field>
+	<field action="cgi" tag="2">lng</field>
+	<field action="cgi" tag="4">sln</field>
+	<field action="cgi" tag="10">debug</field>
+	<field action="cgi" tag="11">tlng</field>
+	<field action="cgi" tag="3011">def</field>
 
-  <call name="DebugMode"><pft>if a(v10) then 'OFF' else mpu,v10,mpl fi</pft></call>
-  
-  <include>ScieloXML/sci_cipar.xis</include>  
-  
-  <!-- verifica se artigo era um ahead of print, entï¿? troca o pid pelo novo pid -->
-  <field action="replace" tag="1"><pft>ref(['ARTIGO']l(['ARTIGO']'HR='v1),@PROC_SPLIT_MST.PFT,if p(v222) then v222 else v880 fi)</pft></field>
-  <field action="replace" tag="3331"><pft>ref(['ARTIGO']l(['ARTIGO']'HR='v1),@PROC_SPLIT_MST.PFT,if p(v41) then 'P' else 'Y' fi)</pft></field>
+	<field action="replace" tag="3011"><pft>if a(v3011) then 'scielo.def.php' fi</pft></field>
 
-  <!-- 5 - Title MFN, 6 - Issue MFN, 7 - Article MFN -->  
-  <field action="replace" tag="5"><pft>f(l(['TITLE']'LOC='mid(v1,2,9)),1,0)</pft></field>
-  <field action="replace" tag="6"><pft>f(l(['NEWISSUE']v3331,mid(v1,2,17)),1,0)</pft></field>
-  <field action="replace" tag="7"><pft>f(l(['ARTIGO']'HR='v1),1,0)</pft></field>
+	<call name="DebugMode"><pft>if a(v10) then 'OFF' else mpu,v10,mpl fi</pft></call>
 
-  <!-- Article text language -->
-  <field action="replace" tag="11"><pft>if a(v11) then ref(['ARTIGO']val(v7),@PROC_SPLIT_MST.PFT,v40) fi</pft></field>
+	<include>ScieloXML/sci_cipar.xis</include>  
 
-  <call name="CreateErrorXML">
-   <pft>
-     if val(v5)<=0 or val(v6)<=0 or val(v7)<=0 then
-      '^l'v2,'^p'v1'^c',   
-      if val(v5)<=0 then '0001'
-       else 
-	    if val(v6)<=0 then '0002'
-		 else 
-		  if val(v7)<=0 then '0003' fi
+	<field action="replace" tag="1"><pft>ref(['ARTIGO']l(['ARTIGO']'HR='v1),@PROC_SPLIT_MST.PFT,if p(v222) then v222 else v880 fi)</pft></field>
+	<field action="replace" tag="3331"><pft>ref(['ARTIGO']l(['ARTIGO']'HR='v1),@PROC_SPLIT_MST.PFT,if p(v41) then 'P' else 'Y' fi)</pft></field>
+
+	<!-- 5 - Title MFN, 6 - Issue MFN, 7 - Article MFN -->  
+	<field action="replace" tag="5"><pft>f(l(['TITLE']'LOC='mid(v1,2,9)),1,0)</pft></field>
+	<field action="replace" tag="6"><pft>f(l(['NEWISSUE'],mid(v1,2,17)),1,0)</pft></field>
+	<field action="replace" tag="7"><pft>f(l(['ARTIGO']'HR='v1),1,0)</pft></field>
+
+	<!-- Article text language -->
+	<field action="replace" tag="11"><pft>if a(v11) then ref(['ARTIGO']val(v7),@PROC_SPLIT_MST.PFT,v40) fi</pft></field>
+
+	<call name="CreateErrorXML">
+		<pft>
+		if val(v5)<=0 or val(v6)<=0 or val(v7)<=0 then
+			'^l'v2,'^p'v1'^c',   
+		if val(v5)<=0 then '0001'
+			else 
+				if val(v6)<=0 then '0002'
+		 		else 
+		  			if val(v7)<=0 then '0003' fi
+				fi
+			fi
 		fi
-	  fi
-	 fi
-   </pft>
-  </call>
-  
-  <!-- Create XML heading -->
-  <display>
-   <pft>
-		'<SERIAL>'/</pft>
-  </display>
-  
-  <call name="CreateControlInfoXML"><pft>'^l'v2'^s'v3'^p'v1'^tART^i',v4,'^fsci_arttext'</pft></call>
-  
-  <!-- Get Title Information from TITLE DB -->
-    
-  <call name="CreateTitleGroupXML"><pft>v5</pft></call>
-  <call name="CreateChangesInfoXML"><pft>v5</pft></call>
-  <call name="CreateISSN4IDXML"><pft>v5</pft></call>
-  <call name="CreateISSN4ISSUEXML"><pft>v5,'^i'v6</pft></call>
-  <call name="CreateCopyrightXML"><pft>v5</pft></call>
-  <call name="CreateContactXML"><pft>v5</pft></call>
-  
-  <!-- Create XML for Article -->	    	
-  <call name="CreateArticleXML"><pft>'^a'v7'^s'v6'^l'v2'^i'v4'^p'v1'^n'v3'^t'v11</pft></call>
-  	
-	<field action="cgi" tag="3311">rep</field>
-	<field action="cgi" tag="12">journal</field>
-	<field action="replace" tag="9936"><pft>if p(v3311) then f(val(v3311)+100000,6,0) fi</pft></field>
-    <field action="replace" tag="3311"><pft>if p(v3311) then v9936*1.5 fi</pft></field>
-    <display><pft>if p(v3311) then '<PAGINATION rep="',v3311,'" ',|journal="|v12|"|,'/>',/# fi</pft></display>
+		</pft>
+	</call>
+
+	<!-- Create XML for Article -->	    	
+	<call name="CreateArticleXML">
+		<pft>
+			'^a'v7,
+			'^s'v6,
+			'^l'v2,
+			'^i'v4,
+			'^p'v1,
+			'^t'v11
+		</pft>
+	</call>
 
 </section>
 </IsisScript>
