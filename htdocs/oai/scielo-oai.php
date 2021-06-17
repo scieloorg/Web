@@ -267,11 +267,21 @@ $identifier = cleanParameter($identifier);
 				$response = ListRecordsAgris( $set = $parameters["set"], $from = $parameters["from"], $until = $parameters["until"], $control = $parameters["control"], $lang = "en", $nrm = "iso", $count = 100, $debug = false, $metadataprx = $parameters["metadataprefix"] );
 				break;
 				}
+            case "ListRecordsScielo":
+                {
+                $response = listRecordsScielo( $set = $parameters["set"], $from = $parameters["from"], $until = $parameters["until"], $control = $parameters["control"], $count = 10, $debug = false, $metadataprx = $parameters["metadataprefix"]);
+                break;
+                }
 			case "GetRecord":
 				{
 				$response = getAbstractArticle( $pid = $parameters["pid"],$lang = "en", $ws = $parameters["ws_oai"], $debug = false );
 				break;
 				}
+            case "GetRecordScielo":
+                {
+                $response = getRecord( $pid = $parameters["pid"], $ws = $parameters["ws_oai"], $debug = false );
+                break;
+                }
 			case "GetRecordAgris":
 				{
 				$response = getAbstractArticleAgris( $pid = $parameters["pid"],$lang = "en", $ws = $parameters["ws_oai"], $debug = false );
@@ -335,8 +345,11 @@ $identifier = cleanParameter($identifier);
             }
              else if($metadataPrefix == 'oai_dc_openaire'){
                 $xsl = 'GetRecord_openaire.xsl';
-                $result = generatePayload ( $ws_client_url, "getAbstractArticle", "GetRecord", $parameters, $xsl );                
-			 }else{
+                $result = generatePayload ( $ws_client_url, "getAbstractArticle", "GetRecord", $parameters, $xsl );
+             } else if($metadataPrefix == 'oai_dc_scielo'){
+                $xsl = 'GetRecord_scielo.xsl';
+                $result = generatePayload ( $ws_client_url, "getRecord", "GetRecordScielo", $parameters, $xsl );
+             } else {
 			 	$xsl = 'GetRecord.xsl';
 			 	$result = generatePayload ( $ws_client_url, "getAbstractArticle", "GetRecord", $parameters, $xsl );			
 			 }
@@ -511,7 +524,10 @@ $identifier = cleanParameter($identifier);
 				}else if($metadataPrefix == 'oai_dc_openaire'){
                     $xsl = 'ListRecords_openaire.xsl';
                     $result = generatePayload ( $ws_client_url, "listRecords", "ListRecords", $parameters, $xsl );                
-                }else{
+                }else if($metadataPrefix == 'oai_dc_scielo'){
+                    $xsl = 'ListRecords_scielo.xsl';
+                    $result = generatePayload ( $ws_client_url, "listRecordsScielo", "ListRecordsScielo", $parameters, $xsl );
+				}else{
 					$xsl = "$verb.xsl";
 					$result = generatePayload ( $ws_client_url, "listRecords", $verb, $parameters, $xsl ); 	
 				 }
