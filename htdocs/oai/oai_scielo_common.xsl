@@ -747,6 +747,11 @@
 						<xsl:apply-templates mode="cdata" select="@ELOCATION_ID"/>
 					</elocation-id>
 				</xsl:if>
+
+				<xsl:apply-templates select="ABSTRACT"/>
+
+				<xsl:apply-templates select="KEYWORD"/>
+
 			</metadata>
 		</record>
 	</xsl:template>
