@@ -753,6 +753,15 @@
 				<xsl:apply-templates select="KEYWORD"/>
 
 				<xsl:apply-templates select="LANGUAGES/PDF_LANGS"/>
+
+				<contrib-group>
+					<xsl:apply-templates select="AUTHORS" mode="pers" />
+				</contrib-group>
+
+				<xsl:apply-templates select="LATTES/AUTHOR" mode="lattes" />
+
+				<xsl:apply-templates select="AFFILIATIONS" />
+
 			</metadata>
 		</record>
 	</xsl:template>
