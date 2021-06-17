@@ -38,7 +38,7 @@
             </pft>
         </field>
         
-        <field action="replace" tag="3000"><pft>if a(v3000) then '40' fi</pft></field>
+        <field action="replace" tag="3000"><pft>if a(v3000) then '10' fi</pft></field>
         
         <call name="CreateErrorXML">
 	    	<pft>
