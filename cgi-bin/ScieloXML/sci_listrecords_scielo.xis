@@ -1,8 +1,5 @@
 <IsisScript>
-
-    <include>ScieloXML/sci_common.xis</include>
-    <include>ScieloXML/sci_refrecord.xis</include>
-    <include>ScieloXML/pressrelease.xis</include>
+    <include>ScieloXML/sci_record.xis</include>
 
     <section>
 	    <field action="cgi" tag="3000">count</field>	
