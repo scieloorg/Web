@@ -12,7 +12,9 @@
 								  "oai_dc_agris" => array("ns" => "http://www.purl.org/agmes/agrisap/schema/",
 								  							"schema" => "http://www.purl.org/agmes/agrisap/schema/agris.xsd"),
                                   "oai_dc_openaire" => array( "ns" => "http://www.openarchives.org/OAI/2.0/oai_dc/",
-                                                     "schema" => "http://www.openarchives.org/OAI/2.0/oai_dc.xsd")
+                                                     "schema" => "http://www.openarchives.org/OAI/2.0/oai_dc.xsd"),
+                                  "oai_dc_scielo" => array( "ns" => "http://www.openarchives.org/OAI/2.0/oai_dc/",
+                                                            "schema" => "http://www.openarchives.org/OAI/2.0/oai_dc.xsd")
                                   );
 /*
 	$repositoryName = "SciELO Online Library Collection";
