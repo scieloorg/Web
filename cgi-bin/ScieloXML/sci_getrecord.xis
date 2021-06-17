@@ -73,8 +73,5 @@
     <field action="replace" tag="3311"><pft>if p(v3311) then v9936*1.5 fi</pft></field>
     <display><pft>if p(v3311) then '<PAGINATION rep="',v3311,'" ',|journal="|v12|"|,'/>',/# fi</pft></display>
 
-  <!-- Close SERIAL -->
-  <display><pft>'</SERIAL>'</pft></display>
 </section>
-
 </IsisScript>
