@@ -7,7 +7,7 @@
 
 	<xsl:template name="escaped_element">
 		<xsl:param name="name"/>
-		<xsl:param name="value"/>		
+		<xsl:param name="value"/>
 		<xsl:if test="$value != ''">
 			<xsl:value-of select=" concat( '&lt;', $name, '&gt;', $value,  '&lt;/', $name, '&gt;' )" disable-output-escaping="yes"/>
 		</xsl:if>
