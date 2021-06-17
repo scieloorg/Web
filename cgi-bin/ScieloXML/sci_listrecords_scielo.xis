@@ -55,10 +55,6 @@
         </call>
         
         <display><pft>'<LIST_RECORDS>'/</pft></display>
-
-    	<call name="CreateControlInfoXML">
-	    	<pft>'^l'v3005,'^s'v3006,'^fsci_listrecords'</pft>
-    	</call>
                 
         <do task="search">
             <parm name="db">ARTIGO</parm>   
