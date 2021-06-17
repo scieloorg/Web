@@ -570,10 +570,6 @@
 	<xsl:template match="ARTICLE" name="format_article">
 		<record>
 			<header>
-				<xsl:apply-templates select="@PID" mode="identifier"/>
-				<!--FIXME OAI usar data de atualizacao -->
-				<xsl:apply-templates select="@PROCESSDATE" mode="datestamp" />
-				<xsl:apply-templates select="ISSUEINFO/ISSN" mode="setSpec" />
 			</header>
 			<metadata>
 				<xsl:call-template name="OAI_DC_Header" />
