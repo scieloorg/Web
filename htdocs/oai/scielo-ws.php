@@ -83,6 +83,29 @@
 
 		return $result;
 	}
+
+	function getRecord ( $pid, $ws_oai = false, $debug = false  )
+	{
+		global $scielo_xml, $server;
+		if ( $pid == "" )
+		{
+			return new SoapFault( 'Scielo_WS_Server','Client must supply a valid PID.' );
+		}
+
+		$parameters = array ( "pid" => $pid, );
+		if ( $ws_oai )
+		{
+			$parameters[ "ws" ] = "true";
+		}
+		$result = $scielo_xml->getXML ( "sci_getrecord", $parameters, $debug );
+
+		if ( $error = $scielo_xml->getError () )
+		{
+			return new SoapFault( "Scielo_WS_Server", $error );
+		}
+
+		return $result;
+	}
 	
 	function getAbstractArticleAgris ( $pid, $lang = "en", $tlng = "en", $ws_oai = false, $debug = false  )
 	{
