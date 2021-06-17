@@ -24,6 +24,29 @@
 		</xsl:if>
 	</xsl:template>
 
+	<xsl:template name="format_date">
+		<xsl:param name="date"/>
+		<xsl:if test="$date">
+			<xsl:variable name="complete_date"><xsl:value-of select="$date"/>00000000</xsl:variable>
+
+			<xsl:variable name="fixed_month_and_day">
+				<xsl:choose>
+					<xsl:when test="substring($complete_date,5,2)='00'">01</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="substring($complete_date,5,2)"/>
+					</xsl:otherwise>
+				</xsl:choose>
+
+				<xsl:choose>
+					<xsl:when test="substring($complete_date,7,2)='00'">01</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="substring($complete_date,7,2)"/>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:variable>
+
+			<xsl:value-of select="concat(substring($complete_date,1,4), '-', substring($fixed_month_and_day,1,2), '-', substring($fixed_month_and_day,3,2)) "/>
+		</xsl:if>
 	</xsl:template>
 	
 	<xsl:template match="ISSN" mode="setSpec">
