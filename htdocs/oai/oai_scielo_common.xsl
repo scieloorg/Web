@@ -184,6 +184,14 @@
 		</abstract>
 	</xsl:template>
 
+	<xsl:template match="ARTICLE/LANGUAGES/PDF_LANGS/LANG">
+		<named-content content-type="pdf-file">
+			<xsl:attribute name="xml:lang">
+				<xsl:value-of select="."/>
+			</xsl:attribute>
+			<xsl:value-of select="@TRANSLATION"/>
+		</named-content>
+	</xsl:template>
 	<xsl:template match="RESUME">
 		<xsl:variable name="from">
 			<xsl:call-template name="FormatDate">
