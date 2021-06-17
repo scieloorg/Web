@@ -730,6 +730,23 @@
 					</subtitle>
 				</xsl:if>
 
+				<xsl:if test="@FPAGE != ''">
+					<fpage>
+						<xsl:apply-templates mode="cdata" select="@FPAGE"/>
+					</fpage>
+				</xsl:if>
+
+				<xsl:if test="@LPAGE != ''">
+					<lpage>
+						<xsl:apply-templates mode="cdata" select="@LPAGE"/>
+					</lpage>
+				</xsl:if>
+
+				<xsl:if test="@ELOCATION_ID != ''">
+					<elocation-id>
+						<xsl:apply-templates mode="cdata" select="@ELOCATION_ID"/>
+					</elocation-id>
+				</xsl:if>
 			</metadata>
 		</record>
 	</xsl:template>
