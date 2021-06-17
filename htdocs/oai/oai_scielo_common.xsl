@@ -587,6 +587,71 @@
 			</header>
 
 			<metadata>
+				<journal>
+					<xsl:for-each select="ISSUE_ISSN">
+						<xsl:call-template name="parameterized_escaped_element">
+							<xsl:with-param name="param_name">publication-format</xsl:with-param>
+							<xsl:with-param name="param_value">
+								<xsl:call-template name="format_issue_type">
+									<xsl:with-param name="type">
+										<xsl:value-of select="./@TYPE"/>
+									</xsl:with-param>
+								</xsl:call-template>
+							</xsl:with-param>
+							<xsl:with-param name="name">issn</xsl:with-param>
+							<xsl:with-param name="value">
+								<xsl:value-of select="."/>
+							</xsl:with-param>
+						</xsl:call-template>
+					</xsl:for-each>
+
+					<xsl:call-template name="escaped_element">
+						<xsl:with-param name="name">journal-title</xsl:with-param>
+						<xsl:with-param name="value"><xsl:apply-templates mode="cdata" select="TITLEGROUP/TITLE"/></xsl:with-param>
+					</xsl:call-template>
+
+					<xsl:call-template name="escaped_element">
+						<xsl:with-param name="name">abbrev-journal-title</xsl:with-param>
+						<xsl:with-param name="value"><xsl:apply-templates mode="cdata" select="TITLEGROUP/SHORTTILE"/></xsl:with-param>
+					</xsl:call-template>
+
+					<xsl:call-template name="parameterized_escaped_element">
+						<xsl:with-param name="name">named-content</xsl:with-param>
+						<xsl:with-param name="param_name">content-type</xsl:with-param>
+						<xsl:with-param name="param_value">siglum</xsl:with-param>
+						<xsl:with-param name="value"><xsl:apply-templates mode="cdata" select="TITLEGROUP/SIGLUM"/></xsl:with-param>
+					</xsl:call-template>
+
+					<xsl:for-each select="TITLEGROUP/SUBJECT">
+						<xsl:call-template name="escaped_element">
+							<xsl:with-param name="name">subject</xsl:with-param>
+							<xsl:with-param name="value">
+								<xsl:apply-templates mode="cdata" select="."/>
+							</xsl:with-param>
+						</xsl:call-template>
+					</xsl:for-each>
+
+					<xsl:call-template name="escaped_element">
+						<xsl:with-param name="name">volume</xsl:with-param>
+						<xsl:with-param name="value">
+							<xsl:apply-templates mode="cdata" select="ISSUE/@VOL"/>
+						</xsl:with-param>
+					</xsl:call-template>
+
+					<xsl:call-template name="escaped_element">
+						<xsl:with-param name="name">number</xsl:with-param>
+						<xsl:with-param name="value">
+							<xsl:apply-templates mode="cdata" select="ISSUE/@NUM"/>
+						</xsl:with-param>
+					</xsl:call-template>
+
+					<xsl:call-template name="parameterized_escaped_element">
+						<xsl:with-param name="name">date</xsl:with-param>
+						<xsl:with-param name="param_name">date-type</xsl:with-param>
+						<xsl:with-param name="param_value">pubdate</xsl:with-param>
+						<xsl:with-param name="value"><xsl:apply-templates mode="cdata" select="ISSUE/@PUBDATE"/></xsl:with-param>
+					</xsl:call-template>
+				</journal>
 			</metadata>
 		</record>
 	</xsl:template>
