@@ -1,6 +1,7 @@
 <IsisScript>
 
 <!-- Common functions -->
+<include>ScieloXML/sci_record.xis</include>
 
 
 <function name="CreateAuthorsGroupNoAffXML" action="replace" tag="4001">
