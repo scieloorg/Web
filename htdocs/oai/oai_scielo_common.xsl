@@ -570,7 +570,22 @@
 	<xsl:template match="ARTICLE" name="format_article">
 		<record>
 			<header>
+				<dc:identifier pub-id-type="publisher-id">
+					<xsl:value-of select="@PID"/>
+				</dc:identifier>
+
+				<dc:isPartOf>
+					<xsl:value-of select="ISSN"/>
+				</dc:isPartOf>
+
+				<xsl:if test="@PROCESSDATE != ''">
+					<xsl:apply-templates select="@PROCESSDATE" mode="date">
+						<xsl:with-param name="date_type">process-date</xsl:with-param>
+						<xsl:with-param name="value"><xsl:value-of select="@PROCESSDATE"/></xsl:with-param>
+					</xsl:apply-templates>
+				</xsl:if>
 			</header>
+
 			<metadata>
 				<xsl:call-template name="OAI_DC_Header" />
 				<xsl:apply-templates select="TITLE" />
