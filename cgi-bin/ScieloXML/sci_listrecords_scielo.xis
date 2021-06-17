@@ -2,38 +2,40 @@
     <include>ScieloXML/sci_record.xis</include>
 
     <section>
-	    <field action="cgi" tag="3000">count</field>	
-	    <field action="cgi" tag="3001">set</field>	
-	    <field action="cgi" tag="3002">from</field>
-	    <field action="cgi" tag="3003">until</field>
-	    <field action="cgi" tag="3004">resume</field>
-	    <field action="cgi" tag="3005">lng</field>
+        <field action="cgi" tag="3000">count</field>    
+        <field action="cgi" tag="3001">set</field>  
+        <field action="cgi" tag="3002">from</field>
+        <field action="cgi" tag="3003">until</field>
+        <field action="cgi" tag="3004">resume</field>
+        <field action="cgi" tag="3005">lng</field>
         <field action="cgi" tag="3010">debug</field>
-	    <field action="cgi" tag="3011">def</field>
+        <field action="cgi" tag="3011">def</field>
         <field action="cgi" tag="3012">metadataprefix</field>        
     
         <field action="replace" tag="3011"><pft>if a(v3011) then 'scielo.def.php' fi</pft></field>
 
         <call name="DebugMode"><pft>if a(v3010) then 'OFF' else mpu,v3010,mpl fi</pft></call>
 
-        <include>ScieloXML/sci_cipar.xis</include>	
+        <include>ScieloXML/sci_cipar.xis</include>  
         
         <field action="replace" tag="3002"><pft>if p(v3002) then replace(v3002,'-','') fi</pft></field>
         <field action="replace" tag="3003"><pft>if p(v3003) then replace(v3003,'-','') fi</pft></field>
-    
         <field action="replace" tag="3004"><pft>if p(v3004) then replace(v3004,'__','=') fi</pft></field>
-    
+        
         <field action="replace" tag="3007">
             <pft>if v3001<>'openaire' then f(l(['TITLE'],'LOC='v3001),1,0) fi</pft>
         </field>
+        
         <field action="replace" tag="3400">
             <pft>if v3001<>'openaire' then v3001 fi</pft>
         </field>
         
         <field action="replace" tag="3008">
-            <pft>if v3004*0.3 = 'HR=' then
+            <pft>
+                if v3004*0.3 = 'HR=' then
                     f(l(['ARTIGO'],v3004),1,0)
-                fi</pft>
+                fi
+            </pft>
         </field>
         
         <field action="replace" tag="3000"><pft>if a(v3000) then '40' fi</pft></field>
