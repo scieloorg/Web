@@ -1,5 +1,8 @@
 v5.43
 Resolve problema de indisponibilidade de algumas páginas de resumo por conter problema na geração do `<citation_title/>` (#733)
+Inclusão de novos IsisScripts sci_record.xis e sci_getrecord.xis responsáveis por obter dados completos de documentos, inclusive referências citadas
+Inclusão de novo script sci_listrecords_scielo reponsável por obter lista de documentos com referências citadas
+Ajustes em protocolo OAI-PMH para inclusão de MetadataPrefix oai_dc_scielo
 
 v5.42
 Cria módulo cisis e testes para gerar comandos para atualizar uma dada base com dados de DOI
