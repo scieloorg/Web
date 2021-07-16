@@ -1,3 +1,6 @@
+v5.44
+Corrige script sci_getrecord.xis para retornar corretamente documentos ahead
+
 v5.43
 Resolve problema de indisponibilidade de algumas páginas de resumo por conter problema na geração do `<citation_title/>` (#733)
 Inclusão de novos IsisScripts sci_record.xis e sci_getrecord.xis responsáveis por obter dados completos de documentos, inclusive referências citadas

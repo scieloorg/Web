@@ -24,7 +24,7 @@
 
 	<!-- 5 - Title MFN, 6 - Issue MFN, 7 - Article MFN -->  
 	<field action="replace" tag="5"><pft>f(l(['TITLE']'LOC='mid(v1,2,9)),1,0)</pft></field>
-	<field action="replace" tag="6"><pft>f(l(['NEWISSUE'],mid(v1,2,17)),1,0)</pft></field>
+	<field action="replace" tag="6"><pft>f(l(['NEWISSUE']v3331,mid(v1,2,17)),1,0)</pft></field>
 	<field action="replace" tag="7"><pft>f(l(['ARTIGO']'HR='v1),1,0)</pft></field>
 
 	<!-- Article text language -->
