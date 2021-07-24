@@ -1,3 +1,6 @@
+v5.45
+Atualiza dados de Google Scholar 2021
+
 v5.44
 Corrige script sci_getrecord.xis para retornar corretamente documentos ahead
 
