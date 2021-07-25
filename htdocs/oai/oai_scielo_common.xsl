@@ -570,9 +570,7 @@
 	<xsl:template match="ARTICLE" name="format_article">
 		<record>
 			<header>
-				<dc:identifier pub-id-type="publisher-id">
-					<xsl:value-of select="@PID"/>
-				</dc:identifier>
+				<dc:identifier pub-id-type="publisher-id">oai:scielo:<xsl:value-of select="@PID"/></dc:identifier>
 
 				<dc:isPartOf>
 					<xsl:value-of select="ISSN"/>
