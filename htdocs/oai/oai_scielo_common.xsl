@@ -204,8 +204,8 @@
 
 	<xsl:template match="ARTICLE/REFERENCES/REFERENCE">
 		<ref>
-			<xsl:if test="@NUM != ''">
-				<xsl:attribute name="id"><xsl:value-of select="@NUM"/></xsl:attribute>
+			<xsl:if test="string(number(NUMBER_REFERENCE))!='NaN'">
+				<xsl:attribute name="id"><xsl:value-of select="NUMBER_REFERENCE"/></xsl:attribute>
 			</xsl:if>
 
 			<element-citation>
