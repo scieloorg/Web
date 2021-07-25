@@ -20,7 +20,7 @@
 		<xsl:param name="param_value"/>
 
 		<xsl:if test="$value != ''">
-			<xsl:value-of select=" concat( '&lt;', $name, ' ', $param_name, '= &quot;', $param_value, '&quot; &gt;', $value,  '&lt;/', $name, '&gt;' )" disable-output-escaping="yes"/>
+			<xsl:value-of select=" concat( '&lt;', $name, ' ', $param_name, '=&quot;', $param_value, '&quot;&gt;', $value,  '&lt;/', $name, '&gt;' )" disable-output-escaping="yes"/>
 		</xsl:if>
 	</xsl:template>
 
