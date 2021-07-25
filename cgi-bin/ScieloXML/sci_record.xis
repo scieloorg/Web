@@ -306,7 +306,9 @@
 			<call name="PROC_SPLIT_MST"><pft>v32701</pft></call>
 			<display>
 				<pft>
-					'<REFERENCE NUM="',v118,'">'
+					'<REFERENCE>'
+						,|<NUMBER_REFERENCE><![CDATA[|v118^*|]]></NUMBER_REFERENCE>|,
+
 						if p(v12) then '<TITLE_REFERENCE LANG="',v12^l,'"><![CDATA[',v12^*,']]></TITLE_REFERENCE>' fi
 
 						if p(v10) then 
