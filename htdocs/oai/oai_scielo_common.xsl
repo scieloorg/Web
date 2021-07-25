@@ -76,9 +76,9 @@
 			<name><xsl:value-of select="NAME"/></name>
 			<surname><xsl:value-of select="SURNAME"/></surname>
 			<xsl:if test="ORCID">
-				<name-content content-type="orcid">
+				<named-content content-type="orcid">
 					<xsl:value-of select="ORCID"/>
-				</name-content>
+				</named-content>
 			</xsl:if>
 			<xsl:if test="AFF">
 				<xref ref-type="aff">
