@@ -175,7 +175,9 @@
                     </pft>
                 </flow>
 
-                <field action="replace" tag="6"><pft>f(l(['NEWISSUE']'Y',mid(v1880,2,17)),1,0)</pft></field>
+                <field action="replace" tag="3331"><pft>ref(['ARTIGO']l(['ARTIGO']'HR='v1880),@PROC_SPLIT_MST.PFT,if p(v41) then 'P' else 'Y' fi)</pft></field>
+                
+                <field action="replace" tag="6"><pft>f(l(['NEWISSUE']v3331,mid(v1880,2,17)),1,0)</pft></field>
                 <field action="replace" tag="11"><pft>if a(v11) then ref(['ARTIGO']val(v1003^m),@PROC_SPLIT_MST.PFT,v40) fi</pft></field>
 
                 <call name="CreateArticleXML">
