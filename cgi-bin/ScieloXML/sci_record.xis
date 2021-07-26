@@ -156,6 +156,7 @@
 		<parm name="from"><pft>v4001^a</pft></parm>
 		<parm name="count">1</parm>
 		<parm name="buffersize">400000</parm>
+		<parm name="gizmo">GIZMO_OAI</parm>
 
 		<loop>	
 			<display><pft>@PROC_SPLIT_MST.PFT</pft></display>
