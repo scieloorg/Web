@@ -121,6 +121,7 @@ PATH_DATA:     tag 7014
 		'PROC_XML_SCOPUS_CITED_BY_COUNT.PFT=',v8034, 'pfts/proc_xml_scopus_cited_by_count.pft',/
 		'PROC_XML_CRS.PFT=',v8034, 'pfts/proc_xml_crs.pft',/
 		'GIZMO_XML_REF.*=', v8034, 'webservices/wxis/gizmo/gizmoXML.*',/
+        'GIZMO_OAI.*=', v7011, 'gizmo/gizmo.*',/
 	</pft>
 </parm>
 
