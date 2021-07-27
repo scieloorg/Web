@@ -233,7 +233,7 @@
 
 			<display>
 				<pft>
-					'</ISSUE>'
+					if val(v6)>0 then '</ISSUE>' fi
 				</pft>
 			</display>
 
