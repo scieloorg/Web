@@ -228,8 +228,8 @@
 			<call name="CreateTitleGroupXML"><pft>v5</pft></call>
 			<call name="CreateChangesInfoXML"><pft>v5</pft></call>
 
-			<call name="CreateIssueInfoXML"><pft>v4001^s</pft></call>
- 			<call name="CreateIssueStripXML"><pft>'^r'v4001^s'^l'v4001^l'^i'v4001^i</pft></call>
+			<call name="CreateIssueInfoXML"><pft>v6</pft></call>
+ 			<call name="CreateIssueStripXML"><pft>'^r'v6'^l'v4001^l'^i'v4001^i</pft></call>
 
 			<display>
 				<pft>
