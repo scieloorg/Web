@@ -32,15 +32,8 @@
 
 	<call name="CreateErrorXML">
 		<pft>
-		if val(v5)<=0 or val(v6)<=0 or val(v7)<=0 then
-			'^l'v2,'^p'v1'^c',   
-		if val(v5)<=0 then '0001'
-			else 
-				if val(v6)<=0 then '0002'
-		 		else 
-		  			if val(v7)<=0 then '0003' fi
-				fi
-			fi
+		if val(v7)<=0 then
+			'^l'v2,'^p'v1'^c','0001'
 		fi
 		</pft>
 	</call>
