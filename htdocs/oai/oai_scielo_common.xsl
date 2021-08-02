@@ -20,7 +20,12 @@
 		<xsl:param name="param_value"/>
 
 		<xsl:if test="$value != ''">
-			<xsl:value-of select=" concat( '&lt;', $name, ' ', $param_name, '= &quot;', $param_value, '&quot; &gt;', $value,  '&lt;/', $name, '&gt;' )" disable-output-escaping="yes"/>
+			<xsl:element name="{$name}">
+				<xsl:attribute name="{$param_name}">
+					<xsl:value-of select="$param_value"/>
+				</xsl:attribute>
+				<xsl:value-of select="$value" disable-output-escaping="yes" />
+			</xsl:element>
 		</xsl:if>
 	</xsl:template>
 
@@ -76,9 +81,9 @@
 			<name><xsl:value-of select="NAME"/></name>
 			<surname><xsl:value-of select="SURNAME"/></surname>
 			<xsl:if test="ORCID">
-				<name-content content-type="orcid">
+				<named-content content-type="orcid">
 					<xsl:value-of select="ORCID"/>
-				</name-content>
+				</named-content>
 			</xsl:if>
 			<xsl:if test="AFF">
 				<xref ref-type="aff">
@@ -95,7 +100,7 @@
 			<xsl:attribute name="fullname">
 				<xsl:value-of select="."/>
 			</xsl:attribute>
-			<xsl:value-of select="concat( '&lt;![CDATA[', @HREF ,']]&gt;' )"/>
+			<xsl:value-of select="concat( '&lt;![CDATA[ ', @HREF ,' ]]&gt;' )" disable-output-escaping="yes"/>
 		</named-content>
 	</xsl:template>
 
@@ -112,7 +117,7 @@
 
 	<xsl:template match="ORGNAME" mode="reference">
 		<collab-group collab-group-type="author">
-			<xsl:value-of select="concat( '&lt;![CDATA[ ', ., ' ]]&gt;' )"/>
+			<xsl:value-of select="concat( '&lt;![CDATA[ ', ., ' ]]&gt;' )" disable-output-escaping="yes"/>
 		</collab-group>
 	</xsl:template>
 
@@ -180,7 +185,7 @@
 			<xsl:attribute name="xml:lang">
 				<xsl:value-of select="@LANG"/>
 			</xsl:attribute>
-			<xsl:value-of disable-output-escaping="yes" select="concat( '&lt;![CDATA[', . ,  ']]&gt;' )"/>
+			<xsl:value-of select="concat( '&lt;![CDATA[', . ,  ']]&gt;' )" disable-output-escaping="yes"/>
 		</abstract>
 	</xsl:template>
 
@@ -204,8 +209,8 @@
 
 	<xsl:template match="ARTICLE/REFERENCES/REFERENCE">
 		<ref>
-			<xsl:if test="@NUM != ''">
-				<xsl:attribute name="id"><xsl:value-of select="@NUM"/></xsl:attribute>
+			<xsl:if test="string(number(NUMBER_REFERENCE))!='NaN'">
+				<xsl:attribute name="id"><xsl:value-of select="NUMBER_REFERENCE"/></xsl:attribute>
 			</xsl:if>
 
 			<element-citation>
@@ -570,9 +575,7 @@
 	<xsl:template match="ARTICLE" name="format_article">
 		<record>
 			<header>
-				<dc:identifier pub-id-type="publisher-id">
-					<xsl:value-of select="@PID"/>
-				</dc:identifier>
+				<dc:identifier pub-id-type="publisher-id">oai:scielo:<xsl:value-of select="@PID"/></dc:identifier>
 
 				<dc:isPartOf>
 					<xsl:value-of select="ISSN"/>

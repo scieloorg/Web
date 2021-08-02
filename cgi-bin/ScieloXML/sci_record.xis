@@ -156,6 +156,7 @@
 		<parm name="from"><pft>v4001^a</pft></parm>
 		<parm name="count">1</parm>
 		<parm name="buffersize">400000</parm>
+		<parm name="gizmo">GIZMO_OAI</parm>
 
 		<loop>	
 			<display><pft>@PROC_SPLIT_MST.PFT</pft></display>
@@ -227,12 +228,12 @@
 			<call name="CreateTitleGroupXML"><pft>v5</pft></call>
 			<call name="CreateChangesInfoXML"><pft>v5</pft></call>
 
-			<call name="CreateIssueInfoXML"><pft>v4001^s</pft></call>
- 			<call name="CreateIssueStripXML"><pft>'^r'v4001^s'^l'v4001^l'^i'v4001^i</pft></call>
+			<call name="CreateIssueInfoXML"><pft>v6</pft></call>
+ 			<call name="CreateIssueStripXML"><pft>'^r'v6'^l'v4001^l'^i'v4001^i</pft></call>
 
 			<display>
 				<pft>
-					'</ISSUE>'
+					if val(v6)>0 then '</ISSUE>' fi
 				</pft>
 			</display>
 
@@ -306,7 +307,9 @@
 			<call name="PROC_SPLIT_MST"><pft>v32701</pft></call>
 			<display>
 				<pft>
-					'<REFERENCE NUM="',v118,'">'
+					'<REFERENCE>'
+						,|<NUMBER_REFERENCE><![CDATA[|v118^*|]]></NUMBER_REFERENCE>|,
+
 						if p(v12) then '<TITLE_REFERENCE LANG="',v12^l,'"><![CDATA[',v12^*,']]></TITLE_REFERENCE>' fi
 
 						if p(v10) then 
