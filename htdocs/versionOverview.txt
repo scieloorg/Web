@@ -1,3 +1,9 @@
+v5.45.2
+Corrige bugs no OAI-PMH ao ser utilizado com o prefixo de metadados oai_dc_scielo (#748)
+
+v5.45.1
+Corrige a formatação do arquivo journals_url.csv (Google Scholar 2021)
+
 v5.45
 Atualiza dados de Google Scholar 2021
 
