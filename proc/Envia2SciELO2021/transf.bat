@@ -11,6 +11,12 @@ LOGFILE=$1
 TMP_PATH=$2
 FILE_TO_TRANSFER=$3
 FTP_BIN_OR_ASC=$4
+GET_OR_PUT=$5
+
+if [ "@${GET_OR_PUT}" == "@" ]
+then
+    GET_OR_PUT=put
+fi
 
 rem Inicio
 call Envia2SciELO2021/InformaLog.bat ${LOGFILE} $0 "BEGIN"
@@ -25,7 +31,7 @@ call batch/VerifPresencaParametro.bat $0 @${FTP_BIN_OR_ASC} "bin or asc"
 call batch/VerifExisteArquivo.bat ${TMP_PATH}/${FILE_TO_TRANSFER}
 
 rem Create ftp instructions file
-FTP_INSTR=${TMP_PATH}/ftp_instructions_${FILE_TO_TRANSFER}
+FTP_INSTR=${TMP_PATH}/ftp_instructions_${FILE_TO_TRANSFER}.txt
 if [ ! -f ${FTP_INSTR} ]
 then
     call Envia2SciELO2021/InformaLog.bat ${LOGFILE} $0 "Create ${FTP_INSTR}"
@@ -56,8 +62,11 @@ then
     cat ${FTP_HEAD_FILE_PATH} > ${FTP_INSTR}
     echo "${FTP_BIN_OR_ASC}" >> ${FTP_INSTR}
     echo "lcd ${TMP_PATH}" >> ${FTP_INSTR}
-    echo "put ${FILE_TO_TRANSFER}" >> ${FTP_INSTR}
-    echo "put ${TIME_LOG}" >> ${FTP_INSTR}
+    echo "${GET_OR_PUT} ${FILE_TO_TRANSFER}" >> ${FTP_INSTR}
+    if [ "put" == "${GET_OR_PUT}" -a "@"!="@${TIME_LOG}" -a -f ${TIME_LOG} ]
+    then
+        echo "put `basename ${TIME_LOG}`" >> ${FTP_INSTR}
+    fi
     echo "close" >> ${FTP_INSTR}
     echo "bye" >> ${FTP_INSTR}
 fi
@@ -65,8 +74,8 @@ call batch/VerifExisteArquivo.bat ${FTP_INSTR}
 
 ftp -n < ${FTP_INSTR} >> ${LOGFILE}
 
-rem Delete pids_list.*
-call batch/DeletaArquivo.bat ${TMP_PATH}/${FTP_INSTR}
+rem Delete ftp instruction file
+call batch/DeletaArquivo.bat ${FTP_INSTR}
 
 rem Register errors
 call batch/ifErrorLevel.bat $? batch/AchouErro.bat $0 ftp: ${LOGFILE}
