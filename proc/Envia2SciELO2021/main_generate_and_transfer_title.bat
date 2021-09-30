@@ -10,6 +10,7 @@ BASES_PATH=$1
 rem Inicializa variaveis
 TMP_PATH=temp/Envia2SciELO2021
 LOGFILE=${TMP_PATH}/log_main_generate_and_transfer_title.log
+export INFORMALOG=${TMP_PATH}/log_errors.log
 export TIME_LOG=${TMP_PATH}/time_`date '+%d'`_title.log
 
 TITLE_MST=${BASES_PATH}/title/title

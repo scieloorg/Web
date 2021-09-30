@@ -10,7 +10,7 @@ TMP_PATH=$1
 MST=$2
 ID_FILE=$3
 
-LOGFILE=${TMP_PATH}/log_${ID_FILE}.log
+LOGFILE=${TMP_PATH}/log_id_generate_${ID_FILE}.log
 CISIS_DIR=cisis
 
 call Envia2SciELO2021/InformaLog.bat ${LOGFILE} $0 "BEGIN"
@@ -27,6 +27,9 @@ call batch/VerifExisteArquivo.bat ${MST}.mst
 rem Generate id file
 call Envia2SciELO2021/InformaLog.bat ${LOGFILE} $0 "Create ${ID_FILE}"
 ${CISIS_DIR}/i2id ${MST} > ${TMP_PATH}/${ID_FILE}
+
+call batch/VerifExisteArquivo.bat ${TMP_PATH}/${ID_FILE}
+
 rem Transfer id file
 call Envia2SciELO2021/transf.bat ${LOGFILE} ${TMP_PATH} ${ID_FILE} bin
 
