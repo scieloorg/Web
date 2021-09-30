@@ -1,7 +1,7 @@
 export PATH=$PATH:.
 export CIPAR=tabs/GIGA032.cip
 
-rem scielo_network/main_generate_and_transfer_diffs
+rem scielo_network/main_generate_and_transfer_new_and_updated
 rem Parametro 1: bases path
 
 rem Inicializa variaveis
@@ -10,11 +10,11 @@ BASES_PATH=$1
 rem Inicializa variaveis
 CISIS_DIR=cisis
 TMP_PATH=temp/scielo_network
-LOGFILE=${TMP_PATH}/log_main_generate_and_transfer_diffs.log
+LOGFILE=${TMP_PATH}/log_main_generate_and_transfer_new_and_updated.log
 export INFORMALOG=${TMP_PATH}/log_errors.log
 
 ARTIGO=${BASES_PATH}/artigo/artigo
-export TIME_LOG=${TMP_PATH}/scielo_network_time_`date '+%d'`_diffs.log
+export TIME_LOG=${TMP_PATH}/scielo_network_time_`date '+%d'`_new_and_updated.log
 
 
 echo > ${TIME_LOG}
