@@ -1,6 +1,6 @@
 export PATH=$PATH:.
 
-rem Envia2SciELO2021/transf
+rem scielo_network/transf
 rem Parametro 1: log file
 rem Parametro 2: temp path
 rem Parametro 3: file to transfer
@@ -19,8 +19,8 @@ then
 fi
 
 rem Inicio
-call Envia2SciELO2021/InformaLog.bat ${LOGFILE} $0 "BEGIN"
-call Envia2SciELO2021/InformaLog.bat ${LOGFILE} $0 $1 $2 $3 $4 $5 $6 $7 $8 $9
+call scielo_network/InformaLog.bat ${LOGFILE} $0 "BEGIN"
+call scielo_network/InformaLog.bat ${LOGFILE} $0 $1 $2 $3 $4 $5 $6 $7 $8 $9
 
 rem Verifica parametros
 call batch/VerifPresencaParametro.bat $0 @${LOGFILE} "log file"
@@ -34,7 +34,7 @@ rem Create ftp instructions file
 FTP_INSTR=${TMP_PATH}/ftp_instructions_${FILE_TO_TRANSFER}.txt
 if [ ! -f ${FTP_INSTR} ]
 then
-    call Envia2SciELO2021/InformaLog.bat ${LOGFILE} $0 "Create ${FTP_INSTR}"
+    call scielo_network/InformaLog.bat ${LOGFILE} $0 "Create ${FTP_INSTR}"
 
     FTP_HEAD_FILE_PATH=${TMP_PATH}/ftp_head
 
@@ -42,7 +42,7 @@ then
     then
         FTP_INSTR_ALT1=transf/Envia2MedlineLogOn.txt
         FTP_INSTR_ALT2=transf/Envia2SciELOFastLogOn.txt
-        FTP_INSTR_ALT3=transf/Envia2SciELO2021LogOn.txt
+        FTP_INSTR_ALT3=transf/Envia2SciELONetworkLogOn.txt
         if [ -f ${FTP_INSTR_ALT1} ]
         then
             head -n 3 ${FTP_INSTR_ALT1} > ${FTP_HEAD_FILE_PATH}
@@ -80,5 +80,5 @@ call batch/DeletaArquivo.bat ${FTP_INSTR}
 rem Register errors
 call batch/ifErrorLevel.bat $? batch/AchouErro.bat $0 ftp: ${LOGFILE}
 
-call Envia2SciELO2021/InformaLog.bat ${LOGFILE} $0 "FINISHED"
-call Envia2SciELO2021/InformaLog.bat ${LOGFILE} $0 "LOGFILE: ${LOGFILE}"
+call scielo_network/InformaLog.bat ${LOGFILE} $0 "FINISHED"
+call scielo_network/InformaLog.bat ${LOGFILE} $0 "LOGFILE: ${LOGFILE}"

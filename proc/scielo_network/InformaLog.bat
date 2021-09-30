@@ -1,6 +1,6 @@
 export PATH=$PATH:.
 
-rem Envia2SciELO2021/InformaLog
+rem scielo_network/InformaLog
 rem Parametro 1: log file
 rem Parametro 2: nome do batch
 
