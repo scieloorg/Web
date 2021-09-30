@@ -13,7 +13,7 @@ LOGFILE=${TMP_PATH}/log_main_generate_and_transfer_pdfs_list.log
 export INFORMALOG=${TMP_PATH}/log_errors.log
 export TIME_LOG=${TMP_PATH}/scielo_network_time_`date '+%d'`_pdfs_list.log
 
-PDF_LIST=pdfs_list.txt
+PDF_LIST=scielo_network_pdfs_list.txt
 
 echo > ${TIME_LOG}
 

@@ -14,7 +14,7 @@ export INFORMALOG=${TMP_PATH}/log_errors.log
 export TIME_LOG=${TMP_PATH}/scielo_network_time_`date '+%d'`_title.log
 
 TITLE_MST=${BASES_PATH}/title/title
-TITLE_ID=title_full.id
+TITLE_ID=scielo_network_title.id
 
 echo > ${TIME_LOG}
 
