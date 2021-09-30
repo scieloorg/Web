@@ -23,6 +23,7 @@ TITLE_MST=${BASES_PATH}/title/title
 TITLE_ID=scielo_network_title.id
 PDF_LIST=scielo_network_pdfs_list.txt
 
+call batch/CriaDiretorio.bat ${TMP_PATH}
 echo > ${TIME_LOG}
 
 call scielo_network/InformaLog.bat ${LOGFILE} $0 "BEGIN"
@@ -31,8 +32,6 @@ call scielo_network/InformaLog.bat ${LOGFILE} $0 $1 $2 $3 $4 $5 $6 $7 $8 $9
 rem Verifica parametros
 call batch/VerifPresencaParametro.bat $0 @${BASES_PATH} "bases path"
 
-call scielo_network/InformaLog.bat ${LOGFILE} $0 "Create ${TMP_PATH}"
-call batch/CriaDiretorio.bat ${TMP_PATH}
 
 rem Obtém scielo_network_in.txt
 call scielo_network/transf.bat ${LOGFILE} ${TMP_PATH} scielo_network_in.txt bin get
