@@ -79,3 +79,6 @@ call batch/CopiaWork2Teste.bat ../bases-work ../bases
 call batch/ManutencaoOff.bat ../bases
 
 call batch/InformaLog.bat $0 dh ===Fim=== LOG gravado em: $INFORMALOG
+
+
+./scielo_network/main_generate_and_transfer_new_and_updated.bat $2/bases $2/bases/pdf
