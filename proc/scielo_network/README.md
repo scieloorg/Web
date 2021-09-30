@@ -33,9 +33,10 @@ A partir de `bases/pdf/*` e do comando `find`, é obtida uma lista de pdfs no pa
 
 Esta lista é criada em um arquivo no diretório `temp/scielo_network`. E na sequência, é feita a transferência.
 
-A partir de `bases-work/<acron>/<acron>` e `bases/title/title`, gera para cada base de dados, um arquivo do tipo `*.id` com o utilitário `cisis/i2id` no diretório temporário `temp/scielo_network`. E na sequência de cada geração de arquivo `*.id`, é feita a transferência.
+A partir de `bases/title/title`, gera um arquivo do tipo `*.id` com o utilitário `cisis/i2id` no diretório temporário `temp/scielo_network` e, na sequência, é feita a transferência.
 
-A partir da scilista atual, `proc/scilista.lst`, é gerada uma base de dados ISIS temporária para cada item da lista em `temp/scielo_network`. Cada uma destas bases corresponde a registros de documentos de um fascículo, obtidos de `bases-work/<acron>/<acron>`. Para cada base de dados temporária é gerado um arquivo do tipo `*.id` com o utilitário `cisis/i2id` no diretório temporário `temp/scielo_network`. E na sequência de cada geração de arquivo `*.id`, é feita a transferência.
+A partir de `scielo_network_in.txt`, obtido do ftp cadastrado e que contém a lista de PID + data de atualização do registro da base ISIS, é gerada uma lista com os documentos novos e/ou atualizados consultando `bases-work/artigo/artigo`. A partir da lista que contém os itens novos ou atualizados, um arquivo `artigo_*.id` é gerado no diretório temporário `temp/scielo_network` para cada documento usando o utilitário `cisis/i2id` e sua transferência é feita.
+
 
 As credenciais das transferências podem ser obtidas de um dos arquivos: 
 
@@ -43,16 +44,16 @@ As credenciais das transferências podem ser obtidas de um dos arquivos:
 - transf/Envia2SciELOFastLogOn.txt
 - transf/Envia2SciELONetworkLogOn.txt
 
-Cada transferência envia o arquivo em si, seu arquivo compactado e um arquivo `scielo_network_time.log` contendo data, hora e evento ocorrido.
+Cada transferência envia o arquivo em si, seu arquivo compactado e um arquivo `scielo_network_time.log` contendo acúmulo de data, hora e eventos ocorridos.
 
-São executadas em concorrência as operações, disparadas nesta ordem:
+São executadas em concorrência as operações:
 
 - geração dos arquivos `scielo_network_artigo_*.id`
-- geração dos arquivos `scielo_network_i_*.id`
 - geração de `scielo_network_pdfs_list.txt`
 - geração de `scielo_network_title.id`
+- geração dos arquivos `scielo_network_i_*.id`
 
 
 # Script proc/Envia2SciELONetworkPadrao.bat
 
-Chama `scielo_network/main.bat` com os parâmetros adequados.
+Chama `scielo_network/main_generate_and_transfer_new_and_updated.bat` com os parâmetros adequados.

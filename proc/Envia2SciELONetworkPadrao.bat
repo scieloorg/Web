@@ -1,4 +1,4 @@
 export PATH=$PATH:.
 
 
-call scielo_network/main.bat ../bases ../bases/pdf ../bases-work scilista.lst
+call scielo_network/main_generate_and_transfer_new_and_updated.bat ../bases ../bases/pdf
