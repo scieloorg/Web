@@ -47,11 +47,12 @@ then
     rem Generate and transfer scielo_network_artigo_*
     rem ###########################################
     rem Gera uma base isis SELECTED_DOCS e a indexa
+    call scielo_network/InformaLog.bat ${LOGFILE} $0 "In background generate and transfer scielo_network_artigo_*"
     cisis/mx seq=${TMP_PATH}/scielo_network_in.txt create=${TMP_PATH}/SELECTED_DOCS now -all
     cisis/mx ${TMP_PATH}/SELECTED_DOCS "fst=1 0 v1/" fullinv=${TMP_PATH}/SELECTED_DOCS now -all
 
     rem Usa a base SELECTED_DOCS indexada para identificar os documentos que são novos ou desatualizados 
-    cisis/mx ${ARTIGO} btell=0 tp=h lw=9999 "pft=if l(['${TMP_PATH}/SELECTED_DOCS']v880,'_',ref(mfn-1,v91)) = 0 then v880/ fi" now > ${TMP_PATH}/NOT_scielo_network_in.txt
+    cisis/mx ${ARTIGO} btell=0 tp=h lw=9999 "pft=if l(['${TMP_PATH}/SELECTED_DOCS']s(ref(mfn-1,v91),',',v880)) = 0 then v880/ fi" now > ${TMP_PATH}/NOT_scielo_network_in.txt
 
     rem Gera as bases e arquivos id dos documentos que são novos ou desatualizados 
     cisis/mx seq=${TMP_PATH}/NOT_scielo_network_in.txt lw=9999 "pft=if p(v1) then './scielo_network/generate_id_from_article.bat ${TMP_PATH} ${BASES_PATH} IV=',v1,'$ scielo_network_artigo_',v1/ fi" now > ${TMP_PATH}/NOT_IN_SCIELO_NETWORK.bat
@@ -71,7 +72,7 @@ then
     rem ###########################################
     rem Generate and transfer scielo_network_title.*
     rem ###########################################
-    call scielo_network/InformaLog.bat ${LOGFILE} $0 "In background generate and transfer ${TITLE_ID}"
+    call scielo_network/InformaLog.bat ${LOGFILE} $0 "In background generate and transfer scielo_network_title.*"
     nohup scielo_network/id_generate.bat ${TMP_PATH} ${TITLE_MST} ${TITLE_ID} > ${TMP_PATH}/nohup.scielo_network_title.out&
     call scielo_network/InformaLog.bat ${LOGFILE} $0 "Check ${TMP_PATH}/nohup.scielo_network_title.out"
 
@@ -80,11 +81,21 @@ then
     rem Generate and transfer scielo_network_i_*
     rem ###########################################
     rem Gera as bases e arquivos id dos issues dos documentos que são novos ou desatualizados 
+    call scielo_network/InformaLog.bat ${LOGFILE} $0 "In background generate and transfer scielo_network_i_*"
     cisis/mx seq=${TMP_PATH}/NOT_scielo_network_in.txt lw=9999 "pft=v1*1.17/" now | sort -u > ${TMP_PATH}/ISSUE_NOT_scielo_network_in.txt
     cisis/mx seq=${TMP_PATH}/ISSUE_NOT_scielo_network_in.txt lw=9999 "pft=if p(v1) then './scielo_network/generate_id_from_article.bat ${TMP_PATH} ${BASES_PATH} Y',v1,'$ scielo_network_i_',v1/ fi" now > ${TMP_PATH}/ISSUE_NOT_IN_SCIELO_NETWORK.bat
     chmod +x ${TMP_PATH}/ISSUE_NOT_IN_SCIELO_NETWORK.bat
     nohup ${TMP_PATH}/ISSUE_NOT_IN_SCIELO_NETWORK.bat > ${TMP_PATH}/nohup.scielo_network_i.out&
     call scielo_network/InformaLog.bat ${LOGFILE} $0 "Check ${TMP_PATH}/nohup.scielo_network_i.out"
+
+
+    rem ###########################################
+    rem Generate and transfer scielo_network_status.txt
+    rem ###########################################
+    rem Gera arquivo texto que contém data de atualização do registro e PID de cada documento
+    call scielo_network/InformaLog.bat ${LOGFILE} $0 "In background generate and transfer scielo_network_status.txt"
+    nohup ./scielo_network/generate_status.bat ${TMP_PATH} ${BASES_PATH} > ${TMP_PATH}/nohup.scielo_network_status.out&
+    call scielo_network/InformaLog.bat ${LOGFILE} $0 "Check ${TMP_PATH}/nohup.scielo_network_status.out"
 
 fi
 

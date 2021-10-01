@@ -33,9 +33,11 @@ A partir de `bases/pdf/*` e do comando `find`, é obtida uma lista de pdfs no pa
 
 Esta lista é criada em um arquivo no diretório `temp/scielo_network`. E na sequência, é feita a transferência.
 
-A partir de `bases/title/title`, gera um arquivo do tipo `*.id` com o utilitário `cisis/i2id` no diretório temporário `temp/scielo_network` e, na sequência, é feita a transferência.
+A partir de `bases/title/title`, gera um arquivo do tipo `*.id` com o utilitário `cisis/i2id` no diretório temporário `temp/scielo_network` e, na sequência, é feita sua transferência.
 
-A partir de `scielo_network_in.txt`, obtido do ftp cadastrado e que contém a lista de PID + data de atualização do registro da base ISIS, é gerada uma lista com os documentos novos e/ou atualizados consultando `bases-work/artigo/artigo`. A partir da lista que contém os itens novos ou atualizados, um arquivo `artigo_*.id` é gerado no diretório temporário `temp/scielo_network` para cada documento usando o utilitário `cisis/i2id` e sua transferência é feita.
+A partir de `scielo_network_in.txt`, obtido do ftp cadastrado e que contém a lista de PID + data de atualização do registro da base ISIS, é gerada uma lista com os documentos novos e/ou atualizados consultando `bases-work/artigo/artigo`. A partir da lista que contém os itens novos ou atualizados, um arquivo `artigo_*.id` é gerado no diretório temporário `temp/scielo_network` para cada documento usando o utilitário `cisis/i2id` é feita sua transferência.
+
+A partir de `bases-work/artigo/artigo`, gera o arquivo `scielo_network_status.txt` contendo a lista de data de atualização do registro e PID de todos os documentos é feita sua transferência.
 
 
 As credenciais das transferências podem ser obtidas de um dos arquivos: 
@@ -52,6 +54,7 @@ São executadas em concorrência as operações:
 - geração de `scielo_network_pdfs_list.txt`
 - geração de `scielo_network_title.id`
 - geração dos arquivos `scielo_network_i_*.id`
+- geração dos arquivos `scielo_network_status.txt`
 
 
 # Script proc/Envia2SciELONetworkPadrao.bat
