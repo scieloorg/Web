@@ -34,21 +34,6 @@ rem Transfer id file
 call scielo_network/transf.bat ${LOGFILE} ${TMP_PATH} ${ID_FILE} bin
 
 
-rem Generate tgz file
-call scielo_network/InformaLog.bat ${LOGFILE} $0 "Generate tgz file ${ID_FILE}"
-back=`pwd`
-cd ${TMP_PATH}
-tar cvfzp ${ID_FILE}.tgz ${ID_FILE}
-cd $back
-rem Transfer tgz file
-call scielo_network/transf.bat ${LOGFILE} ${TMP_PATH} ${ID_FILE}.tgz bin
-
-
-rem Delete id file and id file tgz
-call batch/DeletaArquivo.bat ${TMP_PATH}/${ID_FILE}
-call batch/DeletaArquivo.bat ${TMP_PATH}/${ID_FILE}.tgz
-
-
 rem Register errors
 call batch/ifErrorLevel.bat $? batch/AchouErro.bat $0 ftp: ${LOGFILE}
 

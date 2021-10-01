@@ -30,6 +30,18 @@ call batch/VerifPresencaParametro.bat $0 @${FTP_BIN_OR_ASC} "bin or asc"
 
 call batch/VerifExisteArquivo.bat ${TMP_PATH}/${FILE_TO_TRANSFER}
 
+
+if [ "put" == "${GET_OR_PUT}" ]
+then
+    rem Generate tgz file
+    call scielo_network/InformaLog.bat ${LOGFILE} $0 "Generate ${FILE_TO_TRANSFER}.tgz"
+    back=`pwd`
+    cd ${TMP_PATH}
+    tar cvfzp ${FILE_TO_TRANSFER}.tgz ${FILE_TO_TRANSFER}
+    cd $back
+fi
+
+
 rem Create ftp instructions file
 FTP_INSTR=${TMP_PATH}/ftp_instructions_${FILE_TO_TRANSFER}.txt
 if [ ! -f ${FTP_INSTR} ]
@@ -62,10 +74,15 @@ then
     cat ${FTP_HEAD_FILE_PATH} > ${FTP_INSTR}
     echo "${FTP_BIN_OR_ASC}" >> ${FTP_INSTR}
     echo "lcd ${TMP_PATH}" >> ${FTP_INSTR}
-    echo "${GET_OR_PUT} ${FILE_TO_TRANSFER}" >> ${FTP_INSTR}
-    if [ "put" == "${GET_OR_PUT}" -a "@"!="@${TIME_LOG}" -a -f ${TIME_LOG} ]
+    if [ "put" == "${GET_OR_PUT}" ]
     then
-        echo "put `basename ${TIME_LOG}`" >> ${FTP_INSTR}
+        echo "${GET_OR_PUT} ${FILE_TO_TRANSFER}.tgz" >> ${FTP_INSTR}
+        if [ "@"!="@${TIME_LOG}" -a -f ${TIME_LOG} ]
+        then
+            echo "put `basename ${TIME_LOG}`" >> ${FTP_INSTR}
+        fi
+    else
+        echo "${GET_OR_PUT} ${FILE_TO_TRANSFER}" >> ${FTP_INSTR}
     fi
     echo "close" >> ${FTP_INSTR}
     echo "bye" >> ${FTP_INSTR}
@@ -76,6 +93,12 @@ ftp -n < ${FTP_INSTR} >> ${LOGFILE}
 
 rem Delete ftp instruction file
 call batch/DeletaArquivo.bat ${FTP_INSTR}
+
+if [ "put" == "${GET_OR_PUT}" ]
+then
+    call batch/DeletaArquivo.bat ${TMP_PATH}/${FILE_TO_TRANSFER}
+    call batch/DeletaArquivo.bat ${TMP_PATH}/${FILE_TO_TRANSFER}.tgz
+fi
 
 rem Register errors
 call batch/ifErrorLevel.bat $? batch/AchouErro.bat $0 ftp: ${LOGFILE}

@@ -30,10 +30,6 @@ find ${BASES_PDF_PATH} -name "*.pdf" > ${TMP_PATH}/${PDF_LIST_NAME}
 rem Transfer
 call scielo_network/transf.bat ${LOGFILE} ${TMP_PATH} ${PDF_LIST_NAME} bin
 
-rem Delete pids_list.*
-call batch/DeletaArquivo.bat ${TMP_PATH}/${PDF_LIST_NAME}
-call batch/DeletaArquivo.bat ${TMP_PATH}/${PDF_LIST_NAME}.tgz
-
 rem Register errors
 call batch/ifErrorLevel.bat $? batch/AchouErro.bat $0 ftp: ${LOGFILE}
 
