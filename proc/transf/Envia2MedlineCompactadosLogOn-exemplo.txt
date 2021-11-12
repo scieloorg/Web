@@ -1,0 +1,15 @@
+open ftp.scielo.br
+user user_id user_passwd
+
+bin
+
+lcd temp/transf2medline
+
+put title.iso.tgz
+put issue.iso.tgz
+put issues.iso.tgz
+put artigo.iso.tgz
+put bib4cit.iso.tgz
+
+close
+bye
