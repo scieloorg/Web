@@ -1,3 +1,6 @@
+v5.45.3
+Possibilita o redirecionamento para o Web site novo (#762)
+
 v5.45.2
 Corrige bugs no OAI-PMH ao ser utilizado com o prefixo de metadados oai_dc_scielo (#748)
 
