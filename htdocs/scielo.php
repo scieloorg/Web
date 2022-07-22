@@ -7,6 +7,12 @@
   $host = $_SERVER['HTTP_HOST'];
   $scielo = new Scielo($host);
 
+  // NEW_WEBSITE_URL=www.scielo.br (scielo.def.php)
+  $NEW_WEBSITE_URL = $scielo->_def->getKeyValue("NEW_WEBSITE_URL");
+  if ($NEW_WEBSITE_URL && $_SERVER['SCRIPT_NAME']=='/scielo.php') {
+    header("Location: https://" . $NEW_WEBSITE_URL . $_SERVER['REQUEST_URI']);
+  }
+
   $CACHE_STATUS = $scielo->_def->getKeyValue("CACHE_STATUS");
   $MAX_DAYS = $scielo->_def->getKeyValue("MAX_DAYS");
   $MAX_SIZE = $scielo->_def->getKeyValue("MAX_SIZE");
