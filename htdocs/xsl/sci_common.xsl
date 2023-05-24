@@ -652,7 +652,9 @@
         <xsl:if test="//varScieloOrg/GOOGLE_CODE != ''">
         
             <!-- Google tag (gtag.js) -->
-            <script async src="https://www.googletagmanager.com/gtag/js?id=<xsl:value-of select='//varScieloOrg/GOOGLE_CODE'/>"></script>
+            <script async="">
+                <xsl:attribute name="src">https://www.googletagmanager.com/gtag/js?id=<xsl:value-of select="//varScieloOrg/GOOGLE_CODE"/></xsl:attribute>
+            </script>
             <script>
                 window.dataLayer = window.dataLayer || [];
                 function gtag(){dataLayer.push(arguments);}
