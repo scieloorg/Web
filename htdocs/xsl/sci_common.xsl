@@ -648,22 +648,23 @@
         </xsl:if>
         <!-- End Piwik Code -->
 
-        <!-- to use Google Analytics -->
+        <!-- to use Google Analytics G4-->
         <xsl:if test="//varScieloOrg/GOOGLE_CODE != ''">
-            <script type="text/javascript">
-              var _gaq = _gaq || [];
-              _gaq.push(['_setAccount', '<xsl:value-of select="//varScieloOrg/GOOGLE_CODE"/>']);
-              _gaq.push(['_trackPageview']);
-              _gaq.push(['_setSampleRate', '<xsl:value-of select="//varScieloOrg/GOOGLE_SAMPLE_RATE"/>']);
-
-              (function() {
-                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-              })();
-
+        
+            <!-- Google tag (gtag.js) -->
+            <script async="">
+                <xsl:attribute name="src">https://www.googletagmanager.com/gtag/js?id=<xsl:value-of select="//varScieloOrg/GOOGLE_CODE"/></xsl:attribute>
             </script>
+            <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+
+                gtag('config', '<xsl:value-of select="//varScieloOrg/GOOGLE_CODE"/>');
+            </script>
+
         </xsl:if>
+        <!-- to use Google Analytics G4-->
         <xsl:if test="//varScieloOrg/PINGDOM_CODE != ''">
             <script>
                 var _prum = [['id', '<xsl:value-of select="//varScieloOrg/PINGDOM_CODE"/>'],
