@@ -7,7 +7,16 @@
 	<xsl:variable name="PATH_WXIS" select="//PATH_WXIS"/>
 	<xsl:variable name="PATH_DATA_IAH" select="//PATH_DATA_IAH"/>
 	<xsl:variable name="PATH_CGI_IAH" select="//PATH_CGI_IAH"/>
-	<xsl:variable name="ISSUE_ISSN" select="//ISSUE_ISSN"/>
+	<xsl:variable name="ISSUE_ISSN">
+		<xsl:choose>
+			<xsl:when test="//ISSUE_ISSN[@TYPE='ONLIN']">
+				<xsl:value-of select="//ISSUE_ISSN[@TYPE='ONLIN']"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="//ISSUE_ISSN"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
 	<xsl:template name="GetStrip">
 		<xsl:param name="vol"/>
 		<xsl:param name="num"/>
