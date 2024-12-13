@@ -369,7 +369,7 @@
 	<!--Adiciona vírgulas as palavras-chave-->
 	<xsl:template match="kwd">
 		<xsl:if test="position()!= 1">; </xsl:if>
-		<xsl:value-of select="."/>
+		<xsl:apply-templates select="*|text()"/>
 	</xsl:template>
 	<xsl:template name="main-title"
 		match="abstract/title | body/*/title |

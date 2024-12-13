@@ -19,9 +19,13 @@ def default_config_vars():
 
 
 def get_config_filename():
+    # /root/app/proc
     curr = os.getcwd()
-    folders = curr.split('/')
-    return 'xmlpreproc_config_'+folders[2]+'.ini'
+    # /root/app
+    dirname = os.path.dirname(curr)
+    # app
+    folder = os.path.basename(dirname)
+    return 'xmlpreproc_config_{}.ini'.format(folder)
 
 
 def read_config(config_filename, default):
