@@ -20,7 +20,12 @@ class LogDatabaseQueryJournal extends LogDatabaseQuery
 	// --------------------------------     Constructor     -------------------------------------
 	// ------------------------------------------------------------------------------------------
 
-    function LogDatabaseQueryJournal ($deffile)
+    function __construct($deffile)
+    {
+        $this->LogDatabaseQueryJournal($deffile);
+    }
+
+    function LogDatabaseQueryJournal($deffile)
     {
         LogDatabaseQuery::LogDatabaseQuery ($deffile);
 

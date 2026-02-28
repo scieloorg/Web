@@ -63,9 +63,9 @@ PATH_DATA:     tag 7014
         'DOIQUERY.*=',v7777/
         'DOI.*=',v7778/
         'TITLE.*=',     v7011, 'title/title.*',/
-		'SERAREAen.*=',   v7011, 'title/serareaEN.*',/
-		'SERAREAes.*=',   v7011, 'title/serareaES.*',/
-		'SERAREApt.*=',   v7011, 'title/serareaPT.*',/
+		'SERAREAen.*=',   v7011, 'title/serarea.*',/
+		'SERAREAes.*=',   v7011, 'title/serarea.*',/
+		'SERAREApt.*=',   v7011, 'title/serarea.*',/
 		'NEWISSUE.*=',  v7011, 'newissue/newissue.*',/
 		'ARTIGO.*=',    v7011, 'artigo/artigo.*',/
 		'FACCOUNT.*=',  v7011, 'issue/faccount.*',/

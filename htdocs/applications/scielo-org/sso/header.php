@@ -1,16 +1,23 @@
-<?
+<?php
 //consulta a instancia para pegar o COOKIE se jah logado
 //ini_set("display_errors","1");
 //error_reporting(E_ALL);
 session_start();
 $dir = dirname(__FILE__);
-$defi = parse_ini_file($dir."/../../../scielo.def.php",true);
+$defFile = $dir."/../../../scielo.def.php";
+if (!file_exists($defFile) && file_exists($defFile.".template")) {
+    @copy($defFile.".template", $defFile);
+}
+$defi = @parse_ini_file($defFile, true);
+if (!is_array($defi)) {
+    $defi = array();
+}
 $robotsUserAgents = parse_ini_file($dir."/../../../robotsUserAgents.def",true); 
 
 $isaRobot = false;
+$userAgent = strtolower($_SERVER['HTTP_USER_AGENT'] ?? '');
 
 foreach($robotsUserAgents["ROBOTS_AGENT"] as $key => $value){
-	$userAgent = strtolower($HTTP_USER_AGENT);
 	$agent = strtolower($value);
 	if (strstr($userAgent,$agent)){
 		$isaRobot = true;
@@ -18,9 +25,9 @@ foreach($robotsUserAgents["ROBOTS_AGENT"] as $key => $value){
 	}
 }
 if (!$isaRobot){
-	if($defi['services']['show_login'] != "0"){
+	if (($defi['services']['show_login'] ?? "0") != "0"){
 
-	$loginURL = "http://".$defi['SCIELO_REGIONAL']['SCIELO_REGIONAL_DOMAIN']. $defi['SCIELO_REGIONAL']['check_login_url'];
+	$loginURL = "http://".($defi['SCIELO_REGIONAL']['SCIELO_REGIONAL_DOMAIN'] ?? '').($defi['SCIELO_REGIONAL']['check_login_url'] ?? '');
 		if(isset($_GET['userID']))
 		{
 				if (strpos($_SERVER["REQUEST_URI"],"lng"))

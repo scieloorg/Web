@@ -109,7 +109,7 @@ class DOMIT_NodeList {
 	*/
 	function &createClone($deep = false) {
 		$className = get_class($this);
-		$clone =& new $className();
+		$clone = new $className();
 		
 		foreach ($this->arNodeList as $key => $value) {
 			$currNode =& $this->arNodeList[$key];
@@ -328,7 +328,7 @@ class DOMIT_NamedNodeMap {
 	*/
 	function &createClone($deep = false) {
 		$className = get_class($this);
-		$clone =& new $className();
+		$clone = new $className();
 		
 		foreach ($this->arNodeMap as $key => $value) {
 			$currNode =& $this->arNodeMap[$key];

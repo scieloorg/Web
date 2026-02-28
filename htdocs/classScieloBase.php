@@ -32,6 +32,11 @@ class ScieloBase
 	// --------------------------------     Constructor     -------------------------------------
 	// ------------------------------------------------------------------------------------------
 
+	function __construct($host)
+	{
+		$this->ScieloBase($host);
+	}
+
 	function ScieloBase ($host)
 	{
         $this->_request = new RequestVars ();
@@ -137,14 +142,18 @@ class ScieloBase
 	*************************************************************************/
 	function _GetHostNamePort($host)
 	{
-		if ( ereg("([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)(\:[0-9]+)?", $host, $regs) )
+		if (preg_match('/^([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)(:[0-9]+)?$/', $host, $regs))
 		{
 			// If http-host is an ip address (port number is permitted)
-			$host = gethostbyaddr($regs[1]) . ( $regs[2] ? "$regs[2]" : "" );
+			$resolved = gethostbyaddr($regs[1]);
+			if ($resolved !== false && $resolved !== $regs[1]) {
+				$host = $resolved . (isset($regs[2]) ? $regs[2] : "");
+			}
 		}
 
 		return strtolower($host);
 	}
+
 
 
 	/************************************************************************
@@ -400,6 +409,7 @@ class ScieloBase
 	function _TransformXML()
 	{
           $result = "";
+          $diag = isset($_REQUEST["diag"]) && $_REQUEST["diag"] == "1";
 
           // Apply transformer in xml
           $transform = new ScieloXMLTransformer();
@@ -408,6 +418,11 @@ class ScieloBase
 
           if($transform->setXsl($this->_xsl))
           {
+                  if ($diag){
+                          $xslExists = file_exists($this->_xsl) ? "yes" : "no";
+                          $xmlPreview = htmlspecialchars(substr($this->_xml, 0, 4000));
+                          return "<pre>DIAG\nXSL=".htmlspecialchars($this->_xsl)."\nXSL_EXISTS=".$xslExists."\nXML_PREVIEW=\n".$xmlPreview."</pre>";
+                  }
                   if($transform->setXml($this->_xml))
                   {
                     $transform->transform();
@@ -418,7 +433,7 @@ class ScieloBase
                     }
                     else
                     {
-                        $result = "<p>Error transforming ".$this->_xml.".</p>\n";
+                        $result = "<p>Error transforming: ".$transform->getError()."</p>\n";
                     }
                   }
             else

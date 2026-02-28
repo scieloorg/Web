@@ -1,0 +1,12 @@
+services:
+  scielo-web:
+    platform: linux/amd64
+    build:
+      context: .
+      dockerfile: docker/rocky9/Dockerfile
+    container_name: scielo-web-rocky9
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/var/www/html
+    restart: unless-stopped

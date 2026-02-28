@@ -8,6 +8,50 @@
 	require_once(dirname(__FILE__)."/../../applications/scielo-org/users/langs.php");
 	require_once(dirname(__FILE__)."/../../classDefFile.php");
 
+	function fetchWxisXml($query, $htdocsPath, $applServer) {
+		$wxisBinary = rtrim($htdocsPath, "/") . "/../cgi-bin/wxis.exe";
+
+		// Prefer local WXIS execution to avoid Apache CGI alias/port mismatches.
+		if (is_executable($wxisBinary)) {
+			$args = array_filter(explode("&", $query), "strlen");
+			$cmd = escapeshellarg($wxisBinary);
+			foreach ($args as $arg) {
+				$cmd .= " " . escapeshellarg($arg);
+			}
+			$cmd .= " " . escapeshellarg("PATH_TRANSLATED=" . $htdocsPath);
+
+			$output = shell_exec($cmd);
+			if (!empty($output)) {
+				$xmlStart = strpos($output, "<");
+				return ($xmlStart !== false) ? substr($output, $xmlStart) : $output;
+			}
+		}
+
+		// Fallback to HTTP with host normalization (drop mapped host port when needed).
+		$hosts = array();
+		$hosts[] = $applServer;
+		$parsedHost = parse_url("http://" . $applServer, PHP_URL_HOST);
+		if (!empty($parsedHost)) {
+			$hosts[] = $parsedHost;
+		}
+		if (!empty($_SERVER["SERVER_NAME"])) {
+			$hosts[] = $_SERVER["SERVER_NAME"];
+		}
+		$hosts[] = "127.0.0.1";
+		$hosts = array_values(array_unique(array_filter($hosts)));
+
+		$context = stream_context_create(array("http" => array("timeout" => 4)));
+		foreach ($hosts as $host) {
+			$url = "http://" . $host . "/cgi-bin/wxis.exe?" . $query;
+			$xml = @file_get_contents($url, false, $context);
+			if (!empty($xml)) {
+				return $xml;
+			}
+		}
+
+		return "";
+	}
+
 	$defFile = parse_ini_file(dirname(__FILE__)."/../../scielo.def.php");
 
 	$applServer = $defFile["SERVER_SCIELO"];
@@ -65,16 +109,15 @@
 									<TR>
 										<TD colspan="2">
 										<?php
-											$serviceUrl = "http://" . $applServer . "/cgi-bin/wxis.exe/?IsisScript=ScieloXML/sci_references.xis&database=artigo&gizmo=GIZMO_XML_REF&search=rp=" . $pid . "$";
-
-											$xmlFile = file_get_contents($serviceUrl);
+											$serviceQuery = "IsisScript=ScieloXML/sci_references.xis&database=artigo&gizmo=GIZMO_XML_REF&search=rp=" . $pid . "$";
+											$xmlFile = fetchWxisXml($serviceQuery, $htdocsPath, $applServer);
 											$xml = '<?xml version="1.0" encoding="ISO-8859-1"?>';
 											$xml .='<root>';
 											$xml .='<vars><htdocs>'.$htdocsPath.'</htdocs><lang>'.$lang.'</lang><applserver>'. $applServer .'</applserver><service_log>'.$flagLog.'</service_log></vars>';
 											$xml .= str_replace('<?xml version="1.0" encoding="ISO-8859-1"?>','',$xmlFile);
 											$xml .='</root>';
 											if($_REQUEST['debug'] == 'on'){
-                                                echo $serviceUrl;
+                                                echo "QUERY=".$serviceQuery."\n";
 												die($xml);
 											}
 

@@ -166,7 +166,7 @@ ob_start();
 							<tr>
 								<th align="right"><?=FIELD_LOGIN?></th>
 								<td align="right"><input type="text" name="login" size="25"/>
-										<?
+										<?php 
 											if($login_error)
 												echo '<span class="tfvHighlight" >'. LOGIN_ERROR . '</span>';
 										?>
@@ -198,7 +198,7 @@ ob_start();
 		</div>
 	</body>
 </html>
-<?
+<?php 
  }else//echo SERVICE_SOCKET_ERROR;
 			{?>
 		
@@ -266,7 +266,7 @@ ob_start();
 							<tr>
 								
 								<td align="center">
-								<?
+								<?php 
 								$str = SERVICE_SOCKET_ERROR;
 								echo str_replace("/", "<br/>",$str);
 								?>
@@ -294,7 +294,7 @@ ob_start();
 				
 			
 			
-<?}
+<?php }
 
 ob_flush();
 

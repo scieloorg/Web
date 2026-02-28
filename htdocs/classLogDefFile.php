@@ -6,6 +6,11 @@ include ("DefFile.php");
 
 class LogDefFile extends DefFile
 { 
+ function __construct($name)
+ {
+  $this->LogDefFile($name);
+ }
+
  function LogDefFile($name)
  {
   // Constructor

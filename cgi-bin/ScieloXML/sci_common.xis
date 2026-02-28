@@ -336,9 +336,9 @@
 					/* The first key found whose pid isn't the current article's  */
 					/* pid stops the loop.                                        */
 					/* if article has new-pid (v222) then execute next loop       */
-					if ref(['ARTIGO']l(['ARTIGO'],v4901),@PROC_SPLIT_MST.PFT,v222)='' then 
-						if p(v4901) and instr(v4901,v4900) = 0 then 'Quit' fi
-					fi
+						if ref(['ARTIGO']l(['ARTIGO'],v4901),@PROC_SPLIT_MST.PFT,v222)='' then 
+							if p(v4901) and v4901<>v4900 then 'Quit' fi
+						fi
 				</pft>
 			</flow>
 		</loop>	
@@ -351,11 +351,11 @@
 		<pft>
 			/* The pid of the key must be different from the pid of the current issue */
 			/* and the issue must be equal.                                           */
-			if p(v4901) and
-			   instr(v4901, v4900) = 0 and 
-			   instr(v4901, v4900*0.21) > 0 then,
- 				,v4901*3,
-			fi,
+				if p(v4901) and
+				   v4901<>v4900 and 
+				   instr(v4901, v4900*0.21) > 0 then,
+	 				,v4901*3,
+				fi,
 		</pft>
 	</field>
     <display><pft>,v4901*3/,,'Isis_Key (v7085): ', v7085,/</pft></display>
@@ -379,17 +379,17 @@
 				<pft>
 					if p(v4901) then
 						,if instr(v4901, left(v4900, size(v4900) - 5)) > 0 then,
-							,mid(v4901*3, 1, 23),
-						,fi
-					fi,
-				</pft>
-			</field>
+								,mid(v4901*3, 1, 23),
+							,fi
+						fi,
+					</pft>
+				</field>
 			<field action="export" tag="5001">5001</field>
 		</loop>	
 	</do>	
-	<field action="replace" tag="7085"><pft>v5001</pft></field>
+	<field action="replace" tag="7085"><pft>if v5001<>v4900^* then v5001 fi</pft></field>
 	<label>FOUND_PREV_ARTICLE</label>
-	<field action="replace" tag="7085"><pft>if p(v7085) then 'S',mid(v7085,1,17),v7085*18 fi</pft></field>
+	<field action="replace" tag="7085"><pft>if p(v7085) then 'S',mid(v7085,1,17),f(val(v7085*18),5,0) fi</pft></field>
 
 	<return action="replace" tag="7085"><pft>v7085</pft></return>
 </function>
@@ -427,9 +427,9 @@
 					/* The first key found whose pid isn't the current article's  */
 					/* pid stops the loop.                                        */
 					/* if article has new-pid (v222) then execute next loop       */
-					if ref(['ARTIGO']l(['ARTIGO'],v4901),@PROC_SPLIT_MST.PFT,v222)='' then 
-						if p(v4901) and instr(v4901,v4900) = 0 then 'Quit' fi
-					fi
+						if ref(['ARTIGO']l(['ARTIGO'],v4901),@PROC_SPLIT_MST.PFT,v222)='' then 
+							if p(v4901) and v4901<>v4900 then 'Quit' fi
+						fi
 				</pft>
 			</flow>
 		</loop>	
@@ -440,13 +440,13 @@
 		<pft>
 			/* The pid of the key must be different from the pid of the current article */
 			/* and the issue must be equal.                                             */
-			if p(v4901) and ref(['ARTIGO']l(['ARTIGO'],v4901),@PROC_SPLIT_MST.PFT,v222)='' and
-			   instr(v4901, v4900) = 0 and
-			   instr(v4901, left(v4900, size(v4900) - 5)) > 0 then,
- 				,mid(v4901*3, 1, 23),				
-			fi,
-		</pft>
-	</field>
+				if p(v4901) and ref(['ARTIGO']l(['ARTIGO'],v4901),@PROC_SPLIT_MST.PFT,v222)='' and
+				   v4901<>v4900 and
+				   instr(v4901, left(v4900, size(v4900) - 5)) > 0 then,
+	 				,mid(v4901*3, 1, 23),				
+				fi,
+			</pft>
+		</field>
 	<!--display><pft>'Isis_Key (v7095): ', v7095,'<br>'</pft></display-->
 
 	<flow action="jump"><pft>if p(v7095) or a(v5000) then 'FOUND_NEXT_ARTICLE' fi</pft></flow>
@@ -468,17 +468,17 @@
 					/* and the ISSN must be equal.                                             */
 					if p(v4901) then
 						,if instr(v4901, left(v4900, size(v4900) - 5)) > 0 then,
-							,mid(v4901*3, 1, 23),
-						,fi
-					fi,
-				</pft>
-			</field>
+								,mid(v4901*3, 1, 23),
+							,fi
+						fi,
+					</pft>
+				</field>
 			<field action="export" tag="5001">5001</field>
 		</loop>	
 	</do>	
-	<field action="replace" tag="7095"><pft>v5001</pft></field>
+	<field action="replace" tag="7095"><pft>if v5001<>v4900^* then v5001 fi</pft></field>
 	<label>FOUND_NEXT_ARTICLE</label>
-	<field action="replace" tag="7095"><pft>if p(v7095) then 'S',v7095*0.17,v7095*18 fi</pft></field>
+	<field action="replace" tag="7095"><pft>if p(v7095) then 'S',mid(v7095,1,17),f(val(v7095*18),5,0) fi</pft></field>
 
 	<return action="replace" tag="7095"><pft>v7095</pft></return>
 		
@@ -1055,8 +1055,21 @@
 		</pft>
 	</field>
 
-	<call name="GetPreviousArticle"><pft>v4900^p,|^x|v5001^a</pft></call>
-	<call name="GetNextArticle"><pft>v4900^p,|^x|v5001^b</pft></call>
+	<!-- Deterministic article navigation by PID suffix (00001, 00002, ...). -->
+	<field action="replace" tag="7085">
+		<pft>
+			if val(v4900^p*18) > 1 then
+				'S',mid(v4900^p,2,17),replace(f(val(v4900^p*18)-1,5,0),' ','0')
+			fi
+		</pft>
+	</field>
+	<field action="replace" tag="7095">
+		<pft>
+			'S',mid(v4900^p,2,17),replace(f(val(v4900^p*18)+1,5,0),' ','0')
+		</pft>
+	</field>
+	<field action="delete" tag="7085"><pft>if l(['ARTIGO'],'HR=',v7085)=0 then 'DELETE v7085 by LOOKUP' fi</pft></field>
+	<field action="delete" tag="7095"><pft>if l(['ARTIGO'],'HR=',v7095)=0 then 'DELETE v7095 by LOOKUP' fi</pft></field>
 
 	<!--display>
 		<pft>
@@ -1141,7 +1154,7 @@
 			' />'/
 
 			'  <ARTICLES>',/		
-			if p(v7085) then '   <PREVIOUS PID="', v7085, '"><![CDATA[', fi,
+			if p(v7085) and s(mpu,v7085,mpl)<>s(mpu,v4900^p,mpl) then '   <PREVIOUS PID="', v7085, '"><![CDATA[', fi,
 		</pft>
 	</display>
 	
@@ -1165,8 +1178,8 @@
 	
 	<display>
 		<pft>		
-			if p(v7085) then ']]></PREVIOUS>'/ fi,
-			if p(v7095) then '   <NEXT PID="', v7095, '"><![CDATA[' fi,
+			if p(v7085) and s(mpu,v7085,mpl)<>s(mpu,v4900^p,mpl) then ']]></PREVIOUS>'/ fi,
+			if p(v7095) and s(mpu,v7095,mpl)<>s(mpu,v4900^p,mpl) then '   <NEXT PID="', v7095, '"><![CDATA[' fi,
 		</pft>
 	</display>
 	
@@ -1190,7 +1203,7 @@
 	
 	<display>
 		<pft>
-			if p(v7095) then ']]></NEXT>'/ fi,
+				if p(v7095) and s(mpu,v7095,mpl)<>s(mpu,v4900^p,mpl) then ']]></NEXT>'/ fi,
 			'  </ARTICLES>',/
 		</pft>			
 	</display>
@@ -2060,10 +2073,28 @@ fi
 	<field action="statusfile" tag="9004">
 		<pft>v4900^p,v4900^f</pft>
 	</field>
+	<field action="replace" tag="9006">
+		<pft>
+			if v9004^s : 'e' then
+				v4900^f
+			else
+				if instr(v4900^f,'.pdf')>0 then
+					replace(v4900^f,'.pdf','.PDF')
+				fi
+			fi
+		</pft>
+	</field>
+	<field action="statusfile" tag="9007">
+		<pft>if v9006<>'' and v9006<>v4900^f then v4900^p,v9006 fi</pft>
+	</field>
 	<field action="replace" tag="7999">
 		<pft>				
 			if v9004^s : 'e' then
 				,v4900^f,
+			else
+				if v9007^s : 'e' then
+					,v9006,
+				fi
 			fi
 		</pft>
 	</field>

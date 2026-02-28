@@ -1,5 +1,12 @@
 <?php
 
+if (!defined('SCIELO_COMPAT_LOADED')) {
+    $compatFile = __DIR__ . '/compat.php';
+    if (file_exists($compatFile)) {
+        require_once $compatFile;
+    }
+}
+
 // Codigo para compatibilizar versoes anteriores do PHP
 // que consideravam qualquer coisa que vinha do usuario
 // como variavel globa (versoes anteriores ao PHP 4.1)
@@ -32,22 +39,25 @@ $_POST......Variables provided to the script via HTTP POST. Analogous
 			but deprecated). 
 
 */
-$old2newArray = array("HTTP_POST_VARS"    => "_POST",
-                      "HTTP_GET_VARS"     => "_GET",
-					  "HTTP_COOKIE_VARS"  => "_COOKIE",
-					  "HTTP_SERVER_VARS"  => "_SERVER",
-					  "HTTP_ENV_VARS"     => "_ENV",
-					  "HTTP_SESSION_VARS" => "_SESSION",
-					  "HTTP_POST_FILES " => "_REQUEST");
-reset($old2newArray);
-while (list($old, $new) = each($old2newArray))
-{
-	if  (!isset($$old) && isset($$new)) $$old = $$new;
-	if  (isset($$old))
-	{
-		reset($$old);
-		while (list($key, $value) = each($$old)) $GLOBALS[$key] = $value;
-	}
+$old2newArray = array(
+    "HTTP_POST_VARS" => "_POST",
+    "HTTP_GET_VARS" => "_GET",
+    "HTTP_COOKIE_VARS" => "_COOKIE",
+    "HTTP_SERVER_VARS" => "_SERVER",
+    "HTTP_ENV_VARS" => "_ENV",
+    "HTTP_SESSION_VARS" => "_SESSION",
+    "HTTP_POST_FILES " => "_REQUEST"
+);
+
+foreach ($old2newArray as $old => $new) {
+    if (!isset($$old) && isset($$new)) {
+        $$old = $$new;
+    }
+    if (isset($$old) && is_array($$old)) {
+        foreach ($$old as $key => $value) {
+            $GLOBALS[$key] = $value;
+        }
+    }
 }
 
 ?>

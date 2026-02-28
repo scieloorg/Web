@@ -2,6 +2,11 @@
 class XSLTransformerJava {
 var $xsl, $xml, $host, $port, $FINISH, $END_OF_MESS_SYMBOL, $socket, $output, $defFile;
  
+function __construct($host,$port)
+{
+  $this->XSLTransformerJava($host,$port);
+}
+
 function XSLTransformerJava($host,$port)
 { 
   $this->END_OF_MESS_SYMBOL = "?<==>?";

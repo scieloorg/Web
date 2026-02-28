@@ -71,7 +71,7 @@ class DOMIT_XPath {
 	*/
 	function DOMIT_XPath() {
 		require_once(DOMIT_INCLUDE_PATH . 'xml_domit_nodemaps.php');
-		$this->nodeList =& new DOMIT_NodeList();
+		$this->nodeList = new DOMIT_NodeList();
 	} //DOMIT_XPath
 	
 	/**
@@ -156,7 +156,7 @@ class DOMIT_XPath {
 		$this->localNodeContainer = array();
 
 		for ($i = 0; $i < $total; $i++) {
-			$this->currChar = $this->currentSegment{$i};
+			$this->currChar = $this->currentSegment[$i];
 
 			switch ($this->currChar) {
 				case '@':

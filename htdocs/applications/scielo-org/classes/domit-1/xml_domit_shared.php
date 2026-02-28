@@ -166,7 +166,7 @@ class DOMIT_DOMImplementation {
 	* @return Object The new document fragment node
 	*/
 	function &createDocument($namespaceURI, $qualifiedName, &$docType) {
-		$xmldoc =& new DOMIT_Document();
+		$xmldoc = new DOMIT_Document();
 		$documentElement =& $xmldoc->createElementNS($namespaceURI, $qualifiedName);
 		
 		$xmldoc->setDocumentElement($documentElement);

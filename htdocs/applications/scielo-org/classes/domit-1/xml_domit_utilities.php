@@ -271,7 +271,7 @@ class DOMIT_Utilities {
 		$index = -1;
 		
 		for ($i = ($total - 1); $i >= 0; $i--) {
-			if ($fileName{$i} == '.') {
+			if ($fileName[$i] == '.') {
 				$index = $i;
 			}
 		}

@@ -1,0 +1,9 @@
+.git
+.github
+docs
+proc
+bases_modelo
+bases-work_modelo
+serial_modelo
+**/*.log
+**/.DS_Store

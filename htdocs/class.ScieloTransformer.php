@@ -5,6 +5,11 @@ class ScieloXMLTransformer extends XSLTransformer
 { 
     var $_method = "GET";
     
+    function __construct()
+    {
+        $this->ScieloXMLTransformer();
+    }
+
     function ScieloXMLTransformer()
     {
         XSLTransformer::XSLTransformer();
@@ -84,16 +89,22 @@ class ScieloXMLTransformer extends XSLTransformer
         XSLTransformer::destroy();
     }
 
-    function isXmlContent(&$xml)
+    function isXmlContent($xml)
     {
         //WXIS_LINE_COMMAND
-        $xml = trim(str_replace('Content-type:text/html', '', str_replace('Content-type:text/xml', '',$xml)));
-        if (strcmp(substr(trim($xml),0,5), "<?xml") != 0)
-        {
+        $xml = trim(str_replace('Content-type:text/html', '', str_replace('Content-type:text/xml', '', $xml)));
+        $trimmed = trim($xml);
+        if ($trimmed === '') {
             return false;
         }
+        if (strpos($trimmed, '<?xml') === 0) {
+            return true;
+        }
+        if (strpos($trimmed, '<') === 0 && strrpos($trimmed, '>') !== false) {
+            return true;
+        }
 
-        return true;
+        return false;
     }
 
 }
@@ -102,6 +113,11 @@ class ScieloDocReader extends docReader
 {
     var $_method = "GET";
     
+    function __construct($uri,$method)
+    {
+        $this->ScieloDocReader($uri,$method);
+    }
+
     function ScieloDocReader($uri,$method)
     {
    		$this->setUri($uri); 
@@ -147,7 +163,7 @@ class ScieloDocReader extends docReader
     		$header .= "Content-length: " . strlen($request) . "\r\n\r\n"; 
             
 	    	// Open the connection 
-    		if ( $fp = fsockopen($host, $port, &$err_num, &$err_msg, 30) ) 
+    		if ( $fp = fsockopen($host, $port, $err_num, $err_msg, 30) ) 
 	    	{ 
 		    	// Send everything 
     			fputs($fp, $header . $request); 

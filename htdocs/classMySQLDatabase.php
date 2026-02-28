@@ -1,4 +1,7 @@
 <?php
+if (!defined('SCIELO_COMPAT_LOADED') && file_exists(__DIR__ . '/compat.php')) {
+ require_once __DIR__ . '/compat.php';
+}
 //  MySQLDatabase
 //  Class that defines a MySQL Database (APG - 27/11/2001)
 //  Updates:
@@ -16,6 +19,11 @@ class MySQLDatabase
  var $_MySQLErrorCode;    // MySQL Error code
  var $_MySQLError;        // MySQL Error description
  
+ function __construct($hostIP,$user,$password,$dbname,$adminEmail="",$ignore=false)
+ {
+  $this->MySQLDatabase($hostIP,$user,$password,$dbname,$adminEmail,$ignore);
+ }
+
  function MySQLDatabase($hostIP,$user,$password,$dbname,$adminEmail="",$ignore=false)
  { 
   $this->_hostIP = $hostIP;

@@ -15,15 +15,27 @@ function xml_utf8_decode($xml){
 class XSLTransformer {
 
 	/* Constructor  */	 
+	function __construct(){
+	    $this->XSLTransformer();
+	}
+
 	function XSLTransformer(){
-	    $this->defFile = parse_ini_file(dirname(__FILE__)."/scielo.def.php",true);
+	    $this->defFile = @parse_ini_file(dirname(__FILE__)."/scielo.def.php",true);
+	    if (!is_array($this->defFile)) {
+	        $this->defFile = array();
+	    }
 	    $this->tPHP = new XSLTransformerPHP5();
-            $this->tJava = new XSLTransformerJava($_SERVER["SERVER_ADDR"],$this->defFile["SOCKET"]["SOCK_PORT"]);
+                        $sockPort = isset($this->defFile["SOCKET"]["SOCK_PORT"]) ? $this->defFile["SOCKET"]["SOCK_PORT"] : 0;
+            $serverAddr = isset($_SERVER["SERVER_ADDR"]) ? $_SERVER["SERVER_ADDR"] : "127.0.0.1";
+            $this->tJava = new XSLTransformerJava($serverAddr, $sockPort);
 
-            $this->socket_log_file = $this->defFile['SOCKET']['ACCESS_LOG_FILE'];
-            $this->enable_socket_log = $this->defFile['SOCKET']['ENABLE_ACCESS_LOG'];
+                        $this->socket_log_file = isset($this->defFile['SOCKET']['ACCESS_LOG_FILE']) ? $this->defFile['SOCKET']['ACCESS_LOG_FILE'] : '';
+                        $this->enable_socket_log = isset($this->defFile['SOCKET']['ENABLE_ACCESS_LOG']) ? $this->defFile['SOCKET']['ENABLE_ACCESS_LOG'] : 0;
 
-            $this->redirectURL = $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+                        $serverName = isset($_SERVER["SERVER_NAME"]) ? $_SERVER["SERVER_NAME"] : '';
+            $requestUri = isset($_SERVER["REQUEST_URI"]) ? $_SERVER["REQUEST_URI"] : '';
+            $this->redirectURL = $serverName . $requestUri;
+		$this->error = 0;
 	} 
 
 	function validateXML($xml){
@@ -171,16 +183,17 @@ class XSLTransformer {
 			if ($tryPHP){
                                 $result = $this->tPHP->transform($this->xml, $this->xslFile , $error);  
 				if ($error){
-					$this->setError($error);
-					$result = "ERROR_PHP";
-					$tryRedirect = true;
-				} else {
+						$this->setError($error);
+						$result = "<pre>XSL transform error: ".htmlspecialchars($error)."\nXSL: ".htmlspecialchars($this->xslFile)."</pre>";
+						$this->transformedBy = "PHP-ERROR";
+						$tryRedirect = false;
+					} else {
 					$this->transformedBy = "PHP";
 				}
 			}
 			if ($tryRedirect){
-				header('Location: http://'.$this->redirectURL);
-			} else {
+					$this->setOutput("<pre>Redirect requested after XSL error</pre>");
+				} else {
 				$result = str_replace("MY_ENT_","&#",$result);
 				$this->setOutput ($result."<!--transformed by $this->transformedBy ".date("h:m:s d-m-Y")."-->");
 				$this->writeLog ();

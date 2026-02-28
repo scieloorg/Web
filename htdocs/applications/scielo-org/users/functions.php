@@ -25,7 +25,7 @@ require_once(dirname(__FILE__)."/../../../php/include.php");
  */
 function getTitle($titleXML, $lang = '')
 {
-    $domLiteDocument =& new DOMIT_Lite_Document();
+    $domLiteDocument = new DOMIT_Lite_Document();
     $domLiteDocument->parseXML($titleXML);
     $nodes =& $domLiteDocument->getElementsByPath("/TITLES/TITLE");
     /*
@@ -62,7 +62,7 @@ function getTitle($titleXML, $lang = '')
 */
 function getAutors($authorsXML, $link=false,$domain=""){
 
-    $domLiteDocument =& new DOMIT_Lite_Document();
+    $domLiteDocument = new DOMIT_Lite_Document();
     $sucess = $domLiteDocument->parseXML(str_replace("\\\\\\","",$authorsXML));
 
 	$article_autors = "";

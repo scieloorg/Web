@@ -194,12 +194,12 @@ class SAXY_Parser extends SAXY_Parser_Base {
 		$total = strlen($xmlText);
 		
 		for ($i = 0; $i < $total; $i++) {
-			$currentChar = $xmlText{$i};
+			$currentChar = $xmlText[$i];
 
 			switch ($this->state) {
 				case SAXY_STATE_PROLOG_NONE:	
 					if ($currentChar == '<') {
-						$nextChar = $xmlText{($i + 1)};
+						$nextChar = $xmlText[($i + 1)];
 						
 						if ($nextChar == '?')  {
 							$this->state = SAXY_STATE_PROLOG_PROCESSINGINSTRUCTION;
@@ -255,9 +255,9 @@ class SAXY_Parser extends SAXY_Parser_Base {
 						$this->charContainer = '';
 					}
 					else if ($currentChar == '-') {
-						if ((($xmlText{($i + 1)} == '-')  && ($xmlText{($i + 2)} == '>')) || 
-							($xmlText{($i + 1)} == '>') ||
-							(($xmlText{($i - 1)} == '-')  && ($xmlText{($i - 2)}== '!')) ){
+						if ((($xmlText[($i + 1)] == '-')  && ($xmlText[($i + 2)] == '>')) || 
+							($xmlText[($i + 1)] == '>') ||
+							(($xmlText[($i - 1)] == '-')  && ($xmlText[($i - 2)]== '!')) ){
 							//do nothing
 						}
 						else {
@@ -291,7 +291,7 @@ class SAXY_Parser extends SAXY_Parser_Base {
 					break;
 					
 				case SAXY_STATE_PROLOG_INLINEDTD:
-					$previousChar = $xmlText{($i - 1)};
+					$previousChar = $xmlText[($i - 1)];
 
 					if (($currentChar == '>') && ($previousChar == ']')){
 						$this->state = SAXY_STATE_PROLOG_NONE;
@@ -322,7 +322,7 @@ class SAXY_Parser extends SAXY_Parser_Base {
 		$total = strlen($xmlText);
 
 		for ($i = 0; $i < $total; $i++) {
-			$currentChar = $xmlText{$i};
+			$currentChar = $xmlText[$i];
 
 			switch ($this->state) {
 				case SAXY_STATE_PARSING:
@@ -338,7 +338,7 @@ class SAXY_Parser extends SAXY_Parser_Base {
 							break;
 							
 						case '-':
-							if (($xmlText{($i - 1)} == '-') && ($xmlText{($i - 2)} == '!')) {
+							if (($xmlText[($i - 1)] == '-') && ($xmlText[($i - 2)] == '!')) {
 								$this->state = SAXY_STATE_PARSING_COMMENT;
 								$this->charContainer = '';
 							}
@@ -368,7 +368,7 @@ class SAXY_Parser extends SAXY_Parser_Base {
 				case SAXY_STATE_PARSING_COMMENT:
 					switch ($currentChar) {
 						case '>':
-							if (($xmlText{($i - 1)} == '-') && ($xmlText{($i - 2)} == '-')) {
+							if (($xmlText[($i - 1)] == '-') && ($xmlText[($i - 2)] == '-')) {
 								$this->fireCommentEvent(substr($this->charContainer, 0, 
 													(strlen($this->charContainer) - 2)));
 								$this->charContainer = '';
@@ -396,7 +396,7 @@ class SAXY_Parser extends SAXY_Parser_Base {
 	*/
 	function parseTag($tagText) {
 		$tagText = trim($tagText);
-		$firstChar = $tagText{0};
+		$firstChar = $tagText[0];
 		$myAttributes = array();
 
 		switch ($firstChar) {
@@ -414,9 +414,9 @@ class SAXY_Parser extends SAXY_Parser_Base {
 					$textNodeText = '';
 					
 					for ($i = 0; $i < $total; $i++) {
-						$currentChar = $tagText{$i};
+						$currentChar = $tagText[$i];
 						
-						if (($currentChar == ']') && ($tagText{($i + 1)} == ']')) {
+						if (($currentChar == ']') && ($tagText[($i + 1)] == ']')) {
 							break;
 						}
 						else if ($openBraceCount > 1) {
@@ -457,7 +457,7 @@ class SAXY_Parser extends SAXY_Parser_Base {
 					$tagName = '';
 
 					for ($i = 0; $i < $total; $i++) {
-						$currentChar = $tagText{$i};
+						$currentChar = $tagText[$i];
 						
 						if (($currentChar == ' ') || ($currentChar == "\t") ||
 							($currentChar == "\n") || ($currentChar == "\r") ||
@@ -684,7 +684,7 @@ class SAXY_Parser extends SAXY_Parser_Base {
 		$total = strlen($data);
 		
 		for ($x = 2; $x < $total; $x++) {
-			if (trim($data{$x}) == '') {
+			if (trim($data[$x]) == '') {
 				$endTarget = $x;
 				break;
 			}

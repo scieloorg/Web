@@ -6,6 +6,11 @@
 		var $defName,
 		    $keys,
 			$_error;
+
+		function __construct($defName)
+		{
+			$this->DefFile($defName);
+		}
 		
 		function DefFile($defName)
 		{

@@ -55,24 +55,24 @@ FILE AFPAISPAIS_KEY.*=%path_database%iah/library/v677iah%lang%.*
 
 [/AOT]
 
-FILE HEADER.IAH=/home/scielo/www/cgi-bin/iah-styles/header.pft
-FILE QUERY.IAH=/home/scielo/www/cgi-bin/iah-styles/query.pft
-FILE LIST6003.PFT=/home/scielo/www/cgi-bin/iah-styles/list6003.pft
-FILE PROC.PFT=/home/scielo/www/htdocs/pfts/proc_split_mst.pft
+FILE HEADER.IAH=/var/wwww/html/cgi-bin/iah-styles/header.pft
+FILE QUERY.IAH=/var/wwww/html/cgi-bin/iah-styles/query.pft
+FILE LIST6003.PFT=/var/wwww/html/cgi-bin/iah-styles/list6003.pft
+FILE PROC.PFT=/var/wwww/html/htdocs/pfts/proc_split_mst.pft
 
-FILE iso.pft=/home/scielo/www/cgi-bin/iah-styles/fbiso.pft
-FILE abn.pft=/home/scielo/www/cgi-bin/iah-styles/fbabn.pft
-FILE van.pft=/home/scielo/www/cgi-bin/iah-styles/fbvan.pft
-FILE places.pft=/home/scielo/www/cgi-bin/iah-styles/place-generico.pft
-FILE month1.pft=/home/scielo/www/cgi-bin/iah-styles/month1.pft
-FILE month2.pft=/home/scielo/www/cgi-bin/iah-styles/month2.pft
-FILE scistyle.pft=/home/scielo/www/cgi-bin/iah-styles/scistyle.pft
-FILE AHBTOP.HTM=/home/scielo/www/cgi-bin/iah-styles/%lang%/ahbtop.htm
-FILE AHLIST.PFT=/home/scielo/www/cgi-bin/iah-styles/%lang%/ahlist.pft
-FILE ahlist.pft=/home/scielo/www/cgi-bin/iah-styles/%lang%/ahlist.pft
+FILE iso.pft=/var/wwww/html/cgi-bin/iah-styles/fbiso.pft
+FILE abn.pft=/var/wwww/html/cgi-bin/iah-styles/fbabn.pft
+FILE van.pft=/var/wwww/html/cgi-bin/iah-styles/fbvan.pft
+FILE places.pft=/var/wwww/html/cgi-bin/iah-styles/place-generico.pft
+FILE month1.pft=/var/wwww/html/cgi-bin/iah-styles/month1.pft
+FILE month2.pft=/var/wwww/html/cgi-bin/iah-styles/month2.pft
+FILE scistyle.pft=/var/wwww/html/cgi-bin/iah-styles/scistyle.pft
+FILE AHBTOP.HTM=/var/wwww/html/cgi-bin/iah-styles/%lang%/ahbtop.htm
+FILE AHLIST.PFT=/var/wwww/html/cgi-bin/iah-styles/%lang%/ahlist.pft
+FILE ahlist.pft=/var/wwww/html/cgi-bin/iah-styles/%lang%/ahlist.pft
 FILE LATTES.*=%path_database%lattes/lattes.*
 
-FILE citation.xml=/home/scielo/www/cgi-bin/iah-styles/fbisoXML.pft
+FILE citation.xml=/var/wwww/html/cgi-bin/iah-styles/fbisoXML.pft
 
 FILE issue.*=%path_database%issue/issue.*
 FILE facic.*=%path_database%issue/facic.*
@@ -124,8 +124,8 @@ NAVIGATION BAR=OFF
 SEND RESULT BY EMAIL=ON
 
 [VARIABLES]
-VARIABLE APP_PATH=/home/scielo/www
-VARIABLE APP_REVISTAS_PATH=/home/scielo/www/htdocs/revistas/
+VARIABLE APP_PATH=/var/wwww/html
+VARIABLE APP_REVISTAS_PATH=/var/wwww/html/htdocs/revistas/
 VARIABLE APP_REVISTAS_RELPATH=/revistas/
 VARIABLE APP_IMG_REVISTAS_RELPATH=/img/revistas/
 VARIABLE APP_IMG_RELPATH=/img/

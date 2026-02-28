@@ -8,7 +8,12 @@ class Scielo extends ScieloBase
 {
     var $XML_XSL; 
 
-    function Scielo ($host)
+    function __construct($host)
+    {
+            $this->Scielo($host);
+    }
+
+    function Scielo($host)
     {
             $this->XML_XSL = new XSL_XML();
             $this->ScieloBase ($host);
@@ -151,6 +156,10 @@ class Scielo extends ScieloBase
             $headers = apache_request_headers();
 
             $xmlScieloOrg = '';
+            $commentCount = 0;
+            $requestScript = isset($_REQUEST['script']) ? $_REQUEST['script'] : '';
+            $requestLng = isset($_REQUEST['lng']) ? $_REQUEST['lng'] : '';
+            $requestTlng = isset($_REQUEST['tlng']) ? $_REQUEST['tlng'] : '';
             if (strpos($this->_IsisScriptUrl, 'script=sci_verify')==false){
                     $elements = array(
                             "PINGDOM_CODE"=>"PINGDOM_CODE",
@@ -231,7 +240,7 @@ class Scielo extends ScieloBase
                     }
                     $xmlScieloOrg .="<refferer>http://".htmlentities($_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"])."</refferer>";
                     $xmlScieloOrg .=  $this->userInfo();
-                    if(($_REQUEST['script']=='sci_serial') and ($this->_def->getKeyValue("show_scimago") == 1)){
+                    if(($requestScript=='sci_serial') and ($this->_def->getKeyValue("show_scimago") == 1)){
                             $xmlScieloOrg.= "<scimago_status>online</scimago_status>";
                     }else{
                             $xmlScieloOrg.= "<scimago_status>offline</scimago_status>";
@@ -240,8 +249,8 @@ class Scielo extends ScieloBase
                     
                     $xmlScieloOrg.="<url_login>".base64_encode("http://".$_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"])."</url_login>";
                     $xmlScieloOrg.="<commentCount>".$commentCount."</commentCount>";
-                    $xmlScieloOrg.="<lng>".$_REQUEST['lng']."</lng>";
-                    $xmlScieloOrg.="<tlng>".$_REQUEST['tlng']."</tlng>";
+                    $xmlScieloOrg.="<lng>".$requestLng."</lng>";
+                    $xmlScieloOrg.="<tlng>".$requestTlng."</tlng>";
                     $xmlScieloOrg = "<varScieloOrg>".$xmlScieloOrg."</varScieloOrg>";
             }
             if (count($xmlList)>1){
@@ -257,8 +266,16 @@ class Scielo extends ScieloBase
 
     function GenerateXslUrl()
     {
-            $xsl = $this->_def->getKeyValue("PATH_XSL");
-            $xsl = $xsl . $this->_script.$this->_special_xsl.".xsl";
+            $xslFile = $this->_script.$this->_special_xsl.".xsl";
+            $xslPath = $this->_def->getKeyValue("PATH_XSL");
+            $xsl = $xslPath . $xslFile;
+
+            if (!file_exists($xsl)) {
+                    $fallback = dirname(__FILE__) . "/xsl/" . $xslFile;
+                    if (file_exists($fallback)) {
+                            return $fallback;
+                    }
+            }
 
             return $xsl;
     }

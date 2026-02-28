@@ -6,6 +6,11 @@ include ("classLogDatabase.php");
 
 class LogDatabaseQuery extends LogDatabase
 { 
+ function __construct($defFile)
+ {
+  $this->LogDatabaseQuery($defFile);
+ }
+
  function LogDatabaseQuery($defFile)
  {
   LogDatabase::LogDatabase($defFile);

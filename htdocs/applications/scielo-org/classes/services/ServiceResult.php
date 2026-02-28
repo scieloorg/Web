@@ -10,7 +10,7 @@
 			$this->_date = date("YmdHis");
 			$this->_stringXml = $xml;
 
-	    	$this->domLiteDocument =& new DOMIT_Lite_Document() ;
+	    	$this->domLiteDocument = new DOMIT_Lite_Document() ;
     		$this->domLiteDocument->parseXML($xml) ;  
 			
 		}

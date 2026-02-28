@@ -26,6 +26,7 @@
   $filenamePage = "";
   $pageContent = "";
   $GRAVA = false;
+  $error = false;
   
   if ($filenamePage){
     if (file_exists($filenamePage)){
@@ -51,11 +52,18 @@
     
   //Generate wxis url and set xml url
   $xml = $scielo->GenerateXmlUrl();
+
   if ((strpos($xml, '</') == 0) or (strpos($xml, '</CONTROLINFO>') == 0)) {
     $xml = '<ERROR></ERROR>';
   }
 
-  $sxml = simplexml_load_string($xml);
+  $sxml = false;
+  $prevUseInternalErrors = libxml_use_internal_errors(true);
+  if (strpos($xml, 'WXIS|fatal error|') === false) {
+      $sxml = simplexml_load_string($xml);
+  }
+  libxml_clear_errors();
+  libxml_use_internal_errors($prevUseInternalErrors);
 
   function xml_tostring($value) {
       return (string)$value;
@@ -80,7 +88,7 @@
    * Quando o texto não estiver disponível no idioma solicitado o site deve
    * redirecionar (HTTP 302) o cliente para o idioma padrão.
    */
-  if ($_REQUEST['script'] == 'sci_arttext') {
+  if ((isset($_REQUEST['script']) ? $_REQUEST['script'] : '') == 'sci_arttext') {
       if (!is_requested_language_available($sxml)) {
           $documentPID = array_pop(
               array_map(
@@ -96,12 +104,12 @@
   
   if ($sxml != false){
      $error = (($sxml->getName() == 'ERROR') or ($sxml->ERROR->getName() == 'ERROR'));
+  } else {
+    $error = true;
   }
 
   if ($error){
-    header("HTTP/1.0 404 Not Found - Archive Empty");
-    require '404.html';
-    exit;
+    $xml = '<ERROR></ERROR>';
   }
 
   $scielo->SetXMLUrl ($xml);
@@ -109,6 +117,24 @@
   //Generate xsl url and set xsl url
   $xsl = $scielo->GenerateXslUrl();
   $scielo->SetXSLUrl ($xsl);
+
+  if ((isset($_REQUEST['diag']) ? $_REQUEST['diag'] : '') == '1') {
+    $xslExists = file_exists($xsl) ? 'yes' : 'no';
+    $xmlPreview = htmlspecialchars(substr($xml, 0, 12000));
+    $errorTagCount = preg_match_all('/<ERROR[\\s>]/i', $xml);
+    header('Content-Type: text/plain; charset=UTF-8');
+    echo "DIAG\n";
+    echo "SCRIPT=".$_SERVER['SCRIPT_NAME']."\n";
+    echo "REQUEST_URI=".$_SERVER['REQUEST_URI']."\n";
+    if (isset($scielo->_IsisScriptUrl)) {
+      echo "ISIS_URL=".$scielo->_IsisScriptUrl."\n";
+    }
+    echo "XSL=".$xsl."\n";
+    echo "XSL_EXISTS=".$xslExists."\n";
+    echo "XML_ERROR_TAG_COUNT=".$errorTagCount."\n";
+    echo "XML_PREVIEW_BEGIN\n".$xmlPreview."\nXML_PREVIEW_END\n";
+    exit;
+  }
   
   $pageContent = $scielo->getPage();
   
@@ -233,7 +259,7 @@ function dir_size($dir, &$older, &$older_accessed){
   return $mas; // bytes
 }
 
-function dateDiff($interval="d",$dateTimeBegin,$dateTimeEnd) {
+function dateDiff($dateTimeBegin, $dateTimeEnd, $interval = "d") {
    //Parse about any English textual datetime
    //$dateTimeBegin, $dateTimeEnd
 

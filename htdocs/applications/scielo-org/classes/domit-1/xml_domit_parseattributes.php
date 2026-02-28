@@ -41,7 +41,7 @@ function parseAttributes($attrText, $convertEntities = true, $definedEntities = 
 	if ($definedEntities == null) $defineEntities = array();
 	
 	for ($i = 0; $i < $total; $i++) {								
-		$currentChar = $attrText{$i};
+		$currentChar = $attrText[$i];
 		
 		if ($currentState == DOMIT_ATTRIBUTEPARSER_STATE_ATTR_NONE) {
 			if (trim($currentChar != '')) {
