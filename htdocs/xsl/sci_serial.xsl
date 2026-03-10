@@ -37,6 +37,7 @@
 				<meta http-equiv="Pragma" content="no-cache"/>
 				<meta http-equiv="Expires" content="Mon, 06 Jan 1990 00:00:01 GMT"/>
 				<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+				<meta name="viewport" content="width=device-width, initial-scale=1"/>
 				<xsl:if test="//NO_SCI_SERIAL='yes'">
 					<xsl:variable name="X">http://<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/SERVER"/>
 						<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_DATA"/>scielo.php?script=sci_artlist&amp;pid=<xsl:value-of select="//PAGE_PID"/>&amp;lng=<xsl:value-of select="normalize-space(//CONTROLINFO/LANGUAGE)"/>&amp;nrm=<xsl:value-of select="normalize-space(//CONTROLINFO/STANDARD)"/>
@@ -49,6 +50,9 @@
 				<link rel="STYLESHEET" TYPE="text/css" href="/css/scielo.css"/>
 				<link rel="STYLESHEET" TYPE="text/css" href="/css/include_layout.css"/>
 				<link rel="STYLESHEET" TYPE="text/css" href="/css/include_styles.css"/>
+				<link rel="stylesheet" type="text/css" href="/design-system/1.0.0/css/bootstrap.css"/>
+				<link rel="stylesheet" type="text/css" href="/design-system/1.0.0/css/article.css"/>
+				<link rel="stylesheet" type="text/css" href="/css/scielo-ds-bridge.css"/>
 				<!-- link pro RSS aparecer automaticamente no Browser -->
 				<xsl:call-template name="AddRssHeaderLink">
 					<xsl:with-param name="pid" select="//CURRENT/@PID"/>
@@ -60,7 +64,7 @@
 				<script type="text/javascript" src="/article.js"/>
 				<script type="text/javascript" src="/js/jquery-1.9.1.min.js" />
 			</head>
-			<body>
+			<body class="serial-page">
 				<xsl:if test="//NO_SCI_SERIAL!='yes' or not(//NO_SCI_SERIAL)">
 					<div class="container">
 						<div class="top">
@@ -70,16 +74,24 @@
 							<xsl:call-template name="NAVBAR">
 								<xsl:with-param name="bar1">issues</xsl:with-param>
 								<xsl:with-param name="bar2">articlesiah</xsl:with-param>
-								<xsl:with-param name="alpha">
-									<xsl:choose>
-										<xsl:when test=" normalize-space(//CONTROLINFO/APP_NAME) = 'scielosp' ">0</xsl:when>
-										<xsl:otherwise>1</xsl:otherwise>
-									</xsl:choose>
-								</xsl:with-param>
+								<xsl:with-param name="compact_nav">1</xsl:with-param>
+								<xsl:with-param name="alpha">0</xsl:with-param>
+								<xsl:with-param name="show_lang_switch">1</xsl:with-param>
 								<xsl:with-param name="scope" select="TITLEGROUP/SIGLUM"/>
 							</xsl:call-template>
 						</div>
-						<div class="middle">
+						<div>
+							<xsl:attribute name="class">
+								<xsl:text>middle</xsl:text>
+								<xsl:choose>
+									<xsl:when test="($has_issue_pr = 'false') and ($has_article_pr = 'false')">
+										<xsl:text> no-right-col</xsl:text>
+									</xsl:when>
+									<xsl:otherwise>
+										<xsl:text> has-right-col</xsl:text>
+									</xsl:otherwise>
+								</xsl:choose>
+							</xsl:attribute>
 							<!--
                                 monta as divs: leftCol e mainContent
                             -->
@@ -493,7 +505,6 @@ press release do artigo
 					<xsl:with-param name="MONTH" select="$MONTH"/>
 				</xsl:call-template>&#160;<xsl:value-of select="$DAY"/>,&#160;<xsl:value-of select="$YEAR"/>
 			</span>
-			<xsl:apply-templates select="." mode="change-language"/>
 			<xsl:apply-templates select="." mode="links"/>
 
 
@@ -516,12 +527,17 @@ press release do artigo
 				<h2 class="sectionHeading">
 					<xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='search']"/>
 				</h2>
-				<form name="searchForm" action="http://{//SCIELO_INFO/SERVER}/cgi-bin/wxis.exe/iah/" method="post">
-					<input type="hidden" value="iah/iah.xis" name="IsisScript"/>
-					<input type="hidden" value="{$pref}" name="lang"/>
-					<input type="hidden" value="article^dlibrary" name="base"/>
-					<input type="hidden" value="extSearch" name="nextAction"/>
-					<input id="textEntry1" name="exprSearch" class="expression midium defaultValue" value="{$translations/xslid[@id='sci_serial']/text[@find='enter_search_term']}" onfocus="clearDefault('textEntry1', 'expression midium'); this.value= (this.value=='{$translations/xslid[@id='sci_serial']/text[@find='enter_search_term']}')? '' : this.value" onblur="clearDefault('textEntry1', 'expression midium defaultValue'); this.value= (this.value=='')? '{$translations/xslid[@id='sci_serial']/text[@find='enter_search_term']}' : this.value" type="text"/>
+				<form name="searchForm" action="https://search.scielo.org/" method="get">
+					<input type="hidden" name="q" value=""/>
+					<input type="hidden" name="lang" value="{//CONTROLINFO/LANGUAGE}"/>
+					<input type="hidden" name="count" value="15"/>
+					<input type="hidden" name="from" value="0"/>
+					<input type="hidden" name="output" value="site"/>
+					<input type="hidden" name="sort" value=""/>
+					<input type="hidden" name="format" value="summary"/>
+					<input type="hidden" name="fb" value=""/>
+					<input type="hidden" name="page" value="1"/>
+					<input id="textEntry1" name="q" class="expression midium defaultValue" value="{$translations/xslid[@id='sci_serial']/text[@find='enter_search_term']}" onfocus="clearDefault('textEntry1', 'expression midium'); this.value= (this.value=='{$translations/xslid[@id='sci_serial']/text[@find='enter_search_term']}')? '' : this.value" onblur="clearDefault('textEntry1', 'expression midium defaultValue'); this.value= (this.value=='')? '{$translations/xslid[@id='sci_serial']/text[@find='enter_search_term']}' : this.value" type="text"/>
 					<select class="inputText mini" name="indexSearch">
 						<option selected="true" value="^nTo^pTodos os índices^eTodos los indices^iAll indexes^d*^xTO ^yFULINV">
 							<xsl:value-of select="$translations/xslid[@id='sci_serial']/text[@find='all_indexes']"/>

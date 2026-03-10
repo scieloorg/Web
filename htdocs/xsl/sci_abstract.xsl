@@ -41,6 +41,9 @@
 					<xsl:with-param name="orig_lang" select="ARTICLE/@TEXT_LANG" />
 				</xsl:apply-templates>
 				<link rel="stylesheet" type="text/css" href="/css/screen/general.css"/>
+				<link rel="stylesheet" type="text/css" href="/design-system/1.0.0/css/bootstrap.css"/>
+				<link rel="stylesheet" type="text/css" href="/design-system/1.0.0/css/article.css"/>
+				<link rel="stylesheet" type="text/css" href="/css/scielo-ds-bridge.css"/>
 				<link rel="stylesheet" type="text/css" href="/css/screen/layout.css"/>
 				<link rel="stylesheet" type="text/css" href="/css/screen/styles.css"/>
 				<link rel="stylesheet" type="text/css" href="/xsl/pmc/v3.0/xml.css"/>
@@ -50,24 +53,25 @@
 	                <script src="http://content.readcube.com/scielo/epdf_linker.js" type="text/javascript" async="true"></script>
 	            </xsl:if>
 			</head>
-			<body>
+			<body class="arttext-page">
 				<div class="container">
 					<div class="top">
 						<div id="issues"/>
 						<xsl:call-template name="NAVBAR">
 							<xsl:with-param name="bar1">articles</xsl:with-param>
-							<xsl:with-param name="bar2">articlesiah</xsl:with-param>
+							<xsl:with-param name="bar2"></xsl:with-param>
+							<xsl:with-param name="compact_nav">1</xsl:with-param>
+							<xsl:with-param name="compact_variant">arttext</xsl:with-param>
 							<xsl:with-param name="home">1</xsl:with-param>
-							<xsl:with-param name="alpha">
-								<xsl:choose>
-									<xsl:when test=" normalize-space(//CONTROLINFO/APP_NAME) = 'scielosp' ">0</xsl:when>
-									<xsl:otherwise>1</xsl:otherwise>
-								</xsl:choose>
-							</xsl:with-param>
+							<xsl:with-param name="alpha">0</xsl:with-param>
+							<xsl:with-param name="show_lang_switch">1</xsl:with-param>
 							<xsl:with-param name="scope" select="TITLEGROUP/SIGLUM"/>
 						</xsl:call-template>
 					</div>
 					<div class="content">
+						<div class="issues-journal-logo">
+							<img src="{//CONTROLINFO/SCIELO_INFO/PATH_SERIMG}{//TITLEGROUP/SIGLUM}/glogo.gif" alt="{//TITLEGROUP/TITLE}"/>
+						</div>
 						<xsl:if test="$show_toolbox = 1">
 							<xsl:call-template name="tool_box"/>
 						</xsl:if>

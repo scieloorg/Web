@@ -32,8 +32,11 @@
 					<xsl:value-of select="//TITLEGROUP/SHORTTITLE " disable-output-escaping="yes"/> - <xsl:value-of select="$translations/xslid[@id='sci_issues']/text[@find='available_issues']"/>
 				</TITLE>
 				<LINK href="/css/scielo.css" type="text/css" rel="STYLESHEET"/>
+				<link rel="stylesheet" type="text/css" href="/design-system/1.0.0/css/bootstrap.css"/>
+				<link rel="stylesheet" type="text/css" href="/design-system/1.0.0/css/article.css"/>
 				<link rel="STYLESHEET" TYPE="text/css" href="/css/include_layout.css"/>
 				<link rel="STYLESHEET" TYPE="text/css" href="/css/include_styles.css"/>
+				<link rel="stylesheet" type="text/css" href="/css/scielo-ds-bridge.css"/>
 				<style type="text/css" title="Gold">
 /* The following is for windows that aren't tall enough for
    the fixed menu. Use the scrolling menu instead. */
@@ -48,20 +51,22 @@
 
 				<META http-equiv="Pragma" content="no-cache"/>
 				<META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT"/>
+				<meta name="viewport" content="width=device-width, initial-scale=1"/>
 			</HEAD>
-			<BODY vLink="#800080" bgColor="#ffffff">
+			<BODY class="issues-page" vLink="#800080" bgColor="#ffffff">
 				<xsl:call-template name="NAVBAR">
 					<xsl:with-param name="bar1">issues</xsl:with-param>
-					<xsl:with-param name="bar2">articlesiah</xsl:with-param>
+					<xsl:with-param name="bar2"></xsl:with-param>
+					<xsl:with-param name="compact_nav">1</xsl:with-param>
+					<xsl:with-param name="compact_variant">issues</xsl:with-param>
+					<xsl:with-param name="show_lang_switch">1</xsl:with-param>
 					<xsl:with-param name="scope" select="//TITLEGROUP/SIGLUM"/>
 					<xsl:with-param name="home">1</xsl:with-param>
-					<xsl:with-param name="alpha">
-						<xsl:choose>
-							<xsl:when test=" normalize-space(//CONTROLINFO/APP_NAME) = 'scielosp' ">0</xsl:when>
-							<xsl:otherwise>1</xsl:otherwise>
-						</xsl:choose>
-					</xsl:with-param>
+					<xsl:with-param name="alpha">0</xsl:with-param>
 				</xsl:call-template>
+				<div class="issues-journal-logo">
+					<img src="{//CONTROLINFO/SCIELO_INFO/PATH_SERIMG}{//TITLEGROUP/SIGLUM}/glogo.gif" alt="{//TITLEGROUP/TITLE}"/>
+				</div>
 				<xsl:apply-templates select="//TITLEGROUP"/>
 				<CENTER>
 					<FONT color="#000080">
@@ -292,7 +297,7 @@
 	<xsl:template name="AddBlankCells">
 		<xsl:param name="ncells"/>
 		<xsl:if test="$ncells&gt;0">
-			<TD align="middle" width="{$spaceIssue}" height="35">&#160;</TD>
+			<TD align="middle" width="{$spaceIssue}" bgColor="#f5f5eb" height="35">&#160;</TD>
 			<xsl:call-template name="AddBlankCells">
 				<xsl:with-param name="ncells" select="$ncells - 1"/>
 			</xsl:call-template>

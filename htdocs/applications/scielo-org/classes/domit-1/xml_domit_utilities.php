@@ -38,7 +38,7 @@ class DOMIT_Utilities {
 	* @param boolean True if illegal xml characters in text nodes and attributes should be converted to entities
 	* @return string The formatted string representation 
 	*/
-	function toNormalizedString (&$node, $subEntities=false, $definedEntities) {
+	static function toNormalizedString (&$node, $subEntities=false, $definedEntities=array()) {
 		$node_level = 0;
 		$response = '';
 		
@@ -65,7 +65,7 @@ class DOMIT_Utilities {
 	* @param array User defined translation table for entities
 	* @return string The formatted text 
 	*/
-	function convertEntities($text, $definedEntities) {
+	static function convertEntities($text, $definedEntities) {
 		global $DOMIT_PREDEFINED_ENTITIES;
 		$result = strtr($text, $DOMIT_PREDEFINED_ENTITIES);
 		$result = strtr($result, $definedEntities);
@@ -80,7 +80,7 @@ class DOMIT_Utilities {
 	* @param array User defined translation table for entities
 	* @return string The normalized string representation 
 	*/
-	function getNormalizedString(&$node, $node_level, $subEntities=false, $definedEntities) {
+	static function getNormalizedString(&$node, $node_level, $subEntities=false, $definedEntities=array()) {
 		$response = '';
 
 		switch ($node->nodeType)  {
@@ -160,7 +160,7 @@ class DOMIT_Utilities {
 	* @param array User defined translation table for entities
 	* @return string The normalized string representation 
 	*/
-	function getNormalizedElementString(&$node, $response, $node_level,  
+	static function getNormalizedElementString(&$node, $response, $node_level,  
 											$subEntities, $definedEntities) {
 		$response .= '<' . $node->nodeName;
 				
@@ -240,7 +240,7 @@ class DOMIT_Utilities {
 	* @param Object The node to be tested
 	* @return boolean True if the node is a Text node 
 	*/
-	function isTextNode(&$node) {
+	static function isTextNode(&$node) {
 		$type = $node->nodeType;
 		return (($type == DOMIT_TEXT_NODE) || ($type == DOMIT_CDATA_SECTION_NODE));
 	} //isTextNode
@@ -250,7 +250,7 @@ class DOMIT_Utilities {
 	* @param int The current node level
 	* @return string The indentation required for the specified node level
 	*/
-	function getIndentation($node_level) {
+	static function getIndentation($node_level) {
 		$INDENT_LEN = '    ';
 		$indentation = "\n";
 
@@ -266,7 +266,7 @@ class DOMIT_Utilities {
 	* @param string The file name
 	* @return string The file name, stripped of its extension
 	*/
-	function removeExtension($fileName) {
+	static function removeExtension($fileName) {
 		$total = strlen($fileName);
 		$index = -1;
 		
@@ -288,7 +288,7 @@ class DOMIT_Utilities {
 	* @param string The XML text
 	* @return boolean True if the XML text is valid
 	*/
-	function validateXML($xmlText) {
+	static function validateXML($xmlText) {
 		//this does only rudimentary validation
 		//at this point in time
 		$isValid = true;
@@ -313,7 +313,7 @@ class DOMIT_Utilities {
 	* Set the browser header to interpret data as UTF-8 formatted
 	* @param string The content type of the data
 	*/
-	function printUTF8Header($contentType = 'text/html') {
+	static function printUTF8Header($contentType = 'text/html') {
 		echo header('Content-type: ' . $contentType . '; charset=utf-8');
 	} //printUTF8Header
 	
@@ -323,7 +323,7 @@ class DOMIT_Utilities {
 	* @param boolean True if the string is to be sent directly to output
 	* @return string The HTML formatted string  
 	*/
-	function forHTML($text, $doPrint = false) {
+	static function forHTML($text, $doPrint = false) {
 		if ($doPrint) {
 			print ('<pre>' . htmlspecialchars($text) . '</pre>');
 		}
@@ -337,7 +337,7 @@ class DOMIT_Utilities {
 	* @param object The document or node to which the child nodes should be appended
 	* @param array An associative multidimensional array of elements and values
 	*/
-	function fromArray (&$node, &$myArray) {
+	static function fromArray (&$node, &$myArray) {
 		if ($node->nodeType == DOMIT_DOCUMENT_NODE) {
 			$docNode =& $node;
 		}
@@ -369,7 +369,7 @@ class DOMIT_Utilities {
 		}		
 	} //fromArray
 	
-	function parseAttributes() {
+	static function parseAttributes() {
 		
 	} //parseAttributes
 } //DOMIT_Utilities

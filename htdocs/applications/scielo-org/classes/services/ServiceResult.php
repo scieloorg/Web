@@ -6,6 +6,10 @@
 	    var $domLiteDocument ;
     	var $_stringXml ;
 
+		function __construct($xml){
+			$this->ServiceResult($xml);
+		}
+
 		function ServiceResult($xml){
 			$this->_date = date("YmdHis");
 			$this->_stringXml = $xml;

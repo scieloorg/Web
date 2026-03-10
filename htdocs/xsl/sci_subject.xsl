@@ -12,6 +12,34 @@
         <xsl:value-of select="$translations/xslid[@id='sci_subject']/text[@find = 'issue']"/>
 	</xsl:variable>
 	<xsl:template match="/">
+		<xsl:variable name="curr_lang">
+			<xsl:choose>
+				<xsl:when test="normalize-space(//CONTROLINFO/LANGUAGE)!=''">
+					<xsl:value-of select="normalize-space(//CONTROLINFO/LANGUAGE)"/>
+				</xsl:when>
+				<xsl:when test="normalize-space(//lng)!=''">
+					<xsl:value-of select="normalize-space(//lng)"/>
+				</xsl:when>
+				<xsl:when test="normalize-space(//LANGUAGE)!=''">
+					<xsl:value-of select="normalize-space(//LANGUAGE)"/>
+				</xsl:when>
+				<xsl:otherwise>en</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
+		<xsl:variable name="curr_nrm">
+			<xsl:choose>
+				<xsl:when test="normalize-space(//CONTROLINFO/STANDARD)!=''">
+					<xsl:value-of select="normalize-space(//CONTROLINFO/STANDARD)"/>
+				</xsl:when>
+				<xsl:when test="normalize-space(//nrm)!=''">
+					<xsl:value-of select="normalize-space(//nrm)"/>
+				</xsl:when>
+				<xsl:when test="normalize-space(//STANDARD)!=''">
+					<xsl:value-of select="normalize-space(//STANDARD)"/>
+				</xsl:when>
+				<xsl:otherwise>iso</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
 		<html>
 			<head>
 				<title>
@@ -20,27 +48,103 @@
 				<meta http-equiv="Pragma" content="no-cache"/>
 				<meta http-equiv="Expires" content="Mon, 06 Jan 1990 00:00:01 GMT"/>
 				<link rel="STYLESHEET" type="text/css" href="/css/scielo.css"/>
+				<link rel="stylesheet" type="text/css" href="/design-system/1.0.0/css/bootstrap.css"/>
+				<link rel="stylesheet" type="text/css" href="/design-system/1.0.0/css/article.css"/>
+				<link rel="stylesheet" type="text/css" href="/css/scielo-ds-bridge.css"/>
 			</head>
-			<body link="#0000ff" vlink="#800080" bgcolor="#ffffff">
-				<xsl:call-template name="NAVBAR">
-					<xsl:with-param name="bar1">serials</xsl:with-param>
-					<xsl:with-param name="bar2">articlesiah</xsl:with-param>
-					<xsl:with-param name="scope">library</xsl:with-param>
-				</xsl:call-template>
-				<table cellspacing="0" border="0" cellpadding="7" width="100%">
-					<tr>
-						<td width="26%">&#160;</td>
-						<td width="74%">
-							<font class="nomodel" size="+1" color="#000080">
-                                <xsl:value-of select="$translations/xslid[@id='sci_subject']/text[@find = 'library_collection']"/>
-							</font>
-						</td>
-					</tr>
-				</table>
-				<br/>
-				<br/>
-				<xsl:apply-templates select="//LIST"/>
-				<xsl:apply-templates select="SUBJECTLIST/COPYRIGHT"/>
+			<body class="serial-page" link="#0000ff" vlink="#800080" bgcolor="#ffffff">
+				<div class="container">
+					<div class="top">
+						<div class="issues-top">
+							<div class="issues-top-logo">
+								<a href="/scielo.php?lng={$curr_lang}">
+									<img src="https://www.scielo.br/static/img/logo-scielo-no-label.svg" alt="SciELO - Scientific Electronic Library Online" border="0" style="max-width:120px;height:auto;display:block;margin:0 auto;"/>
+								</a>
+							</div>
+							<div class="issues-top-nav">
+								<div class="serial-nav">
+									<div class="serial-nav-main">
+										<a class="sci-nav-btn" href="/scielo.php?script=sci_alphabetic&amp;lng={$curr_lang}&amp;nrm={$curr_nrm}"><span>A-Z</span></a>
+										<span class="sci-nav-btn sci-nav-btn-disabled">
+											<span>
+												<xsl:choose>
+													<xsl:when test="$curr_lang='pt'">Tem&#225;tica</xsl:when>
+													<xsl:when test="$curr_lang='es'">Tem&#225;tica</xsl:when>
+													<xsl:otherwise>Subject</xsl:otherwise>
+												</xsl:choose>
+											</span>
+										</span>
+										<a class="sci-nav-btn" href="https://search.scielo.org/?q=*&amp;lang={$curr_lang}" target="_blank" rel="noopener noreferrer">
+											<span>
+												<xsl:choose>
+													<xsl:when test="$curr_lang='pt'">Buscar</xsl:when>
+													<xsl:when test="$curr_lang='es'">Buscar</xsl:when>
+													<xsl:otherwise>Search</xsl:otherwise>
+												</xsl:choose>
+											</span>
+										</a>
+									</div>
+									<div class="serial-nav-tools">
+										<a class="sci-nav-btn" href="https://search.scielo.org/?q=*&amp;lang={$curr_lang}" target="_blank" rel="noopener noreferrer">
+											<span>
+												<xsl:choose>
+													<xsl:when test="$curr_lang='pt'">Buscar</xsl:when>
+													<xsl:when test="$curr_lang='es'">Buscar</xsl:when>
+													<xsl:otherwise>Search</xsl:otherwise>
+												</xsl:choose>
+											</span>
+										</a>
+										<a class="sci-nav-btn" href="https://analytics.scielo.org/?collection=scl" target="_blank" rel="noopener noreferrer">
+											<span>
+												<xsl:choose>
+													<xsl:when test="$curr_lang='en'">Metrics</xsl:when>
+													<xsl:otherwise>M&#233;tricas</xsl:otherwise>
+												</xsl:choose>
+											</span>
+										</a>
+										<div class="sci-nav-lang-menu">
+											<button class="sci-nav-lang-btn" type="button">
+												&#127760;
+												<xsl:text> </xsl:text>
+												<xsl:choose>
+													<xsl:when test="$curr_lang='pt'">Portugu&#234;s</xsl:when>
+													<xsl:when test="$curr_lang='es'">Espa&#241;ol</xsl:when>
+													<xsl:otherwise>English</xsl:otherwise>
+												</xsl:choose>
+											</button>
+											<ul class="sci-nav-lang-dropdown">
+												<xsl:if test="$curr_lang!='pt'">
+													<li><a href="/scielo.php?script=sci_subject&amp;lng=pt&amp;nrm={$curr_nrm}">Portugu&#234;s</a></li>
+												</xsl:if>
+												<xsl:if test="$curr_lang!='es'">
+													<li><a href="/scielo.php?script=sci_subject&amp;lng=es&amp;nrm={$curr_nrm}">Espa&#241;ol</a></li>
+												</xsl:if>
+												<xsl:if test="$curr_lang!='en'">
+													<li><a href="/scielo.php?script=sci_subject&amp;lng=en&amp;nrm={$curr_nrm}">English</a></li>
+												</xsl:if>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<br/>
+					</div>
+					<table cellspacing="0" border="0" cellpadding="7" width="100%">
+						<tr>
+							<td width="26%">&#160;</td>
+							<td width="74%">
+								<font class="nomodel" size="+1" color="#000080">
+		                                <xsl:value-of select="$translations/xslid[@id='sci_subject']/text[@find = 'library_collection']"/>
+								</font>
+							</td>
+						</tr>
+					</table>
+					<br/>
+					<br/>
+					<xsl:apply-templates select="//LIST"/>
+					<xsl:apply-templates select="SUBJECTLIST/COPYRIGHT"/>
+				</div>
 			</body>
 		</html>
 	</xsl:template>

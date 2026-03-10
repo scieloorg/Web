@@ -6,6 +6,10 @@
 	$XML_XSL = new XSL_XML();
 
 	class Service {
+		function __construct($name){
+			$this->Service($name);
+		}
+
 		function Service($name){
 			$this->_serviceName = $name;
 		}

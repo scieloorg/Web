@@ -19,7 +19,10 @@
 	<xsl:template match="/">
 		<html>
 			<head>
-				<link rel="stylesheet" href="/applications/scielo-org/css/public/style-{$lang}.css" type="text/css" media="screen"/>
+				<link rel="stylesheet" href="/applications/scielo-org/css/public/style-{}.css" type="text/css" media="screen"/>
+				<link rel="stylesheet" type="text/css" href="/design-system/1.0.0/css/bootstrap.css"/>
+				<link rel="stylesheet" type="text/css" href="/design-system/1.0.0/css/article.css"/>
+				<link rel="stylesheet" type="text/css" href="/css/scielo-ds-bridge.css"/>
 			<title><xsl:value-of select="$translations/xslid[@id='similar']/text[@find = 'scientific_electronic_library_online']"/></title>
 			</head>
 			<body>

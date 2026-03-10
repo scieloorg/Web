@@ -4,6 +4,10 @@
 	require_once(dirname(__FILE__)."/ArticleServicesResult.php");
 
 	class ArticleService extends Service {
+		function __construct($serverDomain, $dataDomain=''){
+			$this->ArticleService($serverDomain, $dataDomain);
+		}
+
 		function ArticleService($serverDomain, $dataDomain=''){
 			if (!$dataDomain){
 				$dataDomain = $serverDomain;
@@ -15,7 +19,7 @@
 				echo "Desenvolvedor: Missing dataDomain parameter in ArticleService Constructor";
 			}
 			$this->Service('article_metadata');
-			if (strpos(' '.$serverDomain, 'http://')==0) {
+			if (strpos($serverDomain, 'http://') !== 0 && strpos($serverDomain, 'https://') !== 0) {
 				$serverDomain = 'http://'.$serverDomain;
 			}
 			$this->domain = $serverDomain;

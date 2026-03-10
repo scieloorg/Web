@@ -103,6 +103,10 @@ class UIDGenerator {
 	/**
 	* UIDGenerator constructor
 	*/
+	function __construct() {
+		$this->UIDGenerator();
+	}
+
 	function UIDGenerator() {
 		$this->seed = 'node' . time();
 	} //UIDGenerator
@@ -129,7 +133,7 @@ class DOMIT_DOMException {
 	* @param int The error number
 	* @param string A string explanation of the error
 	*/
-	function raiseException($errorNum, $errorString) {
+	static function raiseException($errorNum, $errorString) {
 		$errorMessage = 'Error: ' . $errorNum  .  "\n " . $errorString;
 		
 		if ((!isset($GLOBALS['DOMIT_ERROR_FORMATTING_HTML'])) ||

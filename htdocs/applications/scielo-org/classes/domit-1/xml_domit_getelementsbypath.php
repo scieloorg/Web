@@ -43,6 +43,10 @@ class DOMIT_GetElementsByPath {
 	/**
 	* Constructor - creates an empty DOMIT_NodeList to store matching nodes
 	*/
+	function __construct() {
+		$this->DOMIT_GetElementsByPath();
+	}
+
 	function DOMIT_GetElementsByPath() {
 		require_once(DOMIT_INCLUDE_PATH . 'xml_domit_nodemaps.php');
 		$this->nodeList = new DOMIT_NodeList();
@@ -61,6 +65,9 @@ class DOMIT_GetElementsByPath {
 		
 		$this->determineSearchType($pattern);
 		$this->setContextNode();
+		if (!is_object($this->contextNode)) {
+			return $this->nodeList;
+		}
 		$this->splitPattern($pattern);
 	
 		$this->targetIndex = $nodeIndex;
@@ -68,7 +75,15 @@ class DOMIT_GetElementsByPath {
 		
 		if ($totalSegments > 0) {
 			if ($this->searchType == GET_ELEMENTS_BY_PATH_SEARCH_VARIABLE) {
-				$arContextNodes =& $this->contextNode->ownerDocument->getElementsByTagName($this->arPathSegments[0]);
+				if (isset($this->contextNode->ownerDocument) && is_object($this->contextNode->ownerDocument)) {
+					$arContextNodes =& $this->contextNode->ownerDocument->getElementsByTagName($this->arPathSegments[0]);
+				}
+				else if (is_object($this->callingNode) && method_exists($this->callingNode, 'getElementsByTagName')) {
+					$arContextNodes =& $this->callingNode->getElementsByTagName($this->arPathSegments[0]);
+				}
+				else {
+					return $this->nodeList;
+				}
 				$totalContextNodes = $arContextNodes->getLength();
 				
 				for ($i = 0; $i < $totalContextNodes; $i++) {
@@ -134,22 +149,36 @@ class DOMIT_GetElementsByPath {
 	* Sets the context node, i.e., the node from which the search begins
 	*/
 	function setContextNode() {
+		$ownerDocument = null;
+		$documentElement = null;
+
+		if (isset($this->callingNode->ownerDocument) && is_object($this->callingNode->ownerDocument)) {
+			$ownerDocument =& $this->callingNode->ownerDocument;
+		}
+
+		if (isset($this->callingNode->documentElement) && is_object($this->callingNode->documentElement)) {
+			$documentElement =& $this->callingNode->documentElement;
+		}
+		else if (is_object($ownerDocument) && isset($ownerDocument->documentElement) && is_object($ownerDocument->documentElement)) {
+			$documentElement =& $ownerDocument->documentElement;
+		}
+
 		switch($this->searchType) {
 			case GET_ELEMENTS_BY_PATH_SEARCH_ABSOLUTE:
-				$this->contextNode =& $this->callingNode->ownerDocument->documentElement;
+				$this->contextNode =& $documentElement;
 				break;
 				
 			case GET_ELEMENTS_BY_PATH_SEARCH_RELATIVE:
-				if ($this->callingNode->uid != $this->callingNode->ownerDocument->uid) {
+				if (is_object($ownerDocument) && isset($this->callingNode->uid) && isset($ownerDocument->uid) && ($this->callingNode->uid != $ownerDocument->uid)) {
 					$this->contextNode =& $this->callingNode;
 				}
 				else {
-					$this->contextNode =& $this->callingNode->ownerDocument->documentElement;
+					$this->contextNode =& $documentElement;
 				}
 				break;
 
 			case GET_ELEMENTS_BY_PATH_SEARCH_VARIABLE:
-				$this->contextNode =& $this->callingNode->ownerDocument->documentElement;
+				$this->contextNode =& $documentElement;
 				break;
 		}
 	} //setContextNode
@@ -219,6 +248,10 @@ class DOMIT_GetElementsByAttributePath {
     /**
 	* Constructor - creates an empty DOMIT_NodeList to store matching nodes
 	*/
+	function __construct() {
+		$this->DOMIT_GetElementsByAttributePath();
+	}
+
 	function DOMIT_GetElementsByAttributePath() {
 		require_once(DOMIT_INCLUDE_PATH . 'xml_domit_nodemaps.php');
 		$this->nodeList = new DOMIT_NodeList();

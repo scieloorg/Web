@@ -1162,9 +1162,9 @@ tem esses dois templates "vazios" para nao aparecer o conteudo nos rodapes . . .
                 <xsl:choose>
                     <xsl:when test="$control_info/SCIELO_INFO/SERVER!=''">
                         <xsl:choose>
-                            <xsl:when test="$lang='es'">Todo el contenido de <xsl:value-of select="$control_info/SCIELO_INFO/SERVER"/>, excepto dónde está identificado, está bajo una </xsl:when>
-                            <xsl:when test="$lang='pt'">Todo o conteúdo de <xsl:value-of select="$control_info/SCIELO_INFO/SERVER"/>, exceto onde está identificado, está licenciado sob uma </xsl:when>
-                            <xsl:otherwise>All the contents of <xsl:value-of select="$control_info/SCIELO_INFO/SERVER"/>, except where otherwise noted, is licensed under a </xsl:otherwise>
+                            <xsl:when test="$lang='es'">Todo el contenido, excepto dónde está identificado, está bajo una </xsl:when>
+                            <xsl:when test="$lang='pt'">Todo o conteúdo, exceto onde está identificado, está licenciado sob uma </xsl:when>
+                            <xsl:otherwise>All the contents, except where otherwise noted, is licensed under a </xsl:otherwise>
                         </xsl:choose>
                     </xsl:when>
                     <xsl:otherwise>

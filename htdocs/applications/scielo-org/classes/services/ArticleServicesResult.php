@@ -6,6 +6,10 @@ require_once(dirname(__FILE__)."/../Article.php");
 class ArticleServicesResult extends ServiceResult {
 
     /* ===================================================================== */
+    function __construct($stringXml){
+    	$this->ArticleServicesResult($stringXml);
+    }
+
     function ArticleServicesResult($stringXml){
     	$this->ServiceResult($stringXml);
     }

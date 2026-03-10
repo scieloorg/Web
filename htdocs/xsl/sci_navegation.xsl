@@ -7,6 +7,58 @@
 		<xsl:param name="scope"/>
 		<xsl:param name="home">0</xsl:param>
 		<xsl:param name="alpha">0</xsl:param>
+		<xsl:param name="compact_nav">0</xsl:param>
+		<xsl:param name="compact_variant"></xsl:param>
+		<xsl:param name="show_lang_switch">0</xsl:param>
+		<xsl:choose>
+			<xsl:when test="$compact_nav='1' and ($compact_variant='issues' or $compact_variant='issuetoc' or $compact_variant='arttext')">
+				<div class="issues-top">
+					<div class="issues-top-logo">
+						<A>
+							<xsl:attribute name="href">http://<xsl:value-of select="//CONTROLINFO/SCIELO_INFO/SERVER"/><xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_DATA"/>scielo.php?lng=<xsl:value-of select="normalize-space(//CONTROLINFO/LANGUAGE)"/><xsl:apply-templates select="." mode="repo_url_param_scielo"/></xsl:attribute>
+							<IMG>
+								<xsl:attribute name="src"><xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_GENIMG"/><xsl:apply-templates select="." mode="logoImg"/></xsl:attribute>
+								<xsl:attribute name="border">0</xsl:attribute>
+								<xsl:attribute name="alt"><xsl:value-of select="$translations/xslid[@id='sci_navegation']/text[@find = 'scientific_electronic_library_online']"/></xsl:attribute>
+							</IMG>
+						</A>
+					</div>
+					<div class="issues-top-nav">
+						<div class="serial-nav">
+							<div class="serial-nav-main">
+								<xsl:choose>
+									<xsl:when test="$bar1='issues'">
+										<xsl:call-template name="IssuesBar"/>
+									</xsl:when>
+									<xsl:when test="$bar1='serials'">
+										<xsl:call-template name="SerialsBar"/>
+									</xsl:when>
+									<xsl:when test="$bar1='articles'">
+										<xsl:call-template name="ArticlesBar"/>
+									</xsl:when>
+									<xsl:when test="$bar1='articlesiah'">
+										<xsl:call-template name="ArticlesIAHBar">
+											<xsl:with-param name="scope" select="$scope"/>
+										</xsl:call-template>
+									</xsl:when>
+								</xsl:choose>
+							</div>
+							<div class="serial-nav-tools">
+								<xsl:call-template name="SEARCHPORTAL"/>
+								<xsl:call-template name="METRICS"/>
+								<xsl:if test="$home = 1">
+									<xsl:call-template name="HOME"/>
+								</xsl:if>
+								<xsl:if test="$show_lang_switch='1'">
+									<xsl:call-template name="NAV_LANGUAGE_SWITCHER"/>
+								</xsl:if>
+							</div>
+						</div>
+					</div>
+				</div>
+				<BR/>
+			</xsl:when>
+			<xsl:otherwise>
 		<TABLE cellSpacing="0" cellPadding="7" width="100%" border="0">
 			<TBODY>
 				<TR>
@@ -18,88 +70,126 @@
 									<TD>
 										<xsl:attribute name="NoWrap"/>
 										<xsl:choose>
-											<xsl:when test="$bar1='issues'">
-												<xsl:call-template name="IssuesBarGroup"/>
+											<xsl:when test="$compact_nav='1'">
+												<div class="serial-nav">
+													<div class="serial-nav-main">
+														<xsl:choose>
+															<xsl:when test="$bar1='issues'">
+																<xsl:call-template name="IssuesBar"/>
+															</xsl:when>
+															<xsl:when test="$bar1='serials'">
+																<xsl:call-template name="SerialsBar"/>
+															</xsl:when>
+															<xsl:when test="$bar1='articles'">
+																<xsl:call-template name="ArticlesBar"/>
+															</xsl:when>
+															<xsl:when test="$bar1='articlesiah'">
+																<xsl:call-template name="ArticlesIAHBar">
+																	<xsl:with-param name="scope" select="$scope"/>
+																</xsl:call-template>
+															</xsl:when>
+														</xsl:choose>
+													</div>
+													<div class="serial-nav-tools">
+														<xsl:call-template name="SEARCHPORTAL"/>
+														<xsl:call-template name="METRICS"/>
+														<xsl:if test="$home = 1">
+															<xsl:call-template name="HOME"/>
+														</xsl:if>
+														<xsl:if test="$show_lang_switch='1'">
+															<xsl:call-template name="NAV_LANGUAGE_SWITCHER"/>
+														</xsl:if>
+													</div>
+												</div>
 											</xsl:when>
-											<xsl:when test="$bar1='serials'">
-												<xsl:call-template name="SerialsBarGroup"/>
-											</xsl:when>
-											<xsl:when test="$bar1='articles'">
-												<xsl:call-template name="ArticlesBarGroup"/>
-											</xsl:when>
-											<xsl:when test="$bar1='articlesiah'">
-												<xsl:call-template name="ArticlesIAHBarGroup">
-													<xsl:with-param name="scope" select="$scope"/>
-												</xsl:call-template>
-											</xsl:when>
-										</xsl:choose>&#160;<xsl:choose>
-											<xsl:when test="$bar2='issues'">
-												<xsl:call-template name="IssuesBarGroup"/>
-											</xsl:when>
-											<xsl:when test="$bar2='serials'">
-												<xsl:call-template name="SerialsBarGroup"/>
-											</xsl:when>
-											<xsl:when test="$bar2='articles'">
-												<xsl:call-template name="ArticlesBarGroup"/>
-											</xsl:when>
-											<xsl:when test="$bar2='articlesiah'">
-												<xsl:call-template name="ArticlesIAHBarGroup">
-													<xsl:with-param name="scope" select="$scope"/>
-												</xsl:call-template>
-											</xsl:when>
-										</xsl:choose>
-										<BR/>
-										<xsl:choose>
-											<xsl:when test="$bar1='issues'">
-												<xsl:call-template name="IssuesBar"/>
-											</xsl:when>
-											<xsl:when test="$bar1='serials'">
-												<xsl:call-template name="SerialsBar"/>
-											</xsl:when>
-											<xsl:when test="$bar1='articles'">
-												<xsl:call-template name="ArticlesBar"/>
-											</xsl:when>
-											<xsl:when test="$bar1='articlesiah'">
-												<xsl:call-template name="ArticlesIAHBar">
-													<xsl:with-param name="scope" select="$scope"/>
-												</xsl:call-template>
-											</xsl:when>
-										</xsl:choose>&#160;<xsl:choose>
-											<xsl:when test="$bar2='issues'">
-												<xsl:call-template name="IssuesBar"/>
-											</xsl:when>
-											<xsl:when test="$bar2='serials'">
-												<xsl:call-template name="SerialsBar"/>
-											</xsl:when>
-											<xsl:when test="$bar2='articles'">
-												<xsl:call-template name="ArticlesBar"/>
-											</xsl:when>
-											<xsl:when test="$bar2='articlesiah'">
-												<xsl:call-template name="ArticlesIAHBar">
-													<xsl:with-param name="scope" select="$scope"/>
-												</xsl:call-template>
-												<xsl:if test="//CONTROLINFO/NO_SCI_SERIAL='yes'">
-													<xsl:call-template name="ShowNavBarButton">
-														<xsl:with-param name="file">all.gif</xsl:with-param>
-														<xsl:with-param name="alttext">
-                                                            <xsl:value-of select="$translations/xslid[@id='sci_navegation']/text[@find = 'articles']"/>
-														</xsl:with-param>
-														<xsl:with-param name="pid" select="//ISSN_AS_ID"/>
-														<xsl:with-param name="script">sci_artlist</xsl:with-param>
-													</xsl:call-template>
-												</xsl:if>
-											</xsl:when>
+											<xsl:otherwise>
+												<xsl:choose>
+													<xsl:when test="$bar1='issues'">
+														<xsl:call-template name="IssuesBarGroup"/>
+													</xsl:when>
+													<xsl:when test="$bar1='serials'">
+														<xsl:call-template name="SerialsBarGroup"/>
+													</xsl:when>
+													<xsl:when test="$bar1='articles'">
+														<xsl:call-template name="ArticlesBarGroup"/>
+													</xsl:when>
+													<xsl:when test="$bar1='articlesiah'">
+														<xsl:call-template name="ArticlesIAHBarGroup">
+															<xsl:with-param name="scope" select="$scope"/>
+														</xsl:call-template>
+													</xsl:when>
+												</xsl:choose>&#160;<xsl:choose>
+													<xsl:when test="$bar2='issues'">
+														<xsl:call-template name="IssuesBarGroup"/>
+													</xsl:when>
+													<xsl:when test="$bar2='serials'">
+														<xsl:call-template name="SerialsBarGroup"/>
+													</xsl:when>
+													<xsl:when test="$bar2='articles'">
+														<xsl:call-template name="ArticlesBarGroup"/>
+													</xsl:when>
+													<xsl:when test="$bar2='articlesiah'">
+														<xsl:call-template name="ArticlesIAHBarGroup">
+															<xsl:with-param name="scope" select="$scope"/>
+														</xsl:call-template>
+													</xsl:when>
+												</xsl:choose>
+												<BR/>
+												<xsl:choose>
+													<xsl:when test="$bar1='issues'">
+														<xsl:call-template name="IssuesBar"/>
+													</xsl:when>
+													<xsl:when test="$bar1='serials'">
+														<xsl:call-template name="SerialsBar"/>
+													</xsl:when>
+													<xsl:when test="$bar1='articles'">
+														<xsl:call-template name="ArticlesBar"/>
+													</xsl:when>
+													<xsl:when test="$bar1='articlesiah'">
+														<xsl:call-template name="ArticlesIAHBar">
+															<xsl:with-param name="scope" select="$scope"/>
+														</xsl:call-template>
+													</xsl:when>
+												</xsl:choose>&#160;<xsl:choose>
+													<xsl:when test="$bar2='issues'">
+														<xsl:call-template name="IssuesBar"/>
+													</xsl:when>
+													<xsl:when test="$bar2='serials'">
+														<xsl:call-template name="SerialsBar"/>
+													</xsl:when>
+													<xsl:when test="$bar2='articles'">
+														<xsl:call-template name="ArticlesBar"/>
+													</xsl:when>
+													<xsl:when test="$bar2='articlesiah'">
+														<xsl:call-template name="ArticlesIAHBar">
+															<xsl:with-param name="scope" select="$scope"/>
+														</xsl:call-template>
+														<xsl:if test="//CONTROLINFO/NO_SCI_SERIAL='yes'">
+															<xsl:call-template name="ShowNavBarButton">
+																<xsl:with-param name="file">all.gif</xsl:with-param>
+																<xsl:with-param name="alttext">
+                                                                    <xsl:value-of select="$translations/xslid[@id='sci_navegation']/text[@find = 'articles']"/>
+																</xsl:with-param>
+																<xsl:with-param name="pid" select="//ISSN_AS_ID"/>
+																<xsl:with-param name="script">sci_artlist</xsl:with-param>
+															</xsl:call-template>
+														</xsl:if>
+													</xsl:when>
+												</xsl:choose>
+											</xsl:otherwise>
 										</xsl:choose>
 									</TD>
-									<TD noWrap="" valign="bottom">
-										<xsl:if test="$home = 1">
-											<xsl:call-template name="HOME"/>
-										</xsl:if>
-										<xsl:if test="$alpha = 1">
-											<xsl:call-template name="ALPHA"/>
-										</xsl:if>
+									<xsl:if test="$compact_nav != '1'">
+										<TD noWrap="" valign="bottom">
+											<xsl:if test="$home = 1">
+												<xsl:call-template name="HOME"/>
+											</xsl:if>
+											<xsl:if test="$alpha = 1">
+												<xsl:call-template name="ALPHA"/>
+											</xsl:if>
              &#160;
             </TD>
+									</xsl:if>
 									<xsl:variable name="issuetoc">
 										<xsl:apply-templates select="." mode="issuetoc"/>
 									</xsl:variable>
@@ -124,6 +214,117 @@
 			</TBODY>
 		</TABLE>
 		<BR/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+		<xsl:template name="NAV_LANGUAGE_SWITCHER">
+			<xsl:variable name="curr_lang">
+				<xsl:choose>
+					<xsl:when test="normalize-space(//CONTROLINFO/LANGUAGE)!=''">
+						<xsl:value-of select="normalize-space(//CONTROLINFO/LANGUAGE)"/>
+					</xsl:when>
+					<xsl:when test="normalize-space(//lng)!=''">
+						<xsl:value-of select="normalize-space(//lng)"/>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="normalize-space(//LANGUAGE)"/>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:variable>
+		<div class="sci-nav-lang-menu">
+			<button class="sci-nav-lang-btn" type="button">
+				&#127760;
+				<xsl:text> </xsl:text>
+				<xsl:call-template name="LANGUAGE_LABEL">
+					<xsl:with-param name="lang" select="$curr_lang"/>
+				</xsl:call-template>
+				<xsl:text> &#9662;</xsl:text>
+			</button>
+			<ul class="sci-nav-lang-dropdown">
+				<xsl:if test="$curr_lang!='pt'">
+					<li>
+						<a>
+							<xsl:attribute name="href">
+								<xsl:call-template name="NAV_LANGUAGE_LINK">
+									<xsl:with-param name="lang">pt</xsl:with-param>
+								</xsl:call-template>
+							</xsl:attribute>
+							<xsl:call-template name="LANGUAGE_LABEL">
+								<xsl:with-param name="lang">pt</xsl:with-param>
+							</xsl:call-template>
+						</a>
+					</li>
+				</xsl:if>
+				<xsl:if test="$curr_lang!='es'">
+					<li>
+						<a>
+							<xsl:attribute name="href">
+								<xsl:call-template name="NAV_LANGUAGE_LINK">
+									<xsl:with-param name="lang">es</xsl:with-param>
+								</xsl:call-template>
+							</xsl:attribute>
+							<xsl:call-template name="LANGUAGE_LABEL">
+								<xsl:with-param name="lang">es</xsl:with-param>
+							</xsl:call-template>
+						</a>
+					</li>
+				</xsl:if>
+				<xsl:if test="$curr_lang!='en'">
+					<li>
+						<a>
+							<xsl:attribute name="href">
+								<xsl:call-template name="NAV_LANGUAGE_LINK">
+									<xsl:with-param name="lang">en</xsl:with-param>
+								</xsl:call-template>
+							</xsl:attribute>
+							<xsl:call-template name="LANGUAGE_LABEL">
+								<xsl:with-param name="lang">en</xsl:with-param>
+							</xsl:call-template>
+						</a>
+					</li>
+				</xsl:if>
+			</ul>
+		</div>
+	</xsl:template>
+		<xsl:template name="NAV_LANGUAGE_LINK">
+			<xsl:param name="lang"/>
+		<xsl:variable name="page_name">
+			<xsl:choose>
+				<xsl:when test="normalize-space(//CONTROLINFO/PAGE_NAME)!=''">
+					<xsl:value-of select="normalize-space(//CONTROLINFO/PAGE_NAME)"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="normalize-space(//PAGE_NAME)"/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
+			<xsl:value-of select="$HOME_URL"/>?script=<xsl:value-of select="$page_name"/>&amp;<xsl:if test="normalize-space(//CONTROLINFO/PAGE_PID)!='' or normalize-space(//PAGE_PID)!=''">pid=<xsl:choose><xsl:when test="normalize-space(//CONTROLINFO/PAGE_PID)!=''"><xsl:value-of select="normalize-space(//CONTROLINFO/PAGE_PID)"/></xsl:when><xsl:otherwise><xsl:value-of select="normalize-space(//PAGE_PID)"/></xsl:otherwise></xsl:choose>&amp;</xsl:if>lng=<xsl:value-of select="$lang"/>&amp;nrm=<xsl:choose><xsl:when test="normalize-space(//CONTROLINFO/STANDARD)!=''"><xsl:value-of select="normalize-space(//CONTROLINFO/STANDARD)"/></xsl:when><xsl:when test="normalize-space(//STANDARD)!=''"><xsl:value-of select="normalize-space(//STANDARD)"/></xsl:when><xsl:otherwise>iso</xsl:otherwise></xsl:choose><xsl:if test="normalize-space(//CONTROLINFO/TLANG)!='' or normalize-space(//tlng)!=''">&amp;tlng=<xsl:choose><xsl:when test="normalize-space(//CONTROLINFO/TLANG)!=''"><xsl:value-of select="normalize-space(//CONTROLINFO/TLANG)"/></xsl:when><xsl:otherwise><xsl:value-of select="normalize-space(//tlng)"/></xsl:otherwise></xsl:choose></xsl:if><xsl:apply-templates select="." mode="repo_url_param_scielo"/>
+		</xsl:template>
+	<xsl:template name="LANGUAGE_LABEL">
+		<xsl:param name="lang"/>
+		<xsl:choose>
+			<xsl:when test="$lang='pt'">
+				<xsl:choose>
+						<xsl:when test="normalize-space(//CONTROLINFO/LANGUAGE)='en' or normalize-space(//LANGUAGE)='en' or normalize-space(//lng)='en'">Portuguese</xsl:when>
+						<xsl:when test="normalize-space(//CONTROLINFO/LANGUAGE)='es' or normalize-space(//LANGUAGE)='es' or normalize-space(//lng)='es'">Portugués</xsl:when>
+					<xsl:otherwise>Portugu&#234;s</xsl:otherwise>
+				</xsl:choose>
+			</xsl:when>
+			<xsl:when test="$lang='es'">
+				<xsl:choose>
+						<xsl:when test="normalize-space(//CONTROLINFO/LANGUAGE)='en' or normalize-space(//LANGUAGE)='en' or normalize-space(//lng)='en'">Spanish</xsl:when>
+						<xsl:when test="normalize-space(//CONTROLINFO/LANGUAGE)='pt' or normalize-space(//LANGUAGE)='pt' or normalize-space(//lng)='pt'">Espanhol</xsl:when>
+					<xsl:otherwise>Espa&#241;ol</xsl:otherwise>
+				</xsl:choose>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:choose>
+						<xsl:when test="normalize-space(//CONTROLINFO/LANGUAGE)='pt' or normalize-space(//LANGUAGE)='pt' or normalize-space(//lng)='pt'">Ingl&#234;s</xsl:when>
+						<xsl:when test="normalize-space(//CONTROLINFO/LANGUAGE)='es' or normalize-space(//LANGUAGE)='es' or normalize-space(//lng)='es'">Ingl&#233;s</xsl:when>
+					<xsl:otherwise>English</xsl:otherwise>
+				</xsl:choose>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 	<!-- Show group image -->
 	<xsl:template name="ShowGroupIMG">
@@ -387,26 +588,93 @@
 		<xsl:param name="pid"/>
 		<xsl:param name="script"/>
 		<A>
+			<xsl:attribute name="class">sci-nav-btn</xsl:attribute>
+			<xsl:attribute name="title">
+				<xsl:call-template name="NavButtonTitle">
+					<xsl:with-param name="alttext" select="$alttext"/>
+					<xsl:with-param name="file" select="$file"/>
+				</xsl:call-template>
+			</xsl:attribute>
 			<xsl:call-template name="AddScieloLink">
 				<xsl:with-param name="seq" select="$pid"/>
 				<xsl:with-param name="script" select="$script"/>
 			</xsl:call-template>
-			<IMG>
-				<xsl:attribute name="src"><xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_GENIMG"/><xsl:value-of select="normalize-space(//CONTROLINFO/LANGUAGE)"/>/<xsl:value-of select="$file"/></xsl:attribute>
-				<xsl:attribute name="border">0</xsl:attribute>
-				<xsl:attribute name="alt"><xsl:value-of select="$alttext"/></xsl:attribute>
-			</IMG>
+			<span>
+				<xsl:call-template name="NavButtonLabel">
+					<xsl:with-param name="file" select="$file"/>
+				</xsl:call-template>
+			</span>
 		</A>
 	</xsl:template>
+	<xsl:template name="SEARCHPORTAL">
+			<xsl:variable name="journal_title" select="normalize-space(translate(//TITLEGROUP/TITLE, '&amp;', ' '))"/>
+			<xsl:variable name="ui_lang">
+				<xsl:choose>
+					<xsl:when test="normalize-space(//CONTROLINFO/LANGUAGE)!=''">
+						<xsl:value-of select="normalize-space(//CONTROLINFO/LANGUAGE)"/>
+					</xsl:when>
+					<xsl:when test="normalize-space(//lng)!=''">
+						<xsl:value-of select="normalize-space(//lng)"/>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="normalize-space(//LANGUAGE)"/>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:variable>
+			<A class="sci-nav-btn" target="_blank" title="Search">
+				<xsl:attribute name="href">https://search.scielo.org/?q=*&amp;lang=<xsl:value-of select="$ui_lang"/>&amp;filter%5Bjournal_title%5D%5B%5D=<xsl:value-of select="$journal_title"/></xsl:attribute>
+				<span>
+					<xsl:choose>
+						<xsl:when test="$ui_lang='pt'">Buscar</xsl:when>
+						<xsl:when test="$ui_lang='es'">Buscar</xsl:when>
+						<xsl:otherwise>Search</xsl:otherwise>
+					</xsl:choose>
+				</span>
+			</A>
+		</xsl:template>
+	<xsl:template name="METRICS">
+			<xsl:variable name="collection">
+			<xsl:choose>
+				<xsl:when test="normalize-space(//ANALYTICS_CODE) != ''">
+					<xsl:value-of select="normalize-space(//ANALYTICS_CODE)"/>
+				</xsl:when>
+					<xsl:otherwise>scl</xsl:otherwise>
+				</xsl:choose>
+			</xsl:variable>
+			<xsl:variable name="ui_lang">
+				<xsl:choose>
+					<xsl:when test="normalize-space(//CONTROLINFO/LANGUAGE)!=''">
+						<xsl:value-of select="normalize-space(//CONTROLINFO/LANGUAGE)"/>
+					</xsl:when>
+					<xsl:when test="normalize-space(//lng)!=''">
+						<xsl:value-of select="normalize-space(//lng)"/>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="normalize-space(//LANGUAGE)"/>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:variable>
+			<A class="sci-nav-btn" target="_blank" title="M&#233;tricas">
+				<xsl:attribute name="href">https://analytics.scielo.org/?journal=<xsl:value-of select="//ISSN_AS_ID"/>&amp;collection=<xsl:value-of select="$collection"/></xsl:attribute>
+				<span>
+					<xsl:choose>
+						<xsl:when test="$ui_lang='en'">Metrics</xsl:when>
+						<xsl:otherwise>M&#233;tricas</xsl:otherwise>
+					</xsl:choose>
+				</span>
+			</A>
+		</xsl:template>
 	<!-- Show Navigation Bar Button Disabled 
       Parameters:
         file - file containing image-->
 	<xsl:template name="ShowNavBarButtonDisabled">
 		<xsl:param name="file"/>
-		<IMG>
-			<xsl:attribute name="src"><xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_GENIMG"/><xsl:value-of select="normalize-space(//CONTROLINFO/LANGUAGE)"/>/<xsl:value-of select="$file"/></xsl:attribute>
-			<xsl:attribute name="border">0</xsl:attribute>
-		</IMG>
+		<xsl:param name="alttext"/>
+		<span class="sci-nav-btn sci-nav-btn-disabled">
+			<xsl:call-template name="NavButtonLabel">
+				<xsl:with-param name="file" select="$file"/>
+			</xsl:call-template>
+		</span>
 	</xsl:template>
 	<!-- Shows a navigation bar button for IAH
       Parameters:
@@ -421,6 +689,13 @@
 		<xsl:param name="scope"/>
 		<xsl:param name="base"/>
 		<A>
+			<xsl:attribute name="class">sci-nav-btn</xsl:attribute>
+			<xsl:attribute name="title">
+				<xsl:call-template name="NavButtonTitle">
+					<xsl:with-param name="alttext" select="$alttext"/>
+					<xsl:with-param name="file" select="$file"/>
+				</xsl:call-template>
+			</xsl:attribute>
 			<xsl:choose>
 				<xsl:when test="$base">
 					<xsl:call-template name="AddIAHLink">
@@ -436,13 +711,80 @@
 					</xsl:call-template>
 				</xsl:otherwise>
 			</xsl:choose>
-			<IMG>
-				<xsl:attribute name="src"><xsl:value-of select="//CONTROLINFO/SCIELO_INFO/PATH_GENIMG"/><xsl:value-of select="normalize-space(//CONTROLINFO/LANGUAGE)"/>/<xsl:value-of select="$file"/></xsl:attribute>
-				<xsl:attribute name="border">0</xsl:attribute>
-				<xsl:attribute name="alt"><xsl:value-of select="$alttext"/></xsl:attribute>
-			</IMG>
+			<span>
+				<xsl:call-template name="NavButtonLabel">
+					<xsl:with-param name="file" select="$file"/>
+				</xsl:call-template>
+			</span>
 		</A>
 	</xsl:template>
+	<xsl:template name="NavButtonTitle">
+		<xsl:param name="alttext"/>
+		<xsl:param name="file"/>
+		<xsl:choose>
+			<xsl:when test="normalize-space($alttext)!=''">
+				<xsl:value-of select="$alttext"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:call-template name="NavButtonLabel">
+					<xsl:with-param name="file" select="$file"/>
+				</xsl:call-template>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+	<xsl:template name="NavButtonLabel">
+			<xsl:param name="file"/>
+			<xsl:variable name="ui_lang">
+				<xsl:choose>
+					<xsl:when test="normalize-space(//CONTROLINFO/LANGUAGE)!=''">
+						<xsl:value-of select="normalize-space(//CONTROLINFO/LANGUAGE)"/>
+					</xsl:when>
+					<xsl:when test="normalize-space(//lng)!=''">
+						<xsl:value-of select="normalize-space(//lng)"/>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="normalize-space(//LANGUAGE)"/>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="contains($file,'prev')">
+					<xsl:choose><xsl:when test="$ui_lang='pt'">Anterior</xsl:when><xsl:when test="$ui_lang='es'">Anterior</xsl:when><xsl:otherwise>Previous</xsl:otherwise></xsl:choose>
+				</xsl:when>
+				<xsl:when test="contains($file,'next')">
+					<xsl:choose><xsl:when test="$ui_lang='pt'">Pr&#243;ximo</xsl:when><xsl:when test="$ui_lang='es'">Siguiente</xsl:when><xsl:otherwise>Next</xsl:otherwise></xsl:choose>
+				</xsl:when>
+				<xsl:when test="contains($file,'all')">
+					<xsl:choose><xsl:when test="$ui_lang='pt'">Todos os n&#250;meros</xsl:when><xsl:when test="$ui_lang='es'">Todos los n&#250;meros</xsl:when><xsl:otherwise>All issues</xsl:otherwise></xsl:choose>
+				</xsl:when>
+				<xsl:when test="contains($file,'alpha')">
+					<xsl:choose><xsl:when test="$ui_lang='pt'">Alfab&#233;tica</xsl:when><xsl:when test="$ui_lang='es'">Alfab&#233;tica</xsl:when><xsl:otherwise>A-Z</xsl:otherwise></xsl:choose>
+				</xsl:when>
+				<xsl:when test="contains($file,'subject')">
+					<xsl:choose><xsl:when test="$ui_lang='pt'">Tem&#225;tica</xsl:when><xsl:when test="$ui_lang='es'">Tem&#225;tica</xsl:when><xsl:otherwise>Subject</xsl:otherwise></xsl:choose>
+				</xsl:when>
+				<xsl:when test="contains($file,'current')">
+					<xsl:choose><xsl:when test="$ui_lang='pt'">Atual</xsl:when><xsl:when test="$ui_lang='es'">Actual</xsl:when><xsl:otherwise>Current</xsl:otherwise></xsl:choose>
+				</xsl:when>
+				<xsl:when test="contains($file,'toc')">
+					<xsl:choose>
+						<xsl:when test="$ui_lang='pt'">Sum&#225;rio</xsl:when>
+						<xsl:when test="$ui_lang='es'">Sumario</xsl:when>
+						<xsl:otherwise>ToC</xsl:otherwise>
+					</xsl:choose>
+				</xsl:when>
+				<xsl:when test="contains($file,'home')">
+					<xsl:choose><xsl:when test="$ui_lang='pt'">In&#237;cio</xsl:when><xsl:when test="$ui_lang='es'">Inicio</xsl:when><xsl:otherwise>Home</xsl:otherwise></xsl:choose>
+				</xsl:when>
+				<xsl:when test="contains($file,'author')">
+					<xsl:choose><xsl:when test="$ui_lang='pt'">Autor</xsl:when><xsl:when test="$ui_lang='es'">Autor</xsl:when><xsl:otherwise>Author</xsl:otherwise></xsl:choose>
+				</xsl:when>
+				<xsl:when test="contains($file,'search')">
+					<xsl:choose><xsl:when test="$ui_lang='pt'">Buscar</xsl:when><xsl:when test="$ui_lang='es'">Buscar</xsl:when><xsl:otherwise>Search</xsl:otherwise></xsl:choose>
+				</xsl:when>
+				<xsl:otherwise>Open</xsl:otherwise>
+			</xsl:choose>
+		</xsl:template>
 	<!-- Show Author Button -->
 	<xsl:template name="AUTHOR">
 		<xsl:param name="scope"/>

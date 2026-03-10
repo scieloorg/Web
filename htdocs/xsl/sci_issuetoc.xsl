@@ -19,6 +19,9 @@
 					</xsl:call-template>
 				</TITLE>
 				<LINK href="/css/scielo.css" type="text/css" rel="STYLESHEET"/>
+				<link rel="stylesheet" type="text/css" href="/design-system/1.0.0/css/bootstrap.css"/>
+				<link rel="stylesheet" type="text/css" href="/design-system/1.0.0/css/article.css"/>
+				<link rel="stylesheet" type="text/css" href="/css/scielo-ds-bridge.css"/>
 				<style type="text/css">
 					#pagination{
 					    font-size:8pt;
@@ -53,6 +56,7 @@
 					}</style>
 				<META http-equiv="Pragma" content="no-cache"/>
 				<META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT"/>
+				<meta name="viewport" content="width=device-width, initial-scale=1"/>
 				<!-- link pro RSS aparecer automaticamente no Browser -->
 				<xsl:call-template name="AddRssHeaderLink">
 					<xsl:with-param name="pid" select="//CURRENT/@PID"/>
@@ -64,20 +68,20 @@
 	                <script src="http://content.readcube.com/scielo/epdf_linker.js" type="text/javascript" async="true"></script>
 	            </xsl:if>
 			</HEAD>
-			<BODY vLink="#800080" bgColor="#ffffff">
+			<BODY class="issuetoc-page" vLink="#800080" bgColor="#ffffff">
 				<xsl:call-template name="NAVBAR">
 					<xsl:with-param name="bar1">issues</xsl:with-param>
-					<xsl:with-param name="bar2">articlesiah</xsl:with-param>
+					<xsl:with-param name="bar2"></xsl:with-param>
+					<xsl:with-param name="compact_nav">1</xsl:with-param>
+					<xsl:with-param name="compact_variant">issuetoc</xsl:with-param>
+					<xsl:with-param name="show_lang_switch">1</xsl:with-param>
 					<xsl:with-param name="scope" select="//TITLEGROUP/SIGLUM"/>
-					<xsl:with-param name="home">1</xsl:with-param>
-					<xsl:with-param name="alpha">
-						<xsl:choose>
-							<xsl:when test=" normalize-space(//CONTROLINFO/APP_NAME) = 'scielosp' "
-								>0</xsl:when>
-							<xsl:otherwise>1</xsl:otherwise>
-						</xsl:choose>
-					</xsl:with-param>
+					<xsl:with-param name="home">0</xsl:with-param>
+					<xsl:with-param name="alpha">0</xsl:with-param>
 				</xsl:call-template>
+				<div class="issues-journal-logo">
+					<img src="{//CONTROLINFO/SCIELO_INFO/PATH_SERIMG}{//TITLEGROUP/SIGLUM}/glogo.gif" alt="{//TITLEGROUP/TITLE}"/>
+				</div>
 				<xsl:apply-templates select="//TITLEGROUP"/>
 				<CENTER>
 					<FONT color="#000080">
@@ -243,12 +247,6 @@
 					<xsl:value-of select="NAME" disable-output-escaping="yes"/>
 				</td>
 			</tr>
-			<tr>
-				<td>&#160;</td>
-				<xsl:if test="//ISSUE/SECTION/NAME">
-					<td>&#160;</td>
-				</xsl:if>
-			</tr>
 		</xsl:if>
 		<xsl:choose>
 			<xsl:when test="$num='AHEAD'">
@@ -264,55 +262,57 @@
 
 	</xsl:template>
 	<xsl:template match="ARTICLE">
-		<tr>
+		<tr class="issue-article-row">
 			<!-- If there was a section name -->
 			<xsl:if test="../NAME">
 				<td>&#160;</td>
 			</xsl:if>
-			<td>
+			<td class="issue-article-cell">
 				<xsl:if test="//ISSUE/SECTION/NAME and not(../NAME)">
 					<!-- This section has no name but there is another session with name inside the TOC -->
 					<xsl:attribute name="colspan">2</xsl:attribute>
 				</xsl:if>
-				<xsl:choose>
-					<xsl:when test="TITLE and ../NAME">
+				<div class="issue-article-entry">
+					<xsl:choose>
+						<xsl:when test="TITLE and ../NAME">
+							<FONT class="normal">
+								<font face="Symbol">·</font> &#160;</FONT>
+						</xsl:when>
+					</xsl:choose>
+					<xsl:if test="TITLE">
 						<FONT class="normal">
-							<font face="Symbol">·</font> &#160;</FONT>
-					</xsl:when>
-				</xsl:choose>
-				<xsl:if test="TITLE">
-					<FONT class="normal">
-						<B>
-							<xsl:value-of select="TITLE" disable-output-escaping="yes"/>
-						</B>
-					</FONT>
-					<br/>
-				</xsl:if>
-				<FONT class="normal">
-					<xsl:apply-templates select="AUTHORS">
-						<xsl:with-param name="NORM" select="//CONTROLINFO/STANDARD"/>
-						<xsl:with-param name="LANG" select="//CONTROLINFO/LANGUAGE"/>
-						<xsl:with-param name="AUTHLINK">1</xsl:with-param>
-					</xsl:apply-templates>
-				</FONT>
-				<xsl:if test="TITLE">
-					<br/>
-					<br/>
-				</xsl:if>
-				<!-- CENTER -->
-				<xsl:apply-templates select="LANGUAGES">
-					<xsl:with-param name="LANG" select="//CONTROLINFO/LANGUAGE"/>
-					<xsl:with-param name="PID" select="@PID"/>
-					<xsl:with-param name="VERIFY" select="/SERIAL/DEBUG/@VERIFY"/>
-				</xsl:apply-templates>
-				<!-- /CENTER -->
-				<tr>
-					<td>&#160;</td>
-					<xsl:if test="//ISSUE/SECTION/NAME">
-						<td>&#160;</td>
+							<B>
+								<xsl:value-of select="TITLE" disable-output-escaping="yes"/>
+							</B>
+						</FONT>
+						<br/>
 					</xsl:if>
-				</tr>
+					<FONT class="normal">
+						<xsl:apply-templates select="AUTHORS">
+							<xsl:with-param name="NORM" select="//CONTROLINFO/STANDARD"/>
+							<xsl:with-param name="LANG" select="//CONTROLINFO/LANGUAGE"/>
+							<xsl:with-param name="AUTHLINK">1</xsl:with-param>
+						</xsl:apply-templates>
+					</FONT>
+					<xsl:if test="TITLE">
+						<br/>
+						<br/>
+					</xsl:if>
+					<!-- CENTER -->
+					<xsl:apply-templates select="LANGUAGES">
+						<xsl:with-param name="LANG" select="//CONTROLINFO/LANGUAGE"/>
+						<xsl:with-param name="PID" select="@PID"/>
+						<xsl:with-param name="VERIFY" select="/SERIAL/DEBUG/@VERIFY"/>
+					</xsl:apply-templates>
+					<!-- /CENTER -->
+				</div>
 			</td>
+		</tr>
+		<tr class="issue-article-spacer">
+			<td>&#160;</td>
+			<xsl:if test="//ISSUE/SECTION/NAME">
+				<td>&#160;</td>
+			</xsl:if>
 		</tr>
 	</xsl:template>
 	<xsl:template match="PAGES">

@@ -6,7 +6,7 @@ services:
       dockerfile: docker/rocky9/Dockerfile
     container_name: scielo-web-rocky9
     ports:
-      - "8080:80"
+      - "8090:80"
     volumes:
       - ./:/var/www/html
     restart: unless-stopped

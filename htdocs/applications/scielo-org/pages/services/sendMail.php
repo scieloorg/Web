@@ -1,10 +1,13 @@
 	<?php
 
 require_once(dirname(__FILE__)."/../../users/functions.php");
-require_once(dirname(__FILE__)."/../../users/langs.php");	
 require_once(dirname(__FILE__)."/../../includes/phpmailer/class.phpmailer.php");
 require_once(dirname(__FILE__)."/../../classes/services/ArticleServices.php");
 require_once(dirname(__FILE__)."/../../../../php/include.php");
+
+$cgi = array_merge($_GET,$_POST);
+$lang = isset($cgi["lang"]) ? $cgi["lang"] : "pt";
+require_once(dirname(__FILE__)."/../../users/langs.php");	
 
 $bvsSiteIni = parse_ini_file(dirname(__FILE__)."/../../../../bvs-site-conf.php",true);
 
@@ -21,20 +24,76 @@ $mainscielodef = parse_ini_file(dirname(__FILE__)."/../../../../scielo.def.php",
 $site = parse_ini_file(dirname(__FILE__)."/../../../ini/" . $lang . "/bvs.ini", true);
 $home = $scielodef['this']['url'];
 $mailcredentials = $mainscielodef['MAIL_CREDENTIALS'];
-$cgi = array_merge($_GET,$_POST);
 
-$acao = $cgi["acao"];
-$pid = $cgi["pid"];
-$caller = $cgi["caller"];
+$acao = isset($cgi["acao"]) ? $cgi["acao"] : "";
+$pid = isset($cgi["pid"]) ? $cgi["pid"] : "";
+$caller = isset($cgi["caller"]) ? $cgi["caller"] : "";
+$serviceCaller = preg_replace('/:8080$/', '', $caller);
+if (!$serviceCaller) {
+	$serviceCaller = $caller;
+}
 
 //geting metadatas from PID
-$articleService = new ArticleService($caller);
+$articleService = new ArticleService($serviceCaller);
 $articleService->setParams($pid);
 $article = $articleService->getArticle();
+
+if ($pid) {
+	$fallbackLang = "en";
+	$fallbackUrl = "http://127.0.0.1/scielo.php?script=sci_arttext&pid=" . urlencode($pid) . "&lng=" . urlencode($fallbackLang) . "&nrm=iso&tlng=" . urlencode($fallbackLang) . "&debug=xml";
+	$fallbackXmlText = @file_get_contents($fallbackUrl);
+	if ($fallbackXmlText) {
+		$serialTitle = '';
+		$articleTitle = '';
+		$fallbackXml = @simplexml_load_string($fallbackXmlText);
+		if ($fallbackXml && isset($fallbackXml->SERIAL)) {
+			$serialTitle = trim((string)$fallbackXml->SERIAL->TITLEGROUP->TITLE);
+			if ($serialTitle && !$article->getSerial()) {
+				$article->setSerial($serialTitle);
+			}
+
+			$articleTitle = trim((string)$fallbackXml->SERIAL->ISSUE->ARTICLE->TITLE);
+			if (!$articleTitle) {
+				$articleTitle = trim((string)$fallbackXml->SERIAL->ISSUE->ARTICLE->citation_title);
+			}
+		}
+
+		// When XML cannot be parsed due legacy mixed content, recover key fields by regex.
+		if (!$serialTitle && preg_match('/<TITLEGROUP>.*?<TITLE><!\\[CDATA\\[(.*?)\\]\\]><\\/TITLE>/is', $fallbackXmlText, $mSerial)) {
+			$serialTitle = trim($mSerial[1]);
+		}
+		if (!$articleTitle && preg_match('/<ARTICLE\\b[^>]*>.*?<TITLE><!\\[CDATA\\[(.*?)\\]\\]><\\/TITLE>/is', $fallbackXmlText, $mTitle)) {
+			$articleTitle = trim($mTitle[1]);
+		}
+
+		if ($serialTitle) {
+			$article->setSerial($serialTitle);
+		}
+		if ($articleTitle) {
+			$safeLang = strtoupper($fallbackLang);
+			$safeTitle = str_replace("]]>", "]]]]><![CDATA[>", $articleTitle);
+			$article->setTitle('<TITLES><TITLE LANG="' . $safeLang . '"><![CDATA[' . $safeTitle . ']]></TITLE></TITLES>');
+		}
+	}
+}
+
+$articleTitleXml = $article->getTitle();
+$articleTitleText = '';
+if ($articleTitleXml) {
+	if (preg_match('/<TITLE[^>]*>(?:<!\\[CDATA\\[)?(.*?)(?:\\]\\]>)?<\\/TITLE>/is', $articleTitleXml, $m)) {
+		$articleTitleText = trim(html_entity_decode(strip_tags($m[1]), ENT_QUOTES | ENT_HTML5, 'UTF-8'));
+	} else {
+		$articleTitleText = trim(html_entity_decode(strip_tags($articleTitleXml), ENT_QUOTES | ENT_HTML5, 'UTF-8'));
+	}
+}
+if (!$articleTitleText) {
+	$articleTitleText = $pid;
+}
+
 switch($acao){
 	case "send":
 		$articleURL = 'http://'.$caller.'/scielo.php?script=sci_abstract&pid='.$pid.'&lng=en&nrm=iso&tlng=en';
-		$link = '<a href="'.$articleURL.'">'.getTitle($article->getTitle()).'</a>';
+		$link = '<a href="'.$articleURL.'">'.htmlspecialchars($articleTitleText, ENT_QUOTES, 'UTF-8').'</a>';
 
 		$msg = file_get_contents(dirname(__FILE__)."/../../html/".$lang."/send_mail_msg.html");
 
@@ -45,36 +104,7 @@ switch($acao){
 		$msg = str_replace("[articleURL]",$articleURL,$msg);
 		$msg = str_replace("[commentary]",$cgi["comment"],$msg);
 
-
-                $search = array ('@<script[^>]*?>.*?</script>@si', // Strip out javascript
-                                                 '@<[\/\!]*?[^<>]*?>@si',          // Strip out HTML tags
-                                                 '@([\r\n])[\s]+@',                // Strip out white space
-                                                 '@&(quot|#34);@i',                // Replace HTML entities
-                                                 '@&(amp|#38);@i',
-                                                 '@&(lt|#60);@i',
-                                                 '@&(gt|#62);@i',
-                                                 '@&(nbsp|#160);@i',
-                                                 '@&(iexcl|#161);@i',
-                                                 '@&(cent|#162);@i',
-                                                 '@&(pound|#163);@i',
-                                                 '@&(copy|#169);@i',
-                                                 '@&#(\d+);@e');                    // evaluate as php
-
-                $replace = array ('',
-                                                  '',
-                                                  '\1',
-                                                  '"',
-                                                  '&',
-                                                  '<',
-                                                  '>',
-                                                  ' ',
-                                                  chr(161),
-                                                  chr(162),
-                                                  chr(163),
-                                                  chr(169),
-                                                  'chr(\1)');
-
-                $msg_no_html = preg_replace($search, $replace, $msg);
+		$msg_no_html = html_entity_decode(strip_tags($msg), ENT_QUOTES | ENT_HTML5, 'UTF-8');
 
 
 		$_mail = new PHPMailer();
@@ -129,15 +159,9 @@ switch($acao){
 	<body>
 		<div class="container">	
 			<div class="level2">
-				<? require_once(dirname(__FILE__)."/../../html/" . $lang . "/headerInstancesServices.html"); ?>
-				<div class="middle">				
-					<!--div id="breadCrumb">
-						<a href="/">
-							home
-						</a>
-						&gt; <?=ENVIAR_ARTIGO?>
-					</div-->
-					<div class="content">
+					<? require_once(dirname(__FILE__)."/../../html/" . $lang . "/headerInstancesServices.html"); ?>
+					<div class="middle">				
+						<div class="content">
 						<h3>
 							<span>
 								<?=ENVIAR_ARTIGO_POR_EMAIL?>
@@ -159,7 +183,7 @@ switch($acao){
 									<TD class="emailFormLabel" align="right" width="30%" valign="top">
 										<?=ARTICLE_TITLE?>
 									</TD>
-									<TD><?=getTitle($article->getTitle());?></TD>
+									<TD><?=htmlspecialchars($articleTitleText, ENT_QUOTES, 'UTF-8');?></TD>
 								</TR>
 								<TR>
 									<TD height="15">
