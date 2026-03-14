@@ -5,9 +5,15 @@
 		    $keys,
 			$_error;
 		
+		function __construct($defName)
+		{
+			$this->DefFile($defName);
+		}
+
 		function DefFile($defName)
 		{
 			$this->defName = $defName;
+			$this->keys = array();
 			
 			if ( !(@$fd = fopen($this->defName,"r")) )
 			{
@@ -38,7 +44,7 @@
         
 		function getKeyValue($key)
 		{
-			return $this->keys[$key];
+			return isset($this->keys[$key]) ? $this->keys[$key] : "";
 		}        
 	}
 ?>

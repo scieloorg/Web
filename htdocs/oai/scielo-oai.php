@@ -1,11 +1,11 @@
 <?php
     include_once ("classDefFile.php");
-    include_once ("class.XSLTransformerOAI.php");
+	include_once ("class.XSLTransformerOAI.php");
     //include_once ("classScielo.php");
     include_once ("version-4.1-like-4.0.php");
 	include_once ("scielo-ws.php");
-	define ( "DEFNAME", "scielo.def.php" );
-    define ( "DEFAULT_CACHE_EXPIRES", 180 );
+	if (!defined("DEFNAME")) define ( "DEFNAME", "scielo.def.php" );
+    if (!defined("DEFAULT_CACHE_EXPIRES")) define ( "DEFAULT_CACHE_EXPIRES", 180 );
 	$defFile = parse_ini_file(dirname(__FILE__)."/../scielo.def.php");
     $metadataPrefixList = array ( "oai_dc" => array( "ns" => "http://www.openarchives.org/OAI/2.0/oai_dc/",
                                                      "schema" => "http://www.openarchives.org/OAI/2.0/oai_dc.xsd"),
@@ -20,8 +20,16 @@
 	$repositoryName = "SciELO Online Library Collection";
 	$earliestDatestamp = "1996-01-01";
 */      
+    $debug = (isset($_REQUEST["debug"]) && $_REQUEST["debug"] == "1");
     $debug_str = "";
-$identifier = cleanParameter($identifier);
+    $verb = cleanParameter((string)($_REQUEST["verb"] ?? ""));
+    $metadataPrefix = cleanParameter((string)($_REQUEST["metadataPrefix"] ?? ""));
+    $identifier = cleanParameter((string)($_REQUEST["identifier"] ?? ""));
+    $from = cleanParameter((string)($_REQUEST["from"] ?? ""));
+    $until = cleanParameter((string)($_REQUEST["until"] ?? ""));
+    $set = cleanParameter((string)($_REQUEST["set"] ?? ""));
+    $resumptionToken = cleanParameter((string)($_REQUEST["resumptionToken"] ?? ""));
+    $control = "";
 	/******************************************* Functions *********************************************/
     
     function debugstring ( $str )
@@ -71,7 +79,7 @@ $identifier = cleanParameter($identifier);
             $result_dregex = preg_match($dregex , $resumptionToken );
             if ( !$result_dregex ) return false;
         }
-        $params = split ( ":", $resumptionToken );
+        $params = explode ( ":", $resumptionToken );
         $control = $params[ 0 ];
         $set = $params[ 1 ];
         $from = $params[ 2 ];
@@ -93,7 +101,7 @@ $identifier = cleanParameter($identifier);
 
     function is_Set ( $set )
     {
-        return eregi ( "^([0-9a-z]{4}-[0-9a-z]{4}|openaire|scielo)$", $set );
+        return preg_match ( "/^([0-9a-z]{4}-[0-9a-z]{4}|openaire|scielo)$/i", $set ) === 1;
     }
 
 	/******************************************* isDatestamp **********************************************/
@@ -113,9 +121,7 @@ $identifier = cleanParameter($identifier);
 	{
 		global $metadataPrefixList;
 
-		reset ( $metadataPrefixList );
-
-	    while ( list ( $key, )  = each ( $metadataPrefixList ) )
+		foreach ( $metadataPrefixList as $key => $tmp )
 	    {
 		    if ( $key == $metadataPrefix ) return true;
 	    }
@@ -234,9 +240,10 @@ $identifier = cleanParameter($identifier);
     function generatePayload ( $ws_client_url, $service, $service_name, $parameters, $xsl )
     {
         global $debug, $defFile;
-			//die($service_name." - ".$service);
-			switch ( $service_name )
-			{
+            $result = "";
+				//die($service_name." - ".$service);
+				switch ( $service_name )
+				{
 			case "Identify": 
 				{				
 				$response = listRecords( $set = $parameters["set"], $from = $parameters["from"], $until = $parameters["until"], $control = $parameters["control"], $lang = "en", $nrm = "iso", $count = 30, $debug = false );
@@ -288,11 +295,31 @@ $identifier = cleanParameter($identifier);
 				break;
 				}
 			}
-        
-        #workaround for fatal error in DOMDocument::loadXML() when XML have & character 
-        $response = preg_replace('/ & /', ' &amp; ', $response);
+	        
+	        if (is_object($response)) {
+	            $msg = method_exists($response, 'getMessage') ? $response->getMessage() : 'Service error';
+	            $msg = htmlspecialchars((string)$msg, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+	            return "<error code=\"noRecordsMatch\">$msg</error>\n";
+	        }
 
-        if ( !$debug )
+	        if (!is_string($response)) {
+	            $response = '';
+	        }
+
+            $responseTrim = ltrim($response);
+            if ($responseTrim === "" || strpos($responseTrim, "<") !== 0) {
+                $msg = trim(substr($responseTrim, 0, 600));
+                if ($msg === "") {
+                    $msg = "Empty response from backend service";
+                }
+                $msg = htmlspecialchars($msg, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+                return "<error code=\"noRecordsMatch\">$msg</error>\n";
+            }
+	        
+	        #workaround for fatal error in DOMDocument::loadXML() when XML have & character 
+	        $response = preg_replace('/ & /', ' &amp; ', $response);
+	
+	        if ( !$debug )
         {
             $transform = new XSLTransformerOAI();
             $transform->setXslBaseUri($defFile["PATH_OAI"]);
@@ -305,18 +332,22 @@ $identifier = cleanParameter($identifier);
     	        echo $transform->getError();
 	            exit ();
     	    }
-	        $result = $transform->getOutput();
-        }
-        
-		
-	    return convert_html_entities($result);
+		        $result = $transform->getOutput();
+	        }
+            else
+            {
+                $result = $response;
+            }
+	        
+			
+		    return convert_html_entities($result);
     }
 
 	/**************************************** verbo GetRecord **************************************/
 
     function getRecord_OAI ( $request_uri, $ws_client_url, $xslPath, $identifier, $metadataPrefix )
     {
-        global $debug;
+        global $debug, $defFile;
     	if ( !isset ( $identifier ) || empty ( $identifier ) )
     	{
     		$result = "<error code=\"badArgument\">Missing or empty identifier</error>\n";
@@ -366,7 +397,7 @@ $identifier = cleanParameter($identifier);
 
     function Identify_OAI ( $request_uri, $ws_client_url, $xslPath )
     {
-    	global $repositoryName, $earliestDatestamp, $adminEmails;
+    	global $repositoryName, $earliestDatestamp, $adminEmails, $debug;
 
     	$payload  = " <Identify>\n";
     	$payload .= "  <repositoryName>$repositoryName</repositoryName>\n";
@@ -376,23 +407,10 @@ $identifier = cleanParameter($identifier);
     	{
     		$payload .= " <adminEmail>" . $adminEmails[ $i ] . "</adminEmail>\n";
     	}
-        
-        $parameters = array (
-                "set" => "", 
-                "from" => "19090401", 
-                "until" => "", 
-                "control" => "",
-                "lang" => "en",
-                "nrm" => "iso",
-                "count" => 1
-        );
-
-        if ( $debug ) $parameters[ "debug" ] = true;
-            
-        $xsl = "Identify.xsl";
-	   	$result = generatePayload ( $ws_client_url, "listRecords","Identify", $parameters, $xsl );
-        
-        $payload .= trim ( str_replace ( "datestamp", "earliestDatestamp", $result ) );
+        if (empty($earliestDatestamp)) {
+            $earliestDatestamp = "1909-04-01";
+        }
+        $payload .= "  <earliestDatestamp>$earliestDatestamp</earliestDatestamp>\n";
     	$payload .= "  <deletedRecord>no</deletedRecord>\n";
     	$payload .= "  <granularity>YYYY-MM-DD</granularity>\n";
     	$payload .= " </Identify>\n";
@@ -429,9 +447,7 @@ $identifier = cleanParameter($identifier);
     	{
 			$payload  = " <ListMetadataFormats>\n";
 
-	    	reset ( $metadataPrefixList );
-
-	    	while ( list ( $metadataPrefix, $data ) = each ( $metadataPrefixList ) )
+	    	foreach ( $metadataPrefixList as $metadataPrefix => $data )
 	    	{
 	    		$payload .= "  <metadataFormat>\n";
 	    		$payload .= "   <metadataPrefix>$metadataPrefix</metadataPrefix>\n";

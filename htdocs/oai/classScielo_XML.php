@@ -6,11 +6,16 @@
 		var $_def = null;
 		var $_error = "";
 
+		function __construct ( $def )
+		{
+			$this->Scielo_XML($def);
+		}
+
 		function Scielo_XML ( $def )
 		{
 			$this->_def = new DefFile ( $def );
 
-			if ($this->_def->_error)
+			if (!$this->_def || $this->_def->_error)
 			{
 				$this->_error = "Could not open def file: $def.";
 			}
@@ -18,13 +23,16 @@
 
 		function getXML ( $script, $params = "", $debug = false )
 		{
-	    	$url  = "http://";
+			$url  = "http://";
 			$url .= $this->_def->getKeyValue("SERVER_SCIELO");
 			$url .= $this->_def->getKeyValue("PATH_WXIS_SCIELO");
-			$url .= $this->_def->getKeyValue("PATH_DATA");
+            if (substr($url, -1) !== "/") {
+                $url .= "/";
+            }
 			$url .= "?IsisScript=";
 			$url .= $this->_def->getKeyValue("PATH_SCRIPTS");
 			$url .= "$script.xis";
+			$url .= "&def=scielo.def.php";
 			if ( $script != "sci_getrecord" && $script != "sci_listrecords_scielo" ) {
                 $url .= "&sln=" . $this->_def->getKeyValue("STANDARD_LANG");
             }

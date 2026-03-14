@@ -15,24 +15,46 @@ function xml_utf8_decode($xml){
 
 class XSLTransformer
 {
+  var $defFile = array();
+  var $tPHP = null;
+  var $tJava = null;
+  var $socket_log_file = "";
+  var $enable_socket_log = 0;
+  var $redirectURL = "";
+  var $output = "";
+  var $error = "";
+  var $transformedBy = "";
+
+
+  function __construct()
+  {
+      $this->XSLTransformer();
+  }
 
   function XSLTransformer()
   {
       $this->defFile = parse_ini_file(dirname(__FILE__)."/../scielo.def.php",true);
+      if (!is_array($this->defFile)) {
+          $this->defFile = array();
+      }
       $this->tPHP = new XSLTransformerPHP5();
-      $this->tJava = new XSLTransformerJava($_SERVER["SERVER_ADDR"],$this->defFile["SOCKET"]["SOCK_PORT"]);
+      $sockPort = $this->defFile["SOCKET"]["SOCK_PORT"] ?? null;
+      $serverAddr = $_SERVER["SERVER_ADDR"] ?? "127.0.0.1";
+      $this->tJava = $sockPort ? new XSLTransformerJava($serverAddr, $sockPort) : null;
 
-      $this->socket_log_file = $this->defFile['SOCKET']['ACCESS_LOG_FILE'];
-      $this->enable_socket_log = $this->defFile['SOCKET']['ENABLE_ACCESS_LOG'];
+      $this->socket_log_file = $this->defFile["SOCKET"]["ACCESS_LOG_FILE"] ?? "";
+      $this->enable_socket_log = $this->defFile["SOCKET"]["ENABLE_ACCESS_LOG"] ?? 0;
 
-      $this->redirectURL = $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+      $serverName = $_SERVER["SERVER_NAME"] ?? "localhost";
+      $requestUri = $_SERVER["REQUEST_URI"] ?? "/";
+      $this->redirectURL = $serverName . $requestUri;
 
   }
 
   function validateXML($xml)
   {
     $validXML = true;
-    if ($this->defFile['XML_ERROR']['ENABLED_XML_ERROR'] == '1'){
+    if (($this->defFile['XML_ERROR']['ENABLED_XML_ERROR'] ?? '0') == '1'){
             $xmlCheck = new XML_check();
             $xml1 = $xml;
             $validXML = $xmlCheck->check_string($xml1); // verifica se o XML é bem formado
@@ -155,7 +177,7 @@ function transform()
           //$this->xml = xmlspecialchars  ($this->xml);
 
           if ($this->validateXML($this->xml)){
-                  if ($this->tJava->checkSocketOpen()) {
+                  if ($this->tJava && $this->tJava->checkSocketOpen()) {
                           $result = $this->tJava->transform($this->getXsl("key"), $this->xml);
                           switch ($result){
                                   case "NO_SOCKET":

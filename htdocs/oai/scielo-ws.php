@@ -1,6 +1,25 @@
 <?php
 	include_once ( "classScielo_XML.php" );
-	define ( "DEFNAME", "scielo.def.php" );
+	if (!defined("DEFNAME")) define ( "DEFNAME", "scielo.def.php" );
+
+    if (!class_exists('SoapFault')) {
+        class SoapFault
+        {
+            public $faultcode;
+            public $faultstring;
+
+            public function __construct($faultcode, $faultstring)
+            {
+                $this->faultcode = $faultcode;
+                $this->faultstring = $faultstring;
+            }
+
+            public function getMessage()
+            {
+                return (string)$this->faultstring;
+            }
+        }
+    }
 
 	/******************************* SERVICES DEFINITION ***********************************/
 
