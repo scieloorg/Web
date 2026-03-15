@@ -102,16 +102,11 @@
 			</div>
 		</header>
 		<section class="home-search-wrap">
-			<form class="home-search-form" method="get" action="https://search.scielo.org/">
+			<form class="home-search-form" method="get" action="/search_mvp.php">
 				<input type="hidden" name="lang">
 					<xsl:attribute name="value"><xsl:value-of select="normalize-space(LANGUAGE)"/></xsl:attribute>
 				</input>
-				<input type="hidden" name="count" value="15"/>
-				<input type="hidden" name="from" value="0"/>
-				<input type="hidden" name="output" value="site"/>
-				<input type="hidden" name="sort" value=""/>
-				<input type="hidden" name="format" value="summary"/>
-				<input type="hidden" name="fb" value=""/>
+				<input type="hidden" name="field" value="all"/>
 				<input type="hidden" name="page" value="1"/>
 				<input class="home-search-input" type="text" name="q">
 					<xsl:attribute name="placeholder">

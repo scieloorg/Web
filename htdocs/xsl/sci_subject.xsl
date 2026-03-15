@@ -20,6 +20,16 @@
 				<xsl:when test="normalize-space(//lng)!=''">
 					<xsl:value-of select="normalize-space(//lng)"/>
 				</xsl:when>
+				<xsl:when test="contains(normalize-space(//refferer),'lng=')">
+					<xsl:choose>
+						<xsl:when test="contains(substring-after(normalize-space(//refferer),'lng='),'&amp;')">
+							<xsl:value-of select="substring-before(substring-after(normalize-space(//refferer),'lng='),'&amp;')"/>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:value-of select="substring-after(normalize-space(//refferer),'lng=')"/>
+						</xsl:otherwise>
+					</xsl:choose>
+				</xsl:when>
 				<xsl:when test="normalize-space(//LANGUAGE)!=''">
 					<xsl:value-of select="normalize-space(//LANGUAGE)"/>
 				</xsl:when>
