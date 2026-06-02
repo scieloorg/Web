@@ -7,7 +7,8 @@
 </head>
 <body>
 <?php 
-ini_set('display_errors', '1');
+ini_set("display_errors", "0");
+	ini_set("log_errors", "1");
 error_reporting(1);
         $DirNameLocalGraphPage=dirname(__FILE__).'/';
         $scielomaindef = parse_ini_file($DirNameLocalGraphPage."/../../../../scielo.def.php", true);

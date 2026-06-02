@@ -17,10 +17,14 @@ $db_title=$defFile["PATH"]["PATH_DATABASE"]."/title/title";
 
 $utl=$defFile["PATH"]["PATH_PROC"]."/cisis";
 
+$pid = (isset($pid) && is_array($pid)) ? $pid : array();
+$pid2="";
 for ($j=0;$j < count($pid);++$j) {
 	$pid2.=$pid[$j];
 }
 $pid2=scielolog_safe_file_token($pid2);
+$data=array();
+$legend=array();
 
 //Busca o mfn inicial da data fim
 //Se a data inicial nao foi passada pega a primeira data da base
@@ -115,6 +119,13 @@ $mfn_fim=busca_mfnfim($dtf,$db_data);
             }
             $bplot[$i]->SetFillColor ($color);
             $bplot[$i]->SetLegend ($legend[$i]);
+        }
+
+        if (!isset($bplot) || !is_array($bplot)) {
+            $empty_data = Array (1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+            $bplot = array(new BarPlot($empty_data));
+            $bplot[0]->SetFillColor ("lightgray");
+            $bplot[0]->SetLegend ("");
         }
 
         $gbplot = new GroupBarPlot($bplot);

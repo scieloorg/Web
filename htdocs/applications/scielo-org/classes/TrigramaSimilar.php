@@ -1,5 +1,6 @@
 <?
-ini_set("display_errors","1");
+ini_set("display_errors", "0");
+	ini_set("log_errors", "1");
 error_reporting(E_ALL ^ E_NOTICE);
 require_once(dirname(__FILE__)."/ServicesHandler.php");
 require_once(dirname(__FILE__)."/../XML_XSL/XML_XSL.inc.php");

@@ -38,6 +38,10 @@ class PiePlot {
 	
 //---------------
 // CONSTRUCTOR
+	function __construct(&$data) {
+		$this->PiePlot($data);
+	}
+
 	function PiePlot(&$data) {
 		$this->data = $data;
 		$this->title = new Text("");
@@ -297,6 +301,10 @@ class PieGraph extends Graph {
 	var $plots=array();
 //---------------
 // CONSTRUCTOR
+	function __construct($width=300,$height=200,$cachedName="") {
+		$this->PieGraph($width,$height,$cachedName);
+	}
+
 	function PieGraph($width=300,$height=200,$cachedName="") {
 		$this->Graph($width,$height,$cachedName,0);
 		$this->posx=$width/2;
