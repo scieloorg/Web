@@ -14,6 +14,7 @@
 		for ($j=0;$j < count($pid);++$j) {
 			$pid2.=$pid[$j];
 		}
+		$pid2=scielolog_safe_file_token($pid2);
 	}
 	
 	$ui=date('y').date('z');
@@ -31,14 +32,14 @@
 
 	$str="artigos";
 	$bool=monta_bool_array($pid,$str);
-	$proc="\"proc='<200 0>'ref(['$db_title']l(['$db_title'],s(v1*0.9)),v150)'</200>'\"";
-	$proc02="\"proc='d32001',if v150='' then 'd*' fi\"";
+	$proc=scielolog_shell_arg("proc='<200 0>'ref(['$db_title']l(['$db_title'],s(v1*0.9)),v150)'</200>'");
+	$proc02=scielolog_shell_arg("proc='d32001',if v150='' then 'd*' fi");
 	if (!file_exists($db_tmp_tab.".mst")) {
-		exec("$utl/mxtb $db_acesso create=$db_tmp_tab $bool \"256:v1,'|',v3*0.4,'|',v3*4.2/,\" \"tab=v5\" \"class=120000\"");
-		exec("$utl/mx $db_tmp_tab \"join=$db_title,150=s(v1*0.9)\" $proc02 append=$db_tmp_tab02 -all now");
-		exec("$utl/msrt $db_tmp_tab02 \"256\" \"v150,v1/\"");
+		exec(scielolog_shell_arg("$utl/mxtb")." ".scielolog_shell_arg($db_acesso)." ".scielolog_shell_arg("create=$db_tmp_tab")." $bool ".scielolog_shell_arg("256:v1,'|',v3*0.4,'|',v3*4.2/,")." ".scielolog_shell_arg("tab=v5")." ".scielolog_shell_arg("class=120000"));
+		exec(scielolog_shell_arg("$utl/mx")." ".scielolog_shell_arg($db_tmp_tab)." ".scielolog_shell_arg("join=$db_title,150=s(v1*0.9)")." $proc02 ".scielolog_shell_arg("append=$db_tmp_tab02")." -all now");
+		exec(scielolog_shell_arg("$utl/msrt")." ".scielolog_shell_arg($db_tmp_tab02)." ".scielolog_shell_arg("256")." ".scielolog_shell_arg("v150,v1/"));
 	}
-	$result=exec("$utl/mx $db_tmp_tab02 lw=999 \"pft=v150'<ano>'v1*10'<per>'v999'<fim>'\" now");
+	$result=exec(scielolog_shell_arg("$utl/mx")." ".scielolog_shell_arg($db_tmp_tab02)." lw=999 ".scielolog_shell_arg("pft=v150'<ano>'v1*10'<per>'v999'<fim>'")." now");
 	$array_linha=split("<fim>",$result);
 	$chv_tit=$chv_ano="";
 	
@@ -110,8 +111,8 @@
 // *********** Deleta arquivos temporarios  ***************************
 // ********************************************************************
 	if (!$pid=='') {
-		$OP="rm -f $db_tmp_tab.* $db_tmp_tab02.* ";
-		$result=exec($OP);
+		scielolog_remove_temp_files($db_tmp_tab);
+		scielolog_remove_temp_files($db_tmp_tab02);
 	}
 
 	if ($_REQUEST["debug"]=="xml") {
@@ -144,8 +145,8 @@
 	$output = str_replace('</p>',' ',$output);
         echo $output;
 
-	exec('rm -f $db_tmp_tab.*');
-	exec('rm -f $db_tmp_tab02.*');
+	scielolog_remove_temp_files($db_tmp_tab);
+	scielolog_remove_temp_files($db_tmp_tab02);
 	
 ?> 
 <hr>

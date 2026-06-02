@@ -79,13 +79,13 @@ $mfn_fim_art=busca_mfnfim($dtf,$db_data_art);
 
     // ***** Calcula total por artigos *****
 
-	exec("$utl/mxtb $db_acesso_art create=$db_tmp_article02 from=$mfn_ini_art to=$mfn_fim_art \"bool=$pid\" \"256:mhu,v3*0.6'|'v1,v2,\" \"tab=v5\" \"class=120000\"");
+		exec(scielolog_shell_arg("$utl/mxtb")." ".scielolog_shell_arg($db_acesso_art)." ".scielolog_shell_arg("create=$db_tmp_article02")." from=".scielolog_safe_int($mfn_ini_art)." to=".scielolog_safe_int($mfn_fim_art)." ".scielolog_bool_arg($pid)." ".scielolog_shell_arg("256:mhu,v3*0.6'|'v1,v2,")." ".scielolog_shell_arg("tab=v5")." ".scielolog_shell_arg("class=120000"));
 
 	$proc_access=monta_proc($access);
-	exec("$utl/mx $db_tmp_article02 \"join=$db_issue,43=s('Y',v1*7.17)\" \"proc='d32001'\" $proc_access \"append=$db_tmp_article\"");
-	exec("$utl/mx $db_tmp_article \"join=$db_artigonp=s('HR=S',v1*7)\" copy=$db_tmp_article -all now");
+		exec(scielolog_shell_arg("$utl/mx")." ".scielolog_shell_arg($db_tmp_article02)." ".scielolog_shell_arg("join=$db_issue,43=s('Y',v1*7.17)")." ".scielolog_shell_arg("proc='d32001'")." $proc_access ".scielolog_shell_arg("append=$db_tmp_article"));
+		exec(scielolog_shell_arg("$utl/mx")." ".scielolog_shell_arg($db_tmp_article)." ".scielolog_shell_arg("join=$db_artigonp=s('HR=S',v1*7)")." ".scielolog_shell_arg("copy=$db_tmp_article")." -all now");
 
-        exec("$utl/msrt $db_tmp_article \"30\" \"v1*0.6\"");
+	        exec(scielolog_shell_arg("$utl/msrt")." ".scielolog_shell_arg($db_tmp_article)." ".scielolog_shell_arg("30")." ".scielolog_shell_arg("v1*0.6"));
 	
 // ***************************************************************
 // ********  Camada de Apresentação dos dados             ********
@@ -95,7 +95,7 @@ $mfn_fim_art=busca_mfnfim($dtf,$db_data_art);
 
 	$pft_show=monta_pft_statart02($pid,$lng,$db_issn);
 	
-	$result=exec("$utl/mx $db_tmp_article btell=0 lw=99999 gizmo=$gizmo $pft_show +hits now");
+		$result=exec(scielolog_shell_arg("$utl/mx")." ".scielolog_shell_arg($db_tmp_article)." btell=0 lw=99999 ".scielolog_shell_arg("gizmo=$gizmo")." $pft_show +hits now");
 	$result=str_replace('<aspas>','"',$result);
 	$result=str_replace('\n','',$result);
 	$arr=split('<line>',$result);
@@ -124,6 +124,7 @@ $mfn_fim_art=busca_mfnfim($dtf,$db_data_art);
 
 echo $xml;
 
-exec("rm -f $db_tmp_article.* $db_tmp_article02.*");
+	scielolog_remove_temp_files($db_tmp_article);
+	scielolog_remove_temp_files($db_tmp_article02);
 ?> 
 

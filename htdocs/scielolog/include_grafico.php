@@ -5,10 +5,41 @@ $defFile = parse_ini_file(dirname(__FILE__)."/../scielo.def.php","true");
 ************ as paginas da Scielo                                 ********
 */
 
+function scielolog_shell_arg($value) {
+	return escapeshellarg((string)$value);
+}
+
+function scielolog_safe_int($value, $default = 0) {
+	return is_numeric($value) ? (int)$value : (int)$default;
+}
+
+function scielolog_bool_arg($expr) {
+	if (!preg_match('/^[A-Za-z0-9_ .:$()\/-]+$/', (string)$expr)) {
+		$expr = '';
+	}
+	return scielolog_shell_arg('bool='.$expr);
+}
+
+function scielolog_remove_temp_files($prefix) {
+	$files = glob($prefix.'.*');
+	if (!is_array($files)) {
+		return;
+	}
+	foreach ($files as $file) {
+		if (is_file($file)) {
+			unlink($file);
+		}
+	}
+}
+
+function scielolog_safe_file_token($value) {
+	return preg_replace('/[^A-Za-z0-9_.-]/', '_', (string)$value);
+}
+
 function lista_titulos() {
 	global $defFile;
 	$db_issn=$defFile["PATH"]["PATH_DATABASE"]."/accesslog/log_scielo/trab/issn";
-	$result=exec($defFile["PATH"]["PATH_PROC"]."/cisis/mx $db_issn lw=0 \"pft=v1,':'v150,'<fim>',\" now");
+	$result=exec(scielolog_shell_arg($defFile["PATH"]["PATH_PROC"]."/cisis/mx")." ".scielolog_shell_arg($db_issn)." lw=0 ".scielolog_shell_arg("pft=v1,':'v150,'<fim>',")." now");
 	$array_linha=split("<fim>",$result);
 	for ($i=0;$i < count($array_linha);++$i) {
   	if ($array_linha[$i]!='') {
@@ -23,16 +54,15 @@ function get_titulo($pid) {
 	global $defFile;
 	$db_issn=$defFile["PATH"]["PATH_DATABASE"]."/accesslog/log_scielo/trab/issn";
 	for ($i=0;$i < count($pid);$i++) {
-		$result=exec($defFile["PATH"]["PATH_PROC"]."/cisis/mx $db_issn \"$pid[$i]\" lw=0 \"pft=v150/\" now");
+		$result=exec(scielolog_shell_arg($defFile["PATH"]["PATH_PROC"]."/cisis/mx")." ".scielolog_shell_arg($db_issn)." ".scielolog_shell_arg($pid[$i])." lw=0 ".scielolog_shell_arg("pft=v150/")." now");
 		$lista[]["title"]=$result;
 	}
 	return $lista;
 }
 
 function monta_proc($access) {
-  	if ($access=='') { $access=0; }
-  	$proc_access="\"proc=if val(v999) < val('$access') then 'd*' fi\"";
-  	return $proc_access;
+  	$access = scielolog_safe_int($access, 0);
+  	return scielolog_shell_arg("proc=if val(v999) < val('$access') then 'd*' fi");
 }
 
 function total_registros($result) {
@@ -48,7 +78,7 @@ function total_registros($result) {
 
 function primeira_data($db_data) {
 	global $defFile;
-  	$OP=$defFile["PATH"]["PATH_PROC"]."/cisis/mx $db_data from=\"2\" count=\"1\" \"pft=v1\" now";
+	  	$OP=scielolog_shell_arg($defFile["PATH"]["PATH_PROC"]."/cisis/mx")." ".scielolog_shell_arg($db_data)." from=2 count=1 ".scielolog_shell_arg("pft=v1")." now";
 	$result=exec($OP);
   	$dti=$result;
 	return $dti;
@@ -56,10 +86,11 @@ function primeira_data($db_data) {
 
 function ultima_data($db_data) {
 	global $defFile;
-  	$OP=$defFile["PATH"]["PATH_PROC"]."/cisis/mx $db_data now +control";
+	  	$OP=scielolog_shell_arg($defFile["PATH"]["PATH_PROC"]."/cisis/mx")." ".scielolog_shell_arg($db_data)." now +control";
   	$result=exec($OP);
   	$regs=total_registros($result);
-  	$OP=$defFile["PATH"]["PATH_PROC"]."/cisis/mx $db_data from=$regs count=\"1\" \"pft=v1\" now";
+	$regs=scielolog_safe_int($regs, 1);
+	  	$OP=scielolog_shell_arg($defFile["PATH"]["PATH_PROC"]."/cisis/mx")." ".scielolog_shell_arg($db_data)." from=".$regs." count=1 ".scielolog_shell_arg("pft=v1")." now";
   	$result=exec($OP);
   	$dtf=$result;
   	return $dtf;
@@ -67,7 +98,7 @@ function ultima_data($db_data) {
 
 function busca_mfnini($dti,$db_data) {
         global $defFile;
-  	$OP=$defFile["PATH"]["PATH_PROC"]."/cisis/mx $db_data \"bool=$dti\" \"pft=v2'/'\" now";
+	  	$OP=scielolog_shell_arg($defFile["PATH"]["PATH_PROC"]."/cisis/mx")." ".scielolog_shell_arg($db_data)." ".scielolog_bool_arg($dti)." ".scielolog_shell_arg("pft=v2'/'")." now";
   	$result=exec($OP);
   	$array_mfn=split("/",$result);
   	$mfn_ini=$array_mfn[0];
@@ -79,7 +110,7 @@ function busca_mfnini($dti,$db_data) {
 
 function busca_mfnfim($dtf,$db_data) {
         global $defFile;
-	$OP=$defFile["PATH"]["PATH_PROC"]."/cisis/mx $db_data \"bool=$dtf\" \"pft=v2'/'\" now";
+	$OP=scielolog_shell_arg($defFile["PATH"]["PATH_PROC"]."/cisis/mx")." ".scielolog_shell_arg($db_data)." ".scielolog_bool_arg($dtf)." ".scielolog_shell_arg("pft=v2'/'")." now";
 	$result=exec($OP);
 	$array_mfn=split("/",$result);
 	$mfn_fim=$array_mfn[1];
@@ -136,37 +167,32 @@ function calcula_from($cpage,$nlines) {
 
 function monta_bool($pid,$str) {
    if ($pid=='') {
-      $bool="\"bool=$str\"";
-   } else {
-      $bool="\"bool=$str and $pid\"";
+      return scielolog_bool_arg($str);
    }
-   return $bool;
+   return scielolog_bool_arg($str." and ".$pid);
 }
 
 function monta_bool02($pid) {
    if ($pid=='') {
-      $bool="\"bool=$\"";
-   } else {
-      $bool="\"bool=$pid\"";
+      return scielolog_bool_arg('$');
    }
-   return $bool;
+   return scielolog_bool_arg($pid);
 }
 
 function monta_bool_array($pid,$str) {
    if ($pid=='') {
-      $bool="\"bool=$str\"";
-   } else {
-   	  $issn="(";
-      for ($j=0;$j < count($pid);++$j) {
-	  	$issn=$issn.$pid[$j];
-		if (count($pid)!="1" && $j!=(count($pid)-1)) {
-		  $issn=$issn." or ";
-		}
-	  }
-	  $issn=$issn.")";
-	  $bool="\"bool=$issn and $str\"";
+      return scielolog_bool_arg($str);
    }
-   return $bool;
+
+   $issn="(";
+   for ($j=0;$j < count($pid);++$j) {
+      $issn=$issn.$pid[$j];
+      if (count($pid)!="1" && $j!=(count($pid)-1)) {
+         $issn=$issn." or ";
+      }
+   }
+   $issn=$issn.")";
+   return scielolog_bool_arg($issn." and ".$str);
 }
 
 function calcula_next($cpage,$tot_pags) {

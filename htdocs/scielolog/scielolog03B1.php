@@ -10,6 +10,7 @@ $cpage=$_REQUEST["cpage"];
 $order=$_REQUEST["order"];
 $lng=$_REQUEST["lng"];
 $pid=$_REQUEST["pid"];
+$pid_file=scielolog_safe_file_token($pid);
 // Constantes
 
 $ui=getmypid();
@@ -29,11 +30,11 @@ if ($lang=='') { $lang='en'; }
 
 // Seta arquivos de leitura
 $db_data=$Trab."datemfn";
-$db_data_art=$Trab."articles/datemfn_$pid";
+$db_data_art=$Trab."articles/datemfn_$pid_file";
 $db_acesso=$Trab."acesso";
 
 //$db_acesso_art=$Trab."acesso_articles";
-$db_acesso_art=$Trab."articles/articles".$pid;
+$db_acesso_art=$Trab."articles/articles".$pid_file;
 
 $db_issn=$Trab."issn";
 $db_artigonp=$TrabArt."artigo";
@@ -97,29 +98,29 @@ if ($script=='sci_journalstat') {
 	// ***** Calcula total por revistas *****
 	$bool2=monta_bool02($pid);
 	$bool=monta_bool($pid,"artigos");
-	exec("$utl/mxtb $db_acesso create=$db_tmp_artigo from=$mfn_ini to=$mfn_fim $bool \"256:mhu,v1,'@',v4\" \"tab=v5\" \"class=120000\"");
-	exec("$utl/mx $db_tmp_artigo \"fst=1 0 v1/\" fullinv=$db_tmp_artigo now");
+	exec(scielolog_shell_arg("$utl/mxtb")." ".scielolog_shell_arg($db_acesso)." ".scielolog_shell_arg("create=$db_tmp_artigo")." from=".scielolog_safe_int($mfn_ini)." to=".scielolog_safe_int($mfn_fim)." $bool ".scielolog_shell_arg("256:mhu,v1,'@',v4")." ".scielolog_shell_arg("tab=v5")." ".scielolog_shell_arg("class=120000"));
+	exec(scielolog_shell_arg("$utl/mx")." ".scielolog_shell_arg($db_tmp_artigo)." ".scielolog_shell_arg("fst=1 0 v1/")." ".scielolog_shell_arg("fullinv=$db_tmp_artigo")." now");
 	// ***** Calcula total home *****
 	$bool=monta_bool($pid,"home");
-	exec("$utl/mxtb $db_acesso create=$db_tmp_home from=$mfn_ini to=$mfn_fim $bool \"256:mhu,v1,'@',v4\" \"tab=v5\" \"class=120000\"");
-	exec("$utl/mx $db_tmp_home \"fst=1 0 v1/\" fullinv=$db_tmp_home now");
+	exec(scielolog_shell_arg("$utl/mxtb")." ".scielolog_shell_arg($db_acesso)." ".scielolog_shell_arg("create=$db_tmp_home")." from=".scielolog_safe_int($mfn_ini)." to=".scielolog_safe_int($mfn_fim)." $bool ".scielolog_shell_arg("256:mhu,v1,'@',v4")." ".scielolog_shell_arg("tab=v5")." ".scielolog_shell_arg("class=120000"));
+	exec(scielolog_shell_arg("$utl/mx")." ".scielolog_shell_arg($db_tmp_home)." ".scielolog_shell_arg("fst=1 0 v1/")." ".scielolog_shell_arg("fullinv=$db_tmp_home")." now");
 	// ***** Calcula total sumario *****
 	$bool=monta_bool($pid,"sumario");
-	exec("$utl/mxtb $db_acesso create=$db_tmp_sumario from=$mfn_ini to=$mfn_fim $bool \"256:mhu,v1,'@',v4\" \"tab=v5\" \"class=120000\"");
-	exec("$utl/mx $db_tmp_sumario \"fst=1 0 v1/\" fullinv=$db_tmp_sumario now");
+	exec(scielolog_shell_arg("$utl/mxtb")." ".scielolog_shell_arg($db_acesso)." ".scielolog_shell_arg("create=$db_tmp_sumario")." from=".scielolog_safe_int($mfn_ini)." to=".scielolog_safe_int($mfn_fim)." $bool ".scielolog_shell_arg("256:mhu,v1,'@',v4")." ".scielolog_shell_arg("tab=v5")." ".scielolog_shell_arg("class=120000"));
+	exec(scielolog_shell_arg("$utl/mx")." ".scielolog_shell_arg($db_tmp_sumario)." ".scielolog_shell_arg("fst=1 0 v1/")." ".scielolog_shell_arg("fullinv=$db_tmp_sumario")." now");
 	// ***** Calcula total outros *****
 	$bool=monta_bool($pid,"outros");
-	exec("$utl/mxtb $db_acesso create=$db_tmp_outros from=$mfn_ini to=$mfn_fim $bool \"256:mhu,v1,'@',v4\" \"tab=v5\" \"class=120000\"");
-	exec("$utl/mx $db_tmp_outros \"fst=1 0 v1/\" fullinv=$db_tmp_outros now");
+	exec(scielolog_shell_arg("$utl/mxtb")." ".scielolog_shell_arg($db_acesso)." ".scielolog_shell_arg("create=$db_tmp_outros")." from=".scielolog_safe_int($mfn_ini)." to=".scielolog_safe_int($mfn_fim)." $bool ".scielolog_shell_arg("256:mhu,v1,'@',v4")." ".scielolog_shell_arg("tab=v5")." ".scielolog_shell_arg("class=120000"));
+	exec(scielolog_shell_arg("$utl/mx")." ".scielolog_shell_arg($db_tmp_outros)." ".scielolog_shell_arg("fst=1 0 v1/")." ".scielolog_shell_arg("fullinv=$db_tmp_outros")." now");
 } elseif ($script=='sci_statiss') {
     // ***** Calcula total por fasciculos *****
 	$bool=monta_bool($pid,"fasciculo");
-	exec("$utl/mxtb $db_acesso create=$db_tmp_fasc02 from=$mfn_ini to=$mfn_fim $bool \"256:if p(v2) then mhu,v1','v2 fi\" \"tab=v5\" \"class=120000\"");
+	exec(scielolog_shell_arg("$utl/mxtb")." ".scielolog_shell_arg($db_acesso)." ".scielolog_shell_arg("create=$db_tmp_fasc02")." from=".scielolog_safe_int($mfn_ini)." to=".scielolog_safe_int($mfn_fim)." $bool ".scielolog_shell_arg("256:if p(v2) then mhu,v1','v2 fi")." ".scielolog_shell_arg("tab=v5")." ".scielolog_shell_arg("class=120000"));
 	$proc_access=monta_proc($access);
-	exec("$utl/mx $db_tmp_fasc02 \"join=$db_issue,43=s('Y',replace(v1,',',''))\" \"proc='d32001'\" $proc_access \"proc=if a(v43) then 'd*' fi\" \"append=$db_tmp_fasc\"");
-	exec("$utl/msrt $db_tmp_fasc \"128\" \"f(val('9999999')-val(v999),7,0)\"");
+	exec(scielolog_shell_arg("$utl/mx")." ".scielolog_shell_arg($db_tmp_fasc02)." ".scielolog_shell_arg("join=$db_issue,43=s('Y',replace(v1,',',''))")." ".scielolog_shell_arg("proc='d32001'")." $proc_access ".scielolog_shell_arg("proc=if a(v43) then 'd*' fi")." ".scielolog_shell_arg("append=$db_tmp_fasc"));
+	exec(scielolog_shell_arg("$utl/msrt")." ".scielolog_shell_arg($db_tmp_fasc)." ".scielolog_shell_arg("128")." ".scielolog_shell_arg("f(val('9999999')-val(v999),7,0)"));
 	// ***** Pega o total de registros *****
-	$OP1="$utl/mx $db_tmp_fasc now +control";
+	$OP1=scielolog_shell_arg("$utl/mx")." ".scielolog_shell_arg($db_tmp_fasc)." now +control";
 	$result=exec($OP1);
 	$tot_regs=total_registros($result);
 	// ***** Calcula o total de paginas *****
@@ -127,21 +128,20 @@ if ($script=='sci_journalstat') {
 	// ***** Calcula proxima pagina ********
 	$nextpg=($cpage+1);
 	// ***** Pega a maior frequencia *****
-	$OP="$utl/mx $db_tmp_fasc \"from=1\" \"to=1\" \"pft=v999/\" now";
+	$OP=scielolog_shell_arg("$utl/mx")." ".scielolog_shell_arg($db_tmp_fasc)." from=1 to=1 ".scielolog_shell_arg("pft=v999/")." now";
 	$max_val=exec($OP);
 	$list_box=calcula_list_box($max_val);
 	$list_boxXML=calcula_list_box_XML($max_val);
 } elseif ($script=='sci_statart') {
     // ***** Calcula total por artigos *****
 	$bool=monta_bool($pid,"articles");
-	//exec("$utl/mxtb $db_acesso_art create=$db_tmp_article02 from=$mfn_ini_art to=$mfn_fim_art $bool \"256:mhu,v1,',',v2,\" \"tab=v5\" \"class=120000\"");
-	die("$utl/mxtb $db_acesso_art create=$db_tmp_article02 from=$mfn_ini_art to=$mfn_fim_art \"256:mhu,v1,',',v2,\" \"tab=v5\" \"class=120000\"");
+	exec(scielolog_shell_arg("$utl/mxtb")." ".scielolog_shell_arg($db_acesso_art)." ".scielolog_shell_arg("create=$db_tmp_article02")." from=".scielolog_safe_int($mfn_ini_art)." to=".scielolog_safe_int($mfn_fim_art)." $bool ".scielolog_shell_arg("256:mhu,v1,',',v2,")." ".scielolog_shell_arg("tab=v5")." ".scielolog_shell_arg("class=120000"));
 	$proc_access=monta_proc($access);
-	exec("$utl/mx $db_tmp_article02 \"join=$db_issue,43=s('Y',replace(v1*0.18,',',''))\" \"proc='d32001'\" $proc_access \"append=$db_tmp_article\"");
-	exec("$utl/mx $db_tmp_article \"join=$db_artigonp=s('HR=S',replace(v1,',',''))\" copy=$db_tmp_article -all now");
-	exec("$utl/msrt $db_tmp_article \"128\" \"f(val('9999999')-val(v999),7,0)\"");
+	exec(scielolog_shell_arg("$utl/mx")." ".scielolog_shell_arg($db_tmp_article02)." ".scielolog_shell_arg("join=$db_issue,43=s('Y',replace(v1*0.18,',',''))")." ".scielolog_shell_arg("proc='d32001'")." $proc_access ".scielolog_shell_arg("append=$db_tmp_article"));
+	exec(scielolog_shell_arg("$utl/mx")." ".scielolog_shell_arg($db_tmp_article)." ".scielolog_shell_arg("join=$db_artigonp=s('HR=S',replace(v1,',',''))")." ".scielolog_shell_arg("copy=$db_tmp_article")." -all now");
+	exec(scielolog_shell_arg("$utl/msrt")." ".scielolog_shell_arg($db_tmp_article)." ".scielolog_shell_arg("128")." ".scielolog_shell_arg("f(val('9999999')-val(v999),7,0)"));
 	// ***** Pega o total de registros *****
-	$OP1="$utl/mx $db_tmp_article now +control";
+	$OP1=scielolog_shell_arg("$utl/mx")." ".scielolog_shell_arg($db_tmp_article)." now +control";
 	$result=exec($OP1);
 	$tot_regs=total_registros($result);
 	// ***** Calcula o total de paginas *****
@@ -149,7 +149,7 @@ if ($script=='sci_journalstat') {
 	// ***** Calcula proxima pagina ********
 	$nextpg=($cpage+1);
 	// ***** Pega a maior frequencia *****
-	$OP="$utl/mx $db_tmp_article \"from=1\" \"to=1\" \"pft=v999/\" now";
+	$OP=scielolog_shell_arg("$utl/mx")." ".scielolog_shell_arg($db_tmp_article)." from=1 to=1 ".scielolog_shell_arg("pft=v999/")." now";
 	$max_val=exec($OP);
 	$list_box=calcula_list_box($max_val);
 	$list_boxXML=calcula_list_box_XML($max_val);
@@ -163,7 +163,7 @@ if ($script=='sci_journalstat') {
 
 if ($script=='sci_journalstat') {
 	$pft_show=monta_pft_journalstat($pid,$script,$db_tmp_home,$db_tmp_sumario,$db_tmp_artigo,$db_tmp_outros);
-	$journal=exec("$utl/mx $db_issn btell=0 lw=99999 $bool2 $pft_show +hits now");
+	$journal=exec(scielolog_shell_arg("$utl/mx")." ".scielolog_shell_arg($db_issn)." btell=0 lw=99999 $bool2 $pft_show +hits now");
 	$journal=str_replace('<aspas>','"',$journal);
 	$arr=split('<line>',$journal);
 	//echo "$first_date \n $last_date \n $order \n $dti \n $dtf \n $pid";
@@ -177,7 +177,7 @@ if ($script=='sci_journalstat') {
  } elseif ($script=='sci_statiss') {
 	$from=calcula_from($cpage,$nlines);
 	$pft_show=monta_pft_statiss($pid,$lng,$db_issn);
-	$result=exec("$utl/mx $db_tmp_fasc btell=0 lw=99999 from=$from count=$nlines $pft_show +hits now");
+	$result=exec(scielolog_shell_arg("$utl/mx")." ".scielolog_shell_arg($db_tmp_fasc)." btell=0 lw=99999 from=".scielolog_safe_int($from, 1)." count=".scielolog_safe_int($nlines, 80)." $pft_show +hits now");
 	$result=str_replace('<aspas>','"',$result);
 	$arr=split('<line>',$result);
 	$xml.=monta_xml_statparam($first_date,$last_date,$order,$dti,$dtf,$pid); 	$next=calcula_next($cpage,$tot_pags);
@@ -196,7 +196,7 @@ if ($script=='sci_journalstat') {
 } elseif ($script=='sci_statart') { 
     $from=calcula_from($cpage,$nlines);
 	$pft_show=monta_pft_statart($pid,$lng,$db_issn);
-	$result=exec("$utl/mx $db_tmp_article btell=0 lw=99999 from=$from count=$nlines gizmo=$gizmo $pft_show  now");
+	$result=exec(scielolog_shell_arg("$utl/mx")." ".scielolog_shell_arg($db_tmp_article)." btell=0 lw=99999 from=".scielolog_safe_int($from, 1)." count=".scielolog_safe_int($nlines, 80)." ".scielolog_shell_arg("gizmo=$gizmo")." $pft_show now");
 	$result=str_replace('<aspas>','"',$result);
 	$result=str_replace('\n','',$result);
 	$arr=split('<line>',$result);
@@ -215,7 +215,15 @@ if ($script=='sci_journalstat') {
 
 echo $xml;
 
-exec("rm -f $db_tmp_article02.* $db_tmp_pid.* $db_tmp_fasc02.* $db_tmp_article.* $db_tmp_article02. $db_tmp_fasc.* $db_tmp_outros.* $db_tmp_sumario.* $db_tmp_home.* $db_tmp_artigo.*");
+scielolog_remove_temp_files($db_tmp_article02);
+scielolog_remove_temp_files($db_tmp_pid);
+scielolog_remove_temp_files($db_tmp_fasc02);
+scielolog_remove_temp_files($db_tmp_article);
+scielolog_remove_temp_files($db_tmp_fasc);
+scielolog_remove_temp_files($db_tmp_outros);
+scielolog_remove_temp_files($db_tmp_sumario);
+scielolog_remove_temp_files($db_tmp_home);
+scielolog_remove_temp_files($db_tmp_artigo);
 
 ?> 
 
