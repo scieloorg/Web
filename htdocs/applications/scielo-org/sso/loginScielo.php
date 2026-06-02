@@ -14,15 +14,57 @@ $url = $ini['scielo_org_urls']['home'];
 $useSGU = intval($ini['sgu']['enabled'])?true:false;
 $hotsiteurl = $ini['hotsite']['url'];
 
-
-if($useSGU)
+function sso_is_https()
 {
-require_once(dirname(__FILE__)."/../users/UserClassWS.php");
-}else{
-require_once(dirname(__FILE__)."/../users/UserClass.php");
+	return (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443);
 }
 
+function sso_set_cookie($name, $value, $expires)
+{
+	setcookie($name, $value, array(
+		'expires' => $expires,
+		'path' => '/',
+		'secure' => sso_is_https(),
+		'httponly' => true,
+		'samesite' => 'Lax'
+	));
+}
+
+function sso_clean_url($url, $fallback)
+{
+	$url = str_replace(array("\r", "\n"), '', (string)$url);
+	$parts = parse_url($url);
+	if ($url === '' || !is_array($parts)) {
+		return $fallback;
+	}
+	if (isset($parts['scheme']) && !in_array(strtolower($parts['scheme']), array('http', 'https'))) {
+		return $fallback;
+	}
+	return $url;
+}
+
+function sso_redirect_location($baseUrl, $params)
+{
+	$separator = (strpos($baseUrl, '?') !== false) ? '&' : '?';
+	$query = http_build_query($params, '', '&');
+	return 'Location: '.$baseUrl.($query !== '' ? $separator.$query : '');
+}
+
+function sso_public_login_params($userID, $firstName, $lastName, $lang)
+{
+	return array(
+		'userID' => $userID,
+		'firstName' => $firstName,
+		'lastName' => $lastName,
+		'lng' => $lang,
+		'tlng' => $lang,
+		'lang' => $lang
+	);
+}
+
+
 $origem = $_GET['origem']?$_GET['origem']:$_SERVER['HTTP_REFERER'];
+$origem = sso_clean_url($origem, $url);
 
 if($origem == "")
 {
@@ -33,19 +75,20 @@ if(isset($_COOKIE['userID']) && (intval($_COOKIE['userID']) != 0))
 {
 	$origem = str_replace("?logout=true","",$origem);
 
-	if(strpos($origem,"?"))
-    {
-		$redirectCommand = ("Location: ".$origem."&userID=".$_COOKIE['userID']."&firstName=".$_COOKIE['firstName']."&lastName=".$_COOKIE['lastName']."&lng=".$lang."&tlng=".$lang."&lang=".$lang."&userToken=".$_COOKIE['userToken']."&tokenVisit=".$_COOKIE['tokenVisit']."&email=".$_COOKIE['email']);
-    }
-    else{
-		$redirectCommand = ("Location: ".$origem."?userID=".$_COOKIE['userID']."&firstName=".$_COOKIE['firstName']."&lastName=".$_COOKIE['lastName']."&lng=".$lang."&tlng=".$lang."&lang=".$lang."&userToken=".$_COOKIE['userToken']."&tokenVisit=".$_COOKIE['tokenVisit']."&email=".$_COOKIE['email']);
-    }
+	$redirectCommand = sso_redirect_location($origem, sso_public_login_params($_COOKIE['userID'], $_COOKIE['firstName'], $_COOKIE['lastName'], $lang));
 	session_write_close();
 	header($redirectCommand);
 		
 }
 else
 {
+	if($useSGU)
+	{
+		require_once(dirname(__FILE__)."/../users/UserClassWS.php");
+	}else{
+		require_once(dirname(__FILE__)."/../users/UserClass.php");
+	}
+
 	$acao = $_REQUEST['acao'];
 	$usr = new UserClass();
 	if(isset($acao))
@@ -60,25 +103,18 @@ else
 		if($userValid == 1)
 		{
 			header('P3P: CP="NOI ADM DEV PSAi COM NAV OUR OTRo STP IND DEM"');
-			setcookie("userID",$usr->getID(),time()+3600,"/");
-			setcookie("firstName",$usr->getFirstName(),time()+3600,"/");
-			setcookie("lastName",$usr->getlastName(),time()+3600,"/");
-			setcookie("email",$usr->getEmail(),time()+3600,"/");
+			$cookieExpires = time()+3600;
+			sso_set_cookie("userID",$usr->getID(),$cookieExpires);
+			sso_set_cookie("firstName",$usr->getFirstName(),$cookieExpires);
+			sso_set_cookie("lastName",$usr->getlastName(),$cookieExpires);
+			sso_set_cookie("email",$usr->getEmail(),$cookieExpires);
 
 			if($useSGU){
-				setcookie("userToken",$usr->getToken(),time()+3600,"/");
-				setcookie("tokenVisit",$usr->getVisitToken(),time()+3600,"/");
+				sso_set_cookie("userToken",$usr->getToken(),$cookieExpires);
+				sso_set_cookie("tokenVisit",$usr->getVisitToken(),$cookieExpires);
 			}
 
-			$result = "userID=".$usr->getID()."&firstName=".$usr->getfirstName()."&lastName=".$usr->getlastName()."&lng=".$lang."&tlng=".$lang."&lang=".$lang."&userToken=".$usr->getToken()."&tokenVisit=".$usr->getVisitToken()."&email=".$usr->getEmail();
-
-			if(strpos($origem,"?"))
-			{
-				$redirectCommand = "Location: ".$origem."&".$result;
-			}
-			else{
-				$redirectCommand = "Location: ".$origem."?".$result;
-			}
+			$redirectCommand = sso_redirect_location($origem, sso_public_login_params($usr->getID(), $usr->getfirstName(), $usr->getlastName(), $lang));
 			session_write_close();
 			//echo $origem;
 			header($redirectCommand);

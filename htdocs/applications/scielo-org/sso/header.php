@@ -40,13 +40,25 @@ if (!$isaRobot){
 				$self_url = substr($self_url, 0, $inicio);
 	
 				header('P3P: CP="NOI ADM DEV PSAi COM NAV OUR OTRo STP IND DEM"');
-				setcookie("userID",$_GET['userID'],time()+3600,"/");
-				setcookie("userToken",$_GET['userToken'],time()+3600,"/");
-				setcookie("tokenVisit",$_GET['tokenVisit'],time()+3600,"/");
-				setcookie("firstName",$_GET['firstName'],time()+3600,"/");
-				setcookie("lastName",$_GET['lastName'],time()+3600,"/");
-				setcookie("userToken",$_GET['userToken'],time()+3600,"/");
-				setcookie("email",$_GET['email'],time()+3600,"/");
+				$cookieOptions = array(
+					'expires' => time()+3600,
+					'path' => '/',
+					'secure' => (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off'),
+					'httponly' => true,
+					'samesite' => 'Lax'
+				);
+				setcookie("userID",$_GET['userID'],$cookieOptions);
+				setcookie("firstName",$_GET['firstName'],$cookieOptions);
+				setcookie("lastName",$_GET['lastName'],$cookieOptions);
+				if (isset($_GET['userToken'])) {
+					setcookie("userToken",$_GET['userToken'],$cookieOptions);
+				}
+				if (isset($_GET['tokenVisit'])) {
+					setcookie("tokenVisit",$_GET['tokenVisit'],$cookieOptions);
+				}
+				if (isset($_GET['email'])) {
+					setcookie("email",$_GET['email'],$cookieOptions);
+				}
 				session_write_close();
 				Header("Location: ".$self_url);
 				exit;
