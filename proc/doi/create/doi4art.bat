@@ -14,7 +14,6 @@ rem Parametro 8: pacote ou individual ou no_query
 
 doi/create_update/ReadScilista.bat create $1 $depositor_prefix $crossrefUserName $crossrefPassword $depositor_email art no_query
 
-# doi/create_update/ReadScilista.bat create $1 10.1590 bireme bireme303 bireme.crossref@gmail.com art no_query
-rem doi/create_update/ReadScilista.bat create $1 10.1590 bireme bireme303 scielo@bireme.br art pacote
-rem doi/create_update/ReadScilista.bat create $1 10.1590 bireme bireme303 scielo@bireme.br art individual
-
+# doi/create_update/ReadScilista.bat create $1 10.1590 "$CROSSREF_USERNAME" "$CROSSREF_PASSWORD" bireme.crossref@gmail.com art no_query
+rem doi/create_update/ReadScilista.bat create $1 10.1590 "%CROSSREF_USERNAME%" "%CROSSREF_PASSWORD%" scielo@bireme.br art pacote
+rem doi/create_update/ReadScilista.bat create $1 10.1590 "%CROSSREF_USERNAME%" "%CROSSREF_PASSWORD%" scielo@bireme.br art individual

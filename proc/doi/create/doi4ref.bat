@@ -8,6 +8,7 @@ rem Parametro 6: email
 rem Parametro 7: registro selecionado
 rem Parametro 8: pacote ou individual ou no_query
 
-doi/create_update/ReadScilista.bat create $1 10.1590 bireme bireme303 bireme.crossref@gmail.com ref pacote
-rem doi/create_update/ReadScilista.bat create $1 10.1590 bireme bireme303 scielo@bireme.br ref individual
+. scielo_crs/shs/crossref_config.sh
 
+doi/create_update/ReadScilista.bat create $1 $depositor_prefix $crossrefUserName $crossrefPassword $depositor_email ref pacote
+rem doi/create_update/ReadScilista.bat create $1 10.1590 "%CROSSREF_USERNAME%" "%CROSSREF_PASSWORD%" scielo@bireme.br ref individual

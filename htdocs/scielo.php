@@ -386,13 +386,27 @@ function wxis_exe_ ($url){
   ************************************************************************************/
   $PATH_HTDOCS = $scielo->_def->getKeyValue("PATH_HTDOCS");
 
-  $request = $PATH_HTDOCS."../cgi-bin/wxis.exe " ;
-  $param = substr($url, strpos($url, "?")+1);
-  $param = str_replace("&", " ", $param);
-  $request = $request.$param." PATH_TRANSLATED=".$PATH_HTDOCS;
+  $wxisBinary = rtrim($PATH_HTDOCS, "/")."/../cgi-bin/wxis.exe";
+  $query = parse_url($url, PHP_URL_QUERY);
+  $args = array();
 
-  $r = strstr(shell_exec($request), '<');
-  return $r;
+  if ($query !== null && $query !== false && $query !== '') {
+    $args = array_filter(explode("&", $query), "strlen");
+  }
+
+  $request = escapeshellarg($wxisBinary);
+  foreach ($args as $arg) {
+    $request .= " ".escapeshellarg($arg);
+  }
+  $request .= " ".escapeshellarg("PATH_TRANSLATED=".$PATH_HTDOCS);
+
+  $output = shell_exec($request);
+  if ($output === null || $output === false) {
+    return '';
+  }
+
+  $xmlStart = strpos($output, '<');
+  return ($xmlStart !== false) ? substr($output, $xmlStart) : $output;
 }
 
 function wxis_exe_httpd ($url){
