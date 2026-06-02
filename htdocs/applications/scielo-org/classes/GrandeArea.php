@@ -21,6 +21,11 @@ class GrandeArea{
 
 
 	//Construtor ?
+	function __construct($tabela = 'cnpq', $lang="pt", $descricao = "", $id = '', $subareas=array())
+	{
+		$this->GrandeArea($tabela, $lang, $descricao, $id, $subareas);
+	}
+
 	function GrandeArea($tabela = 'cnpq', $lang="pt", $descricao = "", $id = '', $subareas=array())
 	{
 		$this->_tabela = $tabela;

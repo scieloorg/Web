@@ -12,9 +12,21 @@ var $_db = null;
 		$this->_db = new DBClass();
 	}
 
+	function __construct(){
+		$this->SubAreaDAO();
+	}
+
+	function sqlInt($value){
+		return intval($value);
+	}
+
+	function langColumn($lang){
+		return in_array($lang, array('pt', 'en', 'es')) ? $lang : 'pt';
+	}
+
 
 	function loadSubArea($subArea,$lang=''){
-		$strsql = "SELECT * FROM sub_area WHERE id_sub_area = ".$subArea->getID();
+		$strsql = "SELECT * FROM sub_area WHERE id_sub_area = ".$this->sqlInt($subArea->getID());
 
 		$row = $this->_db->databaseQuery($strsql);
 
@@ -26,7 +38,7 @@ var $_db = null;
 
 		if($lang != '')
 		{
-			$sub->setDescricao($row[0][$lang]);
+			$sub->setDescricao($row[0][$this->langColumn($lang)]);
 		}else{
 			/*
 				jah que eh pra trigrama msm vai em todos os idiomas hehehe
