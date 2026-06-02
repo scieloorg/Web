@@ -21,6 +21,18 @@ class DirectoryDAO {
 		
 		$this->_db = new DBClass();
 	}
+
+	function __construct(){
+		$this->DirectoryDAO();
+	}
+
+	function sqlText($value){
+		return mysql_real_escape_string((string)$value);
+	}
+
+	function sqlInt($value){
+		return intval($value);
+	}
 /**
 * Adiciona um diretório a prateleira
 *
@@ -37,8 +49,8 @@ class DirectoryDAO {
 								 offline,
 								 user_id)
 							VALUES (
-								'".$directory->getName()."',0,
-								 ".$directory->getUser_id().")";
+								'".$this->sqlText($directory->getName())."',0,
+								 ".$this->sqlInt($directory->getUser_id()).")";
 
 		$result = $this->_db->databaseExecInsert($strsql);
 		return $result;
@@ -50,7 +62,7 @@ class DirectoryDAO {
 * @returns integer $sucess 1 em caso de sucesso, 0 em caso de erro
 */
 	function removeDirectoryFromShelf($directory){
-		$strsql = "DELETE FROM directories WHERE directory_id = ".$directory->getDirectory_id();
+		$strsql = "DELETE FROM directories WHERE directory_id = ".$this->sqlInt($directory->getDirectory_id());
 		$result = $this->_db->databaseExecUpdate($strsql);
 		return $result;
 	}
@@ -62,7 +74,7 @@ class DirectoryDAO {
 *@param UserDirectory 
 */
 	function getDirectory($directory){
-		$strsql = "SELECT * FROM directories WHERE user_id = '".$directory->getUser_id()."' and directory_id = ".$directory->getDirectory_id()." and offline = 0";
+		$strsql = "SELECT * FROM directories WHERE user_id = ".$this->sqlInt($directory->getUser_id())." and directory_id = ".$this->sqlInt($directory->getDirectory_id())." and offline = 0";
 
 		$result = $this->_db->databaseQuery($strsql);
 		$directoryItem = array();
@@ -90,7 +102,7 @@ class DirectoryDAO {
 */
 	function getDirectoryList($directory){
 //	function getDirectoryList($directory, $from=0, $count=-1){
-		$strsql = "SELECT * FROM directories WHERE user_id = '".$directory->getUser_id()."' and offline = 0 order by name";
+		$strsql = "SELECT * FROM directories WHERE user_id = ".$this->sqlInt($directory->getUser_id())." and offline = 0 order by name";
 
 		$result = $this->_db->databaseQuery($strsql);
 		$directoryList = array();
@@ -111,7 +123,7 @@ class DirectoryDAO {
 *@returns boolean
 */
 	function directoryExist($directory){
-		$strsql = "SELECT * FROM directories WHERE name = '".$directory->getName()."' and user_id =".$directory->getUser_id();
+		$strsql = "SELECT * FROM directories WHERE name = '".$this->sqlText($directory->getName())."' and user_id =".$this->sqlInt($directory->getUser_id());
 		$result = $this->_db->databaseQuery($strsql);
 
 		if(count($result) > 0){
@@ -128,7 +140,7 @@ class DirectoryDAO {
     }
 	
 	function updateDirectory($directory){
-		$strsql = "UPDATE directories set name='".$directory->getName()."', user_id=".$directory->getUser_id()." WHERE directory_id=".$directory->getDirectory_id();
+		$strsql = "UPDATE directories set name='".$this->sqlText($directory->getName())."', user_id=".$this->sqlInt($directory->getUser_id())." WHERE directory_id=".$this->sqlInt($directory->getDirectory_id());
 		$result = $this->_db->databaseExecUpdate($strsql);
 		return $result;
 	}
