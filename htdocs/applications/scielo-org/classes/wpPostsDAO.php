@@ -15,8 +15,20 @@ function wpPostsDAO(){
 		$this->_db = new DBClassBlog();
 }
 
+function __construct(){
+	$this->wpPostsDAO();
+}
+
+function sqlText($value){
+	return mysql_real_escape_string($value, $this->_db->_conn);
+}
+
+function sqlInt($value){
+	return intval($value);
+}
+
 function addPost($post,$blogId){
-	$strsql = "INSERT INTO wp_".$blogId."_posts (
+	$strsql = "INSERT INTO wp_".$this->sqlInt($blogId)."_posts (
 		post_author,
 		post_date, 
 		post_date_gmt, 
@@ -34,22 +46,22 @@ function addPost($post,$blogId){
 		menu_order,
 		comment_count
 		) 
-		VALUES (".$post->getPostAuth().",'"
-		.$post->getPostDate()."','"
-		.$post->getPostDateGmt()."','"
-		.$post->getPostContent()."','"
-		.$post->getPostTitle()."',"
-		.$post->getPostCategory().",'"
-		.$post->getPostStatus()."','"
-		.$post->getCommentStatus()."','"
-		.$post->getPingStatus()."','"
-		.$post->getPostName()."','"
-		.$post->getPostGuid()."','"
-		.$post->getPostModified()."','"
-		.$post->getPostModifiedGmt()."',"
-		.$post->getPostParent().","
-		.$post->getMenuOrder().","
-		.$post->getCommentCount().""
+		VALUES (".$this->sqlInt($post->getPostAuth()).",'"
+		.$this->sqlText($post->getPostDate())."','"
+		.$this->sqlText($post->getPostDateGmt())."','"
+		.$this->sqlText($post->getPostContent())."','"
+		.$this->sqlText($post->getPostTitle())."',"
+		.$this->sqlInt($post->getPostCategory()).",'"
+		.$this->sqlText($post->getPostStatus())."','"
+		.$this->sqlText($post->getCommentStatus())."','"
+		.$this->sqlText($post->getPingStatus())."','"
+		.$this->sqlText($post->getPostName())."','"
+		.$this->sqlText($post->getPostGuid())."','"
+		.$this->sqlText($post->getPostModified())."','"
+		.$this->sqlText($post->getPostModifiedGmt())."',"
+		.$this->sqlInt($post->getPostParent()).","
+		.$this->sqlInt($post->getMenuOrder()).","
+		.$this->sqlInt($post->getCommentCount()).""
 		.")";
 		$result = $this->_db->databaseExecInsert($strsql);
 
@@ -60,7 +72,7 @@ function addPost($post,$blogId){
 	}
 
 	function getLastComment($blogID,$commentID){
-		$strsql = "SELECT comment_author,comment_content from wp_".$blogID."_comments where comment_ID=".$commentID;
+		$strsql = "SELECT comment_author,comment_content from wp_".$this->sqlInt($blogID)."_comments where comment_ID=".$this->sqlInt($commentID);
 
 		$arr = $this->_db->databaseQuery($strsql);
 
