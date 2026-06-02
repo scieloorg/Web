@@ -32,6 +32,18 @@ class ProfileArticleDAO {
 		$this->_db = new DBClass();
 	}
 
+	function __construct(){
+		$this->ProfileArticleDAO();
+	}
+
+	function sqlText($value){
+		return mysql_real_escape_string((string)$value);
+	}
+
+	function sqlInt($value){
+		return intval($value);
+	}
+
 
 
 /**
@@ -52,7 +64,7 @@ class ProfileArticleDAO {
 		relevance,
 		is_new
 		) 
-		VALUES ('".$profile_article->getPID()."','".$profile_article->getProfileID()."','".date("Ymd")."','".$profile_article->getRelevance()."','1')";
+		VALUES ('".$this->sqlText($profile_article->getPID())."',".$this->sqlInt($profile_article->getProfileID()).",'".date("Ymd")."',".$this->sqlInt($profile_article->getRelevance()).",'1')";
 
 		$result = $this->_db->databaseExecInsert($strsql);
 //		die(var_dump($result));
@@ -68,10 +80,10 @@ class ProfileArticleDAO {
 	function UpdateProfileArticle($profile_article){
 		$strsql = 'UPDATE profile_article SET 		
 		process_date = "'.date("Y-m-d H:i:s").'",
-		relevance = "'.$profile_article->getRelevance().'",
-		is_new = "'.$profile_article->getIsNew().'"
+		relevance = "'.$this->sqlInt($profile_article->getRelevance()).'",
+		is_new = "'.$this->sqlInt($profile_article->getIsNew()).'"
 		
-		WHERE PID = "'.$profile_article->getPID().'" and profile_id = "'.$profile_article->getProfileID().'"';
+		WHERE PID = "'.$this->sqlText($profile_article->getPID()).'" and profile_id = "'.$this->sqlInt($profile_article->getProfileID()).'"';
 
 		$result = $this->_db->databaseExecUpdate($strsql);
 
@@ -86,7 +98,7 @@ class ProfileArticleDAO {
 * @returns array of UserProfile 
 */
 	function getProfileArticle($PID, $profileId){
-		$strsql = "SELECT * FROM  profile_article WHERE PID = '".$PID."' and profile_id='".$profileId."'";
+		$strsql = "SELECT * FROM  profile_article WHERE PID = '".$this->sqlText($PID)."' and profile_id=".$this->sqlInt($profileId);
 		$arr = $this->_db->databaseQuery($strsql);
 		$profile_article = $this->load($arr[0]);
 		return $profile_article;
@@ -108,7 +120,7 @@ class ProfileArticleDAO {
 	}
 
 	function deleteRelationship($profileID){
-		$strsql = "DELETE FROM profile_article WHERE profile_id='".$profileID."' and  is_new='3'"; 
+		$strsql = "DELETE FROM profile_article WHERE profile_id=".$this->sqlInt($profileID)." and  is_new='3'"; 
 		$result = $this->_db->databaseExecUpdate($strsql);
 		return $result;
 	}
@@ -116,7 +128,7 @@ class ProfileArticleDAO {
 	function setAsDeleted($profileID){
 		$strsql = 'UPDATE profile_article SET 		
 		is_new = "3"		
-		WHERE profile_id = "'.$profileID.'"';
+		WHERE profile_id = "'.$this->sqlInt($profileID).'"';
 		$result = $this->_db->databaseExecUpdate($strsql);
 
 		return $result;
