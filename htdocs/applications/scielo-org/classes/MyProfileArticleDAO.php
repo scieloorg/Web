@@ -28,9 +28,24 @@ class MyProfileArticleDAO {
 		$this->_db = new DBClass();
 	}
 
+	function __construct()
+	{
+		$this->MyProfileArticleDAO();
+	}
+
+	function sqlText($value)
+	{
+		return mysql_real_escape_string((string)$value);
+	}
+
+	function sqlInt($value)
+	{
+		return intval($value);
+	}
+
 	function setMyProfiles($user_id)
 	{
-		$query_profiles = "SELECT profile_id, profile_name FROM profiles WHERE user_id = '".$user_id."' AND profile_status = 'on' ORDER BY profile_id";
+		$query_profiles = "SELECT profile_id, profile_name FROM profiles WHERE user_id = '".$this->sqlText($user_id)."' AND profile_status = 'on' ORDER BY profile_id";
         $profiles_result = $this->_db->databaseQuery($query_profiles);
 		
 
@@ -55,7 +70,7 @@ class MyProfileArticleDAO {
 			$profile_name = $profiles_result[$p]['profile_name'];
 			$articleProfileList[intval($profile_id)] = array();
 
-			$order = $_GET['order'];
+			$order = isset($_GET['order']) ? $_GET['order'] : '';
 
 			switch($order)
 			{
@@ -70,13 +85,13 @@ class MyProfileArticleDAO {
 			}
 			$where_new = (isset($_GET['new'])?' and is_new=1':null);
 			
-			$strsql = "SELECT profile_article.*,articles.publication_date FROM profile_article,articles WHERE articles.PID = profile_article.PID and profile_id = '".$profile_id."'".$where_new." ".$order_by;
+			$strsql = "SELECT profile_article.*,articles.publication_date FROM profile_article,articles WHERE articles.PID = profile_article.PID and profile_id = ".$this->sqlInt($profile_id).$where_new." ".$order_by;
 
 			$result = $this->_db->databaseQuery($strsql);
 			for($i = 0; $i < count($result); $i++)
 			{
 				$relevance = $result[$i]['relevance'];
-				$query_article = "SELECT * FROM articles WHERE PID = '".$result[$i]['PID']."' LIMIT 1";
+				$query_article = "SELECT * FROM articles WHERE PID = '".$this->sqlText($result[$i]['PID'])."' LIMIT 1";
 				$article_result = $this->_db->databaseQuery($query_article);
 				$articleProfile = new MyProfileArticle();
 				$article = new Article();
