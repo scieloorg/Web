@@ -45,6 +45,19 @@ class log
 	{
 		$this->setDirectory();
 	}
+
+	function __construct()
+	{
+		$this->log();
+	}
+
+	function sqlText($value)
+	{
+		if (function_exists('mysql_real_escape_string')) {
+			return mysql_real_escape_string((string)$value);
+		}
+		return addslashes((string)$value);
+	}
 	/**
 	 * @desc metodo que seta o diretorio onde os logs deveram ser escritos
 	 * @param string LOG_DIR constante definida como o path para o dir de logs
@@ -197,7 +210,10 @@ class log
     {
 	   global $db, $PMF_CONF;
 	   if (isset($PMF_CONF["enableadminlog"])) {
-		  $db->query("INSERT INTO ".SQLPREFIX."tblog (id, time, usr, text, ip) VALUES ('','".time()."','{$_SESSION["idUser"]}','".nl2br(addslashes($text))."','{$_SERVER["REMOTE_ADDR"]}')");
+		  $userId = isset($_SESSION["idUser"]) ? intval($_SESSION["idUser"]) : 0;
+		  $ip = isset($_SERVER["REMOTE_ADDR"]) ? $this->sqlText($_SERVER["REMOTE_ADDR"]) : "";
+		  $message = $this->sqlText(nl2br($text));
+		  $db->query("INSERT INTO ".SQLPREFIX."tblog (id, time, usr, text, ip) VALUES ('','".time()."',".$userId.",'".$message."','".$ip."')");
 		}
     }
 
