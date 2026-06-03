@@ -10,8 +10,12 @@ require_once(dirname(__FILE__)."/wpPostsDAO.php");
 class wpPosts{
 
 	function wpPosts(){
-	
-	}	
+
+	}
+	function __construct(){
+		$this->wpPosts();
+	}
+
 	
 	function setID($value){
 		$this->_data['id'] = $value;

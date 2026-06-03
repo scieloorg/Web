@@ -29,6 +29,10 @@ class ScieloUserData
 		$this->setPort();
 		$this->setName();
 	}
+	function __construct(){
+		$this->ScieloUserData();
+	}
+
 	/**
 	 * @access public
 	 * @return int IP do usuário

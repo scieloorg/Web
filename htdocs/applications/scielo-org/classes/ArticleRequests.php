@@ -4,6 +4,10 @@
 		function ArticleRequests(){
 		
 		}
+		function __construct(){
+			$this->ArticleRequests();
+		}
+
 		function setLang($value){
 			$this->_data['lang'] = $value;
 		}

@@ -14,6 +14,10 @@
     		$this->domLiteDocument->parseXML($xml) ;  
 			
 		}
+		function __construct($xml){
+			$this->ServiceResult($xml);
+		}
+
 	function getNodeAttribute(&$node, $name){
 		if ($node->hasAttribute($name)){
 			$value = $node->getAttribute($name);

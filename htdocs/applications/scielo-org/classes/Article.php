@@ -7,6 +7,10 @@
 		function Article(){
 		
 		}
+		function __construct(){
+			$this->Article();
+		}
+
 
 		function setPID($value){
 			$this->_data['pid'] = $value;

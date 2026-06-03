@@ -24,6 +24,10 @@
 			$this->setParam('IsisScript', 'ScieloXML/sci_artmetadata.xis');
 			$this->setParam('def', 'scielo.def.php');
 		}
+		function __construct($serverDomain, $dataDomain=''){
+			$this->ArticleService($serverDomain, $dataDomain);
+		}
+
 		function setParams($pid){
 			$this->setParam('pid', $pid);
 		}

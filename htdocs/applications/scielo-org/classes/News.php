@@ -46,6 +46,10 @@
 		
 		function News(){
 		}
+		function __construct(){
+			$this->News();
+		}
+
 /**
 *	Getters
 */

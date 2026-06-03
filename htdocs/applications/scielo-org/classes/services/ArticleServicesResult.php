@@ -9,6 +9,10 @@ class ArticleServicesResult extends ServiceResult {
     function ArticleServicesResult($stringXml){
     	$this->ServiceResult($stringXml);
     }
+    function __construct($stringXml){
+        $this->ArticleServicesResult($stringXml);
+    }
+
 	function getArticle(){
 		$article = new Article();
 

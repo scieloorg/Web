@@ -9,6 +9,10 @@
 			$ini = parse_ini_file(dirname(__FILE__)."/../../scielo.def.php",true);
 			$this->setServiceDomain($ini['trigrama_server']['server']);
 		}
+		function __construct(){
+			$this->ServicesHandler();
+		}
+
 
 		function getServiceDomain(){
 			return $this->serviceDomain;

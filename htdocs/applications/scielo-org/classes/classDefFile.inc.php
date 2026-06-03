@@ -38,6 +38,10 @@
 			fclose($fd);
 			$this->_error = 0;
 		}
+		function __construct($defName){
+			$this->DefFile($defName);
+		}
+
 		function getError()
 		{
 			return $this->_error;

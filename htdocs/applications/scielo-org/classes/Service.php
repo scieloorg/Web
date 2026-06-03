@@ -9,6 +9,10 @@
 		function Service($name){
 			$this->_serviceName = $name;
 		}
+		function __construct($name){
+			$this->Service($name);
+		}
+
 		function setParam($name, $value){
 			$this->_param[$name] = $value;
 		}	

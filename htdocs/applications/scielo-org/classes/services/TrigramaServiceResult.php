@@ -8,6 +8,10 @@ class TrigramaServiceResult extends ServiceResult {
     function TrigramaServiceResult($stringXml){
     	$this->ServiceResult($stringXml);
     }
+    function __construct($stringXml){
+        $this->TrigramaServiceResult($stringXml);
+    }
+
 	function getPIDs($articleMetadataServer, $articleDomain){
 		$articleServices = new ArticleService($articleMetadataServer, $articleDomain);
 		$tmp = &$this->domLiteDocument->getElementsByPath("//similarlist/similar"); 

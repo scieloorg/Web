@@ -44,6 +44,10 @@ class UserDataLog extends log
 		$this->fields['support'] .= $support[$i];
 
 	}
+	function __construct($serviceName, $userData){
+		$this->UserDataLog($serviceName, $userData);
+	}
+
 	/**
 	 * Define o nome do arquivo a ser escrito
 	 * @param string $fileName

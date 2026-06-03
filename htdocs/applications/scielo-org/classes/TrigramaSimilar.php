@@ -16,6 +16,10 @@ class TrigramaSimilar extends ServicesHandler {
 		$this->addParam('minsim','0.30');
 		$this->addParam('show','scielo1');
 	}
+	function __construct(){
+		$this->TrigramaSimilar();
+	}
+
 
 	function getXML()
 	{

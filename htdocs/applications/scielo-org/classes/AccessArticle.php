@@ -6,6 +6,10 @@
 			$date = null;
 			$count = 0;
 		}
+		function __construct(){
+			$this->AccessArticle();
+		}
+
 		function setPID($value){
 			$this->pid = $value;
 		}

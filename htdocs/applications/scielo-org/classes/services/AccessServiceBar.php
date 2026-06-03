@@ -24,6 +24,10 @@ para ter o gráfico "multi-lingüe"
 			$this->ini = parse_ini_file($f."/../../scielo.def.php", true);
 			$this->Service('access');
 		}
+		function __construct(){
+			$this->AccessService();
+		}
+
 		function setParams($pid){
 			$this->setParam('pid', $pid);
 		}

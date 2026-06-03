@@ -27,6 +27,10 @@
 	
 		function Shelf(){
 		}
+		function __construct(){
+			$this->Shelf();
+		}
+
 		
 		function setRate($rate){
 			$this->_data['rate'] = $rate;

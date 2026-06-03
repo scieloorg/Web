@@ -10,8 +10,12 @@ require_once(dirname(__FILE__)."/wpBlogDAO.php");
 class wpBlog{
 
 	function wpBlog(){
-	
-	}	
+
+	}
+	function __construct(){
+		$this->wpBlog();
+	}
+
 	
 	function setID($value){
 		$this->_data['id'] = $value;
