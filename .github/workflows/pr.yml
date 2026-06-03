@@ -1,0 +1,25 @@
+name: PR Validation
+
+on:
+  pull_request:
+    branches:
+      - codex/php8-rocky9-migration-pushable
+
+jobs:
+  pr-checks:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # Ajuste conforme a stack da aplicação
+      - name: Run tests
+        run: |
+          echo "Rodar testes aqui"
+
+      - name: SAST - CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: javascript
+
+      - uses: github/codeql-action/analyze@v3

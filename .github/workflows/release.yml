@@ -1,0 +1,119 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set version
+        run: echo "VERSION=${GITHUB_REF_NAME}" >> $GITHUB_ENV
+
+      - name: Docker Login
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USER }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build image
+        run: |
+          docker build \
+            -f docker/rocky9/Dockerfile \
+            -t infrascielo/metodologia:${VERSION} \
+            -t infrascielo/metodologia:latest \
+            .
+
+      # 🔐 Scan único (policy)
+      - name: Trivy Image Scan
+        uses: aquasecurity/trivy-action@v0.35.0
+        with:
+          image-ref: infrascielo/metodologia:${{ env.VERSION }}
+          severity: HIGH,CRITICAL
+          exit-code: 1
+
+      - name: Install Trivy CLI
+        run: |
+          curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sudo sh -s -- -b /usr/local/bin
+
+      # 📄 Relatório (evidência)
+      - name: Trivy Report
+        run: |
+          trivy image \
+            --scanners vuln \
+            --severity HIGH,CRITICAL \
+            --format table \
+            --output trivy-report.txt \
+            infrascielo/metodologia:${VERSION}
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: trivy-report
+          path: trivy-report.txt
+
+      # 📦 SBOM
+      - name: Generate SBOM (CycloneDX)
+        run: |
+          trivy image \
+            --scanners vuln \
+            --format cyclonedx \
+            --output sbom-${VERSION}.json \
+            infrascielo/metodologia:${VERSION}
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sbom-${{ env.VERSION }}
+          path: sbom-${{ env.VERSION }}.json
+
+      - name: Push image
+        run: |
+          docker push infrascielo/metodologia:${VERSION}
+          docker push infrascielo/metodologia:latest
+
+      - name: Push image
+        run: |
+          docker push infrascielo/metodologia:${VERSION}
+          docker push infrascielo/metodologia:latest
+
+      - name: Get image digest
+        run: |
+          DIGEST=$(docker inspect --format='{{index .RepoDigests 0}}' infrascielo/metodologia:${VERSION})
+          echo "IMAGE_DIGEST=${DIGEST}" >> $GITHUB_ENV
+
+      - name: Install Cosign
+        uses: sigstore/cosign-installer@v3
+
+      - name: Sign image with Cosign
+        env:
+          COSIGN_EXPERIMENTAL: "1"
+          COSIGN_YES: "true"
+        run: |
+          cosign sign ${IMAGE_DIGEST}
+
+      - name: Verify image signature
+        env:
+          COSIGN_EXPERIMENTAL: "1"
+        run: |
+          cosign verify \
+            --certificate-oidc-issuer https://token.actions.githubusercontent.com \
+            --certificate-identity-regexp "https://github.com/${{ github.repository }}/*" \
+            ${IMAGE_DIGEST}
+
+      - name: Attach SBOM attestation
+        env:
+          COSIGN_EXPERIMENTAL: "1"
+          COSIGN_YES: "true"
+        run: |
+          cosign attest \
+            --predicate sbom-${VERSION}.json \
+            --type cyclonedx \
+            ${IMAGE_DIGEST}
+
