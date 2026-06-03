@@ -1,6 +1,11 @@
 FROM rockylinux:9
 
 RUN dnf -y install \
+    https://rpms.remirepo.net/enterprise/remi-release-9.rpm \
+    dnf-plugins-core \
+    && dnf -y module reset php \
+    && dnf -y module enable php:remi-8.5 \
+    && dnf -y install \
     httpd \
     php \
     php-fpm \
@@ -19,7 +24,7 @@ COPY docker/rocky9/php-scielo.ini /etc/php.d/99-scielo.ini
 COPY docker/rocky9/entrypoint.sh /usr/local/bin/entrypoint-scielo.sh
 
 # Reuse the default /cgi-bin/ ScriptAlias, but point it to the project cgi-bin.
-RUN sed -ri 's#^ScriptAlias /cgi-bin/ ".*"#ScriptAlias /cgi-bin/ "/var/www/html/cgi-bin/"#' /etc/httpd/conf/httpd.conf && \
+RUN sed -ri 's#^[[:space:]]*ScriptAlias /cgi-bin/ ".*"#ScriptAlias /cgi-bin/ "/var/www/html/cgi-bin/"#' /etc/httpd/conf/httpd.conf && \
     sed -ri 's#<Directory "/var/www/cgi-bin">#<Directory "/var/www/html/cgi-bin">#' /etc/httpd/conf/httpd.conf
 
 RUN mkdir -p /var/www/html && \

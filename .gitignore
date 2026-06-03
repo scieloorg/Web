@@ -4,3 +4,8 @@ wxis.exe
 *.pyc
 scielo-env/
 htdocs/img/revistas
+htdocs/iah/article.def
+htdocs/iah/iah.def
+htdocs/iah/sendmail.conf
+htdocs/iah/title.def
+htdocs/iah/.*.swp

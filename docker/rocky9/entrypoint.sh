@@ -11,6 +11,11 @@ fi
 if [[ ! -f /var/www/html/htdocs/applications/scielo-org/scielo.def.php && -f /var/www/html/htdocs/applications/scielo-org/scielo.def.php.template ]]; then
   cp /var/www/html/htdocs/applications/scielo-org/scielo.def.php.template /var/www/html/htdocs/applications/scielo-org/scielo.def.php
 fi
+for def_file in iah.def title.def article.def sendmail.conf; do
+  if [[ ! -f "/var/www/html/htdocs/iah/${def_file}" && -f "/var/www/html/htdocs/iah/${def_file}.template" ]]; then
+    sed 's#/var/wwww/html#/var/www/html#g' "/var/www/html/htdocs/iah/${def_file}.template" > "/var/www/html/htdocs/iah/${def_file}"
+  fi
+done
 
 # Force local WXIS endpoint inside container.
 sed -ri 's#^SERVER_SCIELO=.*#SERVER_SCIELO=127.0.0.1#' /var/www/html/htdocs/scielo.def.php || true
