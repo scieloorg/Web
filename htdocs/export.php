@@ -259,7 +259,7 @@ switch($format){
 
 		for($i = 1; $i < count($args); $i++){
 			$element = explode("=", $args[$i], 2);
-			$query .= "&".$element[0]."=".rawurlencode(utf8_encode($element[1]));
+			$query .= "&".$element[0]."=".rawurlencode(scielo_utf8_encode($element[1]));
 		}
 
 		$result = "http://www.refworks.com/express?".$query;

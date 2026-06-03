@@ -74,8 +74,8 @@
                                                             echo '<i><b>';
                                                             echo getTitle($article->getTitle(), $lang).". ";
                                                             echo ('</b></i>');
-                                                            echo utf8_encode($article->getSerial(). ', '.$article->getYear().', vol.'.$article->getVolume());
-                                                            echo utf8_encode(', n. '.$article->getNumber().', ISSN '.substr($article->getPID(),1,9).'.<br/><br/>'."\n");
+                                                            echo scielo_utf8_encode($article->getSerial(). ', '.$article->getYear().', vol.'.$article->getVolume());
+                                                            echo scielo_utf8_encode(', n. '.$article->getNumber().', ISSN '.substr($article->getPID(),1,9).'.<br/><br/>'."\n");
 							?>
 							</span></h3>
 						</TD>

@@ -47,7 +47,7 @@ $related_Service = str_replace('PARAM_PID', $pid, $related_Service);
 $related_Service = str_replace('PARAM_TEXT', $text, $related_Service);
 
 $xmlh = '';
-$relatedUrl = str_replace(' ', '%20', utf8_decode(urldecode($related_Service)));
+$relatedUrl = str_replace(' ', '%20', scielo_utf8_decode(urldecode($related_Service)));
 $httpContext = stream_context_create(array('http' => array('timeout' => 5)));
 $xmlhRaw = @file_get_contents($relatedUrl, false, $httpContext);
 if ($xmlhRaw !== false) {

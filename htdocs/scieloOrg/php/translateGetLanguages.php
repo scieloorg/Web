@@ -19,7 +19,7 @@ function str2index($str){
      $interfaceLanguages = array('pt','en','es');
 
      foreach ($interfaceLanguages as $interfaceLang){
-        $availableLanguages = utf8_encode(file_get_contents('http://translate.google.com/?hl='.$interfaceLang));
+        $availableLanguages = scielo_utf8_encode(file_get_contents('http://translate.google.com/?hl='.$interfaceLang));
         $temp_select = explode('<select ', $availableLanguages);
         $temp_select_end = explode('</select>', $temp_select[1]);
 

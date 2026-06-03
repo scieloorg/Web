@@ -6,7 +6,7 @@ include_once (dirname(__FILE__)."/class.XSLTransformerPHP5.php");
 
 
 function xml_utf8_decode($xml){
-        $xml = utf8_decode($xml);
+        $xml = scielo_utf8_decode($xml);
         $xml = str_replace('utf-8','iso-8859-1',$xml);
         $xml = str_replace('UTF-8','iso-8859-1',$xml);
         return $xml;
@@ -315,7 +315,7 @@ class docReader {
 
 function xmlspecialchars($s){
 //echo "  " . microtime ();
-$s = utf8_decode($s);
+$s = scielo_utf8_decode($s);
 	$s = str_replace("<", "NO_CHANGE_LT", $s);
 	$s = str_replace(">", "NO_CHANGE_GT", $s);
 	$s = str_replace('"', "NO_CHANGE_QUOTE", $s);

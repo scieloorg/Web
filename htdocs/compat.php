@@ -2,6 +2,22 @@
 
 define('SCIELO_COMPAT_LOADED', true);
 
+function scielo_utf8_encode($value)
+{
+    if (function_exists('mb_convert_encoding')) {
+        return mb_convert_encoding((string)$value, 'UTF-8', 'ISO-8859-1');
+    }
+    return utf8_encode((string)$value);
+}
+
+function scielo_utf8_decode($value)
+{
+    if (function_exists('mb_convert_encoding')) {
+        return mb_convert_encoding((string)$value, 'ISO-8859-1', 'UTF-8');
+    }
+    return utf8_decode((string)$value);
+}
+
 // Legacy regex functions removed in PHP 7+.
 if (!function_exists('ereg')) {
     function ereg($pattern, $string, &$regs = null)

@@ -50,7 +50,7 @@ class XMLFromIsisScript {
                 }
                 $xbody = str_replace($l, '<a href="' . str_replace('&', '&amp;', $this->_pdfLink) . '">' . $l . '</a>', $xbody);
                 if (strpos($l, 'dispo') !== false && ($xbody == $body)) {
-                    $xbody = str_replace(utf8_encode($l), '<a href="' . str_replace('&', '&amp;', $this->_pdfLink) . '">' . $l . '</a>', $xbody);
+                    $xbody = str_replace(scielo_utf8_encode($l), '<a href="' . str_replace('&', '&amp;', $this->_pdfLink) . '">' . $l . '</a>', $xbody);
                 }
             }
         }

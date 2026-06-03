@@ -119,7 +119,7 @@ function process($serviceUrl, $redirectHtml = "")
 			header("Content-type: text/xml");
 	    	return envelopeXml($xml, $serviceRoot);
 		}else{
-			return utf8_encode($xml);
+			return scielo_utf8_encode($xml);
 		}	
 	}	
 

@@ -8,9 +8,9 @@ $defFile = parse_ini_file(dirname(__FILE__)."/../../../scielo.def.php", true);
 
 //header('Content-Type: text/html');
 
-$pid = utf8_decode($_GET['pid']);
-$lang = utf8_decode($_GET['lang']);
-$serviceName = utf8_decode($_GET['serviceName']);
+$pid = scielo_utf8_decode($_GET['pid']);
+$lang = scielo_utf8_decode($_GET['lang']);
+$serviceName = scielo_utf8_decode($_GET['serviceName']);
 
 /* Converting service names to identification codes */
 switch($serviceName){

@@ -82,7 +82,7 @@ if (!$_REQUEST['refid']) {
     $fullTitle = $output;
 
     if (($transformer->transformedBy ?? '') == 'PHP') {
-        $fullTitle = utf8_decode($fullTitle);
+        $fullTitle = scielo_utf8_decode($fullTitle);
     }
 }
 
@@ -114,7 +114,7 @@ $transformerFinal->transform();
 $output = $transformerFinal->getOutput();
 
 if (($transformer->transformedBy ?? '') == 'PHP') {
-    $output = utf8_decode($output);
+    $output = scielo_utf8_decode($output);
 }
 
 if ($transformerFinal->getError()) {

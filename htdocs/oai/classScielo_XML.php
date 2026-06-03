@@ -6,6 +6,11 @@
 		var $_def = null;
 		var $_error = "";
 
+		function __construct ( $def )
+		{
+			$this->Scielo_XML ( $def );
+		}
+
 		function Scielo_XML ( $def )
 		{
 			$this->_def = new DefFile ( $def );

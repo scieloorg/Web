@@ -3,6 +3,10 @@
 class XSLTransformerPHP5 {
   var $xsl, $xml, $output, $error, $errorcode, $processor, $uri, $host, $port, $byJava;
 
+  function __construct() {
+    $this->XSLTransformerPHP5();
+  }
+
   function XSLTransformerPHP5() {
     $this->processor = new XSLTProcessor();
   }
