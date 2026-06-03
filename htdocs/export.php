@@ -251,14 +251,14 @@ switch($format){
 
 	case "RefWorks":
 
-		$args = split("\|",$result);
+		$args = explode("|", $result);
 
-		$element = split("=",$args[0]);
+		$element = explode("=", $args[0], 2);
 
 		$query = $element[0]."=".rawurlencode($element[1]);
 
 		for($i = 1; $i < count($args); $i++){
-			$element = split("=",$args[$i]);
+			$element = explode("=", $args[$i], 2);
 			$query .= "&".$element[0]."=".rawurlencode(utf8_encode($element[1]));
 		}
 

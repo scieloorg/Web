@@ -71,7 +71,7 @@ $identifier = cleanParameter($identifier);
             $result_dregex = preg_match($dregex , $resumptionToken );
             if ( !$result_dregex ) return false;
         }
-        $params = split ( ":", $resumptionToken );
+        $params = explode(":", $resumptionToken);
         $control = $params[ 0 ];
         $set = $params[ 1 ];
         $from = $params[ 2 ];
@@ -93,7 +93,7 @@ $identifier = cleanParameter($identifier);
 
     function is_Set ( $set )
     {
-        return eregi ( "^([0-9a-z]{4}-[0-9a-z]{4}|openaire|scielo)$", $set );
+        return preg_match("/^([0-9a-z]{4}-[0-9a-z]{4}|openaire|scielo)$/i", $set);
     }
 
 	/******************************************* isDatestamp **********************************************/
@@ -113,9 +113,7 @@ $identifier = cleanParameter($identifier);
 	{
 		global $metadataPrefixList;
 
-		reset ( $metadataPrefixList );
-
-	    while ( list ( $key, )  = each ( $metadataPrefixList ) )
+	    foreach ( $metadataPrefixList as $key => $_metadataPrefixData )
 	    {
 		    if ( $key == $metadataPrefix ) return true;
 	    }
@@ -429,9 +427,7 @@ $identifier = cleanParameter($identifier);
     	{
 			$payload  = " <ListMetadataFormats>\n";
 
-	    	reset ( $metadataPrefixList );
-
-	    	while ( list ( $metadataPrefix, $data ) = each ( $metadataPrefixList ) )
+			foreach ( $metadataPrefixList as $metadataPrefix => $data )
 	    	{
 	    		$payload .= "  <metadataFormat>\n";
 	    		$payload .= "   <metadataPrefix>$metadataPrefix</metadataPrefix>\n";

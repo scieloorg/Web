@@ -97,10 +97,10 @@ class ScieloBase
 
 		for ( $i = 0; $i < $count; $i++ )
 		{
-			if ( !ereg ("^#.*", $ports[$i]) )
+			if ( !preg_match("/^#.*/", $ports[$i]) )
 			{
 				// This line is not a comment
-				list ($host_entry, $def_entry, $homepg_entry, $querystr_entry) = split ( "[ \t]+", trim($ports[$i]) );
+				list ($host_entry, $def_entry, $homepg_entry, $querystr_entry) = preg_split("/[ \t]+/", trim($ports[$i]));
 
 				if ( $this->_GetHostNamePort($host_entry) == $this->_host)
 				{

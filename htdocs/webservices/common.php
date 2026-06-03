@@ -214,21 +214,21 @@ function PostIt($url) {
 function encodeValues( $docURL )
 {
 
-	if (ereg("\?", $docURL)) {
+	if (strpos($docURL, "?") !== false) {
 		$splited1[0] = substr($docURL, 0, strpos($docURL,"?"));
 		$splited1[1] = substr($docURL, strpos($docURL,"?")+1);
 	}else{
 		return $docURL;
 	}	
 	
-	$splited2 = split( "&", $splited1[1] );
+	$splited2 = explode("&", $splited1[1]);
 
 	if ( count($splited2) < 2 )
 	{
 		return $docURL;
 	}
 	$docURL = $splited1[0] . "?";
-	$fisrt = true;
+	$first = true;
 	foreach ($splited2 as $value)
 	{
 		if ( $first )
@@ -239,14 +239,12 @@ function encodeValues( $docURL )
 		{
 			$docURL .= "&";
 		}
-		$splited3 = split("=",$value);
+		$splited3 = explode("=", $value, 2);
 
 		$docURL .= $splited3[0];
 		
 		if ( count($splited3) > 1 ){		
-			for ($i = 1; $i < count($splited3); $i++){
-				$docURL .= "=" . urlencode($splited3[$i]);
-			}
+			$docURL .= "=" . urlencode($splited3[1]);
 		}	
 		
 	}
