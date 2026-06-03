@@ -26,6 +26,22 @@ class NewsDAO {
 		$this->_db = new DBClass();
 	}
 
+	function __construct(){
+		$this->NewsDAO();
+	}
+
+	function sqlText($value){
+		return mysql_real_escape_string((string)$value);
+	}
+
+	function sqlInt($value){
+		return intval($value);
+	}
+
+	function sqlBool($value){
+		return $value ? 1 : 0;
+	}
+
 	function addNews($news){
 
 		$strsql = "INSERT INTO
@@ -34,9 +50,9 @@ class NewsDAO {
 									rss_url,
 									in_home)
 							VALUES (
-								'".$news->getUserID()."',
-								'".$news->getRSSURL()."',
-								'".$news->getInHome()."')";
+								'".$this->sqlText($news->getUserID())."',
+								'".$this->sqlText($news->getRSSURL())."',
+								'".$this->sqlBool($news->getInHome())."')";
 
 		$result = $this->_db->databaseExecInsert($strsql);
 		return $result;
@@ -44,28 +60,30 @@ class NewsDAO {
 
 	function updateNews($news){
 
-		$strsql = "UPDATE user_news SET ";
+		$fields = array();
 
 		if($news->getUserID() != '')
-			$strsql .= "user_id = '".$news->getUserID()."',";
+			$fields[] = "user_id = '".$this->sqlText($news->getUserID())."'";
 
 		if($news->getRSSURL() != '')
-			$strsql .= "rss_url = '".$news->getRSSURL()."',";
+			$fields[] = "rss_url = '".$this->sqlText($news->getRSSURL())."'";
 
 		if($news->getInHome() != '')
-			$strsql .= "in_home = '".$news->getInHome()."',";
+			$fields[] = "in_home = '".$this->sqlBool($news->getInHome())."'";
 
-		$strsql = substr($strsql,0,strlen($strsql)-1);
+		if(count($fields) == 0){
+			return 0;
+		}
 
-
-		$strsql .= " WHERE news_id = '".$news->getID()."' ";
+		$strsql = "UPDATE user_news SET ".implode(", ", $fields);
+		$strsql .= " WHERE news_id = ".$this->sqlInt($news->getID())." ";
 
 		return $this->_db->databaseExecUpdate($strsql);
 	}
 	
 
 	function removeNews($news){
-		$strsql = "DELETE FROM user_news WHERE user_id = '".$news->getUserID()."' AND news_id = '".$news->getID()."'";
+		$strsql = "DELETE FROM user_news WHERE user_id = '".$this->sqlText($news->getUserID())."' AND news_id = ".$this->sqlInt($news->getID());
 		$result = $this->_db->databaseExecUpdate($strsql);
 		return $result;
 	}
@@ -81,6 +99,9 @@ class NewsDAO {
 *@returns mixed Array de objetos news
 */
 	function getNewsList($news, $from=0, $count=-1){
+		$filter = "";
+		$filterTb = "";
+		$where = "";
 /*
 		$directory_id = $news->getDirectory();
 		if (  isset($directory_id)   ){
@@ -93,13 +114,13 @@ class NewsDAO {
 		}
 */
 		if($news->getID() != ''){
-			$where = " and user_news.news_id = " .$news->getID();
+			$where = " and user_news.news_id = " .$this->sqlInt($news->getID());
 		}
 
-		$strsql = "SELECT * FROM user_news ".$filterTb." WHERE user_news.user_id = '".$news->getUserID()."' ".$filter.$where;
+		$strsql = "SELECT * FROM user_news ".$filterTb." WHERE user_news.user_id = '".$this->sqlText($news->getUserID())."' ".$filter.$where;
 
         if($count > 0){
-		    $strsql .= " LIMIT $from,$count";
+		    $strsql .= " LIMIT ".$this->sqlInt($from).",".$this->sqlInt($count);
 		}
 
 		$result = $this->_db->databaseQuery($strsql);
@@ -121,7 +142,7 @@ class NewsDAO {
 
 
 	function getRssInHome($news){
-		$strsql = "SELECT * FROM user_news WHERE user_news.user_id = '".$news->getUserID()."' and user_news.in_home = 1";
+		$strsql = "SELECT * FROM user_news WHERE user_news.user_id = '".$this->sqlText($news->getUserID())."' and user_news.in_home = 1";
 
 		$result = $this->_db->databaseQuery($strsql);
 
@@ -141,21 +162,21 @@ class NewsDAO {
 			if (  isset($directory_id)    )
 				$filter = " and directory_id=".$directory_id;
 		*/
-			$strsql = "SELECT count(*) as total FROM user_news WHERE user_id = ".$news->getUserID().$filter ;
+			$strsql = "SELECT count(*) as total FROM user_news WHERE user_id = '".$this->sqlText($news->getUserID())."'".$filter ;
 			$result = $this->_db->databaseQuery($strsql);
 			return $result[0]['total'];
 		}
 		
 		function updateNewsDirectory($news){
-			$strsql = "Update user_news SET directory_id=".$news->getDirectory()." WHERE news_id=".$news->getnews_id();
+			$strsql = "Update user_news SET directory_id=".$this->sqlInt($news->getDirectory())." WHERE news_id=".$this->sqlInt($news->getnews_id());
 			$result = $this->_db->databaseExecUpdate($strsql);
 		}
 
 
 		function showInHome($news){
-			$strsql = "Update user_news SET in_home = 0 where user_id = ".$news->getUserID();
+			$strsql = "Update user_news SET in_home = 0 where user_id = '".$this->sqlText($news->getUserID())."'";
 			$this->_db->databaseExecUpdate($strsql);
-			$strsql = "Update user_news SET in_home = 1 where news_id = ".$news->getID();
+			$strsql = "Update user_news SET in_home = 1 where news_id = ".$this->sqlInt($news->getID());
 			$this->_db->databaseExecUpdate($strsql);
 		}
 }

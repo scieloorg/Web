@@ -38,6 +38,22 @@ class ArticleDAO {
 
 	}
 
+	function __construct(){
+		$this->ArticleDAO();
+	}
+
+	function sqlText($value){
+		return mysql_real_escape_string((string)$value);
+	}
+
+	function sqlXml($value){
+		return $this->sqlText(str_replace("'","&apos;",$value));
+	}
+
+	function sqlInt($value){
+		return intval($value);
+	}
+
 
 
 /**
@@ -67,22 +83,22 @@ class ArticleDAO {
 		wp_url,
 		wp_post_date
 		) 
-		VALUES ('".$article->getPID()."','"
-		.$article->getURL()."','"
-		.mysql_escape_string(str_replace("'","&apos;",$article->getTitle()))."','"
-		.$article->getSerial()."','"
-		.$article->getVolume()."','"
-		.$article->getNumber()."','"
-		.$article->getSuppl()."','"
-		.$article->getYear()."','"
-		.mysql_escape_string($article->getAuthorXML())."','"
-		.mysql_escape_string(str_replace("'","&apos;",$article->getKeywordXML()))."','"
-		.mysql_escape_string(str_replace("'","&apos;",$article->getAbstractXML()))."','"
+		VALUES ('".$this->sqlText($article->getPID())."','"
+		.$this->sqlText($article->getURL())."','"
+		.$this->sqlXml($article->getTitle())."','"
+		.$this->sqlText($article->getSerial())."','"
+		.$this->sqlText($article->getVolume())."','"
+		.$this->sqlText($article->getNumber())."','"
+		.$this->sqlText($article->getSuppl())."','"
+		.$this->sqlText($article->getYear())."','"
+		.$this->sqlXml($article->getAuthorXML())."','"
+		.$this->sqlXml($article->getKeywordXML())."','"
+		.$this->sqlXml($article->getAbstractXML())."','"
 		.date('Y-m-d H:i:s')."','"
-		.formatDate($article->getPublicationDate())."',"
-		.$article->getWpPostID().",'"
-		.$article->getWpURL()."','"
-		.$article->getWpPostDate()."'"
+		.$this->sqlText(formatDate($article->getPublicationDate()))."',"
+		.$this->sqlInt($article->getWpPostID()).",'"
+		.$this->sqlText($article->getWpURL())."','"
+		.$this->sqlText($article->getWpPostDate())."'"
 		.")";
 		$result = $this->_db->databaseExecInsert($strsql);
 		return $result;
@@ -97,17 +113,17 @@ class ArticleDAO {
 	function UpdateArticle($article){
 	
 		$strsql = "UPDATE scieloorgusers.articles SET
-						title = '".mysql_escape_string(str_replace("'","&apos;",$article->getTitle()))."',
-						serial = '".$article->getSerial()."',
-						volume = '".$article->getVolume()."',
-						number = '".$article->getNumber()."',
-						suppl = '".$article->getSuppl()."',
-						year = '".$article->getYear()."',
-						authors_xml = '".mysql_escape_string(str_replace("'","&apos;",$article->getAuthorXML()))."',
-						keywords_xml = '".mysql_escape_string(str_replace("'","&apos;",$article->getKeywordXML()))."',
-						abstract_xml = '".mysql_escape_string(str_replace("'","&apos;",$article->getAbstractXML()))."',
-						publication_date = '".formatDate($article->getPublicationDate())."'
-					WHERE PID = '".$article->getPID()."'";
+						title = '".$this->sqlXml($article->getTitle())."',
+						serial = '".$this->sqlText($article->getSerial())."',
+						volume = '".$this->sqlText($article->getVolume())."',
+						number = '".$this->sqlText($article->getNumber())."',
+						suppl = '".$this->sqlText($article->getSuppl())."',
+						year = '".$this->sqlText($article->getYear())."',
+						authors_xml = '".$this->sqlXml($article->getAuthorXML())."',
+						keywords_xml = '".$this->sqlXml($article->getKeywordXML())."',
+						abstract_xml = '".$this->sqlXml($article->getAbstractXML())."',
+						publication_date = '".$this->sqlText(formatDate($article->getPublicationDate()))."'
+					WHERE PID = '".$this->sqlText($article->getPID())."'";
 
 		$result = $this->_db->databaseExecUpdate($strsql);
 
@@ -121,10 +137,10 @@ class ArticleDAO {
 	function updatePosts($article){
 	
 		$strsql = "UPDATE scieloorgusers.articles SET
-						wp_post_id = ".$article->getWpPostID().",
-						wp_url = '".$article->getWpURL()."',
-						wp_post_date = '".$article->getWpPostDate()."' 
-					WHERE PID = '".$article->getPID()."'";
+						wp_post_id = ".$this->sqlInt($article->getWpPostID()).",
+						wp_url = '".$this->sqlText($article->getWpURL())."',
+						wp_post_date = '".$this->sqlText($article->getWpPostDate())."' 
+					WHERE PID = '".$this->sqlText($article->getPID())."'";
 
 		$result = $this->_db->databaseExecUpdate($strsql);
 
@@ -139,7 +155,7 @@ class ArticleDAO {
 * @returns array of UserProfile 
 */
 	function getArticle($PID){
-		$strsql = "SELECT * FROM  scieloorgusers.articles WHERE articles.PID = '".$PID."'";
+		$strsql = "SELECT * FROM  scieloorgusers.articles WHERE articles.PID = '".$this->sqlText($PID)."'";
 		
 		$arr = $this->_db->databaseQuery($strsql);
 		$article = $this->loadArticle($arr[0]);
@@ -155,7 +171,7 @@ class ArticleDAO {
 * @returns array of UserProfile 
 */
 	function getPostDate($PID){
-		$strsql = "SELECT wp_post_date FROM  scieloorgusers.articles WHERE articles.PID = '".$PID."'";
+		$strsql = "SELECT wp_post_date FROM  scieloorgusers.articles WHERE articles.PID = '".$this->sqlText($PID)."'";
 		//die($strsql);
 		$arr = $this->_db->databaseQuery($strsql);
 		$postDate = $arr[0]["wp_post_date"];
@@ -170,7 +186,7 @@ class ArticleDAO {
 * @returns array of true/false 
 */
 	function getArticleByPID($PID){
-		$strsql = "SELECT PID FROM  scieloorgusers.articles WHERE articles.PID = '".$PID."'";
+		$strsql = "SELECT PID FROM  scieloorgusers.articles WHERE articles.PID = '".$this->sqlText($PID)."'";
 		$arr = $this->_db->databaseQuery($strsql);
 		if(isset($arr[0])){
 		return true;
@@ -184,7 +200,7 @@ class ArticleDAO {
 * @returns array of true/false 
 */
 	function getWpPostByID($PID){
-		$strsql = "SELECT wp_post_id FROM  scieloorgusers.articles WHERE articles.PID = '".$PID."'";
+		$strsql = "SELECT wp_post_id FROM  scieloorgusers.articles WHERE articles.PID = '".$this->sqlText($PID)."'";
 		$arr = $this->_db->databaseQuery($strsql);
 		if($arr[0]["wp_post_id"]!= 0){
 		return true;
@@ -197,7 +213,7 @@ class ArticleDAO {
 * @returns array of value 
 */
 	function getWpPostByIDValue($PID){
-		$strsql = "SELECT wp_post_id FROM  scieloorgusers.articles WHERE articles.PID = '".$PID."'";
+		$strsql = "SELECT wp_post_id FROM  scieloorgusers.articles WHERE articles.PID = '".$this->sqlText($PID)."'";
 		$arr = $this->_db->databaseQuery($strsql);
 		if($arr[0]["wp_post_id"]!= 0){
 		return $arr[0]["wp_post_id"];
@@ -230,7 +246,7 @@ class ArticleDAO {
 	}
 
 	function getCitedList($article_obj){
-		$strsql = "select pid_cited from scieloorgusers.cited where pid='".$article_obj->getPID()."'";
+		$strsql = "select pid_cited from scieloorgusers.cited where pid='".$this->sqlText($article_obj->getPID())."'";
 		$result = $this->_db->databaseQuery($strsql);
 		$citedList = array();
 		for($i = 0; $i < count($result); $i++)
@@ -242,7 +258,7 @@ class ArticleDAO {
 	}
 
 	function getAccessStatistics($article_obj){
-		$strsql = "select * from scieloorgusers.access_stat where pid='".$article_obj->getPID()."'";
+		$strsql = "select * from scieloorgusers.access_stat where pid='".$this->sqlText($article_obj->getPID())."'";
 		$result = $this->_db->databaseQuery($strsql);
 		$accessStatisticsList = array();
 		//die("total".count($result));
