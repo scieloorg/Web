@@ -98,7 +98,7 @@ $mfn_fim_art=busca_mfnfim($dtf,$db_data_art);
 		$result=exec(scielolog_shell_arg("$utl/mx")." ".scielolog_shell_arg($db_tmp_article)." btell=0 lw=99999 ".scielolog_shell_arg("gizmo=$gizmo")." $pft_show +hits now");
 	$result=str_replace('<aspas>','"',$result);
 	$result=str_replace('\n','',$result);
-	$arr=split('<line>',$result);
+	$arr=explode("<line>", $result);
 
 	$xml="<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>";
 	$xml.="<ROOT>";

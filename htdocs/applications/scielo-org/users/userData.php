@@ -258,11 +258,11 @@ $cgi = array_merge($_GET,$_POST);
 										<td>
 											<select name="grauDeFormacao" class="expression">
 											<?php 
-												$arr = split(",",FIELD_DEGREE);
+												$arr = explode(",", FIELD_DEGREE);
 
 												foreach($arr as $item)
 												{
-													$arr2 = split("\|",$item);
+													$arr2 = explode("|", $item);
 
 													if($arr2[0] == $usr->getGrauDeFormacao())
 													{

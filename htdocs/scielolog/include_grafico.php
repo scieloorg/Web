@@ -40,9 +40,9 @@ function lista_titulos() {
 	global $defFile;
 	$db_issn=$defFile["PATH"]["PATH_DATABASE"]."/accesslog/log_scielo/trab/issn";
 	$result=exec(scielolog_shell_arg($defFile["PATH"]["PATH_PROC"]."/cisis/mx")." ".scielolog_shell_arg($db_issn)." lw=0 ".scielolog_shell_arg("pft=v1,':'v150,'<fim>',")." now");
-	$array_linha=split("<fim>",$result);
+	$array_linha=explode("<fim>", $result);
 	for ($i=0;$i < count($array_linha);++$i) {
-  	if ($array_linha[$i]!='') {
+	if ($array_linha[$i]!='') {
 		$array=explode(":",$array_linha[$i]);
 		$lista[]=array("issn"=>$array[0],"title"=>$array[1]);
 		}
@@ -61,12 +61,12 @@ function get_titulo($pid) {
 }
 
 function monta_proc($access) {
-  	$access = scielolog_safe_int($access, 0);
-  	return scielolog_shell_arg("proc=if val(v999) < val('$access') then 'd*' fi");
+	$access = scielolog_safe_int($access, 0);
+	return scielolog_shell_arg("proc=if val(v999) < val('$access') then 'd*' fi");
 }
 
 function total_registros($result) {
-	$array_regs=split(" ",$result);
+	$array_regs=explode(" ", $result);
 	for ($i=0;$i < count($array_regs);++$i) {
 	   if ($array_regs[$i]!='') {
 	       $regs=$array_regs[$i]-1;
@@ -80,39 +80,39 @@ function primeira_data($db_data) {
 	global $defFile;
 	  	$OP=scielolog_shell_arg($defFile["PATH"]["PATH_PROC"]."/cisis/mx")." ".scielolog_shell_arg($db_data)." from=2 count=1 ".scielolog_shell_arg("pft=v1")." now";
 	$result=exec($OP);
-  	$dti=$result;
+	$dti=$result;
 	return $dti;
 }
 
 function ultima_data($db_data) {
 	global $defFile;
 	  	$OP=scielolog_shell_arg($defFile["PATH"]["PATH_PROC"]."/cisis/mx")." ".scielolog_shell_arg($db_data)." now +control";
-  	$result=exec($OP);
-  	$regs=total_registros($result);
+	$result=exec($OP);
+	$regs=total_registros($result);
 	$regs=scielolog_safe_int($regs, 1);
 	  	$OP=scielolog_shell_arg($defFile["PATH"]["PATH_PROC"]."/cisis/mx")." ".scielolog_shell_arg($db_data)." from=".$regs." count=1 ".scielolog_shell_arg("pft=v1")." now";
-  	$result=exec($OP);
-  	$dtf=$result;
-  	return $dtf;
+	$result=exec($OP);
+	$dtf=$result;
+	return $dtf;
 }
 
 function busca_mfnini($dti,$db_data) {
         global $defFile;
 	  	$OP=scielolog_shell_arg($defFile["PATH"]["PATH_PROC"]."/cisis/mx")." ".scielolog_shell_arg($db_data)." ".scielolog_bool_arg($dti)." ".scielolog_shell_arg("pft=v2'/'")." now";
-  	$result=exec($OP);
-  	$array_mfn=split("/",$result);
-  	$mfn_ini=$array_mfn[0];
-  	if ($mfn_ini=="Hits=0") {
+	$result=exec($OP);
+	$array_mfn=explode("/", $result);
+	$mfn_ini=$array_mfn[0];
+	if ($mfn_ini=="Hits=0") {
 		$mfn_ini = 0;
-  	}
-  	return $mfn_ini;
+	}
+	return $mfn_ini;
 }
 
 function busca_mfnfim($dtf,$db_data) {
         global $defFile;
 	$OP=scielolog_shell_arg($defFile["PATH"]["PATH_PROC"]."/cisis/mx")." ".scielolog_shell_arg($db_data)." ".scielolog_bool_arg($dtf)." ".scielolog_shell_arg("pft=v2'/'")." now";
 	$result=exec($OP);
-	$array_mfn=split("/",$result);
+	$array_mfn=explode("/", $result);
 	$mfn_fim=$array_mfn[1];
 		if ($mfn_fim=="") {
     		$mfn_fim='99999999';

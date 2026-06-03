@@ -165,7 +165,7 @@ if ($script=='sci_journalstat') {
 	$pft_show=monta_pft_journalstat($pid,$script,$db_tmp_home,$db_tmp_sumario,$db_tmp_artigo,$db_tmp_outros);
 	$journal=exec(scielolog_shell_arg("$utl/mx")." ".scielolog_shell_arg($db_issn)." btell=0 lw=99999 $bool2 $pft_show +hits now");
 	$journal=str_replace('<aspas>','"',$journal);
-	$arr=split('<line>',$journal);
+	$arr=explode("<line>", $journal);
 	//echo "$first_date \n $last_date \n $order \n $dti \n $dtf \n $pid";
 	$xml.= monta_xml_statparam($first_date,$last_date,$order,$dti,$dtf,$pid);
 	if ($pid=='') { $xml.='<LIST>\n'; };
@@ -179,7 +179,7 @@ if ($script=='sci_journalstat') {
 	$pft_show=monta_pft_statiss($pid,$lng,$db_issn);
 	$result=exec(scielolog_shell_arg("$utl/mx")." ".scielolog_shell_arg($db_tmp_fasc)." btell=0 lw=99999 from=".scielolog_safe_int($from, 1)." count=".scielolog_safe_int($nlines, 80)." $pft_show +hits now");
 	$result=str_replace('<aspas>','"',$result);
-	$arr=split('<line>',$result);
+	$arr=explode("<line>", $result);
 	$xml.=monta_xml_statparam($first_date,$last_date,$order,$dti,$dtf,$pid); 	$next=calcula_next($cpage,$tot_pags);
 	$previous=calcula_previous($cpage,$tot_pags);
 //	$previous=1;
@@ -199,7 +199,7 @@ if ($script=='sci_journalstat') {
 	$result=exec(scielolog_shell_arg("$utl/mx")." ".scielolog_shell_arg($db_tmp_article)." btell=0 lw=99999 from=".scielolog_safe_int($from, 1)." count=".scielolog_safe_int($nlines, 80)." ".scielolog_shell_arg("gizmo=$gizmo")." $pft_show now");
 	$result=str_replace('<aspas>','"',$result);
 	$result=str_replace('\n','',$result);
-	$arr=split('<line>',$result);
+	$arr=explode("<line>", $result);
 	$xml.=monta_xml_statparam($first_date,$last_date,$order,$dti,$dtf,$pid);
 	$xml.="\n<QUERY_RESULT_PAGES CURRENT=\"$cpage\" NEXT=\"$nextpg\" TOTAL=\"$tot_pags\" NLINES=\"$nlines\"/>\n\n";
 	$xml.="<POSSIBLE_NO_ACCESS MAX=\"$max_val\">\n";

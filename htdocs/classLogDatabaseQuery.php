@@ -5,7 +5,7 @@
 include ("classLogDatabase.php");
 
 class LogDatabaseQuery extends LogDatabase
-{ 
+{
  function __construct($defFile)
  {
   $this->LogDatabaseQuery($defFile);
@@ -15,14 +15,14 @@ class LogDatabaseQuery extends LogDatabase
  {
   LogDatabase::LogDatabase($defFile);
   
-  $result = ereg("^([^\:\/]+)(\:[0-9]+)?$",$this->_hostIP,$arr);
+  $result = preg_match("/^([^:\/]+)(:[0-9]+)?$/", $this->_hostIP, $arr);
   
   if ($result)
    $this->_hostIP = $arr[1];
   else
    exit(1);
  }  
- 
+
  function destroy()
  {
   // Destructor
@@ -33,7 +33,7 @@ class LogDatabaseQuery extends LogDatabase
  function getInitDate($table)
  {
   // Obtains the value of the date field of the first record in the database
- 
+
   $queryString = "SELECT MIN(date) FROM $table";
   
   // Interpret Query
@@ -46,11 +46,11 @@ class LogDatabaseQuery extends LogDatabase
   
   return $row[0];
  }
- 
+
  function getLastDate($table)
  {
   // Obtains the value of the date field of the last record in the database
- 
+
   $queryString = "SELECT MAX(date) FROM $table";
   
   // Interpret Query
@@ -73,7 +73,7 @@ class LogDatabaseQuery extends LogDatabase
   // Open connection with database server
   if (!$this->openMySQLServerConnection())
    return 0;
- 
+
   // Make $_dbname the active database
   
   if (!$this->setAsMySQLActiveDatabase())
@@ -84,7 +84,7 @@ class LogDatabaseQuery extends LogDatabase
   
   if (!$result)
    return 0;
- 
+
   return $result;
  }
 }

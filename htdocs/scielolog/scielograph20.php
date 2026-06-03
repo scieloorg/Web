@@ -50,7 +50,7 @@ if (!file_exists($db_tmp_issn.".mst")) {
 
 	$result=exec(scielolog_shell_arg("$utl/mx")." ".scielolog_shell_arg($db_tmp_issn)." ".scielolog_shell_arg("pft=v999,':',")." now");
 	//die($result);
-	$array_total=split(":",$result);
+	$array_total=explode(":", $result);
 	for ($i=0;$i < count($array_total);++$i) {
 	  	if ($array_total[$i]!='') {
 			$total=$total+$array_total[$i];
@@ -65,7 +65,7 @@ if (!file_exists($db_tmp_issn.".mst")) {
 	$OP=scielolog_shell_arg("$utl/mx")." ".scielolog_shell_arg($db_tmp_issn)." count=10 $pft_show now ";
 	$result=exec($OP);
 
-	$array_linha=split(":",$result);
+	$array_linha=explode(":", $result);
 
 	for ($i=0;$i < count($array_linha);++$i) {
 	  	if ($array_linha[$i]!='') {

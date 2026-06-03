@@ -55,7 +55,7 @@ $mfn_fim=busca_mfnfim($dtf,$db_data);
 	}
 	
 	$result=exec(scielolog_shell_arg("$utl/mx")." ".scielolog_shell_arg($db_tmp_datatb)." ".scielolog_shell_arg("pft=v1,':'")." now"); 
-	$array_ano=split(":",$result);
+	$array_ano=explode(":", $result);
 	
 	// Para cada ano faz uma tabulação separada na base de acesso
 	
@@ -70,7 +70,7 @@ $mfn_fim=busca_mfnfim($dtf,$db_data);
 				exec(scielolog_shell_arg("$utl/msrt")." ".scielolog_shell_arg($db_tmp_ano)." ".scielolog_shell_arg("256")." ".scielolog_shell_arg("v1/"));
 			}
 			$result=exec(scielolog_shell_arg("$utl/mx")." ".scielolog_shell_arg($db_tmp_ano)." ".scielolog_shell_arg("pft=v1,',',v999,':'")." now"); 
-			$array_linha=split(":",$result);
+			$array_linha=explode(":", $result);
 			$serie=Array (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 			for ($j=0;$j < count($array_linha);++$j) {
 	 	 		if ($array_linha[$j]!='') {

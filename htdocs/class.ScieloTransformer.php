@@ -178,7 +178,7 @@ class ScieloDocReader extends docReader
                     // Discards the response header
                     if (!$is_body)
                     {
-                        if ( ereg("^[[:space:]]*$", $buffer) ) $is_body = true;
+                        if ( preg_match("/^[[:space:]]*\z/", $buffer) ) $is_body = true;
                         continue;
                     }
                     
@@ -195,7 +195,7 @@ class ScieloDocReader extends docReader
     
     function splitUrl ($uri, &$host, &$port, &$cgi_script, &$request)
     {
-        $result = ereg( "^http:\/\/([^\:\/]+)(\:[0-9]+)?(\/.+)\?(.+)$", $uri, $arr );
+        $result = preg_match("/^http:\/\/([^:\/]+)(:[0-9]+)?(\/.+)\?(.+)\z/", $uri, $arr);
 
         if ($result)
         {

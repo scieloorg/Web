@@ -31,7 +31,7 @@
 		exec(scielolog_shell_arg("$utl/msrt")." ".scielolog_shell_arg($db_tmp_tab02)." ".scielolog_shell_arg("256")." ".scielolog_shell_arg("v150,v1/"));
 	}
 	$result=exec(scielolog_shell_arg("$utl/mx")." ".scielolog_shell_arg($db_tmp_tab02)." ".scielolog_shell_arg("pft=v150'<ano>'v1*10'<per>'v999'<fim>'")." now");
-	$array_linha=split("<fim>",$result);
+	$array_linha=explode("<fim>", $result);
 	$chv_tit=$chv_ano="";
 	
 	// Formatacao da saida 

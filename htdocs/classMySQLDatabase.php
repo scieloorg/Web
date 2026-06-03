@@ -14,18 +14,18 @@ class MySQLDatabase
  var $_password;          // MySQL Password
  var $_dbname;            // Name of the MySQL Database
  var $_adminEmail;        // EMail of the person responsible for the database
- 
+
  var $_dbh;               // MySQL Connection Handle
  var $_MySQLErrorCode;    // MySQL Error code
  var $_MySQLError;        // MySQL Error description
- 
+
  function __construct($hostIP,$user,$password,$dbname,$adminEmail="",$ignore=false)
  {
   $this->MySQLDatabase($hostIP,$user,$password,$dbname,$adminEmail,$ignore);
  }
 
  function MySQLDatabase($hostIP,$user,$password,$dbname,$adminEmail="",$ignore=false)
- { 
+ {
   $this->_hostIP = $hostIP;
   
   if ($ignore) $this->_extractPortFromIP();
@@ -38,11 +38,11 @@ class MySQLDatabase
   $this->_MySQLError = "";
   $this->_MySQLErrorCode = 0;
   $this->openMySQLServerConnection();
- 
+
   // Make $_dbname the active database  
   $this->setAsMySQLActiveDatabase();
  }
- 
+
  function destroy()
  {
   // Destructor
@@ -52,32 +52,32 @@ class MySQLDatabase
   $this->_password = null;
   $this->_dbname = null;
   $this->_adminEmail = null;
- 
+
   $this->_MySQLError = null;
   
   mysql_close($this->_dbh);  
   $this->_dbh = null;
  }
- 
+
  function _extractPortFromIP()
  {
   if (!strchr($this->_hostIP,":"))
    return;
   
-  $result = ereg("^([^\:\/]+)(\:[0-9]+)?$",$this->_hostIP,$arr);
+  $result = preg_match("/^([^:\/]+)(:[0-9]+)?$/", $this->_hostIP, $arr);
   
   if ($result)
    $this->_hostIP = $arr[1];
   else
    exit(1);
  }
- 
+
  function _setMySQLError()
  {
   $this->_MySQLErrorCode = mysql_errno($this->_dbh);
   $this->_MySQLError = mysql_error($this->_dbh);
  }
- 
+
  function getMySQLError()
  {
   return $this->_MySQLError;
@@ -87,7 +87,7 @@ class MySQLDatabase
  {
   return $this->_MySQLErrorCode;
  }
- 
+
  function openMySQLServerConnection()
  {
   // Open connection with database server
@@ -100,7 +100,7 @@ class MySQLDatabase
   					 
   return 1;
  }
- 
+
  function setAsMySQLActiveDatabase()
  {
   // Make $_dbname the active database
@@ -112,7 +112,7 @@ class MySQLDatabase
   }
   return 1;
  } 
- 
+
  function runQuery($queryString)
  {
   // Runs a query
@@ -123,7 +123,7 @@ class MySQLDatabase
   }
   return $result;
  }
- 
+
  function sendMySQLErrorMessage()
  {
   // Sends a message to the address given with information about the MySQL error
@@ -135,7 +135,7 @@ class MySQLDatabase
 
   $this->sendMessage($body);  				   
  }
- 
+
  function sendMessage($body)
  {
   //Sends a message to the address given
@@ -161,7 +161,7 @@ class MySQLDatabase
 
   $this->_setLastMessageTime($filename,$now);
  }
- 
+
  function _getLastMessageTime($filename) 
  {  
   $ts = 0;
@@ -175,7 +175,7 @@ class MySQLDatabase
   
   return $ts;
  }
- 
+
  function _setLastMessageTime($filename,$timestamp) 
  {
   @$fd = fopen($filename, "wb");

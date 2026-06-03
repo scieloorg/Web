@@ -72,15 +72,13 @@ $old2newArray = array("HTTP_POST_VARS"    => "_POST",
 					  "HTTP_ENV_VARS"     => "_ENV",
 					  "HTTP_SESSION_VARS" => "_SESSION",
 					  "HTTP_POST_FILES"   => "_FILES"); // v1.1 corrige o array correspondente
-reset ( $old2newArray );
-while ( list ( $old, $new ) = each ( $old2newArray ) )
+foreach ( $old2newArray as $old => $new )
 {
 	if  ( !isset ( $$old ) && isset ( $$new ) ) $$old = $$new;
 
 	if  ( isset ( $$old ) && $old != "HTTP_POST_FILES" )
 	{
-		reset ( $$old );
-		while ( list ( $key, $value ) = each ( $$old ) )
+		foreach ( $$old as $key => $value )
         {
             if ( !isset ( $GLOBALS[ $key ] ) )
             {
@@ -93,8 +91,7 @@ while ( list ( $old, $new ) = each ( $old2newArray ) )
 // Codigo diferenciado para file upload
 if ( isset ( $HTTP_POST_FILES ) )
 {
-    reset ( $HTTP_POST_FILES );
-    while ( list ( $var, ) = each ( $HTTP_POST_FILES ) )
+    foreach ( $HTTP_POST_FILES as $var => $_fileInfo )
     {
         $GLOBALS[ $var ] = $HTTP_POST_FILES[ $var ][ 'tmp_name' ];
         $GLOBALS[ $var . "_name" ] = $HTTP_POST_FILES[ $var ][ 'name' ];

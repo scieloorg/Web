@@ -10,7 +10,7 @@ class LogDatabaseQuery extends LogDatabase
  {
   LogDatabase::LogDatabase($defFile);
   
-  $result = ereg("^([^\:\/]+)(\:[0-9]+)?$",$this->_hostIP,$arr);
+  $result = preg_match("/^([^:\/]+)(:[0-9]+)?$/", $this->_hostIP, $arr);
   
   if ($result)
    $this->_hostIP = $arr[1];
