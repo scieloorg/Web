@@ -48,5 +48,20 @@ if [[ -d /var/www/html/bases/title ]]; then
   fi
 fi
 
+case "${SCIELO_INSTANCE_MIGRATION:-}" in
+  check)
+    /usr/local/bin/scielo-instance-check.sh --root /var/www/html --check || true
+    ;;
+  fix)
+    /usr/local/bin/scielo-instance-check.sh --root /var/www/html --fix || true
+    ;;
+  "")
+    ;;
+  *)
+    echo "Unsupported SCIELO_INSTANCE_MIGRATION value: ${SCIELO_INSTANCE_MIGRATION}" >&2
+    echo "Use one of: check, fix" >&2
+    ;;
+esac
+
 php-fpm -D
 exec /usr/sbin/httpd -D FOREGROUND

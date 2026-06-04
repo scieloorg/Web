@@ -26,6 +26,7 @@ RUN dnf -y --refresh upgrade \
 COPY docker/rocky9/httpd-scielo.conf /etc/httpd/conf.d/scielo.conf
 COPY docker/rocky9/php-scielo.ini /etc/php.d/99-scielo.ini
 COPY docker/rocky9/entrypoint.sh /usr/local/bin/entrypoint-scielo.sh
+COPY docker/rocky9/scielo-instance-check.sh /usr/local/bin/scielo-instance-check.sh
 
 RUN sed -ri 's#^(user|group) = .*$#\1 = apache#' /etc/php-fpm.d/www.conf && \
     sed -ri 's#^listen\.acl_users = .*$#listen.acl_users = apache#' /etc/php-fpm.d/www.conf
@@ -36,7 +37,7 @@ RUN sed -ri 's#^[[:space:]]*ScriptAlias /cgi-bin/ ".*"#ScriptAlias /cgi-bin/ "/v
 
 RUN mkdir -p /var/www/html && \
     chown -R apache:apache /var/www/html && \
-    chmod +x /usr/local/bin/entrypoint-scielo.sh
+    chmod +x /usr/local/bin/entrypoint-scielo.sh /usr/local/bin/scielo-instance-check.sh
 
 EXPOSE 80
 
