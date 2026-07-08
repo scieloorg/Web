@@ -160,8 +160,6 @@ class XSL_XML  {
 				die($xml);
 			case "xsl":
 				die($xsl);
-			case "phpinfo":
-				die(phpinfo());
 			default:
 				die("invalid option to debug parameter!");
 		}
