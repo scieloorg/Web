@@ -1,0 +1,4 @@
+interface:
+  display_name: "Infra Autoheal Orchestrator"
+  short_description: "Work safely on the infra auto-healing FastAPI orchestrator."
+  default_prompt: "Use the infra-autoheal-orchestrator skill to inspect, modify, test, and operate the Python FastAPI auto-healing orchestrator with its safety controls intact."

@@ -1,12 +1,10 @@
 services:
   scielo-web:
     platform: linux/amd64
-    build:
-      context: .
-      dockerfile: docker/rocky9/Dockerfile
+    image: infrascielo/metodologia:v7.1-qa
     container_name: scielo-web-rocky9
     ports:
       - "80:80"
     volumes:
-      - ./:/var/www/html
+      - /Users/rondinelisaad/Downloads/repo-scielo/comciencia_scielo_br_new:/var/www/html
     restart: unless-stopped

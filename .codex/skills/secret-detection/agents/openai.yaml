@@ -1,0 +1,4 @@
+interface:
+  display_name: "Secret Detection"
+  short_description: "Detect hardcoded secrets, credentials, and unsafe config before commit."
+  default_prompt: "Use the secret-detection skill to scan code, configuration, diffs, commits, and logs for exposed secrets or unsafe credential handling before commit, push, or review."

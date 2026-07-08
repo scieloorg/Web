@@ -169,4 +169,64 @@
 	clear: both;
 }
 
+@media screen and (max-width: 800px) {
+	.container {
+		width: auto;
+		min-width: 0;
+		max-width: none;
+		margin-left: 10px;
+		margin-right: 10px;
+	}
+
+	.top H1,
+	.top .bar,
+	.top .bar #otherVersions,
+	.top .bar #contact,
+	.top #globalNav,
+	.top #globalNav #issueNav,
+	.top #globalNav #searchArticles,
+	.top #globalNav #alfabeticList,
+	.top #globalNav #feedSection,
+	.middle .leftCol,
+	.middle .mainContent,
+	.middle .rightCol {
+		float: none;
+	}
+
+	.top H1 {
+		width: auto;
+		height: auto;
+	}
+
+	.top .bar #contact {
+		margin-left: 0;
+		padding-right: 0;
+	}
+
+	.top #globalNav {
+		width: auto;
+		margin: 12px 0 0 0;
+	}
+
+	.top #globalNav #alfabeticList,
+	.top #globalNav #feedSection {
+		margin-top: 8px;
+	}
+
+	.middle .leftCol,
+	.middle .mainContent,
+	.middle .rightCol {
+		width: auto;
+		clear: both;
+		padding-left: 0;
+		padding-right: 0;
+	}
+
+	.middle .mainContent .search .midium,
+	.middle .mainContent .search .mini {
+		box-sizing: border-box;
+		width: 100%;
+		margin-bottom: 6px;
+	}
+}
 

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Secure Code Review"
+  short_description: "Review source code for security vulnerabilities and unsafe logic."
+  default_prompt: "Use the secure-code-review skill to review code, features, pull requests, or diffs for injection, authentication, XSS, access control, input validation, cryptography, configuration, and logging issues."

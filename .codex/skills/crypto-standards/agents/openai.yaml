@@ -1,0 +1,4 @@
+interface:
+  display_name: "Crypto Standards"
+  short_description: "Choose approved cryptography and reject obsolete algorithms."
+  default_prompt: "Use the crypto-standards skill to review or implement password hashing, encryption, token generation, TLS, JWT, signatures, and key handling with approved algorithms."

@@ -1331,14 +1331,29 @@
 			<xsl:when test=". = 'accepted'">Aceito</xsl:when>
 			<xsl:when test=". = 'received'">Recebido</xsl:when>
 			<xsl:when test=". = 'pub'">Publicado</xsl:when>
+			<xsl:when test=". = 'rev-request'">Revisão Solicitada</xsl:when>
+			<xsl:when test=". = 'resubmitted'">Reenviado</xsl:when>
+			<xsl:when test=". = 'preprint'">Preprint</xsl:when>
+			<xsl:when test=". = 'corrected'">Errata/Adendo Aprovado</xsl:when>
+			<xsl:when test=". = 'expression-of-concern'">Manifestação de Preocupação</xsl:when>
+			<xsl:when test=". = 'retracted'">Retratado</xsl:when>
+			<xsl:when test=". = 'reviewer-report-received'">Parecer Recebido</xsl:when>
 		</xsl:choose>
 	</xsl:template>
+
 	<xsl:template match="history/date/@date-type" mode="scift-as-label-es">
 		<xsl:choose>
 			<xsl:when test=". = 'rev-recd'">Revisado</xsl:when>
 			<xsl:when test=". = 'accepted'">Aprobado</xsl:when>
 			<xsl:when test=". = 'received'">Recibido</xsl:when>
 			<xsl:when test=". = 'pub'">Publicado</xsl:when>
+			<xsl:when test=". = 'rev-request'">Revisión Solicitada</xsl:when>
+			<xsl:when test=". = 'resubmitted'">Reenviado</xsl:when>
+			<xsl:when test=". = 'preprint'">Preprint</xsl:when>
+			<xsl:when test=". = 'corrected'">Fe de Erratas/Adenda Aprobada</xsl:when>
+			<xsl:when test=". = 'expression-of-concern'">Expresión de Preocupación</xsl:when>
+			<xsl:when test=". = 'retracted'">Retractado</xsl:when>
+			<xsl:when test=". = 'reviewer-report-received'">Dictamen Recibido</xsl:when>
 		</xsl:choose>
 	</xsl:template>
 	<xsl:template match="history/date">

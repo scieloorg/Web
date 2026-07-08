@@ -1,0 +1,4 @@
+interface:
+  display_name: "Secure SDLC"
+  short_description: "Apply phase-specific secure SDLC checklists and templates."
+  default_prompt: "Use the secure-sdlc skill to identify the current software development phase and provide the relevant security checklist or artifact template."
