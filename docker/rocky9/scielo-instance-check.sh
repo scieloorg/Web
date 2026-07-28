@@ -152,10 +152,12 @@ check_def_files() {
   done
 
   if [[ -f "$ROOT/htdocs/scielo.def.php" ]]; then
-    if grep -q '^SERVER_SCIELO=127\.0\.0\.1$' "$ROOT/htdocs/scielo.def.php"; then
-      ok "SERVER_SCIELO points to 127.0.0.1"
+    local server_scielo
+    server_scielo="$(sed -n 's/^SERVER_SCIELO=//p' "$ROOT/htdocs/scielo.def.php" | head -n 1)"
+    if [[ -n "$server_scielo" ]]; then
+      ok "SERVER_SCIELO points to $server_scielo"
     else
-      warn "SERVER_SCIELO is not pinned to 127.0.0.1"
+      warn "SERVER_SCIELO is missing or empty"
     fi
   fi
 }

@@ -17,8 +17,13 @@ for def_file in iah.def title.def article.def sendmail.conf; do
   fi
 done
 
-# Force local WXIS endpoint inside container.
-sed -ri 's#^SERVER_SCIELO=.*#SERVER_SCIELO=127.0.0.1#' /var/www/html/htdocs/scielo.def.php || true
+# Keep the public SciELO host in sync with the container configuration.
+SERVER_SCIELO_VALUE="${SERVER_SCIELO:-127.0.0.1}"
+if [[ ! "$SERVER_SCIELO_VALUE" =~ ^[A-Za-z0-9][A-Za-z0-9.-]*(:[0-9]{1,5})?$ ]]; then
+  echo "Invalid SERVER_SCIELO value: use a hostname or IP address, optionally followed by a port" >&2
+  exit 1
+fi
+sed -ri "s#^SERVER_SCIELO=.*#SERVER_SCIELO=${SERVER_SCIELO_VALUE}#" /var/www/html/htdocs/scielo.def.php
 sed -ri 's#^ENABLED_CACHE=.*#ENABLED_CACHE=0#' /var/www/html/htdocs/scielo.def.php || true
 sed -ri 's#^CACHE_STATUS\\s*=.*#CACHE_STATUS = off#' /var/www/html/htdocs/scielo.def.php || true
 

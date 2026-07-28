@@ -73,6 +73,7 @@ The Rocky9 image supports an optional environment variable:
 ```yaml
 environment:
   SCIELO_INSTANCE_MIGRATION: check
+  SERVER_SCIELO: cienciaecultura.bvs.br
 ```
 
 Allowed values:
@@ -81,6 +82,12 @@ Allowed values:
 - `fix`: rebuild known indexes during container startup.
 
 Keep the default empty value for production unless you explicitly want startup validation or repair.
+
+`SERVER_SCIELO` defines the public hostname written to `htdocs/scielo.def.php` on
+every container startup. Set it in Compose (or in the project `.env` file when
+using `${SERVER_SCIELO}` interpolation) so the value remains consistent after
+the container is restarted or recreated. Provide only the hostname or IP
+address, without `http://` or `https://`; an optional port is accepted.
 
 ## Notes
 
