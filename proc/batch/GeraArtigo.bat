@@ -12,7 +12,8 @@ chmod 700 temp/GeraArtigo.bat
 call temp/GeraArtigo.bat
 
 echo "Envia de bases title e artigo do bases-work para FTP para carga em ArticleMeta"
-call Envia2SciELOPadraoFast.bat
+#call Envia2SciELOPadraoFast.bat
+nohup call Envia2SciELOPadraoFast.bat > Envia2SciELOPadraoFast.out 2>&1 &
 echo "Fim de envio de bases"
 
 call batch/GeraInvertido.bat ../bases-work/artigo/artigo fst/artigo.fst ../bases-work/artigo/artigo
