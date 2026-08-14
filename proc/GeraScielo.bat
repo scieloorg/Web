@@ -58,6 +58,41 @@ call batch/GeraInvertido.bat ../bases-work/newissue/newissue fst/newissue.fst ..
 
 call batch/CriaRevistasNovas.bat $1
 call batch/GeraIssues.bat $1
+
+# ==============================================================================
+# PROPOSITO: GeraArtigoFast.bat
+
+GERAPADRAO_STATUS=""
+ARQUIVO_STATUS="temp/GeraArtigoFastGeraPadraoStatus.ctrl"
+
+# 1. Le o status removendo potenciais quebras de linha do Windows (\r)
+if [ -f "${ARQUIVO_STATUS}" ]
+then
+   GERAPADRAO_STATUS=$(tr -d '\r' < "${ARQUIVO_STATUS}" 2>/dev/null)
+fi
+
+# 2. Desvio condicional para o modo FAST
+if [ "${GERAPADRAO_STATUS}" == "RUNNING" ]
+then
+   call batch/GeraArtigoFastLockCheck.bat ${ARQUIVO_STATUS} 72 tecnologia@scielo.org
+
+   call batch/InformaLog.bat $0 dh === Executando Fluxo FAST (Status: RUNNING) ===
+
+   # Executa o batch especial para o fluxo rápido
+   call batch/GeraArtigoFast.bat $1
+
+   # Registra o fim antecipado no log e encerra com sucesso (exit 0)
+   call batch/InformaLog.bat $0 dh === Fim Antecipado (Fluxo FAST) === LOG gravado em: $INFORMALOG
+   
+   # Finaliza execucao com sucesso, mas sem finalizar de forma padrão
+   exit 0
+fi
+
+# ==============================================================================
+# PROPOSITO: GeraArtigoFast.bat
+echo "RUNNING" > "${ARQUIVO_STATUS}"
+# ==============================================================================
+
 call batch/GeraArtigo.bat $1
 
 call batch/GeraFacCount.bat $1
@@ -77,5 +112,10 @@ rem REPOSITORIO FIM
 call batch/ManutencaoOn.bat ../bases
 call batch/CopiaWork2Teste.bat ../bases-work ../bases
 call batch/ManutencaoOff.bat ../bases
+
+# ==============================================================================
+# PROPOSITO: GeraArtigoFast.bat
+echo "FINISHED" > "${ARQUIVO_STATUS}"
+# ==============================================================================
 
 call batch/InformaLog.bat $0 dh ===Fim=== LOG gravado em: $INFORMALOG
