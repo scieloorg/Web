@@ -4,14 +4,15 @@ rem ===== Aumentar o espaco de variaveis de ambiente
 rem CONFIG.SYS
 rem 
 
-rem Envia2Medline
+rem Envia2SciELOFast
 rem Parametro 1: path da producao da SciELO
 rem Parametro 2: arquivo com instrucoes de FTP
 rem Parametro 3: arquivo de log
 rem Parametro 4: cria / adiciona
+rem Parametro 5: (Opcional) path alternativo da base de artigos
 
 rem Inicializa variaveis
-export INFORMALOG=log/Envia2Medline.log
+export INFORMALOG=log/Envia2SciELOFast.log
 export CISIS_DIR=cisis
 
 rem Verifica parametros
@@ -34,7 +35,12 @@ call batch/CriaDiretorio.bat temp/transf2scielofast
 call batch/GeraIso.bat $1/title/title temp/transf2scielofast/title_full.iso
 
 call batch/CriaMaster.bat temp/transf2scielofast/artigo_full_temp
-call batch/AppendMaster.bat $1/artigo/artigo temp/transf2scielofast/artigo_full_temp prc/apaga_autores_772.prc
+ARTIGOSOURCE=$1/artigo/artigo
+if [ "$5" != "" ]
+then
+   ARTIGOSOURCE=$5
+fi
+call batch/AppendMaster.bat ${ARTIGOSOURCE} temp/transf2scielofast/artigo_full_temp prc/apaga_autores_772.prc
 
 call batch/GeraIso.bat temp/transf2scielofast/artigo_full_temp temp/transf2scielofast/artigo_full.iso
 
