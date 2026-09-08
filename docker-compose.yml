@@ -6,7 +6,10 @@ services:
     ports:
       - "80:80"
     environment:
-      SERVER_SCIELO: ${SERVER_SCIELO:-cienciaecultura.bvs.br}
+      SERVER_SCIELO: ${SERVER_SCIELO:-}
+      STANDARD_LANG: ${STANDARD_LANG:-}
+      ACTIVATE_GOOGLE: ${ACTIVATE_GOOGLE:-}
+      GOOGLE_CODE: ${GOOGLE_CODE:-}
     volumes:
       - /Users/rondinelisaad/Downloads/repo-scielo/comciencia_scielo_br_new:/var/www/html
     restart: unless-stopped

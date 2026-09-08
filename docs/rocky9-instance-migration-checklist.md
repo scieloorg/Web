@@ -74,6 +74,9 @@ The Rocky9 image supports an optional environment variable:
 environment:
   SCIELO_INSTANCE_MIGRATION: check
   SERVER_SCIELO: cienciaecultura.bvs.br
+  STANDARD_LANG: pt
+  ACTIVATE_GOOGLE: 1
+  GOOGLE_CODE: UA-6060112-1
 ```
 
 Allowed values:
@@ -88,6 +91,21 @@ every container startup. Set it in Compose (or in the project `.env` file when
 using `${SERVER_SCIELO}` interpolation) so the value remains consistent after
 the container is restarted or recreated. Provide only the hostname or IP
 address, without `http://` or `https://`; an optional port is accepted.
+
+`STANDARD_LANG` defines the default interface language written to
+`htdocs/scielo.def.php` on every startup. Use a two- or three-letter lowercase
+language code such as `pt`, `es`, `en`, or `nso`. It defaults to `en` when it is
+missing from both the environment and the instance file.
+
+Set `ACTIVATE_GOOGLE` to `1` and provide the Analytics property identifier in
+`GOOGLE_CODE` to enable Google Analytics. Set `ACTIVATE_GOOGLE` to `0` to
+disable it. Both values are synchronized to `htdocs/scielo.def.php` on startup.
+
+The environment is complementary to the instance file. A non-empty environment
+value overrides the corresponding setting during startup; a missing or empty
+value leaves the existing `htdocs/scielo.def.php` unchanged. An existing file in
+the mounted instance is never replaced by the template; the template is copied
+only when the instance file does not exist.
 
 ## Notes
 

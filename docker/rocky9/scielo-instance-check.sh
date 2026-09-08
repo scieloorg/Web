@@ -153,11 +153,30 @@ check_def_files() {
 
   if [[ -f "$ROOT/htdocs/scielo.def.php" ]]; then
     local server_scielo
-    server_scielo="$(sed -n 's/^SERVER_SCIELO=//p' "$ROOT/htdocs/scielo.def.php" | head -n 1)"
+    server_scielo="$(LC_ALL=C sed -n 's/^SERVER_SCIELO=//p' "$ROOT/htdocs/scielo.def.php" | head -n 1)"
     if [[ -n "$server_scielo" ]]; then
       ok "SERVER_SCIELO points to $server_scielo"
     else
       warn "SERVER_SCIELO is missing or empty"
+    fi
+
+    local standard_lang
+    standard_lang="$(LC_ALL=C sed -n 's/^STANDARD_LANG=//p' "$ROOT/htdocs/scielo.def.php" | head -n 1)"
+    if [[ "$standard_lang" =~ ^[a-z]{2,3}$ ]]; then
+      ok "STANDARD_LANG is set to $standard_lang"
+    else
+      warn "STANDARD_LANG is missing or invalid"
+    fi
+
+    local activate_google google_code
+    activate_google="$(LC_ALL=C sed -n 's/^ACTIVATE_GOOGLE=//p' "$ROOT/htdocs/scielo.def.php" | head -n 1)"
+    google_code="$(LC_ALL=C sed -n 's/^GOOGLE_CODE=//p' "$ROOT/htdocs/scielo.def.php" | head -n 1)"
+    if [[ "$activate_google" == "0" ]]; then
+      ok "Google Analytics is disabled"
+    elif [[ "$activate_google" == "1" && -n "$google_code" ]]; then
+      ok "Google Analytics is enabled"
+    else
+      warn "Google Analytics configuration is incomplete or invalid"
     fi
   fi
 }

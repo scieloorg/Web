@@ -17,15 +17,73 @@ for def_file in iah.def title.def article.def sendmail.conf; do
   fi
 done
 
-# Keep the public SciELO host in sync with the container configuration.
-SERVER_SCIELO_VALUE="${SERVER_SCIELO:-127.0.0.1}"
+# Values supplied by the environment override scielo.def.php. Missing or empty
+# environment variables preserve the instance configuration already on disk.
+SCIELO_DEF_FILE=/var/www/html/htdocs/scielo.def.php
+if [[ ! -f "$SCIELO_DEF_FILE" ]]; then
+  echo "Missing $SCIELO_DEF_FILE and no template was available to create it" >&2
+  exit 1
+fi
+
+read_def_value() {
+  local key="$1"
+  LC_ALL=C sed -n "s#^${key}[[:space:]]*=[[:space:]]*##p" "$SCIELO_DEF_FILE" | head -n 1
+}
+
+write_def_value() {
+  local key="$1"
+  local value="$2"
+  local section="$3"
+  if LC_ALL=C grep -q "^${key}[[:space:]]*=" "$SCIELO_DEF_FILE"; then
+    LC_ALL=C sed -ri "s#^${key}[[:space:]]*=.*#${key}=${value}#" "$SCIELO_DEF_FILE"
+  else
+    LC_ALL=C sed -ri "/^\[${section}\]$/a${key}=${value}" "$SCIELO_DEF_FILE"
+  fi
+}
+
+SERVER_SCIELO_FILE_VALUE="$(read_def_value SERVER_SCIELO)"
+SERVER_SCIELO_VALUE="${SERVER_SCIELO:-$SERVER_SCIELO_FILE_VALUE}"
+SERVER_SCIELO_VALUE="${SERVER_SCIELO_VALUE:-127.0.0.1}"
 if [[ ! "$SERVER_SCIELO_VALUE" =~ ^[A-Za-z0-9][A-Za-z0-9.-]*(:[0-9]{1,5})?$ ]]; then
   echo "Invalid SERVER_SCIELO value: use a hostname or IP address, optionally followed by a port" >&2
   exit 1
 fi
-sed -ri "s#^SERVER_SCIELO=.*#SERVER_SCIELO=${SERVER_SCIELO_VALUE}#" /var/www/html/htdocs/scielo.def.php
-sed -ri 's#^ENABLED_CACHE=.*#ENABLED_CACHE=0#' /var/www/html/htdocs/scielo.def.php || true
-sed -ri 's#^CACHE_STATUS\\s*=.*#CACHE_STATUS = off#' /var/www/html/htdocs/scielo.def.php || true
+STANDARD_LANG_FILE_VALUE="$(read_def_value STANDARD_LANG)"
+STANDARD_LANG_VALUE="${STANDARD_LANG:-$STANDARD_LANG_FILE_VALUE}"
+STANDARD_LANG_VALUE="${STANDARD_LANG_VALUE:-en}"
+if [[ ! "$STANDARD_LANG_VALUE" =~ ^[a-z]{2,3}$ ]]; then
+  echo "Invalid STANDARD_LANG value: use a two- or three-letter lowercase language code" >&2
+  exit 1
+fi
+ACTIVATE_GOOGLE_FILE_VALUE="$(read_def_value ACTIVATE_GOOGLE)"
+ACTIVATE_GOOGLE_VALUE="${ACTIVATE_GOOGLE:-$ACTIVATE_GOOGLE_FILE_VALUE}"
+ACTIVATE_GOOGLE_VALUE="${ACTIVATE_GOOGLE_VALUE:-0}"
+if [[ ! "$ACTIVATE_GOOGLE_VALUE" =~ ^[01]$ ]]; then
+  echo "Invalid ACTIVATE_GOOGLE value: use 0 or 1" >&2
+  exit 1
+fi
+GOOGLE_CODE_FILE_VALUE="$(read_def_value GOOGLE_CODE)"
+GOOGLE_CODE_VALUE="${GOOGLE_CODE:-$GOOGLE_CODE_FILE_VALUE}"
+if [[ ! "$GOOGLE_CODE_VALUE" =~ ^[A-Za-z0-9_-]*$ ]]; then
+  echo "Invalid GOOGLE_CODE value: use only letters, numbers, hyphens, or underscores" >&2
+  exit 1
+fi
+if [[ "$ACTIVATE_GOOGLE_VALUE" == "1" && -z "$GOOGLE_CODE_VALUE" ]]; then
+  echo "GOOGLE_CODE must be set when ACTIVATE_GOOGLE=1" >&2
+  exit 1
+fi
+if [[ -n "${SERVER_SCIELO:-}" || -z "$SERVER_SCIELO_FILE_VALUE" ]]; then
+  write_def_value SERVER_SCIELO "$SERVER_SCIELO_VALUE" SCIELO
+fi
+if [[ -n "${STANDARD_LANG:-}" || -z "$STANDARD_LANG_FILE_VALUE" ]]; then
+  write_def_value STANDARD_LANG "$STANDARD_LANG_VALUE" SITE_INFO
+fi
+if [[ -n "${ACTIVATE_GOOGLE:-}" || -z "$ACTIVATE_GOOGLE_FILE_VALUE" ]]; then
+  write_def_value ACTIVATE_GOOGLE "$ACTIVATE_GOOGLE_VALUE" LOG
+fi
+if [[ -n "${GOOGLE_CODE:-}" || -z "$GOOGLE_CODE_FILE_VALUE" ]]; then
+  write_def_value GOOGLE_CODE "$GOOGLE_CODE_VALUE" LOG
+fi
 
 # Recreate legacy SciELO filesystem layout expected by old defs/scripts.
 mkdir -p /home/scielo/www

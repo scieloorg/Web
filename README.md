@@ -16,6 +16,9 @@ arquivo `.env` no mesmo diretório do `docker-compose.yml`:
 
 ```dotenv
 SERVER_SCIELO=cienciaecultura.bvs.br
+STANDARD_LANG=pt
+ACTIVATE_GOOGLE=1
+GOOGLE_CODE=UA-6060112-1
 ```
 
 Informe somente o hostname ou endereço IP, sem `http://` ou `https://`. Uma porta
@@ -27,5 +30,15 @@ Depois de definir ou alterar a variável, recrie o container:
 docker compose up -d --force-recreate
 ```
 
-O entrypoint aplica o valor de `SERVER_SCIELO` ao `scielo.def.php` em cada
-inicialização. O arquivo `.env` é local e não deve ser versionado.
+`STANDARD_LANG` define o idioma padrão da interface. Use um código de idioma em
+letras minúsculas, como `pt`, `es`, `en` ou `nso`.
+
+Para ativar o Google Analytics, use `ACTIVATE_GOOGLE=1` e informe o identificador
+da propriedade em `GOOGLE_CODE`. Para desativá-lo, use `ACTIVATE_GOOGLE=0`.
+
+O `.env` é complementar ao `scielo.def.php`: valores não vazios definidos no
+`.env` têm precedência e são aplicados em cada inicialização; variáveis ausentes
+ou vazias preservam o arquivo e o valor existente no `scielo.def.php`. Quando o
+arquivo já existe no diretório montado, ele não é substituído pelo template. O
+template só é copiado quando `scielo.def.php` ainda não existe. O arquivo `.env`
+é local e não deve ser versionado.
