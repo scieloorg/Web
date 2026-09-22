@@ -5,6 +5,7 @@ require_once(dirname(__FILE__)."/../../users/langs.php");
 require_once(dirname(__FILE__)."/../../includes/phpmailer/class.phpmailer.php");
 require_once(dirname(__FILE__)."/../../classes/services/ArticleServices.php");
 require_once(dirname(__FILE__)."/../../../../php/include.php");
+require_once(dirname(__FILE__)."/../../../../security.php");
 
 $bvsSiteIni = parse_ini_file(dirname(__FILE__)."/../../../../bvs-site-conf.php",true);
 
@@ -25,7 +26,17 @@ $cgi = array_merge($_GET,$_POST);
 
 $acao = $cgi["acao"];
 $pid = $cgi["pid"];
-$caller = $cgi["caller"];
+$requestedCaller = isset($cgi['caller']) ? $cgi['caller'] : '';
+$caller = scielo_internal_host_from_config($mainscielodef);
+if ($requestedCaller !== '' && $requestedCaller !== $caller) {
+	scielo_audit_event(
+		'access.denied',
+		'unauthorized',
+		'service.article_metadata',
+		null,
+		array('reason' => 'caller_override_ignored')
+	);
+}
 
 //geting metadatas from PID
 $articleService = new ArticleService($caller);

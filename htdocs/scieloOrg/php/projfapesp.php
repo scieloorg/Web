@@ -4,8 +4,11 @@
 	$lang = isset($_REQUEST['lang'])?($_REQUEST['lang']):"";
 	$pid = isset($_REQUEST['pid'])?($_REQUEST['pid']):"";
 
-	require_once(dirname(__FILE__)."/../../applications/scielo-org/users/langs.php");	
+	require_once(dirname(__FILE__)."/../../applications/scielo-org/users/langs.php");
+	require_once(dirname(__FILE__)."/../../security.php");
 	$defFile = parse_ini_file(dirname(__FILE__)."/../../scielo.def.php");
+	$scieloConfig = parse_ini_file(dirname(__FILE__)."/../../scielo.def.php", true);
+	$internalHost = scielo_internal_host_from_config($scieloConfig);
 
 ?>
 
@@ -80,7 +83,10 @@
 										<TD colspan="2">
 											<div class="articleList">
 											<?php
-												$serviceUrl = "http://" . $_SERVER['HTTP_HOST'] . "/cgi-bin/wxis.exe/?IsisScript=ScieloXML/sci_projfapesp.xis&pid=".$pid;
+											$serviceUrl = 'http://' . $internalHost . '/cgi-bin/wxis.exe/?' . http_build_query(array(
+												'IsisScript' => 'ScieloXML/sci_projfapesp.xis',
+												'pid' => $pid,
+											));
 												$xmlFile = file_get_contents($serviceUrl);
 												
 

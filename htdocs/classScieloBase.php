@@ -2,6 +2,7 @@
 include ("classRequestVars.php");
 include ("class.ScieloTransformer.php");
 include ("classDefFile.php");
+require_once(__DIR__ . "/security.php");
 
 define("HOST_PORTS_FILE", "ports");
 
@@ -46,8 +47,20 @@ class ScieloBase
 		$this->_GetInfoByHost();
 
         if ( !$this->_request->getRequestValue ("script", $this->_script) ) $this->_script = $this->_homepg;
-        $this->_request->getRequestValue ("debug", $this->_debug);
-        $this->_debug = strtoupper ($this->_debug);
+        $requestedDebug = '';
+        if ($this->_request->getRequestValue("debug", $requestedDebug)) {
+            if (scielo_diagnostic_mode_allowed($requestedDebug)) {
+                $this->_debug = strtoupper($requestedDebug);
+            } else {
+                scielo_audit_event(
+                    'access.denied',
+                    'unauthorized',
+                    'diagnostics',
+                    null,
+                    array('reason' => 'remote_debug_disabled')
+                );
+            }
+        }
 
 		// Create a DefFile object to gather information from def file
 		$this->_SetDefFileObject();
@@ -200,6 +213,10 @@ class ScieloBase
 	*************************************************************************/
 	function _CheckBypassTransformer()
 	{
+		if (!scielo_diagnostic_mode_allowed($this->_debug)) {
+			return false;
+		}
+
 		if ( (!$this->_debug || $this->_debug == 'VERIFICA') && ($this->_script != 'sci_verify') )
 		{
                   return false;
@@ -229,16 +246,16 @@ class ScieloBase
 	*************************************************************************/
 	function _BypassTransformer()
 	{
+		header("Content-Type: text/plain; charset=UTF-8");
 		switch ($this->_debug){
 			case "XML":
-				header("Content-type:text/xml; charset=utf-8\n");
-		        echo $this->_xml;
+			        echo $this->_xml;
 				break;
 			case "ON":
 				$fd = fopen ($this->_IsisScriptUrl,"r"); 
 
 				if (!$fd) { 
-					echo "<br><b>Could not open url:</b> [".$this->_IsisScriptUrl."]\n<br>";
+					echo "Could not open diagnostic URL.\n";
 					return;
 				} 
 			
@@ -253,14 +270,9 @@ class ScieloBase
 				echo $this->_xsl;
 				break;
 			default:
-				echo "<form>\n";
-				echo "<b>Generated XML</b><br>\n";
-				echo '<TEXTAREA cols="80" rows="20">\n';
-				echo $this->_xml;
-				echo "\n</TEXTAREA>\n</form>";
-
-				echo "<b>url of IsisScript</b>=$this->_IsisScriptUrl<br>\n";
-				echo "<b>\$xsl</b>=$this->_xsl<br>\n";
+				echo "Generated XML\n";
+				echo $this->_xml . "\n";
+				echo "XSL=" . $this->_xsl . "\n";
 				break;
 		}
 	}
@@ -409,7 +421,9 @@ class ScieloBase
 	function _TransformXML()
 	{
           $result = "";
-          $diag = isset($_REQUEST["diag"]) && $_REQUEST["diag"] == "1";
+          $diag = isset($_REQUEST["diag"])
+              && $_REQUEST["diag"] == "1"
+              && scielo_diagnostics_allowed();
 
           // Apply transformer in xml
           $transform = new ScieloXMLTransformer();

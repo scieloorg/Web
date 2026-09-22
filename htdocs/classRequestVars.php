@@ -13,12 +13,13 @@ class RequestVars
 
     function RequestVars ()
     {
-        global $HTTP_GET_VARS, $HTTP_POST_VARS, $REQUEST_URI, $SCRIPT_NAME;
+        $requestUri = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
+        $scriptName = isset($_SERVER['SCRIPT_NAME']) ? $_SERVER['SCRIPT_NAME'] : '';
 
-        if (strpos($REQUEST_URI, "?") === false)
+        if (strpos($requestUri, "?") === false)
         {
-            $QSCnav = $REQUEST_URI;
-            $QSCscript = $SCRIPT_NAME;
+            $QSCnav = $requestUri;
+            $QSCscript = $scriptName;
             $QSCnav = preg_replace('/^' . preg_quote($QSCscript, '/') . '/', '', $QSCnav);
             $QSCvars = explode("/", $QSCnav);
             $QSCArray = array();
@@ -38,11 +39,11 @@ class RequestVars
                 }
             }
 
-            $this->_request = array_merge($HTTP_GET_VARS, $HTTP_POST_VARS, $QSCArray);
+            $this->_request = array_merge($_GET, $_POST, $QSCArray);
         }
         else
         {
-            $this->_request = array_merge($HTTP_GET_VARS, $HTTP_POST_VARS);
+            $this->_request = array_merge($_GET, $_POST);
         }
 
         if (!isset($this->_request['lng']) || strpos("|en|pt|es|", $this->_request['lng']) == 0) {

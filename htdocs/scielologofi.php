@@ -2,7 +2,7 @@
 	include ("classScieloLogOfi.php");
 
     // Create new Scielo object
-	$host = $HTTP_HOST;    
+	$host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : '';
 	$scielo = new ScieloLog ($host);
 	
     $scielo->SetPreferedMethod ("POST");
