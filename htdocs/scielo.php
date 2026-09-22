@@ -118,7 +118,8 @@
   $xsl = $scielo->GenerateXslUrl();
   $scielo->SetXSLUrl ($xsl);
 
-  if ((isset($_REQUEST['diag']) ? $_REQUEST['diag'] : '') == '1') {
+  if ((isset($_REQUEST['diag']) ? $_REQUEST['diag'] : '') == '1'
+      && scielo_diagnostics_allowed()) {
     $xslExists = file_exists($xsl) ? 'yes' : 'no';
     $xmlPreview = htmlspecialchars(substr($xml, 0, 12000));
     $errorTagCount = preg_match_all('/<ERROR[\\s>]/i', $xml);
@@ -135,11 +136,20 @@
     echo "XML_PREVIEW_BEGIN\n".$xmlPreview."\nXML_PREVIEW_END\n";
     exit;
   }
+
+  if ((isset($_REQUEST['diag']) ? $_REQUEST['diag'] : '') == '1') {
+    scielo_audit_event(
+      'access.denied',
+      'unauthorized',
+      'diagnostics',
+      null,
+      array('reason' => 'remote_diag_disabled')
+    );
+  }
   
   $pageContent = $scielo->getPage();
   
-  $pageContent .= "\n".'<!-- REQUEST URI: '.$REQUEST_URI.'-->';
-  $pageContent .= "\n"."<!--SERVER:".$SERVER_ADDR."-->";
+  $pageContent .= "\n".'<!-- REQUEST URI: '.htmlspecialchars($_SERVER['REQUEST_URI'], ENT_QUOTES, 'UTF-8').'-->';
 
   if ($GRAVA && $filenamePage){
     if (!file_exists($filenamePage)){

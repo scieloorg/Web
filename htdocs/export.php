@@ -1,21 +1,70 @@
-<?
+<?php
 /**
 * cria o arquivo de texto com a citacao exportada para
 * o formato selecionado
 */
-$pid = isset($_REQUEST['PID'])?$_REQUEST['PID']:$_REQUEST['pid'];
-$format = $_REQUEST['format'];
+require_once(__DIR__ . '/security.php');
 
-if(!isset($pid) || $pid == '' || !isset($format) || $format == ''){
-    //header('Location: / ');
+$pid = isset($_REQUEST['PID']) ? $_REQUEST['PID'] : (isset($_REQUEST['pid']) ? $_REQUEST['pid'] : '');
+$format = isset($_REQUEST['format']) ? $_REQUEST['format'] : '';
+$allowedFormats = array('BibTex', 'RefMan', 'EndNote', 'ProCite', 'RefWorks', 'XML');
+
+if (!preg_match('/^[A-Za-z0-9._()-]{1,128}$/', $pid)
+    || !in_array($format, $allowedFormats, true)) {
+    http_response_code(400);
+    scielo_audit_event(
+        'access.denied',
+        'failure',
+        'article.export',
+        null,
+        array('reason' => 'invalid_export_parameters')
+    );
     print('Error: Exportation tool.<br/>');
     exit;
 }
 
 
-$url = "http://".$_SERVER['HTTP_HOST']."/cgi-bin/wxis.exe/?IsisScript=ScieloXML/sci_artmetadata.xis&def=scielo.def.php&pid=".$pid."&";
+$config = parse_ini_file(__DIR__ . '/scielo.def.php', true);
+try {
+    $internalHost = scielo_internal_host_from_config($config);
+} catch (RuntimeException $exception) {
+    http_response_code(500);
+    scielo_audit_event(
+        'system.error',
+        'failure',
+        'article.export',
+        $pid,
+        array('reason' => 'invalid_internal_host_configuration')
+    );
+    print('Error: Exportation service unavailable.<br/>');
+    exit;
+}
 
-$handle = fopen($url, "rb");
+$query = http_build_query(array(
+    'IsisScript' => 'ScieloXML/sci_artmetadata.xis',
+    'def' => 'scielo.def.php',
+    'pid' => $pid,
+));
+$url = 'http://' . $internalHost . '/cgi-bin/wxis.exe/?' . $query;
+$context = stream_context_create(array(
+    'http' => array(
+        'timeout' => 5,
+        'follow_location' => 0,
+    ),
+));
+$handle = @fopen($url, "rb", false, $context);
+if ($handle === false) {
+    http_response_code(502);
+    scielo_audit_event(
+        'system.error',
+        'failure',
+        'article.export',
+        $pid,
+        array('reason' => 'metadata_backend_unavailable')
+    );
+    print('Error: Exportation service unavailable.<br/>');
+    exit;
+}
 
 $xml = "";
 do {
@@ -34,10 +83,6 @@ switch($format){
 
 	case "BibTex":
 		$xsl .= "createBibTexReference.xsl";
-	break;
-
-	case "RefMan":
-		$xsl .= "createRefManReference.xsl";
 	break;
 
 	case "EndNote":

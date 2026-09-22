@@ -50,13 +50,8 @@ $old2newArray = array(
 );
 
 foreach ($old2newArray as $old => $new) {
-    if (!isset($$old) && isset($$new)) {
-        $$old = $$new;
-    }
-    if (isset($$old) && is_array($$old)) {
-        foreach ($$old as $key => $value) {
-            $GLOBALS[$key] = $value;
-        }
+    if (!isset($GLOBALS[$old]) && isset($GLOBALS[$new])) {
+        $GLOBALS[$old] = $GLOBALS[$new];
     }
 }
 

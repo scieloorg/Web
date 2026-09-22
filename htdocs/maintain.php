@@ -1,4 +1,10 @@
-<?php include("old2new.inc"); ?>
+<?php
+include("old2new.inc");
+$lng = isset($_REQUEST['lng']) ? $_REQUEST['lng'] : 'en';
+if (!in_array($lng, array('en', 'es', 'pt'), true)) {
+    $lng = 'en';
+}
+?>
 
 <HTML>
 <HEAD>

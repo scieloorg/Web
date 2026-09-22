@@ -5,6 +5,7 @@
 	require_once($DirNameLocalGraphPage."../../users/functions.php");
 	require_once($DirNameLocalGraphPage."../../users/langs.php");
 	require_once($DirNameLocalGraphPage."../../../../php/include.php");
+	require_once($DirNameLocalGraphPage."../../../../security.php");
 	require_once($DirNameLocalGraphPage."../../classes/services/ArticleServices.php");
 	require_once(dirname(__FILE__)."/../../classes/services/AccessServiceBar.php");
 	require_once(dirname(__FILE__)."/../../classes/Open_Flash_Chart/ofc-library/open_flash_chart_object.php");
@@ -14,8 +15,18 @@
 	$scielodef = parse_ini_file($DirNameLocalGraphPage."/../../scielo.def.php", true);
   	$scielomaindef = parse_ini_file($DirNameLocalGraphPage."/../../../../scielo.def.php", true);
 
-	$pid = $_REQUEST['pid'];
-	$caller = $_REQUEST["caller"];
+	$pid = isset($_REQUEST['pid']) ? $_REQUEST['pid'] : '';
+	$requestedCaller = isset($_REQUEST['caller']) ? $_REQUEST['caller'] : '';
+	$caller = scielo_internal_host_from_config($scielomaindef);
+	if ($requestedCaller !== '' && $requestedCaller !== $caller) {
+		scielo_audit_event(
+			'access.denied',
+			'unauthorized',
+			'service.article_metadata',
+			null,
+			array('reason' => 'caller_override_ignored')
+		);
+	}
 		
 	$articleService = new ArticleService($caller);
 	$articleService->setParams($pid);
