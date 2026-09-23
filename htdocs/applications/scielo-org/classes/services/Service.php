@@ -33,8 +33,7 @@
 		}
 		function callService($url){
 			$fp = fopen ($url,"r");
-			print '<!--'.$url.'-->';
-			if ($fp) { 
+			if ($fp) {
 				$xml = "";
 				do {
 					$data = fread($fp, 1024);

@@ -13,9 +13,14 @@
 	$DirHtml = $DirNameLocalGraphPage."../html/" .$lang . "/";
 	$site = parse_ini_file($DirNameLocalGraphPage."/../../../../ini/" . $lang . "/bvs.ini", true);
 	$scielodef = parse_ini_file($DirNameLocalGraphPage."/../../scielo.def.php", true);
-  	$scielomaindef = parse_ini_file($DirNameLocalGraphPage."/../../../../scielo.def.php", true);
+	$scielomaindef = parse_ini_file($DirNameLocalGraphPage."/../../../../scielo.def.php", true);
 
-	$pid = isset($_REQUEST['pid']) ? $_REQUEST['pid'] : '';
+	$lang = scielo_validate_language($lang, 'pt');
+	$pid = scielo_validate_article_pid(isset($_GET['pid']) ? $_GET['pid'] : '');
+	if ($pid === false) {
+		http_response_code(400);
+		exit('Invalid request');
+	}
 	$requestedCaller = isset($_REQUEST['caller']) ? $_REQUEST['caller'] : '';
 	$caller = scielo_internal_host_from_config($scielomaindef);
 	if ($requestedCaller !== '' && $requestedCaller !== $caller) {
@@ -33,15 +38,26 @@
 	$article = $articleService->getArticle();
 	
 	$accessService = new AccessService();
-	$accessService->setParam('pid',$_REQUEST['pid']);
-	$accessService->setParam('app',$scielomaindef["SITE_INFO"][APP_NAME]);
+	$accessService->setParam('pid', $pid);
+	$accessService->setParam('app', $scielomaindef["SITE_INFO"]['APP_NAME']);
 	$years = array();
 	$years = $accessService->getYears($accessService->getStats());
-	
-	$yearsLastIndex = (count($years) - 1);
-	
-	$startYear = $_REQUEST['startYear'] ? $_REQUEST['startYear'] : $years[$yearsLastIndex];
-	$lastYear = $_REQUEST['lastYear'] ? $_REQUEST['lastYear'] :  $years[$yearsLastIndex];	
+	$years = array_values(array_filter(array_map('intval', $years), function ($year) {
+		return $year >= 1900 && $year <= ((int) date('Y') + 1);
+	}));
+
+	$defaultYear = count($years) > 0 ? $years[count($years) - 1] : (int) date('Y');
+	$startYear = isset($_GET['startYear']) && preg_match('/^(?:19|20)[0-9]{2}$/D', $_GET['startYear'])
+		? (int) $_GET['startYear']
+		: $defaultYear;
+	$lastYear = isset($_GET['lastYear']) && preg_match('/^(?:19|20)[0-9]{2}$/D', $_GET['lastYear'])
+		? (int) $_GET['lastYear']
+		: $defaultYear;
+	if ($startYear > $lastYear) {
+		$tmpYear = $startYear;
+		$startYear = $lastYear;
+		$lastYear = $tmpYear;
+	}
       ?>
 <!DOCTYPE html
   PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -52,17 +68,17 @@
     <meta http-equiv="pragma" content="no-cache">
     <meta name="robots" content="all">
 	
-    <script language="JavaScript">lang = '<?=$lang?>';</script>
-    <script language="JavaScript" src="<?=$scielodef['this']['url']?>/js/functions.js"></script>
-    <script language="JavaScript" src="<?=$scielodef['this']['url']?>/js/showHide.js"></script>
-    <script language="JavaScript" src="<?=$scielodef['this']['url']?>/js/metasearch.js"></script>
-    <script language="JavaScript" src="<?=$scielodef['this']['url']?>/js/showHide.js"></script>
+    <script language="JavaScript">lang = <?=json_encode($lang, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT)?>;</script>
+    <script language="JavaScript" src="<?=scielo_escape_html($scielodef['this']['url'])?>/js/functions.js"></script>
+    <script language="JavaScript" src="<?=scielo_escape_html($scielodef['this']['url'])?>/js/showHide.js"></script>
+    <script language="JavaScript" src="<?=scielo_escape_html($scielodef['this']['url'])?>/js/metasearch.js"></script>
+    <script language="JavaScript" src="<?=scielo_escape_html($scielodef['this']['url'])?>/js/showHide.js"></script>
 	<script language="Javascript" src="flash.js"></script>
 	<script language="JavaScript" src="graphVerif.js"></script>
 
-    <link rel="stylesheet" href="<?=$scielodef['this']['url']?>/css/screen2.css" type="text/css" media="screen">
-    <link rel="stylesheet" href="<?=$scielodef['this']['url']?>/css/common/styles.css" type="text/css">
-	<link rel="stylesheet" href="<?=$scielodef['this']['url']?>/applications/scielo-org/css/public/style-<?=$lang?>.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="<?=scielo_escape_html($scielodef['this']['url'])?>/css/screen2.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="<?=scielo_escape_html($scielodef['this']['url'])?>/css/common/styles.css" type="text/css">
+	<link rel="stylesheet" href="<?=scielo_escape_html($scielodef['this']['url'])?>/applications/scielo-org/css/public/style-<?=scielo_escape_html($lang)?>.css" type="text/css" media="screen"/>
   </head>
   <body>
     <div class="container">
@@ -81,12 +97,12 @@
                                                             $pos = strrpos($author, ";");
                                                             $author[$pos] = " ";
 
-                                                            echo $author;
+                                                            echo scielo_escape_html($author);
                                                             echo '<i><b>';
-                                                            echo getTitle($article->getTitle(), $lang).". ";
+                                                            echo scielo_escape_html(getTitle($article->getTitle(), $lang)).". ";
                                                             echo ('</b></i>');
-                                                            echo scielo_utf8_encode($article->getSerial(). ', '.$article->getYear().', vol.'.$article->getVolume());
-                                                            echo scielo_utf8_encode(', n. '.$article->getNumber().', ISSN '.substr($article->getPID(),1,9).'.<br/><br/>'."\n");
+                                                            echo scielo_escape_html(scielo_utf8_encode($article->getSerial(). ', '.$article->getYear().', vol.'.$article->getVolume()));
+                                                            echo scielo_escape_html(scielo_utf8_encode(', n. '.$article->getNumber().', ISSN '.substr($article->getPID(),1,9).'.')).'<br/><br/>'."\n";
 							?>
 							</span></h3>
 						</TD>
@@ -101,9 +117,9 @@
 					<?php
 						for($i = 0; $i < count($years) - 1; $i++)
 						{
-							echo '<option value="'.$years[$i].'">'.$years[$i].'</option>'; 	
+							echo '<option value="'.(int) $years[$i].'">'.(int) $years[$i].'</option>';
 						}
-						echo '<option  selected value="'.$years[$i].'">'.$years[$i].'</option>'; 	
+						echo '<option selected value="'.$defaultYear.'">'.$defaultYear.'</option>';
 					?>
 					</select> 
 					<?=LAST_YEAR?>
@@ -111,27 +127,29 @@
 					<?php
 						for($i = 0; $i < count($years) -1; $i++)
 						{
-							echo '<option value="'.$years[$i].'">'.$years[$i].'</option>'; 	
+							echo '<option value="'.(int) $years[$i].'">'.(int) $years[$i].'</option>';
 						}
-						echo '<option  selected value="'.$years[$i].'">'.$years[$i].'</option>'; 	
+						echo '<option selected value="'.$defaultYear.'">'.$defaultYear.'</option>';
 					?>
 					</select>
 					<input type="submit" class="submit" value="<?=BUTTON_REFRESH?>">
-					<input type="hidden" id="lang" name="lang" value="<?=$lang?>">
-					<input type="hidden" id="caller" name="caller" value="<?=$caller?>">
-					<input type="hidden" id="pid" name="pid" value="<?=$pid?>">
+					<input type="hidden" id="lang" name="lang" value="<?=scielo_escape_html($lang)?>">
+					<input type="hidden" id="pid" name="pid" value="<?=scielo_escape_html($pid)?>">
 				</form>
 			</div>
             <div class="content">
 				<div>
 					<!-- Monta o gráfico -->
 					<?php 
-						$urlFlash = ''.$scielodef['this']['url'].$scielodef['this']['relpath'].'/pages/services/articleRequestGraphic.php?pid='.$pid.'&startYear='.$startYear.'&lastYear='.$lastYear.'';
-						echo '<!-- URL FLASH: '.$urlFlash.'-->';
+						$urlFlash = $scielodef['this']['url'].$scielodef['this']['relpath'].'/pages/services/articleRequestGraphic.php?'.http_build_query(array(
+							'pid' => $pid,
+							'startYear' => $startYear,
+							'lastYear' => $lastYear,
+						));
 						echo "<div align='center' style='width:760px; height:5px;padding-top:6px;' ><b>".ARTICLE_ACCESS."</b></div>";
 					?>
 					<script type="text/javascript">
-						GerarSWF('<?php echo flashentities($urlFlash)?>',760,350);
+						GerarSWF(<?=json_encode($urlFlash, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT)?>,760,350);
 					</script>
 				</div>
 			</div>

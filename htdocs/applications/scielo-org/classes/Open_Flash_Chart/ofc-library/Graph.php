@@ -1,6 +1,11 @@
 <?php
 class Graph
 {
+    function __construct()
+    {
+         $this->Graph();
+    }
+
     function Graph()
     {
          $this->data = array();

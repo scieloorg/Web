@@ -41,6 +41,10 @@ class SAXY_Lite_Parser extends SAXY_Parser_Base {
 		$this->state = SAXY_STATE_NONE;
 	} //SAXY_Lite_Parser
 
+	function __construct() {
+		$this->SAXY_Lite_Parser();
+	}
+
 	/**
 	* Returns the current version of SAXY Lite
 	* @return Object The current version of SAXY Lite
