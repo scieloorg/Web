@@ -55,6 +55,48 @@ assert_true(!isset($GLOBALS['SCIELO_TEST_GLOBAL']), 'request keys must not be co
 assert_true($_SERVER['REQUEST_URI'] === '/trusted', 'request data must not overwrite SERVER values');
 assert_true(isset($GLOBALS['HTTP_GET_VARS']), 'legacy request array alias should remain available');
 
+require_once(__DIR__ . '/../htdocs/classRequestVars.php');
+
+$_SERVER['SCRIPT_NAME'] = '/scielo.php';
+$_SERVER['REQUEST_URI'] = '/scielo.php';
+$_GET = array();
+$_POST = array();
+$requestVars = new RequestVars();
+$requestLanguage = null;
+assert_true(
+    $requestVars->getRequestValue('lng', $requestLanguage) === false,
+    'missing language must remain unset so STANDARD_LANG can be used'
+);
+$configuredDefaultLanguage = 'pt';
+if (!$requestVars->getRequestValue('lng', $requestLanguage)) {
+    $requestLanguage = $configuredDefaultLanguage;
+}
+assert_true($requestLanguage === 'pt', 'missing language must resolve to the configured STANDARD_LANG');
+
+$_SERVER['REQUEST_URI'] = '/scielo.php?lng=PT';
+$_GET = array('lng' => 'PT');
+$requestVars = new RequestVars();
+assert_true(
+    $requestVars->getRequestValue('lng', $requestLanguage) === true && $requestLanguage === 'pt',
+    'supported request language must be normalized and preserved'
+);
+
+$_SERVER['REQUEST_URI'] = '/scielo.php?lng=invalid';
+$_GET = array('lng' => 'invalid');
+$requestVars = new RequestVars();
+assert_true(
+    $requestVars->getRequestValue('lng', $requestLanguage) === false,
+    'unsupported request language must be discarded so STANDARD_LANG can be used'
+);
+
+$_SERVER['REQUEST_URI'] = '/scielo.php?lng[]=pt';
+$_GET = array('lng' => array('pt'));
+$requestVars = new RequestVars();
+assert_true(
+    $requestVars->getRequestValue('lng', $requestLanguage) === false,
+    'non-scalar request language must be discarded without causing a type error'
+);
+
 $config = array('SCIELO' => array('SERVER_SCIELO' => '127.0.0.1:8080'));
 assert_true(scielo_internal_host_from_config($config) === '127.0.0.1:8080', 'configured internal host should be returned');
 assert_true(scielo_audit_sanitize('secret-value', 'password') === '***', 'sensitive audit fields must be redacted');

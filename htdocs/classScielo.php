@@ -53,6 +53,8 @@ class Scielo extends ScieloBase
     function GenerateIsisScriptUrl()
     {
 
+      $lng = '';
+      $nrm = '';
       $this->_request->getRequestValue ("lng", $lng);
       $this->_request->getRequestValue ("nrm", $nrm);
 
