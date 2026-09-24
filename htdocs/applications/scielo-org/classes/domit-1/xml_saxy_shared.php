@@ -59,6 +59,10 @@ class SAXY_Parser_Base {
 	function SAXY_Parser_Base() {
 		$this->charContainer = '';
 	} //SAXY_Parser_Base
+
+	function __construct() {
+		$this->SAXY_Parser_Base();
+	}
 	
 	/**
 	* Sets a reference to the handler for the start element event 

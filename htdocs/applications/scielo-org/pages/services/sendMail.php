@@ -1,11 +1,14 @@
-	<?php
+<?php
 
+require_once(dirname(__FILE__)."/../../../../security.php");
+$lang = scielo_validate_language(isset($_REQUEST['lang']) ? $_REQUEST['lang'] : '', 'pt');
+$_REQUEST['lang'] = $lang;
+scielo_start_secure_session();
 require_once(dirname(__FILE__)."/../../users/functions.php");
-require_once(dirname(__FILE__)."/../../users/langs.php");	
+require_once(dirname(__FILE__)."/../../users/langs.php");
 require_once(dirname(__FILE__)."/../../includes/phpmailer/class.phpmailer.php");
 require_once(dirname(__FILE__)."/../../classes/services/ArticleServices.php");
 require_once(dirname(__FILE__)."/../../../../php/include.php");
-require_once(dirname(__FILE__)."/../../../../security.php");
 
 $bvsSiteIni = parse_ini_file(dirname(__FILE__)."/../../../../bvs-site-conf.php",true);
 
@@ -22,11 +25,16 @@ $mainscielodef = parse_ini_file(dirname(__FILE__)."/../../../../scielo.def.php",
 $site = parse_ini_file(dirname(__FILE__)."/../../../ini/" . $lang . "/bvs.ini", true);
 $home = $scielodef['this']['url'];
 $mailcredentials = $mainscielodef['MAIL_CREDENTIALS'];
-$cgi = array_merge($_GET,$_POST);
-
-$acao = $cgi["acao"];
-$pid = $cgi["pid"];
-$requestedCaller = isset($cgi['caller']) ? $cgi['caller'] : '';
+$requestMethod = isset($_SERVER['REQUEST_METHOD']) ? strtoupper($_SERVER['REQUEST_METHOD']) : 'GET';
+$acao = isset($_POST['acao']) ? $_POST['acao'] : '';
+$pidValue = isset($_POST['pid']) ? $_POST['pid'] : (isset($_GET['pid']) ? $_GET['pid'] : '');
+$pid = scielo_validate_article_pid($pidValue);
+if ($pid === false) {
+	http_response_code(400);
+	exit('Invalid request');
+}
+$csrfToken = scielo_csrf_token();
+$requestedCaller = isset($_REQUEST['caller']) ? $_REQUEST['caller'] : '';
 $caller = scielo_internal_host_from_config($mainscielodef);
 if ($requestedCaller !== '' && $requestedCaller !== $caller) {
 	scielo_audit_event(
@@ -38,55 +46,72 @@ if ($requestedCaller !== '' && $requestedCaller !== $caller) {
 	);
 }
 
+if ($acao === 'send') {
+	if ($requestMethod !== 'POST') {
+		header('Allow: POST');
+		http_response_code(405);
+		exit('Method not allowed');
+	}
+
+	if (!scielo_csrf_token_is_valid(isset($_POST['csrf_token']) ? $_POST['csrf_token'] : '')) {
+		scielo_audit_event('access.denied', 'unauthorized', 'service.article_email', $pid, array(
+			'reason' => 'invalid_csrf_token',
+		));
+		http_response_code(403);
+		exit('Request denied');
+	}
+
+	$fromEmail = scielo_validate_email_address(isset($_POST['from']) ? $_POST['from'] : '');
+	$toEmail = scielo_validate_email_address(isset($_POST['to']) ? $_POST['to'] : '');
+	$fromName = scielo_validate_person_name(isset($_POST['fromName']) ? $_POST['fromName'] : '');
+	$toName = scielo_validate_person_name(isset($_POST['toName']) ? $_POST['toName'] : '');
+	$comment = scielo_validate_comment(isset($_POST['comment']) ? $_POST['comment'] : '');
+	if ($fromEmail === false || $toEmail === false || $fromName === false
+		|| $toName === false || $comment === false) {
+		scielo_audit_event('article.email_send', 'failure', 'article', $pid, array(
+			'reason' => 'invalid_input',
+		));
+		http_response_code(400);
+		exit('Invalid request');
+	}
+
+	$rateLimit = scielo_rate_limit('article.email_send', 5, 3600);
+	if (!$rateLimit['allowed']) {
+		scielo_audit_event('access.denied', 'unauthorized', 'service.article_email', $pid, array(
+			'reason' => 'rate_limit_exceeded',
+			'retry_after' => $rateLimit['retry_after'],
+		));
+		header('Retry-After: ' . $rateLimit['retry_after']);
+		http_response_code(429);
+		exit('Too many requests');
+	}
+}
+
 //geting metadatas from PID
 $articleService = new ArticleService($caller);
 $articleService->setParams($pid);
 $article = $articleService->getArticle();
 switch($acao){
 	case "send":
-		$articleURL = 'http://'.$caller.'/scielo.php?script=sci_abstract&pid='.$pid.'&lng=en&nrm=iso&tlng=en';
-		$link = '<a href="'.$articleURL.'">'.getTitle($article->getTitle()).'</a>';
+		$articleURL = 'http://' . $caller . '/scielo.php?' . http_build_query(array(
+			'script' => 'sci_abstract',
+			'pid' => $pid,
+			'lng' => 'en',
+			'nrm' => 'iso',
+			'tlng' => 'en',
+		));
+		$link = '<a href="' . scielo_escape_html($articleURL) . '">'
+			. scielo_escape_html(getTitle($article->getTitle())) . '</a>';
 
 		$msg = file_get_contents(dirname(__FILE__)."/../../html/".$lang."/send_mail_msg.html");
 
-		$msg = str_replace("[toName]",$cgi["toName"],$msg);
-		$msg = str_replace("[fromName]",$cgi["fromName"],$msg);
-		$msg = str_replace("[serialName]",$article->getSerial(),$msg);
+		$msg = str_replace("[toName]", scielo_escape_html($toName), $msg);
+		$msg = str_replace("[fromName]", scielo_escape_html($fromName), $msg);
+		$msg = str_replace("[serialName]", scielo_escape_html($article->getSerial()), $msg);
 		$msg = str_replace("[articleTitleURL]",$link,$msg);
-		$msg = str_replace("[articleURL]",$articleURL,$msg);
-		$msg = str_replace("[commentary]",$cgi["comment"],$msg);
-
-
-                $search = array ('@<script[^>]*?>.*?</script>@si', // Strip out javascript
-                                                 '@<[\/\!]*?[^<>]*?>@si',          // Strip out HTML tags
-                                                 '@([\r\n])[\s]+@',                // Strip out white space
-                                                 '@&(quot|#34);@i',                // Replace HTML entities
-                                                 '@&(amp|#38);@i',
-                                                 '@&(lt|#60);@i',
-                                                 '@&(gt|#62);@i',
-                                                 '@&(nbsp|#160);@i',
-                                                 '@&(iexcl|#161);@i',
-                                                 '@&(cent|#162);@i',
-                                                 '@&(pound|#163);@i',
-                                                 '@&(copy|#169);@i',
-                                                 '@&#(\d+);@e');                    // evaluate as php
-
-                $replace = array ('',
-                                                  '',
-                                                  '\1',
-                                                  '"',
-                                                  '&',
-                                                  '<',
-                                                  '>',
-                                                  ' ',
-                                                  chr(161),
-                                                  chr(162),
-                                                  chr(163),
-                                                  chr(169),
-                                                  'chr(\1)');
-
-                $msg_no_html = preg_replace($search, $replace, $msg);
-
+		$msg = str_replace("[articleURL]", scielo_escape_html($articleURL), $msg);
+		$msg = str_replace("[commentary]", nl2br(scielo_escape_html($comment)), $msg);
+		$msg_no_html = trim(strip_tags(html_entity_decode($msg, ENT_QUOTES | ENT_HTML5, 'UTF-8')));
 
 		$_mail = new PHPMailer();
 		$_mail->isSMTP();
@@ -95,24 +120,28 @@ switch($acao){
 		$_mail->Username = $mailcredentials['username'];
 		$_mail->Password = $mailcredentials['password'];
 		$_mail->SetLanguage('en',dirname(__FILE__) . '/../../includes/phpmailer/language/');
-		$_mail->AddReplyTo($cgi["from"],$cgi["fromName"]);
+		$_mail->AddReplyTo($fromEmail, $fromName);
 		$_mail->From     = $mailcredentials['sender'];
 		$_mail->FromName = "SciELO";
-		$_mail->Subject  = ARTICLE_SUGGESTION." ".$cgi["fromName"];
+		$_mail->Subject  = ARTICLE_SUGGESTION." ".$fromName;
 		$_mail->Host     = $mailcredentials['host'];
 		$_mail->Port     = $mailcredentials['port'];
 		$_mail->Mailer   = 'mail';
 		$_mail->IsHTML(true);
 		$_mail->Body = $msg;
 		$_mail->AltBody  = $msg_no_html;
-		$_mail->AddAddress($cgi["to"], $cgi['toName']);
+		$_mail->AddAddress($toEmail, $toName);
 		$send = $_mail->Send();
 		if(!$send){
 			$acao = "message";
-			$message = $_mail->ErrorInfo;
+			$message = 'Unable to send the message.';
+			scielo_audit_event('article.email_send', 'failure', 'article', $pid, array(
+				'reason' => 'mailer_failure',
+			));
 		}else{
 			$acao = "message";
 			$message = ARTICLE_SUBMITED_WITH_SUCCESS;
+			scielo_audit_event('article.email_send', 'success', 'article', $pid);
 		}
 	break;
 }
@@ -123,7 +152,7 @@ switch($acao){
 <html>
 	<head>
 		<title>
-			<?= $site['title']?>
+			<?=scielo_escape_html($site['title'])?>
 		</title>
 		<? include(dirname(__FILE__)."/../../../../php/head.php"); ?>
 		<script language="JavaScript" src="../../js/script.js"></script>
@@ -142,12 +171,6 @@ switch($acao){
 			<div class="level2">
 				<? require_once(dirname(__FILE__)."/../../html/" . $lang . "/headerInstancesServices.html"); ?>
 				<div class="middle">				
-					<!--div id="breadCrumb">
-						<a href="/">
-							home
-						</a>
-						&gt; <?=ENVIAR_ARTIGO?>
-					</div-->
 					<div class="content">
 						<h3>
 							<span>
@@ -158,19 +181,20 @@ switch($acao){
 						<?
 						if ($acao == "message") {
 						?>
-							<center><?=$message?></center>
+							<center><?=scielo_escape_html($message)?></center>
 							<INPUT type="button" class="submit" value="<?=CLOSE?>" onclick="window.close();">
 						<?
 						}else{?>
 							<INPUT type="hidden" name="acao" value="send">
-							<INPUT type="hidden" name="pid" value="<?=$pid?>">							
-							<INPUT type="hidden" name="caller" value="<?=$caller?>">														
+							<INPUT type="hidden" name="pid" value="<?=scielo_escape_html($pid)?>">
+							<INPUT type="hidden" name="lang" value="<?=scielo_escape_html($lang)?>">
+							<INPUT type="hidden" name="csrf_token" value="<?=scielo_escape_html($csrfToken)?>">
 							<TABLE border="0" cellpadding="0" cellspacing="2" width="550" align="center">
 								<TR>
 									<TD class="emailFormLabel" align="right" width="30%" valign="top">
 										<?=ARTICLE_TITLE?>
 									</TD>
-									<TD><?=getTitle($article->getTitle());?></TD>
+									<TD><?=scielo_escape_html(getTitle($article->getTitle()));?></TD>
 								</TR>
 								<TR>
 									<TD height="15">

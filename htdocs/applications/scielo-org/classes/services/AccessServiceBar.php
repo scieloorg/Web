@@ -44,7 +44,13 @@ para ter o gráfico "multi-lingüe"
 		}
 
 		function buildGraphic($stats){
-			$stat = $stats->getRequests();
+			$stat = is_object($stats) && method_exists($stats, 'getRequests')
+				? $stats->getRequests()
+				: array();
+			if (!is_array($stat) && !($stat instanceof Traversable)) {
+				$stat = array();
+			}
+			$values = array();
 			foreach ($stat as $s){
 				$mes = intval($s->getMonth());
 				$ano = intval($s->getYear());
@@ -176,9 +182,17 @@ para ter o gráfico "multi-lingüe"
 		function getYears($stats)
 		{
 			// Recebe os dados estatisticos de um artigo
-			$stat = $stats->getRequests();
+			$stat = is_object($stats) && method_exists($stats, 'getRequests')
+				? $stats->getRequests()
+				: array();
+			if (!is_array($stat) && !($stat instanceof Traversable)) {
+				$stat = array();
+			}
 			$ano = array();
-			
+			if (!is_array($stat)) {
+				return $ano;
+			}
+
 			for($i = 0, $j = 0; $i <count($stat) ; $i++)
 			{
 				if($i == 0)
@@ -232,7 +246,13 @@ para ter o gráfico "multi-lingüe"
 							"#8B0000",	// Red4
 							"#006400");	// DarkGreen
 			
-			$stat = $stats->getRequests();
+			$stat = is_object($stats) && method_exists($stats, 'getRequests')
+				? $stats->getRequests()
+				: array();
+			if (!is_array($stat) && !($stat instanceof Traversable)) {
+				$stat = array();
+			}
+			$values = array();
 
 			foreach ($stat as $s)
 			{
@@ -262,20 +282,24 @@ para ter o gráfico "multi-lingüe"
 						e o php retorna o array quebrado
 						Ex: ([0] => 5, [1] => 7, [5] => 6) pulando alguns elementos
 					*/
-					if(is_null($values[$startYear + $i][$j+1]))
+					$year = $startYear + $i;
+					if(!isset($values[$year]) || !array_key_exists($j + 1, $values[$year])
+						|| is_null($values[$year][$j + 1]))
 						$dadosRequeridos[$i][$j] = 'null'; // Para o Flash entender que aqui é NULL
 					else
-						$dadosRequeridos[$i][$j] = $values[$startYear + $i][$j+1]; 
+						$dadosRequeridos[$i][$j] = $values[$year][$j + 1];
 				}
 
 				// Procuramos o maior valor daquele ano
-				$tempMax = max($values[$startYear + $i]);
+				$tempMax = isset($values[$year]) && count($values[$year]) > 0
+					? max($values[$year])
+					: 0;
 				if($tempMax > $maximo)
 					$maximo = $tempMax;
 
 				// Criamos a linha de um determinado ano
 				$graph->set_data( $dadosRequeridos[$i] );
-				$graph->line_hollow( 2, 3,$cores[$i], ($startYear + $i) , 11 );
+				$graph->line_hollow( 2, 3,$cores[$i % count($cores)], $year, 11 );
 				$graph->set_tool_tip( ACCESSES.': #val#' );
 				
 			}

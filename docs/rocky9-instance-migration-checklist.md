@@ -64,7 +64,10 @@ Run this only after confirming the mounted directory is the instance you want to
 docker compose exec -T scielo-web scielo-instance-check.sh --root /var/www/html --fix
 ```
 
-The repair mode rebuilds known ISIS indexes and moves active `.iy0` files to timestamped backups such as `title.iy0.bak.YYYYMMDDHHMMSS`.
+The repair mode rebuilds known ISIS indexes and moves active `.iy0` files to
+timestamped backups such as `title.iy0.bak.YYYYMMDDHHMMSS`. Derived iAH indexes
+that do not have their own `.mst/.xrf` (`author`, `search` and `searchp`) are rebuilt
+from the corresponding article database.
 
 ## Optional container startup mode
 
@@ -110,5 +113,8 @@ only when the instance file does not exist.
 ## Notes
 
 - The image can be healthy while a mounted legacy instance is not. Treat each instance as data that needs a compatibility pass.
-- The most common failure after moving to Rocky9/PHP 8 is `WXIS|fatal error|unavoidable|leafread/ock|`, usually caused by legacy `.iy0` files.
+- The most common failure after moving to Rocky9/PHP 8 is
+  `WXIS|fatal error|unavoidable|leafread/ock|`, usually caused by legacy `.iy0`
+  files. Browsers may present this response as a download because WXIS emits
+  `application/octet-stream` for the fatal error.
 - Rebuilding indexes does not rewrite `.mst` or `.xrf` data files.

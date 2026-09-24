@@ -216,16 +216,17 @@ apply_index() {
   backup_iy0 "$db"
 }
 
-reindex_with_fst() {
-  local db="$1"
-  local fst="$2"
-  local label="$3"
+reindex_to_target_with_fst() {
+  local source_db="$1"
+  local target_db="$2"
+  local fst="$3"
+  local label="$4"
   local safe_label
   safe_label="$(sed 's#[^A-Za-z0-9_.-]#_#g' <<<"$label")"
   local tmpbase="$TMPDIR/$safe_label"
 
-  if ! has_database "$db"; then
-    warn "$label skipped; database files missing: $db.mst/.xrf"
+  if ! has_database "$source_db"; then
+    warn "$label skipped; source database files missing: $source_db.mst/.xrf"
     return
   fi
   if [[ ! -f "$fst" ]]; then
@@ -235,16 +236,28 @@ reindex_with_fst() {
 
   if [[ "$MODE" == "fix" ]]; then
     mkdir -p "$TMPDIR"
-    "$MX" "$db" "fst=@$fst" "fullinv=$tmpbase" -all now >/dev/null
-    apply_index "$tmpbase" "$db"
+    (
+      cd "$ROOT/proc"
+      "$MX" "$source_db" "fst=@$fst" \
+        "actab=tabs/acans.tab" "uctab=tabs/ucans.tab" \
+        "fullinv=$tmpbase" -all now >/dev/null
+    )
+    apply_index "$tmpbase" "$target_db"
     ok "$label reindexed from $fst"
   else
-    if [[ -f "$db.iy0" ]]; then
-      warn "$label has legacy .iy0 index: $db.iy0"
+    if [[ -f "$target_db.iy0" ]]; then
+      warn "$label has legacy .iy0 index: $target_db.iy0"
     else
       ok "$label has modern index files or no legacy .iy0"
     fi
   fi
+}
+
+reindex_with_fst() {
+  local db="$1"
+  local fst="$2"
+  local label="$3"
+  reindex_to_target_with_fst "$db" "$db" "$fst" "$label"
 }
 
 reindex_pid880() {
@@ -286,20 +299,35 @@ check_indexes() {
   reindex_with_fst "$ROOT/bases/title/logo" "$ROOT/proc/fst/logo.fst" "logo"
   reindex_with_fst "$ROOT/bases/newissue/newissue" "$ROOT/proc/fst/newissue.fst" "newissue"
   reindex_with_fst "$ROOT/bases/artigo/artigo" "$ROOT/proc/fst/artigo.fst" "artigo"
+  reindex_to_target_with_fst "$ROOT/bases/artigo/artigo" "$ROOT/bases/artigo/author" \
+    "$ROOT/proc/fst/author.fst" "author"
   reindex_with_fst "$ROOT/bases/issue/issue" "$ROOT/proc/fst/issue.fst" "issue"
   reindex_with_fst "$ROOT/bases/issue/facic" "$ROOT/proc/fst/facic.fst" "facic"
   reindex_with_fst "$ROOT/bases/issue/faccount" "$ROOT/proc/fst/faccount.fst" "faccount"
   reindex_pid880 "$ROOT/bases/cited/cited" "cited"
   reindex_pid880 "$ROOT/bases/related/related" "related"
 
-  local search_db
-  while IFS= read -r search_db; do
-    reindex_with_fst "${search_db%.mst}" "$ROOT/proc/fst/search.fst" "iah-search-${search_db%.mst}"
-  done < <(find "$ROOT/bases/iah" -path '*/search.mst' -type f 2>/dev/null | sort)
+  local iah_dir collection source_db search_db searchp_db
+  while IFS= read -r iah_dir; do
+    collection="$(basename "$iah_dir")"
+    if [[ "$collection" == "library" ]]; then
+      source_db="$ROOT/bases/artigo/artigo"
+    else
+      source_db="$ROOT/bases/$collection/$collection"
+    fi
 
-  while IFS= read -r search_db; do
-    reindex_with_fst "${search_db%.mst}" "$ROOT/proc/fst/searchp.fst" "iah-searchp-${search_db%.mst}"
-  done < <(find "$ROOT/bases/iah" -path '*/searchp.mst' -type f 2>/dev/null | sort)
+    search_db="$iah_dir/search"
+    if [[ -f "$search_db.iy0" || -f "$search_db.cnt" ]]; then
+      reindex_to_target_with_fst "$source_db" "$search_db" \
+        "$ROOT/proc/fst/search.fst" "iah-search-$collection"
+    fi
+
+    searchp_db="$iah_dir/searchp"
+    if [[ -f "$searchp_db.iy0" || -f "$searchp_db.cnt" ]]; then
+      reindex_to_target_with_fst "$source_db" "$searchp_db" \
+        "$ROOT/proc/fst/searchp.fst" "iah-searchp-$collection"
+    fi
+  done < <(find "$ROOT/bases/iah" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | sort)
 }
 
 check_remaining_iy0() {

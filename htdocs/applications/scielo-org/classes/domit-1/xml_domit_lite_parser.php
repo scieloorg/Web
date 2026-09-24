@@ -653,7 +653,11 @@ class DOMIT_Lite_Document extends DOMIT_Lite_ChildNodes_Interface {
 		$this->ownerDocument =& $this;
 		$this->parser = '';
 		$this->implementation = new DOMIT_DOMImplementation();
-	} //DOMIT_Lite_Document	
+	} //DOMIT_Lite_Document
+
+	function __construct() {
+		$this->DOMIT_Lite_Document();
+	}
 	
 	/**
 	* Specifies whether DOMIT! Lite will try to fix invalid XML before parsing begins
@@ -771,8 +775,7 @@ class DOMIT_Lite_Document extends DOMIT_Lite_ChildNodes_Interface {
 	*/
 	function &appendChild(&$node) {
 		if ($node->nodeType == DOMIT_ELEMENT_NODE) {
-			if ($this->documentElement == null) { 
-				parent::appendChild($node);
+			if ($this->documentElement == null) {
 				$this->setDocumentElement($node);
 			}
 			else {
@@ -1248,6 +1251,10 @@ class DOMIT_Lite_Element extends DOMIT_Lite_ChildNodes_Interface {
 		$this->attributes = array();
 		$this->childNodes = array();
 	} //DOMIT_Lite_Element
+
+	function __construct($tagName) {
+		$this->DOMIT_Lite_Element($tagName);
+	}
 	
 	/**
 	* Returns the tag name of the element
@@ -1523,6 +1530,10 @@ class DOMIT_Lite_TextNode extends DOMIT_Lite_Node {
 		$this->nodeName = '#text';
 		$this->setText($data);
 	} //DOMIT_Lite_TextNode
+
+	function __construct($data) {
+		$this->DOMIT_Lite_TextNode($data);
+	}
 	
 	/**
 	* Returns the text contained in the current node
@@ -1597,6 +1608,10 @@ class DOMIT_Lite_CDATASection extends DOMIT_Lite_TextNode {
 		$this->nodeName = '#cdata-section';
 		$this->setText($data);
 	} //DOMIT_Lite_CDATASection
+
+	function __construct($data) {
+		$this->DOMIT_Lite_CDATASection($data);
+	}
 	
 	/**
 	* Generates a string representation of the node and its children
@@ -1733,7 +1748,7 @@ class DOMIT_Lite_Parser {
 	* @param string The tag name of the current element
 	* @param Array An array of the element attributes
 	*/
-	function startElement(&$parser, $name, $attrs) {
+	function startElement($parser, $name, $attrs) {
 		if ($this->inTextNode) {
 			$this->dumpTextNode();
 		}
@@ -1749,7 +1764,7 @@ class DOMIT_Lite_Parser {
 	* @param Object A reference to the current SAX parser
 	* @param string The tag name of the current element
 	*/
-	function endElement(&$parser, $name) {
+	function endElement($parser, $name) {
 		if ($this->inTextNode) {
 			$this->dumpTextNode();
 		}
@@ -1762,7 +1777,7 @@ class DOMIT_Lite_Parser {
 	* @param Object A reference to the current SAX parser
 	* @param string The current text data
 	*/
-	function dataElement(&$parser, $data) {
+	function dataElement($parser, $data) {
 		if (!$this->inCDATASection) $this->inTextNode = true;
 		
 		$this->parseContainer .= $data;	
@@ -1773,7 +1788,7 @@ class DOMIT_Lite_Parser {
 	* @param Object A reference to the current SAX parser
 	* @param string The current text data
 	*/
-	function cdataElement(&$parser, $data) {
+	function cdataElement($parser, $data) {
 		$currentNode =& $this->xmlDoc->createCDATASection($data);
 
 		$this->lastChild->appendChild($currentNode);
@@ -1784,7 +1799,7 @@ class DOMIT_Lite_Parser {
 	* @param Object A reference to the current SAX parser
 	* @param string The current data
 	*/
-	function defaultDataElement(&$parser, $data) {
+	function defaultDataElement($parser, $data) {
 		if (strlen($data) > 2){
 			$pre = strtoupper(substr($data, 0, 3));
 			

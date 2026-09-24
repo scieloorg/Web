@@ -46,8 +46,17 @@ class RequestVars
             $this->_request = array_merge($_GET, $_POST);
         }
 
-        if (!isset($this->_request['lng']) || strpos("|en|pt|es|", $this->_request['lng']) == 0) {
-            $this->_request['lng'] = "en";
+        if (isset($this->_request['lng'])) {
+            if (!is_string($this->_request['lng'])) {
+                unset($this->_request['lng']);
+            } else {
+                $language = strtolower(trim($this->_request['lng']));
+                if (in_array($language, array('en', 'pt', 'es'), true)) {
+                    $this->_request['lng'] = $language;
+                } else {
+                    unset($this->_request['lng']);
+                }
+            }
         }
     }
 
