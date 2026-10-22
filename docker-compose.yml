@@ -1,7 +1,13 @@
 services:
   scielo-web:
     platform: linux/amd64
-    image: infrascielo/metodologia:v7.1-qa
+    build:
+      context: .
+      dockerfile: docker/rocky9/Dockerfile
+      args:
+        PHP_VERSION: 8.5.12
+        PHP_SHA256: 08bc2eba2a588654ade1357174aa646b761556c862dda0678345ee29ed481209
+    image: infrascielo/metodologia:php-8.5.12-local
     container_name: scielo-web-rocky9
     ports:
       - "80:80"
