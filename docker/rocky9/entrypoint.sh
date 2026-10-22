@@ -1,6 +1,13 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+EXPECTED_PHP_VERSION="$(cat /etc/scielo-php-version)"
+INSTALLED_PHP_VERSION="$(php -r 'echo PHP_VERSION;')"
+if [[ "$INSTALLED_PHP_VERSION" != "$EXPECTED_PHP_VERSION" ]]; then
+  echo "Refusing to start: expected PHP $EXPECTED_PHP_VERSION, found $INSTALLED_PHP_VERSION" >&2
+  exit 1
+fi
+
 mkdir -p /run/php-fpm
 chown apache:apache /run/php-fpm
 

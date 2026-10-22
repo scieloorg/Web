@@ -32,6 +32,10 @@ jobs:
             -t infrascielo/metodologia:latest \
             .
 
+      - name: Verify patched PHP version
+        run: |
+          test "$(docker run --rm --entrypoint php infrascielo/metodologia:${VERSION} -r 'echo PHP_VERSION;')" = "8.5.12"
+
       # 🔐 Scan único (policy)
       - name: Trivy Image Scan
         uses: aquasecurity/trivy-action@v0.35.0
@@ -72,11 +76,6 @@ jobs:
         with:
           name: sbom-${{ env.VERSION }}
           path: sbom-${{ env.VERSION }}.json
-
-      - name: Push image
-        run: |
-          docker push infrascielo/metodologia:${VERSION}
-          docker push infrascielo/metodologia:latest
 
       - name: Push image
         run: |
