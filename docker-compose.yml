@@ -16,6 +16,8 @@ services:
       STANDARD_LANG: ${STANDARD_LANG:-}
       ACTIVATE_GOOGLE: ${ACTIVATE_GOOGLE:-}
       GOOGLE_CODE: ${GOOGLE_CODE:-}
+      SCIELO_WXIS_TIMEOUT_SECONDS: ${SCIELO_WXIS_TIMEOUT_SECONDS:-20}
+      SCIELO_FPM_MAX_CHILDREN: ${SCIELO_FPM_MAX_CHILDREN:-8}
     volumes:
       - /Users/rondinelisaad/Downloads/repo-scielo/comciencia_scielo_br_new:/var/www/html
     restart: unless-stopped
