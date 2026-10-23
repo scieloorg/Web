@@ -18,7 +18,7 @@ if [[ ! "$SCIELO_FPM_MAX_CHILDREN_VALUE" =~ ^[0-9]+$ ]] \
   exit 1
 fi
 sed -ri \
-  "s#^pm.max_children = .*$#pm.max_children = ${SCIELO_FPM_MAX_CHILDREN_VALUE}#" \
+  "s#^pm[.]max_children = .*#pm.max_children = ${SCIELO_FPM_MAX_CHILDREN_VALUE}#" \
   /etc/php-fpm.d/zz-scielo.conf
 
 # Ensure required def files exist.
