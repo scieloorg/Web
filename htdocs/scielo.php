@@ -2,6 +2,7 @@
 
   require_once("classScielo.php");
   require_once('applications/scielo-org/sso/header.php');
+  require_once(__DIR__ . '/wxis_runner.php');
 
   // Create new Scielo object
   $host = $_SERVER['HTTP_HOST'];
@@ -22,7 +23,6 @@
           $filenamePage = $scielo->GetPageFile();
   }
 
-  
   $filenamePage = "";
   $pageContent = "";
   $GRAVA = false;
@@ -335,7 +335,7 @@ function wxis_exe ($url){
   if (isset($_COOKIE["userID"]) && $_COOKIE["userID"] != "-2"){
           if ($_REQUEST["script"] == 'sci_arttext' or $_REQUEST["script"] == 'sci_abstract' or $_REQUEST["script"] == 'sci_home'  or $_REQUEST["script"] == ''){
                   $restrito = true;
-                  $useCache == '0';
+                  $useCache = '0';
           }
   }
 
@@ -404,14 +404,58 @@ function wxis_exe_ ($url){
     $args = array_filter(explode("&", $query), "strlen");
   }
 
-  $request = escapeshellarg($wxisBinary);
+  $command = array($wxisBinary);
   foreach ($args as $arg) {
-    $request .= " ".escapeshellarg($arg);
+    $command[] = $arg;
   }
-  $request .= " ".escapeshellarg("PATH_TRANSLATED=".$PATH_HTDOCS);
+  $command[] = "PATH_TRANSLATED=".$PATH_HTDOCS;
 
-  $output = shell_exec($request);
-  if ($output === null || $output === false) {
+  $scriptName = scielo_wxis_script_name($args);
+  try {
+    $execution = scielo_run_process_with_timeout(
+      $command,
+      scielo_wxis_timeout_seconds()
+    );
+  } catch (Throwable $error) {
+    scielo_audit_event(
+      'system.wxis_execution',
+      'failure',
+      'wxis_script',
+      $scriptName,
+      array('reason' => 'process_start_failed')
+    );
+    if (!headers_sent()) {
+      http_response_code(503);
+      header('Retry-After: 5');
+    }
+    return '';
+  }
+
+  $result = $execution['timed_out'] || $execution['exit_code'] !== 0
+    ? 'failure'
+    : 'success';
+  scielo_audit_event(
+    'system.wxis_execution',
+    $result,
+    'wxis_script',
+    $scriptName,
+    array(
+      'duration_ms' => $execution['duration_ms'],
+      'exit_code' => $execution['exit_code'],
+      'timed_out' => $execution['timed_out'],
+    )
+  );
+
+  if ($execution['timed_out']) {
+    if (!headers_sent()) {
+      http_response_code(503);
+      header('Retry-After: 5');
+    }
+    return '';
+  }
+
+  $output = $execution['stdout'];
+  if ($output === '') {
     return '';
   }
 

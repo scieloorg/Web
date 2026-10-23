@@ -9,6 +9,7 @@ function assert_true($condition, $message)
 }
 
 require_once(__DIR__ . '/../htdocs/security.php');
+require_once(__DIR__ . '/../htdocs/wxis_runner.php');
 require_once(__DIR__ . '/../htdocs/applications/scielo-org/classes/domit-1/xml_domit_lite_include.inc.php');
 
 $domitDocument = new DOMIT_Lite_Document();
@@ -100,6 +101,26 @@ assert_true(
 $config = array('SCIELO' => array('SERVER_SCIELO' => '127.0.0.1:8080'));
 assert_true(scielo_internal_host_from_config($config) === '127.0.0.1:8080', 'configured internal host should be returned');
 assert_true(scielo_audit_sanitize('secret-value', 'password') === '***', 'sensitive audit fields must be redacted');
+assert_true(scielo_wxis_timeout_seconds() === 20, 'WXIS timeout must default to 20 seconds');
+assert_true(
+    scielo_wxis_script_name(array('IsisScript=ScieloXML/sci_references.xis', 'pid=private'))
+        === 'ScieloXML/sci_references.xis',
+    'WXIS audit metadata must retain only the script name'
+);
+
+$quickProcess = scielo_run_process_with_timeout(
+    array(PHP_BINARY, '-r', 'fwrite(STDOUT, "ready");'),
+    2
+);
+assert_true($quickProcess['timed_out'] === false, 'quick subprocess must complete before its deadline');
+assert_true($quickProcess['stdout'] === 'ready', 'subprocess stdout must be captured');
+
+$slowProcess = scielo_run_process_with_timeout(
+    array(PHP_BINARY, '-r', 'usleep(1500000);'),
+    0.1
+);
+assert_true($slowProcess['timed_out'] === true, 'slow subprocess must be terminated at its deadline');
+assert_true($slowProcess['duration_ms'] < 1000, 'timed out subprocess must be reaped promptly');
 
 $csrfToken = scielo_csrf_token();
 assert_true(strlen($csrfToken) === 64, 'CSRF token should contain 256 bits encoded as hexadecimal');
@@ -127,6 +148,8 @@ $serviceSource = file_get_contents(__DIR__ . '/../htdocs/applications/scielo-org
 $accessServiceSource = file_get_contents(__DIR__ . '/../htdocs/applications/scielo-org/classes/services/AccessServiceBar.php');
 $graphSource = file_get_contents(__DIR__ . '/../htdocs/applications/scielo-org/classes/Open_Flash_Chart/ofc-library/Graph.php');
 $apacheSource = file_get_contents(__DIR__ . '/../docker/rocky9/httpd-scielo.conf');
+$scieloSource = file_get_contents(__DIR__ . '/../htdocs/scielo.php');
+$fpmSource = file_get_contents(__DIR__ . '/../docker/rocky9/php-fpm-scielo.conf');
 $domitUtilitiesSource = file_get_contents(__DIR__ . '/../htdocs/applications/scielo-org/classes/domit-1/xml_domit_utilities.php');
 
 assert_true(strpos($old2newSource, '$GLOBALS[$key]') === false, 'old2new must not export arbitrary request keys');
@@ -147,6 +170,10 @@ assert_true(strpos($accessServiceSource, 'isset($values[$year])') !== false, 'ar
 assert_true(strpos($graphSource, 'function __construct()') !== false, 'legacy graph class must initialize on PHP 8.5');
 assert_true(strpos($apacheSource, '.*\\.(?:inc|def|template)') !== false, 'Apache must block auxiliary file extensions');
 assert_true(substr_count($apacheSource, 'Require all denied') >= 3, 'Apache must deny unsafe files and CGI by default');
+assert_true(strpos($apacheSource, 'ProxyTimeout 35') !== false, 'Apache must bound FastCGI request time');
+assert_true(strpos($scieloSource, 'shell_exec(') === false, 'WXIS must not run through an unbounded shell');
+assert_true(strpos($scieloSource, "\$useCache = '0';") !== false, 'authenticated requests must bypass shared cache');
+assert_true(strpos($fpmSource, 'request_terminate_timeout = 30s') !== false, 'PHP-FPM must terminate stuck requests');
 assert_true(strpos($domitUtilitiesSource, 'public static function validateXML') !== false, 'DOMIT utility methods must support static calls on PHP 8.5');
 
 fwrite(STDOUT, "Security regression tests passed" . PHP_EOL);

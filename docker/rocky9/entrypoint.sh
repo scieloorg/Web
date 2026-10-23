@@ -11,6 +11,16 @@ fi
 mkdir -p /run/php-fpm
 chown apache:apache /run/php-fpm
 
+SCIELO_FPM_MAX_CHILDREN_VALUE="${SCIELO_FPM_MAX_CHILDREN:-8}"
+if [[ ! "$SCIELO_FPM_MAX_CHILDREN_VALUE" =~ ^[0-9]+$ ]] \
+  || (( SCIELO_FPM_MAX_CHILDREN_VALUE < 2 || SCIELO_FPM_MAX_CHILDREN_VALUE > 64 )); then
+  echo "Invalid SCIELO_FPM_MAX_CHILDREN: use an integer between 2 and 64" >&2
+  exit 1
+fi
+sed -ri \
+  "s#^pm.max_children = .*$#pm.max_children = ${SCIELO_FPM_MAX_CHILDREN_VALUE}#" \
+  /etc/php-fpm.d/zz-scielo.conf
+
 # Ensure required def files exist.
 if [[ ! -f /var/www/html/htdocs/scielo.def.php && -f /var/www/html/htdocs/scielo.def.php.template ]]; then
   cp /var/www/html/htdocs/scielo.def.php.template /var/www/html/htdocs/scielo.def.php

@@ -115,6 +115,7 @@ RUN dnf -y --refresh upgrade \
 
 COPY docker/rocky9/httpd-scielo.conf /etc/httpd/conf.d/scielo.conf
 COPY docker/rocky9/php-scielo.ini /etc/php.d/99-scielo.ini
+COPY docker/rocky9/php-fpm-scielo.conf /etc/php-fpm.d/zz-scielo.conf
 COPY docker/rocky9/entrypoint.sh /usr/local/bin/entrypoint-scielo.sh
 COPY docker/rocky9/scielo-instance-check.sh /usr/local/bin/scielo-instance-check.sh
 
@@ -129,5 +130,8 @@ LABEL org.opencontainers.image.version="${PHP_VERSION}" \
       org.opencontainers.image.description="SciELO Web on patched PHP 8.5.12"
 
 EXPOSE 80
+
+HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 \
+    CMD curl --fail --silent --show-error --max-time 8 http://127.0.0.1/health.php || exit 1
 
 CMD ["/usr/local/bin/entrypoint-scielo.sh"]
