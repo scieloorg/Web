@@ -144,4 +144,4 @@ case "${SCIELO_INSTANCE_MIGRATION:-}" in
 esac
 
 php-fpm -D
-exec /usr/sbin/httpd -D FOREGROUND
+exec /opt/httpd/bin/httpd -d /etc/httpd -f conf/httpd.conf -D FOREGROUND

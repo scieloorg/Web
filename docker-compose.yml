@@ -7,6 +7,8 @@ services:
       args:
         PHP_VERSION: 8.5.12
         PHP_SHA256: 08bc2eba2a588654ade1357174aa646b761556c862dda0678345ee29ed481209
+        HTTPD_VERSION: 2.4.71
+        HTTPD_SHA256: 6b0433674ded858d2ac01e95345935ce127d5d287471762f0a7f10f4969cbfe8
     image: infrascielo/metodologia:php-8.5.12-local
     container_name: scielo-web-rocky9
     ports:
