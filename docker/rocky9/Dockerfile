@@ -145,7 +145,7 @@ RUN dnf -y --refresh upgrade \
         libcurl-devel freetype-devel gettext-devel libjpeg-turbo-devel \
         libpng-devel libxml2-devel libxslt-devel libzip-devel \
         oniguruma-devel openssl-devel readline-devel sqlite-devel zlib-devel \
-    && dnf -y install --setopt=install_weak_deps=False apr apr-util \
+    && dnf -y install --setopt=install_weak_deps=False apr apr-util mailcap \
     && dnf -y --refresh upgrade \
     && (rpm -q vim-minimal && dnf -y remove vim-minimal || true) \
     && dnf clean all \
@@ -161,6 +161,7 @@ COPY docker/rocky9/php-scielo.ini /etc/php.d/99-scielo.ini
 COPY docker/rocky9/php-fpm-scielo.conf /etc/php-fpm.d/zz-scielo.conf
 COPY docker/rocky9/entrypoint.sh /usr/local/bin/entrypoint-scielo.sh
 COPY docker/rocky9/scielo-instance-check.sh /usr/local/bin/scielo-instance-check.sh
+COPY docker/rocky9/health.php /opt/scielo-health/health.php
 
 # Reuse the default /cgi-bin/ ScriptAlias, but point it to the project cgi-bin.
 RUN sed -ri 's#^[[:space:]]*ScriptAlias /cgi-bin/ ".*"#ScriptAlias /cgi-bin/ "/var/www/html/cgi-bin/"#' /etc/httpd/conf/httpd.conf \
@@ -169,8 +170,11 @@ RUN sed -ri 's#^[[:space:]]*ScriptAlias /cgi-bin/ ".*"#ScriptAlias /cgi-bin/ "/v
     && ln -s /opt/httpd/bin/httpd /usr/sbin/httpd \
     && mkdir -p /var/www/html/htdocs /var/www/html/cgi-bin \
     && chown -R apache:apache /var/www/html \
+    && chmod 0644 /opt/scielo-health/health.php \
     && chmod +x /usr/local/bin/entrypoint-scielo.sh /usr/local/bin/scielo-instance-check.sh \
     && ! rpm -q httpd \
+    && test -s /etc/mime.types \
+    && php -l /opt/scielo-health/health.php >/dev/null \
     && /usr/sbin/httpd -v | grep -Fq "Apache/${HTTPD_VERSION}" \
     && /opt/httpd/bin/httpd -d /etc/httpd -f conf/httpd.conf -t
 
