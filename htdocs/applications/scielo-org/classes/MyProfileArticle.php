@@ -26,6 +26,10 @@ tabelas: users, profiles, profile_article, articles
 	
 		function MyProfileArticle(){
 		}
+		function __construct(){
+			$this->MyProfileArticle();
+		}
+
 
 		function setUserID($value){
 			$this->_data['userID'] = $value;

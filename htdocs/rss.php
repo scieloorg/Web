@@ -4,10 +4,14 @@ error_reporting(E_ALL ^ E_WARNING ^ E_NOTICE);
 ob_start();
 
 require_once(dirname(__FILE__)."/class.XSLTransformer.php");
+require_once(dirname(__FILE__)."/security.php");
+
+$config = parse_ini_file(__DIR__ . '/scielo.def.php', true);
+$internalHost = scielo_internal_host_from_config($config);
 
 $pid = $_REQUEST['pid'];
 $lang = $_REQUEST['lang'];
-$debug = $_REQUEST['debug'];
+$debug = isset($_REQUEST['debug']) ? $_REQUEST['debug'] : '';
 $pRelease = $_REQUEST['prelease'];
 $dateStart = $_REQUEST['dateStart'];
 $dateStop = $_REQUEST['dateStop'];
@@ -21,7 +25,20 @@ $date = $_REQUEST['date'];
  */
 if($pRelease){
   
-  $url =  "http://".$_SERVER['HTTP_HOST']."/cgi-bin/wxis.exe/?IsisScript=ScieloXML/pressreleaserss.xis&def=scielo.def.php&sln=$lang&script=sci_serial&pid=$pid&lng=$lang&nrm=iso&dateStart=$dateStart&dateStop=$dateStop&prelease=$pRelease&count=$count&date=$date";
+  $url = 'http://' . $internalHost . '/cgi-bin/wxis.exe/?' . http_build_query(array(
+    'IsisScript' => 'ScieloXML/pressreleaserss.xis',
+    'def' => 'scielo.def.php',
+    'sln' => $lang,
+    'script' => 'sci_serial',
+    'pid' => $pid,
+    'lng' => $lang,
+    'nrm' => 'iso',
+    'dateStart' => $dateStart,
+    'dateStop' => $dateStop,
+    'prelease' => $pRelease,
+    'count' => $count,
+    'date' => $date,
+  ));
   $rss = file_get_contents($url);
   echo $rss;
   die();
@@ -35,7 +52,15 @@ if(strlen($pid) == 9){
 
   $pid = substr($pid,0,9);
 
-  $url = "http://".$_SERVER['HTTP_HOST']."/cgi-bin/wxis.exe/?IsisScript=ScieloXML/sci_issues.xis&def=scielo.def.php&sln=$lang&script=sci_issues&pid=$pid&lng=$lang&nrm=iso";
+  $url = 'http://' . $internalHost . '/cgi-bin/wxis.exe/?' . http_build_query(array(
+    'IsisScript' => 'ScieloXML/sci_issues.xis',
+    'def' => 'scielo.def.php',
+    'sln' => $lang,
+    'script' => 'sci_issues',
+    'pid' => $pid,
+    'lng' => $lang,
+    'nrm' => 'iso',
+  ));
 
   $xml = file_get_contents($url);
   $cortado = strstr($xml, '<CURRENT PID="');
@@ -50,23 +75,37 @@ if(strlen($pid) == 9){
 
 
   /* CHANGE: alterado em 20080314 para utilização do script sci_issuerss.xis (adiconado abstract ao XML) no lugar de sci_issuetoc.xis */
-$url = "http://".$_SERVER['HTTP_HOST']."/cgi-bin/wxis.exe/?IsisScript=ScieloXML/sci_issuerss.xis&def=scielo.def.php&sln=en&script=sci_issuetoc&pid=$pid&lng=$lang&nrm=iso";
+$url = 'http://' . $internalHost . '/cgi-bin/wxis.exe/?' . http_build_query(array(
+  'IsisScript' => 'ScieloXML/sci_issuerss.xis',
+  'def' => 'scielo.def.php',
+  'sln' => 'en',
+  'script' => 'sci_issuetoc',
+  'pid' => $pid,
+  'lng' => $lang,
+  'nrm' => 'iso',
+));
 
 $xml = file_get_contents($url);
 $xsl = dirname(__FILE__)."/xsl/createRSS.xsl";
 
-if(isset($debug)) {
+if ($debug !== '' && scielo_diagnostic_mode_allowed($debug)) {
 
-  echo '<h1>XML</h1>';
-  echo '<textarea cols="120" rows="18">'."\n";
+  header('Content-Type: text/plain; charset=UTF-8');
+  echo "XML\n";
   echo $xml;
-  echo '</textarea>';
-
-  echo '<h1>XSL</h1>';
-  echo '<textarea cols="120" rows="18">'."\n";
+  echo "\nXSL\n";
   echo $xsl;
-  echo '</textarea>';
   die();
+}
+
+if ($debug !== '') {
+  scielo_audit_event(
+    'access.denied',
+    'unauthorized',
+    'diagnostics',
+    null,
+    array('reason' => 'remote_rss_debug_disabled')
+  );
 }
 
 $t = new XSLTransformer();

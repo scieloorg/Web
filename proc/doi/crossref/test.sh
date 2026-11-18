@@ -1,4 +1,4 @@
-./CrossRefQuery.bat -f teste.xml -u bireme -p bireme303 -a live -r xml > r
+./CrossRefQuery.bat -f teste.xml -u "${CROSSREF_USERNAME:-bireme}" -p "${CROSSREF_PASSWORD:?CROSSREF_PASSWORD not set}" -a live -r xml > r
 grep -rs "<?xml"  r
 
 if grep -q "<?xml" r

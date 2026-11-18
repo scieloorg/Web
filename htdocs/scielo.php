@@ -2,10 +2,17 @@
 
   require_once("classScielo.php");
   require_once('applications/scielo-org/sso/header.php');
+  require_once(__DIR__ . '/wxis_runner.php');
 
   // Create new Scielo object
   $host = $_SERVER['HTTP_HOST'];
   $scielo = new Scielo($host);
+
+  // NEW_WEBSITE_URL=www.scielo.br (scielo.def.php)
+  $NEW_WEBSITE_URL = $scielo->_def->getKeyValue("NEW_WEBSITE_URL");
+  if ($NEW_WEBSITE_URL && $_SERVER['SCRIPT_NAME']=='/scielo.php') {
+    header("Location: https://" . $NEW_WEBSITE_URL . $_SERVER['REQUEST_URI']);
+  }
 
   $CACHE_STATUS = $scielo->_def->getKeyValue("CACHE_STATUS");
   $MAX_DAYS = $scielo->_def->getKeyValue("MAX_DAYS");
@@ -16,10 +23,10 @@
           $filenamePage = $scielo->GetPageFile();
   }
 
-  
   $filenamePage = "";
   $pageContent = "";
   $GRAVA = false;
+  $error = false;
   
   if ($filenamePage){
     if (file_exists($filenamePage)){
@@ -45,11 +52,18 @@
     
   //Generate wxis url and set xml url
   $xml = $scielo->GenerateXmlUrl();
+
   if ((strpos($xml, '</') == 0) or (strpos($xml, '</CONTROLINFO>') == 0)) {
     $xml = '<ERROR></ERROR>';
   }
 
-  $sxml = simplexml_load_string($xml);
+  $sxml = false;
+  $prevUseInternalErrors = libxml_use_internal_errors(true);
+  if (strpos($xml, 'WXIS|fatal error|') === false) {
+      $sxml = simplexml_load_string($xml);
+  }
+  libxml_clear_errors();
+  libxml_use_internal_errors($prevUseInternalErrors);
 
   function xml_tostring($value) {
       return (string)$value;
@@ -74,7 +88,7 @@
    * Quando o texto não estiver disponível no idioma solicitado o site deve
    * redirecionar (HTTP 302) o cliente para o idioma padrão.
    */
-  if ($_REQUEST['script'] == 'sci_arttext') {
+  if ((isset($_REQUEST['script']) ? $_REQUEST['script'] : '') == 'sci_arttext') {
       if (!is_requested_language_available($sxml)) {
           $documentPID = array_pop(
               array_map(
@@ -90,12 +104,12 @@
   
   if ($sxml != false){
      $error = (($sxml->getName() == 'ERROR') or ($sxml->ERROR->getName() == 'ERROR'));
+  } else {
+    $error = true;
   }
 
   if ($error){
-    header("HTTP/1.0 404 Not Found - Archive Empty");
-    require '404.html';
-    exit;
+    $xml = '<ERROR></ERROR>';
   }
 
   $scielo->SetXMLUrl ($xml);
@@ -103,11 +117,45 @@
   //Generate xsl url and set xsl url
   $xsl = $scielo->GenerateXslUrl();
   $scielo->SetXSLUrl ($xsl);
+
+  if ((isset($_REQUEST['diag']) ? $_REQUEST['diag'] : '') == '1'
+      && scielo_diagnostics_allowed()) {
+    $xslExists = file_exists($xsl) ? 'yes' : 'no';
+    $xmlPreview = htmlspecialchars(substr($xml, 0, 12000));
+    $errorTagCount = preg_match_all('/<ERROR[\\s>]/i', $xml);
+    header('Content-Type: text/plain; charset=UTF-8');
+    echo "DIAG\n";
+    echo "SCRIPT=".$_SERVER['SCRIPT_NAME']."\n";
+    echo "REQUEST_URI=".$_SERVER['REQUEST_URI']."\n";
+    if (isset($scielo->_IsisScriptUrl)) {
+      echo "ISIS_URL=".$scielo->_IsisScriptUrl."\n";
+    }
+    echo "XSL=".$xsl."\n";
+    echo "XSL_EXISTS=".$xslExists."\n";
+    echo "XML_ERROR_TAG_COUNT=".$errorTagCount."\n";
+    echo "XML_PREVIEW_BEGIN\n".$xmlPreview."\nXML_PREVIEW_END\n";
+    exit;
+  }
+
+  if ((isset($_REQUEST['diag']) ? $_REQUEST['diag'] : '') == '1') {
+    scielo_audit_event(
+      'access.denied',
+      'unauthorized',
+      'diagnostics',
+      null,
+      array('reason' => 'remote_diag_disabled')
+    );
+  }
   
+  if ($error && $scielo->_script == 'sci_abstract') {
+    header("HTTP/1.0 404 Not Found - Archive Empty");
+    require '404.html';
+    exit;
+  }
+
   $pageContent = $scielo->getPage();
   
-  $pageContent .= "\n".'<!-- REQUEST URI: '.$REQUEST_URI.'-->';
-  $pageContent .= "\n"."<!--SERVER:".$SERVER_ADDR."-->";
+  $pageContent .= "\n".'<!-- REQUEST URI: '.htmlspecialchars($_SERVER['REQUEST_URI'], ENT_QUOTES, 'UTF-8').'-->';
 
   if ($GRAVA && $filenamePage){
     if (!file_exists($filenamePage)){
@@ -227,7 +275,7 @@ function dir_size($dir, &$older, &$older_accessed){
   return $mas; // bytes
 }
 
-function dateDiff($interval="d",$dateTimeBegin,$dateTimeEnd) {
+function dateDiff($dateTimeBegin, $dateTimeEnd, $interval = "d") {
    //Parse about any English textual datetime
    //$dateTimeBegin, $dateTimeEnd
 
@@ -293,7 +341,7 @@ function wxis_exe ($url){
   if (isset($_COOKIE["userID"]) && $_COOKIE["userID"] != "-2"){
           if ($_REQUEST["script"] == 'sci_arttext' or $_REQUEST["script"] == 'sci_abstract' or $_REQUEST["script"] == 'sci_home'  or $_REQUEST["script"] == ''){
                   $restrito = true;
-                  $useCache == '0';
+                  $useCache = '0';
           }
   }
 
@@ -354,13 +402,71 @@ function wxis_exe_ ($url){
   ************************************************************************************/
   $PATH_HTDOCS = $scielo->_def->getKeyValue("PATH_HTDOCS");
 
-  $request = $PATH_HTDOCS."../cgi-bin/wxis.exe " ;
-  $param = substr($url, strpos($url, "?")+1);
-  $param = str_replace("&", " ", $param);
-  $request = $request.$param." PATH_TRANSLATED=".$PATH_HTDOCS;
+  $wxisBinary = rtrim($PATH_HTDOCS, "/")."/../cgi-bin/wxis.exe";
+  $query = parse_url($url, PHP_URL_QUERY);
+  $args = array();
 
-  $r = strstr(shell_exec($request), '<');
-  return $r;
+  if ($query !== null && $query !== false && $query !== '') {
+    $args = array_filter(explode("&", $query), "strlen");
+  }
+
+  $command = array($wxisBinary);
+  foreach ($args as $arg) {
+    $command[] = $arg;
+  }
+  $command[] = "PATH_TRANSLATED=".$PATH_HTDOCS;
+
+  $scriptName = scielo_wxis_script_name($args);
+  try {
+    $execution = scielo_run_process_with_timeout(
+      $command,
+      scielo_wxis_timeout_seconds()
+    );
+  } catch (Throwable $error) {
+    scielo_audit_event(
+      'system.wxis_execution',
+      'failure',
+      'wxis_script',
+      $scriptName,
+      array('reason' => 'process_start_failed')
+    );
+    if (!headers_sent()) {
+      http_response_code(503);
+      header('Retry-After: 5');
+    }
+    return '';
+  }
+
+  $result = $execution['timed_out'] || $execution['exit_code'] !== 0
+    ? 'failure'
+    : 'success';
+  scielo_audit_event(
+    'system.wxis_execution',
+    $result,
+    'wxis_script',
+    $scriptName,
+    array(
+      'duration_ms' => $execution['duration_ms'],
+      'exit_code' => $execution['exit_code'],
+      'timed_out' => $execution['timed_out'],
+    )
+  );
+
+  if ($execution['timed_out']) {
+    if (!headers_sent()) {
+      http_response_code(503);
+      header('Retry-After: 5');
+    }
+    return '';
+  }
+
+  $output = $execution['stdout'];
+  if ($output === '') {
+    return '';
+  }
+
+  $xmlStart = strpos($output, '<');
+  return ($xmlStart !== false) ? substr($output, $xmlStart) : $output;
 }
 
 function wxis_exe_httpd ($url){

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Audit Log Generator"
+  short_description: "Generate safe audit logging instrumentation and event names."
+  default_prompt: "Use the audit-log-generator skill to add or review audit log instrumentation for endpoints, authentication, CRUD operations, jobs, and restricted access without logging sensitive data."
