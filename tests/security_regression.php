@@ -10,7 +10,36 @@ function assert_true($condition, $message)
 
 require_once(__DIR__ . '/../htdocs/security.php');
 require_once(__DIR__ . '/../htdocs/wxis_runner.php');
+require_once(__DIR__ . '/../htdocs/compat.php');
 require_once(__DIR__ . '/../htdocs/applications/scielo-org/classes/domit-1/xml_domit_lite_include.inc.php');
+
+$validWxisResponse = scielo_classify_wxis_xml('<root><SERIAL/></root>');
+assert_true($validWxisResponse['kind'] === 'ok', 'valid WXIS XML must be accepted');
+
+$missingAbstractResponse = scielo_classify_wxis_xml('<ERROR><CODE>0003</CODE></ERROR>');
+assert_true(
+    $missingAbstractResponse['kind'] === 'not_found',
+    'documented sci_abstract missing-record codes must map to not found'
+);
+
+$nestedMissingAbstractResponse = scielo_classify_wxis_xml('<root><ERROR><CODE>0004</CODE></ERROR></root>');
+assert_true(
+    $nestedMissingAbstractResponse['kind'] === 'not_found',
+    'nested sci_abstract missing-language errors must map to not found'
+);
+
+assert_true(
+    scielo_classify_wxis_xml('<ERROR><CODE>9999</CODE></ERROR>')['kind'] === 'backend_error',
+    'unknown WXIS errors must not be reported as missing content'
+);
+assert_true(
+    scielo_classify_wxis_xml('<root>')['kind'] === 'backend_error',
+    'malformed WXIS XML must remain a backend error'
+);
+assert_true(
+    scielo_classify_wxis_xml('WXIS|fatal error|unavailable')['kind'] === 'backend_error',
+    'WXIS fatal errors must remain backend errors'
+);
 
 $domitDocument = new DOMIT_Lite_Document();
 assert_true($domitDocument->parseXML('<ARTICLE><TITLE>Safe title</TITLE></ARTICLE>') === true, 'DOMIT should parse XML on PHP 8.5');

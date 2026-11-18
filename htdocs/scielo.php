@@ -53,17 +53,8 @@
   //Generate wxis url and set xml url
   $xml = $scielo->GenerateXmlUrl();
 
-  if ((strpos($xml, '</') == 0) or (strpos($xml, '</CONTROLINFO>') == 0)) {
-    $xml = '<ERROR></ERROR>';
-  }
-
-  $sxml = false;
-  $prevUseInternalErrors = libxml_use_internal_errors(true);
-  if (strpos($xml, 'WXIS|fatal error|') === false) {
-      $sxml = simplexml_load_string($xml);
-  }
-  libxml_clear_errors();
-  libxml_use_internal_errors($prevUseInternalErrors);
+  $wxisResponse = scielo_classify_wxis_xml($xml);
+  $sxml = $wxisResponse['xml'];
 
   function xml_tostring($value) {
       return (string)$value;
@@ -88,7 +79,7 @@
    * Quando o texto não estiver disponível no idioma solicitado o site deve
    * redirecionar (HTTP 302) o cliente para o idioma padrão.
    */
-  if ((isset($_REQUEST['script']) ? $_REQUEST['script'] : '') == 'sci_arttext') {
+  if ((isset($_REQUEST['script']) ? $_REQUEST['script'] : '') == 'sci_arttext' && $sxml !== false) {
       if (!is_requested_language_available($sxml)) {
           $documentPID = array_pop(
               array_map(
@@ -102,11 +93,7 @@
   }
 
   
-  if ($sxml != false){
-     $error = (($sxml->getName() == 'ERROR') or ($sxml->ERROR->getName() == 'ERROR'));
-  } else {
-    $error = true;
-  }
+  $error = $wxisResponse['kind'] !== 'ok';
 
   if ($error){
     $xml = '<ERROR></ERROR>';
@@ -147,10 +134,21 @@
     );
   }
   
-  if ($error && $scielo->_script == 'sci_abstract') {
-    header("HTTP/1.0 404 Not Found - Archive Empty");
-    require '404.html';
-    exit;
+  if ($scielo->_script == 'sci_abstract') {
+    if ($wxisResponse['kind'] === 'not_found') {
+      http_response_code(404);
+      header('Cache-Control: no-store');
+      require __DIR__ . '/404.html';
+      exit;
+    }
+
+    if ($wxisResponse['kind'] === 'backend_error') {
+      if (http_response_code() < 500) {
+        http_response_code(502);
+      }
+      header('Retry-After: 5');
+      header('Cache-Control: no-store');
+    }
   }
 
   $pageContent = $scielo->getPage();
