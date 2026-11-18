@@ -145,7 +145,7 @@ RUN dnf -y --refresh upgrade \
         libcurl-devel freetype-devel gettext-devel libjpeg-turbo-devel \
         libpng-devel libxml2-devel libxslt-devel libzip-devel \
         oniguruma-devel openssl-devel readline-devel sqlite-devel zlib-devel \
-    && dnf -y install --setopt=install_weak_deps=False apr apr-util \
+    && dnf -y install --setopt=install_weak_deps=False apr apr-util glibc.i686 libstdc++.i686 \
     && dnf -y --refresh upgrade \
     && (rpm -q vim-minimal && dnf -y remove vim-minimal || true) \
     && dnf clean all \

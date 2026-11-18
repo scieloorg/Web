@@ -307,6 +307,18 @@ check_indexes() {
   reindex_pid880 "$ROOT/bases/cited/cited" "cited"
   reindex_pid880 "$ROOT/bases/related/related" "related"
 
+  if ! has_database "$ROOT/bases/gizmo/gizmo"; then
+    if [[ "$MODE" == "fix" && -f "$ROOT/bases_modelo/gizmo/gizmo.mst" && -f "$ROOT/bases_modelo/gizmo/gizmo.xrf" ]]; then
+      mkdir -p "$ROOT/bases/gizmo"
+      cp -a "$ROOT/bases_modelo/gizmo/." "$ROOT/bases/gizmo/"
+      ok "gizmo OAI database initialized from bases_modelo/gizmo"
+    else
+      warn "gizmo OAI database missing ($ROOT/bases/gizmo/gizmo.mst/.xrf); required for oai_dc_scielo"
+    fi
+  else
+    ok "gizmo OAI database exists"
+  fi
+
   local iah_dir collection source_db search_db searchp_db
   while IFS= read -r iah_dir; do
     collection="$(basename "$iah_dir")"

@@ -147,6 +147,12 @@
     );
   }
   
+  if ($error && $scielo->_script == 'sci_abstract') {
+    header("HTTP/1.0 404 Not Found - Archive Empty");
+    require '404.html';
+    exit;
+  }
+
   $pageContent = $scielo->getPage();
   
   $pageContent .= "\n".'<!-- REQUEST URI: '.htmlspecialchars($_SERVER['REQUEST_URI'], ENT_QUOTES, 'UTF-8').'-->';
