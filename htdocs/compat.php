@@ -18,6 +18,54 @@ function scielo_utf8_decode($value)
     return utf8_decode((string)$value);
 }
 
+/**
+ * Classify a WXIS XML response without treating transport failures as missing
+ * content. sci_abstract.xis uses codes 0001-0004 for missing journal, issue,
+ * article, or requested language records.
+ */
+function scielo_classify_wxis_xml($xml)
+{
+    $response = array(
+        'kind' => 'backend_error',
+        'error_code' => null,
+        'xml' => false,
+    );
+
+    if (!is_string($xml) || trim($xml) === '' || strpos($xml, 'WXIS|fatal error|') !== false) {
+        return $response;
+    }
+
+    $previousUseInternalErrors = libxml_use_internal_errors(true);
+    $document = simplexml_load_string($xml);
+    libxml_clear_errors();
+    libxml_use_internal_errors($previousUseInternalErrors);
+
+    if ($document === false) {
+        return $response;
+    }
+
+    $response['xml'] = $document;
+    $errorNode = null;
+    if ($document->getName() === 'ERROR') {
+        $errorNode = $document;
+    } elseif (isset($document->ERROR[0])) {
+        $errorNode = $document->ERROR[0];
+    }
+
+    if ($errorNode === null) {
+        $response['kind'] = 'ok';
+        return $response;
+    }
+
+    $errorCode = trim((string)$errorNode->CODE);
+    $response['error_code'] = $errorCode !== '' ? $errorCode : null;
+    if (in_array($errorCode, array('0001', '0002', '0003', '0004'), true)) {
+        $response['kind'] = 'not_found';
+    }
+
+    return $response;
+}
+
 // Legacy regex functions removed in PHP 7+.
 if (!function_exists('ereg')) {
     function ereg($pattern, $string, &$regs = null)

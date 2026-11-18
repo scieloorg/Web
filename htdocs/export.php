@@ -138,8 +138,7 @@ if($xsl != dirname(__FILE__)."/xsl/")
 						 '@&(iexcl|#161);@i',
 						 '@&(cent|#162);@i',
 						 '@&(pound|#163);@i',
-						 '@&(copy|#169);@i',
-						 '@&#(\d+);@e');                    // evaluate as php
+						 '@&(copy|#169);@i');
 
 		$replace = array ('',
 						  '',
@@ -152,10 +151,14 @@ if($xsl != dirname(__FILE__)."/xsl/")
 						  chr(161),
 						  chr(162),
 						  chr(163),
-						  chr(169),
-						  'chr(\1)');
+						  chr(169));
 
 		$result = preg_replace($search, $replace, $result);
+		if ($result !== null) {
+			$result = preg_replace_callback('/&#(\d+);/', function ($matches) {
+				return chr((int)$matches[1]);
+			}, $result);
+		}
 	}
 
 $inicio = strpos($xml,'<SIGLUM>');
