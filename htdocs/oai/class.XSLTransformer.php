@@ -5,7 +5,7 @@ include_once (dirname(__FILE__)."/class.XSLTransformerJava.php");
 include_once (dirname(__FILE__)."/class.XSLTransformerPHP5.php");
 
 function xml_utf8_decode($xml){
-  $xml = utf8_decode($xml);
+  $xml = scielo_utf8_decode($xml);
   $xml = str_replace('utf-8','iso-8859-1',$xml);
   $xml = str_replace('UTF-8','iso-8859-1',$xml);
   return $xml;
@@ -16,23 +16,36 @@ function xml_utf8_decode($xml){
 class XSLTransformer
 {
 
+  function __construct()
+  {
+      $this->XSLTransformer();
+  }
+
   function XSLTransformer()
   {
-      $this->defFile = parse_ini_file(dirname(__FILE__)."/../scielo.def.php",true);
+      $this->defFile = @parse_ini_file(dirname(__FILE__)."/../scielo.def.php", true);
+      if (!is_array($this->defFile)) {
+          $this->defFile = array();
+      }
       $this->tPHP = new XSLTransformerPHP5();
-      $this->tJava = new XSLTransformerJava($_SERVER["SERVER_ADDR"],$this->defFile["SOCKET"]["SOCK_PORT"]);
+      $sockPort = isset($this->defFile["SOCKET"]["SOCK_PORT"]) ? $this->defFile["SOCKET"]["SOCK_PORT"] : 0;
+      $serverAddr = isset($_SERVER["SERVER_ADDR"]) ? $_SERVER["SERVER_ADDR"] : "127.0.0.1";
+      $this->tJava = new XSLTransformerJava($serverAddr, $sockPort);
 
-      $this->socket_log_file = $this->defFile['SOCKET']['ACCESS_LOG_FILE'];
-      $this->enable_socket_log = $this->defFile['SOCKET']['ENABLE_ACCESS_LOG'];
+      $this->socket_log_file = isset($this->defFile["SOCKET"]["ACCESS_LOG_FILE"]) ? $this->defFile["SOCKET"]["ACCESS_LOG_FILE"] : "";
+      $this->enable_socket_log = isset($this->defFile["SOCKET"]["ENABLE_ACCESS_LOG"]) ? $this->defFile["SOCKET"]["ENABLE_ACCESS_LOG"] : 0;
 
-      $this->redirectURL = $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+      $serverName = isset($_SERVER["SERVER_NAME"]) ? $_SERVER["SERVER_NAME"] : "";
+      $requestUri = isset($_SERVER["REQUEST_URI"]) ? $_SERVER["REQUEST_URI"] : "";
+      $this->redirectURL = $serverName . $requestUri;
+      $this->error = 0;
 
   }
 
   function validateXML($xml)
   {
     $validXML = true;
-    if ($this->defFile['XML_ERROR']['ENABLED_XML_ERROR'] == '1'){
+    if (isset($this->defFile["XML_ERROR"]["ENABLED_XML_ERROR"]) && $this->defFile["XML_ERROR"]["ENABLED_XML_ERROR"] == "1") {
             $xmlCheck = new XML_check();
             $xml1 = $xml;
             $validXML = $xmlCheck->check_string($xml1); // verifica se o XML é bem formado
@@ -314,7 +327,7 @@ class docReader
 
 function xmlspecialchars($s)
 {
-        $s = utf8_decode($s);
+        $s = scielo_utf8_decode($s);
 	$s = str_replace("<", "NO_CHANGE_LT", $s);
 	$s = str_replace(">", "NO_CHANGE_GT", $s);
 	$s = str_replace('"', "NO_CHANGE_QUOTE", $s);

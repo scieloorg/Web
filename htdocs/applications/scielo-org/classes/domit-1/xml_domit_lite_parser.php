@@ -547,7 +547,7 @@ class DOMIT_Lite_ChildNodes_Interface extends DOMIT_Lite_Node {
 						$returnFirstFoundNode = false, $treatUIDAsAttribute = false) {
 		require_once(DOMIT_INCLUDE_PATH . 'xml_domit_nodemaps.php');
 		
-		$nodelist =& new DOMIT_NodeList();
+		$nodelist = new DOMIT_NodeList();
 		
 		switch ($this->nodeType) {
 			case DOMIT_ELEMENT_NODE:
@@ -652,8 +652,12 @@ class DOMIT_Lite_Document extends DOMIT_Lite_ChildNodes_Interface {
 		$this->nodeName = '#document';
 		$this->ownerDocument =& $this;
 		$this->parser = '';
-		$this->implementation =& new DOMIT_DOMImplementation();
-	} //DOMIT_Lite_Document	
+		$this->implementation = new DOMIT_DOMImplementation();
+	} //DOMIT_Lite_Document
+
+	function __construct() {
+		$this->DOMIT_Lite_Document();
+	}
 	
 	/**
 	* Specifies whether DOMIT! Lite will try to fix invalid XML before parsing begins
@@ -675,7 +679,7 @@ class DOMIT_Lite_Document extends DOMIT_Lite_ChildNodes_Interface {
 	function setConnection($host, $path = '/', $port = 80, $timeout = 0, $user = null, $password = null) {
 	    require_once(DOMIT_INCLUDE_PATH . 'php_http_client_generic.php');
 		
-		$this->httpConnection =& new php_http_client_generic($host, $path, $port, $timeout, $user, $password);
+		$this->httpConnection = new php_http_client_generic($host, $path, $port, $timeout, $user, $password);
 	} //setConnection
 	
 	/**
@@ -699,7 +703,7 @@ class DOMIT_Lite_Document extends DOMIT_Lite_ChildNodes_Interface {
 	function setProxyConnection($host, $path = '/', $port = 80, $timeout = 0, $user = null, $password = null) {
 	    require_once(DOMIT_INCLUDE_PATH . 'php_http_proxy.php');
 		
-		$this->httpConnection =& new php_http_proxy($host, $path, $port, $timeout, $user, $password);
+		$this->httpConnection = new php_http_proxy($host, $path, $port, $timeout, $user, $password);
 	} //setProxyConnection
 	
 	/**
@@ -771,8 +775,7 @@ class DOMIT_Lite_Document extends DOMIT_Lite_ChildNodes_Interface {
 	*/
 	function &appendChild(&$node) {
 		if ($node->nodeType == DOMIT_ELEMENT_NODE) {
-			if ($this->documentElement == null) { 
-				parent::appendChild($node);
+			if ($this->documentElement == null) {
 				$this->setDocumentElement($node);
 			}
 			else {
@@ -877,7 +880,7 @@ class DOMIT_Lite_Document extends DOMIT_Lite_ChildNodes_Interface {
 	* @return Object The new element
 	*/
 	function &createElement($tagName) {
-		$node =& new DOMIT_Lite_Element($tagName);
+		$node = new DOMIT_Lite_Element($tagName);
 		$node->ownerDocument =& $this;
 		
 		return $node;
@@ -889,7 +892,7 @@ class DOMIT_Lite_Document extends DOMIT_Lite_ChildNodes_Interface {
 	* @return Object The new text node
 	*/
 	function &createTextNode($data) {
-		$node =& new DOMIT_Lite_TextNode($data);
+		$node = new DOMIT_Lite_TextNode($data);
 		$node->ownerDocument =& $this;
 	
 		return $node;
@@ -901,7 +904,7 @@ class DOMIT_Lite_Document extends DOMIT_Lite_ChildNodes_Interface {
 	* @return Object The new CDATASection node
 	*/
 	function &createCDATASection($data) {
-		$node =& new DOMIT_Lite_CDATASection($data);
+		$node = new DOMIT_Lite_CDATASection($data);
 		$node->ownerDocument =& $this;
 		
 		return $node;
@@ -913,7 +916,7 @@ class DOMIT_Lite_Document extends DOMIT_Lite_ChildNodes_Interface {
 	* @return Object A NodeList of found elements
 	*/
 	function &getElementsByTagName($tagName) {
-		$nodeList =& new DOMIT_NodeList();
+		$nodeList = new DOMIT_NodeList();
 		
 		if ($this->documentElement != null) {
 			$this->documentElement->getNamedElements($nodeList, $tagName);
@@ -966,7 +969,7 @@ class DOMIT_Lite_Document extends DOMIT_Lite_ChildNodes_Interface {
         }
 		
 		if (DOMIT_Utilities::validateXML($xmlText)) {
-			$domParser =& new DOMIT_Lite_Parser();
+			$domParser = new DOMIT_Lite_Parser();
 			
 			if ($useSAXY || (!function_exists('xml_parser_create'))) {
 				//use SAXY parser to populate xml tree
@@ -1195,7 +1198,7 @@ class DOMIT_Lite_Document extends DOMIT_Lite_ChildNodes_Interface {
 	*/
 	function &cloneNode($deep = false) {
 		$className = get_class($this);
-		$clone =& new $className($this->nodeName);
+		$clone = new $className($this->nodeName);
 
 		if ($deep) {
 			$total = $this->childCount;
@@ -1248,6 +1251,10 @@ class DOMIT_Lite_Element extends DOMIT_Lite_ChildNodes_Interface {
 		$this->attributes = array();
 		$this->childNodes = array();
 	} //DOMIT_Lite_Element
+
+	function __construct($tagName) {
+		$this->DOMIT_Lite_Element($tagName);
+	}
 	
 	/**
 	* Returns the tag name of the element
@@ -1318,7 +1325,7 @@ class DOMIT_Lite_Element extends DOMIT_Lite_ChildNodes_Interface {
 	* @return Object A NodeList of found elements
 	*/
 	function &getElementsByTagName($tagName) {
-		$nodeList =& new DOMIT_NodeList();		
+		$nodeList = new DOMIT_NodeList();		
 		$this->getNamedElements($nodeList, $tagName);
 		
 		return $nodeList;
@@ -1430,7 +1437,7 @@ class DOMIT_Lite_Element extends DOMIT_Lite_ChildNodes_Interface {
 	*/
 	function &cloneNode($deep = false) {
 		$className = get_class($this);
-		$clone =& new $className($this->nodeName);
+		$clone = new $className($this->nodeName);
 		
 		$clone->attributes = $this->attributes;
 		
@@ -1523,6 +1530,10 @@ class DOMIT_Lite_TextNode extends DOMIT_Lite_Node {
 		$this->nodeName = '#text';
 		$this->setText($data);
 	} //DOMIT_Lite_TextNode
+
+	function __construct($data) {
+		$this->DOMIT_Lite_TextNode($data);
+	}
 	
 	/**
 	* Returns the text contained in the current node
@@ -1555,7 +1566,7 @@ class DOMIT_Lite_TextNode extends DOMIT_Lite_Node {
 	*/
 	function &cloneNode($deep = false) {
 		$className = get_class($this);
-		$clone =& new $className($this->nodeValue);
+		$clone = new $className($this->nodeValue);
 		
 		return $clone;
 	} //cloneNode
@@ -1597,6 +1608,10 @@ class DOMIT_Lite_CDATASection extends DOMIT_Lite_TextNode {
 		$this->nodeName = '#cdata-section';
 		$this->setText($data);
 	} //DOMIT_Lite_CDATASection
+
+	function __construct($data) {
+		$this->DOMIT_Lite_CDATASection($data);
+	}
 	
 	/**
 	* Generates a string representation of the node and its children
@@ -1698,7 +1713,7 @@ class DOMIT_Lite_Parser {
 		$this->lastChild =& $this->xmlDoc;
 		
 		//create instance of SAXY parser 
-		$parser =& new SAXY_Lite_Parser();
+		$parser = new SAXY_Lite_Parser();
 		$parser->appendEntityTranslationTable($definedEntities);
 		
 		$parser->xml_set_element_handler(array(&$this, 'startElement'), array(&$this, 'endElement'));
@@ -1733,7 +1748,7 @@ class DOMIT_Lite_Parser {
 	* @param string The tag name of the current element
 	* @param Array An array of the element attributes
 	*/
-	function startElement(&$parser, $name, $attrs) {
+	function startElement($parser, $name, $attrs) {
 		if ($this->inTextNode) {
 			$this->dumpTextNode();
 		}
@@ -1749,7 +1764,7 @@ class DOMIT_Lite_Parser {
 	* @param Object A reference to the current SAX parser
 	* @param string The tag name of the current element
 	*/
-	function endElement(&$parser, $name) {
+	function endElement($parser, $name) {
 		if ($this->inTextNode) {
 			$this->dumpTextNode();
 		}
@@ -1762,7 +1777,7 @@ class DOMIT_Lite_Parser {
 	* @param Object A reference to the current SAX parser
 	* @param string The current text data
 	*/
-	function dataElement(&$parser, $data) {
+	function dataElement($parser, $data) {
 		if (!$this->inCDATASection) $this->inTextNode = true;
 		
 		$this->parseContainer .= $data;	
@@ -1773,7 +1788,7 @@ class DOMIT_Lite_Parser {
 	* @param Object A reference to the current SAX parser
 	* @param string The current text data
 	*/
-	function cdataElement(&$parser, $data) {
+	function cdataElement($parser, $data) {
 		$currentNode =& $this->xmlDoc->createCDATASection($data);
 
 		$this->lastChild->appendChild($currentNode);
@@ -1784,7 +1799,7 @@ class DOMIT_Lite_Parser {
 	* @param Object A reference to the current SAX parser
 	* @param string The current data
 	*/
-	function defaultDataElement(&$parser, $data) {
+	function defaultDataElement($parser, $data) {
 		if (strlen($data) > 2){
 			$pre = strtoupper(substr($data, 0, 3));
 			

@@ -2298,11 +2298,11 @@ class RotImage extends Image {
 	parent::Arc($xc,$yc,$w,$h,$s,$e);
     }
 
-    function FilledArc($xc,$yc,$w,$h,$s,$e) {
+    function FilledArc($xc,$yc,$w,$h,$s,$e,$style="") {
 	list($xc,$yc) = $this->Rotate($xc,$yc);
 	$s += $this->a;
 	$e += $this->a;
-	parent::FilledArc($xc,$yc,$w,$h,$s,$e);
+	parent::FilledArc($xc,$yc,$w,$h,$s,$e,$style);
     }
 
     function SetMargin($lm,$rm,$tm,$bm) {

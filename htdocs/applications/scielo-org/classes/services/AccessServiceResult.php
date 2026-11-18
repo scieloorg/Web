@@ -10,7 +10,11 @@ class AccessServiceResult extends ServiceResult {
     function AccessServiceResult($stringXml){
     	$this->ServiceResult($stringXml);
     }
-	
+    function __construct($stringXml){
+        $this->AccessServiceResult($stringXml);
+    }
+
+
 	function getStats(){
 		$articleStats = new ArticleStats();
 		
@@ -37,7 +41,7 @@ class AccessServiceResult extends ServiceResult {
 		$articleStats->setRequests($arrayArticleRequests);
 		return $articleStats;
 	}
-	
+
 
 }//class
 

@@ -7,6 +7,10 @@ class TrigramaCited extends ServicesHandler {
 		$this->ServicesHandler();
 		$this->setAditionalPath('/cgi-bin/mxlind/cgi=@cited');
 	}
+	function __construct(){
+		$this->TrigramaCited();
+	}
+
 }
 /*
 http://trigramas.bireme.br/cgi-bin/mx/cgi=@1?xml=&maxrel=30&minsim=0.30&show=scielo1&text=sida&collection=SciELO.br.TiKwAb&

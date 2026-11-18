@@ -106,6 +106,10 @@ class UIDGenerator {
 	function UIDGenerator() {
 		$this->seed = 'node' . time();
 	} //UIDGenerator
+
+	function __construct() {
+		$this->UIDGenerator();
+	}
 	
 	/**
 	* Generates a unique id
@@ -129,7 +133,7 @@ class DOMIT_DOMException {
 	* @param int The error number
 	* @param string A string explanation of the error
 	*/
-	function raiseException($errorNum, $errorString) {
+	public static function raiseException($errorNum, $errorString) {
 		$errorMessage = 'Error: ' . $errorNum  .  "\n " . $errorString;
 		
 		if ((!isset($GLOBALS['DOMIT_ERROR_FORMATTING_HTML'])) ||
@@ -166,7 +170,7 @@ class DOMIT_DOMImplementation {
 	* @return Object The new document fragment node
 	*/
 	function &createDocument($namespaceURI, $qualifiedName, &$docType) {
-		$xmldoc =& new DOMIT_Document();
+		$xmldoc = new DOMIT_Document();
 		$documentElement =& $xmldoc->createElementNS($namespaceURI, $qualifiedName);
 		
 		$xmldoc->setDocumentElement($documentElement);
