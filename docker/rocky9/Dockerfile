@@ -2,8 +2,8 @@ FROM rockylinux:9
 
 # Keep the patched PHP release and its upstream checksum together. Builds fail
 # closed if the downloaded source does not match this exact PHP release.
-ARG PHP_VERSION=8.5.12
-ARG PHP_SHA256=08bc2eba2a588654ade1357174aa646b761556c862dda0678345ee29ed481209
+ARG PHP_VERSION=8.5.13
+ARG PHP_SHA256=607602acaf0c3061818e9916ec44a058e8b3d43959a83862b9cd3ec7bf5b785f
 ARG HTTPD_VERSION=2.4.71
 ARG HTTPD_SHA256=6b0433674ded858d2ac01e95345935ce127d5d287471762f0a7f10f4969cbfe8
 
@@ -130,7 +130,7 @@ RUN dnf -y --refresh upgrade \
         -e 's#^;listen.mode = .*$#listen.mode = 0660#' \
         /etc/php-fpm.d/www.conf \
     && test "$(php -r 'echo PHP_VERSION;')" = "${PHP_VERSION}" \
-    && php -r 'exit(version_compare(PHP_VERSION, "8.5.12", ">=") ? 0 : 1);' \
+    && php -r 'exit(version_compare(PHP_VERSION, "8.5.13", ">=") ? 0 : 1);' \
     && php -r '$required = ["curl", "dom", "gd", "libxml", "mbstring", "mysqli", "pdo_mysql", "simplexml", "xsl", "Zend OPcache"]; foreach ($required as $extension) { if (!extension_loaded($extension)) { fwrite(STDERR, "Missing PHP extension: {$extension}\n"); exit(1); } }' \
     && printf '%s\n' "${PHP_VERSION}" > /etc/scielo-php-version \
     && cp -a /etc/httpd /tmp/httpd-runtime-config \
@@ -181,7 +181,7 @@ RUN sed -ri 's#^[[:space:]]*ScriptAlias /cgi-bin/ ".*"#ScriptAlias /cgi-bin/ "/v
 
 LABEL org.opencontainers.image.version="${PHP_VERSION}" \
       org.opencontainers.image.httpd.version="${HTTPD_VERSION}" \
-      org.opencontainers.image.description="SciELO Web on patched PHP 8.5.12"
+      org.opencontainers.image.description="SciELO Web on patched PHP 8.5.13"
 
 EXPOSE 80
 

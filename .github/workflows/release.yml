@@ -34,7 +34,7 @@ jobs:
 
       - name: Verify patched PHP version
         run: |
-          test "$(docker run --rm --entrypoint php infrascielo/metodologia:${VERSION} -r 'echo PHP_VERSION;')" = "8.5.12"
+          test "$(docker run --rm --entrypoint php infrascielo/metodologia:${VERSION} -r 'echo PHP_VERSION;')" = "8.5.13"
 
       # 🔐 Scan único (policy)
       - name: Trivy Image Scan
