@@ -163,6 +163,7 @@ COPY docker/rocky9/php-fpm-scielo.conf /etc/php-fpm.d/zz-scielo.conf
 COPY docker/rocky9/entrypoint.sh /usr/local/bin/entrypoint-scielo.sh
 COPY docker/rocky9/scielo-instance-check.sh /usr/local/bin/scielo-instance-check.sh
 COPY docker/rocky9/health.php /opt/scielo-health/health.php
+COPY docker/rocky9/compat-prepend.php /opt/scielo-health/compat-prepend.php
 
 # Reuse the default /cgi-bin/ ScriptAlias, but point it to the project cgi-bin.
 RUN sed -ri 's#^[[:space:]]*ScriptAlias /cgi-bin/ ".*"#ScriptAlias /cgi-bin/ "/var/www/html/cgi-bin/"#' /etc/httpd/conf/httpd.conf \
@@ -171,11 +172,12 @@ RUN sed -ri 's#^[[:space:]]*ScriptAlias /cgi-bin/ ".*"#ScriptAlias /cgi-bin/ "/v
     && ln -s /opt/httpd/bin/httpd /usr/sbin/httpd \
     && mkdir -p /var/www/html/htdocs /var/www/html/cgi-bin \
     && chown -R apache:apache /var/www/html \
-    && chmod 0644 /opt/scielo-health/health.php \
+    && chmod 0644 /opt/scielo-health/health.php /opt/scielo-health/compat-prepend.php \
     && chmod +x /usr/local/bin/entrypoint-scielo.sh /usr/local/bin/scielo-instance-check.sh \
     && ! rpm -q httpd \
     && test -s /etc/mime.types \
     && php -l /opt/scielo-health/health.php >/dev/null \
+    && php -l /opt/scielo-health/compat-prepend.php >/dev/null \
     && /usr/sbin/httpd -v | grep -Fq "Apache/${HTTPD_VERSION}" \
     && /opt/httpd/bin/httpd -d /etc/httpd -f conf/httpd.conf -t
 

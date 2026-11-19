@@ -177,6 +177,7 @@ $serviceSource = file_get_contents(__DIR__ . '/../htdocs/applications/scielo-org
 $accessServiceSource = file_get_contents(__DIR__ . '/../htdocs/applications/scielo-org/classes/services/AccessServiceBar.php');
 $graphSource = file_get_contents(__DIR__ . '/../htdocs/applications/scielo-org/classes/Open_Flash_Chart/ofc-library/Graph.php');
 $apacheSource = file_get_contents(__DIR__ . '/../docker/rocky9/httpd-scielo.conf');
+$phpIniSource = file_get_contents(__DIR__ . '/../docker/rocky9/php-scielo.ini');
 $scieloSource = file_get_contents(__DIR__ . '/../htdocs/scielo.php');
 $fpmSource = file_get_contents(__DIR__ . '/../docker/rocky9/php-fpm-scielo.conf');
 $domitUtilitiesSource = file_get_contents(__DIR__ . '/../htdocs/applications/scielo-org/classes/domit-1/xml_domit_utilities.php');
@@ -200,6 +201,8 @@ assert_true(strpos($graphSource, 'function __construct()') !== false, 'legacy gr
 assert_true(strpos($apacheSource, '.*\\.(?:inc|def|template)') !== false, 'Apache must block auxiliary file extensions');
 assert_true(substr_count($apacheSource, 'Require all denied') >= 3, 'Apache must deny unsafe files and CGI by default');
 assert_true(strpos($apacheSource, 'ProxyTimeout 35') !== false, 'Apache must bound FastCGI request time');
+assert_true(strpos($apacheSource, 'auto_prepend_file=') === false, 'Apache must not clear auto_prepend_file via PHP_ADMIN_VALUE across shared PHP-FPM workers');
+assert_true(strpos($phpIniSource, '/opt/scielo-health/compat-prepend.php') !== false, 'PHP ini must use conditional compat-prepend wrapper');
 assert_true(strpos($scieloSource, 'shell_exec(') === false, 'WXIS must not run through an unbounded shell');
 assert_true(strpos($scieloSource, "\$useCache = '0';") !== false, 'authenticated requests must bypass shared cache');
 assert_true(strpos($fpmSource, 'request_terminate_timeout = 30s') !== false, 'PHP-FPM must terminate stuck requests');
