@@ -10,6 +10,9 @@
 */
 require_once(dirname(__FILE__)."/../classes/domit-1/xml_domit_lite_include.inc.php");
 require_once(dirname(__FILE__)."/../../../php/include.php");
+if (!defined('SCIELO_COMPAT_LOADED') && file_exists(dirname(__FILE__)."/../../../compat.php")) {
+    require_once(dirname(__FILE__)."/../../../compat.php");
+}
 
 /**
  * Extrai os titulos do XML
