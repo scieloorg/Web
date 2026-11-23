@@ -3,8 +3,8 @@ SciELO Web
 
 ## Versão do PHP
 
-A imagem Rocky Linux compila e fixa o PHP **8.5.12**, versão que corrige as
-vulnerabilidades críticas CVE-2026-109618 e CVE-2026-109619. O código-fonte é
+A imagem Rocky Linux compila e fixa o PHP **8.5.13**, release de segurança
+publicada em 19 de novembro de 2026. O código-fonte é
 baixado de `php.net`, validado pelo SHA-256 oficial e conferido novamente no
 build, no início do container e no pipeline de release. O container se recusa a
 iniciar se a versão instalada não for exatamente a esperada.
@@ -17,7 +17,7 @@ docker compose run --rm --entrypoint php scielo-web -v
 docker compose up -d --force-recreate
 ```
 
-O primeiro comando deve produzir uma imagem com `PHP 8.5.12`. Não reutilize a
+O primeiro comando deve produzir uma imagem com `PHP 8.5.13`. Não reutilize a
 imagem `infrascielo/metodologia:v7.1-qa`, pois ela não oferece essa garantia.
 
 

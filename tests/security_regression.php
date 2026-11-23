@@ -151,6 +151,67 @@ $slowProcess = scielo_run_process_with_timeout(
 assert_true($slowProcess['timed_out'] === true, 'slow subprocess must be terminated at its deadline');
 assert_true($slowProcess['duration_ms'] < 1000, 'timed out subprocess must be reaped promptly');
 
+$compatPrependSource = file_get_contents(__DIR__ . '/../docker/rocky9/compat-prepend.php');
+$compatPrependFixtureDir = rtrim(sys_get_temp_dir(), DIRECTORY_SEPARATOR)
+    . DIRECTORY_SEPARATOR . 'scielo-compat-prepend-' . bin2hex(random_bytes(8));
+assert_true(mkdir($compatPrependFixtureDir, 0700), 'compat prepend fixture directory must be created');
+
+$compatPrependFixtureCompat = $compatPrependFixtureDir . DIRECTORY_SEPARATOR . 'compat.php';
+$compatPrependFixtureHealth = $compatPrependFixtureDir . DIRECTORY_SEPARATOR . 'health.php';
+$compatPrependFixtureNormal = $compatPrependFixtureDir . DIRECTORY_SEPARATOR . 'normal.php';
+$compatPrependFixtureWrapper = $compatPrependFixtureDir . DIRECTORY_SEPARATOR . 'compat-prepend.php';
+$compatPrependFixtureProbe = '<?php echo defined("SCIELO_COMPAT_PREPEND_TEST_LOADED") ? "loaded" : "missing";';
+
+assert_true(
+    substr_count($compatPrependSource, '/opt/scielo-health/health.php') === 1
+        && substr_count($compatPrependSource, '/var/www/html/htdocs/compat.php') === 2,
+    'compat prepend wrapper must retain the expected production paths'
+);
+$compatPrependFixtureSource = str_replace(
+    array('/opt/scielo-health/health.php', '/var/www/html/htdocs/compat.php'),
+    array($compatPrependFixtureHealth, $compatPrependFixtureCompat),
+    $compatPrependSource
+);
+
+assert_true(
+    file_put_contents(
+        $compatPrependFixtureCompat,
+        '<?php define("SCIELO_COMPAT_PREPEND_TEST_LOADED", true);'
+    ) !== false
+        && file_put_contents($compatPrependFixtureHealth, $compatPrependFixtureProbe) !== false
+        && file_put_contents($compatPrependFixtureNormal, $compatPrependFixtureProbe) !== false
+        && file_put_contents($compatPrependFixtureWrapper, $compatPrependFixtureSource) !== false,
+    'compat prepend fixture files must be created'
+);
+
+$normalPrependProcess = scielo_run_process_with_timeout(
+    array(PHP_BINARY, '-d', 'auto_prepend_file=' . $compatPrependFixtureWrapper, $compatPrependFixtureNormal),
+    2
+);
+$healthPrependProcess = scielo_run_process_with_timeout(
+    array(PHP_BINARY, '-d', 'auto_prepend_file=' . $compatPrependFixtureWrapper, $compatPrependFixtureHealth),
+    2
+);
+
+foreach (array(
+    $compatPrependFixtureWrapper,
+    $compatPrependFixtureNormal,
+    $compatPrependFixtureHealth,
+    $compatPrependFixtureCompat,
+) as $compatPrependFixtureFile) {
+    @unlink($compatPrependFixtureFile);
+}
+@rmdir($compatPrependFixtureDir);
+
+assert_true(
+    $normalPrependProcess['exit_code'] === 0 && $normalPrependProcess['stdout'] === 'loaded',
+    'compat prepend wrapper must load compat.php for application requests'
+);
+assert_true(
+    $healthPrependProcess['exit_code'] === 0 && $healthPrependProcess['stdout'] === 'missing',
+    'compat prepend wrapper must skip compat.php for the health endpoint'
+);
+
 $csrfToken = scielo_csrf_token();
 assert_true(strlen($csrfToken) === 64, 'CSRF token should contain 256 bits encoded as hexadecimal');
 assert_true(scielo_csrf_token_is_valid($csrfToken) === true, 'generated CSRF token should be valid');
@@ -177,6 +238,7 @@ $serviceSource = file_get_contents(__DIR__ . '/../htdocs/applications/scielo-org
 $accessServiceSource = file_get_contents(__DIR__ . '/../htdocs/applications/scielo-org/classes/services/AccessServiceBar.php');
 $graphSource = file_get_contents(__DIR__ . '/../htdocs/applications/scielo-org/classes/Open_Flash_Chart/ofc-library/Graph.php');
 $apacheSource = file_get_contents(__DIR__ . '/../docker/rocky9/httpd-scielo.conf');
+$phpIniSource = file_get_contents(__DIR__ . '/../docker/rocky9/php-scielo.ini');
 $scieloSource = file_get_contents(__DIR__ . '/../htdocs/scielo.php');
 $fpmSource = file_get_contents(__DIR__ . '/../docker/rocky9/php-fpm-scielo.conf');
 $domitUtilitiesSource = file_get_contents(__DIR__ . '/../htdocs/applications/scielo-org/classes/domit-1/xml_domit_utilities.php');
@@ -200,6 +262,8 @@ assert_true(strpos($graphSource, 'function __construct()') !== false, 'legacy gr
 assert_true(strpos($apacheSource, '.*\\.(?:inc|def|template)') !== false, 'Apache must block auxiliary file extensions');
 assert_true(substr_count($apacheSource, 'Require all denied') >= 3, 'Apache must deny unsafe files and CGI by default');
 assert_true(strpos($apacheSource, 'ProxyTimeout 35') !== false, 'Apache must bound FastCGI request time');
+assert_true(strpos($apacheSource, 'auto_prepend_file=') === false, 'Apache must not clear auto_prepend_file via PHP_ADMIN_VALUE across shared PHP-FPM workers');
+assert_true(strpos($phpIniSource, '/opt/scielo-health/compat-prepend.php') !== false, 'PHP ini must use conditional compat-prepend wrapper');
 assert_true(strpos($scieloSource, 'shell_exec(') === false, 'WXIS must not run through an unbounded shell');
 assert_true(strpos($scieloSource, "\$useCache = '0';") !== false, 'authenticated requests must bypass shared cache');
 assert_true(strpos($fpmSource, 'request_terminate_timeout = 30s') !== false, 'PHP-FPM must terminate stuck requests');

@@ -5,11 +5,11 @@ services:
       context: .
       dockerfile: docker/rocky9/Dockerfile
       args:
-        PHP_VERSION: 8.5.12
-        PHP_SHA256: 08bc2eba2a588654ade1357174aa646b761556c862dda0678345ee29ed481209
+        PHP_VERSION: 8.5.13
+        PHP_SHA256: 607602acaf0c3061818e9916ec44a058e8b3d43959a83862b9cd3ec7bf5b785f
         HTTPD_VERSION: 2.4.71
         HTTPD_SHA256: 6b0433674ded858d2ac01e95345935ce127d5d287471762f0a7f10f4969cbfe8
-    image: infrascielo/metodologia:php-8.5.12-local
+    image: infrascielo/metodologia:php-8.5.13-local
     container_name: scielo-web-rocky9
     ports:
       - "80:80"
