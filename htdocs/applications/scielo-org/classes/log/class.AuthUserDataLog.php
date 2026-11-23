@@ -36,6 +36,10 @@ class AuthUserDataLog extends log
 		//$this->fields['language'] = $userData->getLanguage();
 
 	}
+	function __construct($serviceName, $userData){
+		$this->AuthUserDataLog($serviceName, $userData);
+	}
+
 	/**
 	 * Define o nome do arquivo a ser escrito
 	 * @param string $fileName

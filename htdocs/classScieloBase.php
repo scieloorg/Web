@@ -2,6 +2,7 @@
 include ("classRequestVars.php");
 include ("class.ScieloTransformer.php");
 include ("classDefFile.php");
+require_once(__DIR__ . "/security.php");
 
 define("HOST_PORTS_FILE", "ports");
 
@@ -32,6 +33,11 @@ class ScieloBase
 	// --------------------------------     Constructor     -------------------------------------
 	// ------------------------------------------------------------------------------------------
 
+	function __construct($host)
+	{
+		$this->ScieloBase($host);
+	}
+
 	function ScieloBase ($host)
 	{
         $this->_request = new RequestVars ();
@@ -41,8 +47,20 @@ class ScieloBase
 		$this->_GetInfoByHost();
 
         if ( !$this->_request->getRequestValue ("script", $this->_script) ) $this->_script = $this->_homepg;
-        $this->_request->getRequestValue ("debug", $this->_debug);
-        $this->_debug = strtoupper ($this->_debug);
+        $requestedDebug = '';
+        if ($this->_request->getRequestValue("debug", $requestedDebug)) {
+            if (scielo_diagnostic_mode_allowed($requestedDebug)) {
+                $this->_debug = strtoupper($requestedDebug);
+            } else {
+                scielo_audit_event(
+                    'access.denied',
+                    'unauthorized',
+                    'diagnostics',
+                    null,
+                    array('reason' => 'remote_debug_disabled')
+                );
+            }
+        }
 
 		// Create a DefFile object to gather information from def file
 		$this->_SetDefFileObject();
@@ -92,10 +110,10 @@ class ScieloBase
 
 		for ( $i = 0; $i < $count; $i++ )
 		{
-			if ( !ereg ("^#.*", $ports[$i]) )
+			if ( !preg_match("/^#.*/", $ports[$i]) )
 			{
 				// This line is not a comment
-				list ($host_entry, $def_entry, $homepg_entry, $querystr_entry) = split ( "[ \t]+", trim($ports[$i]) );
+				list ($host_entry, $def_entry, $homepg_entry, $querystr_entry) = preg_split("/[ \t]+/", trim($ports[$i]));
 
 				if ( $this->_GetHostNamePort($host_entry) == $this->_host)
 				{
@@ -137,14 +155,18 @@ class ScieloBase
 	*************************************************************************/
 	function _GetHostNamePort($host)
 	{
-		if ( ereg("([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)(\:[0-9]+)?", $host, $regs) )
+		if (preg_match('/^([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)(:[0-9]+)?$/', $host, $regs))
 		{
 			// If http-host is an ip address (port number is permitted)
-			$host = gethostbyaddr($regs[1]) . ( $regs[2] ? "$regs[2]" : "" );
+			$resolved = gethostbyaddr($regs[1]);
+			if ($resolved !== false && $resolved !== $regs[1]) {
+				$host = $resolved . (isset($regs[2]) ? $regs[2] : "");
+			}
 		}
 
 		return strtolower($host);
 	}
+
 
 
 	/************************************************************************
@@ -191,6 +213,10 @@ class ScieloBase
 	*************************************************************************/
 	function _CheckBypassTransformer()
 	{
+		if (!scielo_diagnostic_mode_allowed($this->_debug)) {
+			return false;
+		}
+
 		if ( (!$this->_debug || $this->_debug == 'VERIFICA') && ($this->_script != 'sci_verify') )
 		{
                   return false;
@@ -220,16 +246,16 @@ class ScieloBase
 	*************************************************************************/
 	function _BypassTransformer()
 	{
+		header("Content-Type: text/plain; charset=UTF-8");
 		switch ($this->_debug){
 			case "XML":
-				header("Content-type:text/xml; charset=utf-8\n");
-		        echo $this->_xml;
+			        echo $this->_xml;
 				break;
 			case "ON":
 				$fd = fopen ($this->_IsisScriptUrl,"r"); 
 
 				if (!$fd) { 
-					echo "<br><b>Could not open url:</b> [".$this->_IsisScriptUrl."]\n<br>";
+					echo "Could not open diagnostic URL.\n";
 					return;
 				} 
 			
@@ -244,14 +270,9 @@ class ScieloBase
 				echo $this->_xsl;
 				break;
 			default:
-				echo "<form>\n";
-				echo "<b>Generated XML</b><br>\n";
-				echo '<TEXTAREA cols="80" rows="20">\n';
-				echo $this->_xml;
-				echo "\n</TEXTAREA>\n</form>";
-
-				echo "<b>url of IsisScript</b>=$this->_IsisScriptUrl<br>\n";
-				echo "<b>\$xsl</b>=$this->_xsl<br>\n";
+				echo "Generated XML\n";
+				echo $this->_xml . "\n";
+				echo "XSL=" . $this->_xsl . "\n";
 				break;
 		}
 	}
@@ -400,6 +421,9 @@ class ScieloBase
 	function _TransformXML()
 	{
           $result = "";
+          $diag = isset($_REQUEST["diag"])
+              && $_REQUEST["diag"] == "1"
+              && scielo_diagnostics_allowed();
 
           // Apply transformer in xml
           $transform = new ScieloXMLTransformer();
@@ -408,6 +432,11 @@ class ScieloBase
 
           if($transform->setXsl($this->_xsl))
           {
+                  if ($diag){
+                          $xslExists = file_exists($this->_xsl) ? "yes" : "no";
+                          $xmlPreview = htmlspecialchars(substr($this->_xml, 0, 4000));
+                          return "<pre>DIAG\nXSL=".htmlspecialchars($this->_xsl)."\nXSL_EXISTS=".$xslExists."\nXML_PREVIEW=\n".$xmlPreview."</pre>";
+                  }
                   if($transform->setXml($this->_xml))
                   {
                     $transform->transform();
@@ -418,7 +447,7 @@ class ScieloBase
                     }
                     else
                     {
-                        $result = "<p>Error transforming ".$this->_xml.".</p>\n";
+                        $result = "<p>Error transforming: ".$transform->getError()."</p>\n";
                     }
                   }
             else

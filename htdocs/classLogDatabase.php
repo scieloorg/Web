@@ -9,6 +9,11 @@ class LogDatabase extends MySQLDatabase
 {
  var $_mainTableName;     // Main Table Name
  var $_defFile;           // Definition File
+
+ function __construct($defFile)
+ {
+  $this->LogDatabase($defFile);
+ }
   
  function LogDatabase($defFile)
  {

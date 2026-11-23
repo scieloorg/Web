@@ -178,7 +178,7 @@ class Graph {
 	var $plotarea_color=array(255,255,255);
 	var $title = false;
 	var $axtype="linlin";
-	var $xtick_factor,$xtick_factor;
+	var $xtick_factor,$ytick_factor;
 	var $texts=null;
 	var $text_scale_off=0;
 	var $background_image="",$background_image_type=-1,$background_image_format="png";
@@ -862,7 +862,6 @@ class Axis {
 	var $img=null,$scale=null; 
 	var $hide=false;
 	var $ticks_label=false;
-	var $title_margin;
 	var $show_first_label=true;
 	var $label_step=1; // Used by a text axis to specify what multiple of major steps
 							 // should be labeled.

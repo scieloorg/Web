@@ -26,7 +26,11 @@ class AuthScieloUserData
 	{
 		$this->setIp();
 		$this->setPort();		
-	}	
+	}
+	function __construct(){
+		$this->AuthScieloUserData();
+	}
+
 	/**
 	 * @access public
 	 * @return int ID do usuário
@@ -142,7 +146,7 @@ class AuthScieloUserData
 	{
 		$this->PID = $pid;
 	}
-	
+
 	/**
 	 * @access public
 	 * @return string PID corrente

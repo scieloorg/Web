@@ -17,9 +17,14 @@ $db_title=$defFile["PATH"]["PATH_DATABASE"]."/title/title";
 
 $utl=$defFile["PATH"]["PATH_PROC"]."/cisis";
 
+$pid = (isset($pid) && is_array($pid)) ? $pid : array();
+$pid2="";
 for ($j=0;$j < count($pid);++$j) {
 	$pid2.=$pid[$j];
 }
+$pid2=scielolog_safe_file_token($pid2);
+$data=array();
+$legend=array();
 
 //Busca o mfn inicial da data fim
 //Se a data inicial nao foi passada pega a primeira data da base
@@ -45,12 +50,12 @@ $mfn_fim=busca_mfnfim($dtf,$db_data);
 // Tabula os anos existentes na base de acesso e tranforma em um array
 
     if (!file_exists($db_tmp_datatb.".mst")) {
-		exec("$utl/mxtb $db_data create=$db_tmp_datatb from=2 \"256:v1.4/,\" \"class=120000\"");
-		exec("$utl/msrt $db_tmp_datatb \"256\" \"v1/\"");
+		exec(scielolog_shell_arg("$utl/mxtb")." ".scielolog_shell_arg($db_data)." ".scielolog_shell_arg("create=$db_tmp_datatb")." from=2 ".scielolog_shell_arg("256:v1.4/,")." ".scielolog_shell_arg("class=120000"));
+		exec(scielolog_shell_arg("$utl/msrt")." ".scielolog_shell_arg($db_tmp_datatb)." ".scielolog_shell_arg("256")." ".scielolog_shell_arg("v1/"));
 	}
 	
-	$result=exec("$utl/mx $db_tmp_datatb \"pft=v1,':'\" now"); 
-	$array_ano=split(":",$result);
+	$result=exec(scielolog_shell_arg("$utl/mx")." ".scielolog_shell_arg($db_tmp_datatb)." ".scielolog_shell_arg("pft=v1,':'")." now"); 
+	$array_ano=explode(":", $result);
 	
 	// Para cada ano faz uma tabulação separada na base de acesso
 	
@@ -61,11 +66,11 @@ $mfn_fim=busca_mfnfim($dtf,$db_data);
 			$str="artigos and $array_ano[$i]$";
 			$bool=monta_bool_array($pid,$str);
 			if (!file_exists($db_tmp_ano.".mst")) {
-				exec("$utl/mxtb $db_acesso create=$db_tmp_ano $bool \"256:v3*4.2/,\" \"tab=v5\" \"class=120000\"");
-				exec("$utl/msrt $db_tmp_ano \"256\" \"v1/\"");
+				exec(scielolog_shell_arg("$utl/mxtb")." ".scielolog_shell_arg($db_acesso)." ".scielolog_shell_arg("create=$db_tmp_ano")." $bool ".scielolog_shell_arg("256:v3*4.2/,")." ".scielolog_shell_arg("tab=v5")." ".scielolog_shell_arg("class=120000"));
+				exec(scielolog_shell_arg("$utl/msrt")." ".scielolog_shell_arg($db_tmp_ano)." ".scielolog_shell_arg("256")." ".scielolog_shell_arg("v1/"));
 			}
-			$result=exec("$utl/mx $db_tmp_ano \"pft=v1,',',v999,':'\" now"); 
-			$array_linha=split(":",$result);
+			$result=exec(scielolog_shell_arg("$utl/mx")." ".scielolog_shell_arg($db_tmp_ano)." ".scielolog_shell_arg("pft=v1,',',v999,':'")." now"); 
+			$array_linha=explode(":", $result);
 			$serie=Array (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 			for ($j=0;$j < count($array_linha);++$j) {
 	 	 		if ($array_linha[$j]!='') {
@@ -77,7 +82,7 @@ $mfn_fim=busca_mfnfim($dtf,$db_data);
 			$data[$i]=$serie;
 			$legend[]=$array_ano[$i];
 			if (!$pid=='') {
-				exec("rm -f $db_tmp_ano.* ");
+				scielolog_remove_temp_files($db_tmp_ano);
 			}
 		}		
 	}
@@ -114,6 +119,13 @@ $mfn_fim=busca_mfnfim($dtf,$db_data);
             }
             $bplot[$i]->SetFillColor ($color);
             $bplot[$i]->SetLegend ($legend[$i]);
+        }
+
+        if (!isset($bplot) || !is_array($bplot)) {
+            $empty_data = Array (1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+            $bplot = array(new BarPlot($empty_data));
+            $bplot[0]->SetFillColor ("lightgray");
+            $bplot[0]->SetLegend ("");
         }
 
         $gbplot = new GroupBarPlot($bplot);

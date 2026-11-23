@@ -10,10 +10,14 @@
 			$this->_date = date("YmdHis");
 			$this->_stringXml = $xml;
 
-	    	$this->domLiteDocument =& new DOMIT_Lite_Document() ;
+	    	$this->domLiteDocument = new DOMIT_Lite_Document() ;
     		$this->domLiteDocument->parseXML($xml) ;  
 			
 		}
+		function __construct($xml){
+			$this->ServiceResult($xml);
+		}
+
 	function getNodeAttribute(&$node, $name){
 		if ($node->hasAttribute($name)){
 			$value = $node->getAttribute($name);

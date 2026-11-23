@@ -1098,12 +1098,12 @@ class PiePlotC extends PiePlot {
 	$this->csimareas .= " alt=\"$tmp\" />\n";
     }
 
-    function StrokeLabel($label,$img,$xc,$yc,$a,$r) {
+    function StrokeLabel($label,&$img,$xc,$yc,$a,$radius) {
 
 	if( $this->ilabelposadj === 'auto' )
 	    $this->ilabelposadj = (1-$this->imidsize)/2+$this->imidsize;
 
-	parent::StrokeLabel($label,$img,$xc,$yc,$a,$r);
+	parent::StrokeLabel($label,$img,$xc,$yc,$a,$radius);
 
     }
 

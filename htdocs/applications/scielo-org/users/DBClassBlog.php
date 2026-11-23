@@ -59,9 +59,20 @@ function DBClassBlog(){
      $this->_host = $fileDef["DB_HOST_BLOG"];
 
 
-		$this->_conn = mysql_pconnect($this->_host, $this->_user, $this->_password) or die("Não foi possível conectar: " . mysql_error());
+		$this->_conn = mysql_pconnect($this->_host, $this->_user, $this->_password);
+		if (!$this->_conn) {
+			error_log("Não foi possível conectar ao banco Blog: ".mysql_error());
+			die("Não foi possível conectar ao banco de dados");
+		}
 		
-		mysql_select_db($this->_db) or die("Não pude selecinar o banco de dados");
+		if (!mysql_select_db($this->_db)) {
+			error_log("Não pude selecionar o banco Blog: ".mysql_error());
+			die("Não pude selecionar o banco de dados");
+		}
+	}
+
+	function __construct(){
+		$this->DBClassBlog();
 	}
 
 	
@@ -71,7 +82,8 @@ function DBClassBlog(){
 		{
 			return(mysql_insert_id());
 		}else{
-			return (array("A consulta falhou", mysql_error() ,  $query));
+			error_log("A consulta falhou: ".mysql_error());
+			return (array("A consulta falhou"));
 		}
 	}
 
@@ -79,14 +91,19 @@ function DBClassBlog(){
 		$result = mysql_query($query,$this->_conn);
 		$error = mysql_error();
 		if ($error){
-			die("A consulta falhou : " . $error . $query);
+			error_log("A consulta falhou: ".$error);
+			die("A consulta falhou");
 		}
 		return(mysql_affected_rows());
 	}
 
 	function databaseQuery($query){
 		
-		$result = mysql_query($query,$this->_conn) or die("A consulta falhou : " . mysql_error() . $query);
+		$result = mysql_query($query,$this->_conn);
+		if (!$result) {
+			error_log("A consulta falhou: ".mysql_error());
+			die("A consulta falhou");
+		}
 		$recordSet = array();
 		
 		while ($row = mysql_fetch_assoc($result)) {

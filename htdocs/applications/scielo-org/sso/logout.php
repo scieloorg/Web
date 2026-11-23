@@ -1,14 +1,31 @@
 <?
 $ini = parse_ini_file(dirname(__FILE__)."/../scielo.def.php",true);
 $useSGU = intval($ini['sgu']['enabled'])?true:false;
+
+function sso_cookie_options($expires)
+{
+    return array(
+        'expires' => $expires,
+        'path' => '/',
+        'secure' => (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off'),
+        'httponly' => true,
+        'samesite' => 'Lax'
+    );
+}
+
+function sso_clear_cookie($name)
+{
+    setcookie($name, "", sso_cookie_options(0));
+}
+
 /*
 Faz o logout na instancia (ou seja "mata" os cookies de usuario) 
 */
     session_start();
-    setcookie("userID","",0,"/");
-    setcookie("firstName","",0,"/");
-    setcookie("lastName","",0,"/");
-    setcookie("email","",0,"/");
+    sso_clear_cookie("userID");
+    sso_clear_cookie("firstName");
+    sso_clear_cookie("lastName");
+    sso_clear_cookie("email");
 
     unset($_COOKIE['userID']);
     unset($_COOKIE['checkedLogin']);
@@ -27,8 +44,8 @@ Faz o logout na instancia (ou seja "mata" os cookies de usuario)
 			$usr->setToken($_COOKIE['userToken']);
 			$usr->logout();
 		}
-		setcookie("userToken","",0,"/");
-		setcookie("tokenVisit","",0,"/");
+		sso_clear_cookie("userToken");
+		sso_clear_cookie("tokenVisit");
 		unset($_COOKIE['userToken']);
 	}
 
