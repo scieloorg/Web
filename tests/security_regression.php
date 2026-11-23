@@ -151,6 +151,67 @@ $slowProcess = scielo_run_process_with_timeout(
 assert_true($slowProcess['timed_out'] === true, 'slow subprocess must be terminated at its deadline');
 assert_true($slowProcess['duration_ms'] < 1000, 'timed out subprocess must be reaped promptly');
 
+$compatPrependSource = file_get_contents(__DIR__ . '/../docker/rocky9/compat-prepend.php');
+$compatPrependFixtureDir = rtrim(sys_get_temp_dir(), DIRECTORY_SEPARATOR)
+    . DIRECTORY_SEPARATOR . 'scielo-compat-prepend-' . bin2hex(random_bytes(8));
+assert_true(mkdir($compatPrependFixtureDir, 0700), 'compat prepend fixture directory must be created');
+
+$compatPrependFixtureCompat = $compatPrependFixtureDir . DIRECTORY_SEPARATOR . 'compat.php';
+$compatPrependFixtureHealth = $compatPrependFixtureDir . DIRECTORY_SEPARATOR . 'health.php';
+$compatPrependFixtureNormal = $compatPrependFixtureDir . DIRECTORY_SEPARATOR . 'normal.php';
+$compatPrependFixtureWrapper = $compatPrependFixtureDir . DIRECTORY_SEPARATOR . 'compat-prepend.php';
+$compatPrependFixtureProbe = '<?php echo defined("SCIELO_COMPAT_PREPEND_TEST_LOADED") ? "loaded" : "missing";';
+
+assert_true(
+    substr_count($compatPrependSource, '/opt/scielo-health/health.php') === 1
+        && substr_count($compatPrependSource, '/var/www/html/htdocs/compat.php') === 2,
+    'compat prepend wrapper must retain the expected production paths'
+);
+$compatPrependFixtureSource = str_replace(
+    array('/opt/scielo-health/health.php', '/var/www/html/htdocs/compat.php'),
+    array($compatPrependFixtureHealth, $compatPrependFixtureCompat),
+    $compatPrependSource
+);
+
+assert_true(
+    file_put_contents(
+        $compatPrependFixtureCompat,
+        '<?php define("SCIELO_COMPAT_PREPEND_TEST_LOADED", true);'
+    ) !== false
+        && file_put_contents($compatPrependFixtureHealth, $compatPrependFixtureProbe) !== false
+        && file_put_contents($compatPrependFixtureNormal, $compatPrependFixtureProbe) !== false
+        && file_put_contents($compatPrependFixtureWrapper, $compatPrependFixtureSource) !== false,
+    'compat prepend fixture files must be created'
+);
+
+$normalPrependProcess = scielo_run_process_with_timeout(
+    array(PHP_BINARY, '-d', 'auto_prepend_file=' . $compatPrependFixtureWrapper, $compatPrependFixtureNormal),
+    2
+);
+$healthPrependProcess = scielo_run_process_with_timeout(
+    array(PHP_BINARY, '-d', 'auto_prepend_file=' . $compatPrependFixtureWrapper, $compatPrependFixtureHealth),
+    2
+);
+
+foreach (array(
+    $compatPrependFixtureWrapper,
+    $compatPrependFixtureNormal,
+    $compatPrependFixtureHealth,
+    $compatPrependFixtureCompat,
+) as $compatPrependFixtureFile) {
+    @unlink($compatPrependFixtureFile);
+}
+@rmdir($compatPrependFixtureDir);
+
+assert_true(
+    $normalPrependProcess['exit_code'] === 0 && $normalPrependProcess['stdout'] === 'loaded',
+    'compat prepend wrapper must load compat.php for application requests'
+);
+assert_true(
+    $healthPrependProcess['exit_code'] === 0 && $healthPrependProcess['stdout'] === 'missing',
+    'compat prepend wrapper must skip compat.php for the health endpoint'
+);
+
 $csrfToken = scielo_csrf_token();
 assert_true(strlen($csrfToken) === 64, 'CSRF token should contain 256 bits encoded as hexadecimal');
 assert_true(scielo_csrf_token_is_valid($csrfToken) === true, 'generated CSRF token should be valid');
