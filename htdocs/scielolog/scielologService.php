@@ -49,10 +49,10 @@ if ($pid != '') {
 
     // ***** Calcula total por artigos *****
 
-	exec("$utl/mxtb $db_acesso_serv create=$db_tmp_service02  \"bool=$bool\" \"256:mhu,v4,\" \"tab=v5\" \"class=120000\"");
+		exec(scielolog_shell_arg("$utl/mxtb")." ".scielolog_shell_arg($db_acesso_serv)." ".scielolog_shell_arg("create=$db_tmp_service02")." ".scielolog_bool_arg($bool)." ".scielolog_shell_arg("256:mhu,v4,")." ".scielolog_shell_arg("tab=v5")." ".scielolog_shell_arg("class=120000"));
 
 	$proc_access=monta_proc($access);
-	exec("$utl/mx $db_tmp_service02 \"join=$db_issue,43=s('Y',v1*7.17)\" \"proc='d32001'\" $proc_access \"append=$db_tmp_service\"");
+		exec(scielolog_shell_arg("$utl/mx")." ".scielolog_shell_arg($db_tmp_service02)." ".scielolog_shell_arg("join=$db_issue,43=s('Y',v1*7.17)")." ".scielolog_shell_arg("proc='d32001'")." $proc_access ".scielolog_shell_arg("append=$db_tmp_service"));
 	
 // ***************************************************************
 // ********  Camada de Apresentação dos dados             ********
@@ -61,7 +61,7 @@ if ($pid != '') {
 // ***************************************************************
 
         $pft_show="\"pft='<SERVICE>'/,'<TIPO>',v1,'</TIPO>'/,'<TOTAL>',v999,'</TOTAL>'/,'</SERVICE'#,\"";	
-	$result=exec("/usr/local/bireme/cisis/4.3a/lind/mx $db_tmp_service btell=0 lw=99999 \"pft='<SERVICE>','<TIPO>',v1,'</TIPO>','<TOTAL>',v999,'</TOTAL>','</SERVICE>',\"  +hits now");
+		$result=exec(scielolog_shell_arg("/usr/local/bireme/cisis/4.3a/lind/mx")." ".scielolog_shell_arg($db_tmp_service)." btell=0 lw=99999 ".scielolog_shell_arg("pft='<SERVICE>','<TIPO>',v1,'</TIPO>','<TOTAL>',v999,'</TOTAL>','</SERVICE>',")." +hits now");
 
 	$xml="<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>";
 	$xml.="\n<ROOT>";
@@ -81,6 +81,7 @@ if ($pid != '') {
 
 echo $xml;
 
-exec("rm -f $db_tmp_service.* $db_tmp_service02.*");
+scielolog_remove_temp_files($db_tmp_service);
+scielolog_remove_temp_files($db_tmp_service02);
 ?> 
 

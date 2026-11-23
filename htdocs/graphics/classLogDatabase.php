@@ -30,6 +30,11 @@ class LogDatabase
   
   $this->_MySQLError = 0;
  }
+
+ function __construct($defFile)
+ {
+  $this->LogDatabase($defFile);
+ }
  
  function destroy()
  {
@@ -110,7 +115,7 @@ class LogDatabase
   
   $subject = "Message from the Log Server";
   $body = $body."\n";
-  echo $body;
+  error_log($body);
   mail($this->_adminEmail,$subject,$body);
  }
 }

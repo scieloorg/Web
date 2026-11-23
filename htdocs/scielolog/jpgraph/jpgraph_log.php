@@ -19,6 +19,10 @@
 class LogScale extends LinearScale {
 //---------------
 // CONSTRUCTOR
+	function __construct($min,$max,$type="y") {
+		$this->LogScale($min,$max,$type);
+	}
+
 	function LogScale($min,$max,$type="y") {
 		$this->LinearScale($min,$max,$type);
 		$this->ticks = new LogTicks();
@@ -40,7 +44,7 @@ class LogScale extends LinearScale {
 		return pow(10,$this->scale[1]);
 	}
 	
-	function AutoScale(&$img,$min,$max,$maxsteps) {
+	function AutoScale(&$img,$min,$max,$maxsteps,$majend=true) {
 		if( $min==0 ) $min=1;
 		assert($max>0);		
 		$smin = floor(log10($min));
@@ -62,6 +66,10 @@ class LogScale extends LinearScale {
 class LogTicks extends Ticks{
 //---------------
 // CONSTRUCTOR
+	function __construct() {
+		$this->LogTicks();
+	}
+
 	function LogTicks() {
 	}
 //---------------
