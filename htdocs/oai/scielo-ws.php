@@ -83,6 +83,29 @@
 
 		return $result;
 	}
+
+	function getRecord ( $pid, $ws_oai = false, $debug = false  )
+	{
+		global $scielo_xml, $server;
+		if ( $pid == "" )
+		{
+			return new SoapFault( 'Scielo_WS_Server','Client must supply a valid PID.' );
+		}
+
+		$parameters = array ( "pid" => $pid, );
+		if ( $ws_oai )
+		{
+			$parameters[ "ws" ] = "true";
+		}
+		$result = $scielo_xml->getXML ( "sci_getrecord", $parameters, $debug );
+
+		if ( $error = $scielo_xml->getError () )
+		{
+			return new SoapFault( "Scielo_WS_Server", $error );
+		}
+
+		return $result;
+	}
 	
 	function getAbstractArticleAgris ( $pid, $lang = "en", $tlng = "en", $ws_oai = false, $debug = false  )
 	{
@@ -223,6 +246,27 @@
 
 		return $result;
     }
+
+	function listRecordsScielo ( $set = "", $from = "", $until = "", $control = "", $count = 100, $debug = false, $metadataprx = "")
+	{
+		global $scielo_xml, $server;
+
+		$parameters = array();
+
+		if ( !empty ( $set ) ) $parameters[ "set" ] = $set;
+		if ( !empty ( $from ) ) $parameters[ "from" ] = $from;
+		if ( !empty ( $until ) ) $parameters[ "until" ] = $until;
+		if ( !empty ( $control ) ) $parameters[ "resume" ] = $control;
+		if ( !empty ( $metadataprx ) ) $parameters[ "metadataprefix" ] = $metadataprx;
+		$parameters[ "count" ] = $count;
+		$result = $scielo_xml->getXML ( "sci_listrecords_scielo", $parameters, $debug );
+		if ( $error = $scielo_xml->getError () )
+		{
+			return new SoapFault( "Scielo_WS_Server", $error );
+		}
+
+		return $result;
+	}
 
 	/*********************************** MAIN CODE *****************************************/
 

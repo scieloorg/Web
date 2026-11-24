@@ -5,6 +5,10 @@
 		function ArticleStats(){
 		
 		}
+		function __construct(){
+			$this->ArticleStats();
+		}
+
 		function setStartDate($value){
 			$this->_data['start_date'] = $value;
 		}

@@ -9,6 +9,10 @@
 		function Service($name){
 			$this->_serviceName = $name;
 		}
+		function __construct($name){
+			$this->Service($name);
+		}
+
 		function setParam($name, $value){
 			$this->_param[$name] = $value;
 		}	
@@ -29,8 +33,7 @@
 		}
 		function callService($url){
 			$fp = fopen ($url,"r");
-			print '<!--'.$url.'-->';
-			if ($fp) { 
+			if ($fp) {
 				$xml = "";
 				do {
 					$data = fread($fp, 1024);

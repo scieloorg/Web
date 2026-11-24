@@ -6,6 +6,11 @@
 			$_error;
 		var $sections;
 		var $x;
+
+		function __construct($defName)
+		{
+			$this->DefFile($defName);
+		}
 		
 		function xxDefFile($defName)
 		{
@@ -52,12 +57,12 @@
         
 		function getKeyValue($key)
 		{
-			return $this->keys[$key];
+			return isset($this->keys[$key]) ? $this->keys[$key] : null;
 		}
 
 		function getSection($section)
 		{
-			return $this->sections[$section];
+			return isset($this->sections[$section]) ? $this->sections[$section] : array();
 		}
 
 		function DefFile($defName)

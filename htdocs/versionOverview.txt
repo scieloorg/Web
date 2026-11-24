@@ -1,3 +1,31 @@
+v5.45.3
+Possibilita o redirecionamento para o Web site novo (#762)
+
+v5.45.2
+Corrige bugs no OAI-PMH ao ser utilizado com o prefixo de metadados oai_dc_scielo (#748)
+
+v5.45.1
+Corrige a formatação do arquivo journals_url.csv (Google Scholar 2021)
+
+v5.45
+Atualiza dados de Google Scholar 2021
+
+v5.44
+Corrige script sci_getrecord.xis para retornar corretamente documentos ahead
+
+v5.43
+Resolve problema de indisponibilidade de algumas páginas de resumo por conter problema na geração do `<citation_title/>` (#733)
+Inclusão de novos IsisScripts sci_record.xis e sci_getrecord.xis responsáveis por obter dados completos de documentos, inclusive referências citadas
+Inclusão de novo script sci_listrecords_scielo reponsável por obter lista de documentos com referências citadas
+Ajustes em protocolo OAI-PMH para inclusão de MetadataPrefix oai_dc_scielo
+
+v5.42
+Cria módulo cisis e testes para gerar comandos para atualizar uma dada base com dados de DOI
+Altera exibição de ISSN no abstract e no como citar do artigo para exibir o online (#719)
+Considerar a formatação "italic" nas palavras-chave
+Ajusta o script para identificar o arquivo de configuração baseado na instância em que está instalado
+Atualiza indicadores H do Google para o ano 2020
+
 v5.41
 Modifica fallback para requisições a documentos em idiomas indisponíveis (#710)
 

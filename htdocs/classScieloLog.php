@@ -27,7 +27,12 @@ class ScieloLog extends Scielo
 	// --------------------------------     Constructor     -------------------------------------
 	// ------------------------------------------------------------------------------------------
 
-    function ScieloLog ($host)
+    function __construct($host)
+	{
+		$this->ScieloLog($host);
+	}
+
+    function ScieloLog($host)
 	{
 		Scielo::Scielo ($host);
 	}

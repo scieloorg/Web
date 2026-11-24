@@ -4,10 +4,6 @@
 	<xsl:output method="html" version="1.0" encoding="ISO-8859-1" indent="yes"/>
 
     <xsl:variable name="languages" select="document('../xml/en/language.xml')"/>
-	<xsl:variable name="person-strings" select="document('viewnlm-v2_scielo.xsl')/*/util:map[@id='person-strings']/item"/>
-
-	<xsl:include href="../xsl/viewnlm-v2_scielo.xsl"/>
-	<xsl:include href="../xsl/scielo_pmc_references.xsl"/>
 	<xsl:variable name="LANGUAGE" select="/root/vars/lang"/>
 	<xsl:variable name="service_log" select="/root/vars/service_log"/>
     <xsl:variable name="lang" select="/root/vars/lang"/>
@@ -36,6 +32,12 @@
 		<xsl:variable name="refpid" select="concat(field[@tag = 880]/occ,format-number(field[@tag = 888]/occ,'#00000'))"/>
 		<xsl:variable name="pid" select="field[@tag = 880]/occ"/>
 		<xsl:apply-templates select="field[@tag =704 ]/occ"/>[ <a href="http://{$applserver}/scieloOrg/php/reflinks.php?refpid={$refpid}&amp;lng={$lang}&amp;pid={$pid}" target="_blank"><xsl:if test="$service_log = 1"><xsl:attribute name="onClick">callUpdateArticleLog('referencias_artigo_links');</xsl:attribute></xsl:if><xsl:value-of select="$translations/xslid[@id='reference']/text[@find = 'findReferenceOnLine']"/></a> ]<br/><br/>
+	</xsl:template>
+
+	<xsl:template match="ref">
+		<li>
+			<xsl:value-of select="normalize-space(.)"/>
+		</li>
 	</xsl:template>
 
 	<xsl:template match="occ" mode="notFound">

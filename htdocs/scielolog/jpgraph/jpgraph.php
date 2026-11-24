@@ -138,6 +138,10 @@ class Timer {
 	var $idx;	
 //---------------
 // CONSTRUCTOR
+	function __construct() {
+		$this->Timer();
+	}
+
 	function Timer() {
 		$this->idx=0;
 	}
@@ -178,12 +182,16 @@ class Graph {
 	var $plotarea_color=array(255,255,255);
 	var $title = false;
 	var $axtype="linlin";
-	var $xtick_factor,$xtick_factor;
+	var $xtick_factor,$ytick_factor;
 	var $texts=null;
 	var $text_scale_off=0;
 	var $background_image="",$background_image_type=-1,$background_image_format="png";
 //---------------
 // CONSTRUCTOR
+	function __construct($aWidth=300,$aHeight=200,$aCachedName="",$a=0) {
+		$this->Graph($aWidth,$aHeight,$aCachedName,$a);
+	}
+
 	function Graph($aWidth=300,$aHeight=200,$aCachedName="",$a=0) {
 		if( BRAND_TIMING ) {
 			global $tim;
@@ -626,6 +634,10 @@ class TTF {
 	var $font_fam;
 //---------------
 // CONSTRUCTOR
+	function __construct() {
+		$this->TTF();
+	}
+
 	function TTF() {
 		$this->font_fam=array(
 			FF_COURIER => TTF_DIR."courier",
@@ -670,6 +682,10 @@ class Text {
 	var $boxed=false;	// Should the text be boxed
 //---------------
 // CONSTRUCTOR
+	function __construct($txt="",$x=0,$y=0) {
+		$this->Text($txt,$x,$y);
+	}
+
 	function Text($txt="",$x=0,$y=0) {
 		$this->t = $txt;
 		$this->x = $x;
@@ -770,6 +786,10 @@ class Grid {
 	var $show=false, $showMinor=false,$weight=1;
 //---------------
 // CONSTRUCTOR
+	function __construct(&$axis) {
+		$this->Grid($axis);
+	}
+
 	function Grid(&$axis) {
 		$this->scale = &$axis->scale;
 		$this->img = &$axis->img;
@@ -862,7 +882,6 @@ class Axis {
 	var $img=null,$scale=null; 
 	var $hide=false;
 	var $ticks_label=false;
-	var $title_margin;
 	var $show_first_label=true;
 	var $label_step=1; // Used by a text axis to specify what multiple of major steps
 							 // should be labeled.
@@ -872,6 +891,10 @@ class Axis {
 	
 //---------------
 // CONSTRUCTOR
+	function __construct(&$img,&$aScale,$color=array(0,0,0)) {
+		$this->Axis($img,$aScale,$color);
+	}
+
 	function Axis(&$img,&$aScale,$color=array(0,0,0)) {
 		$this->img = &$img;
 		$this->scale = &$aScale;
@@ -1096,6 +1119,12 @@ class Ticks {
 	var $supress_last=false,$supress_tickmarks=false,$supress_minor_tickmarks=false;
 //---------------
 // CONSTRUCTOR
+	function __construct(&$aScale=null) {
+		if ($aScale !== null) {
+			$this->Ticks($aScale);
+		}
+	}
+
 	function Ticks(&$aScale) {
 		$this->scale=&$aScale;
 	}
@@ -1158,6 +1187,10 @@ class LinearTicks extends Ticks {
 	var $text_label_start=0;
 //---------------
 // CONSTRUCTOR
+	function __construct() {
+		$this->LinearTicks();
+	}
+
 	function LinearTicks() {
 	}
 
@@ -1302,6 +1335,10 @@ class LinearScale {
 	var $grace=0;
 //---------------
 // CONSTRUCTOR
+	function __construct($min=0,$max=0,$type="y") {
+		$this->LinearScale($min,$max,$type);
+	}
+
 	function LinearScale($min=0,$max=0,$type="y") {
 		assert($type=="x" || $type=="y" );
 		assert($min<=$max);
@@ -1526,6 +1563,10 @@ class LinearScale {
 class RGB {
 	var $rgb_table;
 	var $img;
+	function __construct(&$img) {
+		$this->RGB($img);
+	}
+
 	function RGB(&$img) {
 		$this->img = $img;
 		$this->rgb_table = array(
@@ -2020,6 +2061,10 @@ class Image {
 	var $use_anti_aliasing=false;
 	//---------------
 	// CONSTRUCTOR
+	function __construct($aWidth,$aHeight,$aFormat=DEFAULT_GFORMAT) {
+		$this->Image($aWidth,$aHeight,$aFormat);
+	}
+
 	function Image($aWidth,$aHeight,$aFormat=DEFAULT_GFORMAT) {
 		assert($aHeight>0 && $aWidth>0);
 		$this->img = imagecreate($aWidth, $aHeight);	
@@ -2574,6 +2619,10 @@ class RotImage extends Image {
 	var $a=0;
 	var $dx=0,$dy=0; 
 	
+	function __construct($aWidth,$aHeight,$a,$aFormat=DEFAULT_GFORMAT) {
+		$this->RotImage($aWidth,$aHeight,$a,$aFormat);
+	}
+
 	function RotImage($aWidth,$aHeight,$a,$aFormat=DEFAULT_GFORMAT) {
 		$this->Image($aWidth,$aHeight,$aFormat);
 		$this->dx=$this->left_margin+$this->plotwidth/2;
@@ -2669,6 +2718,10 @@ class ImgStreamCache {
 	var $img=null;
 	//---------------
 	// CONSTRUCTOR
+	function __construct(&$aImg, $aCacheDir=CACHE_DIR) {
+		$this->ImgStreamCache($aImg,$aCacheDir);
+	}
+
 	function ImgStreamCache(&$aImg, $aCacheDir=CACHE_DIR) {
 		$this->img = &$aImg;
 		$this->cache_dir = $aCacheDir;
@@ -2756,6 +2809,10 @@ class Legend {
 	var $weight=1;
 //---------------
 // CONSTRUCTOR
+	function __construct() {
+		$this->Legend();
+	}
+
 	function Legend() {
 	}
 //---------------
@@ -2882,6 +2939,10 @@ class Plot {
 	var $weight=1;	
 //---------------
 // CONSTRUCTOR
+	function __construct(&$datay,$datax=false) {
+		$this->Plot($datay,$datax);
+	}
+
 	function Plot(&$datay,$datax=false) {
 		$this->numpoints = count($datay);
 		$this->coords[0]=$datay;
@@ -2991,6 +3052,10 @@ class PlotMark {
 	var $color="black", $width=5, $fill_color="blue";
 //	--------------
 // CONSTRUCTOR
+	function __construct() {
+		$this->PlotMark();
+	}
+
 	function PlotMark() {
 	}
 //---------------

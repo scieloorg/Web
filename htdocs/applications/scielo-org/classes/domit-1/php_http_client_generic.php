@@ -153,10 +153,10 @@ class php_http_client_generic extends php_http_request {
 	* @param int The timeout value for the client connection
 	*/
 	function php_http_client_generic($host = '', $path = '/', $port = 80, $timeout = 0) {
-		$this->connection =& new php_http_connection($host, $path, $port, $timeout);
-		$this->headers =& new php_http_headers();
+		$this->connection = new php_http_connection($host, $path, $port, $timeout);
+		$this->headers = new php_http_headers();
 		$this->requestPath = $path;
-		$this->response =& new php_http_response();
+		$this->response = new php_http_response();
 		$this->setHeaders();
 	} //php_http_client_generic
 	
@@ -168,7 +168,7 @@ class php_http_client_generic extends php_http_request {
 		$this->responseHeadersAsObject = $responseHeadersAsObject;
 		
 		if ($responseHeadersAsObject) {
-			$this->response->headers =& new php_http_headers();
+			$this->response->headers = new php_http_headers();
 		}
 	} //generateResponseHeadersAsObject
 	

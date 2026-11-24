@@ -1,0 +1,25 @@
+services:
+  scielo-web:
+    platform: linux/amd64
+    build:
+      context: .
+      dockerfile: docker/rocky9/Dockerfile
+      args:
+        PHP_VERSION: 8.5.13
+        PHP_SHA256: 607602acaf0c3061818e9916ec44a058e8b3d43959a83862b9cd3ec7bf5b785f
+        HTTPD_VERSION: 2.4.71
+        HTTPD_SHA256: 6b0433674ded858d2ac01e95345935ce127d5d287471762f0a7f10f4969cbfe8
+    image: infrascielo/metodologia:php-8.5.13-local
+    container_name: scielo-web-rocky9
+    ports:
+      - "80:80"
+    environment:
+      SERVER_SCIELO: ${SERVER_SCIELO:-}
+      STANDARD_LANG: ${STANDARD_LANG:-}
+      ACTIVATE_GOOGLE: ${ACTIVATE_GOOGLE:-}
+      GOOGLE_CODE: ${GOOGLE_CODE:-}
+      SCIELO_WXIS_TIMEOUT_SECONDS: ${SCIELO_WXIS_TIMEOUT_SECONDS:-20}
+      SCIELO_FPM_MAX_CHILDREN: ${SCIELO_FPM_MAX_CHILDREN:-8}
+    volumes:
+      - /Users/rondinelisaad/Downloads/repo-scielo/comciencia_scielo_br_new:/var/www/html
+    restart: unless-stopped
