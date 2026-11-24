@@ -1,7 +1,7 @@
 [PATH]
 PATH_DATA=/iah/
-PATH_CGI-BIN=/home/scielo/www/cgi-bin/iah/
-PATH_DATABASE=/home/scielo/www/bases/
+PATH_CGI-BIN=/var/wwww/html/cgi-bin/iah/
+PATH_DATABASE=/var/wwww/html/bases/
 
 [APPEARANCE]
 BODY BACKGROUND COLOR=white
@@ -29,4 +29,4 @@ MANAGER E-MAIL=scielo@bireme.br
 MAINTENANCE=OFF
 REVERSE MODE=ON
 MULTI-LANGUAGE=ON
-LOG_DATABASE=/home/scielo/www/bases/logdia/iahlog
+LOG_DATABASE=/var/wwww/html/bases/logdia/iahlog

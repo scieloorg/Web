@@ -1,5 +1,6 @@
 <?
-ini_set("display_errors","1");
+ini_set("display_errors", "0");
+	ini_set("log_errors", "1");
 error_reporting(E_ALL ^ E_NOTICE);
 require_once(dirname(__FILE__)."/ServicesHandler.php");
 require_once(dirname(__FILE__)."/../XML_XSL/XML_XSL.inc.php");
@@ -15,6 +16,10 @@ class TrigramaSimilar extends ServicesHandler {
 		$this->addParam('minsim','0.30');
 		$this->addParam('show','scielo1');
 	}
+	function __construct(){
+		$this->TrigramaSimilar();
+	}
+
 
 	function getXML()
 	{
@@ -30,10 +35,10 @@ class TrigramaSimilar extends ServicesHandler {
 		$XML_XSL = new XSL_XML();
 		$content = $XML_XSL->xml_xsl($xml,dirname(__FILE__)."/../../xsl/similarToArray.xsl");
 		$content = str_replace('<?xml version="1.0" encoding="ISO-8859-1"?>','',$content);
-		$articles = split('\|SIMILAR_SPLIT\|',$content);
+		$articles = explode("|SIMILAR_SPLIT|", $content);
 		$article = new Article();
 		for ($i=0 ; $i < count($articles)-1 ; $i++){
-			$articles[$i] = split('\|ITEM_SPLIT\|',$articles[$i]);
+			$articles[$i] = explode("|ITEM_SPLIT|", $articles[$i]);
 			if (trim($articles[$i][0]) != ''){
 				$article->setPID(trim($articles[$i][0]));
 				$article->setPublicationDate(trim($articles[$i][1]));

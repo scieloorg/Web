@@ -41,6 +41,10 @@ class SAXY_Lite_Parser extends SAXY_Parser_Base {
 		$this->state = SAXY_STATE_NONE;
 	} //SAXY_Lite_Parser
 
+	function __construct() {
+		$this->SAXY_Lite_Parser();
+	}
+
 	/**
 	* Returns the current version of SAXY Lite
 	* @return Object The current version of SAXY Lite
@@ -60,8 +64,8 @@ class SAXY_Lite_Parser extends SAXY_Parser_Base {
 		$total = strlen($xmlText);
 
 		for ($i = 0; $i < $total; $i++) {
-			if ($xmlText{$i} == '<') {
-				switch ($xmlText{($i + 1)}) {
+			if ($xmlText[$i] == '<') {
+				switch ($xmlText[($i + 1)]) {
 					case '?':
 					case '!':
 						break;
@@ -83,7 +87,7 @@ class SAXY_Lite_Parser extends SAXY_Parser_Base {
 		$total = strlen($xmlText);
 
 		for ($i = 0; $i < $total; $i++) {
-			$currentChar = $xmlText{$i};
+			$currentChar = $xmlText[$i];
 
 			switch ($this->state) {
 				case SAXY_STATE_PARSING:
@@ -128,7 +132,7 @@ class SAXY_Lite_Parser extends SAXY_Parser_Base {
 	*/
 	function parseTag($tagText) {
 		$tagText = trim($tagText);
-		$firstChar = $tagText{0};
+		$firstChar = $tagText[0];
 		$myAttributes = array();
 
 		switch ($firstChar) {
@@ -146,9 +150,9 @@ class SAXY_Lite_Parser extends SAXY_Parser_Base {
 					$textNodeText = '';
 
 					for ($i = 0; $i < $total; $i++) {
-						$currentChar = $tagText{$i};
+						$currentChar = $tagText[$i];
 
-						if (($currentChar == ']') && ($tagText{($i + 1)} == ']')) {
+						if (($currentChar == ']') && ($tagText[($i + 1)] == ']')) {
 							break;
 						}
 						else if ($openBraceCount > 1) {
@@ -185,7 +189,7 @@ class SAXY_Lite_Parser extends SAXY_Parser_Base {
 					$tagName = '';
 
 					for ($i = 0; $i < $total; $i++) {
-						$currentChar = $tagText{$i};
+						$currentChar = $tagText[$i];
 
 						if (($currentChar == ' ') || ($currentChar == "\t") ||
 							($currentChar == "\n") || ($currentChar == "\r") ||

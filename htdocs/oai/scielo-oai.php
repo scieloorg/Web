@@ -1,41 +1,57 @@
 <?php
+    if (!defined('SCIELO_COMPAT_LOADED')) {
+        include_once (dirname(__FILE__)."/../compat.php");
+    }
     include_once ("classDefFile.php");
     include_once ("class.XSLTransformerOAI.php");
     //include_once ("classScielo.php");
     include_once ("version-4.1-like-4.0.php");
 	include_once ("scielo-ws.php");
-	define ( "DEFNAME", "scielo.def.php" );
-    define ( "DEFAULT_CACHE_EXPIRES", 180 );
+    if (!defined("DEFNAME")) {
+        define ( "DEFNAME", "scielo.def.php" );
+    }
+    if (!defined("DEFAULT_CACHE_EXPIRES")) {
+        define ( "DEFAULT_CACHE_EXPIRES", 180 );
+    }
 	$defFile = parse_ini_file(dirname(__FILE__)."/../scielo.def.php");
     $metadataPrefixList = array ( "oai_dc" => array( "ns" => "http://www.openarchives.org/OAI/2.0/oai_dc/",
                                                      "schema" => "http://www.openarchives.org/OAI/2.0/oai_dc.xsd"),
 								  "oai_dc_agris" => array("ns" => "http://www.purl.org/agmes/agrisap/schema/",
 								  							"schema" => "http://www.purl.org/agmes/agrisap/schema/agris.xsd"),
                                   "oai_dc_openaire" => array( "ns" => "http://www.openarchives.org/OAI/2.0/oai_dc/",
-                                                     "schema" => "http://www.openarchives.org/OAI/2.0/oai_dc.xsd")
+                                                     "schema" => "http://www.openarchives.org/OAI/2.0/oai_dc.xsd"),
+                                  "oai_dc_scielo" => array( "ns" => "http://www.openarchives.org/OAI/2.0/oai_dc/",
+                                                            "schema" => "http://www.openarchives.org/OAI/2.0/oai_dc.xsd")
                                   );
-/*
+
 	$repositoryName = "SciELO Online Library Collection";
 	$earliestDatestamp = "1996-01-01";
-*/      
+
     $debug_str = "";
-$identifier = cleanParameter($identifier);
+    $resumptionToken = isset($resumptionToken) ? cleanParameter($resumptionToken) : "";
+    $metadataPrefix = isset($metadataPrefix) ? cleanParameter($metadataPrefix) : "";
+    $set = isset($set) ? cleanParameter($set) : "";
+    $from = isset($from) ? cleanParameter($from) : "";
+    $until = isset($until) ? cleanParameter($until) : "";
+    $control = isset($control) ? cleanParameter($control) : "";
+    $identifier = isset($identifier) ? cleanParameter($identifier) : "";
+    $debug = isset($debug) ? $debug : false;
 	/******************************************* Functions *********************************************/
-    
+
     function debugstring ( $str )
     {
         global $debug, $debug_str;
-        
+
         if ( $debug )
         {
             $debug_str .= $str;
         }
     }
-   
+
     function printdebug ()
     {
         global $debug, $debug_str;
-        
+
         if ( $debug )
         {
             echo $debug_str;
@@ -50,16 +66,16 @@ $identifier = cleanParameter($identifier);
 
        return str_replace($stopChars,$allowedChars,$param);
 
-    }   
+    }
 
 	/************************************** parseResumptionToken *************************************/
-    
+
     function parseResumptionToken ( $resumptionToken )
     {
         global $metadataPrefix, $control, $set, $from, $until;
-      
-        $hregex = "/^HR__S([0-9X]{4}-[0-9X]{4})[0-9]{13}:([0-9X]{4}-[0-9X]{4}|openaire)?:((19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01]))?:((19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01]))?:(oai_dc)(_agris|_openaire)?$/";
-        $dregex = "/DTH__((19|20)\d\d(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01]))__([0-9X]{4}-[0-9X]{4})([0-9]{9}|[0-9]{13}):([0-9X]{4}-[0-9X]{4}|openaire)?:((19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01]))?:((19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01]))?:(oai_dc)(_agris|_openaire)?$/";
+
+        $hregex = "/^HR__S([0-9X]{4}-[0-9X]{4})[0-9]{13}:([0-9X]{4}-[0-9X]{4}|openaire|scielo)?:((19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01]))?:((19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01]))?:(oai_dc)(_agris|_openaire|_scielo)?$/";
+        $dregex = "/DTH__((19|20)\d\d(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01]))__([0-9X]{4}-[0-9X]{4})([0-9]{9}|[0-9]{13}):([0-9X]{4}-[0-9X]{4}|openaire|scielo)?:((19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01]))?:((19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01]))?:(oai_dc)(_agris|_openaire|_scielo)?$/";
 
         if (substr($resumptionToken, 0, 1) == 'H'){
             $result_hregex = preg_match($hregex , $resumptionToken );
@@ -69,7 +85,7 @@ $identifier = cleanParameter($identifier);
             $result_dregex = preg_match($dregex , $resumptionToken );
             if ( !$result_dregex ) return false;
         }
-        $params = split ( ":", $resumptionToken );
+        $params = explode(":", $resumptionToken);
         $control = $params[ 0 ];
         $set = $params[ 1 ];
         $from = $params[ 2 ];
@@ -83,7 +99,7 @@ $identifier = cleanParameter($identifier);
         if ( $until && !isDatestamp ( $until ) ) return false;
 
         if ( $set && !is_Set ( $set ) ) return false;
-    
+
         return true;
     }
 
@@ -91,11 +107,11 @@ $identifier = cleanParameter($identifier);
 
     function is_Set ( $set )
     {
-        return eregi ( "^([0-9a-z]{4}-[0-9a-z]{4}|openaire)$", $set );
+        return preg_match("/^([0-9a-z]{4}-[0-9a-z]{4}|openaire|scielo)$/i", $set);
     }
 
 	/******************************************* isDatestamp **********************************************/
-        
+
     function isDatestamp ( $date )
     {
 
@@ -107,13 +123,11 @@ $identifier = cleanParameter($identifier);
 
 	/******************************************* isValidPrefix *******************************************/
 
-	function isValidPrefix ( $metadataPrefix )	
+	function isValidPrefix ( $metadataPrefix )
 	{
 		global $metadataPrefixList;
 
-		reset ( $metadataPrefixList );
-
-	    while ( list ( $key, )  = each ( $metadataPrefixList ) )
+	    foreach ( $metadataPrefixList as $key => $_metadataPrefixData )
 	    {
 		    if ( $key == $metadataPrefix ) return true;
 	    }
@@ -122,25 +136,25 @@ $identifier = cleanParameter($identifier);
 	}
 
 	/**************************************** createOAIErrorpacket ****************************************/
-    
+
     function createOAIErrorpacket ( $request_uri, $verb, $errorcode, $error = "" )
     {
      	$payload = "<error code=\"$errorcode\">$error</error>\n";
        	$packet = generateOAI_packet ( $request_uri, $verb, $payload );
         return $packet;
     }
-    
+
 	/**************************************** generateOAI_packet ****************************************/
 
     /**
      * Converts HTML entities codes to their HTML representation
-     * 
+     *
      * This function search in the $string for HTML entity codes
-     * then tries to convert into their HTML representation 
+     * then tries to convert into their HTML representation
      * if they aren't in blacklist conversion ($cannot_convert).
-     * 
+     *
      * @param string $string Represents the OAI results from XLST.
-     * 
+     *
      * @return string String with html entities codes converted.
      */
     function convert_html_entities($string) {
@@ -149,7 +163,7 @@ $identifier = cleanParameter($identifier);
         $cannot_convert = array("&amp;", "&gt;", "&lt;");
 
         while($quantity-- > 0) {
-            
+
             $entity_start_pos = strpos($string, "&", $start_search_pos);
             $entity_end_pos = strpos($string, ";", $entity_start_pos) + 1;
             $entity = substr($string, $entity_start_pos, $entity_end_pos - $entity_start_pos);
@@ -169,13 +183,13 @@ $identifier = cleanParameter($identifier);
             $start_search_pos = $entity_end_pos;
         }
 
-        return $string;        
+        return $string;
     }
 
     function generateOAI_packet ( $request_uri, $verb, $payload )
     {
         global $identifier, $metadataPrefix, $from, $until, $set, $resumptionToken;
-        
+
         $envelop  = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
         $envelop .= "<OAI-PMH xmlns=\"http://www.openarchives.org/OAI/2.0/\"\n";
         $envelop .= "         xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n";
@@ -185,7 +199,7 @@ $identifier = cleanParameter($identifier);
 //        $responseDate = date ( "Y-m-d\TH:i:sO" );
 //        $responseDate = substr ( $responseDate, 0, -2 ) . ":" . substr ( $responseDate, -2 );
         $responseDate = gmdate ( "Y-m-d\TH:i:s\Z" );
-        
+
         $envelop .= " <responseDate>" . $responseDate . "</responseDate>\n";
         $envelop .= " <request verb=\"" . $verb . "\"";
 
@@ -213,7 +227,7 @@ $identifier = cleanParameter($identifier);
         {
         	$envelop .= " set=\"" . $set . "\"";
         }
-                
+
         if ( $resumptionToken )
         {
         	$envelop .= " resumptionToken=\"" . $resumptionToken . "\"";
@@ -235,8 +249,8 @@ $identifier = cleanParameter($identifier);
 			//die($service_name." - ".$service);
 			switch ( $service_name )
 			{
-			case "Identify": 
-				{				
+			case "Identify":
+				{
 				$response = listRecords( $set = $parameters["set"], $from = $parameters["from"], $until = $parameters["until"], $control = $parameters["control"], $lang = "en", $nrm = "iso", $count = 30, $debug = false );
 				break;
 				}
@@ -254,7 +268,7 @@ $identifier = cleanParameter($identifier);
 				{
 				$response = getTitles($lang = "en", $debug = false );
 				break;
-				}				
+				}
 			case "ListRecords":
 				{
 				$response = listRecords( $set = $parameters["set"], $from = $parameters["from"], $until = $parameters["until"], $control = $parameters["control"], $lang = "en", $nrm = "iso", $count = 30, $debug = false, $metadataprx = $parameters["metadataprefix"] );
@@ -265,19 +279,29 @@ $identifier = cleanParameter($identifier);
 				$response = ListRecordsAgris( $set = $parameters["set"], $from = $parameters["from"], $until = $parameters["until"], $control = $parameters["control"], $lang = "en", $nrm = "iso", $count = 100, $debug = false, $metadataprx = $parameters["metadataprefix"] );
 				break;
 				}
+            case "ListRecordsScielo":
+                {
+                $response = listRecordsScielo( $set = $parameters["set"], $from = $parameters["from"], $until = $parameters["until"], $control = $parameters["control"], $count = 10, $debug = false, $metadataprx = $parameters["metadataprefix"]);
+                break;
+                }
 			case "GetRecord":
 				{
 				$response = getAbstractArticle( $pid = $parameters["pid"],$lang = "en", $ws = $parameters["ws_oai"], $debug = false );
 				break;
 				}
+            case "GetRecordScielo":
+                {
+                $response = getRecord( $pid = $parameters["pid"], $ws = $parameters["ws_oai"], $debug = false );
+                break;
+                }
 			case "GetRecordAgris":
 				{
 				$response = getAbstractArticleAgris( $pid = $parameters["pid"],$lang = "en", $ws = $parameters["ws_oai"], $debug = false );
 				break;
 				}
 			}
-        
-        #workaround for fatal error in DOMDocument::loadXML() when XML have & character 
+
+        #workaround for fatal error in DOMDocument::loadXML() when XML have & character
         $response = preg_replace('/ & /', ' &amp; ', $response);
 
         if ( !$debug )
@@ -295,8 +319,8 @@ $identifier = cleanParameter($identifier);
     	    }
 	        $result = $transform->getOutput();
         }
-        
-		
+
+
 	    return convert_html_entities($result);
     }
 
@@ -321,26 +345,29 @@ $identifier = cleanParameter($identifier);
     	else
     	{
 	        $parameters = array ( "pid" => str_replace ( "oai:scielo:", "", $identifier ),
-                                  "lang" => "en", 
-                                  "tlng" => "en", 
+                                  "lang" => "en",
+                                  "tlng" => "en",
                                   "ws_oai" => true );
-                                  
+
         	if ( $debug ) $parameters[ "debug" ] = true;
 
 			 if($metadataPrefix == 'oai_dc_agris'){
-			 	$xsl = 'GetRecord_agris.xsl';
-			 	$result = generatePayload ( $ws_client_url, "getAbstractArticleAgris", "GetRecordAgris", $parameters, $xsl );
+				$xsl = 'GetRecord_agris.xsl';
+				$result = generatePayload ( $ws_client_url, "getAbstractArticleAgris", "GetRecordAgris", $parameters, $xsl );
             }
              else if($metadataPrefix == 'oai_dc_openaire'){
                 $xsl = 'GetRecord_openaire.xsl';
-                $result = generatePayload ( $ws_client_url, "getAbstractArticle", "GetRecord", $parameters, $xsl );                
-			 }else{
-			 	$xsl = 'GetRecord.xsl';
-			 	$result = generatePayload ( $ws_client_url, "getAbstractArticle", "GetRecord", $parameters, $xsl );			
+                $result = generatePayload ( $ws_client_url, "getAbstractArticle", "GetRecord", $parameters, $xsl );
+             } else if($metadataPrefix == 'oai_dc_scielo'){
+                $xsl = 'GetRecord_scielo.xsl';
+                $result = generatePayload ( $ws_client_url, "getRecord", "GetRecordScielo", $parameters, $xsl );
+             } else {
+				$xsl = 'GetRecord.xsl';
+				$result = generatePayload ( $ws_client_url, "getAbstractArticle", "GetRecord", $parameters, $xsl );
 			 }
 
-						 
-	    	
+
+
 	    }
 	    $oai_packet = generateOAI_packet ( $request_uri, "GetRecord", $result );
 
@@ -361,23 +388,8 @@ $identifier = cleanParameter($identifier);
     	{
     		$payload .= " <adminEmail>" . $adminEmails[ $i ] . "</adminEmail>\n";
     	}
-        
-        $parameters = array (
-                "set" => "", 
-                "from" => "19090401", 
-                "until" => "", 
-                "control" => "",
-                "lang" => "en",
-                "nrm" => "iso",
-                "count" => 1
-        );
 
-        if ( $debug ) $parameters[ "debug" ] = true;
-            
-        $xsl = "Identify.xsl";
-	   	$result = generatePayload ( $ws_client_url, "listRecords","Identify", $parameters, $xsl );
-        
-        $payload .= trim ( str_replace ( "datestamp", "earliestDatestamp", $result ) );
+        $payload .= "  <earliestDatestamp>$earliestDatestamp</earliestDatestamp>\n";
     	$payload .= "  <deletedRecord>no</deletedRecord>\n";
     	$payload .= "  <granularity>YYYY-MM-DD</granularity>\n";
     	$payload .= " </Identify>\n";
@@ -400,8 +412,8 @@ $identifier = cleanParameter($identifier);
     	if ( $identifier )
     	{
 	        $parameters = array ( "pid" => str_replace ( "oai:scielo:", "", $identifier ),
-                                  "lang" => "en", 
-                                  "tlng" => "en", 
+                                  "lang" => "en",
+                                  "tlng" => "en",
                                   "ws_oai" => true );
             if ( $debug ) $parameters[ "debug" ] = true;
 
@@ -414,9 +426,7 @@ $identifier = cleanParameter($identifier);
     	{
 			$payload  = " <ListMetadataFormats>\n";
 
-	    	reset ( $metadataPrefixList );
-
-	    	while ( list ( $metadataPrefix, $data ) = each ( $metadataPrefixList ) )
+			foreach ( $metadataPrefixList as $metadataPrefix => $data )
 	    	{
 	    		$payload .= "  <metadataFormat>\n";
 	    		$payload .= "   <metadataPrefix>$metadataPrefix</metadataPrefix>\n";
@@ -440,11 +450,11 @@ $identifier = cleanParameter($identifier);
     function ListSets_OAI ( $request_uri, $ws_client_url, $xslPath, $resumptionToken = "" )
     {
         global $debug;
-        
+
         //$xsl = $xslPath . "ListSets.xsl";
 		$xsl = "ListSets.xsl";
 		$parameters = array ( "lang" => "en" );
-        
+
         if ( $debug ) $parameters[ "debug" ] = true;
 
     	$result = generatePayload ( $ws_client_url, "getTitles", "ListSets", $parameters, $xsl );
@@ -457,7 +467,7 @@ $identifier = cleanParameter($identifier);
     }
 
 	/**************************************** ListIdOrRecords_OAI ****************************************/
-    
+
     function ListIdOrRecords_OAI ( $verb, $request_uri, $ws_client_url, $xslPath, $metadataPrefix, $set = "", $from = "", $until = "", $control = "" )
     {
         global $debug;
@@ -465,7 +475,7 @@ $identifier = cleanParameter($identifier);
         $latest_datestamp = "20991230";
 
         if ( empty($metadataPrefix) )
-            $metadataPrefix = "oai_dc"; 
+            $metadataPrefix = "oai_dc";
 
         if ($from != '')
             $from = substr($from, 0, 4) . substr($from, 5, 2) . substr($from, 8, 2);
@@ -488,9 +498,9 @@ $identifier = cleanParameter($identifier);
     	else
     	{
 	        $parameters = array (
-                "set" => $set, 
-                "from" => $from, 
-                "until" => $until, 
+                "set" => $set,
+                "from" => $from,
+                "until" => $until,
                 "control" => $control,
                 "lang" => "en",
                 "nrm" => "iso",
@@ -499,32 +509,35 @@ $identifier = cleanParameter($identifier);
             );
 
             if ( $debug ) $parameters[ "debug" ] = true;
-            
+
 	        //$xsl = $xslPath . "$verb.xsl";
-			
+
 			if($verb == 'ListRecords'){
 				if($metadataPrefix == 'oai_dc_agris'){
 				 	$xsl = 'ListRecords_agris.xsl';
 				 	$result = generatePayload ( $ws_client_url, "listRecordsAgris", "ListRecordsAgris", $parameters, $xsl );
 				}else if($metadataPrefix == 'oai_dc_openaire'){
                     $xsl = 'ListRecords_openaire.xsl';
-                    $result = generatePayload ( $ws_client_url, "listRecords", "ListRecords", $parameters, $xsl );                
-                }else{
+                    $result = generatePayload ( $ws_client_url, "listRecords", "ListRecords", $parameters, $xsl );
+                }else if($metadataPrefix == 'oai_dc_scielo'){
+                    $xsl = 'ListRecords_scielo.xsl';
+                    $result = generatePayload ( $ws_client_url, "listRecordsScielo", "ListRecordsScielo", $parameters, $xsl );
+				}else{
 					$xsl = "$verb.xsl";
-					$result = generatePayload ( $ws_client_url, "listRecords", $verb, $parameters, $xsl ); 	
+					$result = generatePayload ( $ws_client_url, "listRecords", $verb, $parameters, $xsl );
 				 }
 			}else{
 				$xsl = "$verb.xsl";
-				$result = generatePayload ( $ws_client_url, "listRecords", $verb, $parameters, $xsl ); 	
-			}			
-			
+				$result = generatePayload ( $ws_client_url, "listRecords", $verb, $parameters, $xsl );
+			}
+
 	    }
 
 	    $oai_packet = generateOAI_packet ( $request_uri, $verb, $result );
 
 //	    $oai_packet = str_replace ( "localhost", "200.6.42.159", $oai_packet);
 
-	    return $oai_packet;    
+	    return $oai_packet;
     }
 
 	/******************************************* Principal *******************************************/
@@ -532,9 +545,9 @@ $identifier = cleanParameter($identifier);
 	{
 		$DOCUMENT_ROOT = $_SERVER[ "DOCUMENT_ROOT" ];
 	}
-    
+
     $DOCUMENT_ROOT = trim ( $DOCUMENT_ROOT );
-    
+
     $dirChar = ( strpos ( $DOCUMENT_ROOT, "\\" ) === false ) ? "/" : "\\";
 
     if ( substr ( $DOCUMENT_ROOT, -1 ) == $dirChar )
@@ -546,19 +559,24 @@ $identifier = cleanParameter($identifier);
 	    $def = $DOCUMENT_ROOT . $dirChar . DEFNAME;
     }
 
-    debugstring ( "\$def=$def\n" );    
-    $deffile = new DefFile ( $def );
+    debugstring ( "\$def=$def\n" );
+    $serverScielo = isset($defFile["SERVER_SCIELO"]) ? trim($defFile["SERVER_SCIELO"]) : "127.0.0.1";
+    $pathData = isset($defFile["PATH_DATA"]) ? trim($defFile["PATH_DATA"]) : "/";
+    $pathData = "/" . trim($pathData, "/") . "/";
+    if ($pathData == "//") {
+        $pathData = "/";
+    }
 
-    $ws_client_url = "http://" . $deffile->getKeyValue("SERVER_SCIELO") . $deffile->getKeyValue("PATH_DATA") . "ws/scielo-ws.php";
-    debugstring ( "\$ws_client_url=$ws_client_url\n" );    
+    $ws_client_url = "http://" . $serverScielo . $pathData . "ws/scielo-ws.php";
+    debugstring ( "\$ws_client_url=$ws_client_url\n" );
 
-    $self = "http://" . $deffile->getKeyValue("SERVER_SCIELO") . $deffile->getKeyValue("PATH_DATA") . "oai/scielo-oai.php";
+    $self = "http://" . $serverScielo . $pathData . "oai/scielo-oai.php";
 
-	$xslPath = "http://" . $deffile->getKeyValue("SERVER_SCIELO") . $deffile->getKeyValue("PATH_DATA") . "oai/";
-    debugstring ( "\$xslPath=$xslPath\n" );    
-    
-	$repositoryName = trim ( $deffile->getKeyValue("SITE_NAME") );
-	$adminEmails = array ( trim ( $deffile->getKeyValue("E_MAIL") ) );
+	$xslPath = "http://" . $serverScielo . $pathData . "oai/";
+    debugstring ( "\$xslPath=$xslPath\n" );
+
+	$repositoryName = isset($defFile["SITE_NAME"]) ? trim($defFile["SITE_NAME"]) : $repositoryName;
+	$adminEmails = array ( isset($defFile["E_MAIL"]) ? trim($defFile["E_MAIL"]) : "" );
     switch ( $verb )
     {
     	case "Identify":
@@ -573,7 +591,7 @@ $identifier = cleanParameter($identifier);
         break;
         case "ListSets":
 	     $packet = ListSets_OAI ( $self, $ws_client_url, $xslPath, $resumptionToken );
-	break;          
+	break;
         case "ListIdentifiers":
         case "ListRecords":
 
@@ -601,7 +619,7 @@ $identifier = cleanParameter($identifier);
             $packet = createOAIErrorpacket ( $self, $verb, "badVerb", "Illegal OAI verb" );
         	break;
     }
-    
+
     printdebug ();
 
     header ( "Content-Type: text/xml" );

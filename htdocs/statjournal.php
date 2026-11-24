@@ -1,6 +1,9 @@
 <?php
 
+    require_once(__DIR__ . "/security.php");
+
     function x($s, $TAG){
+        $r = '';
         if (strpos($s, '<'.$TAG.'>')>0) {
             $r = substr($s, strpos($s,'<'.$TAG.'>'));
             $r = substr($r, strlen('<'.$TAG.'>'));
@@ -12,31 +15,47 @@
     }
     $DEF = parse_ini_file("scielo.def.php", true);
 
-    if ($_GET['lang'] != 'en' && $_GET['lang'] != 'es' && $_GET['lang'] != 'pt') $_GET['lang'] = $DEF['SITE_INFO']['STANDARD_LANG']; 
+    $defaultLang = isset($DEF['SITE_INFO']['STANDARD_LANG'])
+        ? scielo_validate_language($DEF['SITE_INFO']['STANDARD_LANG'], 'en')
+        : 'en';
+    $lang = scielo_validate_language(isset($_GET['lang']) ? $_GET['lang'] : '', $defaultLang);
+    $issn = isset($_GET['issn']) && is_string($_GET['issn']) ? $_GET['issn'] : '';
+    $collection = isset($_GET['collection']) && is_string($_GET['collection'])
+        ? $_GET['collection']
+        : '';
+
+    if (!preg_match('/^[0-9]{4}-?[0-9]{3}[0-9Xx]$/D', $issn)
+        || !preg_match('/^[A-Za-z0-9._-]{1,64}$/D', $collection)) {
+        http_response_code(400);
+        exit('Invalid request');
+    }
+
+    $_GET['lang'] = $lang;
+    $_GET['issn'] = $issn;
+    $internalHost = scielo_internal_host_from_config($DEF);
+    $collectionEncoded = rawurlencode($collection);
 
     if ( strpos($DEF['SCIELO']['STAT_SERVER'],$DEF['SCIELO']['SERVER_SCIELO'])>0) {
         $xml = 'xml='.$DEF['SCIELO']['STAT_SERVER'].'/stat_biblio/xml/';
     } else {
         $xml = 'no=';
     }
-    $journalInfo = file_get_contents('http://'.$DEF['SCIELO']['SERVER_SCIELO'].'/scielo.php?script=sci_serial&pid='.$_GET['issn'].'&debug=xml');
+    $journalInfo = file_get_contents('http://' . $internalHost . '/scielo.php?' . http_build_query(array(
+        'script' => 'sci_serial',
+        'pid' => $issn,
+        'debug' => 'xml',
+    )));
     $error = x($journalInfo,'CODE');
 
     if ($error){
         header("Location: ".'http://'.$DEF['SCIELO']['SERVER_SCIELO'].'/scielo.php?script=sci_serial&pid='.$_GET['issn']);
+		exit;
     } 
 
     $journalInfo = x($journalInfo,'TITLEGROUP');
     $j['title'] = x($journalInfo,'TITLE');
     $j['acron'] = x($journalInfo,'SIGLUM');
 
-    foreach ($_GET as $g){
-        $g = str_replace('/','',$g);
-        $g = str_replace(':','',$g);
-        $g = str_replace('\\','',$g);
-        $g = str_replace('*','',$g);
-        $g = str_replace('.','',$g);
-    }
     switch ($_GET['lang']){
         case "en":
                 $LABELS = array('LANG_1'=> 'i',
@@ -144,7 +163,7 @@
 ?><html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-        <title><?php echo $LABELS['JOURNAL_TITLE']; ?> - <?php echo $LABELS['PAGE_TITLE']; ?></title>
+        <title><?php echo scielo_escape_html($LABELS['JOURNAL_TITLE']); ?> - <?php echo scielo_escape_html($LABELS['PAGE_TITLE']); ?></title>
 
         <link rel="stylesheet" type="text/css" href="/css/scielo.css"/>
     </head>
@@ -153,16 +172,16 @@
             <tr>
                 <td width="20%">
                     <p align="center">
-                        <a href="http://<?echo $DEF['SCIELO']['SERVER_SCIELO'];?>/scielo.php?script=sci_serial&pid=<?echo $LABELS['JOURNAL_ISSN'];?>&lng=<?echo $LABELS['LANG'];?>">
-                            <img align="bottom" border="0" src="http://<?echo $DEF['SCIELO']['SERVER_SCIELO'];?>/img/revistas/<?echo $LABELS['ACRON'];?>/plogo.gif"/>
+                        <a href="http://<?echo scielo_escape_html($internalHost);?>/scielo.php?script=sci_serial&amp;pid=<?echo rawurlencode($LABELS['JOURNAL_ISSN']);?>&amp;lng=<?echo rawurlencode($LABELS['LANG']);?>">
+                            <img align="bottom" border="0" src="http://<?echo scielo_escape_html($internalHost);?>/img/revistas/<?echo rawurlencode($LABELS['ACRON']);?>/plogo.gif"/>
                         </a>    
                     </p>
                 </td>
                 <td align="center" width="80%">
                     <p align="left">
-                        <font size="+1" color="#000080"><?php echo $LABELS['JOURNAL_TITLE']; ?></font>
+                        <font size="+1" color="#000080"><?php echo scielo_escape_html($LABELS['JOURNAL_TITLE']); ?></font>
                         <br/>
-                        <font class="nomodel" color="#000080">ISSN <?php echo $LABELS['JOURNAL_ISSN']; ?></font>
+                        <font class="nomodel" color="#000080">ISSN <?php echo scielo_escape_html($LABELS['JOURNAL_ISSN']); ?></font>
                     </p>
                 </td>
             </tr>
@@ -183,17 +202,17 @@
                     </p>
                     <ul>
                         <li>
-                            <a href="http://analytics.scielo.org/w/accesses?journal=<?=$LABELS['JOURNAL_ISSN']?>&amp;collection=<?=$_REQUEST['collection']?>" target="_blank">
+                            <a href="http://analytics.scielo.org/w/accesses?journal=<?=rawurlencode($LABELS['JOURNAL_ISSN'])?>&amp;collection=<?=$collectionEncoded?>" target="_blank" rel="noopener noreferrer">
                                 <?=$LABELS['REPORT_JOURNAL_REQUESTS'];?>
                             </a>
                         </li>
                         <li>
-                            <a href="http://analytics.scielo.org/w/accesses/list/issues?journal=<?=$LABELS['JOURNAL_ISSN']?>&amp;collection=<?=$_REQUEST['collection']?>" target="_blank">
+                            <a href="http://analytics.scielo.org/w/accesses/list/issues?journal=<?=rawurlencode($LABELS['JOURNAL_ISSN'])?>&amp;collection=<?=$collectionEncoded?>" target="_blank" rel="noopener noreferrer">
                                 <?php echo $LABELS['REPORT_ISSUES_REQUESTS']; ?>
                             </a>
                         </li>
                         <li>
-                            <a href="http://analytics.scielo.org/w/accesses/list/articles?journal=<?=$LABELS['JOURNAL_ISSN']?>&amp;collection=<?=$_REQUEST['collection']?>" target="_blank">
+                            <a href="http://analytics.scielo.org/w/accesses/list/articles?journal=<?=rawurlencode($LABELS['JOURNAL_ISSN'])?>&amp;collection=<?=$collectionEncoded?>" target="_blank" rel="noopener noreferrer">
                                 <?php echo $LABELS['REPORT_ARTICLES_REQUESTS']; ?>
                             </a>
                         </li>
@@ -211,12 +230,12 @@
                     </p>
                     <ul>
                         <li>
-                            <a href="http://analytics.scielo.org/w/publication/article?journal=<?=$LABELS['JOURNAL_ISSN']?>&amp;collection=<?=$_REQUEST['collection']?>" target="_blank">
+                            <a href="http://analytics.scielo.org/w/publication/article?journal=<?=rawurlencode($LABELS['JOURNAL_ISSN'])?>&amp;collection=<?=$collectionEncoded?>" target="_blank" rel="noopener noreferrer">
                                 <?=$LABELS['PUBLICATION_STATS_DOCUMENTS'];?>
                             </a>
                         </li>
                         <li>
-                            <a href="http://analytics.scielo.org/w/publication/journal?journal=<?=$LABELS['JOURNAL_ISSN']?>&amp;collection=<?=$_REQUEST['collection']?>" target="_blank">
+                            <a href="http://analytics.scielo.org/w/publication/journal?journal=<?=rawurlencode($LABELS['JOURNAL_ISSN'])?>&amp;collection=<?=$collectionEncoded?>" target="_blank" rel="noopener noreferrer">
                                 <?=$LABELS['PUBLICATION_STATS_JOURNALS'];?>
                             </a>
                         </li>

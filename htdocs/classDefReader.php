@@ -10,6 +10,11 @@
 			
 // --------------------------------------------------------------------------------
 
+		function __construct($defName)
+		{
+			$this->defReader($defName);
+		}
+		
 		function defReader($defName)
 		{
 			$this->DefFile($defName);

@@ -7,6 +7,18 @@ BODY {
 	margin: 0px;
 }
 
+IMG, OBJECT, EMBED, IFRAME {
+	max-width: 100%;
+}
+
+IMG {
+	height: auto;
+}
+
+TABLE {
+	max-width: 100%;
+}
+
 HTML>BODY {
 	/*
 	font-size: 85%;

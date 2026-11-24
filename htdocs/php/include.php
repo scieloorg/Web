@@ -33,22 +33,22 @@
 	// URL parameters security filter
 	$checked  = array();
 
-	if ( isset($_GET["component"]) && !ereg("^[0-9]+$", $_GET["component"]) )
+	if ( isset($_GET["component"]) && !preg_match("/^[0-9]+$/", $_GET["component"]) )
 		die("404 - File Not Found");
 	else
 		$checked['component'] = $_GET["component"];	
 
-	if ( isset($_GET["item"]) && !ereg("^[0-9]+$", $_GET["item"]) )
+	if ( isset($_GET["item"]) && !preg_match("/^[0-9]+$/", $_GET["item"]) )
 		die("404 - File Not Found");
 	else
 		$checked['item'] = $_GET["item"];	
 	
-	if ( isset($_GET["id"]) && !ereg("^[0-9]+$", $_GET["id"]) )
+	if ( isset($_GET["id"]) && !preg_match("/^[0-9]+$/", $_GET["id"]) )
 		die("404 - File Not Found");
 	else
 		$checked['id'] = $_GET["id"];	
 
-	if ( !ereg("^(pt)|(es)|(en)$",$lang) )	
+	if ( !preg_match("/^(pt|es|en)$/", $lang) )
 		$checked['lang'] = 'en';
 	else 
 		$checked['lang'] = $lang;	
