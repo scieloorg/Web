@@ -4,6 +4,11 @@ class XSLTransformerPHP5
 {
   var $xsl, $xml, $output, $error, $errorcode, $processor, $uri, $host, $port, $byJava;   
 
+  function __construct()
+  {
+    $this->XSLTransformerPHP5();
+  }
+
   function XSLTransformerPHP5()
   {
     $this->processor = new XSLTProcessor();
@@ -19,6 +24,7 @@ class XSLTransformerPHP5
 
   function transform($xml, $xsl, &$error)
   {
+    $error = "";
 
     if(!$this->processor->hasExsltSupport())
     {
@@ -26,18 +32,35 @@ class XSLTransformerPHP5
     }
 
     $domXml = new DOMDocument("1.0", "ISO-8859-1");
-    $domXml->loadXML(trim($xml));
+    if (!$domXml->loadXML(trim($xml))) {
+      $error = "Invalid XML input";
+      return false;
+    }
+
+    if (!file_exists($xsl)) {
+      $fallback = dirname(__FILE__) . "/xsl/" . basename($xsl);
+      if (file_exists($fallback)) {
+        $xsl = $fallback;
+      }
+    }
 
     $domXsl = new DOMDocument("1.0", "ISO-8859-1");
-    $domXsl->load($xsl);
+    if (!$domXsl->load($xsl)) {
+      $error = "Could not load XSL file: ".$xsl;
+      return false;
+    }
 
-    $this->processor->importStylesheet($domXsl);
+    if (!$this->processor->importStylesheet($domXsl)) {
+      $error = "Could not import XSL stylesheet";
+      return false;
+    }
 
     $result =  $this->processor->transformToXML($domXml);
 
     if(!$result)
     {
-      trigger_error('XSL transformation failed.', E_USER_ERROR);
+      $error = 'XSL transformation failed.';
+      return false;
     }
 
     return $result;

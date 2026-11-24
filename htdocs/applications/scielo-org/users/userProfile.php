@@ -1,4 +1,20 @@
 <?php
+function auth_cookie_options($expires)
+{
+	return array(
+		'expires' => $expires,
+		'path' => '/',
+		'secure' => (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off'),
+		'httponly' => true,
+		'samesite' => 'Lax'
+	);
+}
+
+function auth_set_cookie($name, $value, $expires)
+{
+	setcookie($name, $value, auth_cookie_options($expires));
+}
+
 ob_start("ob_gzhandler");
 
 /**
@@ -82,12 +98,12 @@ $cgi = array_merge($_GET,$_POST);
 			{
 				if($useSGU)
 				{
-					setcookie("userToken",$usr->getToken(),time()+3600,"/");
+					auth_set_cookie("userToken",$usr->getToken(),time()+3600);
 				}
 
-				setcookie("firstName",$usr->getFirstName(),time()+3600,"/");
-				setcookie("lastName",$usr->getLastName(),time()+3600,"/");
-				setcookie("userID",$usr->getID(),time()+3600,"/");
+				auth_set_cookie("firstName",$usr->getFirstName(),time()+3600);
+				auth_set_cookie("lastName",$usr->getLastName(),time()+3600);
+				auth_set_cookie("userID",$usr->getID(),time()+3600);
 				session_write_close();
 				header("Location: /");
 				exit;

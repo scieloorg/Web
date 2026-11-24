@@ -45,8 +45,12 @@ class DOMIT_GetElementsByPath {
 	*/
 	function DOMIT_GetElementsByPath() {
 		require_once(DOMIT_INCLUDE_PATH . 'xml_domit_nodemaps.php');
-		$this->nodeList =& new DOMIT_NodeList();
+		$this->nodeList = new DOMIT_NodeList();
 	} //DOMIT_GetElementsByPath
+
+	function __construct() {
+		$this->DOMIT_GetElementsByPath();
+	}
 	
 	/**
 	* Parses the supplied "path"-based pattern
@@ -109,14 +113,14 @@ class DOMIT_GetElementsByPath {
 	* @param string The pattern
 	*/
 	function determineSearchType($pattern) {
-		$firstChar = $pattern{0};
+		$firstChar = $pattern[0];
 		
 		if ($firstChar != GET_ELEMENTS_BY_PATH_SEPARATOR) {
 			//relative path
 			$this->searchType = GET_ELEMENTS_BY_PATH_SEARCH_RELATIVE;
 		}
 		else {
-			$secondChar = $pattern{1};
+			$secondChar = $pattern[1];
 				
 			if ($secondChar != GET_ELEMENTS_BY_PATH_SEPARATOR) {
 				//absolute path
@@ -221,8 +225,12 @@ class DOMIT_GetElementsByAttributePath {
 	*/
 	function DOMIT_GetElementsByAttributePath() {
 		require_once(DOMIT_INCLUDE_PATH . 'xml_domit_nodemaps.php');
-		$this->nodeList =& new DOMIT_NodeList();
+		$this->nodeList = new DOMIT_NodeList();
 	} //DOMIT_GetElementsByAttributePath
+
+	function __construct() {
+		$this->DOMIT_GetElementsByAttributePath();
+	}
 	
 	/**
 	* Matches the current path segment against the child nodes of the current context node

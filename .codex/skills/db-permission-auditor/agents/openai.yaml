@@ -1,0 +1,4 @@
+interface:
+  display_name: "DB Permission Auditor"
+  short_description: "Audit database users, grants, and connection strings for least privilege."
+  default_prompt: "Use the db-permission-auditor skill to review database configuration, users, grants, connection strings, and migration credentials against least-privilege rules."

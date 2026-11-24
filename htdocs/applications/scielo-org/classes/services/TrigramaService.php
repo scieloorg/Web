@@ -18,6 +18,10 @@
 			$this->setParam('maxrel', '30');
 			$this->setParam('minsim', '0.30');
 		}
+		function __construct(){
+			$this->TrigramaService();
+		}
+
 		function setParams($text){
 			$this->setParam('text', urlencode($text));
 			$this->setParam('show', 'id');

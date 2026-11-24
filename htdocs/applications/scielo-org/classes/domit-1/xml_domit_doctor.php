@@ -22,7 +22,7 @@ class domit_doctor {
 	* @param string The xml text to be repaired
 	* @return string The repaired xml text
 	*/
-	function fixAmpersands($xmlText) {
+	public static function fixAmpersands($xmlText) {
 		$xmlText = trim($xmlText);
 		$startIndex = -1;
 		$processing = true;

@@ -11,6 +11,18 @@ BODY {
     font-style : normal;
 }
 
+IMG, OBJECT, EMBED, IFRAME {
+    max-width: 100%;
+}
+
+IMG {
+    height: auto;
+}
+
+TABLE {
+    max-width: 100%;
+}
+
 P {
     font-family : Verdana, Arial, Helvetica, sans-serif;
     font-size : 10pt;

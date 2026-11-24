@@ -3,8 +3,7 @@
 function wxisParameterList ( $list )
 {
 	$param = "<parameters>\n";
-	reset($list);
-	while ( list($key, $value) = each($list) )
+	foreach ($list as $key => $value)
 	{
 		if ( $value != "" )
 		{

@@ -370,6 +370,152 @@ HTML>BODY #search .searchItens {
 	text-decoration:none !important;
 	border-bottom:medium none;
 }
+@media screen and (max-width: 800px) {
+	.container,
+	.level2 .container,
+	.copyright {
+		width: auto;
+		max-width: none;
+		margin-left: 10px;
+		margin-right: 10px;
+	}
 
+	.bar {
+		position: static;
+		width: auto;
+		padding: 6px 0px;
+		text-align: center;
+	}
 
+	.top {
+		height: auto;
+		min-height: 90px;
+		padding-top: 8px;
+	}
+
+	.middle {
+		padding: 0px;
+	}
+
+	.middle .firstColumn,
+	.middle .secondColumn,
+	.middle .thirdColumn,
+	.middle .centerLeftColumn,
+	.middle .centerRightColumn,
+	.level2 .content,
+	.level2 .serviceColumn,
+	.level2 .webServices,
+	.level2 .generic,
+	.level2 #about,
+	#center,
+	#right {
+		float: none;
+		width: auto;
+		margin-left: 0px;
+		margin-right: 0px;
+	}
+
+	.firstColumn DIV,
+	.secondColumn .centerLeftColumn DIV,
+	.secondColumn .centerRightColumn DIV,
+	.thirdColumn DIV,
+	#search,
+	#searchConcepts,
+	.level2 .middle DIV {
+		width: auto;
+	}
+
+	.level2 .content {
+		padding: 5px 0px;
+	}
+
+	.level2 #breadCrumb {
+		padding-left: 0px;
+	}
+
+	.level2 .pages {
+		width: auto;
+		text-align: left;
+	}
+
+	.level2 .articleList .count,
+	.level2 .articleList .collection,
+	.collection,
+	.count,
+	.articleList DIV,
+	.liComments {
+		float: none !important;
+		width: auto !important;
+		margin-left: 0px;
+		text-align: left;
+	}
+
+	.bottom #footNotes LI,
+	.level2 #footNotes LI {
+		display: block !important;
+		padding: 4px 0px;
+	}
+}
+
+@media screen and (max-width: 560px) {
+	BODY, INPUT, TEXTAREA, SELECT {
+		font-size: 90%;
+	}
+
+	#search FORM,
+	.form {
+		padding-left: 0px;
+		padding-right: 0px;
+	}
+
+	#method,
+	#searchExpression,
+	#where {
+		float: none;
+		margin-right: 0px;
+		margin-bottom: 8px;
+	}
+
+	#search .expression,
+	#searchExpression .expression,
+	.level2 .expression,
+	.level2 #contact .name,
+	.level2 #contact .from,
+	.level2 #contact .message,
+	.journals .expression,
+	.login .expression,
+	INPUT[type="text"],
+	INPUT[type="password"],
+	TEXTAREA,
+	SELECT {
+		box-sizing: border-box;
+		width: 100% !important;
+		max-width: 100%;
+	}
+
+	.loginBlog,
+	.form FORM TABLE,
+	.form FORM TABLE TBODY,
+	.form FORM TABLE TR,
+	.form FORM TABLE TD {
+		display: block;
+		width: 100%;
+		box-sizing: border-box;
+	}
+
+	.form FORM TABLE TD {
+		padding-right: 0px;
+	}
+
+	.loginBlog {
+		width: 100%;
+	}
+
+	.rank,
+	.articleBlock,
+	HTML>BODY .articleBlock {
+		float: none;
+		width: auto;
+	}
+}
 

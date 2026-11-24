@@ -12,14 +12,14 @@
 	require_once("../classes/log/class.UserDataLog.php");
 
 
-	$servico = utf8_decode($_POST['servico']);
-	$navegador = utf8_decode($_POST['browser']);
-	$idioma = utf8_decode($_POST['idioma']);
-	$resolucao = utf8_decode($_POST['resolucao']);
-	$so = utf8_decode($_POST['SO']);
-	$suporte = utf8_decode($_POST['suporte']);
-	$url = utf8_decode($_POST['url']);
-	$titulo = utf8_decode($_POST['titulo']);
+	$servico = scielo_utf8_decode($_POST['servico']);
+	$navegador = scielo_utf8_decode($_POST['browser']);
+	$idioma = scielo_utf8_decode($_POST['idioma']);
+	$resolucao = scielo_utf8_decode($_POST['resolucao']);
+	$so = scielo_utf8_decode($_POST['SO']);
+	$suporte = scielo_utf8_decode($_POST['suporte']);
+	$url = scielo_utf8_decode($_POST['url']);
+	$titulo = scielo_utf8_decode($_POST['titulo']);
 	$data = date("d-m-Y");
 
 	$dadosUsuario = new ScieloUserData();

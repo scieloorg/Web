@@ -10,6 +10,9 @@
 */
 require_once(dirname(__FILE__)."/../classes/domit-1/xml_domit_lite_include.inc.php");
 require_once(dirname(__FILE__)."/../../../php/include.php");
+if (!defined('SCIELO_COMPAT_LOADED') && file_exists(dirname(__FILE__)."/../../../compat.php")) {
+    require_once(dirname(__FILE__)."/../../../compat.php");
+}
 
 /**
  * Extrai os titulos do XML
@@ -25,7 +28,7 @@ require_once(dirname(__FILE__)."/../../../php/include.php");
  */
 function getTitle($titleXML, $lang = '')
 {
-    $domLiteDocument =& new DOMIT_Lite_Document();
+    $domLiteDocument = new DOMIT_Lite_Document();
     $domLiteDocument->parseXML($titleXML);
     $nodes =& $domLiteDocument->getElementsByPath("/TITLES/TITLE");
     /*
@@ -46,7 +49,7 @@ function getTitle($titleXML, $lang = '')
         $article_title = $node->getText();
     }
 
-    return  utf8_encode($article_title);
+    return  scielo_utf8_encode($article_title);
 }
 
 /**
@@ -62,7 +65,7 @@ function getTitle($titleXML, $lang = '')
 */
 function getAutors($authorsXML, $link=false,$domain=""){
 
-    $domLiteDocument =& new DOMIT_Lite_Document();
+    $domLiteDocument = new DOMIT_Lite_Document();
     $sucess = $domLiteDocument->parseXML(str_replace("\\\\\\","",$authorsXML));
 
 	$article_autors = "";
@@ -99,7 +102,7 @@ function getAutors($authorsXML, $link=false,$domain=""){
 		}
 	}
 		$article_autors = substr($article_autors,0,strlen($article_autors)-1);
-		return utf8_encode($article_autors);
+		return scielo_utf8_encode($article_autors);
 }
 
 /**

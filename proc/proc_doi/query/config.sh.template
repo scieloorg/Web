@@ -1,6 +1,6 @@
 MAX_QTY_DOC_PER_XML=10
 USERNAME=bireme
-PASSWORD=bireme303
+PASSWORD=${CROSSREF_PASSWORD}
 EMAIL=roberta.takenaka@scielo.org
 
 # mX

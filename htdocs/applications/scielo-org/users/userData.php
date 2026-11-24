@@ -1,4 +1,20 @@
 <?php
+function auth_cookie_options($expires)
+{
+	return array(
+		'expires' => $expires,
+		'path' => '/',
+		'secure' => (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off'),
+		'httponly' => true,
+		'samesite' => 'Lax'
+	);
+}
+
+function auth_set_cookie($name, $value, $expires)
+{
+	setcookie($name, $value, auth_cookie_options($expires));
+}
+
 ob_start("ob_gzhandler");
 
 /**
@@ -58,12 +74,12 @@ $cgi = array_merge($_GET,$_POST);
 			{
 				if($useSGU)
 				{
-					setcookie("userToken",$usr->getToken(),time()+3600,"/");
+					auth_set_cookie("userToken",$usr->getToken(),time()+3600);
 				}
 
-				setcookie("firstName",$usr->getFirstName(),time()+3600,"/");
-				setcookie("lastName",$usr->getLastName(),time()+3600,"/");
-				setcookie("userID",$usr->getID(),time()+3600,"/");
+				auth_set_cookie("firstName",$usr->getFirstName(),time()+3600);
+				auth_set_cookie("lastName",$usr->getLastName(),time()+3600);
+				auth_set_cookie("userID",$usr->getID(),time()+3600);
 				session_write_close();
 				/**
 				*	Fazer redirecionar para a 2a parte do cadastro . . .
@@ -122,7 +138,7 @@ $cgi = array_merge($_GET,$_POST);
 <html>
 	<head>
 		<title>
-		<?
+		<?php 
 			if($usr->getID() != 0) 
 			{
 				echo UPDATE_USER_TITLE;
@@ -135,7 +151,7 @@ $cgi = array_merge($_GET,$_POST);
 		?>
 
 		</title>
-		<? require_once(dirname(__FILE__)."/../../../php/head.php"); ?>
+		<?php  require_once(dirname(__FILE__)."/../../../php/head.php"); ?>
 
 		<script language="JavaScript" src="../js/validator.js"></script>
 
@@ -151,13 +167,13 @@ $cgi = array_merge($_GET,$_POST);
 	<body>
 		<div class="container">
 			<div class="level2">
-				<? require_once($baseDir."html/" . $lang . "/bvs.html"); ?>
+				<?php  require_once($baseDir."html/" . $lang . "/bvs.html"); ?>
 				<div class="middle">
 					<div id="breadCrumb">
 						<a href="/">
 							home
 						</a>
-						&gt; <?
+						&gt; <?php 
 								if($usr->getID() != 0) 
 								{
 									echo UPDATE_USER_TITLE;
@@ -172,7 +188,7 @@ $cgi = array_merge($_GET,$_POST);
 					<div class="content">
 						<h3>
 							<span>
-								<?
+								<?php 
 									if($usr->getID() != 0) 
 									{
 										echo UPDATE_USER_TITLE;
@@ -188,7 +204,7 @@ $cgi = array_merge($_GET,$_POST);
 							</span>
 						</h3>
 						<div id="messages">
-							<?
+							<?php 
 								
 								if($acao == "gravar" && $result['ERROR'] == "")
 									echo REGISTER_NEW_USER_SUCESS;
@@ -220,9 +236,9 @@ $cgi = array_merge($_GET,$_POST);
 									<td class="label"><?=FIELD_GENDER?></td>
 									<td>
 										<label for="genderM"><?=FIELD_GENDER_MALE?>
-										<input type="radio" <?if ($usr->getGender() == "M") echo "checked"; ?> name="gender" id="genderM" value="M" />
+										<input type="radio" <?php if ($usr->getGender() == "M") echo "checked"; ?> name="gender" id="genderM" value="M" />
 										<label for="genderF"><?=FIELD_GENDER_FEMALE?>
-										<input type="radio" <?if ($usr->getGender() == "F") echo "checked"; ?> name="gender" id="genderF" value="F" />
+										<input type="radio" <?php if ($usr->getGender() == "F") echo "checked"; ?> name="gender" id="genderF" value="F" />
 										<span id="genderMsg" class="tfvNormal"><?=FIELD_GENDER_ERROR_DESCRIPTION?></span>
 									</td>
 								</tr>
@@ -241,12 +257,12 @@ $cgi = array_merge($_GET,$_POST);
 										<td class="label">Grau de Formação</td>
 										<td>
 											<select name="grauDeFormacao" class="expression">
-											<?
-												$arr = split(",",FIELD_DEGREE);
+											<?php 
+												$arr = explode(",", FIELD_DEGREE);
 
 												foreach($arr as $item)
 												{
-													$arr2 = split("\|",$item);
+													$arr2 = explode("|", $item);
 
 													if($arr2[0] == $usr->getGrauDeFormacao())
 													{
@@ -268,7 +284,7 @@ $cgi = array_merge($_GET,$_POST);
 									<td><input type="text" class="expression" name="login" value="<?=trim($usr->getLogin())?>" />
 									<span id="loginMsg" class="tfvNormal"><?=FIELD_LOGIN_ERROR_DESCRIPTION?></span></td>
 								<tr>
-								<?
+								<?php 
 									}
 								?>
 									<td class="label"><?=FIELD_PASSWORD?></td>
@@ -283,7 +299,7 @@ $cgi = array_merge($_GET,$_POST);
 										<td>
 											<input type="password" class="expression" name="password2" />
 											<span id="password2Msg" class="tfvNormal"></span>
-											<?
+											<?php 
 												if(isset($_REQUEST['id']) && isset($_COOKIE['userID']))
 												{
 													echo FIELD_PASSWORD_CHANGE_MESSAGE;
@@ -294,7 +310,7 @@ $cgi = array_merge($_GET,$_POST);
 							</table>
 					
 								<h4>&#160;</h4>
-							<?
+							<?php 
 							if($usr->getID() != 0) 
 							{
 								echo('<input type="hidden" value="atualizar" name="acao" />');
@@ -340,7 +356,7 @@ JS para a validação do formulário
 					'mn': 3,       // minimum length
 					'mx': 100       // maximum length
 				},
-					<?
+					<?php 
 //depois de cadastrado não se pode alterar o login!!!!!
 
 				if($showLoginField)
@@ -355,7 +371,7 @@ JS para a validação do formulário
 					'mn': 3,       // minimum length
 					'mx': 50       // maximum length
 				},
-					<?
+					<?php 
 				}
 				?>
 				'email': {
@@ -369,14 +385,14 @@ JS para a validação do formulário
 				},
 				'password' : {
 					'l':'Password',
-					'r':<? if ($usr->getID() == 0 ) { echo 'true';} else { echo 'false';} ?>,
+					'r':<?php  if ($usr->getID() == 0 ) { echo 'true';} else { echo 'false';} ?>,
 					'f':'alphanum',
 					't':'passwordMsg',
 					'm':'password2'
 				},
 				'password2' : {
 					'l':'Password copy',
-					'r':<? if ($usr->getID() == 0 ) { echo 'true';} else { echo 'false';} ?>,
+					'r':<?php  if ($usr->getID() == 0 ) { echo 'true';} else { echo 'false';} ?>,
 					'f':'alphanum',
 					't':'password2',
 					't':'password2Msg'
@@ -393,9 +409,9 @@ JS para a validação do formulário
 			var v = new validator('cadastro', a_fields, o_config);
 
 			</script>
-		<?require_once(dirname(__FILE__)."/../sgu/traker.php")?>
+		<?php require_once(dirname(__FILE__)."/../sgu/traker.php")?>
 	</body>
 </html>
-<?
+<?php 
 ob_end_flush();
 ?>

@@ -740,8 +740,8 @@ class DateLocale {
 
 	for ( $i = 0, $ofs = 0 - strftime('%w'); $i < 7; $i++, $ofs++ ){
 	    $day = strftime('%a', strtotime("$ofs day"));
-	    $day{0} = strtoupper($day{0});
-	    $this->iDayAbb[$aLocale][]= $day{0};
+	    $day[0] = strtoupper($day[0]);
+	    $this->iDayAbb[$aLocale][]= $day[0];
 	    $this->iShortDay[$aLocale][]= $day;
 	}
 
@@ -806,7 +806,7 @@ class Footer {
 	$this->right->ParagraphAlign('right');
     }
 
-    function Stroke(&$aImg) {
+    function Stroke(&$aImg, $x = null, $y = null) {
 	$y = $aImg->height - $this->iBottomMargin;
 	$x = $this->iLeftMargin;
 	$this->left->Align('left','bottom');
@@ -3500,8 +3500,8 @@ class GraphTabTitle extends Text{
 	$this->align = $aAlign;
     }
 
-    function SetPos($aAlign) {
-	$this->align = $aAlign;
+    function SetPos($aXAbsPos = 0, $aYAbsPos = 0, $aHAlign = 'left', $aVAlign = 'top') {
+	$this->align = $aXAbsPos;
     }
     
     function SetWidth($aWidth) {
@@ -3517,7 +3517,7 @@ class GraphTabTitle extends Text{
 	$this->corner = $aD ;
     }
 
-    function Stroke(&$aImg) {
+    function Stroke(&$aImg, $x = null, $y = null) {
 	if( $this->hide ) 
 	    return;
 	$this->boxed = false;
@@ -5719,7 +5719,7 @@ class Legend {
 	return $this->csimareas;
     }
 	
-    function Stroke(&$aImg) {
+    function Stroke(&$aImg, $x = null, $y = null) {
 	// Constant
 	$fillBoxFrameWeight=1;
 
