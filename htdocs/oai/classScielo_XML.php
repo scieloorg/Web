@@ -6,6 +6,11 @@
 		var $_def = null;
 		var $_error = "";
 
+		function __construct ( $def )
+		{
+			$this->Scielo_XML ( $def );
+		}
+
 		function Scielo_XML ( $def )
 		{
 			$this->_def = new DefFile ( $def );
@@ -25,7 +30,9 @@
 			$url .= "?IsisScript=";
 			$url .= $this->_def->getKeyValue("PATH_SCRIPTS");
 			$url .= "$script.xis";
-			$url .= "&sln=" . $this->_def->getKeyValue("STANDARD_LANG");
+			if ( $script != "sci_getrecord" && $script != "sci_listrecords_scielo" ) {
+                $url .= "&sln=" . $this->_def->getKeyValue("STANDARD_LANG");
+            }
 
 			if ( is_array ( $params ) )
 			{

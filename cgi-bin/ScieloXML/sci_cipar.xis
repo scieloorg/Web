@@ -63,9 +63,9 @@ PATH_DATA:     tag 7014
         'DOIQUERY.*=',v7777/
         'DOI.*=',v7778/
         'TITLE.*=',     v7011, 'title/title.*',/
-		'SERAREAen.*=',   v7011, 'title/serareaEN.*',/
-		'SERAREAes.*=',   v7011, 'title/serareaES.*',/
-		'SERAREApt.*=',   v7011, 'title/serareaPT.*',/
+		'SERAREAen.*=',   v7011, 'title/serarea.*',/
+		'SERAREAes.*=',   v7011, 'title/serarea.*',/
+		'SERAREApt.*=',   v7011, 'title/serarea.*',/
 		'NEWISSUE.*=',  v7011, 'newissue/newissue.*',/
 		'ARTIGO.*=',    v7011, 'artigo/artigo.*',/
 		'FACCOUNT.*=',  v7011, 'issue/faccount.*',/
@@ -121,6 +121,7 @@ PATH_DATA:     tag 7014
 		'PROC_XML_SCOPUS_CITED_BY_COUNT.PFT=',v8034, 'pfts/proc_xml_scopus_cited_by_count.pft',/
 		'PROC_XML_CRS.PFT=',v8034, 'pfts/proc_xml_crs.pft',/
 		'GIZMO_XML_REF.*=', v8034, 'webservices/wxis/gizmo/gizmoXML.*',/
+        'GIZMO_OAI.*=', v7011, 'gizmo/gizmo.*',/
 	</pft>
 </parm>
 

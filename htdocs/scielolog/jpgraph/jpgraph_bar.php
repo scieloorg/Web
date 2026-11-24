@@ -21,6 +21,10 @@ class Gradient {
 	var $img=null;
 //---------------
 // CONSTRUCTOR
+	function __construct(&$img) {
+		$this->Gradient($img);
+	}
+
 	function Gradient(&$img) {
 		$this->img = $img;
 	}
@@ -168,6 +172,10 @@ class BarPlot extends Plot {
 	var $grad_fromcolor=array(50,50,200),$grad_tocolor=array(255,255,255);
 //---------------
 // CONSTRUCTOR
+	function __construct(&$datay) {
+		$this->BarPlot($datay);
+	}
+
 	function BarPlot(&$datay) {
 		$this->Plot($datay);		
 		++$this->numpoints;
@@ -268,6 +276,10 @@ class GroupBarPlot extends BarPlot {
 	var $numpoints;
 //---------------
 // CONSTRUCTOR
+	function __construct($plots) {
+		$this->GroupBarPlot($plots);
+	}
+
 	function GroupBarPlot($plots) {
 		$this->plots = $plots;
 		$this->nbrplots = count($plots);
@@ -318,6 +330,10 @@ class AccBarPlot extends BarPlot {
 	var $plots=null,$nbrplots=0,$numpoints=0;
 //---------------
 // CONSTRUCTOR
+	function __construct($plots) {
+		$this->AccBarPlot($plots);
+	}
+
 	function AccBarPlot($plots) {
 		$this->plots = $plots;
 		$this->nbrplots = count($plots);
